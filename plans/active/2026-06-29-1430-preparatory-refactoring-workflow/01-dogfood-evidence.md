@@ -1,6 +1,6 @@
 # Dogfood Evidence — Implementation execution mode (force_exit path)
 
-**Plan**: [`2026-06-29-1430-preparatory-refactoring-workflow.md`](2026-06-29-1430-preparatory-refactoring-workflow.md) Phase 4  
+**Plan**: [`_plan.md`](_plan.md) Phase 4  
 **Date**: 2026-06-29  
 **Task**: Advisory `illegal_transition` scan for implementation-plan `steps[]` YAML (dogfood-before-validator)
 

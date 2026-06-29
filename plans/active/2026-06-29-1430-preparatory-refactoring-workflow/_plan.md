@@ -418,7 +418,7 @@ compatibility:
 - [x] Dogfood 通過後才開 maturity ladder（優先 **illegal transition** validator，非「有沒有 structure」）— 本 phase **不** runtime 化
 - [ ] （可選）`validation/scenarios/software-delivery/implementation-mode-preparatory-refactoring.yaml`
 
-**Evidence**: [`2026-06-29-1430-preparatory-refactoring-workflow-dogfood-evidence.md`](2026-06-29-1430-preparatory-refactoring-workflow-dogfood-evidence.md)（force_exit path；advisory `DetectIllegalIntentTransitions` in planvalidate）
+**Evidence**: [`01-dogfood-evidence.md`](01-dogfood-evidence.md)（force_exit path；advisory `DetectIllegalIntentTransitions` in planvalidate）
 
 ---
 
