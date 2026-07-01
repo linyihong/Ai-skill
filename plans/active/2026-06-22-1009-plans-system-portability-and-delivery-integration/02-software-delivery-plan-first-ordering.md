@@ -100,6 +100,7 @@ Discover → Interrogate → Draft Plan ⟲ Preflight → Execute
 - [x] review checklist 更新
 - [x] doc-only 宣告明確（Phase 2 可選 scenario 決策 + main §Runtime Execution Path「02 若不接 runtime，須明寫 doc-only」）
 - [ ] **Acceptance evidence（回應 review #6）**：至少一次**真實的 software-delivery intake** 走過 plan-first loop（含一次 preflight 回改 plan 的實例），而非僅文件範例 — *needs-validation：doc 已落地，等下一個真實 software-delivery 任務時收集，本輪不 fabricate 範例充當*
+  - **收集時必留 3 個 ordered timestamp（回應 review 回饋）**：`T0` 初版 plan / `T1` preflight feedback（發現衝突）/ `T2` revised plan。缺 T0<T1<T2 的時序證據，「真的發生回改」與「事後重建敘事」無法區分 → 不得據以 close main Q4。此為 falsifiable 判定，非事後補述。
 - [x] linked-updates 檢查（execution-flow 導航 / review-checklist / intake 三處同步；plans/README 只引用不改）
 
 ## Glossary Impact
