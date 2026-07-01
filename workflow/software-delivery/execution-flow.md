@@ -14,7 +14,7 @@ Software-delivery 的 AI runtime gate 見 [`software-delivery-governance.md`](..
 >
 > | 認知階段（cognitive phase） | 本檔對應段落 | slice id | load_when |
 > |---|---|---|---|
-> | Intake（需求接收 / parity） | **已抽出** → [`intake.md`](intake.md)（含 Start From Evidence、Change Intake、Pre-build Interrogation、Requirements Cognition、Parity Gate、Product Brief Validation、Missing Information、Backfill） | `sd-intake` | 接收新需求 / 變更 / 重構意圖 |
+> | Intake（需求接收 / parity） | **已抽出** → [`intake.md`](intake.md)（含 Start From Evidence、Change Intake、Pre-build Interrogation、**Plan-First Ordering（advisory：實作前先有 plan artifact，loop 非線性）**、Requirements Cognition、Parity Gate、Product Brief Validation、Missing Information、Backfill） | `sd-intake` | 接收新需求 / 變更 / 重構意圖 |
 > | Incident observe（UI incident observable） | **已抽出** → [`incident-observation.md`](incident-observation.md) | `sd-incident-observation` | 未知 UI incident；需 incident card；禁止 implementation-first |
 > | Incident classify + layer（UI incident 治理） | **已抽出** → [`ui-incident-governance-workflow.md`](ui-incident-governance-workflow.md) + [`layer-ownership-matrix.md`](layer-ownership-matrix.md) | `sd-ui-incident-governance` | Navigation / Continuation / Recovery 未決；選 primary modification layer |
 > | Change retrospective（Ship 後學習出口） | **已抽出** → [`change-retrospective.md`](change-retrospective.md) | `sd-change-retrospective` | Incident 路徑 Ship 後；promotion 三選一；禁止 direct canonical |

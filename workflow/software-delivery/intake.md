@@ -120,6 +120,42 @@ then:
 
 若仍有會影響 behavior、contract、runtime surface、source-of-truth、validation 或安全性的 `blocker_question`，不得產生 implementation plan；先向使用者提問或停在 planning。
 
+### Plan-First Ordering（先有 plan artifact 再實作）
+
+> **Advisory ordering（建議順序，非 commit-time 機械 block）。** 這一節把「實作前先有對應 plan artifact」明文接在 Pre-build Interrogation 之後，讓 delivery 與 plans 系統對齊。它**不是新 gate**，而是把既有實踐寫成可見順序；commit 不會因為缺 active plan 被擋（保留為未來 maturity-ladder 升級候選）。
+
+會導向 **code / workflow / governance / runtime / schema / generated artifact / tool adapter** 改動的任務，實作前**應**有對應的 `plans/active/` plan artifact —— 可以是 inline 小 plan，或依 [`plans/README.md`](../../plans/README.md) §Plan Tree Hierarchy 開 plan-tree（main + sub）。
+
+**Plan 是 artifact，不是一個一次性 stage。** 不要把 intake 順序讀成線性的 `Interrogate → Plan → Preflight → Implement`：Architecture Compatibility Preflight（見 [`plans/README.md`](../../plans/README.md) §Plan 執行前架構相容性檢查）會**回改 plan**——相容檢查發現 candidate path、source-of-truth、layer 或 compiler 衝突時，先更新 plan 再繼續。正確模型是 plan 在 preflight 間反覆收斂：
+
+```
+Discover → Interrogate → Draft Plan ⟲ Preflight → Execute
+                              └──────────┘
+                         preflight 可回改 plan
+                         （plan 非一次生成，實作前反覆驗證）
+```
+
+**與 Pre-build Interrogation / Preflight 的分工（不重複三重 gate）**：
+
+| 環節 | 角色 | canonical source |
+| --- | --- | --- |
+| Pre-build Interrogation | 需求拷問：把請求轉成可回答 / 可驗證 / 可拒絕的問題，**產出 plan 的輸入** | 本檔 §Pre-build Interrogation Gate + [`requirements/pre-build-interrogation.md`](requirements/pre-build-interrogation.md) |
+| Plan-First Ordering | 把拷問結果**落成可收斂的 plan artifact**（本節） | 本節 + [`plans/README.md`](../../plans/README.md) §Plan 模板必填章節 |
+| Architecture Compatibility Preflight | 對 **draft plan** 做架構相容檢查並**回饋修正**（可回改 plan） | [`plans/README.md`](../../plans/README.md) §Architecture Compatibility Preflight |
+
+三者不是序列三段，而是：interrogation 餵入、plan 為中心 artifact、preflight 反覆驗證並回饋。plan-first **只引用**上述排序與 preflight 規則，不在本檔重寫，避免 dual source-of-truth。
+
+**與 Test-First Ordering 正交**：[`test-strategy.md`](test-strategy.md) §5 Test-First Ordering 是 framework / runtime / governance / workflow / validation 升級的**強制**順序（先寫 scenario、驗證 fail、才實作）。plan-first 是 advisory 且針對「先有 plan artifact」，兩者互不覆蓋：涉及 framework 升級的任務同時受 plan-first（建議）與 Test-First Ordering（強制）約束。
+
+**規模分級豁免（advisory，不新增平行規則）**：豁免條件直接沿用 [`plans/README.md`](../../plans/README.md) §Plan Tree Hierarchy「何時開 sub-plan」的既有規則——
+
+- **< 1 session 的工作**：inline 寫進既有 plan 或 change brief，不必另開 plan-tree。
+- **純文件補強 / typo / 註解**：直接 commit，不需 plan。
+- **surgical 小修補**（只改必須改的行、無 observable behavior 或 public contract 變更）：走 [`surgical-changes.md`](surgical-changes.md)，記錄無行為變更即可，不強制 plan。
+- 其餘會改變 observable behavior、public contract、runtime surface 或跨層的任務：**應**有 plan artifact。
+
+語氣為「應 / 建議」——缺 plan 時 reviewer 可在 review checklist 標記（見 [`review-checklist.md`](review-checklist.md) §Change Intake），而非 commit-time 硬擋。
+
 ### Requirements Cognition Checkpoint
 
 在進入 architecture 或 implementation 前，若任務涉及 observable behavior，讀取 [`requirements/`](requirements/README.md)：

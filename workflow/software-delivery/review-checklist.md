@@ -31,6 +31,7 @@
 - 主要的 Product Brief 聲明已驗證或標記：目標、使用者、範圍、non-goals、假設、成功標準、限制、依賴和風險。
 - 影響行為、合約、風險、所有權、測試、時程或發布關卡的未驗證 Product Brief 聲明是阻擋性問題。
 - 變更已分類為新需求、bug 修復、重構 / replacement、強化或僅文件。
+- **Plan-First Ordering（advisory）**：會導向 code / workflow / governance / runtime / schema / generated artifact / tool adapter 改動的任務，實作前有對應 `plans/active/` plan artifact（inline 小 plan 或 plan-tree）；< 1 session、純文件補強或 surgical 小修補依 [`intake.md`](intake.md) §Plan-First Ordering 的規模分級豁免。缺 plan 時 reviewer 標記為建議項，非 commit-time 硬擋。
 - 新需求在程式碼開始前更新規劃文件、BDD、受影響的合約、實作切片和測試計劃。
 - Bug 修復記錄預期行為 vs 實際行為、重現/證據、受影響的 BDD scenario 或缺失 scenario、受影響的合約/錯誤和回歸測試計劃。
 - 改變**可觀察**行為的 bug 修復在**同一個工作階段**中更新受影響的合約、BDD/可追溯性和整合或即時測試筆記（不僅在合併後）；延後需要明確的追蹤後續行動，而非無聲漂移。

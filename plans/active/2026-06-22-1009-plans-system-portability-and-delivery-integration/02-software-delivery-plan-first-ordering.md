@@ -1,7 +1,7 @@
 ---
 id: 2026-06-22-1009-software-delivery-plan-first-ordering
 plan_kind: sub
-status: draft
+status: in-progress
 owner: linyihong
 created: 2026-06-22
 parent: 2026-06-22-1009-plans-system-portability-and-delivery-integration
@@ -14,7 +14,7 @@ sub_plan_reason: >
 
 # Software-delivery Plan-First Ordering（sub-plan）
 
-**Status**: `draft`
+**Status**: `in-progress`
 **Owner**: linyihong
 **Parent**: [`_plan.md`](_plan.md)
 
@@ -52,41 +52,55 @@ Discover → Interrogate → Draft Plan ⟲ Preflight → Execute
 ## Phase 0 — Pre-Build Interrogation
 
 ### Phase 0.0 — Open Questions 核對（公版，必填）
-- [ ] 已讀 main + 本 sub §Open Questions 全部條目
-- [ ] 對每條標記 `resolved` / `still-open` / `deferred`
-- [ ] `resolved` 條目回寫
-- [ ] 新問題已加入 §Open Questions
+- [x] 已讀 main + 本 sub §Open Questions 全部條目
+- [x] 對每條標記 `resolved` / `still-open` / `deferred`
+- [x] `resolved` 條目回寫（main Q4 → resolving；規模分級 → resolved-by-doc）
+- [x] 新問題已加入 §Open Questions（無新問題）
 
 | Open Question | 處置 | 證據 / 原因 |
 |---|---|---|
-| Q4 不重複 pre-build-interrogation | still-open | Phase 0.1 讀 intake.md 後界定分工 |
-| 規模分級豁免 | still-open | Phase 1 決定 advisory 文字 |
+| Q4 不重複 pre-build-interrogation | resolving（Phase 1 落地後 close） | Phase 0.1 已界定分工：interrogation = 需求拷問（產出 plan 的輸入）；plan-first = 拷問結果落成可收斂的 plan artifact；Architecture Compatibility Preflight（`plans/README.md` L122-161）= 對 draft plan 做相容檢查並回饋修正。三者非序列三段。intake §Plan-First Ordering 落地 + 一次真實 intake 含 preflight 回改實例後由 02 owner 於 main §Open Questions 標 resolved |
+| 規模分級豁免 | resolved | 接 `plans/README.md` plan-tree「何時不開 sub-plan」（L41：`sub_plan_reason` 非空為唯一強制；單一 phase step 用 checkbox、< 1 session inline、純文件補強直接 commit，不開 sub-plan）。intake advisory 直接引用此既有規則作豁免條件，不新增平行規則 |
 
 ### Phase 0.1 — 架構盤點
-- [ ] 讀 `workflow/software-delivery/intake.md` 現行 intake 順序與 pre-build-interrogation 內容。
-- [ ] 讀 `workflow/software-delivery/test-strategy.md` Test-First Ordering，確認接點。
-- [ ] 讀 `plans/README.md` Architecture Compatibility Preflight（已要求實作前 preflight），界定 plan-first 與 preflight 的關係（避免三重 gate）。
+- [x] 讀 `workflow/software-delivery/intake.md` 現行 intake 順序與 pre-build-interrogation 內容。（Change Intake → Pre-build Interrogation Gate → Requirements Cognition Checkpoint → Parity Gate；Plan-First Ordering 接在 Pre-build Interrogation Gate 之後）
+- [x] 讀 `workflow/software-delivery/test-strategy.md` Test-First Ordering，確認接點。（§5 Test-First Ordering 為 framework/runtime/governance 升級**強制**順序；plan-first 為 advisory，與其正交、互不覆蓋，於 intake 交叉引用）
+- [x] 讀 `plans/README.md` Architecture Compatibility Preflight（已要求實作前 preflight），界定 plan-first 與 preflight 的關係（避免三重 gate）。（`plans/README.md` L126 已排序 pre-build-interrogation → preflight，且 preflight 可回改 plan；plan-first **只引用不重寫**該排序，避免 dual source-of-truth / triple gate）
+
+### Phase 0.2 — Architecture Compatibility Preflight 記錄
+
+| 欄位 | 內容 |
+| --- | --- |
+| Trigger | 開始執行 sub-plan 02 Phase 1（software-delivery intake plan-first ordering doc） |
+| Checked sources | `intake.md`、`test-strategy.md` §5、`execution-flow.md`、`plans/README.md`（Preflight + plan-tree）、`requirements/pre-build-interrogation.md`、`closure.md`、`review-checklist.md`、software-delivery `README.md` |
+| Conflicts | 無架構衝突。關鍵邊界：`plans/README.md` L126 已序列化 pre-build-interrogation → Architecture Compatibility Preflight（preflight 可回改 plan）；Test-First Ordering（test-strategy §5）為 framework/runtime/governance 變更的**強制**順序。plan-first 須**引用**上述而非重寫，避免 triple gate / dual source-of-truth |
+| Interrogation | Goal：intake 明文化「先有 plan artifact 再實作」的 advisory ordering + loop 模型 + 規模分級豁免 + review checklist。Scope in：intake 小節、execution-flow 導航、review-checklist 一條；out：commit-msg 機械 block、runtime gate。Acceptance/validation target：intake 小節落地 + loop 模型 + Q4 分工清楚 + 規模分級 + checklist + doc-only 宣告；完整 acceptance（真實 intake 走過 loop + 一次 preflight 回改）為 completion #6，需真實使用實例。Framework discovery：canonical source = workflow layer（intake.md）；plans 系統 canonical = `plans/README.md`；不接 runtime.db。Duplication risk：僅引用既有 preflight/interrogation 排序，不重寫。 |
+| Open Questions 核對 | Q4（main）→ resolving（Phase 1 落地 + 真實 intake 實例後 close）；規模分級豁免 → resolved（引用 plan-tree 既有規則） |
+| Decision | proceed |
+| Validation | diff review + markdown link 一致性 + plan checkbox sync；真實 intake loop 實例列為 needs-validation（completion #6） |
+
+**Glossary discovery**：plan-first 復用既有 plans 系統與 software-delivery 詞彙（`plan_kind` / `plan_tree` / `sub_plan_reason` 已在 `knowledge/glossary/ai-skill.md`），no new framework vocabulary introduced。
 
 ## Phase 1 — Plan-first ordering 文件化
-- [ ] 在 intake 段新增「Plan-First Ordering」小節：明文「會導向 code/workflow/governance/runtime 改動的任務，實作前須有對應 `plans/active/` plan（可 inline 小 plan 或 plan-tree）」。
-- [ ] **明文一句防 loop 被忘（回應 review #4）**：「Plan artifact 可於 preflight 中更新，不要求單次生成」——避免讀者把 intake 順序誤讀成 `Interrogate → Plan → Preflight` 線性。
-- [ ] **用 loop 模型描述（非線性三段）**：`Discover → Interrogate → Draft Plan ⟲ Preflight → Execute`；明寫 plan 是 artifact、preflight 可回改 plan，避免讀者誤以為 plan 一次生成後不再變。
-- [ ] 分工說明：interrogation 餵入 / plan 為中心 artifact / preflight 反覆驗證並回饋（Q4）。
-- [ ] 規模分級：< 1 session / 純文件補強 / surgical 小修補的豁免條件（接 plan-tree「何時不開 sub-plan」既有規則）。
-- [ ] advisory 語氣（「應 / 建議」而非 commit-time block）。
+- [x] 在 intake 段新增「Plan-First Ordering」小節（`intake.md` §Plan-First Ordering，接在 Pre-build Interrogation Gate 之後）：明文「會導向 code/workflow/governance/runtime/schema/generated artifact/tool adapter 改動的任務，實作前應有對應 `plans/active/` plan（inline 小 plan 或 plan-tree）」。
+- [x] **明文一句防 loop 被忘**：小節開頭 blockquote「Plan 是 artifact，不是一個一次性 stage」+「plan 在 preflight 間反覆收斂」——避免誤讀成 `Interrogate → Plan → Preflight` 線性。
+- [x] **用 loop 模型描述（非線性三段）**：`Discover → Interrogate → Draft Plan ⟲ Preflight → Execute` code block，明寫 preflight 可回改 plan、plan 非一次生成。
+- [x] 分工說明：三欄表（interrogation 餵入 / plan 為中心 artifact / preflight 反覆驗證回饋），各指向 canonical source，不重寫（Q4）。
+- [x] 規模分級：直接引用 `plans/README.md` plan-tree「何時不開 sub-plan」（< 1 session inline / 純文件補強直接 commit / surgical 小修補走 surgical-changes），不新增平行規則。
+- [x] advisory 語氣（blockquote 明寫「非 commit-time 機械 block」，用「應 / 建議」）。
 
 ## Phase 2 — Review checklist + 可選 scenario
-- [ ] 在對應 review / DoR checklist 加一條 plan-first 檢查項。
-- [ ] （可選）新增 validation scenario 描述「實作前有 plan / 豁免條件成立」的可觀察判定；**若不接 runtime gate，明寫 doc-only + 未來升級條件**。
-- [ ] 更新 `execution-flow.md` 導航指向新小節。
+- [x] 在 `review-checklist.md` §Change Intake 加一條 Plan-First Ordering（advisory）檢查項，指向 intake 規模分級豁免。
+- [x] （可選 scenario 決策）**不新增 validation scenario；本輪 doc-only**。理由：plan-first 為 advisory workflow ordering，不接 runtime gate、無 commit-msg validator、無可機械觀察的 blocking 判定；新增 scenario 會暗示 mechanical enforcement 意圖，與 advisory 定位矛盾。**未來升級條件**：若累積證據顯示 advisory 被忽略造成 plan↔delivery 脫節（maturity ladder：ordering 觀察 → evidence → 再評估 commit-msg validator / runtime gate），屆時才補 scenario-first + validator（沿 `test-strategy.md` §5 Test-First Ordering 強制流程）。
+- [x] 更新 `execution-flow.md` Cognitive Slice 導航 Intake 列，加入 Plan-First Ordering 指向新小節。
 
 ## 完成條件
-- [ ] intake plan-first ordering 小節落地，用 loop 模型、與 pre-build-interrogation / preflight 分工清楚（Q4 resolved）
-- [ ] 規模分級豁免條件落地
-- [ ] review checklist 更新
-- [ ] doc-only 宣告明確（若未接 runtime gate）
-- [ ] **Acceptance evidence（回應 review #6）**：至少一次**真實的 software-delivery intake** 走過 plan-first loop（含一次 preflight 回改 plan 的實例），而非僅文件範例
-- [ ] linked-updates 檢查（README / 導航 / checklist 同步）
+- [x] intake plan-first ordering 小節落地，用 loop 模型、與 pre-build-interrogation / preflight 分工清楚（Q4 分工已界定；待真實 intake 實例後由 02 owner close main Q4）
+- [x] 規模分級豁免條件落地（引用 plan-tree 既有規則）
+- [x] review checklist 更新
+- [x] doc-only 宣告明確（Phase 2 可選 scenario 決策 + main §Runtime Execution Path「02 若不接 runtime，須明寫 doc-only」）
+- [ ] **Acceptance evidence（回應 review #6）**：至少一次**真實的 software-delivery intake** 走過 plan-first loop（含一次 preflight 回改 plan 的實例），而非僅文件範例 — *needs-validation：doc 已落地，等下一個真實 software-delivery 任務時收集，本輪不 fabricate 範例充當*
+- [x] linked-updates 檢查（execution-flow 導航 / review-checklist / intake 三處同步；plans/README 只引用不改）
 
 ## Glossary Impact
 Glossary Impact: no — plan-first ordering 復用既有 plans 系統與 software-delivery 詞彙，no new framework vocabulary introduced。
