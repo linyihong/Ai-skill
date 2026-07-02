@@ -16,7 +16,7 @@ func testRegistry() runtimeRoutingRegistry {
 			ActivationMode: "auto-detect",
 			ActivationTriggers: runtimeRouteTriggers{
 				ActivationAnyOf: &runtimeActivationAnyOf{
-					UserSignals:    []string{"web scraping", "爬蟲"},
+					UserSignals:    []string{"web scraping", "爬蟲", "分析网站", "分析網站", "做网站分析", "console", "登入"},
 					ContextSignals: []string{"**/analysis/web/**", "**/*.html"},
 				},
 				ReinforcementAnyOf: &runtimeReinforcementAnyOf{
@@ -105,6 +105,21 @@ func TestDetectWorkflows_SingleHit_UserSignal(t *testing.T) {
 	}
 	if !reflect.DeepEqual(r.UserSignalHits, []string{"web scraping"}) {
 		t.Fatalf("unexpected user hits: %v", r.UserSignalHits)
+	}
+}
+
+func TestDetectWorkflows_SingleHit_ChineseWebsiteAnalysis(t *testing.T) {
+	got := DetectWorkflows(testRegistry(),
+		[]DetectorMessage{{Role: "user", Text: "針對 https://console.example.com 做网站分析，登入後功能"}}, nil)
+	if ids := detectedIDs(got); !reflect.DeepEqual(ids, []string{"route.analysis.web"}) {
+		t.Fatalf("expected only route.analysis.web, got %v", ids)
+	}
+	r, _ := findRoute(got, "route.analysis.web")
+	if !r.Activated {
+		t.Fatalf("expected Activated=true for Chinese website-analysis signal")
+	}
+	if len(r.UserSignalHits) == 0 {
+		t.Fatalf("expected at least one user signal hit, got none")
 	}
 }
 

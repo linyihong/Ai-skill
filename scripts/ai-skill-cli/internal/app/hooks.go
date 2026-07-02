@@ -715,10 +715,18 @@ func extractArtifactTokens(msg string) (basenames, paths, exts []string) {
 }
 
 // renderPreToolUseAdditionalContext emits an allow-path PreToolUse JSON
-// payload carrying advisory text via hookSpecificOutput.additionalContext.
-// Cursor / unknown hosts skip the JSON write (no equivalent injection).
+// payload carrying Discovery Bridge advisory text without blocking the tool.
+// Claude uses hookSpecificOutput.additionalContext; Cursor uses permission:allow
+// plus agent_message (see plans/archived/2026-06-05-0200-cursor-enforcement-hook-adapter.md).
 func renderPreToolUseAdditionalContext(host hookHost, stdout io.Writer, advisory string) int {
-	if host != hostClaude {
+	if strings.TrimSpace(advisory) == "" {
+		return ExitSuccess
+	}
+	if host == hostCursor {
+		_ = json.NewEncoder(stdout).Encode(map[string]any{
+			"permission":    "allow",
+			"agent_message": advisory,
+		})
 		return ExitSuccess
 	}
 	_ = json.NewEncoder(stdout).Encode(map[string]any{

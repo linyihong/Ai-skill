@@ -1584,7 +1584,7 @@ records:
   - id: route.analysis.web
     route_type: analysis
     activation_mode: auto-detect
-    task_intent: 執行 Web Scraping 分析（網站評估、工具選擇、提取策略設計、風險評估）
+    task_intent: 執行 Web / 網站分析（網站評估、登入與 session、API 發現、工具選擇、提取策略、風險評估）
     activation_triggers:
       activation_any_of:
         user_signals:
@@ -1595,6 +1595,18 @@ records:
           - scraper
           - anti-bot
           - 動態網頁
+          - 分析网站
+          - 分析網站
+          - 网站分析
+          - 網站分析
+          - 做网站分析
+          - 做網站分析
+          - 这个网站
+          - 這個網站
+          - 登入
+          - 登录
+          - login
+          - console
         context_signals:
           - "**/analysis/web/**"
           - "**/*scraper*"
@@ -1608,6 +1620,8 @@ records:
       task_intents:
         - web-scraping
         - extraction-strategy
+        - website-analysis
+        - api-discovery
     primary_source: analysis/web/README.md
     required_dependencies:
       - analysis/README.md

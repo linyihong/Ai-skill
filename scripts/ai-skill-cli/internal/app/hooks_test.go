@@ -1088,6 +1088,57 @@ func TestRenderCursorPreToolUseDecision_Allow(t *testing.T) {
 	}
 }
 
+func TestRenderPreToolUseAdditionalContext_CursorAllowWithAgentMessage(t *testing.T) {
+	var stdout bytes.Buffer
+	code := renderPreToolUseAdditionalContext(hostCursor, &stdout, "[ai-skill Discovery] Read analysis/web/README.md")
+	if code != ExitSuccess {
+		t.Fatalf("advisory allow must be exit 0, got %d", code)
+	}
+	var out struct {
+		Permission   string `json:"permission"`
+		AgentMessage string `json:"agent_message"`
+	}
+	if err := json.Unmarshal([]byte(strings.TrimSpace(stdout.String())), &out); err != nil {
+		t.Fatalf("stdout is not Cursor permission JSON: %v\n%s", err, stdout.String())
+	}
+	if out.Permission != "allow" {
+		t.Fatalf("permission = %q, want allow", out.Permission)
+	}
+	if !strings.Contains(out.AgentMessage, "analysis/web/README.md") {
+		t.Fatalf("agent_message must carry advisory; got %q", out.AgentMessage)
+	}
+}
+
+func TestRenderPreToolUseAdditionalContext_CursorEmptyAdvisory(t *testing.T) {
+	var stdout bytes.Buffer
+	code := renderPreToolUseAdditionalContext(hostCursor, &stdout, "   ")
+	if code != ExitSuccess {
+		t.Fatalf("empty advisory must be exit 0, got %d", code)
+	}
+	if strings.TrimSpace(stdout.String()) != "" {
+		t.Fatalf("empty advisory must emit no stdout; got %q", stdout.String())
+	}
+}
+
+func TestRenderPreToolUseAdditionalContext_ClaudeAdditionalContext(t *testing.T) {
+	var stdout bytes.Buffer
+	code := renderPreToolUseAdditionalContext(hostClaude, &stdout, "read analysis/web/README.md")
+	if code != ExitSuccess {
+		t.Fatalf("claude advisory must be exit 0, got %d", code)
+	}
+	var out struct {
+		HookSpecificOutput struct {
+			AdditionalContext string `json:"additionalContext"`
+		} `json:"hookSpecificOutput"`
+	}
+	if err := json.Unmarshal([]byte(strings.TrimSpace(stdout.String())), &out); err != nil {
+		t.Fatalf("stdout is not Claude hook JSON: %v\n%s", err, stdout.String())
+	}
+	if !strings.Contains(out.HookSpecificOutput.AdditionalContext, "analysis/web/README.md") {
+		t.Fatalf("additionalContext must carry advisory; got %q", out.HookSpecificOutput.AdditionalContext)
+	}
+}
+
 func TestDetectPreToolUseHost(t *testing.T) {
 	cursor := mustRawPayload(t, `{"hook_event_name":"preToolUse","cursor_version":"3.4.17","tool_name":"run_terminal_cmd"}`)
 	if got := detectPreToolUseHost(cursor); got != hostCursor {
