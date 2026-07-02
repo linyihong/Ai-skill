@@ -57,9 +57,11 @@ Web Scraping Analysis 負責**分析網頁內容提取的需求與可行性**，
 
 ### 3. 工具選擇
 - **HTTP client**（requests/httpx）：靜態 HTML，無 anti-bot
-- **Headless browser**（Playwright/Puppeteer）：需要 JS 渲染
-- **Stealth browser**（Scrapling StealthyFetcher）：有 anti-bot 保護
-- **MCP Server**（Scrapling MCP）：AI agent 整合場景
+- **Headless browser**（Playwright/Puppeteer）：需要 JS 渲染、**SPA 登录后 API 抓包**
+- **Chrome DevTools 远程调试（CDP）**：驱动本机 Chrome，与 Playwright `connectOverCDP` 或 spawn `--remote-debugging-port` 配合
+- **Stealth browser**（Scrapling StealthyFetcher）：有 anti-bot 保护
+- **MCP Server**（Scrapling MCP）：AI agent 整合场景
+- **SPA API 发现 playbook**：[`spa-api-discovery-via-browser.md`](./spa-api-discovery-via-browser.md) — Playwright / CDP / HAR / bundle 扫描
 - 詳細策略對照：[`../../intelligence/engineering/multi-strategy-routing.md`](../../intelligence/engineering/multi-strategy-routing.md) — 提取/解析/Session/並發策略選擇
 - MCP 架構參考：[`../../intelligence/engineering/mcp-server-patterns.md`](../../intelligence/engineering/mcp-server-patterns.md) — 3-Layer 工具選擇策略
 
@@ -85,7 +87,8 @@ Web Scraping Analysis 負責**分析網頁內容提取的需求與可行性**，
 | 工具 | 適用場景 | 優點 | 限制 |
 |------|---------|------|------|
 | **Scrapling** | 進階爬蟲、anti-bot bypass | 自適應解析、MCP Server、高效能 | Python only |
-| **Playwright** | 動態內容、瀏覽器自動化 | 跨瀏覽器、多語言支援 | 資源消耗較高 |
+| **Playwright** | 動態內容、瀏覽器自動化、SPA API 抓包 | 跨瀏覽器、多語言支援 | 資源消耗較高 |
+| **Chrome CDP** | 本机 Chrome 远程调试、与现有 H5 测试共用 | Session 真实 | 需预装 Chrome |
 | **httpx / requests** | 簡單靜態頁面 | 輕量、快速 | 無法處理 JS 渲染 |
 | **BeautifulSoup / lxml** | HTML 解析 | 成熟穩定 | 非提取工具，需搭配 HTTP client |
 | **Selenium** | 傳統瀏覽器自動化 | 廣泛支援 | 速度慢、資源消耗高 |

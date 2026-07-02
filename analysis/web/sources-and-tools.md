@@ -7,7 +7,8 @@
 | 工具 | 類型 | JS 渲染 | Anti-bot Bypass | 效能 | 適用場景 |
 |------|------|---------|-----------------|------|---------|
 | **Scrapling** | Python framework | ✅ (DynamicFetcher) | ✅ (StealthyFetcher) | ⭐⭐⭐⭐⭐ | 進階爬蟲、AI 整合、MCP |
-| **Playwright** | Browser automation | ✅ | ❌ (需自行處理) | ⭐⭐⭐⭐ | 動態內容、測試自動化 |
+| **Playwright** | Browser automation | ✅ | ❌ (需自行處理) | ⭐⭐⭐⭐ | 動態內容、SPA API 抓包 |
+| **Chrome CDP** | Browser automation | ✅ | ❌ | ⭐⭐⭐⭐ | 本机 Chrome 远程调试、Session 真实 |
 | **httpx** | HTTP client | ❌ | ❌ | ⭐⭐⭐⭐⭐ | 簡單靜態頁面 |
 | **requests** | HTTP client | ❌ | ❌ | ⭐⭐⭐⭐⭐ | 最簡單的靜態頁面 |
 | **Selenium** | Browser automation | ✅ | ⚠️ (可搭配 undetected-chromedriver) | ⭐⭐ | 傳統瀏覽器自動化 |
@@ -69,6 +70,10 @@ Scrapling MCP Server
 - **CI/CD Pipeline**：Scrapling CLI + Docker
 - **互動式開發**：Scrapling Interactive Shell
 - **分散式爬蟲**：Scrapling Spider / Scrapy + Scrapling
+
+## SPA 后台 API 发现
+
+见 [`spa-api-discovery-via-browser.md`](./spa-api-discovery-via-browser.md) — Playwright 登录抓 Network、Chrome DevTools 远程调试（CDP）、HAR 导出、JS bundle path 扫描；**勿**用 monorepo Controller 代替他人线上 JSON。
 
 ## 參考來源
 
