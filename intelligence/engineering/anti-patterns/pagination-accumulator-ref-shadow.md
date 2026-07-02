@@ -63,6 +63,7 @@ Proxy-only evidence (request count, API JSON) is insufficient — see [`validati
 
 ## Related
 
+- [`scroll-load-more-bottom-gate-stall.md`](scroll-load-more-bottom-gate-stall.md) — phase 2 trigger gate / in-flight pending / duplicate retry (same incident, later symptom)
 - [`stale-derived-state.md`](stale-derived-state.md) — variant `stale_list_accumulator`
 - [`session-scoped-implicit-state.md`](session-scoped-implicit-state.md) — cursor/videos pair restore
 - Project: Vidoe-Test `.ai-skill/project/feedback/scroll-load-more-api-success-without-ui-append.md`
