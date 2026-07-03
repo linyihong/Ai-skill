@@ -1,7 +1,7 @@
 ---
 id: 2026-06-22-1009-subplan-agent-delegation
 plan_kind: sub
-status: draft
+status: in-progress
 owner: linyihong
 created: 2026-06-22
 parent: 2026-06-22-1009-plans-system-portability-and-delivery-integration
@@ -15,7 +15,7 @@ sub_plan_reason: >
 
 # Sub-plan Agent Delegation（sub-plan）
 
-**Status**: `draft`
+**Status**: `in-progress`（Phase 0 done — delegation = Ai-skill-only）
 **Owner**: linyihong
 **Parent**: [`_plan.md`](_plan.md)
 
@@ -61,10 +61,10 @@ delegation:
 ## Phase 0 — Pre-Build Interrogation
 
 ### Phase 0.0 — Open Questions 核對（公版，必填）
-- [ ] 已讀 main + 本 sub §Open Questions 全部條目
-- [ ] 對每條標記 `resolved` / `still-open` / `deferred`
-- [ ] `resolved` 條目回寫
-- [ ] 新問題已加入 §Open Questions
+- [x] 已讀 main + 本 sub §Open Questions 全部條目
+- [x] 對每條標記 `resolved` / `still-open` / `deferred`
+- [x] `resolved` 條目回寫（Phase 0.1 alignment 已決，見下）
+- [x] 新問題已加入 §Open Questions（無新問題）
 
 | Open Question | 處置 | 證據 / 原因 |
 |---|---|---|
@@ -72,9 +72,9 @@ delegation:
 | Q6 tool-neutral vs 綁工具 | still-open | Phase 1 brief tool-neutral，工具細節歸 constraints/ai-tools |
 
 ### Phase 0.1 — 架構盤點（需與 01 對齊 frontmatter schema；**不依賴外部 repo 能力**）
-- [ ] 讀 `plan_tree.go` `PlanFrontmatter` struct + `validatePlanTreeFrontmatter`，確認新增 optional 欄位不破壞既有 5 validators。
-- [ ] 與 01 對齊：delegation 欄位是否進 `plan_profile`（外部 repo 也能用），還是 Ai-skill-only。
-- [ ] 確認新欄位為 **optional**（不破壞既有 sub-plan，未宣告 = 不可委派 / 不變）。
+- [x] 讀 `plan_tree.go` `PlanFrontmatter` struct（`:36`，扁平）+ `validatePlanTreeFrontmatter`（`:274`，consumer-layer validator）。新增 optional 欄位不破壞既有 5 validators（它們只讀 parent/id/reason/required_for_completion）→ 向後相容成立。
+- [x] **與 01 對齊決定（2026-07-03）：`delegation` = Ai-skill-only，NOT portable。** schema + 驗證落在 consumer 層 `validatePlanTreeFrontmatter`，**不進** `plan_profile.core`（`planvalidate/engine.go` 的抽出 portable engine）。理由：目前**零外部證據**有 repo 需要 delegation 驗證；promote 進 portable engine 是較重、外部採用後難回退的 rung；delegation 是 Ai-skill workflow dogfood 特性，非 universal plan-structure invariant。依 Q8 / falsification-ladder 紀律 → 留 consumer 層，待真實外部需求再 promote。
+- [x] 確認新欄位為 **optional**（未宣告 `delegation` = 不可委派 / 行為不變；既有 sub-plan 不受影響）。
 
 ## Phase 1 — Delegation schema + brief 契約設計
 - [ ] 定義 nested `delegation` 物件（optional，未宣告 = 不可委派 / 行為不變）：`enabled` / `modes:[human|agent]` / `brief` / `constraints`。
