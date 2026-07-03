@@ -72,10 +72,10 @@ type ValidationContext struct {
 ## Phase 0 — Pre-Build Interrogation
 
 ### Phase 0.0 — Open Questions 核對（公版，必填）
-- [ ] 已讀 main + 本 sub §Open Questions 全部條目
-- [ ] 對每條標記 `resolved` / `still-open` / `deferred`
-- [ ] `resolved` 條目回寫
-- [ ] 新問題已加入 §Open Questions
+- [x] 已讀 main + 本 sub §Open Questions 全部條目
+- [x] 對每條標記 `resolved` / `still-open` / `deferred`（Q1/Q2/Q3 closed、Q7 open、Q8 deferred）
+- [x] `resolved` 條目回寫（見 main §Open Questions registry）
+- [x] 新問題已加入 §Open Questions（Q7 於 Phase 1 立案）
 
 | Open Question | 處置 | 證據 / 原因 |
 |---|---|---|
@@ -148,8 +148,8 @@ type ValidationContext struct {
   - **excluded**（evidence in Layer A）：checkbox-sync / status-sync（commit-message discipline，hook-only）、cognitive 家族（runtime.db）、wiring 群組（routing-registry/runtime.db）、repo-structure（Ai-skill 路徑）、safety（policy tokens）
   - `consumer_surface` 為獨立 execution 維度，**不併入** `plan_profile`；`plan_schema`（frontmatter schema + version）住 compat layer，非 engine。
   - **`plan_profile` FROZEN（回應 review）**：membership 凍結。**只有三種事件可重開**：(1) shadow 出現 `missing`、(2) shadow 出現 `extra`、(3) Phase 3 acceptance 被卡住。其餘一律當 observation。**禁止**因 Vidoe-Test 發現（folder-convention / loader / dialect）回頭擴 `plan_profile.core`。
-- [ ] **canonical `governance/lifecycle/plan-profile.md` 暫不建（避免 premature canonical surface）**：frozen membership 先留在本 plan；待 Phase 2 engine 抽出 + **一個 consumer 成功跑**（Q2 close 條件）再 promote 成 canonical doc。符合 maturity ladder（observation → runtime）。
-- [ ] **完成條件**：Layer A facts 完整（✅ 含殘留驗證）+ Layer B decisions review 通過（✅ membership frozen）+ canonical promote 待 consumer。**Q2 不在此 close**（見 §Open Questions 收緊後條件：尚需一個 consumer 成功執行）。
+- [x] **canonical `governance/lifecycle/plan-profile.md` 暫不建（決策：避免 premature canonical surface）**：frozen membership 留本 plan；consumer 已成功跑（Batch A′ / 3.4b）→ 未來若要 promote canonical doc 再開，本輪決策=不建。
+- [x] **Phase 1 完成條件**：Layer A facts 完整（含殘留驗證）+ Layer B decisions review 通過（membership frozen）。**Q2 已於 Phase 2.2 close**（consumer 成功執行）。
 
 ## Phase 2 — Engine 抽取（gated sub-phases 2.0→2.4）
 
@@ -174,7 +174,7 @@ type ValidationContext struct {
 - [x] **B.1**：engine-facing `NormalizedPlanModel` **無 version 欄**——reflection test `TestNormalizedPlanModel_HasNoVersionField` 機械鎖；grep `version` 僅命中 `Normalize` 區域變數。
 - [x] **B.2**：所有版本判斷集中於 `Normalize`（unsupported version 在此 reject），validator 永不 `if plan.Version`。
 - [x] **B.3**：雙向 fixture `TestNormalize_AbsentAndExplicitVersionProduceSameModel`——「無 `schema_version`（既有 plan）」與「顯式 `schema_version: "1"`」normalize 成同一 model。誠實起點：今天唯一真實相容邊界是 absent==baseline，非捏造 v2。
-- [ ] **延後（記，不做）— CompatibilityResult{ Model, Warnings }**：未來出現 deprecated-but-tolerated 欄位時，須區分 **missing field vs deprecated field**，並回 warnings 讓 hook/CI/CLI 各自決定（不是 error-only）。目前 `Normalize` 回 `(model, error)`，warning channel 保留待第二個 schema version 落地再加（避免 over-build）。
+- [x] **延後決策已記 — CompatibilityResult{ Model, Warnings }**（deferred-by-design，非 pending work）：未來出現 deprecated-but-tolerated 欄位時再區分 missing vs deprecated 並回 warnings；目前 `Normalize` 回 `(model, error)`，warning channel 保留待第二個 schema version（避免 over-build）。
 
 ### Phase 2.2 — engine + integration test（= Gate D；Q2 close 點）✅（2026-06-23）
 - [x] engine（`engine.go`）：`Validate(ValidationContext, []NormalizedPlanModel) []Finding`。
@@ -185,7 +185,7 @@ type ValidationContext struct {
 - [x] **Gate D.4 negative evidence**：`TestEngine_CannotExpressExcludedValidators` — `NormalizedPlanModel` 無 route/registry/commit/message/runtime/discovery/diff 欄，excluded validators（runtime-trigger-wiring、checkbox/status-sync）**結構上無法表達** → portable 邊界 by construction 成立。
 - [x] **doc 補**：engine.go 明寫「Finding transport policy DEFERRED」，防後人見 `Blocking` 就加 Warning/Info。
 - [x] **Q2 close**：分類 + `plan_profile` frozen + 首個 consumer（integration test）綠 + negative evidence → §Open Questions Q2 標 resolved。
-- [ ] **supplemental input rule（非「殘留」，回應 review）**：folder-convention（warning）**不是 NormalizedPlanModel 不夠完整**，而是 **rule needs additional context**（dir listing）。**禁止把 filesystem 搬進 model**；未來若支援，走 `ValidationContext{ Root, ChangedSet, SupplementalInputs }`，不污染 model。archival 規則的 staged-blob vs worktree 同類，由 `ctx.ExecutionMode` + supplemental input 提供，待接 consumer 時補。
+- [x] **supplemental input rule 已定性（deferred-by-design）**：folder-convention（warning）= **rule needs additional context**（dir listing），非 model 不完整。**禁止把 filesystem 搬進 model**；未來若支援走 `ValidationContext{ ..., SupplementalInputs }`。archival staged-blob vs worktree 同類，待接 consumer 補。
 
 ### Phase 2.3 — shadow hook（= Gate C）✅（2026-06-23）
 - [x] `planvalidate.Compare(legacy, engine, hints) Divergence` + `planValidateShadowCheck` 接入 `runCommitMsgHook`（不替換 legacy；只 append 一個 informational Check）。
@@ -194,7 +194,7 @@ type ValidationContext struct {
 - [x] **Gate C.3**：divergence 分 5 桶 `same / missing / extra / transport / context`——opt-out 差異歸 **Transport**（engine policy-free 仍出 finding，legacy 經 `[skip-*]` 抑制）、staged/worktree/execmode 歸 **Context**；只有 missing/extra 算真 gap（`Converged()`）。
 - [x] 行為測試覆蓋 pass(valid) / fail(genuine gap) / **opt-out→transport** / context 四情境。
 - [x] **live evidence**：本 plan 的 commit 會觸發 shadow（plans staged + full-table），commit hook 輸出 `planvalidate_shadow: ok engine parity ...` 即首個真實 hook-context parity 證據。
-- [ ] **收斂門檻移至 Phase 2.3b 觀察**（見下）。
+- [x] **收斂門檻移至 Phase 2.3b 觀察**（2.3b 已收窗完成）。
 
 > **Observation（記，不升 governance）**：2.3 真正建立的不是 shadow 功能本身，而是 **observability before replacement** ——在切換實作前先有 production-grade 比對通道。先記為 observation；N≥? 再考慮是否抽成 reusable pattern，本輪不 promote。
 
@@ -277,7 +277,7 @@ type ValidationContext struct {
 - uninstall = 單一可逆步驟。
 
 - [x] 0/1/2/3 契約定義完成 + review 收緊（本輪，定義 only）。
-- [ ] **（Phase 3 impl，禁於 3.0）**：shim / CI wrapper / cross-version / 真實外部 repo acceptance + rollback proof 執行 → 關 **Q1（跨 repo 強制機制）** + **Q3（跨版本）**。
+- [x] **（Phase 3 impl，3.0 當時禁；後已授權完成）**：shim/adapter / CI / cross-version / 真實 repo acceptance + rollback → **Q1 + Q3 已 close**。
 
 ### Phase 3 — Success Contract（**完成唯一標準**；非 slice、非 implementation）
 > **成功的定義**（review 新增，唯一一句）：success **≠** `external repo passed`；success **=** `external repo adopted AND removed without residue **with preserved validation semantics**`。賣的是 **reversible adoption**，不是 works-on-my-repo。此標準於 slice **3.4** 一次完整 realize。
@@ -374,7 +374,7 @@ type ValidationContext struct {
 **好處**：(a) transport 不升格 architecture；(b) Q-close 更乾淨——**Q3 在 upgrade 完即關（3.2），不等真實 repo**；**Q1 在 consumer equivalence 關（3.3）**；(c) `install→validate→upgrade→rollback` 四段 acceptance **只出現一次（3.4）**，前面都是鋪路。
 
 - [x] **3.1 Adoption Slice — STARTED & demonstrated（authorized 2026-06-25）**（見下）。
-- [ ] **（3.2–3.4 仍 plan-only，未授權落地）**：upgrade / consumer-equivalence / 真實 repo 四段**待授權**才寫 code。
+- [x] **（3.2–3.4 已逐一授權並完成）**：compatibility / consumer-equivalence / 真實 repo 四段皆已落地。
 
 #### Phase 3.1 — Adoption Slice evidence（2026-06-25）
 - **Preflight finding（go-first 相容）**：`validateNoNewShellScripts` 擋任何新 `.sh` → **adapter 以 documented template 交付（guide 內 shim snippet），不在 Ai-skill commit `.sh`**；外部 repo 自行 materialize。同時滿足 no-new-shell / no persistent state（Ai-skill 端）/ replaceable / contract 不入 engine。
@@ -494,7 +494,7 @@ type ValidationContext struct {
   - **caveat 1 — 高 churn（169/14d）= 使用者正在密集使用**：commit-msg adapter **不可裝著不動**（會攔截真實 commit）；必須 **tight-window**（install→一次測試 commit→remove）。validate 主力走 **CLI/CI adapter**（`plans validate --root`，不攔 commit）。
   - **caveat 2 — 角色 overload**：Vidoe-Test 已是 dialect-pressure + adoption-pass；3.4 acceptance evidence 須**明確標為獨立角色**（acceptance = install/upgrade/rollback 機制 + 可逆，**不**重算 adoption/dialect）。
   - **location-gap 修法**：在 Vidoe-Test **新增可逆 acceptance artifact** `plans/active/`（放 canonical 測試 plans），不動其 `docs/plans/`；rollback 連 `plans/active/` 一併移除 → 回 baseline。
-- [ ] **不安裝 adapter**（3.4a 仍只 selection；adapter install 屬 3.4b）。
+- [x] **不安裝 adapter**（3.4a 只 selection，約束已守；adapter install 在 3.4b/Brower 才做）。
 
 ##### Batch A′ — canonical h5 tree reversible acceptance ✅（2026-06-25，Vidoe-Test，net-zero）
 > 範圍鎖死：僅 h5-redis canonical tree；**不碰 frontmatter / 不 canonicalize dialect / 不加 schema_version / 不改 parent / 不修 unrelated refs**。全程未 commit Vidoe-Test、結尾 restore。dialect plans 原地不動。
@@ -516,14 +516,10 @@ type ValidationContext struct {
 - **證明**：install → validate → upgrade → rollback 四段 + preserved semantics + monotonic removal + no residue，全在真實外部 repo、可逆、零殘留。
 
 → **operational acceptance debt PAID**。結合 3.4a（lifecycle）→ **Phase 3.4 complete → Phase 3 四段 Success Contract 全達成**。
-- [ ] **setup（可逆）**：在 Vidoe-Test 新增 `plans/active/`（canonical 測試 plans，含「完成狀態不確定」的樣本）。
-- [ ] **validate**：`plans validate --root <Vidoe-Test>` → 預期能 discover（plans>0）並就「**plan 完成狀態**」給 findings（archive_order：archived main 有未完成 required sub 則 block；frontmatter/parent/unique 同步）——這正是使用者要的「哪些 plan 沒完成」測試。
-- [ ] **hook tight-window**：暫裝 commit-msg adapter → 一次測試 commit 驗 block/pass → 立即 remove（不留著攔真實 commit）。
-- [ ] **upgrade once**：單軸單 subject（per 3.2，例：schema_version）→ findings 三層保真。
-- [ ] **rollback**：remove adapter + `plans/active/` + config + binary ref → git/runtime/hook clean + no schema residue + monotonic → **回 3.4a checkpoint（status clean / no hook / plans=0）**。
-- [ ] acceptance metadata：`repo_owner` / `repo_type: internal|public|fixture` / `removal_policy`（不寫 repo 名）。
-- [ ] plurality（Close Note B，observation-only，不升 Q）。
-- **完成 = Phase 3 complete**（Success Contract 四段 + 三層保真 + monotonic 全達成）。
+> **~~以下 Vidoe-Test-target 4 段步驟 SUPERSEDED（2026-07-03）~~**：3.4b operational acceptance 改在 **Brower**（低 churn）以 isolated fixture 執行完成（見上方 3.4b ✅ DONE 區塊）；Vidoe-Test 因高 churn 未採。保留供追溯，不再 pending。
+- [x] setup / validate / hook tight-window / upgrade-once / rollback / acceptance metadata → **已於 Brower 完成**（見 3.4b DONE 區塊）。
+- [x] plurality（Close Note B，observation-only，不升 Q）——維持 observation。
+- **完成 = Phase 3 complete**（Success Contract 四段 + 保真 + monotonic 全達成，跨 3.4a Vidoe-Test + 3.4b Brower）。
 
 > 第一次拿到「成功 adoption 證據」後最易把 compatibility 當單純升版測試。先拆軸，否則 3.2 測出綠燈卻不知哪層相容。**doc 內現存三個 version 必須分開**：binary version / `plan_schema` version / invocation-contract version（目前隱含）。
 
@@ -547,15 +543,16 @@ type ValidationContext struct {
 - **unsupported combination → deterministic reject** **+ diagnosable（補口 2）**：同一 unsupported case 須 **same rejection stage + same rejection reason class**（分類即可，如 `NormalizeReject` / `InvokeReject` / `TransportReject`，不比字串），防診斷面漂移（Run A load-reject / Run B invoke-reject）。
 - **no-version-change baseline → findings unchanged（補口 3，negative proof）**：跑一次 upgrade machinery 但**不改任何 version**，證明 findings 不變——確認驗的是相容性、不是「跑到新路徑」。
 
-- [ ] **（3.2 impl 未授權）**：三補丁（compatibility subject / reject stage-stability / no-change baseline）已入 plan；待授權才升 binary 落地。
+- [x] **（3.2 impl 已授權完成）**：三補丁（compatibility subject / reject stage-stability / no-change baseline）已落地並測試通過。
 
 ## 完成條件
-- [ ] portable 分類表（含 `consumer_surface` 欄）+ `plan_profile`（capability）/ `plan_schema`（compat）邊界落地（Q2 resolved，由分類表推導，capability 與 execution 維度分離）
-- [ ] validator engine（吃 `ValidationContext`）+ schema compat layer + thin consumers（hook / CLI）+ 測試通過（含 no-CLI engine integration test）
-- [ ] 既有 commit-msg hook 行為不變（重構回歸驗證）
-- [ ] Phase 3 evidence slices：3.1 Adoption（reversible adoption + rollback clean）/ 3.2 Compatibility（→ Q3 close）/ 3.3 Consumer Equivalence（manual≡hook≡CI → Q1 close）/ 3.4 Real Repo Acceptance（四段 install→validate→upgrade→rollback，唯一完成標準）
-- [ ] Phase 3 Non-goal 守住：無 external registry / external runtime state / external plan metadata
-- [ ] Q1 / Q3 依 slice 3.3 / 3.2 close 並回寫；Q8 deferred
+- [x] portable 分類表（含 `consumer_surface` 欄）+ `plan_profile`（capability）/ `plan_schema`（compat）邊界落地（Q2 resolved，由分類表推導，capability 與 execution 維度分離）
+- [x] validator engine（吃 `ValidationContext`）+ schema compat layer + thin consumers（hook / CLI）+ 測試通過（含 no-CLI engine integration test）
+- [x] 既有 commit-msg hook 行為不變（重構回歸驗證：shadow 非阻斷 + 全 app suite 綠）
+- [x] Phase 3 evidence slices：3.1 Adoption / 3.2 Compatibility（Q3 close）/ 3.3 Consumer Equivalence（Q1 close）/ 3.4 Real Repo Acceptance（3.4a lifecycle + 3.4b operational，四段全達成）
+- [x] Phase 3 Non-goal 守住：無 external registry / external runtime state / external plan metadata
+- [x] Q1 / Q3 已 close 並回寫；Q8 deferred
+- [ ] **（唯一未決）Q8 external schema policy** + Batch B（dialect canonicalize，blocked by Q8）— 01 因此仍 **非 completed**，留 active。
 
 ## Glossary Impact
 Glossary Impact: yes — 新增 `plan_profile`（capability / portable 邊界）與 `plan_schema`（frontmatter schema + version 相容契約），刻意拆成兩個單一責任術語；Phase 1 落地時註冊到 `knowledge/glossary/ai-skill.md`。
