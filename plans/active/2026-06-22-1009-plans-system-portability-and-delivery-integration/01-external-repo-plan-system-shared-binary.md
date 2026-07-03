@@ -1,7 +1,7 @@
 ---
 id: 2026-06-22-1009-external-repo-plan-system-shared-binary
 plan_kind: sub
-status: draft
+status: completed
 owner: linyihong
 created: 2026-06-22
 parent: 2026-06-22-1009-plans-system-portability-and-delivery-integration
@@ -552,7 +552,23 @@ type ValidationContext struct {
 - [x] Phase 3 evidence slices：3.1 Adoption / 3.2 Compatibility（Q3 close）/ 3.3 Consumer Equivalence（Q1 close）/ 3.4 Real Repo Acceptance（3.4a lifecycle + 3.4b operational，四段全達成）
 - [x] Phase 3 Non-goal 守住：無 external registry / external runtime state / external plan metadata
 - [x] Q1 / Q3 已 close 並回寫；Q8 deferred
-- [ ] **（唯一未決）Q8 external schema policy** + Batch B（dialect canonicalize，blocked by Q8）— 01 因此仍 **非 completed**，留 active。
+- [x] **01 deliverable（portable validation capability）全達成** — 所有 acceptance contract 已完成（見下 Completion Notes）。Q8 / Batch B **重新分類為 out-of-deliverable follow-up**（見下 Deferred Follow-up），**非** completion blocker。
+
+## Completion Notes（01）
+01 的 deliverable 是 **portable validation capability**，不是 **universal schema compatibility**（文件多處：`portable ≠ schema-agnostic`；「01 是 externalization，非 universal plan language / interoperability framework」）。以此邊界機械對帳:
+- Externalization 完成（engine 抽離 + schema compat layer + thin consumers）。
+- Compatibility 完成（Q3 close，跨 version end-to-end）。
+- Consumer equivalence 完成（Q1 close，manual ≡ hook ≡ CI，COR 證明）。
+- Real-repo acceptance 完成（3.4a lifecycle on Vidoe-Test + 3.4b operational on Brower，皆 net-zero / reversible）。
+- Phase 3 Success Contract 四段全達成；Q1 / Q2 / Q3 closed。
+→ **01 deliverable 內無 open work，標記 `status: completed`。** 因 parent tree（02 / 03 未完）仍 active，01 檔案留在 tree folder，不單獨搬 archived（lifecycle status 與 storage location 分離）。
+
+## Deferred Follow-up（不屬 01 deliverable）
+**Q8 — External Schema Policy**（adoption / normalization / explicit-unsupported）。
+- 命題：「未來碰到別人的 dialect 要不要支援」= *future interoperability policy*，是新命題,超出 01 的 *portable validation capability* deliverable。
+- 因果方向:**Q8 決策 → Batch B 是否存在**（Batch B = dialect canonicalize，其前提正是 Q8 三選項之一）。Batch B **不是** 01 的 pending implementation，而是 *blocked-by-unresolved-policy*——Q8 未決前它在因果上尚未成立。
+- Owner: future interoperability work（新 plan / ADR），非 01 completion 條件。
+- 現有證據桶保持獨立:adoption-pass = yes、dialect-pressure = yes、compatibility-policy = **no**（policy 仍 deferred，不被 acceptance 證據自動觸發）。
 
 ## Glossary Impact
 Glossary Impact: yes — 新增 `plan_profile`（capability / portable 邊界）與 `plan_schema`（frontmatter schema + version 相容契約），刻意拆成兩個單一責任術語；Phase 1 落地時註冊到 `knowledge/glossary/ai-skill.md`。

@@ -21,7 +21,8 @@ parent: null
 
 > **防誤讀（最重要）**：本段完成的是 **externalization**（含 operational acceptance）。
 > - **已證**：validation capability 可被外部 repo 採用、撤回後不留治理殘留（3.4a 可逆 lifecycle）；且 **operational acceptance**（adapter install + real commit interception + upgrade-once + preserved semantics + monotonic removal + no residue）已在真實低 churn repo 完成（3.4b，2026-07-03）。
-> - **仍未決**：**external schema policy**（Q8：多 dialect 存在但 policy 未選）+ Batch B（dialect canonicalize，blocked by Q8）。
+> - **01 deliverable 完成**：*portable validation capability* 的所有 acceptance contract 已達成 → **01 `status: completed`**（2026-07-03）。
+> - **Follow-up（不擋 01）**：**external schema policy**（Q8：多 dialect 存在但 policy 未選）是 *future interoperability policy*，超出 01 的 *portable validation capability* deliverable（`portable ≠ schema-agnostic`），重新分類為 deferred follow-up。Batch B（dialect canonicalize）在因果上 **downstream of Q8**（Q8 決策 → Batch B 是否存在），非 01 pending implementation。
 
 | 項目 | 狀態 |
 |---|---|
@@ -31,9 +32,9 @@ parent: null
 | Cross-version compatibility | ✅（Q3） |
 | External reversible adoption | ✅（3.4a real repo） |
 | Operational persistence | ✅（3.4b real repo, net-zero） |
-| External schema policy | ⏸（Q8 deferred） |
+| External schema policy | ⏸（Q8 deferred — **follow-up, 非 01 deliverable**） |
 
-> **Phase 3 = 四段 Success Contract 全達成**（install→validate→upgrade→rollback + preserved semantics + monotonic + no residue，跨 3.4a/3.4b 真實 repo）。01 整體仍非 completed（Q8 / Batch B 未決）；main tree 仍 `draft`（02/03 另計）。
+> **Phase 3 = 四段 Success Contract 全達成**（install→validate→upgrade→rollback + preserved semantics + monotonic + no residue，跨 3.4a/3.4b 真實 repo）。**01 = `completed`**（deliverable 內無 open work；Q8/Batch B 為 out-of-deliverable follow-up，見 01 §Completion Notes / §Deferred Follow-up）。**main tree 仍 `draft`**（02/03 未完；01 檔案留 tree folder 不單獨搬 archived — lifecycle status 與 storage location 分離）。
 
 **Q8 克制狀態（維持）**：adoption-pass ×2 + dialect-pressure ×1 + semantic mismatch（parent path vs id）→ 支持「canonical adoption 可行」「dialect 差異真存在」「normalize 理論可行」，**但不足以推出**「必 normalization / 必 require-canonical / 必 explicit-unsupported」→ deferred 合理。
 
@@ -125,7 +126,7 @@ scope 仍會隨 Phase 0 盤點調整（特別是 01 的跨 repo 強制機制、0
 | Q5 | delegation 最小契約：nested `delegation: { enabled, modes, brief, constraints }`，不綁死、支援 manual/agent/hybrid/forbidden？ | 03 | open | schema + validator + 測試 committed | <commit + test path> |
 | Q6 | tool-neutral 邊界：brief 只定義自足資訊，工具細節歸 `constraints` / `ai-tools/` 不進 schema？ | 03 | open | brief 契約文件化 tool-neutral + 雙路徑 SOP | <commit + ai-tools path> |
 | Q7 | **validator failure semantics 是 contract 不是 consumer detail**：同一 engine 在 hook→block / CI→fail / manual→warning，severity 映射歸誰？（Phase 1 facts 已碰 severity + opt-out，依升格準則正式立案） | 01 | open | failure-semantics 映射在 engine contract 層定義（severity 為 engine 輸出，consumer 只決定 transport 行為） | Phase 1 Layer A 含 severity(block/warn) + opt-out transport → 觸發升格 |
-| Q8 | **external schema compatibility boundary**（= **compatibility-policy** bucket）：For repositories using non-canonical plan metadata, should compatibility be enforced by **adoption**, **normalization**, or **explicit unsupported declaration**?（刻意保留第三條；不預設 mapping） | Phase 3（**deferred-to-phase-3**，不掛 01 current phases） | deferred-to-phase-3 | 待 Phase 3 跑真實外部 repo 後，依證據三選一 | **僅 dialect-pressure 證據掛此**（Vidoe-Test flat plans semantic mismatch：`parent` path vs id，measured 2026-06-24）。**adoption-pass 證據（canonical tree clean）NOT 掛 Q8**——它是 Phase 3 acceptance anchor，「一 branch 可行 ≠ 該選 adoption」。policy decision = **no**（deferred）；不觸發 plan_profile reopen |
+| Q8 | **external schema compatibility boundary**（= **compatibility-policy** bucket）：For repositories using non-canonical plan metadata, should compatibility be enforced by **adoption**, **normalization**, or **explicit unsupported declaration**?（刻意保留第三條；不預設 mapping） | **Follow-up（beyond 01 deliverable）** — 01 已 completed，Q8 是 future interoperability policy，不再掛 01 phases | deferred | 待累積外部 dialect 證據後，另立 plan/ADR 依證據三選一 | **僅 dialect-pressure 證據掛此**（Vidoe-Test flat plans semantic mismatch：`parent` path vs id，measured 2026-06-24）。**adoption-pass 證據（canonical tree clean）NOT 掛 Q8**——它是 Phase 3 acceptance anchor，「一 branch 可行 ≠ 該選 adoption」。policy decision = **no**（deferred）；不觸發 plan_profile reopen |
 
 ---
 
