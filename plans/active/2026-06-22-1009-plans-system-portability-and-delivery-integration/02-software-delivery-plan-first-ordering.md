@@ -99,8 +99,10 @@ Discover → Interrogate → Draft Plan ⟲ Preflight → Execute
 - [x] 規模分級豁免條件落地（引用 plan-tree 既有規則）
 - [x] review checklist 更新
 - [x] doc-only 宣告明確（Phase 2 可選 scenario 決策 + main §Runtime Execution Path「02 若不接 runtime，須明寫 doc-only」）
-- [ ] **Acceptance evidence（回應 review #6）**：至少一次**真實的 software-delivery intake** 走過 plan-first loop（含一次 preflight 回改 plan 的實例），而非僅文件範例 — *needs-validation：doc 已落地，等下一個真實 software-delivery 任務時收集，本輪不 fabricate 範例充當*
-  - **收集時必留 3 個 ordered timestamp（回應 review 回饋）**：`T0` 初版 plan / `T1` preflight feedback（發現衝突）/ `T2` revised plan。缺 T0<T1<T2 的時序證據，「真的發生回改」與「事後重建敘事」無法區分 → 不得據以 close main Q4。此為 falsifiable 判定，非事後補述。
+- [ ] **Acceptance evidence（回應 review #6）**：至少一次**真實的 software-delivery intake** 走過 plan-first loop，並留下**可驗證的 planning artifact 演化**（`T0` draft → `T1` preflight feedback → `T2` revised planning artifact），而非僅文件範例 — *needs-validation：doc 已落地，等下一個真實 software-delivery 任務時收集，本輪不 fabricate 範例充當*
+  - **驗證的是 planning artifact 的「演化」，不是某一檔案（如 `plan.md`）的演化（回應 review 回饋）**：planning artifact = 當下真正承載 planning state 的產物，依 workflow 實際形態而定——可以是 `plan.md`、analysis doc、ADR 或 design doc。此定義 (a) 不綁死單一檔名；(b) 不鼓勵為了驗證去刻意改 plan 檔；(c) 符合 artifact-centered governance 並容許未來 planning artifact 形式演化。驗證的是 planning 的演化，不是某一個檔案的演化。
+  - **三個 ordered timestamp 必留**：`T0` 存在可辨識的 planning artifact / `T1` 有**獨立** evidence 顯示假設被推翻（不是終稿內事後補述）/ `T2` 後續 planning artifact 明顯不同且**可追溯到 T1**。缺 T0<T1<T2 的獨立時序痕跡，「preflight 真的改變了後續計畫」與「只是發現問題」或「事後重建敘事」無法區分 → 不得據以 close main Q4。此為 falsifiable 判定，非事後補述。
+  - **候選評估紀錄（不代表已 close，close 為 02 owner 保留決定）**：Browser Manage dogfood 專案已出現候選案例。其一為 evidence-driven 修正（初版假設被 live 抓包推翻 → 全面回改 SDK/docs），時序痕跡獨立可查、**behaviorally satisfies** loop，但 planning state 主要落在 analysis/SDK 而非集中 planning artifact（artifact locality 偏弱）→ 列 **strong supporting**。另一為 consolidation/backfill（plan 自承「外層 plan 無，本 plan 補上」= execute→plan）→ **不計入** completion #6。
 - [x] linked-updates 檢查（execution-flow 導航 / review-checklist / intake 三處同步；plans/README 只引用不改）
 
 ## Glossary Impact
