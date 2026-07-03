@@ -506,9 +506,16 @@ type ValidationContext struct {
 - **本批未含**：adapter(commit-msg hook) install + **upgrade once**（屬完整 3.4b 四段；archive_order「抓未完成」由 unit test 覆蓋，本批因全 completed 故 gate pass 非 block）。
 - **Batch B（dialect plans canonicalize）= ⛔ BLOCKED BY Q8**（adoption / normalization / explicit-unsupported 未決），不碰。
 
-**3.4b — Operational Acceptance ⏸ DEFERRED（target = Vidoe-Test；entry conditions：明確窗口 + repo churn 降低 + 可控制 install/remove 時機）**
-> 覆蓋：adapter install / real commit interception / upgrade-once / preserved semantics across operation。**不為了完成階段而改變正在觀察的系統**——高 churn 期不裝 adapter，等低 churn 窗口再做。
-> **非侵入式**（因高 churn）：validate 主力走 **CLI/CI adapter**（不攔 commit）；**commit-msg hook 只 tight-window 驗一次**（install→1 test commit→remove）。
+**3.4b — Operational Acceptance ✅ DONE（2026-07-03，host = Brower，低 churn，net-zero）**
+> entry conditions 滿足：Brower 低 churn（11 commits 總）+ clean + 無 hook + 可控 install/remove。**授權範圍限定 operational acceptance**；Brower 原 docs/plans **完全不修改、不參與 validation**；**Brower dialect 本輪不記為 Q8 證據**（保 3.4b 歸因單純）。
+- **isolated canonical fixture**（`plans/active/acc-fixture/`，main + 2 sub，與 docs/plans 零引用）：validate `plans=3 findings=0`；**docs/plans 未計入**（scope-A 不掃 → fixture isolation 成立）。
+- **adapter install + real commit interception**：暫裝 commit-msg hook → 注入違規 fixture → `git commit` → hook `[BLOCK] parent_reference` → **commit ABORTED、commits 11→11（無 commit、net-zero）**。
+- **upgrade once**（單軸 artifact：schema_version 1→2）：findings v1=0 = v2=0 → **preserved semantics**。
+- **monotonic removal + no residue**：rollback（remove adapter + fixture）→ `plans=0`、git clean、hook 消失、`plans/` 消失、**docs/plans 未動**。
+- **acceptance metadata**：`repo_owner`=user / `repo_type`=internal（本機 dev repo）/ `removal_policy`=fixture+adapter post-test 全移除（net-zero）。
+- **證明**：install → validate → upgrade → rollback 四段 + preserved semantics + monotonic removal + no residue，全在真實外部 repo、可逆、零殘留。
+
+→ **operational acceptance debt PAID**。結合 3.4a（lifecycle）→ **Phase 3.4 complete → Phase 3 四段 Success Contract 全達成**。
 - [ ] **setup（可逆）**：在 Vidoe-Test 新增 `plans/active/`（canonical 測試 plans，含「完成狀態不確定」的樣本）。
 - [ ] **validate**：`plans validate --root <Vidoe-Test>` → 預期能 discover（plans>0）並就「**plan 完成狀態**」給 findings（archive_order：archived main 有未完成 required sub 則 block；frontmatter/parent/unique 同步）——這正是使用者要的「哪些 plan 沒完成」測試。
 - [ ] **hook tight-window**：暫裝 commit-msg adapter → 一次測試 commit 驗 block/pass → 立即 remove（不留著攔真實 commit）。
