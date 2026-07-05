@@ -95,11 +95,28 @@ delegation:
 - [x] tool-neutral（Q6）：`brief` 不綁任何工具；工具/隔離細節只出現在 `execution.constraints` + `ai-tools/`（Layer 3）。
 - [x] 文件化：`governance/lifecycle/plan-tree-hierarchy.md` §Delegation（**明確標記 consumer-layer 擴充，非 portable invariant，不進既有不變式表**）+ `plans/README.md` §Delegation（雙路徑 SOP）+ glossary `delegation` 詞條。
 
-## Phase 2 — Validator 擴充（optional 欄位）+ 雙路徑說明
-- [ ] 擴充 **consumer-layer** `validatePlanTreeFrontmatter`（**不碰 `planvalidate` engine**）：當 `delegation.enabled: true` 時，驗 4 必填（`brief.goal` / `brief.acceptance` 非空 / `brief.verification` 非空 / `execution.modes` 非空）（block）；`context`/`constraints` 不驗必填；未宣告 `delegation` 則不變（向後相容）。
-- [ ] 測試：tmp fixture（enabled+4 必填齊 pass / enabled+缺 verification fail / enabled+空 modes fail / enabled 但無 context+constraints pass / 未宣告 pass）。
-- [ ] 文件化雙路徑：human 派發 SOP + agent 派發 SOP（後者可選 worktree isolation；保持 tool-neutral，工具細節放 `ai-tools/`）。
-- [ ] **若擴充 validator 行為，補 Runtime Execution Path trigger flow**（commit-msg validator 已是既有 dispatch，新增子驗證須宣告）。
+## Phase 2 — Validator 擴充（consumer-layer）✅（2026-07-03）
+
+**六條 acceptance gate（放行時使用者補全）**：
+1. `enabled: true` ⇒ 4 必填（`brief.goal` / `brief.acceptance` / `brief.verification` / `execution.modes`，非空）→ block。
+2. `brief.context`、`execution.constraints` 恆 optional。
+3. 未宣告 `delegation` ⇒ **100% 舊行為**（byte-identical，非只是 no-error）。
+4. **`enabled: false` 語義明確 = 等同未宣告**（不驗任何 brief；code 中與 `nil` 走同一 no-op 分支）。
+5. **Consumer Exclusive**：portable engine 對 delegation 完全無感——機械鎖（source grep + `NormalizedPlanModel`/`RawPlan` reflection 雙證），consumer 刪除 engine 不需重編。
+6. glossary 保留「future promotion requires cross-repository evidence」，防止功能成熟後有人略過證據門檻直接搬進 engine。
+
+- [x] 擴充 **consumer-layer** `validatePlanTreeFrontmatter`（**未碰 `planvalidate` engine**）：`delegation.enabled: true` 時驗 4 必填（block）；`context`/`constraints` 不驗；未宣告 / `enabled:false` 不變。`plan_tree.go` 用 `yaml.v3` 解析 nested block（unmarshal 失敗 → `Delegation=nil` = 未宣告，保 zero-behavior-change）；`flexStrings` 容忍 scalar 或 list。
+- [x] 測試（`plan_tree_delegation_test.go`）：complete+no-optional pass / 缺 verification fail / 空 modes fail / scalar brief pass / 未宣告 baseline pass / **`enabled:false`==未宣告輸出相等** / Consumer Exclusive engine-source-grep + reflection 雙鎖。全 suite 綠、`go vet` 乾淨。
+- [x] 雙路徑 SOP 已於 Phase 1 落地（`plans/README.md` §Delegation）。
+- [x] **Runtime Execution Path**：未新增 `route.*` / generated_surface / 新 validator dispatch——僅在既有 commit-msg validator `validatePlanTreeFrontmatter` 內新增 enabled-gated 子檢查（既有 dispatch，無新 wiring），故無 `validateRuntimeTriggerWiring` 觸發面。
+
+### 完成條件（Phase 2）
+- [x] enabled=true ⇒ 4 必填（gate 1）
+- [x] context / constraints optional（gate 2）
+- [x] 未宣告 ⇒ 100% 舊行為（gate 3）
+- [x] enabled:false 明確 = 未宣告（gate 4）
+- [x] Consumer Exclusive 機械證明（gate 5，grep + reflection）
+- [x] glossary cross-repo promotion 門檻說明（gate 6）
 
 ## Phase 3 — Dogfood（回應 review #6：兩路徑各一次）
 - [ ] 挑一個真實 sub-plan 設 `delegation.enabled: true` + 完整 brief。

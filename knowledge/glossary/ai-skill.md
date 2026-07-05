@@ -368,7 +368,10 @@ meaning: >
   `execution` (workflow — modes / optional constraints). Required set when
   `enabled: true`: brief.goal, brief.acceptance, brief.verification,
   execution.modes. The same brief serves both human and agent paths (tool-neutral).
-  Ai-skill consumer-layer, NOT a portable plan-tree invariant.
+  Ai-skill consumer-layer, NOT a portable plan-tree invariant. Candidate for
+  future promotion into the portable engine ONLY with cross-repository evidence
+  (same promotion discipline as Q1/Q3/Q8 — today it is consumer-layer because
+  evidence is insufficient, not permanently Ai-skill-only).
 affects:
   - scripts/ai-skill-cli/internal/app/plan_tree.go
   - governance/lifecycle/plan-tree-hierarchy.md

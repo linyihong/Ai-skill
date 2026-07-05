@@ -29,6 +29,8 @@ import (
 	"regexp"
 	"sort"
 	"strings"
+
+	"gopkg.in/yaml.v3"
 )
 
 // PlanFrontmatter captures the minimal-governance frontmatter fields used by
@@ -45,6 +47,63 @@ type PlanFrontmatter struct {
 	HasReasonField        bool
 	SubPlanReason         string // raw trimmed value; empty string = block
 	SchemaVersion         string // declared schema_version (quotes stripped); "" = absent
+	// Delegation is the optional nested `delegation` object (sub-plan 03).
+	// nil = undeclared. Ai-skill consumer-layer ONLY — the portable planvalidate
+	// engine deliberately has zero knowledge of this field (see Consumer Exclusive
+	// test). enabled:false is treated identically to undeclared.
+	Delegation *DelegationSpec
+}
+
+// flexStrings tolerates a YAML value that is either a scalar (`acceptance: done`)
+// or a sequence (`acceptance: [a, b]`), so the delegation brief can be authored
+// either way. An absent/null value decodes to nil.
+type flexStrings []string
+
+func (f *flexStrings) UnmarshalYAML(value *yaml.Node) error {
+	if value.Kind == yaml.ScalarNode {
+		if strings.TrimSpace(value.Value) == "" || value.Tag == "!!null" {
+			*f = nil
+			return nil
+		}
+		*f = flexStrings{value.Value}
+		return nil
+	}
+	var s []string
+	if err := value.Decode(&s); err != nil {
+		return err
+	}
+	*f = flexStrings(s)
+	return nil
+}
+
+func (f flexStrings) hasContent() bool {
+	for _, x := range f {
+		if strings.TrimSpace(x) != "" {
+			return true
+		}
+	}
+	return false
+}
+
+// DelegationSpec mirrors the capability-first delegation schema (sub-plan 03,
+// Phase 1). `brief` is the portable, tool-neutral capability description;
+// `execution` is the workflow (paths + optional constraints). Required-when-
+// enabled set = brief.goal, brief.acceptance, brief.verification, execution.modes.
+// brief.context and execution.constraints are always optional.
+type DelegationSpec struct {
+	Enabled bool `yaml:"enabled"`
+	Brief   struct {
+		Goal         string      `yaml:"goal"`
+		Acceptance   flexStrings `yaml:"acceptance"`
+		Verification flexStrings `yaml:"verification"`
+		Context      struct {
+			Required flexStrings `yaml:"required"`
+		} `yaml:"context"`
+	} `yaml:"brief"`
+	Execution struct {
+		Modes       flexStrings `yaml:"modes"`
+		Constraints flexStrings `yaml:"constraints"`
+	} `yaml:"execution"`
 }
 
 var (
@@ -132,6 +191,18 @@ func parsePlanFrontmatterFromBytes(path string, data []byte) PlanFrontmatter {
 		assignField(&pf, key, val)
 	}
 	flushFolded()
+
+	// Nested `delegation` object (sub-plan 03): the flat line parser above cannot
+	// express nesting, so decode the whole frontmatter body once with yaml.v3 into
+	// a delegation-only wrapper. On ANY unmarshal error we leave pf.Delegation nil
+	// (== undeclared), preserving the pre-existing zero-behavior-change guarantee
+	// for every plan the flat parser already tolerates.
+	var dw struct {
+		Delegation *DelegationSpec `yaml:"delegation"`
+	}
+	if err := yaml.Unmarshal([]byte(strings.Join(body, "\n")), &dw); err == nil {
+		pf.Delegation = dw.Delegation
+	}
 	return pf
 }
 
@@ -151,7 +222,6 @@ func assignField(pf *PlanFrontmatter, key, val string) {
 			pf.Parent = val
 		}
 	case "required_for_completion":
-		pf.HasReasonField = pf.HasReasonField // keep
 		b := strings.ToLower(strings.TrimSpace(val)) == "true"
 		f := strings.ToLower(strings.TrimSpace(val)) == "false"
 		if b {
@@ -301,6 +371,29 @@ func validatePlanTreeFrontmatter(text string, staged []string, root string) stri
 		}
 		if len(missing) > 0 {
 			violations = append(violations, fmt.Sprintf("%s missing: %s", rel, strings.Join(missing, ", ")))
+		}
+
+		// Delegation (sub-plan 03, consumer-layer). Only an ENABLED delegation adds
+		// checks; delegation absent OR enabled:false takes this no-op branch, giving
+		// byte-identical behavior to a plan with no delegation block at all
+		// (Gate P2-2 zero-behavior-change; Gate P2-4 enabled:false == undeclared).
+		if d := pf.Delegation; d != nil && d.Enabled {
+			var dm []string
+			if strings.TrimSpace(d.Brief.Goal) == "" {
+				dm = append(dm, "delegation.brief.goal")
+			}
+			if !d.Brief.Acceptance.hasContent() {
+				dm = append(dm, "delegation.brief.acceptance")
+			}
+			if !d.Brief.Verification.hasContent() {
+				dm = append(dm, "delegation.brief.verification")
+			}
+			if !d.Execution.Modes.hasContent() {
+				dm = append(dm, "delegation.execution.modes")
+			}
+			if len(dm) > 0 {
+				violations = append(violations, fmt.Sprintf("%s delegation enabled but missing: %s", rel, strings.Join(dm, ", ")))
+			}
 		}
 	}
 	if len(violations) == 0 {
