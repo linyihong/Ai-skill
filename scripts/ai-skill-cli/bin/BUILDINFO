@@ -1,4 +1,4 @@
-version=repo-a92be8e
-source_commit=a92be8e
-built_at=2026-07-02T04:28:48Z
+version=repo-bfc4d0d875d88a3c91e3e370c861e5ecaf0d313d
+source_commit=bfc4d0d875d88a3c91e3e370c861e5ecaf0d313d
+built_at=2026-07-05T23:42:50Z
 targets=windows/amd64,darwin/amd64,darwin/arm64,linux/amd64,linux/arm64
