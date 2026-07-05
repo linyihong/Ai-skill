@@ -867,20 +867,25 @@ scenario / validator / report / diff / commit / issue）；`strength` ∈ `hard`
 
 ## Phase 0: Pre-Build Interrogation
 
-- [ ] Confirm scope: static economics contracts + signal wiring first; no full telemetry DB in v1.
-- [ ] Confirm source-of-truth: `runtime/economics/`, runtime-root YAML, top-level `economics/`, or top-level `ecosystem/`.
-- [ ] Confirm whether models/tools/memory/workflow should remain source-of-truth layers while ecosystem only owns interaction.
-- [ ] Confirm Cognitive Mode Core remains in runtime as deterministic control plane.
-- [ ] Confirm Cognitive Adaptation / Economics / Telemetry belongs in ecosystem or equivalent interaction layer.
-- [ ] Confirm compatibility with `runtime/README.md` B-class executable YAML rules.
-- [ ] Confirm whether `runtime/**/*.yaml` under subdirectories is allowed by compiler / validators.
-- [ ] Confirm linked updates: `models/README.md`, `tools/README.md`, `memory/README.md`, `workflow/`, `runtime/README.md`, routing registry / generated reports if needed.
-- [ ] Confirm validation targets: runtime refresh/validate, generated surface query, scenario tests.
-- [ ] Confirm non-goal: do not rewrite Cognitive Mode core or implement full telemetry DB in v1.
-- [ ] Confirm Cognitive Mode report naming: keep public name or introduce `Runtime Cognitive State` / `Cognitive Execution State` as internal contract.
-- [ ] Confirm anti-verbosity rule: expanded cognitive telemetry must be derivable/testable without forcing every response into a huge report.
-- [ ] Confirm knowledge acquisition is added after this plan's core economics/ecosystem boundary, not before Phase 0-3 ownership decisions.
-- [ ] Confirm governance/enforcement linked updates likely required: `governance/lifecycle/knowledge-update-flow.md`, `enforcement/linked-updates.md`, and possibly `enforcement/dependency-reading.md`.
+> **Reconciliation note（2026-06-24, mechanical）**：第一刀依 §Architecture Review agenda 刻意
+> 跳過 Phase 0 直接做 Phase 1→2 reduction；下列勾選是**帳面對齊**（decision 已在 §Reduction
+> Decisions 發生，此處僅回填指標），**不是 phase 推進**。未勾的 7 項屬 implementation 前置，
+> durability observation 期間不動。
+
+- [ ] Confirm scope: static economics contracts + signal wiring first; no full telemetry DB in v1. _（implementation 前置；observation 期間不動）_
+- [x] Confirm source-of-truth: `runtime/economics/`, runtime-root YAML, top-level `economics/`, or top-level `ecosystem/`. → **top-level `ecosystem/`**（§Reduction Decisions D1）
+- [x] Confirm whether models/tools/memory/workflow should remain source-of-truth layers while ecosystem only owns interaction. → 是（D1 4 層：Source Truth 保留、ecosystem 只擁 interaction/derived）
+- [x] Confirm Cognitive Mode Core remains in runtime as deterministic control plane. → 是（D2；Alt H reject / Alt I accept）
+- [x] Confirm Cognitive Adaptation / Economics / Telemetry belongs in ecosystem or equivalent interaction layer. → 是（D2）
+- [x] Confirm compatibility with `runtime/README.md` B-class executable YAML rules. → 已確認（D1 即以 §Owner-Layer Executable Contracts 為裁決依據；economics 非 A/B 類故不得由 runtime 擁有）
+- [x] Confirm whether `runtime/**/*.yaml` under subdirectories is allowed by compiler / validators. → **moot by D1**（`runtime/economics/` 已 reject，子目錄問題不再存在）
+- [ ] Confirm linked updates: `models/README.md`, `tools/README.md`, `memory/README.md`, `workflow/`, `runtime/README.md`, routing registry / generated reports if needed. _（implementation 前置）_
+- [ ] Confirm validation targets: runtime refresh/validate, generated surface query, scenario tests. _（implementation 前置）_
+- [ ] Confirm non-goal: do not rewrite Cognitive Mode core or implement full telemetry DB in v1. _（implementation 前置；reduction 期間 de facto 遵守，正式確認留待 implementation 開範圍）_
+- [ ] Confirm Cognitive Mode report naming: keep public name or introduce `Runtime Cognitive State` / `Cognitive Execution State` as internal contract. _（implementation 前置；Open Question 同項未決）_
+- [ ] Confirm anti-verbosity rule: expanded cognitive telemetry must be derivable/testable without forcing every response into a huge report. _（implementation 前置）_
+- [x] Confirm knowledge acquisition is added after this plan's core economics/ecosystem boundary, not before Phase 0-3 ownership decisions. → 已確認並更嚴格：Finding 2 defer 在 Evidence A 之後（§Reduction Decisions「未納入第一刀」+ §Round 1 結案）
+- [ ] Confirm governance/enforcement linked updates likely required: `governance/lifecycle/knowledge-update-flow.md`, `enforcement/linked-updates.md`, and possibly `enforcement/dependency-reading.md`. _（implementation 前置）_
 
 ## Phase 1: Define Runtime Economics Boundary
 
