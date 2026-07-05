@@ -13,13 +13,13 @@ parent: null
 
 draft
 
-**目前執行入口（next）**：Reduction **Round 1 complete**（D1/D2/D3，見 §Reduction Decisions）。
-下一步**不是繼續切 boundary**，而是進入 **evidence-accumulation period（`next_mode:
-observation_only`）**：暫停新增抽象層，讓 D1/D3 既有決策承受真實使用壓力。**第二刀只在 §Round 1
-結案 + Evidence-Accumulation Gate 列出的 trigger（A owner ambiguity / B state-can't-describe-
-failure / C phase-order rework）真實出現時才開**；在那之前不主動切 Phase 3 / Finding 4 / Finding 5。
-Finding 2 維持 defer。**任何 economics / ecosystem / generated_state 的實際 contract / YAML /
-surface / code 仍須另開範圍並與 maintainer 對齊**；reduction phase 不寫實作。
+**目前執行入口（next）**：Reduction **Round 1 complete**（D1/D2/D3，見 §Reduction Decisions），
+已進入 **durability observation**（2026-06-24 reframe，見 §Durability Observation）——**不是「等
+更多證據」**，而是驗證 Round 1 boundary 決策在真實演進下是否裂開。不主動尋找案例；讓正常開發持續，
+只在破壞性訊號（`decision_blocked=yes` / 跨層衝突 rework / owner relocation）出現時 reopen；長期
+無反例則 null result 本身成為支持 closure 的證據。Finding 2 維持 defer。**任何 economics /
+ecosystem / generated_state 的實際 contract / YAML / surface / code 仍須另開範圍並與 maintainer
+對齊**；reduction phase 不寫實作。
 
 ## Summary
 
@@ -828,6 +828,42 @@ scenario / validator / report / diff / commit / issue）；`strength` ∈ `hard`
 **現在刻意不寫**：threshold（≥N = reopen）、closure 截止日、reopen automation。理由：還不知道 A
 是否高頻 / B 是否根本不發生 / C 是否一筆就夠；現在寫死會滑回 governance、變「為收集而收集」。等真的
 累積 **3–5 筆**，再回頭評估要不要升級成 gate。
+
+### Durability Observation（Gate 重解讀, 2026-06-24, maintainer）
+
+> **定位修正**：目前狀態**不是「等證據」，而是驗證 Round 1 決策的持續性（durability）**。「等證據」
+> 容易滑成無止境蒐集案例；但證據已經不少（Round 1 完成、Vidoe-Test 三類 pilot、Ai-skill 自身
+> governance 演進、一筆 A-counterevidence）。真正的問題已從「證據夠不夠」變成：**Round 1 的
+> boundary 決策，在真實演進下會不會開始裂開。**
+
+**Gate 重解讀（三層）**：
+
+| Gate | 條件 | 動作 |
+| --- | --- | --- |
+| **Gate 1 — Hard reopen** | `decision_blocked = yes`，或跨層定義衝突造成 rework | reopen 對應切口 |
+| **Gate 2 — Durability check（目前所在）** | 持續正常開發；新 plan / validator / workflow / scenario **自然落在既有 owner** | 不動作——這比新增十筆 supporting evidence 更有價值：證明 D1/D2/D3 durable |
+| **Gate 3 — Null result** | 一路到 closure 前都是 `blocked=no`、owner 自然、沒人重開 boundary | null result 本身成為 closure 證據——**不是沒有證據，是沒有反例** |
+
+**三切口現況（2026-06-24）**：
+
+- **A（ecosystem owner）：weakened** — 非因 ecosystem 不重要，而是 owner chain 目前成立
+  （enforcement → runtime consume → workflow specialize），無 owner ambiguity。
+- **B（confidence）：still open** — 但性質已變：**不是缺 primitive，是 primitive exists → surface
+  不完整**（Cognitive Mode 報告未 surface confidence-integrity）；門檻比原 Finding 4 低很多。
+- **C（phase reorder）：untouched** — 零新證據。
+
+**Boundary Stability 指標**（觀察指標，非 framework、非 engine；回答「boundary 是否真的穩定」）：
+
+| period | new artifacts | owner relocation |
+| --- | --- | --- |
+| 2026-06-16 – 06-30 | _(期末盤點)_ | _(期末盤點)_ |
+| 2026-07-01 – 07-31 | ? | ? |
+
+- **new artifacts** = 該期間 Ai-skill 新落地的 plan / validator / workflow slice / scenario / rule
+  （含下游 project overlay rules）。
+- **owner relocation** = artifact 落地後被**搬到另一個 owner layer**（或 owner 被重新裁決）的次數。
+- 判讀：連續期間 `owner relocation = 0` 比再找 N 筆 supporting evidence 更能證明 Round 1 沒切錯；
+  relocation > 0 的每一筆都應同步記入 Evidence Log（那就是 Gate 1 候選）。
 
 ## Phase 0: Pre-Build Interrogation
 
