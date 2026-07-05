@@ -68,6 +68,39 @@ Spike：等同 sub-plan，建議 `required_for_completion: false`。
 Sub-plan 之間的依賴（`depends_on` → DAG）目前 **不在治理範圍**；
 promotion gate：≥ 3 個自然發生的 C-depends-on-A 案例後再評估。
 
+## Delegation（Ai-skill consumer-layer 擴充，**非 portable invariant**）
+
+> **邊界警告**：`delegation` **不是** plan-tree 不變式，**不屬** portable engine（`planvalidate/engine.go`）。它是 Ai-skill 的 **workflow contract**，只由 consumer-layer `validatePlanTreeFrontmatter` 驗證。採用 canonical plan tree 的外部 repo **不需要**、也不會被強制 delegation。上方「Frontmatter 規範」「Validator 行為」兩表是 portable invariant；本節刻意分開，勿併入。目前零跨 repo 證據 → 維持 Ai-skill-only；未來若有真實外部需求，再依 decision-promotion-pipeline 評估是否 promote 進 engine。
+
+**用途**：讓一個 sub-plan 可交給另一個執行者（人或 agent）獨立完成，不需讀整個 main plan。**optional**：未宣告 `delegation` = 不可委派 / 行為不變（既有 sub-plan 不受影響）。
+
+**三層邊界**：
+- **Layer 1 portable engine** — plan-structure invariant（unique id / parent / archive order / required-sub completion / schema compat）。engine 不知道 delegation。
+- **Layer 2 Ai-skill consumer** — delegation 住這。回答「能不能交給另一執行者」，不是「是不是合法 plan tree」。
+- **Layer 3 tool adapter**（`ai-tools/`）— worktree / Agent / 另一 session / Codex / CI agent 全是 adapter。delegation 不知道它們；工具細節只在 `execution.constraints` + `ai-tools/`。
+
+**Schema**（capability-first：`brief` 是 portable 能力描述，`execution` 是 workflow）：
+
+```yaml
+delegation:
+  enabled: true             # 開放委派
+  brief:                    # capability — tool-neutral
+    goal: <一句話目標>
+    acceptance:             # 做到什麼算完成（必填，非空）
+      - ...
+    verification:           # 怎麼驗（必填，非空）
+      - ...
+    context:                # optional
+      required: [ plans/..., docs/... ]
+  execution:
+    modes: [ human ]        # 至少一個（必填）：human / agent / …（未來 reviewer/scheduler 也放這）
+    constraints: [ ... ]    # optional — 恆 optional，可完全沒有 tool
+```
+
+**必填集（`enabled: true` 時，validator block）= 恰 4 個**：`brief.goal`、`brief.acceptance`（非空）、`brief.verification`（非空）、`execution.modes`（非空）。`brief.context`、`execution.constraints` 皆 optional。
+
+**雙路徑共用同一份 `brief`**：human = 把 brief 貼給另一 session / 開發；agent = 把 brief 餵給 Agent/Task 工具（可選 worktree，屬 Layer 3）。SOP 見 [`plans/README.md`](../../plans/README.md) §Delegation。
+
 ## 計畫切檔決策（同一主題，三種合法形狀）
 
 Agent 或作者在 plan 變長、要拆檔時，先判斷屬於哪一類——**不要**把「相關的兩個 main plan」誤當成「同一 plan 的多檔 companion」。

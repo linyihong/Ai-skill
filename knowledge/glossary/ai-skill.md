@@ -354,6 +354,38 @@ related-terms:
 introduced-by: plans/active/2026-06-06-1700-workflow-activation-discovery-bridge.md
 ```
 
+## delegation
+
+```yaml
+term: delegation
+status: candidate
+owner-layer: plan-governance
+meaning: >
+  Optional nested sub-plan frontmatter object that hands a sub-plan to another
+  executor (human or agent) so they can complete it from a self-contained brief
+  without reading the whole main plan. Capability-first split: `brief` (portable
+  capability — goal / acceptance / verification / optional context.required) vs
+  `execution` (workflow — modes / optional constraints). Required set when
+  `enabled: true`: brief.goal, brief.acceptance, brief.verification,
+  execution.modes. The same brief serves both human and agent paths (tool-neutral).
+  Ai-skill consumer-layer, NOT a portable plan-tree invariant.
+affects:
+  - scripts/ai-skill-cli/internal/app/plan_tree.go
+  - governance/lifecycle/plan-tree-hierarchy.md
+  - plans/README.md
+anti-meaning: >
+  Not part of the portable plan-tree engine (planvalidate/engine.go) — the
+  engine never knows about delegation. Not an auto-orchestrator: reservation
+  pattern only (schema + dual-path contract, no auto-spawn/auto-converge). Does
+  not bind to any tool; worktree / Agent / session are Layer 3 adapters
+  referenced only via execution.constraints + ai-tools/. Replaces the earlier
+  flat `agent_assignable` / `delegation_brief` proposal.
+related-terms:
+  - { type: extends, target: plan_kind }
+  - { type: excluded_from, target: plan_profile }
+introduced-by: plans/active/2026-06-22-1009-plans-system-portability-and-delivery-integration/03-subplan-agent-delegation.md
+```
+
 ## discovery_proposal
 
 ```yaml

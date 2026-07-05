@@ -46,6 +46,19 @@
 
 **不是扁平多檔 cluster（情境 C）**：兩個**不同 `id`**、不同 timestamp-slug 的 main plan（例如 frozen diagnosis + implementation completion），即使主題相關也**維持各自頂層檔**，用 `baseline_ref` 或 prose 連結即可——**不要** folderize。反例：[`2026-06-23-1500-adr-004-migration-drift-diagnosis.md`](archived/2026-06-23-1500-adr-004-migration-drift-diagnosis.md) 與 [`2026-06-24-1100-adr-004-migration-completion.md`](archived/2026-06-24-1100-adr-004-migration-completion.md)（已 closed/archived）。完整決策表見 [`governance/lifecycle/plan-tree-hierarchy.md`](../governance/lifecycle/plan-tree-hierarchy.md) §計畫切檔決策。
 
+## Delegation（子計畫委派，Ai-skill consumer-layer）
+
+一個 sub-plan 可透過 optional `delegation` frontmatter 交給另一個執行者（人或 agent）獨立完成，不需讀整個 main plan。**非 portable invariant**（不屬 plan-tree engine，外部 repo 不強制）；完整 schema + 三層邊界見 [`governance/lifecycle/plan-tree-hierarchy.md`](../governance/lifecycle/plan-tree-hierarchy.md) §Delegation。未宣告 `delegation` = 不可委派 / 行為不變。
+
+**必填集（`delegation.enabled: true` 時）**：`brief.goal` / `brief.acceptance` / `brief.verification` / `execution.modes`。`brief.context.required`、`execution.constraints` optional。
+
+雙路徑共用同一份 `brief`（tool-neutral）：
+
+- **Human 路徑**（`execution.modes` 含 `human`）：把 `brief`（goal + acceptance + verification + `context.required` 指的檔）貼給另一開發 / session。對方只憑 brief 獨立完成，回報是否足夠自足。
+- **Agent 路徑**（`execution.modes` 含 `agent`）：把同一份 `brief` 餵給 Agent/Task 工具；可選 worktree isolation（屬 Layer 3 tool adapter，細節歸 `execution.constraints` + [`ai-tools/`](../ai-tools/)）。brief 本身不綁工具。
+
+任一路徑若發現 brief 不足以自足（執行者需回問 main plan），視為 brief 缺漏 → 回饋修正 schema/內容。
+
 ## Plan 模板必填章節
 
 任何涉及架構變更、新流程、跨層改動的 plan 必須包含下列章節（簡單修補類 plan 可省略 Decision Rationale）：
