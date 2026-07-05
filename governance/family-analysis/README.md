@@ -38,6 +38,25 @@ Step 5  Candidate             （ECS 的事；criteria_hits 由人標）
 3. 結論只有三值。**不寫 candidate / criterion / promotion**。
 4. Shared traits 若跨案例 recur，記 recurrence（可回饋 EL 作 observation），不在本層抽 invariant。
 
+## 層級定位（2026-07-06 maintainer）
+
+每層回答**不同的問題**；本層的價值 = Observation 與 Candidate 之間終於有一個「**可分析但不可承諾**」的空間——很多東西可以先停在 Analysis，不必急著分類。
+
+| Layer | 回答的問題 | 允許輸出 | 不允許輸出 |
+|---|---|---|---|
+| Observation（EL） | 發生了什麼？ | observation | analysis、candidate |
+| **Family Analysis（本層）** | 形狀是不是同源？ | analysis | criterion、candidate |
+| Candidate（ECS inbox） | 有沒有既有語言可以描述？ | candidate | promotion |
+| Plan Evidence | 這個 plan 接不接受？ | evidence | analysis |
+| ADR / Promotion | 值不值得抽成共用能力？ | primitive | observation |
+
+## 觀察點（deferred — 現在不抽象）
+
+若未來 **非 governance 域**（UI architecture / runtime portability / tool economics / software delivery）
+也自然長出 `Observation → Structural Matrix → Family Determination`，屆時再問：**Family Analysis 是
+project-specific working layer，還是 AI-native Cognitive System 的通用 Analysis primitive？**
+目前證據集中在 governance 系列 → 維持 working layer，不升格。
+
 ## Index
 
 | 日期 | 分析 | 結論 |
