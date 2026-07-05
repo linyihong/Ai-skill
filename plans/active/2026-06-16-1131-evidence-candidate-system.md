@@ -279,6 +279,8 @@ ECS 自己的 observation 載體（記關於本系統架構的真實案例，非
 
 **欄位**：`surface` = 撞到的系統面；`artifact` 指向真實物件；`strength ∈ hard/soft`；`decision_blocked ∈ yes/no`。
 **規則同 economics Evidence Log**：只記實例、指向真實 artifact、不自動觸發 reopen/phase 推進。
+**邊界（2026-07-06 maintainer）**：EL 只收 **observation**；對 observation 做的**分析**（structural
+matrix / family determination）**不進 EL**，放 [`governance/family-analysis/`](../../governance/family-analysis/README.md)（Stage 1 工作層）。
 
 ## 完成條件
 
