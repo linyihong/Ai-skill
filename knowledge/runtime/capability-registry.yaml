@@ -76,3 +76,44 @@ capabilities:
     artifact: root-cause-trace
     typical_caller_slices:
       - sd-implementation
+
+  - id: contract-review
+    status: draft
+    summary: Contract / API design review before implementation.
+    requires_context:
+      stance:
+        - fault_finding
+    artifact: review-report
+    typical_caller_slices:
+      - sd-contracts
+
+  - id: performance-review
+    status: draft
+    summary: Performance-sensitive change review.
+    requires_context:
+      stance:
+        - fault_finding
+    artifact: review-report
+    typical_caller_slices:
+      - sd-test-strategy
+
+  - id: ui-review
+    status: draft
+    summary: UI compliance and design-system review.
+    requires_context:
+      stance:
+        - fault_finding
+    artifact: review-report
+    typical_caller_slices:
+      - sd-ui-governance
+
+  - id: release-review
+    status: draft
+    summary: Pre-release / merge readiness review.
+    requires_context:
+      stance:
+        - fault_finding
+    artifact: review-report
+    typical_caller_slices:
+      - sd-validation
+      - sd-closure

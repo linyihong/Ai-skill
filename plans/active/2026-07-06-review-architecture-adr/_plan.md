@@ -301,13 +301,17 @@ Workflow (caller slice)
 | `stance` 與 `requires_context` 不符 | **Warning** |
 | registry 結構無效 | **Error**（阻擋 runtime validate） |
 
-#### Phase 1.3 — Consumer（待做）
+#### Phase 1.3 — Consumer ✅
 
-- `workflow/cross-cutting/review/` — **第一個 consumer**，不擁有 stance 契約
+- [x] `workflow/cross-cutting/review/` — README, self-review, invocation-points, checklist
+- [x] 遷移 `review-checklist.md` → `cross-cutting/review/checklist.md`（stub 保留舊路徑）
+- [x] `sd-implementation` hook → self-review.md
+- [x] execution-flow / README 導航更新
 
-#### Phase 1.4 — Dogfood（待 1.3）
+#### Phase 1.4 — Dogfood（進行中）
 
-驗證 `code-review` / `security-audit` / `incident-analysis` 共用同一 runtime contract，無 review 專屬邏輯。
+- [x] validation scenario [`capability-stance-fault-finding-v1.yaml`](../../validation/scenarios/runtime/capability-stance-fault-finding-v1.yaml)
+- [ ] 執行 scenario + 記錄 evidence
 
 #### Done Definition（Phase 1 完成）
 
@@ -322,9 +326,7 @@ Workflow (caller slice)
 
 | 項目 | 路徑 |
 |---|---|
-| 待做 1.3 | `workflow/cross-cutting/review/` |
-| 待做 1.4 | 三 capability dogfood scenario |
-| 遷移 | `review-checklist.md` → cross-cutting（1.3+） |
+| 待做 1.4 | 執行 dogfood scenario evidence（CLI smoke ✅ 2026-07-06） |
 | 修正 | `validation.md` review-report 错置 |
 | 不做 | `sd-review` slice、`cognitive_role` primitive、預留 stance placeholder |
 
@@ -347,7 +349,7 @@ Workflow (caller slice)
 | [`01-phase0b-...`](01-phase0b-perspective-generalization-evidence.md) | Phase 0b 證據 |
 | [`02-phase0b5-...`](02-phase0b5-perspective-taxonomy-validation.md) | Phase 0b.5 perspective taxonomy |
 | [`governance/cognitive-stance.md`](../../governance/cognitive-stance.md) | Phase 1.1 stance contract |
-| [`capability-registry.yaml`](../../knowledge/runtime/capability-registry.yaml) | `requires_context.stance` registry |
+| [`cross-cutting/review/`](../../workflow/cross-cutting/review/README.md) | Phase 1.3 consumer |
 | [`.cursor/plans/review_workflow_slice_12ecc222.plan.md`](../../../.cursor/plans/review_workflow_slice_12ecc222.plan.md) | Cursor 鏡像 |
 
 ---

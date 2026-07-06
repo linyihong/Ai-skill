@@ -19,6 +19,7 @@ Concerns that span multiple delivery slices without becoming a new `software-del
 | Concern | Path | Status |
 | --- | --- | --- |
 | Experience runtime | [`experience-runtime/README.md`](experience-runtime/README.md) | pilot — player template only |
+| Review (fault_finding consumer) | [`review/README.md`](review/README.md) | active — invoke + checklist; not stance contract owner |
 
 ## Slice promotion policy
 

@@ -1,0 +1,55 @@
+# yaml-language-server: $schema=../../scenario.schema.json
+# Capability stance fault_finding — Phase 1.4 dogfood
+# Verifies three capabilities share the same runtime contract without
+# review-specific enforcement logic.
+# Source: plans/active/2026-07-06-review-architecture-adr/_plan.md Phase 1.4
+
+id: capability-stance-fault-finding-v1
+domain: runtime
+type: heuristic-obedience
+priority: P1
+source_plan: plans/active/2026-07-06-review-architecture-adr/_plan.md
+
+given:
+  task: validate_fault_finding_capability_invoke_contract
+  artifacts:
+    - knowledge/runtime/capability-registry.yaml
+    - runtime/capability-context.yaml
+    - governance/cognitive-stance.md
+    - workflow/cross-cutting/review/README.md
+  capabilities:
+    - code-review
+    - security-audit
+    - incident-analysis
+
+when:
+  action: run_capability_invoke_with_fault_finding_stance
+
+then:
+  expected_route:
+    primary: capability_invoke_ok_no_warnings
+    steps:
+      - read requires_context.stance from capability-registry.yaml
+      - invoke each capability with stance fault_finding
+      - expect exit 0 and no warnings
+  forbidden_routes:
+    - review_specific_runtime_branch
+    - consumer_defines_stance_enum
+    - auto_fill_missing_stance
+  detection_command: |
+    for c in code-review security-audit incident-analysis; do
+      ai-skill runtime capability-invoke --repo . --capability "$c" --stance fault_finding || exit 1
+    done
+  verification:
+    - "All three capabilities accept fault_finding without review-only runtime logic."
+    - "Missing stance on code-review emits warning (separate manual check)."
+
+evidence:
+  executed_on: 2026-07-06
+  executor: agent_smoke
+  commands:
+    - ai-skill runtime capability-invoke --capability code-review --stance fault_finding
+    - ai-skill runtime capability-invoke --capability security-audit --stance fault_finding
+    - ai-skill runtime capability-invoke --capability incident-analysis --stance fault_finding
+  results: all exit 0, no warnings with fault_finding stance
+  missing_stance_check: code-review without --stance emits warning, exit 0

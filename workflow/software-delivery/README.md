@@ -11,7 +11,7 @@
 2. 依 task intent 載入需要的 execution surface：[`intake.md`](intake.md)、[`incident-observation.md`](incident-observation.md)、[`ui-incident-governance-workflow.md`](ui-incident-governance-workflow.md)、[`layer-ownership-matrix.md`](layer-ownership-matrix.md)、[`change-retrospective.md`](change-retrospective.md)、[`contracts.md`](contracts.md)、[`ui-contracts.md`](ui-contracts.md)、[`ui-governance.md`](ui-governance.md)、[`test-strategy.md`](test-strategy.md)、[`validation.md`](validation.md)、[`closure.md`](closure.md)、[`surgical-changes.md`](surgical-changes.md)
 3. 依流程的 Start From Evidence / Change Intake 開始；新需求、重構、parity、缺失資訊或既有專案回填時載入 [`intake.md`](intake.md)
 4. 需要 artifact 規範時參考 [`artifact-gates.md`](artifact-gates.md)
-5. 需要審查檢查清單時參考 [`review-checklist.md`](review-checklist.md)
+5. 需要審查時載入 [`workflow/cross-cutting/review/`](../../cross-cutting/review/README.md)（self-review、invocation points、checklist）；舊路徑 [`review-checklist.md`](review-checklist.md) 為轉址 stub
 6. 需要完整開發流程 overview 或 embedded / producer-consumer fallback 時參考 [`development-process.md`](development-process.md)
 7. 需要前端、行動、CLI、SDK 或其他 consumer surface 的 Screen Mapping、Consumer / UI Behavior / Screen / ViewModel Contract 或 Screen Traceability 時參考 [`ui-contracts.md`](ui-contracts.md)
 8. 需要 UI compliance、design-system enforcement、accessibility evidence、behavior pattern checks、visual baseline review 或 AI visual review scoping 時參考 [`ui-governance.md`](ui-governance.md)；responsive taxonomy / authority / severity 本體引用 [`responsive-ui`](../../intelligence/engineering/governance/responsive-ui/README.md)

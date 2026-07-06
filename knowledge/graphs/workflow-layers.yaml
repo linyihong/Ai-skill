@@ -67,7 +67,7 @@ edges:
     validation: development-process.md 從 skills/app-development-guidance/process/README.md（已刪除）提取。
 
   - type: related_to
-    target: workflow/software-delivery/review-checklist.md
+    target: workflow/cross-cutting/review/checklist.md
     reason: 審查檢查清單 — 15 個審查類別（Change Intake、Test Strategy、Performance Test、Product To Contract、Documentation Backfill、Contract Governance、Embedded/Hardware Review、API And Transport、Auth/Tokens/Sessions、Local Storage、Flutter/Android Build、Logging/Telemetry、Anti-Tamper/Risk、Release Gate）。
     validation: review-checklist.md 從 skills/app-development-guidance/CHECKLIST.md（已刪除）提取。
   - type: related_to

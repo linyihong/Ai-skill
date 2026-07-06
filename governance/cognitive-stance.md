@@ -103,8 +103,8 @@ workflow/cross-cutting/review/
 |---|---|---|
 | **1.1** | Contract + registry + schema — **no** review directory | **complete** |
 | **1.2** | Runtime enforcement — **Warning** on missing/mismatched stance (not hard block) | **complete** |
-| **1.3** | `workflow/cross-cutting/review/` — first consumer only | blocked until 1.2 |
-| **1.4** | Dogfood: `code-review`, `security-audit`, `incident-analysis` share contract without review-specific runtime logic | blocked until 1.3 |
+| **1.3** | `workflow/cross-cutting/review/` — first consumer only | **complete** |
+| **1.4** | Dogfood: `code-review`, `security-audit`, `incident-analysis` share contract without review-specific runtime logic | in progress |
 
 ### Phase 1.2 enforcement
 
