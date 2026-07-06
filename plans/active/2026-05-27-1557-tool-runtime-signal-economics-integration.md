@@ -856,8 +856,19 @@ scenario / validator / report / diff / commit / issue）；`strength` ∈ `hard`
 
 | period | new artifacts | owner relocation |
 | --- | --- | --- |
-| 2026-06-16 – 06-30 | _(期末盤點)_ | _(期末盤點)_ |
+| 2026-06-16 – 06-30 | **45**（Ai-skill 26 + 下游 overlay 19；盤點 2026-07-06） | **0** |
 | 2026-07-01 – 07-31 | ? | ? |
+
+- **06/16–06/30 盤點方法**：`git log --since --until --diff-filter=A` 數新落地 `plans/ workflow/
+  validation/scenarios/ enforcement/ governance/ runtime/*.{md,yaml}`（Ai-skill 26：含 ECS 9、
+  workflow slices 6、plans 8、scenario 1、governance template 1、schema 2）+ Vidoe-Test
+  `.ai-skill/project/**` 19（rules 11、feedback 5、operations 1、evidence 1、lifecycle 1）；
+  relocation 用 `--diff-filter=R` 查 cross-layer rename = 0。
+- **判斷紀錄**：perf-governance P4b promote（overlay→`workflow/`）與 ui-incident-governance 的
+  canonical+overlay 並存，計為**設計內 promotion ladder / projection chain，不是 relocation**
+  （owner 未被重裁）。
+- **第一窗口判讀**：45 個新 artifact 全部自然落在既有 owner，0 relocation —— Gate 2 durability
+  check 第一期**無反例**。
 
 - **new artifacts** = 該期間 Ai-skill 新落地的 plan / validator / workflow slice / scenario / rule
   （含下游 project overlay rules）。
