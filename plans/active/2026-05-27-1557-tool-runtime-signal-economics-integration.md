@@ -883,6 +883,16 @@ scenario / validator / report / diff / commit / issue）；`strength` ∈ `hard`
 
 - W1 中性觀察（不下結論）：新內容集中在 governance / plans / overlay；`runtime = 0、enforcement
   = 0`——與 D1「runtime 不擁有新 source」方向一致，但也顯示壓力尚未觸及 runtime/enforcement 層。
+  （`runtime=0` 至少有兩種解讀：D1 切對所以自然無新 source，或問題域根本沒碰到 runtime——目前
+  無證據區分，維持 observation。）
+- **指標語義分離（maintainer, 2026-07-06）**：**relocation 量 stability、distribution 量
+  pressure**，兩者不互相替代。`relocation=0` + distribution 大幅偏移 ≠ boundary 有問題，只表示
+  「下一個 window 該注意該層是否開始承壓」——distribution 是**下一期觀察哪裡**，不是**下一期修改
+  哪裡**。
+- **Closure-time coverage sanity check（maintainer, 2026-07-06）**：進入 closure discussion 時，
+  必查 W1–Wn 的 null results 是否都來自**相似類型的工作**。若窗口幾乎都是同一類（例如大量
+  governance、極少 runtime/tooling），closure 信心應保守；若工作型態涵蓋廣而仍無 Gate 1，null
+  result 說服力才足。非新 gate、非 KPI——是 closure 時對 observation 覆蓋範圍的確認。
 
 - **new artifacts** = 該期間 Ai-skill 新落地的 plan / validator / workflow slice / scenario / rule
   （含下游 project overlay rules）。
