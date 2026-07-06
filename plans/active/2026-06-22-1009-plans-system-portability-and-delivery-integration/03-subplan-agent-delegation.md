@@ -125,10 +125,23 @@ delegation:
 - [x] Capability Removal Test：可完整移除、不影響其餘 validator（review 追加，merge gate）
 
 ## Phase 3 — Dogfood（回應 review #6：兩路徑各一次）
-- [ ] 挑一個真實 sub-plan 設 `delegation.enabled: true` + 完整 brief。
-- [ ] **human 路徑 evidence**：另一 session / 開發僅憑 brief 獨立完成一次。
-- [ ] **agent 路徑 evidence**：以 Agent/Task 工具僅憑 brief 在 worktree 執行一次。
-- [ ] 兩次皆記錄 brief 是否足夠自足（缺漏回饋修正 schema）。
+
+**焦點紀律（Phase 2 review 定調）**：Phase 3 驗的是 **brief 的獨立性（brief 是否真的形成 capability）**,**不是** Agent / human 的能力。任何「執行者不夠強」都要先反問「brief / `context.required` 是否寫得夠自足」。**不看** token 花費、不看執行者聰不聰明;只看「是否僅憑 brief（+ `context.required`）就能完成」。**保持小**——這已不是 architecture,是 dogfood。
+
+**Brief Independence Score（Phase 3 驗收指標,非 pass/fail）**：
+| 分數 | 判準 |
+|---|---|
+| ★★★★★ | 完全依 `brief` 完成,連 `context.required` 都沒回查 |
+| ★★★★☆ | 依 `brief` + `context.required` 完成,未讀其他 |
+| ★★★☆☆ | 需讀 `context.required` 以外、但仍在 repo 內的少量檔 |
+| ★★☆☆☆ | 需回讀 main plan 才能完成（brief 未成熟） |
+| ★☆☆☆☆ | 需人工補充需求（brief 不構成 capability） |
+判準:human 路徑「是否一直回查 main plan」、agent 路徑「是否需 read whole repository」= 直接指向 `context.required` 寫得好不好,不是執行者問題。★★★★☆ 以上視為 brief 已形成 capability;★★★☆☆ 以下 → 回饋修正 brief/schema 後重跑。
+
+- [ ] 挑一個真實、小、可驗收的 sub-plan/task 設 `delegation.enabled: true` + 完整 brief（goal/acceptance/verification/`context.required`）。
+- [ ] **human 路徑 evidence**：**完全關掉 main plan**,只給 `delegation.brief`,另一 session 能否獨立完成 → 記 Brief Independence Score。
+- [ ] **agent 路徑 evidence**：以 Agent/Task 工具**僅餵 brief**(無對話上下文)在 worktree 執行 → 記是否只靠 brief 完成、是否被迫 read whole repo → Brief Independence Score。
+- [ ] 兩次的 Score + 缺漏 → 回饋修正 brief/`context.required`（非改 Agent）。
 
 ## 完成條件
 - [ ] nested `delegation` schema（`brief` capability / `execution` workflow 分層）+ brief 契約落地（Q5 resolved：4 必填 + context/constraints optional）
