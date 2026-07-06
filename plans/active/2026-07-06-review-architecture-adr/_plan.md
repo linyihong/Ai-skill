@@ -274,38 +274,55 @@ Workflow (caller slice)
 - [x] ADR-014 Proposed（stance taxonomy 分離）
 - [x] 保守 enum：`fault_finding | default`
 
-### Phase 1 — 進行中
+### Phase 1 — 進行中（Contract → Enforcement → Consumer → Dogfood）
 
-**設計原則（Phase 0d stakeholder）：** `stance` 是 **capability-level runtime contract**，不是 `cross-cutting/review/` 專屬屬性。任何 capability 可宣告：
+**順序：** 先 Contract，再 Consumer。Review 是第一個 consumer，不是 contract owner。
 
-```yaml
-capability: security-audit
-requires_context:
-  stance:
-    - fault_finding
-```
+#### Phase 1.1 — Runtime Contract ✅
 
-`workflow/cross-cutting/review/` 是 **fault_finding consumer 之一**（與 `security-audit`、`debug-trace`、`incident-analysis` 並列），不在 review README 內私有定義 stance。
-
-**五維邊界（不重疊）：**
-
-| 維度 | 表示 |
+| 交付 | 路徑 |
 |---|---|
-| Workflow | When |
-| Capability | What |
-| Cognitive Mode | How |
-| Stance | Reasoning stance |
-| Artifact | Output |
+| Stance 契約（contract owner） | [`governance/cognitive-stance.md`](../../governance/cognitive-stance.md) |
+| Capability metadata schema | [`metadata/capability-context-schema.md`](../../metadata/capability-context-schema.md) |
+| Capability registry（`requires_context.stance`） | [`knowledge/runtime/capability-registry.yaml`](../../knowledge/runtime/capability-registry.yaml) |
 
-**Enum 紀律：** 僅 `fault_finding | default`。不預留 `creative` / `planning` / `optimization` 等 placeholder；第二 stance family 需新 ADR + 證據。
+- 僅 `fault_finding` 標準化；**不**建 `cross-cutting/review/`
+- Dogfood trio 已登記 metadata：`code-review`、`security-audit`、`incident-analysis`
 
-| 項目 | D2 路徑 |
+#### Phase 1.2 — Runtime Enforcement（待做）
+
+| 行為 | Phase 1 決策 |
 |---|---|
-| 新建 | `governance/review-capability.md`（或 `governance/cognitive-stance.md` — capability `requires_context` 契約）、`workflow/cross-cutting/review/` |
-| 修改 | 各 slice `review_invocation`；governance；routing-registry；capability metadata `requires_context.stance` |
-| 遷移 | `review-checklist.md` → cross-cutting |
+| 缺少 `stance` | **Warning**（不 auto-fill、不 hard block） |
+| `stance` 與 `requires_context` 不符 | **Warning** |
+
+#### Phase 1.3 — Consumer（待 1.2）
+
+- `workflow/cross-cutting/review/` — **第一個 consumer**，不擁有 stance 契約
+
+#### Phase 1.4 — Dogfood（待 1.3）
+
+驗證 `code-review` / `security-audit` / `incident-analysis` 共用同一 runtime contract，無 review 專屬邏輯。
+
+#### Done Definition（Phase 1 完成）
+
+1. Runtime 理解 `requires_context.stance`
+2. `fault_finding` 是唯一標準化非 default stance
+3. ≥3 capability 共用 contract，無 review 專屬 runtime 邏輯
+4. `cross-cutting/review/` 僅 consumer，不重新定義 stance
+
+**Governance invariant：** Capability 宣告 Context；Consumer 不得私自定義 Runtime Context。
+
+**五維邊界：** Workflow (When) · Capability (What) · Cognitive Mode (How) · Stance (Reasoning) · Artifact (Output)
+
+| 項目 | 路徑 |
+|---|---|
+| 待做 1.2 | runtime stance validation（Warning） |
+| 待做 1.3 | `workflow/cross-cutting/review/` |
+| 待做 1.4 | 三 capability dogfood scenario |
+| 遷移 | `review-checklist.md` → cross-cutting（1.3+） |
 | 修正 | `validation.md` review-report 错置 |
-| 不做 | `sd-review` slice、`cognitive_role` glossary、runtime primitive、預留未證據 stance enum |
+| 不做 | `sd-review` slice、`cognitive_role` primitive、預留 stance placeholder |
 
 ---
 
@@ -325,7 +342,9 @@ requires_context:
 | [`ADR-014`](../../constitution/ADR-014-cognitive-stance-capability-context.md) | Stance taxonomy — Proposed |
 | [`01-phase0b-...`](01-phase0b-perspective-generalization-evidence.md) | Phase 0b 證據 |
 | [`02-phase0b5-...`](02-phase0b5-perspective-taxonomy-validation.md) | Phase 0b.5 perspective taxonomy |
-| [`.cursor/plans/review_workflow_slice_12ecc222.plan.md`](../../../.cursor/plans/review_workflow_slice_12ecc222.plan.md) | Cursor 鏡像 + 完整 v1–v4 細節 |
+| [`governance/cognitive-stance.md`](../../governance/cognitive-stance.md) | Phase 1.1 stance contract |
+| [`capability-registry.yaml`](../../knowledge/runtime/capability-registry.yaml) | `requires_context.stance` registry |
+| [`.cursor/plans/review_workflow_slice_12ecc222.plan.md`](../../../.cursor/plans/review_workflow_slice_12ecc222.plan.md) | Cursor 鏡像 |
 
 ---
 

@@ -183,7 +183,8 @@ Review capabilities (`code-review`, `architecture-review`, …) use the **same**
 ## Consequences (if accepted)
 
 - Governance doc (Phase 1) documents **`requires_context.stance`** on capability metadata — not review-README-local
-- [`governance/review-capability.md`](../governance/review-capability.md) or shared `governance/cognitive-stance.md` — TBD Phase 1
+- [`governance/cognitive-stance.md`](../governance/cognitive-stance.md) — contract owner (Phase 1.1)
+- [`knowledge/runtime/capability-registry.yaml`](../knowledge/runtime/capability-registry.yaml) — capability metadata
 - Glossary entry: `cognitive_stance` (distinct from `cognitive_mode`, `cognitive_role`)
 - Phase 0b.5 working label `perspective` **deprecated** in new docs — historical plans may retain for traceability
 

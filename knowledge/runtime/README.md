@@ -5,6 +5,7 @@
 ## 目前入口
 
 - [`routing-registry.yaml`](routing-registry.yaml)：第一版 machine-readable routing registry，包含 8 筆 sample routing records。
+- [`capability-registry.yaml`](capability-registry.yaml)：Capability metadata — `requires_context.stance` declarations（contract: [`governance/cognitive-stance.md`](../../governance/cognitive-stance.md)）。
 - [`refresh-policy.yaml`](refresh-policy.yaml)：generated summaries、graphs 與 routing registry 的 refresh / revalidate / downgrade 規則。
 - [`runtime-report.md`](runtime-report.md)：由 generator 產生的目前 routes、summaries、graphs 與 refresh decisions 概覽。
 - [`model-context-report.md`](model-context-report.md)：由 generator 產生的 model profile / compression loading view。
@@ -21,6 +22,7 @@
 | --- | --- |
 | Task intent routing | `knowledge/indexes/README.md` |
 | Machine-readable routing registry | `knowledge/runtime/routing-registry.yaml` |
+| Capability context registry | `knowledge/runtime/capability-registry.yaml` |
 | Generated refresh policy | `knowledge/runtime/refresh-policy.yaml` |
 | Generated runtime report | `knowledge/runtime/runtime-report.md` |
 | Generated model context report | `knowledge/runtime/model-context-report.md` |

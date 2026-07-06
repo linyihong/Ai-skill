@@ -1,0 +1,78 @@
+registry_version: capability-registry/v1
+status: candidate
+owner_layer: knowledge/runtime
+description: >
+  Capability metadata including requires_context.stance declarations.
+  Contract owner: governance/cognitive-stance.md. Consumers (e.g.
+  cross-cutting/review/) invoke capabilities; they do not define stance.
+canonical_contract: governance/cognitive-stance.md
+schema: metadata/capability-context-schema.md
+
+stance_enum:
+  standardized:
+    - fault_finding
+  implicit:
+    - default
+  reserved_policy: >
+    Phase 1: only fault_finding is a standardized non-default stance.
+    Do not add creative, planning, optimization, constructive_build, or
+    other placeholders. New values require ADR-014 amendment + evidence.
+
+# Phase 1.4 dogfood trio — metadata only in Phase 1.1; enforcement in 1.2;
+# consumers in 1.3+.
+capabilities:
+  - id: code-review
+    status: active
+    summary: >
+      Post-implementation code review; findings-only; produces review report.
+    requires_context:
+      stance:
+        - fault_finding
+    artifact: review-report
+    typical_caller_slices:
+      - sd-implementation
+
+  - id: security-audit
+    status: active
+    summary: >
+      Threat and vulnerability seeking over contracts or implementation.
+    requires_context:
+      stance:
+        - fault_finding
+    artifact: security-finding-list
+    typical_caller_slices:
+      - sd-contracts
+      - sd-implementation
+
+  - id: incident-analysis
+    status: active
+    summary: >
+      Observable-first incident evidence before classify or implementation;
+      produces incident card.
+    requires_context:
+      stance:
+        - fault_finding
+    artifact: incident-card
+    typical_caller_slices:
+      - sd-incident-observation
+
+  # Additional fault_finding consumers — register before consumer surfaces ship
+  - id: architecture-review
+    status: draft
+    summary: Architecture fit critique; not build-forward.
+    requires_context:
+      stance:
+        - fault_finding
+    artifact: review-report
+    typical_caller_slices:
+      - architecture
+
+  - id: debug-trace
+    status: draft
+    summary: Root-cause trace; hypothesis elimination.
+    requires_context:
+      stance:
+        - fault_finding
+    artifact: root-cause-trace
+    typical_caller_slices:
+      - sd-implementation

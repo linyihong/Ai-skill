@@ -1256,6 +1256,31 @@ related-terms:
   - { type: related_to, target: journey_validation }
 ```
 
+## cognitive_stance
+
+```yaml
+term: cognitive_stance
+status: candidate
+owner-layer: governance
+meaning: >
+  Epistemic reasoning stance on capability invoke context (context.stance).
+  Phase 1 standardized non-default value: fault_finding (counter-evidence
+  seeking). Distinct from cognitive_mode (how) and cognitive_role (rejected
+  primitive). Capabilities declare requires_context.stance; consumers invoke only.
+affects:
+  - governance/cognitive-stance.md
+  - knowledge/runtime/capability-registry.yaml
+  - constitution/ADR-013-cognitive-role-primitive-gate.md
+  - constitution/ADR-014-cognitive-stance-capability-context.md
+anti-meaning: >
+  Not actor labels (reviewer, debugger), not viewpoint (Developer/Customer),
+  not cognitive_mode execution depth, not workflow slice ownership.
+introduced-by: plans/active/2026-07-06-review-architecture-adr/_plan.md
+related-terms:
+  - { type: related_to, target: validation_capability }
+  - { type: orthogonal_to, target: cognitive_mode }
+```
+
 ## validation_scope
 
 ```yaml
