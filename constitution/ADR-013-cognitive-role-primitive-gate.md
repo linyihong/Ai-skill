@@ -2,13 +2,13 @@
 
 ## Status
 
-**Proposed**
+**Accepted** (2026-07-06, Phase 0d)
 
 ## Framework Generation
 
 - **世代分類**：Gen 3 — Cognitive Execution System 子系統邊界擴充候選
 - **當前世代文件**：[`architecture/ai-native-cognitive-execution-system.md`](../architecture/ai-native-cognitive-execution-system.md)；[`constitution/ADR-008-runtime-cognitive-modes.md`](ADR-008-runtime-cognitive-modes.md)（既有 4 維 `cognitive_mode` primitive）
-- **適用狀態**：本 ADR **不**立即引入 runtime primitive 或 workflow 目錄變更。Accept 前僅鎖定決策框架與 promotion gate。Software-delivery review gap 為觸發證據，**不是**自動批准 D1 的理由。
+- **適用狀態**：D1 **rejected**；D2 **accepted** — capability context may carry bounded `context.stance`. Stance **value taxonomy** owned by [`ADR-014`](ADR-014-cognitive-stance-capability-context.md) (Proposed). Phase 1 may implement cross-cutting review surfaces per Consequences §D2.
 
 ## Date
 
@@ -18,7 +18,8 @@
 
 - [`plans/active/2026-07-06-review-architecture-adr/_plan.md`](../plans/active/2026-07-06-review-architecture-adr/_plan.md)
 - [`plans/active/2026-07-06-review-architecture-adr/01-phase0b-perspective-generalization-evidence.md`](../plans/active/2026-07-06-review-architecture-adr/01-phase0b-perspective-generalization-evidence.md) — Phase 0b evidence
-- [`plans/active/2026-07-06-review-architecture-adr/02-phase0b5-perspective-taxonomy-validation.md`](../plans/active/2026-07-06-review-architecture-adr/02-phase0b5-perspective-taxonomy-validation.md) — Phase 0b.5 perspective taxonomy (in progress)
+- [`plans/active/2026-07-06-review-architecture-adr/02-phase0b5-perspective-taxonomy-validation.md`](../plans/active/2026-07-06-review-architecture-adr/02-phase0b5-perspective-taxonomy-validation.md) — Phase 0b.5 / 0d stance evidence
+- [`constitution/ADR-014-cognitive-stance-capability-context.md`](ADR-014-cognitive-stance-capability-context.md) — stance value taxonomy (Proposed)
 
 ## Context
 
@@ -116,7 +117,7 @@ flowchart TD
 |---|---|---|---|
 | 1 | Review 是否跨 Workflow？ | **Yes** | 表見 Context §lifecycle 分布 |
 | 2 | Review 是否需要 Persona 切換？ | **Yes** | 停止 feature coding；findings-only；report artifact |
-| 3 | Persona 是否需要 **Runtime Primitive**？ | **No (leaning)** | Phase 0b — `context.perspective` sufficient; see Generalization Test |
+| 3 | Persona 是否需要 **Runtime Primitive**？ | **No** | Phase 0b — `context.stance` sufficient; see Generalization Test |
 | 4 | Capability 是否足以表達 Reviewer Context？ | **Yes** | D2 invoke envelope |
 | 5 | 新 Primitive 是否泛化到其他 Domain？ | **No** | Phase 0b — slice/mode/objective cover most activities |
 
@@ -155,7 +156,7 @@ flowchart TD
 
 | # | Question | Phase 0b answer |
 |---|---|---|
-| 3 | Persona needs Runtime Primitive? | **No (leaning)** — `context.perspective` sufficient |
+| 3 | Persona needs Runtime Primitive? | **No** — `context.stance` sufficient |
 | 5 | Generalizes to other domains? | **No** — slices / modes / objectives already cover most |
 
 ### Role taxonomy explosion risk
@@ -227,24 +228,25 @@ Workflow → cognitive_role (primitive) → review capability → artifact
 - routing / runtime / graphs / overlays **須**理解 role — **高承諾**
 - **條件接受**：Q2=Yes 且 Generalization Test 通過且 bounded catalog
 
-### Option D2 — Role as Capability Context
+### Option D2 — Cognitive Stance as Capability Context (Accepted)
 
 ```text
-Workflow → review capability → context.perspective → artifact
+Workflow → review capability → context.stance → artifact
 ```
 
 ```yaml
-# Illustrative invoke envelope — not canonical until accept
+# Canonical invoke envelope (Phase 0d)
 invoke:
   capability: code-review
   context:
-    perspective: reviewer
+    stance: fault_finding    # bounded: fault_finding | default (see ADR-014)
     caller_slice: sd-implementation
 ```
 
-- **Role 不是第一級概念**
-- 與 `cognitive_mode` 正交：`perspective` = 以誰的視角執行 capability
-- **Leading fallback** in Phase 0 draft
+- **Role / Actor 不是第一級概念**
+- 與 `cognitive_mode` 正交：`stance` = reasoning stance（epistemic），非 actor perspective
+- Phase 0b.5 working label `perspective` **deprecated** — final field name **`stance`**
+- Stance **values** beyond `fault_finding | default` → [`ADR-014`](ADR-014-cognitive-stance-capability-context.md)
 
 ---
 
@@ -266,50 +268,53 @@ invoke:
 
 | Review type | Caller workflow | D1 role switch | D2 invoke |
 |---|---|---|---|
-| Contract review | `sd-contracts` | Designer → Reviewer | `contract-review` + `perspective: reviewer` |
-| Architecture review | `architecture/` | Architect → Reviewer | `architecture-review` + `perspective: reviewer` |
-| Security review | contracts / impl | Implementer → Reviewer | `security-review` + `perspective: reviewer` |
-| Code review | `sd-implementation` | Implementer → Reviewer | `code-review` + `perspective: reviewer` |
-| Performance review | test-strategy / perf-risk-gate | Implementer → Reviewer | `performance-review` + `perspective: reviewer` |
-| UI / compliance review | `sd-ui-governance` | Implementer → Reviewer | `ui-review` + `perspective: reviewer` |
-| Release review | `sd-validation` / `sd-closure` | Validator → Reviewer | `release-review` + `perspective: reviewer` |
+| Contract review | `sd-contracts` | Designer → Reviewer | `contract-review` + `stance: fault_finding` |
+| Architecture review | `architecture/` | Architect → Reviewer | `architecture-review` + `stance: fault_finding` |
+| Security review | contracts / impl | Implementer → Reviewer | `security-review` + `stance: fault_finding` |
+| Code review | `sd-implementation` | Implementer → Reviewer | `code-review` + `stance: fault_finding` |
+| Performance review | test-strategy / perf-risk-gate | Implementer → Reviewer | `performance-review` + `stance: fault_finding` |
+| UI / compliance review | `sd-ui-governance` | Implementer → Reviewer | `ui-review` + `stance: fault_finding` |
+| Release review | `sd-validation` / `sd-closure` | Validator → Reviewer | `release-review` + `stance: fault_finding` |
 
 ---
 
-## Recommendation (Phase 0c stakeholder input — not final D2 acceptance)
+## Recommendation (Phase 0d — final)
 
 > **Review is not a Workflow Phase** — proven (Phase 0a).
 >
-> **Reject D1 (Accepted):** Cognitive Role as Runtime Primitive is **not justified** by Phase 0b generalization evidence. The rejection is because **Role does not generalize as a runtime primitive**, not because Review is special.
+> **Reject D1 (Accepted):** `cognitive_role` runtime primitive is **not justified**. Rejection is because Role does not generalize — not because Review is special.
 >
-> **D2 as working model (Accepted provisionally):** cross-cutting review capabilities with bounded `context.perspective`. Closes the software-delivery review gap **without** promoting `cognitive_role` to a runtime primitive. Phase 1 **may plan** against this envelope; implementation treats `perspective` enum as **draft** until Phase 0b.5 + 0d.
+> **Accept D2 (Accepted):** Cross-cutting review capabilities with bounded **`context.stance`**. Closes the software-delivery review gap without promoting `cognitive_role` to a runtime primitive.
 >
-> **D2 final acceptance (Deferred):** `context.perspective: reviewer` is **not** finalized. Phase 0b.5 tests whether Review, Debugger, Incident Analysis, and Security Audit share a higher-order perspective (e.g. `fault_finding` / negative evidence seeking). See [`02-phase0b5-perspective-taxonomy-validation.md`](../plans/active/2026-07-06-review-architecture-adr/02-phase0b5-perspective-taxonomy-validation.md).
+> **Stance field (Accepted):** Capability context **may** carry `stance`. Currently standardized value: **`fault_finding`**. Omitted or explicit **`default`** for forward work. **Do not** use actor labels (`reviewer`) or premature buckets (`constructive_build`).
 >
-> **Research priority:** Perspective taxonomy — not Role — is the open design space. A future ADR (e.g. ADR-014) may own perspective boundaries if validation confirms a stable abstraction.
-
-Phase 0a draft leaned D2; **Phase 0b strengthens reject-D1 / provisional-D2**; **Phase 0c accepts reject-D1 + provisional-D2, defers final D2 accept**.
+> **Stance taxonomy (Deferred to ADR-014):** ADR-013 answers *whether the field exists*; [`ADR-014`](ADR-014-cognitive-stance-capability-context.md) answers *what values are legal* and governs future enum growth.
 
 ---
 
 ## Decision
 
-**Partial (Phase 0c)** — Status remains **Proposed** until Phase 0b.5 + 0d close.
+**Accepted (Phase 0d, 2026-07-06)**
 
-| Outcome | Phase 0c status |
+| Outcome | Status |
 |---|---|
-| **Reject D1** | **Accepted** |
-| **D2 working model** | **Accepted provisionally** |
-| **D2 final acceptance** | **Deferred** — pending perspective taxonomy validation |
+| **Reject D1** (`cognitive_role` primitive) | **Accepted** |
+| **Reject Option A, C** | **Accepted** |
+| **Accept D2** (capability + `context.stance`) | **Accepted** |
+| **Reject `perspective: reviewer`** | **Accepted** — use `stance: fault_finding` |
+| **Reject `constructive_build` enum** | **Accepted** — evidence insufficient; use `default` |
+| **ADR-014 for stance taxonomy** | **Recommended** — Proposed |
 
-Acceptance outcomes (after Phase 0b.5 + 0d):
+### Context contract (ADR-013 scope)
 
-| Outcome | Action |
+Capability invoke context **may** carry a bounded cognitive **`stance`**. Currently the only standardized non-default value is **`fault_finding`**. All other forward activities use **`default`** (explicit or omitted) until a future stance family is evidenced and accepted via ADR-014.
+
+Rejected paths:
+
+| Outcome | Status |
 |---|---|
-| **Accept D1** | Author `governance/cognitive-role.md`; plan runtime/routing extension; Phase 1 implementation — **requires new counter-evidence** |
-| **Accept D2 (final)** | Author `governance/review-capability.md` with validated `context.perspective`; Phase 1 without new primitive |
-| **Accept B only** | Capability catalog without formal context envelope (weaker persona separation) |
-| **Reject A, C** | Document as rejected paths |
+| **Accept D1** | **Rejected** — requires new counter-evidence |
+| **Accept B only** (capability without stance envelope) | **Superseded by D2** |
 
 ---
 
@@ -323,13 +328,14 @@ Acceptance outcomes (after Phase 0b.5 + 0d):
 - Glossary: `cognitive_role` (distinct from `cognitive_mode`)
 - **No** `sd-review` lifecycle slice
 
-### If D2 accepted (leading fallback)
+### D2 accepted (Phase 0d)
 
-- `workflow/cross-cutting/review/` — capability bodies
-- Per-slice `review_invocation` with `context.perspective`
-- Glossary: `review_capability`, `capability_context` (or ADR-finalized term)
+- `workflow/cross-cutting/review/` — capability bodies (Phase 1)
+- Per-slice `review_invocation` with `context.stance: fault_finding`
+- Glossary: `cognitive_stance`, `review_capability` (Phase 1 / ADR-014)
 - **No** routing/runtime primitive expansion
 - **No** `sd-review` lifecycle slice
+- Stance value growth → **ADR-014** gate
 
 ### Either path — shared fixes
 
@@ -353,13 +359,14 @@ Acceptance outcomes (after Phase 0b.5 + 0d):
 - [`workflow/cross-cutting/README.md`](../workflow/cross-cutting/README.md)
 - [`governance/cognitive-slice-taxonomy.md`](../governance/cognitive-slice-taxonomy.md)
 - [`knowledge/glossary/ai-skill.md`](../knowledge/glossary/ai-skill.md) — `validation_capability`（cross-cutting capability 先例）
+- [`constitution/ADR-014-cognitive-stance-capability-context.md`](ADR-014-cognitive-stance-capability-context.md)
 - [`workflow/software-delivery/review-checklist.md`](../workflow/software-delivery/review-checklist.md)
 
-## Open Questions (Phase 0b.5 — perspective taxonomy)
+## Open Questions (deferred — ADR-014 / Phase 1)
 
-1. Do Review, Debugger, Security Audit, and Incident Analysis share one perspective (`fault_finding`)?
-2. If yes — is `reviewer | debugger | auditor` the wrong enum layer (consumer labels vs perspective)?
-3. D2 vs B — is formal context envelope required, or capability-only sufficient?
-4. Peer review vs self-review — same capability + different context flag?
-5. Mechanical enforcement — advisory vs transition-block (deferred to Phase 1 plan)
-6. ~~Generalization Test / Reject D1~~ — **closed in Phase 0b** (accepted Phase 0c)
+1. ~~Stance field name~~ — **closed:** `stance` (not `perspective`)
+2. ~~`fault_finding` vs `reviewer`~~ — **closed:** `fault_finding`
+3. ~~`constructive_build` enum~~ — **closed:** rejected; use `default`
+4. Peer review vs self-review — same capability + context flag?
+5. Mechanical enforcement — advisory vs transition-block (Phase 1)
+6. Future second stance family — evidence bar (ADR-014)

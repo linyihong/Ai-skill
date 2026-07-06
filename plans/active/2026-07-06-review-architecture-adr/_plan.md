@@ -12,10 +12,10 @@ last_revised: 2026-07-06
 
 # Review Architecture — Cognitive Role Primitive Gate（ADR-013）
 
-**Status**: `in-progress` — **Phase 0c partial** → Phase 0b.5 perspective taxonomy validation
+**Status**: `in-progress` — **Phase 0d complete** → Phase 1 unblocked
 
 **Owner**: linyihong  
-**Scope**: ADR-013 + 本 plan + Phase 0b/0b.5 evidence；**不**改 execution-flow / 不建 cross-cutting 目錄（至 Phase 0d final accept）
+**Scope**: ADR-013 (Accepted) + ADR-014 (Proposed) + 本 plan；Phase 1 可開始 cross-cutting review 實作
 
 ---
 
@@ -28,13 +28,15 @@ Software-delivery 存在 Governance / Execution / README **三層契約不一致
 | 問題 | 狀態 |
 |---|---|
 | Review 是不是 Workflow Phase？ | **已證明：否**（Phase 0a） |
-| Role 是不是 Runtime Primitive？ | **Reject D1（Phase 0c 接受）** → **D2 working model（暫定）** |
+| Role 是不是 Runtime Primitive？ | **Reject D1（Accepted）** → **Accept D2（Phase 0d）** |
 
 **Phase 0b 產出**：[`01-phase0b-perspective-generalization-evidence.md`](01-phase0b-perspective-generalization-evidence.md)
 
-**Phase 0b.5 進行中**：[`02-phase0b5-perspective-taxonomy-validation.md`](02-phase0b5-perspective-taxonomy-validation.md)
+**Phase 0b.5 / 0d 產出**：[`02-phase0b5-perspective-taxonomy-validation.md`](02-phase0b5-perspective-taxonomy-validation.md)
 
-**阻塞 Phase 1 實作直到**：Phase 0b.5 + 0d **final** D2 accept（Phase 1 **規劃**可對 D2 working model 進行）
+**ADR-014（Proposed）**：[`ADR-014`](../../constitution/ADR-014-cognitive-stance-capability-context.md) — stance 合法值 taxonomy
+
+**Phase 1 已解鎖**（ADR-013 Accepted）
 
 ---
 
@@ -159,7 +161,7 @@ Software-delivery 存在 Governance / Execution / README **三層契約不一致
 | **B** | Capability | `cross-cutting/review/` | Fallback（弱于 D2） |
 | **C** | Hybrid | hook + capability | **Reject**（退化） |
 | **D1** | Cognitive Role primitive | role → capability | **Reject**（泛化不足） |
-| **D2** | Perspective as capability context | capability + `context.perspective` | **Working model（暫定）** |
+| **D2** | Cognitive stance as capability context | capability + `context.stance` | **Accepted (Phase 0d)** |
 
 ### D2 invoke envelope（draft）
 
@@ -167,9 +169,9 @@ Software-delivery 存在 Governance / Execution / README **三層契約不一致
 invoke:
   capability: code-review
   context:
-    perspective: fault_finding   # draft — Phase 0b.5 may confirm; was reviewer
+    stance: fault_finding    # ADR-013: fault_finding | default
     caller_slice: sd-implementation
-    objective: optional      # refactor | plan | test-first — 非 role
+    objective: optional      # refactor | plan — not stance
 ```
 
 ### 四層堆疊（D2 版）
@@ -177,11 +179,11 @@ invoke:
 ```text
 Workflow (caller slice)
   → invoke capability
-  → context.perspective (Reviewer / Debugger / …)
+  → context.stance (fault_finding | default)
   → artifact (review report, trace, …)
 ```
 
-**不引入** `cognitive_role` runtime primitive。
+**不引入** `cognitive_role` runtime primitive。Stance 合法值擴充 → **ADR-014**。
 
 ---
 
@@ -216,13 +218,13 @@ Workflow (caller slice)
 
 | Review type | Caller | D2 invoke |
 |---|---|---|
-| Contract | `sd-contracts` | `contract-review` + `perspective: reviewer` |
-| Architecture | `architecture/` | `architecture-review` + `perspective: reviewer` |
-| Security | contracts / impl | `security-review` + `perspective: reviewer` |
-| Code | `sd-implementation` | `code-review` + `perspective: reviewer` |
-| Performance | test-strategy / perf-risk-gate | `performance-review` + `perspective: reviewer` |
-| UI compliance | `sd-ui-governance` | `ui-review` + `perspective: reviewer` |
-| Release | `sd-validation` / `sd-closure` | `release-review` + `perspective: reviewer` |
+| Contract | `sd-contracts` | `contract-review` + `stance: fault_finding` |
+| Architecture | `architecture/` | `architecture-review` + `stance: fault_finding` |
+| Security | contracts / impl | `security-review` + `stance: fault_finding` |
+| Code | `sd-implementation` | `code-review` + `stance: fault_finding` |
+| Performance | test-strategy / perf-risk-gate | `performance-review` + `stance: fault_finding` |
+| UI compliance | `sd-ui-governance` | `ui-review` + `stance: fault_finding` |
+| Release | `sd-validation` / `sd-closure` | `release-review` + `stance: fault_finding` |
 
 ---
 
@@ -259,36 +261,59 @@ Workflow (caller slice)
 - [x] **D2 working model** accepted provisionally
 - [ ] **D2 final acceptance** — deferred to Phase 0b.5 + 0d
 
-### Phase 0b.5 — ✅ preliminary（待 0d sign-off）
+### Phase 0b.5 — ✅
 
-- [x] [`02-phase0b5-perspective-taxonomy-validation.md`](02-phase0b5-perspective-taxonomy-validation.md) — validation matrix filled
-- [x] Review / Debugger / Security Audit / Incident Analysis → **collapse to `fault_finding`**
-- [ ] Stakeholder confirm：`fault_finding` + `constructive_build` enum
-- [ ] 決定：ADR-013 amendment vs 新 ADR-014（Perspective Taxonomy）
-- [ ] 更新 D2 invoke envelope in ADR-013
+- [x] validation matrix；`fault_finding` 收斂
+- [x] ADR-014 scope 決定
 
-### Phase 0d — 待進行
+### Phase 0d — ✅
 
-- [ ] ADR Proposed → **Accepted (D2 final)** — only after 0b.5
-- [ ] 更新 ADR Decision / Recommendation 為 final
+- [x] Stakeholder sign-off：Reject D1、Accept D2、Reject `reviewer` / `constructive_build`
+- [x] 欄位命名：`perspective` → **`stance`**（epistemic stance，非 actor perspective）
+- [x] ADR-013 Proposed → **Accepted**
+- [x] ADR-014 Proposed（stance taxonomy 分離）
+- [x] 保守 enum：`fault_finding | default`
 
-### Phase 1+ — D2 final accept 後
+### Phase 1 — 進行中
+
+**設計原則（Phase 0d stakeholder）：** `stance` 是 **capability-level runtime contract**，不是 `cross-cutting/review/` 專屬屬性。任何 capability 可宣告：
+
+```yaml
+capability: security-audit
+requires_context:
+  stance:
+    - fault_finding
+```
+
+`workflow/cross-cutting/review/` 是 **fault_finding consumer 之一**（與 `security-audit`、`debug-trace`、`incident-analysis` 並列），不在 review README 內私有定義 stance。
+
+**五維邊界（不重疊）：**
+
+| 維度 | 表示 |
+|---|---|
+| Workflow | When |
+| Capability | What |
+| Cognitive Mode | How |
+| Stance | Reasoning stance |
+| Artifact | Output |
+
+**Enum 紀律：** 僅 `fault_finding | default`。不預留 `creative` / `planning` / `optimization` 等 placeholder；第二 stance family 需新 ADR + 證據。
 
 | 項目 | D2 路徑 |
 |---|---|
-| 新建 | `governance/review-capability.md`、`workflow/cross-cutting/review/` |
-| 修改 | 各 slice `review_invocation`；governance；routing-registry |
+| 新建 | `governance/review-capability.md`（或 `governance/cognitive-stance.md` — capability `requires_context` 契約）、`workflow/cross-cutting/review/` |
+| 修改 | 各 slice `review_invocation`；governance；routing-registry；capability metadata `requires_context.stance` |
 | 遷移 | `review-checklist.md` → cross-cutting |
 | 修正 | `validation.md` review-report 错置 |
-| 不做 | `sd-review` slice、`cognitive_role` glossary、runtime primitive |
+| 不做 | `sd-review` slice、`cognitive_role` glossary、runtime primitive、預留未證據 stance enum |
 
 ---
 
 ## 非目標
 
-- Phase 0c 前不改 execution-flow.yaml
-- 不建 cross-cutting 目錄（至 accept）
-- 不 Brower overlay（至 Phase 1+）
+- 不新增 `sd-review` lifecycle slice
+- 不預留未證據 stance enum（`creative` / `planning` / `optimization` …）
+- 不把 `stance` 定義侷限在 `cross-cutting/review/README` 內
 
 ---
 
@@ -296,7 +321,8 @@ Workflow (caller slice)
 
 | 檔案 | 角色 |
 |---|---|
-| [`ADR-013`](../../constitution/ADR-013-cognitive-role-primitive-gate.md) | Canonical ADR |
+| [`ADR-013`](../../constitution/ADR-013-cognitive-role-primitive-gate.md) | Canonical ADR — **Accepted** |
+| [`ADR-014`](../../constitution/ADR-014-cognitive-stance-capability-context.md) | Stance taxonomy — Proposed |
 | [`01-phase0b-...`](01-phase0b-perspective-generalization-evidence.md) | Phase 0b 證據 |
 | [`02-phase0b5-...`](02-phase0b5-perspective-taxonomy-validation.md) | Phase 0b.5 perspective taxonomy |
 | [`.cursor/plans/review_workflow_slice_12ecc222.plan.md`](../../../.cursor/plans/review_workflow_slice_12ecc222.plan.md) | Cursor 鏡像 + 完整 v1–v4 細節 |

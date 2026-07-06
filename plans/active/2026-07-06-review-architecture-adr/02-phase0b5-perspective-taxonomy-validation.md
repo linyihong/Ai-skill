@@ -2,7 +2,7 @@
 id: 2026-07-06-review-architecture-adr-phase0b5
 parent: 2026-07-06-review-architecture-adr
 phase: 0b5
-status: complete-pending-0d
+status: complete
 created: 2026-07-06
 purpose: >
   Validate Perspective taxonomy before D2 final acceptance. Test whether Review,
@@ -13,9 +13,40 @@ stakeholder_position: >
   deferred until perspective taxonomy is validated.
 ---
 
-# Phase 0b.5 — Perspective Taxonomy Validation
+# Phase 0b.5 / 0d — Cognitive Stance Validation
 
-## Stakeholder decision (Phase 0c input)
+> **Historical note:** Phase 0b.5 used `perspective` as a working label. **Phase 0d final:** field name is **`stance`**; working label deprecated. See [`ADR-014`](../../../constitution/ADR-014-cognitive-stance-capability-context.md).
+
+## Phase 0d stakeholder decision (final)
+
+| Item | Decision |
+|---|---|
+| Reject D1 | **Accepted** |
+| Accept D2 | **Accepted** |
+| Reject `perspective: reviewer` | **Accepted** |
+| Accept `stance: fault_finding` | **Accepted** |
+| Reject `constructive_build` enum | **Accepted** — use `default`; evidence insufficient |
+| Field name `stance` (not `perspective`) | **Accepted** — epistemic stance, not actor viewpoint |
+| ADR-014 separate taxonomy | **Strongly recommended — accepted** |
+| ADR-013 final acceptance | **Accepted** |
+
+### Why `stance`, not `perspective`
+
+| Term | Fits? | Reason |
+|---|---|---|
+| `perspective` | **No** | Implies Developer / Customer / Operator **viewpoint** |
+| `stance` | **Yes** | **Epistemic / reasoning stance** — e.g. falsify vs default forward |
+| `reviewer` | **No** | **Actor** label — recreates Role at context layer |
+
+Scientific-method mapping: **try to falsify** = `fault_finding`.
+
+### Why not `constructive_build`
+
+Refactoring, documentation, and implementation share only **「不是 fault_finding」** — not a proven shared reasoning family. Phase 0d: use **`default`** until a second stance family is evidenced via ADR-014.
+
+---
+
+## Stakeholder decision (Phase 0c input — superseded by 0d above)
 
 | Decision | Status |
 |---|---|
@@ -113,15 +144,15 @@ Phase 0b.5 must **falsify or confirm** whether one or two values suffice.
 
 ---
 
-## Orthogonality: `perspective` vs `cognitive_mode` (ADR-008)
+## Orthogonality: `stance` vs `cognitive_mode` (ADR-008)
 
 | Layer | Question | Example |
 |---|---|---|
 | **`cognitive_mode`** | **How** to execute? | FORENSIC → read full lineage, block writes until analysis complete |
-| **`context.perspective`** | **What stance** toward the task? | `fault_finding` → seek disconfirming evidence / flaws / causes |
+| **`context.stance`** | **What reasoning stance**? | `fault_finding` → seek disconfirming evidence / flaws / causes |
 | **Capability** | **Which procedure**? | `code-review` vs `debug-trace` vs `security-audit` |
 
-**Conclusion:** `FORENSIC + fault_finding` is **composable, not redundant**. Mode governs depth and gates; perspective governs adversarial vs constructive intent.
+**Conclusion:** `FORENSIC + fault_finding` is **composable, not redundant**. Mode governs depth and gates; stance governs epistemic intent.
 
 Example stack:
 
@@ -129,7 +160,7 @@ Example stack:
 invoke:
   capability: debug-trace
   context:
-    perspective: fault_finding
+    stance: fault_finding
     caller_slice: sd-implementation
 cognitive_mode:
   execution_mode: RECOVERY
@@ -140,69 +171,58 @@ cognitive_mode:
 
 ---
 
-## Perspective family taxonomy (preliminary — pending 0d)
+## Stance taxonomy (Phase 0d — conservative)
 
-### Family 1: `fault_finding` (negative evidence seeking)
+### Standardized (ADR-013 + ADR-014 draft)
 
-**Definition:** Suspend forward constructive work; prioritize disconfirming evidence, flaws, causes, or vulnerabilities.
-
-| Consumer label (NOT enum) | Capability | Artifact |
-|---|---|---|
-| Reviewer | `code-review`, `architecture-review`, `release-review` | review report |
-| Debugger | `debug-trace` | root-cause trace |
-| Auditor | `security-audit` | finding list |
-| Investigator | incident card workflow | incident card |
-
-**Anti-explosion rule:** Consumer labels (`reviewer`, `debugger`, …) live in **capability id / docs**, not in `context.perspective`.
-
-### Family 2: `constructive_build` (default forward path)
-
-**Definition:** Extend, implement, refactor, or document toward a stated objective.
-
-| Activity | Expression |
+| Value | Meaning |
 |---|---|
-| Implementation | default path |
-| Refactoring | `execution_mode: preparatory_refactoring` |
-| Documentation | `objective: author` + linked-updates |
-| Planning | `sd-intake` slice + `objective: plan` |
+| `fault_finding` | Suspend forward work; seek counter-evidence, flaws, causes, vulnerabilities |
+| `default` | Forward path (explicit or omitted); **not** a proven shared family |
 
-### Family 3: `default`
+**Anti-explosion rule:** Consumer labels (`reviewer`, `debugger`, …) live in **capability id / docs**, not in `context.stance`.
 
-Implicit when perspective omitted — forward build unless capability or slice implies otherwise.
+### Rejected / deferred
 
-**Open (P3):**是否需要獨立 `incident_investigation`？目前證據傾向 **No** — incident observe 的 timeline/authority 需求由 **`sd-incident-observation` slice + FORENSIC mode** 承載，perspective 仍為 `fault_finding`。
+| Candidate | Status |
+|---|---|
+| `constructive_build` | **Rejected** — premature "everything else" bucket |
+| `perspective: reviewer` | **Rejected** — actor label |
+| Future second family | **Deferred** — ADR-014 evidence gate |
 
 ---
 
-## Phase 0b.5 preliminary recommendation
+## Phase 0b.5 preliminary recommendation → Phase 0d final
 
-| Item | Recommendation |
-|---|---|
-| Reject `perspective: reviewer` as enum | **Yes** — recreates role labels |
-| Adopt `fault_finding` + `constructive_build` (+ `default`) | **Leaning yes** — pending stakeholder 0d sign-off |
-| Separate ADR-014 for Perspective Taxonomy | **Leaning yes** — ADR-013 owns D1/D2 gate; perspective enum boundaries deserve own ADR if accepted |
-| D2 final acceptance | **Ready for 0d** if stakeholder accepts preliminary taxonomy |
+| Item | Phase 0b.5 | Phase 0d final |
+|---|---|---|
+| Reject actor enum | Leaning yes | **Accepted** |
+| `fault_finding` | Leaning yes | **Accepted** as `stance` value |
+| `constructive_build` | Leaning yes | **Rejected** → `default` |
+| Field name | `perspective` (working) | **`stance`** |
+| ADR-014 | Leaning yes | **Proposed** |
+| ADR-013 | Working model | **Accepted** |
 
-### Draft D2 invoke envelope (post-0b.5)
+### Canonical D2 invoke envelope
 
 ```yaml
 invoke:
-  capability: code-review          # consumer-specific; NOT perspective
+  capability: code-review
   context:
-    perspective: fault_finding     # bounded enum — draft
+    stance: fault_finding
     caller_slice: sd-implementation
-    objective: optional            # refactor | plan — constructive_build family
+    objective: optional
 ```
 
 ---
 
 ## Phase 0b.5 success criteria
 
-- [x] Matrix filled with **Yes / No / Partial** for "same perspective as Review"
-- [x] **Collapse** to `fault_finding` + `constructive_build` (+ `default`) — preliminary
-- [ ] D2 invoke envelope updated in ADR-013 (still Proposed) — **draft ready, await 0d**
-- [ ] Recommendation text: **D2 working model** vs **D2 accepted** — **lean Accept D2 at 0d**
-- [ ] Decision: ADR-014 scope vs ADR-013 §amendment — **lean ADR-014 for taxonomy detail**
+- [x] Matrix filled with **Yes / No / Partial** for "same stance as Review"
+- [x] **Collapse** to `fault_finding` + `default` — Phase 0d final
+- [x] D2 invoke envelope updated in ADR-013 — **Accepted**
+- [x] ADR-014 Proposed for stance taxonomy
+- [x] Reject `constructive_build` — Phase 0d
 
 | Dimension | Coding (default) | Debugging |
 |---|---|---|
@@ -243,6 +263,4 @@ invoke:
 
 ## Relationship to Phase 1
 
-Phase 1 **may begin planning** against D2 working model (cross-cutting review capabilities + invoke hooks) **without** final `perspective` enum.
-
-Implementation must treat perspective value as **configurable / draft** until Phase 0b.5 + 0d close.
+Phase 1 **unblocked** — ADR-013 Accepted. Implement cross-cutting review capabilities + `context.stance: fault_finding` hooks. Stance enum growth remains **ADR-014** gate.
