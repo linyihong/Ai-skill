@@ -35,6 +35,7 @@
 | [ADR-006](../constitution/ADR-006-registry-first-workflow-activation.md) Registry-First Workflow Activation | Gen 3 | registry-first activation 為 workflow 進入點預設 |
 | [ADR-007](../constitution/ADR-007-constitution-and-decision-promotion-boundary.md) Constitution and Decision Promotion Boundary | Gen 3 | `constitution/` 命名 + promotion target 內容路由規則 |
 | [ADR-008](../constitution/ADR-008-runtime-cognitive-modes.md) Runtime Cognitive Modes | Gen 3 子系統擴充 | 4 維 cognitive mode primitive（execution/context/governance/memory）+ discovery + subsystem integration + token budget + adaptive triggers |
+| [ADR-013](../constitution/ADR-013-cognitive-role-primitive-gate.md) Cognitive Role Primitive Gate | Gen 3 子系統擴充候選 | **Proposed** — Review gap 觸發；評估是否引入 `cognitive_role` primitive（D1）或 capability context（D2）；accept 前不變更 workflow/runtime |
 
 新增世代時依 [`governance/lifecycle/system-upgrade-governance.md`](../governance/lifecycle/system-upgrade-governance.md) §3 規則 7 重新評估每個 ADR 的延伸狀態。
 
