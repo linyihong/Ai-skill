@@ -869,6 +869,20 @@ scenario / validator / report / diff / commit / issue）；`strength` ∈ `hard`
   （owner 未被重裁）。
 - **第一窗口判讀**：45 個新 artifact 全部自然落在既有 owner，0 relocation —— Gate 2 durability
   check 第一期**無反例**。
+- **判讀上限（maintainer, 2026-07-06）**：本指標是 **durability evidence，不是 correctness
+  evidence**——`relocation=0` 支持「boundary 穩定」，不支持「boundary 最佳」（也可能只是習慣性
+  落點 + 壓力未到）。closure 討論時不得把 stability 直接當 correctness 用。
+
+**Owner distribution**（輔助指標；不是 KPI，watch 慢漂移——即使 relocation=0，若新 artifact 開始
+過度集中單一層，仍值得注意）：
+
+| Window | runtime | enforcement | workflow | governance | validation | plans | project overlay |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| W1（06/16–06/30） | 0 | 0 | 6 | 10 | 1 | 9 | 19 |
+| W2（07/01–07/31） | ? | ? | ? | ? | ? | ? | ? |
+
+- W1 中性觀察（不下結論）：新內容集中在 governance / plans / overlay；`runtime = 0、enforcement
+  = 0`——與 D1「runtime 不擁有新 source」方向一致，但也顯示壓力尚未觸及 runtime/enforcement 層。
 
 - **new artifacts** = 該期間 Ai-skill 新落地的 plan / validator / workflow slice / scenario / rule
   （含下游 project overlay rules）。
