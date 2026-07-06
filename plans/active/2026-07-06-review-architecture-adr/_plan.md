@@ -259,12 +259,13 @@ Workflow (caller slice)
 - [x] **D2 working model** accepted provisionally
 - [ ] **D2 final acceptance** — deferred to Phase 0b.5 + 0d
 
-### Phase 0b.5 — 進行中
+### Phase 0b.5 — ✅ preliminary（待 0d sign-off）
 
-- [ ] [`02-phase0b5-perspective-taxonomy-validation.md`](02-phase0b5-perspective-taxonomy-validation.md) — 填寫 validation matrix
-- [ ] Review / Debugger / Security Audit / Incident Analysis 是否共享 `fault_finding`？
+- [x] [`02-phase0b5-perspective-taxonomy-validation.md`](02-phase0b5-perspective-taxonomy-validation.md) — validation matrix filled
+- [x] Review / Debugger / Security Audit / Incident Analysis → **collapse to `fault_finding`**
+- [ ] Stakeholder confirm：`fault_finding` + `constructive_build` enum
 - [ ] 決定：ADR-013 amendment vs 新 ADR-014（Perspective Taxonomy）
-- [ ] 更新 D2 invoke envelope（若 perspective 收斂）
+- [ ] 更新 D2 invoke envelope in ADR-013
 
 ### Phase 0d — 待進行
 

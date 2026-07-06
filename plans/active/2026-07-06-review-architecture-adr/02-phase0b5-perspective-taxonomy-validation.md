@@ -2,7 +2,7 @@
 id: 2026-07-06-review-architecture-adr-phase0b5
 parent: 2026-07-06-review-architecture-adr
 phase: 0b5
-status: in-progress
+status: complete-pending-0d
 created: 2026-07-06
 purpose: >
   Validate Perspective taxonomy before D2 final acceptance. Test whether Review,
@@ -97,21 +97,112 @@ Phase 0b.5 must **falsify or confirm** whether one or two values suffice.
 
 ---
 
-## Validation matrix (Phase 0b.5)
+## Validation matrix (Phase 0b.5) — filled
 
-| Activity | Workflow slice / path | Capability | Proposed perspective | Same as Review? | Evidence needed |
+| Activity | Workflow slice / path | Capability | Proposed perspective | Same as Review? | Evidence |
 |---|---|---|---|---|---|
-| Code review | `sd-implementation` | `code-review` | `fault_finding`? | TBD | Agent must stop coding; findings-only |
-| Architecture review | `architecture/` | `architecture-review` | `fault_finding`? | TBD | Critique fit, not build |
-| Debug / root cause | FORENSIC mode path | `debug-trace` | `fault_finding`? | **Likely yes** | Suspend forward fix; hypothesis elimination |
-| Security audit | contracts / impl | `security-audit` | `fault_finding`? | TBD | Threat / vuln seeking |
-| UI incident observe | `sd-incident-observation` | incident card | `incident_investigation`? | Partial | Evidence before classify |
-| Refactoring | `sd-implementation` | prep refactor | `constructive_build` | **No** | Counter-example — objective not perspective |
-| Documentation | closure / linked-updates | `doc-sync` | `constructive_build` | **No** | Counter-example |
+| Code review | `sd-implementation` | `code-review` | `fault_finding` | **Yes** | ADR-013 Q2：停止 feature coding；findings-only；review report artifact |
+| Architecture review | `architecture/` | `architecture-review` | `fault_finding` | **Yes** | Critique fit / risk，非 build；與 code review 同 stance、不同 capability |
+| Debug / root cause | FORENSIC / RECOVERY path | `debug-trace` | `fault_finding` | **Yes** | RECOVERY：`write_without_root_cause` forbidden；FORENSIC：lineage before action: [`cognitive-modes-phase-integration.yaml`](../../../runtime/cognitive-modes-phase-integration.yaml) |
+| Security audit | contracts / impl | `security-audit` | `fault_finding` | **Yes** | Threat / vuln seeking；review-checklist 含 security 聚焦；adversarial to design |
+| UI incident observe | `sd-incident-observation` | incident card | `fault_finding` | **Partial → Yes** | 共享「證據優先、禁止 implementation-first / root-cause guess」；artifact 是 incident card 非 findings list: [`incident-observation.md`](../../../workflow/software-delivery/incident-observation.md) |
+| Refactoring | `sd-implementation` | prep refactor | `constructive_build` | **No** | `execution_mode: preparatory_refactoring` 已足夠 — Phase 0b 反例 |
+| Documentation | closure / linked-updates | `doc-sync` | `constructive_build` | **No** | `objective: author` 已足夠 — Phase 0b 反例 |
+
+**Matrix summary:** 4/4 fault-seeking activities collapse to **`fault_finding`**; incident observe is **Partial** only at artifact shape, not cognitive stance.
 
 ---
 
-## Debugger deep-dive (why not "weak candidate" yet)
+## Orthogonality: `perspective` vs `cognitive_mode` (ADR-008)
+
+| Layer | Question | Example |
+|---|---|---|
+| **`cognitive_mode`** | **How** to execute? | FORENSIC → read full lineage, block writes until analysis complete |
+| **`context.perspective`** | **What stance** toward the task? | `fault_finding` → seek disconfirming evidence / flaws / causes |
+| **Capability** | **Which procedure**? | `code-review` vs `debug-trace` vs `security-audit` |
+
+**Conclusion:** `FORENSIC + fault_finding` is **composable, not redundant**. Mode governs depth and gates; perspective governs adversarial vs constructive intent.
+
+Example stack:
+
+```yaml
+invoke:
+  capability: debug-trace
+  context:
+    perspective: fault_finding
+    caller_slice: sd-implementation
+cognitive_mode:
+  execution_mode: RECOVERY
+  context_mode: CHECKLIST_FIRST
+  governance_mode: STRICT
+  memory_mode: FAILURE_REPLAY
+```
+
+---
+
+## Perspective family taxonomy (preliminary — pending 0d)
+
+### Family 1: `fault_finding` (negative evidence seeking)
+
+**Definition:** Suspend forward constructive work; prioritize disconfirming evidence, flaws, causes, or vulnerabilities.
+
+| Consumer label (NOT enum) | Capability | Artifact |
+|---|---|---|
+| Reviewer | `code-review`, `architecture-review`, `release-review` | review report |
+| Debugger | `debug-trace` | root-cause trace |
+| Auditor | `security-audit` | finding list |
+| Investigator | incident card workflow | incident card |
+
+**Anti-explosion rule:** Consumer labels (`reviewer`, `debugger`, …) live in **capability id / docs**, not in `context.perspective`.
+
+### Family 2: `constructive_build` (default forward path)
+
+**Definition:** Extend, implement, refactor, or document toward a stated objective.
+
+| Activity | Expression |
+|---|---|
+| Implementation | default path |
+| Refactoring | `execution_mode: preparatory_refactoring` |
+| Documentation | `objective: author` + linked-updates |
+| Planning | `sd-intake` slice + `objective: plan` |
+
+### Family 3: `default`
+
+Implicit when perspective omitted — forward build unless capability or slice implies otherwise.
+
+**Open (P3):**是否需要獨立 `incident_investigation`？目前證據傾向 **No** — incident observe 的 timeline/authority 需求由 **`sd-incident-observation` slice + FORENSIC mode** 承載，perspective 仍為 `fault_finding`。
+
+---
+
+## Phase 0b.5 preliminary recommendation
+
+| Item | Recommendation |
+|---|---|
+| Reject `perspective: reviewer` as enum | **Yes** — recreates role labels |
+| Adopt `fault_finding` + `constructive_build` (+ `default`) | **Leaning yes** — pending stakeholder 0d sign-off |
+| Separate ADR-014 for Perspective Taxonomy | **Leaning yes** — ADR-013 owns D1/D2 gate; perspective enum boundaries deserve own ADR if accepted |
+| D2 final acceptance | **Ready for 0d** if stakeholder accepts preliminary taxonomy |
+
+### Draft D2 invoke envelope (post-0b.5)
+
+```yaml
+invoke:
+  capability: code-review          # consumer-specific; NOT perspective
+  context:
+    perspective: fault_finding     # bounded enum — draft
+    caller_slice: sd-implementation
+    objective: optional            # refactor | plan — constructive_build family
+```
+
+---
+
+## Phase 0b.5 success criteria
+
+- [x] Matrix filled with **Yes / No / Partial** for "same perspective as Review"
+- [x] **Collapse** to `fault_finding` + `constructive_build` (+ `default`) — preliminary
+- [ ] D2 invoke envelope updated in ADR-013 (still Proposed) — **draft ready, await 0d**
+- [ ] Recommendation text: **D2 working model** vs **D2 accepted** — **lean Accept D2 at 0d**
+- [ ] Decision: ADR-014 scope vs ADR-013 §amendment — **lean ADR-014 for taxonomy detail**
 
 | Dimension | Coding (default) | Debugging |
 |---|---|---|

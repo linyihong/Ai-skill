@@ -42,7 +42,7 @@ ADR-013 目前足以回答 Review；**不足以**回答 Role。Phase 0b 不追�
 |---|---|---|---|---|
 | **Review** | ❌ 否（跨 slice） | △ 需 `perspective: reviewer` 才穩 | ✅ 強（停止實作、findings-only） | **Perspective 候選**；primitive 待定 |
 | **Planning** | ❌ 否（但 `sd-intake` / plans 已擁有） | ✅ `plan-drafting` + `objective: plan` | △ 有 switch，但與 intake slice **重疊** | **Capability**；不升 Role |
-| **Debugging** | ❌ 否 | △ `debug-trace` + `objective: root-cause`；`FORENSIC` mode 重疊 | △ 有 switch（停 forward fix） | **Perspective 候選 #2**；仍不足以單獨 primitive |
+| **Debugging** | ❌ 否 | △ `debug-trace` + `objective: root-cause`；`FORENSIC` mode 重疊 | △ 有 switch（停 forward fix） | **Perspective 候選 — Phase 0b.5 重開**（0b 過早 dismiss） |
 | **Architecture fit** | ❌ 否（`architecture/` slice） | ✅ fit-analysis capability | ❌ slice 已是 Architect 階段 | **Slice**；Review 用 `architecture-review` + perspective |
 | **Validation / evidence** | ❌ 否（`sd-validation` slice） | ✅ evidence-acquisition capabilities | ❌ slice 已是 Validator 階段 | **Slice**；Release review 用 perspective |
 | **Refactoring** | ❌ 否 | ✅ `implementation` + `execution_mode: preparatory_refactoring` 或 `objective: refactor` | ❌ Refactorer role **重複** execution_mode | **Capability** — **反例** |
@@ -75,7 +75,7 @@ ADR-013 目前足以回答 Review；**不足以**回答 Role。Phase 0b 不追�
 | Role 問題 | 與 **FORENSIC mode** 高度重疊 — mode 已編碼「如何查」 |
 | 與 Reviewer 相似點 | 對抗式、停止 ship、產 findings |
 | 與 Reviewer 相異點 | 常仍在改 code（fix loop）；artifact 是 trace 非 review report |
-| **結論** | **Perspective 候選 #2**；可共用 `context.perspective: adversarial` 與 reviewer，但 **不足以** 單獨建立 primitive |
+| **結論** | **Perspective 候選 — Phase 0b.5 重開**；與 Review 可能共享 `fault_finding`；**不足以** 單獨建立 Role primitive |
 
 ### 3. Refactoring（刻意反例）
 
