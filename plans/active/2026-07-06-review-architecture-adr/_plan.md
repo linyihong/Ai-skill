@@ -274,7 +274,9 @@ Workflow (caller slice)
 - [x] ADR-014 Proposed（stance taxonomy 分離）
 - [x] 保守 enum：`fault_finding | default`
 
-### Phase 1 — 進行中（Contract → Enforcement → Consumer → Dogfood）
+### Phase 1 — ✅ complete
+
+**Done definition satisfied** — Phase 1.1–1.4。
 
 **順序：** 先 Contract，再 Consumer。Review 是第一個 consumer，不是 contract owner。
 
@@ -308,10 +310,10 @@ Workflow (caller slice)
 - [x] `sd-implementation` hook → self-review.md
 - [x] execution-flow / README 導航更新
 
-#### Phase 1.4 — Dogfood（進行中）
+#### Phase 1.4 — Dogfood ✅
 
 - [x] validation scenario [`capability-stance-fault-finding-v1.yaml`](../../validation/scenarios/runtime/capability-stance-fault-finding-v1.yaml)
-- [ ] 執行 scenario + 記錄 evidence
+- [x] 執行 scenario smoke + 記錄 evidence（2026-07-06）
 
 #### Done Definition（Phase 1 完成）
 
