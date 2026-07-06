@@ -29,6 +29,10 @@ delegation:
       - anti-meaning 需表達：plan_profile **不是**「validator 類型」直覺分類，
         也不含 Ai-skill-only workflow 特性；它由 contract/dependency/execution-
         context 分類**推導**得出。
+      - （brief v2，agent dogfood 回饋補上）`introduced-by` = 01 的
+        `01-external-repo-plan-system-shared-binary.md`（plan_profile 概念起源，
+        非本 spike/03）；`owner-layer` = `validation-governance`。原 brief 未 pin
+        這兩欄 → agent 只能推斷，`introduced-by` 推成 03（錯）。
     verification:
       - 執行 `scripts/ai-skill-cli/bin/ai-skill-darwin-arm64 runtime audit`，
         確認 `glossary candidate plan_profile ... not in glossary_terms` 警告
@@ -63,8 +67,13 @@ sub-plan 03 Phase 3 的 dogfood 載體。本 spike 的 `delegation.brief` 就是
   能否完成，記 **Brief Independence Score**（見 03 §Phase 3）。
 
 ## Dogfood 結果（回填）
-- agent 路徑：<待回填 — Score + 觀察>
-- human 路徑：<待你回填 — Score + 觀察>
+- **agent 路徑：★★★★☆（2026-07-06）**。乾淨 general-purpose agent、worktree 隔離、僅餵 brief（無對話上下文）。
+  - **只讀 `context.required`（glossary 檔）本身，未讀 main plan / 未 read whole repo** → 依 Brief Independence Score 為 ★★★★☆（brief + context.required）。
+  - 內容正確:meaning/anti-meaning 直接對上 acceptance;yaml 欄位形狀、`excludes: delegation` 互倒數連結由同檔既有 `delegation` 詞條推得。
+  - **缺漏（→ brief v2 已修）**:brief 未 pin `introduced-by` / `owner-layer` → agent 推斷,`introduced-by` 推成 03（應 01）。`owner-layer` 推成 `validation-governance`（其實比 delegation 的 `plan-governance` 更準,採納）。
+  - **正向信號（capability/workflow 分層成立）**:agent 回報「brief 未提 worktree,首次 Edit 對 shared-checkout 失敗才改 worktree copy」——worktree 是 **Layer 3 tool/execution** 細節,**本就該不在 tool-neutral brief 裡**（歸 `execution.constraints` + `ai-tools/`）。agent 靠 operational discovery 處理掉,證明 brief 保持 tool-neutral 是對的,不是缺陷。
+  - **採納**:agent 產出（修正 `introduced-by`→01 後）已 land 進 canonical glossary,關閉真實 audit 缺口（`glossary candidate plan_profile` 警告消失、`runtime validate` 乾淨）→ dogfood 淨正值,非僅觀察。
+- **human 路徑：<待你回填 — Score + 觀察>**（brief 已在對話中交付你）
 
 ## 收尾
 dogfood 完成後：brief 缺漏回饋修正 03 schema/範例；本 spike 可 archive（不影響

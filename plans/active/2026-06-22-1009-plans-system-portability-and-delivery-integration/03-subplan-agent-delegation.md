@@ -138,10 +138,10 @@ delegation:
 | ★☆☆☆☆ | 需人工補充需求（brief 不構成 capability） |
 判準:human 路徑「是否一直回查 main plan」、agent 路徑「是否需 read whole repository」= 直接指向 `context.required` 寫得好不好,不是執行者問題。★★★★☆ 以上視為 brief 已形成 capability;★★★☆☆ 以下 → 回饋修正 brief/schema 後重跑。
 
-- [ ] 挑一個真實、小、可驗收的 sub-plan/task 設 `delegation.enabled: true` + 完整 brief（goal/acceptance/verification/`context.required`）。
-- [ ] **human 路徑 evidence**：**完全關掉 main plan**,只給 `delegation.brief`,另一 session 能否獨立完成 → 記 Brief Independence Score。
-- [ ] **agent 路徑 evidence**：以 Agent/Task 工具**僅餵 brief**(無對話上下文)在 worktree 執行 → 記是否只靠 brief 完成、是否被迫 read whole repo → Brief Independence Score。
-- [ ] 兩次的 Score + 缺漏 → 回饋修正 brief/`context.required`（非改 Agent）。
+- [x] 挑一個真實、小、可驗收的 sub-plan/task 設 `delegation.enabled: true` + 完整 brief → [`04-phase3-dogfood-glossary-spike.md`](04-phase3-dogfood-glossary-spike.md)（註冊 glossary `plan_profile`，真實 audit 缺口 ×46）。commit-msg delegation validator 接受此真實 brief（Phase 2 validator 首次真實 pass）。
+- [ ] **human 路徑 evidence**：**完全關掉 main plan**,只給 `delegation.brief`,另一 session 能否獨立完成 → 記 Brief Independence Score。（brief 已交付使用者;待回填）
+- [x] **agent 路徑 evidence：★★★★☆（2026-07-06）**。乾淨 agent、worktree、僅餵 brief → **只讀 `context.required`,未讀 main plan / 未 read whole repo**。產出正確、已採納 land 進 glossary（關閉真實缺口）。詳見 spike §Dogfood 結果。
+- [x] **回饋迴路（非改 Agent）**：agent 揭露 brief 未 pin `introduced-by`/`owner-layer` → 修回 spike brief v2;worktree-not-in-brief 確認為 Layer 3 concern（capability/workflow 分層成立,非缺陷）。human 缺漏待你回填後併入。
 
 ## 完成條件
 - [ ] nested `delegation` schema（`brief` capability / `execution` workflow 分層）+ brief 契約落地（Q5 resolved：4 必填 + context/constraints optional）

@@ -956,6 +956,37 @@ related-terms:
 introduced-by: plans/active/2026-06-02-1200-plan-tree-hierarchy-governance/_plan.md
 ```
 
+## plan_profile
+
+```yaml
+term: plan_profile
+status: candidate
+owner-layer: validation-governance
+meaning: >
+  The portable capability boundary of the plan-validation engine: the set of
+  plan-structure rules that should hold for ANY repository adopting the
+  canonical plan tree — unique id, parent resolution, archive ordering,
+  required-sub completion, and schema compatibility. plan_profile is what the
+  portable engine (planvalidate/engine.go) knows; it is deliberately kept
+  distinct from Ai-skill-only governance overlay (e.g. delegation), which
+  layers on top without entering the portable boundary.
+affects:
+  - scripts/ai-skill-cli/internal/app/plan_tree.go
+  - governance/lifecycle/plan-tree-hierarchy.md
+  - plans/README.md
+anti-meaning: >
+  Not the intuitive "kind of validator" bucket, and it carries no Ai-skill-only
+  workflow feature. plan_profile is DERIVED from contract / dependency /
+  execution-context classification, not asserted as a validator taxonomy; an
+  overlay capability like delegation is excluded from it precisely because it is
+  consumer-layer, not a portable plan-tree invariant.
+related-terms:
+  - { type: related_to, target: plan_tree }
+  - { type: related_to, target: plan_kind }
+  - { type: excludes, target: delegation }
+introduced-by: plans/active/2026-06-22-1009-plans-system-portability-and-delivery-integration/01-external-repo-plan-system-shared-binary.md
+```
+
 ## plan_tree
 
 ```yaml
