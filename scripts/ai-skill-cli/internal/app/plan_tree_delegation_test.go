@@ -199,3 +199,140 @@ func TestDelegation_ConsumerExclusive_NormalizedModelHasNoDelegationField(t *tes
 		}
 	}
 }
+
+// Reverse-direction lock (user Phase-2 review item 4): the CONSUMER must not
+// start understanding workflow/tool semantics. The `execution` block is workflow,
+// not validation input — so its schema is frozen to exactly {Modes, Constraints}.
+// This mechanically blocks anyone growing execution.worktree / execution.agent /
+// execution.<tool> that the validator could then interpret.
+func TestDelegation_ExecutionSchemaLockedToModesAndConstraints(t *testing.T) {
+	execField, ok := reflect.TypeOf(DelegationSpec{}).FieldByName("Execution")
+	if !ok {
+		t.Fatal("DelegationSpec has no Execution field")
+	}
+	execType := execField.Type
+	allowed := map[string]bool{"Modes": true, "Constraints": true}
+	for i := 0; i < execType.NumField(); i++ {
+		if name := execType.Field(i).Name; !allowed[name] {
+			t.Fatalf("execution schema grew field %q beyond {Modes, Constraints} — consumer must not encode tool/workflow semantics", name)
+		}
+	}
+	if execType.NumField() != 2 {
+		t.Fatalf("execution must have exactly 2 fields (Modes, Constraints), got %d", execType.NumField())
+	}
+}
+
+// Reverse-direction lock (behavioral): the validator must never interpret the
+// CONTENT of execution.constraints — it is opaque tool/adapter detail. Arbitrary,
+// tool-looking, even non-existent-path constraints must still pass; validation
+// only ever knows that an execution block exists (via modes), never what tools it
+// names.
+func TestDelegation_ConstraintsContentNeverInterpreted(t *testing.T) {
+	tmp := t.TempDir()
+	block := `delegation:
+  enabled: true
+  brief:
+    goal: g
+    acceptance: [a]
+    verification: [v]
+  execution:
+    modes: [agent]
+    constraints:
+      - worktree=/nonexistent/path
+      - requires-tool: some-tool-that-does-not-exist
+      - arbitrary garbage the validator must not parse
+`
+	subWithDelegation(t, tmp, "plans/active/c.md", block)
+	got := validatePlanTreeFrontmatter("", []string{"plans/active/c.md"}, tmp)
+	if got != "" {
+		t.Fatalf("constraints content must never be interpreted/validated, got: %s", got)
+	}
+}
+
+// stripDelegationLines removes any output line mentioning delegation — the test
+// analogue of deleting the validator's delegation branch. Non-delegation header /
+// trailer / findings contain no "delegation" token and survive untouched.
+func stripDelegationLines(s string) string {
+	if s == "" {
+		return ""
+	}
+	var kept []string
+	for _, ln := range strings.Split(s, "\n") {
+		if strings.Contains(strings.ToLower(ln), "delegation") {
+			continue
+		}
+		kept = append(kept, ln)
+	}
+	return strings.Join(kept, "\n")
+}
+
+// Capability Removal Test (the user's single merge-blocking gate): removing the
+// delegation capability must remove ONLY delegation findings and change nothing
+// else. Two identical plan sets differing solely by the delegation block:
+//   - the other three plan-tree validators (parent / archive-order / unique-id)
+//     must be byte-identical (delegation is invisible to them);
+//   - frontmatter output with delegation findings stripped must reproduce the
+//     no-delegation output exactly.
+// A shared NON-delegation finding (empty sub_plan_reason) is present in BOTH sets
+// so the header/trailer exist on both sides and the delta is purely the
+// delegation bullet — a faithful "delete the branch" simulation, not a vacuous
+// both-empty comparison. (Engine / schema-compat non-impact is covered by the
+// Consumer Exclusive locks above.)
+func TestDelegation_CapabilityRemoval_OnlyDelegationFindingsChange(t *testing.T) {
+	build := func(delegBlock string) string {
+		tmp := t.TempDir()
+		makeMain(t, tmp, "plans/active/main.md", "main-x", "draft")
+		// sub is valid EXCEPT an empty sub_plan_reason (shared non-delegation
+		// finding), plus the optional delegation block under test.
+		fm := "---\n" +
+			"id: sub-x\n" +
+			"plan_kind: sub\n" +
+			"status: draft\n" +
+			"owner: t\n" +
+			"created: 2026-06-03\n" +
+			"parent: main-x\n" +
+			"required_for_completion: true\n" +
+			"sub_plan_reason: \"\"\n" +
+			delegBlock +
+			"---"
+		makePlan(t, tmp, "plans/active/sub.md", fm)
+		return tmp
+	}
+	staged := []string{"plans/active/main.md", "plans/active/sub.md"}
+
+	// A: delegation enabled but incomplete (missing verification) -> a delegation
+	// finding on top of the shared reason finding. B: no delegation block.
+	withDeleg := "delegation:\n  enabled: true\n  brief:\n    goal: g\n    acceptance: [a]\n  execution:\n    modes: [human]\n"
+	tmpA := build(withDeleg)
+	tmpB := build("")
+
+	// The other three validators must be byte-identical across A and B.
+	for _, tc := range []struct {
+		name string
+		fn   func(string, []string, string) string
+	}{
+		{"parentReference", validatePlanTreeParentReference},
+		{"uniqueID", validatePlanTreeUniqueID},
+		{"archiveOrder", validatePlanTreeArchiveOrder},
+	} {
+		if a, b := tc.fn("", staged, tmpA), tc.fn("", staged, tmpB); a != b {
+			t.Fatalf("%s changed by delegation presence (must be invisible): A=%q B=%q", tc.name, a, b)
+		}
+	}
+
+	fa := validatePlanTreeFrontmatter("", staged, tmpA)
+	fb := validatePlanTreeFrontmatter("", staged, tmpB)
+	// Guard against a vacuous test: A must actually carry a delegation finding,
+	// and B must carry the shared non-delegation finding.
+	if !strings.Contains(strings.ToLower(fa), "delegation") {
+		t.Fatalf("expected A to contain a delegation finding, got: %q", fa)
+	}
+	if !strings.Contains(fb, "sub_plan_reason") {
+		t.Fatalf("expected B to keep the shared non-delegation finding, got: %q", fb)
+	}
+	// Removing delegation findings from A must reproduce B exactly — nothing else
+	// (parent / reason / required / header / trailer) may shift.
+	if got := stripDelegationLines(fa); got != fb {
+		t.Fatalf("removing delegation must equal the no-delegation baseline:\n  A-stripped=%q\n  B=%q", got, fb)
+	}
+}

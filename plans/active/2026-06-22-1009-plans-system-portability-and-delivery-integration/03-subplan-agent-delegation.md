@@ -110,6 +110,10 @@ delegation:
 - [x] 雙路徑 SOP 已於 Phase 1 落地（`plans/README.md` §Delegation）。
 - [x] **Runtime Execution Path**：未新增 `route.*` / generated_surface / 新 validator dispatch——僅在既有 commit-msg validator `validatePlanTreeFrontmatter` 內新增 enabled-gated 子檢查（既有 dispatch，無新 wiring），故無 `validateRuntimeTriggerWiring` 觸發面。
 
+**Phase 2 review 追加（2026-07-03，兩個反向鎖）**：
+- [x] **Reverse-direction lock（consumer 不得懂工具）**：`execution` schema 凍結為恰 `{modes, constraints}`（`TestDelegation_ExecutionSchemaLockedToModesAndConstraints` reflection),機械擋掉未來 `execution.worktree`/`execution.<tool>`;且 validator **從不解讀 `constraints` 內容**（`TestDelegation_ConstraintsContentNeverInterpreted`：任意/工具狀/不存在路徑的 constraints 仍 pass）。方向:engine 不懂 delegation ⊕ consumer 不懂 workflow/tool。
+- [x] **Capability Removal Test（可移除性證明，使用者唯一 merge gate）**：`TestDelegation_CapabilityRemoval_OnlyDelegationFindingsChange`——兩份僅差 delegation block 的 plan set,parent/archive-order/unique-id 三 validator byte-identical;frontmatter 移除 delegation 行後 == 無-delegation baseline(以共用的 non-delegation finding 保 header/trailer 兩邊都在,非空對空的 vacuous 比較)。證明:移除 delegation capability 只失去 delegation 驗證,不改任何其他 validator 語意。
+
 ### 完成條件（Phase 2）
 - [x] enabled=true ⇒ 4 必填（gate 1）
 - [x] context / constraints optional（gate 2）
@@ -117,6 +121,8 @@ delegation:
 - [x] enabled:false 明確 = 未宣告（gate 4）
 - [x] Consumer Exclusive 機械證明（gate 5，grep + reflection）
 - [x] glossary cross-repo promotion 門檻說明（gate 6）
+- [x] Reverse-direction lock：consumer 不得解讀工具/workflow（review 追加）
+- [x] Capability Removal Test：可完整移除、不影響其餘 validator（review 追加，merge gate）
 
 ## Phase 3 — Dogfood（回應 review #6：兩路徑各一次）
 - [ ] 挑一個真實 sub-plan 設 `delegation.enabled: true` + 完整 brief。
