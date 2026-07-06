@@ -101,12 +101,18 @@ workflow/cross-cutting/review/
 
 | Phase | Scope | Status |
 |---|---|---|
-| **1.1** | Contract + registry + schema — **no** review directory | **active** |
-| **1.2** | Runtime enforcement — **Warning** on missing/mismatched stance (not hard block) | planned |
+| **1.1** | Contract + registry + schema — **no** review directory | **complete** |
+| **1.2** | Runtime enforcement — **Warning** on missing/mismatched stance (not hard block) | **complete** |
 | **1.3** | `workflow/cross-cutting/review/` — first consumer only | blocked until 1.2 |
 | **1.4** | Dogfood: `code-review`, `security-audit`, `incident-analysis` share contract without review-specific runtime logic | blocked until 1.3 |
 
-### Phase 1.2 enforcement (planned)
+### Phase 1.2 enforcement
+
+CLI: `ai-skill runtime capability-invoke --capability <id> [--stance <value>]`
+
+Contract: [`runtime/capability-context.yaml`](../runtime/capability-context.yaml)
+
+Registry validation runs in `ai-skill runtime validate` (blocking if invalid).
 
 When `requires_context.stance` includes `fault_finding` but invoke omits or mismatches `context.stance`:
 

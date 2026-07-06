@@ -42,6 +42,8 @@ type runtimeOptions struct {
 	jsonOutput     bool
 	plainOutput    bool
 	positionals    []string
+	capabilityID   string
+	invokeStance   string
 }
 
 type runtimeNativeReportTarget struct {
@@ -153,11 +155,11 @@ type runtimeIndexEdge struct {
 
 func runRuntime(args []string, stdout io.Writer, stderr io.Writer) int {
 	if len(args) == 0 {
-		_, _ = fmt.Fprintln(stderr, "usage: ai-skill runtime <validate|refresh|compile|query|obligations|receipt|workflow-context|audit> [flags]")
+		_, _ = fmt.Fprintln(stderr, "usage: ai-skill runtime <validate|refresh|compile|query|obligations|receipt|workflow-context|audit|capability-invoke> [flags]")
 		return ExitInvalidUsage
 	}
 	opts := runtimeOptions{command: args[0], limit: 8}
-	if opts.command != "validate" && opts.command != "refresh" && opts.command != "compile" && opts.command != "query" && opts.command != "obligations" && opts.command != "receipt" && opts.command != "workflow-context" && opts.command != "audit" {
+	if opts.command != "validate" && opts.command != "refresh" && opts.command != "compile" && opts.command != "query" && opts.command != "obligations" && opts.command != "receipt" && opts.command != "workflow-context" && opts.command != "audit" && opts.command != "capability-invoke" {
 		_, _ = fmt.Fprintf(stderr, "unsupported runtime command: %s\n", opts.command)
 		return ExitInvalidUsage
 	}
@@ -182,6 +184,8 @@ func runRuntime(args []string, stdout io.Writer, stderr io.Writer) int {
 	fs.IntVar(&opts.limit, "limit", 8, "maximum runtime query results")
 	fs.BoolVar(&opts.jsonOutput, "json", false, "write machine-readable JSON output")
 	fs.BoolVar(&opts.plainOutput, "plain", false, "write human-readable output")
+	fs.StringVar(&opts.capabilityID, "capability", "", "capability id for capability-invoke validation")
+	fs.StringVar(&opts.invokeStance, "stance", "", "invoke context.stance for capability-invoke validation")
 	if err := fs.Parse(args[1:]); err != nil {
 		return ExitInvalidUsage
 	}
@@ -193,6 +197,9 @@ func runRuntime(args []string, stdout io.Writer, stderr io.Writer) int {
 
 	if opts.command == "audit" {
 		return runRuntimeAudit(opts, stdout, stderr)
+	}
+	if opts.command == "capability-invoke" {
+		return runRuntimeCapabilityInvoke(opts, stdout, stderr)
 	}
 
 	result := buildRuntimeResult(opts)
@@ -525,6 +532,7 @@ func buildRuntimeValidateResult(opts runtimeOptions) Result {
 	result.PlannedActions = append(result.PlannedActions, "validate SQLite canonical runtime documents")
 	result.PlannedActions = append(result.PlannedActions, "run native runtime SQLite index validation")
 	result.PlannedActions = append(result.PlannedActions, "validate routing registry activation and source-of-truth gates")
+	result.PlannedActions = append(result.PlannedActions, "validate capability registry requires_context.stance")
 	result.PlannedActions = append(result.PlannedActions, "run native knowledge runtime validation")
 	result.PlannedActions = append(result.PlannedActions, "validate shell bootstrap wrappers declare a Go CLI decision")
 
@@ -571,6 +579,15 @@ func buildRuntimeValidateResult(opts runtimeOptions) Result {
 		result.Status = "blocked"
 		result.ExitCode = ExitValidationFailed
 		result.Error = &CommandError{Code: "knowledge_runtime_native_failed", Message: knowledgeRuntimeCheck.Message, Remediation: "Fix knowledge runtime sources or generated reports."}
+		return result
+	}
+
+	capabilityRegistryCheck := nativeCapabilityRegistryValidation(repo)
+	result.Checks = append(result.Checks, capabilityRegistryCheck)
+	if capabilityRegistryCheck.Status != "ok" {
+		result.Status = "blocked"
+		result.ExitCode = ExitValidationFailed
+		result.Error = &CommandError{Code: "capability_registry_failed", Message: capabilityRegistryCheck.Message, Remediation: "Fix knowledge/runtime/capability-registry.yaml per metadata/capability-context-schema.md."}
 		return result
 	}
 

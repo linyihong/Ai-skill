@@ -33,8 +33,8 @@ func TestRuntimeValidateDryRunPlansValidators(t *testing.T) {
 	if result.Command != "runtime validate" || result.Mode != "dry_run" {
 		t.Fatalf("unexpected result identity: %#v", result)
 	}
-	if len(result.PlannedActions) != 7 {
-		t.Fatalf("expected seven planned validators, got %#v", result.PlannedActions)
+	if len(result.PlannedActions) != 8 {
+		t.Fatalf("expected eight planned validators, got %#v", result.PlannedActions)
 	}
 	if len(result.Mutations) != 0 {
 		t.Fatalf("runtime validate dry-run must not mutate, got %#v", result.Mutations)

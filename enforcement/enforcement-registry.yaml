@@ -649,6 +649,41 @@ rule_classes:
       regression_exists: partial
       runtime_observed: pending
 
+  - id: capability_context_governance
+    coverage: mechanical
+    source_files:
+      - runtime/capability-context.yaml
+      - knowledge/runtime/capability-registry.yaml
+      - governance/cognitive-stance.md
+    executors:
+      - file: scripts/ai-skill-cli/internal/app/runtime.go
+        symbol: buildRuntimeValidateResult
+        executor_kind: runtime_validator
+        block_or_warn: block
+        notes: "dispatches nativeCapabilityRegistryValidation"
+      - file: scripts/ai-skill-cli/internal/app/capability_context.go
+        symbol: nativeCapabilityRegistryValidation
+        executor_kind: runtime_validator
+        block_or_warn: block
+      - file: scripts/ai-skill-cli/internal/app/capability_context.go
+        symbol: runRuntimeCapabilityInvoke
+        executor_kind: runtime_cli_subcommand
+        block_or_warn: warn
+        notes: "Phase 1.2 invoke stance warnings; exit 0"
+      - file: scripts/ai-skill-cli/internal/app/capability_context.go
+        symbol: validateCapabilityInvoke
+        executor_kind: runtime_validator
+        block_or_warn: warn
+    rationale: |
+      ADR-013 D2 capability context.stance contract: registry structural
+      validation blocks runtime validate; invoke missing/mismatched stance
+      warns only in Phase 1.2.
+    verification_status:
+      symbol_exists: ✓
+      scenario_exists: partial
+      regression_exists: partial
+      runtime_observed: pending
+
   - id: plan_governance
     coverage: mechanical
     source_files:

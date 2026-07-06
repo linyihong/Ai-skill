@@ -286,17 +286,22 @@ Workflow (caller slice)
 | Capability metadata schema | [`metadata/capability-context-schema.md`](../../metadata/capability-context-schema.md) |
 | Capability registry（`requires_context.stance`） | [`knowledge/runtime/capability-registry.yaml`](../../knowledge/runtime/capability-registry.yaml) |
 
-- 僅 `fault_finding` 標準化；**不**建 `cross-cutting/review/`
-- Dogfood trio 已登記 metadata：`code-review`、`security-audit`、`incident-analysis`
+#### Phase 1.2 — Runtime Enforcement ✅
 
-#### Phase 1.2 — Runtime Enforcement（待做）
+| 交付 | 路徑 / 指令 |
+|---|---|
+| Executable enforcement contract | [`runtime/capability-context.yaml`](../../runtime/capability-context.yaml) |
+| Registry validate（blocking） | `ai-skill runtime validate` → check `capability_registry` |
+| Invoke validate（warning, exit 0） | `ai-skill runtime capability-invoke --capability <id> [--stance <v>]` |
+| Go implementation | `scripts/ai-skill-cli/internal/app/capability_context.go` |
 
 | 行為 | Phase 1 決策 |
 |---|---|
 | 缺少 `stance` | **Warning**（不 auto-fill、不 hard block） |
 | `stance` 與 `requires_context` 不符 | **Warning** |
+| registry 結構無效 | **Error**（阻擋 runtime validate） |
 
-#### Phase 1.3 — Consumer（待 1.2）
+#### Phase 1.3 — Consumer（待做）
 
 - `workflow/cross-cutting/review/` — **第一個 consumer**，不擁有 stance 契約
 
@@ -317,7 +322,6 @@ Workflow (caller slice)
 
 | 項目 | 路徑 |
 |---|---|
-| 待做 1.2 | runtime stance validation（Warning） |
 | 待做 1.3 | `workflow/cross-cutting/review/` |
 | 待做 1.4 | 三 capability dogfood scenario |
 | 遷移 | `review-checklist.md` → cross-cutting（1.3+） |

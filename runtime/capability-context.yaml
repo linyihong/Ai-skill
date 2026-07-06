@@ -1,0 +1,56 @@
+schema_version: "1.0"
+id: runtime.capability-context
+status: active
+owner_layer: runtime
+source_markdown: governance/cognitive-stance.md
+
+runtime_projection:
+  enabled: true
+  target_key: runtime.capability_context.contract
+  surface: generated_surfaces
+
+purpose: >
+  Phase 1.2 executable contract for capability invoke context enforcement.
+  Registry source: knowledge/runtime/capability-registry.yaml. Validates
+  requires_context.stance at invoke time; registry structural validation at
+  runtime validate.
+
+activation:
+  applies_when:
+    - capability invoke envelope is prepared
+    - ai-skill runtime validate runs
+  first_read_required: knowledge/runtime/capability-registry.yaml
+  companion_read_required: governance/cognitive-stance.md
+
+registry:
+  path: knowledge/runtime/capability-registry.yaml
+  contract: metadata/capability-context-schema.md
+
+invoke_enforcement:
+  phase: "1.2"
+  missing_stance:
+    severity: warning
+    auto_fill: false
+    fallback_default: false
+    message: >
+      Capability requires context.stance but invoke omitted it or used default.
+      Phase 1: warning only — do not auto-fill fault_finding.
+  mismatched_stance:
+    severity: warning
+    message: >
+      invoke context.stance is not in capability requires_context.stance list.
+  unknown_capability:
+    severity: warning
+    message: >
+      Capability id not found in capability-registry.yaml.
+  registry_invalid:
+    severity: error
+    message: >
+      capability-registry.yaml failed structural validation — blocks runtime validate.
+
+cli:
+  command: ai-skill runtime capability-invoke
+  flags:
+    - --capability
+    - --stance
+  exit_on_warning: false
