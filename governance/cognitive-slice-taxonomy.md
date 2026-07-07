@@ -96,6 +96,27 @@ slice 最小單位 = **能獨立完成一個 cognitive phase**（非 step、非 
 
 ---
 
+## 7.6 Cross-cutting consumers（非 lifecycle slice — ADR-013）
+
+> **不擴張 ADR-009 四型 primary type。** Cross-cutting consumer 是 **invoke 邊界上的 loading surface**，不是 `execution` / `evidence` / `examples` / `failure` slice。Workflow 只 invoke capability；consumer 載入 procedure bodies（checklist、self-review hook）。
+
+| id | surface type | owner | canonical_source | load_when | do_not_load_when |
+|---|---|---|---|---|---|
+| `cross-cutting/review` | **consumer** | `workflow/cross-cutting/review/` | [`review/README.md`](../workflow/cross-cutting/review/README.md) | post-implementation review invoke、security/contract/architecture/release review invoke | evidence-only；尚未 implementation |
+
+**Governance rules（Drift Lock）：**
+
+- **不新增** `sd-review` lifecycle slice — Review 是 capability invoke，不是 workflow phase
+- Consumer **不得** 私有定義 `requires_context.stance` — contract owner 是 [`governance/cognitive-stance.md`](cognitive-stance.md) + [`capability-registry.yaml`](../knowledge/runtime/capability-registry.yaml)
+- Workflow **不得** branch on `context.stance` — 只 invoke capability id
+- Thin lifecycle：`Implementation → invoke review capability → Validation`（[`execution-flow.md`](../workflow/software-delivery/execution-flow.md)）
+
+**layer_justification**：cross-cutting consumer 規定 *when* 載入 invoke hook 與 checklist bodies，不承載 stance contract 或 runtime enforcement。通過 workflow membership test 的 **invoke boundary** 描述，但不是 ADR-009 cognitive slice。
+
+**Related**：[`ADR-013`](../constitution/ADR-013-cognitive-role-primitive-gate.md) · [`governance/cognitive-stance.md`](cognitive-stance.md) · [`plans/active/2026-07-06-review-architecture-adr/_plan.md`](../plans/active/2026-07-06-review-architecture-adr/_plan.md) Phase 2.2
+
+---
+
 ## 7.5 APK-analysis artifact-gates pilot slice 盤點（second pilot，Phase 1 of follow-up plan 2026-05-30-2200）
 
 > 套用既有 taxonomy（§1 schema / §2 type+tags / §3 granularity / §4 三層 + placement / §5 examples suppression）。本 pilot **不引入新 type / 新規則**，僅應用驗證過的框架。所有 slice 留在既有 `workflow/apk-analysis/artifact-gates/` 子目錄（thin-index 旁的同層子資料夾，不新增 `slices/` 抽象層）。`dependency_budget` 全採 default 2/4；APK analysis 任務本身 high-complexity，但**單一 slice 載入**不會吃滿 budget。`canonical_source` 為 Phase 2 拆檔前在 `artifact-gates.md` 內的 heading 範圍對映。

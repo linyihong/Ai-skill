@@ -1,0 +1,48 @@
+# yaml-language-server: $schema=../../scenario.schema.json
+# Documentation drift lock — Phase 2.2
+# Navigation canon must not reintroduce review-as-workflow-phase language.
+# Source: plans/active/2026-07-06-review-architecture-adr/_plan.md Phase 2.2
+
+id: capability-stance-doc-drift-v1
+domain: runtime
+type: heuristic-obedience
+priority: P1
+source_plan: plans/active/2026-07-06-review-architecture-adr/_plan.md
+
+given:
+  task: navigation_canon_describes_review_as_capability_invoke_only
+  navigation_canon:
+    - workflow/software-delivery/execution-flow.md
+    - workflow/software-delivery/README.md
+    - governance/cognitive-slice-taxonomy.md
+    - knowledge/runtime/routing-registry.yaml
+  forbidden_drift_phrases:
+    - review phase
+    - review workflow
+    - review slice
+    - sd-review
+
+when:
+  action: run_documentation_drift_regression
+
+then:
+  expected_route:
+    primary: navigation_canon_passes_drift_scan
+    steps:
+      - ai-skill runtime validate includes review_architecture_doc_drift check
+      - navigation canon files contain invoke/capability language not workflow-phase language
+  forbidden_routes:
+    - review_as_workflow_phase_in_navigation
+    - sd_review_lifecycle_slice_promotion
+    - consumer_defines_stance_in_readme
+  detection_command: |
+    cd scripts/ai-skill-cli && go test ./internal/app/ -run 'TestNativeReviewArchitectureDocDriftValidationCanonOK|TestDocumentationRegressionFourCaseDriftPatterns' -count=1
+    go run ./cmd/ai-skill runtime validate --repo ../..
+  verification:
+    - "Documentation Drift Lock protects navigation layer independent of review consumer bodies."
+    - "Negation lines (Reject sd-review) remain allowed."
+
+evidence:
+  executed_on: 2026-07-07
+  executor: agent_regression
+  results: runtime validate review_architecture_doc_drift ok; go test doc drift pass

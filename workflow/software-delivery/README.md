@@ -11,7 +11,7 @@
 2. 依 task intent 載入需要的 execution surface：[`intake.md`](intake.md)、[`incident-observation.md`](incident-observation.md)、[`ui-incident-governance-workflow.md`](ui-incident-governance-workflow.md)、[`layer-ownership-matrix.md`](layer-ownership-matrix.md)、[`change-retrospective.md`](change-retrospective.md)、[`contracts.md`](contracts.md)、[`ui-contracts.md`](ui-contracts.md)、[`ui-governance.md`](ui-governance.md)、[`test-strategy.md`](test-strategy.md)、[`validation.md`](validation.md)、[`closure.md`](closure.md)、[`surgical-changes.md`](surgical-changes.md)
 3. 依流程的 Start From Evidence / Change Intake 開始；新需求、重構、parity、缺失資訊或既有專案回填時載入 [`intake.md`](intake.md)
 4. 需要 artifact 規範時參考 [`artifact-gates.md`](artifact-gates.md)
-5. 需要審查時載入 [`workflow/cross-cutting/review/`](../../cross-cutting/review/README.md)（self-review、invocation points、checklist）；舊路徑 [`review-checklist.md`](review-checklist.md) 為轉址 stub
+5. Post-implementation review：invoke capability（見下方 §Review invoke）— 不是 lifecycle slice
 6. 需要完整開發流程 overview 或 embedded / producer-consumer fallback 時參考 [`development-process.md`](development-process.md)
 7. 需要前端、行動、CLI、SDK 或其他 consumer surface 的 Screen Mapping、Consumer / UI Behavior / Screen / ViewModel Contract 或 Screen Traceability 時參考 [`ui-contracts.md`](ui-contracts.md)
 8. 需要 UI compliance、design-system enforcement、accessibility evidence、behavior pattern checks、visual baseline review 或 AI visual review scoping 時參考 [`ui-governance.md`](ui-governance.md)；responsive taxonomy / authority / severity 本體引用 [`responsive-ui`](../../intelligence/engineering/governance/responsive-ui/README.md)
@@ -21,6 +21,88 @@
 12. PR 觸動效能敏感路徑或含 AI 生成程式碼時，執行 [`perf-risk-gate.md`](perf-risk-gate.md) 的 5 步檢查（靜態 anti-pattern scan、L1 smoke 或 hot-path micro-benchmark、reviewer perf checklist、pre-deploy observability gate、canary rollout）；L0–L2 delivery model 見 [`perf-governance.md`](perf-governance.md)
 13. 當成功訊號可能不同於真實系統狀態時，載入 validation reasoning：[`state-visibility-gap.md`](../../intelligence/engineering/execution/validation-reasoning/state-visibility-gap.md)、[`evidence-model.md`](../../intelligence/engineering/execution/validation-reasoning/evidence-model.md)、[`evidence-chain-validation.md`](../../intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md)、[`evidence-depth.md`](../../intelligence/engineering/execution/validation-reasoning/evidence-depth.md)
 14. UI / consumer incident（Navigation / Continuation / Recovery 或 modification layer 未決）時：先 [`incident-observation.md`](incident-observation.md) → [`ui-incident-governance-workflow.md`](ui-incident-governance-workflow.md) + [`layer-ownership-matrix.md`](layer-ownership-matrix.md) → governance gate [`software-delivery-governance.md`](../../governance/ai-runtime-governance/software-delivery-governance.md) §Incident *；Ship 後 [`change-retrospective.md`](change-retrospective.md)
+
+## Review invoke（ADR-013 — 導航層說明）
+
+**Review 不是 Workflow Phase，也不是 lifecycle slice。** 它是 **capability invoke** — workflow 只決定 *when* 與 *which capability*；stance 需求由 capability registry 宣告；runtime 驗證 invoke envelope。
+
+### 五層責任（Runtime Contract 為 canonical）
+
+```text
+Runtime Contract (governance/cognitive-stance.md)
+  ↑
+Capability Metadata (capability-registry.yaml — requires_context.stance)
+  ↑
+Execution Flow (thin — invoke boundary only)
+  ↑
+README (why / what / when / examples — 本節)
+  ↑
+Taxonomy (cross-cutting consumer — 非 sd-review)
+```
+
+### Review 是什麼？
+
+| 問題 | 答案 |
+|---|---|
+| Review 是什麼？ | **Invoke a capability**（例如 `code-review`） |
+| Stance 從哪來？ | `requires_context.stance` in [`capability-registry.yaml`](../../knowledge/runtime/capability-registry.yaml) |
+| 標準非 default stance | `fault_finding`（ADR-014） |
+| Workflow 能做什麼？ | 決定 **when** invoke、**which** capability id |
+| Workflow 不能做什麼？ | `if stance == fault_finding` 分支；私有定義 stance contract |
+
+### Why invoke?
+
+- **Cognitive separation**：實作後切換到 fault-finding 程序，但不引入 `cognitive_role` primitive
+- **Reuse**：`code-review`、`security-audit`、`incident-analysis` 共用同一 invoke contract
+- **Discoverability**：caller slice 在 Implementation 後 invoke，Validation 前
+
+### What capability?
+
+| Review 類型 | Capability id | Typical caller | Stance（registry） |
+|---|---|---|---|
+| Code | `code-review` | `sd-implementation` | `fault_finding` |
+| Security | `security-audit` | `sd-contracts`, `sd-implementation` | `fault_finding` |
+| Incident | `incident-analysis` | `sd-incident-observation` | `fault_finding` |
+| Architecture | `architecture-review` | `architecture/` | `fault_finding`（draft） |
+| Contract | `contract-review` | `sd-contracts` | `fault_finding`（draft） |
+| Release | `release-review` | `sd-validation`, `sd-closure` | `fault_finding`（draft） |
+
+完整對照：[`cross-cutting/review/invocation-points.md`](../../cross-cutting/review/invocation-points.md)
+
+### When should invoke?
+
+| 時機 | Invoke |
+|---|---|
+| Post-implementation（Validation 前） | `code-review` |
+| Contract / security 敏感變更 | `security-audit` 或 `contract-review` |
+| 未知 incident observable | `incident-analysis` |
+| Pre-release / merge readiness | `release-review` |
+
+Consumer 入口：[`workflow/cross-cutting/review/`](../../cross-cutting/review/README.md)（checklist、self-review hook — **consumer only**，不擁有 stance contract）
+
+### Example invoke envelope
+
+```yaml
+invoke:
+  capability: code-review
+  context:
+    stance: fault_finding
+    caller_slice: sd-implementation
+```
+
+Validate（Phase 1.2 — warning only, exit 0）：
+
+```bash
+ai-skill runtime capability-invoke --capability code-review --stance fault_finding
+```
+
+### 舊模型（已否決 — 勿 drift）
+
+- ~~`sd-review` lifecycle slice~~ → **Reject**（ADR-013 Option A）
+- ~~Review as Workflow Phase~~ → workflow 只 invoke capability
+- ~~Consumer 私有定義 stance~~ → capability registry owns contract
+
+Contract owner：[`governance/cognitive-stance.md`](../../governance/cognitive-stance.md) · ADR：[`ADR-013`](../../constitution/ADR-013-cognitive-role-primitive-gate.md)
 
 ## Scope
 
@@ -37,15 +119,20 @@
 - **Evidence-Oriented Validation**：當 API/adapter/UI 成功訊號不足以證明 persisted、external、identity-specific 或 user-observable state 時，依 engineering validation reasoning 建立 evidence chain、選擇 evidence depth，必要時要求 live system proof 與 independent observation。Critical journey validation 使用 BDD-owned Journey Specification，並在 validation layer 驗證 side-effect chain、expected outcomes 與 observable evidence。
 - **Refactor / Replacement Parity**：當新入口、平台遷移、工具改寫或架構重組要取代舊能力時，先建立新舊能力 parity inventory，逐項列出舊入口、現有能力、副作用、外部依賴、新入口、parity 狀態與測試證據。
 
-### 審查類型
+### 審查類型 → Capability invoke（非 lifecycle slice）
 
-- **Design Review**：在實作前審查設計文件、API contract 與架構決策。
-- **Architecture Review**：審查 architecture fit、DDD adoption、bounded context、overengineering 與 minimality。
-- **Code Review**：審查實作程式碼的正確性、安全性與效能。
-- **Release Review**：審查 release 前的準備狀態（build、signing、provisioning）。
-- **Security Review**：審查授權、認證、資料儲存與傳輸安全。
-- **Contract Governance Review**：審查 API contract 的相容性與版本管理。
-- **Embedded Firmware Review**：審查韌體/硬體相關實作。
+審查不是 workflow phase。下表映射 **review 類型 → capability id**；invoke 細節見 §Review invoke。
+
+| 類型 | Capability | When invoke |
+|---|---|---|
+| Design / Contract | `contract-review` | 實作前 contract / API 穩定後 |
+| Architecture | `architecture-review` | architecture fit 決策後 |
+| Code | `code-review` | post-implementation、validation 前 |
+| Security | `security-audit` | contract 或 implementation 安全敏感變更 |
+| Release | `release-review` | validation / closure 前 |
+| Embedded / Firmware | `code-review` + domain checklist | 同 code review invoke + checklist bodies |
+
+Checklist bodies：[`cross-cutting/review/checklist.md`](../../cross-cutting/review/checklist.md) · 舊路徑 [`review-checklist.md`](review-checklist.md) 為 stub
 
 ## 核心原則
 
@@ -99,52 +186,35 @@
 | [`review-checklist.md`](review-checklist.md) | `skills/app-development-guidance/checklists/`（已刪除） | 6 種審查 checklist 的 catalog（Mobile Design Review、Mobile PR Review、Mobile Release Review、API Security Review、Contract Governance Review、Embedded Firmware Review） |
 | [`development-process.md`](development-process.md) | `skills/app-development-guidance/process/README.md`（已刪除） | Contract-first 開發流程：Default Flow、Required Contracts、Product Brief Validation Gate、Change Intake Gate、Contract Governance Gate、Traceability Gate、BDD Execution Closure、Test Strategy Gate、Embedded/Hardware Flow、Missing Information Gate、Existing Project Documentation Backfill、Contract-First Rules、Definition of Ready/Done |
 
-## 建議 Workflow 流程
+## 建議 invoke 流程（capability-centric）
 
-### Design Review Flow
-
-```
-1. 確認審查範圍（新功能 / 架構變更 / API 變更）。
-2. 讀取設計文件或 RFC。
-3. 檢查設計是否涵蓋：
-   ├─ Pre-build interrogation：goal、scope、non-goals、acceptance、framework source-of-truth、duplication risk。
-   ├─ Requirements cognition：actor intent、behavior boundary、acceptance criteria、ambiguity disposition。
-   ├─ API contract（request/response 格式、錯誤處理）。
-   ├─ Domain / architecture fit：bounded context、invariant、consistency boundary、CRUD / DDD Lite / Full DDD decision。
-   ├─ 資料模型與儲存方案。
-   ├─ 安全考量（授權、認證、資料保護）。
-   └─ Validation target 與測試策略（BDD-lite、單元測試、合約測試、整合測試、E2E 測試）。
-4. 對每個項目給出 verdict：approve / approve-with-comments / changes-requested。
-5. 記錄所有 finding 與 decision。
-```
-
-### Code Review Flow
+### Post-implementation code review
 
 ```
-1. 確認 review 範圍（PR diff / 特定檔案 / 完整功能）。
-2. 讀取 diff，檢查：
-   ├─ 邏輯正確性。
-   ├─ 邊界條件處理。
-   ├─ 錯誤處理與復原。
-   ├─ 安全性（注入、授權缺失、敏感資料暴露）。
-   ├─ 效能（不必要的迴圈、過度查詢、記憶體洩漏）。
-   └─ 程式碼風格與可讀性。
-3. 對每個 finding 標記 severity：blocker / major / minor / nit。
-4. 提供具體的修改建議（不只是「這有問題」，而是「建議改成 X」）。
-5. 確認所有 blocker 與 major finding 被解決後 approve。
+1. Implementation 完成（tests green、same-session closure 進行中）。
+2. invoke: capability code-review, context.caller_slice sd-implementation.
+3. Runtime 依 registry 驗證 requires_context.stance（fault_finding）。
+4. Consumer 載入 checklist bodies（cross-cutting/review/checklist.md）。
+5. 產出 review report artifact → 進入 Validation。
 ```
 
-### Release Review Flow
+### Pre-release review
 
 ```
-1. 確認 release 版本號與 changelog。
-2. 檢查 build 狀態（CI/CD pipeline 是否通過）。
-3. 檢查 signing 與 provisioning（iOS code signing、Android keystore）。
-4. 檢查相依套件版本（無已知漏洞的版本）。
-5. 檢查 release note 是否完整（新功能、修復、已知問題）。
-6. 確認 rollback 計畫。
-7. 給出 release verdict：go / go-with-caveats / block。
+1. Validation evidence 就緒。
+2. invoke: capability release-review, context.caller_slice sd-validation.
+3. 確認 build / signing / rollback plan → closure。
 ```
+
+### Design / contract review（pre-implementation）
+
+```
+1. Contract / architecture artifacts 就緒。
+2. invoke: capability contract-review 或 architecture-review.
+3. Findings actionable → 回到 contracts / implementation。
+```
+
+細節 checklist 與 report 模板在 consumer 層 — execution-flow 不載入。
 
 ## 產出格式
 

@@ -591,6 +591,15 @@ func buildRuntimeValidateResult(opts runtimeOptions) Result {
 		return result
 	}
 
+	docDriftCheck := nativeReviewArchitectureDocDriftValidation(repo)
+	result.Checks = append(result.Checks, docDriftCheck)
+	if docDriftCheck.Status != "ok" {
+		result.Status = "blocked"
+		result.ExitCode = ExitValidationFailed
+		result.Error = &CommandError{Code: "review_architecture_doc_drift_failed", Message: docDriftCheck.Message, Remediation: "Navigation canon must describe review as capability invoke only. See governance/cognitive-stance.md and ADR-013."}
+		return result
+	}
+
 	shellBootstrapCheck := nativeToolBootstrapShellCLIDecisionValidation(repo)
 	result.Checks = append(result.Checks, shellBootstrapCheck)
 	if shellBootstrapCheck.Status != "ok" {

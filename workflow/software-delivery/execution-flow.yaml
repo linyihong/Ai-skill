@@ -120,6 +120,17 @@ loading_surfaces:
       - code change in implementation phase; feature blocked by structure; execution_mode selection, Change Intent Lock, or structure preparation needed
     do_not_load_when:
       - pure intake, contract-only, validation-only, or evidence-only analysis; replacement or migration parity inventory work
+  review_invocation:
+    source: workflow/cross-cutting/review/self-review.md
+    load_when:
+      - post-implementation review invoke is needed before validation
+    do_not_load_when:
+      - implementation has not completed or task is evidence-only analysis
+    invoke:
+      capability: code-review
+      note: >
+        Workflow invokes capability only. Stance requirement (fault_finding) comes
+        from capability-registry.yaml; do not branch on stance in workflow steps.
   examples:
     source: workflow/software-delivery/examples/EXAMPLES.md
     default_load: false
@@ -193,13 +204,22 @@ steps:
     action: Load the test-strategy surface, then define old behavior regression, new behavior proof, BDD-owned Journey Specification when a multi-step user outcome is in scope, mutation/negative checks, persistence/integration tests, state visibility evidence chain, and hardware/performance evidence when relevant.
     gates:
       - gate.software_delivery.validation_target_defined
-  - id: run_performance_gate
+  - id: invoke_review_capability
     order: 10
+    action: After implementation, invoke the registered review capability via cross-cutting consumer (e.g. code-review). Workflow declares when to invoke — not context.stance branching; capability registry declares requires_context.
+    required_if:
+      - observable_behavior_change
+      - code_change_in_implementation_phase
+    invoke:
+      capability: code-review
+      consumer: workflow/cross-cutting/review/self-review.md
+  - id: run_performance_gate
+    order: 11
     action: Load the validation surface for performance-sensitive changes, then define latency, throughput, error-rate, and resource budgets plus load/stress/spike/soak evidence.
     required_if:
       - performance_sensitive_change_detected
   - id: validate_and_close
-    order: 11
+    order: 12
     action: Load validation and closure surfaces as needed, acquire evidence, run validation at the required evidence depth, validate critical journey execution against expected outcomes when applicable, check blockers, update durable docs, feed reusable lessons when appropriate, and report scope honestly.
     gates:
       - gate.software_delivery.validation_complete

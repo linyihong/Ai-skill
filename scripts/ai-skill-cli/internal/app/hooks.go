@@ -309,6 +309,24 @@ func runPreCommitHook(result Result, root string) Result {
 		result.Checks = append(result.Checks, Check{Name: "sanitization_incident_score", Status: "warning", Message: msg})
 	}
 
+	msgPath := filepath.Join(root, ".git", "COMMIT_EDITMSG")
+	commitMsg := ""
+	if data, err := os.ReadFile(msgPath); err == nil {
+		commitMsg = string(data)
+	}
+	if !reviewArchitectureDocDriftOptOut(commitMsg) {
+		if msg := validateReviewArchitectureNavigationDriftStaged(root, staged); msg != "" {
+			result.Status = "blocked"
+			result.ExitCode = ExitValidationFailed
+			result.Error = &CommandError{
+				Code:        "review_architecture_doc_drift_failed",
+				Message:     msg,
+				Remediation: "Describe review as capability invoke (ADR-013). Remove review phase/workflow/slice language from navigation canon. Opt-out: [skip-review-architecture-doc-drift] on its own line in commit message.",
+			}
+			return result
+		}
+	}
+
 	if len(result.Mutations) == 0 {
 		result.Checks = append(result.Checks, Check{Name: "pre_commit", Status: "ok", Message: "no runtime or knowledge hook action required"})
 	}

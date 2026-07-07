@@ -674,10 +674,20 @@ rule_classes:
         symbol: validateCapabilityInvoke
         executor_kind: runtime_validator
         block_or_warn: warn
+      - file: scripts/ai-skill-cli/internal/app/documentation_drift.go
+        symbol: nativeReviewArchitectureDocDriftValidation
+        executor_kind: runtime_validator
+        block_or_warn: block
+      - file: scripts/ai-skill-cli/internal/app/documentation_drift.go
+        symbol: validateReviewArchitectureNavigationDriftStaged
+        executor_kind: pre_commit_validator
+        block_or_warn: block
+        notes: "Phase 2.2 navigation canon drift lock on staged navigation files"
     rationale: |
       ADR-013 D2 capability context.stance contract: registry structural
       validation blocks runtime validate; invoke missing/mismatched stance
-      warns only in Phase 1.2.
+      warns only in Phase 1.2. Phase 2.2 adds navigation Documentation
+      Drift Lock — review phase/workflow/slice language forbidden in canon.
     verification_status:
       symbol_exists: ✓
       scenario_exists: partial

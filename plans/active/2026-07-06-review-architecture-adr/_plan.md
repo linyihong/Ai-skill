@@ -346,10 +346,11 @@ Workflow (caller slice)
 
 **驗收 ✅ 2026-07-07：** `runtime validate` + 四 case regression pass。
 
-#### Phase 2.2 — Workflow 一致性（待 2.1）
+#### Phase 2.2 — Workflow / Navigation 一致性（Documentation Drift Lock）✅
 
-- `execution-flow.md` / `execution-flow.yaml` 對齊 invoke 模型
-- `README.md`、cognitive-slice-taxonomy 導航更新
+**完成條件（一句話）：** 所有導航層（execution-flow、README、taxonomy）均**僅描述 Runtime Contract**，不得重新定義 Capability Context、Workflow 或 Consumer 的責任邊界。
+
+**驗收 ✅ 2026-07-07：** thin execution-flow + fat README §Review invoke + taxonomy §7.6 consumer + `review_architecture_doc_drift` regression。
 
 #### Phase 2.3 — Consumer 清理（待 2.2）
 

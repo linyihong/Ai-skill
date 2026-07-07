@@ -12,6 +12,8 @@ Software-delivery 的 AI runtime gate 見 [`software-delivery-governance.md`](..
 >
 > 本檔是 software-delivery **execution-order lifecycle** 的 canonical 入口。Slice taxonomy 見 [`governance/cognitive-slice-taxonomy.md`](../../governance/cognitive-slice-taxonomy.md) §7。依 task intent 載入對應段落 / slice，不需整份載入：
 >
+> **Thin lifecycle（invoke-only）：** Intake → … → Implementation → **invoke review capability** → Validation → Closure。Review 不是 lifecycle slice；execution-flow 只記 invoke 邊界，不載 checklist / report / governance 細節（見 [`README.md`](README.md) §Review invoke）。
+>
 > | 認知階段（cognitive phase） | 本檔對應段落 | slice id | load_when |
 > |---|---|---|---|
 > | Intake（需求接收 / parity） | **已抽出** → [`intake.md`](intake.md)（含 Start From Evidence、Change Intake、Pre-build Interrogation、**Plan-First Ordering（advisory：實作前先有 plan artifact，loop 非線性）**、Requirements Cognition、Parity Gate、Product Brief Validation、Missing Information、Backfill） | `sd-intake` | 接收新需求 / 變更 / 重構意圖 |
@@ -21,7 +23,8 @@ Software-delivery 的 AI runtime gate 見 [`software-delivery-governance.md`](..
 > | Test strategy（測試策略 / BDD） | **已抽出** → [`test-strategy.md`](test-strategy.md)（含 BDD Closure / Journey Specification / Docs-First Loop / Test Strategy Gate / Mutation / Test-First Ordering） | `sd-test-strategy` | 定義測試策略 / BDD 閉環 / Journey Specification |
 > | UI contracts（Screen Mapping / Consumer / Screen / ViewModel） | **已抽出** → [`ui-contracts.md`](ui-contracts.md)（含 Screen Mapping、Consumer Contract、UI Behavior Contract、Screen Contract、Frontend ViewModel Contract、Accessibility Contract、Screen Traceability） | `sd-ui-contracts` | 前端、行動、CLI、SDK 或其他 consumer surface 需要平行實作或 AI 生成 UI / state / tests |
 > | UI governance（UI compliance / design system / evidence） | **已抽出** → [`ui-governance.md`](ui-governance.md)（含 governance domain、render context、validation mechanism、evidence class、severity policy、project-local design-system boundary） | `sd-ui-governance` | UI / consumer surface 需要 design-system enforcement、accessibility evidence、responsive evidence、behavior pattern checks、visual baseline review、AI visual review scoping 或 UI compliance completion claim |
-> | Implementation（執行核心） | [`implementation/`](implementation/README.md)（[`execution-modes.md`](implementation/execution-modes.md)）+ [`execution-flow.md`](execution-flow.md) §3 SDK 缺陷閉環、§4 同工作階段閉環；完成後 → [`cross-cutting/review/self-review.md`](../../cross-cutting/review/self-review.md) | `sd-implementation` | 實際進行程式碼變更；feature 被 structure block 時載入 execution-modes |
+> | Implementation（執行核心） | [`implementation/README.md`](implementation/README.md) | `sd-implementation` | 實際進行程式碼變更 |
+> | Invoke review capability | **invoke only** — 見 [`README.md`](README.md) §Review invoke | cross-cutting consumer | post-implementation、Validation 前 |
 > | Validation（驗證 / 效能） | **已抽出** → [`validation.md`](validation.md)（含 Perf Gate + Validate + Journey Validation） | `sd-validation` | 驗證變更 / 效能關卡 / Journey Validation |
 > | Closure（收尾 / 回饋） | **已抽出** → [`closure.md`](closure.md)（含 DoR / DoD / Feed Back Lessons） | `sd-closure` | 收尾、DoR/DoD 檢核、回饋可重用課程 |
 > | Surgical caveats（diff 紀律） | **已抽出** → [`surgical-changes.md`](surgical-changes.md) | `sd-surgical-caveats`（`type: failure`） | 外科手術式小改、控制 diff 純度 |

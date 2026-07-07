@@ -133,7 +133,7 @@ workflow/cross-cutting/review/
 | Phase | Scope | Status |
 |---|---|---|
 | **2.1** | Routing registry, refresh policy, graph edges — runtime understands stance contract chain | **complete** |
-| **2.2** | Workflow navigation (`execution-flow`, README, cognitive-slice-taxonomy) | pending |
+| **2.2** | Navigation Drift Lock — execution-flow thin, README fat, taxonomy consumer | **complete** |
 | **2.3** | Consumer migration cleanup (validation.md, old paths, scenarios) | pending |
 | **2.4** | Contract regression tests (4 invoke cases) | **complete** |
 
