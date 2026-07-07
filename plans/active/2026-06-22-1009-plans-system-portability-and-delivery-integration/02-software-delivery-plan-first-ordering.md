@@ -99,10 +99,18 @@ Discover → Interrogate → Draft Plan ⟲ Preflight → Execute
 - [x] 規模分級豁免條件落地（引用 plan-tree 既有規則）
 - [x] review checklist 更新
 - [x] doc-only 宣告明確（Phase 2 可選 scenario 決策 + main §Runtime Execution Path「02 若不接 runtime，須明寫 doc-only」）
-- [ ] **Acceptance evidence（回應 review #6）**：至少一次**真實的 software-delivery intake** 走過 plan-first loop，並留下**可驗證的 planning artifact 演化**（`T0` draft → `T1` preflight feedback → `T2` revised planning artifact），而非僅文件範例 — *needs-validation：doc 已落地，等下一個真實 software-delivery 任務時收集，本輪不 fabricate 範例充當*
-  - **驗證的是 planning artifact 的「演化」，不是某一檔案（如 `plan.md`）的演化（回應 review 回饋）**：planning artifact = 當下真正承載 planning state 的產物，依 workflow 實際形態而定——可以是 `plan.md`、analysis doc、ADR 或 design doc。此定義 (a) 不綁死單一檔名；(b) 不鼓勵為了驗證去刻意改 plan 檔；(c) 符合 artifact-centered governance 並容許未來 planning artifact 形式演化。驗證的是 planning 的演化，不是某一個檔案的演化。
-  - **三個 ordered timestamp 必留**：`T0` 存在可辨識的 planning artifact / `T1` 有**獨立** evidence 顯示假設被推翻（不是終稿內事後補述）/ `T2` 後續 planning artifact 明顯不同且**可追溯到 T1**。缺 T0<T1<T2 的獨立時序痕跡，「preflight 真的改變了後續計畫」與「只是發現問題」或「事後重建敘事」無法區分 → 不得據以 close main Q4。此為 falsifiable 判定，非事後補述。
-  - **候選評估紀錄（不代表已 close，close 為 02 owner 保留決定）**：Browser Manage dogfood 專案已出現候選案例。其一為 evidence-driven 修正（初版假設被 live 抓包推翻 → 全面回改 SDK/docs），時序痕跡獨立可查、**behaviorally satisfies** loop，但 planning state 主要落在 analysis/SDK 而非集中 planning artifact（artifact locality 偏弱）→ 列 **strong supporting**。另一為 consolidation/backfill（plan 自承「外層 plan 無，本 plan 補上」= execute→plan）→ **不計入** completion #6。
+- **Acceptance evidence（回應 review #6）拆為兩條不同成熟度的子命題（2026-07-06，使用者定調）**：ordering（plan-first 是否發生）與 feedback-loop（preflight 是否實質改 plan）是兩個獨立能力，不混為一談、不因前者成立就宣告後者完成。
+
+    | 子命題 | 狀態 | 證據 |
+    |---|---|---|
+    | Plan-first ordering | ✅ Verified | Brower `verification-code-center` 真實演化、Git 時序可驗、非 backfill |
+    | Preflight feedback loop | ◑ Partial | 存在 feedback，但尚缺「preflight 導致**實質** plan 修訂（scope/sequencing/dependency/acceptance）」案例 |
+
+  - [x] **A. Ordering Evidence — ✅ Verified（Brower，2026-07-06）**：真實 software-delivery 專案 Browser Manage 的 [`docs/plans/active/2026-07-03-verification-code-center.md`]——真功能（非 toy）、`T0`=2026-07-03 起草於 implementation 前、2026-07-06 多次**有序** git commit 演化、git timestamp 可驗、README/`intake.md` §Plan-First Ordering 對齊、**非 backfill**。→ 證明 plan-first ordering 可操作、可持續、**非事後敘事**。**不再要求更多同型證據**（accumulating，非 hunting）。
+  - [ ] **B. Feedback Loop Evidence — ◑ Partial（open）**：仍缺一個乾淨案例 `preflight → identify issue → plan modified → reason preserved`，且 **modification 必須是 scope / sequencing / dependency / acceptance 其中之一**（**不算** link / reference / typo）= feedback materially changed the plan。Brower 07-06 doc-split 確是 feedback，但對 plan 只改 **3 行 reference** → 未達 materiality。**不 hunt 歷史湊例、不降門檻、不硬稱 behavioral-satisfies**；等下一個自然案例累積。此子命題未達成前，02 留 in-progress、main Q4 不 close。
+  - **B 的 falsifiable rigor（沿用）— planning artifact 的「演化」而非某檔案的演化**：planning artifact = 當下真正承載 planning state 的產物（`plan.md` / analysis doc / ADR / design doc），(a) 不綁單一檔名；(b) 不鼓勵為驗證刻意改 plan 檔；(c) artifact-centered。
+  - **B 的 falsifiable rigor（沿用）— 三個 ordered timestamp 必留**：`T0` 可辨識 planning artifact / `T1` **獨立** evidence 顯示假設被推翻（非終稿內事後補述）/ `T2` 後續 planning artifact 明顯不同且**可追溯到 T1**。缺 T0<T1<T2 獨立時序痕跡 → 「preflight 真的改變計畫」與「只是發現問題 / 事後重建」無法區分 → 不得 close。
+  - **B 的候選評估紀錄（不代表已 close）**：Browser Manage 另一候選為 evidence-driven 修正（初版假設被 live 抓包推翻 → 全面回改 SDK/docs），時序獨立可查、behaviorally satisfies loop，但 planning state 落在 analysis/SDK 而非集中 planning artifact（artifact locality 偏弱）→ **strong supporting**，未達 B。consolidation/backfill 候選（execute→plan）→ **不計入**。
 - [x] linked-updates 檢查（execution-flow 導航 / review-checklist / intake 三處同步；plans/README 只引用不改）
 
 ## Glossary Impact
