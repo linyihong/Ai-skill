@@ -12,10 +12,60 @@ last_revised: 2026-07-07
 
 # Review Architecture — Cognitive Role Primitive Gate（ADR-013）
 
-**Status**: `in-progress` — **Phase 2.3 complete** → **ADR-013 closed**
+**Status**: `completed` — **ADR-013 closed**（2026-07-07）
 
 **Owner**: linyihong  
-**Scope**: ADR-013 (**Completed**) + ADR-014 (Proposed) + 本 plan
+**Scope**: ADR-013 (**Completed**) · 本 plan **closed** · 後續演進 → [`ADR-014`](../../constitution/ADR-014-cognitive-stance-capability-context.md)（**不在本 plan Phase 3**）
+
+---
+
+## Phase Map（完整 — 本 plan 唯一 phase 編號）
+
+> **重要：** 本 plan 的 phase 編號到 **Phase 2.4** 為止。對話或舊 backlog 曾出現的「Phase 3 / Phase 4」**不屬於 ADR-013 計畫** — 見下方 [§Phase 3 從哪來？](#phase-3-從哪來--已取消--不執行)。
+
+| Phase | 名稱 | 目的 | 狀態 | 主要 commit |
+|---|---|---|---|---|
+| **0a** | ADR draft | 問題框架 + ADR-013 Proposed | ✅ | `84a4605` |
+| **0b** | 泛化 evidence | Reject D1 證據 | ✅ | `84a4605` |
+| **0c** | Stakeholder input | 確認 Reject D1 / D2 provisional | ✅ | `84a4605` |
+| **0b.5** | Taxonomy validation | `fault_finding` 收斂 | ✅ | `4df3a0c` |
+| **0d** | ADR accept | `stance` 命名；ADR-013 Accepted | ✅ | `4053008` |
+| **1.1** | Runtime Contract | stance contract + registry + schema | ✅ | `030f105` |
+| **1.2** | Runtime Enforcement | capability-invoke Warning | ✅ | `5482450` |
+| **1.3** | Consumer | `cross-cutting/review/` | ✅ | `195159d` |
+| **1.4** | Dogfood | 3 capability 共用 contract | ✅ | `195159d` |
+| **2.1** | Runtime 一致性 | routing + refresh + graph | ✅ | `948f2f1` |
+| **2.2** | Navigation 對齊 | Documentation Drift Lock | ✅ | `5c732fa` |
+| **2.3** | Debt Payoff | Canonical Ownership Lock | ✅ | `fb9cdc1` |
+| **2.4** | Contract Regression | 4-case invoke regression | ✅ | `948f2f1` |
+
+**Architecture Evolution Pattern（本 plan 驗證完成）：**
+
+```text
+Architecture Decision → Runtime Contract → Navigation Alignment
+  → Regression → Drift Lock → Debt Payoff → Close ADR
+```
+
+---
+
+## Phase 3 從哪來？ — 已取消 / 不執行
+
+| 來源 | 內容 | 本 plan 處置 |
+|---|---|---|
+| **舊 backlog（v2 plan 草稿）** | Phase 2 = 對齊 governance/README/routing；Phase 3 = typed review 文件 + validation scenarios；Phase 4 = Brower overlay | **重編為 Phase 2.1–2.4**（2026-07-07 stakeholder） |
+| **Agent 對話摘要** | 「Phase 3 typed reviews」 | **從未寫入本 `_plan.md`**；agent 口頭提及 ≠ plan phase |
+| **Stakeholder 2026-07-07** | ADR-013 close 後 **不開 Phase 3** | **Accepted** — 本 plan `status: completed` |
+
+**舊「Phase 3」項目去向（Post-close backlog，非本 plan phase）：**
+
+| 原項目 | 新歸屬 | 狀態 |
+|---|---|---|
+| Typed review docs（architecture/contract/release 獨立 consumer 面） | ADR-014 或獨立 plan | deferred |
+| 更多 validation scenarios | ADR-014 / consumer 擴充時 | deferred |
+| Brower project overlay sync | optional project overlay | deferred |
+| Architecture Evolution Lifecycle 方法論 | enforcement 層文件 | deferred（驗證期後） |
+| ADR-014 stance taxonomy acceptance | [`ADR-014`](../../constitution/ADR-014-cognitive-stance-capability-context.md) | **新 ADR，非 Phase 3** |
+| Mechanical enforcement hard block（Warning → block） | ADR-014 / runtime phase | deferred |
 
 ---
 
@@ -34,9 +84,9 @@ Software-delivery 存在 Governance / Execution / README **三層契約不一致
 
 **Phase 0b.5 / 0d 產出**：[`02-phase0b5-perspective-taxonomy-validation.md`](02-phase0b5-perspective-taxonomy-validation.md)
 
-**ADR-014（Proposed）**：[`ADR-014`](../../constitution/ADR-014-cognitive-stance-capability-context.md) — stance 合法值 taxonomy
+**ADR-014（Proposed）**：[`ADR-014`](../../constitution/ADR-014-cognitive-stance-capability-context.md) — stance 合法值 taxonomy（**Post-close，非 Phase 3**）
 
-**Phase 1 已解鎖**（ADR-013 Accepted）
+**Outcome：** ADR-013 **Completed**；Review = capability invoke + `context.stance`；無 `sd-review` slice；無 `cognitive_role` primitive。
 
 ---
 
@@ -141,15 +191,15 @@ Software-delivery 存在 Governance / Execution / README **三層契約不一致
 
 ---
 
-## 三層契約不一致（證據表）
+## 三層契約不一致（證據表 — Phase 0 起點；Phase 2 已修正）
 
-| 層 | 檔案 | 現況 |
-|---|---|---|
-| Governance | [`software-delivery-governance.md`](../../governance/ai-runtime-governance/software-delivery-governance.md) | Artifact completeness 含 review report |
-| Execution | [`execution-flow.yaml`](../../workflow/software-delivery/execution-flow.yaml) | 無 review surface；`validate_and_close` 直接收尾 |
-| README | [`workflow/software-delivery/README.md`](../../workflow/software-delivery/README.md) | review-checklist = optional |
-| Routing | [`routing-registry.yaml`](../../knowledge/runtime/routing-registry.yaml) | `code-review` trigger 無 review dependency |
-| Validation | [`validation.md`](../../workflow/software-delivery/validation.md) L411 | review-report-template 错置於 Validate |
+| 層 | 檔案 | Phase 0 現況 | Phase 2 修正 |
+|---|---|---|---|
+| Governance | [`software-delivery-governance.md`](../../governance/ai-runtime-governance/software-delivery-governance.md) | Artifact completeness 含 review report | review report → capability artifact（consumer 產出） |
+| Execution | [`execution-flow.yaml`](../../workflow/software-delivery/execution-flow.yaml) | 無 review surface | `invoke_review_capability` + `review_invocation` loading surface |
+| README | [`workflow/software-delivery/README.md`](../../workflow/software-delivery/README.md) | review-checklist = optional | §Review invoke；capability-centric |
+| Routing | [`routing-registry.yaml`](../../knowledge/runtime/routing-registry.yaml) | 無 stance contract routes | `route.runtime.capability-context` + `route.governance.cognitive-stance` |
+| Validation | [`validation.md`](../../workflow/software-delivery/validation.md) | review-report-template 错置於 Validate | ownership → `code-review` capability |
 
 ---
 
@@ -254,12 +304,12 @@ Workflow (caller slice)
 - [x] 主矩陣 + 反例 + 五題更新
 - [x] D2 推薦（待 0c 確認）
 
-### Phase 0c — ✅ partial
+### Phase 0c — ✅
 
 - [x] Stakeholder review Phase 0b evidence
 - [x] **Reject D1** accepted
 - [x] **D2 working model** accepted provisionally
-- [ ] **D2 final acceptance** — deferred to Phase 0b.5 + 0d
+- [x] **D2 final acceptance** — closed in Phase 0d（perspective → stance；ADR-013 Accepted）
 
 ### Phase 0b.5 — ✅
 
@@ -330,19 +380,45 @@ Workflow (caller slice)
 
 ### Phase 2 — ✅ complete（Integration / Architectural Debt Payoff）
 
-**Architecture Evolution Pattern（可重用）：**
+**順序（stakeholder 2026-07-07）：** 2.1 Runtime → 2.2 Navigation → 2.3 Debt Payoff → 2.4 Regression（2.4 可與 2.1 同步落地）
 
-```text
-Architecture Decision → Runtime Contract → Navigation Alignment
-  → Regression → Drift Lock → Debt Payoff → Close ADR
-```
-
-| Phase | 真正目的 | 狀態 |
+| Sub-phase | 真正目的 | 狀態 |
 |---|---|---|
 | 2.1 | Runtime Contract 成立 | ✅ |
-| 2.2 | Navigation 與 Runtime 對齊（Documentation Drift Lock） | ✅ |
-| 2.3 | 清除舊架構殘留（Architectural Debt Payoff + Canonical Ownership Lock） | ✅ |
+| 2.2 | Navigation 與 Runtime 對齊 | ✅ |
+| 2.3 | 清除舊架構殘留（Architectural Debt） | ✅ |
 | 2.4 | Regression 保護 | ✅ |
+
+#### Phase 2.1 — Runtime 一致性 ✅
+
+**驗收：** `runtime validate` 完全理解 `requires_context.stance` 鏈；非「文件更新」。
+
+| 交付 | 路徑 / 行為 |
+|---|---|
+| Routing registry routes | `route.runtime.capability-context`、`route.governance.cognitive-stance` |
+| SD workflow wiring | `required_dependencies` + `loading_surfaces.review-invocation` |
+| Refresh policy | `capability_registry` surface in `refresh-policy.yaml` |
+| Graph edges | `knowledge/graphs/capability-context.yaml` |
+| Governance invariant | Workflow 不得 branch on `stance`；只能 invoke Capability |
+| manual_activation | 新 routes 已 annotate（runtime-trigger-wiring） |
+
+**Commit：** `948f2f1`
+
+#### Phase 2.2 — Navigation 對齊（Documentation Drift Lock）✅
+
+**完成條件：** 所有導航層均**僅描述 Runtime Contract**，不得重新定義 Capability Context / Workflow / Consumer 邊界。
+
+| 交付 | 內容 |
+|---|---|
+| Thin execution-flow | Implementation → invoke review capability → Validation |
+| Fat README | §Review invoke — why / what / when / examples |
+| Taxonomy §7.6 | `cross-cutting/review` as **consumer** — 不新增 `sd-review` |
+| execution-flow.yaml | `invoke_review_capability` step + `review_invocation` loading surface |
+| Lock | `review_architecture_doc_drift` — forbid review phase/workflow/slice in navigation canon |
+
+**Canon 文件：** `execution-flow.md`、`README.md`、`cognitive-slice-taxonomy.md`、`routing-registry.yaml`
+
+**Commit：** `5c732fa`
 
 #### Phase 2.3 — Architectural Debt Payoff ✅
 
@@ -353,13 +429,43 @@ Architecture Decision → Runtime Contract → Navigation Alignment
 | **A — Ownership Drift** | validation 不擁有 review report；stance 不於 README 重定義 | ✅ |
 | **B — Path Drift** | 活躍 canonical source 指向 cross-cutting/review，非 stub path | ✅ |
 | **C — Semantic Drift** | 無 review flow/phase/workflow；僅 capability invoke | ✅ |
-| **D — Artifact Drift** | scenarios 與 templates 對齊 capability output，非 Validation phase | ✅ |
+| **D — Artifact Drift** | scenarios 與 templates 對齊 capability output | ✅ |
 
-**Locks：** `review_architecture_doc_drift` + `canonical_ownership_drift`（runtime validate + pre-commit）
+**Lock：** `canonical_ownership_drift`（runtime validate + pre-commit）
 
-**ADR-013：** Status → **Completed**（2026-07-07）。後續演進 → **ADR-014** only。
+**主要修正：** `validation.md` ownership · 6 SD scenarios path · intake/perf-risk-gate · glossary/graphs
 
-**Post-close（deferred）：** Architecture Evolution Lifecycle 方法論文件（框架級抽象，待 ADR-013 驗證期後）
+**Commit：** `fb9cdc1`
+
+#### Phase 2.4 — Contract Regression ✅
+
+**目的：** 保護 Runtime / Routing / Capability Metadata contract — 非 review 行為。
+
+| Case | 預期 | 覆蓋 |
+|---|---|---|
+| 要求 `fault_finding`，invoke 有提供 | Pass | `capability_context_test.go` |
+| 要求 `fault_finding`，invoke 未提供 | Warning, exit 0 | CLI + test |
+| 不要求 stance | Pass, 無 warning | synthetic capability test |
+| invoke stance 與 registry 不一致 | Warning, exit 0 | mismatch test |
+
+| 交付 | 路徑 |
+|---|---|
+| Go tests | `scripts/ai-skill-cli/internal/app/capability_context_test.go` |
+| Scenario | `validation/scenarios/runtime/capability-stance-contract-regression-v1.yaml` |
+| Doc drift scenario | `capability-stance-doc-drift-v1.yaml` |
+| Ownership scenario | `capability-stance-ownership-drift-v1.yaml` |
+| Dogfood scenario | `capability-stance-fault-finding-v1.yaml` |
+
+**Commit：** `948f2f1`（contract）+ `5c732fa` / `fb9cdc1`（drift locks）
+
+#### Phase 2 close-out
+
+- [x] ADR-013 Status → **Completed**（`constitution/ADR-013-...md`）
+- [x] Plan `status: completed`
+- [x] 三 lock 全通過：`capability_registry` · `review_architecture_doc_drift` · `canonical_ownership_drift`
+- [ ] **不開 Phase 3**（stakeholder 2026-07-07）
+
+**Post-close（deferred — 見 §Phase 3 從哪來）：** Architecture Evolution Lifecycle 方法論；ADR-014；Brower overlay
 
 ---
 
@@ -376,15 +482,45 @@ Architecture Decision → Runtime Contract → Navigation Alignment
 | 檔案 | 角色 |
 |---|---|
 | [`ADR-013`](../../constitution/ADR-013-cognitive-role-primitive-gate.md) | Canonical ADR — **Completed** |
-| [`ADR-014`](../../constitution/ADR-014-cognitive-stance-capability-context.md) | Stance taxonomy — Proposed |
+| [`ADR-014`](../../constitution/ADR-014-cognitive-stance-capability-context.md) | Stance taxonomy — Proposed（**後續演進，非 Phase 3**） |
 | [`01-phase0b-...`](01-phase0b-perspective-generalization-evidence.md) | Phase 0b 證據 |
 | [`02-phase0b5-...`](02-phase0b5-perspective-taxonomy-validation.md) | Phase 0b.5 perspective taxonomy |
-| [`governance/cognitive-stance.md`](../../governance/cognitive-stance.md) | Phase 1.1 stance contract |
-| [`cross-cutting/review/`](../../workflow/cross-cutting/review/README.md) | Phase 1.3 consumer |
-| [`.cursor/plans/review_workflow_slice_12ecc222.plan.md`](../../../.cursor/plans/review_workflow_slice_12ecc222.plan.md) | Cursor 鏡像 |
+| [`governance/cognitive-stance.md`](../../governance/cognitive-stance.md) | Stance contract owner |
+| [`cross-cutting/review/`](../../workflow/cross-cutting/review/README.md) | Consumer（Phase 1.3） |
+| [`capability-context.yaml`](../../runtime/capability-context.yaml) | Executable enforcement |
+| [`capability-registry.yaml`](../../knowledge/runtime/capability-registry.yaml) | Capability metadata |
+| [`documentation_drift.go`](../../scripts/ai-skill-cli/internal/app/documentation_drift.go) | Doc drift lock（2.2） |
+| [`canonical_ownership_drift.go`](../../scripts/ai-skill-cli/internal/app/canonical_ownership_drift.go) | Ownership lock（2.3） |
+| [`.cursor/plans/review_workflow_slice_12ecc222.plan.md`](../../../.cursor/plans/review_workflow_slice_12ecc222.plan.md) | Cursor 鏡像（historical） |
+
+### Validation scenarios（Phase 1.4 + 2.4）
+
+| Scenario | Phase | 保護對象 |
+|---|---|---|
+| [`capability-stance-fault-finding-v1.yaml`](../../validation/scenarios/runtime/capability-stance-fault-finding-v1.yaml) | 1.4 | 3 capability dogfood |
+| [`capability-stance-contract-regression-v1.yaml`](../../validation/scenarios/runtime/capability-stance-contract-regression-v1.yaml) | 2.4 | 4-case invoke contract |
+| [`capability-stance-doc-drift-v1.yaml`](../../validation/scenarios/runtime/capability-stance-doc-drift-v1.yaml) | 2.2 | Navigation drift |
+| [`capability-stance-ownership-drift-v1.yaml`](../../validation/scenarios/runtime/capability-stance-ownership-drift-v1.yaml) | 2.3 | Debt class A–D |
 
 ---
 
-## Brower 專案備註（Phase 1+ 可選）
+## Post-close backlog（非 Phase 3 — 獨立追蹤）
+
+> 以下項目**不擴張 ADR-013**。開新 plan 或走 ADR-014 acceptance 流程。
+
+| 項目 | 建議歸屬 | 優先 |
+|---|---|---|
+| ADR-014 Proposed → Accepted | ADR-014 | P1 |
+| Stance enum 新值（需 evidence） | ADR-014 amendment | P2 |
+| Invoke hard block（Warning → block） | ADR-014 / runtime | P2 |
+| Typed review consumer surfaces（architecture/contract/release 獨立 hook） | 新 plan 或 ADR-014 | P3 |
+| `software-delivery-governance.md` artifact completeness 用語對齊 capability | governance patch | P3 |
+| Architecture Evolution Lifecycle 方法論 | `governance/` enforcement | P3（驗證期後） |
+| Brower overlay `review_invocation` hooks | project overlay | optional |
+| Archived plans 內舊 path 引用 | 不阻塞；archived 豁免 drift scan | low |
+
+---
+
+## Brower 專案備註（Post-close optional）
 
 `<PROJECT_ROOT>/docs/browser-manage-development-workflow.yaml`（project overlay 範例）目前 mirror execution slices、零 review。ADR accept D2 後加 `review_invocation` hooks，非新 lifecycle step。
