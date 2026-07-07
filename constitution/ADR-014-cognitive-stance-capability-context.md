@@ -16,8 +16,8 @@
 
 ## Source Plan
 
-- [`plans/active/2026-07-06-review-architecture-adr/_plan.md`](../plans/active/2026-07-06-review-architecture-adr/_plan.md)
-- [`plans/active/2026-07-06-review-architecture-adr/02-phase0b5-perspective-taxonomy-validation.md`](../plans/active/2026-07-06-review-architecture-adr/02-phase0b5-perspective-taxonomy-validation.md) — Phase 0b.5 / 0d evidence
+- [`plans/archived/2026-07-06-review-architecture-adr/_plan.md`](../plans/archived/2026-07-06-review-architecture-adr/_plan.md)
+- [`plans/archived/2026-07-06-review-architecture-adr/02-phase0b5-perspective-taxonomy-validation.md`](../plans/archived/2026-07-06-review-architecture-adr/02-phase0b5-perspective-taxonomy-validation.md) — Phase 0b.5 / 0d evidence
 
 ## Context
 
@@ -122,7 +122,7 @@ New stance values require **evidence of ≥2 activities sharing irreducible reas
 
 Counter-examples (use `default` + slice / `objective` / `execution_mode`): refactoring, documentation, planning, implementation.
 
-Full matrix: [`02-phase0b5-perspective-taxonomy-validation.md`](../plans/active/2026-07-06-review-architecture-adr/02-phase0b5-perspective-taxonomy-validation.md).
+Full matrix: [`02-phase0b5-perspective-taxonomy-validation.md`](../plans/archived/2026-07-06-review-architecture-adr/02-phase0b5-perspective-taxonomy-validation.md).
 
 ---
 

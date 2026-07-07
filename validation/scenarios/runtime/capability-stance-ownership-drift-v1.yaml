@@ -1,12 +1,12 @@
 # yaml-language-server: $schema=../../scenario.schema.json
 # Canonical Ownership Lock — Phase 2.3 Architectural Debt Payoff
-# Source: plans/active/2026-07-06-review-architecture-adr/_plan.md Phase 2.3
+# Source: plans/archived/2026-07-06-review-architecture-adr/_plan.md Phase 2.3
 
 id: capability-stance-ownership-drift-v1
 domain: runtime
 type: heuristic-obedience
 priority: P1
-source_plan: plans/active/2026-07-06-review-architecture-adr/_plan.md
+source_plan: plans/archived/2026-07-06-review-architecture-adr/_plan.md
 
 given:
   task: verify_architectural_debt_classes_cleared

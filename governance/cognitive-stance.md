@@ -169,5 +169,5 @@ When `requires_context.stance` includes `fault_finding` but invoke omits or mism
 
 - [`constitution/ADR-013-cognitive-role-primitive-gate.md`](../constitution/ADR-013-cognitive-role-primitive-gate.md)
 - [`constitution/ADR-014-cognitive-stance-capability-context.md`](../constitution/ADR-014-cognitive-stance-capability-context.md)
-- [`plans/active/2026-07-06-review-architecture-adr/_plan.md`](../plans/active/2026-07-06-review-architecture-adr/_plan.md)
+- [`plans/archived/2026-07-06-review-architecture-adr/_plan.md`](../plans/archived/2026-07-06-review-architecture-adr/_plan.md)
 - [`constitution/ADR-008-runtime-cognitive-modes.md`](../constitution/ADR-008-runtime-cognitive-modes.md) — orthogonal `cognitive_mode`

@@ -1,13 +1,13 @@
 # yaml-language-server: $schema=../../scenario.schema.json
 # Capability stance contract regression — Phase 2.4
 # Protects runtime/routing/capability metadata contract, not review behavior.
-# Source: plans/active/2026-07-06-review-architecture-adr/_plan.md Phase 2.4
+# Source: plans/archived/2026-07-06-review-architecture-adr/_plan.md Phase 2.4
 
 id: capability-stance-contract-regression-v1
 domain: runtime
 type: heuristic-obedience
 priority: P1
-source_plan: plans/active/2026-07-06-review-architecture-adr/_plan.md
+source_plan: plans/archived/2026-07-06-review-architecture-adr/_plan.md
 
 given:
   task: regression_capability_stance_contract_four_cases

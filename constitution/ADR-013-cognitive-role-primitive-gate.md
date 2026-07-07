@@ -18,9 +18,9 @@
 
 ## Source Plan
 
-- [`plans/active/2026-07-06-review-architecture-adr/_plan.md`](../plans/active/2026-07-06-review-architecture-adr/_plan.md)
-- [`plans/active/2026-07-06-review-architecture-adr/01-phase0b-perspective-generalization-evidence.md`](../plans/active/2026-07-06-review-architecture-adr/01-phase0b-perspective-generalization-evidence.md) — Phase 0b evidence
-- [`plans/active/2026-07-06-review-architecture-adr/02-phase0b5-perspective-taxonomy-validation.md`](../plans/active/2026-07-06-review-architecture-adr/02-phase0b5-perspective-taxonomy-validation.md) — Phase 0b.5 / 0d stance evidence
+- [`plans/archived/2026-07-06-review-architecture-adr/_plan.md`](../plans/archived/2026-07-06-review-architecture-adr/_plan.md)
+- [`plans/archived/2026-07-06-review-architecture-adr/01-phase0b-perspective-generalization-evidence.md`](../plans/archived/2026-07-06-review-architecture-adr/01-phase0b-perspective-generalization-evidence.md) — Phase 0b evidence
+- [`plans/archived/2026-07-06-review-architecture-adr/02-phase0b5-perspective-taxonomy-validation.md`](../plans/archived/2026-07-06-review-architecture-adr/02-phase0b5-perspective-taxonomy-validation.md) — Phase 0b.5 / 0d stance evidence
 - [`constitution/ADR-014-cognitive-stance-capability-context.md`](ADR-014-cognitive-stance-capability-context.md) — stance value taxonomy (Proposed)
 
 ## Context
@@ -127,7 +127,7 @@ flowchart TD
 
 ## Generalization Test
 
-> **Phase 0b complete** — full evidence: [`plans/active/2026-07-06-review-architecture-adr/01-phase0b-perspective-generalization-evidence.md`](../plans/active/2026-07-06-review-architecture-adr/01-phase0b-perspective-generalization-evidence.md)
+> **Phase 0b complete** — full evidence: [`plans/archived/2026-07-06-review-architecture-adr/01-phase0b-perspective-generalization-evidence.md`](../plans/archived/2026-07-06-review-architecture-adr/01-phase0b-perspective-generalization-evidence.md)
 
 ### Phase 0b method
 
@@ -198,7 +198,7 @@ Legend: `S` strong · `A` adequate · `W` weak · `F` fails · `O` open
 | Primitive Justification | F | A | F | **F** | S |
 | **Overall (Phase 0b)** | reject | fallback | reject | **reject** | **recommend** |
 
-> Phase 0b evidence: [`01-phase0b-perspective-generalization-evidence.md`](../plans/active/2026-07-06-review-architecture-adr/01-phase0b-perspective-generalization-evidence.md)
+> Phase 0b evidence: [`01-phase0b-perspective-generalization-evidence.md`](../plans/archived/2026-07-06-review-architecture-adr/01-phase0b-perspective-generalization-evidence.md)
 
 ---
 

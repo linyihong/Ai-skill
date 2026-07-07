@@ -2,13 +2,13 @@
 # Capability stance fault_finding — Phase 1.4 dogfood
 # Verifies three capabilities share the same runtime contract without
 # review-specific enforcement logic.
-# Source: plans/active/2026-07-06-review-architecture-adr/_plan.md Phase 1.4
+# Source: plans/archived/2026-07-06-review-architecture-adr/_plan.md Phase 1.4
 
 id: capability-stance-fault-finding-v1
 domain: runtime
 type: heuristic-obedience
 priority: P1
-source_plan: plans/active/2026-07-06-review-architecture-adr/_plan.md
+source_plan: plans/archived/2026-07-06-review-architecture-adr/_plan.md
 
 given:
   task: validate_fault_finding_capability_invoke_contract

@@ -1,13 +1,13 @@
 # yaml-language-server: $schema=../../scenario.schema.json
 # Documentation drift lock — Phase 2.2
 # Navigation canon must not reintroduce review-as-workflow-phase language.
-# Source: plans/active/2026-07-06-review-architecture-adr/_plan.md Phase 2.2
+# Source: plans/archived/2026-07-06-review-architecture-adr/_plan.md Phase 2.2
 
 id: capability-stance-doc-drift-v1
 domain: runtime
 type: heuristic-obedience
 priority: P1
-source_plan: plans/active/2026-07-06-review-architecture-adr/_plan.md
+source_plan: plans/archived/2026-07-06-review-architecture-adr/_plan.md
 
 given:
   task: navigation_canon_describes_review_as_capability_invoke_only

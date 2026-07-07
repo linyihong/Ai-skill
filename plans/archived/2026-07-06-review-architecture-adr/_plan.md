@@ -12,7 +12,7 @@ last_revised: 2026-07-07
 
 # Review Architecture — Cognitive Role Primitive Gate（ADR-013）
 
-**Status**: `completed` — **ADR-013 closed**（2026-07-07）
+**Status**: `completed` — **ADR-013 closed**（2026-07-07）· **Archived** 2026-07-07
 
 **Owner**: linyihong  
 **Scope**: ADR-013 (**Completed**) · 本 plan **closed** · 後續演進 → [`ADR-014`](../../constitution/ADR-014-cognitive-stance-capability-context.md)（**不在本 plan Phase 3**）
@@ -155,7 +155,7 @@ Software-delivery 存在 Governance / Execution / README **三層契約不一致
 ### Phase 0a — ADR draft（2026-07-06）
 
 - [`constitution/ADR-013-cognitive-role-primitive-gate.md`](../../constitution/ADR-013-cognitive-role-primitive-gate.md)（Proposed）
-- [`plans/active/2026-07-06-review-architecture-adr/_plan.md`](_plan.md)
+- [`plans/archived/2026-07-06-review-architecture-adr/_plan.md`](_plan.md)
 - [`architecture/ai-native-cognitive-execution-system.md`](../../architecture/ai-native-cognitive-execution-system.md) ADR 表新增 ADR-013
 
 ---
@@ -463,7 +463,7 @@ Workflow (caller slice)
 - [x] ADR-013 Status → **Completed**（`constitution/ADR-013-...md`）
 - [x] Plan `status: completed`
 - [x] 三 lock 全通過：`capability_registry` · `review_architecture_doc_drift` · `canonical_ownership_drift`
-- [ ] **不開 Phase 3**（stakeholder 2026-07-07）
+- [x] **不開 Phase 3**（stakeholder 2026-07-07 — decision recorded at close）
 
 **Post-close（deferred — 見 §Phase 3 從哪來）：** Architecture Evolution Lifecycle 方法論；ADR-014；Brower overlay
 

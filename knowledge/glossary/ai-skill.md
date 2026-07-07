@@ -1275,7 +1275,7 @@ affects:
 anti-meaning: >
   Not actor labels (reviewer, debugger), not viewpoint (Developer/Customer),
   not cognitive_mode execution depth, not workflow slice ownership.
-introduced-by: plans/active/2026-07-06-review-architecture-adr/_plan.md
+introduced-by: plans/archived/2026-07-06-review-architecture-adr/_plan.md
 related-terms:
   - { type: related_to, target: validation_capability }
   - { type: orthogonal_to, target: cognitive_mode }

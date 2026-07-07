@@ -113,7 +113,7 @@ slice 最小單位 = **能獨立完成一個 cognitive phase**（非 step、非 
 
 **layer_justification**：cross-cutting consumer 規定 *when* 載入 invoke hook 與 checklist bodies，不承載 stance contract 或 runtime enforcement。通過 workflow membership test 的 **invoke boundary** 描述，但不是 ADR-009 cognitive slice。
 
-**Related**：[`ADR-013`](../constitution/ADR-013-cognitive-role-primitive-gate.md) · [`governance/cognitive-stance.md`](cognitive-stance.md) · [`plans/active/2026-07-06-review-architecture-adr/_plan.md`](../plans/active/2026-07-06-review-architecture-adr/_plan.md) Phase 2.2
+**Related**：[`ADR-013`](../constitution/ADR-013-cognitive-role-primitive-gate.md) · [`governance/cognitive-stance.md`](cognitive-stance.md) · [`plans/archived/2026-07-06-review-architecture-adr/_plan.md`](../plans/archived/2026-07-06-review-architecture-adr/_plan.md) Phase 2.2
 
 ---
 

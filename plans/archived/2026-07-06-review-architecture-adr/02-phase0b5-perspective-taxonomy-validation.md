@@ -240,11 +240,11 @@ invoke:
 
 ## Phase 0b.5 success criteria
 
-- [ ] Matrix filled with **Yes / No / Partial** for "same perspective as Review"
-- [ ] Either **collapse** to `fault_finding` (+ optional second family) **or** document **irreducible** split with anti-explosion rule
-- [ ] D2 invoke envelope updated in ADR-013 (still Proposed)
-- [ ] Recommendation text: **D2 working model** vs **D2 accepted**
-- [ ] Decision:是否需要 **ADR-014**（Perspective Taxonomy）或 ADR-013 §amendment
+- [x] Matrix filled with **Yes / No / Partial** for "same perspective as Review"
+- [x] Either **collapse** to `fault_finding` (+ optional second family) **or** document **irreducible** split with anti-explosion rule
+- [x] D2 invoke envelope updated in ADR-013 → **Accepted** (Phase 0d)
+- [x] Recommendation text: **D2 accepted** (Phase 0d)
+- [x] Decision: **ADR-014** (stance taxonomy) separate from ADR-013
 
 **Explicit non-goal:** Re-open D1 unless perspective validation **requires** runtime primitive (unlikely).
 
