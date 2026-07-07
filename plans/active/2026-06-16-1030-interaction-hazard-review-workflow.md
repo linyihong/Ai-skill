@@ -13,7 +13,7 @@ required_for_completion: false
 **Status**: `draft` — **promotion discipline / decision framework**（非 workflow 设计稿）
 Owner: framework maintainer (linyihong)
 **建立日期**：2026-06-16
-**最後修訂**：2026-07-07（review #5：O3 定位 formalize — primitive / evidence / promotion discipline graduated；workflow graduation deferred on criterion 4）
+**最後修訂**：2026-07-07（review #5：O3 定位 formalize — primitive mature / evidence validated / promotion discipline established；workflow graduation deferred on criterion 4）
 **Priority**：**P1**
 **Downstream pilot**（canonical evidence consumer — 细节不复制进本 plan）：Vidoe-Test `docs/plans/2026-06-16-state-trust-transition-pilot.md`；commits `bcce737`（A0 overlay）、`6665b77`（A1/B/B.5 + C BDD partial）
 
@@ -52,22 +52,27 @@ primitive → evidence → consumer → 是否值得升 workflow
 
 ## Stage Decision（O3 — formalized 2026-07-07）
 
-本节把当前证据状态固化为一个**阶段性结论**，而非最终 graduation。判读来源：A0–B.5 全 pass（downstream commit 佐证）、core primitive 经 rename pressure 不改栏位、唯一 blocker 是 criterion 4（predictive prevention），且文件自身已将 predictive prevention 标为 gate blocked。
+Current evidence supports a **tentative O3** direction.
 
-**结论定位：**
+The State Trust Transition primitive, evidence model, and promotion discipline have reached a stable state through downstream consumer validation. Remaining work is **not** further framework design.
 
-```text
-Primitive maturity      ✅ graduated   — State / Owner / Invalidation / Recovery 四栏稳定，rename pressure 不改字
-Evidence model          ✅ graduated   — temporal_behavior.{event_trace,dom_presence,ownership} 消费者不膨胀 taxonomy
-Promotion discipline    ✅ graduated   — ADR criteria + downstream pilot gate 已建立并运作
-Workflow graduation     ⏳ deferred    — 等待 criterion 4（previously unknown prevention）自然出现
-```
+Workflow graduation remains **deferred** because Criterion 4 (previously unknown predictive prevention) has not yet been satisfied.
 
-**O2 / O3 决策（formalized）：** **tentative O3**（generic trust transition model）。依据 B + B.5：四栏不改字可套 rollback + websocket，栏位跨域复用成立，故排除 O2（conditional gate）。
+This is a different state from an immature framework: the framework is sufficiently **mature for downstream consumption**, but **not yet mature enough to claim predictive interception capability**.
 
-**但 O3 为 tentative、非 final：** final graduation（Phase D）**刻意延后**，卡在 ADR criterion 4。此非「framework 未成熟」，而是「framework 已成熟，尚不足以宣称具 predictive interception」—— 两者是不同状态。
+| Layer | Status |
+|---|---|
+| Primitive | Mature / Stable |
+| Evidence model | Validated |
+| Promotion discipline | Established |
+| Workflow graduation | Deferred (await predictive interception evidence — criterion 4) |
 
-**不为过 gate 制造证据：** criterion 4 要的是 predictive interception（bug 发生前拦截），不是 post-hoc explanatory power。硬补 YAML / scenario / BDD 只会把已知案例再描述一次，违反本 plan 精神。解锁 Phase D 的正确路径是**等待下游专案自然产生**一个 previously-unknown prevention，再回来 graduation。
+Accordingly:
+
+- **O2** is no longer the active direction.
+- **O3** remains the working hypothesis.
+- Graduation must wait for **naturally occurring** downstream evidence.
+- Evidence must **not** be manufactured merely to satisfy promotion criteria.
 
 ---
 
@@ -194,13 +199,17 @@ evidence_rule:
 本 plan 已不是「做 workflow」，而是在管理**何时一个 primitive 有资格升级成 workflow**。这两个生命周期现在可以清楚分离：
 
 ```text
-Lifecycle 1 — Primitive → Consumer → Promotion discipline（✅ 已完成）
+Lifecycle 1 — Primitive Maturation (completed)
+  Primitive → Consumer validation → Promotion discipline
+  ──────────────────────────────────────────────────────
   A0  — Template + Recovery Boundary（四栏定稿 + downstream sync）
   A1  — Coupon trust transition table
   B   — Optimistic rollback（invalidate ↔ recover 闭环）
   B.5 — Rename pressure test（websocket 或第三域；不必新 incident）
 
-Lifecycle 2 — Predictive evidence → Workflow graduation（⏳ 等待下游自然产生）
+Lifecycle 2 — Graduation (in progress)
+  Predictive evidence accumulation → Workflow graduation (Phase D)
+  ──────────────────────────────────────────────────────
   C   — Scenario spike（predictive + field survival；field survival ✅，predictive ⏳）
   D   — IF ADR criteria → O2/O3 graduation（optional slice / glossary）
   E   — Project overlay advisory
@@ -263,7 +272,7 @@ Many primitives are **not designed** — they are **pulled out by three or four 
 | #2 | O2 vs O3；Invalidation Event；predictive ADR |
 | #3 | Recovery Boundary；trust transition 验题；B.5 rename pressure；field survival ADR；anti optimize-for-primitive |
 | #4 | Downstream pilot gate 回写；A0–B.5 pass；C partial；tentative O3 |
-| #5 | O3 formalize：primitive / evidence / promotion discipline graduated；workflow graduation deferred on criterion 4；roadmap 拆两生命周期 |
+| #5 | Formalized tentative O3 as the current stage decision；separated framework maturity from workflow graduation；predictive evidence 须自然产生而非为过 gate 制造 |
 
 ---
 
