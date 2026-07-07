@@ -123,16 +123,9 @@ loading_surfaces:
   multi_repository_workspace:
     source: workflow/software-delivery/implementation/multi-repository-workspace-mode.md
     load_when:
-      - multi-repository workspace mode; orchestrator git plus sibling-repos manifest
-      - teammate merge delivered Part A; integration adapter or sync SDK slice
+      - workspace orchestrator git plus sibling-repos manifest; teammate merge delivered Part A; integration adapter or sync SDK slice
     do_not_load_when:
       - single-repo greenfield with no outer plan/tests split
-  dual_repository_integration:
-    source: workflow/software-delivery/implementation/multi-repository-workspace-mode.md
-    load_when:
-      - backward-compat YAML key only; same canonical source as multi_repository_workspace
-    do_not_load_when:
-      - prefer multi_repository_workspace loading surface name in new project overlays
   review_invocation:
     source: workflow/cross-cutting/review/self-review.md
     load_when:

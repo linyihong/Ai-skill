@@ -142,11 +142,11 @@ multi_repository_workspace:
     - integration adapter or sync SDK slice after teammate merge
 ```
 
-**Loading surface 別名**：`execution-flow.yaml` 中 `dual_repository_integration` 僅為 **YAML 鍵向後相容**，指向同一 canonical source；無獨立文件、無獨立模式。
+專案 overlay **只使用** `multi_repository_workspace`；不再提供 `dual_repository_integration` 鍵。
 
 ## Plan revisions
 
 | 日期 | 變更 |
 | --- | --- |
 | 2026-07-07 | 初稿：多倉庫處理模式；sibling-repos manifest、跨 repo sanitization、Vidoe-Test / Brower 參考 |
-| 2026-07-07 | 整合：移除雙倉庫獨立模式；N=1 併入多倉庫；檔名 `multi-repository-workspace-mode.md` |
+| 2026-07-07 | 整合：移除雙倉庫獨立模式與 `dual_repository_integration` YAML 鍵；N=1 併入多倉庫；檔名 `multi-repository-workspace-mode.md` |
