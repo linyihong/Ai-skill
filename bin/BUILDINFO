@@ -1,4 +1,0 @@
-version=repo-5c732fa
-source_commit=5c732fa7bc44e5ab5999bc7a4c5956a60c5adcd0
-built_at=2026-07-07T00:49:24Z
-targets=windows/amd64,darwin/amd64,darwin/arm64,linux/amd64,linux/arm64
