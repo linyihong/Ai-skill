@@ -144,11 +144,11 @@ delegation:
 - [x] **回饋迴路（非改 Agent）**：agent 揭露 brief 未 pin `introduced-by`/`owner-layer` → 修回 spike brief v2;worktree-not-in-brief 確認為 Layer 3 concern（capability/workflow 分層成立,非缺陷）。human 缺漏待你回填後併入。
 
 ## 完成條件
-- [ ] nested `delegation` schema（`brief` capability / `execution` workflow 分層）+ brief 契約落地（Q5 resolved：4 必填 + context/constraints optional）
-- [ ] 欄位 optional、向後相容（既有 sub-plan 不受影響）
-- [ ] **consumer-layer** validator 擴充 + 測試通過（含 4 必填各 violation + no-context/constraints pass），**未碰 `planvalidate` engine**
-- [ ] human + agent 雙路徑 SOP 落地（tool-neutral，Q6 resolved）
-- [ ] dogfood evidence：human 一次 + agent 一次
+- [x] nested `delegation` schema（`brief` capability / `execution` workflow 分層）+ brief 契約落地（Q5 resolved：4 必填 + context/constraints optional）— Phase 1
+- [x] 欄位 optional、向後相容（既有 sub-plan 不受影響）— Phase 2（`Undeclared_IdenticalToBaseline` / `EnabledFalse_EqualsUndeclared` 測試）
+- [x] **consumer-layer** validator 擴充 + 測試通過（含 4 必填各 violation + no-context/constraints pass），**未碰 `planvalidate` engine**（Consumer Exclusive 雙鎖）— Phase 2
+- [x] human + agent 雙路徑 SOP 落地（tool-neutral，Q6 resolved）— Phase 1（`plans/README.md` §Delegation）
+- [ ] dogfood evidence：**agent ✓（★★★★☆，2026-07-06）** + **human 待使用者回填** — 唯一實質未決,gated on human path
 - [x] 與 01 `plan_profile` 邊界對齊（`delegation` = **Ai-skill-only / consumer-layer**，非 portable — 見 Phase 0.1，2026-07-03）
 
 ## Glossary Impact
