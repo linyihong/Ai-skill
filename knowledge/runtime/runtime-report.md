@@ -6,13 +6,13 @@
 
 | Surface | Path | Count / Status |
 | --- | --- | --- |
-| Routing registry | [`routing-registry.yaml`](routing-registry.yaml) | 57 records |
+| Routing registry | [`routing-registry.yaml`](routing-registry.yaml) | 59 records |
 | Refresh policy | [`refresh-policy.yaml`](refresh-policy.yaml) | candidate |
 | Model context report | [`model-context-report.md`](model-context-report.md) | generated view |
 | Model checklists | [`model-checklists.md`](model-checklists.md) | generated view |
 | SQLite runtime index | [`sqlite/`](sqlite/) | generated lookup cache prototype |
 | Summaries | [`../summaries/`](../summaries/) | 25 files |
-| Graph records | [`../graphs/`](../graphs/) | 34 files |
+| Graph records | [`../graphs/`](../graphs/) | 35 files |
 
 ## Routing Records
 
@@ -31,6 +31,8 @@
 | `route.governance.durable-goal-boundary` | `enforcement/conversation-goal-ledger.md` | `large` | `source-backed` | 長期狀態已落到 durable planning 文件，且 active goal 完成後才刪除。 |
 | `route.governance.ai-runtime-five-step` | `governance/ai-runtime-governance/five-step-ai-governance.md` | `small` | `summary-first` | 新增項目已通過 necessity、deletion、simplification、cycle-time 與 automation-last 檢查，且沒有加入 always-load context。 |
 | `route.runtime.context-loading` | `governance/lifecycle/routing-philosophy.md` | `small` | `summary-first` | Primary source、deferred sources、source-of-truth gate 與 validation signal 已可被記錄。 |
+| `route.runtime.capability-context` | `runtime/capability-context.yaml` | `small` | `summary-first` | ai-skill runtime validate passes capability_registry check; ai-skill runtime capability-invoke --capability <id> [--stance <v>] returns exit 0; missing required stance emits warning not auto-fill.  |
+| `route.governance.cognitive-stance` | `governance/cognitive-stance.md` | `small` | `summary-first` | stance_enum lists only fault_finding as standardized non-default value; governance invariant forbids consumer-owned stance contract and workflow stance branching; registry entries reference this contract.  |
 | `route.governance.routing-signal` | `governance/ai-runtime-governance/routing-signal-governance.md` | `small` | `summary-first` | Task intent 已先於 path signal 確認；primary_source、negative signals、multi-route disambiguation 與 route validation signal 已檢查。 |
 | `route.governance.validation-scenario` | `governance/ai-runtime-governance/validation-scenario-governance.md` | `small` | `summary-first` | Stateless reproduction、no answer leakage、failure class、expected/forbidden behavior 與 traceability gates 已檢查。 |
 | `route.governance.cognitive-state-evidence` | `governance/ai-runtime-governance/cognitive-state-governance.md` | `medium` | `summary-first` | Claim scope、evidence owner、confidence integrity、contradiction propagation、runtime primitive boundary 與 scenario coverage 已檢查。 |
@@ -43,7 +45,7 @@
 | `route.runtime.router-flow` | `runtime/README.md` | `small` | `index-only` | Routing flow 已理解，activation rules 與 TTL policy 已對應到對應階段。 |
 | `route.intelligence.engineering.heuristics` | `intelligence/engineering/heuristics/README.md` | `small` | `index-only` | 各 atom 有明確原則與決策表，可反查驗證。 |
 | `route.runtime.context-ttl-doc` | `governance/lifecycle/context-ttl-philosophy.md` | `small` | `index-only` | TTL policy 已套用，prune strategy 已理解。 |
-| `route.workflow.software-delivery` | `workflow/software-delivery/execution-flow.md` | `specialized` | `source-backed` | Pre-build interrogation、change intake、requirements cognition、contract precedence、BDD closure、artifact completeness、test strategy、performance evidence、same-session closure、surgical-change discipline 與 architecture fit analysis 已檢查；workflow、analysis、intelligence、metadata 與 governance 內容已分離，且 software-delivery focused loading surfaces 可由同一 hierarchical route 找到。 |
+| `route.workflow.software-delivery` | `workflow/software-delivery/execution-flow.md` | `specialized` | `source-backed` | Pre-build interrogation、change intake、requirements cognition、contract precedence、BDD closure、artifact completeness、test strategy、performance evidence、same-session closure、surgical-change discipline、architecture fit analysis 與 post-implementation review invocation（capability invoke via cross-cutting/review，非 stance branching）已檢查；workflow、analysis、intelligence、metadata 與 governance 內容已分離，且 software-delivery focused loading surfaces 可由同一 hierarchical route 找到。 |
 | `route.workflow.greenfield` | `workflow/greenfield/execution-flow.md` | `specialized` | `source-backed` | 新分層路徑可讀取，workflow 與 templates 內容完整。 |
 | `route.workflow.travel-planning` | `workflow/travel-planning/execution-flow.md` | `specialized` | `source-backed` | 新分層路徑可讀取，workflow 與 analysis 內容已分離。 |
 | `route.workflow.documentation-ai-native` | `workflow/documentation/README.md` | `small` | `summary-first` | 新文件或目錄具 index-first 導航、分類維度（kind/audience/stability）已標註； README-as-router、停止條件與單一真相已符合 documentation context governance； 長文已按 document-sizing 拆分；語言與工具敘述依專案自訂 policy（本 route 不預設 tool-neutral）。  |
@@ -114,6 +116,7 @@
 | `graph.analysis-repo-methods` | `analysis/repo/README.md` | `candidate` | 6 | [`analysis-repo-methods.yaml`](../graphs/analysis-repo-methods.yaml) |
 | `graph.apk-analysis-pilot` | `plans/archived/2026-05-11-1129-apk-analysis-pilot-migration.md` | `new-layer-promoted` | 13 | [`apk-analysis-pilot.yaml`](../graphs/apk-analysis-pilot.yaml) |
 | `graph.apk-highest-leverage-analysis` | `intelligence/engineering/analytical-reasoning/highest-leverage-analysis-path.md` | `candidate` | 4 | [`apk-highest-leverage-analysis.yaml`](../graphs/apk-highest-leverage-analysis.yaml) |
+| `graph.capability-context` | `governance/cognitive-stance.md` | `candidate` | 8 | [`capability-context.yaml`](../graphs/capability-context.yaml) |
 | `graph.cognitive-modes` | `runtime/cognitive-modes.yaml` | `active` | 13 | [`cognitive-modes.yaml`](../graphs/cognitive-modes.yaml) |
 | `graph.constitution-adr` | `constitution/README.md` | `candidate` | 12 | [`constitution-adr.yaml`](../graphs/constitution-adr.yaml) |
 | `graph.ddd-architecture-governance` | `intelligence/engineering/architecture/domain-modeling/README.md` | `candidate` | 7 | [`ddd-architecture-governance.yaml`](../graphs/ddd-architecture-governance.yaml) |
@@ -142,7 +145,7 @@
 | `graph.source-boundary` | `governance/lifecycle/README.md` | `candidate` | 6 | [`source-boundary.yaml`](../graphs/source-boundary.yaml) |
 | `graph.workflow-layers` | `workflow/README.md` | `candidate` | 20 | [`workflow-layers.yaml`](../graphs/workflow-layers.yaml) |
 | `graph.workflow-software-delivery-architecture` | `workflow/software-delivery/architecture/README.md` | `candidate` | 7 | [`workflow-software-delivery-architecture.yaml`](../graphs/workflow-software-delivery-architecture.yaml) |
-| `graph.workflow-app-development-guidance` | `workflow/software-delivery/README.md` | `candidate` | 19 | [`workflow-software-delivery.yaml`](../graphs/workflow-software-delivery.yaml) |
+| `graph.workflow-app-development-guidance` | `workflow/software-delivery/README.md` | `candidate` | 23 | [`workflow-software-delivery.yaml`](../graphs/workflow-software-delivery.yaml) |
 | `graph.workflow-travel-planning` | `workflow/travel-planning/README.md` | `candidate` | 6 | [`workflow-travel-planning.yaml`](../graphs/workflow-travel-planning.yaml) |
 
 ## Refresh Decisions

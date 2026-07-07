@@ -76,6 +76,98 @@ func TestValidateCapabilityInvokeOK(t *testing.T) {
 	}
 }
 
+func TestValidateCapabilityInvokeNoStanceRequiredPass(t *testing.T) {
+	repo := t.TempDir()
+	registryYAML := `registry_version: capability-registry/v1
+status: candidate
+owner_layer: knowledge/runtime
+canonical_contract: governance/cognitive-stance.md
+schema: metadata/capability-context-schema.md
+stance_enum:
+  standardized:
+    - fault_finding
+  implicit:
+    - default
+capabilities:
+  - id: docs-only-edit
+    status: active
+    summary: Documentation wording fix; default stance suffices.
+    artifact: none
+`
+	if err := os.MkdirAll(filepath.Join(repo, "knowledge", "runtime"), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	writeFile(t, filepath.Join(repo, "knowledge", "runtime", "capability-registry.yaml"), registryYAML)
+
+	registry, err := readCapabilityRegistry(repo)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, stance := range []string{"", "default", "fault_finding"} {
+		v := validateCapabilityInvoke(registry, "docs-only-edit", stance)
+		if len(v.Warnings) != 0 {
+			t.Fatalf("stance=%q: expected no warnings for capability without requires_context, got %#v", stance, v)
+		}
+	}
+}
+
+func TestCapabilityContextContractRegressionCases(t *testing.T) {
+	repo := repoRootForTest(t)
+	registry, err := readCapabilityRegistry(repo)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	cases := []struct {
+		name     string
+		capID    string
+		stance   string
+		wantWarn int
+	}{
+		{
+			name:     "case1_required_stance_provided",
+			capID:    "code-review",
+			stance:   "fault_finding",
+			wantWarn: 0,
+		},
+		{
+			name:     "case2_required_stance_missing",
+			capID:    "code-review",
+			stance:   "",
+			wantWarn: 1,
+		},
+		{
+			name:     "case3_no_stance_required_empty",
+			capID:    "docs-only-edit",
+			stance:   "",
+			wantWarn: 0,
+		},
+		{
+			name:     "case4_invoke_stance_mismatch",
+			capID:    "code-review",
+			stance:   "creative",
+			wantWarn: 1,
+		},
+	}
+
+	// case3 uses synthetic capability without requires_context
+	synthetic := capabilityRegistryEntry{
+		ID:      "docs-only-edit",
+		Status:  "active",
+		Summary: "synthetic for regression",
+	}
+	registry.Capabilities = append(registry.Capabilities, synthetic)
+
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			v := validateCapabilityInvoke(registry, tc.capID, tc.stance)
+			if len(v.Warnings) != tc.wantWarn {
+				t.Fatalf("got warnings=%d want=%d: %#v", len(v.Warnings), tc.wantWarn, v)
+			}
+		})
+	}
+}
+
 func TestRuntimeCapabilityInvokeCLIWarningsExitZero(t *testing.T) {
 	repo := repoRootForTest(t)
 	var stdout, stderr bytes.Buffer

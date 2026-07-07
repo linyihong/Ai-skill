@@ -332,6 +332,7 @@ Rejected paths:
 
 - `workflow/cross-cutting/review/` — capability bodies (Phase 1)
 - Per-slice `review_invocation` with `context.stance: fault_finding`
+- **Workflow isolation:** workflows invoke capabilities; they **must not branch on `context.stance`** — stance requirements live in capability registry; runtime validates invoke envelopes ([`governance/cognitive-stance.md`](../governance/cognitive-stance.md))
 - Glossary: `cognitive_stance`, `review_capability` (Phase 1 / ADR-014)
 - **No** routing/runtime primitive expansion
 - **No** `sd-review` lifecycle slice

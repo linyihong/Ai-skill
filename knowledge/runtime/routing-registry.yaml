@@ -638,6 +638,90 @@ records:
       compression_level: summary-first
       reason: routing decision 可先用 registry、index、summary；修改 source 時再升級。
 
+  - id: route.runtime.capability-context
+    route_type: runtime_doc
+    task_intent: 驗證 capability invoke 的 context.stance 是否符合 requires_context 宣告
+    manual_activation:
+      reason: validators_consume_by_file_path_not_route_lookup
+      note: >
+        Consumed by ai-skill runtime validate (capability_registry check) and
+        ai-skill runtime capability-invoke CLI (scripts/ai-skill-cli/internal/app/capability_context.go).
+        Route exists for human navigation; invoke enforcement does not flow through route lookup.
+    primary_source: runtime/capability-context.yaml
+    required_dependencies:
+      - knowledge/runtime/capability-registry.yaml
+      - governance/cognitive-stance.md
+      - metadata/capability-context-schema.md
+    candidate_sources:
+      - constitution/ADR-013-cognitive-role-primitive-gate.md
+      - constitution/ADR-014-cognitive-stance-capability-context.md
+      - workflow/cross-cutting/review/README.md
+      - knowledge/runtime/README.md
+    source_of_truth_gate: runtime-capability-context-active
+    ranking_reason: >
+      Phase 1.2+ executable contract for capability invoke context. Registry
+      declares requires_context.stance; runtime validates at invoke time (warning
+      on missing/mismatch in Phase 1). Workflow routes here via capability-invoke,
+      not by branching on stance values.
+    validation_signal: >
+      ai-skill runtime validate passes capability_registry check;
+      ai-skill runtime capability-invoke --capability <id> [--stance <v>] returns
+      exit 0; missing required stance emits warning not auto-fill.
+    metadata:
+      priority: P1
+      confidence: high
+      context_cost:
+        estimated_tokens: 350
+        load_strategy: lazy
+        cacheable: true
+        ttl:
+          session: 1
+      compatibility_state: new-layer-promoted
+    model:
+      profile: small
+      compression_level: summary-first
+      reason: Invoke validation is CLI-driven; contract YAML + registry are primary reads.
+
+  - id: route.governance.cognitive-stance
+    route_type: governance
+    task_intent: 理解 capability context.stance 契約、enum 政策與 workflow 隔離 invariant
+    manual_activation:
+      reason: workflow_discovery
+      note: >
+        Loaded via required_dependencies on route.workflow.software-delivery and
+        route.runtime.capability-context; contract owner doc, not auto-detected route.
+    primary_source: governance/cognitive-stance.md
+    required_dependencies:
+      - knowledge/runtime/capability-registry.yaml
+      - metadata/capability-context-schema.md
+      - runtime/capability-context.yaml
+    candidate_sources:
+      - constitution/ADR-013-cognitive-role-primitive-gate.md
+      - constitution/ADR-014-cognitive-stance-capability-context.md
+      - governance/ai-runtime-governance/README.md
+    source_of_truth_gate: governance-cognitive-stance-active
+    ranking_reason: >
+      Contract owner for stance field semantics. Capabilities declare
+      requires_context; consumers invoke only; workflows must not branch on stance.
+    validation_signal: >
+      stance_enum lists only fault_finding as standardized non-default value;
+      governance invariant forbids consumer-owned stance contract and workflow
+      stance branching; registry entries reference this contract.
+    metadata:
+      priority: P1
+      confidence: high
+      context_cost:
+        estimated_tokens: 450
+        load_strategy: lazy
+        cacheable: true
+        ttl:
+          task: 1
+      compatibility_state: new-layer-promoted
+    model:
+      profile: small
+      compression_level: summary-first
+      reason: Stance contract is compact; expand ADR-014 only when extending enum.
+
   - id: route.governance.routing-signal
     route_type: governance
     task_intent: 防止 routing signal 漂移，確認 task intent、primary source、negative signal 與 multi-route disambiguation
@@ -1210,6 +1294,9 @@ records:
     primary_source: workflow/software-delivery/execution-flow.md
     required_dependencies:
       - governance/ai-runtime-governance/software-delivery-governance.md
+      - governance/cognitive-stance.md
+      - knowledge/runtime/capability-registry.yaml
+      - workflow/cross-cutting/review/README.md
       - workflow/software-delivery/artifact-gates.md
       - workflow/software-delivery/intake.md
       - workflow/software-delivery/contracts.md
@@ -1235,6 +1322,9 @@ records:
       - analysis/development-guidance/README.md
       - analysis/development-guidance/risk-translation.md
       - workflow/software-delivery/README.md
+      - workflow/cross-cutting/review/self-review.md
+      - workflow/cross-cutting/review/invocation-points.md
+      - workflow/cross-cutting/review/checklist.md
       - intelligence/engineering/development/README.md
       - intelligence/engineering/requirements/README.md
       - intelligence/engineering/requirements/behavior-modeling/README.md
@@ -1296,6 +1386,19 @@ records:
           - surgical change discipline, diff purity, or orphan cleanup boundary is needed
         do_not_load_when:
           - large greenfield implementation or evidence-only analysis
+      workflow.software-delivery.review-invocation:
+        source: workflow/cross-cutting/review/self-review.md
+        load_when:
+          - post-implementation self-review, code review invoke, or review checklist is needed
+        do_not_load_when:
+          - task has not reached implementation or is evidence-only analysis
+        invoke_pattern:
+          capability: code-review
+          context:
+            caller_slice: sd-implementation
+          note: >
+            Workflow invokes capability; stance requirement comes from
+            capability-registry.yaml (fault_finding). Do not branch on stance in workflow.
       workflow.software-delivery.examples:
         source: workflow/software-delivery/examples/EXAMPLES.md
         default_load: false
@@ -1330,7 +1433,7 @@ records:
       Phase 3 loading surfaces 掛在同一 hierarchical route 下，不新增 flat leaf routes；agent 先讀 execution-flow thin index，
       再依 task intent 載入 intake / contracts / test-strategy / validation / closure / surgical caveats 等 focused surfaces。
       若 repo 含 apk-analysis-sdk/runtime/workflow-activation.yaml，在進入本 workflow 後載入 project_overlays（專案 gate，非平行 routing）。
-    validation_signal: Pre-build interrogation、change intake、requirements cognition、contract precedence、BDD closure、artifact completeness、test strategy、performance evidence、same-session closure、surgical-change discipline 與 architecture fit analysis 已檢查；workflow、analysis、intelligence、metadata 與 governance 內容已分離，且 software-delivery focused loading surfaces 可由同一 hierarchical route 找到。
+    validation_signal: Pre-build interrogation、change intake、requirements cognition、contract precedence、BDD closure、artifact completeness、test strategy、performance evidence、same-session closure、surgical-change discipline、architecture fit analysis 與 post-implementation review invocation（capability invoke via cross-cutting/review，非 stance branching）已檢查；workflow、analysis、intelligence、metadata 與 governance 內容已分離，且 software-delivery focused loading surfaces 可由同一 hierarchical route 找到。
     metadata:
       priority: P1
       confidence: high

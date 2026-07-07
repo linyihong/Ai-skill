@@ -74,25 +74,47 @@ Canonical registry: [`knowledge/runtime/capability-registry.yaml`](../knowledge/
 
 > **Capabilities declare context requirements. Consumers never own runtime context contracts.**
 
-| Role | May define `stance` contract? | Example |
-|---|---|---|
-| **Governance** (`cognitive-stance.md`) | Yes — field semantics, enum policy | This file |
-| **Capability registry** | Yes — per-capability `requires_context` | `capability-registry.yaml` |
-| **Workflow consumer** | **No** — invoke only | `cross-cutting/review/README.md` |
-| **Slice hook** | **No** — references capability + passes context | `review_invocation` in slice |
+> **Workflows invoke capabilities; they must not branch on `context.stance`.** Stance requirements live in capability registry metadata; runtime validates invoke envelopes. Workflow documents say *when* to invoke which capability — not `if stance == fault_finding`.
 
-**Forbidden:**
+| Role | May define `stance` contract? | May branch on `stance`? | Example |
+|---|---|---|---|
+| **Governance** (`cognitive-stance.md`) | Yes — field semantics, enum policy | No | This file |
+| **Capability registry** | Yes — per-capability `requires_context` | No | `capability-registry.yaml` |
+| **Runtime** | Validates invoke vs `requires_context` | N/A | `capability-invoke` CLI |
+| **Workflow consumer** | **No** — invoke only | **No** | `cross-cutting/review/README.md` |
+| **Slice hook** | **No** — references capability id | **No** | `review_invocation` in slice |
+
+**Forbidden — consumer owns contract:**
 
 ```text
 workflow/cross-cutting/review/README.md
   stance: fault_finding   # ❌ consumer must not privately define contract
 ```
 
-**Required:**
+**Forbidden — workflow branches on stance:**
 
 ```text
-knowledge/runtime/capability-registry.yaml
-  code-review.requires_context.stance: [fault_finding]
+if stance == fault_finding:
+    run security checks   # ❌ workflow must not depend on stance
+```
+
+**Required — capability declares, workflow invokes:**
+
+```text
+# Registry (capability owns requirement)
+code-review.requires_context.stance: [fault_finding]
+
+# Workflow (invoke only — no stance branching)
+invoke:
+  capability: security-audit
+  context:
+    caller_slice: sd-implementation
+# Runtime warns if required stance missing; capability metadata defines fault_finding
+```
+
+**Required — consumer passes context at invoke:**
+
+```text
 workflow/cross-cutting/review/
   → invoke code-review with context.stance: fault_finding
 ```
@@ -104,7 +126,16 @@ workflow/cross-cutting/review/
 | **1.1** | Contract + registry + schema — **no** review directory | **complete** |
 | **1.2** | Runtime enforcement — **Warning** on missing/mismatched stance (not hard block) | **complete** |
 | **1.3** | `workflow/cross-cutting/review/` — first consumer only | **complete** |
-| **1.4** | Dogfood: `code-review`, `security-audit`, `incident-analysis` share contract without review-specific runtime logic | in progress |
+| **1.4** | Dogfood: `code-review`, `security-audit`, `incident-analysis` share contract without review-specific runtime logic | **complete** |
+
+### Phase 2 — Runtime integration
+
+| Phase | Scope | Status |
+|---|---|---|
+| **2.1** | Routing registry, refresh policy, graph edges — runtime understands stance contract chain | **complete** |
+| **2.2** | Workflow navigation (`execution-flow`, README, cognitive-slice-taxonomy) | pending |
+| **2.3** | Consumer migration cleanup (validation.md, old paths, scenarios) | pending |
+| **2.4** | Contract regression tests (4 invoke cases) | **complete** |
 
 ### Phase 1.2 enforcement
 

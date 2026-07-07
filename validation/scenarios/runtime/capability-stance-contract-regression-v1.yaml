@@ -1,0 +1,73 @@
+# yaml-language-server: $schema=../../scenario.schema.json
+# Capability stance contract regression — Phase 2.4
+# Protects runtime/routing/capability metadata contract, not review behavior.
+# Source: plans/active/2026-07-06-review-architecture-adr/_plan.md Phase 2.4
+
+id: capability-stance-contract-regression-v1
+domain: runtime
+type: heuristic-obedience
+priority: P1
+source_plan: plans/active/2026-07-06-review-architecture-adr/_plan.md
+
+given:
+  task: regression_capability_stance_contract_four_cases
+  artifacts:
+    - knowledge/runtime/capability-registry.yaml
+    - runtime/capability-context.yaml
+    - governance/cognitive-stance.md
+    - knowledge/runtime/routing-registry.yaml
+  contract_cases:
+    - id: case1_required_provided
+      capability: code-review
+      stance: fault_finding
+      expect: pass_no_warnings
+    - id: case2_required_missing
+      capability: code-review
+      stance: omitted
+      expect: warning_exit_zero
+    - id: case3_not_required
+      capability: synthetic_docs_only
+      stance: omitted
+      expect: pass_no_warnings
+      note: covered by Go unit test with capability lacking requires_context
+    - id: case4_mismatch
+      capability: code-review
+      stance: creative
+      expect: warning_exit_zero
+
+when:
+  action: run_capability_stance_contract_regression
+
+then:
+  expected_route:
+    primary: contract_regression_pass
+    steps:
+      - ai-skill runtime validate includes capability_registry check
+      - invoke with required stance provided passes without warnings
+      - invoke missing required stance emits warning exit 0
+      - invoke mismatched stance emits warning exit 0
+  forbidden_routes:
+    - workflow_branches_on_stance
+    - consumer_defines_stance_enum
+    - auto_fill_missing_stance
+    - hard_block_on_warning_phase1
+  detection_command: |
+    set -e
+    ai-skill runtime validate --repo .
+    ai-skill runtime capability-invoke --repo . --capability code-review --stance fault_finding
+    ai-skill runtime capability-invoke --repo . --capability code-review 2>&1 | grep -q warning
+    ai-skill runtime capability-invoke --repo . --capability code-review --stance creative 2>&1 | grep -q warning
+    cd scripts/ai-skill-cli && go test ./internal/app/ -run 'TestCapabilityContextContractRegressionCases|TestValidateCapabilityInvokeNoStanceRequiredPass' -count=1
+  verification:
+    - "Four-case regression protects contract layer independent of review consumer."
+    - "Routing registry includes route.runtime.capability-context and route.governance.cognitive-stance."
+
+evidence:
+  executed_on: 2026-07-07
+  executor: agent_regression
+  commands:
+    - ai-skill runtime validate
+    - go test ./internal/app/ -run TestCapabilityContextContractRegressionCases
+  results: validate exit 0; case1 pass; case2/case4 warning exit 0; case3 Go unit test pass
+  missing_stance_check: code-review without --stance emits warning, exit 0
+  mismatch_check: code-review --stance creative emits warning, exit 0

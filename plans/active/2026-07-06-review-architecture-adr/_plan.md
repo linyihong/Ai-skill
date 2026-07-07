@@ -7,7 +7,7 @@ created: 2026-07-06
 priority: P1
 required_for_completion: false
 parent_discussion: review-workflow-slice-v1-v4
-last_revised: 2026-07-06
+last_revised: 2026-07-07
 ---
 
 # Review Architecture — Cognitive Role Primitive Gate（ADR-013）
@@ -326,9 +326,49 @@ Workflow (caller slice)
 
 **五維邊界：** Workflow (When) · Capability (What) · Cognitive Mode (How) · Stance (Reasoning) · Artifact (Output)
 
+---
+
+### Phase 2 — 進行中（Integration — Runtime 優先）
+
+**性質轉變：** 架構設計 → 系統整合。驗收標準是 **Runtime 能完全理解 `requires_context.stance`**，不是「文件更新」。
+
+**順序（stakeholder 2026-07-07）：** 2.1 Runtime → 2.2 Workflow 導航 → 2.3 Consumer 清理 → 2.4 Contract Regression
+
+#### Phase 2.1 — Runtime 一致性 ✅
+
+| 交付 | 路徑 / 行為 |
+|---|---|
+| Routing registry routes | `route.runtime.capability-context`、`route.governance.cognitive-stance` |
+| SD workflow route wiring | `required_dependencies` + `loading_surfaces.review-invocation` |
+| Refresh policy | `capability_registry` surface |
+| Graph edges | `knowledge/graphs/capability-context.yaml` |
+| Governance invariant | Workflow 不得直接依賴 `stance`；只能 invoke Capability |
+
+**驗收 ✅ 2026-07-07：** `runtime validate` + 四 case regression pass。
+
+#### Phase 2.2 — Workflow 一致性（待 2.1）
+
+- `execution-flow.md` / `execution-flow.yaml` 對齊 invoke 模型
+- `README.md`、cognitive-slice-taxonomy 導航更新
+
+#### Phase 2.3 — Consumer 清理（待 2.2）
+
+- `validation.md` review-report 错置
+- 舊 `review-checklist` 路徑遷移、validation scenarios、redirect stub
+
+#### Phase 2.4 — Contract Regression（與 2.1 同步）
+
+| Case | 預期 |
+|---|---|
+| 要求 `fault_finding`，invoke 有提供 | Pass |
+| 要求 `fault_finding`，invoke 未提供 | Warning（Phase 1 行為） |
+| 不要求 stance | Pass，不產生 warning |
+| invoke stance 與 capability 宣告不一致 | Warning |
+
+Tests: `capability_context_test.go` + `capability-stance-contract-regression-v1.yaml`
+
 | 項目 | 路徑 |
 |---|---|
-| 待做 1.4 | 執行 dogfood scenario evidence（CLI smoke ✅ 2026-07-06） |
 | 修正 | `validation.md` review-report 错置 |
 | 不做 | `sd-review` slice、`cognitive_role` primitive、預留 stance placeholder |
 

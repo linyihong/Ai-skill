@@ -41,6 +41,7 @@ surfaces:
       - knowledge/indexes/README.md 新增或修改 routing row
       - primary source、required dependencies、candidate sources 或 source_of_truth_gate 改變
       - model profile 或 compression strategy 改變
+      - capability-registry.yaml 或 cognitive-stance contract 改變且影響 workflow route wiring
     revalidate_when:
       - candidate source 新增 summary 或 graph，但 primary source 不變
       - roadmap status 改變但 routing decision 不變
@@ -48,6 +49,21 @@ surfaces:
       - registry 指向 stale summary / graph
       - required dependency 不存在或未讀
       - YAML parse 或 schema validation 失敗
+
+  capability_registry:
+    path: knowledge/runtime/capability-registry.yaml
+    refresh_when:
+      - requires_context.stance 宣告新增、修改或移除
+      - stance_enum.standardized 或 reserved_policy 改變
+      - capability status 從 draft 升級為 active
+      - runtime/capability-context.yaml invoke_enforcement 改變
+    revalidate_when:
+      - capability summary 或 typical_caller_slices 措辭修正，requires_context 不變
+      - consumer invoke docs 新增 reference 但 registry 契約不變
+    downgrade_when:
+      - registry 與 governance/cognitive-stance.md 或 metadata/capability-context-schema.md 不一致
+      - ai-skill runtime validate capability_registry check 失敗
+      - requires_context.stance 含未標準化 enum 值
 
   runtime_report:
     path: knowledge/runtime/runtime-report.md

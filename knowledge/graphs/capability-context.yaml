@@ -1,0 +1,53 @@
+id: graph.capability-context
+source: governance/cognitive-stance.md
+status: candidate
+summary: >
+  Capability context.stance contract chain: governance owns semantics, registry
+  declares requires_context, runtime validates invoke envelopes, workflow consumers
+  invoke capabilities without branching on stance.
+edges:
+  - type: depends_on
+    target: governance/cognitive-stance.md
+    reason: Contract owner for stance field semantics, enum policy, and workflow isolation invariant.
+    validation: cognitive-stance.md defines five orthogonal dimensions and forbids consumer-owned stance contracts.
+
+  - type: depends_on
+    target: knowledge/runtime/capability-registry.yaml
+    reason: Per-capability requires_context.stance declarations consumed by invoke validation.
+    validation: registry lists active capabilities with fault_finding where required; stance_enum matches governance.
+
+  - type: depends_on
+    target: metadata/capability-context-schema.md
+    reason: Structural schema for capability registry records and requires_context rules.
+    validation: schema documents invoke validation behavior and anti-patterns.
+
+  - type: depends_on
+    target: runtime/capability-context.yaml
+    reason: Phase 1.2+ executable contract projected to runtime.capability_context.contract.
+    validation: invoke_enforcement defines warning-on-missing/mismatch; registry_invalid is error.
+
+  - type: related_to
+    target: constitution/ADR-013-cognitive-role-primitive-gate.md
+    reason: ADR-013 accepts D2 (stance as capability context); rejects cognitive_role primitive.
+    validation: ADR status Accepted; invoke envelope uses context.stance not cognitive_role.
+
+  - type: related_to
+    target: constitution/ADR-014-cognitive-stance-capability-context.md
+    reason: ADR-014 owns stance value taxonomy growth rules separate from field existence.
+    validation: ADR status Proposed; fault_finding is only standardized non-default value in Phase 1.
+
+  - type: related_to
+    target: workflow/cross-cutting/review/README.md
+    reason: First consumer of stance contract — invoke-only, does not own stance enum.
+    validation: README references capability-registry; does not privately define stance contract.
+
+  - type: routes_to
+    target: knowledge/runtime/routing-registry.yaml
+    reason: Registry provides route.runtime.capability-context and route.governance.cognitive-stance.
+    validation: routing records link primary_source to capability-context.yaml and cognitive-stance.md.
+
+metadata:
+  priority: P1
+  confidence: high
+  compatibility_state: new-layer-promoted
+  last_checked: 2026-07-07

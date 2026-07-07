@@ -66,9 +66,29 @@ edges:
     validation: development-process.md 的 intake / contracts / test-strategy / closure 內容已改為 focused surface redirects，避免 dual source-of-truth。
 
   - type: related_to
+    target: workflow/cross-cutting/review/checklist.md
+    reason: 審查檢查清單 — Change Intake、Test Strategy、Performance Test、Product To Contract、Documentation Backfill、Contract Governance、Embedded/Hardware Review、API And Transport、Auth/Tokens/Sessions、Local Storage、Flutter/Android Build、Logging/Telemetry、Anti-Tamper/Risk、Release Gate。Consumer surface；stance contract 在 capability-registry。
+    validation: checklist.md 從 workflow/software-delivery/review-checklist.md 遷移；舊路徑保留 stub redirect。
+
+  - type: related_to
+    target: workflow/cross-cutting/review/self-review.md
+    reason: Post-implementation self-review invoke hook — invokes code-review capability; does not branch on stance.
+    validation: self-review.md references capability-registry requires_context; caller_slice sd-implementation.
+
+  - type: related_to
+    target: knowledge/runtime/capability-registry.yaml
+    reason: Capability metadata declares requires_context.stance for review and audit capabilities.
+    validation: code-review, security-audit, incident-analysis active with fault_finding requirement.
+
+  - type: related_to
+    target: governance/cognitive-stance.md
+    reason: Stance contract owner; workflow must invoke capability not branch on stance.
+    validation: governance invariant forbids consumer-owned stance and workflow stance branching.
+
+  - type: related_to
     target: workflow/software-delivery/review-checklist.md
-    reason: 審查檢查清單 — Change Intake、Test Strategy、Performance Test、Product To Contract、Documentation Backfill、Contract Governance、Embedded/Hardware Review、API And Transport、Auth/Tokens/Sessions、Local Storage、Flutter/Android Build、Logging/Telemetry、Anti-Tamper/Risk、Release Gate。
-    validation: review-checklist.md 定義 15 個審查類別，從 skills/app-development-guidance/CHECKLIST.md（已刪除）提取。
+    reason: Legacy stub redirecting to workflow/cross-cutting/review/checklist.md.
+    validation: stub preserves inbound links during migration; not canonical checklist source.
 
   - type: related_to
     target: workflow/software-delivery/architecture/README.md
@@ -104,4 +124,4 @@ metadata:
   priority: P2
   confidence: medium
   compatibility_state: new-layer-promoted
-  last_checked: 2026-06-04
+  last_checked: 2026-07-07
