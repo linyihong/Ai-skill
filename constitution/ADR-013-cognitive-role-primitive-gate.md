@@ -4,13 +4,14 @@
 
 **Completed** (2026-07-07, Phase 2.3 debt payoff)
 
-> **Scope closed.** Stance value taxonomy growth → [`ADR-014`](ADR-014-cognitive-stance-capability-context.md). Do not extend ADR-013. Future runtime contract evolutions follow [`Architecture Evolution Protocol`](../governance/lifecycle/architecture-evolution-protocol.md) (this ADR = Instance 1; evidence below §Dogfood Evidence).
+> **Reference Implementation #1** of [`Architecture Evolution Protocol`](../governance/lifecycle/architecture-evolution-protocol.md) — first complete protocol walkthrough. **Scope closed** as architecture decision; stance taxonomy → [`ADR-014`](ADR-014-cognitive-stance-capability-context.md). Do not extend ADR-013. Future evolutions follow the protocol (RI #1 = how to walk it; evidence §Dogfood Evidence).
 
 ## Framework Generation
 
 - **世代分類**：Gen 3 — Cognitive Execution System 子系統邊界擴充候選
 - **當前世代文件**：[`architecture/ai-native-cognitive-execution-system.md`](../architecture/ai-native-cognitive-execution-system.md)；[`constitution/ADR-008-runtime-cognitive-modes.md`](ADR-008-runtime-cognitive-modes.md)（既有 4 維 `cognitive_mode` primitive）
 - **適用狀態**：D1 **rejected**；D2 **accepted** — capability context may carry bounded `context.stance`. **ADR-013 closed** — implementation complete Phase 1–2. Stance **value taxonomy** → [`ADR-014`](ADR-014-cognitive-stance-capability-context.md) (Proposed).
+- **Reference Implementation**：**#1** — first full [`Architecture Evolution Protocol`](../governance/lifecycle/architecture-evolution-protocol.md) walkthrough (evidence: archived plan + §Dogfood Evidence).
 
 ## Date
 
@@ -355,6 +356,21 @@ Rejected paths:
 
 ---
 
+## Reference Implementation #1
+
+This ADR is the **first Reference Implementation** of the [`Architecture Evolution Protocol`](../governance/lifecycle/architecture-evolution-protocol.md) — not merely a completed decision, but a **complete, verifiable protocol walkthrough**.
+
+| Question | Answer |
+|---|---|
+| How did Separation of Concerns hold? | Four-layer model; workflow must not branch on `stance` |
+| How was Mechanical Closure achieved? | Regression (4 scenarios) + Drift Lock + Debt Payoff (3 validators) |
+| Where is the walkthrough? | [`plans/archived/2026-07-06-review-architecture-adr/_plan.md`](../plans/archived/2026-07-06-review-architecture-adr/_plan.md) Phase Map 0a–2.4 |
+| Where is implementation evidence? | §Dogfood Evidence below |
+
+Future protocol discussions should reference **this RI**, not re-derive from Review discussion history.
+
+---
+
 ## Dogfood Evidence
 
 Instance 1 of [`governance/lifecycle/architecture-evolution-protocol.md`](../governance/lifecycle/architecture-evolution-protocol.md) (Architecture Evolution Protocol).
@@ -378,7 +394,7 @@ Instance 1 of [`governance/lifecycle/architecture-evolution-protocol.md`](../gov
 - [`governance/cognitive-slice-taxonomy.md`](../governance/cognitive-slice-taxonomy.md)
 - [`knowledge/glossary/ai-skill.md`](../knowledge/glossary/ai-skill.md) — `validation_capability`（cross-cutting capability 先例）
 - [`constitution/ADR-014-cognitive-stance-capability-context.md`](ADR-014-cognitive-stance-capability-context.md)
-- [`governance/lifecycle/architecture-evolution-protocol.md`](../governance/lifecycle/architecture-evolution-protocol.md) — reusable evolution protocol (this ADR = first instance)
+- [`governance/lifecycle/architecture-evolution-protocol.md`](../governance/lifecycle/architecture-evolution-protocol.md) — **Reference Implementation #1** for this protocol
 - [`plans/archived/2026-07-06-review-architecture-adr/_plan.md`](../plans/archived/2026-07-06-review-architecture-adr/_plan.md) — evidence log
 
 ## Open Questions (deferred — ADR-014 / Phase 1)

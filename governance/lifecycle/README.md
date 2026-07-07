@@ -56,11 +56,13 @@ Lifecycle executable contracts include [`directory-structure-governance.yaml`](d
 
 ## Architecture Evolution Protocol（架構演進協議）
 
-[`architecture-evolution-protocol.md`](architecture-evolution-protocol.md) — **ADR-013 已完成；Protocol 才剛開始。** 三層產出已拆開：Architecture Decision（ADR）· Evolution Methodology（本協議）· Governance Pattern（Three-lock / Debt classes）。
+[`architecture-evolution-protocol.md`](architecture-evolution-protocol.md) — **ADR-013 = Reference Implementation #1**（完整 protocol walkthrough）；Protocol **Experimental**；ADR-014 = **first independent validation**。
 
-**Protocol 核心是三個 invariant**（非七步）：① Separation of Concerns · ② Mechanical Closure · ③ Generalization。七步 Integration Phase 只是其中一章。
+**四層**：Architecture Decision · Protocol · Governance Pattern · **Reference Implementation**（證據級）。
 
-**Protocol Status**：**Experimental**（Instance 1 = ADR-013）· Instance 2 candidate = ADR-014 · 成熟訊號 = **Protocol 核心無需修改**，非案例數量 alone。
+**Governance loop**：Decision → RI → Protocol Validation → Maturity。
+
+**Protocol Core**（修改 = 重新評估成熟度）vs **non-core**（Validated Instances、RI 索引、editorial）。詳見文件 §Protocol Core · §Protocol Changelog。
 
 ## 持久目標邊界（Durable Goal Boundary）
 

@@ -9,7 +9,7 @@
 - **世代分類**：Gen 3 — Cognitive Execution System 子系統邊界擴充（capability context layer，非 runtime primitive）
 - **當前世代文件**：[`architecture/ai-native-cognitive-execution-system.md`](../architecture/ai-native-cognitive-execution-system.md)；[`constitution/ADR-013-cognitive-role-primitive-gate.md`](ADR-013-cognitive-role-primitive-gate.md)（D2 accept — 引入 `context.stance` 欄位）
 - **適用狀態**：本 ADR **不**重開 ADR-013 的 D1/D2 問題。Accept 前僅定義 stance **合法值**、命名邊界、與 ADR-008 `cognitive_mode` 的正交關係。
-- **Protocol role**：**Instance 2** of [`Architecture Evolution Protocol`](../governance/lifecycle/architecture-evolution-protocol.md). Maturity pass = complete Integration Phase **without editing the protocol file**.
+- **Protocol role**：**First independent protocol validation** (Instance 2 / Reference Implementation #2 candidate). Not merely "the next ADR" — pass = Protocol **Experimental → Emerging** with **no protocol core modified**. See [`Architecture Evolution Protocol`](../governance/lifecycle/architecture-evolution-protocol.md) §Reference Implementations.
 
 ## Date
 
@@ -193,7 +193,7 @@ Review capabilities (`code-review`, `architecture-review`, …) use the **same**
 
 ## Related
 
-- [`governance/lifecycle/architecture-evolution-protocol.md`](../governance/lifecycle/architecture-evolution-protocol.md) — follow on Accept (second-instance gate candidate)
+- [`governance/lifecycle/architecture-evolution-protocol.md`](../governance/lifecycle/architecture-evolution-protocol.md) — first independent validation (RI #2 candidate; compare to ADR-013 RI #1)
 - [`constitution/ADR-013-cognitive-role-primitive-gate.md`](ADR-013-cognitive-role-primitive-gate.md) — D1 reject, D2 accept
 - [`constitution/ADR-008-runtime-cognitive-modes.md`](ADR-008-runtime-cognitive-modes.md)
 - [`workflow/cross-cutting/README.md`](../workflow/cross-cutting/README.md)

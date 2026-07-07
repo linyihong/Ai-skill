@@ -35,8 +35,8 @@
 | [ADR-006](../constitution/ADR-006-registry-first-workflow-activation.md) Registry-First Workflow Activation | Gen 3 | registry-first activation 為 workflow 進入點預設 |
 | [ADR-007](../constitution/ADR-007-constitution-and-decision-promotion-boundary.md) Constitution and Decision Promotion Boundary | Gen 3 | `constitution/` 命名 + promotion target 內容路由規則 |
 | [ADR-008](../constitution/ADR-008-runtime-cognitive-modes.md) Runtime Cognitive Modes | Gen 3 子系統擴充 | 4 維 cognitive mode primitive（execution/context/governance/memory）+ discovery + subsystem integration + token budget + adaptive triggers |
-| [ADR-013](../constitution/ADR-013-cognitive-role-primitive-gate.md) Cognitive Role Primitive Gate | Gen 3 子系統擴充 | **Completed** — Reject D1；Accept D2（`context.stance`）；**Instance 1** of [`Architecture Evolution Protocol`](../governance/lifecycle/architecture-evolution-protocol.md) |
-| [ADR-014](../constitution/ADR-014-cognitive-stance-capability-context.md) Cognitive Stance in Capability Context | Gen 3 子系統擴充 | **Proposed** — `stance` 合法值 taxonomy（`fault_finding` \| `default`）；與 ADR-013 分離 |
+| [ADR-013](../constitution/ADR-013-cognitive-role-primitive-gate.md) Cognitive Role Primitive Gate | Gen 3 子系統擴充 | **Completed** — Reject D1；Accept D2（`context.stance`）；**Reference Implementation #1** of [`Architecture Evolution Protocol`](../governance/lifecycle/architecture-evolution-protocol.md) |
+| [ADR-014](../constitution/ADR-014-cognitive-stance-capability-context.md) Cognitive Stance in Capability Context | Gen 3 子系統擴充 | **Proposed** — stance taxonomy；**first independent protocol validation** (RI #2 candidate) |
 
 新增世代時依 [`governance/lifecycle/system-upgrade-governance.md`](../governance/lifecycle/system-upgrade-governance.md) §3 規則 7 重新評估每個 ADR 的延伸狀態。
 

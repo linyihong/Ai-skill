@@ -1,22 +1,99 @@
 # Architecture Evolution Protocol
 
-> **Protocol Status**: **Experimental** (1 validated instance; Instance 2 pending)
-> **Not** an ADR appendix. **ADR-013 is complete**; **this protocol has just begun**.
+> **Protocol Status**: **Experimental** (1 reference implementation; first independent validation pending)
+> **Not** an ADR appendix. **ADR-013 is complete** (Reference Implementation #1); **this protocol has just begun**.
 > **Sibling docs**: [`decision-promotion-pipeline.md`](decision-promotion-pipeline.md) · [`governance-pattern-template.md`](governance-pattern-template.md)
 
-## Positioning — three things that were once mixed
+## Positioning — four layers
 
-These are **not the same thing**. They can each stand alone.
+These are **not the same thing**. Each can stand alone. Stability increases down the stack.
 
-| Layer | Output | Standalone? | Status (2026-07-07) |
+| Layer | Role | Stability | Current (2026-07-07) |
 |---|---|---|---|
-| **Architecture Decision** | ADR-013, ADR-014 | ✅ | ADR-013 **Completed** · ADR-014 Proposed |
-| **Evolution Methodology** | **This protocol** | ✅ | **Experimental** — promoted, Instance 2 not yet validated |
-| **Governance Pattern** | Three-lock · Debt classes · Second-instance gate | ✅ | Proven in Instance 1; reusable per [`governance-pattern-template.md`](governance-pattern-template.md) |
+| **Architecture Decision** | Solve one concrete architecture problem | Project-level | ADR-013 **Completed** · ADR-014 Proposed |
+| **Architecture Evolution Protocol** | Govern *how* architecture evolves | Framework-level | **Experimental** |
+| **Governance Patterns** | Reusable mechanical shapes (Three-lock, Debt classes, Second-instance gate) | Framework-level | Proven in RI #1 |
+| **Reference Implementation** | One **complete** protocol walkthrough — spec + verifiable evidence | Evidence-level | **RI #1 = ADR-013** |
 
-ADR-013 solved **one** architecture problem (Review / `context.stance`). This protocol solves **how the system evolves architecture problems going forward**. The archived ADR-013 plan is **Instance 1 evidence**, not the owner of this file.
+ADR-013 is **not only** an ADR. It is the **first Reference Implementation** — a full, verifiable walkthrough of this protocol. When discussing the protocol, ask: *「ADR-013 是怎麼走完整個 Protocol 的？」* — not *「當初 Review 是怎麼討論的？」*
+
+**Spec and reference implementation validate each other; they must not be conflated.**
+
+### Governance maturity loop
+
+Healthy architecture knowledge **accumulates**; it does not merely accumulate documents:
+
+```text
+Architecture Decision
+  → Reference Implementation (complete protocol walkthrough + Dogfood Evidence)
+  → Protocol Validation (Protocol Evidence: no core modified?)
+  → Governance Maturity (Protocol Status advances)
+  → (next ADR repeats)
+```
+
+Each new ADR solves a problem **and** tests whether the protocol is stable enough to reuse.
 
 ---
+
+## Protocol Core (normative)
+
+**Primary maturity signal:** *No protocol core modified* — not instance count alone.
+
+Three instances with three core edits → **not** Stable. Two instances with zero core edits → **Emerging**.
+
+### Core (amending any item = Protocol Core Change → re-evaluate maturity)
+
+| Core element | Location in this file |
+|---|---|
+| **Three invariants** | §The protocol — ① Separation · ② Mechanical Closure · ③ Generalization |
+| **Evolution Contract** (no skip rule + violation shapes) | §Contract stack · §Evolution Contract |
+| **Layer dependency invariant** | §① Separation of Concerns |
+| **Mechanical Closure requirement** | §② Mechanical Closure |
+| **Second-instance / generalization principle** | §③ Generalization · §Protocol Status |
+| **Protocol Core definition** | This section |
+| **Dogfood vs Protocol Evidence distinction** | §Evidence |
+| **Changelog impact rules** | §Protocol Changelog |
+
+### Non-core (editorial / evidence growth — does not reset maturity)
+
+| Non-core element | Examples |
+|---|---|
+| Integration Phase step count or order | Seven steps → six or eight |
+| Step contract tables | Per-step exit criteria wording |
+| Plan checklist | Agent-facing bullets |
+| Example paths, commits, scenario filenames | ADR-013 dogfood summary |
+| **Validated Instances** rows | New instance evidence |
+| **Reference Implementation** index rows | RI #2, #3 |
+| Protocol Status **current** label | Experimental → Emerging |
+| Lineage narrative | Historical discussion |
+
+**Judgment rule:** If the change alters *what must always hold* → core. If it only adds *evidence that it held again* → non-core.
+
+---
+
+## Protocol Changelog
+
+When editing this file, classify each change:
+
+| Change type | Affects maturity? | Action |
+|---|---|---|
+| **Editorial** | ❌ No | Typo, clarity, translation — no status change |
+| **Example update** | ❌ No | New paths, commits, scenario names in RI section |
+| **Additional validated instance** | ❌ No | New row in §Validated Instances / §Protocol Evidence |
+| **Additional reference implementation** | ❌ No | New RI index row + linked ADR §Dogfood |
+| **New governance pattern** | ⚠️ Maybe | If pattern is **optional appendix** → non-core. If it amends invariants or Mechanical Closure → core |
+| **Protocol Core Change** | ✅ Yes | Re-evaluate Protocol Status; document in changelog below; may revert to Experimental |
+
+### Changelog record
+
+| Date | Type | Summary |
+|---|---|---|
+| 2026-07-07 | Protocol Core Change | Initial promote: three invariants, Evolution Contract, Mechanical Closure, Protocol Status |
+| 2026-07-07 | Protocol Core Change | Protocol Core definition, four-layer positioning, Reference Implementation, Changelog classification |
+
+---
+
+## Positioning — what was once mixed (summary)
 
 ## The protocol — three invariants
 
@@ -112,11 +189,9 @@ Status tracks **maturity**, not ADR completion. **Do not** call the protocol mat
 | **Stable** | ≥3 instances; **no protocol core edits** across all | ≥3 instances |
 | **Mature** | Multiple **domains**; instances complete without core edits; only editorial updates to this file | ≥3 instances, ≥2 domains |
 
-**Current:** **Experimental** — Instance 1 (ADR-013) only. Instance 2 candidate: ADR-014.
+**Current:** **Experimental** — Reference Implementation #1 (ADR-013) only.
 
-**Stability rule (normative):** Case count is a **reference**, not the proof. The proof is: *new evolution completes under existing invariants; this file gains evidence rows only — not new invariant sections or amended Evolution Contract.*
-
-If Instance 2 requires a protocol core amendment → gap found → amend **with evidence**, bump status back or hold at Experimental until re-validated.
+**First independent validation:** ADR-014 — not merely "the next ADR", but the protocol's **first cross-instance test**. Pass → **Experimental → Emerging** (Instance 2 complete, **no protocol core modified**).
 
 ---
 
@@ -171,17 +246,32 @@ Recorded **here** when an instance closes. Proves generalization.
 
 ---
 
+## Reference Implementations
+
+A **Reference Implementation (RI)** is one evolution that walked the **full protocol** with Mechanical Closure and recorded Dogfood Evidence. RIs are **evidence** for the protocol — not substitutes for it.
+
+| RI | ADR | Role | Plan / evidence |
+|---|---|---|---|
+| **#1** | [ADR-013](../../constitution/ADR-013-cognitive-role-primitive-gate.md) | **Source RI** — first complete walkthrough; abstracted into this protocol | [archived plan](../../plans/archived/2026-07-06-review-architecture-adr/_plan.md) |
+| **#2** | [ADR-014](../../constitution/ADR-014-cognitive-stance-capability-context.md) | **First independent validation** — protocol crosses single-case threshold | *pending Accept + Integration* |
+
+**How to use RI #1:** When executing a new evolution, map your plan phases to ADR-013's archived plan Phase Map (0a–2.4) and §Dogfood Evidence — not to Review-specific prose.
+
+---
+
 ## Validated Instances & Protocol Evidence
 
-| Instance | ADR | Status | Protocol core modified? | Mechanical Closure |
-|---|---|---|---|---|
-| **1** | [ADR-013](../../constitution/ADR-013-cognitive-role-primitive-gate.md) | ✅ Completed | N/A (source instance) | ✅ |
-| **2** | [ADR-014](../../constitution/ADR-014-cognitive-stance-capability-context.md) | Proposed — **Instance 2 candidate** | *pending* | *pending* |
-| **3** | — | — | — | — |
+| Instance | ADR | RI | Status | Protocol core modified? | Mechanical Closure |
+|---|---|---|---|---|---|
+| **1** | [ADR-013](../../constitution/ADR-013-cognitive-role-primitive-gate.md) | **#1** | ✅ Completed | N/A (source → abstracted) | ✅ |
+| **2** | [ADR-014](../../constitution/ADR-014-cognitive-stance-capability-context.md) | **#2** (candidate) | Proposed — **first independent validation** | *pending* | *pending* |
+| **3** | — | — | — | — | — |
 
-**Instance 2 pass criterion:** Complete Stages A–F + Integration Phase; **Protocol Evidence: No protocol core modified**; only this table and ADR-014 §Dogfood Evidence grow.
+**Instance 2 pass criterion:** Stages A–F + Integration + Mechanical Closure; **Protocol Evidence: No protocol core modified**; only non-core rows added (this table, RI index, ADR-014 §Dogfood Evidence).
 
-**Stable criterion:** Instance 3+ with same **No protocol core modified** column — then Protocol Status may advance to **Stable**.
+**Emerging criterion:** Instance 2 pass with **No** in protocol core column → Protocol Status **Experimental → Emerging**.
+
+**Stable criterion:** Instance 3+ same **No** column — instance count is reference; **no core edits** is proof.
 
 ---
 
@@ -271,25 +361,22 @@ Runtime consistency → Navigation + Drift Lock → Debt Payoff → Regression (
 
 ## Lineage
 
-ADR-013 and this protocol share origin but **different lifecycles**:
-
 ```text
 Review three-layer mismatch (2026-07)
-  → ADR-013 Completed (architecture decision — done)
-  → Pattern abstracted
-  → architecture-evolution-protocol.md (methodology — beginning)
-  → ADR-014 Instance 2 candidate (protocol validation — pending)
+  → ADR-013 Completed + Reference Implementation #1
+  → Protocol abstracted from RI #1
+  → ADR-014 = first independent protocol validation (pending)
 ```
 
 | Artifact | Role |
 |---|---|
-| [ADR-013 plan archive](../../plans/archived/2026-07-06-review-architecture-adr/_plan.md) | Instance 1 evidence |
-| [ADR-013](../../constitution/ADR-013-cognitive-role-primitive-gate.md) | Decision + §Dogfood Evidence |
-| [ADR-014](../../constitution/ADR-014-cognitive-stance-capability-context.md) | Instance 2 candidate |
+| [ADR-013 plan archive](../../plans/archived/2026-07-06-review-architecture-adr/_plan.md) | RI #1 walkthrough evidence |
+| [ADR-013](../../constitution/ADR-013-cognitive-role-primitive-gate.md) | Decision + RI #1 + §Dogfood Evidence |
+| [ADR-014](../../constitution/ADR-014-cognitive-stance-capability-context.md) | First independent validation (not "just next ADR") |
 
 ---
 
-## Instance 1 — reference (ADR-013 Dogfood)
+## RI #1 — ADR-013 summary (Dogfood pointer)
 
 Full record in [ADR-013 §Dogfood Evidence](../../constitution/ADR-013-cognitive-role-primitive-gate.md). Summary:
 
@@ -304,7 +391,9 @@ Full record in [ADR-013 §Dogfood Evidence](../../constitution/ADR-013-cognitive
 
 ## Plan checklist (agent-facing)
 
-- [ ] Three output layers understood: ADR ≠ Protocol ≠ Governance Pattern
+- [ ] Four layers understood: ADR · Protocol · Governance Pattern · Reference Implementation
+- [ ] Protocol Core vs non-core: know if your edit triggers maturity re-eval
+- [ ] Changelog type recorded for any protocol edit
 - [ ] Invariant ① Separation: no layer redefines below
 - [ ] Invariant ② Mechanical Closure: Regression + Drift Lock + Debt Payoff before ADR close
 - [ ] Invariant ③ Generalization: instance completes without protocol core edit
@@ -320,5 +409,5 @@ Full record in [ADR-013 §Dogfood Evidence](../../constitution/ADR-013-cognitive
 - [`governance-pattern-template.md`](governance-pattern-template.md) — how locks are built
 - [`system-upgrade-governance.md`](system-upgrade-governance.md) — plan archive checklist
 - [`../../architecture/ai-native-cognitive-execution-system.md`](../../architecture/ai-native-cognitive-execution-system.md)
-- [`../../constitution/ADR-013-cognitive-role-primitive-gate.md`](../../constitution/ADR-013-cognitive-role-primitive-gate.md) — Instance 1 · **Completed**
-- [`../../constitution/ADR-014-cognitive-stance-capability-context.md`](../../constitution/ADR-014-cognitive-stance-capability-context.md) — Instance 2 candidate
+- [`../../constitution/ADR-013-cognitive-role-primitive-gate.md`](../../constitution/ADR-013-cognitive-role-primitive-gate.md) — **Reference Implementation #1** · Completed
+- [`../../constitution/ADR-014-cognitive-stance-capability-context.md`](../../constitution/ADR-014-cognitive-stance-capability-context.md) — first independent protocol validation
