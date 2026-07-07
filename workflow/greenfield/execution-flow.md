@@ -130,7 +130,7 @@
 
 ### Template Reference
 - BDD Scenarios: [`bdd-scenario-template.md`](../software-delivery/templates/bdd-scenario-template.md)
-- Review Report: [`review-report-template.md`](../software-delivery/templates/review-report-template.md)
+- Review report（`code-review` capability artifact）：invoke 後使用 [`review-report-template.md`](../software-delivery/templates/review-report-template.md)；見 [`cross-cutting/review/self-review.md`](../cross-cutting/review/self-review.md)
 
 ---
 

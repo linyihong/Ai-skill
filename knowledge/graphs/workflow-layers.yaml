@@ -69,7 +69,7 @@ edges:
   - type: related_to
     target: workflow/cross-cutting/review/checklist.md
     reason: 審查檢查清單 — 15 個審查類別（Change Intake、Test Strategy、Performance Test、Product To Contract、Documentation Backfill、Contract Governance、Embedded/Hardware Review、API And Transport、Auth/Tokens/Sessions、Local Storage、Flutter/Android Build、Logging/Telemetry、Anti-Tamper/Risk、Release Gate）。
-    validation: review-checklist.md 從 skills/app-development-guidance/CHECKLIST.md（已刪除）提取。
+    validation: checklist.md 已遷移至 workflow/cross-cutting/review/checklist.md；舊 review-checklist.md 為 stub redirect。
   - type: related_to
     target: workflow/software-delivery/examples/EXAMPLES.md
     reason: Simplicity First、Surgical Changes、Think Before Coding、Goal-Driven Execution 的行為範例與 anti-patterns 對照。

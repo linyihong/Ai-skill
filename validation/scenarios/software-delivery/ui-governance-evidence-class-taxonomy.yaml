@@ -34,7 +34,7 @@ then:
     - workflow/software-delivery/execution-flow.md
     - workflow/software-delivery/ui-governance.md
     - workflow/software-delivery/templates/ui-governance-evidence-template.md
-    - workflow/software-delivery/review-checklist.md
+    - workflow/cross-cutting/review/checklist.md
   expected_route:
     - classify_each_evidence_source_separately
     - keep_governance_domain_separate_from_validation_mechanism
@@ -58,4 +58,4 @@ evidence:
   routing_evidence:
     - workflow/software-delivery/ui-governance.md#Evidence Classes
     - workflow/software-delivery/ui-governance.md#Validation Mechanisms
-    - workflow/software-delivery/review-checklist.md#UI Governance Review
+    - workflow/cross-cutting/review/checklist.md#UI Governance Review

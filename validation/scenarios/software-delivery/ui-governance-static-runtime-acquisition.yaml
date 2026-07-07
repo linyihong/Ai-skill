@@ -36,7 +36,7 @@ then:
     - workflow/software-delivery/execution-flow.md
     - workflow/software-delivery/ui-governance.md
     - workflow/software-delivery/validation.md
-    - workflow/software-delivery/review-checklist.md
+    - workflow/cross-cutting/review/checklist.md
   expected_route:
     - classify_static_analysis_as_collection_method
     - classify_runtime_trace_as_collection_method

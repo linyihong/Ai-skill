@@ -600,6 +600,15 @@ func buildRuntimeValidateResult(opts runtimeOptions) Result {
 		return result
 	}
 
+	ownershipDriftCheck := nativeCanonicalOwnershipDriftValidation(repo)
+	result.Checks = append(result.Checks, ownershipDriftCheck)
+	if ownershipDriftCheck.Status != "ok" {
+		result.Status = "blocked"
+		result.ExitCode = ExitValidationFailed
+		result.Error = &CommandError{Code: "canonical_ownership_drift_failed", Message: ownershipDriftCheck.Message, Remediation: "Clear architectural debt (ownership/path/semantic/artifact drift). See ADR-013 Phase 2.3."}
+		return result
+	}
+
 	shellBootstrapCheck := nativeToolBootstrapShellCLIDecisionValidation(repo)
 	result.Checks = append(result.Checks, shellBootstrapCheck)
 	if shellBootstrapCheck.Status != "ok" {

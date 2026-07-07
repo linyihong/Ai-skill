@@ -87,7 +87,7 @@ gates:
   - id: gate.artifact_gates.owner_layer_correct
     blocks: artifact_publication
     pass_when:
-      - reusable rule, implementation detail, review flow, project evidence, or local note is placed in the correct owner layer
+      - reusable rule, implementation detail, capability invoke procedure, project evidence, or local note is placed in the correct owner layer
       - APK methods stay in analysis/apk or workflow/apk-analysis
       - project-specific evidence stays in project docs
   - id: gate.artifact_gates.sanitized

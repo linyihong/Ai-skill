@@ -326,6 +326,18 @@ func runPreCommitHook(result Result, root string) Result {
 			return result
 		}
 	}
+	if !canonicalOwnershipDriftOptOut(commitMsg) {
+		if msg := validateCanonicalOwnershipDriftStaged(root, staged); msg != "" {
+			result.Status = "blocked"
+			result.ExitCode = ExitValidationFailed
+			result.Error = &CommandError{
+				Code:        "canonical_ownership_drift_failed",
+				Message:     msg,
+				Remediation: "Clear ADR-013 architectural debt in staged canonical sources. Opt-out: [skip-canonical-ownership-drift] on its own line in commit message.",
+			}
+			return result
+		}
+	}
 
 	if len(result.Mutations) == 0 {
 		result.Checks = append(result.Checks, Check{Name: "pre_commit", Status: "ok", Message: "no runtime or knowledge hook action required"})

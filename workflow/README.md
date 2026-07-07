@@ -1,6 +1,6 @@
 # Workflow
 
-`workflow/` 負責「AI 如何執行工作順序」。本層保存 agent 可照著執行的 planning flow、task decomposition、review flow、orchestration flow 與 handoff flow。
+`workflow/` 負責「AI 如何執行工作順序」。本層保存 agent 可照著執行的 planning flow、task decomposition、**capability invoke**（含 review）、orchestration flow 與 handoff flow。
 
 判斷原則：如果內容核心是在回答「先做 A 再做 B，如何收口與交接」，通常屬於 `workflow/`。如果只是某個技術路線內部如何取得證據，優先放在對應 `analysis/<domain>/`；如果是在回答何時選哪條路或如何避免錯誤，放到 `intelligence/`。
 

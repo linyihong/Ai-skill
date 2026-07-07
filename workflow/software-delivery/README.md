@@ -1,6 +1,6 @@
 # Software Delivery Workflow
 
-`workflow/software-delivery/` 負責「App 開發審查與指引的執行流程」。本目錄保存 agent 在進行 app 開發審查時可照著執行的 planning flow、review flow、handoff flow、review checklists 與 contract-first 開發流程，讓開發與審查過程可重複、可驗證。
+`workflow/software-delivery/` 負責 software-delivery 執行流程。本目錄保存 planning、**capability invoke**（含 review）、handoff 與 contract-first 開發流程，讓開發與審查過程可重複、可驗證。
 
 ## 何時進入此 Workflow
 

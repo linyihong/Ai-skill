@@ -134,8 +134,12 @@ workflow/cross-cutting/review/
 |---|---|---|
 | **2.1** | Routing registry, refresh policy, graph edges — runtime understands stance contract chain | **complete** |
 | **2.2** | Navigation Drift Lock — execution-flow thin, README fat, taxonomy consumer | **complete** |
-| **2.3** | Consumer migration cleanup (validation.md, old paths, scenarios) | pending |
+| **2.3** | Architectural Debt Payoff + Canonical Ownership Lock | **complete** |
 | **2.4** | Contract regression tests (4 invoke cases) | **complete** |
+
+### Phase 2.3 — Architectural Debt Payoff
+
+**Debt classes A–D** cleared; `canonical_ownership_drift` lock active. **ADR-013 closed.**
 
 ### Phase 1.2 enforcement
 

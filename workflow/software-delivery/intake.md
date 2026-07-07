@@ -154,7 +154,7 @@ Discover → Interrogate → Draft Plan ⟲ Preflight → Execute
 - **surgical 小修補**（只改必須改的行、無 observable behavior 或 public contract 變更）：走 [`surgical-changes.md`](surgical-changes.md)，記錄無行為變更即可，不強制 plan。
 - 其餘會改變 observable behavior、public contract、runtime surface 或跨層的任務：**應**有 plan artifact。
 
-語氣為「應 / 建議」——缺 plan 時 reviewer 可在 review checklist 標記（見 [`review-checklist.md`](review-checklist.md) §Change Intake），而非 commit-time 硬擋。
+語氣為「應 / 建議」——缺 plan 時 reviewer 可在 review checklist 標記（見 [`cross-cutting/review/checklist.md`](../../cross-cutting/review/checklist.md) §Change Intake），而非 commit-time 硬擋。
 
 ### Requirements Cognition Checkpoint
 

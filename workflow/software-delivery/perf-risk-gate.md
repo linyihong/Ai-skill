@@ -93,7 +93,7 @@ Reviewer 不僅看「功能對不對」，必須在 PR comment 中明確回答�
 ## 與其他 workflow 步驟的關係
 
 - 本 gate 是 [`workflow/software-delivery/execution-flow.md`](execution-flow.md) Step 3（Acceptance + Validation）的一個 sub-check
-- 對應 review checklist 補強：[`workflow/software-delivery/review-checklist.md`](review-checklist.md) §performance section
+- 對應 review checklist 補強：[`workflow/cross-cutting/review/checklist.md`](../../cross-cutting/review/checklist.md) §performance section
 - 失敗處理升級到：[`analysis/production/`](../../analysis/production/README.md)
 
 ## Related

@@ -33,7 +33,7 @@ then:
   expected_load:
     - workflow/software-delivery/intake.md
     - workflow/software-delivery/closure.md
-    - workflow/software-delivery/review-checklist.md
+    - workflow/cross-cutting/review/checklist.md
   expected_route:
     - classify_ownership_awareness_failure
     - require_owner_boundary_review
@@ -48,5 +48,5 @@ evidence:
   routing_evidence:
     - workflow/software-delivery/intake.md
     - workflow/software-delivery/closure.md
-    - workflow/software-delivery/review-checklist.md
+    - workflow/cross-cutting/review/checklist.md
     - plans/active/2026-06-10-1718-software-delivery-governance-invariants.md#Phase 1 Result — Placement Matrix

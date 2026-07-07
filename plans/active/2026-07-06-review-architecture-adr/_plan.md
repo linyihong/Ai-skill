@@ -1,7 +1,7 @@
 ---
 id: 2026-07-06-review-architecture-adr
 plan_kind: main
-status: in-progress
+status: completed
 owner: linyihong
 created: 2026-07-06
 priority: P1
@@ -12,10 +12,10 @@ last_revised: 2026-07-07
 
 # Review Architecture — Cognitive Role Primitive Gate（ADR-013）
 
-**Status**: `in-progress` — **Phase 0d complete** → Phase 1 unblocked
+**Status**: `in-progress` — **Phase 2.3 complete** → **ADR-013 closed**
 
 **Owner**: linyihong  
-**Scope**: ADR-013 (Accepted) + ADR-014 (Proposed) + 本 plan；Phase 1 可開始 cross-cutting review 實作
+**Scope**: ADR-013 (**Completed**) + ADR-014 (Proposed) + 本 plan
 
 ---
 
@@ -328,50 +328,38 @@ Workflow (caller slice)
 
 ---
 
-### Phase 2 — 進行中（Integration — Runtime 優先）
+### Phase 2 — ✅ complete（Integration / Architectural Debt Payoff）
 
-**性質轉變：** 架構設計 → 系統整合。驗收標準是 **Runtime 能完全理解 `requires_context.stance`**，不是「文件更新」。
+**Architecture Evolution Pattern（可重用）：**
 
-**順序（stakeholder 2026-07-07）：** 2.1 Runtime → 2.2 Workflow 導航 → 2.3 Consumer 清理 → 2.4 Contract Regression
+```text
+Architecture Decision → Runtime Contract → Navigation Alignment
+  → Regression → Drift Lock → Debt Payoff → Close ADR
+```
 
-#### Phase 2.1 — Runtime 一致性 ✅
+| Phase | 真正目的 | 狀態 |
+|---|---|---|
+| 2.1 | Runtime Contract 成立 | ✅ |
+| 2.2 | Navigation 與 Runtime 對齊（Documentation Drift Lock） | ✅ |
+| 2.3 | 清除舊架構殘留（Architectural Debt Payoff + Canonical Ownership Lock） | ✅ |
+| 2.4 | Regression 保護 | ✅ |
 
-| 交付 | 路徑 / 行為 |
-|---|---|
-| Routing registry routes | `route.runtime.capability-context`、`route.governance.cognitive-stance` |
-| SD workflow route wiring | `required_dependencies` + `loading_surfaces.review-invocation` |
-| Refresh policy | `capability_registry` surface |
-| Graph edges | `knowledge/graphs/capability-context.yaml` |
-| Governance invariant | Workflow 不得直接依賴 `stance`；只能 invoke Capability |
+#### Phase 2.3 — Architectural Debt Payoff ✅
 
-**驗收 ✅ 2026-07-07：** `runtime validate` + 四 case regression pass。
+**完成定義（Debt Class，非檔案導向）：**
 
-#### Phase 2.2 — Workflow / Navigation 一致性（Documentation Drift Lock）✅
+| Debt Class | 描述 | 狀態 |
+|---|---|---|
+| **A — Ownership Drift** | validation 不擁有 review report；stance 不於 README 重定義 | ✅ |
+| **B — Path Drift** | 活躍 canonical source 指向 cross-cutting/review，非 stub path | ✅ |
+| **C — Semantic Drift** | 無 review flow/phase/workflow；僅 capability invoke | ✅ |
+| **D — Artifact Drift** | scenarios 與 templates 對齊 capability output，非 Validation phase | ✅ |
 
-**完成條件（一句話）：** 所有導航層（execution-flow、README、taxonomy）均**僅描述 Runtime Contract**，不得重新定義 Capability Context、Workflow 或 Consumer 的責任邊界。
+**Locks：** `review_architecture_doc_drift` + `canonical_ownership_drift`（runtime validate + pre-commit）
 
-**驗收 ✅ 2026-07-07：** thin execution-flow + fat README §Review invoke + taxonomy §7.6 consumer + `review_architecture_doc_drift` regression。
+**ADR-013：** Status → **Completed**（2026-07-07）。後續演進 → **ADR-014** only。
 
-#### Phase 2.3 — Consumer 清理（待 2.2）
-
-- `validation.md` review-report 错置
-- 舊 `review-checklist` 路徑遷移、validation scenarios、redirect stub
-
-#### Phase 2.4 — Contract Regression（與 2.1 同步）
-
-| Case | 預期 |
-|---|---|
-| 要求 `fault_finding`，invoke 有提供 | Pass |
-| 要求 `fault_finding`，invoke 未提供 | Warning（Phase 1 行為） |
-| 不要求 stance | Pass，不產生 warning |
-| invoke stance 與 capability 宣告不一致 | Warning |
-
-Tests: `capability_context_test.go` + `capability-stance-contract-regression-v1.yaml`
-
-| 項目 | 路徑 |
-|---|---|
-| 修正 | `validation.md` review-report 错置 |
-| 不做 | `sd-review` slice、`cognitive_role` primitive、預留 stance placeholder |
+**Post-close（deferred）：** Architecture Evolution Lifecycle 方法論文件（框架級抽象，待 ADR-013 驗證期後）
 
 ---
 
@@ -387,7 +375,7 @@ Tests: `capability_context_test.go` + `capability-stance-contract-regression-v1.
 
 | 檔案 | 角色 |
 |---|---|
-| [`ADR-013`](../../constitution/ADR-013-cognitive-role-primitive-gate.md) | Canonical ADR — **Accepted** |
+| [`ADR-013`](../../constitution/ADR-013-cognitive-role-primitive-gate.md) | Canonical ADR — **Completed** |
 | [`ADR-014`](../../constitution/ADR-014-cognitive-stance-capability-context.md) | Stance taxonomy — Proposed |
 | [`01-phase0b-...`](01-phase0b-perspective-generalization-evidence.md) | Phase 0b 證據 |
 | [`02-phase0b5-...`](02-phase0b5-perspective-taxonomy-validation.md) | Phase 0b.5 perspective taxonomy |

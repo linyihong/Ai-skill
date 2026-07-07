@@ -27,7 +27,7 @@ then:
     - workflow/software-delivery/execution-flow.md
     - workflow/software-delivery/ui-contracts.md
     - workflow/software-delivery/ui-governance.md
-    - workflow/software-delivery/review-checklist.md
+    - workflow/cross-cutting/review/checklist.md
   expected_route:
     - detect_destructive_action_missing_confirmation
     - classify_governance_domain_behavior
@@ -49,5 +49,5 @@ evidence:
   current_expected_result: PASS
   routing_evidence:
     - workflow/software-delivery/ui-governance.md#Governance Domains
-    - workflow/software-delivery/review-checklist.md#UI Governance Review
+    - workflow/cross-cutting/review/checklist.md#UI Governance Review
     - governance/ai-runtime-governance/software-delivery-governance.md#UI Governance Advisory Candidates

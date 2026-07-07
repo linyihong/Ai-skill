@@ -408,4 +408,4 @@ Validation rules:
 - Critical payment, entitlement, identity, storage, queue, email, or external API journeys require evidence depth matching the state visibility / evidence chain risk above.
 - If a journey claim lacks BDD specification, side-effect chain, expected outcomes, or observable evidence, report it as `missing_journey_evidence` or `journey_validation_fail` rather than pass.
 
-> **輸出模板**：Validate 完成後，使用 [`templates/review-report-template.md`](templates/review-report-template.md) 記錄審查報告。
+> **Review report artifact**：Review report 由 **`code-review` capability** 產出（registry artifact: `review-report`），不是 Validation phase 的輸出。Post-implementation invoke 後使用 [`templates/review-report-template.md`](templates/review-report-template.md) 或專案等價格式；consumer 見 [`cross-cutting/review/self-review.md`](../../cross-cutting/review/self-review.md)。Validation 只消費已存在的 review evidence，不擁有 review report template。

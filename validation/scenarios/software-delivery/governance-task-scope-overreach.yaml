@@ -31,7 +31,7 @@ then:
   expected_load:
     - workflow/software-delivery/intake.md
     - workflow/software-delivery/closure.md
-    - workflow/software-delivery/review-checklist.md
+    - workflow/cross-cutting/review/checklist.md
   expected_route:
     - classify_task_scope_overreach
     - require_scope_expansion_or_revert_unrelated_changes
@@ -45,5 +45,5 @@ evidence:
   current_expected_result: FAIL_BY_ABSENCE
   routing_evidence:
     - workflow/software-delivery/intake.md
-    - workflow/software-delivery/review-checklist.md
+    - workflow/cross-cutting/review/checklist.md
     - plans/active/2026-06-10-1718-software-delivery-governance-invariants.md#Phase 1 Result — Placement Matrix

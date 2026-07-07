@@ -863,7 +863,7 @@ meaning: >
 affects:
   - workflow/software-delivery/intake.md
   - workflow/software-delivery/closure.md
-  - workflow/software-delivery/review-checklist.md
+  - workflow/cross-cutting/review/checklist.md
   - validation/scenarios/software-delivery/governance-ownership-awareness-cross-boundary.yaml
 anti-meaning: >
   Not the same as task_scope_validation. A change can be inside the task scope

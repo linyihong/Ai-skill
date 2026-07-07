@@ -416,7 +416,7 @@ compatibility:
 - [ ] [`README.md`](../../workflow/software-delivery/README.md) 進入方式
 - [ ] [`test-strategy.md`](../../workflow/software-delivery/test-strategy.md) cross-link：intent → validation 分流
 - [ ] [`surgical-changes.md`](../../workflow/software-delivery/surgical-changes.md) reconciliation 一節
-- [ ] [`review-checklist.md`](../../workflow/software-delivery/review-checklist.md)：intent lock + stop condition 檢查
+- [ ] [`cross-cutting/review/checklist.md`](../../workflow/cross-cutting/review/checklist.md)：intent lock + stop condition 檢查
 
 **Phase 3 進度（2026-06-29）**：routing surface 已在 execution-flow 接通；README / test-strategy / surgical-changes / review-checklist 四檔仍待補 cross-link（觀察期內可完成，不阻塞 dogfood 結論）。
 

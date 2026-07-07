@@ -2,13 +2,15 @@
 
 ## Status
 
-**Accepted** (2026-07-06, Phase 0d)
+**Completed** (2026-07-07, Phase 2.3 debt payoff)
+
+> **Scope closed.** Stance value taxonomy growth → [`ADR-014`](ADR-014-cognitive-stance-capability-context.md). Do not extend ADR-013; use Architecture Evolution Pattern documented in plan Phase 2 close-out.
 
 ## Framework Generation
 
 - **世代分類**：Gen 3 — Cognitive Execution System 子系統邊界擴充候選
 - **當前世代文件**：[`architecture/ai-native-cognitive-execution-system.md`](../architecture/ai-native-cognitive-execution-system.md)；[`constitution/ADR-008-runtime-cognitive-modes.md`](ADR-008-runtime-cognitive-modes.md)（既有 4 維 `cognitive_mode` primitive）
-- **適用狀態**：D1 **rejected**；D2 **accepted** — capability context may carry bounded `context.stance`. Stance **value taxonomy** owned by [`ADR-014`](ADR-014-cognitive-stance-capability-context.md) (Proposed). Phase 1 may implement cross-cutting review surfaces per Consequences §D2.
+- **適用狀態**：D1 **rejected**；D2 **accepted** — capability context may carry bounded `context.stance`. **ADR-013 closed** — implementation complete Phase 1–2. Stance **value taxonomy** → [`ADR-014`](ADR-014-cognitive-stance-capability-context.md) (Proposed).
 
 ## Date
 
@@ -328,22 +330,22 @@ Rejected paths:
 - Glossary: `cognitive_role` (distinct from `cognitive_mode`)
 - **No** `sd-review` lifecycle slice
 
-### D2 accepted (Phase 0d)
+### D2 accepted — implemented (Phase 1–2 complete)
 
-- `workflow/cross-cutting/review/` — capability bodies (Phase 1)
-- Per-slice `review_invocation` with `context.stance: fault_finding`
-- **Workflow isolation:** workflows invoke capabilities; they **must not branch on `context.stance`** — stance requirements live in capability registry; runtime validates invoke envelopes ([`governance/cognitive-stance.md`](../governance/cognitive-stance.md))
-- Glossary: `cognitive_stance`, `review_capability` (Phase 1 / ADR-014)
-- **No** routing/runtime primitive expansion
-- **No** `sd-review` lifecycle slice
-- Stance value growth → **ADR-014** gate
+- `workflow/cross-cutting/review/` — capability bodies ✅
+- Per-slice `review_invocation` with capability invoke ✅
+- **Workflow isolation:** workflows invoke capabilities; they **must not branch on `context.stance`** ✅
+- Runtime Contract + Navigation Alignment + Regression + Drift Lock + Debt Payoff ✅
+- **No** routing/runtime primitive expansion ✅
+- **No** `sd-review` lifecycle slice ✅
+- Stance value growth → **ADR-014** only
 
-### Either path — shared fixes
+### Either path — shared fixes (complete)
 
-- Migrate [`review-checklist.md`](../workflow/software-delivery/review-checklist.md) under cross-cutting (ADR accept 後)
-- Fix [`validation.md`](../workflow/software-delivery/validation.md) misplaced review-report-template reference
-- Align governance Artifact completeness language
-- Validation scenarios: pre-impl architecture review · post-impl code review · pre-release release review
+- Migrate [`review-checklist.md`](../workflow/software-delivery/review-checklist.md) under cross-cutting ✅
+- Fix [`validation.md`](../workflow/software-delivery/validation.md) misplaced review-report ownership ✅
+- Align governance Artifact completeness language — deferred minor; capability owns review report
+- Validation scenarios updated to cross-cutting paths ✅
 
 ### Rejected (Phase 0)
 

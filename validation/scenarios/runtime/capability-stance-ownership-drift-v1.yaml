@@ -1,0 +1,46 @@
+# yaml-language-server: $schema=../../scenario.schema.json
+# Canonical Ownership Lock — Phase 2.3 Architectural Debt Payoff
+# Source: plans/active/2026-07-06-review-architecture-adr/_plan.md Phase 2.3
+
+id: capability-stance-ownership-drift-v1
+domain: runtime
+type: heuristic-obedience
+priority: P1
+source_plan: plans/active/2026-07-06-review-architecture-adr/_plan.md
+
+given:
+  task: verify_architectural_debt_classes_cleared
+  debt_classes:
+    A: ownership_drift
+    B: path_drift
+    C: semantic_drift
+    D: artifact_drift
+  locks:
+    - review_architecture_doc_drift
+    - canonical_ownership_drift
+
+when:
+  action: run_debt_payoff_regression
+
+then:
+  expected_route:
+    primary: all_debt_classes_clear
+    steps:
+      - validation.md does not own review-report as Validate output
+      - active sources cite cross-cutting/review/checklist not stub path
+      - no review flow / review phase in navigation canon
+      - scenarios reference capability consumer paths
+  forbidden_routes:
+    - validation_owns_review_report
+    - review_checklist_as_canonical_path
+    - sd_review_lifecycle_slice
+  detection_command: |
+    cd scripts/ai-skill-cli && go test ./internal/app/ -run 'TestNativeCanonicalOwnershipDriftValidationOK' -count=1
+    go run ./cmd/ai-skill runtime validate --repo ../..
+  verification:
+    - "Canonical Ownership Lock protects owner drift independent of review behavior."
+
+evidence:
+  executed_on: 2026-07-07
+  executor: agent_regression
+  results: runtime validate canonical_ownership_drift ok; debt classes A–D clear

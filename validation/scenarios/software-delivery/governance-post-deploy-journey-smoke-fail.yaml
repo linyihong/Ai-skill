@@ -41,7 +41,7 @@ then:
     - workflow/software-delivery/test-strategy.md
     - workflow/software-delivery/validation.md
     - workflow/software-delivery/artifact-gates.md
-    - workflow/software-delivery/review-checklist.md
+    - workflow/cross-cutting/review/checklist.md
   expected_route:
     - keep_component_smoke_as_partial_scope
     - execute_existing_journey_validation
