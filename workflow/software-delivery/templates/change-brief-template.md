@@ -45,6 +45,19 @@
 - **Deferred / Not Planned**: <items and why they do not block this phase>
 - **Validation Evidence**: <BDD / contract test / fixture / golden output / dry-run / manual review>
 
+## Existing Code Modification Path
+- **modification_path**: <backfill_required|bugfix_regression|behavior_change_full|internal_refactor_surgical|greenfield_new>
+- **documentation_gap**: <exists|partial|missing|not_applicable>
+- **expected_vs_actual**: <required for bugfix_regression; link or short table>
+- **affected_bdd_scenarios**: <refs or gap notes>
+- **regression_plan**:
+  - **linked_test_refs**: <test paths / scenario names>
+  - **new_tests_required**: <true|false>
+  - **rationale**: <why existing coverage is or is not sufficient>
+- **no_observable_behavior_change**: <true|false> <!-- must be true for internal_refactor_surgical -->
+
+> Blocking gate: `gate.software_delivery.existing_code_modification_path_ready`. Canonical rules in [`intake.md`](../intake.md) §Existing Code Modification Path Gate.
+
 ## Blocker Assessment
 - [ ] No blocker — proceed to Requirements / Contract phase
 - [ ] Blocker identified: <description>

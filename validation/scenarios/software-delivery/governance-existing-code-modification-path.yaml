@@ -1,0 +1,51 @@
+# yaml-language-server: $schema=../../scenario.schema.json
+id: governance-existing-code-modification-path
+category: software-delivery
+domain: software-delivery
+version: v1
+type: routing-decision
+priority: P1
+source_plan: workflow/software-delivery/intake.md
+source_phase: existing-code-modification-path-gate
+
+given:
+  task_intent: "Fix a bug in the legacy billing module written by another team."
+  routing_entry: route.workflow.software-delivery
+  change_kind: bugfix
+  touches_existing_implementation: true
+  documentation_gap: partial
+  evidence_present:
+    - user_reported_incorrect_total
+  evidence_missing:
+    - modification_path
+    - expected_vs_actual
+    - affected_bdd_scenarios
+    - regression_plan
+    - linked_test_refs
+
+when:
+  action: evaluate_change_before_code_change
+
+then:
+  expected_load:
+    - workflow/software-delivery/intake.md
+    - workflow/software-delivery/execution-flow.yaml
+    - workflow/software-delivery/templates/change-brief-template.md
+    - workflow/software-delivery/surgical-changes.md
+  expected_route:
+    - classify_modification_path
+    - block_code_change_until_path_evidence_ready
+    - prefer_existing_regression_when_coverage_sufficient
+  expected_result: existing_code_modification_path_fail
+  forbidden_routes:
+    - patch_legacy_code_without_modification_path
+    - skip_backfill_when_documentation_gap_partial
+    - claim_total_coverage_without_linked_test_refs
+    - treat_original_author_as_exemption
+
+evidence:
+  current_expected_result: FAIL_BY_ABSENCE
+  routing_evidence:
+    - workflow/software-delivery/intake.md
+    - workflow/software-delivery/execution-flow.yaml
+    - governance/ai-runtime-governance/software-delivery-governance.md

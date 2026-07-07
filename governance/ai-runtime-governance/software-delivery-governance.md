@@ -33,6 +33,7 @@ source_intelligence:
 | Gate | 通過條件 |
 | --- | --- |
 | Change intake | 已分類為新需求、bug、refactor / replacement、安全/強化、performance 或 planning-only，並確認 code 前需要的 artifacts。 |
+| Existing code modification path | 觸及既有 / legacy 實作時，`modification_path` 已分類（backfill_required、bugfix_regression、behavior_change_full、internal_refactor_surgical、greenfield_new），且路徑專屬證據（backfill、regression plan、docs-first BDD route、surgical no-behavior-change attestation）在 `code_change` 前就緒。 |
 | Pre-build interrogation | Plan 或 implementation 前已釐清 goal、scope、non-goals、acceptance、validation target、framework source-of-truth、duplication risk、open questions 與 assumptions。 |
 | Brief validation | Product brief 的主要 claim 已標記 `validated`、`assumption`、`open question`、`scoped out` 或 `invalidated`。 |
 | Product alignment | Impact Map 的 Why / Who / How / What 已與 Customer Journey 的 actor、timing、pain point、blocker 交叉驗證。 |
@@ -140,6 +141,7 @@ Promotion boundary:
 - Product goal、target actor、journey pain 或 feature investment 不一致卻直接產生 implementation plan。
 - Acceptance criteria 缺 validation target 卻宣稱 ready。
 - Observable behavior change 只改 code，未更新 owning contract / BDD / tests。
+- Existing or legacy code patched without `modification_path`, backfill, regression plan, or behavior-change docs-first route when required.
 - Product brief claim 未驗證卻被當成 implementation input。
 - API/schema contract 改變但 generated client、fixtures 或 consumer tests 未同步。
 - Refactor / replacement 只描述新設計，沒有盤點舊入口、舊能力、副作用、外部依賴、new surface mapping 與 parity 測試證據。

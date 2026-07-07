@@ -108,6 +108,57 @@ then:
 
 `change-brief` 的 `Change Type` 與 `change_kind` 對齊見 [`templates/change-brief-template.md`](templates/change-brief-template.md)。未宣告 `execution_mode` 的既有 plan 預設 `direct_change`（opt-in enrichment）。
 
+### Existing Code Modification Path Gate（既有程式碼修改路徑關卡 — blocking）
+
+> **Blocking gate**：`gate.software_delivery.existing_code_modification_path_ready`（[`execution-flow.yaml`](execution-flow.yaml)）。在 `change_intake_complete` 之後、`code_change` 之前，凡觸及**既有 / legacy 實作**（不論原始作者）必須先選路並留下證據。本關卡**不**以「誰寫的 code」為條件，而以「是否動到已存在實作 + 文件 / 行為證據是否就緒」為條件。
+
+**何時觸發**：變更會編輯、重構、修復或延伸專案中**已存在的**模組、API、UI flow、job、hook 或 runtime surface（`modification_path != greenfield_new`）。
+
+**決策樹**（選**恰好一條**路徑）：
+
+```text
+觸及既有 code
+  ├─ 文件 / BDD / contract 缺失且影響範圍內行為？ → backfill_required
+  │     先完成 Backfill（BDD 必完成）→ 再進入下方路徑
+  ├─ bugfix + 預期行為清楚 + regression 可執行？ → bugfix_regression
+  │     Intake(bugfix) → 對照既有 BDD → 跑 / 連結既有測試 → surgical 修
+  ├─ 會改 observable behavior 或 public contract？ → behavior_change_full
+  │     完整 requirements + docs-first BDD closure → 再寫 code
+  └─ 純內部重構、行為 / public contract 不變？ → internal_refactor_surgical
+        surgical-changes + 無行為變更聲明
+```
+
+**路徑與 code 前必要證據**：
+
+| `modification_path` | code 前必須有 | 測試策略 |
+| --- | --- | --- |
+| `backfill_required` | documentation gap table；範圍內 BDD backfill 完成或明確 blocker | 將既有 tests 對應到 BDD；列出缺口 |
+| `bugfix_regression` | 預期 vs 實際、重現證據、受影響 BDD scenario（引用或補缺口）、regression plan | **優先**連結既有測試；無覆蓋才補新測試 |
+| `behavior_change_full` | requirements checkpoint + docs-first BDD closure 路徑已選；owning contract / BDD / executable test 與 implementation 同批次 | 新行為需 failing test 或 executable spec（見 [`test-strategy.md`](test-strategy.md)） |
+| `internal_refactor_surgical` | `no_observable_behavior_change: true`；載入 [`surgical-changes.md`](surgical-changes.md) | 跑受影響路徑的既有 regression |
+| `greenfield_new` | 僅新增檔案 / 新模組、未觸及既有實作語意 | 依新需求 test strategy |
+
+**既有測試足夠時**：可宣告 `regression_coverage: existing_sufficient`，但必須列出 `linked_test_refs` 與 `affected_bdd_scenarios`；不得以專案總 coverage 代替本次範圍證明。
+
+**Change brief 必填形狀**（見 [`templates/change-brief-template.md`](templates/change-brief-template.md) §Existing Code Modification Path）：
+
+```yaml
+existing_code_modification_path:
+  modification_path: backfill_required | bugfix_regression | behavior_change_full | internal_refactor_surgical | greenfield_new
+  documentation_gap: exists | partial | missing | not_applicable
+  expected_vs_actual: <required for bugfix_regression>
+  affected_bdd_scenarios:
+    - <ref or gap note>
+  regression_plan:
+    linked_test_refs:
+      - <test path or scenario>
+    new_tests_required: true | false
+    rationale: <why existing coverage is or is not sufficient>
+  no_observable_behavior_change: true | false  # required true for internal_refactor_surgical
+```
+
+**Blocking rule**：未分類 `modification_path`、在 `backfill_required` 未完成 BDD 時改 code、在 `behavior_change_full` 未走 docs-first BDD 時改 code、或宣稱「測試夠了」卻無 `linked_test_refs` — 均不得 `code_change`。
+
 ### Pre-build Interrogation Gate
 
 在 change intake 之後、implementation plan 或 framework migration 之前，讀取 [`requirements/pre-build-interrogation.md`](requirements/pre-build-interrogation.md)。若請求會變成 plan、code、workflow、governance、runtime、validation、schema、generated artifact 或 tool adapter 改動，必須先記錄：
