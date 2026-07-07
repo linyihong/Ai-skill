@@ -161,7 +161,7 @@ Why now：03 剛 completed、dogfood 方法論（brief independence score、fres
 
 **焦點紀律（承 03）**：驗的是**契約自足性**（verifier 報告是否足以仲裁、brief 是否足以執行），不是執行者 / 驗證者聰不聰明。任何失效先反問契約缺漏。
 
-**Transport（tool-portability 驗證）**：dogfood 以 **Cursor 為主要 transport**（human 路徑：三份模板貼進獨立 fresh chat），同時驗證「模板 tool-neutral、工具細節只在 §Cursor 傳輸備註」的分層是否成立——換工具只換傳輸備註即模板可用 = 分層成立的證據。模板見 [`01-dogfood-prompt-kit.md`](01-dogfood-prompt-kit.md)。
+**Transport（tool-portability 驗證，2026-07-08 調整）**：雙 transport 分工——**2a 用 Cursor**（human 路徑：使用者把模板貼進獨立 fresh chat）、**2b 用 Claude Code Agent 工具**（agent 路徑：orchestrator session 直接 spawn executor / verifier 獨立 agent，使用者授權全程自駕 + 每階段 commit/push）。同一套模板跑兩種 transport = 「模板 tool-neutral、工具細節只在傳輸備註」分層成立的更強證據。模板見 [`01-dogfood-prompt-kit.md`](01-dogfood-prompt-kit.md)。
 
 - [x] Dogfood prompt kit 建立（模板 A executor / B verifier / C 仲裁+量測欄，Cursor-first；kit 為 rendered transport artifact，canonical 在本檔 §Decision Rationale）— 2026-07-08
 - [ ] **2a — software-delivery 外部 repo 真實任務**：挑一個真實、小、可驗收的交付任務走完整 loop（orchestrator 寫 brief → executor 執行 → verifier 報告 → 仲裁）。記錄：verifier 差集 findings、仲裁分佈、orchestrator 是否越界執行、是否被迫回讀 diff。
@@ -186,7 +186,8 @@ Why now：03 剛 completed、dogfood 方法論（brief independence score、fres
 | 驗證 leg | 復用 review capability `fault_finding` stance invoke，不另定 stance |
 | 適用範圍 | advisory；只適用已宣告 delegation 的委派任務；主打 software-delivery，Ai-skill 比照 |
 | Schema promotion | gated on Phase 2 證據（Q5），deadline 2026-08-31 |
-| Dogfood transport | **Cursor-first**（human 路徑、fresh chat ×2 + git branch 交接）；模板 tool-neutral，工具細節只在 kit §Cursor 傳輸備註 + `ai-tools/agent/cursor.md`（Layer 3） |
+| Dogfood transport | 雙 transport：2a Cursor（human 路徑，使用者操作）/ 2b Claude Code Agent（agent 路徑，orchestrator 自駕，2026-07-08 使用者授權）；模板 tool-neutral，工具細節只在 kit 傳輸備註 + `ai-tools/agent/`（Layer 3） |
+| 2b 委派任務 | Phase 1 的 plans/README.md §Delegation loop SOP 擴充本身（真實待辦、可驗收、orchestrator 全程不碰實作） |
 
 ## 與其他 plans 的關係
 
