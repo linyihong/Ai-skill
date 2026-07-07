@@ -1,7 +1,7 @@
 ---
 id: 2026-07-08-0825-delegation-verification-arbitration-loop
 plan_kind: main
-status: draft
+status: in-progress
 owner: linyihong
 created: 2026-07-08
 parent: null
@@ -10,14 +10,14 @@ baseline_ref: 2026-06-22-1009-subplan-agent-delegation
 
 # Delegation Verification & Arbitration Loop（委派執行→獨立驗證→仲裁閉環）
 
-**Status**: `draft`
+**Status**: `in-progress`（Phase 0 完成 2026-07-08；dogfood kit 已建：[`01-dogfood-prompt-kit.md`](01-dogfood-prompt-kit.md)，Cursor-first transport）
 **Owner**: linyihong
 **建立日期**: 2026-07-08
 **Source**: 2026-07-08 對話 — 使用者觀察到外部框架的三角色模式：主 session 只做規劃 / 切分 / 仲裁，執行交給獨立 agent session，驗證再交給另一個獨立 session，最後由主 session 仲裁每條驗證發現（要修 / 超出範圍 / 駁回）。目標：補漏「預計與實現的落差」。主要針對 `workflow/software-delivery` 的交付處理；Ai-skill 自身任務比照辦理，觀察品質是否提升。
-**Baseline**: [`03-subplan-agent-delegation`](2026-06-22-1009-plans-system-portability-and-delivery-integration/03-subplan-agent-delegation.md)（completed，2026-07-06）— delegation `brief` schema + 雙路徑 dogfood ★★★★☆。本 plan 是其 loop 延伸（情境 C：sibling main plan + baseline_ref，不重開該 tree）。
+**Baseline**: [`03-subplan-agent-delegation`](../2026-06-22-1009-plans-system-portability-and-delivery-integration/03-subplan-agent-delegation.md)（completed，2026-07-06）— delegation `brief` schema + 雙路徑 dogfood ★★★★☆。本 plan 是其 loop 延伸（情境 C：sibling main plan + baseline_ref，不重開該 tree）。
 **Glossary Impact**: yes — candidate terms：`independent_verification`（fresh-context 驗證 leg，非 executor 自驗、非 orchestrator 自 review）、`arbitration`（orchestrator 對 verifier findings 的處置協議：fix / defer / reject）。graduate 時才註冊到 `knowledge/glossary/ai-skill.md`；未定稿前不註冊。
 
-> **Watch-Out List citation**：對應 [`architecture/ai-native-cognitive-ecosystem-system.md`](../../architecture/ai-native-cognitive-ecosystem-system.md) §Watch-Out List 的「process bloat」「premature abstraction」「over-engineering」防呆：
+> **Watch-Out List citation**：對應 [`architecture/ai-native-cognitive-ecosystem-system.md`](../../../architecture/ai-native-cognitive-ecosystem-system.md) §Watch-Out List 的「process bloat」「premature abstraction」「over-engineering」防呆：
 > - **不建自動 orchestrator** — 03 的 reservation 邊界維持不變；本 plan 是**角色協議**（主 session 人工扮演 orchestrator），不是 automation。
 > - **不強制所有任務走三角色 loop** — 只適用於已宣告 `delegation.enabled: true` 的 sub-plan / 委派任務，且為 advisory；小修補直接做。
 > - **不先動 schema** — Phase 1 為 doc-only 協議；schema promotion 需 Phase 2 dogfood 證據（falsification ladder，一次一階）。
@@ -129,21 +129,26 @@ Why now：03 剛 completed、dogfood 方法論（brief independence score、fres
 
 逐條核對本 plan §Open Questions，標記處置並回寫：
 
-- [ ] 已讀本 plan §Open Questions 全部條目
-- [ ] 對每條標記 `resolved`（附 Phase 0 證據）/ `still-open` / `deferred`（附原因）
-- [ ] `resolved` 的條目已同步勾選 / 附註於 §Open Questions
-- [ ] 若盤點新發現問題，已加入 §Open Questions
+- [x] 已讀本 plan §Open Questions 全部條目
+- [x] 對每條標記 `resolved`（附 Phase 0 證據）/ `still-open` / `deferred`（附原因）
+- [x] `resolved` 的條目已同步勾選 / 附註於 §Open Questions（本輪無 resolved）
+- [x] 若盤點新發現問題，已加入 §Open Questions（無新問題；tool transport 選擇記入 §Stakeholder 表，非 open question）
 
 | Open Question | 處置 | 證據 / 原因 |
 |---|---|---|
-| Q1–Q5 | still-open | 依 Phase 1/2/3 各自解決 |
+| Q1 verifier 報告自足性 | still-open | 契約 4 欄位已 render 進 kit 模板 B/C；待雙 dogfood 量測欄回填 |
+| Q2 協議落點 | still-open（interim 已定） | interim canonical = 本檔 §Decision Rationale；kit 為 rendered transport artifact（kit 檔頭已標注，防 dual source）；最終落點 Phase 1 決 |
+| Q3 品質信號 | still-open | 量測欄已定義於 kit 模板 C（差集 / 仲裁分佈 / 越界 / 自足性），待 dogfood 資料 |
+| Q4 仲裁紀錄落點 | still-open（dogfood 期 interim） | dogfood 期記於 kit §Dogfood 紀錄；真實委派任務落點 Phase 1 決 |
+| Q5 schema promotion 門檻 | still-open | Phase 3 |
 
-### Phase 0.1 — 架構相容性 preflight
+### Phase 0.1 — 架構相容性 preflight ✅（2026-07-08）
 
-- [ ] 確認 `plans/README.md` §Delegation 與 `governance/lifecycle/plan-tree-hierarchy.md` §Delegation 現行內容（本 plan 不得與 03 已定稿 schema 衝突；只加 loop、不改 brief 必填集）
-- [ ] 確認 review capability 現行 invoke 契約（`knowledge/runtime/capability-registry.yaml` + `workflow/cross-cutting/review/README.md`）：驗證 leg 復用 `fault_finding` stance，consumer 不重定義 stance
-- [ ] 確認 03 baseline dogfood 方法論（brief independence score、fresh-context proxy）可平移為 verifier independence 判準
-- [ ] 確認 `workflow/software-delivery/README.md` §Review invoke 邊界：本 loop 的 verifier leg 是 capability invoke 消費者，不是新 lifecycle slice
+- [x] 確認 `plans/README.md` §Delegation 與 `governance/lifecycle/plan-tree-hierarchy.md` §Delegation 現行內容：4 必填集不動，本 plan 只加 loop；無 schema 衝突
+- [x] 確認 review capability 現行 invoke 契約：`capability-registry.yaml` 有 `code-review` + `requires_context.stance: [fault_finding]`（status: active）；`stance_enum.reserved_policy` 禁止新增 stance 值 → verifier leg 復用 `fault_finding`，consumer 不重定義（符合 review/README.md governance invariant）
+- [x] 確認 03 baseline dogfood 方法論可平移：brief independence score 的「讀檔差集」判準平移為 executor / verifier 的「讀檔紀錄」欄（kit 模板 A/B）
+- [x] 確認 `workflow/software-delivery/README.md` §Review invoke 邊界：Review 不是 workflow phase / lifecycle slice，是 capability invoke → verifier leg 定位為 invoke 消費者，成立
+- [x] （新增）確認 Layer 3 tool adapter 存在：`ai-tools/agent/cursor.md`（Cursor transport 細節歸該層 + kit §Cursor 傳輸備註，模板本體 tool-neutral）
 
 ## Phase 1 — 協議定稿（doc-only）
 
@@ -156,6 +161,9 @@ Why now：03 剛 completed、dogfood 方法論（brief independence score、fres
 
 **焦點紀律（承 03）**：驗的是**契約自足性**（verifier 報告是否足以仲裁、brief 是否足以執行），不是執行者 / 驗證者聰不聰明。任何失效先反問契約缺漏。
 
+**Transport（tool-portability 驗證）**：dogfood 以 **Cursor 為主要 transport**（human 路徑：三份模板貼進獨立 fresh chat），同時驗證「模板 tool-neutral、工具細節只在 §Cursor 傳輸備註」的分層是否成立——換工具只換傳輸備註即模板可用 = 分層成立的證據。模板見 [`01-dogfood-prompt-kit.md`](01-dogfood-prompt-kit.md)。
+
+- [x] Dogfood prompt kit 建立（模板 A executor / B verifier / C 仲裁+量測欄，Cursor-first；kit 為 rendered transport artifact，canonical 在本檔 §Decision Rationale）— 2026-07-08
 - [ ] **2a — software-delivery 外部 repo 真實任務**：挑一個真實、小、可驗收的交付任務走完整 loop（orchestrator 寫 brief → executor 執行 → verifier 報告 → 仲裁）。記錄：verifier 差集 findings、仲裁分佈、orchestrator 是否越界執行、是否被迫回讀 diff。
 - [ ] **2b — Ai-skill 內部任務**：比照 2a，驗證同一協議在治理 repo 內成立（含 bootstrap gate 注意事項實測）。
 - [ ] 回饋迴路：任一 dogfood 暴露契約缺漏 → 修 Phase 1 文件（v2），不修執行者；重跑失效 leg。
@@ -178,10 +186,11 @@ Why now：03 剛 completed、dogfood 方法論（brief independence score、fres
 | 驗證 leg | 復用 review capability `fault_finding` stance invoke，不另定 stance |
 | 適用範圍 | advisory；只適用已宣告 delegation 的委派任務；主打 software-delivery，Ai-skill 比照 |
 | Schema promotion | gated on Phase 2 證據（Q5），deadline 2026-08-31 |
+| Dogfood transport | **Cursor-first**（human 路徑、fresh chat ×2 + git branch 交接）；模板 tool-neutral，工具細節只在 kit §Cursor 傳輸備註 + `ai-tools/agent/cursor.md`（Layer 3） |
 
 ## 與其他 plans 的關係
 
-- [`2026-06-22-1009-plans-system-portability-and-delivery-integration/03-subplan-agent-delegation.md`](2026-06-22-1009-plans-system-portability-and-delivery-integration/03-subplan-agent-delegation.md) — **baseline**（completed）：delegation brief schema + 雙路徑 dogfood。本 plan 延伸其 loop（去程 → 回程），不重開該 sub-plan；自動 orchestrator reservation 邊界維持。
-- [`2026-06-22-1009-plans-system-portability-and-delivery-integration/02-software-delivery-plan-first-ordering.md`](2026-06-22-1009-plans-system-portability-and-delivery-integration/02-software-delivery-plan-first-ordering.md) — plan-first ordering 是本 loop 的前置（orchestrator 產 plan artifact 先於執行）；本 plan 不改其 Q4 關閉條件。
-- [`archived/2026-07-06-review-architecture-adr/_plan.md`](archived/2026-07-06-review-architecture-adr/_plan.md) — review = cross-cutting capability invoke（ADR-013 D2）；verifier leg 是其消費者。
-- [`active/2026-06-16-1131-evidence-candidate-system.md`](active/2026-06-16-1131-evidence-candidate-system.md) — `defer` 處置的 findings 可轉 evidence candidate（人工 capture，不新增 scanner 職責）。
+- [`2026-06-22-1009-plans-system-portability-and-delivery-integration/03-subplan-agent-delegation.md`](../2026-06-22-1009-plans-system-portability-and-delivery-integration/03-subplan-agent-delegation.md) — **baseline**（completed）：delegation brief schema + 雙路徑 dogfood。本 plan 延伸其 loop（去程 → 回程），不重開該 sub-plan；自動 orchestrator reservation 邊界維持。
+- [`2026-06-22-1009-plans-system-portability-and-delivery-integration/02-software-delivery-plan-first-ordering.md`](../2026-06-22-1009-plans-system-portability-and-delivery-integration/02-software-delivery-plan-first-ordering.md) — plan-first ordering 是本 loop 的前置（orchestrator 產 plan artifact 先於執行）；本 plan 不改其 Q4 關閉條件。
+- [`archived/2026-07-06-review-architecture-adr/_plan.md`](../../archived/2026-07-06-review-architecture-adr/_plan.md) — review = cross-cutting capability invoke（ADR-013 D2）；verifier leg 是其消費者。
+- [`active/2026-06-16-1131-evidence-candidate-system.md`](../2026-06-16-1131-evidence-candidate-system.md) — `defer` 處置的 findings 可轉 evidence candidate（人工 capture，不新增 scanner 職責）。
