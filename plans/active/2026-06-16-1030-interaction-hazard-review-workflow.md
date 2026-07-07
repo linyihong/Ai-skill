@@ -74,6 +74,8 @@ Accordingly:
 - Graduation must wait for **naturally occurring** downstream evidence.
 - Evidence must **not** be manufactured merely to satisfy promotion criteria.
 
+**Governance invariant:** Future work focuses on **evidence accumulation, not framework expansion**. No additional framework design is planned unless future downstream evidence invalidates the current primitive.
+
 ---
 
 ## Downstream pilot gate
