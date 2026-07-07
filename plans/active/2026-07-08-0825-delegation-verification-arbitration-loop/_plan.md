@@ -109,15 +109,15 @@ Why now：03 剛 completed、dogfood 方法論（brief independence score、fres
 
 | ID | Question | Owner / Resolved By | Status | Closed Criteria | Resolution Evidence |
 |----|----------|---------------------|--------|-----------------|---------------------|
-| Q1 | Verifier 報告最小欄位集（evidence / acceptance_ref / classification / status）是否足以讓 orchestrator 仲裁而不回讀 diff 細節？ | Phase 1 定稿、Phase 2 驗證 | open | 雙 dogfood 中 orchestrator 均未被迫回讀 diff（或缺欄位已補進契約） | <dogfood evidence> |
-| Q2 | 協議文件落點：plans/README.md §Delegation 擴充（delegation 擁有 loop）vs `workflow/cross-cutting/review/` consumer doc（review 擁有驗證 leg）？stance 復用不得重定義 | Phase 1 | open | 落點決定 + 文件落地，且未在 consumer 層重定義 stance / requires_context | <commit> |
-| Q3 | 品質信號怎麼量：verifier 差集 findings 數 + 仲裁分佈（fix/defer/reject 比例）是否構成「品質提升」的有效指標？null result 如何記錄？ | Phase 2 | open | 雙 dogfood 各留一份差集 + 分佈紀錄；null result 亦為有效關閉 | <dogfood evidence> |
-| Q4 | 仲裁紀錄落點：被委派 sub-plan 內 table（傾向）vs 獨立 artifact？ | Phase 1 | open | 落點決定並在 dogfood 實際使用 | <commit + dogfood> |
+| Q1 | Verifier 報告最小欄位集（evidence / acceptance_ref / classification / status）是否足以讓 orchestrator 仲裁而不回讀 diff 細節？ | Phase 1 定稿、Phase 2 驗證 | open（**2b 正向 ×1**） | 雙 dogfood 中 orchestrator 均未被迫回讀 diff（或缺欄位已補進契約） | 2b：仲裁全憑 verifier 報告引文，未回讀 diff（kit §Dogfood 紀錄 2b 量測欄）；待 2a 第二個資料點 |
+| Q2 | 協議文件落點：plans/README.md §Delegation 擴充（delegation 擁有 loop）vs `workflow/cross-cutting/review/` consumer doc（review 擁有驗證 leg）？stance 復用不得重定義 | Phase 1 | **resolved（2026-07-08）** | 落點決定 + 文件落地，且未在 consumer 層重定義 stance / requires_context ✅ | 落點 = plans/README.md §Delegation loop SOP 子節（delegation 擁有 loop 生命週期；review 只被 invoke 引用）。commit `af26064` + `2d5bc60`；獨立驗證確認未重定義 stance。副作用：F1 措辭 drift 隨 canonical 移轉消解 |
+| Q3 | 品質信號怎麼量：verifier 差集 findings 數 + 仲裁分佈（fix/defer/reject 比例）是否構成「品質提升」的有效指標？null result 如何記錄？ | Phase 2 | open（2b 資料點 ×1） | 雙 dogfood 各留一份差集 + 分佈紀錄；null result 亦為有效關閉 | 2b：差集 3（皆 beyond-acceptance）、分佈 fix 1 / defer 1 / reject 1；獨立 verifier 抓到 executor 自驗量尺外的問題 → 差集指標初步有效；待 2a |
+| Q4 | 仲裁紀錄落點：被委派 sub-plan 內 table（傾向）vs 獨立 artifact？ | Phase 1 | **resolved（2026-07-08）** | 落點決定並在 dogfood 實際使用 ✅ | 落點 = 被委派任務的 plan artifact 內 table（SOP 已載明）；dogfood 期記於 kit §Dogfood 紀錄（2b 仲裁表實際使用） |
 | Q5 | Schema promotion 門檻：什麼證據才允許動 delegation schema（如 `delegation.verification`）？ | Phase 3 | open | 門檻明文化；未達門檻則明確記錄維持 doc-only | <Phase 3 決策紀錄> |
 
 ## 完成條件
 
-- [ ] Phase 1 協議落地（verifier 契約 + 仲裁協議 + 3 條 role boundary invariants，落點依 Q2）
+- [x] Phase 1 協議落地（verifier 契約 + 仲裁協議 + 3 條 role boundary invariants，落點依 Q2 = plans/README.md §Delegation loop SOP）— 2026-07-08，經 2b 委派 loop 產出
 - [ ] Phase 2 雙 dogfood 完成：software-delivery 外部 repo 真實任務 ×1 + Ai-skill 內部任務 ×1，各留差集 + 仲裁分佈 evidence
 - [ ] Phase 3 證據評估：Q5 schema promotion 決策（promote 或明確維持 doc-only）+ glossary 註冊決策落實
 - [ ] Open Questions 全部 `resolved` / `deferred`（附原因）並回寫
@@ -150,12 +150,12 @@ Why now：03 剛 completed、dogfood 方法論（brief independence score、fres
 - [x] 確認 `workflow/software-delivery/README.md` §Review invoke 邊界：Review 不是 workflow phase / lifecycle slice，是 capability invoke → verifier leg 定位為 invoke 消費者，成立
 - [x] （新增）確認 Layer 3 tool adapter 存在：`ai-tools/agent/cursor.md`（Cursor transport 細節歸該層 + kit §Cursor 傳輸備註，模板本體 tool-neutral）
 
-## Phase 1 — 協議定稿（doc-only）
+## Phase 1 — 協議定稿（doc-only）✅（2026-07-08，經 2b 委派落地）
 
-- [ ] 決定 Q2 落點；落地 verifier 報告契約（4 欄位）+ 仲裁協議（fix/defer/reject 表）+ 3 條 role boundary invariants
-- [ ] 決定 Q4 仲裁紀錄落點（傾向：被委派 sub-plan 內 table）
-- [ ] 更新 `plans/README.md` §Delegation：從「雙路徑派發」擴為「派發 → 獨立驗證 → 仲裁」loop SOP（或依 Q2 決定的落點放置 + 交叉連結）
-- [ ] Ai-skill repo 內委派的 bootstrap 注意事項寫入 SOP（brief `context.required` 須含 bootstrap 檔案）
+- [x] 決定 Q2 落點 = `plans/README.md` §Delegation「派發 → 獨立驗證 → 仲裁（loop SOP）」子節（canonical）；verifier 4 欄位契約 + 仲裁三處置表 + 3 條 invariants 已落地（commit `af26064` + fix `2d5bc60`，**由 2b 委派 loop 產出，orchestrator 未寫實作**）
+- [x] 決定 Q4 仲裁紀錄落點 = 被委派任務的 plan artifact（sub-plan table）；dogfood 期記於 kit §Dogfood 紀錄（2b 已實際使用）
+- [x] 更新 `plans/README.md` §Delegation loop SOP（同上，經獨立驗證 acceptance 8/8 + fix 重驗 pass）
+- [x] Ai-skill repo 內委派的 bootstrap 注意事項寫入 SOP（tool-neutral gate id `gate.bootstrap.receipt_present`；executor / verifier 實測 Bootstrap Receipt 通過）
 
 ## Phase 2 — 雙 dogfood
 
@@ -165,8 +165,8 @@ Why now：03 剛 completed、dogfood 方法論（brief independence score、fres
 
 - [x] Dogfood prompt kit 建立（模板 A executor / B verifier / C 仲裁+量測欄，Cursor-first；kit 為 rendered transport artifact，canonical 在本檔 §Decision Rationale）— 2026-07-08
 - [ ] **2a — software-delivery 外部 repo 真實任務**：挑一個真實、小、可驗收的交付任務走完整 loop（orchestrator 寫 brief → executor 執行 → verifier 報告 → 仲裁）。記錄：verifier 差集 findings、仲裁分佈、orchestrator 是否越界執行、是否被迫回讀 diff。
-- [ ] **2b — Ai-skill 內部任務**：比照 2a，驗證同一協議在治理 repo 內成立（含 bootstrap gate 注意事項實測）。
-- [ ] 回饋迴路：任一 dogfood 暴露契約缺漏 → 修 Phase 1 文件（v2），不修執行者；重跑失效 leg。
+- [x] **2b — Ai-skill 內部任務** ✅（2026-07-08，agent transport）：委派任務 = Phase 1 SOP 擴充本身。完整 loop 走完：brief → executor（worktree，自驗 8/8，讀檔零差集）→ verifier（fresh，findings ×3 全 observation 級，0 violation）→ 仲裁（fix 1 / defer 1 / reject 1）→ fix 回派（brief v2）→ delta 重驗 pass → merge。**Q1 正向證據：orchestrator 全程未回讀 diff，僅憑 verifier 報告仲裁**。完整 evidence 見 [`01-dogfood-prompt-kit.md`](01-dogfood-prompt-kit.md) §Dogfood 紀錄 2b。
+- [x] 回饋迴路（2b 觸發 ×1）：F2 暴露 brief v1 缺「reusable doc 目標須含 tool-neutral 措辭條款」→ brief v2 追加 acceptance 9、kit 使用說明補教訓；修契約未修執行者；fix leg 重跑通過。2a 若再暴露缺漏比照處理。
 
 ## Phase 3 — 證據評估與收斂
 

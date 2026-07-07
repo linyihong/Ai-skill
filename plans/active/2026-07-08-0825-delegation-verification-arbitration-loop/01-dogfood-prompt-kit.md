@@ -1,12 +1,12 @@
 # Dogfood Prompt Kit（三角色 loop 傳輸模板，Cursor-first）
 
-> **本檔是 rendered transport artifact，不是 canonical contract。** Canonical contract（verifier 報告 4 欄位、仲裁三處置、3 條 role boundary invariants）在 [`_plan.md`](_plan.md) §Decision Rationale；Q2 定稿後 canonical 落點移至該處，本 kit 只跟著 render。模板刻意 self-contained（貼進 fresh session 的人不讀本 repo）——這是 transport 的本質，不是 dual source。
+> **本檔是 rendered transport artifact，不是 canonical contract。** Canonical contract（verifier 報告 4 欄位、仲裁三處置、3 條 role boundary invariants）**已定稿於 [`plans/README.md`](../../README.md) §Delegation「派發 → 獨立驗證 → 仲裁（loop SOP）」子節**（Q2 resolved，2026-07-08，由 dogfood 2b 委派落地）；[`_plan.md`](_plan.md) §Decision Rationale 為決策紀錄。本 kit 只跟著 canonical render。模板刻意 self-contained（貼進 fresh session 的人不讀本 repo）——這是 transport 的本質，不是 dual source。
 >
 > **Tool-neutral core + Cursor-first transport**：模板 A/B/C 本體不含任何工具指令；§Cursor 傳輸備註是 Layer 3 adapter 細節（[`ai-tools/agent/cursor.md`](../../../ai-tools/agent/cursor.md)）。換 Claude Code / Codex / 其他工具時只換 §傳輸備註，模板不動。
 
 ## 使用流程（orchestrator = 你的主 session）
 
-1. **Orchestrator** 在主 session 填好 brief（goal / acceptance / verification / context.required），填入模板 A。
+1. **Orchestrator** 在主 session 填好 brief（goal / acceptance / verification / context.required），填入模板 A。**填 brief 教訓（2b）**：若任務目標是 reusable 文件（README / workflow / enforcement），acceptance 必含 tool-neutral 措辭條款，否則 executor 寫入工具專屬詞不算違規。
 2. 開一個 **全新** Cursor chat（executor），貼模板 A。executor 交付 branch + 自驗報告。
 3. 開 **另一個全新** Cursor chat（verifier，不可沿用 executor 的 chat），貼模板 B（含同一份 brief 的 acceptance/verification + executor 的 branch/diff 位置）。
 4. Verifier 報告帶回主 session，orchestrator 用模板 C 逐條仲裁，記錄量測欄位。
@@ -133,6 +133,28 @@ branch：<branch-name>（已 commit，未 merge）
 - 任務：<使用者選定的真實小任務>
 - brief / 仲裁紀錄 / 量測欄：<回填>
 
-### 2b — Ai-skill 內部任務（待跑）
-- 任務：<待選>
-- brief / 仲裁紀錄 / 量測欄：<回填>
+### 2b — Ai-skill 內部任務 ✅（2026-07-08，agent transport）
+
+- **任務**：plans/README.md §Delegation loop SOP 擴充（本 plan Phase 1 真實待辦，委派執行）。
+- **Transport**：Claude Code Agent — executor（worktree 隔離，branch `worktree-agent-adeec…`）+ verifier（fresh agent，唯讀）；orchestrator = 主 session。兩個 agent 首則回覆均輸出 Bootstrap Receipt（bootstrap 注意事項實測通過）。
+- **Executor**：commit `af26064`（35 行純新增，單檔）；自驗 8/8 pass；資訊不足時未猜測。fix commit `2d5bc60`（單行）。
+- **Verifier round 1**：acceptance 8/8 pass；findings ×3（F1 invariant 措辭一字 drift / F2 consumer 層出現「PreToolUse」工具專屬詞 / F3 省略括號補述），全部 beyond-acceptance 觀察級，0 violation。
+- **Fix 重驗（delta）**：pass — 單行替換；替換 gate id `gate.bootstrap.receipt_present` 經 grep 驗證存在於 canonical yaml；acceptance 1–8 無回退。
+
+#### 仲裁紀錄（2026-07-08 / SOP 擴充）
+| finding | 處置 | 理由 | 後續 |
+|---|---|---|---|
+| F1 措辭 drift（`dogfood evidence`→`evidence`） | defer | 由 Q2 決策收斂：README 落地即成 canonical，_plan.md 降為決策紀錄，無雙源同步義務；一般化措辭反而正確 | Q2 resolved 回寫 _plan.md |
+| F2 「PreToolUse」入 consumer 層 | fix | 暴露 brief 契約缺漏（reusable doc 目標缺 tool-neutral 條款）→ brief v2 追加 acceptance 9 後回派 | 重驗 pass；教訓寫入本 kit §使用流程 |
+| F3 省略括號補述 | reject | 覆核不成立：省略符合 Layer 3 邊界；「結構化 findings」由 4 欄位表承載，無語意損失 | 標 refuted 留證據 |
+
+#### 量測欄
+| 指標 | 值 |
+|---|---|
+| verifier 差集（executor 自驗沒抓到） | 3 條（皆 beyond-acceptance 觀察級；acceptance 內 0） |
+| 仲裁分佈 | fix 1 / defer 1 / reject 1 |
+| orchestrator 越界 | 無 — 未寫任何實作 diff；整合（merge / worktree 清理）與 plan 回寫屬 orchestrator artifact 職責 |
+| verifier 報告自足性 | **是** — 仲裁全憑報告引文完成，orchestrator 未回讀 diff（Q1 正向證據 ×1） |
+| executor 讀檔差集 | 無 — 只讀 context.required（brief 自足 ★★★★☆+） |
+| 契約缺漏回饋 | brief v1 缺 reusable-doc tool-neutral 條款（F2 暴露）→ v2 補 acceptance 9；已回寫模板使用說明 |
+| executor 範圍外發現 | plans/README.md L261 歷史狀態表含工具詞（歷史紀錄描述，不動）；_plan.md checkbox 回寫屬 orchestrator（已處理） |
