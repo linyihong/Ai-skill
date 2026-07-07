@@ -59,6 +59,41 @@
 
 任一路徑若發現 brief 不足以自足（執行者需回問 main plan），視為 brief 缺漏 → 回饋修正 schema/內容。
 
+### 派發 → 獨立驗證 → 仲裁（loop SOP）
+
+派發只是**去程**；已宣告 `delegation.enabled: true` 的任務可走三角色閉環（advisory，不強制；小修補直接做）。三角色一句話定義：
+
+- **Orchestrator（主 session）**：規劃、切分 sub-plan、寫 brief、仲裁 findings；**不執行、不自己驗**。
+- **Executor（獨立 session / agent）**：僅憑 brief + `context.required` 完成，交付 diff / artifact。
+- **Verifier（另一個 fresh context）**：輸入 = 同一份 brief（`acceptance` + `verification` 為量尺）+ executor 的 diff / artifact；**只產證據，不做決定**（evidence ≠ decision）。驗證 leg 復用 review capability 的 `fault_finding` stance invoke，不另定 stance。
+
+**Verifier 報告最小契約**（每條 finding 至少含）：
+
+| 欄位 | 值域 |
+|---|---|
+| `evidence` | 具體檔案 / 行為觀察，可獨立覆核 |
+| `acceptance_ref` | 對應 brief acceptance 條目，或標 `beyond-acceptance` |
+| `classification` | `acceptance-violation` / `out-of-scope` / `observation` |
+| `status` | `observed` / `verified` / `refuted`（沿用 observation status 紀律） |
+
+**仲裁協議**：orchestrator 對每條 finding 三選一，逐條記錄於被委派 sub-plan（或委派任務的 plan artifact）：
+
+| 處置 | 語意 | 後續 |
+|---|---|---|
+| `fix` | 違反 acceptance，需修 | re-delegate 給 executor（brief 修訂或補充指示），修完重驗 |
+| `defer` | 真實但超出本次 scope | 轉 observation / 新 plan / evidence candidate，**不**在本輪修 |
+| `reject` | 經覆核不成立 | 標 `refuted` + 理由，留證據不刪 |
+
+**Role boundary invariants（3 條，行為層）**：
+
+1. Verifier 必須是 fresh context——不是 executor 的 session、也不是 orchestrator 自己。
+2. Orchestrator 在 loop 內不產生 implementation diff；發現自己動手 = 越界信號，記入 evidence。
+3. Loop 關閉條件：所有 findings 都有仲裁處置，且 `fix` 項全部重驗通過。
+
+**Ai-skill repo 內委派的 bootstrap 注意事項**：brief 的 `context.required` 須含 [`CORE_BOOTSTRAP.md`](../CORE_BOOTSTRAP.md) 與 [`runtime/core-bootstrap.yaml`](../runtime/core-bootstrap.yaml)，executor / verifier 首則回覆須輸出 Bootstrap Receipt（否則 PreToolUse hook 擋非讀取工具）；外部 repo 無此需求（gate fail-open）。
+
+Transport 模板（executor / verifier / 仲裁表）見 [`active/2026-07-08-0825-delegation-verification-arbitration-loop/01-dogfood-prompt-kit.md`](active/2026-07-08-0825-delegation-verification-arbitration-loop/01-dogfood-prompt-kit.md)；決策紀錄（canonical 契約）見 [`active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md`](active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) §Decision Rationale。
+
 ## Plan 模板必填章節
 
 任何涉及架構變更、新流程、跨層改動的 plan 必須包含下列章節（簡單修補類 plan 可省略 Decision Rationale）：
