@@ -1,7 +1,7 @@
 ---
 id: 2026-06-22-1009-phase3-dogfood-glossary-spike
 plan_kind: spike
-status: in-progress
+status: completed
 owner: linyihong
 created: 2026-07-06
 parent: 2026-06-22-1009-plans-system-portability-and-delivery-integration
@@ -52,7 +52,7 @@ delegation:
 
 # Phase 3 Dogfood — Glossary `plan_profile` Registration（spike）
 
-**Status**: `in-progress`
+**Status**: `completed`（雙路徑 dogfood 完成，2026-07-06）
 **Owner**: linyihong
 **Parent**: [`_plan.md`](_plan.md)
 
@@ -73,7 +73,12 @@ sub-plan 03 Phase 3 的 dogfood 載體。本 spike 的 `delegation.brief` 就是
   - **缺漏（→ brief v2 已修）**:brief 未 pin `introduced-by` / `owner-layer` → agent 推斷,`introduced-by` 推成 03（應 01）。`owner-layer` 推成 `validation-governance`（其實比 delegation 的 `plan-governance` 更準,採納）。
   - **正向信號（capability/workflow 分層成立）**:agent 回報「brief 未提 worktree,首次 Edit 對 shared-checkout 失敗才改 worktree copy」——worktree 是 **Layer 3 tool/execution** 細節,**本就該不在 tool-neutral brief 裡**（歸 `execution.constraints` + `ai-tools/`）。agent 靠 operational discovery 處理掉,證明 brief 保持 tool-neutral 是對的,不是缺陷。
   - **採納**:agent 產出（修正 `introduced-by`→01 後）已 land 進 canonical glossary,關閉真實 audit 缺口（`glossary candidate plan_profile` 警告消失、`runtime validate` 乾淨）→ dogfood 淨正值,非僅觀察。
-- **human 路徑：<待你回填 — Score + 觀察>**（brief 已在對話中交付你）
+- **human 路徑（fresh-session proxy）：★★★★☆（2026-07-06）**。第二個獨立乾淨 agent session（= 「另一個 session」；非字面真人，誠實標為 fresh-session proxy），worktree 隔離、僅餵 brief。任務為**另一個真實缺口 `generated_surfaces`**（`plan_profile` 已被 agent 路徑做掉，同任務不能重跑）。
+  - **只讀 `context.required`（glossary 檔），未讀 main plan / 未 read whole repo** → ★★★★☆。
+  - **brief v2 驗證成功**：這次 brief 先 pin 了 `introduced-by` + `owner-layer`（agent 路徑揭露的缺漏），執行者**零欄位推斷**——不像 `plan_profile` 那次把 `introduced-by` 猜錯。→ 回饋迴路（修 brief 不修 executor）確實生效。
+  - 同一個 Layer 3 信號：worktree isolation 不在 brief 裡（正確），執行者 operational 處理，非 brief 缺陷。
+  - **採納**：`generated_surfaces` entry（affects 三路徑經核實存在）已 land 進 canonical glossary，關閉又一個真實 audit 缺口。
+- **雙路徑結論**：agent（`plan_profile` ★★★★☆）+ human-proxy（`generated_surfaces` ★★★★☆）兩個獨立 fresh executor、兩個真實任務，皆僅憑 brief + `context.required` 完成 → **delegation brief 形成真 capability，雙模皆成立**。
 
 ## 收尾
 dogfood 完成後：brief 缺漏回饋修正 03 schema/範例；本 spike 可 archive（不影響

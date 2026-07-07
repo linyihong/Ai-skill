@@ -674,6 +674,34 @@ related-terms:
 introduced-by: plans/archived/2026-05-22-0855-executable-yaml-contract-migration.md
 ```
 
+## generated_surfaces
+
+```yaml
+term: generated_surfaces
+status: candidate
+owner-layer: runtime-cognition
+meaning: >
+  The set of machine-consumable data surfaces compiled by the runtime projector
+  from owner-layer YAML contracts into `runtime.db` (and its SQLite index), read
+  at runtime by CLI commands, commit-msg hooks, validators, and routable
+  lookups. Each surface exists to serve a declared runtime consumer; a surface
+  is only a legitimate `generated_surfaces` member when some CLI / hook /
+  validator / routable lookup actually reads it.
+affects:
+  - runtime/runtime.db
+  - runtime/core-bootstrap.yaml
+  - scripts/ai-skill-cli/internal/app/runtime_compiler.go
+anti-meaning: >
+  Not human-readable documentation, and not a dumping ground for arbitrary data.
+  Projecting data into `generated_surfaces` WITHOUT declaring a consumer (CLI /
+  hook / validator / routable lookup) is explicitly forbidden and does not count
+  as runtime integration.
+related-terms:
+  - { type: related_to, target: generated_surface }
+  - { type: related_to, target: projection }
+introduced-by: plans/active/2026-05-27-1557-tool-runtime-signal-economics-integration.md
+```
+
 ## governance_mode
 
 ```yaml

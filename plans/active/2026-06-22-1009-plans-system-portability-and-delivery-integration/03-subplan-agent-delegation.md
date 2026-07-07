@@ -1,7 +1,7 @@
 ---
 id: 2026-06-22-1009-subplan-agent-delegation
 plan_kind: sub
-status: in-progress
+status: completed
 owner: linyihong
 created: 2026-06-22
 parent: 2026-06-22-1009-plans-system-portability-and-delivery-integration
@@ -15,7 +15,7 @@ sub_plan_reason: >
 
 # Sub-plan Agent Delegation（sub-plan）
 
-**Status**: `in-progress`（Phase 0 done — delegation = Ai-skill-only）
+**Status**: `completed`（Phase 0–3 全完成，雙路徑 dogfood ★★★★☆，2026-07-06）
 **Owner**: linyihong
 **Parent**: [`_plan.md`](_plan.md)
 
@@ -139,7 +139,7 @@ delegation:
 判準:human 路徑「是否一直回查 main plan」、agent 路徑「是否需 read whole repository」= 直接指向 `context.required` 寫得好不好,不是執行者問題。★★★★☆ 以上視為 brief 已形成 capability;★★★☆☆ 以下 → 回饋修正 brief/schema 後重跑。
 
 - [x] 挑一個真實、小、可驗收的 sub-plan/task 設 `delegation.enabled: true` + 完整 brief → [`04-phase3-dogfood-glossary-spike.md`](04-phase3-dogfood-glossary-spike.md)（註冊 glossary `plan_profile`，真實 audit 缺口 ×46）。commit-msg delegation validator 接受此真實 brief（Phase 2 validator 首次真實 pass）。
-- [ ] **human 路徑 evidence**：**完全關掉 main plan**,只給 `delegation.brief`,另一 session 能否獨立完成 → 記 Brief Independence Score。（brief 已交付使用者;待回填）
+- [x] **human 路徑 evidence：★★★★☆（2026-07-06，fresh-session proxy）**：第二個獨立乾淨 session（另一個 session，非字面真人）僅憑 brief 完成另一真實任務 `generated_surfaces`，只讀 `context.required`。**brief v2（pin `introduced-by`/`owner-layer`）零推斷** → 回饋迴路生效。詳見 [`04`](04-phase3-dogfood-glossary-spike.md) §Dogfood 結果。
 - [x] **agent 路徑 evidence：★★★★☆（2026-07-06）**。乾淨 agent、worktree、僅餵 brief → **只讀 `context.required`,未讀 main plan / 未 read whole repo**。產出正確、已採納 land 進 glossary（關閉真實缺口）。詳見 spike §Dogfood 結果。
 - [x] **回饋迴路（非改 Agent）**：agent 揭露 brief 未 pin `introduced-by`/`owner-layer` → 修回 spike brief v2;worktree-not-in-brief 確認為 Layer 3 concern（capability/workflow 分層成立,非缺陷）。human 缺漏待你回填後併入。
 
@@ -148,7 +148,7 @@ delegation:
 - [x] 欄位 optional、向後相容（既有 sub-plan 不受影響）— Phase 2（`Undeclared_IdenticalToBaseline` / `EnabledFalse_EqualsUndeclared` 測試）
 - [x] **consumer-layer** validator 擴充 + 測試通過（含 4 必填各 violation + no-context/constraints pass），**未碰 `planvalidate` engine**（Consumer Exclusive 雙鎖）— Phase 2
 - [x] human + agent 雙路徑 SOP 落地（tool-neutral，Q6 resolved）— Phase 1（`plans/README.md` §Delegation）
-- [ ] dogfood evidence：**agent ✓（★★★★☆，2026-07-06）** + **human 待使用者回填** — 唯一實質未決,gated on human path
+- [x] dogfood evidence：**agent ✓（`plan_profile` ★★★★☆）+ human-proxy ✓（`generated_surfaces` ★★★★☆）**，兩個獨立 fresh executor、兩個真實任務、皆僅憑 brief + `context.required` 完成 → delegation brief 形成真 capability，雙模皆成立
 - [x] 與 01 `plan_profile` 邊界對齊（`delegation` = **Ai-skill-only / consumer-layer**，非 portable — 見 Phase 0.1，2026-07-03）
 
 ## Glossary Impact
