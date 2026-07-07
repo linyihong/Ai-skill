@@ -56,14 +56,11 @@ Lifecycle executable contracts include [`directory-structure-governance.yaml`](d
 
 ## Architecture Evolution Protocol（架構演進協議）
 
-[`architecture-evolution-protocol.md`](architecture-evolution-protocol.md) — 定義 Runtime Contract 如何進入系統。**層級高於單一 ADR**：ADR 回答「決定了什麼」；本協議回答「以後怎麼做架構演進」。含 Evolution Contract（不可跳步）、Step contracts、Three-lock pattern、§Dogfood Evidence 要求、Second-instance gate。
+[`architecture-evolution-protocol.md`](architecture-evolution-protocol.md) — **ADR-013 已完成；Protocol 才剛開始。** 三層產出已拆開：Architecture Decision（ADR）· Evolution Methodology（本協議）· Governance Pattern（Three-lock / Debt classes）。
 
-**Instance 1**：ADR-013（2026-07-07）· **Instance 2 候選**：ADR-014 · **成熟標準**：Instance 2 完成 Integration Phase 且**無需修改本文件**。
+**Protocol 核心是三個 invariant**（非七步）：① Separation of Concerns · ② Mechanical Closure · ③ Generalization。七步 Integration Phase 只是其中一章。
 
-```text
-Architecture Decision → Runtime Contract → Navigation Alignment
-  → Regression → Drift Lock → Debt Payoff → Close ADR
-```
+**Protocol Status**：**Experimental**（Instance 1 = ADR-013）· Instance 2 candidate = ADR-014 · 成熟訊號 = **Protocol 核心無需修改**，非案例數量 alone。
 
 ## 持久目標邊界（Durable Goal Boundary）
 
