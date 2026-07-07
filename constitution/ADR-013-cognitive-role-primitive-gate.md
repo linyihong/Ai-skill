@@ -4,7 +4,7 @@
 
 **Completed** (2026-07-07, Phase 2.3 debt payoff)
 
-> **Scope closed.** Stance value taxonomy growth → [`ADR-014`](ADR-014-cognitive-stance-capability-context.md). Do not extend ADR-013; use Architecture Evolution Pattern documented in plan Phase 2 close-out.
+> **Scope closed.** Stance value taxonomy growth → [`ADR-014`](ADR-014-cognitive-stance-capability-context.md). Do not extend ADR-013. Future runtime contract evolutions follow [`Architecture Evolution Protocol`](../governance/lifecycle/architecture-evolution-protocol.md) (this ADR = Instance 1; evidence below §Dogfood Evidence).
 
 ## Framework Generation
 
@@ -355,6 +355,21 @@ Rejected paths:
 
 ---
 
+## Dogfood Evidence
+
+Instance 1 of [`governance/lifecycle/architecture-evolution-protocol.md`](../governance/lifecycle/architecture-evolution-protocol.md) (Architecture Evolution Protocol).
+
+| Field | Record |
+|---|---|
+| **Instance** | ADR-013 · [`plans/archived/2026-07-06-review-architecture-adr/_plan.md`](../plans/archived/2026-07-06-review-architecture-adr/_plan.md) |
+| **Runtime tests** | `scripts/ai-skill-cli/internal/app/capability_context_test.go` · `capability_registry` in `runtime validate` |
+| **Regression** | `validation/scenarios/runtime/capability-stance-contract-regression-v1.yaml` · `capability-stance-fault-finding-v1.yaml` · `capability-stance-doc-drift-v1.yaml` · `capability-stance-ownership-drift-v1.yaml` |
+| **Drift locks** | `review_architecture_doc_drift` · `documentation_drift.go` · `canonical_ownership_drift` · `canonical_ownership_drift.go` |
+| **Repository paths** | [`runtime/capability-context.yaml`](../runtime/capability-context.yaml) · [`knowledge/runtime/capability-registry.yaml`](../knowledge/runtime/capability-registry.yaml) · [`workflow/cross-cutting/review/`](../workflow/cross-cutting/review/README.md) · [`workflow/software-delivery/execution-flow.md`](../workflow/software-delivery/execution-flow.md) · [`governance/cognitive-stance.md`](../governance/cognitive-stance.md) |
+| **Commits** | `948f2f1` · `5c732fa` · `fb9cdc1` |
+
+---
+
 ## Related
 
 - [`constitution/ADR-008-runtime-cognitive-modes.md`](ADR-008-runtime-cognitive-modes.md)
@@ -363,7 +378,8 @@ Rejected paths:
 - [`governance/cognitive-slice-taxonomy.md`](../governance/cognitive-slice-taxonomy.md)
 - [`knowledge/glossary/ai-skill.md`](../knowledge/glossary/ai-skill.md) — `validation_capability`（cross-cutting capability 先例）
 - [`constitution/ADR-014-cognitive-stance-capability-context.md`](ADR-014-cognitive-stance-capability-context.md)
-- [`workflow/software-delivery/review-checklist.md`](../workflow/software-delivery/review-checklist.md)
+- [`governance/lifecycle/architecture-evolution-protocol.md`](../governance/lifecycle/architecture-evolution-protocol.md) — reusable evolution protocol (this ADR = first instance)
+- [`plans/archived/2026-07-06-review-architecture-adr/_plan.md`](../plans/archived/2026-07-06-review-architecture-adr/_plan.md) — evidence log
 
 ## Open Questions (deferred — ADR-014 / Phase 1)
 

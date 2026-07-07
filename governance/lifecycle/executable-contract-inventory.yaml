@@ -232,6 +232,9 @@ inventory:
   contract_required:
 
   markdown_only:
+    - source: governance/lifecycle/architecture-evolution-protocol.md
+      state: markdown_only
+      reason: Architecture Evolution Protocol — normative process for runtime contract evolution; mechanical locks use governance-pattern-template. Not an ADR appendix.
     - source: governance/lifecycle/runtime-guards-philosophy.md
       state: markdown_only
       reason: Philosophy and design rationale; executable gates belong in derived contracts.

@@ -54,6 +54,17 @@ Lifecycle executable contracts include [`directory-structure-governance.yaml`](d
 
 證據紀錄（7 個樣本、兩條 falsifiable predicate）保留在 [`governance-pattern-library-draft.md`](governance-pattern-library-draft.md)：讀模板取契約，讀 draft 取「為何某步 invariant / 為何可省」的證明。兩個尚在 incubation 的 sibling family（Reference Integrity、Failure Authority）仍記在 draft，各有獨立 N≥5 gate，未 promote。
 
+## Architecture Evolution Protocol（架構演進協議）
+
+[`architecture-evolution-protocol.md`](architecture-evolution-protocol.md) — 定義 Runtime Contract 如何進入系統。**層級高於單一 ADR**：ADR 回答「決定了什麼」；本協議回答「以後怎麼做架構演進」。含 Evolution Contract（不可跳步）、Step contracts、Three-lock pattern、§Dogfood Evidence 要求、Second-instance gate。
+
+**Instance 1**：ADR-013（2026-07-07）· **Instance 2 候選**：ADR-014 · **成熟標準**：Instance 2 完成 Integration Phase 且**無需修改本文件**。
+
+```text
+Architecture Decision → Runtime Contract → Navigation Alignment
+  → Regression → Drift Lock → Debt Payoff → Close ADR
+```
+
 ## 持久目標邊界（Durable Goal Boundary）
 
 長期生命週期狀態應放在持久規劃檔案中，而不是 `.agent-goals/`。

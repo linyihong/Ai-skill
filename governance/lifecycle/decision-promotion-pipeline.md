@@ -81,6 +81,7 @@ If the target affects agent execution, it must either:
 ## Related
 
 - [`decision-promotion-pipeline.yaml`](decision-promotion-pipeline.yaml)
+- [`architecture-evolution-protocol.md`](architecture-evolution-protocol.md) — runtime contract evolution after ADR Accept
 - [`executable-contract-boundary.md`](executable-contract-boundary.md)
 - [`../../constitution/README.md`](../../constitution/README.md)
 - [`../../memory/decision/README.md`](../../memory/decision/README.md)

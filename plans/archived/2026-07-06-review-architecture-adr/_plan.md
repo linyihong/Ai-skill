@@ -39,12 +39,9 @@ last_revised: 2026-07-07
 | **2.3** | Debt Payoff | Canonical Ownership Lock | ✅ | `fb9cdc1` |
 | **2.4** | Contract Regression | 4-case invoke regression | ✅ | `948f2f1` |
 
-**Architecture Evolution Pattern（本 plan 驗證完成）：**
+**Architecture Evolution Pattern（本 plan 驗證完成 → promoted）：**
 
-```text
-Architecture Decision → Runtime Contract → Navigation Alignment
-  → Regression → Drift Lock → Debt Payoff → Close ADR
-```
+見 [`governance/lifecycle/architecture-evolution-protocol.md`](../../governance/lifecycle/architecture-evolution-protocol.md)（normative）；本 plan 為 first validated instance。
 
 ---
 
@@ -63,7 +60,7 @@ Architecture Decision → Runtime Contract → Navigation Alignment
 | Typed review docs（architecture/contract/release 獨立 consumer 面） | ADR-014 或獨立 plan | deferred |
 | 更多 validation scenarios | ADR-014 / consumer 擴充時 | deferred |
 | Brower project overlay sync | optional project overlay | deferred |
-| Architecture Evolution Lifecycle 方法論 | enforcement 層文件 | deferred（驗證期後） |
+| Architecture Evolution Protocol | [`governance/lifecycle/architecture-evolution-protocol.md`](../../governance/lifecycle/architecture-evolution-protocol.md) | **promoted**（2026-07-07） |
 | ADR-014 stance taxonomy acceptance | [`ADR-014`](../../constitution/ADR-014-cognitive-stance-capability-context.md) | **新 ADR，非 Phase 3** |
 | Mechanical enforcement hard block（Warning → block） | ADR-014 / runtime phase | deferred |
 
@@ -465,7 +462,7 @@ Workflow (caller slice)
 - [x] 三 lock 全通過：`capability_registry` · `review_architecture_doc_drift` · `canonical_ownership_drift`
 - [x] **不開 Phase 3**（stakeholder 2026-07-07 — decision recorded at close）
 
-**Post-close（deferred — 見 §Phase 3 從哪來）：** Architecture Evolution Lifecycle 方法論；ADR-014；Brower overlay
+**Post-close（deferred — 見 §Phase 3 從哪來）：** ~~Architecture Evolution Protocol~~ → [`governance/lifecycle/architecture-evolution-protocol.md`](../../governance/lifecycle/architecture-evolution-protocol.md) **promoted**；ADR-014；Brower overlay
 
 ---
 
@@ -515,7 +512,7 @@ Workflow (caller slice)
 | Invoke hard block（Warning → block） | ADR-014 / runtime | P2 |
 | Typed review consumer surfaces（architecture/contract/release 獨立 hook） | 新 plan 或 ADR-014 | P3 |
 | `software-delivery-governance.md` artifact completeness 用語對齊 capability | governance patch | P3 |
-| Architecture Evolution Lifecycle 方法論 | `governance/` enforcement | P3（驗證期後） |
+| Architecture Evolution Protocol | [`governance/lifecycle/architecture-evolution-protocol.md`](../../governance/lifecycle/architecture-evolution-protocol.md) | **promoted**（2026-07-07） |
 | Brower overlay `review_invocation` hooks | project overlay | optional |
 | Archived plans 內舊 path 引用 | 不阻塞；archived 豁免 drift scan | low |
 
