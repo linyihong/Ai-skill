@@ -373,7 +373,7 @@ Future protocol discussions should reference **this RI**, not re-derive from Rev
 
 ## Dogfood Evidence
 
-Instance 1 of [`governance/lifecycle/architecture-evolution-protocol.md`](../governance/lifecycle/architecture-evolution-protocol.md) (Architecture Evolution Protocol).
+**Reference Implementation #1** · Validated Instance 1 of [`Architecture Evolution Protocol`](../governance/lifecycle/architecture-evolution-protocol.md).
 
 | Field | Record |
 |---|---|
