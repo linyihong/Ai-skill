@@ -13,9 +13,9 @@ required_for_completion: false
 **Status**: `draft` — **promotion discipline / decision framework**（非 workflow 设计稿）
 Owner: framework maintainer (linyihong)
 **建立日期**：2026-06-16
-**最後修訂**：2026-07-07（review #5：O3 定位 formalize — primitive mature / evidence validated / promotion discipline established；workflow graduation deferred on criterion 4）
+**最後修訂**：2026-07-07（review #6：downstream evidence sync — integration journey complete；ADR #4 operational gates（counterfactual + implementation-before-test）；Stage Decision trial-protocol-ready；canonical path fix；Interaction Evidence Hierarchy watch）
 **Priority**：**P1**
-**Downstream pilot**（canonical evidence consumer — 细节不复制进本 plan）：Vidoe-Test `docs/plans/2026-06-16-state-trust-transition-pilot.md`；commits `bcce737`（A0 overlay）、`6665b77`（A1/B/B.5 + C BDD partial）
+**Downstream pilot**（canonical evidence consumer — 细节不复制进本 plan）：Vidoe-Test `docs/plans/active/2026-06-16-state-trust-transition-pilot.md`；commits `bcce737`（A0 overlay）、`6665b77`（A1/B/B.5 + C BDD partial）
 
 ## Executive summary
 
@@ -70,9 +70,12 @@ This is a different state from an immature framework: the framework is sufficien
 Accordingly:
 
 - **O2** is no longer the active direction.
-- **O3** remains the working hypothesis.
-- Graduation must wait for **naturally occurring** downstream evidence.
-- Evidence must **not** be manufactured merely to satisfy promotion criteria.
+- **O3** remains the working hypothesis — confidence strengthened after Phase C (see Evidence update below).
+- Graduation awaits **completion of the predictive interception trial protocol** — the protocol is defined downstream (C.5 Predictive Interception Trial), but the first trial is still **pending**.
+- Evidence should be produced through **declared trials**, not reconstructed post hoc.
+- Framework maturity does **not** justify manufacturing evidence solely to satisfy promotion criteria.
+
+**Evidence update (post Phase C):** confidence in O3 strengthened — not because ownership generalized, but because an **untrustworthy input path reads as a trust-transition failure**, not UI-ownership failure alone. The ownership column set is expanding across domains: UI + cache + transport + interaction channel. Recorded descriptively (no numeric score — not reproducible half a year later); the working hypothesis stays O3, unresolved until Criterion 4.
 
 **Governance invariant:** Future work focuses on **evidence accumulation, not framework expansion**. No additional framework design is planned unless future downstream evidence invalidates the current primitive.
 
@@ -89,7 +92,7 @@ Phase 勾选 **不以 Ai-skill 自证**；以 downstream validation pilot 产物
 | B | 非 player invalidate↔recover 闭环 | Vidoe-Test `6665b77` — `screen-mapping/membership-payment-sync-trust-journey.md` | **pass** |
 | B.5 | 四栏不改字压力测试 | Vidoe-Test `6665b77` — `screen-mapping/websocket-subscription-trust-journey.md` | **pass** |
 | C | field survival scenario + predictive prevention | Vidoe-Test `6665b77` — `tests/bdd/state-trust-transition-pilot.test.mjs` (5/5); predictive **pending** | **partial** |
-| D | 全部 ADR criteria | — | **blocked** (criteria 4, 6; integration journey pending) |
+| D | 全部 ADR criteria | Vidoe-Test `episode_coupon_redeem_journey.integration.mjs`（integration journey） | **blocked** (criterion 4 — predicted-before-code + implementation-before-test; criterion 6 ongoing; integration journey **complete**) |
 
 **Promotion gate summary**（ADR criteria 1–6）：
 
@@ -98,7 +101,7 @@ Phase 勾选 **不以 Ai-skill 自证**；以 downstream validation pilot 产物
 | 1 | ≥2 cases, four-column table | **pass** (coupon + payment sync) |
 | 2 | ≥1 validation scenario consumes trust evidence | **partial** (BDD field survival; Ai-skill validation YAML ids pending) |
 | 3 | O2 or O3 resolved | **tentative O3** (B + B.5 pass) |
-| 4 | ≥1 previously unknown prevention | **pending** |
+| 4 | ≥1 previously unknown prevention | **pending** — operationalized downstream into 3-field counterfactual + implementation-before-test（见 §Promotion discipline）|
 | 5 | template field survives renaming | **pass** (B.5 websocket, same headers) |
 | 6 | no rubber-stamp | **ongoing** |
 
@@ -149,6 +152,24 @@ Phase D graduation **全部**满足：
 Post-hoc explanatory power ≠ predictive interception
 Abstraction that renames every case ≠ primitive
 ```
+
+### Criterion 4 — operational acceptance（downstream-defined，不改 criterion）
+
+Criterion 4 本身不变；下游 pilot 把它 operationalize 成两道 acceptance gate（回写自 Vidoe-Test pilot §Counterfactual replay + §D gate）：
+
+```text
+Criterion 4  (≥1 previously unknown prevention)
+    ↓
+Operational gates
+  • Counterfactual evidence — 三栏皆需成立：
+      predicted_before / evidence_available_before / prevented_action
+      （旧 would_detect 仅供 replay 叙述；pass/fail 以三栏为准。Prediction ≠ actionability）
+  • Implementation-before-test — 必须在第一个 failing test 存在之前就改了设计：
+      fill hazard → change design → no incident（tests document, not discover）
+      拒绝：fill hazard → add failing test → claim intercepted（post-hoc test archaeology）
+```
+
+此为 acceptance 操作化，非 criterion 演进；criterion 4 文字保持不变。
 
 ---
 
@@ -249,7 +270,7 @@ Lifecycle 2 — Graduation (in progress)
 ### D — Graduation
 
 - [ ] O2 / O3 **final** written decision — tentative O3 only; ADR 4 incomplete
-- [ ] **Do not** register runtime surface until criteria 4 + integration journey evidence met
+- [ ] **Do not** register runtime surface until criterion 4 met — integration journey evidence now **complete**（`episode_coupon_redeem_journey.integration.mjs`）；criterion 4（predicted-before-code + implementation-before-test）still blocks
 
 ---
 
@@ -264,6 +285,19 @@ Many primitives are **not designed** — they are **pulled out by three or four 
 - 若能：它不是 UI workflow — 单独 ADR 再议 naming / owner layer
 - 若不能：stay O2 conditional gate
 
+### Emerging observation — Interaction Evidence Hierarchy（observe only）
+
+下游 Phase C 浮现一个比 Interaction Hazard 更大的 **authority model**：success authority transfer — semantic interaction + capability persists 才算闭环，proxy signal（如 pointer 注入）不算；Interaction Evidence Hierarchy 从 L3 移向 L1。
+
+```text
+Emerging observation:  Interaction Evidence Hierarchy
+Status:                Observe only
+Reason:                Single-consumer evidence (Vidoe-Test Phase C only)
+Promotion:             Deferred until independent reuse
+```
+
+Producer 自身判定为 `Forming (observe only)，do not extract yet` —— Ai-skill 更不应提前抽象。仅记录证据，不进 core、不命名 primitive。
+
 ---
 
 ## Stakeholder review log
@@ -275,6 +309,7 @@ Many primitives are **not designed** — they are **pulled out by three or four 
 | #3 | Recovery Boundary；trust transition 验题；B.5 rename pressure；field survival ADR；anti optimize-for-primitive |
 | #4 | Downstream pilot gate 回写；A0–B.5 pass；C partial；tentative O3 |
 | #5 | Formalized tentative O3 as the current stage decision；separated framework maturity from workflow graduation；predictive evidence 须自然产生而非为过 gate 制造 |
+| #6 | Downstream evidence sync：integration journey → complete；ADR #4 operationalized（3-field counterfactual + implementation-before-test）；Stage Decision 改为 trial-protocol-ready/pending（非被动等待）；canonical path 修正；新增 Interaction Evidence Hierarchy watch（observe only）；O3 信心改描述性、不写百分比 |
 
 ---
 
