@@ -168,6 +168,13 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 
 現在最多能說「對 software delivery 這是有效模式」，推不出「所有 workflow 都該採用」。
 
+**第三輪 review（使用者，2026-07-08，讀 `sd-delegated-execution` 後）**——三個新命題，各立 open question：
+
+1. **`sd-delegated-execution` 實際是 Software Delivery Execution Model，不是 Delegation SOP**。它定義的不是工具或角色，是 execution 本身：執行前 Specification → Verification Backfill → Deliverables = **Execution Contract**；V1–V4 不是 CI，是 **Evidence Production Pipeline**；整份文件描述的是 Plan → Contract → Production → Evidence → Decision → Plan。sd 域天生符合 Specification → Implementation → Verification → Acceptance，只是把 Verification 拆成 Evidence → Decision——**比一般 CI/CD 更完整，不是多一個流程，是把混在一起的責任拆開**。使用者立場：**sd 域支持全面採用**；系統級仍不預設。
+2. **Verification Backfill 是候選 primitive（Evidence-first Execution）**：它回答「acceptance 如何在 execution 前就映射成證據」——從「做完再想怎麼驗」變成「Acceptance → Evidence Mapping → Execution」。可能比 delegation 本身更重要（→ Q7）。
+3. **系統級不採用的判準改變**：不是角色問題，是 **Evidence Backfill 是否存在**。Research（Question → Exploration → Evidence → Hypothesis）、Knowledge（Raw → Extraction → Normalization → Validation）、Architecture（Problem → Alternatives → Tradeoff → Decision）的生命週期可能沒有「execution 前的 acceptance→evidence 映射」——這是 Q6/Q7 跨域驗證要直接觀察的點。
+4. **最深層命題（→ Q8）**：真正在收斂的可能不是 Delegation、也不是 Evidence-driven Control Loop，而是 **Evidence Responsibility（證據責任）**——整份 sd 文件每節都在回答：誰產生哪種證據（backfill owner / V1–V4）、哪種證據能關哪個狀態（C1–C5）、哪種證據不能單獨 closure（inner-only 禁令）、誰依證據做決策（orchestrator 唯一）。**跨域觀察重點從「四責任閉環是否重現」細化為「證據責任分配結構是否重現」**；若重現，可升格的 primitive 是更底層的 Evidence Responsibility Model。
+
 ## Runtime Execution Path
 
 **doc-only trial 宣告**：本 plan 不接入 runtime——不新增 `route.*`、不新增 commit-msg validator、不動 `runtime.db` generated surfaces、不動 delegation schema / `validatePlanTreeFrontmatter`。協議以文件 + 行為紀律承載；驗證 leg 復用既有 review capability invoke（`ai-skill runtime capability-invoke --capability code-review --stance fault_finding`，既有 warning-only surface，無新 wiring）。
@@ -184,6 +191,8 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 | Q4 | 仲裁紀錄落點：被委派 sub-plan 內 table（傾向）vs 獨立 artifact？ | Phase 1 | **resolved（2026-07-08）** | 落點決定並在 dogfood 實際使用 ✅ | 落點 = 被委派任務的 plan artifact 內 table（SOP 已載明）；dogfood 期記於 kit §Dogfood 紀錄（2b 仲裁表實際使用） |
 | Q5 | Schema promotion 門檻：什麼證據才允許動 delegation schema（如 `delegation.verification`）？ | Phase 3 | open | 門檻明文化；未達門檻則明確記錄維持 doc-only | kit §2c 增強 Q3 信號（8-slice、violation 2/8），**尚不足以** close Phase 3 / schema 決策；2026-07-08 外部 consumer（ExternalRepoC）落地 **consumer 層機械 gate**（Cursor hook 五事件 block orchestrator 寫 manageCode，直到 Executor subagent 啟動；BDD 10/10）= graduation 條件 (b)「boundary invariant 需機械支撐」第一個實證——由 consumer 自理、**未觸及 Ai-skill schema**，支持「機械化在 Layer 3 就夠」的假說 |
 | Q6 | 通用化定位：graduate 時是否以「Evidence-driven Closed Control Loop」（四責任分離：Specification → Production → Independent Evidence → Arbitration → Specification）取代「Delegation」定位？（使用者 review 2026-07-08 提出，見 §架構收斂觀察） | Phase 3（adoption stage 2 gate） | open | 至少一個**非 delivery 域**（Research / Knowledge / Architecture）真實 run **自然收斂**到四責任閉環（非類比解釋）；**驗 pattern 不驗 topology**（角色名可全換）；stage 3（runtime 全面預設）另需 cross-domain + cross-workflow + cross-project evidence，不在本 plan scope | <跨域 run evidence> |
+| Q7 | **Verification Backfill 是否為獨立 primitive（Evidence-first Execution）**：「acceptance 在 execution 前映射成證據」是否比 delegation 本身更根本？（第三輪 review 命題 2） | Phase 3 / stage 2 觀察 | open | (a) sd 域內：backfill 在 ≥2 個真實委派任務穩定使用且能擋「做完再想怎麼驗」；(b) 跨域：至少一個非 delivery 域**自然出現或明確缺席**「execution 前的 acceptance→evidence 映射」——缺席也是有效答案（支持「backfill 是 sd-specific，不是 primitive」） | <sd 使用證據 + 跨域觀察> |
+| Q8 | **Evidence Responsibility Model 是否為更底層共同骨架**：跨域是否自然收斂出相同的「證據責任分配」結構——誰產生哪種證據 / 哪種證據能關哪個狀態 / 哪種不能單獨 closure / 誰依證據決策？（第三輪 review 命題 4；**細化 Q6 的觀察鏡頭**） | Phase 3 / stage 2 觀察 | open | 非 delivery 域真實 run 記錄其證據責任分配（不預設 sd 詞彙）；若 ≥1 域重現同構的四類責任回答 → Q8 升格候選 = Evidence Responsibility Model（而非 Delegated Execution / Control Loop）；若各域結構不同構 → 記錄差異、維持 domain-local | <跨域證據責任紀錄> |
 
 ## 完成條件
 
@@ -246,6 +255,9 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 - [x] 彙整 dogfood evidence，回答 Q3（品質信號成立 / null result）— 2026-07-08：成立（advisory 複合指標）；null result 未出現；**2c 補強**（8-slice、acceptance-violation 2/8、slice 紀律後 orchestrator 零實作 diff）— 見 kit §2c
 - [ ] Q5 決策：schema promotion（另立 plan）或明確維持 doc-only（記錄門檻與未達原因）
 - [ ] Q6 決策：通用化定位（Evidence-driven Closed Control Loop vs Delegation）——依非 coding / delivery 域真實 run 證據裁決；無證據則維持 delegation 定位、四責任觀察留檔（§架構收斂觀察）
+- [ ] Q7 決策：Verification Backfill 是否升格為獨立 primitive（Evidence-first Execution）——依 sd 域 ≥2 次真實使用 + 跨域出現/缺席觀察裁決；缺席亦為有效關閉（sd-specific）
+- [ ] Q8 決策：Evidence Responsibility Model 是否為更底層骨架——跨域 run 以「證據責任分配結構是否同構」為觀察鏡頭（取代單看角色/loop 形狀）；同構 → 升格候選改為 Evidence Responsibility Model；不同構 → 記錄差異維持 domain-local
+- [ ] sd 域定位落地評估：依使用者第三輪 review「sd 支持全面採用」，評估將 `sd-delegated-execution` 從「advisory + delegation 宣告任務」重定位為 **Software Delivery Execution Model**（含 slice 更名/正文重框、execution-flow 導航同步、advisory→default 的升級條件明文化）——獨立 linked-update 批次，不與 Q7/Q8 混批
 - [ ] Glossary 註冊決策落實（`independent_verification` / `arbitration` / `evidence_driven_control_loop` 註冊或明確不註冊）
 - [ ] 執行 Plan Completion Closure（含 plans/README.md 狀態表更新、搬移 archived）
 
@@ -257,7 +269,8 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 |--------|---------------------------|
 | Loop 形狀 | 三角色：orchestrator（規劃/切分/仲裁，不執行）/ executor（brief-only，happy path 測試）/ verifier（fresh-context，L1–L3 驗證，可補 `verifier_only` 測試） |
 | 落地方式 | doc-only 協議 + 雙 dogfood；不動 schema、不接 runtime、不建自動 orchestrator |
-| 通用化 adoption | **三階段**（§架構收斂觀察）：現在 stage 1 — Delegation Loop only（delivery 域 execution pattern 證據已強，仍 advisory）；stage 2 gated on 跨域自然收斂（Q6）；stage 3（runtime 全面預設）需 cross-domain + cross-workflow + cross-project evidence，超出本 plan scope |
+| 通用化 adoption | **三階段**（§架構收斂觀察）：stage 1 現況 — **sd 域使用者支持全面採用**（第三輪 review 2026-07-08：定位為 Software Delivery Execution Model；落地重框列 Phase 3 checkbox）、系統級不預設；stage 2 gated on 跨域自然收斂（Q6/Q7/Q8）；stage 3（runtime 全面預設）需 cross-domain + cross-workflow + cross-project evidence，超出本 plan scope |
+| Stage 2 觀察鏡頭 | **證據責任分配結構**（Q8）：跨域 run 記錄「誰產生哪種證據 / 哪種證據關哪個狀態 / 哪種不能單獨 closure / 誰依證據決策」，不預設 sd 詞彙、不驗角色名 |
 | 驗證 leg | 復用 review capability `fault_finding` stance invoke，不另定 stance |
 | 適用範圍 | advisory；只適用已宣告 delegation 的委派任務；主打 software-delivery，Ai-skill 比照 |
 | Schema promotion | gated on Phase 2 證據（Q5），deadline 2026-08-31 |
