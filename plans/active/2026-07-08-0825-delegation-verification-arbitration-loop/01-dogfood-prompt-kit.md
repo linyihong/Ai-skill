@@ -6,7 +6,7 @@
 
 ## 使用流程（orchestrator = 你的主 session）
 
-1. **Orchestrator** 在主 session 填好 brief（goal / acceptance / verification / context.required），填入模板 A。**填 brief 教訓（2b）**：若任務目標是 reusable 文件（README / workflow / enforcement），acceptance 必含 tool-neutral 措辭條款，否則 executor 寫入工具專屬詞不算違規。
+1. **Orchestrator** 在主 session 填好 brief（goal / acceptance / verification / context.required），填入模板 A。**填 brief 教訓（2b）**：若任務目標是 reusable 文件（README / workflow / enforcement），acceptance 必含 tool-neutral 措辭條款，否則 executor 寫入工具專屬詞不算違規。**填 brief 教訓（2026-07-08）**：在 `verification_backfill`（或 brief 附錄）為每條 acceptance 標 `executor`（happy path 測試）或 `verifier_only`（負面 / 架構 / 禁止事項）；避免 verifier 只重跑 executor 自寫測試。
 2. 開一個 **全新** Cursor chat（executor），貼模板 A。executor 交付 branch + 自驗報告。
 3. 開 **另一個全新** Cursor chat（verifier，不可沿用 executor 的 chat），貼模板 B（含同一份 brief 的 acceptance/verification + executor 的 branch/diff 位置）。
 4. Verifier 報告帶回主 session，orchestrator 用模板 C 逐條仲裁，記錄量測欄位。
@@ -28,9 +28,13 @@
 1. <條目，可觀察、可驗證>
 2. <...>
 
-## 驗證方式（verification — 你交付前要自己跑過）
+## 驗證方式（verification — 你交付前要自己跑過；限 happy path）
 1. <指令 / 操作 / 預期結果>
 2. <...>
+
+## 測試範圍（由 orchestrator 指定）
+- **你負責（executor）**：<happy path 整合測試 / 自驗命令>
+- **不由你寫（verifier_only）**：<負面 case、架構禁止事項檢查 — 留給獨立 verifier>
 
 ## 必要 context（先讀這些，應該就夠了）
 - <path/to/file>：<為什麼需要>
@@ -63,6 +67,8 @@ branch：<branch-name>（已 commit，未 merge）
 ```text
 你是本任務的「獨立驗證者」。你的立場是 fault-finding：主動找碴，但「只產出證據，不做決定」。
 
+**禁止降級**：不可只重跑 executor 的自驗命令就結案。你必須完成下面三層驗證。
+
 ## 你驗證的對象
 執行者依下面的驗收條件交付了改動：
 - branch：<branch-name>
@@ -72,23 +78,31 @@ branch：<branch-name>（已 commit，未 merge）
 1. <與模板 A 完全相同的條目>
 2. <...>
 
-## 驗證方式（verification — 你要實際執行，不是看 code 猜）
+## 驗證方式（verification — L1：重跑 executor 自驗，必要但不充分）
 1. <與模板 A 完全相同的條目>
 2. <...>
 
-## 驗證紀律
-1. 逐條 acceptance 驗證，每條都要有可獨立覆核的證據（實際執行結果、檔案內容、行為觀察）。
-2. 你「不可以」：修改任何檔案、提出應該怎麼修的決定、擴大驗證範圍去審整個 repo。
-3. diff 範圍內發現但 acceptance 沒涵蓋的問題：照記，classification 標 out-of-scope 或 observation。
-4. 沒有問題也是有效結果：輸出「全數通過」+ 每條的通過證據，不可以只回「看起來沒問題」。
+## verifier_only case（L3：對抗性驗證 — 你必須執行或補寫測試）
+1. <負面 / 邊界 case；若 executor 未寫對應測試，你可補寫並執行>
+2. <架構 / 禁止事項靜態檢查（grep、classpath、契約欄位）>
+
+## 三層驗證紀律
+1. **L1 重跑**：實際執行 `verification` 列出的命令，記錄 pass/fail 與輸出摘要。
+2. **L2 讀碼審查**：讀 diff，對照 acceptance 與架構禁止事項；**不依賴** executor 測試即可發現的違規也要記 finding。
+3. **L3 對抗性**：逐條執行 `verifier_only` case；未覆蓋 → `acceptance-violation`（即使 L1 全綠）。
+4. 你「不可以」：提出應該怎麼修的仲裁決定、擴大驗證範圍去審整個 repo。你「可以」：為 `verifier_only` case **補寫並執行**測試（在 branch 上或獨立驗證腳本），只產證據。
+5. diff 範圍內發現但 acceptance 沒涵蓋的問題：照記，classification 標 out-of-scope 或 observation。
+6. 沒有問題也是有效結果：輸出「全數通過」+ 每條的通過證據（含 L2/L3），不可以只回「看起來沒問題」。
 
 ## 回報格式（固定，每條 finding 一列）
 | # | evidence（具體檔案/行為觀察，可覆核） | acceptance_ref（對應第幾條，或 beyond-acceptance） | classification（acceptance-violation / out-of-scope / observation） | status（observed / verified / refuted） |
 
 ### Acceptance 逐條結論
-| acceptance 條目 | pass / fail | 證據 |
+| acceptance 條目 | pass / fail | 證據（含 L1/L2/L3 哪一層抓到） |
+### verifier_only 覆蓋表
+| case # | 已執行 / 已補測 | pass / fail | 證據 |
 ### 讀檔紀錄
-<驗證過程實際讀了哪些檔案、跑了哪些指令>
+<驗證過程實際讀了哪些檔案、跑了哪些指令、補了哪些測試>
 ```
 
 ## 模板 C — Orchestrator 仲裁表（主 session 使用）
@@ -112,6 +126,7 @@ branch：<branch-name>（已 commit，未 merge）
 | 指標 | 值 |
 |---|---|
 | verifier 差集（verifier 抓到、executor 自驗沒抓到） | <n 條 + 列舉> |
+| verifier 降級（只跑 L1、未做 L2/L3？） | <是 / 否> |
 | 仲裁分佈 | fix <n> / defer <n> / reject <n> |
 | orchestrator 越界（動手寫 code？被迫回讀 diff 細節？） | <無 / 描述 — Q1 信號> |
 | verifier 報告自足性（不回讀 diff 即可仲裁？） | <是 / 否，缺哪個欄位> |

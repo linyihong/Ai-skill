@@ -65,7 +65,17 @@
 
 - **Orchestrator（主 session）**：規劃、切分 sub-plan、寫 brief、仲裁 findings；**不執行、不自己驗**。
 - **Executor（獨立 session / agent）**：僅憑 brief + `context.required` 完成，交付 diff / artifact。
-- **Verifier（另一個 fresh context）**：輸入 = 同一份 brief（`acceptance` + `verification` 為量尺）+ executor 的 diff / artifact；**只產證據，不做決定**（evidence ≠ decision）。驗證 leg 復用 review capability 的 `fault_finding` stance invoke，不另定 stance。
+- **Verifier（另一個 fresh context）**：輸入 = 同一份 brief（**`acceptance` 為主量尺**；`verification` 為 executor 自驗底線）+ executor 的 diff / artifact；**只產證據，不做決定**（evidence ≠ decision）。驗證 leg 復用 review capability 的 `fault_finding` stance invoke，不另定 stance。
+
+**Verifier 三層驗證**（2026-07-08 補強；**僅重跑 executor 自驗命令不足**）：
+
+| 層 | 動作 |
+|---|---|
+| **L1 重跑** | 實際執行 `brief.verification` |
+| **L2 讀碼審查** | 讀 diff，對照 acceptance / 架構禁止事項（grep、靜態檢查） |
+| **L3 對抗性驗證** | 執行或補寫 orchestrator 標 `verifier_only` 的負面 / 邊界 case |
+
+**測試職責分工**：orchestrator 在 brief / `verification_backfill` 標 `executor`（happy path）vs `verifier_only`（負面 / 架構）；executor 不壟斷後者；verifier 未覆蓋 `verifier_only` → `acceptance-violation`。
 
 **Verifier 報告最小契約**（每條 finding 至少含）：
 
@@ -84,11 +94,12 @@
 | `defer` | 真實但超出本次 scope | 轉 observation / 新 plan / evidence candidate，**不**在本輪修 |
 | `reject` | 經覆核不成立 | 標 `refuted` + 理由，留證據不刪 |
 
-**Role boundary invariants（3 條，行為層）**：
+**Role boundary invariants（4 條，行為層）**：
 
 1. Verifier 必須是 fresh context——不是 executor 的 session、也不是 orchestrator 自己。
 2. Orchestrator 在 loop 內不產生 implementation diff；發現自己動手 = 越界信號，記入 evidence。
 3. Loop 關閉條件：所有 findings 都有仲裁處置，且 `fix` 項全部重驗通過。
+4. Verifier 須完成 L1 重跑 + L2 讀碼 + L3 對抗性驗證；僅重跑 executor 自驗 = 降級（見上表）。
 
 **Ai-skill repo 內委派的 bootstrap 注意事項**：brief 的 `context.required` 須含 [`CORE_BOOTSTRAP.md`](../CORE_BOOTSTRAP.md) 與 [`runtime/core-bootstrap.yaml`](../runtime/core-bootstrap.yaml)，executor / verifier 首則回覆須輸出 Bootstrap Receipt（否則本 repo 的 bootstrap gate（`gate.bootstrap.receipt_present`）會擋非讀取工具）；外部 repo 無此需求（gate fail-open）。
 

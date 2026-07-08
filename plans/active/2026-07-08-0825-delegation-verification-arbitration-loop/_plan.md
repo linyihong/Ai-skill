@@ -4,8 +4,12 @@ plan_kind: main
 status: in-progress
 owner: linyihong
 created: 2026-07-08
+last_updated: 2026-07-08
 parent: null
 baseline_ref: 2026-06-22-1009-subplan-agent-delegation
+revision:
+  - date: 2026-07-08
+    note: "Verifier 三層驗證契約 + 測試職責分工（防 executor 自寫測試 + verifier 只重跑的自證循環）"
 ---
 
 # Delegation Verification & Arbitration Loop（委派執行→獨立驗證→仲裁閉環）
@@ -29,6 +33,7 @@ baseline_ref: 2026-06-22-1009-subplan-agent-delegation
 03 已證明 delegation `brief` 能形成 capability（fresh executor 只憑 brief + `context.required` 完成任務），但 loop 只有**去程**沒有**回程**：
 
 1. **驗證由誰做沒有契約**：目前 brief 的 `verification` 由 executor 自驗，或 orchestrator 自己 review——前者缺獨立性（executor 對自己的產出有確認偏誤），後者讓 orchestrator 被迫載入執行細節，失去仲裁位置。
+1b. **自證循環（symmetric blind spot）**：若 executor 同時寫實作與測試，而 verifier **只重跑** `brief.verification` 命令，兩者共用同一套測試量尺——測試可能只覆蓋「實作怎麼寫」而非「acceptance 要求什麼」，綠燈仍可能漏掉架構違規與負面 case（2026-07-08 Brower tiered plan 執行規劃回饋）。
 2. **findings 沒有處置協議**：驗證發現的問題，「要修 / 超出範圍 / 駁回」的決定散落在對話中，沒有結構化紀錄，無法回答「預計與實現的落差有沒有被系統性收斂」。
 3. **角色邊界未文件化**：「主 session 只規劃 / 切分 / 仲裁、不執行」這條邊界目前不存在於任何 workflow 文件；沒有邊界就無法觀察越界（orchestrator 忍不住自己動手改 code = 信號遺失）。
 
@@ -40,7 +45,25 @@ Why now：03 剛 completed、dogfood 方法論（brief independence score、fres
 
 - **Orchestrator（主 session）**：規劃、切分 sub-plan、寫 brief、仲裁 findings。**不執行、不自己驗**。
 - **Executor（獨立 session / agent，可選 worktree）**：僅憑 brief + `context.required` 完成，交付 diff / artifact。（= 03 已驗證的去程，不變）
-- **Verifier（另一個 fresh-context session / agent）**：輸入 = 同一份 `brief`（`acceptance` + `verification` 為量尺）+ executor 的 diff / artifact；輸出 = 結構化 findings。**只產證據，不做決定**（evidence ≠ decision）。驗證 leg 復用 review capability 的 `fault_finding` stance invoke，不另定 stance。
+- **Verifier（另一個 fresh-context session / agent）**：輸入 = 同一份 `brief`（**`acceptance` 為主量尺**；`verification` 為 executor 自驗底線，非 verifier 唯一動作）+ executor 的 diff / artifact；輸出 = 結構化 findings。**只產證據，不做決定**（evidence ≠ decision）。驗證 leg 復用 review capability 的 `fault_finding` stance invoke，不另定 stance。
+
+**Verifier 三層驗證契約**（2026-07-08 補強，doc-only）— 三層皆須執行；**僅第 1 層不足**：
+
+| 層 | 動作 | 誰做 | 目的 |
+|---|---|---|---|
+| **L1 重跑** | 實際執行 `brief.verification` 列出的命令 | Verifier | 確認可獨立重現、非環境偶發 |
+| **L2 讀碼審查** | 讀 diff，對照 `acceptance` 與架構/禁止事項（grep、靜態檢查、契約欄位） | Verifier | **不依賴** executor 自寫測試即可發現違規 |
+| **L3 對抗性驗證** | 補寫或執行 **負面 / 邊界** case（見 orchestrator 在 backfill 標 `verifier_only` 的條目） | Verifier（可寫測試或補測） | 抓 happy-path-only 與「測試跟著實作走」 |
+
+**測試職責分工**（orchestrator 在 brief / verification_backfill 設計時必填）：
+
+| 角色 | 測試範圍 |
+|---|---|
+| **Orchestrator** | 每條 `acceptance` 映射證據；**明確標**哪些 case 為 `executor`（happy path）、哪些為 `verifier_only`（負面 / 架構 / 禁止事項） |
+| **Executor** | 實作 + **happy path** 整合測試；**不**壟斷 `verifier_only` 對抗性 case |
+| **Verifier** | L1–L3 全做；`verifier_only` 未覆蓋 → `acceptance-violation` finding |
+
+**反模式（禁止視為獨立驗證）**：Verifier 只重跑 executor 自寫測試且不做 L2/L3 → 記入 dogfood 量測欄「verifier 降級為複讀自驗」。
 
 **Verifier 報告最小契約**（Phase 1 定稿）：每條 finding 至少含 —
 
@@ -59,10 +82,11 @@ Why now：03 剛 completed、dogfood 方法論（brief independence score、fres
 | `defer` | 真實但超出本次 scope | 轉 observation / 新 plan / evidence candidate，**不**在本輪修 |
 | `reject` | 經覆核不成立 | 標 `refuted` + 理由，留證據不刪 |
 
-**Role boundary invariants（3 條，行為層）**：
+**Role boundary invariants（4 條，行為層）**：
 1. Verifier 必須是 fresh context——不是 executor 的 session、也不是 orchestrator 自己。
 2. Orchestrator 在 loop 內不產生 implementation diff；發現自己動手 = 越界信號，記入 dogfood evidence。
 3. Loop 關閉條件：所有 findings 都有仲裁處置，且 `fix` 項全部重驗通過。
+4. Verifier 不得將「重跑 `brief.verification`」視為充分獨立驗證；**必須**完成 L2 讀碼審查 + L3 對抗性驗證（含 `verifier_only` case）；僅 L1 = 降級，量測欄須記錄。
 
 ### Alternatives Considered
 
@@ -156,6 +180,7 @@ Why now：03 剛 completed、dogfood 方法論（brief independence score、fres
 - [x] 決定 Q4 仲裁紀錄落點 = 被委派任務的 plan artifact（sub-plan table）；dogfood 期記於 kit §Dogfood 紀錄（2b 已實際使用）
 - [x] 更新 `plans/README.md` §Delegation loop SOP（同上，經獨立驗證 acceptance 8/8 + fix 重驗 pass）
 - [x] Ai-skill repo 內委派的 bootstrap 注意事項寫入 SOP（tool-neutral gate id `gate.bootstrap.receipt_present`；executor / verifier 實測 Bootstrap Receipt 通過）
+- [x] **Verifier 三層驗證契約** + 測試職責分工（`executor` / `verifier_only`）補強 — 2026-07-08，Brower tiered plan 執行規劃回饋；見 §Decision Rationale、plans/README.md、kit 模板 B
 
 ## Phase 2 — 雙 dogfood
 
@@ -181,7 +206,7 @@ Why now：03 剛 completed、dogfood 方法論（brief independence score、fres
 
 | 決策面 | Current selected strategy |
 |--------|---------------------------|
-| Loop 形狀 | 三角色：orchestrator（規劃/切分/仲裁，不執行）/ executor（brief-only）/ verifier（fresh-context，只產證據） |
+| Loop 形狀 | 三角色：orchestrator（規劃/切分/仲裁，不執行）/ executor（brief-only，happy path 測試）/ verifier（fresh-context，L1–L3 驗證，可補 `verifier_only` 測試） |
 | 落地方式 | doc-only 協議 + 雙 dogfood；不動 schema、不接 runtime、不建自動 orchestrator |
 | 驗證 leg | 復用 review capability `fault_finding` stance invoke，不另定 stance |
 | 適用範圍 | advisory；只適用已宣告 delegation 的委派任務；主打 software-delivery，Ai-skill 比照 |
