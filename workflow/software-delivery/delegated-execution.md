@@ -19,8 +19,21 @@
 | 情境 | 建議 |
 |---|---|
 | sub-plan / 任務宣告 `delegation.enabled: true` | 走 loop（brief → executor → verifier → 仲裁） |
+| 使用者表達執行意圖（「開始執行 plan / sub-plan / slice / 幫我做 Step N」） | 進入 orchestrator 模式 |
+| **loop 未關閉**（backfill 仍有未關閉行、仲裁未完） | **維持** orchestrator 模式——不因跨 turn / 跨 session 而失效 |
 | 跨 session、可驗收 slice、主 session 需保持規劃 / 仲裁位 | 走 loop |
 | surgical 小修、單 session、無 delegation | 不走；直接 implementation + validation |
+| 純問答 / 只讀審計（不進入 Execute） | 不觸發 |
+| **Transport adaptation**：使用者明確要主 session 當 executor | 允許，但**必須在 plan 註明**（角色降格是記錄在案的例外，不是默認滑移） |
+
+## 1b. Orchestrator 執行順序（不可跳過）
+
+1. 讀 active plan 執行段 + 本 slice（**不讀實作源碼**）。
+2. 補 `delegation.brief`（含 slice 類型）+ verification backfill（每條 acceptance → tier + owner，§3）。
+3. **Commit plan 變更**（無 git 錨點不得派發）。
+4. 派發 **Executor**（fresh session / agent；`context.required` 由 executor 自己讀）。
+5. 派發 **Verifier**（另一個 fresh context；V1–V4，§5）。
+6. 仲裁 fix / defer / reject → `fix` 再派 executor → **重新驗證** → 關閉狀態 + C1–C5 寫入 plan 執行紀錄 → **commit** → 才開下一 slice。
 
 ## 2. 角色 × 證據責任矩陣（誰該做什麼）
 
@@ -107,6 +120,15 @@ deliverables:
 2. **條件式讀檔**：常態只讀 plan / brief / backfill / 交付表 / findings；僅仲裁爭議時按 verifier 引用的具體路徑+行號**定點讀**，不掃目錄、不回讀整份 diff。
 3. Orchestrator 與 executor 各 commit 自己的層（plan artifact vs 實作 repo）；orchestrator 不代 executor commit 實作。
 
+**主 session 禁止（loop 內）**：
+
+1. 為寫碼而 Read / Grep / Edit 實作源碼（brief 裡列給 executor 的路徑：只記路徑，不打開讀）。
+2. 未派發 executor 就直接寫實作。
+3. 未 commit plan 變更就派發。
+4. 同一個 session 兼任 verifier（必須新開 fresh context）。
+
+**被 gate 擋下時**：不要 retry 直改實作；補 brief → commit plan → 派發 executor。
+
 ## 8. Anti-patterns（review lens）
 
 | failure | 徵象 | recovery |
@@ -116,6 +138,20 @@ deliverables:
 | inner-only 關閉 | user-visible slice 只憑單元測試關閉 | C1b block；改 `implementation_done` + follow-up |
 | orchestrator 探路讀碼 | 「為了寫 brief」大量讀實作源碼 | brief 只記路徑給 executor 讀；越界記入量測欄 |
 | verifier 兼任 | 同一 session 先執行後驗證 | fresh-context invariant（canonical SOP invariant 1） |
+
+## 9. 機械 gate 模式（Layer 3 adapter，optional）
+
+Role boundary 靠行為維持不住時，consumer 可在**工具層**落機械 gate（不動本 slice、不動 delegation schema）。已驗證的事件生命週期模式：
+
+```text
+執行意圖偵測（prompt / active plan 宣告）→ arm orchestrator lock
+  → orchestrator lock 生效期間：deny 主 session 對實作路徑的寫入與探路讀取
+  → subagent（executor）啟動 → grant executor lock（可寫實作）
+  → subagent 結束 / session 結束 → 清除 locks
+```
+
+- **Bypass 必須書面記錄**（plan 或使用者明示），對應 §1 的 surgical / transport-adaptation 例外。
+- 實作細節（hook 事件名、腳本、state 檔）屬 consumer 工具層；已驗證實例：外部 consumer（ExternalRepoC）editor-hook 五事件 gate + BDD 10/10（2026-07-08）。
 
 ## Provenance / 升級條件
 
