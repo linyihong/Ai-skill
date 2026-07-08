@@ -147,6 +147,21 @@ branch：<branch-name>（已 commit，未 merge）
 
 ## Dogfood 紀錄
 
+### 2f — falsification run（**預註冊 2026-07-09**；任務未定，等真實任務自然出現）
+
+> **預註冊時點先於任務存在**（anti-reconstruction：判準 commit 於 run 前，run 後不得修改本節判準去救假說；要改判準只能預註冊給再下一個 run，本 run 依原判準判定）。
+
+- **目標**：預期失敗的工作性質——**preference-allowed**（brainstorming / creative writing / open-ended design / ideation）。精確判準是**工作性質**非 domain 名：同 domain 可同時含 justification-required 與 preference-allowed 工作（architecture 安全審查 vs 概念發想）。
+- **任務等待條件**：對話或專案中**自然出現**的真實 ideation / creative 需求；出現時標記 2f、用 loop 跑；**brief 不得誘導 evidence 結構**（不預塞 evidence requirement，觀察它自己長不長）。
+- **預註冊 falsification 判準（兩個獨立觀察）**：
+  | 觀察 | 問題 | fail 樣態 |
+  |---|---|---|
+  | **F1** | acceptance 是否自然形成 evidence requirement？ | 完全沒有 grounded 判準自然出現 |
+  | **F2** | closure 是否**真的依賴** independent evidence？ | 證據存在但最終以偏好/品味關閉（「我喜歡第 7 個」）——**證據裝飾性** |
+- **判讀表（run 前定死）**：F1✓F2✓ = ERA 成立於 preference 域（假說極強）；F1✓F2✗ = 邊界訊號（evidence 裝飾性）；F1✗ = 邊界訊號。失敗 = 依「Justification Required vs Preference Allowed」畫出 ERA 適用邊界，與成功同等有效。
+- **ERA 單一問句**（本 run 要回答的）：**該任務的 Decision 是否必須依賴 Independent Evidence？**
+- **結果**：<等待真實任務>
+
 ### 2a — software-delivery 任務 ✅（2026-07-08，Cursor session demo）
 
 - **任務**：chat-only「Delegation loop ↔ Review invoke 整合備註」— 評估 `workflow/software-delivery` 如何定位 review invoke，以及 delegation 驗證閉環是否從 software-delivery 入口可發現（**read-only，零 commit / 零檔案寫入**）。
