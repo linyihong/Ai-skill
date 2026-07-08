@@ -141,6 +141,8 @@ branch：<branch-name>（已 commit，未 merge）
 - **Cursor 的 codebase 自動索引**會讓 executor/verifier 可能讀到 context.required 以外的檔——這不違反協議（協議管「brief 是否自足」，不禁讀），但「讀檔紀錄」要誠實填，作為 brief 改進信號。
 - **在 Ai-skill repo 內 dogfood 時**（Phase 2b）：Cursor 走 `.cursor/rules`，不經 Claude Code PreToolUse bootstrap gate；但 brief 的 context.required 仍應含該任務相關的 canonical 規則檔，讓兩種工具行為一致。
 - 換工具：Claude Code 用 Agent tool（可選 worktree isolation）跑同一份模板 A/B 文字；模板本體不改。
+- **Task subagent transport**（2c / 2d）：orchestrator 用 Cursor `Task` spawn Executor / Verifier；**省略 `model`**，子 agent 繼承主 session（stakeholder 2026-07-08，控制 token 成本）。
+- **Execute 意圖 hook allowlist**（2d 契約回饋）：orchestrator 應可寫 `<PROJECT_ROOT>/docs/plans/**`、`.ai-skill/project/**`、`tests/**`；只 deny 內層實作路徑（如 `manageCode/server/**`）。否則 orchestrator 連 plan patch 也被擋，被迫讓 Executor 代寫外層 artifact。
 
 ## Dogfood 紀錄
 
@@ -273,7 +275,7 @@ branch：<branch-name>（已 commit，未 merge）
 
 - **任務**：分層資料歸檔平台 Phase A / A′ / B / C / D 全線交付（8 slices）；首個 domain adapter = verification-code retention。
 - **Transport**：Cursor orchestrator（主 session）+ **Task subagent** executor / verifier（每 slice 一輪；fix 項再 spawn）；**外部 repo** 成立（`<PROJECT_ROOT>` 外層 plan + `<INNER_REPO>/manageCode`）。
-- **Repo**：Brower `feature/tiered-data-archive-phase-a-close` + browserManage 同 branch。
+- **Repo**：`<PROJECT_ROOT>` `feature/<slug>` + `<INNER_REPO>` 同 branch。
 - **Brief 來源**：外層 tiered plan §12 `delegation.brief` + `.ai-skill/project/rules/plan-delegation-execution-loop.md`（orchestrator **不讀** `manageCode/server/**`，僅仲裁 dispute）。
 
 #### Slice 軌跡（摘要）
@@ -316,3 +318,63 @@ branch：<branch-name>（已 commit，未 merge）
 3. **Task transport = 2a/2a-external 的 agent 化** — 不必人類開新 chat；fresh context 由 subagent 保證。
 4. **多 slice 任務值得 loop**；單檔 typo 不值得 — 與 advisory 適用邊界一致。
 5. **Schema promotion 仍不建議（證據累積中）** — 2c 支持 doc-only 延續；Phase 3 Q5 決策待後續收斂（見 `_plan.md` §Phase 3）。
+### 2d — 外部 monorepo outbound sync Phase 3（4 slices）✅（2026-07-08，Cursor Task transport）
+
+> **專案證據邊界**：inner commit、class 名、live 環境細節留於 `<PROJECT_ROOT>` active main plan §執行紀錄；Ai-skill 只保留 generalized dogfood metrics（依 [`enforcement/sanitization.md`](../../../enforcement/sanitization.md)）。
+
+- **任務**：出站同步平台 Phase 3 — rollback、`sync_failure` 隊列 + reconcile worker、Admin 監控 UI、`WORKER_BATCH` scheduler（4 slices）。
+- **Transport**：Cursor orchestrator + **Task subagent** executor / verifier（每 slice 一輪；fix 再 spawn）；**省略 `model`**。
+- **Repo**：`<PROJECT_ROOT>` 外層 + `<INNER_REPO>/manageCode` 內層；雙 repo commit。
+- **Consumer overlay**：`<PROJECT_ROOT>/.ai-skill/project/rules/plan-delegation-execution-loop.md` — 在 canonical L1–L3 之上擴 **L1–L4 外層驗收 + V1–V4 內層（含 V4 產出物）+ `slice_kind` + C1–C5 合規關閉**。
+- **機械 gate**：`check-plan-delegation-orchestrator.py` + Cursor hooks（五事件）+ BDD `gate.plan_delegation_orchestrator`、`gate.consolidation.gherkin_canonical_placement`。
+
+#### Slice 軌跡（摘要）
+
+| Slice | slice_kind | 重點 | 關閉類型 |
+|---|---|---|---|
+| 3.0-A | implementation | `failure_kind`、補償 delete、內層 IT | `implementation_done` |
+| 3.0-A′ | outer_acceptance | Gherkin rollback + L2/L3 外層 | `slice_compliant_closed` |
+| 3.0-B | combined | `sync_failure` 隊列 + reconcile worker | `slice_compliant_closed` |
+| 3.0-C | combined | sync_status、pending_delete、monitor UI、batch scheduler | `slice_compliant_closed` |
+
+#### 相對 canonical / 2c 的新信號
+
+| # | 觀察 | 對本 plan 的意義 |
+|---|---|---|
+| 1 | **implementation + outer_acceptance 拆 slice**（A / A′）比單一 combined 好關閉 | consumer overlay `slice_kind` 有效；canonical 可 advisory：user-visible 行為勿僅用 inner JUnit 關閉 |
+| 2 | **verification_backfill + deliverables[]** Execute 前填好，Verifier V4 抓 feature / manifest 遺漏 | **Q7 正向**：backfill 像 execution 前 acceptance→evidence 映射 primitive |
+| 3 | **機械 gate 生效**：gate 後 orchestrator **零** manageCode 實作 diff | **Q5 支持** Layer 3 consumer gate 夠用、schema promotion 仍不急 |
+| 4 | **hook 副作用**：Execute 意圖下 orchestrator 連外層 plan 有時被擋 | 契約缺口 → kit §Cursor 傳輸備註 allowlist（見上） |
+| 5 | **combined mega-slice**（3.0-C，8 deliverables）Verifier V4 負載高 | 建議拆 2–3 Verifier 輪；與 2c「多 slice 值得 loop」一致 |
+| 6 | **deploy / migration** 由 orchestrator 做，不在 loop 內 | loop 邊界：runtime deploy 應列 brief acceptance 或標 `beyond-loop` |
+| 7 | **Gherkin 唯一目錄 gate** 防 `.feature` 再分散 | consumer enforcement 範例；workflow dogfood 清單候選 |
+
+#### 量測欄（4-slice 彙總）
+
+| 指標 | 值 |
+|---|---|
+| Slices | **4**（2 combined + 1 implementation + 1 outer_acceptance） |
+| Task spawn | **~8–12**（每 slice executor + verifier；含 fix 輪） |
+| acceptance-violation（merge 前） | **少數** — 多為 deliverable / outer tier 遺漏（V4 抓到） |
+| verifier 降級（只跑 L1？） | **初期有**；補強 overlay L1–L4 + V4 後改善 |
+| orchestrator 越界寫 manageCode | **0**（gate 生效後） |
+| orchestrator 被迫回讀 diff 仲裁 | **罕見**（爭議時定點 Read） |
+| 外層 L1–L3 linked 才關 user-visible slice | **是**（C1b 紀律有效） |
+
+#### vs 2c tiered archive
+
+| 維度 | 2c | 2d |
+|---|---|---|
+| 領域 | 資料歸檔平台 | 同步 / 失敗處理 / Admin 監控 |
+| 外層證據 | 以 inner IT 為主 | **L1 Gherkin + L2 BDD + L3 外層 IT** 為關閉條件 |
+| slice 模型 | 8 小 slice | 4 slice + **slice_kind 混用** |
+| 新 primitive 信號 | 多 slice 值得 loop | **backfill + slice_kind + deploy 邊界** |
+
+#### 契約回饋（寫回 canonical / consumer overlay）
+
+1. **Consumer overlay 模式成立** — canonical 保持 L1–L3 + 三角色；雙 repo + Gherkin 外層用 project overlay 擴 tier，不必一次進 schema。
+2. **Execute 意圖 hook allowlist** — 見 kit §Cursor 傳輸備註。
+3. **`slice_kind`**（implementation / outer_acceptance / combined）應進模板 A「測試範圍」段（advisory）。
+4. **Deploy 不屬 Production leg** — brief 需明示或 defer。
+5. **Q5 仍維持 doc-only** — 2d + 2c + consumer 機械 gate = 證據累積中，尚不足以 promote schema。
+
