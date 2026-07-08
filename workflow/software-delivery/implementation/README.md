@@ -7,7 +7,7 @@ Implementation stage 在 requirements / architecture / validation target 足夠�
 | 任務 | 讀什麼 |
 |------|--------|
 | 選 execution mode、Change Intent Lock、structure preparation、stop condition | [`execution-modes.md`](execution-modes.md) |
-| **多倉庫處理模式**（orchestrator + sibling repos、隊友 merge 後接 sync / adapter 切片） | [`multi-repository-workspace-mode.md`](multi-repository-workspace-mode.md) |
+| **多仓 workspace（orchestrator + sibling repos）、队友 merge 后接 sync/adapter 切片** | [`multi-repository-workspace-delivery.md`](multi-repository-workspace-delivery.md)（双仓见 [`dual-repository-integration.md`](dual-repository-integration.md) alias） |
 | SDK 缺陷閉環、同工作階段閉環（code + 持久文件） | [`execution-flow.md`](../execution-flow.md) §3–§4 |
 | 外科手術式 diff 紀律（feature / direct_change） | [`surgical-changes.md`](../surgical-changes.md) |
 | intent → validation 分流 | [`test-strategy.md`](../test-strategy.md) |

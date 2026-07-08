@@ -156,17 +156,8 @@ steps:
     action: Read planning artifacts and classify the request as new behavior, bug fix, refactor/replacement, hardening, architecture decision, performance change, or documentation conflict.
     gates:
       - gate.software_delivery.change_intake_complete
-  - id: classify_existing_code_modification_path
-    order: 3
-    action: >
-      When the change touches existing or legacy implementation, classify modification_path
-      (backfill_required, bugfix_regression, behavior_change_full, internal_refactor_surgical,
-      or greenfield_new), record path-specific evidence in the change brief, and satisfy
-      backfill, regression, docs-first BDD, or surgical-refactor prerequisites before code_change.
-    gates:
-      - gate.software_delivery.existing_code_modification_path_ready
   - id: run_pre_build_interrogation
-    order: 4
+    order: 3
     action: For plans, implementation, and framework changes, run pre-build interrogation for goal, scope, non-goals, acceptance, framework source-of-truth, duplication risk, and unknown disposition.
     required_if:
       - plan_requested
@@ -176,26 +167,26 @@ steps:
     gates:
       - gate.software_delivery.pre_build_interrogation_complete
   - id: run_requirements_checkpoint
-    order: 5
+    order: 4
     action: For observable behavior, run requirements stage for product impact, behavior boundary, acceptance definition, ambiguity disposition, and validation target.
     required_if:
       - observable_behavior_change
   - id: produce_replacement_parity_inventory
-    order: 6
+    order: 5
     action: For replacement or migration work, list old entrypoints, capabilities, side effects, dependencies, new entrypoints, parity status, and validation evidence before implementation.
     required_if:
       - refactor_or_replacement_requested
     gates:
       - gate.software_delivery.replacement_parity_ready
   - id: keep_docs_first_bdd_closure
-    order: 7
+    order: 6
     action: Load the test-strategy, contracts, and ui-contracts surfaces when behavior, contract, or consumer-facing changes require them, then update owner contracts, human-readable behavior specs, executable behavior tests, implementation, and traceability in the same batch.
     required_if:
       - observable_behavior_change
     gates:
       - gate.software_delivery.bdd_closure_complete
   - id: classify_ui_governance
-    order: 8
+    order: 7
     action: Load the ui-governance surface when UI compliance evidence is needed, then classify governance domain, render context, collection method, validation mechanism, evidence class, severity, project-local design-system policy, and advisory runtime projection boundary before test strategy or completion claims.
     required_if:
       - ui_compliance_claim
@@ -210,17 +201,17 @@ steps:
       - gate.software_delivery.ui_visual_validation_scoped
       - gate.software_delivery.responsive_validation_complete
   - id: handle_sdk_defect_closure
-    order: 9
+    order: 8
     action: Reproduce SDK defects through supported public surfaces, sanitize evidence, and lock behavior with specs and regression tests when needed.
     required_if:
       - sdk_defect_reported
   - id: define_test_strategy
-    order: 10
+    order: 9
     action: Load the test-strategy surface, then define old behavior regression, new behavior proof, BDD-owned Journey Specification when a multi-step user outcome is in scope, mutation/negative checks, persistence/integration tests, state visibility evidence chain, and hardware/performance evidence when relevant.
     gates:
       - gate.software_delivery.validation_target_defined
   - id: invoke_review_capability
-    order: 11
+    order: 10
     action: After implementation, invoke the registered review capability via cross-cutting consumer (e.g. code-review). Workflow declares when to invoke — not context.stance branching; capability registry declares requires_context.
     required_if:
       - observable_behavior_change
@@ -229,12 +220,12 @@ steps:
       capability: code-review
       consumer: workflow/cross-cutting/review/self-review.md
   - id: run_performance_gate
-    order: 12
+    order: 11
     action: Load the validation surface for performance-sensitive changes, then define latency, throughput, error-rate, and resource budgets plus load/stress/spike/soak evidence.
     required_if:
       - performance_sensitive_change_detected
   - id: validate_and_close
-    order: 13
+    order: 12
     action: Load validation and closure surfaces as needed, acquire evidence, run validation at the required evidence depth, validate critical journey execution against expected outcomes when applicable, check blockers, update durable docs, feed reusable lessons when appropriate, and report scope honestly.
     gates:
       - gate.software_delivery.validation_complete
@@ -253,16 +244,6 @@ gates:
       - planning/product/issue/design/BDD/API contract source was read or a lightweight change brief was created
       - major claims are marked validated, assumption, open question, scoped out, or invalidated
       - blocker questions are asked before affected implementation continues
-  - id: gate.software_delivery.existing_code_modification_path_ready
-    blocks: code_change
-    pass_when:
-      - modification_path is classified as backfill_required, bugfix_regression, behavior_change_full, internal_refactor_surgical, or greenfield_new
-      - greenfield_new is used only when the change does not touch existing implementation semantics in scope
-      - when documentation_gap is partial or missing for in-scope behavior, backfill_required path is selected and BDD backfill is complete or an explicit blocker is recorded before code_change
-      - when modification_path is bugfix_regression, expected vs actual behavior, reproduction evidence, affected BDD scenarios, and regression plan are recorded
-      - when modification_path is bugfix_regression and new_tests_required is false, linked_test_refs and affected_bdd_scenarios justify existing coverage for the change scope
-      - when modification_path is behavior_change_full, requirements checkpoint and docs-first BDD closure path are selected and code_change does not start before owning contract and behavior spec alignment
-      - when modification_path is internal_refactor_surgical, no_observable_behavior_change is attested and surgical-change discipline applies
   - id: gate.software_delivery.pre_build_interrogation_complete
     blocks: implementation_plan_or_framework_change
     pass_when:
@@ -340,7 +321,6 @@ gates:
 required_evidence:
   - goal / action / validation statement
   - change intake classification
-  - existing code modification path classification and path-specific evidence when touching legacy implementation
   - pre-build interrogation decision for plans, ambiguous requests, and framework changes
   - requirements or behavior boundary evidence when observable behavior changes
   - framework source-of-truth and duplication risk evidence when framework/runtime/governance/workflow surfaces change
@@ -373,9 +353,6 @@ failure_modes:
   - id: plan_without_pre_build_interrogation
     detection: Agent produces an implementation plan or framework migration without goal, scope, non-goals, acceptance, source-of-truth, duplication risk, and unknown disposition.
     recovery: Stop implementation planning, run pre-build interrogation, ask blocker questions, and revise the plan.
-  - id: existing_code_modified_without_path
-    detection: Agent patches existing or legacy code without classifying modification_path, completing required backfill, recording regression plan, or selecting docs-first BDD route for behavior changes.
-    recovery: Stop code_change, update change brief with modification_path evidence per intake.md, complete backfill or regression attestation, then continue.
   - id: replacement_without_parity
     detection: New entrypoint, migration, refactor, or tool rewrite starts without old/new capability inventory.
     recovery: Produce parity inventory and validation evidence before implementation.
@@ -406,7 +383,6 @@ final_status_report:
     - change_type
     - sources_read
     - pre_build_interrogation
-    - modification_path
     - contracts_or_bdd_updated
     - parity_status
     - validation_performed
