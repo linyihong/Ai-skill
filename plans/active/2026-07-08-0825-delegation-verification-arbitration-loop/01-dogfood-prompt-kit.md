@@ -33,6 +33,7 @@
 2. <...>
 
 ## 測試範圍（由 orchestrator 指定）
+- **slice 類型**：<implementation / outer_acceptance / combined — user-visible 行為預設 combined；implementation 關閉時外層驗收須 deferred + follow-up>
 - **你負責（executor）**：<happy path 整合測試 / 自驗命令>
 - **不由你寫（verifier_only）**：<負面 case、架構禁止事項檢查 — 留給獨立 verifier>
 

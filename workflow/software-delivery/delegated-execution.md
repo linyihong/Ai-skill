@@ -67,6 +67,7 @@ Plan 從規劃進入執行前，orchestrator 在被委派任務的 plan artifact
 2. 每條非測試產出物 → `tier=deliverable` 或 brief `deliverables[]`（見 §4）。
 3. `tier=inner` alone 不得標 `linked` 並關閉 user-visible slice。
 4. 合規關閉前：無裸 `pending`；`deferred` 必附 follow-up。
+5. **Loop 外動作明示**：runtime deploy / migration / 環境操作若不在 executor 的 Production leg 內，必須列入 acceptance（由 executor 交付）**或明標 `beyond-loop`**（orchestrator 執行並記錄於 plan）——不得隱含（consumer 2d 證據：deploy 隱含在 loop 外導致邊界模糊）。
 
 ## 4. Brief `deliverables[]`（防「測試綠但東西沒交」）
 
@@ -99,6 +100,14 @@ deliverables:
 | `process-omission` | 宣告的流程步驟漏做（branch、commit 錨點、交付表欄位） | `observation` / `acceptance-violation` 依 brief 宣告而定 |
 
 ## 6. Slice 關閉狀態（合規判定）
+
+**Slice 類型**（orchestrator 在 brief 標明；consumer 2d 證據：implementation + outer_acceptance 拆開比單一 combined 好關閉）：
+
+| slice 類型 | 內容 | 合規關閉要求 |
+|---|---|---|
+| `implementation` | 僅實作 + inner 證據 | inner `linked`；user-visible acceptance 可 `deferred`（必附 follow-up slice id） |
+| `outer_acceptance` | 補 acceptance-spec / spec-alignment / integration 外層鏈 | 外層 tier 全 `linked` |
+| `combined`（user-visible 行為預設） | 實作 + 外層驗收同批 | 外層 tier `linked`；inner 為輔助證據。**單輪 deliverables 過多（mega-slice）→ 拆多輪 verifier 或拆 slice** |
 
 | 狀態 | 條件 | 語意 |
 |---|---|---|
@@ -138,6 +147,8 @@ deliverables:
 | inner-only 關閉 | user-visible slice 只憑單元測試關閉 | C1b block；改 `implementation_done` + follow-up |
 | orchestrator 探路讀碼 | 「為了寫 brief」大量讀實作源碼 | brief 只記路徑給 executor 讀；越界記入量測欄 |
 | verifier 兼任 | 同一 session 先執行後驗證 | fresh-context invariant（canonical SOP invariant 1） |
+| combined mega-slice | 單一 slice 塞過多 deliverables，verifier V4 單輪負載過高、核對品質下降 | 拆 2–3 輪 verifier 或拆 slice（§6） |
+| deploy 隱含在 loop 外 | runtime deploy / migration 無人宣告歸屬，orchestrator 默默代做 | backfill 鐵則 5：列 acceptance 或明標 `beyond-loop` |
 
 ## 9. 機械 gate 模式（Layer 3 adapter，optional）
 
@@ -150,6 +161,7 @@ Role boundary 靠行為維持不住時，consumer 可在**工具層**落機械 g
   → subagent 結束 / session 結束 → 清除 locks
 ```
 
+- **Deny 範圍只限實作路徑**：orchestrator 自有 artifact 路徑（plan / overlay / 外層測試骨架）**必須 allowlist**——否則 orchestrator 連 plan patch 都被擋，被迫讓 executor 代寫外層 artifact = 角色反轉（consumer 2d 契約回饋）。
 - **Bypass 必須書面記錄**（plan 或使用者明示），對應 §1 的 surgical / transport-adaptation 例外。
 - 實作細節（hook 事件名、腳本、state 檔）屬 consumer 工具層；已驗證實例：外部 consumer（ExternalRepoC）editor-hook 五事件 gate + BDD 10/10（2026-07-08）。
 
