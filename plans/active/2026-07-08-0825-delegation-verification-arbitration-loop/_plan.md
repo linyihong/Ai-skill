@@ -19,7 +19,7 @@ revision:
 **建立日期**: 2026-07-08
 **Source**: 2026-07-08 對話 — 使用者觀察到外部框架的三角色模式：主 session 只做規劃 / 切分 / 仲裁，執行交給獨立 agent session，驗證再交給另一個獨立 session，最後由主 session 仲裁每條驗證發現（要修 / 超出範圍 / 駁回）。目標：補漏「預計與實現的落差」。主要針對 `workflow/software-delivery` 的交付處理；Ai-skill 自身任務比照辦理，觀察品質是否提升。
 **Baseline**: [`03-subplan-agent-delegation`](../../archived/2026-06-22-1009-plans-system-portability-and-delivery-integration/03-subplan-agent-delegation.md)（completed，2026-07-06）— delegation `brief` schema + 雙路徑 dogfood ★★★★☆。本 plan 是其 loop 延伸（情境 C：sibling main plan + baseline_ref，不重開該 tree）。
-**Glossary Impact**: yes — candidate terms：`independent_verification`（fresh-context 驗證 leg，非 executor 自驗、非 orchestrator 自 review）、`arbitration`（orchestrator 對 verifier findings 的處置協議：fix / defer / reject）。graduate 時才註冊到 `knowledge/glossary/ai-skill.md`；未定稿前不註冊。
+**Glossary Impact**: yes — candidate terms：`independent_verification`（fresh-context 驗證 leg，非 executor 自驗、非 orchestrator 自 review）、`arbitration`（orchestrator 對 verifier findings 的處置協議：fix / defer / reject）、`evidence_driven_control_loop`（四責任閉環通用化候選，Q6 gated，見 §架構收斂觀察）。graduate 時才註冊到 `knowledge/glossary/ai-skill.md`；未定稿前不註冊。
 
 > **Watch-Out List citation**：對應 [`architecture/ai-native-cognitive-ecosystem-system.md`](../../../architecture/ai-native-cognitive-ecosystem-system.md) §Watch-Out List 的「process bloat」「premature abstraction」「over-engineering」防呆：
 > - **不建自動 orchestrator** — 03 的 reservation 邊界維持不變；本 plan 是**角色協議**（主 session 人工扮演 orchestrator），不是 automation。
@@ -123,6 +123,37 @@ Why now：03 剛 completed、dogfood 方法論（brief independence score、fres
 - 在 Ai-skill repo 內委派時，executor / verifier session 會撞 bootstrap gate → brief `context.required` 必須含 bootstrap 檔案；外部 repo 無此問題（gate fail-open）。
 - 品質提升可能量不到（null result）→ 依 observation-only 紀律，null result 是有效信號，記錄後停在 doc-only，不硬推 schema。
 
+## 架構收斂觀察 — 四責任分離（使用者 review 回寫，2026-07-08）
+
+使用者 review 2b 後提出的抽象收斂，記錄為 **forming abstraction（observe-only，未 graduate）**：三角色是表象，真正的控制流是四責任閉環——
+
+```text
+Specification（brief：契約與成功條件）
+  ↓
+Production（executor：依契約產出；不改 acceptance / scope、不自判 Done）
+  ↓
+Evidence Collection（verifier：只產證據不做決定；L1 replay / L2 inspection / L3 adversarial）
+  ↓
+Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者）
+  ↓
+下一輪 Specification（裁決回饋契約，非直接改實作）
+```
+
+- **Execution 不直接改變 Plan**：execution → evidence → decision → plan。evidence ≠ decision 原則第一次落到 delegation。
+- **Verifier ≠ Reviewer**：傳統 review 把「找問題＋下判決＋開修正」三件事混在一個角色，reviewer 容易變成第二個 executor；本協議拆給三個責任，只留一個裁決者。
+- **2b 已實測第四條箭頭**：F2 裁決未直接改實作，而是回饋 Specification（brief v2 追加 acceptance 9）再重跑 Production——「Decision → 下一輪 Specification」是 2b 的實際路徑，非推測。
+
+**跨域實例（candidate analogies，observe-only）**：
+
+| Domain | Production | Evidence | Decision | 證據狀態 |
+|---|---|---|---|---|
+| Coding | Executor | Verifier | Orchestrator | **已驗證（2b）** |
+| Research | Research agent | Fact checker | Planner | analogy，無真實 run |
+| Architecture | Designer | Architecture reviewer | Architect | analogy，無真實 run |
+| Knowledge | Extractor | Evidence validator | Knowledge maintainer | analogy，無真實 run |
+
+**紀律邊界（依 falsification ladder / governance veto test）**：真實證據目前只有 coding 域 N=1；「很像 ≠ 同 family」，其餘三域在有真實 run 前維持 analogy 紀錄。通用化定位——graduate 時以「Evidence-driven Closed Control Loop（Specification → Production → Independent Evidence → Arbitration → Specification）」取代「Delegation」——列為 Q6，gated on 至少一個非 coding 域的真實 run；在此之前 SOP 維持 delegation 措辭，不新增通用 primitive、不改名、不建跨域框架。
+
 ## Runtime Execution Path
 
 **doc-only trial 宣告**：本 plan 不接入 runtime——不新增 `route.*`、不新增 commit-msg validator、不動 `runtime.db` generated surfaces、不動 delegation schema / `validatePlanTreeFrontmatter`。協議以文件 + 行為紀律承載；驗證 leg 復用既有 review capability invoke（`ai-skill runtime capability-invoke --capability code-review --stance fault_finding`，既有 warning-only surface，無新 wiring）。
@@ -138,6 +169,7 @@ Why now：03 剛 completed、dogfood 方法論（brief independence score、fres
 | Q3 | 品質信號怎麼量：verifier 差集 findings 數 + 仲裁分佈（fix/defer/reject 比例）是否構成「品質提升」的有效指標？null result 如何記錄？ | Phase 2 | **resolved（2026-07-08，advisory 指標）** | 雙 dogfood 各留差集 + 分佈；複合指標明文化 | **複合指標**（kit §2a-external 結論表）：(1) acceptance-violation 率（2a-external **0/2 rounds**）；(2) test delta（+6）；(3) pre-merge bug fix 數（2：guard + envelope）；(4) 協調成本（spawn×4、plan commit×6）；(5) orchestrator 越界次數（1）。**結論**：品質↑有量化證據；orchestrator 寫 code↓、協調↑；verifier 邊際 catch 本任務為中等（強制 IT/結構化 defer 價值 > acceptance 差集）。null result 未出現 |
 | Q4 | 仲裁紀錄落點：被委派 sub-plan 內 table（傾向）vs 獨立 artifact？ | Phase 1 | **resolved（2026-07-08）** | 落點決定並在 dogfood 實際使用 ✅ | 落點 = 被委派任務的 plan artifact 內 table（SOP 已載明）；dogfood 期記於 kit §Dogfood 紀錄（2b 仲裁表實際使用） |
 | Q5 | Schema promotion 門檻：什麼證據才允許動 delegation schema（如 `delegation.verification`）？ | Phase 3 | open | 門檻明文化；未達門檻則明確記錄維持 doc-only | kit §2c 增強 Q3 信號（8-slice、violation 2/8），**尚不足以** close Phase 3 / schema 決策 |
+| Q6 | 通用化定位：graduate 時是否以「Evidence-driven Closed Control Loop」（四責任分離：Specification → Production → Independent Evidence → Arbitration → Specification）取代「Delegation」定位？（使用者 review 2026-07-08 提出，見 §架構收斂觀察） | Phase 3 | open | gated on 至少一個**非 coding / delivery 域**的真實 run（2b/2a-external/2c 皆屬 delivery 域；Research / Architecture / Knowledge analogy 不算） | <跨域 run evidence> |
 
 ## 完成條件
 
@@ -198,7 +230,8 @@ Why now：03 剛 completed、dogfood 方法論（brief independence score、fres
 
 - [x] 彙整 dogfood evidence，回答 Q3（品質信號成立 / null result）— 2026-07-08：成立（advisory 複合指標）；null result 未出現；**2c 補強**（8-slice、acceptance-violation 2/8、slice 紀律後 orchestrator 零實作 diff）— 見 kit §2c
 - [ ] Q5 決策：schema promotion（另立 plan）或明確維持 doc-only（記錄門檻與未達原因）
-- [ ] Glossary 註冊決策落實（`independent_verification` / `arbitration` 註冊或明確不註冊）
+- [ ] Q6 決策：通用化定位（Evidence-driven Closed Control Loop vs Delegation）——依非 coding / delivery 域真實 run 證據裁決；無證據則維持 delegation 定位、四責任觀察留檔（§架構收斂觀察）
+- [ ] Glossary 註冊決策落實（`independent_verification` / `arbitration` / `evidence_driven_control_loop` 註冊或明確不註冊）
 - [ ] 執行 Plan Completion Closure（含 plans/README.md 狀態表更新、搬移 archived）
 
 ## Stakeholder 同意項目
