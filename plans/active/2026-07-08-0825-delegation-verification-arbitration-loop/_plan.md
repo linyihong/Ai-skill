@@ -251,6 +251,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 - [x] **2a-external — 外部 monorepo sync-adapter Step 6** ✅（2026-07-08，Cursor Task transport）— kit §2a-external
 - [x] **2c — 外部 monorepo tiered archive 全線（8 slices，Phase A–D）** — 2026-07-08 **證據 only**（kit §2c）；強化 Q3 品質信號，**不**視為 Phase 3 closure
 - [x] **2d — 外部 monorepo outbound sync Phase 3（4 slices）** — 2026-07-08 **證據 only**（kit §2d）；強化 backfill / consumer gate 信號；**不**視為 Phase 3 closure
+- [ ] **2e — 跨域 run（Research/Audit 域）：grandfather sunset audit** — 2026-07-08 啟動（kit §2e）；Q6/Q7(b)/Q8 的 stage-2 裁決 run；任務 = `pre_2026_05_28_doc_only_completion` sunset（2026-08-31）的 4-plan wiring 調查與處置建議（真實 deadline 待辦，非 manufactured）；brief 以 Research 域原生語彙撰寫，觀察四責任 / backfill / 證據責任結構是否**自然**出現
 - [x] 回饋迴路（2b 觸發 ×1）：F2 暴露 brief v1 缺「reusable doc 目標須含 tool-neutral 措辭條款」→ brief v2 追加 acceptance 9、kit 使用說明補教訓；修契約未修執行者；fix leg 重跑通過。2a 若再暴露缺漏比照處理。
 
 ## Phase 3 — 證據評估與收斂

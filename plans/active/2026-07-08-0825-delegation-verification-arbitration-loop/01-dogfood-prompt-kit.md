@@ -319,6 +319,19 @@ branch：<branch-name>（已 commit，未 merge）
 3. **Task transport = 2a/2a-external 的 agent 化** — 不必人類開新 chat；fresh context 由 subagent 保證。
 4. **多 slice 任務值得 loop**；單檔 typo 不值得 — 與 advisory 適用邊界一致。
 5. **Schema promotion 仍不建議（證據累積中）** — 2c 支持 doc-only 延續；Phase 3 Q5 決策待後續收斂（見 `_plan.md` §Phase 3）。
+### 2e — 跨域 run：grandfather sunset audit（Research/Audit 域）🚧（2026-07-08，Claude Code Agent transport）
+
+> **Stage 2 裁決 run（Q6 / Q7(b) / Q8）**。任務真實性：`governance/lifecycle/system-upgrade-governance.yaml` §`pre_2026_05_28_doc_only_completion` 的 post_sunset_evaluation_rule 要求 4 個 covered plans 在 **2026-08-31** 前完成 wire-or-downgrade 處置——本 run 產出其調查與建議前置，是 deadline 驅動的自然待辦（非 manufactured）。**誠實標記**：run 由使用者發起（deliberate stage-2 probe），非全然偶發；「自然性」判準落在 (a) 任務本身真實、(b) 不把 sd 詞彙硬套進 brief——brief 以 Research 域原生語彙撰寫（Question → Investigation → Evidence → Recommendation），無 slice_kind / backfill / deliverables 欄位。
+>
+> **候選盤點紀錄（Q6/Q8 佐證）**：economics 計畫（durability observation，禁主動推）、pattern-library T3A（authority surface decision 明文 do-not-pre-decide）、interaction-hazard（evidence-accumulation-only invariant）皆不可作為 run 載體——所有非 delivery active plans 均處 evidence-gated 暫停，佐證「manufacture 不可行、只能等真實任務」的紀律成立。
+
+#### Brief（orchestrator 撰寫，Research 域原生）
+- **問題（question）**：4 個 pre-2026-strengthened doc-only plans 的 orphan surfaces 現況為何？sunset 前應各自採取什麼處置？
+- **驗收（acceptance）**：(1) 每 plan 一節：宣告 orphan_surfaces 的現況事實（route 存在？誰消費？附檔案+行號或指令輸出，不可憑印象）；(2) 對照 post_sunset_evaluation_rule + 各 wire_plan 提示判定 wired / orphan；(3) 每 plan 處置建議（升 auto-detected / 補 wire 含最小動作 / 降 orphan 含移除清單 / manual_activation 註記）+ 理由；(4) conditional_extension_trigger 兩條件現況核對；(5) 不確定處明標 unverified。
+- **自查（verification）**：`ai-skill runtime audit` 取得分類現況；grep registry / discovery yaml / hooks.go 覆核每條 consumer 主張。
+- **產出**：`02-grandfather-sunset-audit.md`（本資料夾 companion，調查報告，處置決定保留給 maintainer）。
+- **結果**：<run 完成後回填>
+
 ### 2d — 外部 monorepo outbound sync Phase 3（4 slices）✅（2026-07-08，Cursor Task transport）
 
 > **專案證據邊界**：inner commit、class 名、live 環境細節留於 `<PROJECT_ROOT>` active main plan §執行紀錄；Ai-skill 只保留 generalized dogfood metrics（依 [`enforcement/sanitization.md`](../../../enforcement/sanitization.md)）。
