@@ -103,7 +103,7 @@
 
 **Ai-skill repo 內委派的 bootstrap 注意事項**：brief 的 `context.required` 須含 [`CORE_BOOTSTRAP.md`](../CORE_BOOTSTRAP.md) 與 [`runtime/core-bootstrap.yaml`](../runtime/core-bootstrap.yaml)，executor / verifier 首則回覆須輸出 Bootstrap Receipt（否則本 repo 的 bootstrap gate（`gate.bootstrap.receipt_present`）會擋非讀取工具）；外部 repo 無此需求（gate fail-open）。
 
-Transport 模板（executor / verifier / 仲裁表）見 [`active/2026-07-08-0825-delegation-verification-arbitration-loop/01-dogfood-prompt-kit.md`](active/2026-07-08-0825-delegation-verification-arbitration-loop/01-dogfood-prompt-kit.md)；決策紀錄（canonical 契約）見 [`active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md`](active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) §Decision Rationale。
+Transport 模板（executor / verifier / 仲裁表）見 [`active/2026-07-08-0825-delegation-verification-arbitration-loop/01-dogfood-prompt-kit.md`](active/2026-07-08-0825-delegation-verification-arbitration-loop/01-dogfood-prompt-kit.md)；決策紀錄（canonical 契約）見 [`active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md`](active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) §Decision Rationale。**Software-delivery 域的執行細節**（角色 × 證據責任矩陣、verification backfill、deliverables、slice 合規關閉 C1–C5、Verifier V1–V4）見 [`workflow/software-delivery/delegated-execution.md`](../workflow/software-delivery/delegated-execution.md)（`sd-delegated-execution`，candidate）。
 
 ## Plan 模板必填章節
 

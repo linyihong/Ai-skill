@@ -21,6 +21,7 @@
 12. PR 觸動效能敏感路徑或含 AI 生成程式碼時，執行 [`perf-risk-gate.md`](perf-risk-gate.md) 的 5 步檢查（靜態 anti-pattern scan、L1 smoke 或 hot-path micro-benchmark、reviewer perf checklist、pre-deploy observability gate、canary rollout）；L0–L2 delivery model 見 [`perf-governance.md`](perf-governance.md)
 13. 當成功訊號可能不同於真實系統狀態時，載入 validation reasoning：[`state-visibility-gap.md`](../../intelligence/engineering/execution/validation-reasoning/state-visibility-gap.md)、[`evidence-model.md`](../../intelligence/engineering/execution/validation-reasoning/evidence-model.md)、[`evidence-chain-validation.md`](../../intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md)、[`evidence-depth.md`](../../intelligence/engineering/execution/validation-reasoning/evidence-depth.md)
 14. UI / consumer incident（Navigation / Continuation / Recovery 或 modification layer 未決）時：先 [`incident-observation.md`](incident-observation.md) → [`ui-incident-governance-workflow.md`](ui-incident-governance-workflow.md) + [`layer-ownership-matrix.md`](layer-ownership-matrix.md) → governance gate [`software-delivery-governance.md`](../../governance/ai-runtime-governance/software-delivery-governance.md) §Incident *；Ship 後 [`change-retrospective.md`](change-retrospective.md)
+15. 交付任務已宣告 `delegation.enabled: true` 進入執行時，載入 [`delegated-execution.md`](delegated-execution.md)（`sd-delegated-execution`，candidate）：角色 × 證據責任矩陣（誰該做什麼）、verification backfill、deliverables 清單、slice 合規關閉；loop 契約 canonical 在 [`plans/README.md`](../../plans/README.md) §Delegation loop SOP
 
 ## Review invoke（ADR-013 — 導航層說明）
 

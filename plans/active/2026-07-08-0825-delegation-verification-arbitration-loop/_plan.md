@@ -226,6 +226,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 - [x] 更新 `plans/README.md` §Delegation loop SOP（同上，經獨立驗證 acceptance 8/8 + fix 重驗 pass）
 - [x] Ai-skill repo 內委派的 bootstrap 注意事項寫入 SOP（tool-neutral gate id `gate.bootstrap.receipt_present`；executor / verifier 實測 Bootstrap Receipt 通過）
 - [x] **Verifier 三層驗證契約** + 測試職責分工（`executor` / `verifier_only`）補強 — 2026-07-08，外部 monorepo tiered plan 執行規劃回饋；見 §Decision Rationale、plans/README.md、kit 模板 B
+- [x] **software-delivery 泛化 slice**（`sd-delegated-execution`，maturity: candidate）— 2026-07-08，從外部 consumer overlay 泛化：角色×證據責任矩陣、verification backfill（tier+owner）、`deliverables[]`、slice 關閉狀態（`implementation_done` ≠ `slice_compliant_closed`，C1–C5）、Verifier V1–V4（V4 產出物/流程核對）、orchestrator 錨定紀律、anti-patterns。落點 [`workflow/software-delivery/delegated-execution.md`](../../../workflow/software-delivery/delegated-execution.md)；tier 語意引用既有 test-strategy / validation slices 不另建 taxonomy；`deliverable-omission` / `process-omission` 為 delivery 域 candidate 分類，第二 consumer 證據前不進 canonical enum
 
 ## Phase 2 — 雙 dogfood
 
