@@ -1,7 +1,7 @@
 ---
 id: 2026-06-22-1009-software-delivery-plan-first-ordering
 plan_kind: sub
-status: in-progress
+status: completed
 owner: linyihong
 created: 2026-06-22
 parent: 2026-06-22-1009-plans-system-portability-and-delivery-integration
@@ -14,7 +14,7 @@ sub_plan_reason: >
 
 # Software-delivery Plan-First Ordering（sub-plan）
 
-**Status**: `in-progress`
+**Status**: `completed`（2026-07-08 Plan Completion Closure）
 **Owner**: linyihong
 **Parent**: [`_plan.md`](_plan.md)
 
@@ -104,14 +104,25 @@ Discover → Interrogate → Draft Plan ⟲ Preflight → Execute
     | 子命題 | 狀態 | 證據 |
     |---|---|---|
     | Plan-first ordering | ✅ Verified | Brower `verification-code-center` 真實演化、Git 時序可驗、非 backfill |
-    | Preflight feedback loop | ◑ Partial | 存在 feedback，但尚缺「preflight 導致**實質** plan 修訂（scope/sequencing/dependency/acceptance）」案例 |
+    | Preflight feedback loop | ✅ Verified | Brower [`preflight-feedback-log §2026-07-07 tiered worker`](../../../Brower/docs/plans/preflight-feedback-log.md) — clean T1（改 plan 前獨立段落）+ T0<T1<T2；material ∈ {scope, sequencing, dependency, acceptance}；**closes 02-B / main Q4**（2026-07-08） |
 
   - [x] **A. Ordering Evidence — ✅ Verified（Brower，2026-07-06）**：真實 software-delivery 專案 Browser Manage 的 [`docs/plans/active/2026-07-03-verification-code-center.md`]——真功能（非 toy）、`T0`=2026-07-03 起草於 implementation 前、2026-07-06 多次**有序** git commit 演化、git timestamp 可驗、README/`intake.md` §Plan-First Ordering 對齊、**非 backfill**。→ 證明 plan-first ordering 可操作、可持續、**非事後敘事**。**不再要求更多同型證據**（accumulating，非 hunting）。
-  - [ ] **B. Feedback Loop Evidence — ◑ Partial（open）**：仍缺一個乾淨案例 `preflight → identify issue → plan modified → reason preserved`，且 **modification 必須是 scope / sequencing / dependency / acceptance 其中之一**（**不算** link / reference / typo）= feedback materially changed the plan。Brower 07-06 doc-split 確是 feedback，但對 plan 只改 **3 行 reference** → 未達 materiality。**不 hunt 歷史湊例、不降門檻、不硬稱 behavioral-satisfies**；等下一個自然案例累積。此子命題未達成前，02 留 in-progress、main Q4 不 close。
+  - [x] **B. Feedback Loop Evidence — ✅ Verified（Brower，2026-07-08）**：[`preflight-feedback-log §2026-07-07 tiered-data-archive-platform — worker 模組分離`](../../../Brower/docs/plans/preflight-feedback-log.md) — `T0`（2026-07-06 初稿：retention job 可放 admin API 進程）→ `T1`（2026-07-07 本 log 獨立段落：batch 不應與 API 同進程、需 worker + ShedLock）→ `T2`（同日 plan 修訂 D7–D10 + Phase A acceptance）。Material：scope（worker 模組）、sequencing（API 禁止跑 job）、dependency（verification Phase 2）、acceptance（§7 worker 驗收）。**不 hunt 歷史湊例** — 自然累積於 tiered platform preflight。
   - **B 的 falsifiable rigor（沿用）— planning artifact 的「演化」而非某檔案的演化**：planning artifact = 當下真正承載 planning state 的產物（`plan.md` / analysis doc / ADR / design doc），(a) 不綁單一檔名；(b) 不鼓勵為驗證刻意改 plan 檔；(c) artifact-centered。
   - **B 的 falsifiable rigor（沿用）— 三個 ordered timestamp 必留**：`T0` 可辨識 planning artifact / `T1` **獨立** evidence 顯示假設被推翻（非終稿內事後補述）/ `T2` 後續 planning artifact 明顯不同且**可追溯到 T1**。缺 T0<T1<T2 獨立時序痕跡 → 「preflight 真的改變計畫」與「只是發現問題 / 事後重建」無法區分 → 不得 close。
   - **B 的候選評估紀錄（不代表已 close）**：Browser Manage 另一候選為 evidence-driven 修正（初版假設被 live 抓包推翻 → 全面回改 SDK/docs），時序獨立可查、behaviorally satisfies loop，但 planning state 落在 analysis/SDK 而非集中 planning artifact（artifact locality 偏弱）→ **strong supporting**，未達 B。consolidation/backfill 候選（execute→plan）→ **不計入**。
 - [x] linked-updates 檢查（execution-flow 導航 / review-checklist / intake 三處同步；plans/README 只引用不改）
+- [x] 執行 Plan Completion Closure — 2026-07-08（sub-plan 留 tree folder；`status: completed`）
+
+## Plan Completion Closure（2026-07-08）
+
+| # | 檢查 | 結果 |
+|---|---|---|
+| 1 | 完成條件 A+B | Ordering ✅ + Feedback loop ✅（tiered worker preflight） |
+| 2 | runtime refresh | N/A — doc-only workflow intake |
+| 3 | linked-updates | intake / execution-flow / review-checklist 已同步 |
+| 4 | main Q4 | 由 02 owner 標 **resolved**（見 parent `_plan.md`） |
+| 5 | 搬移 | **不搬** — 與 01 相同，sub-plan 留 portability tree folder；lifecycle `completed` 與 storage 分離 |
 
 ## Glossary Impact
 Glossary Impact: no — plan-first ordering 復用既有 plans 系統與 software-delivery 詞彙，no new framework vocabulary introduced。
