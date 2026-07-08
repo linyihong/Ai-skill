@@ -158,39 +158,47 @@ func buildHooksInstallResult(opts hooksOptions) Result {
 		result.Checks = append(result.Checks, Check{Name: "git_operation", Status: "ok", Message: "no merge, rebase, or cherry-pick state detected"})
 	}
 
-	targetDir, targetCheck := gitHooksTargetDir(root)
-	result.Checks = append(result.Checks, targetCheck)
-	if targetCheck.Status != "ok" {
+	sourceDir := filepath.Join(root, canonicalGitHooksDir)
+	sourceCheck := hookSourceCheck(sourceDir)
+	result.Checks = append(result.Checks, sourceCheck)
+	if sourceCheck.Status != "ok" {
 		result.Status = "blocked"
 		result.ExitCode = ExitInvalidUsage
-		result.Error = &CommandError{Code: "missing_hooks_target", Message: targetCheck.Message, Remediation: "Use a normal Git working tree with a .git/hooks directory."}
+		result.Error = &CommandError{
+			Code:        "missing_hook_source",
+			Message:     sourceCheck.Message,
+			Remediation: "Ensure " + canonicalGitHooksDir + "/ exists in the repository with pre-commit, commit-msg, post-commit, and pre-push adapters.",
+		}
 		return result
 	}
 
-	hooks := []string{"pre-commit", "commit-msg", "post-commit", "pre-push"}
-	for _, hook := range hooks {
-		result.PlannedActions = append(result.PlannedActions, fmt.Sprintf("install Go hook adapter: %s", filepath.Join(targetDir, hook)))
-	}
-	conflicts := existingHookTargets(targetDir, hooks)
-	if len(conflicts) > 0 && !opts.force {
-		result.Checks = append(result.Checks, Check{Name: "hook_conflicts", Status: "failed", Message: strings.Join(conflicts, ", ")})
+	currentHooksPath := configuredGitHooksPath(root)
+	if currentHooksPath != "" && currentHooksPath != canonicalGitHooksDir && !opts.force {
+		result.Checks = append(result.Checks, Check{
+			Name:    "hook_conflicts",
+			Status:  "failed",
+			Message: "core.hooksPath is already " + currentHooksPath + " (expected " + canonicalGitHooksDir + ")",
+		})
 		result.Status = "blocked"
 		result.ExitCode = ExitInvalidUsage
-		result.Error = &CommandError{Code: "target_exists", Message: "hook targets already exist: " + strings.Join(conflicts, ", "), Remediation: "Pass --force only after reviewing the planned overwrite list."}
+		result.Error = &CommandError{
+			Code:        "hooks_path_conflict",
+			Message:     "core.hooksPath is already set to " + currentHooksPath,
+			Remediation: "Pass --force to switch core.hooksPath to " + canonicalGitHooksDir + ", or unset the existing hooksPath first.",
+		}
 		return result
 	}
-	result.Checks = append(result.Checks, Check{Name: "hook_conflicts", Status: "ok", Message: "no blocking hook target conflicts"})
+	result.Checks = append(result.Checks, Check{Name: "hook_conflicts", Status: "ok", Message: "core.hooksPath ready for " + canonicalGitHooksDir})
+
+	result.PlannedActions = append(result.PlannedActions, "set git config core.hooksPath "+canonicalGitHooksDir)
 	if !opts.dryRun {
-		for _, hook := range hooks {
-			target := filepath.Join(targetDir, hook)
-			if err := os.WriteFile(target, []byte(hookAdapterContent(hook)), 0o755); err != nil {
-				result.Status = "blocked"
-				result.ExitCode = ExitGeneralFailure
-				result.Error = &CommandError{Code: "hook_install_failed", Message: err.Error()}
-				return result
-			}
-			result.Mutations = append(result.Mutations, "installed hook adapter: "+target)
+		if err := setGitHooksPath(root, canonicalGitHooksDir); err != nil {
+			result.Status = "blocked"
+			result.ExitCode = ExitGeneralFailure
+			result.Error = &CommandError{Code: "hook_install_failed", Message: err.Error()}
+			return result
 		}
+		result.Mutations = append(result.Mutations, "set core.hooksPath="+canonicalGitHooksDir)
 	}
 	return result
 }
@@ -4223,6 +4231,7 @@ func hasCLICIPreflightChange(paths []string) bool {
 	for _, path := range paths {
 		if strings.HasPrefix(path, "scripts/ai-skill-cli/") ||
 			strings.HasPrefix(path, "scripts/git-hooks/") ||
+			strings.HasPrefix(path, ".githooks/") ||
 			path == ".github/workflows/ai-skill-cli.yml" {
 			return true
 		}
@@ -4289,6 +4298,35 @@ if [ ! -x "$BIN" ]; then
 fi
 exec "$BIN" hooks run %s --repo "$ROOT" "$@"
 `, hook)
+}
+
+const canonicalGitHooksDir = ".githooks"
+
+func configuredGitHooksPath(root string) string {
+	output, err := exec.Command("git", "-C", root, "config", "--get", "core.hooksPath").Output()
+	if err != nil {
+		return ""
+	}
+	value := strings.TrimSpace(string(output))
+	if value == "" {
+		return ""
+	}
+	if filepath.IsAbs(value) {
+		rel, err := filepath.Rel(root, value)
+		if err == nil && !strings.HasPrefix(rel, "..") {
+			return filepath.ToSlash(rel)
+		}
+		return filepath.ToSlash(value)
+	}
+	return filepath.ToSlash(value)
+}
+
+func setGitHooksPath(root string, hooksPath string) error {
+	cmd := exec.Command("git", "-C", root, "config", "core.hooksPath", hooksPath)
+	if output, err := cmd.CombinedOutput(); err != nil {
+		return fmt.Errorf("git config core.hooksPath: %w (%s)", err, strings.TrimSpace(string(output)))
+	}
+	return nil
 }
 
 func hookSourceCheck(sourceDir string) Check {

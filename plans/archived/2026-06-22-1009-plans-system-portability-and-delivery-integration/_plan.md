@@ -1,19 +1,22 @@
 ---
 id: 2026-06-22-1009-plans-system-portability-and-delivery-integration
 plan_kind: main
-status: draft
+status: completed
 owner: linyihong
 created: 2026-06-22
 parent: null
+completed: 2026-07-08
 ---
 
 # Plans System Portability & Delivery Integration（plans 系統外部化與交付接入）
 
-**Status**: `draft`
+**Status**: `✅ completed (auto-detected)`（2026-07-08 Plan Completion Closure）
 **Owner**: linyihong
 **建立日期**: 2026-06-22
 **Source**: 2026-06-22 對話 — 使用者觀察 plans 系統（plan-tree + 驗證機制 + 子計畫）已足夠成熟，希望 (1) 讓外部 repo 也能使用、(2) 把 software-delivery 接入「開發前先寫 plan」、(3) 用子計畫系統讓一個 sub-plan 可交給其他 agent 執行。
 **Glossary Impact**: yes — 預期新引入 framework vocabulary，**刻意拆成單一責任術語避免概念漂移**：`plan_profile`（capability / portable core 邊界：哪些 validator 對外部 repo 適用）、`plan_schema`（frontmatter schema + version 相容契約）、`delegation`（子計畫委派 schema：modes + brief + constraints）。落地前須註冊到 `knowledge/glossary/ai-skill.md`；本 main plan 階段先宣告，sub-plan graduate 時才註冊。
+
+> **Evidence aliases（去敏）**：外部 dogfood / acceptance 證據以 `external-repo-A`（dialect + adoption）、`external-repo-B`（canonical adoption #2）、`external-repo-C`（operational acceptance）、`software-delivery-project-1`（plan-first ordering）指稱；具體專案名與路徑僅留於 project-local 文件。shared-layer 寫入由 pre-commit `sanitization_scan`（`.githooks/pre-commit` → `ai-skill hooks run pre-commit`）機械檢查，token 宣告見 repo root `.ai-skill-project.yaml`。
 
 > **Watch-Out List citation**：本 plan 對應 [`architecture/ai-native-cognitive-ecosystem-system.md`](../../../architecture/ai-native-cognitive-ecosystem-system.md) §Watch-Out List 的「process bloat」「premature abstraction」「over-engineering」防呆 — plan-first 採 advisory workflow ordering 而非機械 block（避免誤擋小修補）；委派只先做 schema + 雙路徑（人工 / agent），不建自動 orchestrator；外部化採共用 binary 而非整套治理搬遷，避免外部 repo 被 Ai-skill governance 綁架。
 
@@ -34,11 +37,9 @@ parent: null
 | Operational persistence | ✅（3.4b real repo, net-zero） |
 | External schema policy | ⏸（Q8 deferred — **follow-up, 非 01 deliverable**） |
 
-> **Phase 3 = 四段 Success Contract 全達成**（install→validate→upgrade→rollback + preserved semantics + monotonic + no residue，跨 3.4a/3.4b 真實 repo）。**01 = `completed`**（deliverable 內無 open work；Q8/Batch B 為 out-of-deliverable follow-up，見 01 §Completion Notes / §Deferred Follow-up）。**main tree 仍 `draft`**（02/03 未完；01 檔案留 tree folder 不單獨搬 archived — lifecycle status 與 storage location 分離）。
+> **Phase 3 = 四段 Success Contract 全達成**（install→validate→upgrade→rollback + preserved semantics + monotonic + no residue，跨 3.4a/3.4b 真實 repo）。**01 / 02 / 03 = `completed`**。**main tree = `completed`（2026-07-08）** — 整 tree 已搬 `plans/archived/`。
 
-**Q8 克制狀態（維持）**：adoption-pass ×2 + dialect-pressure ×1 + semantic mismatch（parent path vs id）→ 支持「canonical adoption 可行」「dialect 差異真存在」「normalize 理論可行」，**但不足以推出**「必 normalization / 必 require-canonical / 必 explicit-unsupported」→ deferred 合理。
-
-**回來時的優先序**（3.4b ✅ 已完成，移除）：Q8（累積外部 dialect，含 Brower plan_kind 詞彙軸——已觀察未升格）→ 02（plan-first ordering）→ 03（delegation schema）。
+**Q8 克制狀態（維持 deferred）**：adoption-pass ×2 + dialect-pressure ×1 + semantic mismatch → 支持「canonical adoption 可行」「dialect 差異真存在」「normalize 理論可行」，**但不足以推出** policy 三選一 → **deferred follow-up**（另立 plan/ADR）。
 
 ---
 
@@ -71,13 +72,15 @@ plans 系統目前的價值（plan-tree 階層、frontmatter 單一 source-of-tr
 
 scope 仍會隨 Phase 0 盤點調整（特別是 01 的跨 repo 強制機制、03 的 delegation schema 形狀）；多個 Open Questions 未解；可能有更輕的 promotion target（例如 02 可能只需 workflow doc 更新，不需任何 runtime contract）。三條 sub-plan 各自 graduate 後，若浮現需跨 session / 跨 project 固化的決策，再評估 ADR。
 
-### ADR Promotion Criteria（completed 時驗證）
+### ADR Promotion Criteria（completed 時驗證 — 2026-07-08：不 promote）
 
-- [ ] foundational + cross-session + cross-project + expensive-to-reverse + explains-why 全中
-- [ ] 三條 sub-plan 結果證實 portable core 邊界、plan-first ordering、delegation schema 三者可行且被真實使用
-- [ ] Open Questions 全解
-- [ ] 沒有更輕的 promotion target 適用（per ADR-007）
-- [ ] 至少一個外部 repo 真實透過共用 binary 跑過 plan validate（具體 evidence）
+評估結論：**不建立 ADR**。三條 deliverable 已由 sub-plan 落地（`planvalidate` engine、`workflow/software-delivery` ordering、`delegation` consumer-layer）；較輕 promotion target（glossary、`plans/README.md`、`scripts/ai-skill-cli/docs/external-plan-validation.md`）已足夠。
+
+- [x] 已評估 — 未達「全中 foundational ADR bar」→ 不 promote
+- [x] 三條 sub-plan 結果證實 portable core 邊界、plan-first ordering、delegation schema 三者可行且被真實使用
+- [x] Open Questions 全解或 deferred（Q8）
+- [x] 有更輕的 promotion target 適用（per ADR-007）— glossary + workflow docs
+- [x] 至少一個外部 repo 真實透過共用 binary 跑過 plan validate（01 §Phase 3.4a/3.4b）
 
 ### Consequences（預期）
 
@@ -122,22 +125,22 @@ scope 仍會隨 Phase 0 盤點調整（特別是 01 的跨 repo 強制機制、0
 | Q1 | 外部 repo 跑 plan validators 的最薄強制機制（validator engine 被哪些 consumer 呼叫）？ | 01 | **✅ CLOSED（2026-06-25）** | 四層獨立證明鏈：**Equivalence**（3.3a/3.3b COR + asymmetric）+ **Replaceability**（≥1 真 replace CLI↔direct）+ **Removal-Independence**（R.1）+ **Semantic-Preservation**（R.3 COR+applicability，防雙空）→ 支持 `validation capability ≠ consumer transport` | 01 §Phase 3.3 close package。**Close Note A**：fingerprint 是 guard（保 contract-unchanged）非 compatibility authority（保 meaning 仍靠 COR/applicability/preserved-semantics）；勿當 version system。**Close Note B**：已證 replace-one，未證 plurality（多外部 consumer 並存）——不升新 Q，留 3.4 orchestration |
 | Q2 | portable 邊界如何**推導**（非預設 plan-tree 5 + archival 2）？ | 01 | **resolved（2026-06-23）** | **收緊**：Layer A facts 完整 + Layer B decisions review + `plan_profile` committed **+ 至少一個 consumer 成功執行**（taxonomy ≠ 驗證 portable）✅ 全達成 | 01 §Phase 1 兩層分類 + §Phase 2.2 engine integration test（首個 consumer 綠）+ Gate D.4 negative evidence（excluded validators 結構上無法表達）。邊界由分類推導 + consumer 驗證 + 反證三重確立 |
 | Q3 | schema / 版本相容策略（pin 哪個 binary、schema version 怎麼宣告與演進）？ | 01 | **resolved（2026-06-25，commit `2c26f6e`）** | `plan_schema` version 宣告 + 跨版本 acceptance pass ✅ | Phase 3.2：extensible `supportedSchemaVersions` set + `CompatError` deterministic+diagnosable reject + end-to-end loader wiring（`SchemaVersion`，parser strip quote 滿足 YAML 引號需求）+ no-change baseline。測試：supported 1→2 preserved / unsupported v99 → blocking reject / CLI exit 30。subject=artifact、單軸單 subject |
-| Q4 | plan-first 與 pre-build-interrogation / Preflight 分工（plan 是 artifact、preflight 回改 plan，loop 非線性）？ | 02 | **✅ resolved（2026-07-08）** | 分工界定 ✅ + intake loop 落地 ✅ + **A. Ordering ✅** + **B. Feedback Loop ✅** | **B verified**：Brower [`preflight-feedback-log §2026-07-07 tiered worker`](../../../Brower/docs/plans/preflight-feedback-log.md) — clean T1 + material plan revision（scope/sequencing/dependency/acceptance）。02 `status: completed` |
-| Q5 | delegation 最小契約：nested `delegation: { enabled, modes, brief, constraints }`，不綁死、支援 manual/agent/hybrid/forbidden？ | 03 | open | schema + validator + 測試 committed | <commit + test path> |
-| Q6 | tool-neutral 邊界：brief 只定義自足資訊，工具細節歸 `constraints` / `ai-tools/` 不進 schema？ | 03 | open | brief 契約文件化 tool-neutral + 雙路徑 SOP | <commit + ai-tools path> |
-| Q7 | **validator failure semantics 是 contract 不是 consumer detail**：同一 engine 在 hook→block / CI→fail / manual→warning，severity 映射歸誰？（Phase 1 facts 已碰 severity + opt-out，依升格準則正式立案） | 01 | open | failure-semantics 映射在 engine contract 層定義（severity 為 engine 輸出，consumer 只決定 transport 行為） | Phase 1 Layer A 含 severity(block/warn) + opt-out transport → 觸發升格 |
-| Q8 | **external schema compatibility boundary**（= **compatibility-policy** bucket）：For repositories using non-canonical plan metadata, should compatibility be enforced by **adoption**, **normalization**, or **explicit unsupported declaration**?（刻意保留第三條；不預設 mapping） | **Follow-up（beyond 01 deliverable）** — 01 已 completed，Q8 是 future interoperability policy，不再掛 01 phases | deferred | 待累積外部 dialect 證據後，另立 plan/ADR 依證據三選一 | **僅 dialect-pressure 證據掛此**（Vidoe-Test flat plans semantic mismatch：`parent` path vs id，measured 2026-06-24）。**adoption-pass 證據（canonical tree clean）NOT 掛 Q8**——它是 Phase 3 acceptance anchor，「一 branch 可行 ≠ 該選 adoption」。policy decision = **no**（deferred）；不觸發 plan_profile reopen |
+| Q4 | plan-first 與 pre-build-interrogation / Preflight 分工（plan 是 artifact、preflight 回改 plan，loop 非線性）？ | 02 | **✅ resolved（2026-07-08）** | 分工界定 ✅ + intake loop 落地 ✅ + **A. Ordering ✅** + **B. Feedback Loop ✅** | **B verified**：external-repo-C — `preflight-feedback-log` §2026-07-07 tiered worker（project-local：`<EXTERNAL_PROJECT_ROOT>/docs/plans/preflight-feedback-log.md`）— clean T1 + material plan revision（scope/sequencing/dependency/acceptance）。02 `status: completed` |
+| Q5 | delegation 最小契約：nested `delegation: { enabled, modes, brief, constraints }`，不綁死、支援 manual/agent/hybrid/forbidden？ | 03 | **✅ resolved（2026-07-06）** | schema + validator + 測試 committed | 03 §Phase 1–2；`plan_tree_delegation_test.go`；`governance/lifecycle/plan-tree-hierarchy.md` §Delegation |
+| Q6 | tool-neutral 邊界：brief 只定義自足資訊，工具細節歸 `constraints` / `ai-tools/` 不進 schema？ | 03 | **✅ resolved（2026-07-06）** | brief 契約文件化 tool-neutral + 雙路徑 SOP | `plans/README.md` §Delegation；03 dogfood ★★★★☆ human + agent |
+| Q7 | **validator failure semantics 是 contract 不是 consumer detail**：同一 engine 在 hook→block / CI→fail / manual→warning，severity 映射歸誰？ | 01 | **✅ resolved（2026-06-25）** | engine 輸出 `Finding{RuleID, Message, Blocking}`；consumer 只決定 transport | 01 §Phase 2.2 Gate D.1 — 刻意不開 severity enum；`Blocking` 為 engine contract |
+| Q8 | **external schema compatibility boundary**（= **compatibility-policy** bucket）：For repositories using non-canonical plan metadata, should compatibility be enforced by **adoption**, **normalization**, or **explicit unsupported declaration**?（刻意保留第三條；不預設 mapping） | **Follow-up（beyond 01 deliverable）** — 01 已 completed，Q8 是 future interoperability policy，不再掛 01 phases | deferred | 待累積外部 dialect 證據後，另立 plan/ADR 依證據三選一 | **僅 dialect-pressure 證據掛此**（external-repo-A flat plans semantic mismatch：`parent` path vs id，measured 2026-06-24）。**adoption-pass 證據（canonical tree clean）NOT 掛 Q8**——它是 Phase 3 acceptance anchor，「一 branch 可行 ≠ 該選 adoption」。policy decision = **no**（deferred）；不觸發 plan_profile reopen |
 
 ---
 
 ## 完成條件
 
 - [x] 三條 sub-plan（01 / 02 / 03）皆 `status: completed` — 2026-07-08（02 closure）
-- [ ] 各 sub-plan 的 acceptance 達成並通過其宣告的 validation
-- [ ] Open Questions 全部標記 `resolved` / `deferred`（附原因）並回寫
-- [ ] Glossary Impact 落實：新 vocabulary 已註冊或明確不註冊
-- [ ] 執行 Plan Completion Closure（含 `ai-skill runtime refresh` 若涉 knowledge/validation 層）
-- [ ] plan tree 通過 `ai-skill plans tree` 檢視（main + 3 sub 階層正確）
+- [x] 各 sub-plan 的 acceptance 達成並通過其宣告的 validation
+- [x] Open Questions 全部標記 `resolved` / `deferred`（附原因）並回寫 — Q8 deferred
+- [x] Glossary Impact 落實：`plan_profile`、`delegation` 已註冊；`plan_schema` 不獨立註冊（併入 `plan_profile` meaning + `planvalidate` `supportedSchemaVersions`）
+- [x] 執行 Plan Completion Closure（見文末 §Plan Completion Closure）
+- [x] plan tree 通過 `ai-skill plans tree` 檢視（main + 3 sub + spike 階層正確）
 
 ## Phase 0 — Pre-Build Interrogation
 
@@ -145,23 +148,24 @@ scope 仍會隨 Phase 0 盤點調整（特別是 01 的跨 repo 強制機制、0
 
 逐條核對本 plan §Open Questions，標記處置並回寫：
 
-- [ ] 已讀本 plan §Open Questions 全部條目
-- [ ] 對每條標記 `resolved`（附 Phase 0 證據）/ `still-open` / `deferred`（附原因）
-- [ ] `resolved` 的條目已同步勾選 / 附註於 §Open Questions
-- [ ] 若盤點新發現問題，已加入 §Open Questions
+- [x] 已讀本 plan §Open Questions 全部條目
+- [x] 對每條標記 `resolved`（附 Phase 0 證據）/ `still-open` / `deferred`（附原因）
+- [x] `resolved` 的條目已同步勾選 / 附註於 §Open Questions
+- [x] 若盤點新發現問題，已加入 §Open Questions（Q8 deferred follow-up）
 
 | Open Question | 處置 | 證據 / 原因 |
 |---|---|---|
-| Q1 / Q2 / Q3 | open | 由 01 Phase 0 盤點解決並回寫 §Open Questions Status |
-| Q4 | open | 由 02 Phase 0 解決 |
-| Q5 / Q6 | open | 由 03 Phase 0 解決 |
+| Q1–Q4 | resolved | 01 / 02 sub-plan closure |
+| Q5 / Q6 | resolved | 03 §Phase 1–3 |
+| Q7 | resolved | 01 `Finding.Blocking` engine contract |
+| Q8 | deferred | follow-up interoperability policy |
 
 ### Phase 0.1 — 架構相容性 preflight（main 層）
 
-- [ ] 確認 `plans/README.md` Plan Tree Hierarchy 規則與本 tree frontmatter 相容
-- [ ] 確認 `scripts/ai-skill-cli/internal/app/plan_tree.go` / `plans.go` 現行 schema（避免 03 改 frontmatter 撞既有 validator）
-- [ ] 確認 `workflow/software-delivery/intake.md` 現行 intake 順序（02 接入點）
-- [ ] 確認 `governance/lifecycle/plan-tree-hierarchy.md` 治理規則
+- [x] 確認 `plans/README.md` Plan Tree Hierarchy 規則與本 tree frontmatter 相容
+- [x] 確認 `scripts/ai-skill-cli/internal/app/plan_tree.go` / `plans.go` 現行 schema（03 delegation 已落地）
+- [x] 確認 `workflow/software-delivery/intake.md` 現行 intake 順序（02 已接入）
+- [x] 確認 `governance/lifecycle/plan-tree-hierarchy.md` 治理規則
 
 ## Phase 1-N
 
@@ -195,3 +199,16 @@ Glossary Impact: yes — 預期新增 `plan_profile`、`plan_schema`、`delegati
 - [`archived/2026-06-02-1200-plan-tree-hierarchy-governance/_plan.md`](../../archived/2026-06-02-1200-plan-tree-hierarchy-governance/_plan.md) — 本 tree 直接建立於其 frontmatter schema + 5 validators 之上；03 將擴充其 frontmatter。
 - [`archived/2026-05-28-1830-plan-archival-audit-validator.md`](../../archived/2026-05-28-1830-plan-archival-audit-validator.md) — archival audit validator，01 portable core 候選成員。
 - [`workflow/software-delivery/intake.md`](../../../workflow/software-delivery/intake.md) — 02 的接入點。
+- [`active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md`](../../active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) — 03 delegation 的 loop 延伸（sibling main plan）。
+
+## Plan Completion Closure
+
+| Check | Result | Evidence |
+| --- | --- | --- |
+| All sub-plans complete | pass | 01 / 02 / 03 `status: completed`；04 spike `completed`, `required_for_completion: false` |
+| Open Questions | pass | Q1–Q7 resolved；Q8 deferred（external schema policy follow-up） |
+| Glossary | pass | `plan_profile`、`delegation` in `knowledge/glossary/ai-skill.md`；`plan_schema` folded into engine + `plan_profile` meaning |
+| ADR promotion | deferred | Evaluated 2026-07-08 — lighter targets sufficient；no ADR |
+| Linked updates | pass | `plans/README.md` status row；cross-links to archived paths；glossary `introduced-by` |
+| Archive action | pass | Tree moved `plans/active/` → `plans/archived/` |
+| Plan tree CLI | pass | `ai-skill plans tree --state archived` shows main + 3 sub + spike |

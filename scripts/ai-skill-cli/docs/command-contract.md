@@ -201,7 +201,7 @@
 
 ### `ai-skill hooks install`
 
-目的：替代已刪除的 `scripts/install-hooks.sh` / `.githooks/` 舊面或手動 hook 設定，安裝本 repo git hooks。
+目的：設定本 repo 的 `core.hooksPath` 指向版本化的 `.githooks/`（canonical hook adapters）。
 
 輸入：
 
@@ -213,16 +213,16 @@
 
 副作用：
 
-- dry-run：列出會設定的 hooks path。
-- 寫入模式：可能修改 repo-local git config 或 hooks path。
-- Phase 2 初始切片只開放 dry-run planner；write mode 在 hook copy / chmod parity 完成前必須回傳 `partial_close_loop_blocked`。
-- Shell To Go migration 後，hook installation 必須安裝 Go-owned hook runner；hook file 若保留，只能作最小 binary adapter。
+- dry-run：列出會設定的 `core.hooksPath`。
+- 寫入模式：執行 `git config core.hooksPath .githooks`（repo-local）。
+- Hook 業務邏輯在 `ai-skill hooks run …`；`.githooks/*` 僅為薄 adapter。
 
 必要 Git 檢查：
 
 - `git` binary 存在。
 - 目標 repo 可由 `git rev-parse --show-toplevel` 確認。
-- hook source 是 `scripts/git-hooks/`；target 是 repo-local `.git/hooks/`。
+- hook source 是 repo 根 `.githooks/`（須含 pre-commit、commit-msg、post-commit、pre-push）。
+- 若 `core.hooksPath` 已設為其他值，須 `--force` 才能改為 `.githooks`。
 - 若 repo 正在 merge / rebase / cherry-pick，安裝 hook 仍可被允許，但必須明確報告目前不安全狀態，且不得觸發 commit / push。
 
 ### `ai-skill sync-cursor-bundle`

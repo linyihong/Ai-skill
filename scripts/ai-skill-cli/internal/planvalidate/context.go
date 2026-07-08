@@ -6,7 +6,7 @@
 // can be proven feedable from the commit-msg hook, CI, and manual CLI consumers
 // before any validation logic is extracted out of hooks.go.
 //
-// See plans/active/2026-06-22-1009-plans-system-portability-and-delivery-integration/
+// See plans/archived/2026-06-22-1009-plans-system-portability-and-delivery-integration/
 // 01-external-repo-plan-system-shared-binary.md (Phase 2.0 / Gate A).
 package planvalidate
 

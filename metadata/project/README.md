@@ -11,7 +11,24 @@ This sub-layer is distinct from the rest of `metadata/`:
 
 | Schema | Project file | Consumer | Status |
 | --- | --- | --- | --- |
-| [`ai-skill-project-schema.yaml`](ai-skill-project-schema.yaml) | `<PROJECT_ROOT>/.ai-skill-project.yaml` | sanitization mechanical enforcement (Phase 1C/1D, in design) | candidate |
+| [`ai-skill-project-schema.yaml`](ai-skill-project-schema.yaml) | `<PROJECT_ROOT>/.ai-skill-project.yaml` | pre-commit `sanitization_scan` via `derived_match_tokens` (Phase 1D live) | candidate |
+
+## Ai-skill host repo (this repository)
+
+The framework repo keeps its own [`.ai-skill-project.yaml`](../.ai-skill-project.yaml) at the repository root. It declares **private dogfood / acceptance project names** so shared-layer writes (for example `plans/`) cannot re-introduce real downstream repo or product identifiers after plans are desensitized.
+
+**Commit-time enforcement (canonical `.githooks/` at repo root):**
+
+1. **Required after clone:** `ai-skill hooks install` — sets `core.hooksPath` to `.githooks` (versioned with the repo).
+2. On every commit, `.githooks/pre-commit` delegates to `ai-skill hooks run pre-commit`.
+3. That runner calls `validateSanitizationStagedContent` (`scripts/ai-skill-cli/internal/app/sanitization_scan.go`) on staged shared-layer text files.
+4. Tokens come from `ai-skill runtime compile` projecting `.ai-skill-project.yaml` into `runtime.db.derived_match_tokens`.
+
+Verify: `git config --get core.hooksPath` should print `.githooks`; `ai-skill doctor --plain` should report `hooks_path` ok.
+
+`scripts/git-hooks/` remains as a legacy forwarder to `.githooks/` for clones that still point `core.hooksPath` there.
+
+If sanitization blocks a commit, replace project-specific strings with placeholders from [`enforcement/sanitization.md`](../enforcement/sanitization.md) (`<PROJECT_ROOT>`, `<WORKSPACE>`, `<EXTERNAL_PROJECT_ROOT>`, …) or the suggested placeholder in the finding message.
 
 ## Boundary rules
 

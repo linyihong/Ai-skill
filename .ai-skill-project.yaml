@@ -1,0 +1,36 @@
+# Ai-skill framework host repo — private dogfood / acceptance project names.
+# Schema: metadata/project/ai-skill-project-schema.yaml
+# Consumer: ai-skill runtime compile → derived_match_tokens → pre-commit sanitization_scan
+# (scripts/git-hooks/pre-commit → ai-skill hooks run pre-commit)
+#
+# Declared tokens block writes to shared-layer paths (plans/, workflow/, …).
+# Project-local evidence stays in downstream repos; plans use aliases (external-repo-A/B/C).
+
+project:
+  id: ai-skill-dogfood-evidence
+  visibility: private
+
+  private_entities:
+    - name: ExternalRepoA
+      kind: codename
+      match_tokens:
+        - Vidoe-Test
+      case_variants: auto
+
+    - name: ExternalRepoB
+      kind: product
+      match_tokens:
+        - apk-analysis-sdk
+      case_variants: auto
+
+    - name: ExternalRepoC
+      kind: codename
+      match_tokens:
+        - Brower
+      case_variants: auto
+
+    - name: SoftwareDeliveryProjectOne
+      kind: product
+      match_tokens:
+        - Browser Manage
+      case_variants: auto

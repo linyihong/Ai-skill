@@ -193,17 +193,71 @@ func repoRootCheck() Check {
 func hooksPathCheck() Check {
 	output, err := exec.Command("git", "config", "--get", "core.hooksPath").Output()
 	if err != nil {
-		return Check{Name: "hooks_path", Status: "unset", Message: "core.hooksPath is not configured"}
+		return hooksPathCheckForRepo("", "")
 	}
 	value := strings.TrimSpace(string(output))
 	if value == "" {
-		return Check{Name: "hooks_path", Status: "unset", Message: "core.hooksPath is empty"}
+		return hooksPathCheckForRepo("", "")
 	}
 	normalized, err := pathutil.NormalizeForReport(value)
 	if err != nil {
 		return Check{Name: "hooks_path", Status: "failed", Message: err.Error()}
 	}
-	return Check{Name: "hooks_path", Status: "ok", Message: normalized}
+	repoRoot := ""
+	if rootOutput, rootErr := exec.Command("git", "rev-parse", "--show-toplevel").Output(); rootErr == nil {
+		repoRoot = strings.TrimSpace(string(rootOutput))
+	}
+	return hooksPathCheckForRepo(repoRoot, normalized)
+}
+
+func hooksPathCheckForRepo(repoRoot string, hooksPath string) Check {
+	if hooksPath == "" {
+		if isAiSkillHostRepo(repoRoot) {
+			return Check{
+				Name:        "hooks_path",
+				Status:      "failed",
+				Message:     "core.hooksPath is not configured",
+				Remediation: "Run ai-skill hooks install to set core.hooksPath to .githooks",
+			}
+		}
+		return Check{Name: "hooks_path", Status: "unset", Message: "core.hooksPath is not configured"}
+	}
+
+	normalized := hooksPath
+	if repoRoot != "" {
+		if rel := configuredGitHooksPath(repoRoot); rel != "" {
+			normalized = rel
+		}
+	}
+	switch normalized {
+	case canonicalGitHooksDir:
+		return Check{Name: "hooks_path", Status: "ok", Message: canonicalGitHooksDir}
+	case "scripts/git-hooks":
+		return Check{
+			Name:        "hooks_path",
+			Status:      "warning",
+			Message:     "core.hooksPath is scripts/git-hooks (legacy)",
+			Remediation: "Run ai-skill hooks install --force to switch to .githooks",
+		}
+	default:
+		if isAiSkillHostRepo(repoRoot) {
+			return Check{
+				Name:        "hooks_path",
+				Status:      "failed",
+				Message:     "core.hooksPath is " + hooksPath + " (expected " + canonicalGitHooksDir + ")",
+				Remediation: "Run ai-skill hooks install --force to set core.hooksPath to .githooks",
+			}
+		}
+		return Check{Name: "hooks_path", Status: "ok", Message: hooksPath}
+	}
+}
+
+func isAiSkillHostRepo(repoRoot string) bool {
+	if repoRoot == "" {
+		return false
+	}
+	_, err := os.Stat(filepath.Join(repoRoot, "runtime", "core-bootstrap.yaml"))
+	return err == nil
 }
 
 func checkWritePermission(dir string) Check {

@@ -147,7 +147,7 @@ type ValidationContext struct {
   - `plan_profile.archival` = archival-audit / link-integrity（ExecutionMode-gated：staged-blob vs worktree、body-justification transport）
   - **excluded**（evidence in Layer A）：checkbox-sync / status-sync（commit-message discipline，hook-only）、cognitive 家族（runtime.db）、wiring 群組（routing-registry/runtime.db）、repo-structure（Ai-skill 路徑）、safety（policy tokens）
   - `consumer_surface` 為獨立 execution 維度，**不併入** `plan_profile`；`plan_schema`（frontmatter schema + version）住 compat layer，非 engine。
-  - **`plan_profile` FROZEN（回應 review）**：membership 凍結。**只有三種事件可重開**：(1) shadow 出現 `missing`、(2) shadow 出現 `extra`、(3) Phase 3 acceptance 被卡住。其餘一律當 observation。**禁止**因 Vidoe-Test 發現（folder-convention / loader / dialect）回頭擴 `plan_profile.core`。
+  - **`plan_profile` FROZEN（回應 review）**：membership 凍結。**只有三種事件可重開**：(1) shadow 出現 `missing`、(2) shadow 出現 `extra`、(3) Phase 3 acceptance 被卡住。其餘一律當 observation。**禁止**因 external-repo-A 發現（folder-convention / loader / dialect）回頭擴 `plan_profile.core`。
 - [x] **canonical `governance/lifecycle/plan-profile.md` 暫不建（決策：避免 premature canonical surface）**：frozen membership 留本 plan；consumer 已成功跑（Batch A′ / 3.4b）→ 未來若要 promote canonical doc 再開，本輪決策=不建。
 - [x] **Phase 1 完成條件**：Layer A facts 完整（含殘留驗證）+ Layer B decisions review 通過（membership frozen）。**Q2 已於 Phase 2.2 close**（consumer 成功執行）。
 
@@ -241,7 +241,7 @@ type ValidationContext struct {
 - soak 平穩 → 才開 Phase 3（需先過 Phase 3.0 preflight，見下）。
 
 **Soak observations（持續記）**：
-- **2026-06-25 — 第 2 個外部 repo 真實採用（positive signal）**：`unwrapping/apk-analysis-sdk/docs/plans/integration/2026-06-24-1748-sdk-platform-sqlite-identity-pool`（1 main + **8 sub**，全 canonical schema）engine 量測 `parsed=9 findings=0` → **CLEAN**。**未觸發任何 engine surface 變更需求** → soak 退出條件維持。第二個獨立外部 repo 採 canonical schema 即乾淨通過，adoption-pass 由 N=1 → **N=2**。（throwaway 量測，非 shadow；plan_profile FROZEN、Q8 deferred 不變。）
+- **2026-06-25 — 第 2 個外部 repo 真實採用（positive signal）**：`<WORKSPACE>/external-repo-B/docs/plans/integration/YYYY-MM-DD-identity-pool-integration`（1 main + **8 sub**，全 canonical schema）engine 量測 `parsed=9 findings=0` → **CLEAN**。**未觸發任何 engine surface 變更需求** → soak 退出條件維持。第二個獨立外部 repo 採 canonical schema 即乾淨通過，adoption-pass 由 N=1 → **N=2**。（throwaway 量測，非 shadow；plan_profile FROZEN、Q8 deferred 不變。）
 
 **Soak verdict（2026-06-25）✅ 收尾**：engine stability = **pass**（退出條件「no new engine surface」達成：2 外部 repo、更大 tree、0 findings、0 engine requests——穩定性訊號，非 correctness 證明）。
 - **關鍵拆分（這輪最大收穫）**：現在證明的是 **engine portability**，**不是** delivery portability。**不可把 engine success 當 externalization success**。
@@ -306,8 +306,8 @@ type ValidationContext struct {
 >
 > | Bucket | Meaning | 來源 | 掛點 |
 > |---|---|---|---|
-> | **adoption-pass** | 外部採 canonical **schema** → engine 乾淨驗（**caveat**：經 path-override EXT_PLANS_DIR=docs/plans 量測；scope-A CLI 需 `plans/active\|archived` layout，外部 repo 用 docs/plans → CLI `plans=0`，見 §3.4a location-convention gap） | **2 external repos**：Vidoe-Test h5 tree（6-node）+ apk-analysis-sdk identity-pool tree（9-node），皆 findings=0 | **Phase 3 acceptance evidence anchor**（**非** Q8） |
-> | **dialect-pressure** | 非 canonical metadata → 觀察到 mismatch | Vidoe-Test flat plans（semantic mismatch：parent path vs id） | Q8 證據（揭露邊界，**不**決策） |
+> | **adoption-pass** | 外部採 canonical **schema** → engine 乾淨驗（**caveat**：經 path-override EXT_PLANS_DIR=docs/plans 量測；scope-A CLI 需 `plans/active\|archived` layout，外部 repo 用 docs/plans → CLI `plans=0`，見 §3.4a location-convention gap） | **2 external repos**：external-repo-A h5 tree（6-node）+ external-repo-B identity-pool tree（9-node），皆 findings=0 | **Phase 3 acceptance evidence anchor**（**非** Q8） |
+> | **dialect-pressure** | 非 canonical metadata → 觀察到 mismatch | external-repo-A flat plans（semantic mismatch：parent path vs id） | Q8 證據（揭露邊界，**不**決策） |
 > | **compatibility-policy** | adoption / normalization / explicit-unsupported 三選一 | — | **Q8 = deferred**（尚未決） |
 >
 > 三桶現況：adoption evidence = yes／dialect evidence = yes／**policy decision = no**。`adoption-pass` 只證明「一個 branch 可行」，**不等於**「該選 adoption」——policy 仍 deferred。
@@ -321,17 +321,17 @@ type ValidationContext struct {
 | Bucket | Plans | Loader | Engine 結果 |
 |--------|-------|--------|------------|
 | baseline | Ai-skill native | native | 4/4 rules |
-| **adoption-pass**（canonical） | Vidoe-Test h5 tree：6（1 main+5 sub） | read-only harness | **findings=0**；4 rules exercised（sub frontmatter pass、parent→main id resolve、unique_id、archive_order inert） |
-| **dialect-pressure** | Vidoe-Test flat：13 | read-only harness | **findings=2**（2 plan 的 `parent` 持 path → semantic mismatch false-positive）；其餘 inert（plan_kind/required/sub_reason 欄缺）。inert 來源 = schema/semantics，非 loader |
+| **adoption-pass**（canonical） | external-repo-A h5 tree：6（1 main+5 sub） | read-only harness | **findings=0**；4 rules exercised（sub frontmatter pass、parent→main id resolve、unique_id、archive_order inert） |
+| **dialect-pressure** | external-repo-A flat：13 | read-only harness | **findings=2**（2 plan 的 `parent` 持 path → semantic mismatch false-positive）；其餘 inert（plan_kind/required/sub_reason 欄缺）。inert 來源 = schema/semantics，非 loader |
 
 **Boundary finding**：**portable ≠ schema-agnostic**。01 目前完成的是 `shared engine + portable profile + same plan contract`，**不是** universal plan language / interoperability framework。
 
-**新證據（measured，回應「能否按我們流程跑」）**：Vidoe-Test 架構**機械上跑得動**（loader 解析 13/13、engine 執行），但輸出含 **2 個 false-positive**：其 `parent:` 欄持有 **path**（`docs/plans/xxx.md`），我們 engine 契約期待 **id** → 判不解析。這是 **semantic mismatch on a shared field name**（同名 `parent`、語意不同），**不再只是 absence**。意涵：
+**新證據（measured，回應「能否按我們流程跑」）**：external-repo-A 架構**機械上跑得動**（loader 解析 13/13、engine 執行），但輸出含 **2 個 false-positive**：其 `parent:` 欄持有 **path**（`docs/plans/xxx.md`），我們 engine 契約期待 **id** → 判不解析。這是 **semantic mismatch on a shared field name**（同名 `parent`、語意不同），**不再只是 absence**。意涵：
 - 對 Q8——上輪「只有 absence、無 semantic mismatch，證據不足以支撐 normalize」的前提**已被此證據更新**；mapping 不再因「缺證據」被排除，但 **a/b/explicit-unsupported 決定仍 deferred-to-phase-3**，本輪不決、不做 mapping。
 - 此為 **external throwaway 量測**，**非 shadow** → **不觸發 `plan_profile` reopen**（reopen 只認 shadow missing/extra 或 Phase 3 blocked）。`plan_profile` 維持 FROZEN，純當 Q8 observation。
 
 #### Canonical-authored external sample（acceptance-leaning，measured 2026-06-24）
-外部團隊改用**我們 schema 結構**新寫 `Vidoe-Test/docs/plans/2026-06-22-1600-h5-redis-read-cache.md`（採 `schema_version: "1"`、`status: draft`、完整必填 sections：Decision Rationale 全子節 / Open Questions / Phase 0.0 公版 / Stakeholder / 完成条件 / Runtime Execution Path）。
+外部團隊改用**我們 schema 結構**新寫 `external-repo-A/docs/plans/YYYY-MM-DD-feature-plan-h5-cache.md`（採 `schema_version: "1"`、`status: draft`、完整必填 sections：Decision Rationale 全子節 / Open Questions / Phase 0.0 公版 / Stakeholder / 完成条件 / Runtime Execution Path）。
 
 | 性質 | 實測 |
 |---|---|
@@ -475,51 +475,51 @@ type ValidationContext struct {
 
 **Repo 選擇（review 偏好）**：
 - ✅ **專用 acceptance repo**（最符合 Success Contract）。
-- ⚠️ `apk-analysis-sdk`（僅當非高變動交付 repo）。
-- ❌ `Vidoe-Test`（已提供 dialect pressure，角色乾淨，不混用）。
+- ⚠️ `external-repo-B`（僅當非高變動交付 repo）。
+- ❌ `external-repo-A`（已提供 dialect pressure，角色乾淨，不混用）。
 
 **3.4a — Acceptance Environment Selection（plan / selection only，🟢 authorized；不裝 adapter）**
 - [x] **候選評估（2026-06-25，read-only）**：
   | repo | 14d churn | releases | 既有 evidence 角色 | scope-A `plans validate` | 判定 |
   |---|---|---|---|---|---|
-  | Vidoe-Test | **169**（極高）| 0 | dialect-pressure + adoption-pass | `plans=0` | ❌ churn 違反 time-box + 角色已滿 |
-  | apk-analysis-sdk | 27（中）| 0 | adoption-pass #2 | `plans=0` | ⚠️ churn OK，但仍 plans=0 |
+  | external-repo-A | 極高 | 0 | dialect-pressure + adoption-pass | `plans=0` | ❌ churn 違反 time-box + 角色已滿 |
+  | external-repo-B | 中 | 0 | adoption-pass #2 | `plans=0` | ⚠️ churn OK，但仍 plans=0 |
 - [x] **BLOCKER finding（selection 攔截，未裝 adapter）**：兩 repo plans 皆在 **`docs/plans/`**，scope-A CLI 固定 discover **`plans/active|archived`** → 實跑 `plans=0`。**先前 adoption-pass 是 path-override（EXT_PLANS_DIR→docs/plans）量測**，真實 scope-A CLI/adapter 掃不到。→ **兩 repo 皆非 acceptance-ready as-is**。
 - **這是 location-convention gap（Q8 的 sibling，非 dialect）**：外部 repo 採了 canonical **schema** 但用了自己的 **location**（docs/plans）。修法選項：
   - ✅ **dedicated acceptance repo，用 canonical `plans/active|archived` layout**（sidestep mismatch、角色乾淨、persist、可 time-box）——**recommended**。
   - ⚠️ 在外部 repo 把 plans 搬到 `plans/active|archived`（invasive，改其 layout，違 Entry Gate #3 精神）。
   - ⛔ 給 CLI 加 `--plans-dir docs/plans` discovery option（location-convention policy，**Q8-adjacent → deferred**，不現在做）。
-- [x] **selection 結論（2026-06-25，使用者覆寫 ❌）**：**選 Vidoe-Test**（使用者授權修改 + 提供「plan 完成狀態不確定」當測試材料）。
+- [x] **selection 結論（2026-06-25，使用者覆寫 ❌）**：**選 external-repo-A**（使用者授權修改 + 提供「plan 完成狀態不確定」當測試材料）。
   - **checkpoint baseline 已捕捉（read-only）**：`git status CLEAN` / **commit-msg hook absent** / **validation baseline `plans=0`**（scope-A 尚無 `plans/active|archived`）。rollback 後須回到此三者。
-  - **caveat 1 — 高 churn（169/14d）= 使用者正在密集使用**：commit-msg adapter **不可裝著不動**（會攔截真實 commit）；必須 **tight-window**（install→一次測試 commit→remove）。validate 主力走 **CLI/CI adapter**（`plans validate --root`，不攔 commit）。
-  - **caveat 2 — 角色 overload**：Vidoe-Test 已是 dialect-pressure + adoption-pass；3.4 acceptance evidence 須**明確標為獨立角色**（acceptance = install/upgrade/rollback 機制 + 可逆，**不**重算 adoption/dialect）。
-  - **location-gap 修法**：在 Vidoe-Test **新增可逆 acceptance artifact** `plans/active/`（放 canonical 測試 plans），不動其 `docs/plans/`；rollback 連 `plans/active/` 一併移除 → 回 baseline。
-- [x] **不安裝 adapter**（3.4a 只 selection，約束已守；adapter install 在 3.4b/Brower 才做）。
+  - **caveat 1 — 高 churn（極高/14d）= 使用者正在密集使用**：commit-msg adapter **不可裝著不動**（會攔截真實 commit）；必須 **tight-window**（install→一次測試 commit→remove）。validate 主力走 **CLI/CI adapter**（`plans validate --root`，不攔 commit）。
+  - **caveat 2 — 角色 overload**：external-repo-A 已是 dialect-pressure + adoption-pass；3.4 acceptance evidence 須**明確標為獨立角色**（acceptance = install/upgrade/rollback 機制 + 可逆，**不**重算 adoption/dialect）。
+  - **location-gap 修法**：在 external-repo-A **新增可逆 acceptance artifact** `plans/active/`（放 canonical 測試 plans），不動其 `docs/plans/`；rollback 連 `plans/active/` 一併移除 → 回 baseline。
+- [x] **不安裝 adapter**（3.4a 只 selection，約束已守；adapter install 在 3.4b/external-repo-C 才做）。
 
-##### Batch A′ — canonical h5 tree reversible acceptance ✅（2026-06-25，Vidoe-Test，net-zero）
-> 範圍鎖死：僅 h5-redis canonical tree；**不碰 frontmatter / 不 canonicalize dialect / 不加 schema_version / 不改 parent / 不修 unrelated refs**。全程未 commit Vidoe-Test、結尾 restore。dialect plans 原地不動。
+##### Batch A′ — canonical h5 tree reversible acceptance ✅（2026-06-25，external-repo-A，net-zero）
+> 範圍鎖死：僅 feature-plan-h5-cache canonical tree；**不碰 frontmatter / 不 canonicalize dialect / 不加 schema_version / 不改 parent / 不修 unrelated refs**。全程未 commit external-repo-A、結尾 restore。dialect plans 原地不動。
 - **完成 required subs 確認**：main + 5 subs 皆 `status: completed`、`required_for_completion: true`。inbound ref 僅 README（docs 索引，restore 後即還原，未動）。
 - **可逆 round-trip evidence**（filesystem move，非 commit）：
   - baseline（未移）`plans=0` → move→`plans/active/` `plans=6 findings=0`（discover + clean）→ move→`plans/archived/` `plans=6 findings=0`（**archive_order 生效**：全 required subs completed → gate 通過、無誤擋）→ rollback restore `plans=0`。
-  - **residue check**：Vidoe-Test `git status` clean、tree 回 `docs/plans/` 原位、`plans/` 目錄移除 → **零殘留**。
+  - **residue check**：external-repo-A `git status` clean、tree 回 `docs/plans/` 原位、`plans/` 目錄移除 → **零殘留**。
 - **證明（Success Contract 子集）**：reversible adoption ✅ + archive_order 當 completion gate ✅（真 repo）+ monotonic removal/no-residue ✅。
 - **本批未含**：adapter(commit-msg hook) install + **upgrade once**（屬完整 3.4b 四段；archive_order「抓未完成」由 unit test 覆蓋，本批因全 completed 故 gate pass 非 block）。
 - **Batch B（dialect plans canonicalize）= ⛔ BLOCKED BY Q8**（adoption / normalization / explicit-unsupported 未決），不碰。
 
-**3.4b — Operational Acceptance ✅ DONE（2026-07-03，host = Brower，低 churn，net-zero）**
-> entry conditions 滿足：Brower 低 churn（11 commits 總）+ clean + 無 hook + 可控 install/remove。**授權範圍限定 operational acceptance**；Brower 原 docs/plans **完全不修改、不參與 validation**；**Brower dialect 本輪不記為 Q8 證據**（保 3.4b 歸因單純）。
+**3.4b — Operational Acceptance ✅ DONE（2026-07-03，host = external-repo-C，低 churn，net-zero）**
+> entry conditions 滿足：external-repo-C 低 churn + clean + 無 hook + 可控 install/remove。**授權範圍限定 operational acceptance**；external-repo-C 原 docs/plans **完全不修改、不參與 validation**；**external-repo-C dialect 本輪不記為 Q8 證據**（保 3.4b 歸因單純）。
 - **isolated canonical fixture**（`plans/active/acc-fixture/`，main + 2 sub，與 docs/plans 零引用）：validate `plans=3 findings=0`；**docs/plans 未計入**（scope-A 不掃 → fixture isolation 成立）。
-- **adapter install + real commit interception**：暫裝 commit-msg hook → 注入違規 fixture → `git commit` → hook `[BLOCK] parent_reference` → **commit ABORTED、commits 11→11（無 commit、net-zero）**。
+- **adapter install + real commit interception**：暫裝 commit-msg hook → 注入違規 fixture → `git commit` → hook `[BLOCK] parent_reference` → **commit ABORTED、commit 計數不變（net-zero）**。
 - **upgrade once**（單軸 artifact：schema_version 1→2）：findings v1=0 = v2=0 → **preserved semantics**。
 - **monotonic removal + no residue**：rollback（remove adapter + fixture）→ `plans=0`、git clean、hook 消失、`plans/` 消失、**docs/plans 未動**。
 - **acceptance metadata**：`repo_owner`=user / `repo_type`=internal（本機 dev repo）/ `removal_policy`=fixture+adapter post-test 全移除（net-zero）。
 - **證明**：install → validate → upgrade → rollback 四段 + preserved semantics + monotonic removal + no residue，全在真實外部 repo、可逆、零殘留。
 
 → **operational acceptance debt PAID**。結合 3.4a（lifecycle）→ **Phase 3.4 complete → Phase 3 四段 Success Contract 全達成**。
-> **~~以下 Vidoe-Test-target 4 段步驟 SUPERSEDED（2026-07-03）~~**：3.4b operational acceptance 改在 **Brower**（低 churn）以 isolated fixture 執行完成（見上方 3.4b ✅ DONE 區塊）；Vidoe-Test 因高 churn 未採。保留供追溯，不再 pending。
-- [x] setup / validate / hook tight-window / upgrade-once / rollback / acceptance metadata → **已於 Brower 完成**（見 3.4b DONE 區塊）。
+> **~~以下 external-repo-A-target 4 段步驟 SUPERSEDED（2026-07-03）~~**：3.4b operational acceptance 改在 **external-repo-C**（低 churn）以 isolated fixture 執行完成（見上方 3.4b ✅ DONE 區塊）；external-repo-A 因高 churn 未採。保留供追溯，不再 pending。
+- [x] setup / validate / hook tight-window / upgrade-once / rollback / acceptance metadata → **已於 external-repo-C 完成**（見 3.4b DONE 區塊）。
 - [x] plurality（Close Note B，observation-only，不升 Q）——維持 observation。
-- **完成 = Phase 3 complete**（Success Contract 四段 + 保真 + monotonic 全達成，跨 3.4a Vidoe-Test + 3.4b Brower）。
+- **完成 = Phase 3 complete**（Success Contract 四段 + 保真 + monotonic 全達成，跨 3.4a external-repo-A + 3.4b external-repo-C）。
 
 > 第一次拿到「成功 adoption 證據」後最易把 compatibility 當單純升版測試。先拆軸，否則 3.2 測出綠燈卻不知哪層相容。**doc 內現存三個 version 必須分開**：binary version / `plan_schema` version / invocation-contract version（目前隱含）。
 
@@ -559,7 +559,7 @@ type ValidationContext struct {
 - Externalization 完成（engine 抽離 + schema compat layer + thin consumers）。
 - Compatibility 完成（Q3 close，跨 version end-to-end）。
 - Consumer equivalence 完成（Q1 close，manual ≡ hook ≡ CI，COR 證明）。
-- Real-repo acceptance 完成（3.4a lifecycle on Vidoe-Test + 3.4b operational on Brower，皆 net-zero / reversible）。
+- Real-repo acceptance 完成（3.4a lifecycle on external-repo-A + 3.4b operational on external-repo-C，皆 net-zero / reversible）。
 - Phase 3 Success Contract 四段全達成；Q1 / Q2 / Q3 closed。
 → **01 deliverable 內無 open work，標記 `status: completed`。** 因 parent tree（02 / 03 未完）仍 active，01 檔案留在 tree folder，不單獨搬 archived（lifecycle status 與 storage location 分離）。
 

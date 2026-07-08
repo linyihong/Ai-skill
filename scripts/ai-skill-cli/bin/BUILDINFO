@@ -1,4 +1,4 @@
-version=repo-fb9cdc1
-source_commit=fb9cdc1232cfabc3b0c0e727e0bfd5c9f828737b
-built_at=2026-07-07T00:59:15Z
+version=repo-be2abcb
+source_commit=be2abcbe7b2a255fd852459cab46d44557eec785
+built_at=2026-07-08T02:22:46Z
 targets=windows/amd64,darwin/amd64,darwin/arm64,linux/amd64,linux/arm64

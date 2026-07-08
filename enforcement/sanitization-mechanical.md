@@ -8,7 +8,7 @@ This file is the companion for the mechanical executor behind [`sanitization.md`
 |---|---|
 | [`../runtime/repository-topology.yaml`](../runtime/repository-topology.yaml) | Defines shared-layer vs project-local paths. |
 | [`../runtime/sanitization-patterns.yaml`](../runtime/sanitization-patterns.yaml) | Defines deterministic generic regex patterns and placeholder allowlist. |
-| Project `.ai-skill-project.yaml` | Declares private project tokens/entities that compile into `runtime.db.derived_forbidden_tokens`. |
+| Project `.ai-skill-project.yaml` | Declares private project tokens/entities that compile into `runtime.db.derived_match_tokens`; consumed by pre-commit `validateSanitizationStagedContent`. |
 
 ## Enforcement Boundary
 

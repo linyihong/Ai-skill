@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"regexp"
 	"strings"
@@ -13,6 +14,7 @@ import (
 
 func TestHooksInstallDryRunPlansWithoutWriting(t *testing.T) {
 	repo := initTempGitRepo(t)
+	seedGitHooksFixture(t, repo)
 
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
@@ -28,16 +30,17 @@ func TestHooksInstallDryRunPlansWithoutWriting(t *testing.T) {
 	if result.Command != "hooks install" {
 		t.Fatalf("unexpected command: %q", result.Command)
 	}
-	if len(result.PlannedActions) != 4 {
-		t.Fatalf("expected four planned hook installs (pre-commit/commit-msg/post-commit/pre-push), got %#v", result.PlannedActions)
+	if len(result.PlannedActions) != 1 || !strings.Contains(result.PlannedActions[0], "core.hooksPath") {
+		t.Fatalf("expected hooksPath planned action, got %#v", result.PlannedActions)
 	}
-	if pathExists(filepath.Join(repo, ".git", "hooks", "pre-commit")) {
-		t.Fatal("dry-run wrote hook target")
+	if hooksPath := optionalGitConfig(t, repo, "core.hooksPath"); hooksPath != "" {
+		t.Fatalf("dry-run should not set core.hooksPath, got %q", hooksPath)
 	}
 }
 
-func TestHooksInstallWriteModeInstallsAdapters(t *testing.T) {
+func TestHooksInstallWriteModeSetsHooksPath(t *testing.T) {
 	repo := initTempGitRepo(t)
+	seedGitHooksFixture(t, repo)
 
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
@@ -45,25 +48,16 @@ func TestHooksInstallWriteModeInstallsAdapters(t *testing.T) {
 	if code != ExitSuccess {
 		t.Fatalf("expected install success, got %d; stderr=%s stdout=%s", code, stderr.String(), stdout.String())
 	}
-	content, err := os.ReadFile(filepath.Join(repo, ".git", "hooks", "pre-commit"))
-	if err != nil {
-		t.Fatal(err)
-	}
-	if !bytes.Contains(content, []byte("hooks run pre-commit")) {
-		t.Fatalf("expected Go hook runner adapter, got %s", string(content))
-	}
-	prePushContent, err := os.ReadFile(filepath.Join(repo, ".git", "hooks", "pre-push"))
-	if err != nil {
-		t.Fatal(err)
-	}
-	if !bytes.Contains(prePushContent, []byte("hooks run pre-push")) {
-		t.Fatalf("expected Go pre-push hook runner adapter, got %s", string(prePushContent))
+	hooksPath := gitOutput(t, repo, "config", "--get", "core.hooksPath")
+	if hooksPath != ".githooks" {
+		t.Fatalf("expected core.hooksPath=.githooks, got %q", hooksPath)
 	}
 }
 
-func TestHooksInstallBlocksExistingTargetWithoutForce(t *testing.T) {
+func TestHooksInstallBlocksConflictingHooksPathWithoutForce(t *testing.T) {
 	repo := initTempGitRepo(t)
-	writeFile(t, filepath.Join(repo, ".git", "hooks", "pre-commit"), "# existing\n")
+	seedGitHooksFixture(t, repo)
+	runGit(t, repo, "config", "core.hooksPath", "scripts/git-hooks")
 
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
@@ -73,9 +67,10 @@ func TestHooksInstallBlocksExistingTargetWithoutForce(t *testing.T) {
 	}
 }
 
-func TestHooksInstallForceAllowsExistingTargetInDryRun(t *testing.T) {
+func TestHooksInstallForceAllowsConflictingHooksPathInDryRun(t *testing.T) {
 	repo := initTempGitRepo(t)
-	writeFile(t, filepath.Join(repo, ".git", "hooks", "pre-commit"), "# existing\n")
+	seedGitHooksFixture(t, repo)
+	runGit(t, repo, "config", "core.hooksPath", "scripts/git-hooks")
 
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
@@ -87,6 +82,7 @@ func TestHooksInstallForceAllowsExistingTargetInDryRun(t *testing.T) {
 
 func TestHooksInstallReportsUnsafeGitStateButDoesNotBlockDryRun(t *testing.T) {
 	repo := initTempGitRepo(t)
+	seedGitHooksFixture(t, repo)
 	writeFile(t, filepath.Join(repo, ".git", "MERGE_HEAD"), "deadbeef\n")
 
 	var stdout bytes.Buffer
@@ -127,6 +123,7 @@ func TestHooksUnsupportedSubcommandReturnsInvalidUsage(t *testing.T) {
 
 func TestHooksInstallDoesNotWriteMutations(t *testing.T) {
 	repo := initTempGitRepo(t)
+	seedGitHooksFixture(t, repo)
 
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
@@ -2143,4 +2140,27 @@ func TestExtractArtifactTokens_CJKFilenames(t *testing.T) {
 	if len(exts) == 0 || exts[0] != ".gz" {
 		t.Errorf("multi-ext ext=%v want [.gz]", exts)
 	}
+}
+
+func seedGitHooksFixture(t *testing.T, repo string) {
+	t.Helper()
+	hooks := []string{"pre-commit", "commit-msg", "post-commit", "pre-push"}
+	for _, hook := range hooks {
+		target := filepath.Join(repo, ".githooks", hook)
+		if err := os.MkdirAll(filepath.Dir(target), 0o755); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(target, []byte(hookAdapterContent(hook)), 0o755); err != nil {
+			t.Fatal(err)
+		}
+	}
+}
+
+func optionalGitConfig(t *testing.T, repo string, key string) string {
+	t.Helper()
+	output, err := exec.Command("git", "-C", repo, "config", "--get", key).Output()
+	if err != nil {
+		return ""
+	}
+	return strings.TrimSpace(string(output))
 }

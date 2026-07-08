@@ -28,9 +28,14 @@ ai-skill runtime refresh
 
 # 提交前檢查 dirty 分組（預設 dry-run）
 ai-skill close-loop --dry-run
+
+# 首次 clone 或 hooks 未啟用時（必做）
+ai-skill hooks install
 ```
 
-選用：若已設定 `git config core.hooksPath scripts/git-hooks`，在 staged 檔案觸及 `knowledge/`、`validation/` 等時，`pre-commit` 會跑 `ai-skill runtime validate`（見 [`scripts/git-hooks/pre-commit`](../scripts/git-hooks/pre-commit)）。
+**Git hooks（必做）：** clone 後執行 `ai-skill hooks install`，會把 `core.hooksPath` 設為 repo 根目錄的 `.githooks/`。之後每次 `git commit` 會跑 runtime validate、**sanitization_scan**（去敏）、knowledge 檢查等。詳見 [`.githooks/README.md`](../.githooks/README.md)。
+
+選用驗證：`git config --get core.hooksPath` 應為 `.githooks`；`ai-skill doctor --plain` 的 `hooks_path` 應為 ok。
 
 ## 與「新專案接線」的差別
 

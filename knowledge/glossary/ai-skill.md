@@ -386,7 +386,7 @@ anti-meaning: >
 related-terms:
   - { type: extends, target: plan_kind }
   - { type: excluded_from, target: plan_profile }
-introduced-by: plans/active/2026-06-22-1009-plans-system-portability-and-delivery-integration/03-subplan-agent-delegation.md
+introduced-by: plans/archived/2026-06-22-1009-plans-system-portability-and-delivery-integration/03-subplan-agent-delegation.md
 ```
 
 ## discovery_proposal
@@ -1012,7 +1012,7 @@ related-terms:
   - { type: related_to, target: plan_tree }
   - { type: related_to, target: plan_kind }
   - { type: excludes, target: delegation }
-introduced-by: plans/active/2026-06-22-1009-plans-system-portability-and-delivery-integration/01-external-repo-plan-system-shared-binary.md
+introduced-by: plans/archived/2026-06-22-1009-plans-system-portability-and-delivery-integration/01-external-repo-plan-system-shared-binary.md
 ```
 
 ## plan_tree

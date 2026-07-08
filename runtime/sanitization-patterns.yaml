@@ -17,6 +17,7 @@ placeholder_allowlist:
   - <PROJECT_ROOT>
   - <AI_SKILL_REPO>
   - <WORKSPACE>
+  - <EXTERNAL_PROJECT_ROOT>
 
 incident_score:
   enabled: true

@@ -3,7 +3,7 @@
 External repositories validate their plan trees by **invoking the shared
 `ai-skill` binary**, not by vendoring code or importing governance. What you get
 is a callable **validation capability** + an **invocation contract** — nothing
-else. See `plans/active/2026-06-22-1009-plans-system-portability-and-delivery-integration/01-...md`.
+else. See `plans/archived/2026-06-22-1009-plans-system-portability-and-delivery-integration/01-external-repo-plan-system-shared-binary.md`.
 
 ## What is (and is not) externalized
 

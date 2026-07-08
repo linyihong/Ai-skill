@@ -15,7 +15,7 @@ import "fmt"
 //   - B.3: absent and explicit-current versions must normalize to the SAME
 //     model (bidirectional fixtures in schema_test.go).
 //
-// See plans/active/2026-06-22-1009-plans-system-portability-and-delivery-integration/
+// See plans/archived/2026-06-22-1009-plans-system-portability-and-delivery-integration/
 // 01-external-repo-plan-system-shared-binary.md (Phase 2.1 / Gate B).
 
 // currentSchemaVersion is the plan frontmatter schema version this build
