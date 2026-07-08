@@ -152,7 +152,21 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 | Architecture | Designer | Architecture reviewer | Architect | analogy，無真實 run |
 | Knowledge | Extractor | Evidence validator | Knowledge maintainer | analogy，無真實 run |
 
-**紀律邊界（依 falsification ladder / governance veto test）**：真實證據目前只有 coding 域 N=1；「很像 ≠ 同 family」，其餘三域在有真實 run 前維持 analogy 紀錄。通用化定位——graduate 時以「Evidence-driven Closed Control Loop（Specification → Production → Independent Evidence → Arbitration → Specification）」取代「Delegation」——列為 Q6，gated on 至少一個非 coding 域的真實 run；在此之前 SOP 維持 delegation 措辭，不新增通用 primitive、不改名、不建跨域框架。
+**紀律邊界（依 falsification ladder / governance veto test）**：真實證據目前全在 delivery 域（2b / 2a-external / 2c）；「很像 ≠ 同 family」，其餘三域在有真實 run 前維持 analogy 紀錄。通用化定位——graduate 時以「Evidence-driven Closed Control Loop（Specification → Production → Independent Evidence → Arbitration → Specification）」取代「Delegation」——列為 Q6，gated on 至少一個非 delivery 域的真實 run；在此之前 SOP 維持 delegation 措辭，不新增通用 primitive、不改名、不建跨域框架。
+
+**Execution Pattern ≠ Role Topology（使用者 review 第二輪，2026-07-08）**：穩定的候選是**四責任**（Spec → Produce → Evidence → Decision），不是三角色。Role topology 是 domain-variable 實例化——Research 可能是 Planner → Research Agent → Fact Checker → Planner、Knowledge 是 Curator → Extractor → Validator → Curator、Architecture 是 Architect → Designer → Architecture Review → Architect；角色名全換、四責任不變。**Q6 驗的是 pattern（四責任是否自然收斂），不是 topology（角色名是否對得上）**。
+
+**Specification 是可演化 artifact**：2b F2 的真正新發現——契約缺漏回流到 Specification（brief v2）再重跑 Production，而非 verifier → 直接 fix code。Specification 不是一次寫死的輸入，是 loop 中會演化的 artifact。
+
+**Adoption 三階段（使用者裁決，2026-07-08，防「stability 升級成 correctness」）**：
+
+| 階段 | 條件 | 定位 |
+|---|---|---|
+| **1（現在）** | evidence 全來自 delivery 域 | 維持 **Delegation Loop**；作為 software-delivery 委派任務的 execution pattern 證據已強（**仍 advisory**，不動 SOP 強制度） |
+| 2 | Research / Knowledge / Architecture 各一輪真實 run **自然收斂**到四責任閉環（非靠類比解釋） | 才可稱「Evidence-driven Control Loop」是一個 family（Q6 close） |
+| 3 | cross-domain + cross-workflow + cross-project evidence 齊備 | 才考慮 execution runtime 全面預設採用 |
+
+現在最多能說「對 software delivery 這是有效模式」，推不出「所有 workflow 都該採用」。
 
 ## Runtime Execution Path
 
@@ -169,7 +183,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 | Q3 | 品質信號怎麼量：verifier 差集 findings 數 + 仲裁分佈（fix/defer/reject 比例）是否構成「品質提升」的有效指標？null result 如何記錄？ | Phase 2 | **resolved（2026-07-08，advisory 指標）** | 雙 dogfood 各留差集 + 分佈；複合指標明文化 | **複合指標**（kit §2a-external 結論表）：(1) acceptance-violation 率（2a-external **0/2 rounds**）；(2) test delta（+6）；(3) pre-merge bug fix 數（2：guard + envelope）；(4) 協調成本（spawn×4、plan commit×6）；(5) orchestrator 越界次數（1）。**結論**：品質↑有量化證據；orchestrator 寫 code↓、協調↑；verifier 邊際 catch 本任務為中等（強制 IT/結構化 defer 價值 > acceptance 差集）。null result 未出現 |
 | Q4 | 仲裁紀錄落點：被委派 sub-plan 內 table（傾向）vs 獨立 artifact？ | Phase 1 | **resolved（2026-07-08）** | 落點決定並在 dogfood 實際使用 ✅ | 落點 = 被委派任務的 plan artifact 內 table（SOP 已載明）；dogfood 期記於 kit §Dogfood 紀錄（2b 仲裁表實際使用） |
 | Q5 | Schema promotion 門檻：什麼證據才允許動 delegation schema（如 `delegation.verification`）？ | Phase 3 | open | 門檻明文化；未達門檻則明確記錄維持 doc-only | kit §2c 增強 Q3 信號（8-slice、violation 2/8），**尚不足以** close Phase 3 / schema 決策 |
-| Q6 | 通用化定位：graduate 時是否以「Evidence-driven Closed Control Loop」（四責任分離：Specification → Production → Independent Evidence → Arbitration → Specification）取代「Delegation」定位？（使用者 review 2026-07-08 提出，見 §架構收斂觀察） | Phase 3 | open | gated on 至少一個**非 coding / delivery 域**的真實 run（2b/2a-external/2c 皆屬 delivery 域；Research / Architecture / Knowledge analogy 不算） | <跨域 run evidence> |
+| Q6 | 通用化定位：graduate 時是否以「Evidence-driven Closed Control Loop」（四責任分離：Specification → Production → Independent Evidence → Arbitration → Specification）取代「Delegation」定位？（使用者 review 2026-07-08 提出，見 §架構收斂觀察） | Phase 3（adoption stage 2 gate） | open | 至少一個**非 delivery 域**（Research / Knowledge / Architecture）真實 run **自然收斂**到四責任閉環（非類比解釋）；**驗 pattern 不驗 topology**（角色名可全換）；stage 3（runtime 全面預設）另需 cross-domain + cross-workflow + cross-project evidence，不在本 plan scope | <跨域 run evidence> |
 
 ## 完成條件
 
@@ -242,6 +256,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 |--------|---------------------------|
 | Loop 形狀 | 三角色：orchestrator（規劃/切分/仲裁，不執行）/ executor（brief-only，happy path 測試）/ verifier（fresh-context，L1–L3 驗證，可補 `verifier_only` 測試） |
 | 落地方式 | doc-only 協議 + 雙 dogfood；不動 schema、不接 runtime、不建自動 orchestrator |
+| 通用化 adoption | **三階段**（§架構收斂觀察）：現在 stage 1 — Delegation Loop only（delivery 域 execution pattern 證據已強，仍 advisory）；stage 2 gated on 跨域自然收斂（Q6）；stage 3（runtime 全面預設）需 cross-domain + cross-workflow + cross-project evidence，超出本 plan scope |
 | 驗證 leg | 復用 review capability `fault_finding` stance invoke，不另定 stance |
 | 適用範圍 | advisory；只適用已宣告 delegation 的委派任務；主打 software-delivery，Ai-skill 比照 |
 | Schema promotion | gated on Phase 2 證據（Q5），deadline 2026-08-31 |
