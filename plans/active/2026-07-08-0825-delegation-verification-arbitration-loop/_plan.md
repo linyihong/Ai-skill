@@ -203,6 +203,20 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 4. **邊界維度猜想（待 2f 驗證）**：ERA 可能不是「所有 AI 工作」的 primitive，而是 **High-integrity Work**（sd / research / audit / compliance / architecture governance / knowledge management——共同點：decision 必須可 justify）的 primitive。**邊界不是 domain 名，是工作性質：Justification Required vs Preference Allowed**——同一 domain 可同時含兩種工作（architecture 安全審查 vs architecture 概念發想）。此分類比 domain 更穩定。
 5. **成熟標誌重定義**：好的架構模式成熟的標誌不是「可以用在所有地方」，而是「**知道它在哪裡不該用**」——最期待的不是 2f 成功，是 2f 依預註冊標準**真實失敗**且失敗原因正是「decision 只需偏好裁決」。
 
+**第六輪 review（使用者，2026-07-09，讀 2f 期中資料後）——ERA 假說重構：從「決定」到「約束」**：
+
+1. **三層結構取代二分法**（2f 期中資料直接支撐）：(i) Producer 無 contract 也**自發**產生 evidence awareness（撞名註記、截點聲明）——**Evidence Requirement 不是 evidence awareness 的唯一來源**，此為獨立記錄的觀察；(ii) Reviewer 的功能是 **Filter 不是 Selector**（全部輸出是「這不能選、這有事實錯誤、這類別有盲點」，零「我喜歡」）；(iii) 真正的 Selection 在使用者。
+2. **ERA v2**：不是 `Evidence → Decision`，是 **`Evidence → Decision Space → Preference → Selection`**——**Evidence 約束 Decision，不必然決定 Decision**。此抽象更強，因為它把各工作型態放上同一光譜：
+   | 工作型態 | Evidence 約束強度 | Selection 空間 |
+   |---|---|---|
+   | Software Delivery | 完全約束 | 幾乎不存在（唯一合法答案） |
+   | Research | 高度約束 | 剩一個最可信答案 |
+   | Naming | 部分約束 | 排除危險候選後由偏好選 |
+   | Brainstorm / Creative | 弱約束 | 避開明顯失敗後由品味形成 |
+3. **邊界重定義**：ERA 的 boundary 不是「有/沒有 evidence」，是「**Evidence Constraint 有多強**」——continuum 取代 binary。
+4. **F2 三模式量測尺度**（本輪提出時 F2 尚未量測，時序合法；**記為補充量測，原始二元判準仍為本 run 正式判定基礎**）：Evidence-determined（證據幾乎唯一決定）/ **Evidence-constrained**（證據縮小範圍、偏好完成選擇）/ Preference-determined（證據幾乎無影響）。
+5. **反事實鑑別問題**（F2 量測的關鍵細化）：若最終選了某候選，須區分「reviewer 排除其它後它成為最佳剩餘」vs「即使 review 不存在本來就會選它」——**同一個選擇、對 ERA 意義完全不同**。
+
 ## Runtime Execution Path
 
 **doc-only trial 宣告**：本 plan 不接入 runtime——不新增 `route.*`、不新增 commit-msg validator、不動 `runtime.db` generated surfaces、不動 delegation schema / `validatePlanTreeFrontmatter`。協議以文件 + 行為紀律承載；驗證 leg 復用既有 review capability invoke（`ai-skill runtime capability-invoke --capability code-review --stance fault_finding`，既有 warning-only surface，無新 wiring）。

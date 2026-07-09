@@ -165,7 +165,7 @@ branch：<branch-name>（已 commit，未 merge）
   - **Producer**（fresh agent、自然語氣 brief、零結構）：交付 12 候選（`03-repo-naming-candidates.md`，commit `0c35d92`）。**F1 觀察**：brief 未要求任何證據標準，producer **自發**附上篩選準則、逐候選撞名風險註記、並誠實標明知識截點限制建議定名前實查——evidence requirement **自然形成**（但為斷言式 grounding，非執行式查證）。
   - **Reviewer**（fresh agent、自然語氣 brief、零模板）：**自發產出** 結構性 findings（全清單被動隱喻偏誤、缺「execution」維度候選）+ 逐案 grounded 批評（含 rationale 事實錯誤查核：canonry 非自造詞、noema 現象學誤用；撞名評級擴格反證 ×5）+ 明確自我節制「最終選名不是我做」。**證據責任結構在無模板下自然重現**：找碴附依據、不做決定。
   - **期中新假說（比二元 F2 更細）**：preference-allowed 工作裡，evidence 自然出現在 **filter 層**（review 實質改變決策空間：淘汰 grimoire、揭露 vademecum 文化坑、修正 cairn 評級——證據非裝飾性），而 **selector 層**（存活候選中挑哪個）留給偏好。若 F2 最終量測證實此形態 → ERA 邊界不是「有無證據責任」，是「**證據責任止於 filter、closure 屬 preference**」——比全有/全無更精確的邊界。
-  - **F2 量測點**：使用者選名的裁決依據（靠 review 證據 vs 靠品味）——待選。
+  - **F2 量測點**：使用者選名的裁決依據——待選。**補充量測尺度（2026-07-09 第六輪 review 提出，時點先於選名，記為 supplementary；原始二元 F1/F2 判準仍為本 run 正式判定基礎）**：三模式分類 Evidence-determined / Evidence-constrained / Preference-determined + **反事實鑑別問題**（「若 review 不存在，你會選同一個嗎？」——排除後最佳剩餘 vs 本來就會選，同一選擇對 ERA 意義不同）。
 
 ### 2a — software-delivery 任務 ✅（2026-07-08，Cursor session demo）
 
