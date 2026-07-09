@@ -13,7 +13,7 @@ revision:
   - date: 2026-07-08
     note: "Dogfood 2d — 外部 monorepo outbound sync Phase 3（4 slices）；consumer overlay slice_kind/backfill；hook allowlist 契約回饋"
   - date: 2026-07-09
-    note: "Dogfood 2d′ — ExternalRepoC 9j2 module alignment follow-on；integration gate、remote_absent_delete、live teardown、release-time gate"
+    note: "Dogfood 2d′ — ExternalRepoC 9j2 module alignment follow-on；integration gate、remote_absent_delete、live teardown、release-time gate；證據全文遷至 evidence/"
 ---
 
 # Delegation Verification & Arbitration Loop（委派執行→獨立驗證→仲裁閉環）
@@ -345,7 +345,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 - [x] **2c — 外部 monorepo tiered archive 全線（8 slices，Phase A–D）** — 2026-07-08 **證據 only**（kit §2c）；強化 Q3 品質信號，**不**視為 Phase 3 closure
 - [x] **2d — 外部 monorepo outbound sync Phase 3（4 slices）** — 2026-07-08 **證據 only**（kit §2d）；強化 backfill / consumer gate 信號；**不**視為 Phase 3 closure
 - [x] **2g — 第二個外部 consumer（ExternalRepoA）：server_doc test placement + delegation overlay** — 2026-07-09 **證據 only**（kit §2g）。雙重意義：(a) **Phase 3 穩定性視角第一筆資料**——新案例未修改模型自然落位（同 overlay + backfill 模式、ERA 分工自然出現、consumer 機械 gate 自理）；(b) sd-delegated-execution §Provenance 的升級條件「第二個獨立 consumer 真實使用」**已滿足** → 分類 enum / backfill 模板化 / 機械 gate 泛化的 promotion **eligibility 成立**，依凍結紀律評估延至 Phase 3 批次，一次一階
-- [x] **2d′ — ExternalRepoC 9j2 module alignment follow-on** — 2026-07-09 **證據 only**（kit §2d′）。§2d 同一 consumer 延續：integration gate（平行 branch UX fail ×1）、`remote_absent_delete` fix、live 雙邊 teardown、pre-push build + inner src/test block；模型自然落位 **是**；**不**視為 Phase 3 closure
+- [x] **2d′ — ExternalRepoC 9j2 module alignment follow-on** — 2026-07-09 **證據 only**（[`evidence/2d-prime-externalrepoc-module-alignment.md`](evidence/2d-prime-externalrepoc-module-alignment.md)）。§2d 同一 consumer 延續：integration gate（平行 branch UX fail ×1）、`remote_absent_delete` fix、live 雙邊 teardown、pre-push build + inner src/test block；模型自然落位 **是**；**不**視為 Phase 3 closure
 - [x] **2e — 跨域 run（Research/Audit 域）：grandfather sunset audit** ✅ — 2026-07-08–09（kit §2e）；Q6/Q7(b)/Q8 的 stage-2 裁決 run。完整 loop：調查者（worktree，252 行報告 `c8ff035`，中斷後 resume 完成）→ 事實查核者（fresh，引文逐條命中、5 surfaces 獨立重跑一致、findings ×2 全 observation）→ 仲裁（defer×2，無 fix）。**實質產出**：5/5 surfaces 已 wired、flag 條款過時、延展不觸發、sunset 只剩行政收尾（處置決定保留 maintainer，見 `02-grandfather-sunset-audit.md`）。**跨域觀察**：四責任自然成立（topology 不同：+maintainer 第二層 decision）；backfill 結構化形式明確缺席、弱形式（evidence-first acceptance）出現；證據責任四問同構重現（含「自產證據不能自我關閉」跨域不變式）——詳 kit §2e Q6/Q7/Q8 觀察表
 - [x] 回饋迴路（2b 觸發 ×1）：F2 暴露 brief v1 缺「reusable doc 目標須含 tool-neutral 措辭條款」→ brief v2 追加 acceptance 9、kit 使用說明補教訓；修契約未修執行者；fix leg 重跑通過。2a 若再暴露缺漏比照處理。
 
