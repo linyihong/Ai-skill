@@ -60,6 +60,7 @@ Plan 從規劃進入執行前，orchestrator 在被委派任務的 plan artifact
 | live | [`validation.md`](validation.md) live system proof（brief 宣告時 mandatory，不准 skip） | 按 brief |
 | inner | implementation 層單元 / mock 測試 | **實現證據**——不得單獨關閉 user-visible slice |
 | deliverable | 非測試產出物（doc / migration / config / 流程錨點） | Verifier V4 核對 |
+| runtime（candidate，consumer 2026-07-09） | 真實部署路徑證據：migration 已執行、服務可起、主路徑 API/UI 可走——介於 integration 與 live 之間 | Verifier V5；含 schema/API/UI 交付面時 mandatory，缺 → `runtime-omission` 不得合規關閉 |
 
 **回填鐵則**：
 
@@ -89,8 +90,9 @@ deliverables:
 | V2 讀碼 | diff 對照 acceptance 與架構禁止項 | L2 inspection |
 | V3 對抗 | 執行或補寫 `verifier_only` 負面 / 邊界 case | L3 adversarial |
 | V4 產出物與流程 | **對照 brief `deliverables` + backfill 逐條核對**：該存在的檔案 / 步驟是否交付；必須產出核對表，不能只看測試綠 | （delivery 域擴充） |
+| V5 運行態 smoke（candidate，consumer 2026-07-09 incident） | **真實部署路徑是否可行**：schema/migration 已 apply（非僅檔案存在）、服務可起、使用者主路徑可走（API/UI 依賴鏈）。backfill 有 `runtime` tier 行時 **mandatory 不可跳**；纯 refactor 無 schema/API/UI 變更可書面 defer | （delivery 域擴充） |
 
-**V1 與 V4 的區別**：V1 問「測試過沒過」；V4 問「**該交付的東西有沒有交齊**」——忘寫的 spec、忘更的 doc、忘跑的流程。
+**V1 與 V4 的區別**：V1 問「測試過沒過」；V4 問「**該交付的東西有沒有交齊**」。**V4 與 V5 的區別**：V4 問「migration **檔案**在不在」；V5 問「migration **跑了沒**」——build 綠 + 測試綠 + 檔案齊 仍可能 runtime 打不開（consumer 實證：mock IT/build/grep 全綠、dev DB 未跑 migration → UI 開啟即 missing column）。
 
 **Delivery 域 finding 分類擴充**（candidate；映射回 canonical `classification` family，第二 consumer 證據前不進 canonical enum）：
 
@@ -98,6 +100,7 @@ deliverables:
 |---|---|---|
 | `deliverable-omission` | brief / backfill 要求的產出物缺交 | `acceptance-violation` family（deliverables 已宣告時） |
 | `process-omission` | 宣告的流程步驟漏做（branch、commit 錨點、交付表欄位） | `observation` / `acceptance-violation` 依 brief 宣告而定 |
+| `runtime-omission`（consumer 2026-07-09） | runtime tier 行未驗或部署路徑不可行（migration 未跑 / 服務未起） | `acceptance-violation` family（runtime tier 已宣告時） |
 
 ## 6. Slice 關閉狀態（合規判定）
 
@@ -118,7 +121,7 @@ deliverables:
 |---|---|
 | C1 | brief 每條 acceptance 在 backfill 為 `linked`（或已記錄的 `deferred` + follow-up） |
 | C1b | user-visible acceptance 至少一行 acceptance-spec / spec-alignment / integration tier `linked`（不可僅 inner） |
-| C2 | Verifier 已跑 V1–V4；無未仲裁的 `acceptance-violation` / `deliverable-omission` |
+| C2 | Verifier 已跑 V1–V4（+ V5 於 runtime tier 適用時）；無未仲裁的 `acceptance-violation` / `deliverable-omission` / `runtime-omission` |
 | C3 | 仲裁 `fix` 項：re-delegate 修復 → **重新驗證** → pass |
 | C4 | 無裸 `pending`；Verifier 未降級為「僅重跑測試、跳過 V2/V4」 |
 | C5 | Orchestrator 書面確認關閉狀態並寫入 plan 執行紀錄 |
@@ -149,6 +152,7 @@ deliverables:
 | verifier 兼任 | 同一 session 先執行後驗證 | fresh-context invariant（canonical SOP invariant 1） |
 | combined mega-slice | 單一 slice 塞過多 deliverables，verifier V4 單輪負載過高、核對品質下降 | 拆 2–3 輪 verifier 或拆 slice（§6） |
 | deploy 隱含在 loop 外 | runtime deploy / migration 無人宣告歸屬，orchestrator 默默代做 | backfill 鐵則 5：列 acceptance 或明標 `beyond-loop` |
+| 綠燈假象（missing constraint） | build 綠 + 測試綠 + 檔案齊，但 runtime 打不開——既有證據只能排除 implementation failure，**無任何證據約束 runtime 可行性**，Close 在過大的可行集裡做出 | backfill 補 `runtime` tier 行 + Verifier V5；未來勿再往 V6/V7 疊 checklist，先問「缺的是哪一種 constraint」 |
 
 ## 9. 機械 gate 模式（Layer 3 adapter，optional）
 

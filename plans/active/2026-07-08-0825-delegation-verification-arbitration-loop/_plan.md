@@ -241,6 +241,12 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 4. **不急 enum 化** constraint types（Illegal/Risk/Confidence 目前是觀察分型，非 schema）。
 5. **抽象凍結（stakeholder 決策，2026-07-09，效期至 Phase 3 / 2026-08-31）**：**在 Phase 3 前刻意不再提升抽象層級**。v2（Evidence constrains Decision）= 正式工作模型；v3 = 維持候選；後續只做證據收集——特別觀察 **Constraint Responsibility 與 Selection Responsibility 是否在新案例中自然分離**。v3 升格條件：3–4 個不同領域重複出現此分離。理由：目前「每輪能回頭解釋舊資料 + 產生可反證預測」的優勢，會被急著升格破壞。
 
+**Constraint-type 猜想的第一個 production incident 實證（consumer bookmark 案，2026-07-09；外部 review 回饋入檔）**：
+
+- **事實**：mock IT ✅ + build ✅ + grep ✅ → UI 開啟即 missing column（dev DB 未跑 migration）。錯誤關閉的根因**不是 verifier 少做一步，是缺一種 constraint type**——既有證據全屬 implementation constraint，只能排除 implementation failure；**沒有任何證據有能力約束 runtime decision space**，Feasible Set 沒有真正縮小，Close 在過大的可行集裡做出。
+- **對 ERA 的意義**：(a) constraint-type 維度（第七輪猜想）從觀察分型升為**有 incident 後果的實證**——缺 type 會直接導致錯誤 closure；(b) Responsibility 補洞案例：runtime constraint 原本**無人負責** → verifier V5 補位（constraint responsibility 分配的自然演化實例）；(c) v3 的 feasible-set 語言直接解釋了 incident（凍結期內又一次「新模型解釋新資料」）。
+- **凍結合規處理**：V5 / `runtime` tier / `runtime-omission` 以 **mechanism** 入 `sd-delegated-execution`（不動抽象）；**constraint-family 重構**（以 Spec / Implementation / Runtime / Delivery / Safety constraint 族取代 V-編號，V1–V5 降為 mechanism——外部 review 建議，防 V6/V7/V8 無限疊 checklist）記為 **Phase 3 解凍後的重組候選**，屆時與 Q8/v3 裁決同批評估。
+
 ## Runtime Execution Path
 
 **doc-only trial 宣告**：本 plan 不接入 runtime——不新增 `route.*`、不新增 commit-msg validator、不動 `runtime.db` generated surfaces、不動 delegation schema / `validatePlanTreeFrontmatter`。協議以文件 + 行為紀律承載；驗證 leg 復用既有 review capability invoke（`ai-skill runtime capability-invoke --capability code-review --stance fault_finding`，既有 warning-only surface，無新 wiring）。
