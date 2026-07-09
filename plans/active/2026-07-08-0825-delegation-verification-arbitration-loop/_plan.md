@@ -256,6 +256,18 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 5. **Phase 3 重定位（stakeholder 裁定）**：不再研究抽象，改為**驗證穩定性**——問題從「還有沒有更高一層」改為「**未來三個月，新案例是否不用修改模型就自然落進目前模型**」。連續多案例成立 = 模型具 **Predictive Power**（而非僅 Retrospective Power）——兩者差異極大。
 6. **Post-Phase-3 候選研究主題（登記不展開）**：**Evidence Lifecycle**（`Produced → Challenged → Confirmed → Deprecated → Archived`）——Evidence 目前在模型中是靜態節點，但它怎麼累積/失效是隱含的下一問。此線不建立在新抽象上，而建立在既有研究紀律（temporal evidence / provenance / pre-registration / falsification）之上，很可能自然長出來。**現在不開**：ERA 剛進入穩定收斂期。
 
+**第十輪 review（使用者，2026-07-09）——研究治理層的收官觀察（meta-level，本身依「登記不升格」處理）**：
+
+1. **Freeze-at-peak 是治理模式，不是研究步驟**：「在最想繼續的時候停下來收證據」與一般「沒想法才停」本質不同——前者是**證據紀律**，後者是資源不足。核心句：**「Freeze 不是結束，是把模型固定，讓未來有機會失敗」**——模型一直改就永遠不知道它有沒有預測能力；凍結後 Case D/E/F 全用同一模型，成功與失敗才都有研究價值。
+2. **兩種 Freeze 的區分**：**Model Freeze**（v2 固定為正式工作模型）vs **Hypothesis Freeze**（v3 / Evidence Lifecycle / constraint-family——`Interesting → Register → Do Nothing`，等證據）。後者罕見且珍貴：多數研究的最大問題是看到新想法立即展開。
+3. **Working Model 的修改閘門 = 證據，不是更好的想法**：討論可以一直發生、hypothesis 可以一直累積，但**正式工作模型只有新的、足以改變模型的證據才能改**。這回答「什麼東西可以改變正式模型」——比「不要再抽象」更根本。
+4. **Research Governance Primitive（候選節奏，登記不展開）**：`Exploration → Freeze → Prediction → Accumulation → Revision`——九輪實際走的節奏。
+5. **三個最有長期價值的可移植成果（使用者總結）**——即使 ERA 被修正、v3 不成立、Decision Semantics 被取代，這三者仍保留並可用於下一個問題：
+   1. **Working Model Freeze**：證據不足時正式模型保持穩定；新想法先登記不升格。
+   2. **Pre-registered Falsification**：先定義成功/失敗判準再收資料，防事後合理化。
+   3. **Predictive Validation**：凍結後不追更高抽象，觀察新案例是否自然落位。
+   → **處置**：三者標記為 **本 plan closure 時的 intelligence atom 提煉候選**（plans/README 原則 5 的既有管道；不新建 governance 文件、不即時升格——與其自述的紀律自我一致）。**九輪最大產出不只是候選理論，是一套能持續產生可靠理論的研究流程。**
+
 ## Runtime Execution Path
 
 **doc-only trial 宣告**：本 plan 不接入 runtime——不新增 `route.*`、不新增 commit-msg validator、不動 `runtime.db` generated surfaces、不動 delegation schema / `validatePlanTreeFrontmatter`。協議以文件 + 行為紀律承載；驗證 leg 復用既有 review capability invoke（`ai-skill runtime capability-invoke --capability code-review --stance fault_finding`，既有 warning-only surface，無新 wiring）。
