@@ -33,7 +33,6 @@
 2. <...>
 
 ## 測試範圍（由 orchestrator 指定）
-- **slice 類型**：<implementation / outer_acceptance / combined — user-visible 行為預設 combined；implementation 關閉時外層驗收須 deferred + follow-up>
 - **你負責（executor）**：<happy path 整合測試 / 自驗命令>
 - **不由你寫（verifier_only）**：<負面 case、架構禁止事項檢查 — 留給獨立 verifier>
 
@@ -146,40 +145,6 @@ branch：<branch-name>（已 commit，未 merge）
 - **Execute 意圖 hook allowlist**（2d 契約回饋）：orchestrator 應可寫 `<PROJECT_ROOT>/docs/plans/**`、`.ai-skill/project/**`、`tests/**`；只 deny 內層實作路徑（如 `manageCode/server/**`）。否則 orchestrator 連 plan patch 也被擋，被迫讓 Executor 代寫外層 artifact。
 
 ## Dogfood 紀錄
-
-> **證據落點**：量測全文與契約回饋優先寫入 [`evidence/`](evidence/README.md)；本節保留摘要或 legacy inline。**引用用檔案路徑 + 標題，勿用行號**（避免編輯後漂移）。
-
-
-### 2g — ExternalRepoA server_doc test placement + delegation overlay（2026-07-09，证据 only）
-
-> **專案證據邊界**：class 名、live 路径留于 consumer workspace；Ai-skill 只保留 generalized metrics。
-
-- **任務**：`server_doc` 内共置 `*.test.*` 不得新增/改内容，仅 delete；验证一律外层 `tests/`；policy 落 `.ai-skill/project/rules/`，**不**写 `server_doc/docs/`。
-- **Delegation 落地**：`plan-delegation-execution-loop.md` + `delegation-verification-backfill.md` template；ERA 分工（Orchestrator overlay / Executor 改 guard 模板 / Verifier 跑 BDD live probe）。
-- **机械 gate**：`gate.short_drama.server_doc_test_placement` — 外层 Cursor `check-plan-phase-before-commit.py` + template `.ai-skill/project/templates/sibling-repo-githooks/` → sibling 本地 `.githooks/`（`install-sibling-repo-githooks.sh`；`core.hooksPath`）。**Concealment 仅 sibling app repo 远程**（README 一行「提交规范」）；**Ai-skill / 外层 workspace 可完整写 install 路径**。
-- **BDD**：7/7 pass — 增/改拦截、纯删放行；三角：overlay doc ↔ template pattern ↔ self-test + staged probe。
-- **相对 ExternalRepoC 2d**：同 consumer overlay + backfill 模式；差异 = 2g 为 filename+diff 渐进迁移；**2d′** 记录 ExternalRepoC 后续已落地 Java `manageCode/server/*/src/test/**` commit block（见 [`evidence/2d-prime-externalrepoc-module-alignment.md`](evidence/2d-prime-externalrepoc-module-alignment.md) 新信號表 #5）。
-- **不视为** Phase 3 closure；support doc-only + consumer mechanical gate 证据累積。
-
-### 2f — falsification run（**預註冊 2026-07-09**；任務未定，等真實任務自然出現）
-
-> **預註冊時點先於任務存在**（anti-reconstruction：判準 commit 於 run 前，run 後不得修改本節判準去救假說；要改判準只能預註冊給再下一個 run，本 run 依原判準判定）。
-
-- **目標**：預期失敗的工作性質——**preference-allowed**（brainstorming / creative writing / open-ended design / ideation）。精確判準是**工作性質**非 domain 名：同 domain 可同時含 justification-required 與 preference-allowed 工作（architecture 安全審查 vs 概念發想）。
-- **任務等待條件**：對話或專案中**自然出現**的真實 ideation / creative 需求；出現時標記 2f、用 loop 跑；**brief 不得誘導 evidence 結構**（不預塞 evidence requirement，觀察它自己長不長）。
-- **預註冊 falsification 判準（兩個獨立觀察）**：
-  | 觀察 | 問題 | fail 樣態 |
-  |---|---|---|
-  | **F1** | acceptance 是否自然形成 evidence requirement？ | 完全沒有 grounded 判準自然出現 |
-  | **F2** | closure 是否**真的依賴** independent evidence？ | 證據存在但最終以偏好/品味關閉（「我喜歡第 7 個」）——**證據裝飾性** |
-- **判讀表（run 前定死）**：F1✓F2✓ = ERA 成立於 preference 域（假說極強）；F1✓F2✗ = 邊界訊號（evidence 裝飾性）；F1✗ = 邊界訊號。失敗 = 依「Justification Required vs Preference Allowed」畫出 ERA 適用邊界，與成功同等有效。
-- **ERA 單一問句**（本 run 要回答的）：**該任務的 Decision 是否必須依賴 Independent Evidence？**
-- **任務選定（2026-07-09）**：**repo / 系統改名候選**——真實性錨點：2026-05-26 landing-page plan 明文「`Ai-skill` 僅作為尚未改名的 repo slug」（plans/README.md L275 + archived plan L8，T0 早於本 run 與預註冊）。工作性質 = preference-allowed（最終選名 = 使用者品味裁決）。**誠實標記**：使用者要求加速、由 orchestrator 主動排程（比照 2e 先例：真實任務可刻意排程，不可捏造）；brief 以自然委託語氣撰寫，**無 acceptance-evidence 標準、無 verification 段、無 loop 模板結構**——F1/F2 依預註冊判準觀察。
-- **結果（期中，2026-07-09；F2 待使用者選名）**：
-  - **Producer**（fresh agent、自然語氣 brief、零結構）：交付 12 候選（`03-repo-naming-candidates.md`，commit `0c35d92`）。**F1 觀察**：brief 未要求任何證據標準，producer **自發**附上篩選準則、逐候選撞名風險註記、並誠實標明知識截點限制建議定名前實查——evidence requirement **自然形成**（但為斷言式 grounding，非執行式查證）。
-  - **Reviewer**（fresh agent、自然語氣 brief、零模板）：**自發產出** 結構性 findings（全清單被動隱喻偏誤、缺「execution」維度候選）+ 逐案 grounded 批評（含 rationale 事實錯誤查核：canonry 非自造詞、noema 現象學誤用；撞名評級擴格反證 ×5）+ 明確自我節制「最終選名不是我做」。**證據責任結構在無模板下自然重現**：找碴附依據、不做決定。
-  - **期中新假說（比二元 F2 更細）**：preference-allowed 工作裡，evidence 自然出現在 **filter 層**（review 實質改變決策空間：淘汰 grimoire、揭露 vademecum 文化坑、修正 cairn 評級——證據非裝飾性），而 **selector 層**（存活候選中挑哪個）留給偏好。若 F2 最終量測證實此形態 → ERA 邊界不是「有無證據責任」，是「**證據責任止於 filter、closure 屬 preference**」——比全有/全無更精確的邊界。
-  - **F2 量測點**：使用者選名的裁決依據——待選。**補充量測尺度（2026-07-09 第六輪 review 提出，時點先於選名，記為 supplementary；原始二元 F1/F2 判準仍為本 run 正式判定基礎）**：三模式分類 Evidence-determined / Evidence-constrained / Preference-determined + **反事實鑑別問題**（「若 review 不存在，你會選同一個嗎？」——排除後最佳剩餘 vs 本來就會選，同一選擇對 ERA 意義不同）。
 
 ### 2a — software-delivery 任務 ✅（2026-07-08，Cursor session demo）
 
@@ -353,42 +318,6 @@ branch：<branch-name>（已 commit，未 merge）
 3. **Task transport = 2a/2a-external 的 agent 化** — 不必人類開新 chat；fresh context 由 subagent 保證。
 4. **多 slice 任務值得 loop**；單檔 typo 不值得 — 與 advisory 適用邊界一致。
 5. **Schema promotion 仍不建議（證據累積中）** — 2c 支持 doc-only 延續；Phase 3 Q5 決策待後續收斂（見 `_plan.md` §Phase 3）。
-### 2e — 跨域 run：grandfather sunset audit（Research/Audit 域）✅（2026-07-08–09，Claude Code Agent transport）
-
-> **Stage 2 裁決 run（Q6 / Q7(b) / Q8）**。任務真實性：`governance/lifecycle/system-upgrade-governance.yaml` §`pre_2026_05_28_doc_only_completion` 的 post_sunset_evaluation_rule 要求 4 個 covered plans 在 **2026-08-31** 前完成 wire-or-downgrade 處置——本 run 產出其調查與建議前置，是 deadline 驅動的自然待辦（非 manufactured）。**誠實標記**：run 由使用者發起（deliberate stage-2 probe），非全然偶發；「自然性」判準落在 (a) 任務本身真實、(b) 不把 sd 詞彙硬套進 brief——brief 以 Research 域原生語彙撰寫（Question → Investigation → Evidence → Recommendation），無 slice_kind / backfill / deliverables 欄位。
->
-> **候選盤點紀錄（Q6/Q8 佐證）**：economics 計畫（durability observation，禁主動推）、pattern-library T3A（authority surface decision 明文 do-not-pre-decide）、interaction-hazard（evidence-accumulation-only invariant）皆不可作為 run 載體——所有非 delivery active plans 均處 evidence-gated 暫停，佐證「manufacture 不可行、只能等真實任務」的紀律成立。
-
-#### Brief（orchestrator 撰寫，Research 域原生）
-- **問題（question）**：4 個 pre-2026-strengthened doc-only plans 的 orphan surfaces 現況為何？sunset 前應各自採取什麼處置？
-- **驗收（acceptance）**：(1) 每 plan 一節：宣告 orphan_surfaces 的現況事實（route 存在？誰消費？附檔案+行號或指令輸出，不可憑印象）；(2) 對照 post_sunset_evaluation_rule + 各 wire_plan 提示判定 wired / orphan；(3) 每 plan 處置建議（升 auto-detected / 補 wire 含最小動作 / 降 orphan 含移除清單 / manual_activation 註記）+ 理由；(4) conditional_extension_trigger 兩條件現況核對；(5) 不確定處明標 unverified。
-- **自查（verification）**：`ai-skill runtime audit` 取得分類現況；grep registry / discovery yaml / hooks.go 覆核每條 consumer 主張。
-- **產出**：`02-grandfather-sunset-audit.md`（本資料夾 companion，調查報告，處置決定保留給 maintainer）。
-- **結果**：✅ loop 完整走完（2026-07-09）。調查者（fresh agent、worktree）產 252 行報告（commit `c8ff035`）：**5/5 surfaces 已 wired**（flag 條款與補 wire 同日 2026-05-28 落地、條款從未回頭更新——過時宣告）；延展條件兩者皆不成立；sunset 只剩行政收尾。中途遇 session limit 中斷 → resume 續跑完成交付（transport resilience 實證：deliverable 未損）。事實查核者（另一 fresh agent、唯讀）：全部引文逐條命中、5 surfaces 獨立重跑 audit 一致、無虛引無「提到當消費」；findings ×2 皆 observation 級。
-
-#### 仲裁紀錄（2026-07-09 / grandfather sunset audit）
-| finding | 處置 | 理由 | 後續 |
-|---|---|---|---|
-| F1 manual_activation 註記尾端行號差 1（L2581→實為 L2580） | defer | 語意主張不受影響；查核表已記正確值 | 隨 sunset 行政收尾批次修 |
-| F2 related_scenario 檔案實際存在（報告標 unverified 未讀） | defer | 非矛盾（報告只稱未讀）；補充事實供 maintainer | 併入 sunset 收尾檢視 |
-
-#### 量測欄
-| 指標 | 值 |
-|---|---|
-| verifier 差集 | 2（皆 observation；**0 violation**——調查報告品質經對抗性查核成立） |
-| 仲裁分佈 | fix 0 / defer 2 / reject 0 |
-| orchestrator 越界 | 無實作 diff；仲裁全憑查核報告。Borderline 記錄：中斷恢復時做過報告**章節骨架** grep（recovery 決策用，未讀正文） |
-| verifier 報告自足性 | 是（Q1 第 3 個正向） |
-| 調查者讀檔差集 | 有：gen3 audit plan + 工具 git history（延展條件的直接證據來源，**正當**）→ 契約回饋：此類 audit brief 的 context.required 應含「宣告來源 plan」 |
-| 契約缺漏回饋 | brief v1 未列 gen3 plan；research 域 brief 教訓：調查對象的「宣告寫入時點的來源 plan」是必要 context |
-
-#### Q6 / Q7 / Q8 跨域觀察（本 run 的核心產出）
-| 問題 | 觀察 |
-|---|---|
-| **Q6 四責任閉環** | **自然成立**：Specification（調查 brief）→ Production（調查報告）→ Evidence（查核 findings）→ Decision（仲裁 defer×2）→ 回饋（brief 教訓）。角色 topology 自然不同（調查者/查核者/orchestrator + **maintainer 治理處置為第二層 decision**——Research 域特有的 decision 兩級分層，sd 域無此明顯分層）。**Pattern held, topology differed** = Q6 預測的正確形態 |
-| **Q7 backfill 出現/缺席** | **結構化 backfill（tier+owner 映射表）明確缺席且不需要**；出現的是**弱形式**——acceptance 條目內嵌證據要求（「附檔案+行號」「不可憑印象」「明標 unverified」）。判讀：Verification Backfill 是 sd 域強形式；跨域共同候選是 **evidence-first acceptance**（acceptance 自帶證據標準），非 backfill artifact 本身 |
-| **Q8 證據責任結構** | **四問全部自然重現**：誰產證據（調查者=主張+引文 / 查核者=獨立重取+對抗查漏）；哪種證據關哪狀態（引文全命中+獨立重跑一致 → 報告可信）；哪種不能單獨關（**調查者自查 necessary but insufficient——同構於「inner 證據不能單獨關 user-visible slice」：自產證據不能自我關閉**）；誰依證據決策（orchestrator 仲裁 findings；治理處置另屬 maintainer）。同構度高 + 一個域 variant（decision 兩級） |
-
 ### 2d — 外部 monorepo outbound sync Phase 3（4 slices）✅（2026-07-08，Cursor Task transport）
 
 > **專案證據邊界**：inner commit、class 名、live 環境細節留於 `<PROJECT_ROOT>` active main plan §執行紀錄；Ai-skill 只保留 generalized dogfood metrics（依 [`enforcement/sanitization.md`](../../../enforcement/sanitization.md)）。
@@ -451,6 +380,50 @@ branch：<branch-name>（已 commit，未 merge）
 
 ### 2d′ — ExternalRepoC 9j2 module alignment follow-on（2026-07-09，證據 only）
 
-→ **全文**：[evidence/2d-prime-externalrepoc-module-alignment.md](evidence/2d-prime-externalrepoc-module-alignment.md)（索引：[evidence/README.md](evidence/README.md)）
+> **專案證據邊界**：inner commit、class 名、live 環境細節留於 `<PROJECT_ROOT>` active main plan §執行紀錄；Ai-skill 只保留 generalized dogfood metrics（依 [`enforcement/sanitization.md`](../../../enforcement/sanitization.md)）。**本節為 §2d 同一 consumer（ExternalRepoC）的延續 run**，非新 consumer、非 Phase 3 closure。
 
-- **摘要**：§2d 同一 consumer 延續；integration UX fail ×1（平行 branch）、`remote_absent_delete` fix、live 雙邊 teardown、pre-push build + inner src/test block；模型自然落位 **是**。
+- **任務**：9j2 出站同步平台 — 模組 **01 app-url** / **02 bookmark** M1–M8 對齊、sync-remote 外層驗收、雙 feature branch 合併至可部署分支、live 刪除語義與測試落點治理。
+- **Transport**：Cursor orchestrator + **Task subagent**（Executor / Verifier，多 slice）；部分對齊與外層 acceptance 由 orchestrator 直接寫 `<PROJECT_ROOT>`（hook allowlist 內）。
+- **Repo**：`<PROJECT_ROOT>` 外層 + `<INNER_REPO>/manageCode` 內層；雙 repo commit。
+- **Consumer overlay**：沿用 2d — `plan-delegation-execution-loop.md`、verification backfill、`slice_kind`、C1–C5；新增 project rules：`pre-push-build-gate`、`test-acceptance-placement`、`9j2-sync-module-alignment`。
+
+#### 相對 §2d 的新信號
+
+| # | 觀察 | 對本 plan 的意義 |
+|---|---|---|
+| 1 | **平行 feature branch 下 user-visible 已關閉但 UI 不可見**（sync-remote 在未合併分支；可部署分支缺按鈕） | 延伸 2d #1：`slice_compliant_closed` 若含 user-visible 行為，brief 應加 **integration gate**（合併至可部署分支）或標 `beyond-loop: merge`；否則 orchestrator 與使用者驗收脫節 |
+| 2 | **遠端已缺席時 delete 非 idempotent**（遠端「未找到」阻本地刪） | L3 / `verifier_only`：`remote_absent_delete` 應進 backfill；mock IT 綠燈仍可能漏 — ERA「哪種證據能關哪個狀態」 |
+| 3 | **Live IT teardown 須雙邊**（本地 DB + 遠端清 test-data marker 列） | backfill 應明示 `live_delete_policy` / teardown owner（executor vs orchestrator beyond-loop） |
+| 4 | **首輪模組對齊曾跳過 formal Verifier**，使用者糾正後補跑 | 反模式實例：doc/align 回合仍須 V1–V4 或書面 `defer`；僅 executor 自驗 ≠ loop 關閉 |
+| 5 | **inner `src/test` commit block 已機械化**（新測試僅 outer `tests/`） | 相對 2g「漸進遷移」：ExternalRepoC 選整路徑 deny + BDD gate；consumer 自理 gate 模式 ×2 家族內變體 |
+| 6 | **pre-push build gate**（push 可部署分支前 client build + compile） | Q5：release-time consumer gate 與 orchestrator deny gate 互補；仍 doc-only |
+| 7 | **V5 runtime smoke defer**（dev captcha in-memory） | 延伸 2d #6：runtime tier 須 `V5: defer(reason)`，不可默認已驗收 |
+| 8 | **merge / push / stack restart 由 orchestrator，不在 Executor loop** | 延伸 deploy 邊界 → **integrate / release leg** 為 beyond-loop，但 user-visible closure 依賴它 |
+
+#### 量測欄（follow-on 彙總）
+
+| 指標 | 值 |
+|---|---|
+| 模組 slice | **2**（01 + 02 對齊；含外層 acceptance 補強） |
+| integration UX fail（合併前） | **1** — sync-remote UI 不可見直至 feature 合併 |
+| acceptance-violation（live delete） | **1** — `remote_absent_delete`；fix 後 idempotent |
+| verifier 降級（首輪跳過） | **1 次** — 使用者糾正後補 Verifier |
+| orchestrator 越界寫 manageCode | **0**（gate 生效後）；idempotent delete fix 經 Executor |
+| 新 consumer 機械 gate | **2** — pre-push build、inner src/test block |
+| 模型自然落位（Phase 3 穩定性） | **是** — overlay + backfill + ERA 分工未改形狀 |
+
+#### 契約回饋（寫回 canonical / consumer overlay）
+
+1. **`integration gate`** — user-visible `slice_compliant_closed` 應列合併至可部署分支，或標 `beyond-loop: merge`（advisory，模板 A acceptance 段）。
+2. **`remote_absent_delete`** — 出站 sync 模組 backfill 建議列 `verifier_only` 負面 case（遠端 404 / 未找到仍允許本地刪）。
+3. **`live_delete_policy`** — live tier teardown 雙邊 owner 寫入 backfill，避免 `[sync-test]` 殘留。
+4. **Release-time gate** — pre-push build 與 commit-time placement gate 可並存於 consumer overlay，不必進 schema。
+5. **Q5 仍維持 doc-only** — 2d′ 強化 consumer gate 證據，不改 schema promotion 判斷。
+
+### 2h — ExternalRepoC common-url Execute 验证不严（2026-07-09，證據 only）
+
+> 全文：[`evidence/2h-externalrepoc-common-url-verification-gaps.md`](evidence/2h-externalrepoc-common-url-verification-gaps.md)
+
+- **摘要**：03 common-url Execute 后用户手验暴露 `sync-remote` static-resource；回溯 F1–F6（RBAC 漏 `admin_role_menus`、V5 仅 `list`、combined 拟 defer L1–L3、verifier 降級、04 user-feedback 产品面事后修正）。
+- **量測**：acceptance-violation **≥2**；新 consumer gate **≥2**（RBAC 三连、api-surface smoke）；stakeholder 纠偏 **≥2**。
+- **契约回饋**：`V5-api-surface`、`RBAC-triple`、`combined-no-inner-close`、`restart-aware-runtime`、`spec-before-execute`（见 evidence §契约回饋）。
