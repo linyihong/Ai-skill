@@ -21,6 +21,21 @@ Owner: framework maintainer (linyihong)
 **累積真實（人工標註）candidate**，靠 `phase2_gate`（count≥20 / reviewed≥80% / accepted>50% /
 age_p95<30d）的真實數據決定是否開 Phase 2。在 gate 未達前主動建 matcher / accumulation runtime ＝
 違反本系統一路守的 observation-gate 紀律（呼應 economics plan 的 `observation_only`）。
+
+**驗證狀態四層（2026-07-09 maintainer；`Pipeline validated ≠ Governance validated`，兩軸分開）**：
+
+| 驗證對象 | 狀態 | 證據強度 |
+|---|---|---|
+| Plumbing（candidate → accept pipeline） | ✅ 已驗證 | 真實 artifact 走完整鏈（EL-5，`C-12cd0d07` → sample #8），不再只是設計圖 |
+| Governance Pattern Template | ✅ 已驗證一次 | sample #8 = promotion 後第一個新案例 → template 有**外推能力**（predictive power：能分類未來，不只描述過去），非只解釋歷史 |
+| Evidence Candidate System | 🟡 初步運作 | 有真實資料流；樣本數過少，**治理品質未驗** |
+| ECS Governance Metrics（Phase 2） | ❌ 尚未驗證 | reviewed_ratio / accepted_ratio / expire / aging 無足夠資料回答任何治理問題 |
+
+**下一階段刻意慢下來（不加 scanner 能力，scanner 已足證 plumbing）**：持續用現有流程累積 candidate、
+每筆照 accept/discard/expire 處置、定期看 reviewed_ratio / accepted_ratio / age；樣本近 20+ 才評估
+scanner / evidence-rule 演進——**改進由真實資料驅動，不由設計想像驅動**。ECS 真正要等的證據不是
+「再多一個 sample」，而是累積到能回答「expire 為何多／哪類最易 discard／哪些 rule 幾乎不產 candidate
+／哪些 plan 永遠沒 evidence」的那批資料。
 **Glossary Impact**: yes（候選新詞 `evidence_candidate` / `candidate_registry` / `notify_rule`；**尚未**註冊到 `knowledge/glossary/ai-skill.md`，待 gate 通過再決定）
 
 ## Executive summary
