@@ -8,7 +8,7 @@
 - **Transport**：Cursor orchestrator + **Task subagent**（Executor / Verifier，多 slice）；部分對齊與外層 acceptance 由 orchestrator 直接寫 `<PROJECT_ROOT>`（hook allowlist 內）。
 - **Repo**：`<PROJECT_ROOT>` 外層 + `<INNER_REPO>/manageCode` 內層；雙 repo commit。
 - **Consumer overlay**：沿用 2d — `plan-delegation-execution-loop.md`、verification backfill、`slice_kind`、C1–C5；新增 project rules：`pre-push-build-gate`、`test-acceptance-placement`、`9j2-sync-module-alignment`。
-- **相關 kit 章節**：[`01-dogfood-prompt-kit.md`](../01-dogfood-prompt-kit.md) → `### 2d`（baseline consumer）
+- **相關 baseline**：[`2d-outbound-sync-phase3.md`](2d-outbound-sync-phase3.md)（同一 consumer Phase 3 baseline）
 
 ## 相對 §2d 的新信號
 
