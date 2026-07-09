@@ -160,7 +160,8 @@ branch：<branch-name>（已 commit，未 merge）
   | **F2** | closure 是否**真的依賴** independent evidence？ | 證據存在但最終以偏好/品味關閉（「我喜歡第 7 個」）——**證據裝飾性** |
 - **判讀表（run 前定死）**：F1✓F2✓ = ERA 成立於 preference 域（假說極強）；F1✓F2✗ = 邊界訊號（evidence 裝飾性）；F1✗ = 邊界訊號。失敗 = 依「Justification Required vs Preference Allowed」畫出 ERA 適用邊界，與成功同等有效。
 - **ERA 單一問句**（本 run 要回答的）：**該任務的 Decision 是否必須依賴 Independent Evidence？**
-- **結果**：<等待真實任務>
+- **任務選定（2026-07-09）**：**repo / 系統改名候選**——真實性錨點：2026-05-26 landing-page plan 明文「`Ai-skill` 僅作為尚未改名的 repo slug」（plans/README.md L275 + archived plan L8，T0 早於本 run 與預註冊）。工作性質 = preference-allowed（最終選名 = 使用者品味裁決）。**誠實標記**：使用者要求加速、由 orchestrator 主動排程（比照 2e 先例：真實任務可刻意排程，不可捏造）；brief 以自然委託語氣撰寫，**無 acceptance-evidence 標準、無 verification 段、無 loop 模板結構**——F1/F2 依預註冊判準觀察。
+- **結果**：<run 進行中>
 
 ### 2a — software-delivery 任務 ✅（2026-07-08，Cursor session demo）
 
