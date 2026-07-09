@@ -151,6 +151,8 @@ Mutation testing 是測試有效性檢查，不是 coverage KPI。當變更涉�
 
 通過標準不是「mutant 越多越好」，而是至少能殺掉代表真實風險的 mutant；若沒有合適工具，可用手動 negative check 或 code review 方式模擬。
 
+在 delegation loop（[`delegated-execution.md`](delegated-execution.md) §5）中，本 targeted mutant flow 作為 Verifier V3 的 **evidence producer**：survived mutant 須轉譯為 semantic-gap finding（missing behavior + `acceptance_ref`），不作 mutation score KPI。
+
 ### Performance Test 選型 → 見 sd-validation
 
 效能測試類型（load / stress / spike / soak）的選型表與最低指標**不在此處複製**，canonical 在 [`validation.md`](validation.md) §1 效能測試關卡。當測試策略涉及效能風險時，從本 slice 的「效能敏感行為」列指向 `validation.md` 取得選型細節與 metric budget。

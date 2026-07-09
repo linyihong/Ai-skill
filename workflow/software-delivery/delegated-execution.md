@@ -88,11 +88,17 @@ deliverables:
 |---|---|---|
 | V1 重跑 | 獨立執行 brief `verification`（不信 executor 自驗輸出） | L1 replay |
 | V2 讀碼 | diff 對照 acceptance 與架構禁止項 | L2 inspection |
-| V3 對抗 | 執行或補寫 `verifier_only` 負面 / 邊界 case | L3 adversarial |
+| V3 對抗 | 執行或補寫 `verifier_only` 負面 / 邊界 case；反例來源可用 evidence producer 機械枚舉（見下方 V3 evidence producer） | L3 adversarial |
 | V4 產出物與流程 | **對照 brief `deliverables` + backfill 逐條核對**：該存在的檔案 / 步驟是否交付；必須產出核對表，不能只看測試綠 | （delivery 域擴充） |
 | V5 運行態 smoke（candidate，consumer 2026-07-09 incident） | **真實部署路徑是否可行**：schema/migration 已 apply（非僅檔案存在）、服務可起、使用者主路徑可走（API/UI 依賴鏈）。backfill 有 `runtime` tier 行時 **mandatory 不可跳**；纯 refactor 無 schema/API/UI 變更可書面 defer | （delivery 域擴充） |
 
 **V1 與 V4 的區別**：V1 問「測試過沒過」；V4 問「**該交付的東西有沒有交齊**」。**V4 與 V5 的區別**：V4 問「migration **檔案**在不在」；V5 問「migration **跑了沒**」——build 綠 + 測試綠 + 檔案齊 仍可能 runtime 打不開（consumer 實證：mock IT/build/grep 全綠、dev DB 未跑 migration → UI 開啟即 missing column）。
+
+**V3 evidence producer（使用者裁決 2026-07-09）**：V3 的反例不必只靠 verifier 自行想像（imagination-driven）。對 boundary / boolean / nullability / authorization / invariant / guard 類風險，targeted mutation（[`test-strategy.md`](test-strategy.md) §Mutation Testing / Test Effectiveness Check）是 V3 的一種 **evidence producer**——機械枚舉行為區分點（mechanical falsification），**不是新的驗證層**（不設 V6）。使用契約：
+
+1. **Survived mutant 本身只是資訊，不是 finding**。Verifier 必須轉譯為 semantic-gap finding：`evidence` = mutation + behavioral implication（如「`>` → `>=` survived ⇒ boundary `price==100` 未被測試區分」）+ 建議的 `verifier_only` case；`acceptance_ref` / `classification` 照 canonical 契約。Orchestrator 只讀 finding，不需知道 mutation engine 存在。
+2. **不得以 mutation score 作 KPI 或關閉門檻**；通過標準沿用 test-strategy：殺掉代表真實風險的 mutant、過濾 equivalent mutants（equivalent mutant 對應仲裁 `reject` + `refuted` 留證）。
+3. Producer 可替換：mutation 只是「Behavioral Falsification」producer family（mutation / fault injection / property-based / model-based）之一，皆產出同型 evidence——「此行為未被驗證區分」。family 通用化 gated on plan Q9（forming abstraction，observe-only）；未 graduate 前本 slice 只承載 targeted mutation 這一種。
 
 **Delivery 域 finding 分類擴充**（candidate；映射回 canonical `classification` family，第二 consumer 證據前不進 canonical enum）：
 
@@ -153,6 +159,7 @@ deliverables:
 | combined mega-slice | 單一 slice 塞過多 deliverables，verifier V4 單輪負載過高、核對品質下降 | 拆 2–3 輪 verifier 或拆 slice（§6） |
 | deploy 隱含在 loop 外 | runtime deploy / migration 無人宣告歸屬，orchestrator 默默代做 | backfill 鐵則 5：列 acceptance 或明標 `beyond-loop` |
 | 綠燈假象（missing constraint） | build 綠 + 測試綠 + 檔案齊，但 runtime 打不開——既有證據只能排除 implementation failure，**無任何證據約束 runtime 可行性**，Close 在過大的可行集裡做出 | backfill 補 `runtime` tier 行 + Verifier V5；未來勿再往 V6/V7 疊 checklist，先問「缺的是哪一種 constraint」 |
+| mutation score KPI | 以 mutation % 作為品質指標或關閉門檻；跑全量 engine 追分數 | targeted mutation only（risk-triggered）；survived mutant → semantic-gap finding；殺掉代表真實風險的 mutant 即可（§5 V3 evidence producer） |
 
 ## 9. 機械 gate 模式（Layer 3 adapter，optional）
 
