@@ -604,14 +604,29 @@ func validatePlanTreeFolderConvention(text string, staged []string, root string)
 			continue
 		}
 		base := segs[len(segs)-1]
+		// evidence/ subdirectory: exempt from NN- prefix and depth limits (see
+		// governance/lifecycle/plan-evidence.md).
+		inEvidence := false
+		for i, seg := range segs {
+			if i >= 2 && seg == "evidence" {
+				inEvidence = true
+				break
+			}
+		}
 		// Depth check: levels under plans/<active|archived>/.
 		depth := len(segs) - 2
-		if depth >= 3 {
+		if depth >= 3 && !inEvidence {
 			warnings = append(warnings, fmt.Sprintf("%s: nested depth %d (recommend < 3, consider splitting into independent main plan)", rel, depth))
 		}
 		// Filename convention (only for files inside a folder, not top-level
 		// active/archived siblings).
 		if depth >= 2 {
+			if inEvidence {
+				if !strings.HasSuffix(strings.ToLower(base), ".md") {
+					warnings = append(warnings, fmt.Sprintf("%s: evidence files should be .md", rel))
+				}
+				continue
+			}
 			if base != "_plan.md" && !planTreeFolderNameRE.MatchString(base) {
 				warnings = append(warnings, fmt.Sprintf("%s: filename should be `_plan.md` or `NN-<slug>.md`", rel))
 			}

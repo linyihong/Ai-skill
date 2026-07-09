@@ -460,6 +460,17 @@ per_commit_obligations:
       keep as sibling top-level files; use plan tree (parent/sub) only when
       independent acceptance requires it. Decision table:
       governance/lifecycle/plan-tree-hierarchy.md §計畫切檔決策.
+  - id: obligation.commit.plan_evidence_convention
+    fires: every_commit_staging_plan_evidence_md
+    validator: validatePlanEvidenceConvention
+    severity: block
+    opt_out_marker: "[skip-plan-evidence]"
+    contract_source: governance/lifecycle/plan-evidence.md
+    rationale: |
+      When a plan folder uses evidence/, every record file must live under
+      evidence/ with a README index. Citations use file paths (evidence/foo.md),
+      not line numbers (L449), to survive edits and tool read offsets.
+      warnPlanEvidenceLineNumberCitations is advisory-only (hooks Check warning).
   - id: obligation.commit.runtime_index_freshness
     fires: every_commit_staging_markdown_other_than_runtime_index_only
     validator: validateRuntimeIndexFreshness

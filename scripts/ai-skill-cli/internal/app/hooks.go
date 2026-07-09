@@ -2400,6 +2400,10 @@ func runCommitMsgHook(result Result, root string, positional []string) Result {
 	if w := warnPlanArchivalLinkIntegrity(text, nil, root); w != "" {
 		result.Checks = append(result.Checks, Check{Name: "plan_archival_link_warnings", Status: "warning", Message: w})
 	}
+	stagedForWarn, _ := gitLines(root, "diff", "--cached", "--name-only")
+	if w := warnPlanEvidenceLineNumberCitations(text, stagedForWarn, root); w != "" {
+		result.Checks = append(result.Checks, Check{Name: "plan_evidence_line_citation_warnings", Status: "warning", Message: w})
+	}
 
 	// v2 compact form path: "Cognitive: <e>·<c>·<g>·<m> / V:<v> / Cost:<cost> / Sig:<sig>"
 	// Valid only when all 6 dims are at their default values. Non-default dims require full form.
@@ -4032,6 +4036,9 @@ var commitMsgValidatorRegistry = map[string]func(commitMsgCtx) string{
 	"obligation.commit.plan_tree_folder_convention": func(c commitMsgCtx) string {
 		return validatePlanTreeFolderConvention(c.text, c.staged, c.root)
 	},
+	"obligation.commit.plan_evidence_convention": func(c commitMsgCtx) string {
+		return validatePlanEvidenceConvention(c.text, c.staged, c.root)
+	},
 	"obligation.commit.runtime_index_freshness": func(c commitMsgCtx) string {
 		return validateRuntimeIndexFreshness(c.text, c.staged, c.root)
 	},
@@ -4068,6 +4075,7 @@ var defaultCommitMsgDispatchOrder = []string{
 	"obligation.commit.plan_tree_parent_reference",
 	"obligation.commit.plan_tree_unique_id",
 	"obligation.commit.plan_tree_folder_convention",
+	"obligation.commit.plan_evidence_convention",
 	"obligation.commit.runtime_index_freshness",
 }
 

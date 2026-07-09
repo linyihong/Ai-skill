@@ -63,7 +63,8 @@ Spike：等同 sub-plan，建議 `required_for_completion: false`。
 | `validatePlanTreeArchiveOrder` | block | 主計畫 archive 時，所有 `parent == <main>` 且 `required_for_completion: true` 的 sub-plan 必須 `status: completed`。**只看 status，不看 location** |
 | `validatePlanTreeParentReference` | block | sub-plan `parent` 指向的 id 必須存在於 active + archived 全集；防 orphan node |
 | `validatePlanTreeUniqueID` | block | 全 repo plan `id` 必須唯一；防 parent pointer 指錯 |
-| `validatePlanTreeFolderConvention` | warning | folder 缺 `_plan.md` / 檔名不符 `NN-` 前綴 / 深度 ≥ 3 / **頂層 flat multi-file cluster**（同 `<slug>` 前綴多檔） |
+| `validatePlanTreeFolderConvention` | warning | folder 缺 `_plan.md` / 檔名不符 `NN-` 前綴 / 深度 ≥ 3（**`evidence/` 子目錄豁免**）/ **頂層 flat multi-file cluster** |
+| `validatePlanEvidenceConvention` | block | `evidence/` 存在時：`evidence/README.md` 必填、Run 索引覆蓋所有 evidence `.md`、禁行號引用（warning 另發）— 見 [`plan-evidence.md`](plan-evidence.md) |
 
 Sub-plan 之間的依賴（`depends_on` → DAG）目前 **不在治理範圍**；
 promotion gate：≥ 3 個自然發生的 C-depends-on-A 案例後再評估。
