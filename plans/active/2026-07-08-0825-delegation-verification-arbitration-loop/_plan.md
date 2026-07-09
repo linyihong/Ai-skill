@@ -226,6 +226,21 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 5. **第二維度猜想（未驗證，記錄待觀察）**：Constraint Strength 不是唯一維度，還有 **Constraint Type**——sd 的 evidence 主要「排除非法」（Illegal）、naming 主要「降低風險」（Risk）、research 主要「增加可信度」（Confidence）、creative 剩「Preference」。**呼應（orchestrator 補充）**：各域自然長出的 finding 分類恰是 constraint-type 標記——sd `acceptance-violation`＝Illegal 型、naming review 的撞名/文化坑＝Risk 型、research 查核的引文覆核＝Confidence 型；分類 enum 未經協調卻對上猜想分型，是此維度真實存在的間接信號。
 6. **v3 候選假說（明標：不入正式定義，下一階段待驗證）**：`v1: Evidence → Decision`／`v2: Evidence constrains Decision`／**`v3(候選): Evidence progressively shapes the feasible decision space`**。開放問題：不同類型的證據是以不同機制（排除非法／降風險／升可信度）塑造可行集，還是存在更統一的機制？——ERA 下一階段的核心待驗證問題。
 
+**第八輪 review（使用者，2026-07-09）——理論收斂判定 + 抽象凍結（stakeholder 決策）**：
+
+1. **理論收斂特徵判定：開始有了**。依據不是假說變漂亮，而是每輪修正共有的特性：**新抽象不推翻舊資料，而是讓舊資料成為新模型的特例**（delivery 的 `Evidence → Decision` = feasible set 只剩一個元素的極限情況）；每輪產生新的可反證預測；假說不靠改寫歷史成立。
+2. **修正第七輪：Preference 不是 Constraint Type，是 Selection Policy**——Illegal / Risk / Confidence 都在「限制可行集」，Preference 是「從合法集合裡挑一個」，屬不同機制、不同層。修訂模型：
+   ```text
+   Decision Space
+     ↓ Evidence Constraints（Illegal / Risk / Confidence / …）
+   Feasible Set
+     ↓ Selection Policy（Preference / Optimization / Random / User Choice）
+   Decision
+   ```
+3. **Responsibility 二分（讓 ERA 的 Responsibility 第一次完整）**：**Constraint Responsibility**（誰能改變 Feasible Set——producer 加 evidence、verifier 加 independent constraints）vs **Selection Responsibility**（誰能從可行集合做最終選擇——orchestrator / decision holder 的 selection policy）。
+4. **不急 enum 化** constraint types（Illegal/Risk/Confidence 目前是觀察分型，非 schema）。
+5. **抽象凍結（stakeholder 決策，2026-07-09，效期至 Phase 3 / 2026-08-31）**：**在 Phase 3 前刻意不再提升抽象層級**。v2（Evidence constrains Decision）= 正式工作模型；v3 = 維持候選；後續只做證據收集——特別觀察 **Constraint Responsibility 與 Selection Responsibility 是否在新案例中自然分離**。v3 升格條件：3–4 個不同領域重複出現此分離。理由：目前「每輪能回頭解釋舊資料 + 產生可反證預測」的優勢，會被急著升格破壞。
+
 ## Runtime Execution Path
 
 **doc-only trial 宣告**：本 plan 不接入 runtime——不新增 `route.*`、不新增 commit-msg validator、不動 `runtime.db` generated surfaces、不動 delegation schema / `validatePlanTreeFrontmatter`。協議以文件 + 行為紀律承載；驗證 leg 復用既有 review capability invoke（`ai-skill runtime capability-invoke --capability code-review --stance fault_finding`，既有 warning-only surface，無新 wiring）。
@@ -325,6 +340,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 | 通用化 adoption | **三階段**（§架構收斂觀察）：stage 1 現況 — **sd 域使用者支持全面採用**（第三輪 review 2026-07-08：定位為 Software Delivery Execution Model；落地重框列 Phase 3 checkbox）、系統級不預設；stage 2 gated on 跨域自然收斂（Q6/Q7/Q8）；stage 3（runtime 全面預設）需 cross-domain + cross-workflow + cross-project evidence，超出本 plan scope |
 | Stage 2 觀察鏡頭 | **證據責任分配結構**（Q8 / ERA）：跨域 run 記錄「誰產生哪種證據 / 哪種證據足以支持哪類結論 / 誰不能靠自產證據關閉 / 裁決權屬誰」，不預設 sd 詞彙、不驗角色名 |
 | 下一裁決 run | **Falsification-first**（第四輪 review，2026-07-09）：刻意選預期失敗的域（brainstorming / creative writing / open-ended design / ideation）的**真實任務**跑 loop——成功則假說極強、失敗則畫出適用邊界，皆有效；不 manufacture、不再累積成功域 |
+| 抽象凍結 | **Phase 3 前不再提升抽象層級**（第八輪 review，2026-07-09）：v2 = 正式工作模型、v3 = 候選；後續只收證據，觀察焦點 = Constraint / Selection Responsibility 是否自然分離；v3 升格需 3–4 域重複出現分離 |
 | 驗證 leg | 復用 review capability `fault_finding` stance invoke，不另定 stance |
 | 適用範圍 | advisory；只適用已宣告 delegation 的委派任務；主打 software-delivery，Ai-skill 比照 |
 | Schema promotion | gated on Phase 2 證據（Q5），deadline 2026-08-31 |
