@@ -14,6 +14,8 @@ revision:
     note: "Dogfood 2d — 外部 monorepo outbound sync Phase 3（4 slices）；consumer overlay slice_kind/backfill；hook allowlist 契約回饋"
   - date: 2026-07-09
     note: "Dogfood 2h — ExternalRepoC common-url Execute 验证不严：RBAC 三连、V5 api-surface、combined 不得 inner-only 关闭"
+  - date: 2026-07-09
+    note: "第四輪 review — mutation testing 定位為 V3 evidence producer（非 V6）；Behavioral Falsification producer family 立 Q9（forming abstraction）"
 ---
 
 # Delegation Verification & Arbitration Loop（委派執行→獨立驗證→仲裁閉環）
@@ -23,7 +25,7 @@ revision:
 **建立日期**: 2026-07-08
 **Source**: 2026-07-08 對話 — 使用者觀察到外部框架的三角色模式：主 session 只做規劃 / 切分 / 仲裁，執行交給獨立 agent session，驗證再交給另一個獨立 session，最後由主 session 仲裁每條驗證發現（要修 / 超出範圍 / 駁回）。目標：補漏「預計與實現的落差」。主要針對 `workflow/software-delivery` 的交付處理；Ai-skill 自身任務比照辦理，觀察品質是否提升。
 **Baseline**: [`03-subplan-agent-delegation`](../../archived/2026-06-22-1009-plans-system-portability-and-delivery-integration/03-subplan-agent-delegation.md)（completed，2026-07-06）— delegation `brief` schema + 雙路徑 dogfood ★★★★☆。本 plan 是其 loop 延伸（情境 C：sibling main plan + baseline_ref，不重開該 tree）。
-**Glossary Impact**: yes — candidate terms：`independent_verification`（fresh-context 驗證 leg，非 executor 自驗、非 orchestrator 自 review）、`arbitration`（orchestrator 對 verifier findings 的處置協議：fix / defer / reject）、`evidence_driven_control_loop`（四責任閉環通用化候選，Q6 gated，見 §架構收斂觀察）。graduate 時才註冊到 `knowledge/glossary/ai-skill.md`；未定稿前不註冊。
+**Glossary Impact**: yes — candidate terms：`independent_verification`（fresh-context 驗證 leg，非 executor 自驗、非 orchestrator 自 review）、`arbitration`（orchestrator 對 verifier findings 的處置協議：fix / defer / reject）、`evidence_driven_control_loop`（四責任閉環通用化候選，Q6 gated，見 §架構收斂觀察）、`behavioral_falsification`（V3 evidence producer family 候選，Q9 gated，見 §架構收斂觀察第四輪）。graduate 時才註冊到 `knowledge/glossary/ai-skill.md`；未定稿前不註冊。
 
 > **Watch-Out List citation**：對應 [`architecture/ai-native-cognitive-ecosystem-system.md`](../../../architecture/ai-native-cognitive-ecosystem-system.md) §Watch-Out List 的「process bloat」「premature abstraction」「over-engineering」防呆：
 > - **不建自動 orchestrator** — 03 的 reservation 邊界維持不變；本 plan 是**角色協議**（主 session 人工扮演 orchestrator），不是 automation。
@@ -179,6 +181,14 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 3. **系統級不採用的判準改變**：不是角色問題，是 **Evidence Backfill 是否存在**。Research（Question → Exploration → Evidence → Hypothesis）、Knowledge（Raw → Extraction → Normalization → Validation）、Architecture（Problem → Alternatives → Tradeoff → Decision）的生命週期可能沒有「execution 前的 acceptance→evidence 映射」——這是 Q6/Q7 跨域驗證要直接觀察的點。
 4. **最深層命題（→ Q8）**：真正在收斂的可能不是 Delegation、也不是 Evidence-driven Control Loop，而是 **Evidence Responsibility（證據責任）**——整份 sd 文件每節都在回答：誰產生哪種證據（backfill owner / V1–V4）、哪種證據能關哪個狀態（C1–C5）、哪種證據不能單獨 closure（inner-only 禁令）、誰依證據做決策（orchestrator 唯一）。**跨域觀察重點從「四責任閉環是否重現」細化為「證據責任分配結構是否重現」**；若重現，可升格的 primitive 是更底層的 Evidence Responsibility Model。
 
+**第四輪 review（使用者，2026-07-09，Mutation Testing 討論後）**——四個命題，doc-only 回寫：
+
+1. **Mutation testing = V3 的 evidence generator，不是新驗證層（不設 V6）**。架構優勢在於以 evidence 為中心而非以 testing 技術為中心（Executor → Evidence → Verifier → Evidence → Orchestrator → Arbitration）；mutation 只是「一種產生 Evidence 的方法」，架構完全不用改。已落地：[`delegated-execution.md`](../../../workflow/software-delivery/delegated-execution.md) §5 V3 evidence producer + anti-pattern「mutation score KPI」；[`test-strategy.md`](../../../workflow/software-delivery/test-strategy.md) §Mutation 加 verifier-consumer back-pointer。
+2. **L3 從 imagination-driven 升級為 mechanical falsification**。現行 L3 是 verifier「猜反例」（human/AI imagination driven）；mutation 是機械枚舉行為區分點（Code → Systematically enumerate behavior changes → 哪些沒死 = verifier 要看的），與本 repo「Mechanical Enforcement > Human Discipline」的一貫立場同構。Verifier 不再需要自己想到 `price==100`。
+3. **Survived mutant 只是資訊，finding 才是 evidence**。契約：Mutant → **Semantic Gap** → Verifier Finding（`evidence` = mutation + behavioral implication + 建議 `verifier_only` case；`acceptance_ref`；`classification`）。Orchestrator 不需知道 mutation engine 存在——只讀 finding。AI-native 延伸（observe-only，未落地）：Executor → Mutation → **AI Analysis**（LLM 從 survived mutant 推論 missing behavior、生成 `verifier_only`）→ Verifier 只需 Run → Observe → Evidence。
+4. **不做 mutation score KPI**（82%/90%/95% 一律不做）——與 architecture 反 KPI、重 evidence quality 的立場一致；保留 targeted mutation（risk-triggered：boundary / boolean / null / authorization / invariant / guard），不跑「PIT score=92% done」。
+5. **更通用的抽象候選（→ Q9）**：「Behavioral Falsification」——mutation 只是 producer 之一，未來可有 fault injection / property-based testing / model-based scenarios，全部產出同一種 evidence：「目前這個行為沒有被驗證區分」。這讓 loop 不綁定任何特定測試技術，維持「以證據為核心、可替換 producer」的設計。**紀律邊界**：forming abstraction（observe-only）；graduate 前不建 producer registry、不改 slice 措辭為通用 family、mutation 以外的 producer 無真實 run 前只是 analogy。
+
 ## Runtime Execution Path
 
 **doc-only trial 宣告**：本 plan 不接入 runtime——不新增 `route.*`、不新增 commit-msg validator、不動 `runtime.db` generated surfaces、不動 delegation schema / `validatePlanTreeFrontmatter`。協議以文件 + 行為紀律承載；驗證 leg 復用既有 review capability invoke（`ai-skill runtime capability-invoke --capability code-review --stance fault_finding`，既有 warning-only surface，無新 wiring）。
@@ -197,6 +207,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 | Q6 | 通用化定位：graduate 時是否以「Evidence-driven Closed Control Loop」（四責任分離：Specification → Production → Independent Evidence → Arbitration → Specification）取代「Delegation」定位？（使用者 review 2026-07-08 提出，見 §架構收斂觀察） | Phase 3（adoption stage 2 gate） | open | 至少一個**非 delivery 域**（Research / Knowledge / Architecture）真實 run **自然收斂**到四責任閉環（非類比解釋）；**驗 pattern 不驗 topology**（角色名可全換）；stage 3（runtime 全面預設）另需 cross-domain + cross-workflow + cross-project evidence，不在本 plan scope | <跨域 run evidence> |
 | Q7 | **Verification Backfill 是否為獨立 primitive（Evidence-first Execution）**：「acceptance 在 execution 前映射成證據」是否比 delegation 本身更根本？（第三輪 review 命題 2） | Phase 3 / stage 2 觀察 | open | (a) sd 域內：backfill 在 ≥2 個真實委派任務穩定使用且能擋「做完再想怎麼驗」；(b) 跨域：至少一個非 delivery 域**自然出現或明確缺席**「execution 前的 acceptance→evidence 映射」——缺席也是有效答案（支持「backfill 是 sd-specific，不是 primitive」） | **2d 正向（sd 域第 2 個外部 run）**：`verification_backfill` + `deliverables[]` + `slice_kind` + V4 產出物核對；L1–L3 外層鏈為 user-visible slice 關閉條件 — kit §2d；跨域觀察仍 open |
 | Q8 | **Evidence Responsibility Model 是否為更底層共同骨架**：跨域是否自然收斂出相同的「證據責任分配」結構——誰產生哪種證據 / 哪種證據能關哪個狀態 / 哪種不能單獨 closure / 誰依證據決策？（第三輪 review 命題 4；**細化 Q6 的觀察鏡頭**） | Phase 3 / stage 2 觀察 | open | 非 delivery 域真實 run 記錄其證據責任分配（不預設 sd 詞彙）；若 ≥1 域重現同構的四類責任回答 → Q8 升格候選 = Evidence Responsibility Model（而非 Delegated Execution / Control Loop）；若各域結構不同構 → 記錄差異、維持 domain-local | <跨域證據責任紀錄> |
+| Q9 | **Behavioral Falsification 是否為 V3 evidence producer family**：mutation / fault injection / property-based / model-based 是否收斂為可替換 producer（皆產出「此行為未被驗證區分」型 evidence）？（第四輪 review 命題 5，見 §架構收斂觀察） | Phase 3 / 後續 delivery dogfood | open | (a) targeted mutation 作為 V3 producer 在 ≥1 個真實委派 run 實際使用，且 survived mutant → semantic-gap finding 契約成立（orchestrator 未被迫理解 mutation engine）；(b) 至少第二種 producer（fault injection / property-based / model-based）自然出現於真實 run——缺席亦為有效答案（family 維持 mutation-only，不建抽象）；graduate 前不建 producer registry / 通用 taxonomy | <V3 producer run evidence> |
 
 ## 完成條件
 
@@ -240,6 +251,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 - [x] Ai-skill repo 內委派的 bootstrap 注意事項寫入 SOP（tool-neutral gate id `gate.bootstrap.receipt_present`；executor / verifier 實測 Bootstrap Receipt 通過）
 - [x] **Verifier 三層驗證契約** + 測試職責分工（`executor` / `verifier_only`）補強 — 2026-07-08，外部 monorepo tiered plan 執行規劃回饋；見 §Decision Rationale、plans/README.md、kit 模板 B
 - [x] **software-delivery 泛化 slice**（`sd-delegated-execution`，maturity: candidate）— 2026-07-08，從外部 consumer overlay 泛化：角色×證據責任矩陣、verification backfill（tier+owner）、`deliverables[]`、slice 關閉狀態（`implementation_done` ≠ `slice_compliant_closed`，C1–C5）、Verifier V1–V4（V4 產出物/流程核對）、orchestrator 錨定紀律、anti-patterns。落點 [`workflow/software-delivery/delegated-execution.md`](../../../workflow/software-delivery/delegated-execution.md)；tier 語意引用既有 test-strategy / validation slices 不另建 taxonomy；`deliverable-omission` / `process-omission` 為 delivery 域 candidate 分類，第二 consumer 證據前不進 canonical enum。**第二批泛化（orchestrator 脊椎，同日）**：觸發條件（含 loop-未關閉持續 + transport-adaptation 例外須 plan 註明）、執行順序 6 步不可跳過、主 session 禁止 4 條 + 被擋時的正確反應、機械 gate 事件生命週期模式（Layer 3 optional，arm → deny → executor grant → clear + bypass 書面記錄）——泛化自 consumer 的 orchestrator 機械提醒檔
+- [x] **V3 evidence producer 定位**（第四輪 review 回寫，2026-07-09）：targeted mutation 作為 V3 的 evidence producer 寫入 [`delegated-execution.md`](../../../workflow/software-delivery/delegated-execution.md) §5（含 survived mutant → semantic-gap finding 契約、anti-pattern「mutation score KPI」）；[`test-strategy.md`](../../../workflow/software-delivery/test-strategy.md) §Mutation 加 back-pointer。doc-only、不設 V6、不建 producer registry；family 通用化 gated on Q9
 
 ## Phase 2 — 雙 dogfood
 
@@ -264,6 +276,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 - [ ] Q6 決策：通用化定位（Evidence-driven Closed Control Loop vs Delegation）——依非 coding / delivery 域真實 run 證據裁決；無證據則維持 delegation 定位、四責任觀察留檔（§架構收斂觀察）
 - [ ] Q7 決策：Verification Backfill 是否升格為獨立 primitive（Evidence-first Execution）——依 sd 域 ≥2 次真實使用 + 跨域出現/缺席觀察裁決；缺席亦為有效關閉（sd-specific）
 - [ ] Q8 決策：Evidence Responsibility Model 是否為更底層骨架——跨域 run 以「證據責任分配結構是否同構」為觀察鏡頭（取代單看角色/loop 形狀）；同構 → 升格候選改為 Evidence Responsibility Model；不同構 → 記錄差異維持 domain-local
+- [ ] Q9 決策：Behavioral Falsification producer family——依 (a) mutation 作為 V3 producer 的真實 run 使用證據 + (b) 第二種 producer 出現/缺席裁決；缺席 → family 維持 mutation-only、不建抽象（有效關閉）
 - [ ] sd 域定位落地評估：依使用者第三輪 review「sd 支持全面採用」，評估將 `sd-delegated-execution` 從「advisory + delegation 宣告任務」重定位為 **Software Delivery Execution Model**（含 slice 更名/正文重框、execution-flow 導航同步、advisory→default 的升級條件明文化）——獨立 linked-update 批次，不與 Q7/Q8 混批
 - [ ] Glossary 註冊決策落實（`independent_verification` / `arbitration` / `evidence_driven_control_loop` 註冊或明確不註冊）
 - [ ] 執行 Plan Completion Closure（含 plans/README.md 狀態表更新、搬移 archived）
@@ -279,6 +292,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 | 通用化 adoption | **三階段**（§架構收斂觀察）：stage 1 現況 — **sd 域使用者支持全面採用**（第三輪 review 2026-07-08：定位為 Software Delivery Execution Model；落地重框列 Phase 3 checkbox）、系統級不預設；stage 2 gated on 跨域自然收斂（Q6/Q7/Q8）；stage 3（runtime 全面預設）需 cross-domain + cross-workflow + cross-project evidence，超出本 plan scope |
 | Stage 2 觀察鏡頭 | **證據責任分配結構**（Q8）：跨域 run 記錄「誰產生哪種證據 / 哪種證據關哪個狀態 / 哪種不能單獨 closure / 誰依證據決策」，不預設 sd 詞彙、不驗角色名 |
 | 驗證 leg | 復用 review capability `fault_finding` stance invoke，不另定 stance |
+| V3 evidence producer | targeted mutation（risk-triggered：boundary / boolean / null / authorization / invariant / guard）；survived mutant 須轉 semantic-gap finding，**不做 mutation score KPI**；producer family 通用化（Behavioral Falsification）gated on Q9，graduate 前 mutation-only（2026-07-09 第四輪 review 裁決） |
 | 適用範圍 | advisory；只適用已宣告 delegation 的委派任務；主打 software-delivery，Ai-skill 比照 |
 | Schema promotion | gated on Phase 2 證據（Q5），deadline 2026-08-31 |
 | Dogfood transport | 雙 transport：2a Cursor（human 路徑，使用者操作）/ 2b Claude Code Agent（agent 路徑，orchestrator 自駕，2026-07-08 使用者授權）；模板 tool-neutral，工具細節只在 kit 傳輸備註 + `ai-tools/agent/`（Layer 3） |
