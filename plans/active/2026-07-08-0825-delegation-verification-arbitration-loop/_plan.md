@@ -217,6 +217,15 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 4. **F2 三模式量測尺度**（本輪提出時 F2 尚未量測，時序合法；**記為補充量測，原始二元判準仍為本 run 正式判定基礎**）：Evidence-determined（證據幾乎唯一決定）/ **Evidence-constrained**（證據縮小範圍、偏好完成選擇）/ Preference-determined（證據幾乎無影響）。
 5. **反事實鑑別問題**（F2 量測的關鍵細化）：若最終選了某候選，須區分「reviewer 排除其它後它成為最佳剩餘」vs「即使 review 不存在本來就會選它」——**同一個選擇、對 ERA 意義完全不同**。
 
+**第七輪 review（使用者，2026-07-09）——Feasible Set 形式化 + v3 候選假說**：
+
+1. **v2 真正強的原因**：不只解釋更多 domain，是解釋更多 **Decision 類型**——Decision 不是單一步驟。sd 實際鏈是 `Evidence → 哪些不能 Close → fix/defer/reject → Closure`；Evidence 沒有直接輸出 Decision，是先定義 **Decision 的合法範圍**。
+2. **形式化（feasible set）**：`Decision Space → Evidence Constraints → Feasible Set → Decision`（All Possibilities → Feasible → Chosen）。Decision 不從零開始，Evidence 持續縮小可行集。
+3. **C1b 重讀為 constraint 的典型範例**：evidence 不說「要選 integration」，只說「**不能只選 inner**」——排除而非指定。
+4. **ERA 名稱自洽**：Responsibility = **誰有權縮小 Decision Space**。Executor 增加 implementation evidence、Verifier 增加 independent evidence、Orchestrator 做最終 Selection——每個角色都是 Decision Space 的操作者。
+5. **第二維度猜想（未驗證，記錄待觀察）**：Constraint Strength 不是唯一維度，還有 **Constraint Type**——sd 的 evidence 主要「排除非法」（Illegal）、naming 主要「降低風險」（Risk）、research 主要「增加可信度」（Confidence）、creative 剩「Preference」。**呼應（orchestrator 補充）**：各域自然長出的 finding 分類恰是 constraint-type 標記——sd `acceptance-violation`＝Illegal 型、naming review 的撞名/文化坑＝Risk 型、research 查核的引文覆核＝Confidence 型；分類 enum 未經協調卻對上猜想分型，是此維度真實存在的間接信號。
+6. **v3 候選假說（明標：不入正式定義，下一階段待驗證）**：`v1: Evidence → Decision`／`v2: Evidence constrains Decision`／**`v3(候選): Evidence progressively shapes the feasible decision space`**。開放問題：不同類型的證據是以不同機制（排除非法／降風險／升可信度）塑造可行集，還是存在更統一的機制？——ERA 下一階段的核心待驗證問題。
+
 ## Runtime Execution Path
 
 **doc-only trial 宣告**：本 plan 不接入 runtime——不新增 `route.*`、不新增 commit-msg validator、不動 `runtime.db` generated surfaces、不動 delegation schema / `validatePlanTreeFrontmatter`。協議以文件 + 行為紀律承載；驗證 leg 復用既有 review capability invoke（`ai-skill runtime capability-invoke --capability code-review --stance fault_finding`，既有 warning-only surface，無新 wiring）。
