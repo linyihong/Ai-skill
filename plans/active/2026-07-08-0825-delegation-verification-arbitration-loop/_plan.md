@@ -247,6 +247,15 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 - **對 ERA 的意義**：(a) constraint-type 維度（第七輪猜想）從觀察分型升為**有 incident 後果的實證**——缺 type 會直接導致錯誤 closure；(b) Responsibility 補洞案例：runtime constraint 原本**無人負責** → verifier V5 補位（constraint responsibility 分配的自然演化實例）；(c) v3 的 feasible-set 語言直接解釋了 incident（凍結期內又一次「新模型解釋新資料」）。
 - **凍結合規處理**：V5 / `runtime` tier / `runtime-omission` 以 **mechanism** 入 `sd-delegated-execution`（不動抽象）；**constraint-family 重構**（以 Spec / Implementation / Runtime / Delivery / Safety constraint 族取代 V-編號，V1–V5 降為 mechanism——外部 review 建議，防 V6/V7/V8 無限疊 checklist）記為 **Phase 3 解凍後的重組候選**，屆時與 Q8/v3 裁決同批評估。
 
+**第九輪 review（使用者，2026-07-09）——研究線收官凍結（line-level freeze）**：
+
+1. **凍結判定**：研究線暫時凍結——不是沒東西可研究，是它已具備成熟理論雛形的特徵。收斂節奏本身即成果：`Observation → Hypothesis → Cross-domain → Falsification → Boundary → Freeze`——這是 research methodology 的節奏，不是「抽象再抽象」。
+2. **每次修正保留舊模型（正式確認）**：v1 = constraint strength ≈ 100% 的極限情況；v2 = 把 strength 顯式化；v3 = 把 Decision 拆成 Constraint + Selection——**沒有任何一層需要否定前面**。
+3. **九輪最大成果 = Responsibility 重定義**（比 ERA 本身更重要，比 RACI 更底層）：不是「誰寫 code / 誰 review / 誰 approve」，是「**誰可以改變決策空間**」——Constraint Responsibility（誰有權縮小 Feasible Set：executor 的 implementation evidence、verifier 的 independent constraints、runtime smoke 的 runtime constraints）+ Selection Responsibility（誰有權從 Feasible Set 做最終選擇：PO / maintainer / user / architecture board）。
+4. **隱含成果正式記錄：固定住的是 Decision Semantics，不是 Workflow**——sd 的 Close、research 的 Disposition、naming 的 Selection 表面完全不同，但全部化約到 `Decision Space → Evidence Constraints → Feasible Set → Selection Policy → Decision`。**Workflow 可以不同、Decision Semantics 不變——這比 Workflow 更接近 Primitive。**
+5. **Phase 3 重定位（stakeholder 裁定）**：不再研究抽象，改為**驗證穩定性**——問題從「還有沒有更高一層」改為「**未來三個月，新案例是否不用修改模型就自然落進目前模型**」。連續多案例成立 = 模型具 **Predictive Power**（而非僅 Retrospective Power）——兩者差異極大。
+6. **Post-Phase-3 候選研究主題（登記不展開）**：**Evidence Lifecycle**（`Produced → Challenged → Confirmed → Deprecated → Archived`）——Evidence 目前在模型中是靜態節點，但它怎麼累積/失效是隱含的下一問。此線不建立在新抽象上，而建立在既有研究紀律（temporal evidence / provenance / pre-registration / falsification）之上，很可能自然長出來。**現在不開**：ERA 剛進入穩定收斂期。
+
 ## Runtime Execution Path
 
 **doc-only trial 宣告**：本 plan 不接入 runtime——不新增 `route.*`、不新增 commit-msg validator、不動 `runtime.db` generated surfaces、不動 delegation schema / `validatePlanTreeFrontmatter`。協議以文件 + 行為紀律承載；驗證 leg 復用既有 review capability invoke（`ai-skill runtime capability-invoke --capability code-review --stance fault_finding`，既有 warning-only surface，無新 wiring）。
@@ -326,6 +335,8 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 
 ## Phase 3 — 證據評估與收斂
 
+> **定位改寫（第九輪 review，2026-07-09）**：Phase 3 不研究抽象，**驗證穩定性**——每個新案例記錄「是否不修改模型即自然落位」；連續成立 = predictive power 證據。裁決素材照舊（Q5/Q6/Q8 + 下列 checkbox），但評估視角以穩定性為主。
+
 - [x] 彙整 dogfood evidence，回答 Q3（品質信號成立 / null result）— 2026-07-08：成立（advisory 複合指標）；null result 未出現；**2c 補強**（8-slice、acceptance-violation 2/8、slice 紀律後 orchestrator 零實作 diff）；**2d 補強**（4-slice、outer L1–L3 關閉紀律、gate 後零 manageCode diff）— 見 kit §2c / §2d
 - [ ] Q5 決策：schema promotion（另立 plan）或明確維持 doc-only（記錄門檻與未達原因）
 - [ ] Q6 決策：通用化定位（Evidence-driven Closed Control Loop vs Delegation）——依非 coding / delivery 域真實 run 證據裁決；無證據則維持 delegation 定位、四責任觀察留檔（§架構收斂觀察）
@@ -347,6 +358,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 | Stage 2 觀察鏡頭 | **證據責任分配結構**（Q8 / ERA）：跨域 run 記錄「誰產生哪種證據 / 哪種證據足以支持哪類結論 / 誰不能靠自產證據關閉 / 裁決權屬誰」，不預設 sd 詞彙、不驗角色名 |
 | 下一裁決 run | **Falsification-first**（第四輪 review，2026-07-09）：刻意選預期失敗的域（brainstorming / creative writing / open-ended design / ideation）的**真實任務**跑 loop——成功則假說極強、失敗則畫出適用邊界，皆有效；不 manufacture、不再累積成功域 |
 | 抽象凍結 | **Phase 3 前不再提升抽象層級**（第八輪 review，2026-07-09）：v2 = 正式工作模型、v3 = 候選；後續只收證據，觀察焦點 = Constraint / Selection Responsibility 是否自然分離；v3 升格需 3–4 域重複出現分離 |
+| 研究線凍結 + Phase 3 定位 | **Line-level freeze**（第九輪 review，2026-07-09）：研究線收官；**Phase 3 = 驗證穩定性非研究抽象**——量尺為「新案例是否不改模型自然落位」（predictive vs retrospective power）。Post-Phase-3 候選主題：**Evidence Lifecycle**（登記不展開） |
 | 驗證 leg | 復用 review capability `fault_finding` stance invoke，不另定 stance |
 | 適用範圍 | advisory；只適用已宣告 delegation 的委派任務；主打 software-delivery，Ai-skill 比照 |
 | Schema promotion | gated on Phase 2 證據（Q5），deadline 2026-08-31 |
