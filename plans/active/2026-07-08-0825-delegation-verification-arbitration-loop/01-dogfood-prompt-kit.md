@@ -451,3 +451,11 @@ branch：<branch-name>（已 commit，未 merge）
 - **摘要**：2j 纠偏后 R1 Verifier + S6 标 `slice_compliant_closed`；用户手验仍暴露 **模版下拉 / 商户不存在 / 远程同步进行中**；Worker 未跑、pull `app_url` 映射、事后补 create-flow 测试。
 - **量測**：用户手验失败 **≥3**；post-close surgical bypass **≥3**；纠偏轮 Verifier **≥1**；merge/push **无新 Verifier**。
 - **契约回饋**：`v5-ui-critical-path`、`sync-remote-requires-worker`、`pending-job-stale-guard`、`post-close-surgical-debt`、`2j-correction-partial`（见 evidence §契约回饋）。
+
+### 2l — ExternalRepoC common-url S2′ mirror 再跳过三角色 loop（2026-07-10，负向证据）
+
+> 全文：[`evidence/2l-externalrepoc-common-url-s2-mirror-skip-loop.md`](evidence/2l-externalrepoc-common-url-s2-mirror-skip-loop.md)
+
+- **摘要**：03 S2′ `mirror_status` slice 首发即 **orchestrator Shell 写码 + SURGICAL_BYPASS**；用户「commit 后执行」未触发 Executor/Verifier；plan checkbox 早于独立验证。
+- **量測**：Executor spawn **0**；Verifier spawn **0**；SURGICAL_BYPASS **≥1**（整 slice）；Shell 绕过 preToolUse **是**；stakeholder 质问后承认违规 **1**。
+- **契约回饋**：`shell-managecode-write-guard`、`surgical-bypass-narrowing`、`execute-repeat-offense`、`checkbox-after-verifier-only`、`retroactive-r1-verifier`（见 evidence §契约回饋）。
