@@ -255,6 +255,7 @@ internal_helper_allowlist:
     - claudeFileExists
     - extractAssistantTexts
     - transcriptHasRequiredBootstrapReads  # called by PreToolUse gate; not an executor itself
+    - validateCommitMessageGovernance  # shared commit-msg validator dispatch body, extracted 2026-07-10 for reuse by runCommitMsgHook + pre-push governance replay; hook entries remain the registered executors
     - validateFeedbackReportFields
     - collectDirtyGitRepoReports
     - nonEmptyLines
