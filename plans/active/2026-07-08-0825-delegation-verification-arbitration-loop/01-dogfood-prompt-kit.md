@@ -33,7 +33,6 @@
 2. <...>
 
 ## 測試範圍（由 orchestrator 指定）
-- **slice 類型**：<implementation / outer_acceptance / combined — user-visible 行為預設 combined；implementation 關閉時外層驗收須 deferred + follow-up>
 - **你負責（executor）**：<happy path 整合測試 / 自驗命令>
 - **不由你寫（verifier_only）**：<負面 case、架構禁止事項檢查 — 留給獨立 verifier>
 
@@ -146,12 +145,6 @@ branch：<branch-name>（已 commit，未 merge）
 - **Execute 意圖 hook allowlist**（2d 契約回饋）：orchestrator 應可寫 `<PROJECT_ROOT>/docs/plans/**`、`.ai-skill/project/**`、`tests/**`；只 deny 內層實作路徑（如 `manageCode/server/**`）。否則 orchestrator 連 plan patch 也被擋，被迫讓 Executor 代寫外層 artifact。
 
 ## Dogfood 紀錄
-
-> **還原註記（2026-07-10）**：2e / 2f / 2g 三個 run 的完整紀錄於併發回寫（b6481e5）中自本檔遺失，已自 commit 66f58ed 還原並依 evidence/ 慣例落檔（見下方一行摘要 + 連結）。
-
-- **2e — 跨域 run（Research/Audit）：grandfather sunset audit** ✅ — 完整 loop、5/5 surfaces 已 wired、Q6/Q7(b)/Q8 首批跨域觀察 → [`evidence/2e-grandfather-sunset-audit.md`](evidence/2e-grandfather-sunset-audit.md)
-- **2f — falsification run（預註冊 2026-07-09；F2 待使用者選名）** — F1/F2 預註冊判準 + naming 任務期中觀察（filter/selector 假說）→ [`evidence/2f-falsification-naming-run.md`](evidence/2f-falsification-naming-run.md)
-- **2g — ExternalRepoA server_doc test placement（第二個外部 consumer）** — overlay + backfill + 自建 gate，BDD 7/7 → [`evidence/2g-externalrepoa-server-doc-placement.md`](evidence/2g-externalrepoa-server-doc-placement.md)
 
 ### 2a — software-delivery 任務 ✅（2026-07-08，Cursor session demo）
 
@@ -442,3 +435,19 @@ branch：<branch-name>（已 commit，未 merge）
 - **摘要**：04 user-feedback **S0→S4 完整 Execute**；用户 Stop 中断 Verifier → orchestrator resume；**2h 教训迁移成功**（RBAC gate、api-surface、L1–L3 不 defer）；新信号：inventory 发现 mapper 指错表、`sync_jobs` 与 `sync_failure` 分表、verifier `resource_exhausted` fallback。
 - **量測**：slice **5**；Executor spawn **5**；verifier 降級 **1**；stakeholder 纠偏（Execute 前）**≥4**；orchestrator 写 manageCode **0**。
 - **契约回饋**：`resume-after-stop`、`verifier-fallback`、`s0-inventory-gate`、`platform-queue-typing`、`mapping-defer-pattern`、`2h-lessons-transfer`（见 evidence §契约回饋）。
+
+### 2j — ExternalRepoC push Execute 跳过 Verifier loop（2026-07-10，负向证据）
+
+> 全文：[`evidence/2j-externalrepoc-push-execute-skip-verifier-loop.md`](evidence/2j-externalrepoc-push-execute-skip-verifier-loop.md)
+
+- **摘要**：05 push 首次 Execute **单 Task 包办、0 Verifier**；`delegation.enabled: false` 被误当豁免；stakeholder 纠偏后补 loop + consumer `verifier-after-executor` gate。
+- **量測**：Verifier spawn **0**；acceptance-violation（流程）**≥1**；外层 L1–L3 **未交付**（首次 run）。
+- **契约回饋**：`execute-intent-overrides-delegation-flag`、`no-single-agent-combined-slice`、`verifier-after-executor-gate`、`pre-execute-backfill-commit`（见 evidence §契约回饋）。
+
+### 2k — ExternalRepoC push 纠偏后 post-close runtime 缺口（2026-07-10，證據 only）
+
+> 全文：[`evidence/2k-externalrepoc-push-post-close-runtime-gaps.md`](evidence/2k-externalrepoc-push-post-close-runtime-gaps.md)
+
+- **摘要**：2j 纠偏后 R1 Verifier + S6 标 `slice_compliant_closed`；用户手验仍暴露 **模版下拉 / 商户不存在 / 远程同步进行中**；Worker 未跑、pull `app_url` 映射、事后补 create-flow 测试。
+- **量測**：用户手验失败 **≥3**；post-close surgical bypass **≥3**；纠偏轮 Verifier **≥1**；merge/push **无新 Verifier**。
+- **契约回饋**：`v5-ui-critical-path`、`sync-remote-requires-worker`、`pending-job-stale-guard`、`post-close-surgical-debt`、`2j-correction-partial`（见 evidence §契约回饋）。

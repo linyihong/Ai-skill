@@ -23,6 +23,8 @@ revision:
   - date: 2026-07-10
     note: "Dogfood 2j — ExternalRepoC push Execute **负向证据**：单 Task 跳过 Verifier、delegation.enabled:false 误当豁免；consumer verifier-after-executor gate 回饋"
   - date: 2026-07-10
+    note: "Dogfood 2k — ExternalRepoC push **纠偏后 post-close**：用户手验 runtime/UI 缺口、Worker 拓扑、post-close surgical debt；V5-W/U 契约候选"
+  - date: 2026-07-10
     note: "還原：併發 plan 回寫（b6481e5 / 0958a38）自陳舊底稿覆蓋第五~十輪 + ERA + 2e/2f/2g + Q9；自 e2d5091 / bfb2704 / 66f58ed 重建，run 紀錄依 evidence/ 慣例落檔；writeback-collision 教訓入 §架構收斂觀察"
 ---
 
@@ -372,6 +374,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 - [x] **2h — ExternalRepoC common-url Execute 驗證缺口** — 2026-07-09 **證據 only**（[`evidence/2h-externalrepoc-common-url-verification-gaps.md`](evidence/2h-externalrepoc-common-url-verification-gaps.md)）；RBAC 三連、V5 全 API 面、combined 不得 defer L1–L3；**不**視為 Phase 3 closure
 - [x] **2i — ExternalRepoC user-feedback S0–S4 Execute** — 2026-07-09 **證據 only**（[`evidence/2i-externalrepoc-user-feedback-pull-execute.md`](evidence/2i-externalrepoc-user-feedback-pull-execute.md)）；Stop/resume、inventory gate、2h 教訓遷移驗證；**不**視為 Phase 3 closure
 - [x] **2j — ExternalRepoC push Execute 跳過 Verifier loop** — 2026-07-10 **負向證據 only**（[`evidence/2j-externalrepoc-push-execute-skip-verifier-loop.md`](evidence/2j-externalrepoc-push-execute-skip-verifier-loop.md)）；Execute 意圖 > `delegation.enabled:false`（F2 stakeholder 裁決）；單 Task 包辦 = Production/Evidence 合併；consumer `verifier-after-executor` gate 回饋；**不**視為 Phase 3 closure
+- [x] **2k — ExternalRepoC push 纠偏后 post-close runtime 缺口** — 2026-07-10 **證據 only**（[`evidence/2k-externalrepoc-push-post-close-runtime-gaps.md`](evidence/2k-externalrepoc-push-post-close-runtime-gaps.md)）；用户手验暴露 V5 未覆蓋 create 表单 / Worker 拓扑；`post-close-surgical-debt`；**不**視為 Phase 3 closure
 - [x] **2e — 跨域 run（Research/Audit 域）：grandfather sunset audit** ✅ — 2026-07-08–09（[`evidence/2e-grandfather-sunset-audit.md`](evidence/2e-grandfather-sunset-audit.md)）；Q6/Q7(b)/Q8 的 stage-2 裁決 run。完整 loop：調查者（worktree，252 行報告 `c8ff035`，中斷後 resume 完成）→ 事實查核者（fresh，引文逐條命中、5 surfaces 獨立重跑一致、findings ×2 全 observation）→ 仲裁（defer×2，無 fix）。**實質產出**：5/5 surfaces 已 wired、flag 條款過時、延展不觸發、sunset 只剩行政收尾（處置決定保留 maintainer，見 `02-grandfather-sunset-audit.md`）。**跨域觀察**：四責任自然成立（topology 不同：+maintainer 第二層 decision）；backfill 結構化形式明確缺席、弱形式（evidence-first acceptance）出現；證據責任四問同構重現（含「自產證據不能自我關閉」跨域不變式）——詳 kit §2e Q6/Q7/Q8 觀察表
 - [x] 回饋迴路（2b 觸發 ×1）：F2 暴露 brief v1 缺「reusable doc 目標須含 tool-neutral 措辭條款」→ brief v2 追加 acceptance 9、kit 使用說明補教訓；修契約未修執行者；fix leg 重跑通過。2a 若再暴露缺漏比照處理。
 
