@@ -6,6 +6,9 @@ owner: linyihong
 created: 2026-07-10
 last_updated: 2026-07-10
 parent: null
+revision:
+  - date: 2026-07-10
+    note: "全系統架構審計入 plan：層級地圖 + P1–P12 問題清單（314 orphans、scenario 無 runner、.git 6.9GB、lesson 75% 滯留、behavioral 計數器缺失等）；新增 Workstream E + Phase 7–9；closure 改 Phase 10；Q7–Q10"
 ---
 
 # Final Form — Feedback Execution Closure & Model-Neutral Stability（最終形態：回饋執行閉環與模型中立穩定輸出）
@@ -33,6 +36,42 @@ parent: null
 
 三條性質互相餵養：(1) 產生失效頻率資料 → (3) 用資料決定 promotion 優先序 → (2) 保證任何 model 都被同一套 gate 約束 → 回到 (1) 讓任何 model 的 feedback 都進同一個 ledger。這就是「按照同一套思維持續進化與提煉」的機械化表述。
 
+## 全系統架構審計（2026-07-10 盤點）
+
+> 使用者要求：不只解使用者講的痛點，把整個系統攤開解析、找出存在的問題點。以下每條都附可覆核證據；量測值以 2026-07-10 為準。
+
+### 層級地圖（現況）
+
+| 群組 | 層 | 規模 | 健康度一句話 |
+|---|---|---|---|
+| 入口/契約 | `CLAUDE.md` / `AGENTS.md` / `GEMINI.md` / `.cursor` → `CORE_BOOTSTRAP.md` ↔ `runtime/core-bootstrap.yaml` → `runtime.db` | hooks 全鏈機械強制 | 最成熟的一段；但每 session 固定注入 ~40KB（見 P8） |
+| 思維/policy | `enforcement/`(63md) `governance/`(48) `constitution/`(15 ADR) `models/`(31) `anti-patterns/`(6) | 41 rule classes | mechanical 51%；behavioral 13 條的升級條件沒人在數（P6） |
+| 執行 | `workflow/`(86md) `plans/`(52 archived + 9 active) | delivery domain 獨大 | plan 治理最強（19+ validators）；並行回寫曾真實相撞（P11） |
+| 知識 | `knowledge/`(37md, glossary 1355 行) `intelligence/`(226md) `analysis/`(27) `memory/`(18) `metadata/`(19) | 962 md 全庫 | 寫入多、讀出少：routes 59 條中 43 orphan（P2） |
+| 回饋 | `feedback/`(199 lessons) `validation/`(225 scenarios) `evaluations/`(1md) `traces/`(1md) | — | **全系統最弱的一環**：lesson 75% 滯留（P5）、scenario 無 runner（P1）、evaluations/traces 是空殼層（P12） |
+| 工具 | `scripts/ai-skill-cli/`（Go；hooks.go 4408 行）+ 6 平台 committed bin（各 ~17MB） | CI 1 條 | bin 歷史 179 次 commit → `.git` 6.9GB（P3）；validator 單檔巨石（P10） |
+
+### 問題點清單（P1–P12，依「對穩定輸出的威脅」排序）
+
+| # | 問題 | 證據 | 為什麼威脅「超級穩定輸出」 |
+|---|---|---|---|
+| **P1** | **驗證層是自申報的**：225 個 validation scenario YAML **沒有 runner**；CLI 只有 filename heuristic（`enforcement.go` walk），無任何路徑執行 scenario 斷言。plan 裡的 `scenario X PASS` 全是 agent 自我宣稱 | `ai-skill` 無 scenario 子命令；grep 僅 filename 引用 | 系統穩定性敘事建立在 gates 上，但 gate 的 scenario 層是 behavioral——換一個不自律的 model，PASS 可以是幻覺。這是 inflated-reporting 的結構性溫床 |
+| **P2** | **314 orphan 宣告面**：routes 43/59、surfaces 66/77、scenarios 205/220 無 consumer | `ai-skill runtime audit` | 宣告遠超消費 = 假治理感 + context 稅 + drift 溫床。Gen3 audit 只保護**新增** wiring，存量沒有清償計畫 |
+| **P3** | **repo 健康：`.git` 6.9GB**：6 平台 bin（各 16–18MB）已 commit 179 次 | `du .git`；`git log --follow bin/` | clone/CI/工具操作全面變慢；Go-first policy 的未付帳單。任何 history 清理都是 destructive，拖越久越貴 |
+| **P4** | Learning report 只有申報層無執行層（使用者原始痛點） | `hooks.go` 只驗 enum | 已由本 plan Workstream A 承接 |
+| **P5** | **feedback/history 199 條 lesson，僅 ~49 條有 promotion 痕跡（75% 滯留）** | grep promotion feedback/history | promotion pipeline 文件齊全但無 pull 機制——與 P4 同構：回饋層「進得來、出不去」 |
+| **P6** | **behavioral 升級條件沒有計數器**：13 條 behavioral 的 sunset review 條件全是「≥N incidents accumulate」，但系統沒有任何機制在數 incident | `ai-skill enforcement coverage` 輸出 | 升級條件永遠不會被觸發 = ladder 永遠停在 behavioral。Workstream A 的 ledger 應兼任此 counter（synergy） |
+| **P7** | **grandfather sunset 2026-08-31 逼近**：3-4 個 doc-only completed plans 需在 deadline 前升 auto-detected 或降 orphan，目前無排程 | `plans/README.md` ⚠️ 標記 | deadline 違約會讓「completed」語義失真 |
+| **P8** | **Bootstrap 稅無分級**：每 session 固定注入 ~40KB + 必讀 3 檔 + receipt 查詢，trivial/read-only 任務同價 | SessionStart hook 輸出 40.7KB | 成本高 → 使用者/agent 有繞過誘因 → 繞過即失去全部 gate 保護。分級（light bootstrap）不存在 |
+| **P9** | **知識讀出率低**：intelligence/ 226 md 但對應 routes 多 orphan；`knowledge/summaries/` 僅 26 份，覆蓋率低 | 層級地圖 + audit | 知識寫入不被消費 = 進化的「提煉」半途而廢；也加重 P2 |
+| **P10** | **hooks.go 4408 行單檔巨石**：28 個 commit validators 硬編碼 dispatch；dispatcher refactor 自 Phase 7 起持續 deferred | `wc -l`；`per_commit_dispatcher_status.go_dispatch_refactor: deferred` | 所有機械強制的單點；新 validator 邊際成本遞增，review 難度上升 |
+| **P11** | **並行回寫無鎖已真實相撞**：2026-07-10 delegation plan 兩個併發 session 回寫，舊底稿覆蓋掉 5 輪內容，靠 git 考古重建 | delegation plan frontmatter revision note | `.agent-goals/` lock 只管 project-local，Ai-skill plan 檔案本身無 single-writer 保護；多 agent 化（delegation loop）會放大此風險 |
+| **P12** | **空殼層 / layer sprawl**：21 個頂層目錄中 `traces/` `evaluations/` `templates/` `tools/` 各只有 1–4 md；`evaluations/`（scenario 結果）從未運轉 | 層級地圖 | 宣告了層但沒長肉 = 導航成本 + 「系統很完整」的錯覺；應併層、填實或明文 reservation |
+
+### 審計結論（一段話）
+
+系統的**去程**（契約 → gate → 執行）已經相當成熟且機械化；**回程**（執行 → 證據 → 回饋 → 提煉 → 升級）整段都是 behavioral 或斷裂的：scenario 自申報（P1）、lesson 滯留（P5）、incident 沒人數（P6）、learning report 無執行鏈（P4）。使用者感受到的「看到 feedback 但沒執行」是整個回程斷裂的其中一個症狀。因此本 plan 的最終形態工作 = **把回程接通並機械化**，加上清償三筆已量化的結構債（orphan 存量 P2、git 肥大 P3、驗證自申報 P1）。
+
 ## Decision Rationale
 
 ### Problem & Why Now
@@ -43,6 +82,8 @@ parent: null
 2. **Cross-repo feedback 死在對話裡**。在 consumer repo 使用本系統時，`RepoContext: NON_LOCAL` + `Writeback: UNAVAILABLE` 合法地結束一輪；learning 內容留在該對話 transcript，永不回流 Ai-skill。
 3. **思維載體部分是 tool-private**。相當一部分操作紀律（falsification ladder、evidence-decision separation、observation status discipline、rollout boundary…）目前活在單一 agent 工具的 private memory；其他 model / 工具 bootstrap 後**讀不到**。這直接違反「不管其他模型都能按照同一思維」的理想。
 4. **Enforcement ladder 未完成**。目前 41 rule classes：mechanical=21、behavioral=13、not_mech=5、research=2。behavioral 規則對不同 model 的遵循度天然不穩定，是輸出不穩定的最大殘餘來源。
+
+以上 1–4 是使用者痛點的直接成因。**全系統審計（見 §全系統架構審計）進一步發現 8 個使用者未提到的結構問題（P1–P3、P5–P9 尤其），共同模式：系統的「回程」（執行→證據→回饋→提煉→升級）整段 behavioral 或斷裂**。
 
 Why now：learning report obligation、evidence-candidate observation infra（Phase 1 completed）、delegation loop（三角色閉環 dogfood 中）三塊拼圖都已就位——feedback 執行閉環可以**復用**它們，不需要新機制；再晚，deferred feedback 的流失持續累積且不可回溯。
 
@@ -67,6 +108,17 @@ Why now：learning report obligation、evidence-candidate observation infra（Ph
 
 **D. Roadmap Consolidation（§未來 plans 排程，非 phase）**
 既有 active plans 的排序與 entry conditions 收斂成一張表（reference-link，不重寫、不 re-parent——各 plan 維持獨立 main plan）。
+
+**E. Verification & Structural Debt（Phase 7–9，源自 §全系統架構審計）**
+清償三筆已量化的結構債 + 排程既有 deadline：
+
+- **E1 Scenario Runner（P1）**：讓 `scenario X PASS` 從 agent 自申報變成機器可執行——先盤 225 個 scenario 的 assertion 形態，選出機器可跑子集（例如 file-exists / grep-able / CLI-invocable 斷言），落 `ai-skill scenarios run`；不可機器化的 scenario 明文標 `agent-judged` 並留 review 抽查。
+- **E2 Orphan 存量清償（P2）**：314 orphans 逐批處置——wire consumer / 標 `manual_activation`（附 reason）/ deprecate 下架；每批走既有 audit 工具驗收，orphan 數只降不升（ratchet）。
+- **E3 Repo 健康（P3）**：committed bin 策略改造（Git LFS / release artifacts / 單平台 bin + CI 分發擇一），並向使用者提案 history 清理（**destructive，僅提案不執行**）。
+- **E4 既有 deadline 排程（P7）**：grandfather doc-only plans 在 2026-08-31 前逐個升 auto-detected 或降 orphan。
+- **E5 併行回寫保護（P11）**：plan 檔案 single-writer 慣例（延伸 `.agent-goals/` lock 語義到 Ai-skill plan 回寫，或 commit-time 衝突偵測）——先 doc-only 慣例 + 觀察，機械化 gated。
+
+P8（bootstrap 分級）、P9（知識讀出率）、P10（hooks.go 巨石）、P12（空殼層）**本 plan 只記錄不執行**：P8/P9 進 Open Questions（Q9/Q10）等證據；P10 已有 deferred dispatcher refactor 決議（`per_commit_dispatcher_status`）不重複開工；P12 留待 orphan 清償（E2）時一併盤層。
 
 ### Alternatives Considered
 
@@ -128,6 +180,10 @@ Why now：learning report obligation、evidence-candidate observation infra（Ph
 - [ ] **Q4 — 非 Claude model dogfood 的量測欄**：obligation 遵循度（receipt / mode report / learning report 出現率）之外，思維紀律遵循度怎麼量測？候選：violation-per-session 計數（surgical violation、evidence-decision leakage、premature promotion）。
 - [ ] **Q5 — resurface 注入點的噪音成本**：receipt 加一行是否足夠讓 deferred 被撿起？若 30 天 closure ratio 過低，是否需要升級為 SessionStart 注入（有 bootstrap-entry-bloat 風險）？
 - [ ] **Q6 — 假 COMPLETED 的機械 cross-check**：`Writeback: COMPLETED` 宣告與當輪 git 痕跡（feedback-history / enforcement / workflow 路徑的 diff）能否機械對帳？
+- [ ] **Q7 — scenario 機器化比例**：225 個 scenario 中多少比例的斷言可機器執行？低於多少比例時 E1 的 runner 投資不划算（改用抽查制）？（Phase 7 盤點回答）
+- [ ] **Q8 — bin 儲存策略**：LFS（需 remote 支援）vs release artifacts（CI 改造）vs 單平台 bin（跨平台 policy 弱化）？history 清理（filter-repo）使用者是否授權？
+- [ ] **Q9 — bootstrap 分級（P8）**：trivial/read-only 任務的 light bootstrap 是否值得？風險 = 分級判定本身可被濫用為繞過。需要先有「bootstrap 稅 vs 繞過率」的觀察資料，不先動 P0 gate。
+- [ ] **Q10 — 知識讀出率量測（P9）**：intelligence/ 的實際被讀率怎麼量測（route hit? summary 載入率?）？低讀出的 atom 應 deprecate 還是改 routing？
 
 ## 未來 plans 排程（Roadmap Consolidation — reference-link，不 re-parent）
 
@@ -145,6 +201,8 @@ Why now：learning report obligation、evidence-candidate observation infra（Ph
 | 8 | [`2026-06-06-1700-workflow-activation-discovery-bridge`](2026-06-06-1700-workflow-activation-discovery-bridge.md) / [`2026-06-08-2100-governance-pattern-library-extraction`](2026-06-08-2100-governance-pattern-library-extraction.md) / [`2026-06-29-1430-preparatory-refactoring-workflow`](2026-06-29-1430-preparatory-refactoring-workflow/_plan.md) | draft/in-progress | 按各自 plan 的 gate；governance-pattern extraction 遵守 N≥5 紀律 |
 | 9 | [`2026-05-28-1636-gen4-fitness-optimization-memory-interface-reservation`](2026-05-28-1636-gen4-fitness-optimization-memory-interface-reservation.md) | draft | 最後：其 fitness 輸入正是本 plan ledger + economics plan 的 telemetry primitives |
 | 10 | [`2026-06-16-1030-interaction-hazard-review-workflow`](2026-06-16-1030-interaction-hazard-review-workflow.md) | draft | 按其 A0→D roadmap 自走；與本 plan 無依賴 |
+| — | 本 plan Phase 8（grandfather 結案部分） | — | **hard deadline 2026-08-31**：不論其他順位，需插隊在 deadline 前完成 |
+| — | 本 plan Phase 7 / 9（scenario runner、repo 健康） | — | 可與順位 3–6 並行；Phase 9 的 history 清理需使用者授權（Q8） |
 
 ## Phase 0 — 盤點與 Preflight
 
@@ -219,15 +277,37 @@ Why now：learning report obligation、evidence-candidate observation infra（Ph
 - [ ] 每次 promotion 走 enforcement-registry Status Transition Matrix + scenario tests；不可機械化者明文記 not_mech 理由
 - [ ] 完成條件：≥1 條 promotion 完成或明文 not_mech 化；sweep 節奏（月度）寫入 registry companion
 
-## Phase 7 — Plan Completion Closure
+## Phase 7 — Scenario Runner（E1，驗證債）
+
+- [ ] 盤點 225 個 scenario 的 assertion 形態分類（機器可執行 / agent-judged），回答 Q7
+- [ ] `ai-skill scenarios run` 落地機器可執行子集（Go-first；rebuild bin）；輸出進 `evaluations/`（讓空殼層長肉，部分回應 P12）
+- [ ] 不可機器化 scenario 標 `agent-judged` + 抽查制規則寫入 `validation/README.md`
+- [ ] plan acceptance 慣例更新：新 plan 的 `scenario X PASS` 需附 runner 輸出或 `agent-judged` 標記
+- [ ] 完成條件：runner 可跑 + 首次全量執行報告入 `evaluations/` + Q7 回寫
+
+## Phase 8 — Orphan 存量清償 + Deadline 排程（E2 + E4）
+
+- [ ] 314 orphans 分批處置（每批 ≤ 20，wire / manual_activation+reason / deprecate），`ai-skill runtime audit` 驗收，orphan 數 ratchet 只降不升
+- [ ] grandfather doc-only plans（3–4 個）在 2026-08-31 前逐個結案（升 auto-detected 或降 orphan）
+- [ ] 空殼層盤點（P12）：traces / evaluations / templates / tools 逐層判定 併層 / 填實 / 明文 reservation
+- [ ] 完成條件：orphan 總數 < 100 或全數帶顯式處置標記；grandfather 清零
+
+## Phase 9 — Repo 健康 + 併行回寫保護（E3 + E5）
+
+- [ ] bin 儲存策略提案（Q8 三選一 + trade-off 表）→ **使用者拍板後**才執行；history 清理僅提案（destructive，P0 授權邊界）
+- [ ] plan 檔案 single-writer 慣例 doc-only 落地（回寫前宣告 owner / 檢查併發 session；延伸 `.agent-goals/` lock 語義）+ writeback-collision failure pattern 正式化（`enforcement/failure-patterns/`）
+- [ ] 完成條件：策略拍板 + 慣例文件入庫 + failure pattern 註冊
+
+## Phase 10 — Plan Completion Closure
 
 - [ ] 執行 [`plans/README.md`](../README.md) §Plan 完成閉環 checklist（validator / linked updates / 狀態表 / archive 評估——本 plan 的 Phase 6 為 ongoing，評估是否適用「持續生效基礎建設」例外留 active）
 - [ ] ADR Promotion Criteria 核對
 
 ## 完成條件
 
-- [ ] Phase 1–5 全部完成條件達成；Phase 6 至少一輪 sweep
+- [ ] Phase 1–5、7–9 全部完成條件達成；Phase 6 至少一輪 sweep
 - [ ] **北極星判準可量測**：closure ratio 有 ≥30 天資料；parity 分類表 100% 處置；靜默流失在機械 gate 下結構性不可能（DEFERRED 必有 pointer）
+- [ ] **審計債判準**：scenario PASS 有 runner 輸出或顯式 `agent-judged` 標記；orphan 數 < 100 或全數帶顯式處置；grandfather 清零；bin 策略拍板
 - [ ] Open Questions 全解或明文 deferred
 - [ ] `git status` clean、全部 push、plans/README.md 狀態表同步
 
@@ -240,6 +320,8 @@ Why now：learning report obligation、evidence-candidate observation infra（Ph
 | 3 | Phase 5 memory 分類表（哪些進 repo、哪些留 user-specific） | 涉及使用者偏好與系統紀律的邊界（Q3）；bulk 移植前需逐條 sign-off |
 | 4 | 非 Claude model dogfood 的環境與 model 選擇 | 需要使用者提供 / 授權第二 model 環境 |
 | 5 | §未來 plans 排程表的順位 | 改變既有 draft plans 的啟動順序 |
+| 6 | bin 儲存策略（Q8）與任何 git history 清理 | **destructive**（P0 授權邊界）：history rewrite 影響所有 clone；未經明確同意絕不執行 |
+| 7 | orphan 清償的 deprecate 批次 | 下架 route / surface / scenario 屬於能力移除，需可回退且逐批確認 |
 
 ## 與其他 plans 的關係
 
