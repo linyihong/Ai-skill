@@ -23,9 +23,9 @@
 | **2j** | [`2j-externalrepoc-push-execute-skip-verifier-loop.md`](2j-externalrepoc-push-execute-skip-verifier-loop.md) | 负向证据 | ExternalRepoC 05 push Execute：**0 Verifier**、单 Task 包办、`delegation.enabled:false` 误豁免；consumer verifier-after-executor gate 回饋 |
 | 2d | —（inline） | 證據 only | 見 [`01-dogfood-prompt-kit.md`](../01-dogfood-prompt-kit.md) → `### 2d` |
 | 2c | —（inline） | 證據 only | 見 kit → `### 2c` |
-| 2g | —（inline） | 證據 only | 見 kit → `### 2g` |
-| 2e | [`02-grandfather-sunset-audit.md`](../02-grandfather-sunset-audit.md) | 完成 | Research 域 grandfather sunset；kit 摘要 → `### 2e` |
-| 2f | —（inline，預註冊） | 進行中 | 見 kit → `### 2f`；產出候選 [`03-repo-naming-candidates.md`](../03-repo-naming-candidates.md) |
+| **2g** | [`2g-externalrepoa-server-doc-placement.md`](2g-externalrepoa-server-doc-placement.md) | 證據 only | ExternalRepoA server_doc test placement（第二個外部 consumer）；overlay + backfill + 自建 gate，BDD 7/7（2026-07-10 自 kit 還原落檔） |
+| **2e** | [`2e-grandfather-sunset-audit.md`](2e-grandfather-sunset-audit.md) | 完成 | Research 域跨域 run：完整 loop + Q6/Q7(b)/Q8 觀察表（2026-07-10 自 kit 還原落檔）；調查報告本體 → [`02-grandfather-sunset-audit.md`](../02-grandfather-sunset-audit.md) |
+| **2f** | [`2f-falsification-naming-run.md`](2f-falsification-naming-run.md) | 進行中（F2 待選名） | 預註冊 falsification（F1/F2 + 三模式補充尺度）+ naming 期中觀察；產出候選 [`03-repo-naming-candidates.md`](../03-repo-naming-candidates.md)（2026-07-10 自 kit 還原落檔） |
 | 2b | —（inline） | 完成 | 見 kit → `### 2b` |
 | 2a / 2a-external | —（inline） | 完成 | 見 kit → `### 2a` / `### 2a-external` |
 
