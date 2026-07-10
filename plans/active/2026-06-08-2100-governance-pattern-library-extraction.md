@@ -4,8 +4,10 @@ plan_kind: main
 status: active
 execution_status: deferred
 owner: linyihong
-created: 2026-06-08
-priority: P2
+last_updated: 2026-07-10
+revision:
+  - date: 2026-07-10
+    note: "Consumer dogfood §2026-07-10 — ExternalRepoA L3 verification closure subsystem (monitoring; not Gate A)"
 required_for_completion: false
 ---
 
@@ -282,6 +284,32 @@ evidence_rule:
   exclusions:
     - retrofitted sample（為套形狀硬塞 / 因讀了其他樣本而 confirmation bias，非自然出現）
 ```
+
+## Consumer dogfood observation (2026-07-10 — ExternalRepoA; monitoring only)
+
+**Trigger**: naturally occurring governance subsystem during tab-scroll close-out + deploy — **not** a claim that Gate A / T3B passed.
+
+**Subsystem**: *L3 verification closure* (delegation loop consumer overlay). Canonical loop: [`2026-07-08-0825-delegation-verification-arbitration-loop`](2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md). Project overlay: `<PROJECT_ROOT>` `.ai-skill/project/rules/plan-delegation-execution-loop.md` + `docs/framework-development-workflow.yaml` → `failure_modes.inner_unit_test_alone_cannot_close_user_visible_slice`.
+
+| Step | Landed artifact |
+| --- | --- |
+| **Observation** | Executor closed user-visible H5 slice on inner unit green only; user repro broke journey |
+| **Rule** | Delegation loop SOP + project overlay §反模式; Evidence Producer ≠ Closure Authority |
+| **Registry** | `mechanical_gates.plan_delegation_loop`; `failure_modes` id `inner_unit_test_alone_cannot_close_user_visible_slice` |
+| **Projection** | `verification_backfill` template maps acceptance → tier (L1/L2/L3) + npm command |
+| **Executor** | Cursor hooks (plan-phase, sibling-repo, trial-declaration advisory); Verifier = fresh Task + L3 |
+| **Validation** | `tests/integration/*.integration.mjs` (L3); inner `server_doc/**.test.*` delete-only |
+
+**Template fit**: full invariant core + both conditionals present (Rule + Projection). Candidate **sample #8** for draft inventory when next Phase 0 pass runs — **do not** retrofit N count until reviewed.
+
+**T3A lint signal (pre-implementation)**:
+
+- R1/R2/R3 would apply if `governance_exemptions` declared on authoring surface (plan frontmatter or registry) — **not yet decided** (T3A Authority Surface Decision still open).
+- **Validation sub-form gap observed**: deploy smoke passed only with `DEPLOY_SKIP_*` (player-vertical flake; staging `invalidCaptcha` without `PORTAL_CAPTCHA_TEST_CODE` on sv-live) — Validation leg environment ≠ subsystem shape failure; worth logging in `false_positive_log` when shadow lint exists.
+
+**Sibling anti-pattern link**: [`validation-coverage-gap-executor-placement.md`](../../enforcement/failure-patterns/validation-coverage-gap-executor-placement.md) — inner co-located tests as closure authority.
+
+**Action for this plan**: record only; resume T3A lint implementation when first consumer picks declaration site. ExternalRepoA overlay is **evidence**, not promotion.
 
 ## Out of scope
 
