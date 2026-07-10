@@ -12,7 +12,8 @@ ai-skill hooks install
 
 - **pre-commit** — runtime validate、**sanitization_scan**（shared-layer 去敏）、knowledge 檢查
 - **commit-msg** — plan-tree / cognitive contract / 其他治理 validators
-- **post-commit** / **pre-push** — 閉環與 CI preflight
+- **post-commit** — 閉環輔助
+- **pre-push** — **push governance replay**（重跑 sanitization + commit-msg validators，擋 `--no-verify` 繞過的 commit）+ CLI CI preflight
 
 驗證安裝：
 
@@ -27,7 +28,8 @@ ai-skill doctor --plain
 
 ## 限制
 
-- `git commit --no-verify` 仍可跳過本機 hook；請依賴 CI / review 作為第二道防線。
-- 未執行 `hooks install` 的 clone **不會**自動啟用 — 這是 Git 安全模型限制，沒有 repo 內建「零設定強制 hook」。
+- `git commit --no-verify` 仍可跳过**本机 commit 阶段** hook；**pre-push 会重跑 sanitization + commit-msg validators**，未通过时需 `git reset --soft @{u}` 后重新 commit（不用 `--no-verify`）再 push。
+- `git push --no-verify` 仍可跳过 pre-push；请依赖 CI / branch protection 作为第三道防线。
+- 未执行 `hooks install` 的 clone **不会**自动启用 — 这是 Git 安全模型限制，没有 repo 内置「零设定强制 hook」。
 
 ← 詳見 [`metadata/project/README.md`](../metadata/project/README.md)、[`enforcement/sanitization-mechanical.md`](../enforcement/sanitization-mechanical.md)

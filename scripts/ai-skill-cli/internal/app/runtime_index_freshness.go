@@ -195,6 +195,23 @@ func (r *stagedBlobResolver) Read(relPath string) ([]byte, error) {
 	return out, nil
 }
 
+type headTreeResolver struct {
+	root string
+}
+
+func newHEADTreeResolver(root string) ContentResolver {
+	return &headTreeResolver{root: root}
+}
+
+func (r *headTreeResolver) Read(relPath string) ([]byte, error) {
+	cmd := exec.Command("git", "-C", r.root, "show", "HEAD:"+filepath.ToSlash(relPath))
+	out, err := cmd.Output()
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // resolveStagedIndexPath returns a filesystem path the caller can `sql.Open`
 // against. If the runtime-index.sqlite blob is staged, we materialize it via
 // `git show :<path>` to a tempfile so the staged snapshot is what we

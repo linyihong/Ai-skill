@@ -2360,6 +2360,125 @@ func parseCompactCognitiveLine(line string) map[string]string {
 // runCommitMsgHook which accepts both compact and full form.
 const validateCognitiveContractFormat = "obligation.commit.cognitive_mode_block"
 
+// validateCommitMessageGovernance runs blocking commit-msg validators against
+// message text and an explicit changed-file list. During commit-msg hook the
+// list comes from the index; during pre-push replay it comes from each commit.
+func validateCommitMessageGovernance(root string, text string, staged []string) *CommandError {
+	if strings.HasPrefix(strings.TrimLeft(text, " \t\n"), "Merge ") {
+		return nil
+	}
+
+	for _, line := range strings.Split(text, "\n") {
+		if compactModes := parseCompactCognitiveLine(line); compactModes != nil {
+			var nonDefault []string
+			for dim, val := range compactModes {
+				if dim == "cognitive_cost" {
+					continue
+				}
+				if def, ok := cognitiveV2Defaults[dim]; ok && val != def {
+					nonDefault = append(nonDefault, dim+"="+val)
+				}
+			}
+			if len(nonDefault) > 0 {
+				sort.Strings(nonDefault)
+				return &CommandError{
+					Code:        "cognitive_compact_non_default",
+					Message:     "Compact form used but non-default dims detected: " + strings.Join(nonDefault, ", ") + ". Compact form is only valid when all 6 dims are at default values.",
+					Remediation: "Replace the compact line with a full ### Cognitive Mode 報告 table (6-dim v2 format) per models/cognitive-modes/README.md.",
+				}
+			}
+			ctx := commitMsgCtx{text: text, staged: staged, root: root, modes: compactModes}
+			var violations []string
+			if v := validateCognitiveCost(ctx.modes); v != "" {
+				violations = append(violations, v)
+			}
+			if v := validateActivationSignals(ctx); v != "" {
+				violations = append(violations, v)
+			}
+			if v := validateCapabilitySnippet(ctx.modes, ctx.text); v != "" {
+				return &CommandError{Code: "cognitive_compact_capability_violation", Message: v}
+			}
+			order := readPerCommitObligationsOrder(root)
+			if len(order) == 0 {
+				order = defaultCommitMsgDispatchOrder
+			}
+			for _, id := range order {
+				validator, ok := commitMsgValidatorRegistry[id]
+				if !ok {
+					continue
+				}
+				if v := validator(ctx); v != "" {
+					violations = append(violations, v)
+				}
+			}
+			if len(violations) > 0 {
+				return &CommandError{
+					Code:        "cognitive_compact_staged_violations",
+					Message:     "Compact Cognitive Contract conflicts with commit content:\n  - " + strings.Join(violations, "\n  - "),
+					Remediation: "Use the full ### Cognitive Mode 報告 table when commit files require non-default modes or strict governance.",
+				}
+			}
+			return nil
+		}
+	}
+
+	if strings.Contains(text, "### Cognitive Mode 報告") {
+		modes := parseCognitiveModeBlock(text)
+		ctx := commitMsgCtx{text: text, staged: staged, root: root, modes: modes}
+		v2Violations := []string{}
+		if v := validateCognitiveCost(ctx.modes); v != "" {
+			v2Violations = append(v2Violations, v)
+		}
+		if v := validateActivationSignals(ctx); v != "" {
+			v2Violations = append(v2Violations, v)
+		}
+		if v := validateCapabilitySnippet(ctx.modes, ctx.text); v != "" {
+			v2Violations = append(v2Violations, v)
+		}
+		if len(v2Violations) > 0 {
+			return &CommandError{
+				Code:        "cognitive_contract_v2_violations",
+				Message:     "Declared Cognitive Contract v2 block conflicts with validation:\n  - " + strings.Join(v2Violations, "\n  - "),
+				Remediation: "Use known activation_reason signals, derived cognitive_cost, and Capability summary for high-risk modes.",
+			}
+		}
+		order := readPerCommitObligationsOrder(root)
+		if len(order) == 0 {
+			order = defaultCommitMsgDispatchOrder
+		}
+		var violations []string
+		for _, id := range order {
+			validator, ok := commitMsgValidatorRegistry[id]
+			if !ok {
+				continue
+			}
+			if v := validator(ctx); v != "" {
+				violations = append(violations, v)
+			}
+		}
+		if len(violations) > 0 {
+			return &CommandError{
+				Code:        "cognitive_mode_violations",
+				Message:     "Declared Cognitive Mode block conflicts with commit content:\n  - " + strings.Join(violations, "\n  - "),
+				Remediation: "Update the Cognitive Mode block to match what the commit actually does, or split the commit. See runtime/cognitive-modes-*.yaml for contract details.",
+			}
+		}
+		return nil
+	}
+
+	for _, line := range strings.Split(text, "\n") {
+		if strings.TrimSpace(line) == "[skip-cognitive-mode]" {
+			return nil
+		}
+	}
+
+	return &CommandError{
+		Code:        "cognitive_mode_block_missing",
+		Message:     "Commit message body must include a Cognitive Contract v2 block: compact single-line form (all-default dims) or full '### Cognitive Mode 報告' table (6-dim, non-default or high-risk).",
+		Remediation: "Add compact form 'Cognitive: NORMAL·SUMMARY_FIRST·STANDARD·NONE / V:CHECKLIST / Cost:LOW / Sig:<signal>' for trivial commits, or full table per models/cognitive-modes/README.md v2 template. For mechanical commits, add a standalone '[skip-cognitive-mode]' trailer line.",
+	}
+}
+
 // runCommitMsgHook enforces Phase 4 behavioral wiring of
 // gate.execution.cognitive_mode_resolved. Commit message body must contain
 // either a v2 compact Cognitive line or a '### Cognitive Mode 報告' full table
@@ -2405,173 +2524,32 @@ func runCommitMsgHook(result Result, root string, positional []string) Result {
 		result.Checks = append(result.Checks, Check{Name: "plan_evidence_line_citation_warnings", Status: "warning", Message: w})
 	}
 
-	// v2 compact form path: "Cognitive: <e>·<c>·<g>·<m> / V:<v> / Cost:<cost> / Sig:<sig>"
-	// Valid only when all 6 dims are at their default values. Non-default dims require full form.
-	for _, line := range strings.Split(text, "\n") {
-		if compactModes := parseCompactCognitiveLine(line); compactModes != nil {
-			var nonDefault []string
-			for dim, val := range compactModes {
-				if dim == "cognitive_cost" {
-					continue // derived — not validated here; Phase 3 adds cost class check
-				}
-				if def, ok := cognitiveV2Defaults[dim]; ok && val != def {
-					nonDefault = append(nonDefault, dim+"="+val)
-				}
-			}
-			if len(nonDefault) > 0 {
-				sort.Strings(nonDefault)
-				result.Status = "blocked"
-				result.ExitCode = ExitValidationFailed
-				result.Error = &CommandError{
-					Code:        "cognitive_compact_non_default",
-					Message:     "Compact form used but non-default dims detected: " + strings.Join(nonDefault, ", ") + ". Compact form is only valid when all 6 dims are at default values.",
-					Remediation: "Replace the compact line with a full ### Cognitive Mode 報告 table (6-dim v2 format) per models/cognitive-modes/README.md.",
-				}
-				return result
-			}
-			staged, _ := gitLines(root, "diff", "--cached", "--name-only")
-			ctx := commitMsgCtx{text: text, staged: staged, root: root, modes: compactModes}
-			var violations []string
-			if v := validateCognitiveCost(ctx.modes); v != "" {
-				violations = append(violations, v)
-			}
-			if v := validateActivationSignals(ctx); v != "" {
-				violations = append(violations, v)
-			}
-			if len(violations) > 0 {
-				result.Status = "blocked"
-				result.ExitCode = ExitValidationFailed
-				result.Error = &CommandError{
-					Code:        "cognitive_compact_violations",
-					Message:     "Declared compact Cognitive Contract conflicts with v2 validation:\n  - " + strings.Join(violations, "\n  - "),
-					Remediation: "Use a known discovery signal and the derived cognitive_cost for the declared execution/context tuple.",
-				}
-				return result
-			}
-			if v := validateCapabilitySnippet(ctx.modes, ctx.text); v != "" {
-				result.Status = "blocked"
-				result.ExitCode = ExitValidationFailed
-				result.Error = &CommandError{Code: "cognitive_compact_capability_violation", Message: v}
-				return result
-			}
-			order := readPerCommitObligationsOrder(root)
-			if len(order) == 0 {
-				order = defaultCommitMsgDispatchOrder
-			}
-			var stagedViolations []string
-			for _, id := range order {
-				validator, ok := commitMsgValidatorRegistry[id]
-				if !ok {
-					continue
-				}
-				if v := validator(ctx); v != "" {
-					stagedViolations = append(stagedViolations, v)
-				}
-			}
-			if len(stagedViolations) > 0 {
-				result.Status = "blocked"
-				result.ExitCode = ExitValidationFailed
-				result.Error = &CommandError{
-					Code:        "cognitive_compact_staged_violations",
-					Message:     "Compact Cognitive Contract conflicts with staged changes:\n  - " + strings.Join(stagedViolations, "\n  - "),
-					Remediation: "Use the full ### Cognitive Mode 報告 table when staged files require non-default modes or strict governance.",
-				}
-				return result
-			}
-			result.Checks = append(result.Checks, Check{Name: "cognitive_mode_block", Status: "ok", Message: "Cognitive Contract v2 compact form present (all dims at default)"})
-			return result
-		}
-	}
-
-	// Primary path: full form '### Cognitive Mode 報告' block → run Phase 3 behavioral validators.
-	// Checked BEFORE opt-out marker to avoid false positives when commit body
-	// documents/quotes the opt-out token (e.g. "Opt-out via '[skip-cognitive-mode]'").
+	staged, _ := gitLines(root, "diff", "--cached", "--name-only")
 	if strings.Contains(text, "### Cognitive Mode 報告") {
-		modes := parseCognitiveModeBlock(text)
-		staged, _ := gitLines(root, "diff", "--cached", "--name-only")
-
-		// Phase 6 dispatcher: read per_commit_obligations order from
-		// generated_surfaces[runtime.core_bootstrap.contract] and dispatch
-		// validators by id via registry. Fallback to hardcoded order if
-		// runtime.db is unavailable or not yet projected (e.g. fresh clone
-		// before first `runtime compile`).
-		ctx := commitMsgCtx{text: text, staged: staged, root: root, modes: modes}
-
-		// Phase 2.3 (Gate C): non-blocking engine shadow. Records legacy-vs-engine
-		// plan-tree parity as an informational Check only — it never sets
-		// result.ExitCode / result.Status, so the commit outcome stays "legacy
-		// only" until divergence converges.
+		ctx := commitMsgCtx{text: text, staged: staged, root: root, modes: parseCognitiveModeBlock(text)}
 		result.Checks = append(result.Checks, planValidateShadowCheck(ctx))
-
-		v2Violations := []string{}
-		if v := validateCognitiveCost(ctx.modes); v != "" {
-			v2Violations = append(v2Violations, v)
-		}
-		if v := validateActivationSignals(ctx); v != "" {
-			v2Violations = append(v2Violations, v)
-		}
-		if v := validateCapabilitySnippet(ctx.modes, ctx.text); v != "" {
-			v2Violations = append(v2Violations, v)
-		}
-		if len(v2Violations) > 0 {
-			result.Status = "blocked"
-			result.ExitCode = ExitValidationFailed
-			result.Error = &CommandError{
-				Code:        "cognitive_contract_v2_violations",
-				Message:     "Declared Cognitive Contract v2 block conflicts with validation:\n  - " + strings.Join(v2Violations, "\n  - "),
-				Remediation: "Use known activation_reason signals, derived cognitive_cost, and Capability summary for high-risk modes.",
-			}
-			return result
-		}
-		order := readPerCommitObligationsOrder(root)
-		if len(order) == 0 {
-			order = defaultCommitMsgDispatchOrder
-		}
-		var violations []string
-		for _, id := range order {
-			validator, ok := commitMsgValidatorRegistry[id]
-			if !ok {
-				// Obligation declared in YAML but no Go validator registered.
-				// Skip silently (allows YAML to declare future-planned
-				// obligations without breaking hook).
-				continue
-			}
-			if v := validator(ctx); v != "" {
-				violations = append(violations, v)
-			}
-		}
-		if len(violations) > 0 {
-			result.Status = "blocked"
-			result.ExitCode = ExitValidationFailed
-			result.Error = &CommandError{
-				Code:        "cognitive_mode_violations",
-				Message:     "Declared Cognitive Mode block conflicts with commit content:\n  - " + strings.Join(violations, "\n  - "),
-				Remediation: "Update the Cognitive Mode block to match what the commit actually does, or split the commit. See runtime/cognitive-modes-*.yaml for contract details.",
-			}
-			return result
-		}
+	}
+	if cmdErr := validateCommitMessageGovernance(root, text, staged); cmdErr != nil {
+		result.Status = "blocked"
+		result.ExitCode = ExitValidationFailed
+		result.Error = cmdErr
+		return result
+	}
+	if strings.Contains(text, "### Cognitive Mode 報告") {
 		result.Checks = append(result.Checks, Check{Name: "cognitive_mode_block", Status: "ok", Message: "Cognitive Mode 報告 present + Phase 3 validators passed"})
 		return result
 	}
-
-	// Fallback path: opt-out marker on its own line (require leading whitespace or BOL
-	// to reduce false positives from prose mentions). Mechanical commits should
-	// place the marker as a standalone trailer line.
 	for _, line := range strings.Split(text, "\n") {
-		trimmed := strings.TrimSpace(line)
-		if trimmed == "[skip-cognitive-mode]" {
+		if parseCompactCognitiveLine(line) != nil {
+			result.Checks = append(result.Checks, Check{Name: "cognitive_mode_block", Status: "ok", Message: "Cognitive Contract v2 compact form present (all dims at default)"})
+			return result
+		}
+		if strings.TrimSpace(line) == "[skip-cognitive-mode]" {
 			result.Checks = append(result.Checks, Check{Name: "cognitive_mode_block", Status: "skipped", Message: "[skip-cognitive-mode] opt-out marker present on its own line"})
 			return result
 		}
 	}
-
-	result.Status = "blocked"
-	result.ExitCode = ExitValidationFailed
-	result.Error = &CommandError{
-		Code:        "cognitive_mode_block_missing",
-		Message:     "Commit message body must include a Cognitive Contract v2 block: compact single-line form (all-default dims) or full '### Cognitive Mode 報告' table (6-dim, non-default or high-risk).",
-		Remediation: "Add compact form 'Cognitive: NORMAL·SUMMARY_FIRST·STANDARD·NONE / V:CHECKLIST / Cost:LOW / Sig:<signal>' for trivial commits, or full table per models/cognitive-modes/README.md v2 template. For mechanical commits, add a standalone '[skip-cognitive-mode]' trailer line.",
-	}
+	result.Checks = append(result.Checks, Check{Name: "cognitive_mode_block", Status: "ok", Message: "commit-msg governance passed"})
 	return result
 }
 
@@ -4119,6 +4097,19 @@ func readPerCommitObligationsOrder(root string) []string {
 }
 
 func runPrePushHook(result Result, root string) Result {
+	replayMsg, replayChecks := validatePushGovernanceReplay(root)
+	result.Checks = append(result.Checks, replayChecks...)
+	if replayMsg != "" {
+		result.Status = "blocked"
+		result.ExitCode = ExitValidationFailed
+		result.Error = &CommandError{
+			Code:        "push_governance_replay_failed",
+			Message:     replayMsg,
+			Remediation: pushGovernanceReplayRemediation,
+		}
+		return result
+	}
+
 	changed, upstream, err := cliCIPrePushPaths(root)
 	if err != nil {
 		result.Checks = append(result.Checks, Check{Name: "cli_ci_scope", Status: "warning", Message: err.Error(), Remediation: "Running Go tests conservatively because changed paths could not be resolved."})

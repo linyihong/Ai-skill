@@ -65,7 +65,15 @@ const repositoryTopologyRuntimeTargetKey = "runtime.repository_topology.config"
 const sanitizationPatternsRuntimeTargetKey = "runtime.sanitization_patterns.config"
 
 func validateSanitizationStagedContent(root string, staged []string) string {
-	if root == "" || len(staged) == 0 {
+	return validateSanitizationContent(root, staged, newStagedBlobResolver(root), "staged shared-layer content")
+}
+
+func validateSanitizationAtHEAD(root string, paths []string) string {
+	return validateSanitizationContent(root, paths, newHEADTreeResolver(root), "shared-layer content at HEAD (push replay)")
+}
+
+func validateSanitizationContent(root string, paths []string, resolver ContentResolver, scopeLabel string) string {
+	if root == "" || len(paths) == 0 {
 		return ""
 	}
 	data, err := loadSanitizationRuntimeData(filepath.Join(root, "runtime", "runtime.db"))
@@ -73,11 +81,10 @@ func validateSanitizationStagedContent(root string, staged []string) string {
 		return ""
 	}
 
-	resolver := newStagedBlobResolver(root)
 	var findings []string
-	stagedSorted := append([]string(nil), staged...)
-	sort.Strings(stagedSorted)
-	for _, rel := range stagedSorted {
+	pathsSorted := append([]string(nil), paths...)
+	sort.Strings(pathsSorted)
+	for _, rel := range pathsSorted {
 		rel = filepath.ToSlash(rel)
 		if !sanitizationTextPath(rel) {
 			continue
@@ -94,7 +101,7 @@ func validateSanitizationStagedContent(root string, staged []string) string {
 	if len(findings) == 0 {
 		return ""
 	}
-	return "sanitization-scan:\n  forbidden private token(s) in staged shared-layer content:\n    - " +
+	return "sanitization-scan (" + scopeLabel + "):\n  forbidden private token(s):\n    - " +
 		strings.Join(findings, "\n    - ") +
 		"\n  Remediation: replace project-specific details with placeholders such as `<PROJECT_ROOT>` or the suggested placeholder; keep incident evidence in project-local docs."
 }
