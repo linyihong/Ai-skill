@@ -23,6 +23,7 @@
 | **2j** | [`2j-externalrepoc-push-execute-skip-verifier-loop.md`](2j-externalrepoc-push-execute-skip-verifier-loop.md) | 负向证据 | ExternalRepoC 05 push Execute：**0 Verifier**、单 Task 包办、`delegation.enabled:false` 误豁免；consumer verifier-after-executor gate 回饋 |
 | **2k** | [`2k-externalrepoc-push-post-close-runtime-gaps.md`](2k-externalrepoc-push-post-close-runtime-gaps.md) | 證據 only | ExternalRepoC 05 push **2j 纠偏后**：slice 关闭 vs 用户手验（模版/商户/远程同步）；Worker 拓扑、pull 映射、post-close surgical debt |
 | **2l** | [`2l-externalrepoc-common-url-s2-mirror-skip-loop.md`](2l-externalrepoc-common-url-s2-mirror-skip-loop.md) | 负向证据 | ExternalRepoC 03 S2′ mirror：**0 Executor/Verifier**、surgical bypass 滥用、Shell 绕过 preToolUse；2j/2k 教训未内化 |
+| **2m** | [`2m-externalrepoc-phase-g-mirror-batch-retrofit.md`](2m-externalrepoc-phase-g-mirror-batch-retrofit.md) | 正负对照 | ExternalRepoC **Phase G-mirror** 批量 retrofit：V-m1–V-m5 + 登记总表；02/01 合规 loop vs 03/2l；stale JVM V5-A 复发 |
 | 2d | —（inline） | 證據 only | 見 [`01-dogfood-prompt-kit.md`](../01-dogfood-prompt-kit.md) → `### 2d` |
 | 2c | —（inline） | 證據 only | 見 kit → `### 2c` |
 | 2g | —（inline） | 證據 only | 見 kit → `### 2g` |

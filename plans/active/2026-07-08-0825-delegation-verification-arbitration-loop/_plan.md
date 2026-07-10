@@ -13,21 +13,15 @@ revision:
   - date: 2026-07-08
     note: "Dogfood 2d — 外部 monorepo outbound sync Phase 3（4 slices）；consumer overlay slice_kind/backfill；hook allowlist 契約回饋"
   - date: 2026-07-09
-    note: "Dogfood 2d′ — ExternalRepoC 9j2 module alignment follow-on；integration gate、remote_absent_delete、live teardown、release-time gate；證據全文遷至 evidence/"
-  - date: 2026-07-09
-    note: "Dogfood 2h — ExternalRepoC common-url Execute 验证不严：RBAC 三连、V5 api-surface、combined 不得 inner-only 关闭"
-  - date: 2026-07-09
-    note: "Mutation review — mutation testing 定位為 V3 evidence producer（非 V6）；Behavioral Falsification producer family 立 Q9（forming abstraction）"
-  - date: 2026-07-09
     note: "Dogfood 2i — ExternalRepoC user-feedback S0–S4 Execute：Stop/resume、inventory gate、2h 教训迁移、sync_jobs 分表"
   - date: 2026-07-10
     note: "Dogfood 2j — ExternalRepoC push Execute **负向证据**：单 Task 跳过 Verifier、delegation.enabled:false 误当豁免；consumer verifier-after-executor gate 回饋"
   - date: 2026-07-10
     note: "Dogfood 2k — ExternalRepoC push **纠偏后 post-close**：用户手验 runtime/UI 缺口、Worker 拓扑、post-close surgical debt；V5-W/U 契约候选"
   - date: 2026-07-10
-  - date: 2026-07-10
     note: "Dogfood 2l — ExternalRepoC common-url S2′ mirror **负向证据**：0 Executor/Verifier、surgical bypass 滥用、Shell gate 洞；retroactive R1 Verifier 契约"
-    note: "還原：併發 plan 回寫（b6481e5 / 0958a38）自陳舊底稿覆蓋第五~十輪 + ERA + 2e/2f/2g + Q9；自 e2d5091 / bfb2704 / 66f58ed 重建，run 紀錄依 evidence/ 慣例落檔；writeback-collision 教訓入 §架構收斂觀察"
+  - date: 2026-07-10
+    note: "Dogfood 2m — ExternalRepoC Phase G-mirror **批量 retrofit**：V-m1–V-m5 模板 + 登记总表；02/01 合规 loop 对照 2l；stale JVM V5-A 复发；phase vs slice close_kind"
 ---
 
 # Delegation Verification & Arbitration Loop（委派執行→獨立驗證→仲裁閉環）
@@ -37,11 +31,11 @@ revision:
 **建立日期**: 2026-07-08
 **Source**: 2026-07-08 對話 — 使用者觀察到外部框架的三角色模式：主 session 只做規劃 / 切分 / 仲裁，執行交給獨立 agent session，驗證再交給另一個獨立 session，最後由主 session 仲裁每條驗證發現（要修 / 超出範圍 / 駁回）。目標：補漏「預計與實現的落差」。主要針對 `workflow/software-delivery` 的交付處理；Ai-skill 自身任務比照辦理，觀察品質是否提升。
 **Baseline**: [`03-subplan-agent-delegation`](../../archived/2026-06-22-1009-plans-system-portability-and-delivery-integration/03-subplan-agent-delegation.md)（completed，2026-07-06）— delegation `brief` schema + 雙路徑 dogfood ★★★★☆。本 plan 是其 loop 延伸（情境 C：sibling main plan + baseline_ref，不重開該 tree）。
-**Glossary Impact**: yes — candidate terms：`independent_verification`（fresh-context 驗證 leg，非 executor 自驗、非 orchestrator 自 review）、`arbitration`（orchestrator 對 verifier findings 的處置協議：fix / defer / reject）、`evidence_driven_control_loop`（四責任閉環通用化候選，Q6 gated）、`evidence_responsibility_architecture`（ERA，Q8 假說，第四輪 review 命名）、`evidence_first_acceptance`（Q7 結論的 universal 候選，parent of backfill / embedded evidence rules）、`behavioral_falsification`（V3 evidence producer family 候選，Q9 gated）。見 §架構收斂觀察。graduate 時才註冊到 `knowledge/glossary/ai-skill.md`；未定稿前不註冊。
+**Glossary Impact**: yes — candidate terms：`independent_verification`（fresh-context 驗證 leg，非 executor 自驗、非 orchestrator 自 review）、`arbitration`（orchestrator 對 verifier findings 的處置協議：fix / defer / reject）、`evidence_driven_control_loop`（四責任閉環通用化候選，Q6 gated，見 §架構收斂觀察）。graduate 時才註冊到 `knowledge/glossary/ai-skill.md`；未定稿前不註冊。
 
 > **Watch-Out List citation**：對應 [`architecture/ai-native-cognitive-ecosystem-system.md`](../../../architecture/ai-native-cognitive-ecosystem-system.md) §Watch-Out List 的「process bloat」「premature abstraction」「over-engineering」防呆：
 > - **不建自動 orchestrator** — 03 的 reservation 邊界維持不變；本 plan 是**角色協議**（主 session 人工扮演 orchestrator），不是 automation。
-> - **不強制所有任務走三角色 loop** — advisory 僅限非 Execute 情境（純問答 / 只讀 / surgical 小修直接做）。**2026-07-10 更新（2j F2 裁決）**：使用者 Execute 意圖 = mandatory loop，`delegation.enabled: false` 不是豁免（見 §Stakeholder 適用範圍）。
+> - **不強制所有任務走三角色 loop** — 只適用於已宣告 `delegation.enabled: true` 的 sub-plan / 委派任務，且為 advisory；小修補直接做。
 > - **不先動 schema** — Phase 1 為 doc-only 協議；schema promotion 需 Phase 2 dogfood 證據（falsification ladder，一次一階）。
 
 ## Decision Rationale
@@ -193,119 +187,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 3. **系統級不採用的判準改變**：不是角色問題，是 **Evidence Backfill 是否存在**。Research（Question → Exploration → Evidence → Hypothesis）、Knowledge（Raw → Extraction → Normalization → Validation）、Architecture（Problem → Alternatives → Tradeoff → Decision）的生命週期可能沒有「execution 前的 acceptance→evidence 映射」——這是 Q6/Q7 跨域驗證要直接觀察的點。
 4. **最深層命題（→ Q8）**：真正在收斂的可能不是 Delegation、也不是 Evidence-driven Control Loop，而是 **Evidence Responsibility（證據責任）**——整份 sd 文件每節都在回答：誰產生哪種證據（backfill owner / V1–V4）、哪種證據能關哪個狀態（C1–C5）、哪種證據不能單獨 closure（inner-only 禁令）、誰依證據做決策（orchestrator 唯一）。**跨域觀察重點從「四責任閉環是否重現」細化為「證據責任分配結構是否重現」**；若重現，可升格的 primitive 是更底層的 Evidence Responsibility Model。
 
-**第四輪 review（使用者，2026-07-09，讀 2e 裁決結果後）**——假說升級與方法論轉向：
-
-1. **「Topology 變、責任不變」= 抽象層抓對的證據**：2e 的價值不在「Research 也能用」，而在角色全換（Executor→Investigator、Verifier→Fact-checker、決策層多出 Maintainer 一級）但 Specification → Production → Independent Evidence → Decision 責任結構不變。**若兩域長得一模一樣，反而可能只是 copy SOP；topology 不同而責任一致，才代表抽象抓對了。**
-2. **Evidence-first Acceptance 抽象樹**（Q7 結果的正確畫法——抽象往上一層、具體往下一層）：
-   ```text
-   Evidence-first Acceptance（invariant：acceptance 在開始前就必須定義證據）
-   ├── Delivery  → Backfill Table（tier + owner，結構化強形式）
-   ├── Research  → Embedded Evidence Rules（acceptance 內嵌證據標準，弱形式）
-   └── 其他 domain → <該域自然長出的形式，待觀察>
-   ```
-3. **Invariant candidate 正式命名（Q8 核心）**：**Evidence Producer must not be Closure Authority（自產證據不能自我關閉）**——sd（inner test 不能關 user-visible slice）與 research（調查者自查 necessary but insufficient）**自然形成、非 SOP 規定**，兩域同構。
-4. **Primitive 候選排序（使用者裁定，2026-07-09）**：① Evidence Responsibility（誰可以生產什麼證據）② Evidence-first Acceptance（acceptance 如何先定義證據）③ Independent Verification（誰不能驗證自己）④ Four Responsibility Loop（工作如何流動）。**Delegation 大幅降級——它是一種 deployment，不是底層不變量。**
-5. **核心假說改名**：Evidence-driven Control Loop 是**表面結構**；真正浮現的核心 = **Evidence Responsibility Architecture（ERA）**——跨域最終都回答同四問（誰產哪類證據 / 哪些證據足以支持哪類結論 / 誰不能靠自產證據關閉 / 裁決權屬誰）。已有跨域實證（N=2 域），仍需更多驗證與**反例**。
-6. **方法論轉向（下一步）**：**falsification-first**——不急著找第三個成功域，**刻意選預期會失敗的域**（Brainstorming / Creative Writing / Open-ended Design / Ideation）做下一個 run：若它們也自然長出 evidence-first acceptance + independent evidence + closure authority → 假說極強；若沒有 → 明確畫出適用邊界。**兩種結果都是有效裁決素材，比繼續累積成功案例更有研究價值。**仍須真實任務（自然出現的 ideation 需求），不 manufacture。
-
-**第五輪 review（使用者，2026-07-09）——研究階段轉換：accumulation → boundary discovery**：
-
-1. **預註冊的反漂移理由明文化**：無預註冊會落入「無限弱形式回歸」——沒有 backfill → 說有弱形式；沒有弱形式 → 說有更弱形式；最後任何東西都算同一 pattern，**假說永遠不可被推翻**。預註冊 = 先定義 failure 長什麼樣。
-2. **Falsification 拆成兩個獨立觀察（2f 預註冊判準，run 前定死）**：
-   - **F1**：acceptance 是否**自然形成 evidence requirement**（不誘導）。
-   - **F2**：closure 是否**真的依賴 independent evidence**——證據可以存在但最終以偏好/品味/創意/領導裁決關閉（「我喜歡第 7 個」）＝ F2 fail。**Evidence 有、closure 不靠它，也是 failure。**
-   - 判讀：F1✓F2✓ = ERA 成立於該任務；F1✓F2✗ = 證據裝飾性，邊界訊號；F1✗ = 邊界訊號。
-3. **ERA 最終假說收斂為單一問句**：「**Decision 是否必須依賴 Independent Evidence？**」Yes → ERA 成立；No → 邊界。（四步 loop 是這個問句的展開，不是假說本體。）
-4. **邊界維度猜想（待 2f 驗證）**：ERA 可能不是「所有 AI 工作」的 primitive，而是 **High-integrity Work**（sd / research / audit / compliance / architecture governance / knowledge management——共同點：decision 必須可 justify）的 primitive。**邊界不是 domain 名，是工作性質：Justification Required vs Preference Allowed**——同一 domain 可同時含兩種工作（architecture 安全審查 vs architecture 概念發想）。此分類比 domain 更穩定。
-5. **成熟標誌重定義**：好的架構模式成熟的標誌不是「可以用在所有地方」，而是「**知道它在哪裡不該用**」——最期待的不是 2f 成功，是 2f 依預註冊標準**真實失敗**且失敗原因正是「decision 只需偏好裁決」。
-
-**第六輪 review（使用者，2026-07-09，讀 2f 期中資料後）——ERA 假說重構：從「決定」到「約束」**：
-
-1. **三層結構取代二分法**（2f 期中資料直接支撐）：(i) Producer 無 contract 也**自發**產生 evidence awareness（撞名註記、截點聲明）——**Evidence Requirement 不是 evidence awareness 的唯一來源**，此為獨立記錄的觀察；(ii) Reviewer 的功能是 **Filter 不是 Selector**（全部輸出是「這不能選、這有事實錯誤、這類別有盲點」，零「我喜歡」）；(iii) 真正的 Selection 在使用者。
-2. **ERA v2**：不是 `Evidence → Decision`，是 **`Evidence → Decision Space → Preference → Selection`**——**Evidence 約束 Decision，不必然決定 Decision**。此抽象更強，因為它把各工作型態放上同一光譜：
-   | 工作型態 | Evidence 約束強度 | Selection 空間 |
-   |---|---|---|
-   | Software Delivery | 完全約束 | 幾乎不存在（唯一合法答案） |
-   | Research | 高度約束 | 剩一個最可信答案 |
-   | Naming | 部分約束 | 排除危險候選後由偏好選 |
-   | Brainstorm / Creative | 弱約束 | 避開明顯失敗後由品味形成 |
-3. **邊界重定義**：ERA 的 boundary 不是「有/沒有 evidence」，是「**Evidence Constraint 有多強**」——continuum 取代 binary。
-4. **F2 三模式量測尺度**（本輪提出時 F2 尚未量測，時序合法；**記為補充量測，原始二元判準仍為本 run 正式判定基礎**）：Evidence-determined（證據幾乎唯一決定）/ **Evidence-constrained**（證據縮小範圍、偏好完成選擇）/ Preference-determined（證據幾乎無影響）。
-5. **反事實鑑別問題**（F2 量測的關鍵細化）：若最終選了某候選，須區分「reviewer 排除其它後它成為最佳剩餘」vs「即使 review 不存在本來就會選它」——**同一個選擇、對 ERA 意義完全不同**。
-
-**第七輪 review（使用者，2026-07-09）——Feasible Set 形式化 + v3 候選假說**：
-
-1. **v2 真正強的原因**：不只解釋更多 domain，是解釋更多 **Decision 類型**——Decision 不是單一步驟。sd 實際鏈是 `Evidence → 哪些不能 Close → fix/defer/reject → Closure`；Evidence 沒有直接輸出 Decision，是先定義 **Decision 的合法範圍**。
-2. **形式化（feasible set）**：`Decision Space → Evidence Constraints → Feasible Set → Decision`（All Possibilities → Feasible → Chosen）。Decision 不從零開始，Evidence 持續縮小可行集。
-3. **C1b 重讀為 constraint 的典型範例**：evidence 不說「要選 integration」，只說「**不能只選 inner**」——排除而非指定。
-4. **ERA 名稱自洽**：Responsibility = **誰有權縮小 Decision Space**。Executor 增加 implementation evidence、Verifier 增加 independent evidence、Orchestrator 做最終 Selection——每個角色都是 Decision Space 的操作者。
-5. **第二維度猜想（未驗證，記錄待觀察）**：Constraint Strength 不是唯一維度，還有 **Constraint Type**——sd 的 evidence 主要「排除非法」（Illegal）、naming 主要「降低風險」（Risk）、research 主要「增加可信度」（Confidence）、creative 剩「Preference」。**呼應（orchestrator 補充）**：各域自然長出的 finding 分類恰是 constraint-type 標記——sd `acceptance-violation`＝Illegal 型、naming review 的撞名/文化坑＝Risk 型、research 查核的引文覆核＝Confidence 型；分類 enum 未經協調卻對上猜想分型，是此維度真實存在的間接信號。
-6. **v3 候選假說（明標：不入正式定義，下一階段待驗證）**：`v1: Evidence → Decision`／`v2: Evidence constrains Decision`／**`v3(候選): Evidence progressively shapes the feasible decision space`**。開放問題：不同類型的證據是以不同機制（排除非法／降風險／升可信度）塑造可行集，還是存在更統一的機制？——ERA 下一階段的核心待驗證問題。
-
-**第八輪 review（使用者，2026-07-09）——理論收斂判定 + 抽象凍結（stakeholder 決策）**：
-
-1. **理論收斂特徵判定：開始有了**。依據不是假說變漂亮，而是每輪修正共有的特性：**新抽象不推翻舊資料，而是讓舊資料成為新模型的特例**（delivery 的 `Evidence → Decision` = feasible set 只剩一個元素的極限情況）；每輪產生新的可反證預測；假說不靠改寫歷史成立。
-2. **修正第七輪：Preference 不是 Constraint Type，是 Selection Policy**——Illegal / Risk / Confidence 都在「限制可行集」，Preference 是「從合法集合裡挑一個」，屬不同機制、不同層。修訂模型：
-   ```text
-   Decision Space
-     ↓ Evidence Constraints（Illegal / Risk / Confidence / …）
-   Feasible Set
-     ↓ Selection Policy（Preference / Optimization / Random / User Choice）
-   Decision
-   ```
-3. **Responsibility 二分（讓 ERA 的 Responsibility 第一次完整）**：**Constraint Responsibility**（誰能改變 Feasible Set——producer 加 evidence、verifier 加 independent constraints）vs **Selection Responsibility**（誰能從可行集合做最終選擇——orchestrator / decision holder 的 selection policy）。
-4. **不急 enum 化** constraint types（Illegal/Risk/Confidence 目前是觀察分型，非 schema）。
-5. **抽象凍結（stakeholder 決策，2026-07-09，效期至 Phase 3 / 2026-08-31）**：**在 Phase 3 前刻意不再提升抽象層級**。v2（Evidence constrains Decision）= 正式工作模型；v3 = 維持候選；後續只做證據收集——特別觀察 **Constraint Responsibility 與 Selection Responsibility 是否在新案例中自然分離**。v3 升格條件：3–4 個不同領域重複出現此分離。理由：目前「每輪能回頭解釋舊資料 + 產生可反證預測」的優勢，會被急著升格破壞。
-
-**Constraint-type 猜想的第一個 production incident 實證（consumer bookmark 案，2026-07-09；外部 review 回饋入檔）**：
-
-- **事實**：mock IT ✅ + build ✅ + grep ✅ → UI 開啟即 missing column（dev DB 未跑 migration）。錯誤關閉的根因**不是 verifier 少做一步，是缺一種 constraint type**——既有證據全屬 implementation constraint，只能排除 implementation failure；**沒有任何證據有能力約束 runtime decision space**，Feasible Set 沒有真正縮小，Close 在過大的可行集裡做出。
-- **對 ERA 的意義**：(a) constraint-type 維度（第七輪猜想）從觀察分型升為**有 incident 後果的實證**——缺 type 會直接導致錯誤 closure；(b) Responsibility 補洞案例：runtime constraint 原本**無人負責** → verifier V5 補位（constraint responsibility 分配的自然演化實例）；(c) v3 的 feasible-set 語言直接解釋了 incident（凍結期內又一次「新模型解釋新資料」）。
-- **凍結合規處理**：V5 / `runtime` tier / `runtime-omission` 以 **mechanism** 入 `sd-delegated-execution`（不動抽象）；**constraint-family 重構**（以 Spec / Implementation / Runtime / Delivery / Safety constraint 族取代 V-編號，V1–V5 降為 mechanism——外部 review 建議，防 V6/V7/V8 無限疊 checklist）記為 **Phase 3 解凍後的重組候選**，屆時與 Q8/v3 裁決同批評估。
-
-**第九輪 review（使用者，2026-07-09）——研究線收官凍結（line-level freeze）**：
-
-1. **凍結判定**：研究線暫時凍結——不是沒東西可研究，是它已具備成熟理論雛形的特徵。收斂節奏本身即成果：`Observation → Hypothesis → Cross-domain → Falsification → Boundary → Freeze`——這是 research methodology 的節奏，不是「抽象再抽象」。
-2. **每次修正保留舊模型（正式確認）**：v1 = constraint strength ≈ 100% 的極限情況；v2 = 把 strength 顯式化；v3 = 把 Decision 拆成 Constraint + Selection——**沒有任何一層需要否定前面**。
-3. **九輪最大成果 = Responsibility 重定義**（比 ERA 本身更重要，比 RACI 更底層）：不是「誰寫 code / 誰 review / 誰 approve」，是「**誰可以改變決策空間**」——Constraint Responsibility（誰有權縮小 Feasible Set：executor 的 implementation evidence、verifier 的 independent constraints、runtime smoke 的 runtime constraints）+ Selection Responsibility（誰有權從 Feasible Set 做最終選擇：PO / maintainer / user / architecture board）。
-4. **隱含成果正式記錄：固定住的是 Decision Semantics，不是 Workflow**——sd 的 Close、research 的 Disposition、naming 的 Selection 表面完全不同，但全部化約到 `Decision Space → Evidence Constraints → Feasible Set → Selection Policy → Decision`。**Workflow 可以不同、Decision Semantics 不變——這比 Workflow 更接近 Primitive。**
-5. **Phase 3 重定位（stakeholder 裁定）**：不再研究抽象，改為**驗證穩定性**——問題從「還有沒有更高一層」改為「**未來三個月，新案例是否不用修改模型就自然落進目前模型**」。連續多案例成立 = 模型具 **Predictive Power**（而非僅 Retrospective Power）——兩者差異極大。
-6. **Post-Phase-3 候選研究主題（登記不展開）**：**Evidence Lifecycle**（`Produced → Challenged → Confirmed → Deprecated → Archived`）——Evidence 目前在模型中是靜態節點，但它怎麼累積/失效是隱含的下一問。此線不建立在新抽象上，而建立在既有研究紀律（temporal evidence / provenance / pre-registration / falsification）之上，很可能自然長出來。**現在不開**：ERA 剛進入穩定收斂期。
-
-**第十輪 review（使用者，2026-07-09）——研究治理層的收官觀察（meta-level，本身依「登記不升格」處理）**：
-
-1. **Freeze-at-peak 是治理模式，不是研究步驟**：「在最想繼續的時候停下來收證據」與一般「沒想法才停」本質不同——前者是**證據紀律**，後者是資源不足。核心句：**「Freeze 不是結束，是把模型固定，讓未來有機會失敗」**——模型一直改就永遠不知道它有沒有預測能力；凍結後 Case D/E/F 全用同一模型，成功與失敗才都有研究價值。
-2. **兩種 Freeze 的區分**：**Model Freeze**（v2 固定為正式工作模型）vs **Hypothesis Freeze**（v3 / Evidence Lifecycle / constraint-family——`Interesting → Register → Do Nothing`，等證據）。後者罕見且珍貴：多數研究的最大問題是看到新想法立即展開。
-3. **Working Model 的修改閘門 = 證據，不是更好的想法**：討論可以一直發生、hypothesis 可以一直累積，但**正式工作模型只有新的、足以改變模型的證據才能改**。這回答「什麼東西可以改變正式模型」——比「不要再抽象」更根本。
-4. **Research Governance Primitive（候選節奏，登記不展開）**：`Exploration → Freeze → Prediction → Accumulation → Revision`——九輪實際走的節奏。
-5. **三個最有長期價值的可移植成果（使用者總結）**——即使 ERA 被修正、v3 不成立、Decision Semantics 被取代，這三者仍保留並可用於下一個問題：
-   1. **Working Model Freeze**：證據不足時正式模型保持穩定；新想法先登記不升格。
-   2. **Pre-registered Falsification**：先定義成功/失敗判準再收資料，防事後合理化。
-   3. **Predictive Validation**：凍結後不追更高抽象，觀察新案例是否自然落位。
-   → **處置**：三者標記為 **本 plan closure 時的 intelligence atom 提煉候選**（plans/README 原則 5 的既有管道；不新建 governance 文件、不即時升格——與其自述的紀律自我一致）。**九輪最大產出不只是候選理論，是一套能持續產生可靠理論的研究流程。**
-
-**Mutation review（使用者，2026-07-09，Mutation Testing 討論；獨立對話線，還原自 commit 28692fd）**——四個命題，doc-only 回寫：
-
-1. **Mutation testing = V3 的 evidence generator，不是新驗證層（不設 V6）**。架構優勢在於以 evidence 為中心而非以 testing 技術為中心；mutation 只是「一種產生 Evidence 的方法」，架構完全不用改。已落地：[`delegated-execution.md`](../../../workflow/software-delivery/delegated-execution.md) §5 V3 evidence producer；[`test-strategy.md`](../../../workflow/software-delivery/test-strategy.md) §Mutation 加 verifier-consumer back-pointer。
-2. **L3 從 imagination-driven 升級為 mechanical falsification**——mutation 機械枚舉行為區分點，與「Mechanical Enforcement > Human Discipline」同構；verifier 不再需要自己想到 `price==100`。
-3. **Survived mutant 只是資訊，finding 才是 evidence**：Mutant → Semantic Gap → Verifier Finding；orchestrator 不需知道 mutation engine 存在。
-4. **不做 mutation score KPI**；保留 targeted mutation（risk-triggered：boundary / boolean / null / authorization / invariant / guard）。
-5. **通用抽象候選（→ Q9）**：「Behavioral Falsification」producer family（mutation / fault injection / property-based / model-based，皆產出「此行為未被驗證區分」型 evidence）。**紀律邊界**：forming abstraction（observe-only）；graduate 前不建 producer registry、mutation 以外 producer 無真實 run 前只是 analogy。
-
-**Writeback-collision 事件（2026-07-10，本 plan 自身的 ERA 實例——負向）**：
-
-- **事實**：兩個併發 evidence session 從陳舊底稿回寫 `_plan.md` / kit——`b6481e5` 覆蓋掉第五~十輪 review、ERA v2/v3、兩層凍結、2e/2f/2g run 紀錄與 glossary terms；`bfb2704` 帶未解決 conflict markers 入 commit；`0958a38` 解衝突時再丟失 Q9。**內容全數自 git 歷史還原**（e2d5091 / bfb2704 / 66f58ed），run 紀錄依新 evidence/ 慣例落檔。
-- **對 ERA 的意義（自我指涉實例）**：plan writeback 本身就是一種 Production——這兩次 push 是「**自產證據自我關閉**」的實例（無獨立 verifier 覆核 diff 即 push），與 2j 的「單 Task 跳過 Verifier」同構、發生在治理 repo 自身。**模型再次正確診斷斷裂形狀**（Production 與 Evidence 合併）。
-- **契約回饋（登記，mechanism 候選）**：(a) evidence-only session 應**只 append `evidence/` 檔 + 一行 plan checkbox**，不得整檔重寫 `_plan.md`（93bde60 的 evidence/ 分離方向正確，需成為紀律）；(b) push 前 `git pull --rebase` + 衝突不得以「取我版」解掉共享敘事檔；(c) **conflict-marker pre-commit scan** 為可機械化候選（Go-first，涉 CLI——登記不即時實作）。
-
-**第十一輪 review（使用者，2026-07-10，讀 collision 還原後）——治理自我適用的高價值驗證（非新假說，凍結合規）**：
-
-1. **Collision 是 Governance 失敗，不是 Git 問題**：merge conflict / 資料遺失只是工程表象；真正的 failure 結構 = Evidence Session 修改 canonical plan、無 Independent Review、直接 Push——**Production + Evidence + Closure 由同一 actor 完成**，與 Evidence Producer ≠ Closure Authority 完全同構。Remediation（scan / rebase）只是補救，不是解釋。
-2. **Structural Predictive Power（結構預測力）**：Predictive Power 的第二形態——模型不預測事件（merge / overwrite / 錯誤 approve / collision 都只是 manifestation），預測**失敗結構**：「Production 與 Evidence 不分離 → 治理失敗」。與「新案例自然落位」並列為 Phase 3 穩定性量尺的兩翼。
-3. **三條契約回饋的正確定性**：它們不是 patch，是 **Constraint Responsibility 的恢復**——append-only = 阻止 Evidence Session 修改 Canonical Decision；rebase = 重新接受新的 Constraint；conflict scan = 阻止未完成的 Decision 進入 Canonical。三條都是 ERA 在治理層的具體化。
-4. **Q5 的機械化邊界明晰**：「擋寫不擋不驗」揭示——**Mechanization 只能約束 Execution，不能產生 Evidence / Judgement**。工具可以禁止直接寫，不能生成 Independent Evidence → Constraint / Selection Responsibility **不可完全自動化**（Q5 Phase 3 門檻明文化的定性基礎）。
-5. **關鍵升層句（使用者，值得長期保留）**：「**Canonical Writeback 本身就是一種 Selection**」——寫回 canonical 不是 IO，是 `Candidate Knowledge → Canonical Knowledge` 的 Selection Policy 行為。Evidence Session 直接寫 canonical 不是「多做一步」，是**跨越 Responsibility Boundary**。適用於 plan、Knowledge Base、Glossary、ADR、Pattern Library——所有 canonical 面。
-6. **研究線最新評價**：前九輪建立 Decision Semantics；本次首次出現「**Governance 本身也服從同一套 Decision Semantics**」——模型開始能約束自己的演化。**當一個模型能解釋自己的失敗模式而不需發明新解釋框架，是理論成熟度提升的重要訊號**。定性：目前工作模型（v2 + v3 候選）的高價值驗證，非新假說——凍結不動。
+## Runtime Execution Path
 
 **doc-only trial 宣告**：本 plan 不接入 runtime——不新增 `route.*`、不新增 commit-msg validator、不動 `runtime.db` generated surfaces、不動 delegation schema / `validatePlanTreeFrontmatter`。協議以文件 + 行為紀律承載；驗證 leg 復用既有 review capability invoke（`ai-skill runtime capability-invoke --capability code-review --stance fault_finding`，既有 warning-only surface，無新 wiring）。
 
@@ -319,11 +201,10 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 | Q2 | 協議文件落點：plans/README.md §Delegation 擴充（delegation 擁有 loop）vs `workflow/cross-cutting/review/` consumer doc（review 擁有驗證 leg）？stance 復用不得重定義 | Phase 1 | **resolved（2026-07-08）** | 落點決定 + 文件落地，且未在 consumer 層重定義 stance / requires_context ✅ | 落點 = plans/README.md §Delegation loop SOP 子節（delegation 擁有 loop 生命週期；review 只被 invoke 引用）。commit `af26064` + `2d5bc60`；獨立驗證確認未重定義 stance。副作用：F1 措辭 drift 隨 canonical 移轉消解 |
 | Q3 | 品質信號怎麼量：verifier 差集 findings 數 + 仲裁分佈（fix/defer/reject 比例）是否構成「品質提升」的有效指標？null result 如何記錄？ | Phase 2 | **resolved（2026-07-08，advisory 指標）** | 雙 dogfood 各留差集 + 分佈；複合指標明文化 | **複合指標**（kit §2a-external 結論表）：(1) acceptance-violation 率（2a-external **0/2 rounds**）；(2) test delta（+6）；(3) pre-merge bug fix 數（2：guard + envelope）；(4) 協調成本（spawn×4、plan commit×6）；(5) orchestrator 越界次數（1）。**結論**：品質↑有量化證據；orchestrator 寫 code↓、協調↑；verifier 邊際 catch 本任務為中等（強制 IT/結構化 defer 價值 > acceptance 差集）。null result 未出現 |
 | Q4 | 仲裁紀錄落點：被委派 sub-plan 內 table（傾向）vs 獨立 artifact？ | Phase 1 | **resolved（2026-07-08）** | 落點決定並在 dogfood 實際使用 ✅ | 落點 = 被委派任務的 plan artifact 內 table（SOP 已載明）；dogfood 期記於 kit §Dogfood 紀錄（2b 仲裁表實際使用） |
-| Q5 | Schema promotion 門檻：什麼證據才允許動 delegation schema（如 `delegation.verification`）？ | Phase 3 | open | 門檻明文化；未達門檻則明確記錄維持 doc-only | kit §2c + **§2d** 增強信號；consumer 機械 gate（2c/2d）後 orchestrator 零 manageCode diff；**§2g 第二個獨立 consumer**（ExternalRepoA overlay + backfill + 自建 gate，BDD 7/7）——consumer-layer 自理模式 ×2 成立，slice 各項 promotion eligibility 達標、評估歸 Phase 3 批次 — schema 本身**仍維持 doc-only**。**2j 負向補充（2026-07-10）**：機械 gate「擋寫不擋不驗」缺口實證——role boundary 需 **Verifier-spawn tracking** 類 gate（consumer `verifier-after-executor` 回饋），Phase 3 門檻明文化的直接素材 |
-| Q6 | 通用化定位：graduate 時是否以「Evidence-driven Closed Control Loop」（四責任分離：Specification → Production → Independent Evidence → Arbitration → Specification）取代「Delegation」定位？（使用者 review 2026-07-08 提出，見 §架構收斂觀察） | Phase 3（adoption stage 2 gate） | open（**stage-2 條件首次滿足**，2026-07-09；改名裁決留 Phase 3 / maintainer） | 至少一個**非 delivery 域**（Research / Knowledge / Architecture）真實 run **自然收斂**到四責任閉環（非類比解釋）；**驗 pattern 不驗 topology**（角色名可全換）；stage 3（runtime 全面預設）另需 cross-domain + cross-workflow + cross-project evidence，不在本 plan scope | **2e（Research/Audit 域，真實 deadline 任務）**：四責任自然成立、角色 topology 自然不同（調查者/查核者 + maintainer 第二層 decision）——pattern held, topology differed，正是 closed criteria 預測的形態；kit §2e 觀察表 |
-| Q7 | **Verification Backfill 是否為獨立 primitive（Evidence-first Execution）**：「acceptance 在 execution 前映射成證據」是否比 delegation 本身更根本？（第三輪 review 命題 2） | Phase 3 / stage 2 觀察 | open | (a) sd 域內：backfill 在 ≥2 個真實委派任務穩定使用且能擋「做完再想怎麼驗」；(b) 跨域：至少一個非 delivery 域**自然出現或明確缺席**「execution 前的 acceptance→evidence 映射」——缺席也是有效答案（支持「backfill 是 sd-specific，不是 primitive」） | **resolved（2026-07-09）**：(a) sd 域 ≥2 真實使用成立（2c/2d）；(b) 2e Research 域觀察——**結構化 backfill（tier+owner 表）明確缺席且不需要**，出現的是弱形式 **evidence-first acceptance**（acceptance 內嵌證據標準）。**結論：Verification Backfill 是 sd 域強形式 primitive，非 universal；universal 候選改為 evidence-first acceptance**。Reopen 條件：任一非 delivery 域自然長出結構化 tier+owner 映射需求 |
-| Q8 | **Evidence Responsibility Architecture（ERA）是否為更底層共同骨架**：跨域是否自然收斂出相同的「證據責任分配」結構——誰產生哪種證據 / 哪種證據足以支持哪類結論 / 誰不能靠自產證據關閉 / 裁決權屬誰？（第三輪 review 命題 4 立案；**第四輪 review 命名 ERA + invariant candidate「Evidence Producer ≠ Closure Authority」**） | Phase 3 / stage 2 觀察 | open（N=2 域同構；**2f falsification run 已預註冊**，[`evidence/2f-falsification-naming-run.md`](evidence/2f-falsification-naming-run.md)） | **雙向裁決**：(a) 成功域同構累積（不預設 sd 詞彙）；(b) **反例探測（2f，判準已預註冊，run 前定死防無限弱形式回歸）**——F1（evidence requirement 自然形成？）+ **F2（closure 真的依賴 independent evidence？證據裝飾性 = fail）**兩獨立觀察；目標選擇依**工作性質**（preference-allowed）非 domain 名。邊界維度猜想：**Justification Required vs Preference Allowed**（ERA 或為 High-integrity Work 的 primitive，非所有 AI 工作）。升格裁決需成功域 ≥2 ✓ + 邊界至少初步描繪（待 2f） | **2e 第一個跨域同構資料點**：四問以 Research 域原生形態重現；invariant candidate **Evidence Producer ≠ Closure Authority** 兩域自然形成非 SOP 規定；domain variant：decision 兩級分層。Primitive 候選排序（使用者 2026-07-09）：ERA > Evidence-first Acceptance > Independent Verification > Four-Responsibility Loop；**Delegation 降級為 deployment**。**負向同構 ×3（2026-07-10）**：2j（單 Task 跳過 Verifier）+ writeback-collision + **2l**（S2′ mirror 首发 bypass + Shell hole）——兩者皆「Production 與 Evidence 合併」，模型正確診斷斷裂形狀（診斷力 = predictive power 的另一形態） |
-| Q9 | **Behavioral Falsification 是否為 V3 evidence producer family**：mutation / fault injection / property-based / model-based 是否收斂為可替換 producer（皆產出「此行為未被驗證區分」型 evidence）？（Mutation review 命題 5，見 §架構收斂觀察） | Phase 3 / 後續 delivery dogfood | open | (a) targeted mutation 作為 V3 producer 在 ≥1 個真實委派 run 實際使用，且 survived mutant → semantic-gap finding 契約成立（orchestrator 未被迫理解 mutation engine）；(b) 至少第二種 producer 自然出現於真實 run——缺席亦為有效答案（family 維持 mutation-only，不建抽象）；graduate 前不建 producer registry / 通用 taxonomy | <V3 producer run evidence> |
+| Q5 | Schema promotion 門檻：什麼證據才允許動 delegation schema（如 `delegation.verification`）？ | Phase 3 | open | 門檻明文化；未達門檻則明確記錄維持 doc-only | kit §2c + **§2d** 增強信號；consumer 機械 gate（2c/2d）後 orchestrator 零 manageCode diff — **尚不足以** close Phase 3 / schema 決策 |
+| Q6 | 通用化定位：graduate 時是否以「Evidence-driven Closed Control Loop」（四責任分離：Specification → Production → Independent Evidence → Arbitration → Specification）取代「Delegation」定位？（使用者 review 2026-07-08 提出，見 §架構收斂觀察） | Phase 3（adoption stage 2 gate） | open | 至少一個**非 delivery 域**（Research / Knowledge / Architecture）真實 run **自然收斂**到四責任閉環（非類比解釋）；**驗 pattern 不驗 topology**（角色名可全換）；stage 3（runtime 全面預設）另需 cross-domain + cross-workflow + cross-project evidence，不在本 plan scope | <跨域 run evidence> |
+| Q7 | **Verification Backfill 是否為獨立 primitive（Evidence-first Execution）**：「acceptance 在 execution 前映射成證據」是否比 delegation 本身更根本？（第三輪 review 命題 2） | Phase 3 / stage 2 觀察 | open | (a) sd 域內：backfill 在 ≥2 個真實委派任務穩定使用且能擋「做完再想怎麼驗」；(b) 跨域：至少一個非 delivery 域**自然出現或明確缺席**「execution 前的 acceptance→evidence 映射」——缺席也是有效答案（支持「backfill 是 sd-specific，不是 primitive」） | **2d 正向（sd 域第 2 個外部 run）**：`verification_backfill` + `deliverables[]` + `slice_kind` + V4 產出物核對；L1–L3 外層鏈為 user-visible slice 關閉條件 — kit §2d；跨域觀察仍 open |
+| Q8 | **Evidence Responsibility Model 是否為更底層共同骨架**：跨域是否自然收斂出相同的「證據責任分配」結構——誰產生哪種證據 / 哪種證據能關哪個狀態 / 哪種不能單獨 closure / 誰依證據決策？（第三輪 review 命題 4；**細化 Q6 的觀察鏡頭**） | Phase 3 / stage 2 觀察 | open | 非 delivery 域真實 run 記錄其證據責任分配（不預設 sd 詞彙）；若 ≥1 域重現同構的四類責任回答 → Q8 升格候選 = Evidence Responsibility Model（而非 Delegated Execution / Control Loop）；若各域結構不同構 → 記錄差異、維持 domain-local | <跨域證據責任紀錄> |
 
 ## 完成條件
 
@@ -380,26 +261,21 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 - [x] **2a-external — 外部 monorepo sync-adapter Step 6** ✅（2026-07-08，Cursor Task transport）— kit §2a-external
 - [x] **2c — 外部 monorepo tiered archive 全線（8 slices，Phase A–D）** — 2026-07-08 **證據 only**（kit §2c）；強化 Q3 品質信號，**不**視為 Phase 3 closure
 - [x] **2d — 外部 monorepo outbound sync Phase 3（4 slices）** — 2026-07-08 **證據 only**（kit §2d）；強化 backfill / consumer gate 信號；**不**視為 Phase 3 closure
-- [x] **2g — 第二個外部 consumer（ExternalRepoA）：server_doc test placement + delegation overlay** — 2026-07-09 **證據 only**（kit §2g）。雙重意義：(a) **Phase 3 穩定性視角第一筆資料**——新案例未修改模型自然落位（同 overlay + backfill 模式、ERA 分工自然出現、consumer 機械 gate 自理）；(b) sd-delegated-execution §Provenance 的升級條件「第二個獨立 consumer 真實使用」**已滿足** → 分類 enum / backfill 模板化 / 機械 gate 泛化的 promotion **eligibility 成立**，依凍結紀律評估延至 Phase 3 批次，一次一階
-- [x] **2d′ — ExternalRepoC 9j2 module alignment follow-on** — 2026-07-09 **證據 only**（[`evidence/2d-prime-externalrepoc-module-alignment.md`](evidence/2d-prime-externalrepoc-module-alignment.md)）。§2d 同一 consumer 延續：integration gate（平行 branch UX fail ×1）、`remote_absent_delete` fix、live 雙邊 teardown、pre-push build + inner src/test block；模型自然落位 **是**；**不**視為 Phase 3 closure
-- [x] **2h — ExternalRepoC common-url Execute 驗證缺口** — 2026-07-09 **證據 only**（[`evidence/2h-externalrepoc-common-url-verification-gaps.md`](evidence/2h-externalrepoc-common-url-verification-gaps.md)）；RBAC 三連、V5 全 API 面、combined 不得 defer L1–L3；**不**視為 Phase 3 closure
-- [x] **2i — ExternalRepoC user-feedback S0–S4 Execute** — 2026-07-09 **證據 only**（[`evidence/2i-externalrepoc-user-feedback-pull-execute.md`](evidence/2i-externalrepoc-user-feedback-pull-execute.md)）；Stop/resume、inventory gate、2h 教訓遷移驗證；**不**視為 Phase 3 closure
-- [x] **2j — ExternalRepoC push Execute 跳過 Verifier loop** — 2026-07-10 **負向證據 only**（[`evidence/2j-externalrepoc-push-execute-skip-verifier-loop.md`](evidence/2j-externalrepoc-push-execute-skip-verifier-loop.md)）；Execute 意圖 > `delegation.enabled:false`（F2 stakeholder 裁決）；單 Task 包辦 = Production/Evidence 合併；consumer `verifier-after-executor` gate 回饋；**不**視為 Phase 3 closure
-- [x] **2k — ExternalRepoC push 纠偏后 post-close runtime 缺口**
-- [x] **2l — ExternalRepoC common-url S2′ mirror 再跳过三角色 loop** — 2026-07-10 **负向证据 only**（[`evidence/2l-externalrepoc-common-url-s2-mirror-skip-loop.md`](evidence/2l-externalrepoc-common-url-s2-mirror-skip-loop.md)）；0 Executor/Verifier、surgical bypass 滥用、Shell 绕过 preToolUse；`retroactive-r1-verifier`；**不**視為 Phase 3 closure — 2026-07-10 **證據 only**（[`evidence/2k-externalrepoc-push-post-close-runtime-gaps.md`](evidence/2k-externalrepoc-push-post-close-runtime-gaps.md)）；用户手验暴露 V5 未覆蓋 create 表单 / Worker 拓扑；`post-close-surgical-debt`；**不**視為 Phase 3 closure
-- [x] **2e — 跨域 run（Research/Audit 域）：grandfather sunset audit** ✅ — 2026-07-08–09（[`evidence/2e-grandfather-sunset-audit.md`](evidence/2e-grandfather-sunset-audit.md)）；Q6/Q7(b)/Q8 的 stage-2 裁決 run。完整 loop：調查者（worktree，252 行報告 `c8ff035`，中斷後 resume 完成）→ 事實查核者（fresh，引文逐條命中、5 surfaces 獨立重跑一致、findings ×2 全 observation）→ 仲裁（defer×2，無 fix）。**實質產出**：5/5 surfaces 已 wired、flag 條款過時、延展不觸發、sunset 只剩行政收尾（處置決定保留 maintainer，見 `02-grandfather-sunset-audit.md`）。**跨域觀察**：四責任自然成立（topology 不同：+maintainer 第二層 decision）；backfill 結構化形式明確缺席、弱形式（evidence-first acceptance）出現；證據責任四問同構重現（含「自產證據不能自我關閉」跨域不變式）——詳 kit §2e Q6/Q7/Q8 觀察表
+- [x] **2h — ExternalRepoC common-url Execute 验证缺口** — 2026-07-09 **證據 only**（[`evidence/2h-externalrepoc-common-url-verification-gaps.md`](evidence/2h-externalrepoc-common-url-verification-gaps.md)）；RBAC 三连、V5 全 API 面、combined 不得 defer L1–L3；**不**視為 Phase 3 closure
+- [x] **2j — ExternalRepoC push Execute 跳过 Verifier loop** — 2026-07-10 **负向证据 only**（[`evidence/2j-externalrepoc-push-execute-skip-verifier-loop.md`](evidence/2j-externalrepoc-push-execute-skip-verifier-loop.md)）；Execute 意图 > `delegation.enabled:false`；单 Task 包办；consumer `verifier-after-executor` gate 回饋；**不**視為 Phase 3 closure
+- [x] **2k — ExternalRepoC push 纠偏后 post-close runtime 缺口** — 2026-07-10 **證據 only**（[`evidence/2k-externalrepoc-push-post-close-runtime-gaps.md`](evidence/2k-externalrepoc-push-post-close-runtime-gaps.md)）；用户手验暴露 V5 未覆蓋 create 表单 / Worker 拓扑；`post-close-surgical-debt`；**不**視為 Phase 3 closure
+- [x] **2l — ExternalRepoC common-url S2′ mirror 再跳过三角色 loop** — 2026-07-10 **负向证据 only**（[`evidence/2l-externalrepoc-common-url-s2-mirror-skip-loop.md`](evidence/2l-externalrepoc-common-url-s2-mirror-skip-loop.md)）；0 Executor/Verifier、surgical bypass 滥用、Shell 绕过 preToolUse；`retroactive-r1-verifier`；**不**視為 Phase 3 closure
+- [x] **2m — ExternalRepoC Phase G-mirror 批量 retrofit** — 2026-07-10 **正负对照**（[`evidence/2m-externalrepoc-phase-g-mirror-batch-retrofit.md`](evidence/2m-externalrepoc-phase-g-mirror-batch-retrofit.md)）；V-m1–V-m5 + 登记总表；02/01 合规 loop vs 03/2l；`retrofit-v-m-template` / `stale-jvm-v5-a-checklist`；**不**視為 Phase 3 closure
+- [ ] **2e — 跨域 run（Research/Audit 域）：grandfather sunset audit** — 2026-07-08 啟動（kit §2e）；Q6/Q7(b)/Q8 的 stage-2 裁決 run；任務 = `pre_2026_05_28_doc_only_completion` sunset（2026-08-31）的 4-plan wiring 調查與處置建議（真實 deadline 待辦，非 manufactured）；brief 以 Research 域原生語彙撰寫，觀察四責任 / backfill / 證據責任結構是否**自然**出現
 - [x] 回饋迴路（2b 觸發 ×1）：F2 暴露 brief v1 缺「reusable doc 目標須含 tool-neutral 措辭條款」→ brief v2 追加 acceptance 9、kit 使用說明補教訓；修契約未修執行者；fix leg 重跑通過。2a 若再暴露缺漏比照處理。
 
 ## Phase 3 — 證據評估與收斂
-
-> **定位改寫（第九輪 review，2026-07-09）**：Phase 3 不研究抽象，**驗證穩定性**——每個新案例記錄「是否不修改模型即自然落位」；連續成立 = predictive power 證據。裁決素材照舊（Q5/Q6/Q8 + 下列 checkbox），但評估視角以穩定性為主。
 
 - [x] 彙整 dogfood evidence，回答 Q3（品質信號成立 / null result）— 2026-07-08：成立（advisory 複合指標）；null result 未出現；**2c 補強**（8-slice、acceptance-violation 2/8、slice 紀律後 orchestrator 零實作 diff）；**2d 補強**（4-slice、outer L1–L3 關閉紀律、gate 後零 manageCode diff）— 見 kit §2c / §2d
 - [ ] Q5 決策：schema promotion（另立 plan）或明確維持 doc-only（記錄門檻與未達原因）
 - [ ] Q6 決策：通用化定位（Evidence-driven Closed Control Loop vs Delegation）——依非 coding / delivery 域真實 run 證據裁決；無證據則維持 delegation 定位、四責任觀察留檔（§架構收斂觀察）
 - [ ] Q7 決策：Verification Backfill 是否升格為獨立 primitive（Evidence-first Execution）——依 sd 域 ≥2 次真實使用 + 跨域出現/缺席觀察裁決；缺席亦為有效關閉（sd-specific）
-- [ ] Q8 決策：Evidence Responsibility Architecture（ERA）是否為更底層骨架——**裁決素材 = 成功域同構（已 N=2）+ falsification run（預期失敗域的真實任務，畫適用邊界）**；升格候選順位（使用者 2026-07-09）：ERA > Evidence-first Acceptance > Independent Verification > Four-Responsibility Loop，Delegation 降級為 deployment
-- [ ] Q9 決策：Behavioral Falsification producer family——依 (a) mutation 作為 V3 producer 的真實 run 使用證據 + (b) 第二種 producer 出現/缺席裁決；缺席 → family 維持 mutation-only、不建抽象（有效關閉）
+- [ ] Q8 決策：Evidence Responsibility Model 是否為更底層骨架——跨域 run 以「證據責任分配結構是否同構」為觀察鏡頭（取代單看角色/loop 形狀）；同構 → 升格候選改為 Evidence Responsibility Model；不同構 → 記錄差異維持 domain-local
 - [ ] sd 域定位落地評估：依使用者第三輪 review「sd 支持全面採用」，評估將 `sd-delegated-execution` 從「advisory + delegation 宣告任務」重定位為 **Software Delivery Execution Model**（含 slice 更名/正文重框、execution-flow 導航同步、advisory→default 的升級條件明文化）——獨立 linked-update 批次，不與 Q7/Q8 混批
 - [ ] Glossary 註冊決策落實（`independent_verification` / `arbitration` / `evidence_driven_control_loop` 註冊或明確不註冊）
 - [ ] 執行 Plan Completion Closure（含 plans/README.md 狀態表更新、搬移 archived）
@@ -413,13 +289,9 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 | Loop 形狀 | 三角色：orchestrator（規劃/切分/仲裁，不執行）/ executor（brief-only，happy path 測試）/ verifier（fresh-context，L1–L3 驗證，可補 `verifier_only` 測試） |
 | 落地方式 | doc-only 協議 + 雙 dogfood；不動 schema、不接 runtime、不建自動 orchestrator |
 | 通用化 adoption | **三階段**（§架構收斂觀察）：stage 1 現況 — **sd 域使用者支持全面採用**（第三輪 review 2026-07-08：定位為 Software Delivery Execution Model；落地重框列 Phase 3 checkbox）、系統級不預設；stage 2 gated on 跨域自然收斂（Q6/Q7/Q8）；stage 3（runtime 全面預設）需 cross-domain + cross-workflow + cross-project evidence，超出本 plan scope |
-| Stage 2 觀察鏡頭 | **證據責任分配結構**（Q8 / ERA）：跨域 run 記錄「誰產生哪種證據 / 哪種證據足以支持哪類結論 / 誰不能靠自產證據關閉 / 裁決權屬誰」，不預設 sd 詞彙、不驗角色名 |
-| 下一裁決 run | **Falsification-first**（第四輪 review，2026-07-09）：刻意選預期失敗的域（brainstorming / creative writing / open-ended design / ideation）的**真實任務**跑 loop——成功則假說極強、失敗則畫出適用邊界，皆有效；不 manufacture、不再累積成功域 |
-| 抽象凍結 | **Phase 3 前不再提升抽象層級**（第八輪 review，2026-07-09）：v2 = 正式工作模型、v3 = 候選；後續只收證據，觀察焦點 = Constraint / Selection Responsibility 是否自然分離；v3 升格需 3–4 域重複出現分離 |
-| 研究線凍結 + Phase 3 定位 | **Line-level freeze**（第九輪 review，2026-07-09）：研究線收官；**Phase 3 = 驗證穩定性非研究抽象**——量尺為「新案例是否不改模型自然落位」（predictive vs retrospective power）。Post-Phase-3 候選主題：**Evidence Lifecycle**（登記不展開） |
+| Stage 2 觀察鏡頭 | **證據責任分配結構**（Q8）：跨域 run 記錄「誰產生哪種證據 / 哪種證據關哪個狀態 / 哪種不能單獨 closure / 誰依證據決策」，不預設 sd 詞彙、不驗角色名 |
 | 驗證 leg | 復用 review capability `fault_finding` stance invoke，不另定 stance |
-| 適用範圍 | **Execute 意圖（「開始執行 plan / sub-plan / slice」）= mandatory 三角色 loop**（2j F2 stakeholder 裁決，2026-07-10）——`delegation.enabled: false` **不是豁免**：Execute 前 orchestrator 須翻 `true` + 補 backfill，或 plan 明記 transport adaptation；advisory 僅限非 Execute 情境（純問答 / 只讀審計 / surgical 小修）。主打 software-delivery，Ai-skill 比照 |
-| V3 evidence producer | targeted mutation（risk-triggered：boundary / boolean / null / authorization / invariant / guard）；survived mutant 須轉 semantic-gap finding，**不做 mutation score KPI**；producer family 通用化（Behavioral Falsification）gated on Q9，graduate 前 mutation-only（Mutation review 裁決，2026-07-09） |
+| 適用範圍 | advisory；只適用已宣告 delegation 的委派任務；主打 software-delivery，Ai-skill 比照 |
 | Schema promotion | gated on Phase 2 證據（Q5），deadline 2026-08-31 |
 | Dogfood transport | 雙 transport：2a Cursor（human 路徑，使用者操作）/ 2b Claude Code Agent（agent 路徑，orchestrator 自駕，2026-07-08 使用者授權）；模板 tool-neutral，工具細節只在 kit 傳輸備註 + `ai-tools/agent/`（Layer 3） |
 | 2b 委派任務 | Phase 1 的 plans/README.md §Delegation loop SOP 擴充本身（真實待辦、可驗收、orchestrator 全程不碰實作） |
