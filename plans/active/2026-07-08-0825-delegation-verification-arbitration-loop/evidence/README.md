@@ -17,12 +17,15 @@
 
 | Run ID | 檔案 | 狀態 | 摘要 |
 |---|---|---|---|
-| **2a** | [`2a-software-delivery-review-invoke.md`](2a-software-delivery-review-invoke.md) | 完成 | SD Review invoke 整合備註；violation 0；transport adaptation（Task subagent） |
-| **2b** | [`2b-plans-sop-expansion.md`](2b-plans-sop-expansion.md) | 完成 | plans §Delegation SOP 擴充；fix 1（tool-neutral）；Q1 正向證據 |
-| **2a-external** | [`2a-external-sync-adapter-step6.md`](2a-external-sync-adapter-step6.md) | 完成 | 外部 sync-adapter Step 6；6 tests；pre-loop orchestrator 越界 1 |
-| **2c** | [`2c-tiered-archive-platform.md`](2c-tiered-archive-platform.md) | 完成 | tiered archive 8 slices；violation 2/8；多 slice loop 證據 |
-| **2d** | [`2d-outbound-sync-phase3.md`](2d-outbound-sync-phase3.md) | 完成 | outbound sync Phase 3；consumer overlay + slice_kind + backfill |
-| **2d′** | [`2d-prime-externalrepoc-module-alignment.md`](2d-prime-externalrepoc-module-alignment.md) | 證據 only | ExternalRepoC 9j2 模組 01/02 對齊 follow-on；integration gate、remote_absent_delete |
-| **2h** | [`2h-externalrepoc-common-url-verification-gaps.md`](2h-externalrepoc-common-url-verification-gaps.md) | 證據 only | ExternalRepoC 03 common-url Execute：RBAC 三连漏网、V5 仅 list、api-surface gate |
-| **2e** | [`../02-grandfather-sunset-audit.md`](../02-grandfather-sunset-audit.md) | 完成 | Research 域 grandfather sunset |
-| **2f** | —（預註冊） | 進行中 | 產出候選 [`../03-repo-naming-candidates.md`](../03-repo-naming-candidates.md) |
+| **2d′** | [`2d-prime-externalrepoc-module-alignment.md`](2d-prime-externalrepoc-module-alignment.md) | 證據 only | ExternalRepoC 9j2 模組 01/02 對齊 follow-on；integration gate、remote_absent_delete、live teardown、release-time gate |
+| **2h** | [`2h-externalrepoc-common-url-verification-gaps.md`](2h-externalrepoc-common-url-verification-gaps.md) | 證據 only | ExternalRepoC 03 common-url Execute：RBAC 三连漏网、V5 仅 list、combined defer L1–L3、api-surface gate 回饋 |
+| **2i** | [`2i-externalrepoc-user-feedback-pull-execute.md`](2i-externalrepoc-user-feedback-pull-execute.md) | 證據 only | ExternalRepoC 04 user-feedback S0–S4 Execute：2h 教训迁移、Stop/resume、inventory gate、sync_jobs 分表、mapping defer |
+| 2d | —（inline） | 證據 only | 見 [`01-dogfood-prompt-kit.md`](../01-dogfood-prompt-kit.md) → `### 2d` |
+| 2c | —（inline） | 證據 only | 見 kit → `### 2c` |
+| 2g | —（inline） | 證據 only | 見 kit → `### 2g` |
+| 2e | [`02-grandfather-sunset-audit.md`](../02-grandfather-sunset-audit.md) | 完成 | Research 域 grandfather sunset；kit 摘要 → `### 2e` |
+| 2f | —（inline，預註冊） | 進行中 | 見 kit → `### 2f`；產出候選 [`03-repo-naming-candidates.md`](../03-repo-naming-candidates.md) |
+| 2b | —（inline） | 完成 | 見 kit → `### 2b` |
+| 2a / 2a-external | —（inline） | 完成 | 見 kit → `### 2a` / `### 2a-external` |
+
+> **漸進遷移**：2026-07-09 起新證據進本目錄；舊 run 仍 inline 於 kit，後續可按需拆檔，拆後更新本表「檔案」欄。
