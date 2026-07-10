@@ -298,6 +298,15 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 - **對 ERA 的意義（自我指涉實例）**：plan writeback 本身就是一種 Production——這兩次 push 是「**自產證據自我關閉**」的實例（無獨立 verifier 覆核 diff 即 push），與 2j 的「單 Task 跳過 Verifier」同構、發生在治理 repo 自身。**模型再次正確診斷斷裂形狀**（Production 與 Evidence 合併）。
 - **契約回饋（登記，mechanism 候選）**：(a) evidence-only session 應**只 append `evidence/` 檔 + 一行 plan checkbox**，不得整檔重寫 `_plan.md`（93bde60 的 evidence/ 分離方向正確，需成為紀律）；(b) push 前 `git pull --rebase` + 衝突不得以「取我版」解掉共享敘事檔；(c) **conflict-marker pre-commit scan** 為可機械化候選（Go-first，涉 CLI——登記不即時實作）。
 
+**第十一輪 review（使用者，2026-07-10，讀 collision 還原後）——治理自我適用的高價值驗證（非新假說，凍結合規）**：
+
+1. **Collision 是 Governance 失敗，不是 Git 問題**：merge conflict / 資料遺失只是工程表象；真正的 failure 結構 = Evidence Session 修改 canonical plan、無 Independent Review、直接 Push——**Production + Evidence + Closure 由同一 actor 完成**，與 Evidence Producer ≠ Closure Authority 完全同構。Remediation（scan / rebase）只是補救，不是解釋。
+2. **Structural Predictive Power（結構預測力）**：Predictive Power 的第二形態——模型不預測事件（merge / overwrite / 錯誤 approve / collision 都只是 manifestation），預測**失敗結構**：「Production 與 Evidence 不分離 → 治理失敗」。與「新案例自然落位」並列為 Phase 3 穩定性量尺的兩翼。
+3. **三條契約回饋的正確定性**：它們不是 patch，是 **Constraint Responsibility 的恢復**——append-only = 阻止 Evidence Session 修改 Canonical Decision；rebase = 重新接受新的 Constraint；conflict scan = 阻止未完成的 Decision 進入 Canonical。三條都是 ERA 在治理層的具體化。
+4. **Q5 的機械化邊界明晰**：「擋寫不擋不驗」揭示——**Mechanization 只能約束 Execution，不能產生 Evidence / Judgement**。工具可以禁止直接寫，不能生成 Independent Evidence → Constraint / Selection Responsibility **不可完全自動化**（Q5 Phase 3 門檻明文化的定性基礎）。
+5. **關鍵升層句（使用者，值得長期保留）**：「**Canonical Writeback 本身就是一種 Selection**」——寫回 canonical 不是 IO，是 `Candidate Knowledge → Canonical Knowledge` 的 Selection Policy 行為。Evidence Session 直接寫 canonical 不是「多做一步」，是**跨越 Responsibility Boundary**。適用於 plan、Knowledge Base、Glossary、ADR、Pattern Library——所有 canonical 面。
+6. **研究線最新評價**：前九輪建立 Decision Semantics；本次首次出現「**Governance 本身也服從同一套 Decision Semantics**」——模型開始能約束自己的演化。**當一個模型能解釋自己的失敗模式而不需發明新解釋框架，是理論成熟度提升的重要訊號**。定性：目前工作模型（v2 + v3 候選）的高價值驗證，非新假說——凍結不動。
+
 **doc-only trial 宣告**：本 plan 不接入 runtime——不新增 `route.*`、不新增 commit-msg validator、不動 `runtime.db` generated surfaces、不動 delegation schema / `validatePlanTreeFrontmatter`。協議以文件 + 行為紀律承載；驗證 leg 復用既有 review capability invoke（`ai-skill runtime capability-invoke --capability code-review --stance fault_finding`，既有 warning-only surface，無新 wiring）。
 
 **未來接入條件（graduation）**：Phase 3 證據評估時決策——若 (a) 三角色 loop 在 ≥2 個真實任務有效、且 (b) role boundary invariant 出現行為維持不住的證據（如 verifier fresh-context 被反覆略過），才評估 schema 欄位（`delegation.verification`）或機械檢查；由後續 plan 承載，本 plan 不 carry。**決策 deadline：2026-08-31**（與本 plan closure 同批；未達證據門檻則明確記錄「維持 doc-only」）。
