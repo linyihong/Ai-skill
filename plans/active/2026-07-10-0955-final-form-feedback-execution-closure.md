@@ -10,7 +10,9 @@ revision:
   - date: 2026-07-10
     note: "全系統架構審計入 plan：層級地圖 + P1–P12 問題清單（314 orphans、scenario 無 runner、.git 6.9GB、lesson 75% 滯留、behavioral 計數器缺失等）；新增 Workstream E + Phase 7–9；closure 改 Phase 10；Q7–Q10"
   - date: 2026-07-10
-    note: "Last-Fable 升級提示詞對照入 plan：A–G 逐項對照（約半數已制度化）；真缺口 = 模型調度（升降級階梯/model+effort 實查/失敗計數）+ 判斷 rubric 收斂（正反例/escape hatch）→ Workstream F + Phase 5b + Q11–Q12"
+    note: "Last-Fable 升級提示詞對照入 plan：A–G 逐項對照（約半數已制度化）；真缺口 = 模型調度 + 判斷 rubric → Workstream F + Phase 5b"
+  - date: 2026-07-10
+    note: "Phase 1 landed：deferred ledger README + 3 entries（1 closed round-trip DF-001）；ExternalRepoC NON_LOCAL cross-repo feed"
 ---
 
 # Final Form — Feedback Execution Closure & Model-Neutral Stability（最終形態：回饋執行閉環與模型中立穩定輸出）
@@ -269,10 +271,10 @@ P8（bootstrap 分級）、P9（知識讀出率）、P10（hooks.go 巨石）、
 
 ## Phase 1 — Deferred Feedback Ledger（doc-only）
 
-- [ ] `feedback/pipeline/deferred/README.md`：entry schema（id / created / source_repo_context / target enum 沿用 learning report 的 `feedback-history|intelligence|workflow|enforcement|project-docs` / status `open|closed|refuted|expired` / closure evidence 欄）+ 索引表 + 去敏規則（引用 `enforcement/sanitization.md`）
-- [ ] 兩條 invariant 寫入 README：entry 不可指向 entry；ledger 是索引層不是 authority（closure 的 authority 在被 writeback 的目標層）
-- [ ] 手動 round-trip ×1：拿一條真實 deferred feedback（本 plan 撰寫過程即產生候選）走 create → writeback → close，證明鏈路可走通
-- [ ] 完成條件：README + schema + 1 筆 closed entry 入庫
+- [x] `feedback/pipeline/deferred/README.md`：entry schema（id / created / source_repo_context / target enum 沿用 learning report 的 `feedback-history|intelligence|workflow|enforcement|project-docs` / status `open|closed|refuted|expired` / closure evidence 欄）+ 索引表 + 去敏規則（引用 `enforcement/sanitization.md`）
+- [x] 兩條 invariant 寫入 README：entry 不可指向 entry；ledger 是索引層不是 authority（closure 的 authority 在被 writeback 的目標層）
+- [x] 手動 round-trip ×1：拿一條真實 deferred feedback（ExternalRepoC push 2n writeback）走 create → writeback → close，證明鏈路可走通 — [`DF-20260710-001`](../../feedback/pipeline/deferred/entries/DF-20260710-001.md) → [`evidence/2n-*.md`](../2026-07-08-0825-delegation-verification-arbitration-loop/evidence/2n-externalrepoc-push-delivery-s1-s6-compliant-loop.md)
+- [x] 完成條件：README + schema + 1 筆 closed entry 入庫（2026-07-10）；另 2 筆 open（L4、V5-A）供 Phase 2 resurface 觀察
 
 ## Phase 2 — Resurface + CLI
 
@@ -283,10 +285,10 @@ P8（bootstrap 分級）、P9（知識讀出率）、P10（hooks.go 巨石）、
 
 ## Phase 3 — Cross-repo Path（dogfood）
 
-- [ ] 在 ≥1 個真實 consumer repo session 走完整流程：NON_LOCAL 發現 learning → 寫入 Ai-skill ledger（或 fallback block）→ 回 Ai-skill session close
-- [ ] 量測：寫入可達率、fallback 搬運率、去敏 gate 是否擋住專案細節
+- [x] 在 ≥1 個真實 consumer repo session 走完整流程：NON_LOCAL 發現 learning → 寫入 Ai-skill ledger（或 fallback block）→ 回 Ai-skill session close — **2026-07-10**：ExternalRepoC DEL-S6 session → `DF-20260710-001` closed + `DF-002/003` open
+- [ ] 量測：寫入可達率、fallback 搬運率、去敏 gate 是否擋住專案細節 — 首筆 **可達**（同機 Ai-skill path）；fallback 搬運率 N/A
 - [ ] Q2 回寫
-- [ ] 完成條件：≥1 筆 cross-repo entry 完成 create→close 全循環
+- [ ] 完成條件：≥1 筆 cross-repo entry 完成 create→close 全循環 — **partial**（1 closed；量測欄待 Phase 2）
 
 ## Phase 4 — 機械化 Gate（entry condition gated）
 

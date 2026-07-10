@@ -8,6 +8,8 @@ last_updated: 2026-07-10
 parent: null
 baseline_ref: 2026-06-22-1009-subplan-agent-delegation
 revision:
+  - date: 2026-07-10
+    note: "Dogfood 2n — ExternalRepoC 07 push DEL-S1–S6 **正向闭环**：6/6 E+V、sub-plan completed；2e 勾选完成；ADR SD 完整 loop 证据；Phase 3 Q7 sd 域信号增强（仍 open Q5）"
   - date: 2026-07-08
     note: "Verifier 三層驗證契約 + 測試職責分工（防 executor 自寫測試 + verifier 只重跑的自證循環）"
   - date: 2026-07-08
@@ -26,7 +28,7 @@ revision:
 
 # Delegation Verification & Arbitration Loop（委派執行→獨立驗證→仲裁閉環）
 
-**Status**: `in-progress`（Phase 0–2 完成；**2c + 2d** 外部 monorepo dogfood 證據已寫入 kit，2026-07-08；Phase 3 / closure **不收斂**）
+**Status**: `in-progress`（Phase 0–2 完成；外部 monorepo dogfood **2a–2n**；**2n 正向闭环** 2026-07-10；Phase 3 / closure **仍不收斂** — Q5 schema promotion open，deadline 2026-08-31）
 **Owner**: linyihong
 **建立日期**: 2026-07-08
 **Source**: 2026-07-08 對話 — 使用者觀察到外部框架的三角色模式：主 session 只做規劃 / 切分 / 仲裁，執行交給獨立 agent session，驗證再交給另一個獨立 session，最後由主 session 仲裁每條驗證發現（要修 / 超出範圍 / 駁回）。目標：補漏「預計與實現的落差」。主要針對 `workflow/software-delivery` 的交付處理；Ai-skill 自身任務比照辦理，觀察品質是否提升。
@@ -117,7 +119,7 @@ Why now：03 剛 completed、dogfood 方法論（brief independence score、fres
 - [ ] 雙 dogfood 證實三角色 loop 可行且品質信號為正（或 null-result 明確記錄）
 - [ ] Open Questions 全解
 - [ ] 沒有更輕的 promotion target 適用（per ADR-007）
-- [ ] 至少一個真實 software-delivery 任務走完整 loop 並留下可覆核 evidence
+- [x] 至少一個真實 software-delivery 任務走完整 loop 並留下可覆核 evidence — **2n**（ExternalRepoC 07 push DEL-S1–S6，6 slice E+V，[`evidence/2n-externalrepoc-push-delivery-s1-s6-compliant-loop.md`](evidence/2n-externalrepoc-push-delivery-s1-s6-compliant-loop.md)）
 
 ### Consequences（預期）
 
@@ -266,7 +268,8 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 - [x] **2k — ExternalRepoC push 纠偏后 post-close runtime 缺口** — 2026-07-10 **證據 only**（[`evidence/2k-externalrepoc-push-post-close-runtime-gaps.md`](evidence/2k-externalrepoc-push-post-close-runtime-gaps.md)）；用户手验暴露 V5 未覆蓋 create 表单 / Worker 拓扑；`post-close-surgical-debt`；**不**視為 Phase 3 closure
 - [x] **2l — ExternalRepoC common-url S2′ mirror 再跳过三角色 loop** — 2026-07-10 **负向证据 only**（[`evidence/2l-externalrepoc-common-url-s2-mirror-skip-loop.md`](evidence/2l-externalrepoc-common-url-s2-mirror-skip-loop.md)）；0 Executor/Verifier、surgical bypass 滥用、Shell 绕过 preToolUse；`retroactive-r1-verifier`；**不**視為 Phase 3 closure
 - [x] **2m — ExternalRepoC Phase G-mirror 批量 retrofit** — 2026-07-10 **正负对照**（[`evidence/2m-externalrepoc-phase-g-mirror-batch-retrofit.md`](evidence/2m-externalrepoc-phase-g-mirror-batch-retrofit.md)）；V-m1–V-m5 + 登记总表；02/01 合规 loop vs 03/2l；`retrofit-v-m-template` / `stale-jvm-v5-a-checklist`；**不**視為 Phase 3 closure
-- [ ] **2e — 跨域 run（Research/Audit 域）：grandfather sunset audit** — 2026-07-08 啟動（kit §2e）；Q6/Q7(b)/Q8 的 stage-2 裁決 run；任務 = `pre_2026_05_28_doc_only_completion` sunset（2026-08-31）的 4-plan wiring 調查與處置建議（真實 deadline 待辦，非 manufactured）；brief 以 Research 域原生語彙撰寫，觀察四責任 / backfill / 證據責任結構是否**自然**出現
+- [x] **2n — ExternalRepoC 07 push delivery DEL-S1–S6 合规 loop** — 2026-07-10 **正向证据**（[`evidence/2n-externalrepoc-push-delivery-s1-s6-compliant-loop.md`](evidence/2n-externalrepoc-push-delivery-s1-s6-compliant-loop.md)）；6/6 slice E+V、sub-plan `completed`、零 post-close bypass；对照 2j/2k/2l；**不**單獨視為 Phase 3 closure（Q5 仍 open）
+- [x] **2e — 跨域 run（Research/Audit 域）：grandfather sunset audit** — 2026-07-08–09 ✅（[`evidence/2e-grandfather-sunset-audit.md`](evidence/2e-grandfather-sunset-audit.md)）；Q6/Q7/Q8 stage-2 观察已记录；sunset 行政收尾 defer 至 maintainer
 - [x] 回饋迴路（2b 觸發 ×1）：F2 暴露 brief v1 缺「reusable doc 目標須含 tool-neutral 措辭條款」→ brief v2 追加 acceptance 9、kit 使用說明補教訓；修契約未修執行者；fix leg 重跑通過。2a 若再暴露缺漏比照處理。
 
 ## Phase 3 — 證據評估與收斂
@@ -274,7 +277,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 - [x] 彙整 dogfood evidence，回答 Q3（品質信號成立 / null result）— 2026-07-08：成立（advisory 複合指標）；null result 未出現；**2c 補強**（8-slice、acceptance-violation 2/8、slice 紀律後 orchestrator 零實作 diff）；**2d 補強**（4-slice、outer L1–L3 關閉紀律、gate 後零 manageCode diff）— 見 kit §2c / §2d
 - [ ] Q5 決策：schema promotion（另立 plan）或明確維持 doc-only（記錄門檻與未達原因）
 - [ ] Q6 決策：通用化定位（Evidence-driven Closed Control Loop vs Delegation）——依非 coding / delivery 域真實 run 證據裁決；無證據則維持 delegation 定位、四責任觀察留檔（§架構收斂觀察）
-- [ ] Q7 決策：Verification Backfill 是否升格為獨立 primitive（Evidence-first Execution）——依 sd 域 ≥2 次真實使用 + 跨域出現/缺席觀察裁決；缺席亦為有效關閉（sd-specific）
+- [ ] Q7 決策：Verification Backfill 是否升格為獨立 primitive（Evidence-first Execution）——依 sd 域 ≥2 次真實使用 + 跨域出現/缺席觀察裁決；缺席亦為有效關閉（sd-specific）— **sd 域信号已增强**：2d + **2n**（6-slice backfill）；跨域 2e 弱形式 backfill 已观测；**仍 open** 待 maintainer 裁決
 - [ ] Q8 決策：Evidence Responsibility Model 是否為更底層骨架——跨域 run 以「證據責任分配結構是否同構」為觀察鏡頭（取代單看角色/loop 形狀）；同構 → 升格候選改為 Evidence Responsibility Model；不同構 → 記錄差異維持 domain-local
 - [ ] sd 域定位落地評估：依使用者第三輪 review「sd 支持全面採用」，評估將 `sd-delegated-execution` 從「advisory + delegation 宣告任務」重定位為 **Software Delivery Execution Model**（含 slice 更名/正文重框、execution-flow 導航同步、advisory→default 的升級條件明文化）——獨立 linked-update 批次，不與 Q7/Q8 混批
 - [ ] Glossary 註冊決策落實（`independent_verification` / `arbitration` / `evidence_driven_control_loop` 註冊或明確不註冊）

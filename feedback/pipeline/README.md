@@ -34,6 +34,9 @@ feedback/pipeline/
   promotion-engine.yaml      ← Promotion scoring & decision rules
   promotion-workflow.yaml    ← Executable promotion workflow steps
   lifecycle-automation.yaml  ← Auto-archive, auto-downgrade rules
+  deferred/                  ← Phase 1 deferred-feedback ledger（见 deferred/README.md）
+    README.md
+    entries/DF-*.md
 ```
 
 ## 與既有層的關係

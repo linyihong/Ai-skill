@@ -24,10 +24,11 @@
 | **2k** | [`2k-externalrepoc-push-post-close-runtime-gaps.md`](2k-externalrepoc-push-post-close-runtime-gaps.md) | 證據 only | ExternalRepoC 05 push **2j 纠偏后**：slice 关闭 vs 用户手验（模版/商户/远程同步）；Worker 拓扑、pull 映射、post-close surgical debt |
 | **2l** | [`2l-externalrepoc-common-url-s2-mirror-skip-loop.md`](2l-externalrepoc-common-url-s2-mirror-skip-loop.md) | 负向证据 | ExternalRepoC 03 S2′ mirror：**0 Executor/Verifier**、surgical bypass 滥用、Shell 绕过 preToolUse；2j/2k 教训未内化 |
 | **2m** | [`2m-externalrepoc-phase-g-mirror-batch-retrofit.md`](2m-externalrepoc-phase-g-mirror-batch-retrofit.md) | 正负对照 | ExternalRepoC **Phase G-mirror** 批量 retrofit：V-m1–V-m5 + 登记总表；02/01 合规 loop vs 03/2l；stale JVM V5-A 复发 |
+| **2n** | [`2n-externalrepoc-push-delivery-s1-s6-compliant-loop.md`](2n-externalrepoc-push-delivery-s1-s6-compliant-loop.md) | 正向证据 | ExternalRepoC **07 push delivery** DEL-S1–S6：6/6 E+V loop、sub-plan `completed`、零 post-close bypass；对照 2j/2k/2l |
 | 2d | —（inline） | 證據 only | 見 [`01-dogfood-prompt-kit.md`](../01-dogfood-prompt-kit.md) → `### 2d` |
 | 2c | —（inline） | 證據 only | 見 kit → `### 2c` |
 | 2g | —（inline） | 證據 only | 見 kit → `### 2g` |
-| 2e | [`02-grandfather-sunset-audit.md`](../02-grandfather-sunset-audit.md) | 完成 | Research 域 grandfather sunset；kit 摘要 → `### 2e` |
+| 2e | [`2e-grandfather-sunset-audit.md`](2e-grandfather-sunset-audit.md) | 完成 | Research 域 grandfather sunset；Q6/Q7/Q8 跨域观察 |
 | 2f | —（inline，預註冊） | 進行中 | 見 kit → `### 2f`；產出候選 [`03-repo-naming-candidates.md`](../03-repo-naming-candidates.md) |
 | 2b | —（inline） | 完成 | 見 kit → `### 2b` |
 | 2a / 2a-external | —（inline） | 完成 | 見 kit → `### 2a` / `### 2a-external` |

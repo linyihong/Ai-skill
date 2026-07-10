@@ -311,6 +311,13 @@ evidence_rule:
 
 **Action for this plan**: record only; resume T3A lint implementation when first consumer picks declaration site. ExternalRepoA overlay is **evidence**, not promotion.
 
+### Consumer dogfood 追加（2026-07-10，monitoring only）
+
+| 来源 | 观察 | 处置 |
+|---|---|---|
+| Delegation **2n**（ExternalRepoC 07 push DEL-S1–S6） | L3 verification closure 子系统：Verifier L1–L3 + `slice_compliant_closed` 分层；与 validation-coverage-gap executor-placement 正面对照 | **record only** — 不升格 Gate A；不新增 sample #8 类重复 |
+| Deferred ledger DF-002/003 | Validation leg environment ≠ subsystem shape（V5-A stale JVM）延续 2m 观察 | 记入 `false_positive_log` 候选（shadow lint 未实现前仅 watch） |
+
 ## Out of scope
 
 - 不立刻寫 template（這正是本 plan 的重點 — 等樣本足夠）
