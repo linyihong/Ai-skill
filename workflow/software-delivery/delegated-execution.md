@@ -18,8 +18,8 @@
 
 | 情境 | 建議 |
 |---|---|
+| 使用者表達執行意圖（「開始執行 plan / sub-plan / slice / 幫我做 Step N」） | 進入 orchestrator 模式 — **mandatory 三角色 loop**（brief → executor → verifier → 仲裁） |
 | sub-plan / 任務宣告 `delegation.enabled: true` | 走 loop（brief → executor → verifier → 仲裁） |
-| 使用者表達執行意圖（「開始執行 plan / sub-plan / slice / 幫我做 Step N」） | 進入 orchestrator 模式 |
 | **loop 未關閉**（backfill 仍有未關閉行、仲裁未完） | **維持** orchestrator 模式——不因跨 turn / 跨 session 而失效 |
 | 跨 session、可驗收 slice、主 session 需保持規劃 / 仲裁位 | 走 loop |
 | surgical 小修、單 session、無 delegation | 不走；直接 implementation + validation |
@@ -156,6 +156,7 @@ deliverables:
 | inner-only 關閉 | user-visible slice 只憑單元測試關閉 | C1b block；改 `implementation_done` + follow-up |
 | orchestrator 探路讀碼 | 「為了寫 brief」大量讀實作源碼 | brief 只記路徑給 executor 讀；越界記入量測欄 |
 | verifier 兼任 | 同一 session 先執行後驗證 | fresh-context invariant（canonical SOP invariant 1） |
+| **single-agent skip verifier**（consumer 2j 2026-07-10） | orchestrator 只 spawn **一个** Task 包办 implement + 自验 mvn；**0** Verifier session；用 `delegation.enabled: false` 当不 loop 理由 | Execute 意图 → loop mandatory；consumer **verifier-after-executor** gate；须标 `implementation_done` 非 `slice_compliant_closed` |
 | combined mega-slice | 單一 slice 塞過多 deliverables，verifier V4 單輪負載過高、核對品質下降 | 拆 2–3 輪 verifier 或拆 slice（§6） |
 | deploy 隱含在 loop 外 | runtime deploy / migration 無人宣告歸屬，orchestrator 默默代做 | backfill 鐵則 5：列 acceptance 或明標 `beyond-loop` |
 | 綠燈假象（missing constraint） | build 綠 + 測試綠 + 檔案齊，但 runtime 打不開——既有證據只能排除 implementation failure，**無任何證據約束 runtime 可行性**，Close 在過大的可行集裡做出 | backfill 補 `runtime` tier 行 + Verifier V5；未來勿再往 V6/V7 疊 checklist，先問「缺的是哪一種 constraint」 |
@@ -173,6 +174,8 @@ Role boundary 靠行為維持不住時，consumer 可在**工具層**落機械 g
 ```
 
 - **Deny 範圍只限實作路徑**：orchestrator 自有 artifact 路徑（plan / overlay / 外層測試骨架）**必須 allowlist**——否則 orchestrator 連 plan patch 都被擋，被迫讓 executor 代寫外層 artifact = 角色反轉（consumer 2d 契約回饋）。
+- **Verifier spawn 追踪（consumer 2j 2026-07-10）**：除挡 orchestrator 写实作外，consumer 可追踪 `executor` subagent 完成後是否 spawn **独立 Verifier**——未完成 Verifier 就 spawn 下一 Executor 或宣告 slice closed → deny Task spawn（`verifier_required_before_next_executor`）。
+- **Execute 意图 > `delegation.enabled: false`**：用户 Execute 意图触发 loop；frontmatter `false` **不是**豁免理由——Execute 前须改 `true` 并补 backfill（2j 负向证据）。
 - **Bypass 必須書面記錄**（plan 或使用者明示），對應 §1 的 surgical / transport-adaptation 例外。
 - 實作細節（hook 事件名、腳本、state 檔）屬 consumer 工具層；已驗證實例：外部 consumer（ExternalRepoC）editor-hook 五事件 gate + BDD 10/10（2026-07-08）。
 

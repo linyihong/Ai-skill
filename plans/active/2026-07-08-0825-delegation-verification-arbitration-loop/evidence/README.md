@@ -20,6 +20,7 @@
 | **2d′** | [`2d-prime-externalrepoc-module-alignment.md`](2d-prime-externalrepoc-module-alignment.md) | 證據 only | ExternalRepoC 9j2 模組 01/02 對齊 follow-on；integration gate、remote_absent_delete、live teardown、release-time gate |
 | **2h** | [`2h-externalrepoc-common-url-verification-gaps.md`](2h-externalrepoc-common-url-verification-gaps.md) | 證據 only | ExternalRepoC 03 common-url Execute：RBAC 三连漏网、V5 仅 list、combined defer L1–L3、api-surface gate 回饋 |
 | **2i** | [`2i-externalrepoc-user-feedback-pull-execute.md`](2i-externalrepoc-user-feedback-pull-execute.md) | 證據 only | ExternalRepoC 04 user-feedback S0–S4 Execute：2h 教训迁移、Stop/resume、inventory gate、sync_jobs 分表、mapping defer |
+| **2j** | [`2j-externalrepoc-push-execute-skip-verifier-loop.md`](2j-externalrepoc-push-execute-skip-verifier-loop.md) | 负向证据 | ExternalRepoC 05 push Execute：**0 Verifier**、单 Task 包办、`delegation.enabled:false` 误豁免；consumer verifier-after-executor gate 回饋 |
 | 2d | —（inline） | 證據 only | 見 [`01-dogfood-prompt-kit.md`](../01-dogfood-prompt-kit.md) → `### 2d` |
 | 2c | —（inline） | 證據 only | 見 kit → `### 2c` |
 | 2g | —（inline） | 證據 only | 見 kit → `### 2g` |
