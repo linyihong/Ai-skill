@@ -9,6 +9,8 @@ parent: null
 revision:
   - date: 2026-07-10
     note: "全系統架構審計入 plan：層級地圖 + P1–P12 問題清單（314 orphans、scenario 無 runner、.git 6.9GB、lesson 75% 滯留、behavioral 計數器缺失等）；新增 Workstream E + Phase 7–9；closure 改 Phase 10；Q7–Q10"
+  - date: 2026-07-10
+    note: "Last-Fable 升級提示詞對照入 plan：A–G 逐項對照（約半數已制度化）；真缺口 = 模型調度（升降級階梯/model+effort 實查/失敗計數）+ 判斷 rubric 收斂（正反例/escape hatch）→ Workstream F + Phase 5b + Q11–Q12"
 ---
 
 # Final Form — Feedback Execution Closure & Model-Neutral Stability（最終形態：回饋執行閉環與模型中立穩定輸出）
@@ -17,7 +19,7 @@ revision:
 **Owner**: linyihong
 **建立日期**: 2026-07-10
 **Source**: 2026-07-10 對話 — 使用者要求「系統最終形態」計畫。核心理想：**不是系統不能犯錯，而是任何 model（不限單一 agent）bootstrap 後都繼承同一套思維，持續進化與提煉**。核心痛點：**每次明明看到可以 feedback 的點，卻都沒有執行**——不管是在修改本 repo，還是在其他 repo 使用本系統時。
-**Glossary Impact**: yes — candidate terms：`feedback_execution_closure`（feedback 從「被看到」到「被執行或被顯式仲裁」的閉環性質）、`deferred_feedback_ledger`（DEFERRED / UNAVAILABLE writeback 的 durable queue）、`model_neutral_cognition_parity`（思維載體全部落在 repo、任何 agent 工具讀得到的性質）。graduate 時才註冊到 `knowledge/glossary/ai-skill.md`；未定稿前不註冊。
+**Glossary Impact**: yes — candidate terms：`feedback_execution_closure`（feedback 從「被看到」到「被執行或被顯式仲裁」的閉環性質）、`deferred_feedback_ledger`（DEFERRED / UNAVAILABLE writeback 的 durable queue）、`model_neutral_cognition_parity`（思維載體全部落在 repo、任何 agent 工具讀得到的性質）、`model_dispatch_ladder`（模型層級升降階梯：錯誤次數觸發升級、解出模式降回低階，與 evidence-mismatch escalation 互斥分工）。graduate 時才註冊到 `knowledge/glossary/ai-skill.md`；未定稿前不註冊。
 
 > **Watch-Out List citation**：對應 [`architecture/ai-native-cognitive-ecosystem-system.md`](../../architecture/ai-native-cognitive-ecosystem-system.md) §Watch-Out List 的「process bloat」「premature abstraction」「autonomous optimizer」防呆：
 > - **不建 feedback telemetry DB、不建自動 promotion engine** — ledger 是人工 accept/close 的索引層，復用 evidence-candidate 已驗證的 observation-infra 模式，不長第二條 authority。
@@ -72,6 +74,24 @@ revision:
 
 系統的**去程**（契約 → gate → 執行）已經相當成熟且機械化；**回程**（執行 → 證據 → 回饋 → 提煉 → 升級）整段都是 behavioral 或斷裂的：scenario 自申報（P1）、lesson 滯留（P5）、incident 沒人數（P6）、learning report 無執行鏈（P4）。使用者感受到的「看到 feedback 但沒執行」是整個回程斷裂的其中一個症狀。因此本 plan 的最終形態工作 = **把回程接通並機械化**，加上清償三筆已量化的結構債（orphan 存量 P2、git 肥大 P3、驗證自申報 P1）。
 
+## Last-Fable 升級提示詞對照（2026-07-10，使用者提供）
+
+> 使用者提供一份「最後一次使用最強 model：把判斷力轉成制度，讓之後較弱 model 的每個 session 都變強」的升級提示詞（交付清單 A–G）。**本節不是要執行該提示詞**，而是逐項對照本系統現況：已制度化的標明承接處（防重複建設），真缺口收進 Workstream F / Phase 5b。核心洞察與本 plan 北極星一致：**穩定輸出來自制度，不來自模型等級**。
+
+| 項 | 提示詞交付物 | 系統現況 | 判定 | 承接處 |
+|---|---|---|---|---|
+| A | 快速診斷：最漏 token / 最易失焦 / 最易出錯 top3 | 已完成且更全面：§全系統架構審計 P1–P12（token 稅=P8+P2+P9；失焦=routing/activation 既有機制；出錯=enforcement ladder P6） | **已覆蓋** | §全系統架構審計 |
+| B | 重寫 CLAUDE.md（thin 化、抽引用檔） | 已制度化：CLAUDE.md 已是 thin pointer，`validateBootstrapEntryThinness` 機械強制；bootstrap 稅另案（Q9/P8） | **已覆蓋**（缺口只剩「弱模型可讀性標準」→ F1） | `runtime/bootstrap-entry-points.yaml` |
+| C | 模型調度守則：指揮官不下場 / 派工三件套 / 顯式 model+effort / 回報合約 / 升降級路徑 / 驗證不自驗 | **部分**：三角色 loop（orchestrator 不執行、verifier fresh-context、findings 契約）已在 delegation plan doc-only 落地＝「指揮官不下場」「派工三件套」「回報合約」「驗證不自驗」的雛形。**真缺口 = 模型維度**：顯式 model/effort 選擇、模型層級升降階梯（小模型錯一次升級／中階連錯兩次帶失敗軌跡升級／解出模式降回便宜模型／同事最多重試兩輪）、失敗計數的記錄位置。注意：`enforcement/escalation-policy.md` 管的是 evidence-mismatch recovery，**不是**模型層級升降——兩者不可混用 | **缺口** | F2 / Phase 5b |
+| D | 判斷力外化：升級時機 / 真完成 / 停下問人 / 換路 vs 重試 / 品質底線，各附正反例 | **部分**：真完成=DoD+close-loop；停下問人=rule-weight §不確定時+rollout boundary；換路訊號=escalation-policy L3。**缺口**：散在多檔、無正反例、無「模型升級時機」維度；弱模型需要單一入口 rubric | **缺口**（收斂+補正反例） | F3 / Phase 5b |
+| E | 派工 prompt 模板（搜尋/實作/重構/研究/審查各一） | **部分**：executor/verifier/仲裁模板已在 delegation kit（`01-dogfood-prompt-kit.md`）；缺 per-task-type 分型 | **缺口**（延伸 kit，不另起爐灶） | F4 / Phase 5b |
+| F | 維護協議：弱模型哪些可自改、哪些先問、教訓寫回哪 | **大致已覆蓋**：linked-updates + writeback transaction + failure-learning-system + document-sizing 就是維護協議。**缺口**：沒有一張「edit-authority map」（layer × 可自改/需確認），弱模型要從 P0–P3 權重自行推導，易錯 | **薄缺口** | F5 / Phase 5b |
+| G | 給未來 session 的信：三件最重要的事 + 制度退化方式與預防 | **部分**：退化預防=Watch-Out List + failure-patterns；「信」的載體其實就是本 plan + memory。缺口：制度退化模式未成文（見 F6 候選清單） | **薄缺口** | F6 / Phase 5b |
+| 收尾 | fresh-context 對抗審查 + read-back + 一頁總結 | 已制度化：delegation verifier L1–L3 + commit/push 讀回 gate + close-loop 終局檢查 | **已覆蓋** | delegation plan / dependency-reading |
+| 誠實條款 | 標註 harness 極限；模糊題/品味判斷補不了 | 部分制度化（evidence-hierarchy 管 unsupported confidence）；「品味判斷不可外化→fallback 路徑」未成文 | **併入 F3** | F3 rubric 的 escape hatch 條目 |
+
+**對照總結**：提示詞約一半已被本系統制度化（且多數已機械強制，超出提示詞的 doc 層期待）；真缺口集中在**模型維度**（調度、升降級、失敗計數）與**判斷 rubric 的收斂**（單一入口＋正反例）。這正好補上本 plan 北極星性質 (2) model-neutral parity 缺的另一半：Phase 5 解決「思維載體在哪」，Phase 5b 解決「不同等級的模型怎麼分工與互救」。
+
 ## Decision Rationale
 
 ### Problem & Why Now
@@ -119,6 +139,18 @@ Why now：learning report obligation、evidence-candidate observation infra（Ph
 - **E5 併行回寫保護（P11）**：plan 檔案 single-writer 慣例（延伸 `.agent-goals/` lock 語義到 Ai-skill plan 回寫，或 commit-time 衝突偵測）——先 doc-only 慣例 + 觀察，機械化 gated。
 
 P8（bootstrap 分級）、P9（知識讀出率）、P10（hooks.go 巨石）、P12（空殼層）**本 plan 只記錄不執行**：P8/P9 進 Open Questions（Q9/Q10）等證據；P10 已有 deferred dispatcher refactor 決議（`per_commit_dispatcher_status`）不重複開工；P12 留待 orphan 清償（E2）時一併盤層。
+
+**F. Model Dispatch & Judgment Externalization（Phase 5b，源自 §Last-Fable 升級提示詞對照的缺口項）**
+把「強模型的判斷力」寫成弱模型可執行的制度；全部產出以 **Sonnet 等級可執行**為驗收標準（具體、有判準、有正反例；抽象要求視為未寫）：
+
+- **F1 弱模型可讀性標準**：canonical 規則文件的寫作判準（每條規則須有：觸發條件、動作、可驗證的完成判準、≥1 正例 ≥1 反例）；先立標準，Phase 5 非 Claude dogfood 用它當量尺，不回頭大改存量文件（存量按 dogfood 發現的 gap 逐檔修）。
+- **F2 模型調度守則**（tool-neutral 層 + tool adapter 層分置，遵守 `tool-neutral-documentation.md`）：
+  - tool-neutral（候選位置：`workflow/software-delivery/delegated-execution.md` 延伸章節，Phase 0 preflight 定案）：指揮官不下場（大量讀取/掃 repo/批次改檔派 subagent，主對話只進結論）、派工三件套（goal+動機 / acceptance / 回報格式——與 delegation `brief` schema 對齊，不另立 schema）、回報合約（結論+檔案:行號，長產物落檔傳路徑）、**模型層級升降階梯**：低階錯一次→升級；中階同一子任務連錯兩次→帶完整失敗軌跡升級；解出的模式→降回低階批次套用；同一子任務最多重試兩輪，之後換路或問使用者。
+  - tool adapter（`ai-tools/agent/claude.md` 等）：各工具**實查**的可用 model 參數與 effort 控制（不憑印象；查不到的標 `unverified`）。與 `enforcement/escalation-policy.md` 明文互斥分工：escalation-policy 管 evidence-mismatch recovery（同一 agent 內），F2 管模型層級升降（跨 agent tier）。
+- **F3 判斷 rubric 單一入口**：收斂散在 rule-weight / escalation-policy / DoD / rollout-boundary 的判斷為一份 rubric 檔（候選位置：`governance/` 或 `models/cognitive-modes/` 旁，Phase 0 定案），至少五組：模型升級時機、真完成判定、停下問使用者、換路 vs 重試、品質底線驗法；**每條附一正例一反例**；含誠實條款 escape hatch：模糊題/品味判斷不可外化→明文 fallback（升級模型／外部第二意見／明說做不到），禁止硬編 rubric 假裝可判。
+- **F4 派工模板分型**：延伸 delegation kit（`01-dogfood-prompt-kit.md`）為五種任務型態模板：搜尋、實作、重構、研究、審查（各含 acceptance 與回報格式填空）；不另起爐灶。
+- **F5 Edit-authority map**：一張表（layer / 檔案類別 × 弱模型可自改 / 需 stakeholder 確認 / 禁改），由 P0–P3 權重表推導成顯式對照，弱模型不必自行推導。
+- **F6 制度退化模式成文**：候選清單（Phase 5b 驗證後定稿）：報表化（obligation 淪為格式填空，語義流失——learning report 已發生，即本 plan 起點）、繞過誘因累積（bootstrap 稅→跳過 bootstrap）、宣告面再膨脹（orphan 回升——E2 ratchet 對治）、rubric 腐化（正反例過時沒人更新——F5 授權 + ledger 對治）。每條附偵測訊號與預防機制。
 
 ### Alternatives Considered
 
@@ -184,6 +216,8 @@ P8（bootstrap 分級）、P9（知識讀出率）、P10（hooks.go 巨石）、
 - [ ] **Q8 — bin 儲存策略**：LFS（需 remote 支援）vs release artifacts（CI 改造）vs 單平台 bin（跨平台 policy 弱化）？history 清理（filter-repo）使用者是否授權？
 - [ ] **Q9 — bootstrap 分級（P8）**：trivial/read-only 任務的 light bootstrap 是否值得？風險 = 分級判定本身可被濫用為繞過。需要先有「bootstrap 稅 vs 繞過率」的觀察資料，不先動 P0 gate。
 - [ ] **Q10 — 知識讀出率量測（P9）**：intelligence/ 的實際被讀率怎麼量測（route hit? summary 載入率?）？低讀出的 atom 應 deprecate 還是改 routing？
+- [ ] **Q11 — model/effort 參數的事實維護**：各工具實際可用的 model 集合會漂移（新 model 上市、舊 model 退役）；`ai-tools/agent/*.md` 的參數表怎麼保鮮（per-session 實查？定期 audit？）不憑印象是 F2 的硬要求。
+- [ ] **Q12 — 升降級階梯的失敗計數載體**：「中階連錯兩次」的計數記在哪（delegation plan 的仲裁紀錄？deferred ledger？對話內 ad-hoc？）；跨 session 的失敗軌跡怎麼傳遞給升級後的 model？
 
 ## 未來 plans 排程（Roadmap Consolidation — reference-link，不 re-parent）
 
@@ -203,6 +237,7 @@ P8（bootstrap 分級）、P9（知識讀出率）、P10（hooks.go 巨石）、
 | 10 | [`2026-06-16-1030-interaction-hazard-review-workflow`](2026-06-16-1030-interaction-hazard-review-workflow.md) | draft | 按其 A0→D roadmap 自走；與本 plan 無依賴 |
 | — | 本 plan Phase 8（grandfather 結案部分） | — | **hard deadline 2026-08-31**：不論其他順位，需插隊在 deadline 前完成 |
 | — | 本 plan Phase 7 / 9（scenario runner、repo 健康） | — | 可與順位 3–6 並行；Phase 9 的 history 清理需使用者授權（Q8） |
+| — | 本 plan Phase 5b（模型調度 + 判斷力外化） | — | **建議提前**：F1/F3 是強模型 session 的最高槓桿產出（判斷力外化），趁可用強模型時完成初稿；F2 升降級階梯讓後續所有 plans 的委派執行受益 |
 
 ## Phase 0 — 盤點與 Preflight
 
@@ -271,6 +306,19 @@ P8（bootstrap 分級）、P9（知識讀出率）、P10（hooks.go 巨石）、
 - [ ] gap 回寫：dogfood 發現的遵循缺口 → 進 ledger（吃自己的狗糧）
 - [ ] 完成條件：分類表 sign-off + ≥1 次非 Claude dogfood 證據入庫
 
+## Phase 5b — Model Dispatch & Judgment Externalization（F1–F6）
+
+**Entry condition**：可與 Phase 5 並行；F1 應先於 Phase 5 的非 Claude dogfood（dogfood 要用 F1 當量尺）。
+
+- [ ] F1 弱模型可讀性標準立檔（觸發條件/動作/完成判準/正反例 四要件）
+- [ ] F2 模型調度守則：tool-neutral 章節落地（位置 Phase 0 定案）+ `ai-tools/agent/*.md` 實查各工具 model/effort 參數（查不到標 `unverified`）+ 與 escalation-policy 的互斥分工寫入兩檔
+- [ ] F3 判斷 rubric 單一入口：五組判準 × 各一正例一反例 + 誠實條款 escape hatch
+- [ ] F4 delegation kit 延伸五種任務型態模板
+- [ ] F5 edit-authority map 表
+- [ ] F6 制度退化模式文件（偵測訊號 + 預防機制）
+- [ ] 驗收（統一標準）：**每份產出用一個 fresh-context 低階 model session 讀後照做一次**，做不對 = 文件不合格改文件，不是怪 model（brief-independence dogfood 紀律沿用）
+- [ ] 完成條件：F1–F6 入庫 + 至少 2 份產出通過低階 model 驗收 + 升降級階梯在 ≥1 次真實委派中使用並記錄
+
 ## Phase 6 — Enforcement Ladder Sweep（ongoing）
 
 - [ ] 以 ledger 失效頻率排序 13 條 behavioral rule classes，選 top 1–2 做 behavioral → mechanical promotion 評估（一次一階）
@@ -305,7 +353,7 @@ P8（bootstrap 分級）、P9（知識讀出率）、P10（hooks.go 巨石）、
 
 ## 完成條件
 
-- [ ] Phase 1–5、7–9 全部完成條件達成；Phase 6 至少一輪 sweep
+- [ ] Phase 1–5、5b、7–9 全部完成條件達成；Phase 6 至少一輪 sweep
 - [ ] **北極星判準可量測**：closure ratio 有 ≥30 天資料；parity 分類表 100% 處置；靜默流失在機械 gate 下結構性不可能（DEFERRED 必有 pointer）
 - [ ] **審計債判準**：scenario PASS 有 runner 輸出或顯式 `agent-judged` 標記；orphan 數 < 100 或全數帶顯式處置；grandfather 清零；bin 策略拍板
 - [ ] Open Questions 全解或明文 deferred
@@ -322,6 +370,7 @@ P8（bootstrap 分級）、P9（知識讀出率）、P10（hooks.go 巨石）、
 | 5 | §未來 plans 排程表的順位 | 改變既有 draft plans 的啟動順序 |
 | 6 | bin 儲存策略（Q8）與任何 git history 清理 | **destructive**（P0 授權邊界）：history rewrite 影響所有 clone；未經明確同意絕不執行 |
 | 7 | orphan 清償的 deprecate 批次 | 下架 route / surface / scenario 屬於能力移除，需可回退且逐批確認 |
+| 8 | F2 升降級階梯的成本邊界 | 「錯一次就升級模型」有直接費用含意；升級的預設上限（升到哪一階需先問）由使用者定 |
 
 ## 與其他 plans 的關係
 
