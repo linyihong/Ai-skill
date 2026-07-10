@@ -144,6 +144,7 @@ deliverables:
 2. 未派發 executor 就直接寫實作。
 3. 未 commit plan 變更就派發。
 4. 同一個 session 兼任 verifier（必須新開 fresh context）。
+5. 無 `verification_backfill` 就派發第一個 executor（consumer 2j：無 backfill 的 Execute = 「做完再想怎麼驗」，Evidence-first 缺口）。
 
 **被 gate 擋下時**：不要 retry 直改實作；補 brief → commit plan → 派發 executor。
 

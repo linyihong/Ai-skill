@@ -73,6 +73,8 @@
 
 任一路徑若發現 brief 不足以自足（執行者需回問 main plan），視為 brief 缺漏 → 回饋修正 schema/內容。
 
+**Execute 意圖澄清（2026-07-10，dogfood 2j 負向證據裁決）**：「未宣告 delegation / `enabled: false` = 不可委派」是 schema 語義，**不是「可以不驗」**。使用者表達 Execute 意圖（「開始執行 plan / sub-plan / slice」）時，三角色 loop 為 **mandatory**——orchestrator 應在 Execute 前把 frontmatter 翻為 `enabled: true` 並補 verification backfill，或在 plan 明記 transport adaptation 例外；**不得**以 `enabled: false` 作為單 agent 包辦（實作 + 自驗）的豁免理由。delivery 域細節見 [`workflow/software-delivery/delegated-execution.md`](../workflow/software-delivery/delegated-execution.md)。
+
 ### 派發 → 獨立驗證 → 仲裁（loop SOP）
 
 派發只是**去程**；已宣告 `delegation.enabled: true` 的任務可走三角色閉環（advisory，不強制；小修補直接做）。三角色一句話定義：
