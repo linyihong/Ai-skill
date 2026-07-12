@@ -7,7 +7,9 @@ owner: linyihong
 last_updated: 2026-07-10
 revision:
   - date: 2026-07-10
-    note: "Consumer dogfood §2026-07-10 — ExternalRepoA L3 verification closure subsystem (monitoring; not Gate A)"
+    note: "Consumer dogfood §2026-07-10b — Mode A vs B 对照（2o）；deploy-smoke-not-l3-authority"
+  - date: 2026-07-10
+    note: "Consumer dogfood §2026-07-10 — <PROJECT_ROOT> L3 verification closure subsystem (monitoring; not Gate A)"
 required_for_completion: false
 ---
 
@@ -285,7 +287,7 @@ evidence_rule:
     - retrofitted sample（為套形狀硬塞 / 因讀了其他樣本而 confirmation bias，非自然出現）
 ```
 
-## Consumer dogfood observation (2026-07-10 — ExternalRepoA; monitoring only)
+## Consumer dogfood observation (2026-07-10 — <PROJECT_ROOT>; monitoring only)
 
 **Trigger**: naturally occurring governance subsystem during tab-scroll close-out + deploy — **not** a claim that Gate A / T3B passed.
 
@@ -309,16 +311,24 @@ evidence_rule:
 
 **Sibling anti-pattern link**: [`validation-coverage-gap-executor-placement.md`](../../enforcement/failure-patterns/validation-coverage-gap-executor-placement.md) — inner co-located tests as closure authority.
 
-**Action for this plan**: record only; resume T3A lint implementation when first consumer picks declaration site. ExternalRepoA overlay is **evidence**, not promotion.
+**Action for this plan**: record only; resume T3A lint implementation when first consumer picks declaration site. `<PROJECT_ROOT>` overlay is **evidence**, not promotion.
 
-### Consumer dogfood 追加（2026-07-10，monitoring only）
+### Consumer dogfood 追加（2026-07-10b — Mode A vs Mode B）
 
-| 来源 | 观察 | 处置 |
-|---|---|---|
-| Delegation **2n**（ExternalRepoC 07 push DEL-S1–S6） | L3 verification closure 子系统：Verifier L1–L3 + `slice_compliant_closed` 分层；与 validation-coverage-gap executor-placement 正面对照 | **record only** — 不升格 Gate A；不新增 sample #8 类重复 |
-| Deferred ledger DF-002/003 | Validation leg environment ≠ subsystem shape（V5-A stale JVM）延续 2m 观察 | 记入 `false_positive_log` 候选（shadow lint 未实现前仅 watch） |
+**Source**: Ai-skill [`2o-consumer-tab-scroll-single-vs-delegation`](2026-07-08-0825-delegation-verification-arbitration-loop/evidence/2o-consumer-tab-scroll-single-vs-delegation.md).
 
-## Out of scope
+| Step | Mode A（单 session） | Mode B（三角色 loop） |
+| --- | --- | --- |
+| Observation | deploy smoke 绿、TAB-001 红仍倾向交付 | backfill 强制 6/6 L3 linked 才关 slice |
+| Rule | 同左（inner≠closure） | + `plan-delegation-execution-loop` §反模式 |
+| Registry | `failure_modes.inner_unit_test_alone_cannot_close_user_visible_slice` | + `delegation.enabled: true` brief |
+| Projection | 无 backfill | `verification_backfill` 7 行 tier/owner |
+| Executor | 主 session 改 server_doc | Executor Task only |
+| Validation | 部分 L3（2/6） | Verifier Task 全 L3（6/6） |
+
+**Template fit delta**: Mode B 完整走通 **Specification → Production → Evidence → Decision** 四步；Mode A 在 Validation 步产生 **partial authority**（deploy smoke 替代 L3）。候选 **sample #9**（mode-comparison variant）— 与 #8 同 subsystem，强调 execution pattern 而非新 subsystem。
+
+**T3A signal**: `deploy-smoke-not-l3-authority` — Validation leg 若只跑 deploy smoke 不含 journey script，shadow lint 应标 `validation_coverage_gap`（待 declaration site 决定后试跑）。
 
 - 不立刻寫 template（這正是本 plan 的重點 — 等樣本足夠）
 - 不 retrofit 既有 plans 套入 template 格式

@@ -9,6 +9,8 @@ parent: null
 baseline_ref: 2026-06-22-1009-subplan-agent-delegation
 revision:
   - date: 2026-07-10
+    note: "Dogfood 2o — <PROJECT_ROOT> tab-scroll **单 session vs 三角色** 对照；partial authority / deploy smoke≠L3；Q8 ERA 信号"
+  - date: 2026-07-10
     note: "Dogfood 2n — ExternalRepoC 07 push DEL-S1–S6 **正向闭环**：6/6 E+V、sub-plan completed；2e 勾选完成；ADR SD 完整 loop 证据；Phase 3 Q7 sd 域信号增强（仍 open Q5）"
   - date: 2026-07-08
     note: "Verifier 三層驗證契約 + 測試職責分工（防 executor 自寫測試 + verifier 只重跑的自證循環）"
