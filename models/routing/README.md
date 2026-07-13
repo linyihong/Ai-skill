@@ -10,6 +10,7 @@
 | `models/profiles/` | 保存 `small`、`large`、`specialized` 等粗略 context-loading profile。 |
 | `models/capabilities/` | 描述用來修正 profile 假設的 capability dimensions。 |
 | `models/compression/` | 選擇 context compression level 與 escalation path。 |
+| `model-tier-escalation.md` | 依失敗次數決定升 / 降 model tier（與 escalation-policy 的 evidence-recovery 互斥）。 |
 | `ai-tools/` | 記錄工具特定 model selector 行為與可用的 explicit model controls。 |
 | `workflow/` | 定義任務執行形狀與成功條件。 |
 | `runtime/` | 只有在 validation 與 runtime reduction 後，才接收 minimal routing primitives。 |
@@ -33,7 +34,7 @@
 1. 用 [`task-routing.md`](task-routing.md) 分類 task shape。
 2. 用 [`autonomy-routing.md`](autonomy-routing.md) 檢查 cognitive state 與 autonomy mode。
 3. 若 explicit model selection 不可用，用 [`fallback-routing.md`](fallback-routing.md) 做 behavior-only adaptation。
-4. 委派 subagent 或 explicit model run 前，先套用 [`multi-model-handoff.md`](multi-model-handoff.md)。
+4. 委派 subagent 或 explicit model run 前，先套用 [`multi-model-handoff.md`](multi-model-handoff.md)（何時 handoff + packet 格式）與 [`model-tier-escalation.md`](model-tier-escalation.md)（失敗 → 升降 tier 的階梯）。
 5. 從 [`../compression/README.md`](../compression/README.md) 選擇 compression。
 
 ## 禁止主張
