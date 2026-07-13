@@ -123,6 +123,14 @@
 | **Brief 累積優於整份覆寫** | 同一 sub-plan 多 slice 時，優先在 plan 內用 **slice 累積表**（goal / acceptance / tip / Verifier）追加列；避免每 slice 整份覆寫 `frontmatter.brief` 造成外層 commit 密度無謂升高（合規性不依賴此優化，但協調成本依賴）。 |
 | **Verifier 報告形狀強制** | Verifier 最終回覆 **必須**含上表四欄 findings 表（`evidence` / `acceptance_ref` / `classification` / `status`）；散文或自訂欄位不算滿足「報告自足」（Q1）。無 finding 時仍輸出表頭 +「0 rows / 全數通過」+ Acceptance 逐條結論。 |
 
+**Transport / 路徑切流（dogfood 2q，2026-07-13）**：
+
+| 規則 | 說明 |
+|---|---|
+| **loop 綠 ≠ 路徑已通** | Executor+Verifier 都 spawn、inner mock 全綠，**仍可能**從未打通真實出站路徑（與 bookmark「缺 Runtime Constraint」同構）。 |
+| **切流須 runtime 行** | `transport_migration` / 預設切正式 API：backfill 至少一行 `tier=runtime`（含主路徑如 sync-remote）；無密鑰 → **defer + follow-up**，禁止對外寫「功能通」。 |
+| **features + integration 配對** | 用戶可見切流：acceptance-spec（如 `docs/features`）與外層 integration/L3 互鏈；僅 inner JUnit **不足**。Consumer 機械 gate 見 ExternalRepoC `gate.plan_transport_runtime_evidence`。 |
+
 **Ai-skill repo 內委派的 bootstrap 注意事項**：brief 的 `context.required` 須含 [`CORE_BOOTSTRAP.md`](../CORE_BOOTSTRAP.md) 與 [`runtime/core-bootstrap.yaml`](../runtime/core-bootstrap.yaml)，executor / verifier 首則回覆須輸出 Bootstrap Receipt（否則本 repo 的 bootstrap gate（`gate.bootstrap.receipt_present`）會擋非讀取工具）；外部 repo 無此需求（gate fail-open）。
 
 Transport 模板（executor / verifier / 仲裁表）見 [`active/2026-07-08-0825-delegation-verification-arbitration-loop/01-dogfood-prompt-kit.md`](active/2026-07-08-0825-delegation-verification-arbitration-loop/01-dogfood-prompt-kit.md)；決策紀錄（canonical 契約）見 [`active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md`](active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) §Decision Rationale。

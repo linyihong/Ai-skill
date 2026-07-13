@@ -27,6 +27,7 @@
 | **2n** | [`2n-externalrepoc-push-delivery-s1-s6-compliant-loop.md`](2n-externalrepoc-push-delivery-s1-s6-compliant-loop.md) | 正向证据 | ExternalRepoC **07 push delivery** DEL-S1–S6：6/6 E+V loop、sub-plan `completed`、零 post-close bypass；对照 2j/2k/2l |
 | **2o** | [`2o-consumer-tab-scroll-single-vs-delegation.md`](2o-consumer-tab-scroll-single-vs-delegation.md) | 证据 only | tab-scroll 单 session vs 三角色对照 |
 | **2p** | [`2p-externalrepoc-integration-default-cutover-d0-d5.md`](2p-externalrepoc-integration-default-cutover-d0-d5.md) | 正向证据 | ExternalRepoC **09 Integration 默认切流** INT-D0–D5：6/6 E+V、same-branch 连续、一口气压力未跳 V；live defer |
+| **2q** | [`2q-externalrepoc-transport-inner-only-runtime-gap.md`](2q-externalrepoc-transport-inner-only-runtime-gap.md) | 负向/纠偏 | 同 09：loop 绿但缺 Runtime/Integration 路径证明；features+L3 配对 + consumer gate |
 | 2d | —（inline） | 證據 only | 見 [`01-dogfood-prompt-kit.md`](../01-dogfood-prompt-kit.md) → `### 2d` |
 | 2c | —（inline） | 證據 only | 見 kit → `### 2c` |
 | 2g | —（inline） | 證據 only | 見 kit → `### 2g` |

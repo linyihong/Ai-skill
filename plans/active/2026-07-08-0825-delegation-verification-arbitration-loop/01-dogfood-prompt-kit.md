@@ -151,7 +151,8 @@ branch：<branch-name>（已 commit，未 merge）
 ## Dogfood 紀錄
 
 > **2026-07-09 起**：新 run 全文进 [`evidence/`](evidence/README.md)；kit 只留一行指针。  
-> **2p（2026-07-13，正向）**：[`evidence/2p-externalrepoc-integration-default-cutover-d0-d5.md`](evidence/2p-externalrepoc-integration-default-cutover-d0-d5.md) — ExternalRepoC 09 INT-D0–D5：6/6 E+V、same-branch、一口气未跳 V；live defer。
+> **2p（2026-07-13，正向）**：[`evidence/2p-externalrepoc-integration-default-cutover-d0-d5.md`](evidence/2p-externalrepoc-integration-default-cutover-d0-d5.md) — ExternalRepoC 09 INT-D0–D5：6/6 E+V、same-branch、一口气未跳 V；live defer。  
+> **2q（2026-07-13，纠偏）**：[`evidence/2q-externalrepoc-transport-inner-only-runtime-gap.md`](evidence/2q-externalrepoc-transport-inner-only-runtime-gap.md) — loop 绿 ≠ Integration 路径已通；须 features+L3 + V5-A。
 
 ### 2a — software-delivery 任務 ✅（2026-07-08，Cursor session demo）
 
