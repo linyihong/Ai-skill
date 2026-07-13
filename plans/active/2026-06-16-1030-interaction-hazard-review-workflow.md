@@ -1,7 +1,7 @@
 ---
 id: 2026-06-16-1030-interaction-hazard-review-workflow
 plan_kind: main
-status: draft
+status: active
 owner: linyihong
 created: 2026-06-16
 priority: P1
@@ -10,12 +10,12 @@ required_for_completion: false
 
 # State Trust Transition — Promotion Discipline (Decision Framework)
 
-**Status**: `draft` — **promotion discipline / decision framework**（非 workflow 设计稿）
+**Status**: `active` — promotion discipline **final O3** recorded；runtime surface graduation **deferred**
 Owner: framework maintainer (linyihong)
 **建立日期**：2026-06-16
-**最後修訂**：2026-07-07（review #6：downstream evidence sync — integration journey complete；ADR #4 operational gates（counterfactual + implementation-before-test）；Stage Decision trial-protocol-ready；canonical path fix；Interaction Evidence Hierarchy watch）
+**最後修訂**：2026-07-13（review #7：downstream C.5 + ADR #4 pass → **final O3**；Criterion 4 satisfied；runtime surface registration still deferred）
 **Priority**：**P1**
-**Downstream pilot**（canonical evidence consumer — 细节不复制进本 plan）：Vidoe-Test `docs/plans/active/2026-06-16-state-trust-transition-pilot.md`；commits `bcce737`（A0 overlay）、`6665b77`（A1/B/B.5 + C BDD partial）
+**Downstream pilot**（canonical evidence consumer）：<AI_SKILL_DOGFOOD_EVIDENCE> `docs/plans/archived/2026-06-16-state-trust-transition-pilot.md`（**completed** 2026-07-13）；C.5/ADR#4 @ `6a7cc1c` + `docs/plans/c5-trials/2026-07-13-payment-leave-confirm-dialog.yaml`
 
 ## Executive summary
 
@@ -46,38 +46,30 @@ primitive → evidence → consumer → 是否值得升 workflow
 | Path | 选 when | Pilot status (2026-06-16) |
 |---|---|---|
 | **O2 — Conditional gate** | B + B.5 失败：栏位不能跨域复用 | not selected |
-| **O3 — Generic trust transition model** | B + B.5 通过：四栏不改字可套 rollback + websocket | **tentative lean** — see §Downstream pilot gate |
+| **O3 — Generic trust transition model** | B + B.5 通过：四栏不改字可套 rollback + websocket | **final** — downstream C.5/ADR#4 pass 2026-07-13 |
 
 ---
 
-## Stage Decision（O3 — formalized 2026-07-07）
+## Stage Decision（O3 — **final** 2026-07-13）
 
-Current evidence supports a **tentative O3** direction.
-
-The State Trust Transition primitive, evidence model, and promotion discipline have reached a stable state through downstream consumer validation. Remaining work is **not** further framework design.
-
-Workflow graduation remains **deferred** because Criterion 4 (previously unknown predictive prevention) has not yet been satisfied.
-
-This is a different state from an immature framework: the framework is sufficiently **mature for downstream consumption**, but **not yet mature enough to claim predictive interception capability**.
+Downstream pilot closed Criterion 4 with a deliberate C.5 Predictive Interception Trial (PaymentLeaveConfirmDialog). This plan now records **final O3**.
 
 | Layer | Status |
 |---|---|
 | Primitive | Mature / Stable |
 | Evidence model | Validated |
 | Promotion discipline | Established |
-| Workflow graduation | Deferred (await predictive interception evidence — criterion 4) |
+| O2 vs O3 | **Final O3** |
+| Workflow / runtime surface graduation | **Still deferred** — no new lifecycle phase; evidence accumulation, not framework expansion |
 
 Accordingly:
 
-- **O2** is no longer the active direction.
-- **O3** remains the working hypothesis — confidence strengthened after Phase C (see Evidence update below).
-- Graduation awaits **completion of the predictive interception trial protocol** — the protocol is defined downstream (C.5 Predictive Interception Trial), but the first trial is still **pending**.
-- Evidence should be produced through **declared trials**, not reconstructed post hoc.
-- Framework maturity does **not** justify manufacturing evidence solely to satisfy promotion criteria.
+- **O2** is not selected.
+- **O3** is the **final** direction for the State Trust Transition primitive.
+- Criterion 4 evidence: <AI_SKILL_DOGFOOD_EVIDENCE> `docs/plans/c5-trials/2026-07-13-payment-leave-confirm-dialog.yaml` + L1 @ test `/h5` `6a7cc1c` (`adr4_verdict: pass`).
+- **Do not** manufacture additional “graduation features”; further work is consumer evidence and optional naming ADR — not new framework design unless evidence invalidates the primitive.
 
-**Evidence update (post Phase C):** confidence in O3 strengthened — not because ownership generalized, but because an **untrustworthy input path reads as a trust-transition failure**, not UI-ownership failure alone. The ownership column set is expanding across domains: UI + cache + transport + interaction channel. Recorded descriptively (no numeric score — not reproducible half a year later); the working hypothesis stays O3, unresolved until Criterion 4.
-
-**Governance invariant:** Future work focuses on **evidence accumulation, not framework expansion**. No additional framework design is planned unless future downstream evidence invalidates the current primitive.
+**Governance invariant:** No Experience Runtime lifecycle row, no `ownership_map` rename, no Interaction Evidence Hierarchy extraction from this decision alone. Future work focuses on **evidence accumulation, not framework expansion**.
 
 ---
 
@@ -87,23 +79,23 @@ Phase 勾选 **不以 Ai-skill 自证**；以 downstream validation pilot 产物
 
 | Phase | Gate pass when | Downstream evidence | Status |
 |---|---|---|---|
-| A0 | 四栏 + Recovery Boundary 定稿并 sync 到 consumer workflow | Vidoe-Test `bcce737` — `framework-development-workflow.yaml`, `interaction-hazard-review.md` | **pass** |
-| A1 | Coupon 四栏 trust table | Vidoe-Test `6665b77` — `screen-mapping/episode-coupon-redeem-journey.md` | **pass** |
-| B | 非 player invalidate↔recover 闭环 | Vidoe-Test `6665b77` — `screen-mapping/membership-payment-sync-trust-journey.md` | **pass** |
-| B.5 | 四栏不改字压力测试 | Vidoe-Test `6665b77` — `screen-mapping/websocket-subscription-trust-journey.md` | **pass** |
-| C | field survival scenario + predictive prevention | Vidoe-Test `6665b77` — `tests/bdd/state-trust-transition-pilot.test.mjs` (5/5); predictive **pending** | **partial** |
-| D | 全部 ADR criteria | Vidoe-Test `episode_coupon_redeem_journey.integration.mjs`（integration journey） | **blocked** (criterion 4 — predicted-before-code + implementation-before-test; criterion 6 ongoing; integration journey **complete**) |
+| A0 | 四栏 + Recovery Boundary 定稿并 sync 到 consumer workflow | <AI_SKILL_DOGFOOD_EVIDENCE> `bcce737` — `framework-development-workflow.yaml`, `interaction-hazard-review.md` | **pass** |
+| A1 | Coupon 四栏 trust table | <AI_SKILL_DOGFOOD_EVIDENCE> `6665b77` — `screen-mapping/episode-coupon-redeem-journey.md` | **pass** |
+| B | 非 player invalidate↔recover 闭环 | <AI_SKILL_DOGFOOD_EVIDENCE> `6665b77` — `screen-mapping/membership-payment-sync-trust-journey.md` | **pass** |
+| B.5 | 四栏不改字压力测试 | <AI_SKILL_DOGFOOD_EVIDENCE> `6665b77` — `screen-mapping/websocket-subscription-trust-journey.md` | **pass** |
+| C | field survival scenario + predictive prevention | <AI_SKILL_DOGFOOD_EVIDENCE> BDD + C.5 PaymentLeaveConfirmDialog | **pass** |
+| D | 全部 ADR criteria + O2/O3 final | <AI_SKILL_DOGFOOD_EVIDENCE> archived pilot §D final **O3** | **pass** (runtime surface still deferred) |
 
 **Promotion gate summary**（ADR criteria 1–6）：
 
 | # | Criterion | Status |
 |---|---|---|
 | 1 | ≥2 cases, four-column table | **pass** (coupon + payment sync) |
-| 2 | ≥1 validation scenario consumes trust evidence | **partial** (BDD field survival; Ai-skill validation YAML ids pending) |
-| 3 | O2 or O3 resolved | **tentative O3** (B + B.5 pass) |
-| 4 | ≥1 previously unknown prevention | **pending** — operationalized downstream into 3-field counterfactual + implementation-before-test（见 §Promotion discipline）|
+| 2 | ≥1 validation scenario consumes trust evidence | **pass** (BDD + coupon journey + payment-leave L1 browser) |
+| 3 | O2 or O3 resolved | **final O3** |
+| 4 | ≥1 previously unknown prevention | **pass** — <AI_SKILL_DOGFOOD_EVIDENCE> C.5 PaymentLeaveConfirmDialog / test `/h5` `6a7cc1c` |
 | 5 | template field survives renaming | **pass** (B.5 websocket, same headers) |
-| 6 | no rubber-stamp | **ongoing** |
+| 6 | no rubber-stamp | **pass** — refused continuation dogfood as ADR #4 substitute |
 
 ---
 
@@ -153,24 +145,6 @@ Post-hoc explanatory power ≠ predictive interception
 Abstraction that renames every case ≠ primitive
 ```
 
-### Criterion 4 — operational acceptance（downstream-defined，不改 criterion）
-
-Criterion 4 本身不变；下游 pilot 把它 operationalize 成两道 acceptance gate（回写自 Vidoe-Test pilot §Counterfactual replay + §D gate）：
-
-```text
-Criterion 4  (≥1 previously unknown prevention)
-    ↓
-Operational gates
-  • Counterfactual evidence — 三栏皆需成立：
-      predicted_before / evidence_available_before / prevented_action
-      （旧 would_detect 仅供 replay 叙述；pass/fail 以三栏为准。Prediction ≠ actionability）
-  • Implementation-before-test — 必须在第一个 failing test 存在之前就改了设计：
-      fill hazard → change design → no incident（tests document, not discover）
-      拒绝：fill hazard → add failing test → claim intercepted（post-hoc test archaeology）
-```
-
-此为 acceptance 操作化，非 criterion 演进；criterion 4 文字保持不变。
-
 ---
 
 ## Evidence（consumer 层 — 不膨胀 taxonomy）
@@ -194,7 +168,7 @@ Governance invariant（consumer）：`observable_outcome_must_survive_owner_refr
 > [`governance/evidence-candidates/evidence-rules/interaction-hazard.pointer.yaml`](../../governance/evidence-candidates/evidence-rules/interaction-hazard.pointer.yaml)。
 > **Phase 1A Step 2（consumer attach）**：本 section 成立 = consumer hook 建立；criterion 內容是
 > **Step 3（criteria authoring）**，下方刻意留 placeholder。rule 定義 owner = 本 plan。acceptance-gate
-> 形狀候選 `pilot_complete + criteria_pass >= 6`；證據可跨 repo（下游 Vidoe-Test commit）。notify
+> 形狀候選 `pilot_complete + criteria_pass >= 6`；證據可跨 repo（下游 <AI_SKILL_DOGFOOD_EVIDENCE> commit）。notify
 > 屬 acceptance-gate（gate projection），不在 evidence_rule。設計來源見
 > [`evidence-candidate-system`](2026-06-16-1131-evidence-candidate-system.md)。
 
@@ -211,7 +185,7 @@ evidence_rule:
       - id: predictive_prevention
         description: ≥1 previously-unknown prevention，非已上線 bug 的事後解釋（criterion 4）
       - id: downstream_pilot_evidence
-        description: 下游 consuming 專案（如 Vidoe-Test）commit/diff 驗證 trust transition —— 跨 repo 證據
+        description: 下游 consuming 專案（如 <AI_SKILL_DOGFOOD_EVIDENCE>）commit/diff 驗證 trust transition —— 跨 repo 證據
   exclusions:
     - post-hoc 解釋已 ship 的 bug（非 predictive interception）
     - 每案都要改栏位的 abstraction（abstraction noise，非 primitive）
@@ -242,12 +216,12 @@ Lifecycle 2 — Graduation (in progress)
 ### A0 — Template + Recovery Boundary
 
 - [x] 四栏定义写入本 plan
-- [x] Downstream project overlay / screen-mapping sync Recovery Boundary — Vidoe-Test `bcce737`
+- [x] Downstream project overlay / screen-mapping sync Recovery Boundary — <AI_SKILL_DOGFOOD_EVIDENCE> `bcce737`
 - [x] Side Effect Chain：`invalidation_events` + **`recovery_evidence`** per step — downstream workflow yaml + screen mappings
 
 ### A1 — Coupon
 
-- [x] 四栏填 coupon — Vidoe-Test `episode-coupon-redeem-journey.md` (`6665b77`); aligns Appendix A
+- [x] 四栏填 coupon — <AI_SKILL_DOGFOOD_EVIDENCE> `episode-coupon-redeem-journey.md` (`6665b77`); aligns Appendix A
 - [x] Counterfactual documented — coupon unmount hazard + recovery (post-ship fix recorded; predictive record pending criterion 4)
 
 ### B — Optimistic rollback / payment sync trust
@@ -263,14 +237,15 @@ Lifecycle 2 — Graduation (in progress)
 
 ### C — Scenario spike
 
-- [ ] ≥1 previously unknown prevention — **gate blocked**
-- [x] ≥1 scenario asserts template field survival — Vidoe-Test `state-trust-transition-pilot.test.mjs` (`6665b77`)
+- [x] ≥1 previously unknown prevention — <AI_SKILL_DOGFOOD_EVIDENCE> C.5 PaymentLeaveConfirmDialog (2026-07-13)
+- [x] ≥1 scenario asserts template field survival — <AI_SKILL_DOGFOOD_EVIDENCE> `state-trust-transition-pilot.test.mjs` (`6665b77`)
 - [ ] Draft ids promoted to Ai-skill `validation/scenarios/` — deferred; downstream BDD equivalent green
 
 ### D — Graduation
 
-- [ ] O2 / O3 **final** written decision — tentative O3 only; ADR 4 incomplete
-- [ ] **Do not** register runtime surface until criterion 4 met — integration journey evidence now **complete**（`episode_coupon_redeem_journey.integration.mjs`）；criterion 4（predicted-before-code + implementation-before-test）still blocks
+- [x] O2 / O3 **final** written decision — **final O3** (downstream pilot §D, 2026-07-13)
+- [x] Criteria 4 + integration journey evidence met for promotion *discipline*
+- [ ] **Do not** register runtime surface / lifecycle phase yet — deferred by design (evidence accumulation ≠ framework expansion)
 
 ---
 
@@ -285,19 +260,6 @@ Many primitives are **not designed** — they are **pulled out by three or four 
 - 若能：它不是 UI workflow — 单独 ADR 再议 naming / owner layer
 - 若不能：stay O2 conditional gate
 
-### Emerging observation — Interaction Evidence Hierarchy（observe only）
-
-下游 Phase C 浮现一个比 Interaction Hazard 更大的 **authority model**：success authority transfer — semantic interaction + capability persists 才算闭环，proxy signal（如 pointer 注入）不算；Interaction Evidence Hierarchy 从 L3 移向 L1。
-
-```text
-Emerging observation:  Interaction Evidence Hierarchy
-Status:                Observe only
-Reason:                Single-consumer evidence (Vidoe-Test Phase C only)
-Promotion:             Deferred until independent reuse
-```
-
-Producer 自身判定为 `Forming (observe only)，do not extract yet` —— Ai-skill 更不应提前抽象。仅记录证据，不进 core、不命名 primitive。
-
 ---
 
 ## Stakeholder review log
@@ -309,7 +271,8 @@ Producer 自身判定为 `Forming (observe only)，do not extract yet` —— Ai
 | #3 | Recovery Boundary；trust transition 验题；B.5 rename pressure；field survival ADR；anti optimize-for-primitive |
 | #4 | Downstream pilot gate 回写；A0–B.5 pass；C partial；tentative O3 |
 | #5 | Formalized tentative O3 as the current stage decision；separated framework maturity from workflow graduation；predictive evidence 须自然产生而非为过 gate 制造 |
-| #6 | Downstream evidence sync：integration journey → complete；ADR #4 operationalized（3-field counterfactual + implementation-before-test）；Stage Decision 改为 trial-protocol-ready/pending（非被动等待）；canonical path 修正；新增 Interaction Evidence Hierarchy watch（observe only）；O3 信心改描述性、不写百分比 |
+| #6 | Downstream evidence sync；ADR #4 operationalized；Interaction Evidence Hierarchy watch |
+| #7 | Downstream C.5 PaymentLeaveConfirmDialog + L1 @ test `/h5` `6a7cc1c` → Criterion 4 pass；**final O3**；runtime surface仍 deferred |
 
 ---
 
@@ -317,9 +280,10 @@ Producer 自身判定为 `Forming (observe only)，do not extract yet` —— Ai
 
 - [x] A0 四栏 synced（downstream `bcce737`）
 - [x] A1 + B + B.5 填表（downstream `6665b77`）
-- [ ] C scenario complete — partial: field survival **pass**; predictive prevention **pending**
-- [ ] O2/O3 **final** 书面决策 — tentative O3 documented; await criterion 4
-- [ ] Phase D — **blocked** until full ADR criteria
+- [x] C scenario complete — field survival **pass**; predictive prevention **pass** (C.5 2026-07-13)
+- [x] O2/O3 **final** 书面决策 — **final O3**
+- [x] Phase D promotion **discipline** — ADR criteria 1–6 pass
+- [ ] Runtime surface / workflow slice registration — **deferred** (explicit non-goal of this close)
 
 ---
 
