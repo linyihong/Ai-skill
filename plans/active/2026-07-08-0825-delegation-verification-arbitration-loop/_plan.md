@@ -42,11 +42,12 @@ revision:
     note: "2p 契约回写：多 todo=多轮 E→V；brief 累积表；Verifier 四栏强制 → plans/README + kit + delegated-execution + consumer overlay"
   - date: 2026-07-13
     note: "Dogfood 2q — transport cutover Verifier inner-only 假绿：loop≠路径通；features+L3+V5-A；consumer gate.plan_transport_runtime_evidence"
+    note: "Dogfood 2r — <PROJECT_ROOT> player overlay Mode A：soft-nav 绿→cold URL 死；entry-path / elementFromPoint 回馈"
 ---
 
 # Delegation Verification & Arbitration Loop（委派執行→獨立驗證→仲裁閉環）
 
-**Status**: `in-progress`（Phase 0–2 完成；外部 monorepo dogfood **2a–2q**；**2n/2p 正向闭环**；2026-07-13 2p；Phase 3 / closure **仍不收斂** — Q5 schema promotion open，deadline 2026-08-31）
+**Status**: `in-progress`（Phase 0–2 完成；外部 monorepo dogfood **2a–2q** + consumer **2o/2r**；**2n/2p 正向闭环**；2026-07-13 2q/2r；Phase 3 / closure **仍不收斂** — Q5 schema promotion open，deadline 2026-08-31）
 **Owner**: linyihong
 **建立日期**: 2026-07-08
 **Source**: 2026-07-08 對話 — 使用者觀察到外部框架的三角色模式：主 session 只做規劃 / 切分 / 仲裁，執行交給獨立 agent session，驗證再交給另一個獨立 session，最後由主 session 仲裁每條驗證發現（要修 / 超出範圍 / 駁回）。目標：補漏「預計與實現的落差」。主要針對 `workflow/software-delivery` 的交付處理；Ai-skill 自身任務比照辦理，觀察品質是否提升。
@@ -422,8 +423,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 - [x] **2o — consumer tab-scroll：单 session vs 三角色 对照** — 2026-07-10 **證據 only**（[`evidence/2o-consumer-tab-scroll-single-vs-delegation.md`](evidence/2o-consumer-tab-scroll-single-vs-delegation.md)）；partial authority / deploy smoke ≠ L3；Q8 ERA 信号；**不**視為 Phase 3 closure
 - [x] **2p — ExternalRepoC Integration 默认切流 INT-D0–D5** — 2026-07-13 **正向证据**（[`evidence/2p-externalrepoc-integration-default-cutover-d0-d5.md`](evidence/2p-externalrepoc-integration-default-cutover-d0-d5.md)）；6/6 E+V、same-branch 连续、一口气压力未跳 Verifier；live defer；**不**單獨視為 Phase 3 closure（Q5 仍 open）
 - [x] **2q — ExternalRepoC transport inner-only runtime gap** — 2026-07-13 **负向/纠偏**（[`evidence/2q-externalrepoc-transport-inner-only-runtime-gap.md`](evidence/2q-externalrepoc-transport-inner-only-runtime-gap.md)）；loop 绿≠路径通；features+L3+V5；**不**视为 Phase 3 closure
-- [x] **2k — ExternalRepoC push 纠偏后 post-close runtime 缺口**
-- [x] **2l — ExternalRepoC common-url S2′ mirror 再跳过三角色 loop** — 2026-07-10 **负向证据 only**（[`evidence/2l-externalrepoc-common-url-s2-mirror-skip-loop.md`](evidence/2l-externalrepoc-common-url-s2-mirror-skip-loop.md)）；0 Executor/Verifier、surgical bypass 滥用、Shell 绕过 preToolUse；`retroactive-r1-verifier`；**不**視為 Phase 3 closure — 2026-07-10 **證據 only**（[`evidence/2k-externalrepoc-push-post-close-runtime-gaps.md`](evidence/2k-externalrepoc-push-post-close-runtime-gaps.md)）；用户手验暴露 V5 未覆蓋 create 表单 / Worker 拓扑；`post-close-surgical-debt`；**不**視為 Phase 3 closure
+- [x] **2r — <PROJECT_ROOT> player overlay Mode A hit-trap** — 2026-07-13 **负向证据**（[`evidence/2r-consumer-player-overlay-mode-a-hit-trap.md`](evidence/2r-consumer-player-overlay-mode-a-hit-trap.md)）；soft-nav 绿→cold URL 全死；programmatic click / 单入口假绿；consumer entry-path 矩阵回馈；**不**视为 Phase 3 closure
 - [x] **2e — 跨域 run（Research/Audit 域）：grandfather sunset audit** ✅ — 2026-07-08–09（[`evidence/2e-grandfather-sunset-audit.md`](evidence/2e-grandfather-sunset-audit.md)）；Q6/Q7(b)/Q8 的 stage-2 裁決 run。完整 loop：調查者（worktree，252 行報告 `c8ff035`，中斷後 resume 完成）→ 事實查核者（fresh，引文逐條命中、5 surfaces 獨立重跑一致、findings ×2 全 observation）→ 仲裁（defer×2，無 fix）。**實質產出**：5/5 surfaces 已 wired、flag 條款過時、延展不觸發、sunset 只剩行政收尾（處置決定保留 maintainer，見 `02-grandfather-sunset-audit.md`）。**跨域觀察**：四責任自然成立（topology 不同：+maintainer 第二層 decision）；backfill 結構化形式明確缺席、弱形式（evidence-first acceptance）出現；證據責任四問同構重現（含「自產證據不能自我關閉」跨域不變式）——詳 kit §2e Q6/Q7/Q8 觀察表
 - [x] 回饋迴路（2b 觸發 ×1）：F2 暴露 brief v1 缺「reusable doc 目標須含 tool-neutral 措辭條款」→ brief v2 追加 acceptance 9、kit 使用說明補教訓；修契約未修執行者；fix leg 重跑通過。2a 若再暴露缺漏比照處理。
 
