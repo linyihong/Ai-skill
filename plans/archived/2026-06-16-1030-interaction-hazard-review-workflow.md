@@ -13,7 +13,7 @@ required_for_completion: false
 **Status**: `completed`
 Owner: framework maintainer (linyihong)
 **建立日期**：2026-06-16
-**最後修訂**：2026-07-13（Plan Completion Closure：final O3 + ADR 1–6；scenario→Ai-skill `[~]` deferred；runtime surface 不註冊決策已持守）
+**最後修訂**：2026-07-13（補 ECS Phase 1 冷啟動貢獻互指；Plan Completion Closure 已完成）
 **Priority**：**P1**
 **Plan archive**：✅ archived 2026-07-13
 **Downstream pilot**（canonical evidence consumer）：<AI_SKILL_DOGFOOD_EVIDENCE> `docs/plans/archived/2026-06-16-state-trust-transition-pilot.md`（**completed** 2026-07-13）；C.5/ADR#4 @ `6a7cc1c` + `docs/plans/c5-trials/2026-07-13-payment-leave-confirm-dialog.yaml`
@@ -275,6 +275,24 @@ Many primitives are **not designed** — they are **pulled out by three or four 
 | #6 | Downstream evidence sync；ADR #4 operationalized；Interaction Evidence Hierarchy watch |
 | #7 | Downstream C.5 PaymentLeaveConfirmDialog + L1 @ test `/h5` `6a7cc1c` → Criterion 4 pass；**final O3**；runtime surface仍 deferred |
 | #8 | Checkbox audit + **Plan Completion Closure**：Ai-skill scenarios `[~]` deferred；runtime surface decision held；`status: completed` → `plans/archived/` |
+| #9 | 回寫 ECS 關係：本 plan 是 Evidence Candidate System **Phase 1 冷啟動消費者**（criteria + gate 形狀 + expire fixture），非 observation 期真實 accept 樣本 — 見 [`2026-06-16-1131-evidence-candidate-system`](../active/2026-06-16-1131-evidence-candidate-system.md) §與其他 plans 的關係 |
+
+---
+
+## Related — Evidence Candidate System（把 ECS 建起來）
+
+本 plan **completed** 後不升 Ai-skill workflow；對
+[`2026-06-16-1131-evidence-candidate-system`](../active/2026-06-16-1131-evidence-candidate-system.md)
+的貢獻停在 **Phase 1 observation infrastructure**：
+
+| 貢獻 | 內容 |
+|---|---|
+| Consumer attach | `## Evidence Rule` + pointer `interaction-hazard.pointer.yaml` |
+| Criteria | `trust_transition_case` / `field_survival` / `predictive_prevention` / `downstream_pilot_evidence` |
+| Gate 形狀 | `pilot_complete + criteria_pass>=6`（第三種 maturity 形狀） |
+| Plumbing fixture | Phase 1B `C-0003` → **expire**（ratio 不失真） |
+
+**Non-claim：** final O3 / C.5 證據**未**經 ECS candidate→accept 寫回；不計入 ECS `phase2_gate` 真實樣本。
 
 ---
 

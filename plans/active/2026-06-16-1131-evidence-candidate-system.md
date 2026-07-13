@@ -632,7 +632,13 @@ consumer 不得把「存在」當「可消費」。與 Q7 同源、與 Q6 不同
   N≥5 + falsification 紀律**；本 plan 自己現在是 N=1，不抽模板。governance-pattern 的 sample
   inventory 是 candidate accept 的目標證據面之一（`notify: sample_count>=5 + falsification>=1`）。
 - [`archived/2026-06-16-1030-interaction-hazard-review-workflow.md`](../archived/2026-06-16-1030-interaction-hazard-review-workflow.md)
-  — Downstream pilot gate 是 candidate accept 的目標證據面之一（`notify: pilot_complete +
-  criteria_pass>=6`）；其下游 ExternalRepoA commit 是 cross-repo candidate 的範例來源（Q5）。**completed** 2026-07-13。
+  — **Phase 1 冷啟動消費者（把 ECS 建起來）**：與 economics / governance-pattern 並列的第三個
+  evidence-rule owner；貢獻 (1) criteria 形狀
+  `trust_transition_case` / `field_survival` / `predictive_prevention` / `downstream_pilot_evidence`；
+  (2) gate 形狀 `pilot_complete + criteria_pass>=6`（證明非單一 gate 特例）；
+  (3) Phase 1B fixture `C-0003` **expire** 路徑（證明 expire 不污染 reviewed/accepted ratio）。
+  **不是** observation-period 的真實 accept 樣本：C.5 / final O3 證據留在該 plan 自身與下游
+  dogfood，結案時未經 candidate→accept 寫回本 ECS。下游 ExternalRepoA commit 仍是 cross-repo
+  candidate 範例來源（Q5）。**completed** 2026-07-13。
 - [`enforcement/conversation-goal-ledger.md`](../../enforcement/conversation-goal-ledger.md)
   — memory / goal ledger / candidate store 的邊界參考（candidate store 既非 goal ledger 也非 memory）。
