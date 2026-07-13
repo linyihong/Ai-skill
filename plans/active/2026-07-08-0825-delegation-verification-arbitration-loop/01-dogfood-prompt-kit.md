@@ -146,6 +146,9 @@ branch：<branch-name>（已 commit，未 merge）
 
 ## Dogfood 紀錄
 
+> **2026-07-09 起**：新 run 全文进 [`evidence/`](evidence/README.md)；kit 只留一行指针。  
+> **2p（2026-07-13，正向）**：[`evidence/2p-externalrepoc-integration-default-cutover-d0-d5.md`](evidence/2p-externalrepoc-integration-default-cutover-d0-d5.md) — ExternalRepoC 09 INT-D0–D5：6/6 E+V、same-branch、一口气未跳 V；live defer。
+
 ### 2a — software-delivery 任務 ✅（2026-07-08，Cursor session demo）
 
 - **任務**：chat-only「Delegation loop ↔ Review invoke 整合備註」— 評估 `workflow/software-delivery` 如何定位 review invoke，以及 delegation 驗證閉環是否從 software-delivery 入口可發現（**read-only，零 commit / 零檔案寫入**）。

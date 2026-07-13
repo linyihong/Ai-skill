@@ -4,7 +4,7 @@ plan_kind: main
 status: in-progress
 owner: linyihong
 created: 2026-07-08
-last_updated: 2026-07-10
+last_updated: 2026-07-13
 parent: null
 baseline_ref: 2026-06-22-1009-subplan-agent-delegation
 revision:
@@ -36,11 +36,13 @@ revision:
     note: "Dogfood 2o — <PROJECT_ROOT> tab-scroll **单 session vs 三角色** 对照；partial authority / deploy smoke≠L3；Q8 ERA 信号"
   - date: 2026-07-10
     note: "還原 #2：2de1686 三度自陳舊底稿覆蓋第五~十二輪；自 dcd6f9e 重建並疊回 2k–2o 新增。**Collision N=3 → 依 failure-to-validator-closure，機械 validator 升為 due**（獨立 task）"
+  - date: 2026-07-13
+    note: "Dogfood 2p — ExternalRepoC 09 Integration 默认切流 INT-D0–D5：6/6 E+V、same-branch、一口气未跳 V；live defer"
 ---
 
 # Delegation Verification & Arbitration Loop（委派執行→獨立驗證→仲裁閉環）
 
-**Status**: `in-progress`（Phase 0–2 完成；外部 monorepo dogfood **2a–2o**；**2n 正向闭环** 2026-07-10；Phase 3 / closure **仍不收斂** — Q5 schema promotion open，deadline 2026-08-31）
+**Status**: `in-progress`（Phase 0–2 完成；外部 monorepo dogfood **2a–2p**；**2n/2p 正向闭环**；2026-07-13 2p；Phase 3 / closure **仍不收斂** — Q5 schema promotion open，deadline 2026-08-31）
 **Owner**: linyihong
 **建立日期**: 2026-07-08
 **Source**: 2026-07-08 對話 — 使用者觀察到外部框架的三角色模式：主 session 只做規劃 / 切分 / 仲裁，執行交給獨立 agent session，驗證再交給另一個獨立 session，最後由主 session 仲裁每條驗證發現（要修 / 超出範圍 / 駁回）。目標：補漏「預計與實現的落差」。主要針對 `workflow/software-delivery` 的交付處理；Ai-skill 自身任務比照辦理，觀察品質是否提升。
@@ -407,6 +409,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 - [x] **2m — ExternalRepoC Phase G-mirror 批量 retrofit** — 2026-07-10 **正负对照**（[`evidence/2m-externalrepoc-phase-g-mirror-batch-retrofit.md`](evidence/2m-externalrepoc-phase-g-mirror-batch-retrofit.md)）；V-m1–V-m5 + 登记总表；02/01 合规 loop vs 03/2l；`retrofit-v-m-template` / `stale-jvm-v5-a-checklist`；**不**視為 Phase 3 closure
 - [x] **2n — ExternalRepoC 07 push delivery DEL-S1–S6 合规 loop** — 2026-07-10 **正向证据**（[`evidence/2n-externalrepoc-push-delivery-s1-s6-compliant-loop.md`](evidence/2n-externalrepoc-push-delivery-s1-s6-compliant-loop.md)）；6/6 slice E+V、sub-plan `completed`、零 post-close bypass；对照 2j/2k/2l；**不**單獨視為 Phase 3 closure（Q5 仍 open）
 - [x] **2o — consumer tab-scroll：单 session vs 三角色 对照** — 2026-07-10 **證據 only**（[`evidence/2o-consumer-tab-scroll-single-vs-delegation.md`](evidence/2o-consumer-tab-scroll-single-vs-delegation.md)）；partial authority / deploy smoke ≠ L3；Q8 ERA 信号；**不**視為 Phase 3 closure
+- [x] **2p — ExternalRepoC Integration 默认切流 INT-D0–D5** — 2026-07-13 **正向证据**（[`evidence/2p-externalrepoc-integration-default-cutover-d0-d5.md`](evidence/2p-externalrepoc-integration-default-cutover-d0-d5.md)）；6/6 E+V、same-branch 连续、一口气压力未跳 Verifier；live defer；**不**單獨視為 Phase 3 closure（Q5 仍 open）
 - [x] **2k — ExternalRepoC push 纠偏后 post-close runtime 缺口**
 - [x] **2l — ExternalRepoC common-url S2′ mirror 再跳过三角色 loop** — 2026-07-10 **负向证据 only**（[`evidence/2l-externalrepoc-common-url-s2-mirror-skip-loop.md`](evidence/2l-externalrepoc-common-url-s2-mirror-skip-loop.md)）；0 Executor/Verifier、surgical bypass 滥用、Shell 绕过 preToolUse；`retroactive-r1-verifier`；**不**視為 Phase 3 closure — 2026-07-10 **證據 only**（[`evidence/2k-externalrepoc-push-post-close-runtime-gaps.md`](evidence/2k-externalrepoc-push-post-close-runtime-gaps.md)）；用户手验暴露 V5 未覆蓋 create 表单 / Worker 拓扑；`post-close-surgical-debt`；**不**視為 Phase 3 closure
 - [x] **2e — 跨域 run（Research/Audit 域）：grandfather sunset audit** ✅ — 2026-07-08–09（[`evidence/2e-grandfather-sunset-audit.md`](evidence/2e-grandfather-sunset-audit.md)）；Q6/Q7(b)/Q8 的 stage-2 裁決 run。完整 loop：調查者（worktree，252 行報告 `c8ff035`，中斷後 resume 完成）→ 事實查核者（fresh，引文逐條命中、5 surfaces 獨立重跑一致、findings ×2 全 observation）→ 仲裁（defer×2，無 fix）。**實質產出**：5/5 surfaces 已 wired、flag 條款過時、延展不觸發、sunset 只剩行政收尾（處置決定保留 maintainer，見 `02-grandfather-sunset-audit.md`）。**跨域觀察**：四責任自然成立（topology 不同：+maintainer 第二層 decision）；backfill 結構化形式明確缺席、弱形式（evidence-first acceptance）出現；證據責任四問同構重現（含「自產證據不能自我關閉」跨域不變式）——詳 kit §2e Q6/Q7/Q8 觀察表
