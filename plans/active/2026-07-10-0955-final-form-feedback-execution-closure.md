@@ -320,8 +320,25 @@ P8（bootstrap 分級）、P9（知識讀出率）、P10（hooks.go 巨石）、
 - [x] F4 五種任務型態委派模板（搜尋/實作/重構/研究/審查）→ [`templates/delegation-prompts.md`](../../templates/delegation-prompts.md)（收斂單檔避免 shell sprawl；不重複 dogfood kit 契約）
 - [x] F5 edit-authority map → [`enforcement/edit-authority-map.md`](../../enforcement/edit-authority-map.md)（P0–P3 顯式投影；未列類別保守預設 confirm-first）
 - [x] F6 制度退化模式（D1–D5 偵測訊號 + 預防 + 健康/退化例 + 月度自檢）→ [`governance/institutional-degradation-modes.md`](../../governance/institutional-degradation-modes.md)
-- [~] 驗收（統一標準）：**每份產出用一個 fresh-context 低階 model（Haiku 級 subagent）讀後照做一次**，做不對 = 文件不合格改文件。本 session 已執行（見 §Phase 5b 驗收紀錄）
-- [~] 完成條件：F1/F3/F4/F5/F6 入庫（✓）；F2 tier 階梯入庫、其他工具參數 pending（Q11）；低階 model 驗收已跑；升降級階梯的「真實委派使用紀錄」留待日常運作累積
+- [x] 驗收（統一標準）：fresh-context Haiku subagent 對抗審查六份產出 + 實測 R2 / edit-authority-map 可執行性；找出 8 處弱模型可讀性缺陷（術語未定義 rule_class / Bootstrap Receipt / forbidden token；邏輯歧義 R2 第3層、R4 新證據、tier 重試 vs 升級門檻；缺新增檔案範例；終驗所有權不清），**逐條修正**（見 §Phase 5b 驗收紀錄）
+- [~] 完成條件：F1/F3/F4/F5/F6 入庫（✓）；F2 tier 階梯入庫、其他工具參數 pending（Q11）；Haiku 驗收已跑並修正；升降級階梯的「真實委派使用紀錄」留待日常運作累積
+
+### Phase 5b 驗收紀錄（2026-07-10）
+
+以 [`templates/delegation-prompts.md`](../../templates/delegation-prompts.md) T5（審查模板）+ Haiku 級 subagent 執行「驗證不自驗」。verifier 是 fresh context、非撰寫者、且**刻意用低 tier**（目標讀者就是弱模型，讀不懂即證據）。
+
+| verifier finding | 類型 | 處置 |
+|---|---|---|
+| tier 重試次數 vs 升級門檻矛盾 | contradiction | fix：`model-tier-escalation.md` 拆「失敗幾次升級」+「允許重試幾次」兩欄 + 硬上限說明 |
+| R2 第3層 pending vs 完成歧義 | ambiguous | fix：pending≠完成，未 push 一律當未過第3層 + 補第3層反例 |
+| R4「新證據」判斷模糊 | ambiguous | fix：加「說得出這次多知道什麼」判準 + 第一次該讀卻沒讀不算新證據 |
+| rule_class 未定義 | undefined-term | fix：`edit-authority-map.md` 開頭補術語定義 + 指向 registry |
+| edit-authority 缺新增檔案範例 | incomplete-example | fix：補新增檔正例（governance）+ 反例（ADR 禁自建） |
+| `ai-skill hooks run pre-commit` 未定義 | undefined-term | fix：`weak-model-rule-authoring.md` 補命令說明 + sanitization / command-contract 連結 |
+| Bootstrap Receipt 格式未定義 | undefined-term | fix：`delegation-prompts.md` 內嵌格式 + 指向 CORE_BOOTSTRAP.md |
+| 終驗所有權不清（誰驗） | process-undefined | fix：`weak-model-rule-authoring.md` 明寫作者不自簽、fresh verifier 執行終驗 |
+
+verifier 初評「Haiku 級只能可靠執行 ~60%」；8 處修正後所有被 flag 的術語都有 in-doc 定義或 in-repo 連結（連結存在性已 `test -f` 驗證）。**這次驗收本身就是 F1/F4-T5 的活 dogfood**：文件不合格改文件、不怪 model 的紀律成立。
 
 ## Phase 6 — Enforcement Ladder Sweep（ongoing）
 

@@ -42,7 +42,7 @@
 - [ ] 每條規則附 ≥1 正例 + ≥1 反例
 - [ ] **終驗（最硬）**：一個 Sonnet 或更弱等級的 fresh session，只讀這份文件就能照做，且做出的結果可被獨立覆核為「對」
 
-終驗做法見 [`../plans/active/2026-07-10-0955-final-form-feedback-execution-closure.md`](../plans/active/2026-07-10-0955-final-form-feedback-execution-closure.md) Phase 5b 驗收欄：**做不對 = 文件不合格改文件，不是怪 model**。
+**終驗誰來做（流程所有權）**：作者**不能自簽完成**。流程是「作者自檢四要件 → 自改提交 → 由一個 fresh-context 較弱 model（verifier）執行終驗」。作者自檢通過只代表「準備接受驗收」，不代表「已完成」；終驗由 verifier 產出證據，做不對 = **文件不合格改文件，不是怪 model**。終驗做法見 [`../plans/active/2026-07-10-0955-final-form-feedback-execution-closure.md`](../plans/active/2026-07-10-0955-final-form-feedback-execution-closure.md) Phase 5b 驗收欄。本檔自身即用此流程驗收（Haiku verifier 找出 8 處弱模型可讀性缺陷，逐條修正）。
 
 ## 完整正反例（改寫示範）
 
@@ -56,7 +56,7 @@
 
 > **觸發**：staged diff 含 `enforcement/` 或 `workflow/` 的 `.md` 檔。
 > **動作**：提交前跑 `cd scripts/ai-skill-cli && go test ./...`；並用 `git diff --cached` 逐檔確認沒有本機絕對路徑前綴（即 macOS 家目錄那種 `<絕對路徑>` 字面，應改成 `<PROJECT_ROOT>` 占位符）。
-> **完成判準**：`go test` 全綠 且 staged diff 經 sanitization scan（`ai-skill hooks run pre-commit`）回報 0 個 forbidden token。
+> **完成判準**：`go test` 全綠 且 staged diff 經 sanitization scan（`ai-skill hooks run pre-commit`——這是本 repo pre-commit hook，會掃 staged 內容找 forbidden token；forbidden token 定義見 [`../enforcement/sanitization.md`](../enforcement/sanitization.md)，命令契約見 [`../scripts/ai-skill-cli/docs/command-contract.md`](../scripts/ai-skill-cli/docs/command-contract.md)）回報 0 個 forbidden token。
 > **正例**：測試綠 + sanitization scan 乾淨 → 提交。
 > **反例**：測試綠但 sanitization scan 報 2 個 forbidden path token（diff 夾了兩條本機絕對路徑）→ 不提交，先把路徑換成 `<PROJECT_ROOT>` 占位符。
 

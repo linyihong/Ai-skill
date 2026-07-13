@@ -37,12 +37,15 @@
 
 1. **輸出存在**：檔案已寫 / 程式碼已改 / commit 已建。
 2. **可獨立覆核**：檔案用 read-back 確認內容真的在；程式碼用測試或實跑確認行為對；不能只憑「我剛剛寫了」。
-3. **閉環乾淨**：`git status` clean、該 push 的已 push（`git log origin/<branch>..HEAD` 為空），或明確說明 pending 狀態。
+3. **閉環乾淨**：`git status` clean **且** 該 push 的已 push（`git log origin/<branch>..HEAD` 為空）。
 
-**完成判準（二值）**：三層全 yes → 可宣稱完成；任一 no → 未完成，說明卡在哪層。
+> **「pending 狀態」不等於「完成」**：若 commit 了但未獲授權 push，這是 `complete-pending-user-decision`（完成待使用者決定），**不可**回報為「完成」——必須明說「本地已 commit、尚未 push，等你決定」。第 3 層的二值判準是「clean + 已 push」；未 push 一律當作**未通過第 3 層**，只是允許以「pending 待決」形式交回使用者。
+
+**完成判準（二值）**：三層全 yes → 可宣稱完成；任一 no → 未完成（或 pending 待決），說明卡在哪層。
 
 - **正例**：改完 validator，跑 `go test ./...` 全綠，commit + push，`git log origin/main..HEAD` 為空 → 回報「完成，測試綠、已推送」。
-- **反例**：改完 validator，「測試應該會過」就回報完成 → 違反第 2 層（未實跑覆核）；本系統 P1 §全系統審計的 scenario 自申報就是這個病。
+- **反例（第 2 層）**：改完 validator，「測試應該會過」就回報完成 → 違反第 2 層（未實跑覆核）；本系統 P1 §全系統審計的 scenario 自申報就是這個病。
+- **反例（第 3 層）**：改完 + commit，但沒 push，回報「完成」→ 違反第 3 層；正確回報是「本地已 commit，尚未 push（pending 待你決定）」。
 
 ---
 
@@ -71,7 +74,9 @@
 - **有新證據**（錯誤訊息指出新的 root cause、讀到之前沒讀的 source）→ 用新證據調整後重試一次是合理的。
 - **無新證據**（同樣假設、同樣做法、只是「再跑一次」）→ 換路：重讀 source-of-truth、換方法、或升級 / 問使用者。反覆用沒有新證據的方式 patch 是 autonomy downgrade 訊號（見 [`models/routing/autonomy-routing.md`](../models/routing/autonomy-routing.md) §Downgrade Triggers）。
 
-**完成判準（二值）**：兩次失敗之間有無新證據？無 → 禁止第三次同法重試，必須換路。同一子任務總重試上限 2 輪。
+> **「新證據」的判斷**：`新` 指「這次失敗揭露了上次不知道的資訊」。**第一次就該讀的錯誤訊息，第二次才去讀 → 不算新證據**（那是上次偷懶）。只有「已經看過訊息、據此修正、又出現不同的新錯誤 / 新 root cause」才算新證據。判準：你能不能具體說出「這次比上次多知道了什麼」？說不出 → 無新證據。
+
+**完成判準（二值）**：兩次失敗之間有無新證據（你能具體說出多知道了什麼）？無 → 禁止第三次同法重試，必須換路。同一子任務總重試上限 2 輪。
 
 - **正例**：測試 fail，錯誤訊息顯示是缺一個 registry entry（新證據）→ 補 entry 重試，通過。（本 session 的 orphan_executor 修復就是這樣：錯誤訊息指出確切 symbol，補 allowlist 一次過）
 - **反例**：測試 fail，不看錯誤訊息就「再跑一次看看」，連跑三次一樣 fail → 無新證據的重試，應該去讀錯誤訊息 / source。

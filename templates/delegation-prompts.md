@@ -11,7 +11,7 @@
 1. **回報合約**：subagent 只回**結論 + 檔案:行號**；長產物（完整清單 / 大 diff / 報告全文）**落檔**再傳路徑，不要整段貼回主對話（省 token、可覆核）。
 2. **model tier**：依 [`../models/routing/model-tier-escalation.md`](../models/routing/model-tier-escalation.md) 選 tier；搜尋 / 批次套用用低 tier，實作 / 重構用中 tier，研究 / 審查 / 對抗性驗證用中～高 tier。
 3. **驗證不自驗**：executor 交付後，驗收由 fresh-context agent 做（見 [`../plans/README.md`](../plans/README.md) §Delegation Verifier）。
-4. **Ai-skill repo 內委派**：`context.required` 須含 `CORE_BOOTSTRAP.md` + `runtime/core-bootstrap.yaml`，executor 首則回覆須輸出 Bootstrap Receipt。
+4. **Ai-skill repo 內委派**：`context.required` 須含 `CORE_BOOTSTRAP.md` + `runtime/core-bootstrap.yaml`，executor 首則回覆須輸出 Bootstrap Receipt（格式：`Bootstrap: rules=✓ phase=<phase-id> obligations=<n> gates=<n>` 加一行 `Active per-turn obligations: <ids>`；值用 `ai-skill runtime receipt` 取得，完整定義見 [`../CORE_BOOTSTRAP.md`](../CORE_BOOTSTRAP.md)）。外部 repo 委派無此需求。
 
 ---
 

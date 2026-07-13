@@ -3,6 +3,8 @@
 本檔把 [`rule-weight.md`](rule-weight.md) 的 P0–P3 權重體系，翻成一張**顯式對照表**：某類檔案，較弱的模型可以自行改、還是必須先問使用者、還是禁改。目的是讓弱模型**不必自己從 P0–P3 推導**——推導容易錯，查表不會錯。
 
 > **怎麼用**：動任何檔案前，先在下表找它屬於哪一類，照該列的權限行事。找不到對應類別 → 當作「需確認」處理（保守預設）。
+>
+> **術語**：表中「rule_class」= enforcement 規則的分類條目，定義在 [`enforcement-registry.yaml`](enforcement-registry.yaml)（每條規則對應一個 `rule_class` id + coverage 等級）。判斷「有沒有動 rule_class」= 你的改動有沒有新增 / 刪除 / 改變某條規則的 `rule_class` 條目或其 coverage；純改規則說明文字通常不動 rule_class。不確定 → 當作有動，走「需確認」。
 
 ## 權限三級定義
 
@@ -38,8 +40,10 @@
 
 動檔前能回答：這個檔屬於表中哪一類、對應權限是什麼？
 
-- **正例**：要改 `enforcement/rule-weight.md` → 查表屬「Enforcement 規則正文 = 自改」，但注意欄提醒「動 rule_class 要同步 registry」→ 確認本次沒動 rule_class，自改，跑 linked-updates。
-- **反例**：要改 `runtime/runtime.db` → 沒查表，直接用 SQLite 工具手改 → 違反「禁改（除 compile 產生）」，改動不會進 canonical YAML，下次 compile 被覆蓋，且可能過不了 freshness 檢查。
+- **正例（改既有檔）**：要改 `enforcement/rule-weight.md` → 查表屬「Enforcement 規則正文 = 自改」，但注意欄提醒「動 rule_class 要同步 registry」→ 確認本次沒動 rule_class，自改，跑 linked-updates。
+- **正例（新增檔）**：要新增 `governance/foo.md` → 查表屬「Governance 規則正文 = 自改」→ 自改，但注意欄要求套 [`../governance/weak-model-rule-authoring.md`](../governance/weak-model-rule-authoring.md) 四要件；新增後把它加進 `governance/README.md` 索引（linked-updates）。
+- **反例（新增檔）**：新增 `constitution/ADR-099-xxx.md` 宣稱某決策 accepted → 違反「Constitution / ADR = 禁改」；ADR 只能在 plan completed + 通過 promotion criteria 後建立，不可自行新增。
+- **反例（改既有檔）**：要改 `runtime/runtime.db` → 沒查表，直接用 SQLite 工具手改 → 違反「禁改（除 compile 產生）」，改動不會進 canonical YAML，下次 compile 被覆蓋，且可能過不了 freshness 檢查。
 
 ## 誠實條款
 
