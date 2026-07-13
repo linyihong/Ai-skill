@@ -72,14 +72,14 @@
 | context compaction mid-run | **有**（对话摘要后续跑）；loop 仍闭环 |
 | sub-plan terminal status | **`completed`** |
 
-## 契约回馈（建议写回 / 观察）
+## 契约回馈（写回 canonical / consumer overlay）
 
-1. **`same-branch-multi-slice-ok`** — 连续 tip 链（非每 slice 新 branch）在 Cursor Task transport 下可维持 E+V；与 2n「每 slice branch」可并存为两种合法形态；kit 应注明 **branch 策略由 consumer 约束，非 loop 不变量**。
-2. **`orchestrator-docs-vs-server`** — consumer gate 禁 `server|client|Data/sql` 但允许 `Data/docs` 时，D0 类「盘点冻结」可由 Orchestrator 直写 docs；dogfood 应区分 **implementation diff=0** vs **manageCode 任意路径=0**，避免指标误读。
-3. **`一口气压力 ≠ 跳过 Verifier`** — 用户「Implement the plan… Don't stop until all todos」会诱发合并 slice / 跳 V；本 run **未跳**；建议 consumer orchestrator 规则加一句：**多 todo 一口气 = 多轮 E→V，不是一次 Task 包办**（对照 2j）。
-4. **`brief-churn-cost`** — 每 slice 覆写同一 sub-plan frontmatter.brief → 外层 commit 密度高、协调成本↑；可考虑 brief 附录按 slice 累积表，减少全文覆写（optimization，非 invariant）。
-5. **`verifier-report-shape-drift`** — 部分 Verifier 回 markdown 表而非严格 4 栏 `evidence|acceptance_ref|classification|status`；Orchestrator 仍能仲裁，但 Q1「报告自足」在 Task 摘要压缩后偶发需读 tip SHA。建议 Task Verifier prompt **强制** 4 栏表（kit 模板 B）。
-6. **`permanent-exception-vs-defer`** — 契约缺口（common-url / push-create）标 **永久例外** 优于假切再 defer；强化「acceptance 必须可实现」预检。
+1. **`same-branch-multi-slice-ok`** — 连续 tip 链（非每 slice 新 branch）在 Cursor Task transport 下可维持 E+V；与 2n「每 slice branch」可并存为两种合法形态；kit 应注明 **branch 策略由 consumer 约束，非 loop 不变量**。→ **观察保留**（未升格为 invariant）。
+2. **`orchestrator-docs-vs-server`** — consumer gate 禁 `server|client|Data/sql` 但允许 `Data/docs` 时，D0 类「盘点冻结」可由 Orchestrator 直写 docs；dogfood 应区分 **implementation diff=0** vs **manageCode 任意路径=0**。→ **观察保留**。
+3. **`一口气压力 ≠ 跳过 Verifier`** — **已写回** `plans/README.md` §Delegation、`delegated-execution.md` anti-pattern、kit Cursor 备注、consumer `plan-delegation-orchestrator.md`（2026-07-13）。
+4. **`brief-churn-cost`** — **已写回** kit 使用流程 + consumer orchestrator「Brief 写法」：累积表优先于整份覆写（2026-07-13）。
+5. **`verifier-report-shape-drift`** — **已写回** `plans/README.md` 四栏强制、kit 模板 B「缺表不合规」、consumer Verifier 清单（2026-07-13）。
+6. **`permanent-exception-vs-defer`** — 契约缺口标永久例外优于假切再 defer → **观察**（acceptance 可实现性预检；未另开 schema）。
 7. **不关闭 Phase 3** — 本 run 增强 sd 域多 slice 正向信号；**不**单独 promote schema（Q5 仍 open）。
 
 ## 关联

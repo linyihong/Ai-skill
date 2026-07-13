@@ -6,10 +6,10 @@
 
 ## 使用流程（orchestrator = 你的主 session）
 
-1. **Orchestrator** 在主 session 填好 brief（goal / acceptance / verification / context.required），填入模板 A。**填 brief 教訓（2b）**：若任務目標是 reusable 文件（README / workflow / enforcement），acceptance 必含 tool-neutral 措辭條款，否則 executor 寫入工具專屬詞不算違規。**填 brief 教訓（2026-07-08）**：在 `verification_backfill`（或 brief 附錄）為每條 acceptance 標 `executor`（happy path 測試）或 `verifier_only`（負面 / 架構 / 禁止事項）；避免 verifier 只重跑 executor 自寫測試。
-2. 開一個 **全新** Cursor chat（executor），貼模板 A。executor 交付 branch + 自驗報告。
+1. **Orchestrator** 在主 session 填好 brief（goal / acceptance / verification / context.required），填入模板 A。**填 brief 教訓（2b）**：若任務目標是 reusable 文件（README / workflow / enforcement），acceptance 必含 tool-neutral 措辭條款，否則 executor 寫入工具專屬詞不算違規。**填 brief 教訓（2026-07-08）**：在 `verification_backfill`（或 brief 附錄）為每條 acceptance 標 `executor`（happy path 測試）或 `verifier_only`（負面 / 架構 / 禁止事項）；避免 verifier 只重跑 executor 自寫測試。**多 slice brief（2p）**：同一 sub-plan 連續 slice 時，用 plan 內 **累積表追加列**（slice id / goal / tip / Verifier），少整份覆寫 `frontmatter.brief`。
+2. 開一個 **全新** Cursor chat（executor），貼模板 A。executor 交付 branch + 自驗報告。**一口氣多 todo（2p）**：每個 slice 各自走完步驟 2→4；**禁止**一個 Task 包办多 slice 的 implement+verify。
 3. 開 **另一個全新** Cursor chat（verifier，不可沿用 executor 的 chat），貼模板 B（含同一份 brief 的 acceptance/verification + executor 的 branch/diff 位置）。
-4. Verifier 報告帶回主 session，orchestrator 用模板 C 逐條仲裁，記錄量測欄位。
+4. Verifier 報告帶回主 session，orchestrator 用模板 C 逐條仲裁，記錄量測欄位。**報告形狀（2p）**：若缺四欄 findings 表 → 視為報告不自足，要求 Verifier 補表後再仲裁（勿默認散文可過）。
 5. `fix` 項：把模板 C 產出的補充指示貼回 **executor 原 chat**（保留其 context），修完重跑步驟 3。
 
 **鐵則**：主 session 全程不寫 code、不自己驗。忍不住動手 = 越界信號，記進模板 C 的量測欄。
@@ -94,8 +94,10 @@ branch：<branch-name>（已 commit，未 merge）
 5. diff 範圍內發現但 acceptance 沒涵蓋的問題：照記，classification 標 out-of-scope 或 observation。
 6. 沒有問題也是有效結果：輸出「全數通過」+ 每條的通過證據（含 L2/L3），不可以只回「看起來沒問題」。
 
-## 回報格式（固定，每條 finding 一列）
+## 回報格式（固定，每條 finding 一列；**缺此表 = 報告不合規**）
 | # | evidence（具體檔案/行為觀察，可覆核） | acceptance_ref（對應第幾條，或 beyond-acceptance） | classification（acceptance-violation / out-of-scope / observation） | status（observed / verified / refuted） |
+
+**形狀強制（dogfood 2p）**：最終回覆必須含上表（含表頭）。無 finding 時寫「0 rows」並仍填「Acceptance 逐條結論」。禁止只用散文 / 自訂欄位替代四欄表——Orchestrator 應拒收並要求補表。
 
 ### Acceptance 逐條結論
 | acceptance 條目 | pass / fail | 證據（含 L1/L2/L3 哪一層抓到） |
@@ -143,6 +145,8 @@ branch：<branch-name>（已 commit，未 merge）
 - 換工具：Claude Code 用 Agent tool（可選 worktree isolation）跑同一份模板 A/B 文字；模板本體不改。
 - **Task subagent transport**（2c / 2d）：orchestrator 用 Cursor `Task` spawn Executor / Verifier；**省略 `model`**，子 agent 繼承主 session（stakeholder 2026-07-08，控制 token 成本）。
 - **Execute 意圖 hook allowlist**（2d 契約回饋）：orchestrator 應可寫 `<PROJECT_ROOT>/docs/plans/**`、`.ai-skill/project/**`、`tests/**`；只 deny 內層實作路徑（如 `manageCode/server/**`）。否則 orchestrator 連 plan patch 也被擋，被迫讓 Executor 代寫外層 artifact。
+- **多 todo / 一口氣（2p）**：Task transport 下「Don't stop until all todos」= **多輪** `commit brief → Task Executor → Task Verifier`；禁止單一 Task prompt 合併多 slice 或 implement+verify。
+- **Verifier Task prompt（2p）**：spawn 時須明示「最終回覆必須含四欄 findings 表；缺表則不合規」。
 
 ## Dogfood 紀錄
 

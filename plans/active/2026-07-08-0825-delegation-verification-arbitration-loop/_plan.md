@@ -38,6 +38,8 @@ revision:
     note: "還原 #2：2de1686 三度自陳舊底稿覆蓋第五~十二輪；自 dcd6f9e 重建並疊回 2k–2o 新增。**Collision N=3 → 依 failure-to-validator-closure，機械 validator 升為 due**（獨立 task）"
   - date: 2026-07-13
     note: "Dogfood 2p — ExternalRepoC 09 Integration 默认切流 INT-D0–D5：6/6 E+V、same-branch、一口气未跳 V；live defer"
+  - date: 2026-07-13
+    note: "2p 契约回写：多 todo=多轮 E→V；brief 累积表；Verifier 四栏强制 → plans/README + kit + delegated-execution + consumer overlay"
 ---
 
 # Delegation Verification & Arbitration Loop（委派執行→獨立驗證→仲裁閉環）

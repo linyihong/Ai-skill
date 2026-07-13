@@ -134,9 +134,10 @@ deliverables:
 
 ## 7. Orchestrator 錨定紀律
 
-1. **先 commit plan 變更，再派發**：brief / backfill / 仲裁表寫完 → commit → 才 spawn 下一個 executor 或開下一 slice（避免 plan 紀錄與工作區脫節、合規關閉無 git 錨點）。
-2. **條件式讀檔**：常態只讀 plan / brief / backfill / 交付表 / findings；僅仲裁爭議時按 verifier 引用的具體路徑+行號**定點讀**，不掃目錄、不回讀整份 diff。
+1. **先 commit plan 變更，再派發**：brief / backfill / 仲裁表寫完 → commit → 才 spawn 下一個 executor 或開下一 slice（避免 plan 紀錄與工作區脫節、合規關閉無 git 錨點）。**多 slice（2p）**：優先用 plan 正文 **slice 累積表**追加列，當前 `frontmatter.brief` 只保留本 slice 最小集，降低整份覆寫造成的外層 commit 密度。
+2. **條件式讀檔**：常態只讀 plan / brief / backfill / 交付表 / findings；僅仲裁爭議時按 verifier 引用的具體路徑+行號**定點讀**，不掃目錄、不回讀整份 diff。**Verifier 報告缺四欄表時**：先要求補表，再仲裁（勿默認散文可過）。
 3. Orchestrator 與 executor 各 commit 自己的層（plan artifact vs 實作 repo）；orchestrator 不代 executor commit 實作。
+4. **多 todo / 一口氣（2p）**：使用者「Don't stop until all todos」= **多輪** brief→E→V，不是單 Task 包辦。
 
 **主 session 禁止（loop 內）**：
 
@@ -144,7 +145,6 @@ deliverables:
 2. 未派發 executor 就直接寫實作。
 3. 未 commit plan 變更就派發。
 4. 同一個 session 兼任 verifier（必須新開 fresh context）。
-5. 無 `verification_backfill` 就派發第一個 executor（consumer 2j：無 backfill 的 Execute = 「做完再想怎麼驗」，Evidence-first 缺口）。
 
 **被 gate 擋下時**：不要 retry 直改實作；補 brief → commit plan → 派發 executor。
 
@@ -158,6 +158,7 @@ deliverables:
 | orchestrator 探路讀碼 | 「為了寫 brief」大量讀實作源碼 | brief 只記路徑給 executor 讀；越界記入量測欄 |
 | verifier 兼任 | 同一 session 先執行後驗證 | fresh-context invariant（canonical SOP invariant 1） |
 | **single-agent skip verifier**（consumer 2j 2026-07-10） | orchestrator 只 spawn **一个** Task 包办 implement + 自验 mvn；**0** Verifier session；用 `delegation.enabled: false` 当不 loop 理由 | Execute 意图 → loop mandatory；consumer **verifier-after-executor** gate；须标 `implementation_done` 非 `slice_compliant_closed` |
+| **batch-todo single Task**（dogfood 2p 对照） | 用户「一口气 / all todos」被解读为一次 Task 做完多 slice | **多 todo = 多轮** brief→E→V；禁止合并 |
 | combined mega-slice | 單一 slice 塞過多 deliverables，verifier V4 單輪負載過高、核對品質下降 | 拆 2–3 輪 verifier 或拆 slice（§6） |
 | deploy 隱含在 loop 外 | runtime deploy / migration 無人宣告歸屬，orchestrator 默默代做 | backfill 鐵則 5：列 acceptance 或明標 `beyond-loop` |
 | 綠燈假象（missing constraint） | build 綠 + 測試綠 + 檔案齊，但 runtime 打不開——既有證據只能排除 implementation failure，**無任何證據約束 runtime 可行性**，Close 在過大的可行集裡做出 | backfill 補 `runtime` tier 行 + Verifier V5；未來勿再往 V6/V7 疊 checklist，先問「缺的是哪一種 constraint」 |
