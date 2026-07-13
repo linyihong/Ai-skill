@@ -132,6 +132,7 @@ branch：<branch-name>（已 commit，未 merge）
 | 仲裁分佈 | fix <n> / defer <n> / reject <n> |
 | orchestrator 越界（動手寫 code？被迫回讀 diff 細節？） | <無 / 描述 — Q1 信號> |
 | verifier 報告自足性（不回讀 diff 即可仲裁？） | <是 / 否，缺哪個欄位> |
+| **Runtime Constraint 滿足？**（2q：三角色合規 ≠ 功能通——runtime tier 行是否 linked / defer+follow-up；缺者**不得**對 stakeholder 稱「功能通」） | <linked / deferred+follow-up / 不適用> |
 | executor 讀檔差集（context.required 以外） | <無 / 列舉 — 回饋 brief> |
 | 契約缺漏回饋 | <無 / 修模板哪一段 → v2> |
 ```
