@@ -14,6 +14,9 @@
 - [`ai-runtime-governance/`](ai-runtime-governance/README.md)：將工程哲學轉譯為 AI runtime governance，例如新增 skill / memory / workflow / automation 前的 five-step gate，以及 cognitive state / evidence governance。
 - [`document-sizing.md`](document-sizing.md)：文件大小與拆分原則 — 定義文件拆分門檻、決策流程、拆分後必做事項與建議結構。
 - [`workflow-activation-engine.md`](workflow-activation-engine.md)：Workflow Activation Engine operational spec — registry-driven detector 的 two-phase activation schema（pre-Read activation / post-Read reinforcement）、deterministic rule、backward-compat 正規化、activation_mode capability matrix 與 session-entry-point heuristic。
+- [`weak-model-rule-authoring.md`](weak-model-rule-authoring.md)：弱模型可讀性寫作標準 — 規則正文四要件（觸發 / 動作 / 二值完成判準 / 正反例）與驗收 checklist（Phase 5b F1）。
+- [`judgment-rubrics.md`](judgment-rubrics.md)：判斷 Rubric 單一入口 — 升級模型 / 真完成 / 停下問人 / 換路 vs 重試 / 品質底線（Phase 5b F3）。
+- [`institutional-degradation-modes.md`](institutional-degradation-modes.md)：制度退化模式 — 報表化 / 繞過誘因 / 宣告面膨脹 / rubric 腐化 / 判斷降級成關鍵字，各附偵測訊號 + 預防 + 月度自檢（Phase 5b F6）。
 
 ## 放什麼
 

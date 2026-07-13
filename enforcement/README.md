@@ -152,6 +152,7 @@
 | 依賴文件讀取 | [dependency-reading.md](dependency-reading.md) | 發現 workflow/enforcement rule/tool-specific rule/template/lesson 更新時，必須讀相關依賴文件，包含 enforcement/，並用 dependency read ledger 防止漏讀。 | **core** |
 | 內容分層 | [content-layering.md](content-layering.md) | 共用規則／技巧／業務專案各自放哪；intelligence 內部 entry/solution 分層。 | lazy (P2) |
 | 可重用規則與專案證據邊界 | [reusable-guidance-boundary.md](reusable-guidance-boundary.md) | 技巧只沉澱通用原因、規則與驗證；專案 incident 證據留在專案文件；指出閉環不完整時必須分析原因並強化規則。 | lazy (P2) |
+| 編輯權限對照表 | [edit-authority-map.md](edit-authority-map.md) | 把 P0–P3 權重投影成「某類檔案弱模型可自改／需確認／禁改」的顯式對照表，未列類別保守預設 confirm-first（Phase 5b F5）。 | lazy (P1) |
 | 文件大小與拆分 | [governance/document-sizing.md](../governance/document-sizing.md) | 文件拆分原則、決策流程、拆分後必做事項；token 成本模型見 decision-efficiency.md，跨專案適用見 content-layering.md。 | lazy (P2) |
 | Cross-workflow references | [cross-skill-references.md](cross-skill-references.md) | 一個 workflow 需要引用另一個 workflow 的規範、模板、交接產物或驗證流程時怎麼寫。 | lazy (P2) |
 | 連動更新 | [linked-updates.md](linked-updates.md) | 全庫必須連動更新規則：改一處影響多處時，相關文件必須同步更新或明確檢查。 | lazy (P1) |

@@ -13,6 +13,8 @@ revision:
     note: "Last-Fable 升級提示詞對照入 plan：A–G 逐項對照（約半數已制度化）；真缺口 = 模型調度 + 判斷 rubric → Workstream F + Phase 5b"
   - date: 2026-07-10
     note: "Phase 1 landed：deferred ledger README + 3 entries（1 closed round-trip DF-001）；ExternalRepoC NON_LOCAL cross-repo feed"
+  - date: 2026-07-10
+    note: "Phase 5b landed（高 tier session 產出）：F1 weak-model-rule-authoring / F3 judgment-rubrics / F6 institutional-degradation-modes（governance/）+ F2 model-tier-escalation（models/routing/）+ F5 edit-authority-map（enforcement/）+ F4 delegation-prompts（templates/）；F2 其他工具 model 參數 pending（Q11）；低階 model 驗收見驗收紀錄"
 ---
 
 # Final Form — Feedback Execution Closure & Model-Neutral Stability（最終形態：回饋執行閉環與模型中立穩定輸出）
@@ -312,14 +314,14 @@ P8（bootstrap 分級）、P9（知識讀出率）、P10（hooks.go 巨石）、
 
 **Entry condition**：可與 Phase 5 並行；F1 應先於 Phase 5 的非 Claude dogfood（dogfood 要用 F1 當量尺）。
 
-- [ ] F1 弱模型可讀性標準立檔（觸發條件/動作/完成判準/正反例 四要件）
-- [ ] F2 模型調度守則：tool-neutral 章節落地（位置 Phase 0 定案）+ `ai-tools/agent/*.md` 實查各工具 model/effort 參數（查不到標 `unverified`）+ 與 escalation-policy 的互斥分工寫入兩檔
-- [ ] F3 判斷 rubric 單一入口：五組判準 × 各一正例一反例 + 誠實條款 escape hatch
-- [ ] F4 delegation kit 延伸五種任務型態模板
-- [ ] F5 edit-authority map 表
-- [ ] F6 制度退化模式文件（偵測訊號 + 預防機制）
-- [ ] 驗收（統一標準）：**每份產出用一個 fresh-context 低階 model session 讀後照做一次**，做不對 = 文件不合格改文件，不是怪 model（brief-independence dogfood 紀律沿用）
-- [ ] 完成條件：F1–F6 入庫 + 至少 2 份產出通過低階 model 驗收 + 升降級階梯在 ≥1 次真實委派中使用並記錄
+- [x] F1 弱模型可讀性標準立檔（觸發/動作/二值判準/正反例 四要件）→ [`governance/weak-model-rule-authoring.md`](../../governance/weak-model-rule-authoring.md)（自我 dogfood；沙化 gate 曾攔截範例中的本機路徑，已改占位符）
+- [~] F2 模型調度守則 tier 階梯 → [`models/routing/model-tier-escalation.md`](../../models/routing/model-tier-escalation.md)（tool-neutral tier 升降階梯 + Claude Code Agent 工具 schema **實查** model enum；與 escalation-policy 互斥分工雙檔寫明）。**pending**：Cursor / Codex / Gemini 等其他工具的 model/effort 參數尚未實查（標 `unverified`，見 Q11）
+- [x] F3 判斷 rubric 單一入口（R1–R5 各正反例 + 誠實條款 escape hatch）→ [`governance/judgment-rubrics.md`](../../governance/judgment-rubrics.md)
+- [x] F4 五種任務型態委派模板（搜尋/實作/重構/研究/審查）→ [`templates/delegation-prompts.md`](../../templates/delegation-prompts.md)（收斂單檔避免 shell sprawl；不重複 dogfood kit 契約）
+- [x] F5 edit-authority map → [`enforcement/edit-authority-map.md`](../../enforcement/edit-authority-map.md)（P0–P3 顯式投影；未列類別保守預設 confirm-first）
+- [x] F6 制度退化模式（D1–D5 偵測訊號 + 預防 + 健康/退化例 + 月度自檢）→ [`governance/institutional-degradation-modes.md`](../../governance/institutional-degradation-modes.md)
+- [~] 驗收（統一標準）：**每份產出用一個 fresh-context 低階 model（Haiku 級 subagent）讀後照做一次**，做不對 = 文件不合格改文件。本 session 已執行（見 §Phase 5b 驗收紀錄）
+- [~] 完成條件：F1/F3/F4/F5/F6 入庫（✓）；F2 tier 階梯入庫、其他工具參數 pending（Q11）；低階 model 驗收已跑；升降級階梯的「真實委派使用紀錄」留待日常運作累積
 
 ## Phase 6 — Enforcement Ladder Sweep（ongoing）
 
