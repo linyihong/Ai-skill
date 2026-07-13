@@ -42,7 +42,10 @@ revision:
     note: "2p 契约回写：多 todo=多轮 E→V；brief 累积表；Verifier 四栏强制 → plans/README + kit + delegated-execution + consumer overlay"
   - date: 2026-07-13
     note: "Dogfood 2q — transport cutover Verifier inner-only 假绿：loop≠路径通；features+L3+V5-A；consumer gate.plan_transport_runtime_evidence"
+  - date: 2026-07-13
     note: "Dogfood 2r — <PROJECT_ROOT> player overlay Mode A：soft-nav 绿→cold URL 死；entry-path / elementFromPoint 回馈"
+  - date: 2026-07-13
+    note: "Sync 跨域表：Research 改標 2e 已驗證；Architecture / Knowledge 仍 analogy；紀律邊界與 adoption stage 2 進度同步"
 ---
 
 # Delegation Verification & Arbitration Loop（委派執行→獨立驗證→仲裁閉環）
@@ -176,16 +179,16 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 - **Verifier ≠ Reviewer**：傳統 review 把「找問題＋下判決＋開修正」三件事混在一個角色，reviewer 容易變成第二個 executor；本協議拆給三個責任，只留一個裁決者。
 - **2b 已實測第四條箭頭**：F2 裁決未直接改實作，而是回饋 Specification（brief v2 追加 acceptance 9）再重跑 Production——「Decision → 下一輪 Specification」是 2b 的實際路徑，非推測。
 
-**跨域實例（candidate analogies，observe-only）**：
+**跨域實例（candidate analogies → 真實 run 進度）**：
 
 | Domain | Production | Evidence | Decision | 證據狀態 |
 |---|---|---|---|---|
 | Coding | Executor | Verifier | Orchestrator | **已驗證（2b）** |
-| Research | Research agent | Fact checker | Planner | analogy，無真實 run |
+| Research | Research agent | Fact checker | Planner | **已驗證（2e）** — grandfather sunset audit |
 | Architecture | Designer | Architecture reviewer | Architect | analogy，無真實 run |
 | Knowledge | Extractor | Evidence validator | Knowledge maintainer | analogy，無真實 run |
 
-**紀律邊界（依 falsification ladder / governance veto test）**：真實證據目前全在 delivery 域（2b / 2a-external / 2c / **2d**）；「很像 ≠ 同 family」，其餘三域在有真實 run 前維持 analogy 紀錄。通用化定位——graduate 時以「Evidence-driven Closed Control Loop（Specification → Production → Independent Evidence → Arbitration → Specification）」取代「Delegation」——列為 Q6，gated on 至少一個非 delivery 域的真實 run；在此之前 SOP 維持 delegation 措辭，不新增通用 primitive、不改名、不建跨域框架。
+**紀律邊界（依 falsification ladder / governance veto test）**：真實證據目前在 delivery 域（2b / 2a-external / 2c / **2d**…）+ **Research（2e）**；Architecture / Knowledge 在有真實 run 前維持 analogy。「很像 ≠ 同 family」。Q6 最低門檻（≥1 非 delivery 域）已由 2e 滿足；adoption stage 2「三域各一輪」仍缺 Architecture / Knowledge。通用化定位——graduate 時以「Evidence-driven Closed Control Loop（Specification → Production → Independent Evidence → Arbitration → Specification）」取代「Delegation」——列為 Q6，改名裁決留 Phase 3；在此之前 SOP 維持 delegation 措辭，不新增通用 primitive、不改名、不建跨域框架。
 
 **Execution Pattern ≠ Role Topology（使用者 review 第二輪，2026-07-08）**：穩定的候選是**四責任**（Spec → Produce → Evidence → Decision），不是三角色。Role topology 是 domain-variable 實例化——Research 可能是 Planner → Research Agent → Fact Checker → Planner、Knowledge 是 Curator → Extractor → Validator → Curator、Architecture 是 Architect → Designer → Architecture Review → Architect；角色名全換、四責任不變。**Q6 驗的是 pattern（四責任是否自然收斂），不是 topology（角色名是否對得上）**。
 
@@ -195,11 +198,11 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 
 | 階段 | 條件 | 定位 |
 |---|---|---|
-| **1（現在）** | evidence 全來自 delivery 域 | 維持 **Delegation Loop**；作為 software-delivery 委派任務的 execution pattern 證據已強（**仍 advisory**，不動 SOP 強制度） |
-| 2 | Research / Knowledge / Architecture 各一輪真實 run **自然收斂**到四責任閉環（非靠類比解釋） | 才可稱「Evidence-driven Control Loop」是一個 family（Q6 close） |
+| **1（已過）** | evidence 來自 delivery 域 | 維持 **Delegation Loop**；作為 software-delivery 委派任務的 execution pattern 證據已強（**仍 advisory**，不動 SOP 強制度） |
+| **2（進行中，1/3）** | Research / Knowledge / Architecture 各一輪真實 run **自然收斂**到四責任閉環（非靠類比解釋） | Research ✅（2e）；Knowledge / Architecture 仍缺。Q6 最低門檻（≥1 非 delivery）已滿足；family 宣稱仍等 3/3 |
 | 3 | cross-domain + cross-workflow + cross-project evidence 齊備 | 才考慮 execution runtime 全面預設採用 |
 
-現在最多能說「對 software delivery 這是有效模式」，推不出「所有 workflow 都該採用」。
+現在最多能說「對 software delivery + Research/Audit 這是有效模式」，推不出「所有 workflow 都該採用」。
 
 **第三輪 review（使用者，2026-07-08，讀 `sd-delegated-execution` 後）**——三個新命題，各立 open question：
 
