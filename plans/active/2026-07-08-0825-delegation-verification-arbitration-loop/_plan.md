@@ -330,6 +330,13 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 
 **Collision 復發（N=3，2026-07-10）——機械化升為 due**：`2de1686`（Cursor session）三度自陳舊底稿覆蓋 `_plan.md`（-146 行：第五~十二輪 + Q7/Q8/Q9 回退），已自 `dcd6f9e` 重建。行為層契約回饋（append-only / rebase-before-push）已證明**擋不住跨工具 session**——依 [`failure-to-validator-closure`](../../../enforcement/failure-patterns/failure-to-validator-closure.md)，N=3 達機械化門檻：**canonical-narrative shrink guard**（commit 對 `plans/active/*/_plan.md` 刪除行數超閾值時 block，除非 `[plan-restructure]` opt-in）+ conflict-marker scan，開獨立 task 實作（Go-first，涉 CLI）。
 
+**外部相鄰模式對照（2026-07-10，使用者提問觸發；observe-only，Q6 定位參照）**：
+
+- **對象**：[claude-skills-llm-council](https://github.com/aiwithremy/claude-skills-llm-council)（Karpathy LLM Council 方法論的 Claude skill 版；全 repo = README + SKILL.md 單 prompt 檔）——一問題 → 5 個思考角度顧問（Contrarian / First Principles / Expansionist / Outsider / Executor）獨立分析 → 匿名互評 → 主席綜合裁決；明文限定判斷型決策、排除創作與處理任務。
+- **表面相似**：多 agent 角色分離 + 互評環節 + 最終裁決者；Outsider 零 context ≈ fresh-context 的弱形式。
+- **本質差異（ERA 語言）**：Council 流通的是**意見**（opinions 互評 opinions，無事實查核、無 acceptance 量尺、無可覆核 evidence）；closure 為 **preference-based**（主席綜合即結束）；不存在 Evidence Producer ≠ Closure Authority。定位：**preference-allowed 決策空間的 Selection 輔助工具**（活在約束光譜弱端），與本 loop（justification-required 執行的證據治理，強端）是**同剪影、不同家族**——governance veto test 教科書案例：去掉 domain 內容後，Council 剩「意見聚合」、本 loop 剩「證據責任分配」。
+- **「基底」判定**：對其自身目標成熟可用；對本 plan 目標**不構成基底**（無契約 / 證據 / 仲裁 / 關閉 / gate 任一層）。**吸收方向（登記不展開）**：Council 可作為本框架的 technique——Specification 階段的決策空間發散（orchestrator 拆 slice 前的方案比較）、或 preference-allowed 任務的 Selection 輔助（接 2f filter/selector 發現）；依 register-don't-promote，待真實使用需求出現再落。
+
 **doc-only trial 宣告**：本 plan 不接入 runtime——不新增 `route.*`、不新增 commit-msg validator、不動 `runtime.db` generated surfaces、不動 delegation schema / `validatePlanTreeFrontmatter`。協議以文件 + 行為紀律承載；驗證 leg 復用既有 review capability invoke（`ai-skill runtime capability-invoke --capability code-review --stance fault_finding`，既有 warning-only surface，無新 wiring）。
 
 **未來接入條件（graduation）**：Phase 3 證據評估時決策——若 (a) 三角色 loop 在 ≥2 個真實任務有效、且 (b) role boundary invariant 出現行為維持不住的證據（如 verifier fresh-context 被反覆略過），才評估 schema 欄位（`delegation.verification`）或機械檢查；由後續 plan 承載，本 plan 不 carry。**決策 deadline：2026-08-31**（與本 plan closure 同批；未達證據門檻則明確記錄「維持 doc-only」）。
