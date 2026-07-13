@@ -1,7 +1,7 @@
 ---
 id: 2026-06-16-1030-interaction-hazard-review-workflow
 plan_kind: main
-status: active
+status: completed
 owner: linyihong
 created: 2026-06-16
 priority: P1
@@ -10,11 +10,12 @@ required_for_completion: false
 
 # State Trust Transition — Promotion Discipline (Decision Framework)
 
-**Status**: `active` — promotion discipline **final O3** recorded；runtime surface graduation **deferred**
+**Status**: `completed`
 Owner: framework maintainer (linyihong)
 **建立日期**：2026-06-16
-**最後修訂**：2026-07-13（review #7：downstream C.5 + ADR #4 pass → **final O3**；Criterion 4 satisfied；runtime surface registration still deferred）
+**最後修訂**：2026-07-13（Plan Completion Closure：final O3 + ADR 1–6；scenario→Ai-skill `[~]` deferred；runtime surface 不註冊決策已持守）
 **Priority**：**P1**
+**Plan archive**：✅ archived 2026-07-13
 **Downstream pilot**（canonical evidence consumer）：<AI_SKILL_DOGFOOD_EVIDENCE> `docs/plans/archived/2026-06-16-state-trust-transition-pilot.md`（**completed** 2026-07-13）；C.5/ADR#4 @ `6a7cc1c` + `docs/plans/c5-trials/2026-07-13-payment-leave-confirm-dialog.yaml`
 
 ## Executive summary
@@ -170,7 +171,7 @@ Governance invariant（consumer）：`observable_outcome_must_survive_owner_refr
 > **Step 3（criteria authoring）**，下方刻意留 placeholder。rule 定義 owner = 本 plan。acceptance-gate
 > 形狀候選 `pilot_complete + criteria_pass >= 6`；證據可跨 repo（下游 <AI_SKILL_DOGFOOD_EVIDENCE> commit）。notify
 > 屬 acceptance-gate（gate projection），不在 evidence_rule。設計來源見
-> [`evidence-candidate-system`](2026-06-16-1131-evidence-candidate-system.md)。
+> [`evidence-candidate-system`](../active/2026-06-16-1131-evidence-candidate-system.md)。
 
 ```yaml
 evidence_rule:
@@ -204,12 +205,12 @@ Lifecycle 1 — Primitive Maturation (completed)
   B   — Optimistic rollback（invalidate ↔ recover 闭环）
   B.5 — Rename pressure test（websocket 或第三域；不必新 incident）
 
-Lifecycle 2 — Graduation (in progress)
-  Predictive evidence accumulation → Workflow graduation (Phase D)
+Lifecycle 2 — Graduation (discipline complete; surface promotion deferred)
+  Predictive evidence accumulation → O3 decision（Phase D）
   ──────────────────────────────────────────────────────
-  C   — Scenario spike（predictive + field survival；field survival ✅，predictive ⏳）
-  D   — IF ADR criteria → O2/O3 graduation（optional slice / glossary）
-  E   — Project overlay advisory
+  C   — Scenario spike（field survival ✅；predictive ✅ C.5 2026-07-13）
+  D   — ADR criteria → **final O3**（runtime surface / slice **not** registered）
+  E   — Project overlay advisory（out of scope for this plan）
   F   — Mechanical promotion（deferred）
 ```
 
@@ -222,7 +223,7 @@ Lifecycle 2 — Graduation (in progress)
 ### A1 — Coupon
 
 - [x] 四栏填 coupon — <AI_SKILL_DOGFOOD_EVIDENCE> `episode-coupon-redeem-journey.md` (`6665b77`); aligns Appendix A
-- [x] Counterfactual documented — coupon unmount hazard + recovery (post-ship fix recorded; predictive record pending criterion 4)
+- [x] Counterfactual documented — coupon unmount hazard + recovery (post-ship fix recorded; Criterion 4 later satisfied via C.5, not this case)
 
 ### B — Optimistic rollback / payment sync trust
 
@@ -239,13 +240,13 @@ Lifecycle 2 — Graduation (in progress)
 
 - [x] ≥1 previously unknown prevention — <AI_SKILL_DOGFOOD_EVIDENCE> C.5 PaymentLeaveConfirmDialog (2026-07-13)
 - [x] ≥1 scenario asserts template field survival — <AI_SKILL_DOGFOOD_EVIDENCE> `state-trust-transition-pilot.test.mjs` (`6665b77`)
-- [ ] Draft ids promoted to Ai-skill `validation/scenarios/` — deferred; downstream BDD equivalent green
+- [~] Draft ids promoted to Ai-skill `validation/scenarios/` — **not done**；本 plan 接受 deferred（downstream BDD equivalent green；無 Ai-skill scenario 檔）
 
 ### D — Graduation
 
 - [x] O2 / O3 **final** written decision — **final O3** (downstream pilot §D, 2026-07-13)
 - [x] Criteria 4 + integration journey evidence met for promotion *discipline*
-- [ ] **Do not** register runtime surface / lifecycle phase yet — deferred by design (evidence accumulation ≠ framework expansion)
+- [x] **Do not** register runtime surface / lifecycle phase — decision **held**（evidence accumulation ≠ framework expansion；repo 內無 ownership_map / experience-runtime lifecycle 升格）
 
 ---
 
@@ -273,6 +274,7 @@ Many primitives are **not designed** — they are **pulled out by three or four 
 | #5 | Formalized tentative O3 as the current stage decision；separated framework maturity from workflow graduation；predictive evidence 须自然产生而非为过 gate 制造 |
 | #6 | Downstream evidence sync；ADR #4 operationalized；Interaction Evidence Hierarchy watch |
 | #7 | Downstream C.5 PaymentLeaveConfirmDialog + L1 @ test `/h5` `6a7cc1c` → Criterion 4 pass；**final O3**；runtime surface仍 deferred |
+| #8 | Checkbox audit + **Plan Completion Closure**：Ai-skill scenarios `[~]` deferred；runtime surface decision held；`status: completed` → `plans/archived/` |
 
 ---
 
@@ -283,7 +285,7 @@ Many primitives are **not designed** — they are **pulled out by three or four 
 - [x] C scenario complete — field survival **pass**; predictive prevention **pass** (C.5 2026-07-13)
 - [x] O2/O3 **final** 书面决策 — **final O3**
 - [x] Phase D promotion **discipline** — ADR criteria 1–6 pass
-- [ ] Runtime surface / workflow slice registration — **deferred** (explicit non-goal of this close)
+- [x] Runtime surface / workflow slice registration — **deferred by design**（explicit non-goal；決策已落地＝不註冊，非漏做）
 
 ---
 

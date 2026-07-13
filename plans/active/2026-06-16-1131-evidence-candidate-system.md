@@ -631,8 +631,8 @@ consumer 不得把「存在」當「可消費」。與 Q7 同源、與 Q6 不同
   — 本 plan「Candidate→Accept→Gate→Notify 形狀」是否值得抽成共用 primitive，**必須走該 plan 的
   N≥5 + falsification 紀律**；本 plan 自己現在是 N=1，不抽模板。governance-pattern 的 sample
   inventory 是 candidate accept 的目標證據面之一（`notify: sample_count>=5 + falsification>=1`）。
-- [`active/2026-06-16-1030-interaction-hazard-review-workflow.md`](2026-06-16-1030-interaction-hazard-review-workflow.md)
+- [`archived/2026-06-16-1030-interaction-hazard-review-workflow.md`](../archived/2026-06-16-1030-interaction-hazard-review-workflow.md)
   — Downstream pilot gate 是 candidate accept 的目標證據面之一（`notify: pilot_complete +
-  criteria_pass>=6`）；其下游 ExternalRepoA commit 是 cross-repo candidate 的範例來源（Q5）。
+  criteria_pass>=6`）；其下游 ExternalRepoA commit 是 cross-repo candidate 的範例來源（Q5）。**completed** 2026-07-13。
 - [`enforcement/conversation-goal-ledger.md`](../../enforcement/conversation-goal-ledger.md)
   — memory / goal ledger / candidate store 的邊界參考（candidate store 既非 goal ledger 也非 memory）。

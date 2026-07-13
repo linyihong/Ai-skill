@@ -236,7 +236,7 @@ P8（bootstrap 分級）、P9（知識讀出率）、P10（hooks.go 巨石）、
 | 7 | 本 plan Phase 5（model-neutral parity + 非 Claude dogfood） | — | 可與 6 並行；需要使用者提供第二 model 環境 |
 | 8 | [`2026-06-06-1700-workflow-activation-discovery-bridge`](2026-06-06-1700-workflow-activation-discovery-bridge.md) / [`2026-06-08-2100-governance-pattern-library-extraction`](2026-06-08-2100-governance-pattern-library-extraction.md) / [`2026-06-29-1430-preparatory-refactoring-workflow`](2026-06-29-1430-preparatory-refactoring-workflow/_plan.md) | draft/in-progress | 按各自 plan 的 gate；governance-pattern extraction 遵守 N≥5 紀律 |
 | 9 | [`2026-05-28-1636-gen4-fitness-optimization-memory-interface-reservation`](2026-05-28-1636-gen4-fitness-optimization-memory-interface-reservation.md) | draft | 最後：其 fitness 輸入正是本 plan ledger + economics plan 的 telemetry primitives |
-| 10 | [`2026-06-16-1030-interaction-hazard-review-workflow`](2026-06-16-1030-interaction-hazard-review-workflow.md) | draft | 按其 A0→D roadmap 自走；與本 plan 無依賴 |
+| 10 | [`2026-06-16-1030-interaction-hazard-review-workflow`](../archived/2026-06-16-1030-interaction-hazard-review-workflow.md) | ✅ completed | A0→D promotion discipline **final O3**；與本 plan 無依賴 |
 | — | 本 plan Phase 8（grandfather 結案部分） | — | **hard deadline 2026-08-31**：不論其他順位，需插隊在 deadline 前完成 |
 | — | 本 plan Phase 7 / 9（scenario runner、repo 健康） | — | 可與順位 3–6 並行；Phase 9 的 history 清理需使用者授權（Q8） |
 | — | 本 plan Phase 5b（模型調度 + 判斷力外化） | — | **建議提前**：F1/F3 是強模型 session 的最高槓桿產出（判斷力外化），趁可用強模型時完成初稿；F2 升降級階梯讓後續所有 plans 的委派執行受益 |
