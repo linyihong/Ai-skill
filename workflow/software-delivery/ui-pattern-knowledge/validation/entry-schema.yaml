@@ -1,0 +1,93 @@
+# Entry completeness schema for UI Pattern Knowledge (validator-facing).
+# NOT Runtime Projection / load_when wiring — Structural validation only.
+#
+# Core is FROZEN at schema_version 1.0. New fields may be added as Extended;
+# do not rename/remove Core keys without a plan revision.
+
+schema_version: "1.0"
+id: workflow.software_delivery.ui_pattern_knowledge.entry_schema
+kind: structural_validation
+status: frozen
+owner_layer: workflow
+template: ../templates/ui-pattern-knowledge.entry.template.yaml
+
+# --- Core (must exist for a complete entry) ---
+core:
+  required_keys:
+    - id
+    - canonical_pattern
+    - plain_name
+    - family
+    - intent_examples
+    - selection_rules
+    - near_neighbors
+    - evidence_level
+    - entry_status
+  selection_rules:
+    required_keys:
+      - when
+      - not_when
+    # when_to_use / when_not are prose aliases of when / not_when — prefer when/not_when in YAML
+    optional_alias_keys:
+      - when_to_use
+      - when_not
+    min_when: 1
+    min_not_when: 1
+  near_neighbors:
+    min_items: 1
+    item_required_keys:
+      - id
+      - rule
+  intent_examples:
+    min_items: 1
+  enums:
+    evidence_level:
+      - verified
+      - observed
+      - hypothesized
+    entry_status:
+      - declared
+      - legacy_alias
+      - deferred
+
+# --- Extended (may be absent; if present, constrained) ---
+extended:
+  optional_keys:
+    - anti_patterns
+    - platform_map
+    - implementation_recipe
+    - project
+    - variant_of
+  platform_map:
+    allowed_keys:
+      - aria
+      - headless
+      - project
+    forbidden_keys:
+      - material
+      - ios
+      - fluent
+      - bootstrap
+      - ant
+      - chakra
+  implementation_recipe:
+    optional_keys:
+      - status
+      - evidence_level
+      - required
+      - recommended
+    enums:
+      status:
+        - unknown
+        - partial
+        - complete
+
+complete_entry_rule: >
+  An entry is complete when all Core required_keys exist and selection_rules /
+  near_neighbors / intent_examples meet min sizes. Extended absence does not
+  fail completeness. recipe.status may be unknown.
+
+forbidden:
+  - intent_db
+  - design_system_encyclopedia_platform_keys
+  - mega_glossary_single_markdown_for_all_patterns

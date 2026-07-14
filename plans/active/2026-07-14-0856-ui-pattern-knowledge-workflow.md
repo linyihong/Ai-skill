@@ -24,6 +24,8 @@ revision:
     note: "Phase 1 landed"
   - date: 2026-07-14
     note: "Phase 1 Verifier 仲裁：fix artifact-gates 全鏈、seed project:null、Lock when_to_load≠runtime；defer Contract Stack 圖"
+  - date: 2026-07-14
+    note: "Stakeholder Phase1 freeze：Done Definition 鎖產物；pattern-index（非 runtime-index）；validation/entry-schema；Phase2 僅五件 overlay 驗形狀不堆名詞"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
@@ -362,28 +364,46 @@ Stakeholder 強調的壓縮讀法：**T1 OR T2 以先發生者啟動**；T3–T5
 
 ## Phase 1 — Ai-skill：Core schema + Selection
 
-- [x] `ui-pattern-knowledge.entry.template.yaml`  
-- [x] `ui-pattern-knowledge.composition.template.yaml`  
-- [x] `ui-pattern-prompt-expansion.template.md`（註明勿 commit 為 Knowledge）  
-- [x] `ui-contracts.md`：新增 **Pattern Knowledge Lock** 小節（不塞進 Screen Mapping）  
-- [x] indexes 一行  
-- [x] overlay family Core 種子（3–5 條）
+**Phase 1 Done Definition（鎖定，不再加產物）**：
 
-**完成條件**：Core = 完整性標準；Recipe 允許 `unknown`。
+```text
+workflow/software-delivery/
+  ui-contracts.md                 § Pattern Knowledge Lock
+  templates/ui-pattern-knowledge.* （entry / composition / prompt-expansion）
+  ui-pattern-knowledge/
+    entries/*.yaml                # 五件 overlay，一 pattern 一檔（非 mega-glossary）
+    pattern-index.yaml            # Discovery index（禁止叫 runtime-index）
+    validation/entry-schema.yaml  # 結構驗證（非 Runtime）
+    README.md
+```
+
+- [x] `ui-pattern-knowledge.entry.template.yaml`（Core **FROZEN v1.0**）  
+- [x] `ui-pattern-knowledge.composition.template.yaml`  
+- [x] `ui-pattern-prompt-expansion.template.md`  
+- [x] `ui-contracts.md`：**Pattern Knowledge Lock**  
+- [x] indexes 一行  
+- [x] overlay Core 種子 ×5（bottom_sheet / modal_dialog / drawer / toast / scrim）  
+- [x] `pattern-index.yaml` + `validation/entry-schema.yaml`（stakeholder 補強；非 runtime）
+
+**完成條件**：上表產物齊；Core 凍結；**不再**為此 Phase 加更多 pattern／slice／runtime surface。
 
 ---
 
-## Phase 2 — `<PROJECT_ROOT>` dogfood（Core 齊，Extended 可薄）
+## Phase 2 — `<PROJECT_ROOT>` dogfood（**只驗形狀，不堆名詞**）
 
-- [ ] `docs/frontend-contracts/ui-pattern-knowledge/` + ≥8 entries（**Core 齊**）  
-- [ ] recipe 可 `unknown`/`partial`；至少 1–2 條 `partial`+observed  
-- [ ] platform_map 只填三層  
-- [ ] Outer knowledge ↔ inner shared-components README 雙向連結（**defer 風險註**：雙鏈接是 dogfood 導航，不是第二套 ontology；見 Deferred Notes）  
-- [ ]（可選）結構 BDD：Core key 存在
+**範圍鎖死**：仍只有 overlay 五件（Bottom Sheet / Modal Dialog / Drawer / Toast / Scrim）。  
+目標 = 在 consumer 驗證 Knowledge Layer 全流程（Selection → Near Neighbor → Family → Recipe → Project Alias），**不是**把 entry 數拉到 8+。
 
-**Dogfood loop pointer（#4 defer）**：若對 Phase 2 切片走三角色，用 [`01-dogfood-prompt-kit.md`](../2026-07-08-0825-delegation-verification-arbitration-loop/01-dogfood-prompt-kit.md)；**本 plan 不強制**、不把三角色入口做成 Phase 2 完成條件。
+- [ ] Consumer overlay 目錄：`docs/frontend-contracts/ui-pattern-knowledge/`（可只含五件的 project alias / composition 指針）  
+- [ ] 五件各自可對到 `platform_map.project` 或 `legacy_alias`（project side）  
+- [ ] 至少 1–2 條 recipe `partial`+`observed`（同五件內加厚，勿開新 family）  
+- [ ] Outer knowledge ↔ inner shared-components README 雙向連結（導航 defer 風險見 Deferred Notes）  
+- [ ]（可選）對 `validation/entry-schema.yaml` 做結構檢查（Core keys）  
+- [ ] **禁止**：本 Phase 新增 popover / tooltip / dropdown / overflow / fab / command_palette 等 entry
 
-**完成條件**：任務引用 selection（不必等 recipe complete）。
+**Dogfood loop pointer（#4 defer）**：三角色可選；用 delegation kit；非完成條件。
+
+**完成條件**：五件 overlay 在 consumer 走上全流程至少一輪；形狀可信 → 才開下一輪 family（另開 Phase／checklist），**不以 entry 數量衡量進度**。
 
 ---
 

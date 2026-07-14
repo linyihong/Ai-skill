@@ -34,6 +34,8 @@ required_sources:
   - workflow/software-delivery/ui-governance.md
   - workflow/software-delivery/ui-contracts.md
   - workflow/software-delivery/ui-pattern-knowledge/README.md
+  - workflow/software-delivery/ui-pattern-knowledge/pattern-index.yaml
+  - workflow/software-delivery/ui-pattern-knowledge/validation/entry-schema.yaml
   - enforcement/reusable-guidance-boundary.md
   - enforcement/sanitization.md
   - enforcement/linked-updates.md

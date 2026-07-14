@@ -1,13 +1,18 @@
 # UI Pattern Knowledge — entry template
 #
+# schema_version: 1.0 — Core FROZEN（新欄位只進 Extended；勿改 Core key 名）
 # 完整 entry = Core 欄位齊全。Extended 可後補；recipe 可 status: unknown。
 # 禁止：只有名字、沒有 selection_rules / near_neighbors / family。
+# 禁止：單一超大 glossary markdown 塞全部 pattern —— 一 pattern 一檔。
 # platform_map 僅允許 aria / headless / project 三層；禁止 Material / iOS / Fluent 等 DS 百科 key。
+# 結構驗證：../ui-pattern-knowledge/validation/entry-schema.yaml
 #
 # Core vs Extended:
-#   Core（缺一不可）: canonical_pattern, plain_name, intent_examples,
-#                     selection_rules (when/not_when), family, near_neighbors, evidence_level
-#   Extended（可後補）: implementation_recipe, platform_map, anti_patterns, project
+#   Core（缺一不可）: id, canonical_pattern, plain_name, intent_examples,
+#                     selection_rules (when/not_when), family, near_neighbors,
+#                     evidence_level, entry_status
+#   Extended（可後補）: implementation_recipe, platform_map, anti_patterns, project, variant_of
+#   Alias（可選寫法）: when_to_use / when_not ≡ selection_rules.when / not_when
 
 id: <pattern_id>                         # e.g. bottom_sheet
 canonical_pattern: <pattern_id>          # Core — 正式名

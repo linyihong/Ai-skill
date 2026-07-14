@@ -57,7 +57,7 @@ Accessibility Contract 依 screen 風險啟用：表單、modal、dynamic update
 | `when_to_load`（文件語意；**非** runtime route） | overlay／pattern **選型不明**，或任務**宣告 pattern 對齊／選型 claim** 時讀本節 + templates／seeds |
 | `skip_when` | 純資料修補、無關 UI pattern 的 provider-only 變更、或選型已鎖定且本輪不重談 pattern |
 | `templates` | [`templates/ui-pattern-knowledge.entry.template.yaml`](templates/ui-pattern-knowledge.entry.template.yaml)、[`templates/ui-pattern-knowledge.composition.template.yaml`](templates/ui-pattern-knowledge.composition.template.yaml)、[`templates/ui-pattern-prompt-expansion.template.md`](templates/ui-pattern-prompt-expansion.template.md) |
-| `seeds` | [`ui-pattern-knowledge/`](ui-pattern-knowledge/README.md)（Ai-skill reusable Core 種子；專案可覆寫） |
+| `seeds` | [`ui-pattern-knowledge/`](ui-pattern-knowledge/README.md)、[`pattern-index.yaml`](ui-pattern-knowledge/pattern-index.yaml)、[`validation/entry-schema.yaml`](ui-pattern-knowledge/validation/entry-schema.yaml) |
 | Phase 5 note | 機械 `load_when`／route／scenario **未**接入；見 plan Phase 5（僅 D9 Promote 後） |
 
 ### Authority Boundary

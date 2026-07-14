@@ -1,0 +1,38 @@
+# Discovery index for UI Pattern Knowledge seeds.
+# NOT a runtime projection / runtime.db surface.
+# Name is pattern-index (not runtime-index) to avoid Runtime Projection confusion.
+
+schema_version: "1.0"
+id: workflow.software_delivery.ui_pattern_knowledge.pattern_index
+kind: discovery_index
+status: active
+owner_layer: workflow
+note: >
+  Lists which Core seed entries exist under entries/.
+  Consumers and agents use this for discovery; completeness is validated via
+  validation/entry-schema.yaml (not via runtime.compile).
+
+family_focus: overlay
+entries:
+  - id: bottom_sheet
+    path: entries/bottom_sheet.yaml
+    family: overlay
+    entry_status: declared
+  - id: modal_dialog
+    path: entries/modal_dialog.yaml
+    family: overlay
+    entry_status: declared
+  - id: drawer
+    path: entries/drawer.yaml
+    family: overlay
+    entry_status: declared
+  - id: toast
+    path: entries/toast.yaml
+    family: overlay
+    entry_status: declared
+  - id: scrim
+    path: entries/scrim.yaml
+    family: overlay
+    entry_status: declared
+
+deferred_families: []   # e.g. popover / tooltip / fab — after overlay dogfood matures
