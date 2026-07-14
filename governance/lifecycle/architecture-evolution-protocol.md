@@ -92,6 +92,7 @@ When editing this file, classify each change:
 | 2026-07-07 | Protocol Core Change | Protocol Core definition, four-layer positioning, Reference Implementation, Changelog classification |
 | 2026-07-14 | New governance pattern | Optional appendix §Layer Growth Rhythm（Grow one layer, freeze the previous）— non-core；sourced from UI Pattern Knowledge Phase 1–3 rhythm |
 | 2026-07-14 | Editorial | Pair Constraint Accumulation sentence into §Layer Growth Rhythm；cite H4 stress evidence (Entry Mods=0) |
+| 2026-07-14 | Editorial | Third Layer Growth Rhythm sentence: Every trace must terminate explicitly (H6 Explicit Termination) |
 
 ---
 
@@ -403,14 +404,16 @@ Full record in [ADR-013 §Dogfood Evidence](../../constitution/ADR-013-cognitive
 ```text
 Grow one layer, freeze the previous layer.
 A frozen layer may accumulate constraints without reopening its knowledge objects.
+Every trace must terminate explicitly, either in validated knowledge or a governed waiver.
 ```
 
 | Sentence | Role |
 | --- | --- |
 | Grow one layer, freeze the previous | **Growth** — open the next knowledge surface |
 | A frozen layer may accumulate constraints… | **Constraint Accumulation** — new pressure becomes edges/rules on the new layer; frozen objects stay closed |
+| Every trace must terminate explicitly… | **Explicit Termination** — Traceability = 可追溯 + 可停止；終點只能是 Recipe 或 Waived（無 `?????`） |
 
-Pair: Growth ⊕ Constraint Accumulation. Together they prevent back-propagation while still allowing Composition Knowledge to emerge.
+Trio: Growth ⊕ Constraint Accumulation ⊕ Explicit Termination.
 
 | Phase（instance） | New artifact layer | Freeze target（previous） |
 | --- | --- | --- |

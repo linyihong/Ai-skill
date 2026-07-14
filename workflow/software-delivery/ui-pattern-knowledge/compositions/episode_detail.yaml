@@ -1,47 +1,70 @@
 # Pattern Composition seed — Episode Detail
-# Phase 3 dogfood：Screen → Pattern Tree → Selection → Recipe
-# Deferred = research tool（須有 disposition）；禁止為 Completeness 補 Entry。
-# Phase 3 問題請寫 composition_rules，禁止回頭改 entries/*.yaml。
+# Phase 3：H4 Independence · H5 Disposition · H6 Trace (complete|waived)
+# Entry freeze: never modify entries/*.yaml from composition dogfood.
 
 screen: episode_detail
 plain_name: "單集詳情／播放頁（Episode Page）"
-evidence_level: hypothesized
+evidence_level: observed
 phase: 3
 scope_note: >
-  Wave-1 composition dogfood 只驗 Episode Page，不做全站 screen 覆蓋.
-  H5: every deferred has explicit disposition (not Deferred→0).
+  H6: every node terminates as trace_status complete | waived.
+  Waiver is first-class — not recipe: null.
 
 contains:
   - pattern: app_bar
     knowledge: deferred
     disposition: uncovered_pattern
     role: structure
-    notes: "結構 chrome；尚未有 Pattern Entry — 不是 toast/sheet 的 placement"
+    trace_status: waived
+    waive_reason: uncovered_pattern_no_recipe_yet
+    owner: composition
+    notes: "結構 chrome；合法停止於 governed waiver（非黑洞）"
+
   - pattern: player
     knowledge: deferred
     disposition: uncovered_pattern
     role: structure
-    notes: "媒體主表面；結構族候選，非 overlay composition"
+    trace_status: waived
+    waive_reason: uncovered_pattern_no_recipe_yet
+    owner: composition
+    notes: "媒體主表面；waived until structure-family entry wave（不在本波補 Entry）"
+
   - pattern: bottom_sheet
     knowledge: seed
     optional: true
     role: overlay
+    trace_status: complete
+    selection_from: entries/bottom_sheet.yaml#selection_rules
+    recipe_from: entries/bottom_sheet.yaml#implementation_recipe
     notes: "例：選畫質／分享／更多動作"
+
   - pattern: modal_dialog
     knowledge: seed
     optional: true
     role: overlay
+    trace_status: complete
+    selection_from: entries/modal_dialog.yaml#selection_rules
+    recipe_from: entries/modal_dialog.yaml#implementation_recipe
     notes: "例：離開確認／破壞性確認"
+
   - pattern: toast
     knowledge: seed
     optional: true
     role: feedback
+    trace_status: complete
+    selection_from: entries/toast.yaml#selection_rules
+    recipe_from: entries/toast.yaml#implementation_recipe
     notes: "例：已加入清單／播放失敗軟提示"
+
   - pattern: scrim
     knowledge: seed
     optional: true
     role: overlay_compositional
+    trace_status: complete
+    selection_from: entries/scrim.yaml#selection_rules
+    recipe_from: entries/scrim.yaml#implementation_recipe
     notes: "伴隨 temporary overlay；非主任務面"
+
   - pattern: floating_hint
     knowledge: deferred
     disposition: composition_only
@@ -50,15 +73,16 @@ contains:
     placement: near_player_controls
     optional: true
     role: feedback_placement
+    trace_status: waived
+    waive_reason: composition_only_resolves_to_toast_placement
+    owner: composition
     notes: >
-      H5：非新 Pattern。= toast（ephemeral feedback）+ near-control placement。
-      不開 floating_hint Entry；不改 toast.yaml。
+      H5 disposition + H6 waive：停止於 composition_only，不開 Entry、不改 toast.yaml。
+      Further Recipe 追 toast Path A 即可（見 3h6 evidence）。
 
 notes: >
-  Drawer 不在本 screen 預設樹內（Episode Page 範圍鎖死）。
-  Selection 仍讀 Phase 2 entries；Composition 只描述「會出現哪些 pattern」，
-  不覆寫 selection_rules。
   Concurrent open of bottom_sheet + modal_dialog forbidden by
-  composition_rules overlay.no_concurrent_temporary_overlays (H4 Case A).
-  Deferred disposition enum: uncovered_pattern | composition_only |
+  overlay.no_concurrent_temporary_overlays (H4).
+  Deferred disposition: uncovered_pattern | composition_only |
   implementation_only | out_of_scope.
+  Trace terminal: complete | waived only.

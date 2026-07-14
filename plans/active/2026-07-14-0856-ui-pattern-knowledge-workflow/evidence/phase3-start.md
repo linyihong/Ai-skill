@@ -38,7 +38,7 @@ NOT
 | --- | --- | --- |
 | 1 | **H4 Independence** | 施壓；Failure→Constraint；Invariant stress-validated |
 | 2 | **H5 Completeness** | Every Deferred has **disposition**（非 Deferred→0） |
-| 3 | **H6 Traceability** | Deliverable = **Trace Graph** |
+| 3 | **H6 Traceability** | complete\|waived 終點；T1/T2/T3；Waiver first-class |
 
 H6 鏈形：
 
@@ -67,6 +67,8 @@ Episode Detail
 
 **Pattern Tree Validated** = H4∧H5∧H6 mini-cycles PASS + Entry Modifications = 0。  
 不是「Episode Detail 完成」。
+
+**Protocol trio**：Growth · Constraint Accumulation · Explicit Termination。
 
 ## Explicit non-promotion
 
