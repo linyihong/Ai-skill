@@ -15,7 +15,7 @@
 
 | Slug | Category |
 |------|----------|
-| `common/2026-07-14_171000-pairip-application-licenseactivity-cold-start-play-gate` | REVISED: static Play markers ≠ observed hop; require adb focus L2 |
+| `common/2026-07-14_171000-pairip-application-licenseactivity-cold-start-play-gate` | Play focus-steal A/B; promoted → analysis workflow + intelligence heuristic |
 | `http-api/2026-07-14_141700-crosscheck-request-sign-offline-vs-inapp-fingerprint` | Offline vs in-app sign FP dry-run |
 | `http-api/2026-07-14_141500-request-sign-may-be-sha256withrsa-pkcs8-header-concat` | SHA256withRSA + PKCS8 + header concat |
 | `common/2026-07-14_135210-prove-wire-json-names-via-jsonreader-nextname` | Wire names via JsonReader.nextName (R8) |

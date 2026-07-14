@@ -27,7 +27,7 @@ intelligence/engineering/analytical-reasoning/
 | [`live-readiness-gates.md`](live-readiness-gates.md) | `validated` | `feedback/history/apk-analysis/common/` |
 | [`documentation-backfill-heuristic.md`](documentation-backfill-heuristic.md) | `candidate-intelligence` | `analysis/repo/documentation-backfill.md` |
 | [`traceability-heuristic.md`](traceability-heuristic.md) | `candidate-intelligence` | `analysis/repo/traceability-gate.md` |
-| [`heuristics/`](heuristics/) | `pilot` | Technique decomposition + UI operation intelligence extraction |
+| [`heuristics/`](heuristics/) | `pilot` | Technique decomposition + UI operation intelligence extraction（含 `play-focus-steal-vs-hard-kill`） |
 | [`signals/`](signals/) | `pilot` | Technique decomposition |
 | [`failure/`](failure/) | `pilot` | Technique decomposition + feedback history |
 | [`anti-patterns/`](anti-patterns/) | `pilot` | Technique decomposition |

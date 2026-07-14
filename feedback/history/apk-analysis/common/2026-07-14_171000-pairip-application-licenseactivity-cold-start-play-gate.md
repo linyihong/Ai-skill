@@ -62,11 +62,14 @@ Status: validated
 
 #### Promotion Target
 
-- `workflow/apk-analysis/execution-flow.md` cold-start：A/B focus 對照（可選）。
+- `analysis/apk/workflows/cold-start-play-focus-ab.md`（HOW TO DO）— **done**  
+- `intelligence/engineering/analytical-reasoning/heuristics/play-focus-steal-vs-hard-kill.md`（HOW TO THINK）— **done**  
+- `analysis/apk/tools-and-failures.md` 失敗判讀列 — **done**  
+- `workflow/apk-analysis/execution-flow.md` § Reset baseline 交叉連結 — **done**
 
 #### Required Linked Updates
 
-- 本輪更新本檔；索引可保留原 slug。
+- 同上 Promotion；另更新 `analysis/apk/workflows/README.md`、`intelligence/.../heuristics/README.md`。
 
 #### Confidence / Residual Risk
 

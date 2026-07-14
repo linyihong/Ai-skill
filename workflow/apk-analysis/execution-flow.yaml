@@ -42,7 +42,13 @@ steps:
       - gate.apk_analysis.authorization_confirmed
   - id: establish_reset_baseline
     order: 2
-    action: Choose reset level and split reset/startup/navigation/feature/documentation windows when analyzing app-start-to-feature flows.
+    action: >
+      Choose reset level and split reset/startup/navigation/feature/documentation
+      windows when analyzing app-start-to-feature flows. If cold start lands on
+      Play Unauthenticated/sign-in UI, run analysis/apk/workflows/cold-start-play-focus-ab.md
+      (allow Play vs suppress vending focus-steal) before concluding the app is unreachable;
+      use intelligence/engineering/analytical-reasoning/heuristics/play-focus-steal-vs-hard-kill.md
+      for judgment (not a license-bypass procedure).
   - id: triage_network_path
     order: 3
     action: Start from network path triage, then load specific analysis methods only after evidence points to the right technique.
@@ -103,6 +109,9 @@ failure_modes:
   - id: startup_request_misattributed
     detection: Startup, preload, session recovery, or background request is claimed as current feature trigger.
     recovery: Split windows and relabel traffic before mapping.
+  - id: play_unauth_misread_as_hard_unreachable
+    detection: Cold start focus on Play Unauthenticated/sign-in is treated as process hard-kill or "static Pairip hop proven" without focus A/B sampling.
+    recovery: Run cold-start-play-focus-ab.md A/B; label L1 static vs L2 focus vs L3 reachability; do not claim unobserved Pairip LicenseActivity hops.
   - id: raw_secret_or_host_promoted
     detection: Reusable workflow contains raw token, cookie, device ID, private host, or target-specific secret.
     recovery: Redact and move raw evidence to project-controlled docs.

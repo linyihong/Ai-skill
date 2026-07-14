@@ -58,6 +58,8 @@
 | 有 CONNECT 但 SSL handshake failed | CA 不被信任、Android user CA 不生效、custom trust、pinning。 | 先 pass-through 保 App 可用；再處理 CA/system trust/pinning。 |
 | 裝置 UI 出現 SSL certificate verification（代理開啟時） | 某一第一方連線已導流到代理，但 client 拒代理憑證（與 MITM handshake fail 同層）。 | 寫入專案 dynamic note 作為 trust 證據；分欄查該 host vs 主業務 API 是否也有 CONNECT。 |
 | 廣告可解密 + UI SSL + 主 API 零 CONNECT | 混合象限：proxy-aware SDK／第一方 trust fail／業務 API bypass 同時成立。 | 三欄報告（`traffic-triage.md` §三欄分流）；no-proxy pcap 後升級 Frida，勿只延長 MITM。 |
+| 冷啟動後畫面變 Play 未登入／Unauthenticated* | 常為 **Play UI 搶焦**（尤其 `Accounts: 0`），不一定是業務進程硬殺。 | A/B：允許 Play vs 循環 `am force-stop com.android.vending`；≤100ms 採 `mCurrentFocus`。見 `workflows/cold-start-play-focus-ab.md`。 |
+| 靜態有 Pairip／CHECK_LICENSE，斷言 LicenseActivity 鏈路 | L1 假說被寫成 L2 事實。 | focus 未採樣到則標 unobserved；見 heuristics `play-focus-steal-vs-hard-kill.md`。 |
 | 欄 C 零 CONNECT 但 Frida 是 OkHttp | 常為 **顯式 no-proxy**，不是 Cronet。 | Hook `OkHttpClient.Builder`／`*ProxyConfig*`；標 `bypass=okhttp-no-proxy`。 |
 | Java hook 沒命中 | 流量不在 Java HTTP stack。 | native connect trace；查 Flutter/Cronet/native client。 |
 | 只看到 127.0.0.1:\<port\> loopback，沒有上游 API path | App 內建 local ProxyServer/Netty handler 先接本機請求，再由 handler 選上游。 | 反射/Frida 探測 ProxyServerHandler 方法；優先 hook FullHttpRequest + URI 類參數。 |

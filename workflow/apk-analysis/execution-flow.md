@@ -31,6 +31,8 @@
 | `clear app data` | 還原 first-run / session recovery / onboarding 狀態。 | 可能移除測試 session、觸發登入或限流；需使用授權測試帳號並記錄邊界。 |
 | `reinstall` | 驗證安裝後首輪 bootstrap / permission / migration。 | 成本最高；不要在不需要 first-run 行為時使用。 |
 
+冷啟動後若畫面立刻變成 Play 未登入／Unauthenticated 頁：先依 [`analysis/apk/workflows/cold-start-play-focus-ab.md`](../../analysis/apk/workflows/cold-start-play-focus-ab.md) 做 focus A/B（允許 Play vs 抑止 vending 搶焦），判斷啟發式見 [`intelligence/engineering/analytical-reasoning/heuristics/play-focus-steal-vs-hard-kill.md`](../../intelligence/engineering/analytical-reasoning/heuristics/play-focus-steal-vs-hard-kill.md)。**不要**把靜態 Pairip／CHECK_LICENSE 單獨當成已證實 runtime 鏈路。
+
 每個 reset-to-feature capture 應拆成可反查的 window：
 
 1. Reset / state preparation：`force-stop`、可選 data/cache clear、權限、proxy、Frida/MITM/pcap 狀態。
