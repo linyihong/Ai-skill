@@ -28,6 +28,8 @@
 | 靜態／已知業務 host 在 MITM **零 CONNECT** | flow／log 對照 | 高 |
 | 關代理後 short-window `tcpdump`／pcap 仍見業務候選 dst IP:443 | adb + dig 對照 | 高（bypass 或直連仍活） |
 | 業務 host CONNECT + handshake fail | mitmdump | 高（改標 pinning-tier，不是 bypass） |
+| Frida：OkHttp／Retrofit 打到業務 URL，且 Cronet 業務計數≈0 | in-process URL hook | 高（棧＝OkHttp） |
+| Frida／靜態：`OkHttpClient.Builder` 上 **no-proxy／NO_PROXY／\*ProxyConfig\*apply*(…, true)** | builder hook | 高（bypass 機制＝顯式 no-proxy） |
 
 ### 排除／防呆
 
@@ -36,6 +38,7 @@
 | UI SSL → App 壞掉／不要開代理 | UI SSL = 欄 B 證據 |
 | 有廣告解密 → 主線 MITM 完成 | 只證明欄 A |
 | 無業務 CONNECT → pinning | 先欄 C；零 CONNECT = bypass 候選 |
+| 零 CONNECT → 一定是 Cronet | Frida 若證 OkHttp，查 **顯式 no-proxy** |
 
 ## 判斷流程
 
@@ -49,6 +52,8 @@ MITM 冷啟動窗
         是 + 解密成功 → MITM 可繼續業務
         否 → no-proxy pcap？
               有業務 IP → 欄 C bypass → Frida／in-process
+                    → OkHttp？查 builder no-proxy → 標 okhttp-no-proxy
+                    → Cronet／native？走對應 hook
               無 → 查流程未觸發／DNS／權限
 ```
 
@@ -57,3 +62,4 @@ MITM 冷啟動窗
 - [`../heuristics/mitm-route-column-diagnosis.md`](../heuristics/mitm-route-column-diagnosis.md)
 - [`local-proxy-detection.md`](local-proxy-detection.md)（loopback／TUN 另線；與本三欄可並存）
 - [`analysis/apk/traffic-triage.md`](../../../../analysis/apk/traffic-triage.md)
+- [`feedback/history/apk-analysis/local-proxy/2026-07-14_105100-column-c-bypass-may-be-okhttp-no-proxy-not-cronet.md`](../../../../feedback/history/apk-analysis/local-proxy/2026-07-14_105100-column-c-bypass-may-be-okhttp-no-proxy-not-cronet.md)

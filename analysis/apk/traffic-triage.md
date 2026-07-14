@@ -115,18 +115,19 @@ native backtrace 落在哪裡？
 | --- | --- | --- | --- |
 | **A. Proxy-aware stack** | 代理設定是否真的接到流量？ | 廣告／analytics／mediation CONNECT + 可解密 | 證明導流成功即可；勿當成業務主線已覆蓋 |
 | **B. Proxy-entered first-party trust** | 進了代理的第一方 host 是否拒憑證？ | MITM `certificate unknown`／handshake fail；**裝置 UI 出現 SSL certificate verification** | 記為該 host 的 trust／pinning 訊號；UI 錯誤是證據不是噪音 |
-| **C. Business API proxy membership** | 主業務 API 有沒有進代理？ | **零 CONNECT** + no-proxy pcap／SNI 仍見業務候選 IP | **bypass**（Cronet／native／自訂 client）→ 升級 Frida／in-process；勿再拉長純 MITM |
+| **C. Business API proxy membership** | 主業務 API 有沒有進代理？ | **零 CONNECT** + no-proxy pcap／SNI 仍見業務候選 IP | **bypass** → Frida 先確認業務棧。若為 **OkHttp／Retrofit**：優先查 client builder **顯式 no-proxy**（`Proxy.NO_PROXY`／`*ProxyConfig*.apply*(builder, true)` 類）；**勿預設 Cronet**。Cronet／native 仍是其他分支。勿再拉長純 MITM |
 
 關鍵分離：
 
 - **B ≠ C**：某一第一方 H5／m-site 進代理並彈 SSL UI，**不代表**主 API 也進了代理。
 - **僅當 C 是「有 CONNECT + handshake fail」** 才能說該業務 API 屬 MITM pinning tier。
-- **C 是零 CONNECT** 時，優先 no-proxy SNI／pcap 確認仍有業務連線，再選 hook 主線。
+- **C 是零 CONNECT** 時，優先 no-proxy SNI／pcap 確認仍有業務連線，再選 hook 主線；Frida 若證 OkHttp，下一步是 **proxy config**，不是先換 Cronet 假說。
 
 可重用 lesson：
 
 - [`feedback/history/apk-analysis/local-proxy/2026-07-14_095200-on-device-ssl-certificate-ui-is-tls-path-signal.md`](../../feedback/history/apk-analysis/local-proxy/2026-07-14_095200-on-device-ssl-certificate-ui-is-tls-path-signal.md)
 - [`feedback/history/apk-analysis/local-proxy/2026-07-14_095210-mixed-mitm-ads-ok-firstparty-ssl-api-bypass.md`](../../feedback/history/apk-analysis/local-proxy/2026-07-14_095210-mixed-mitm-ads-ok-firstparty-ssl-api-bypass.md)
+- [`feedback/history/apk-analysis/local-proxy/2026-07-14_105100-column-c-bypass-may-be-okhttp-no-proxy-not-cronet.md`](../../feedback/history/apk-analysis/local-proxy/2026-07-14_105100-column-c-bypass-may-be-okhttp-no-proxy-not-cronet.md)
 - [`feedback/history/apk-analysis/common/2026-05-01_112900-proxy-config-vs-business-route.md`](../../feedback/history/apk-analysis/common/2026-05-01_112900-proxy-config-vs-business-route.md)
 
 ## Response 解碼流程
