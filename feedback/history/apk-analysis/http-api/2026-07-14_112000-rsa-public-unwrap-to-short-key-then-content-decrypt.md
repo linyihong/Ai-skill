@@ -34,8 +34,9 @@ Status: validated
 #### Agent Action
 
 1. Hook RSA decrypt＋getContentBody＋MD5 in one script；log inLen／outLen／stack.  
-2. Map who supplies RSA input（wire field vs file vs memory）.  
-3. Keep working keys out of docs； project notes name fields only when known.
+2. Map who supplies RSA input（wire field vs file vs memory）；compare on-disk blob size to content-decrypt inLen when files exist.  
+3. Record RSA block-size args（e.g. 128）separately from sign-header length families.  
+4. Keep working keys out of docs；project notes name fields only when known.
 
 #### Promotion Target
 
