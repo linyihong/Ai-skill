@@ -1,6 +1,6 @@
 # 3h6 — Traceability（可追溯 + 可停止）
 
-**Plan**: [`../../2026-07-14-0856-ui-pattern-knowledge-workflow.md`](../../2026-07-14-0856-ui-pattern-knowledge-workflow.md)  
+**Plan**: [`../_plan.md`](../_plan.md)  
 **Date**: 2026-07-14  
 **Mode**: experimental Trace Graph  
 **Deliverable**: Trace Graph with first-class **Waiver**（非 `recipe: null`）

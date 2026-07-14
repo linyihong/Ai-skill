@@ -1,6 +1,6 @@
 # Research Cycle 1 — Retrospective
 
-**Plan**: [`../2026-07-14-0856-ui-pattern-knowledge-workflow.md`](../2026-07-14-0856-ui-pattern-knowledge-workflow.md)  
+**Plan**: [`../_plan.md`](../_plan.md)  
 **Closed**: 2026-07-14  
 **Judgment basis**: hypotheses validated — **not** commit count, doc count, or Pattern count.
 

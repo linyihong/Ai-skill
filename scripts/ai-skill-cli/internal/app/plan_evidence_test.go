@@ -10,6 +10,7 @@ import (
 func TestValidatePlanEvidenceConvention_MissingReadme(t *testing.T) {
 	tmp := t.TempDir()
 	planDir := "plans/active/2026-07-08-test-plan"
+	writePlanFile(t, tmp, planDir+"/_plan.md", "# main\n")
 	writePlanFile(t, tmp, planDir+"/evidence/run-a.md", "# run\n")
 	got := validatePlanEvidenceConvention("", []string{planDir + "/evidence/run-a.md"}, tmp)
 	if got == "" || !strings.Contains(got, "missing evidence/README.md") {
@@ -20,6 +21,7 @@ func TestValidatePlanEvidenceConvention_MissingReadme(t *testing.T) {
 func TestValidatePlanEvidenceConvention_UnindexedFile(t *testing.T) {
 	tmp := t.TempDir()
 	planDir := "plans/active/2026-07-08-test-plan"
+	writePlanFile(t, tmp, planDir+"/_plan.md", "# main\n")
 	writePlanFile(t, tmp, planDir+"/evidence/README.md", "# Index\n\n## 引用規則\n\nx\n\n## Run 索引\n\n| a | b |\n")
 	writePlanFile(t, tmp, planDir+"/evidence/run-a.md", "# run\n")
 	got := validatePlanEvidenceConvention("", []string{planDir + "/evidence/run-a.md"}, tmp)
@@ -31,11 +33,48 @@ func TestValidatePlanEvidenceConvention_UnindexedFile(t *testing.T) {
 func TestValidatePlanEvidenceConvention_Pass(t *testing.T) {
 	tmp := t.TempDir()
 	planDir := "plans/active/2026-07-08-test-plan"
+	writePlanFile(t, tmp, planDir+"/_plan.md", "# main\n")
 	writePlanFile(t, tmp, planDir+"/evidence/README.md", "# Index\n\n## 引用規則\n\nx\n\n## Run 索引\n\n| Run | 檔案 |\n| 2d′ | [run-a.md](run-a.md) |\n")
 	writePlanFile(t, tmp, planDir+"/evidence/run-a.md", "# run\n")
 	got := validatePlanEvidenceConvention("", []string{planDir + "/evidence/run-a.md"}, tmp)
 	if got != "" {
 		t.Fatalf("want pass, got: %q", got)
+	}
+}
+
+func TestValidatePlanEvidenceConvention_MissingPlanMain(t *testing.T) {
+	tmp := t.TempDir()
+	planDir := "plans/active/2026-07-08-test-plan"
+	writePlanFile(t, tmp, planDir+"/evidence/README.md", "# Index\n\n## 引用規則\n\nx\n\n## Run 索引\n\n| Run | 檔案 |\n| a | [run-a.md](run-a.md) |\n")
+	writePlanFile(t, tmp, planDir+"/evidence/run-a.md", "# run\n")
+	got := validatePlanEvidenceConvention("", []string{planDir + "/evidence/run-a.md"}, tmp)
+	if got == "" || !strings.Contains(got, "missing _plan.md") {
+		t.Fatalf("want missing _plan.md block, got: %q", got)
+	}
+}
+
+func TestValidatePlanEvidenceConvention_FlatSiblingBlocked(t *testing.T) {
+	tmp := t.TempDir()
+	planDir := "plans/active/2026-07-08-test-plan"
+	writePlanFile(t, tmp, planDir+"/_plan.md", "# main in folder\n")
+	writePlanFile(t, tmp, planDir+".md", "# flat sibling still here\n")
+	writePlanFile(t, tmp, planDir+"/evidence/README.md", "# Index\n\n## 引用規則\n\nx\n\n## Run 索引\n\n| Run | 檔案 |\n| a | [run-a.md](run-a.md) |\n")
+	writePlanFile(t, tmp, planDir+"/evidence/run-a.md", "# run\n")
+	got := validatePlanEvidenceConvention("", []string{planDir + "/evidence/run-a.md"}, tmp)
+	if got == "" || !strings.Contains(got, "flat sibling") {
+		t.Fatalf("want flat sibling block, got: %q", got)
+	}
+}
+
+func TestValidatePlanEvidenceConvention_StagingFlatMainWithEvidenceDir(t *testing.T) {
+	tmp := t.TempDir()
+	planDir := "plans/active/2026-07-08-test-plan"
+	writePlanFile(t, tmp, planDir+".md", "# still flat\n")
+	writePlanFile(t, tmp, planDir+"/evidence/README.md", "# Index\n\n## 引用規則\n\nx\n\n## Run 索引\n\n| Run | 檔案 |\n| a | [run-a.md](run-a.md) |\n")
+	writePlanFile(t, tmp, planDir+"/evidence/run-a.md", "# run\n")
+	got := validatePlanEvidenceConvention("", []string{planDir + ".md"}, tmp)
+	if got == "" || !strings.Contains(got, "missing _plan.md") || !strings.Contains(got, "flat sibling") {
+		t.Fatalf("want block when staging flat main while evidence/ exists, got: %q", got)
 	}
 }
 

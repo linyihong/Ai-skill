@@ -50,7 +50,7 @@ revision:
 
 # UI Pattern Knowledge — Workflow 強化計畫
 
-**Status**: `in-progress` — Research Cycle 1 ✅ Closed · Phase 4 ⏸ Not Started · **Phase 4 Readiness ▶ Active** · [`phase4-readiness-gate.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/phase4-readiness-gate.md) · Retro [`research-cycle-1.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-1.md)  
+**Status**: `in-progress` — Research Cycle 1 ✅ Closed · Phase 4 ⏸ Not Started · **Phase 4 Readiness ▶ Active** · [`phase4-readiness-gate.md`](./evidence/phase4-readiness-gate.md) · Retro [`research-cycle-1.md`](./evidence/research-cycle-1.md)  
 
 **Owner**: linyihong  
 **建立日期**: 2026-07-14  
@@ -58,7 +58,7 @@ revision:
 **Glossary Impact**: yes — candidates（未註冊）：`ui_pattern_knowledge`、`pattern_selection_rules`、`pattern_composition`、`pattern_family`、`implementation_recipe`、`pattern_prompt_expansion`、`pattern_knowledge_core|extended`、`pattern_evidence_level`（verified / observed / …）。舊詞 `ui_pattern_vocabulary` = 子能力。graduate 後才註冊。
 **D9 clock**: `in-progress` since **2026-07-14**（T1 三月時距起算點）
 
-> **Watch-Out List citation**（[`architecture/ai-native-cognitive-ecosystem-system.md`](../../architecture/ai-native-cognitive-ecosystem-system.md) §Watch-Out List）：
+> **Watch-Out List citation**（[`architecture/ai-native-cognitive-ecosystem-system.md`](../../../architecture/ai-native-cognitive-ecosystem-system.md) §Watch-Out List）：
 > - **process bloat** — 不新建 lifecycle；不建 Intent Ontology / Design-System 百科；Prompt checklist **不**每次 commit。
 > - **premature abstraction** — platform_map 只留三層；Material/iOS/Fluent 若需要另開 `platform-adapter`，不混進 Pattern Knowledge。
 > - **autonomous optimizer** — Expansion = 從 Knowledge 展開 transient checklist，不是自動改設計。
@@ -134,7 +134,7 @@ UI Contracts → Pattern Knowledge Lock → Design Contract → Implement → UI
 
 - Owner：`workflow/software-delivery/`  
 - 規則種子：Ai-skill；採用名 / composition / project alias：consumer 專案  
-- **掛點（Q1 已決議）**：Pattern Knowledge Lock 寫入 [`ui-contracts.md`](../../workflow/software-delivery/ui-contracts.md)。Screen Mapping 仍不承載 framework pattern 細節；Lock 是 **選型閘門 + template 指標**，與 Screen Mapping 章節分開（新增小節，不塞進 mapping 表）。  
+- **掛點（Q1 已決議）**：Pattern Knowledge Lock 寫入 [`ui-contracts.md`](../../../workflow/software-delivery/ui-contracts.md)。Screen Mapping 仍不承載 framework pattern 細節；Lock 是 **選型閘門 + template 指標**，與 Screen Mapping 章節分開（新增小節，不塞進 mapping 表）。  
 - 不開六道 slice / 不開 Intent repository
 
 #### D2 — Schema = Core + Extended（Q8 決議）
@@ -454,12 +454,12 @@ workflow/software-delivery/
   Scrim ×2 · Modal Dialog ×2 · Bottom Sheet ×2 · Drawer ×2 · Toast ×2
 ```
 
-- [x] 證據檔：[`evidence/selection-scenarios.yaml`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/selection-scenarios.yaml)（十案定義）  
-- [x] 證據檔：[`evidence/2a-family-inferability-run.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/2a-family-inferability-run.md)（逐案 PASS/FAIL + rule trace）— **10/10 PASS**（rule-trace，2026-07-14）  
+- [x] 證據檔：[`evidence/selection-scenarios.yaml`](./evidence/selection-scenarios.yaml)（十案定義）  
+- [x] 證據檔：[`evidence/2a-family-inferability-run.md`](./evidence/2a-family-inferability-run.md)（逐案 PASS/FAIL + rule trace）— **10/10 PASS**（rule-trace，2026-07-14）  
 - [x] toast.`family` = `feedback`（與 overlay 決策分開，作為 Family 邊界 dogfood）  
 - [x] 依序強化五件 selection_rules / neighbors，使十案可推出正確答案  
 - [x] 本 Phase **未**新增其他 pattern entry（遵守）  
-- [x] Closure：[`evidence/phase2-summary.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/phase2-summary.md)  
+- [x] Closure：[`evidence/phase2-summary.md`](./evidence/phase2-summary.md)  
 - [ ]（次要，defer）`<PROJECT_ROOT>` project alias / recipe partial — 不計入本 Phase gate
 
 **Dogfood loop pointer（#4 defer）**：三角色可選；非完成條件。
@@ -481,8 +481,8 @@ workflow/software-delivery/
 
 > 名稱用 **Pattern Composition**。驗證單位 = **Screen**。核心能力 = **Composability**。  
 > **審查對象轉變**：不再驗「知識本體」，而驗 **知識之間的約束（constraints）**。Phase 2 審 Selection；Phase 3 審 Constraint。  
-> Start lock：[`evidence/phase3-start.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/phase3-start.md)  
-> Cross-plan rhythm：[`Architecture Evolution Protocol` §Layer Growth Rhythm](../../governance/lifecycle/architecture-evolution-protocol.md#appendix--layer-growth-rhythmoptional-governance-pattern)（*Grow one layer, freeze the previous*）
+> Start lock：[`evidence/phase3-start.md`](./evidence/phase3-start.md)  
+> Cross-plan rhythm：[`Architecture Evolution Protocol` §Layer Growth Rhythm](../../../governance/lifecycle/architecture-evolution-protocol.md#appendix--layer-growth-rhythmoptional-governance-pattern)（*Grow one layer, freeze the previous*）
 
 **一句目標**：證明多個 Pattern Knowledge 能共同工作，且彼此不污染。
 
@@ -554,7 +554,7 @@ Path B waived:    Screen → Deferred → Disposition → Waive Recipe (reason r
 | **T2** | Deferred：`disposition` + `waive_reason` + `owner`（Deferred 不可成黑洞） |
 | **T3** | 無 Broken Edge（`?????`）；終點只能是 Recipe **或** Waived |
 
-Evidence：[`3h6-traceability.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3h6-traceability.md)
+Evidence：[`3h6-traceability.md`](./evidence/3h6-traceability.md)
 
 ### Composition Metrics（方向 > 絕對值）
 
@@ -568,9 +568,9 @@ Evidence：[`3h6-traceability.md`](./2026-07-14-0856-ui-pattern-knowledge-workfl
 Composition Complexity ↑  →  Entry Stability still = 0
 ```
 
-進度見 [`evidence/3-metrics.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3-metrics.md)。  
-H4：[`3h4-independence-stress.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3h4-independence-stress.md)。  
-H5：[`3h5-completeness-disposition.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3h5-completeness-disposition.md)。
+進度見 [`evidence/3-metrics.md`](./evidence/3-metrics.md)。  
+H4：[`3h4-independence-stress.md`](./evidence/3h4-independence-stress.md)。  
+H5：[`3h5-completeness-disposition.md`](./evidence/3h5-completeness-disposition.md)。
 
 ### Scope 鎖死
 
@@ -578,14 +578,14 @@ H5：[`3h5-completeness-disposition.md`](./2026-07-14-0856-ui-pattern-knowledge-
 
 ### Artifacts
 
-- [x] Pattern Tree：[`compositions/episode_detail.yaml`](../../workflow/software-delivery/ui-pattern-knowledge/compositions/episode_detail.yaml)  
-- [x] Constraints：[`composition_rules.yaml`](../../workflow/software-delivery/ui-pattern-knowledge/composition_rules.yaml)  
-- [x] Start lock：[`evidence/phase3-start.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/phase3-start.md)  
-- [x] Metrics baseline：[`evidence/3-metrics.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3-metrics.md)  
-- [x] **H4 mini-cycle** evidence（Independence stress）— [`3h4-independence-stress.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3h4-independence-stress.md)  
-- [x] **H5 mini-cycle** evidence（Deferred disposition）— [`3h5-completeness-disposition.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3h5-completeness-disposition.md)  
-- [x] **H6 mini-cycle** evidence（Trace Graph）— [`3h6-traceability.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3h6-traceability.md)  
-- [x] Metrics 終值記入 Closure（[`3-metrics.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3-metrics.md)）  
+- [x] Pattern Tree：[`compositions/episode_detail.yaml`](../../../workflow/software-delivery/ui-pattern-knowledge/compositions/episode_detail.yaml)  
+- [x] Constraints：[`composition_rules.yaml`](../../../workflow/software-delivery/ui-pattern-knowledge/composition_rules.yaml)  
+- [x] Start lock：[`evidence/phase3-start.md`](./evidence/phase3-start.md)  
+- [x] Metrics baseline：[`evidence/3-metrics.md`](./evidence/3-metrics.md)  
+- [x] **H4 mini-cycle** evidence（Independence stress）— [`3h4-independence-stress.md`](./evidence/3h4-independence-stress.md)  
+- [x] **H5 mini-cycle** evidence（Deferred disposition）— [`3h5-completeness-disposition.md`](./evidence/3h5-completeness-disposition.md)  
+- [x] **H6 mini-cycle** evidence（Trace Graph）— [`3h6-traceability.md`](./evidence/3h6-traceability.md)  
+- [x] Metrics 終值記入 Closure（[`3-metrics.md`](./evidence/3-metrics.md)）  
 - [x] **Invariant**：Entry Modifications = 0（H4+H5+H6）
 
 ### Knowledge-layer maturity（非「Phase 完成 %」）
@@ -599,7 +599,7 @@ H5：[`3h5-completeness-disposition.md`](./2026-07-14-0856-ui-pattern-knowledge-
 | Interaction Knowledge | ⚪ **Not yet justified** | 缺證成新 Layer 的理由（≠缺觀察） |
 
 **Composition Closure（2026-07-14）**：✅ Pattern Tree Validated — H4∧H5∧H6 + Entry Mods=0。  
-**Research Cycle 1**：✅ CLOSED — [`evidence/research-cycle-1.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-1.md)  
+**Research Cycle 1**：✅ CLOSED — [`evidence/research-cycle-1.md`](./evidence/research-cycle-1.md)  
 **Domain**：Pattern + Composition · **Method**：Growth / Constraint Accumulation / Trace Termination / Readiness-before-New-Layer
 
 ### Exit Gate = **Composition Closure**
@@ -616,7 +616,7 @@ H5：[`3h5-completeness-disposition.md`](./2026-07-14-0856-ui-pattern-knowledge-
 ## Phase 4 — ⏸ Not Started · Readiness ▶ Active
 
 > **不直接開 Phase 4。** Cycle 1 證明的是方法，尚未證明 Interaction 是新 Layer。  
-> Canonical gate：[`evidence/phase4-readiness-gate.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/phase4-readiness-gate.md)
+> Canonical gate：[`evidence/phase4-readiness-gate.md`](./evidence/phase4-readiness-gate.md)
 
 ### 階段狀態
 

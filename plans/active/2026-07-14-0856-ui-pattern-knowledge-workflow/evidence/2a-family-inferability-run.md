@@ -1,6 +1,6 @@
 # 2a — Phase 2 Family Inferability Run
 
-**Plan**: [`../`](../../2026-07-14-0856-ui-pattern-knowledge-workflow.md)  
+**Plan**: [`../`](../_plan.md)  
 **Scenarios**: [`selection-scenarios.yaml`](selection-scenarios.yaml)  
 **Date**: 2026-07-14  
 **Method**:

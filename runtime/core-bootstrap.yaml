@@ -467,9 +467,12 @@ per_commit_obligations:
     opt_out_marker: "[skip-plan-evidence]"
     contract_source: governance/lifecycle/plan-evidence.md
     rationale: |
-      When a plan folder uses evidence/, every record file must live under
-      evidence/ with a README index. Citations use file paths (evidence/foo.md),
-      not line numbers (L449), to survive edits and tool read offsets.
+      When a plan folder uses evidence/, (1) the main plan MUST live in-folder
+      as _plan.md — block missing _plan.md and block flat sibling
+      plans/{active|archived}/<slug>.md while <slug>/evidence/ exists;
+      (2) every record file must live under evidence/ with a README index.
+      Citations use file paths (evidence/foo.md), not line numbers (L449),
+      to survive edits and tool read offsets.
       warnPlanEvidenceLineNumberCitations is advisory-only (hooks Check warning).
   - id: obligation.commit.runtime_index_freshness
     fires: every_commit_staging_markdown_other_than_runtime_index_only

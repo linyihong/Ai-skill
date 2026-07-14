@@ -2,6 +2,8 @@
 
 本目錄存放本 plan 的 **dogfood / 量測 / 契約回饋** 全文。`_plan.md` 與 companion 檔（如 `01-dogfood-prompt-kit.md`）只留摘要與連結。
 
+> **主計畫吸收**：使用 `evidence/` 時，主紀錄必須在資料夾內的 `_plan.md`；禁止頂層仍留 `<slug>.md`。
+
 ## 引用規則（避免行號漂移）
 
 | 做法 | 說明 |

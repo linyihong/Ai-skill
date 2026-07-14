@@ -1,6 +1,6 @@
 # Phase 2 Closure Evidence — Pattern Knowledge Inferability
 
-**Plan**: [`../../2026-07-14-0856-ui-pattern-knowledge-workflow.md`](../../2026-07-14-0856-ui-pattern-knowledge-workflow.md)  
+**Plan**: [`../_plan.md`](../_plan.md)  
 **Date**: 2026-07-14  
 **Gate decision**: Phase 2 **Completed** → Phase 3 **Start**
 

@@ -1,6 +1,6 @@
 # Phase 4 Readiness Gate
 
-**Plan**: [`../2026-07-14-0856-ui-pattern-knowledge-workflow.md`](../2026-07-14-0856-ui-pattern-knowledge-workflow.md)  
+**Plan**: [`../_plan.md`](../_plan.md)  
 **Status**: ▶ **Active**（設計凍結 — 不再往前設計 Phase 4）  
 **Phase 4 / Research Cycle 2**: ⏸ **Not Started** · Interaction Knowledge = **Not yet justified**  
 **Date opened**: 2026-07-14

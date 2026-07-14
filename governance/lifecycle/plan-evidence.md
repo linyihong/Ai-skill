@@ -26,6 +26,8 @@ plans/{active|archived}/<YYYY-MM-DD-HHMM-slug>/
 
 **與 flat cluster 的關係**：頂層 `<slug>.md` + `<slug>-dogfood-evidence.md` 應 **folderize** 為上列佈局；dogfood 全文進 `evidence/`，不要與 `_plan.md` 同檔堆疊。見 [`plans/README.md`](../../plans/README.md) §扁平多檔 → 資料夾。
 
+**主計畫吸收（強制）**：一旦出現 `plans/.../<slug>/evidence/`，主紀錄**必須**在資料夾內的 `_plan.md`。禁止反模式：頂層仍留 `<slug>.md`、資料夾只放 `evidence/`。遷移：`git mv plans/active/<slug>.md plans/active/<slug>/_plan.md`（或 `ai-skill plans folderize`）。
+
 ## 引用規則（強制紀律）
 
 | 規則 | 說明 |
@@ -47,7 +49,7 @@ plans/{active|archived}/<YYYY-MM-DD-HHMM-slug>/
 
 | Validator | Severity | 規則 |
 |---|---|---|
-| `validatePlanEvidenceConvention` | **block** | staging `.../evidence/**` 時：`evidence/README.md` 必須存在；每個 `evidence/*.md`（除 README）須在 README 內被引用；README 須含「引用規則」與「Run 索引」 |
+| `validatePlanEvidenceConvention` | **block** | staging `.../evidence/**` **或** staging 頂層 `<slug>.md` 且 `<slug>/evidence/` 已存在時：(1) 必須有 `<slug>/_plan.md`；(2) **禁止**仍存在頂層 `<slug>.md`；(3) `evidence/README.md` 必須存在；(4) 每個 `evidence/*.md`（除 README）須在 README 內被引用；(5) README 須含「引用規則」與「Run 索引」 |
 | `validatePlanTreeFolderConvention` | warning | `evidence/` 內檔名**豁免** `NN-` 前綴；`plans/.../<slug>/evidence/<file>.md` 深度視為合法（不觸發 depth≥3 warning） |
 | `warnPlanEvidenceLineNumberCitations` | **warning**（不 block） | 同 plan folder 內 staged `.md` 出現 `\bL\d+\b` 行號引用時提醒改用檔案路徑 |
 

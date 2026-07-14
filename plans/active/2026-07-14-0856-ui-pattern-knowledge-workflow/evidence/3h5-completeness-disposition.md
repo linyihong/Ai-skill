@@ -1,6 +1,6 @@
 # 3h5 — Completeness via Deferred Disposition
 
-**Plan**: [`../../2026-07-14-0856-ui-pattern-knowledge-workflow.md`](../../2026-07-14-0856-ui-pattern-knowledge-workflow.md)  
+**Plan**: [`../_plan.md`](../_plan.md)  
 **Date**: 2026-07-14  
 **Mode**: experimental（停補 Pattern；從 Deferred 開始）
 

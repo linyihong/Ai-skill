@@ -1,6 +1,6 @@
 # Phase 3 Start Lock — Composability
 
-**Plan**: [`../../2026-07-14-0856-ui-pattern-knowledge-workflow.md`](../../2026-07-14-0856-ui-pattern-knowledge-workflow.md)  
+**Plan**: [`../_plan.md`](../_plan.md)  
 **Date**: 2026-07-14  
 **Status**: Phase 3 **formally started**
 

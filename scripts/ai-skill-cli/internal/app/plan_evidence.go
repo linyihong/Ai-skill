@@ -1,11 +1,13 @@
 package app
 
-// Plan evidence validators (2026-07-09).
+// Plan evidence validators (2026-07-09; main-absorbed rule 2026-07-15).
 //
 // Enforces the evidence/ subdirectory convention documented in
 // governance/lifecycle/plan-evidence.md:
 //
-//   - validatePlanEvidenceConvention     block    README + index sync for evidence/
+//   - validatePlanEvidenceConvention     block    README + index sync for evidence/;
+//                                                 evidence/ implies folder main (_plan.md);
+//                                                 block flat sibling <slug>.md when evidence/ exists
 //   - warnPlanEvidenceLineNumberCitations warning  discourage L123 line refs in plan folder
 //
 // See: plans/templates/plan-evidence/README.md
@@ -96,26 +98,66 @@ func readmeReferencesFile(readmeBody, filename string) bool {
 	return strings.Contains(readmeBody, filename)
 }
 
-// validatePlanEvidenceConvention enforces evidence/README.md presence and index
-// coverage when any file under .../evidence/ is staged.
-func validatePlanEvidenceConvention(text string, staged []string, root string) string {
-	if hasOptOutTrailer(text, "[skip-plan-evidence]") {
-		return ""
-	}
-	stagedEv := stagedPlanEvidencePaths(staged)
-	if len(stagedEv) == 0 {
-		return ""
-	}
-
+// collectPlanDirsForEvidenceConvention returns plan folders that must satisfy
+// the evidence convention for this commit:
+//   - any staged path under .../evidence/
+//   - any staged top-level plans/{active|archived}/<slug>.md while <slug>/evidence/ exists
+func collectPlanDirsForEvidenceConvention(staged []string, root string) map[string]bool {
 	planDirs := map[string]bool{}
-	for _, p := range stagedEv {
+	for _, p := range stagedPlanEvidencePaths(staged) {
 		if dir, ok := planDirFromEvidencePath(p); ok {
 			planDirs[dir] = true
 		}
 	}
+	for _, s := range staged {
+		s = filepath.ToSlash(s)
+		if !strings.HasPrefix(s, "plans/active/") && !strings.HasPrefix(s, "plans/archived/") {
+			continue
+		}
+		if !strings.HasSuffix(strings.ToLower(s), ".md") {
+			continue
+		}
+		parts := strings.Split(s, "/")
+		// plans/active/<slug>.md only (top-level flat main)
+		if len(parts) != 3 {
+			continue
+		}
+		planDir := strings.TrimSuffix(s, ".md")
+		evDir := filepath.Join(root, planDir, "evidence")
+		if st, err := os.Stat(evDir); err == nil && st.IsDir() {
+			planDirs[planDir] = true
+		}
+	}
+	return planDirs
+}
+
+// validatePlanEvidenceConvention enforces evidence/README.md presence, index
+// coverage, and main-plan absorption (_plan.md inside the folder; no flat
+// sibling <slug>.md) when evidence/ is in play for the commit.
+func validatePlanEvidenceConvention(text string, staged []string, root string) string {
+	if hasOptOutTrailer(text, "[skip-plan-evidence]") {
+		return ""
+	}
+	planDirs := collectPlanDirsForEvidenceConvention(staged, root)
+	if len(planDirs) == 0 {
+		return ""
+	}
 
 	var violations []string
 	for planDir := range planDirs {
+		mainRel := planDir + "/_plan.md"
+		if _, ok := readFileString(root, mainRel); !ok {
+			violations = append(violations, fmt.Sprintf(
+				"%s: missing _plan.md — when evidence/ is used, the main plan must live in the folder as _plan.md (not a sibling <slug>.md)",
+				planDir))
+		}
+		flatSibling := planDir + ".md"
+		if st, err := os.Stat(filepath.Join(root, flatSibling)); err == nil && !st.IsDir() {
+			violations = append(violations, fmt.Sprintf(
+				"%s: flat sibling %s still exists — move it to %s/_plan.md before using evidence/ (ai-skill plans folderize or git mv)",
+				planDir, flatSibling, planDir))
+		}
+
 		readmeRel := planDir + "/evidence/README.md"
 		readmeBody, readmeOK := readFileString(root, readmeRel)
 		if !readmeOK {
