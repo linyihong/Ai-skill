@@ -468,3 +468,17 @@ branch：<branch-name>（已 commit，未 merge）
 - **摘要**：03 S2′ `mirror_status` slice 首发即 **orchestrator Shell 写码 + SURGICAL_BYPASS**；用户「commit 后执行」未触发 Executor/Verifier；plan checkbox 早于独立验证。
 - **量測**：Executor spawn **0**；Verifier spawn **0**；SURGICAL_BYPASS **≥1**（整 slice）；Shell 绕过 preToolUse **是**；stakeholder 质问后承认违规 **1**。
 - **契约回饋**：`shell-managecode-write-guard`、`surgical-bypass-narrowing`、`execute-repeat-offense`、`checkbox-after-verifier-only`、`retroactive-r1-verifier`（见 evidence §契约回饋）。
+
+> **2m–2s**：全文僅在 [`evidence/`](evidence/)；kit 不重複正文。
+
+### 2t — APK ↔ SD Capability Handoff（預註冊，2026-07-14，尚未跑）
+
+> 契約全文：[`04-apk-capability-handoff-boundary.md`](04-apk-capability-handoff-boundary.md)。證據檔：run 時新增 `evidence/2t-apk-capability-handoff.md`。
+
+| Track | 驗什麼 | 鐵則 |
+|---|---|---|
+| **2t-A** Discovery | Decision = *Can we explain the APK?*；Discovery Evidence 鏈 | **不**強制三角色；措辭 = candidate workflow |
+| **2t-B** Handoff→SD | 僅 Assessment=Yes；Capability Proposal → SD Intake → **既有** Delegated Execution | SD brief **零** Frida/mitm；F1–F4 預註冊 |
+
+- **啟動**：指定真實 APK `<PROJECT_ROOT>`。
+- **不**：填 Knowledge；宣稱 APK Delegated Execution 已驗證；偽造 Capability Proposal。

@@ -48,16 +48,18 @@ revision:
     note: "Sync 跨域表：Research 改標 2e 已驗證；Architecture / Knowledge 仍 analogy；紀律邊界與 adoption stage 2 進度同步"
   - date: 2026-07-14
     note: "Dogfood 2s — Architecture 域：UI Pattern Knowledge plan review（R1+R2 Verifier）；跨域表 Architecture→已驗證；stage 2 = 2/3（Knowledge 仍缺）；evidence/2s-…"
+  - date: 2026-07-14
+    note: "Domain Boundary — APK Analysis ↔ Software Delivery Capability Handoff（不對稱成熟度）；companion 04；預註冊 dogfood 2t（2t-A Discovery / 2t-B Handoff→SD Intake）；不套三角色於 apk-analysis"
 ---
 
 # Delegation Verification & Arbitration Loop（委派執行→獨立驗證→仲裁閉環）
 
-**Status**: `in-progress`（Phase 0–2 完成；外部 monorepo dogfood **2a–2q** + consumer **2o/2r**；跨域 **2e Research** + **2s Architecture**；**2n/2p 正向闭环**；Phase 3 / closure **仍不收斂** — Q5 schema promotion open，deadline 2026-08-31；stage 2 **2/3** Knowledge 仍缺）
+**Status**: `in-progress`（Phase 0–2 完成；外部 monorepo dogfood **2a–2q** + consumer **2o/2r**；跨域 **2e Research** + **2s Architecture**；**2n/2p 正向闭环**；**2t 預註冊** APK↔SD Capability Handoff（見 [`04-apk-capability-handoff-boundary.md`](04-apk-capability-handoff-boundary.md)，未跑）；Phase 3 / closure **仍不收斂** — Q5 schema promotion open，deadline 2026-08-31；stage 2 **2/3** Knowledge 仍缺）
 **Owner**: linyihong
 **建立日期**: 2026-07-08
-**Source**: 2026-07-08 對話 — 使用者觀察到外部框架的三角色模式：主 session 只做規劃 / 切分 / 仲裁，執行交給獨立 agent session，驗證再交給另一個獨立 session，最後由主 session 仲裁每條驗證發現（要修 / 超出範圍 / 駁回）。目標：補漏「預計與實現的落差」。主要針對 `workflow/software-delivery` 的交付處理；Ai-skill 自身任務比照辦理，觀察品質是否提升。
+**Source**: 2026-07-08 對話 — 使用者觀察到外部框架的三角色模式：主 session 只做規劃 / 切分 / 仲裁，執行交給獨立 agent session，驗證再交給另一個獨立 session，最後由主 session 仲裁每條驗證發現（要修 / 超出範圍 / 駁回）。目標：補漏「預計與實現的落差」。主要針對 `workflow/software-delivery` 的交付處理；Ai-skill 自身任務比照辦理，觀察品質是否提升。**2026-07-14 延伸**：真實 APK 分析專案進入視野 → 落實 Domain vs Workflow 邊界（APK Discovery candidate ≠ SD Delegated Execution validated）；Capability Handoff 為 Domain Boundary，非把三角色套到 apk-analysis。
 **Baseline**: [`03-subplan-agent-delegation`](../../archived/2026-06-22-1009-plans-system-portability-and-delivery-integration/03-subplan-agent-delegation.md)（completed，2026-07-06）— delegation `brief` schema + 雙路徑 dogfood ★★★★☆。本 plan 是其 loop 延伸（情境 C：sibling main plan + baseline_ref，不重開該 tree）。
-**Glossary Impact**: yes — candidate terms：`independent_verification`（fresh-context 驗證 leg，非 executor 自驗、非 orchestrator 自 review）、`arbitration`（orchestrator 對 verifier findings 的處置協議：fix / defer / reject）、`evidence_driven_control_loop`（四責任閉環通用化候選，Q6 gated）、`evidence_responsibility_architecture`（ERA，Q8 假說，第四輪 review 命名）、`evidence_first_acceptance`（Q7 結論的 universal 候選，parent of backfill / embedded evidence rules）、`behavioral_falsification`（V3 evidence producer family 候選，Q9 gated）。見 §架構收斂觀察。graduate 時才註冊到 `knowledge/glossary/ai-skill.md`；未定稿前不註冊。
+**Glossary Impact**: yes — candidate terms：`independent_verification`（fresh-context 驗證 leg，非 executor 自驗、非 orchestrator 自 review）、`arbitration`（orchestrator 對 verifier findings 的處置協議：fix / defer / reject）、`evidence_driven_control_loop`（四責任閉環通用化候選，Q6 gated）、`evidence_responsibility_architecture`（ERA，Q8 假說，第四輪 review 命名）、`evidence_first_acceptance`（Q7 結論的 universal 候選，parent of backfill / embedded evidence rules）、`behavioral_falsification`（V3 evidence producer family 候選，Q9 gated）、`capability_handoff` / `deliverable_capability` / `discovery_evidence`（2026-07-14 Domain Boundary；見 [`04`](04-apk-capability-handoff-boundary.md)）。見 §架構收斂觀察。graduate 時才註冊到 `knowledge/glossary/ai-skill.md`；未定稿前不註冊。
 
 > **Watch-Out List citation**：對應 [`architecture/ai-native-cognitive-ecosystem-system.md`](../../../architecture/ai-native-cognitive-ecosystem-system.md) §Watch-Out List 的「process bloat」「premature abstraction」「over-engineering」防呆：
 > - **不建自動 orchestrator** — 03 的 reservation 邊界維持不變；本 plan 是**角色協議**（主 session 人工扮演 orchestrator），不是 automation。
@@ -189,8 +191,16 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 | Research | Research agent | Fact checker | Planner | **已驗證（2e）** — grandfather sunset audit |
 | Architecture | Designer | Architecture reviewer | Architect | **已驗證（2s）** — UI Pattern Knowledge plan review |
 | Knowledge | Extractor | Evidence validator | Knowledge maintainer | analogy，無真實 run |
+| **APK Analysis** | Discovery / RE producer |（尚無獨立 Verifier 契約）| Capability Assessment（*Can we explain?*） | **Domain Knowledge 成熟**；Discovery workflow = **candidate**；Delegated Execution = **未宣稱**（見 [`04`](04-apk-capability-handoff-boundary.md)；dogfood **2t** 預註冊） |
 
-**紀律邊界（依 falsification ladder / governance veto test）**：真實證據目前在 delivery 域（2b / 2a-external / 2c / **2d**…）+ **Research（2e）** + **Architecture（2s）**；Knowledge 在有真實 run 前維持 analogy。「很像 ≠ 同 family」。Q6 最低門檻（≥1 非 delivery 域）已由 2e 滿足；adoption stage 2「三域各一輪」= Research ✅ / Architecture ✅ / **Knowledge 仍缺（2/3）**。通用化定位——graduate 時以「Evidence-driven Closed Control Loop（Specification → Production → Independent Evidence → Arbitration → Specification）」取代「Delegation」——列為 Q6，改名裁決留 Phase 3；在此之前 SOP 維持 delegation 措辭，不新增通用 primitive、不改名、不建跨域框架。
+**紀律邊界（依 falsification ladder / governance veto test）**：真實證據目前在 delivery 域（2b / 2a-external / 2c / **2d**…）+ **Research（2e）** + **Architecture（2s）**；Knowledge 在有真實 run 前維持 analogy。「很像 ≠ 同 family」。**APK Analysis 不得因為與 SD 共用 ERA Decision Semantics，就被標成 Delegated Execution 已驗證**——成熟度不對稱是刻意的（2026-07-14 stakeholder）。Q6 最低門檻（≥1 非 delivery 域）已由 2e 滿足；adoption stage 2「三域各一輪」= Research ✅ / Architecture ✅ / **Knowledge 仍缺（2/3）**；**2t 不填 Knowledge、不偷換 stage 2**。通用化定位——graduate 時以「Evidence-driven Closed Control Loop（Specification → Production → Independent Evidence → Arbitration → Specification）」取代「Delegation」——列為 Q6，改名裁決留 Phase 3；在此之前 SOP 維持 delegation 措辭，不新增通用 primitive、不改名、不建跨域框架。
+
+**第十三輪 review（使用者，2026-07-14）——Domain vs Workflow 邊界落實（APK ↔ SD）**：
+
+1. **Handoff 觸發 ≠ 分析完成**，= **形成 deliverable capability**（SDK / Client / Contract / OpenAPI / BDD / tests / library）。API catalog、protocol、crypto/UI/event model 仍是 Discovery Evidence。
+2. **Capability Handoff = Domain Boundary 契約**，不是 apk-analysis workflow 多一步；SD Intake 只吃 Capability Proposal，不吃 Frida/mitm。
+3. **不對稱寫法強制**：apk-analysis = Current Workflow（candidate）；software-delivery = Delegated Execution（validated）。禁止直接複製三角色到 APK。
+4. **既有** [`feature-handoff`](../../../workflow/apk-analysis/artifact-gates/feature-handoff.md) **保留為 artifact gate**；Capability Proposal 是其上界（「能重建」≠「能交付」）。全文與 dogfood 預註冊見 [`04-apk-capability-handoff-boundary.md`](04-apk-capability-handoff-boundary.md)。
 
 **Execution Pattern ≠ Role Topology（使用者 review 第二輪，2026-07-08）**：穩定的候選是**四責任**（Spec → Produce → Evidence → Decision），不是三角色。Role topology 是 domain-variable 實例化——Research 可能是 Planner → Research Agent → Fact Checker → Planner、Knowledge 是 Curator → Extractor → Validator → Curator、Architecture 是 Architect → Designer → Architecture Review → Architect；角色名全換、四責任不變。**Q6 驗的是 pattern（四責任是否自然收斂），不是 topology（角色名是否對得上）**。
 
@@ -430,6 +440,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 - [x] **2q — ExternalRepoC transport inner-only runtime gap** — 2026-07-13 **负向/纠偏**（[`evidence/2q-externalrepoc-transport-inner-only-runtime-gap.md`](evidence/2q-externalrepoc-transport-inner-only-runtime-gap.md)）；loop 绿≠路径通；features+L3+V5；**不**视为 Phase 3 closure
 - [x] **2r — <PROJECT_ROOT> player overlay Mode A hit-trap** — 2026-07-13 **负向证据**（[`evidence/2r-consumer-player-overlay-mode-a-hit-trap.md`](evidence/2r-consumer-player-overlay-mode-a-hit-trap.md)）；soft-nav 绿→cold URL 全死；programmatic click / 单入口假绿；consumer entry-path 矩阵回馈；**不**视为 Phase 3 closure
 - [x] **2s — 跨域 run（Architecture 域）：UI Pattern Knowledge plan review** — 2026-07-14（[`evidence/2s-architecture-ui-pattern-knowledge-plan-review.md`](evidence/2s-architecture-ui-pattern-knowledge-plan-review.md)）；R1+R2 Task Verifier；stakeholder 仲裁；**不**填 Knowledge 格；**不**視為 UI Pattern Knowledge Phase 1 完成；**不**視為 Phase 3 closure
+- [ ] **2t — APK Analysis ↔ Software Delivery Capability Handoff（預註冊，2026-07-14）** — 契約與雙軌設計見 [`04-apk-capability-handoff-boundary.md`](04-apk-capability-handoff-boundary.md)。**2t-A**：真實 APK Discovery（candidate workflow；Decision = *Can we explain?*；**不**強制三角色）。**2t-B**（僅 Capability Assessment = Yes）：Capability Proposal → SD Intake → **既有** Delegated Execution。預註冊 F1–F4。**不**填 Knowledge；**不**宣稱 APK Delegated Execution 已驗證；**不**視為 Phase 3 closure。啟動：指定 consumer `<PROJECT_ROOT>` 後開 `evidence/2t-…`
 - [x] **2e — 跨域 run（Research/Audit 域）：grandfather sunset audit** ✅ — 2026-07-08–09（[`evidence/2e-grandfather-sunset-audit.md`](evidence/2e-grandfather-sunset-audit.md)）；Q6/Q7(b)/Q8 的 stage-2 裁決 run。完整 loop：調查者（worktree，252 行報告 `c8ff035`，中斷後 resume 完成）→ 事實查核者（fresh，引文逐條命中、5 surfaces 獨立重跑一致、findings ×2 全 observation）→ 仲裁（defer×2，無 fix）。**實質產出**：5/5 surfaces 已 wired、flag 條款過時、延展不觸發、sunset 只剩行政收尾（處置決定保留 maintainer，見 `02-grandfather-sunset-audit.md`）。**跨域觀察**：四責任自然成立（topology 不同：+maintainer 第二層 decision）；backfill 結構化形式明確缺席、弱形式（evidence-first acceptance）出現；證據責任四問同構重現（含「自產證據不能自我關閉」跨域不變式）——詳 kit §2e Q6/Q7/Q8 觀察表
 - [x] 回饋迴路（2b 觸發 ×1）：F2 暴露 brief v1 缺「reusable doc 目標須含 tool-neutral 措辭條款」→ brief v2 追加 acceptance 9、kit 使用說明補教訓；修契約未修執行者；fix leg 重跑通過。2a 若再暴露缺漏比照處理。
 
@@ -463,7 +474,8 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 | 抽象凍結 | **Phase 3 前不再提升抽象層級**（第八輪 review，2026-07-09）：v2 = 正式工作模型、v3 = 候選；後續只收證據，觀察焦點 = Constraint / Selection Responsibility 是否自然分離；v3 升格需 3–4 域重複出現分離 |
 | 研究線凍結 + Phase 3 定位 | **Line-level freeze**（第九輪 review，2026-07-09）：研究線收官；**Phase 3 = 驗證穩定性非研究抽象**——量尺為「新案例是否不改模型自然落位」（predictive vs retrospective power）。Post-Phase-3 候選主題：**Evidence Lifecycle**（登記不展開） |
 | 驗證 leg | 復用 review capability `fault_finding` stance invoke，不另定 stance |
-| 適用範圍 | **Execute 意圖（「開始執行 plan / sub-plan / slice」）= mandatory 三角色 loop**（2j F2 stakeholder 裁決，2026-07-10）——`delegation.enabled: false` **不是豁免**：Execute 前 orchestrator 須翻 `true` + 補 backfill，或 plan 明記 transport adaptation；advisory 僅限非 Execute 情境（純問答 / 只讀審計 / surgical 小修）。主打 software-delivery，Ai-skill 比照 |
+| 適用範圍 | **Execute 意圖（「開始執行 plan / sub-plan / slice」）= mandatory 三角色 loop**（2j F2 stakeholder 裁決，2026-07-10）——`delegation.enabled: false` **不是豁免**：Execute 前 orchestrator 須翻 `true` + 補 backfill，或 plan 明記 transport adaptation；advisory 僅限非 Execute 情境（純問答 / 只讀審計 / surgical 小修）。主打 software-delivery，Ai-skill 比照。**APK Analysis Discovery 不在此 mandatory 範圍**（無三角色證據；見 Domain Boundary 列） |
+| Domain Boundary（APK ↔ SD） | **Capability Handoff**（2026-07-14）：觸發 = deliverable capability，非 analysis-complete；輸入 = Capability Proposal；SD 不消費 RE 機械細節。apk-analysis = candidate Discovery；software-delivery = validated Delegated Execution。細節 [`04`](04-apk-capability-handoff-boundary.md)；dogfood **2t** |
 | V3 evidence producer | targeted mutation（risk-triggered：boundary / boolean / null / authorization / invariant / guard）；survived mutant 須轉 semantic-gap finding，**不做 mutation score KPI**；producer family 通用化（Behavioral Falsification）gated on Q9，graduate 前 mutation-only（Mutation review 裁決，2026-07-09） |
 | Schema promotion | gated on Phase 2 證據（Q5），deadline 2026-08-31 |
 | Dogfood transport | 雙 transport：2a Cursor（human 路徑，使用者操作）/ 2b Claude Code Agent（agent 路徑，orchestrator 自駕，2026-07-08 使用者授權）；模板 tool-neutral，工具細節只在 kit 傳輸備註 + `ai-tools/agent/`（Layer 3） |
@@ -475,3 +487,5 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 - [`2026-06-22-1009-plans-system-portability-and-delivery-integration/02-software-delivery-plan-first-ordering.md`](../../archived/2026-06-22-1009-plans-system-portability-and-delivery-integration/02-software-delivery-plan-first-ordering.md) — plan-first ordering 是本 loop 的前置（orchestrator 產 plan artifact 先於執行）；本 plan 不改其 Q4 關閉條件。
 - [`archived/2026-07-06-review-architecture-adr/_plan.md`](../../archived/2026-07-06-review-architecture-adr/_plan.md) — review = cross-cutting capability invoke（ADR-013 D2）；verifier leg 是其消費者。
 - [`active/2026-06-16-1131-evidence-candidate-system.md`](../2026-06-16-1131-evidence-candidate-system.md) — `defer` 處置的 findings 可轉 evidence candidate（人工 capture，不新增 scanner 職責）。
+- [`04-apk-capability-handoff-boundary.md`](04-apk-capability-handoff-boundary.md) — **本 plan companion**（2026-07-14）：APK ↔ SD Domain Boundary + Capability Handoff 契約候選 + dogfood **2t** 預註冊；不替代 `workflow/apk-analysis` 正文。
+- [`archived/2026-05-11-1129-apk-analysis-pilot-migration.md`](../../archived/2026-05-11-1129-apk-analysis-pilot-migration.md) — APK workflow/analysis/intelligence 分層 pilot（completed）；本輪 Boundary 建立在該分層之上，不重開 migration。
