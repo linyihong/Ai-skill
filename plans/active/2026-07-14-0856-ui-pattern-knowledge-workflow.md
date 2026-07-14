@@ -30,6 +30,8 @@ revision:
     note: "Phase 2 kickoff：目標=Pattern Family 可推理性；成功=5 entries + 10 Selection Scenarios；順序 Scrim→Dialog→Sheet→Drawer→Toast；停止 Phase1 打磨"
   - date: 2026-07-14
     note: "Phase 2 Completed（H1 Selection / H2 Family / H3 Near Neighbor）；closure phase2-summary；Phase 3=Pattern Composition（Episode Page）；entry freeze→composition_rules"
+  - date: 2026-07-14
+    note: "Research ladder：P1 Representability→P2 Inferability→P3 Composability；Phase3 凍結 H4 Independence / H5 Completeness / H6 Traceability；composition_rules=Constraint not Rule Library"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
@@ -50,6 +52,24 @@ revision:
 ## Executive summary
 
 定位：**可被 workflow 消費的 UI Pattern Knowledge Layer**（載入 → 推理選型 → 展開 → 驗證），不是人查 glossary，也不是模仿 NameThatUI。
+
+### Research ladder（驗證單位升級 — 耐久）
+
+質變點不在「多了 Pattern Composition 這個名詞」，而在 **unit of validation** 升級：
+
+| Phase | 驗證對象 | 驗證單位 | 核心能力 | 核心問題 |
+| --- | --- | --- | --- | --- |
+| Phase 1 | Schema | Entry | **Representability**（可表示） | Knowledge 能不能被表示？ |
+| Phase 2 | Inferability | Scenario | **Inferability**（可推理） | Knowledge 能不能被推理？ |
+| Phase 3 | Composition | Screen | **Composability**（可組合） | 多個 Knowledge 能不能共同工作？ |
+
+```text
+Phase 3 chain（驗證單位 = Screen）
+Screen → Pattern Tree → Selection → Recipe
+```
+
+Entry / Scenario 仍是下層產物；Phase 3 **不以 Entry 數量、也不以新 Screen 堆疊**衡量進度。  
+（跡象：Entry → Composition Constraints → Pattern Tree 開始像 **Knowledge Graph** 的邊，而非「很多 YAML」——可另開第四條研究線，本 plan 暫不升格。）
 
 ### Authority Boundary
 
@@ -443,27 +463,46 @@ workflow/software-delivery/
 
 ---
 
-## Phase 3 — Pattern Composition（Episode Page 先行）
+## Phase 3 — Pattern Composition / Composability（Episode Page 先行）
 
-> 名稱用 **Pattern Composition**（非裸「Composition」），以區分未來 Workflow / Evidence / Prompt Composition。
+> 名稱用 **Pattern Composition**（非裸「Composition」），以區分未來 Workflow / Evidence / Prompt Composition。  
+> 驗證單位 = **Screen**（不是 Entry）。核心能力 = **Composability**。
 
-**一句目標**：證明 Screen → Pattern Tree → Selection → Recipe 可串起來，且仍可推理。
+**一句目標**：證明多個 Pattern Knowledge 能共同工作：Screen → Pattern Tree → Selection → Recipe，且彼此不污染。
 
-**Scope 鎖死（不要一開始全站）**：只驗 **Episode Page / Episode Detail**：
+### Phase 3 核心假說（凍結）
+
+| # | Hypothesis | 一句 |
+| --- | --- | --- |
+| **H4** | **Composition Independence** | 每個 Pattern 維持自己的 Decision Boundary；例：Toast 存在不改變 Bottom Sheet 的 Selection Rules（可組合 ≠ 互相污染） |
+| **H5** | **Composition Completeness** | 不是「列了哪些 pattern」，而是 Episode **有沒有未命名 UI**；若出現 Floating Loading「不知算什麼」→ Knowledge 仍不完整（可標 deferred / gap，**不**為 Composition 去補 Player Entry） |
+| **H6** | **Composition Traceability** | 任一 Screen 都可追 Screen → Pattern → Selection Rule → Recipe；沒有「不知道為什麼存在」的 pattern |
+
+### Scope 鎖死
+
+只驗 **Episode Page / Episode Detail**（不要一開始做很多 Screen）：
 
 ```text
 episode_detail
   contains: app_bar | player | bottom_sheet | modal_dialog | toast | scrim
 ```
 
-- [x] Seed：[`ui-pattern-knowledge/compositions/episode_detail.yaml`](../../workflow/software-delivery/ui-pattern-knowledge/compositions/episode_detail.yaml)  
-- [x] [`composition_rules.yaml`](../../workflow/software-delivery/ui-pattern-knowledge/composition_rules.yaml)（空規則殼；問題寫這裡）  
-- [ ] 跑一輪 Episode：Pattern Tree → Selection（沿用 Phase 2 entries）→ Recipe 摘要  
-- [ ] Expansion 一次；evidence 留摘要  
-- [ ] 記錄 verified vs observed（若可觀察）  
-- [x] **Entry freeze**：Phase 3 **禁止**為修問題改 `entries/*.yaml`；改加 `composition_rules`
+- App Bar / Player = `knowledge: deferred`（驗 Composition，**不**補 Entry → Coverage）  
+- **禁止** Phase 3 為 Composition 新建 Entry
 
-**完成條件**：至少一份 Episode Pattern Composition 走過鏈，且未回改 Entry；書面 keep L1 / 觸發 D9 review / 開 Phase 4–5。
+### Artifacts
+
+- [x] Pattern Tree seed：[`compositions/episode_detail.yaml`](../../workflow/software-delivery/ui-pattern-knowledge/compositions/episode_detail.yaml)  
+- [x] **Composition Constraints**（不是 Rule Library）：[`composition_rules.yaml`](../../workflow/software-delivery/ui-pattern-knowledge/composition_rules.yaml)  
+  - Pattern↔Pattern 約束（如 `requires` / `cannot_contain` / `cannot_trigger_selection`）  
+  - **不是** Entry；**不是**回頭改 `selection_rules`  
+- [ ] Dogfood H4：同一 Episode 共現時 Selection 邊界不變（Independence）  
+- [ ] Dogfood H5：未命名 UI 盤點（Completeness；gap 記帳，不急補 entry）  
+- [ ] Dogfood H6：至少一條完整追蹤鏈（Traceability）+ Recipe 摘要  
+- [ ] Expansion 一次；evidence 留摘要  
+- [x] **Entry freeze**：問題只加 constraint / composition notes
+
+**完成條件**：Episode 上 H4–H6 有書面證據；未回改 Entry；書面 keep L1 / 觸發 D9 review / 開 Phase 4–5。
 
 ---
 
@@ -509,7 +548,8 @@ episode_detail
 - [x] Authority Boundary 四句  
 - [x] Round-2 Verifier 通過 → `in-progress`（2026-07-14 Phase 0 close）  
 - [x] 簽署開始 Phase 1 實作（stakeholder 2026-07-14：「可以繼續」）  
-- [x] Phase 2 Completed / Phase 3 Start（stakeholder 2026-07-14：三假說通過；inferability ≠ coverage）
+- [x] Phase 2 Completed / Phase 3 Start（stakeholder 2026-07-14：三假說通過；inferability ≠ coverage）  
+- [x] Research ladder + Phase 3 H4–H6 凍結；composition_rules = Composition Constraint（非 Entry／非 Rule Library）
 
 ---
 

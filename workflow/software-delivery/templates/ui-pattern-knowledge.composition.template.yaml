@@ -7,7 +7,8 @@
 # 與 Screen Mapping 不互代：Mapping = 行為追溯；Pattern Composition = pattern 結構。
 # pattern id 應對齊 entry 的 canonical_pattern / id（或標 knowledge: deferred）。
 #
-# Phase 3+：composition 問題寫 composition_rules.yaml；不要回頭改 entries/*.yaml。
+# Phase 3+：composition 問題寫 composition_rules.yaml（= Composition Constraints，
+# Pattern↔Pattern edges；非 Rule Library）；不要回頭改 entries/*.yaml。
 
 screen: <screen_or_flow_id>              # e.g. episode_detail
 contains:

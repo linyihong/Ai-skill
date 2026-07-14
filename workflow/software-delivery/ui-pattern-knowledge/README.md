@@ -42,5 +42,6 @@ Core 欄位凍結；新能力進 Extended，不反复改 Core key 名。
 
 ## Phase 狀態
 
-- **Phase 2 Completed**：驗證 **inferability**（非 Coverage）。見 plan `evidence/phase2-summary.md`。
-- **Phase 3**：Pattern Composition · Episode Page only；**不要**急著加 popover / tooltip / fab / 全站 screens。
+- **Research ladder**：P1 Representability (Entry) → P2 Inferability (Scenario) → P3 Composability (Screen)。
+- **Phase 2 Completed**：inferability（非 Coverage）。見 plan `evidence/phase2-summary.md`。
+- **Phase 3**：Pattern Composition · Episode only · H4/H5/H6；`composition_rules.yaml` = **Composition Constraints**（非 Rule Library）；**不要**為 Composition 補 Player/App Bar Entry。

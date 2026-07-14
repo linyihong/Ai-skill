@@ -6,6 +6,22 @@
 
 ---
 
+## Research ladder（三次「研究層級提升」）
+
+質變不是多了一個 Pattern Composition 名詞，而是 **unit of validation** 升級。這張表是演進邏輯（非僅進度紀錄）：
+
+| Phase | 驗證對象 | 驗證單位 | 核心能力 |
+| --- | --- | --- | --- |
+| Phase 1 | Schema | Entry | **Representability**（可表示） |
+| Phase 2 | Inferability | Scenario | **Inferability**（可推理） |
+| Phase 3 | Composition | Screen | **Composability**（可組合） |
+
+Phase 3 鏈：`Screen → Pattern Tree → Selection → Recipe`。  
+Phase 3 假說凍結為 **H4 Independence / H5 Completeness / H6 Traceability**（見 plan §Phase 3）。  
+跡象：Constraints + Tree ≈ early **Knowledge Graph**（第四條研究線候選；本 closure 不升格）。
+
+---
+
 ## Original hypothesis
 
 Phase 2 要驗證的不是「寫完五個 Entry」，而是三個假說：
@@ -69,3 +85,11 @@ Phase 2 要驗證的不是「寫完五個 Entry」，而是三個假說：
 | Coverage intentionally thin | 五件不是成熟度指標 |
 | Consumer project alias | 次要；未擋 Phase 2 gate |
 | App Bar / Player | 進 Phase 3 composition 時可列結構節點，**不**等於已驗證 entry |
+
+## Forward pointer（Phase 3）
+
+| Artifact | Role |
+| --- | --- |
+| `composition_rules.yaml` | **Composition Constraints**（Pattern↔Pattern edges；非 Rule Library、非 Entry） |
+| `compositions/episode_detail.yaml` | Screen = validation unit |
+| Plan H4–H6 | Independence / Completeness / Traceability |

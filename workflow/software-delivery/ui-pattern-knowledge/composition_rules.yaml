@@ -1,24 +1,62 @@
-# Pattern Composition rules (Phase 3+)
-# NOT entry schema. NOT Runtime Projection.
+# Composition Constraints — Pattern ↔ Pattern edges (Phase 3+)
 #
-# When composition dogfood finds gaps, ADD rules here.
-# Do NOT reopen / mutate frozen Core entries under entries/*.yaml
-# (Phase 2 validated inferability; keep Knowledge Layer frozen).
+# This is NOT:
+#   - an Entry schema
+#   - a Rule Library / playbook dump
+#   - Runtime Projection
+#
+# This IS:
+#   Composition Constraint — edges between patterns in a Pattern Tree / Screen.
+#   Research signal: Entry + Constraints + Tree ≈ early Knowledge Graph
+#   (fourth research line — observed, not promoted in this plan).
+#
+# Phase 3+ must NOT edit entries/*.yaml to fix composition gaps.
+# Add / refine constraints here instead (preserves Phase 2 Decision Boundary).
 
 schema_version: "1.0"
-id: workflow.software_delivery.ui_pattern_knowledge.composition_rules
-kind: composition_rules
+id: workflow.software_delivery.ui_pattern_knowledge.composition_constraints
+kind: composition_constraints
 status: active
 owner_layer: workflow
+legacy_filename: composition_rules.yaml   # keep path; semantics = constraints
+
 entry_freeze_policy: >
   Phase 3+ must not edit entries/*.yaml to fix composition problems.
-  Fix via composition_rules, composition notes, or a new plan revision
-  that explicitly unfreezes Core (rare).
+  Fix via composition constraints, composition notes, or a rare plan
+  revision that explicitly unfreezes Core.
 
-rules: []
-# Example shape (add when needed):
-# - id: episode.overlay_mutex
-#   screen: episode_detail
-#   when: modal_dialog_open
-#   then: forbid_bottom_sheet_concurrent
-#   evidence_level: hypothesized
+# Seed constraints for Episode dogfood (hypothesized; refine only here).
+constraints:
+  - id: overlay.dialog_requires_scrim
+    subject: modal_dialog
+    requires:
+      - scrim
+    rationale: "Blocking dialog recipe includes dim layer; dialog ≠ scrim."
+    evidence_level: observed
+    hypotheses: [H6]
+
+  - id: overlay.sheet_cannot_contain_dialog
+    subject: bottom_sheet
+    cannot_contain:
+      - modal_dialog
+    rationale: "Sheet nests another blocking dialog → nested overlay anti-pattern."
+    evidence_level: hypothesized
+    hypotheses: [H4, H6]
+
+  - id: feedback.toast_cannot_trigger_selection
+    subject: toast
+    cannot_trigger:
+      - selection
+    rationale: >
+      Toast is feedback family; co-presence must not re-open Overlay Decision
+      or rewrite neighbors' selection_rules (Composition Independence).
+    evidence_level: observed
+    hypotheses: [H4]
+
+  - id: feedback.toast_forbids_scrim
+    subject: toast
+    forbids:
+      - scrim
+    rationale: "Toast + scrim usually means misclassified modal overlay."
+    evidence_level: observed
+    hypotheses: [H4, H5]
