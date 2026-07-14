@@ -119,6 +119,6 @@ Readiness = 主動找反例（非被動 Observation）。找不到反例也是�
 | Pattern Knowledge | 🟢 Stable |
 | Composition Knowledge | 🟢 Stable |
 | **Knowledge Evolution Method** | 🟡 **Emerging**（first independent validation） |
-| Interaction / Orchestrability | ⚪ Observation |
+| Interaction Knowledge | ⚪ **Not yet justified** |
 
 **UI Pattern Knowledge Research Cycle 1：CLOSED** — 假說鏈驗證完畢。最大長期產出可能不是更多 UI Pattern，而是 AI-native Cognitive System 第一個完整驗證過的 Knowledge Evolution Method。

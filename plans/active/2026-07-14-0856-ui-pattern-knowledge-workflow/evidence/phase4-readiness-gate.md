@@ -1,117 +1,141 @@
 # Phase 4 Readiness Gate
 
 **Plan**: [`../2026-07-14-0856-ui-pattern-knowledge-workflow.md`](../2026-07-14-0856-ui-pattern-knowledge-workflow.md)  
-**Status**: ▶ **Active**  
-**Phase 4 itself**: ⏸ **Not Started**  
+**Status**: ▶ **Active**（設計凍結 — 不再往前設計 Phase 4）  
+**Phase 4 / Research Cycle 2**: ⏸ **Not Started** · Interaction Knowledge = **Not yet justified**  
 **Date opened**: 2026-07-14
 
 ---
 
-## Why Readiness ≠ Observation，且 ≠ Phase 4
-
-| Mode | Nature | Goal |
-| --- | --- | --- |
-| Observation | 被動記下 | 「也許有 Interaction」 |
-| **Readiness（本檔）** | **主動找反例** | 證偽「Pattern+Composition 已夠」 |
-| Phase 4 | 建新 Layer | 僅當 Readiness **PASS** |
-
-Research Cycle 1 驗證的是 **方法**（Representability→Inferability→Composability）。  
-尚未證明 Interaction / Orchestrability 是 **新 Knowledge Layer**，而非現有層的延伸。
-
-**唯一前置問題**：
-
-> Interaction 的失敗，是否**無法**用 Pattern Knowledge + Composition Knowledge 解釋？
-
-只有答案為 **是**，才開 Phase 4。否則不為虛構的新 Layer 建架構。
-
-Method 對齊 Cycle 1：**不是先建 Layer 再找用途；是先遇到理論解釋不了的現象，再開新 Layer。**
-
----
-
-## Gates（須全部通過才可開 Phase 4）
-
-### R1 — 存在不可表達的 Flow 問題
-
-至少一個**真實**案例同時滿足：
-
-1. Pattern 選型正確  
-2. Composition（空間組合 / Constraints）正確  
-3. **整體互動仍錯誤**
-
-候選壓力（示意，需真實證據）：
-
-- Bottom Sheet → Payment → Toast 時序衝突  
-- Dialog 關閉後立即開另一 Overlay → focus 失敗  
-- 多步驟狀態轉移無法由 Composition Constraints 表達  
-
-**PASS**：有案例卡片；**FAIL / OPEN**：尚無（預設）。
-
-### R2 — 不能靠 +1 Composition Constraint 解決
-
-若 `composition_rules.yaml` +1 rule 即可修好 → **仍屬 Phase 3**（Constraint Accumulation）。
-
-僅當需要表述 **狀態 / 事件 / 轉移（時間軸）**，且 Constraint 無法承載 → R2 PASS。
-
-### R3 — 最小假說可說清（非先寫 Plan）
-
-先寫**一句**（定稿前可改；空句 = 未就緒）：
-
-> Interaction Knowledge 描述 _____ ，而非 Composition 的空間組合關係。
-
-示意（**非正式拍板**）：  
-「Interaction Knowledge 描述 Pattern 在時間軸上的合法狀態轉移，而非空間上的組合關係。」
-
-一句都講不清 → **不到**開 Phase 4。
-
----
-
-## Expected trigger shape
+## Research rhythm（凍結）
 
 ```text
-Screen / Flow A
-  PASS (Pattern + Composition)
+Research Cycle 1
         │
         ▼
-Composition Rule +1 ?
-  · 能修 → 留在 Phase 3（R2 FAIL → 不開 P4）
-  · 不能修
+Knowledge Evolution Method (Emerging)
         │
         ▼
-Flow B still FAIL
-  · Composition 無法表示
+Phase 4 Readiness
         │
-        ▼
-Interaction Hypothesis 成立（R3）
+        ├── 找不到 R1
+        │      └── Pattern + Composition 足夠（好結果）
         │
-        ▼
-Research Cycle 2 / Phase 4 可開
+        └── 找到 R1
+               │
+               ▼
+        驗證 R2
+               │
+               ▼
+        驗證 R3
+               │
+               ▼
+        才成立 Interaction Knowledge
+               │
+               ▼
+        Open Research Cycle 2
 ```
 
-觸發理由必須是：**現有理論第一次解釋不了真實案例**——不是「想研究 Interaction」。
+Method：**不是下一層看起來合理就建下一層；是上一層第一次解釋不了真實現象，才建下一層。**  
+不再設計 Phase 4 本體，直到 R1→R2→R3 有序通過。
 
 ---
 
-## Outcomes
+## Research Cycle 2 開啟條件（鎖定一句）
 
-| Outcome | Meaning |
+> 發現一個**經過驗證（validated）**、且**無法由既有 Knowledge Layer 表達（cannot be represented）**的 Flow 問題。
+
+不是「看起來麻煩／很複雜／很多 Rule」。
+
+---
+
+## Gates = 必要且有序（非平行）
+
+```text
+R1
+│
+├─ FAIL → 留在 Phase 3 / 繼續搜證（無新 Layer）
+│
+└─ PASS
+      │
+      ▼
+R2
+│
+├─ FAIL → 新增 Composition Constraint（Constraint Accumulation；仍 Phase 3）
+│
+└─ PASS
+      │
+      ▼
+R3
+│
+├─ FAIL → 繼續 Readiness（假說未成形；Not yet justified）
+│
+└─ PASS
+      │
+      ▼
+Open Research Cycle 2 / Phase 4
+```
+
+每一個 FAIL 都有明確去向：升格 vs 補 Rule 不再模糊。
+
+### R1 — Pattern ✅ + Composition ✅，Flow 仍 ❌
+
+真實案例同時：選型正確、空間組合／Constraints 正確、**整體互動仍錯誤**。  
+FAIL = 尚無此案例（預設）→ 不進入 R2。
+
+### R2 — 不能靠 composition_rules +1 修復
+
++1 Constraint 能修 → R2 FAIL → 寫入 `composition_rules.yaml`，**留在 Phase 3**。  
+需要狀態／事件／轉移且 Constraint 無法承載 → R2 PASS。
+
+### R3 — 一句定義 Interaction Knowledge（先於 Plan）
+
+草稿欄（空 = R3 FAIL）：
+
+> Interaction Knowledge 描述 _______________________________ 。
+
+示意（非正式）：時間軸合法狀態轉移，而非空間組合。  
+講不清 → 繼續 Readiness；**Not yet justified**。
+
+---
+
+## Domain vs Method 成果
+
+| 層 | 成果 |
 | --- | --- |
-| **找不到反例** | Phase 3 能力比預期更完整；Readiness 可 Continue／收斂；**不開** Phase 4 |
-| **找到且 R1∧R2∧R3** | 有扎實理由開 Research Cycle 2 / Phase 4（Interaction / Orchestrability） |
+| **Domain（UI）** | Pattern Knowledge · Composition Knowledge |
+| **Method（Architecture）** | Layer Growth Rhythm · Constraint Accumulation · Governed Trace Termination · **Readiness-before-New-Layer** |
+
+後四項構成 **Knowledge Evolution Method**（🟡 Emerging — first validation = Cycle 1；待第二研究線）。
+
+---
+
+## Final maturity（收尾判定）
+
+| 對象 | 狀態 | 下一步 |
+| --- | --- | --- |
+| Pattern Knowledge | 🟢 Stable | 維護與擴充 Pattern |
+| Composition Knowledge | 🟢 Stable | 新 Screen 持續 dogfood |
+| Knowledge Evolution Method | 🟡 Emerging | 等待第二條獨立研究線驗證 |
+| Phase 4 Readiness | ▶ Active | 持續收集 R1 反例 |
+| Interaction Knowledge | ⚪ **Not yet justified** | 尚未證成新 Layer（≠「缺觀察」） |
+
+「Not yet justified」≠ Observation：缺的是**開新 Layer 的理由**，不是缺被動觀察。
 
 ---
 
 ## Log（主動搜證）
 
-| Date | Candidate | Pattern OK? | Composition OK? | Flow FAIL? | +1 Constraint 夠嗎？ | Disposition |
-| --- | --- | --- | --- | --- | --- | --- |
-| — | （尚未登記） | — | — | — | — | OPEN |
+| Date | Candidate | R1 | R2 | R3 | Disposition |
+| --- | --- | --- | --- | --- | --- |
+| — | （尚未登記） | — | — | — | OPEN |
 
 ---
 
-## Explicit non-starts
+## Explicit non-design
 
-- [ ] ~~Draft Interaction Knowledge plan~~  
-- [ ] ~~New entries for “flow patterns”~~  
+- [x] Readiness 設計完整 → **停止擴寫 Phase 4**  
+- [ ] ~~Interaction Knowledge schema / plan draft~~  
 - [ ] ~~Runtime Projection for interaction~~  
 
-Until R1∧R2∧R3 PASS.
+Until ordered R1→R2→R3 PASS.

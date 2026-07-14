@@ -44,6 +44,8 @@ revision:
     note: "Research Cycle 1 CLOSED；retrospective research-cycle-1.md；Knowledge Evolution Method Emerging；不開 Phase 4 / Interaction"
   - date: 2026-07-14
     note: "Phase 4 Readiness Gate ACTIVE（R1–R3）；Phase 4 Not Started；主動找 Flow 反例 ≠ Observation"
+  - date: 2026-07-14
+    note: "Readiness 設計凍結；R1→R2→R3 有序必要條件；Cycle2=validated cannot-represent Flow；Interaction=Not yet justified；停設計 Phase4"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
@@ -588,16 +590,17 @@ H5：[`3h5-completeness-disposition.md`](./2026-07-14-0856-ui-pattern-knowledge-
 
 ### Knowledge-layer maturity（非「Phase 完成 %」）
 
-| Artifact | 成熟度 | 評語 |
+| 對象 | 狀態 | 下一步 |
 | --- | --- | --- |
-| Pattern Knowledge | 🟢 **Stable** | Representability + Inferability |
-| Composition Knowledge | 🟢 **Stable** | Independence + Completeness + Traceability |
-| **Knowledge Evolution Method** | 🟡 **Emerging** | first independent validation = Research Cycle 1（非 UI 附屬） |
-| Interaction / Orchestrability | ⏸ **Not Started** | 僅當 Readiness R1∧R2∧R3 |  
-| **Phase 4 Readiness** | ▶ **Active** | 主動找「Pattern+Composition 解釋不了」的 Flow 反例 |
+| Pattern Knowledge | 🟢 **Stable** | 維護與擴充 Pattern |
+| Composition Knowledge | 🟢 **Stable** | 新 Screen 持續 dogfood |
+| Knowledge Evolution Method | 🟡 **Emerging** | 第二條獨立研究線驗證普適性 |
+| Phase 4 Readiness | ▶ **Active** | 持續收集 R1 反例（設計凍結） |
+| Interaction Knowledge | ⚪ **Not yet justified** | 缺證成新 Layer 的理由（≠缺觀察） |
 
 **Composition Closure（2026-07-14）**：✅ Pattern Tree Validated — H4∧H5∧H6 + Entry Mods=0。  
-**Research Cycle 1**：✅ CLOSED — [`evidence/research-cycle-1.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-1.md)
+**Research Cycle 1**：✅ CLOSED — [`evidence/research-cycle-1.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-1.md)  
+**Domain**：Pattern + Composition · **Method**：Growth / Constraint Accumulation / Trace Termination / Readiness-before-New-Layer
 
 ### Exit Gate = **Composition Closure**
 
@@ -689,7 +692,8 @@ H5：[`3h5-completeness-disposition.md`](./2026-07-14-0856-ui-pattern-knowledge-
 - [x] H4 Invariant stress evidence；H5 Deferred disposition success；Entry Mods = Primary Metric；Constraint Accumulation pair in Protocol  
 - [x] H6 Traceability（T1/T2/T3）+ Waiver first-class；Composition Closure；Protocol Explicit Termination trio  
 - [x] Research Cycle 1 CLOSED + research-cycle-1.md；Knowledge Evolution Method Emerging；Phase 4/Interaction 不開  
-- [x] Phase 4 Readiness Gate（R1–R3）Active；Phase 4 Not Started until unexplained Flow failure
+- [x] Phase 4 Readiness Gate（R1–R3）Active；Phase 4 Not Started until unexplained Flow failure  
+- [x] Readiness 設計凍結；R1→R2→R3 有序；Interaction = Not yet justified；Cycle2 = validated cannot-represent Flow
 
 ---
 
