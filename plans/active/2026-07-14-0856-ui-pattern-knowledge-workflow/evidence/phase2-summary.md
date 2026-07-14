@@ -90,6 +90,9 @@ Phase 2 要驗證的不是「寫完五個 Entry」，而是三個假說：
 
 | Artifact | Role |
 | --- | --- |
-| `composition_rules.yaml` | **Composition Constraints**（Pattern↔Pattern edges；非 Rule Library、非 Entry） |
+| [`phase3-start.md`](phase3-start.md) | **Start lock**：Invariant + H4–H6 分型 Evidence + Composition Closure |
+| `composition_rules.yaml` | **Composition Constraints**（回滲唯一匯流點；非 Entry） |
 | `compositions/episode_detail.yaml` | Screen = validation unit |
-| Plan H4–H6 | Independence / Completeness / Traceability |
+| Plan H4–H6 | Independence / Completeness / Traceability（分檔證據） |
+
+**Exit Gate**：Composition Closure = Pattern Tree **Validated**（不是「Screen 完成」）。

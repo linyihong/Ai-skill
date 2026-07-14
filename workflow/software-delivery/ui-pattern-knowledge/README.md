@@ -44,4 +44,5 @@ Core 欄位凍結；新能力進 Extended，不反复改 Core key 名。
 
 - **Research ladder**：P1 Representability (Entry) → P2 Inferability (Scenario) → P3 Composability (Screen)。
 - **Phase 2 Completed**：inferability（非 Coverage）。見 plan `evidence/phase2-summary.md`。
-- **Phase 3**：Pattern Composition · Episode only · H4/H5/H6；`composition_rules.yaml` = **Composition Constraints**（非 Rule Library）；**不要**為 Composition 補 Player/App Bar Entry。
+- **Phase 3**：Composability · Episode · H4/H5/H6 分型 Evidence · exit = **Composition Closure**。  
+  **Invariant**：Composition MUST NOT modify `entries/*`（anti **back-propagation**）→ 只寫 `composition_rules.yaml`。
