@@ -24,8 +24,8 @@ Status: validated
 
 #### Evidence
 
-- Tool: `am force-stop` + `am start -W` launchable；週期讀 `dumpsys window` `mCurrentFocus`；`screencap`；靜態 aapt／DEX triage 僅作平行記錄。  
-- Sanitized excerpt: Launch Splash ok → ~sub-second 業務 Login → 穩定 `vending`／Unauthenticated*；主 feature Activity 未達；Pairip LicenseActivity 未進 focus 樣本。  
+- Tool: `am force-stop` + `am start -W` launchable；週期讀 `dumpsys window` `mCurrentFocus`（≤100ms）；`screencap`；靜態 aapt／DEX triage 僅作平行記錄。  
+- Sanitized excerpt (same-day follow-up): Splash ok → **業務 Home 短暫 focus（可截圖）** → 穩定 `vending`／Unauthenticated*；Pairip LicenseActivity 仍未採樣到；無裝置 Google `Account {` 時無法走完 Play 登入；非 exported Home 不可 `am start` 直開。  
 - Evidence path: 目標專案 docs／capture（專有名留專案）。
 
 #### Generalized Lesson
@@ -36,8 +36,10 @@ Status: validated
    - L3 目標 Activity／package 仍屬業務且可操作 = **feature reachability**。  
 2. **禁止**：用 L1 alone 寫「validated startup chain」或寫進 skill 當已證實 Pairip hop。  
 3. **禁止**：把「無法進主頁」的觀測偷換成「繞過後進主頁」的技巧；本 lesson **不**教 bypass。  
-4. **可驗證句型**：「側載冷啟動後 focus 落在 Play Unauthenticated*，無法達 Home／feature」——這句可由 adb 複核；「因此 LicenseActivity 是中間頁」——不可由未採樣推斷。  
-5. **腳本**：static triage 標題必須標 triage／hypothesis；runtime probe 另做。
+4. **可驗證句型**：「側載冷啟動後 focus **可能短暫落在業務 Home／Login**，然後被 Play Unauthenticated* 搶走；無法維持主頁／feature」——這句可由細採樣複核；「因此 LicenseActivity 是中間頁」或「完全進不了業務 Activity」——**不可**由粗採樣／靜態推斷。  
+5. **採樣頻率**：400ms 級可能漏掉 Home；驗證 L2 應用 ≤100ms 直到見到穩定 vending 或超時。  
+6. **腳本**：static triage 標題必須標 triage／hypothesis；runtime probe 另做。  
+7. **裝置前提**：無 Google Account 時，合法下一關是先登入 Play／帳戶，再重跑 L2／L3——不是 client bypass。
 
 #### Agent Action
 
