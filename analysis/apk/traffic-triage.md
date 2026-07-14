@@ -138,7 +138,7 @@ native backtrace 落在哪裡？
 2. **捷徑**：若存在具名 `*DecryptUtils*.getContentBody`／`decrypt`，先 hook 這些出口（R8 下 `Response.peekBody` 常失敗時尤其有用）。用 **inLen／outLen／printable ratio／shape（JSON vs prose vs binary）** 分類，勿把正文樣本寫進可分享文件。
 3. **兩段式常見**：`RSA*decryptByPublicKey*(大)→短`（key material）再進 content decrypt／`getContentBody`；短 RSA 輸出通常**不是**章節正文。讀者側 helper（如 `*ReaderUtils*.readContent`）常是明文入口。若 overload 帶 block size（例如 `128`），可直接推 RSA 模數位元組數；**無公鑰參數**則假設內嵌／static key。
 4. **磁碟 blob 對齊**：章節密文常落到 `files/…/<bookId>/<chapterId>.<ext>`。若 **檔案位元組長度 ≡ content-decrypt inLen**，即可把 decrypt 輸入來源鎖定為本地 blob（可清目錄逼 reload），wire 欄位名可後補。
-5. **Request `sign` 長度族**：固定 base64 長度對應 ≈256 decoded bytes 時，優先當 RSA-2048 量級封裝／簽章假設，不要先當成 MD5 hex；若內容 RSA 是 1024-block，預設 **sign 與 content 金鑰分離**。
+5. **Request `sign` 長度族**：固定 base64 長度對應 ≈256 decoded bytes 時，優先當 RSA-2048 量級封裝／簽章假設，不要先當成 MD5 hex；若內容 RSA 是 1024-block，預設 **sign 與 content 金鑰分離**。App 自有 interceptor 未見組 sign 時，改查 **vendored `HttpGlobal$a`／`*KeyManager*`／套件内 `Base64`**，並用固定 `outLen` 的 `String→String` 當 sign 函式候選；排除廣告 SDK 的 RSA-OAEP noise。
 6. 記錄輸入格式：base64、prefix/salt、ciphertext、version field。
 7. 記錄演算法：KDF、AES mode、padding、MAC、compression。
 8. 用 hook 取得 decrypted output（專案私有 capture）。
@@ -154,6 +154,7 @@ native backtrace 落在哪裡？
 - [`feedback/history/apk-analysis/http-api/2026-07-14_112000-rsa-public-unwrap-to-short-key-then-content-decrypt.md`](../../feedback/history/apk-analysis/http-api/2026-07-14_112000-rsa-public-unwrap-to-short-key-then-content-decrypt.md)
 - [`feedback/history/apk-analysis/http-api/2026-07-14_131500-ondisk-encrypted-chapter-blob-length-matches-decrypt-input.md`](../../feedback/history/apk-analysis/http-api/2026-07-14_131500-ondisk-encrypted-chapter-blob-length-matches-decrypt-input.md)
 - [`feedback/history/apk-analysis/http-api/2026-07-14_131600-request-sign-fixed-b64-length-may-be-rsa-scale.md`](../../feedback/history/apk-analysis/http-api/2026-07-14_131600-request-sign-fixed-b64-length-may-be-rsa-scale.md)
+- [`feedback/history/apk-analysis/http-api/2026-07-14_133500-request-sign-may-live-in-vendored-httpglobal-not-app-intercept.md`](../../feedback/history/apk-analysis/http-api/2026-07-14_133500-request-sign-may-live-in-vendored-httpglobal-not-app-intercept.md)
 
 ## Session / Token 重新取得
 

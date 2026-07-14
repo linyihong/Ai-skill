@@ -6,7 +6,7 @@
 |------|------|------|
 | [`common/`](common/) | 58 | 跨分類或通用 lesson（工具選擇、流程、UI、分析策略等） |
 | [`flutter-dart-aot/`](flutter-dart-aot/) | 23 | Flutter/Dart AOT 相關 hook 與分析 |
-| [`http-api/`](http-api/) | 29 | HTTP API 分析、文件化、UI 操作流程 |
+| [`http-api/`](http-api/) | 30 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 11 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
@@ -15,6 +15,7 @@
 
 | Slug | Category |
 |------|----------|
+| `http-api/2026-07-14_133500-request-sign-may-live-in-vendored-httpglobal-not-app-intercept` | Sign in vendored HttpGlobal, not app intercept |
 | `http-api/2026-07-14_131600-request-sign-fixed-b64-length-may-be-rsa-scale` | sign fixed base64 len ≈ RSA-2048 scale |
 | `http-api/2026-07-14_131500-ondisk-encrypted-chapter-blob-length-matches-decrypt-input` | On-disk blob len ≡ decrypt inLen |
 | `http-api/2026-07-14_112000-rsa-public-unwrap-to-short-key-then-content-decrypt` | RSA unwrap → short key → content decrypt |
