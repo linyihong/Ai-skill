@@ -1,0 +1,47 @@
+# Pattern Composition seed — Episode Detail
+# Phase 3 dogfood：Screen → Pattern Tree → Selection → Recipe
+# App Bar / Player = structural nodes（knowledge deferred）；不新建 entry 膨脹 Coverage。
+# Phase 3 問題請寫 composition_rules，禁止回頭改 entries/*.yaml。
+
+screen: episode_detail
+plain_name: "單集詳情／播放頁（Episode Page）"
+evidence_level: hypothesized
+phase: 3
+scope_note: >
+  Wave-1 composition dogfood 只驗 Episode Page，不做全站 screen 覆蓋。
+  Chain under test: Screen → Pattern Tree → Selection → Recipe.
+
+contains:
+  - pattern: app_bar
+    knowledge: deferred
+    role: structure
+    notes: "layout chrome；尚未做 Pattern Knowledge entry（Coverage ≠ inferability）"
+  - pattern: player
+    knowledge: deferred
+    role: structure
+    notes: "內容主表面；尚未做 Pattern Knowledge entry"
+  - pattern: bottom_sheet
+    knowledge: seed
+    optional: true
+    role: overlay
+    notes: "例：選畫質／分享／更多動作"
+  - pattern: modal_dialog
+    knowledge: seed
+    optional: true
+    role: overlay
+    notes: "例：離開確認／破壞性確認"
+  - pattern: toast
+    knowledge: seed
+    optional: true
+    role: feedback
+    notes: "例：已加入清單／播放失敗軟提示"
+  - pattern: scrim
+    knowledge: seed
+    optional: true
+    role: overlay_compositional
+    notes: "伴隨 temporary overlay；非主任務面"
+
+notes: >
+  Drawer 不在本 screen 預設樹內（Episode Page 範圍鎖死）。
+  Selection 仍讀 Phase 2 entries；Composition 只描述「會出現哪些 pattern」，
+  不覆寫 selection_rules。

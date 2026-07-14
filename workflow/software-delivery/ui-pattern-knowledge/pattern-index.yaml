@@ -44,4 +44,9 @@ entries:
     entry_status: declared
     dogfood_order: 5
 
-deferred_families: []   # e.g. popover / tooltip / fab — after Phase 2 scenarios PASS
+deferred_families: []   # e.g. popover / tooltip / fab — after Phase 3 composition dogfood
+
+compositions:
+  - id: episode_detail
+    path: compositions/episode_detail.yaml
+    phase: 3

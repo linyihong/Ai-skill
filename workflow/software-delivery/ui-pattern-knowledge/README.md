@@ -12,15 +12,14 @@
 ```text
 ui-pattern-knowledge/
   README.md
-  pattern-index.yaml          # Discovery index（≠ Runtime Projection）
+  pattern-index.yaml
+  composition_rules.yaml      # Phase 3+：composition 問題寫這裡（勿改 entries）
   validation/
-    entry-schema.yaml         # 結構完整性（Verifier / AI 寫 entry 時對照）
-  entries/
-    bottom_sheet.yaml         # 一 pattern 一檔（勿做成單一超大 glossary）
-    modal_dialog.yaml
-    drawer.yaml
-    toast.yaml
-    scrim.yaml
+    entry-schema.yaml
+  entries/                    # FROZEN after Phase 2（inferability validated）
+    …
+  compositions/
+    episode_detail.yaml       # Phase 3 Pattern Composition seed
 ```
 
 - **一 pattern 一 YAML**（現狀）。未來若需敘事長文，可選 `entries/<id>/entry.md` + `metadata.yaml`，**不**改回單一 mega-markdown。
@@ -35,13 +34,13 @@ Core 欄位凍結；新能力進 Extended，不反复改 Core key 名。
 
 1. 選型不明或宣告 pattern 對齊時，先讀 [`../ui-contracts.md`](../ui-contracts.md) **Pattern Knowledge Lock**。
 2. Discovery：讀 [`pattern-index.yaml`](pattern-index.yaml)。
-3. 寫／擴 entry：對照 template + `validation/entry-schema.yaml`（完整 entry = Core 齊）。
-4. 專案 overlay 放 consumer repo；不要把專案私有名寫進本目錄 `entries/`。
+3. 寫／擴 entry：對照 template + `validation/entry-schema.yaml`（完整 entry = Core 齊）。**Phase 3+ 預設不改 entries**——composition 問題寫 [`composition_rules.yaml`](composition_rules.yaml)。
+4. Pattern Composition：見 [`compositions/`](compositions/) + composition template。
+5. 專案 overlay 放 consumer repo；不要把專案私有名寫進本目錄 `entries/`。
 
 **禁止**：`platform_map` 使用 Material / iOS / Fluent 等 DS 百科 key；不做獨立 Intent DB；不做全庫 glossary 單檔。
 
-## Phase 2 dogfood（可推理性，不堆名詞）
+## Phase 狀態
 
-目標：**五 Entry + 十 Selection Scenario 全部通過**（見 plan evidence）。  
-順序：`scrim` → `modal_dialog` → `bottom_sheet` → `drawer` → `toast`（`feedback`）。  
-**不要**急著加 popover / tooltip / fab / command_palette。
+- **Phase 2 Completed**：驗證 **inferability**（非 Coverage）。見 plan `evidence/phase2-summary.md`。
+- **Phase 3**：Pattern Composition · Episode Page only；**不要**急著加 popover / tooltip / fab / 全站 screens。

@@ -1,15 +1,22 @@
-# UI Pattern Knowledge — composition template
+# UI Pattern Knowledge — Pattern Composition template
 #
-# Composition = 某 screen / flow 由哪些 pattern 組成。
-# 與 Screen Mapping 不互代：Mapping = 行為追溯；Composition = pattern 結構。
-# pattern id 應對齊 entry 的 canonical_pattern / id。
+# Pattern Composition = 某 screen / flow 由哪些 pattern 組成。
+# 名稱刻意用 Pattern Composition（非裸 Composition），以區分未來的
+# Workflow / Evidence / Prompt Composition。
+#
+# 與 Screen Mapping 不互代：Mapping = 行為追溯；Pattern Composition = pattern 結構。
+# pattern id 應對齊 entry 的 canonical_pattern / id（或標 knowledge: deferred）。
+#
+# Phase 3+：composition 問題寫 composition_rules.yaml；不要回頭改 entries/*.yaml。
 
-screen: <screen_or_flow_id>              # e.g. content_detail
+screen: <screen_or_flow_id>              # e.g. episode_detail
 contains:
   - pattern: <required_pattern_id>       # e.g. app_bar
   - pattern: <optional_pattern_id>       # e.g. bottom_sheet
     optional: true
   - pattern: <another_pattern_id>        # e.g. toast
 # optional fields (when useful):
+# knowledge: seed | deferred             # deferred = 結構節點，尚未驗證 entry
+# role: structure | overlay | feedback | overlay_compositional
 # notes: "<composition constraint or mutual-exclusion note>"
 # evidence_level: observed               # verified | observed | hypothesized

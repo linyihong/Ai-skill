@@ -1,0 +1,24 @@
+# Pattern Composition rules (Phase 3+)
+# NOT entry schema. NOT Runtime Projection.
+#
+# When composition dogfood finds gaps, ADD rules here.
+# Do NOT reopen / mutate frozen Core entries under entries/*.yaml
+# (Phase 2 validated inferability; keep Knowledge Layer frozen).
+
+schema_version: "1.0"
+id: workflow.software_delivery.ui_pattern_knowledge.composition_rules
+kind: composition_rules
+status: active
+owner_layer: workflow
+entry_freeze_policy: >
+  Phase 3+ must not edit entries/*.yaml to fix composition problems.
+  Fix via composition_rules, composition notes, or a new plan revision
+  that explicitly unfreezes Core (rare).
+
+rules: []
+# Example shape (add when needed):
+# - id: episode.overlay_mutex
+#   screen: episode_detail
+#   when: modal_dialog_open
+#   then: forbid_bottom_sheet_concurrent
+#   evidence_level: hypothesized

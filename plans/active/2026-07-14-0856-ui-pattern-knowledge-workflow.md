@@ -28,11 +28,13 @@ revision:
     note: "Stakeholder Phase1 freeze：Done Definition 鎖產物；pattern-index（非 runtime-index）；validation/entry-schema；Phase2 僅五件 overlay 驗形狀不堆名詞"
   - date: 2026-07-14
     note: "Phase 2 kickoff：目標=Pattern Family 可推理性；成功=5 entries + 10 Selection Scenarios；順序 Scrim→Dialog→Sheet→Drawer→Toast；停止 Phase1 打磨"
+  - date: 2026-07-14
+    note: "Phase 2 Completed（H1 Selection / H2 Family / H3 Near Neighbor）；closure phase2-summary；Phase 3=Pattern Composition（Episode Page）；entry freeze→composition_rules"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
 
-**Status**: `in-progress` — **Phase 0–1 complete**；**Phase 2 started**（2026-07-14）— Family inferability dogfood  
+**Status**: `in-progress` — **Phase 0–2 complete**；**Phase 3 started**（Pattern Composition · Episode Page）  
 
 **Owner**: linyihong  
 **建立日期**: 2026-07-14  
@@ -422,23 +424,46 @@ workflow/software-delivery/
 - [x] 證據檔：[`evidence/2a-family-inferability-run.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/2a-family-inferability-run.md)（逐案 PASS/FAIL + rule trace）— **10/10 PASS**（rule-trace，2026-07-14）  
 - [x] toast.`family` = `feedback`（與 overlay 決策分開，作為 Family 邊界 dogfood）  
 - [x] 依序強化五件 selection_rules / neighbors，使十案可推出正確答案  
-- [ ] **禁止**：本 Phase 新增其他 pattern entry（持續遵守）  
-- [ ]（次要）`<PROJECT_ROOT>` project alias / recipe partial — 不計入本 Phase gate
+- [x] 本 Phase **未**新增其他 pattern entry（遵守）  
+- [x] Closure：[`evidence/phase2-summary.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/phase2-summary.md)  
+- [ ]（次要，defer）`<PROJECT_ROOT>` project alias / recipe partial — 不計入本 Phase gate
 
 **Dogfood loop pointer（#4 defer）**：三角色可選；非完成條件。
 
-**完成條件**：十個 Selection Scenario **全部 PASS**（證明可推理，不只寫下來）→ 才開下一輪 family。  
-**狀態（2026-07-14）**：rule-trace **10/10** + blind LLM **10/10** → 主成功條件達成；待 stakeholder 確認是否關閉 Phase 2。
+### Phase 2 正式結論
+
+> Phase 2 驗證的是 Pattern Knowledge 的 **「可推理性（inferability）」**，而不是 Pattern **Coverage（涵蓋率）**。因此 Phase 2 的完成條件以推理能力為準，而非 Pattern 數量。
+
+| Gate | 判定 | 理由 |
+| --- | --- | --- |
+| Phase 2 | ✅ **Completed** | H1 Selection、H2 Family、H3 Near Neighbor 皆有可重現證據（rule-trace ≡ blind LLM 10/10） |
+| Phase 3 | ✅ **Start** | 目標升到「多 Pattern 可組成 Screen 並保持可推理」 |
+
+**關閉日**：2026-07-14（stakeholder gate decision）。
 
 ---
 
-## Phase 3 — Composition + Expansion evidence
+## Phase 3 — Pattern Composition（Episode Page 先行）
 
-- [ ] ≥1 composition  
-- [ ] 跑一次 Expansion；evidence 留 **摘要**  
-- [ ] 記錄 verified vs observed 差異（若可觀察）
+> 名稱用 **Pattern Composition**（非裸「Composition」），以區分未來 Workflow / Evidence / Prompt Composition。
 
-**完成條件**：書面 keep L1 / 觸發 D9 review / 開 Phase 4–5。
+**一句目標**：證明 Screen → Pattern Tree → Selection → Recipe 可串起來，且仍可推理。
+
+**Scope 鎖死（不要一開始全站）**：只驗 **Episode Page / Episode Detail**：
+
+```text
+episode_detail
+  contains: app_bar | player | bottom_sheet | modal_dialog | toast | scrim
+```
+
+- [x] Seed：[`ui-pattern-knowledge/compositions/episode_detail.yaml`](../../workflow/software-delivery/ui-pattern-knowledge/compositions/episode_detail.yaml)  
+- [x] [`composition_rules.yaml`](../../workflow/software-delivery/ui-pattern-knowledge/composition_rules.yaml)（空規則殼；問題寫這裡）  
+- [ ] 跑一輪 Episode：Pattern Tree → Selection（沿用 Phase 2 entries）→ Recipe 摘要  
+- [ ] Expansion 一次；evidence 留摘要  
+- [ ] 記錄 verified vs observed（若可觀察）  
+- [x] **Entry freeze**：Phase 3 **禁止**為修問題改 `entries/*.yaml`；改加 `composition_rules`
+
+**完成條件**：至少一份 Episode Pattern Composition 走過鏈，且未回改 Entry；書面 keep L1 / 觸發 D9 review / 開 Phase 4–5。
 
 ---
 
@@ -466,7 +491,7 @@ workflow/software-delivery/
 
 ## 完成條件（整 plan）
 
-- [ ] Phase 0–2；Phase 3 有 composition + expansion **evidence**  
+- [ ] Phase 0–2（✓）；Phase 3 有 **Pattern Composition** + expansion **evidence**  
 - [ ] Core/Extended 邊界寫進 template  
 - [ ] 無 Intent DB；platform_map 無 DS 百科  
 - [ ] Q 全關；glossary 註冊或明示不註冊  
@@ -483,7 +508,8 @@ workflow/software-delivery/
 - [x] D9 事件驅動 promote-or-sunset（非固定日）  
 - [x] Authority Boundary 四句  
 - [x] Round-2 Verifier 通過 → `in-progress`（2026-07-14 Phase 0 close）  
-- [x] 簽署開始 Phase 1 實作（stakeholder 2026-07-14：「可以繼續」）
+- [x] 簽署開始 Phase 1 實作（stakeholder 2026-07-14：「可以繼續」）  
+- [x] Phase 2 Completed / Phase 3 Start（stakeholder 2026-07-14：三假說通過；inferability ≠ coverage）
 
 ---
 
