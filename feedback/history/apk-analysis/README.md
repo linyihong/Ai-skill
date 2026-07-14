@@ -4,9 +4,9 @@
 
 | 分類 | 數量 | 說明 |
 |------|------|------|
-| [`common/`](common/) | 58 | 跨分類或通用 lesson（工具選擇、流程、UI、分析策略等） |
+| [`common/`](common/) | 60 | 跨分類或通用 lesson（工具選擇、流程、UI、分析策略等） |
 | [`flutter-dart-aot/`](flutter-dart-aot/) | 23 | Flutter/Dart AOT 相關 hook 與分析 |
-| [`http-api/`](http-api/) | 30 | HTTP API 分析、文件化、UI 操作流程 |
+| [`http-api/`](http-api/) | 31 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 11 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
@@ -15,6 +15,9 @@
 
 | Slug | Category |
 |------|----------|
+| `common/2026-07-14_135210-prove-wire-json-names-via-jsonreader-nextname` | Wire names via JsonReader.nextName (R8) |
+| `common/2026-07-14_135200-sign-canonical-structural-probe-allowlist-keys` | Canonical structure probe：allowlist keys |
+| `http-api/2026-07-14_135220-request-sign-interceptor-may-outnumber-signer-calls` | Interceptor count ≠ signer count |
 | `http-api/2026-07-14_133500-request-sign-may-live-in-vendored-httpglobal-not-app-intercept` | Sign in vendored HttpGlobal, not app intercept |
 | `http-api/2026-07-14_131600-request-sign-fixed-b64-length-may-be-rsa-scale` | sign fixed base64 len ≈ RSA-2048 scale |
 | `http-api/2026-07-14_131500-ondisk-encrypted-chapter-blob-length-matches-decrypt-input` | On-disk blob len ≡ decrypt inLen |
