@@ -26,11 +26,14 @@ revision:
     note: "Phase 1 Verifier 仲裁：fix artifact-gates 全鏈、seed project:null、Lock when_to_load≠runtime；defer Contract Stack 圖"
   - date: 2026-07-14
     note: "Stakeholder Phase1 freeze：Done Definition 鎖產物；pattern-index（非 runtime-index）；validation/entry-schema；Phase2 僅五件 overlay 驗形狀不堆名詞"
+  - date: 2026-07-14
+    note: "Phase 2 kickoff：目標=Pattern Family 可推理性；成功=5 entries + 10 Selection Scenarios；順序 Scrim→Dialog→Sheet→Drawer→Toast；停止 Phase1 打磨"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
 
-**Status**: `in-progress` — **Phase 0–1 complete**（2026-07-14）；Phase 2 尚未開始  
+**Status**: `in-progress` — **Phase 0–1 complete**；**Phase 2 started**（2026-07-14）— Family inferability dogfood  
+
 **Owner**: linyihong  
 **建立日期**: 2026-07-14  
 **Source**: 2026-07-14 對話 — NameThatUI 對照 + stakeholder 回饋（Knowledge layer，非 glossary；非 NameThatUI clone）。  
@@ -389,21 +392,43 @@ workflow/software-delivery/
 
 ---
 
-## Phase 2 — `<PROJECT_ROOT>` dogfood（**只驗形狀，不堆名詞**）
+## Phase 2 — Pattern Family 可推理性驗證（**不是「寫完五份 YAML」**）
 
-**範圍鎖死**：仍只有 overlay 五件（Bottom Sheet / Modal Dialog / Drawer / Toast / Scrim）。  
-目標 = 在 consumer 驗證 Knowledge Layer 全流程（Selection → Near Neighbor → Family → Recipe → Project Alias），**不是**把 entry 數拉到 8+。
+> 一句目標：**證明五個 Entry 能形成一個可工作的 Pattern Family**（Knowledge 可被推理），不是累積名詞、也不是再打磨 Phase 1 產物。
 
-- [ ] Consumer overlay 目錄：`docs/frontend-contracts/ui-pattern-knowledge/`（可只含五件的 project alias / composition 指針）  
-- [ ] 五件各自可對到 `platform_map.project` 或 `legacy_alias`（project side）  
-- [ ] 至少 1–2 條 recipe `partial`+`observed`（同五件內加厚，勿開新 family）  
-- [ ] Outer knowledge ↔ inner shared-components README 雙向連結（導航 defer 風險見 Deferred Notes）  
-- [ ]（可選）對 `validation/entry-schema.yaml` 做結構檢查（Core keys）  
-- [ ] **禁止**：本 Phase 新增 popover / tooltip / dropdown / overflow / fab / command_palette 等 entry
+**範圍鎖死**：仍只有這五件（禁 popover / tooltip / fab / …）。  
+**主證據** = Selection Scenario dogfood；consumer project alias / outer↔inner 雙鏈 = **次要**（可並行，不擋主成功條件）。
 
-**Dogfood loop pointer（#4 defer）**：三角色可選；用 delegation kit；非完成條件。
+### 驗證順序（刻意，非隨意）
 
-**完成條件**：五件 overlay 在 consumer 走上全流程至少一輪；形狀可信 → 才開下一輪 family（另開 Phase／checklist），**不以 entry 數量衡量進度**。
+| 序 | Pattern | 本輪主要驗什麼 |
+| --- | --- | --- |
+| 1 | **Scrim** | family / recipe / relationship；**幾乎無「主表面選型」**——寫壞則後面全亂 |
+| 2 | **Modal Dialog** | Selection + Relationship + Recipe（例：destructive confirm → Dialog，不是 Sheet） |
+| 3 | **Bottom Sheet** | Near Neighbor：Sheet vs Dialog vs Drawer |
+| 4 | **Drawer** | persistent vs temporary；Navigation vs Task |
+| 5 | **Toast** | **另一個 Family（feedback）**——不屬 Overlay Decision；驗 Family 是否真有用 |
+
+每完成一個 entry 強化回合，就做一輪 **Selection Test**（給意圖 → 應選出正確 pattern）。
+
+### 成功條件（取代「五個 Entry」 alone）
+
+```text
+五個 Entry（同波次）+ 十個 Selection Scenario 全部通過
+  Scrim ×2 · Modal Dialog ×2 · Bottom Sheet ×2 · Drawer ×2 · Toast ×2
+```
+
+- [x] 證據檔：[`evidence/selection-scenarios.yaml`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/selection-scenarios.yaml)（十案定義）  
+- [x] 證據檔：[`evidence/2a-family-inferability-run.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/2a-family-inferability-run.md)（逐案 PASS/FAIL + rule trace）— **10/10 PASS**（rule-trace，2026-07-14）  
+- [x] toast.`family` = `feedback`（與 overlay 決策分開，作為 Family 邊界 dogfood）  
+- [x] 依序強化五件 selection_rules / neighbors，使十案可推出正確答案  
+- [ ] **禁止**：本 Phase 新增其他 pattern entry（持續遵守）  
+- [ ]（次要）`<PROJECT_ROOT>` project alias / recipe partial — 不計入本 Phase gate
+
+**Dogfood loop pointer（#4 defer）**：三角色可選；非完成條件。
+
+**完成條件**：十個 Selection Scenario **全部 PASS**（證明可推理，不只寫下來）→ 才開下一輪 family。  
+**狀態（2026-07-14）**：rule-trace **10/10** + blind LLM **10/10** → 主成功條件達成；待 stakeholder 確認是否關閉 Phase 2。
 
 ---
 

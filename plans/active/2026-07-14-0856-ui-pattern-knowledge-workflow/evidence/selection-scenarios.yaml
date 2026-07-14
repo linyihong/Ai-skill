@@ -1,0 +1,126 @@
+# Phase 2 Selection Scenarios — Pattern Family inferability
+# Success gate: all 10 must PASS against entries/*.yaml selection_rules + neighbors.
+# NOT a runtime surface. Verifier / dogfood evidence only.
+
+schema_version: "1.0"
+id: plan.2026-07-14.ui_pattern_knowledge.selection_scenarios
+kind: selection_dogfood
+status: active
+phase: 2
+success_rule: "5 entries + 10 scenarios all PASS"
+
+# Run order matches entry dogfood order
+run_order:
+  - scrim
+  - modal_dialog
+  - bottom_sheet
+  - drawer
+  - toast
+
+scenarios:
+  - id: S1_scrim_with_modal
+    target: scrim
+    prompt: "使用者要刪除帳號，畫面已決定用阻斷確認對話框；背景需要壓暗並宣告點擊行為。"
+    expected_primary: scrim
+    expected_not:
+      - toast
+      - bottom_sheet
+    family_check: overlay_compositional
+    pass_rule: >
+      選 scrim 作為壓暗能力；主任務面仍是 modal_dialog（composition），
+      不得把「刪除確認」答成 scrim 獨撐。
+
+  - id: S2_scrim_not_for_toast
+    target: scrim
+    prompt: "操作成功，只需短暫提示「已儲存」，不阻斷操作。"
+    expected_primary: toast
+    expected_not:
+      - scrim
+      - modal_dialog
+    family_check: feedback_no_scrim
+    pass_rule: "主選 toast（feedback）；明確排除 scrim。"
+
+  - id: S3_dialog_delete_confirm
+    target: modal_dialog
+    prompt: "確定刪除嗎？"
+    expected_primary: modal_dialog
+    expected_not:
+      - bottom_sheet
+      - toast
+      - drawer
+    family_check: overlay_blocking
+    pass_rule: "destructive confirm → modal_dialog，不是 bottom_sheet。"
+
+  - id: S4_dialog_blocking_gate
+    target: modal_dialog
+    prompt: "使用者必須先確認條款才能繼續；短內容、需明確確認或取消。"
+    expected_primary: modal_dialog
+    expected_not:
+      - toast
+      - drawer
+    family_check: overlay_blocking
+    pass_rule: "blocking short gate → modal_dialog。"
+
+  - id: S5_sheet_payment_method
+    target: bottom_sheet
+    prompt: "我要讓使用者選付款方式。"
+    expected_primary: bottom_sheet
+    expected_not:
+      - modal_dialog
+      - drawer
+      - toast
+    family_check: overlay_option_list
+    pass_rule: "多選項／picker → bottom_sheet，不是 Dialog。"
+
+  - id: S6_sheet_share_targets
+    target: bottom_sheet
+    prompt: "分享這篇文章到可選的幾個外部目標（一組動作清單）。"
+    expected_primary: bottom_sheet
+    expected_not:
+      - modal_dialog
+      - toast
+    family_check: overlay_option_list
+    pass_rule: "share / multi-action list → bottom_sheet。"
+
+  - id: S7_drawer_persistent_nav
+    target: drawer
+    prompt: "左側常駐導航，用來切換主要頁面；可與主內容並存。"
+    expected_primary: drawer
+    expected_not:
+      - bottom_sheet
+      - modal_dialog
+      - toast
+    family_check: overlay_navigation_persistent
+    pass_rule: "persistent navigation → drawer（非 sheet / dialog）。"
+
+  - id: S8_drawer_filters_beside
+    target: drawer
+    prompt: "篩選條件放在側欄，與結果列表並存，可長時間開啟。"
+    expected_primary: drawer
+    expected_not:
+      - toast
+      - modal_dialog
+    family_check: overlay_panel_beside_content
+    pass_rule: "semi-persistent filters beside content → drawer。"
+
+  - id: S9_toast_saved
+    target: toast
+    prompt: "已儲存成功。"
+    expected_primary: toast
+    expected_not:
+      - modal_dialog
+      - bottom_sheet
+      - scrim
+    family_check: feedback
+    pass_rule: "success ack → toast（feedback family），不是 overlay decision。"
+
+  - id: S10_toast_background_done
+    target: toast
+    prompt: "背景上傳完成，給一個可自動消失的輕提示，不需使用者決策。"
+    expected_primary: toast
+    expected_not:
+      - modal_dialog
+      - drawer
+      - scrim
+    family_check: feedback
+    pass_rule: "non-blocking completion → toast。"

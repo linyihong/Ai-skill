@@ -1,10 +1,10 @@
-# Overlay family Core seed — scrim
-# 完整 entry = Core 齊。Extended recipe 可 status: unknown。
-# scrim 常為其他 overlay recipe 的能力；仍可獨立選型（何時壓暗／鎖背景）。
+# Overlay capability — scrim
+# Scrim 幾乎不做「主表面選型」：它是其他 overlay 的 relationship / recipe 能力。
+# 選錯 scrim schema → Modal / Sheet / Drawer 的壓暗與 dismiss 語義會一起亂。
 
 id: scrim
 canonical_pattern: scrim
-plain_name: "半透明壓暗層，分隔前景 overlay 與背景內容"
+plain_name: "半透明壓暗層，分隔前景 overlay 與背景內容（compositional；非主任務面）"
 family: overlay
 variant_of: overlay
 entry_status: declared
@@ -13,43 +13,47 @@ evidence_level: observed
 intent_examples:
   - dim_background_behind_overlay
   - signal_modal_context
-  - optional_dismiss_by_backdrop
+  - backdrop_dismiss_surface
 
 selection_rules:
+  # 選的是「要不要壓暗層」，不是「任務 UI 用哪個主表面」
   when:
     - modal_or_temporary_overlay_present
     - need_visual_separation_from_page
-    - backdrop_dismiss_allowed_or_blocked_explicitly
+    - backdrop_pointer_policy_required
   not_when:
-    - non_modal_toast_only
+    - feedback_only_toast_or_snackbar
     - persistent_push_drawer_without_dim
-    - used_as_sole_content_surface
+    - used_as_sole_content_or_primary_task_surface
   evidence_level: observed
 
 near_neighbors:
   - id: modal_dialog
-    rule: "scrim 是壓暗層；對話內容與決策屬 modal_dialog"
+    rule: "scrim 是壓暗層；決策內容與確認屬 modal_dialog，不要把對話內容寫進 scrim"
   - id: bottom_sheet
-    rule: "sheet 常依賴 scrim；選型主體仍是 bottom_sheet"
+    rule: "sheet 常依賴 scrim；主選型仍是 bottom_sheet"
+  - id: drawer
+    rule: "temporary/modal drawer 可要 scrim；persistent/push drawer 常不要"
   - id: toast
-    rule: "toast 預設無 scrim；出現 scrim 則重新評估是否應為 modal"
+    rule: "toast（feedback）預設無 scrim；出現 scrim 則重新評估是否應為 modal overlay"
 
 anti_patterns:
   - scrim_without_foreground_overlay
   - multiple_stacked_scrims_without_reason
   - capturing_clicks_without_declared_dismiss_policy
+  - treating_scrim_as_primary_pattern_for_user_task
 
 platform_map:
   aria: none
   headless: None
-  project: null  # project overlay fills alias; keep seed free of product names
+  project: null
 
 implementation_recipe:
-  status: unknown
-  evidence_level: hypothesized
+  status: partial
+  evidence_level: observed
   required:
     - covers_viewport_behind_overlay
-    - declared_pointer_policy
+    - declared_pointer_policy  # dismiss on click vs block
   recommended:
     - fade_motion
     - body_scroll_lock_when_modal

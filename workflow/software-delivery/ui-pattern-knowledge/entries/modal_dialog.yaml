@@ -1,5 +1,4 @@
-# Overlay family Core seed — modal_dialog
-# 完整 entry = Core 齊。Extended recipe 可 status: unknown。
+# Overlay family — modal_dialog
 
 id: modal_dialog
 canonical_pattern: modal_dialog
@@ -21,35 +20,36 @@ selection_rules:
     - destructive_or_irreversible
     - short_focused_content
   not_when:
-    - many_parallel_actions
+    - many_parallel_actions_or_option_list
+    - choose_payment_or_share_targets
     - persistent_navigation
     - non_blocking_status_only
-    - mobile_action_sheet_fit
   evidence_level: observed
 
 near_neighbors:
   - id: bottom_sheet
-    rule: "破壞性／阻斷確認用 modal_dialog；底部多選用 bottom_sheet"
+    rule: "破壞性／阻斷確認用 modal_dialog；底部多選／付款方式／分享用 bottom_sheet"
   - id: drawer
-    rule: "臨時阻斷對話用 modal_dialog；側欄導航用 drawer"
+    rule: "臨時阻斷對話用 modal_dialog；側欄導航或並存面板用 drawer"
   - id: toast
-    rule: "需要使用者決策用 modal_dialog；純告知用 toast"
+    rule: "需要使用者決策用 modal_dialog；純成功／軟錯告知用 toast（feedback）"
   - id: scrim
-    rule: "modal_dialog 常搭配 scrim；scrim 本身不是對話框"
+    rule: "modal_dialog recipe 通常包含 scrim；scrim 本身不是對話框"
 
 anti_patterns:
   - nested_modals
   - long_wizard_inside_dialog
   - dismiss_without_escape_or_explicit_close
+  - putting_long_option_lists_in_dialog_instead_of_sheet
 
 platform_map:
   aria: dialog
   headless: Dialog
-  project: null  # project overlay fills alias; keep seed free of product names
+  project: null
 
 implementation_recipe:
-  status: unknown
-  evidence_level: hypothesized
+  status: partial
+  evidence_level: observed
   required:
     - portal
     - scrim

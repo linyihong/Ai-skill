@@ -40,7 +40,8 @@ Core 欄位凍結；新能力進 Extended，不反复改 Core key 名。
 
 **禁止**：`platform_map` 使用 Material / iOS / Fluent 等 DS 百科 key；不做獨立 Intent DB；不做全庫 glossary 單檔。
 
-## Phase 2 dogfood 範圍（刻意窄）
+## Phase 2 dogfood（可推理性，不堆名詞）
 
-只驗證 **這五個 overlay** 走完 Selection → Neighbor → Family → Recipe → Project Alias 全流程。  
-**不要**急著加 popover / tooltip / fab / command_palette 等 — 那是形狀驗證通過後的下一輪。
+目標：**五 Entry + 十 Selection Scenario 全部通過**（見 plan evidence）。  
+順序：`scrim` → `modal_dialog` → `bottom_sheet` → `drawer` → `toast`（`feedback`）。  
+**不要**急著加 popover / tooltip / fab / command_palette。

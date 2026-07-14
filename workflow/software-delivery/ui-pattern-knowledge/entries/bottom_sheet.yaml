@@ -1,6 +1,4 @@
-# Overlay family Core seed — bottom_sheet
-# 完整 entry = Core 齊。Extended recipe 可 status: unknown。
-# platform_map 僅 aria / headless / project；禁止 DS 百科 key。
+# Overlay family — bottom_sheet
 
 id: bottom_sheet
 canonical_pattern: bottom_sheet
@@ -11,44 +9,49 @@ entry_status: declared
 evidence_level: observed
 
 intent_examples:
-  - choose_one_of_many_actions
+  - choose_payment_method
   - share_or_export
+  - choose_one_of_many_actions
   - contextual_options
 
 selection_rules:
   when:
-    - multiple_actions
+    - multiple_actions_or_options
     - temporary_context
     - mobile_or_h5_primary
     - non_destructive_choice
+    - payment_share_or_picker_list
   not_when:
     - destructive_confirm_primary
+    - blocking_alert_required
     - long_multi_step_workflow
     - persistent_navigation
-    - blocking_alert_required
   evidence_level: observed
 
 near_neighbors:
   - id: modal_dialog
-    rule: "中央阻斷／破壞性確認用 modal_dialog；底部多選／分享用 bottom_sheet"
+    rule: "中央阻斷／確定刪除用 modal_dialog；選付款方式／分享／多選用 bottom_sheet"
   - id: drawer
-    rule: "持久導航用 drawer；臨時上下文面板用 bottom_sheet"
+    rule: "持久導航或側欄並存用 drawer；一次性底部選項用 bottom_sheet"
   - id: toast
     rule: "短暫狀態回饋用 toast；需要多動作選擇用 bottom_sheet"
+  - id: scrim
+    rule: "bottom_sheet 通常搭配 scrim；主選型仍是 bottom_sheet"
 
 anti_patterns:
   - more_than_10_actions
   - full_form_or_wizard_inside
   - nested_bottom_sheets
+  - using_sheet_for_destructive_confirm_only
 
 platform_map:
   aria: dialog
   headless: Dialog
-  project: null  # project overlay fills alias; keep seed free of product names
+  project: null
 
 implementation_recipe:
-  status: unknown
-  evidence_level: hypothesized
+  status: partial
+  evidence_level: observed
   required:
     - portal
     - scrim

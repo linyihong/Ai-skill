@@ -11,28 +11,37 @@ note: >
   Lists which Core seed entries exist under entries/.
   Consumers and agents use this for discovery; completeness is validated via
   validation/entry-schema.yaml (not via runtime.compile).
+  Phase 2 dogfood verifies overlay family + feedback boundary (toast),
+  not entry count growth.
 
-family_focus: overlay
+family_focus:
+  - overlay
+  - feedback   # toast only in wave-1; proves Family gates Selection
 entries:
-  - id: bottom_sheet
-    path: entries/bottom_sheet.yaml
-    family: overlay
-    entry_status: declared
-  - id: modal_dialog
-    path: entries/modal_dialog.yaml
-    family: overlay
-    entry_status: declared
-  - id: drawer
-    path: entries/drawer.yaml
-    family: overlay
-    entry_status: declared
-  - id: toast
-    path: entries/toast.yaml
-    family: overlay
-    entry_status: declared
   - id: scrim
     path: entries/scrim.yaml
     family: overlay
     entry_status: declared
+    dogfood_order: 1
+  - id: modal_dialog
+    path: entries/modal_dialog.yaml
+    family: overlay
+    entry_status: declared
+    dogfood_order: 2
+  - id: bottom_sheet
+    path: entries/bottom_sheet.yaml
+    family: overlay
+    entry_status: declared
+    dogfood_order: 3
+  - id: drawer
+    path: entries/drawer.yaml
+    family: overlay
+    entry_status: declared
+    dogfood_order: 4
+  - id: toast
+    path: entries/toast.yaml
+    family: feedback
+    entry_status: declared
+    dogfood_order: 5
 
-deferred_families: []   # e.g. popover / tooltip / fab — after overlay dogfood matures
+deferred_families: []   # e.g. popover / tooltip / fab — after Phase 2 scenarios PASS
