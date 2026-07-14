@@ -28,7 +28,7 @@
 | **2o** | [`2o-consumer-tab-scroll-single-vs-delegation.md`](2o-consumer-tab-scroll-single-vs-delegation.md) | 正负对照 | `<PROJECT_ROOT>` `/h5` tab-scroll：**单 session 部分关** vs **三角色全 linked**；authority model 桥接 State Trust；deploy smoke≠L3 |
 | **2r** | [`2r-consumer-player-overlay-mode-a-hit-trap.md`](2r-consumer-player-overlay-mode-a-hit-trap.md) | 负向证据 | <PROJECT_ROOT> player overlay：**Mode A** soft-nav 绿 → cold URL 全死；programmatic click / 单入口假绿；回馈 entry-path 矩阵 |
 | **2s** | [`2s-architecture-ui-pattern-knowledge-plan-review.md`](2s-architecture-ui-pattern-knowledge-plan-review.md) | 跨域 Architecture | UI Pattern Knowledge **plan** review：四責任成立；Knowledge 格仍空；orchestrator 越界疤保留 |
-| **2t** | （待建 `2t-apk-capability-handoff.md`） | **預註冊** Domain Boundary | APK Discovery candidate ↔ SD Delegated Execution；Capability Handoff；契約 [`04`](../04-apk-capability-handoff-boundary.md)；**不**套三角色於 apk-analysis |
+| **2t** | [`2t-apk-capability-handoff.md`](2t-apk-capability-handoff.md) | **partial / 2t-A observational** | 真實 APK Discovery consumer：overlay→[`04`](../04-apk-capability-handoff-boundary.md)；Assessment 持續 `no`（含可重放 sign 後）；**未**套三角色、**未** 2t-B |
 | 2d | —（inline） | 證據 only | 見 [`01-dogfood-prompt-kit.md`](../01-dogfood-prompt-kit.md) → `### 2d` |
 | 2c | —（inline） | 證據 only | 見 kit → `### 2c` |
 | 2g | —（inline） | 證據 only | 見 kit → `### 2g` |

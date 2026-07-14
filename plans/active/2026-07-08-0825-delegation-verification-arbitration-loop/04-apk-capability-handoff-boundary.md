@@ -180,11 +180,11 @@ intake_owner: software-delivery
 
 ## Open follow-ups（不升格，登記）
 
-- [ ] Dogfood **2t-A** 真實 APK run（evidence 檔待建）
+- [x] Dogfood **2t-A** 真實 APK run — **seed**：[`evidence/2t-apk-capability-handoff.md`](evidence/2t-apk-capability-handoff.md)（observational；Assessment=`no`；正式 kit 模板可再補一輪）
 - [ ] 若 Yes → **2t-B** Capability Proposal + SD Intake brief
 - [ ] 證據夠 → 評估是否將 Capability Handoff 寫回 `workflow/apk-analysis`（boundary 專節）+ SD intake pointer（獨立 linked-update；本 companion 不自 promote）
 - [ ] Glossary 候選：`capability_handoff` / `deliverable_capability` / `discovery_evidence` — graduate 時才註冊
-
+- [ ] 用 [`01-dogfood-prompt-kit.md`](01-dogfood-prompt-kit.md) §2t 模板做一次 **signed** 2t-A 闭环（補 orchestrator 量测签名）
 ## 與其他檔
 
 - Parent：[`_plan.md`](_plan.md) §Stakeholder / Phase 2 **2t**
