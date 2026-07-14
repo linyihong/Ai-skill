@@ -1,0 +1,56 @@
+# Overlay family Core seed — drawer
+# 完整 entry = Core 齊。Extended recipe 可 status: unknown。
+
+id: drawer
+canonical_pattern: drawer
+plain_name: "從側邊滑出的面板，偏導航或持久上下文"
+family: overlay
+variant_of: overlay
+entry_status: declared
+evidence_level: observed
+
+intent_examples:
+  - app_navigation
+  - persistent_filters
+  - secondary_panel_alongside_content
+
+selection_rules:
+  when:
+    - persistent_or_semi_persistent_nav
+    - side_panel_with_main_content
+    - navigation_destinations
+  not_when:
+    - destructive_confirm_primary
+    - transient_status_only
+    - single_blocking_alert
+    - mobile_one_shot_action_list
+  evidence_level: observed
+
+near_neighbors:
+  - id: bottom_sheet
+    rule: "持久／側向導航用 drawer；臨時底部選項用 bottom_sheet"
+  - id: modal_dialog
+    rule: "導航結構用 drawer；阻斷確認用 modal_dialog"
+  - id: scrim
+    rule: "modal drawer 可搭配 scrim；push/persistent drawer 未必需要"
+
+anti_patterns:
+  - packing_primary_destructive_confirm_only
+  - treating_drawer_as_toast
+  - deep_nested_drawers
+
+platform_map:
+  aria: dialog
+  headless: Dialog
+  project: null  # project overlay fills alias; keep seed free of product names
+
+implementation_recipe:
+  status: unknown
+  evidence_level: hypothesized
+  required:
+    - focus_management
+    - escape_or_explicit_close
+  recommended:
+    - scrim_when_modal
+    - landmark_or_nav_semantics
+    - enter_exit_motion

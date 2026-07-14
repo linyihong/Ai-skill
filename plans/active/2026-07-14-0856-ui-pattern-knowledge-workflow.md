@@ -20,11 +20,15 @@ revision:
     note: "Round-2 Verifier：澄清 D9 trigger（T1–T5 任一成立；T1∨T2 強調句與 ≥2 consumers 不再語意打架）"
   - date: 2026-07-14
     note: "Phase 0 complete → status in-progress；D9 T1 時距自今日起算；Phase 1 未開始"
+  - date: 2026-07-14
+    note: "Phase 1 landed"
+  - date: 2026-07-14
+    note: "Phase 1 Verifier 仲裁：fix artifact-gates 全鏈、seed project:null、Lock when_to_load≠runtime；defer Contract Stack 圖"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
 
-**Status**: `in-progress` — **Phase 0 complete**（2026-07-14）；Phase 1 尚未開始  
+**Status**: `in-progress` — **Phase 0–1 complete**（2026-07-14）；Phase 2 尚未開始  
 **Owner**: linyihong  
 **建立日期**: 2026-07-14  
 **Source**: 2026-07-14 對話 — NameThatUI 對照 + stakeholder 回饋（Knowledge layer，非 glossary；非 NameThatUI clone）。  
@@ -358,12 +362,12 @@ Stakeholder 強調的壓縮讀法：**T1 OR T2 以先發生者啟動**；T3–T5
 
 ## Phase 1 — Ai-skill：Core schema + Selection
 
-- [ ] `ui-pattern-knowledge.entry.template.yaml`  
-- [ ] `ui-pattern-knowledge.composition.template.yaml`  
-- [ ] `ui-pattern-prompt-expansion.template.md`（註明勿 commit 為 Knowledge）  
-- [ ] `ui-contracts.md`：新增 **Pattern Knowledge Lock** 小節（不塞進 Screen Mapping）  
-- [ ] indexes 一行  
-- [ ] overlay family Core 種子（3–5 條）
+- [x] `ui-pattern-knowledge.entry.template.yaml`  
+- [x] `ui-pattern-knowledge.composition.template.yaml`  
+- [x] `ui-pattern-prompt-expansion.template.md`（註明勿 commit 為 Knowledge）  
+- [x] `ui-contracts.md`：新增 **Pattern Knowledge Lock** 小節（不塞進 Screen Mapping）  
+- [x] indexes 一行  
+- [x] overlay family Core 種子（3–5 條）
 
 **完成條件**：Core = 完整性標準；Recipe 允許 `unknown`。
 
@@ -434,7 +438,7 @@ Stakeholder 強調的壓縮讀法：**T1 OR T2 以先發生者啟動**；T3–T5
 - [x] D9 事件驅動 promote-or-sunset（非固定日）  
 - [x] Authority Boundary 四句  
 - [x] Round-2 Verifier 通過 → `in-progress`（2026-07-14 Phase 0 close）  
-- [ ] 簽署開始 Phase 1 實作（另開；本輪不做）
+- [x] 簽署開始 Phase 1 實作（stakeholder 2026-07-14：「可以繼續」）
 
 ---
 

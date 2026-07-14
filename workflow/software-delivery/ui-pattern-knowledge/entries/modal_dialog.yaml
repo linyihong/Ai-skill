@@ -1,0 +1,61 @@
+# Overlay family Core seed — modal_dialog
+# 完整 entry = Core 齊。Extended recipe 可 status: unknown。
+
+id: modal_dialog
+canonical_pattern: modal_dialog
+plain_name: "置中阻斷對話框，需明確確認或關閉"
+family: overlay
+variant_of: overlay
+entry_status: declared
+evidence_level: observed
+
+intent_examples:
+  - destructive_confirm
+  - blocking_choice
+  - short_form_gate
+
+selection_rules:
+  when:
+    - needs_blocking_attention
+    - confirm_or_cancel
+    - destructive_or_irreversible
+    - short_focused_content
+  not_when:
+    - many_parallel_actions
+    - persistent_navigation
+    - non_blocking_status_only
+    - mobile_action_sheet_fit
+  evidence_level: observed
+
+near_neighbors:
+  - id: bottom_sheet
+    rule: "破壞性／阻斷確認用 modal_dialog；底部多選用 bottom_sheet"
+  - id: drawer
+    rule: "臨時阻斷對話用 modal_dialog；側欄導航用 drawer"
+  - id: toast
+    rule: "需要使用者決策用 modal_dialog；純告知用 toast"
+  - id: scrim
+    rule: "modal_dialog 常搭配 scrim；scrim 本身不是對話框"
+
+anti_patterns:
+  - nested_modals
+  - long_wizard_inside_dialog
+  - dismiss_without_escape_or_explicit_close
+
+platform_map:
+  aria: dialog
+  headless: Dialog
+  project: null  # project overlay fills alias; keep seed free of product names
+
+implementation_recipe:
+  status: unknown
+  evidence_level: hypothesized
+  required:
+    - portal
+    - scrim
+    - focus_trap
+    - escape_close
+    - labelled_title
+  recommended:
+    - return_focus_on_close
+    - enter_exit_motion

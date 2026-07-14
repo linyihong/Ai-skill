@@ -1,0 +1,15 @@
+# UI Pattern Knowledge — composition template
+#
+# Composition = 某 screen / flow 由哪些 pattern 組成。
+# 與 Screen Mapping 不互代：Mapping = 行為追溯；Composition = pattern 結構。
+# pattern id 應對齊 entry 的 canonical_pattern / id。
+
+screen: <screen_or_flow_id>              # e.g. content_detail
+contains:
+  - pattern: <required_pattern_id>       # e.g. app_bar
+  - pattern: <optional_pattern_id>       # e.g. bottom_sheet
+    optional: true
+  - pattern: <another_pattern_id>        # e.g. toast
+# optional fields (when useful):
+# notes: "<composition constraint or mutual-exclusion note>"
+# evidence_level: observed               # verified | observed | hypothesized

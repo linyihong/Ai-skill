@@ -48,6 +48,45 @@ BDD behavior
 
 Accessibility Contract 依 screen 風險啟用：表單、modal、dynamic update、keyboard interaction、permission denied、error recovery 或重要 feedback 都需要明確 expectation。
 
+## Pattern Knowledge Lock
+
+> **獨立小節**（不屬於 Screen Mapping）。Screen Mapping 仍不承載 framework pattern 細節；本節是 **選型閘門 + template 指標**。
+
+| 欄位 | 值 |
+| --- | --- |
+| `when_to_load`（文件語意；**非** runtime route） | overlay／pattern **選型不明**，或任務**宣告 pattern 對齊／選型 claim** 時讀本節 + templates／seeds |
+| `skip_when` | 純資料修補、無關 UI pattern 的 provider-only 變更、或選型已鎖定且本輪不重談 pattern |
+| `templates` | [`templates/ui-pattern-knowledge.entry.template.yaml`](templates/ui-pattern-knowledge.entry.template.yaml)、[`templates/ui-pattern-knowledge.composition.template.yaml`](templates/ui-pattern-knowledge.composition.template.yaml)、[`templates/ui-pattern-prompt-expansion.template.md`](templates/ui-pattern-prompt-expansion.template.md) |
+| `seeds` | [`ui-pattern-knowledge/`](ui-pattern-knowledge/README.md)（Ai-skill reusable Core 種子；專案可覆寫） |
+| Phase 5 note | 機械 `load_when`／route／scenario **未**接入；見 plan Phase 5（僅 D9 Promote 後） |
+
+### Authority Boundary
+
+| Owner | Owns（一句） |
+| --- | --- |
+| **Pattern Knowledge** | *What pattern is appropriate*（選哪個、為何、近鄰互斥） |
+| **Design Contract** | *How the chosen pattern is built*（token / primitive / 視覺權威） |
+| **UI Governance** | *Whether implementation complies*（合規分類與收口；見 [`ui-governance.md`](ui-governance.md)） |
+| **Evidence** | *Whether claims are verified*（證明，非選型） |
+
+看到 Bottom Sheet 等 overlay 時：選型進 **Pattern Knowledge**；**不**先改 token，**不**先改 governance domain 定義。
+
+### Lock path（Intent → Selection → Name → Composition → Recipe）
+
+```text
+Task Intent（任務側推導；不進 Intent DB）
+  → Pattern Selection（Core：selection_rules when/not_when）
+  → Name / Family / Neighbors（Core）
+  → Composition pointer（獨立 artifact；可選）
+  → Implementation Recipe（Extended；可 status: unknown）
+  → Design Contract → UI Governance + Evidence
+```
+
+- **完整 entry** = Core 齊；Recipe／platform_map／anti_patterns 為 Extended。
+- **platform_map** 僅 `aria` → `headless` → `project`；禁止 DS 百科。
+- **Prompt Expansion** 產出 transient checklist；**禁止**把某次任務 checklist commit 進 canonical Knowledge。
+- L1（behavioral）：pattern／overlay **選型或對齊 claim** 應能指出 Core entry（或 `deferred`）；不要求 recipe `complete`。
+
 ## 1. Screen Mapping
 
 Screen Mapping 是 BDD-lite 後的第一個 frontend / consumer traceability seed。它不是 UI 設計稿，也不應承載 design token、layout detail 或 framework pattern；它只回答「這個行為會落到哪些 consumer surface、provider operation 與資料所有權」。

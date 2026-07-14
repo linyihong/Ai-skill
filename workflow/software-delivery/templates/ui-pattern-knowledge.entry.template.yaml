@@ -1,0 +1,54 @@
+# UI Pattern Knowledge — entry template
+#
+# 完整 entry = Core 欄位齊全。Extended 可後補；recipe 可 status: unknown。
+# 禁止：只有名字、沒有 selection_rules / near_neighbors / family。
+# platform_map 僅允許 aria / headless / project 三層；禁止 Material / iOS / Fluent 等 DS 百科 key。
+#
+# Core vs Extended:
+#   Core（缺一不可）: canonical_pattern, plain_name, intent_examples,
+#                     selection_rules (when/not_when), family, near_neighbors, evidence_level
+#   Extended（可後補）: implementation_recipe, platform_map, anti_patterns, project
+
+id: <pattern_id>                         # e.g. bottom_sheet
+canonical_pattern: <pattern_id>          # Core — 正式名
+plain_name: "<人話一句>"                   # Core — 可讀短述
+family: overlay                          # Core — pattern family（首波：overlay）
+variant_of: overlay                      # optional — 若為 family 變體
+entry_status: declared                   # declared | legacy_alias | deferred
+evidence_level: observed                 # Core — verified | observed | hypothesized
+
+intent_examples:                         # Core — 適用意圖示例（非 Intent DB）
+  - <intent_example_1>
+  - <intent_example_2>
+
+selection_rules:                         # Core
+  when:
+    - <condition_when_selected>
+  not_when:
+    - <condition_when_not_selected>
+  evidence_level: observed               # verified | observed | hypothesized
+
+near_neighbors:                          # Core — 易混 + 互斥一句
+  - id: <neighbor_pattern_id>
+    rule: "<何時選本 pattern、何時選鄰近者>"
+
+# --- Extended（可缺省或 unknown；不影響「完整 entry = Core 齊」）---
+
+anti_patterns:                           # Extended
+  - <anti_pattern_1>
+
+platform_map:                            # Extended — 僅 aria / headless / project
+  aria: <role_or_concept>                # e.g. dialog, status, none
+  headless: <HeadlessPrimitive>          # e.g. Dialog, omit if N/A
+  project: <ProjectComponentAlias>       # optional — consumer 專案覆寫名
+
+implementation_recipe:                   # Extended
+  status: unknown                        # unknown | partial | complete
+  evidence_level: hypothesized           # verified | observed | hypothesized
+  required: []                           # e.g. [portal, scrim, focus_trap]
+  recommended: []
+
+project:                                 # Extended — 專案 overlay 指針（可選）
+  component: <ProjectComponentAlias>
+  alias_of: null                         # legacy_alias 時指向 canonical_pattern
+  notes: ""

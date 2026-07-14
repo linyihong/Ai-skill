@@ -19,6 +19,7 @@ activation:
     - development_guidance_promoted
     - software_delivery_artifact_reviewed
     - ui_governance_artifact_reviewed
+    - pattern_knowledge_lock_reviewed
     - linked_update_statement_needed
     - project_evidence_promoted_to_guidance
   required_when:
@@ -31,6 +32,8 @@ required_sources:
   - workflow/software-delivery/README.md
   - workflow/software-delivery/templates/README.md
   - workflow/software-delivery/ui-governance.md
+  - workflow/software-delivery/ui-contracts.md
+  - workflow/software-delivery/ui-pattern-knowledge/README.md
   - enforcement/reusable-guidance-boundary.md
   - enforcement/sanitization.md
   - enforcement/linked-updates.md

@@ -1,0 +1,61 @@
+# Overlay family Core seed — bottom_sheet
+# 完整 entry = Core 齊。Extended recipe 可 status: unknown。
+# platform_map 僅 aria / headless / project；禁止 DS 百科 key。
+
+id: bottom_sheet
+canonical_pattern: bottom_sheet
+plain_name: "從底部抽出的臨時面板，通常帶 scrim"
+family: overlay
+variant_of: overlay
+entry_status: declared
+evidence_level: observed
+
+intent_examples:
+  - choose_one_of_many_actions
+  - share_or_export
+  - contextual_options
+
+selection_rules:
+  when:
+    - multiple_actions
+    - temporary_context
+    - mobile_or_h5_primary
+    - non_destructive_choice
+  not_when:
+    - destructive_confirm_primary
+    - long_multi_step_workflow
+    - persistent_navigation
+    - blocking_alert_required
+  evidence_level: observed
+
+near_neighbors:
+  - id: modal_dialog
+    rule: "中央阻斷／破壞性確認用 modal_dialog；底部多選／分享用 bottom_sheet"
+  - id: drawer
+    rule: "持久導航用 drawer；臨時上下文面板用 bottom_sheet"
+  - id: toast
+    rule: "短暫狀態回饋用 toast；需要多動作選擇用 bottom_sheet"
+
+anti_patterns:
+  - more_than_10_actions
+  - full_form_or_wizard_inside
+  - nested_bottom_sheets
+
+platform_map:
+  aria: dialog
+  headless: Dialog
+  project: null  # project overlay fills alias; keep seed free of product names
+
+implementation_recipe:
+  status: unknown
+  evidence_level: hypothesized
+  required:
+    - portal
+    - scrim
+    - focus_trap
+    - escape_close
+    - body_scroll_lock
+  recommended:
+    - swipe_dismiss
+    - safe_area_inset
+    - enter_exit_motion

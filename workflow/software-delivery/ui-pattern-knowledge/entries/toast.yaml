@@ -1,0 +1,57 @@
+# Overlay family Core seed — toast
+# 完整 entry = Core 齊。Extended recipe 可 status: unknown。
+
+id: toast
+canonical_pattern: toast
+plain_name: "短暫、非阻斷的狀態或結果回饋"
+family: overlay
+variant_of: overlay
+entry_status: declared
+evidence_level: observed
+
+intent_examples:
+  - success_feedback
+  - soft_error_notice
+  - background_completion_ack
+
+selection_rules:
+  when:
+    - non_blocking_feedback
+    - short_lived_message
+    - no_required_decision
+  not_when:
+    - requires_user_choice
+    - destructive_confirm
+    - persistent_navigation
+    - multi_step_content
+  evidence_level: observed
+
+near_neighbors:
+  - id: drawer
+    rule: "toast 非導航面；持久導航用 drawer，勿用 toast 替代"
+  - id: modal_dialog
+    rule: "純告知／可略過用 toast；必須決策用 modal_dialog"
+  - id: bottom_sheet
+    rule: "無動作或單一可選 undo 用 toast；多動作用 bottom_sheet"
+  - id: scrim
+    rule: "toast 通常不需要 scrim；有 scrim 多半不是 toast"
+
+anti_patterns:
+  - stacking_many_toasts
+  - using_toast_for_destructive_confirm
+  - requiring_modal_focus_trap_on_toast
+
+platform_map:
+  aria: status
+  headless: None
+  project: null  # project overlay fills alias; keep seed free of product names
+
+implementation_recipe:
+  status: unknown
+  evidence_level: hypothesized
+  required:
+    - auto_dismiss_or_explicit_dismiss
+    - non_modal_focus
+  recommended:
+    - live_region
+    - optional_undo_action
