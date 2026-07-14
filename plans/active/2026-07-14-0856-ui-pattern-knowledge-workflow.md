@@ -36,6 +36,8 @@ revision:
     note: "Phase 3 formal start：Entry Freeze→Invariant（anti back-propagation）；H4–H6 分型证据；exit=Composition Closure（非完成 Screen）；P4 Orchestrability 僅觀察不入 plan"
   - date: 2026-07-14
     note: "Phase 3 review=constraints；H4→H5→H6 mini-cycles；Composition Metrics；Layer Growth Rhythm → Architecture Evolution Protocol"
+  - date: 2026-07-14
+    note: "H4 stress-validated（Composition self-absorbs via Constraint）；Metrics=Entry Mods Primary；H5=Deferred disposition；Protocol Constraint Accumulation pair"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
@@ -497,7 +499,7 @@ NOT → entries/*.yaml
 | Cycle | 問什麼 | 刻意不做 | Deliverable |
 | --- | --- | --- | --- |
 | **H4 Independence（先）** | 施壓共現／置換後 Decision Boundary 變了沒？ | 不「完成畫面」 | Independence evidence（A±B / Dialog↔Sheet） |
-| **H5 Completeness（次）** | 每個 Node = Pattern **或** deferred？零 Unknown？ | 不管 Selection；不補 Entry | Completeness matrix；gap → `knowledge: deferred` + `reason: uncovered_pattern` |
+| **H5 Completeness（次）** | 每 Deferred 有 **disposition**？零 Unknown？ | 不追求 Deferred↓；不補 Entry | disposition matrix（見下） |
 | **H6 Traceability（末）** | 每個 Node 能否追？ | 不以 YAML 齊全當成功 | **Trace Graph**（鏈圖） |
 
 #### H4 施壓動作（示例）
@@ -511,12 +513,19 @@ Episode Detail + Bottom Sheet + Toast + Dialog
   需要改 Entry → 違反 Invariant → 寫 composition_rules.yaml
 ```
 
-#### H5 deferred 形狀
+#### H5 deferred disposition（成功條件）
+
+**不是** Deferred 越少越好。**是**：Every Deferred has an explicit disposition。
 
 ```yaml
 knowledge: deferred
-reason: uncovered_pattern   # Completeness ≠ Coverage
+disposition: uncovered_pattern   # | composition_only | implementation_only | out_of_scope
+# composition_only 時可加：
+# composition_of: [toast]
+# placement: near_player_controls
 ```
+
+Deferred 是研究工具，不是 Bug。先問「新 Pattern？」還是「Existing + Placement？」。
 
 #### H6 Trace Graph（真正 deliverable）
 
@@ -527,18 +536,21 @@ Episode Detail
       └── implementation_recipe
 ```
 
-### Composition Metrics（非 KPI；Closure 必填）
+### Composition Metrics（方向 > 絕對值）
 
-| Metric | 意義 | Expected |
+| Metric | Role | Signal |
 | --- | --- | --- |
-| **Deferred Nodes** | Tree 上 explicit deferred 數 | ≥0（誠實） |
-| **Composition Rule Count** | `composition_rules.yaml` constraints 數 | ≥0（隨發現成長） |
-| **Entry Modifications** | Phase 3 期間 `entries/*` 變更數 | **0**（Invariant） |
+| **Entry Modifications** | **Primary** | 必須維持 **0**；→1 = Invariant 失守 |
+| Composition Rule Count | Supporting | 可↑（Constraint Accumulation）；5→8→12 OK |
+| Deferred Nodes | Supporting | 可↑；成功看 **disposition 齊全**，不看歸零 |
 
-`Entry Modifications ≠ 0` ⇒ Phase 2 Freeze 未被真正守住；Closure 失敗。
+```text
+Composition Complexity ↑  →  Entry Stability still = 0
+```
 
-基線／進度見 [`evidence/3-metrics.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3-metrics.md)。  
-H4 stress：[`evidence/3h4-independence-stress.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3h4-independence-stress.md)（Case A 首輪 FAIL → 新 Constraint；Entry Mods=0）。
+進度見 [`evidence/3-metrics.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3-metrics.md)。  
+H4：[`3h4-independence-stress.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3h4-independence-stress.md)。  
+H5：[`3h5-completeness-disposition.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3h5-completeness-disposition.md)。
 
 ### Scope 鎖死
 
@@ -551,10 +563,18 @@ H4 stress：[`evidence/3h4-independence-stress.md`](./2026-07-14-0856-ui-pattern
 - [x] Start lock：[`evidence/phase3-start.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/phase3-start.md)  
 - [x] Metrics baseline：[`evidence/3-metrics.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3-metrics.md)  
 - [x] **H4 mini-cycle** evidence（Independence stress）— [`3h4-independence-stress.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3h4-independence-stress.md)  
-- [ ] **H5 mini-cycle** evidence（Completeness only）  
+- [x] **H5 mini-cycle** evidence（Deferred disposition）— [`3h5-completeness-disposition.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3h5-completeness-disposition.md)  
 - [ ] **H6 mini-cycle** evidence（Trace Graph）  
 - [ ] Metrics 終值記入 Closure  
-- [x] **Invariant**：Entry Modifications = 0（H4 後仍 0）
+- [x] **Invariant**：Entry Modifications = 0（H4+H5 後仍 0）
+
+### Knowledge-layer maturity（非「Phase 完成 %」）
+
+| Layer | 狀態 |
+| --- | --- |
+| Pattern Knowledge | 🟢 **Stable**（Phase 2 inferability 已驗證） |
+| Composition Knowledge | 🟡 **Emerging**（H4 第一個正向 Invariant evidence；H5 disposition） |
+| Interaction / Orchestrability | ⚪ **Observation only**（不入本 plan Phase 4） |
 
 ### Exit Gate = **Composition Closure**
 
@@ -612,7 +632,8 @@ H4 stress：[`evidence/3h4-independence-stress.md`](./2026-07-14-0856-ui-pattern
 - [x] Phase 2 Completed / Phase 3 Start（stakeholder 2026-07-14：三假說通過；inferability ≠ coverage）  
 - [x] Research ladder + Phase 3 H4–H6 凍結；composition_rules = Composition Constraint（非 Entry／非 Rule Library）  
 - [x] Phase 3 formal start：Entry Freeze **升格 Invariant**（anti back-propagation）；Exit = Composition Closure；P4 Orchestrability 不入 plan
-- [x] Phase 3 mini-cycles（H4→H5→H6）+ Composition Metrics；Layer Growth Rhythm recorded in Architecture Evolution Protocol
+- [x] Phase 3 mini-cycles（H4→H5→H6）+ Composition Metrics；Layer Growth Rhythm recorded in Architecture Evolution Protocol  
+- [x] H4 Invariant stress evidence；H5 Deferred disposition success；Entry Mods = Primary Metric；Constraint Accumulation pair in Protocol
 
 ---
 

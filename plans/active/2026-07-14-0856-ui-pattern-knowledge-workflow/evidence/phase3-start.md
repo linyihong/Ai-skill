@@ -53,11 +53,11 @@ Episode Detail
 
 ## Composition Metrics
 
-| Metric | Expected |
-| --- | --- |
-| Deferred Nodes | ≥0（誠實） |
-| Composition Rule Count | ≥0 |
-| **Entry Modifications** | **0** |
+| Metric | Role | Expected |
+| --- | --- | --- |
+| **Entry Modifications** | **Primary** | **0** |
+| Composition Rule Count | Supporting | Δ can ↑ |
+| Deferred Nodes | Supporting | disposition 齊全 > 歸零 |
 
 見 [`3-metrics.md`](3-metrics.md)。
 

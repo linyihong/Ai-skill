@@ -91,6 +91,7 @@ When editing this file, classify each change:
 | 2026-07-07 | Protocol Core Change | Initial promote: three invariants, Evolution Contract, Mechanical Closure, Protocol Status |
 | 2026-07-07 | Protocol Core Change | Protocol Core definition, four-layer positioning, Reference Implementation, Changelog classification |
 | 2026-07-14 | New governance pattern | Optional appendix §Layer Growth Rhythm（Grow one layer, freeze the previous）— non-core；sourced from UI Pattern Knowledge Phase 1–3 rhythm |
+| 2026-07-14 | Editorial | Pair Constraint Accumulation sentence into §Layer Growth Rhythm；cite H4 stress evidence (Entry Mods=0) |
 
 ---
 
@@ -401,7 +402,15 @@ Full record in [ADR-013 §Dogfood Evidence](../../constitution/ADR-013-cognitive
 
 ```text
 Grow one layer, freeze the previous layer.
+A frozen layer may accumulate constraints without reopening its knowledge objects.
 ```
+
+| Sentence | Role |
+| --- | --- |
+| Grow one layer, freeze the previous | **Growth** — open the next knowledge surface |
+| A frozen layer may accumulate constraints… | **Constraint Accumulation** — new pressure becomes edges/rules on the new layer; frozen objects stay closed |
+
+Pair: Growth ⊕ Constraint Accumulation. Together they prevent back-propagation while still allowing Composition Knowledge to emerge.
 
 | Phase（instance） | New artifact layer | Freeze target（previous） |
 | --- | --- | --- |
@@ -409,7 +418,7 @@ Grow one layer, freeze the previous layer.
 | 2 | Scenario / Inferability layer | Entry |
 | 3 | Composition Constraints layer | Entry + Scenario |
 
-Each phase **adds** one knowledge surface and **freezes** what the prior phase already validated. New discoveries flow into the **new** layer — not back into frozen layers（anti **back-propagation**）.
+Each phase **adds** one knowledge surface and **freezes** what the prior phase already validated. New discoveries flow into the **new** layer — not back into frozen layers（anti **back-propagation**）. H4 Episode stress (2026-07-14)：Composition Failure → new Constraint → Entry Modifications = 0（first positive evidence of Constraint Accumulation）.
 
 ### Why reusable
 

@@ -144,3 +144,31 @@ reason: uncovered_pattern
 | Wish that ≥1 case fails once | ✅ Case A initial gap |
 
 **H4 mini-cycle status**: **PASS（stress-validated）** — proceed to H5 without new design concepts.
+
+---
+
+## Conclusion（真正有價值的不是 Rule +1）
+
+H4 回答的假說是：
+
+> Composition 會不會逼我們回去改 Entry？
+
+Case A 的答案：
+
+```text
+Composition Failure
+        │
+        ▼
+Composition Constraint
+        │
+        ├── Entry = 0 modifications
+        └── Rule +1
+```
+
+這不是「單純修了一條 rule」。這是第一次證明：
+
+**Composition 可以自我吸收新的知識，而不用污染 Pattern Knowledge。**
+
+這是 Phase 3 Invariant 的第一個真正 evidence——不是「Invariant 沒被碰到」，而是「Invariant 被施壓後仍然成立」。
+
+Composition Knowledge 因此從 empty framework 進入 **Emerging**（見 plan maturity table）。
