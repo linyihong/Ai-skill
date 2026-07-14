@@ -8,10 +8,13 @@
 # This IS:
 #   Composition Constraint — edges between patterns in a Pattern Tree / Screen.
 #   Research signal: Entry + Constraints + Tree ≈ early Knowledge Graph
-#   (fourth research line — observed, not promoted in this plan).
+#   (observed, not promoted as a separate plan line).
 #
-# Phase 3+ must NOT edit entries/*.yaml to fix composition gaps.
-# Add / refine constraints here instead (preserves Phase 2 Decision Boundary).
+# === PHASE 3 INVARIANT (anti back-propagation) ===
+# Composition evidence MUST NOT modify validated Pattern Knowledge entries.
+# New knowledge discovered during composition flows ONLY into THIS file
+# (and composition notes / Pattern Tree), NEVER into entries/*.yaml.
+# Violation ⇒ Phase 3 evidence invalid until entry edits are reverted.
 
 schema_version: "1.0"
 id: workflow.software_delivery.ui_pattern_knowledge.composition_constraints
@@ -20,10 +23,21 @@ status: active
 owner_layer: workflow
 legacy_filename: composition_rules.yaml   # keep path; semantics = constraints
 
+phase3_invariant:
+  id: invariant.no_entry_back_propagation
+  statement: >
+    Composition evidence MUST NOT modify validated Pattern Knowledge entries.
+    New knowledge discovered during composition flows into composition_rules.yaml
+    (this file), NOT entries/*.yaml.
+  risk: back_propagation
+  enforcement: >
+    Any git diff under ui-pattern-knowledge/entries/ during Phase 3 dogfood
+    fails Composition Closure unless accompanied by an explicit plan revision
+    that unfreezes Core (rare; default = revert).
+
 entry_freeze_policy: >
+  Alias of phase3_invariant — kept for older readers.
   Phase 3+ must not edit entries/*.yaml to fix composition problems.
-  Fix via composition constraints, composition notes, or a rare plan
-  revision that explicitly unfreezes Core.
 
 # Seed constraints for Episode dogfood (hypothesized; refine only here).
 constraints:
