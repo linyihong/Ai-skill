@@ -107,7 +107,8 @@ Knowledge Layer Evolution Pattern
   (🟡 Emerging — first independent validation = this cycle)
 ```
 
-**紀律**：Interaction / Orchestrability 保持 ⚪ Observation——尚無 Failure Case 證明需要新 Layer；**不開 Phase 4**。現在最值得做的是沉澱，不是下一層計畫。
+**紀律**：**不開 Phase 4**，直到 [`phase4-readiness-gate.md`](phase4-readiness-gate.md) 的 R1∧R2∧R3 PASS。
+Readiness = 主動找反例（非被動 Observation）。找不到反例也是有效結果（Phase 3 能力更完整）。
 
 ---
 

@@ -42,11 +42,13 @@ revision:
     note: "H6 Traceability=可追溯+可停止；T1/T2/T3；Waiver first-class；Protocol Explicit Termination；Composition Knowledge → Stable；Composition Closure"
   - date: 2026-07-14
     note: "Research Cycle 1 CLOSED；retrospective research-cycle-1.md；Knowledge Evolution Method Emerging；不開 Phase 4 / Interaction"
+  - date: 2026-07-14
+    note: "Phase 4 Readiness Gate ACTIVE（R1–R3）；Phase 4 Not Started；主動找 Flow 反例 ≠ Observation"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
 
-**Status**: `in-progress` — **Research Cycle 1 CLOSED**（P1–P3 假說鏈）；沉澱中；**不開 Phase 4** · Retrospective [`evidence/research-cycle-1.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-1.md)  
+**Status**: `in-progress` — Research Cycle 1 ✅ Closed · Phase 4 ⏸ Not Started · **Phase 4 Readiness ▶ Active** · [`phase4-readiness-gate.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/phase4-readiness-gate.md) · Retro [`research-cycle-1.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-1.md)  
 
 **Owner**: linyihong  
 **建立日期**: 2026-07-14  
@@ -591,7 +593,8 @@ H5：[`3h5-completeness-disposition.md`](./2026-07-14-0856-ui-pattern-knowledge-
 | Pattern Knowledge | 🟢 **Stable** | Representability + Inferability |
 | Composition Knowledge | 🟢 **Stable** | Independence + Completeness + Traceability |
 | **Knowledge Evolution Method** | 🟡 **Emerging** | first independent validation = Research Cycle 1（非 UI 附屬） |
-| Interaction / Orchestrability | ⚪ **Observation** | 無 Flow Failure Case → **不開 Phase 4** |
+| Interaction / Orchestrability | ⏸ **Not Started** | 僅當 Readiness R1∧R2∧R3 |  
+| **Phase 4 Readiness** | ▶ **Active** | 主動找「Pattern+Composition 解釋不了」的 Flow 反例 |
 
 **Composition Closure（2026-07-14）**：✅ Pattern Tree Validated — H4∧H5∧H6 + Entry Mods=0。  
 **Research Cycle 1**：✅ CLOSED — [`evidence/research-cycle-1.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-1.md)
@@ -607,13 +610,39 @@ H5：[`3h5-completeness-disposition.md`](./2026-07-14-0856-ui-pattern-knowledge-
 
 （觀察：Flow·Orchestrability 可能自然露出——**不**預寫 plan Phase 4。）
 
-## Phase 4 — **DEFERRED**（不開）
+## Phase 4 — ⏸ Not Started · Readiness ▶ Active
 
-> Research Cycle 1 之後優先 **沉澱**（retrospective / Knowledge Evolution Method），不是 Interaction。  
-> Phase 4 Extended 加厚與 Orchestrability **保持 Observation**，直到出現可驗證的 Flow Failure Case。
+> **不直接開 Phase 4。** Cycle 1 證明的是方法，尚未證明 Interaction 是新 Layer。  
+> Canonical gate：[`evidence/phase4-readiness-gate.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/phase4-readiness-gate.md)
 
-- [ ] ~~anti_patterns / recipe 加厚~~ — deferred  
-- [ ] ~~Interaction / Orchestrability plan~~ — **forbidden until Failure Case**
+### 階段狀態
+
+| 階段 | 狀態 |
+| --- | --- |
+| Research Cycle 1 | ✅ Closed |
+| Phase 4 | ⏸ Not Started |
+| Phase 4 Readiness | ▶ **Active**（≠ 被動 Observation） |
+
+### 唯一問題
+
+> Interaction 失敗是否 **無法** 用 Pattern Knowledge + Composition Knowledge 解釋？  
+> 只有 **是** → 才開 Phase 4。
+
+### Gates（摘要）
+
+| Gate | 要求 |
+| --- | --- |
+| **R1** | 真實案例：Pattern ✅ · Composition ✅ · Flow 仍 ❌ |
+| **R2** | 不是 `composition_rules` +1 就能修；需要狀態／事件／轉移 |
+| **R3** | 一句話定義 Interaction Knowledge（先於 Plan） |
+
+觸發形狀：Flow FAIL 且 Composition 無法表示 → Interaction Hypothesis → Research Cycle 2。  
+找不到反例 = Phase 3 更完整（好結果）；**仍不開** Phase 4。
+
+- [ ] R1 案例卡片 ≥1  
+- [ ] R2 判定：Constraint 不夠  
+- [ ] R3 最小假說定稿  
+- [ ] ~~Start Phase 4 plan~~ — blocked until R1∧R2∧R3
 
 
 ---
@@ -659,7 +688,8 @@ H5：[`3h5-completeness-disposition.md`](./2026-07-14-0856-ui-pattern-knowledge-
 - [x] Phase 3 mini-cycles（H4→H5→H6）+ Composition Metrics；Layer Growth Rhythm recorded in Architecture Evolution Protocol  
 - [x] H4 Invariant stress evidence；H5 Deferred disposition success；Entry Mods = Primary Metric；Constraint Accumulation pair in Protocol  
 - [x] H6 Traceability（T1/T2/T3）+ Waiver first-class；Composition Closure；Protocol Explicit Termination trio  
-- [x] Research Cycle 1 CLOSED + research-cycle-1.md；Knowledge Evolution Method Emerging；Phase 4/Interaction 不開
+- [x] Research Cycle 1 CLOSED + research-cycle-1.md；Knowledge Evolution Method Emerging；Phase 4/Interaction 不開  
+- [x] Phase 4 Readiness Gate（R1–R3）Active；Phase 4 Not Started until unexplained Flow failure
 
 ---
 
