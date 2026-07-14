@@ -14,12 +14,14 @@ scope_note: >
 contains:
   - pattern: app_bar
     knowledge: deferred
+    reason: uncovered_pattern
     role: structure
-    notes: "layout chrome；尚未做 Pattern Knowledge entry（Coverage ≠ inferability）"
+    notes: "layout chrome；Completeness≠Coverage；不補 Entry"
   - pattern: player
     knowledge: deferred
+    reason: uncovered_pattern
     role: structure
-    notes: "內容主表面；尚未做 Pattern Knowledge entry"
+    notes: "內容主表面；Completeness≠Coverage；不補 Entry"
   - pattern: bottom_sheet
     knowledge: seed
     optional: true

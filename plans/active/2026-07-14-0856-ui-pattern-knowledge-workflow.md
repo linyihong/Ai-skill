@@ -34,6 +34,8 @@ revision:
     note: "Research ladder：P1 Representability→P2 Inferability→P3 Composability；Phase3 凍結 H4 Independence / H5 Completeness / H6 Traceability；composition_rules=Constraint not Rule Library"
   - date: 2026-07-14
     note: "Phase 3 formal start：Entry Freeze→Invariant（anti back-propagation）；H4–H6 分型证据；exit=Composition Closure（非完成 Screen）；P4 Orchestrability 僅觀察不入 plan"
+  - date: 2026-07-14
+    note: "Phase 3 review=constraints；H4→H5→H6 mini-cycles；Composition Metrics；Layer Growth Rhythm → Architecture Evolution Protocol"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
@@ -467,11 +469,12 @@ workflow/software-delivery/
 
 ## Phase 3 — Pattern Composition / Composability（**正式開始**）
 
-> 名稱用 **Pattern Composition**（非裸「Composition」），以區分未來 Workflow / Evidence / Prompt Composition。  
-> 驗證單位 = **Screen**（不是 Entry）。核心能力 = **Composability**。  
-> Start lock：[`evidence/phase3-start.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/phase3-start.md)
+> 名稱用 **Pattern Composition**。驗證單位 = **Screen**。核心能力 = **Composability**。  
+> **審查對象轉變**：不再驗「知識本體」，而驗 **知識之間的約束（constraints）**。Phase 2 審 Selection；Phase 3 審 Constraint。  
+> Start lock：[`evidence/phase3-start.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/phase3-start.md)  
+> Cross-plan rhythm：[`Architecture Evolution Protocol` §Layer Growth Rhythm](../../governance/lifecycle/architecture-evolution-protocol.md#appendix--layer-growth-rhythmoptional-governance-pattern)（*Grow one layer, freeze the previous*）
 
-**一句目標**：證明多個 Pattern Knowledge 能共同工作：Screen → Pattern Tree → Selection → Recipe，且彼此不污染。
+**一句目標**：證明多個 Pattern Knowledge 能共同工作，且彼此不污染。
 
 ### Phase 3 Invariant（升格 — 高於 checklist）
 
@@ -485,69 +488,83 @@ NOT → entries/*.yaml
 
 | 風險 | 說明 |
 | --- | --- |
-| **Back-propagation（回滲）** | Phase 3 最大風險。每 Screen 回改 Entry → 無法分辨 Entry 正確還是 Episode 在修 Entry；破壞可驗證性與 Phase 假說獨立性 |
+| **Back-propagation（回滲）** | Phase 3 最大風險。每 Screen 回改 Entry → 無法分辨 Entry 正確還是 Episode 在修 Entry |
 
-違反 Invariant = Phase 3 證據作廢（須 revert entry 變更並改寫入 Constraints）。
+違反 Invariant = Phase 3 證據作廢（revert entry + 改寫 Constraints）。
 
-### Phase 3 核心假說 + 分型 Evidence（凍結；勿混寫）
+### Mini-cycles（H4 → H5 → H6 獨立跑；不要一次跑完整 Episode）
 
-| # | Hypothesis | Evidence 型態（唯一） |
-| --- | --- | --- |
-| **H4** | **Independence** | `A + B → Decision Boundary(A) unchanged`（例：Sheet + Toast → Sheet Selection 不變） |
-| **H5** | **Completeness** | Screen 每個 UI → Pattern **或** explicit deferred；**零 Unknown**（≠ 100% Coverage） |
-| **H6** | **Traceability** | **鏈圖**（非散文）：Screen → Pattern → Selection Rule → Recipe |
+| Cycle | 問什麼 | 刻意不做 | Deliverable |
+| --- | --- | --- | --- |
+| **H4 Independence（先）** | 施壓共現／置換後 Decision Boundary 變了沒？ | 不「完成畫面」 | Independence evidence（A±B / Dialog↔Sheet） |
+| **H5 Completeness（次）** | 每個 Node = Pattern **或** deferred？零 Unknown？ | 不管 Selection；不補 Entry | Completeness matrix；gap → `knowledge: deferred` + `reason: uncovered_pattern` |
+| **H6 Traceability（末）** | 每個 Node 能否追？ | 不以 YAML 齊全當成功 | **Trace Graph**（鏈圖） |
 
-H6 鏈形（審查用）：
+#### H4 施壓動作（示例）
+
+```text
+Episode Detail + Bottom Sheet + Toast + Dialog
+  · 加 Toast / 移掉 Toast
+  · Dialog ↔ Sheet 互換
+觀察：Bottom Sheet Selection Boundary 是否改變？
+  不變 → H4 PASS
+  需要改 Entry → 違反 Invariant → 寫 composition_rules.yaml
+```
+
+#### H5 deferred 形狀
+
+```yaml
+knowledge: deferred
+reason: uncovered_pattern   # Completeness ≠ Coverage
+```
+
+#### H6 Trace Graph（真正 deliverable）
 
 ```text
 Episode Detail
-    │
-    ▼
-Bottom Sheet
-    │
-    ▼
-Selection Rule
-    │
-    ▼
-Implementation Recipe
+└── Bottom Sheet
+      ├── selection_rule
+      └── implementation_recipe
 ```
+
+### Composition Metrics（非 KPI；Closure 必填）
+
+| Metric | 意義 | Expected |
+| --- | --- | --- |
+| **Deferred Nodes** | Tree 上 explicit deferred 數 | ≥0（誠實） |
+| **Composition Rule Count** | `composition_rules.yaml` constraints 數 | ≥0（隨發現成長） |
+| **Entry Modifications** | Phase 3 期間 `entries/*` 變更數 | **0**（Invariant） |
+
+`Entry Modifications ≠ 0` ⇒ Phase 2 Freeze 未被真正守住；Closure 失敗。
+
+基線見 [`evidence/3-metrics.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3-metrics.md)：Deferred=2；Rule Count=4；Entry Modifications=0。
 
 ### Scope 鎖死
 
-只驗 **Episode Page / Episode Detail**（不要一開始做很多 Screen）：
-
-```text
-episode_detail
-  contains: app_bar | player | bottom_sheet | modal_dialog | toast | scrim
-```
-
-- App Bar / Player = `knowledge: deferred`（驗 Composition，**不**補 Entry）  
-- **禁止** Phase 3 為 Composition 新建 Entry
+只驗 **Episode Detail**（不要一開始很多 Screen）。App Bar / Player = deferred；**禁止**為 Composition 新建 Entry。
 
 ### Artifacts
 
-- [x] Pattern Tree seed：[`compositions/episode_detail.yaml`](../../workflow/software-delivery/ui-pattern-knowledge/compositions/episode_detail.yaml)  
-- [x] **Composition Constraints**：[`composition_rules.yaml`](../../workflow/software-delivery/ui-pattern-knowledge/composition_rules.yaml)  
+- [x] Pattern Tree：[`compositions/episode_detail.yaml`](../../workflow/software-delivery/ui-pattern-knowledge/compositions/episode_detail.yaml)  
+- [x] Constraints：[`composition_rules.yaml`](../../workflow/software-delivery/ui-pattern-knowledge/composition_rules.yaml)  
 - [x] Start lock：[`evidence/phase3-start.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/phase3-start.md)  
-- [ ] H4 evidence（Independence；與 H5/H6 分檔）  
-- [ ] H5 evidence（Completeness：無 Unknown）  
-- [ ] H6 evidence（至少一條鏈圖 + Recipe 節點）  
-- [ ] Expansion 摘要（可附在 Closure，非 Gate 本體）  
-- [x] **Invariant**：整輪零 `entries/*.yaml` 變更（抽查）
+- [x] Metrics baseline：[`evidence/3-metrics.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3-metrics.md)  
+- [ ] **H4 mini-cycle** evidence（Independence only）  
+- [ ] **H5 mini-cycle** evidence（Completeness only）  
+- [ ] **H6 mini-cycle** evidence（Trace Graph）  
+- [ ] Metrics 終值記入 Closure  
+- [x] **Invariant**：Entry Modifications = 0
 
-### Exit Gate = **Composition Closure**（不是「完成 Screen」）
+### Exit Gate = **Composition Closure**
 
 | 不要 | 要 |
 | --- | --- |
-| Episode Detail 完成（產品語意） | Episode Detail **Pattern Tree Validated** |
-| UI 做完了多少 | Knowledge 能否組成一個 Screen |
+| Episode Detail 完成 | Episode Detail **Pattern Tree Validated** |
+| 一次跑完整 Screen | 三個 mini-cycle 分檔通過 + Metrics |
 
-**Composition Closure** = H4+H5+H6 分型證據齊 + Invariant 抽查通過。
+**Composition Closure** = H4∧H5∧H6 mini-cycles PASS + Entry Modifications = 0。
 
-**完成條件**：上列 Closure；書面 keep L1 / 觸發 D9 review。  
-（觀察：若暴露 Interaction / State Transition，可能自然導向 Flow·Orchestrability——**不**預寫為本 plan Phase 4。）
-
----
+（觀察：Flow·Orchestrability 可能自然露出——**不**預寫 plan Phase 4。）
 
 ## Phase 4 —（可選）Extended 加厚
 
@@ -594,6 +611,7 @@ episode_detail
 - [x] Phase 2 Completed / Phase 3 Start（stakeholder 2026-07-14：三假說通過；inferability ≠ coverage）  
 - [x] Research ladder + Phase 3 H4–H6 凍結；composition_rules = Composition Constraint（非 Entry／非 Rule Library）  
 - [x] Phase 3 formal start：Entry Freeze **升格 Invariant**（anti back-propagation）；Exit = Composition Closure；P4 Orchestrability 不入 plan
+- [x] Phase 3 mini-cycles（H4→H5→H6）+ Composition Metrics；Layer Growth Rhythm recorded in Architecture Evolution Protocol
 
 ---
 

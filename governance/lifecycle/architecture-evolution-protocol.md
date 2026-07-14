@@ -90,6 +90,7 @@ When editing this file, classify each change:
 |---|---|---|
 | 2026-07-07 | Protocol Core Change | Initial promote: three invariants, Evolution Contract, Mechanical Closure, Protocol Status |
 | 2026-07-07 | Protocol Core Change | Protocol Core definition, four-layer positioning, Reference Implementation, Changelog classification |
+| 2026-07-14 | New governance pattern | Optional appendix §Layer Growth Rhythm（Grow one layer, freeze the previous）— non-core；sourced from UI Pattern Knowledge Phase 1–3 rhythm |
 
 ---
 
@@ -389,7 +390,45 @@ Full record in [ADR-013 §Dogfood Evidence](../../constitution/ADR-013-cognitive
 
 ---
 
+---
+
+## Appendix — Layer Growth Rhythm（optional Governance Pattern）
+
+> **Classification**: optional appendix / reusable research rhythm — **non-core**（does not amend Protocol Core invariants）.  
+> **Source observation**: UI Pattern Knowledge workflow（Phase 1–3）+ prior Evidence / Governance layering practice.
+
+### Pattern
+
+```text
+Grow one layer, freeze the previous layer.
+```
+
+| Phase（instance） | New artifact layer | Freeze target（previous） |
+| --- | --- | --- |
+| 1 | Entry / Schema layer | Schema contract |
+| 2 | Scenario / Inferability layer | Entry |
+| 3 | Composition Constraints layer | Entry + Scenario |
+
+Each phase **adds** one knowledge surface and **freezes** what the prior phase already validated. New discoveries flow into the **new** layer — not back into frozen layers（anti **back-propagation**）.
+
+### Why reusable
+
+This is not UI-Pattern-specific. The same rhythm appears when Evidence, Governance, and Runtime contracts evolve: promote a layer only after the layer below is frozen enough that later screens/instances cannot silently rewrite it.
+
+### When to apply
+
+- Multi-phase research / architecture dogfood where later phases compose earlier artifacts
+- Any plan that risks “fix by editing the prior phase’s validated unit”
+
+### When not to apply
+
+- Single-shot bugfix with no layered knowledge claim
+- Explicit plan revision that **unfreezes** a prior layer（rare；must be written，not accidental）
+
+---
+
 ## Plan checklist (agent-facing)
+
 
 - [ ] Four layers understood: ADR · Protocol · Governance Pattern · Reference Implementation
 - [ ] Protocol Core vs non-core: know if your edit triggers maturity re-eval
