@@ -6,7 +6,7 @@
 |------|------|------|
 | [`common/`](common/) | 60 | 跨分類或通用 lesson（工具選擇、流程、UI、分析策略等） |
 | [`flutter-dart-aot/`](flutter-dart-aot/) | 23 | Flutter/Dart AOT 相關 hook 與分析 |
-| [`http-api/`](http-api/) | 31 | HTTP API 分析、文件化、UI 操作流程 |
+| [`http-api/`](http-api/) | 32 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 11 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
@@ -15,6 +15,7 @@
 
 | Slug | Category |
 |------|----------|
+| `http-api/2026-07-14_141500-request-sign-may-be-sha256withrsa-pkcs8-header-concat` | SHA256withRSA + PKCS8 + header concat |
 | `common/2026-07-14_135210-prove-wire-json-names-via-jsonreader-nextname` | Wire names via JsonReader.nextName (R8) |
 | `common/2026-07-14_135200-sign-canonical-structural-probe-allowlist-keys` | Canonical structure probe：allowlist keys |
 | `http-api/2026-07-14_135220-request-sign-interceptor-may-outnumber-signer-calls` | Interceptor count ≠ signer count |
