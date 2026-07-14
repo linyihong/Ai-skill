@@ -13,14 +13,16 @@ revision:
   - date: 2026-07-14
     note: "Rename file+id → ui-pattern-knowledge-workflow"
   - date: 2026-07-14
-    note: "Q7–Q10 決議入檔：Core/Extended schema；禁止 Intent DB；Knowledge vs transient checklist；platform_map 僅 ARIA→Headless→Project；新增 evidence_level / recipe status maturity"
+    note: "Q7–Q11 決議；Core/Extended；禁 Intent DB；transient checklist；ARIA→headless→project；evidence_level"
   - date: 2026-07-14
-    note: "Sanitization：dogfood 改 <PROJECT_ROOT>；去掉專案專屬 token，以過 shared-layer pre-commit"
+    note: "Sanitization：dogfood 改 <PROJECT_ROOT>"
+  - date: 2026-07-14
+    note: "Round-1 Verifier 仲裁落地：#1樣本表 #2 Q1已決議 #3 Phase0.0 #5標頭 #6 doc-only語義 #8 event-based promote-or-sunset；#4/#7 defer+pointer；Authority Boundary 入 Executive Summary"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
 
-**Status**: `draft` — Q7–Q10 與 maturity 欄位已決議；勾選同意項後 → `in-progress`  
+**Status**: `draft` — Round-1 Verifier fix 已入檔；第二輪 Verifier 通過後 → 簽署 → `in-progress`  
 **Owner**: linyihong  
 **建立日期**: 2026-07-14  
 **Source**: 2026-07-14 對話 — NameThatUI 對照 + stakeholder 回饋（Knowledge layer，非 glossary；非 NameThatUI clone）。  
@@ -34,6 +36,17 @@ revision:
 ## Executive summary
 
 定位：**可被 workflow 消費的 UI Pattern Knowledge Layer**（載入 → 推理選型 → 展開 → 驗證），不是人查 glossary，也不是模仿 NameThatUI。
+
+### Authority Boundary
+
+| Owner | Owns（一句） |
+| --- | --- |
+| **Pattern Knowledge** | *What pattern is appropriate*（選哪個、為何、近鄰互斥） |
+| **Design Contract** | *How the chosen pattern is built*（token / primitive / 視覺權威） |
+| **UI Governance** | *Whether implementation complies*（合規分類與收口） |
+| **Evidence** | *Whether claims are verified*（證明，非選型） |
+
+看到 Bottom Sheet 時：選型進 Pattern Knowledge；**不**先去改 token，**不**先改 governance domain 定義。
 
 ```text
 Product Requirement
@@ -55,8 +68,6 @@ Product Requirement
 | Prompt expansion | Knowledge（canonical）→ transient checklist（任務報告 / plan evidence，**非**每次入主知識庫） |
 | Maturity | `evidence_level`（與 Evidence Governance 對齊） |
 
-**與既有分工**：Knowledge = 選什麼／為什麼；Design Contract = token/primitive 合規；UI Governance = compliance 分類與收口；Evidence = 證明。互不重疊。
-
 ---
 
 ## Decision Rationale
@@ -75,7 +86,8 @@ UI Contracts → Pattern Knowledge Lock → Design Contract → Implement → UI
 
 - Owner：`workflow/software-delivery/`  
 - 規則種子：Ai-skill；採用名 / composition / project alias：consumer 專案  
-- 先掛 `ui-contracts`；不開六道 slice / 不開 Intent repository
+- **掛點（Q1 已決議）**：Pattern Knowledge Lock 寫入 [`ui-contracts.md`](../../workflow/software-delivery/ui-contracts.md)。Screen Mapping 仍不承載 framework pattern 細節；Lock 是 **選型閘門 + template 指標**，與 Screen Mapping 章節分開（新增小節，不塞進 mapping 表）。  
+- 不開六道 slice / 不開 Intent repository
 
 #### D2 — Schema = Core + Extended（Q8 決議）
 
@@ -86,7 +98,7 @@ UI Contracts → Pattern Knowledge Lock → Design Contract → Implement → UI
 | `canonical_pattern` | 正式名 |
 | `plain_name` | 人話 |
 | `intent_examples` | 適用意圖示例（非產品 Intent DB） |
-| `selection_rules`（含 when / not_when；可與 when_to_use / when_not 同義並存於模板） | 何時選／不選 |
+| `selection_rules`（含 when / not_when） | 何時選／不選 |
 | `family` | 家族（如 overlay） |
 | `near_neighbors` | 易混 + 互斥一句 |
 
@@ -94,7 +106,7 @@ UI Contracts → Pattern Knowledge Lock → Design Contract → Implement → UI
 
 | 欄位 | 作用 |
 | --- | --- |
-| `implementation_recipe` | 實作能力清單；**不**要求首日 complete |
+| `implementation_recipe` | 實作能力清單；`status: unknown \| partial \| complete` |
 | `platform_map` | 僅三層（見 D6） |
 | `anti_patterns` | 反模式 |
 | `project_component` / project alias | 專案指針 |
@@ -117,16 +129,16 @@ intent_examples:
 selection_rules:
   when: [multiple_actions, temporary, mobile_or_h5, contextual]
   not_when: [destructive_confirm_primary, long_multi_step_workflow, persistent_nav]
-  evidence_level: verified | observed | hypothesized   # D7
-anti_patterns:                    # Extended
+  evidence_level: verified | observed | hypothesized
+anti_patterns:
   - more_than_10_actions
   - full_form_or_wizard_inside
   - nested_bottom_sheets
-platform_map:                     # Extended；僅三層 — D6
+platform_map:
   aria: dialog
-  headless: Dialog                # e.g. Base UI primitive 名
-  project: ProjectShareSheet      # 專案 alias 示例；可空
-implementation_recipe:            # Extended — Q8
+  headless: Dialog
+  project: ProjectShareSheet
+implementation_recipe:
   status: unknown | partial | complete
   evidence_level: verified | observed | hypothesized
   required: [portal, scrim, focus_trap, escape_close, body_scroll_lock]
@@ -178,8 +190,6 @@ Expansion 展開時應標出各條的 `evidence_level`（verified vs observed）
 
 #### D6 — platform_map 極限縮（Q10）
 
-**只允許三層**：
-
 ```yaml
 platform_map:
   aria: <role or concept>
@@ -187,59 +197,69 @@ platform_map:
   project: <project component alias>   # optional
 ```
 
-**禁止**塞進 Pattern Knowledge：Material / iOS / Fluent / Bootstrap / Ant / Chakra 等百科。  
-若未來需要跨 DS 對照 → 另開 **`platform-adapter`** 計畫／artifact，不混本層。
+**禁止** Material / iOS / Fluent / Bootstrap / Ant / Chakra 百科。跨 DS → 另開 `platform-adapter`。
 
-#### D7 — evidence_level / maturity（stakeholder 追加，接受）
+#### D7 — evidence_level（Q11）
 
-知識條目與選型規則、recipe 可標：
-
-| 值 | 含義（對齊 Evidence Governance 哲學） |
+| 值 | 含義 |
 | --- | --- |
-| `verified` | 有可覆核證據（dogfood / 實作 / 測試） |
-| `observed` | 實務觀察／最佳實踐，尚未硬證 |
-| `hypothesized` | 暫定假設，展開時不得當硬 gate |
+| `verified` | 有可覆核證據 |
+| `observed` | 實務最佳實踐，尚未硬證 |
+| `hypothesized` | 暫定；展開時不得當硬 gate |
 
-Prompt Expansion 與 L1 claim：**verified** 可當硬要求；**observed** 預設建議；**hypothesized** 僅提示。
+L1 / Expansion：**verified** 可硬要求；**observed** 建議；**hypothesized** 僅提示。
 
 #### D8 — Intent：不做 Intent DB（Q7）
 
-- Intent = Product Domain；Pattern = UI Domain。  
-- 只在 entry 內放 `intent_examples`（choose one action / destructive confirmation / …）。  
-- Workflow：`Task → Intent（任務內推導）→ Pattern`。  
-- **禁止**獨立 Intent Ontology / Intent Knowledge Base（避免產品知識與 UI 知識耦合坑）。
+僅 entry 內 `intent_examples`。`Task → Intent（任務內）→ Pattern`。禁止 Intent Ontology。
+
+#### D9 — promote-or-sunset（事件驅動，非固定日曆）
+
+取代「固定截止日期」。觸發 **promote-or-sunset review** 當 **任一**成立：
+
+| Trigger | 說明 |
+| --- | --- |
+| 時距 | 自本 plan `in-progress` 起 **滿 3 個月** |
+| 採用 | **≥2 consumers** 採用 Core schema（含跨專案第一個也可計） |
+| 深度 | **≥5** completed Core pattern entries（Ai-skill 種子 + consumer 合計） |
+| 放棄 | dogfood **abandoned**（書面） |
+
+**Outcome（三選一，書面）**：`Promote`（含可選 L2 wiring）/ `Continue`（延續 doc-only + 新 review 條件）/ `Sunset`（撤回或縮 scope）。
+
+優先語意：**within 3 months OR after first cross-project adoption（以先到為準）**，並與上表其他 trigger 並存（任一觸發即 review）。
 
 ### Alternatives Considered
 
-- **A. 僅 Vocabulary**：reject as final shape。  
-- **B. Intent DB + Pattern DB**：reject — Ontology 坑（Q7）。  
-- **C. platform_map 含各大 DS**：reject — 維護成本無限（Q10）。  
-- **D. 每次 Expansion commit**：reject — repo 爆炸（Q9）。  
-- **E. 強制 recipe.required 齊才算完整**：reject — 改 `status: unknown|partial|complete`（Q8）。  
-- **F. Core/Extended + evidence_level + transient checklist（accept）**。
+- **A. 僅 Vocabulary**：reject。  
+- **B. Intent DB**：reject。  
+- **C. platform_map 各大 DS**：reject。  
+- **D. 每次 Expansion commit**：reject。  
+- **E. 強制 recipe 齊才完整**：reject。  
+- **F. 固定畢業日（如 2026-09-30）**：reject — 改 D9 事件驅動。  
+- **G. Core/Extended + evidence_level + transient checklist + Authority Boundary（accept）**。
 
 ### Why Not an ADR Yet
 
-未 dogfood；schema 已定方向但仍可能微調枚舉名。Promotion 需：他專案採用 Core schema + 至少一次 expansion evidence（不强制把 checklist  upstream 成 Knowledge）。
+未 dogfood；枚舉仍可微調。Promotion 需消費者採用 + expansion evidence。
 
 ### ADR Promotion Criteria
 
 - [ ] foundational + cross-session + cross-project + expensive-to-reverse + explains-why  
 - [ ] ≥1 外專案用 Core schema  
-- [ ] ≥1 composition；≥1 expansion **evidence**（非要求 checklist 進 canonical）  
+- [ ] ≥1 composition；≥1 expansion **evidence**  
 - [ ] Open Questions 全解  
-- [ ] 無更輕 target 仍夠用
+- [ ] 無更輕 target 仍夠用  
+- [ ] D9 review 曾執行且 outcome 不是 Sunset-without-replacement 的倉促放棄
 
 ### Consequences
 
 #### 正面
-- AI 知道「為什麼選／不選／跟誰不同」；展開時知道成熟度。  
-- 與 Design Contract / Governance / Evidence 自然分工。  
-- 相對 NameThatUI：可載入、可推理、可展開、可驗證。
+- 選型／合規／證明分權清楚（Authority Boundary）。  
+- AI 可依 intent 選 pattern 並帶成熟度。  
 
 #### 風險
-- Core 仍需維護成本 → 首波只 overlay family。  
-- `evidence_level` 被亂標 → Phase 2 dogfood 規定升級規則（observed→verified 要掛證據指針）。
+- Core 維護成本 → 首波 overlay family。  
+- `evidence_level` 亂標 → Phase 2 升級須掛證據指針。
 
 **Glossary Impact**: yes — 見檔頭；完成前不註冊。
 
@@ -247,10 +267,18 @@ Prompt Expansion 與 L1 claim：**verified** 可當硬要求；**observed** 預�
 
 ## Runtime Execution Path
 
-**Phase 1–3：doc-only。** Phase 5 條件升 L2 時復用 `route.workflow.software-delivery`；不新增無 consumer 的 surface；不做檔名 commit-msg。
+**Doc-only 語義（明示）**：
 
-**Deferred Runtime Projection**：不新增 `runtime/*.yaml`。  
-**Per-surface consumer 表**：N/A until Phase 5。
+| 允許（Phase 1–3） | 禁止自稱 |
+| --- | --- |
+| 改 workflow markdown / templates / indexes | 「已完成 runtime integration」 |
+| 專案 overlay entries / composition | 新增 `route.*` 卻無 consumer |
+| plan `evidence/` **摘要**（非每次 checklist 入 Knowledge） | 把 transient checklist commit 進 canonical Knowledge |
+
+**不接入 runtime**（不新增 `runtime/*.yaml` projection、不接 commit-msg 檔名攔截），直到 Phase 5 **且** D9 outcome = Promote 含 L2。  
+**Deferred Runtime Projection**：不新增 runtime YAML。  
+**Per-surface consumer 表**：N/A until Phase 5。  
+**Graduation**：見 D9（事件驅動），非單一日曆日。
 
 ---
 
@@ -258,52 +286,70 @@ Prompt Expansion 與 L1 claim：**verified** 可當硬要求；**observed** 預�
 
 | ID | 狀態 | 決議 |
 | --- | --- | --- |
-| Q1 | 暫定 | 先掛 `ui-contracts` |
-| Q2 | 暫定接受 | 規則 Ai-skill；採用名／composition 專案 |
-| Q3 | 暫定 | 首波 overlay family + toast/scrim/empty |
-| Q4 | 暫定接受 | legacy_alias；不强制 rename |
-| Q5 | 暫定接受 | 不要圖鑑縮圖 |
-| Q6 | 暫定接受 | L1 只挡 pattern/overlay 選型與對齊 claim |
+| Q1 | **已決議** | Knowledge Lock **掛 `ui-contracts.md`**（與 Screen Mapping 分開小節；見 D1） |
+| Q2 | **已決議** | 規則 Ai-skill；採用名／composition 專案 |
+| Q3 | **已決議** | 首波 overlay family + toast / scrim / empty_state |
+| Q4 | **已決議** | `legacy_alias`；不强制 rename |
+| Q5 | **已決議** | 不要圖鑑縮圖 |
+| Q6 | **已決議** | L1 只挡 pattern/overlay 選型與對齊 claim |
 | Q7 | **已決議** | 不做 Intent DB；僅 `intent_examples` |
-| Q8 | **已決議** | Core 必填（含 selection/family/neighbors/intent）；Recipe = Extended + `unknown\|partial\|complete` |
-| Q9 | **已決議** | Knowledge 進 repo；任務 checklist = transient（報告／evidence 摘要） |
-| Q10 | **已決議** | platform_map 僅 `aria` → `headless` → `project` |
-| Q11 | **已決議** | 採納 `evidence_level`（verified / observed / hypothesized） |
+| Q8 | **已決議** | Core 必填；Recipe = Extended + status |
+| Q9 | **已決議** | Knowledge 進 repo；checklist = transient |
+| Q10 | **已決議** | platform_map 僅 aria → headless → project |
+| Q11 | **已決議** | `evidence_level`：verified / observed / hypothesized |
 
 ---
 
 ## Phase 0 — Pre-Build Interrogation
 
-- [x] Q7–Q11 決議入檔  
-- [ ] Authority 邊界複核（Knowledge ≠ Design Contract ≠ Governance）  
-- [ ] Inner-docs 邊界：knowledge 放 outer `docs/frontend-contracts/ui-pattern-knowledge/`（不寫入受邊界限制的 inner docs 政策區）
-- [ ] 混名樣本 ≥5  
-- [ ] 同意項勾選 → `in-progress`
+### Phase 0.0 — Open Questions 核對（公版，必填）
 
-**完成條件**：同意項簽署；樣本表就緒。
+逐條核對本 plan §Open Questions，標記處置並回寫：
+
+- [x] 已讀本 plan §Open Questions 全部條目
+- [x] 對每條標記 `resolved` / `still-open` / `deferred`
+- [x] `resolved` 的條目已同步於 §Open Questions（Q1–Q11 均已決議）
+- [x] 若盤點新發現問題，已加入 §Open Questions（本輪無新增 still-open）
+
+| Open Question | 處置 | 證據 / 原因 |
+| --- | --- | --- |
+| Q1 掛點 | resolved | Stakeholder + Round-1 Verifier：掛 `ui-contracts`；D1 |
+| Q2–Q11 | resolved | Stakeholder 決議；見 §Open Questions 表 |
+
+### Phase 0.1 — 其餘盤點
+
+- [x] Q1–Q11 決議入檔  
+- [x] Authority Boundary 入 Executive Summary  
+- [x] Inner-docs 邊界：knowledge 放 outer `docs/frontend-contracts/ui-pattern-knowledge/`  
+- [x] 混名樣本表（Appendix A）≥5  
+- [ ] 正式簽署 → `in-progress`（等 Round-2 Verifier）
+
+**完成條件**：同意項簽署；Appendix A 就緒（已）。
 
 ---
 
 ## Phase 1 — Ai-skill：Core schema + Selection
 
-- [ ] `ui-pattern-knowledge.entry.template.yaml`（標 Core vs Extended；`evidence_level`；recipe.status）  
+- [ ] `ui-pattern-knowledge.entry.template.yaml`  
 - [ ] `ui-pattern-knowledge.composition.template.yaml`  
-- [ ] `ui-pattern-prompt-expansion.template.md`（輸出形狀；註明 **勿 commit 為 Knowledge**）  
-- [ ] `ui-contracts.md`：Pattern Knowledge Lock  
+- [ ] `ui-pattern-prompt-expansion.template.md`（註明勿 commit 為 Knowledge）  
+- [ ] `ui-contracts.md`：新增 **Pattern Knowledge Lock** 小節（不塞進 Screen Mapping）  
 - [ ] indexes 一行  
 - [ ] overlay family Core 種子（3–5 條）
 
-**完成條件**：Core 被定義為完整性標準；Recipe 允許 `unknown`。
+**完成條件**：Core = 完整性標準；Recipe 允許 `unknown`。
 
 ---
 
 ## Phase 2 — `<PROJECT_ROOT>` dogfood（Core 齊，Extended 可薄）
 
 - [ ] `docs/frontend-contracts/ui-pattern-knowledge/` + ≥8 entries（**Core 齊**）  
-- [ ] recipe 可 `unknown`/`partial`；至少 1–2 條 `partial`+observed 作對照  
-- [ ] platform_map 只填三層（能填多少算多少）  
-- [ ] Outer knowledge ↔ inner shared-components README 雙向連結  
+- [ ] recipe 可 `unknown`/`partial`；至少 1–2 條 `partial`+observed  
+- [ ] platform_map 只填三層  
+- [ ] Outer knowledge ↔ inner shared-components README 雙向連結（**defer 風險註**：雙鏈接是 dogfood 導航，不是第二套 ontology；見 Deferred Notes）  
 - [ ]（可選）結構 BDD：Core key 存在
+
+**Dogfood loop pointer（#4 defer）**：若對 Phase 2 切片走三角色，用 [`01-dogfood-prompt-kit.md`](../2026-07-08-0825-delegation-verification-arbitration-loop/01-dogfood-prompt-kit.md)；**本 plan 不強制**、不把三角色入口做成 Phase 2 完成條件。
 
 **完成條件**：任務引用 selection（不必等 recipe complete）。
 
@@ -312,23 +358,32 @@ Prompt Expansion 與 L1 claim：**verified** 可當硬要求；**observed** 預�
 ## Phase 3 — Composition + Expansion evidence
 
 - [ ] ≥1 composition  
-- [ ] 跑一次 Expansion；evidence 留 **摘要**（非把 checklist 升成 entry）  
-- [ ] 記錄 verified vs observed 在展開中的差異（若可觀察）
+- [ ] 跑一次 Expansion；evidence 留 **摘要**  
+- [ ] 記錄 verified vs observed 差異（若可觀察）
 
-**完成條件**：書面 keep L1 / 開 Phase 4–5。
+**完成條件**：書面 keep L1 / 觸發 D9 review / 開 Phase 4–5。
 
 ---
 
 ## Phase 4 —（可選）Extended 加厚
 
-- [ ] 補 anti_patterns、recipe→partial/complete、evidence_level 升級規則  
-- [ ] **仍不**引入 Material/iOS 百科；governance 一行承接 anti-pattern warn
+- [ ] anti_patterns、recipe→partial/complete、evidence_level 升級規則  
+- [ ] 仍不引入 DS 百科；governance 一行承接 anti-pattern warn
 
 ---
 
-## Phase 5 — Optional L2（條件）
+## Phase 5 — Optional L2（僅當 D9 → Promote）
 
 - [ ] `load_when` + scenario + consumer 表；不做檔名機械攔截
+
+---
+
+## Deferred Notes（#4 / #7）
+
+| ID | 處置 | 短註 |
+| --- | --- | --- |
+| #4 三角色入口 | defer | Phase 2 pointer → delegation kit；非本 plan scope |
+| #7 outer↔inner 雙鏈 | defer | dogfood 導航邊界；不升格為雙寫 Knowledge |
 
 ---
 
@@ -338,17 +393,20 @@ Prompt Expansion 與 L1 claim：**verified** 可當硬要求；**observed** 預�
 - [ ] Core/Extended 邊界寫進 template  
 - [ ] 無 Intent DB；platform_map 無 DS 百科  
 - [ ] Q 全關；glossary 註冊或明示不註冊  
-- [ ] 無 runtime 則不宣稱 runtime integration
+- [ ] 無 runtime 則不宣稱 runtime integration  
+- [ ] D9 review 至少執行一次（Promote / Continue / Sunset 書面）
 
 ---
 
 ## Stakeholder 同意項目
 
-- [x] 升格 UI Pattern Knowledge（非僅 Vocabulary）— 已反映在正文  
-- [x] Q7–Q11 決議 — 已入檔  
-- [ ] 正式簽署：D1–D8 作為執行依據  
-- [ ] 正式簽署：開 Phase 0 剩餘項 → `in-progress`  
-- [ ] （可選）立即 commit 本 draft plan
+- [x] 升格 UI Pattern Knowledge  
+- [x] Q1–Q11 決議（含 Q1 掛 ui-contracts）  
+- [x] Round-1 仲裁：#1/#2/#3/#5/#6/#8 fix；#4/#7 defer；#9–11 reject  
+- [x] D9 事件驅動 promote-or-sunset（非固定日）  
+- [x] Authority Boundary 四句  
+- [ ] Round-2 Verifier 通過後正式 → `in-progress`  
+- [ ] 簽署開始 Phase 1 實作
 
 ---
 
@@ -356,21 +414,45 @@ Prompt Expansion 與 L1 claim：**verified** 可當硬要求；**observed** 預�
 
 | 關係 | 說明 |
 | --- | --- |
-| `ui-contracts` | Knowledge Lock |
-| `ui-governance` | anti-pattern / evidence 收口；不擁有選型 |
-| Design Contract | token/primitive |
-| Evidence Governance | `evidence_level` 哲學對齊 |
-| 未來 `platform-adapter` | 跨 DS 對照（若需要）；**不**進本 Knowledge |
+| `ui-contracts.md` | Knowledge Lock **已決議掛點** |
+| `ui-governance.md` | 合規；不擁有選型 |
+| Design Contract | 怎麼建成（token/primitive） |
+| Evidence Governance | claims 是否被證明；`evidence_level` |
+| [`2026-07-08-0825-delegation-…`](../2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) | dogfood 可選三角色 SOP；本 plan 不擁有該 loop |
+| `platform-adapter`（未來） | 跨 DS；不進本 Knowledge |
 | NameThatUI | 靈感；我方 = AI-consumable Knowledge Layer |
 
 ---
 
-## 已決議摘要（Q7–Q11）
+## 已決議摘要（Q1–Q11）
 
 | 問題 | 決議 |
 | --- | --- |
-| Q8 | Core = 名 + plain + intent_examples + selection + family + neighbors；Recipe Extended + `unknown\|partial\|complete` |
-| Q7 | 不做 Intent DB |
-| Q9 | Knowledge 進 repo；Expansion checklist = transient |
-| Q10 | 僅 ARIA → Headless → Project |
-| Q11 | `evidence_level`：verified / observed / hypothesized |
+| Q1 | Lock 掛 `ui-contracts.md`（獨立小節） |
+| Q2 | 規則 Ai-skill；採用名專案 |
+| Q3 | 首波 overlay + toast/scrim/empty |
+| Q4 | legacy_alias |
+| Q5 | 無縮圖 |
+| Q6 | L1 窄挡 |
+| Q7 | 無 Intent DB |
+| Q8 | Core / Extended；recipe status |
+| Q9 | checklist transient |
+| Q10 | aria → headless → project |
+| Q11 | evidence_level 三階 |
+
+---
+
+## Appendix A — 混名樣本（Phase 0 前置證據，≥5）
+
+Sanitized 示例（真實路徑留 `<PROJECT_ROOT>`）；說明「為何需要 Pattern Knowledge」：
+
+| # | 觀察到的符號／說法 | 像哪個 pattern | 易混成 | 本 plan 預期 canonical |
+| --- | --- | --- | --- | --- |
+| 1 | 底部分享面板（Dialog primitive + sheet 動效） | bottom_sheet | modal_dialog | `bottom_sheet` + `legacy_alias` 可指向現名 |
+| 2 | 置中離開確認（title + 雙按鈕） | alert / modal_dialog | bottom_sheet | `modal_dialog`（destructive／阻斷） |
+| 3 | 全屏播放層覆蓋 Tab | immersive overlay | bottom_sheet / modal | `overlay` family 變體（首波可 `deferred` 細分） |
+| 4 | 全域系統錯誤提示 | toast | modal_dialog | `toast` |
+| 5 | 工程文檔「Drawer／Modal」並用 | drawer vs modal | sheet | 依 selection_rules；持久導航≠臨時面板 |
+| 6 | 半透明壓暗背後 | scrim | 頁面背景色 | `scrim`（常為 overlay recipe 必備） |
+
+**用途**：證明 Phase 0 非空話；Dogfood Phase 2 用此表回填 `<PROJECT_ROOT>` 真實 alias，不把私有名寫進 Ai-skill 正文。
