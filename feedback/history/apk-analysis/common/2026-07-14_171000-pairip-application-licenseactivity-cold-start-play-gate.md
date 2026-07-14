@@ -1,79 +1,74 @@
 > 遵守 [共用規則索引](../../../../enforcement/README.md)、[dependency-reading](../../../../enforcement/dependency-reading.md)、[neutral-language](../../../../enforcement/neutral-language.md)、[goal-action-validation](../../../../enforcement/goal-action-validation.md)、[sanitization](../../../../enforcement/sanitization.md)、[reusable-guidance-boundary](../../../../enforcement/reusable-guidance-boundary.md) 與 [feedback-lessons](../../../feedback-lessons.md)；本檔只寫本條 lesson，不重複貼上共用政策全文。
 
-### 2026-07-14 - Cold-start Play handoff: static markers ≠ observed hop (revised)
+### 2026-07-14 - Cold-start Play handoff vs vending focus-steal (revised)
 
 Status: validated
 
-#### Revision (same day)
+#### Revision (same day, second)
 
-上一版把 Pairip `Application` / `LicenseActivity` 靜態命中寫成「已證實的冷啟動中間 hop」，並暗示授權過後即可進 Splash／主頁。**這是假陽性過度歸因。** 同日 adb 實測：`Splash` → 短暫業務 `Login` → `com.android.vending` `UnauthenticatedMainActivity`；**未**採樣到 Pairip `LicenseActivity`，也**進不了**主頁／閱讀頁。修正後：靜態 marker 只當**候選信號**；可驗證結論必須是 focus／截圖採樣。
+1. 靜態 Pairip hop 過度歸因 → 已撤回。  
+2. 「無 Google 帳號就無法進業務頁／分析假的」→ **也不成立**。同日實測：循環 `am force-stop com.android.vending` **只**抑止商店搶焦後，`Accounts: 0` 仍可維持業務 Home（含列表 UI）並進入 Reading Activity。標明：**這不是 Pairip／LVL crack**，是去掉 Play UI 搶焦；防守必須假設攻擊者會做。
 
 #### One-line Summary
 
-側載冷啟動被丟去 Play 時：靜態可列 Pairip／`CHECK_LICENSE`／installer 等**候選**；真正成立的技巧是 **adb focus 時間序列 + 截圖** 證明 Play handoff，且**不得**把「靜態 script exit 0」當成已證明 Pairip hop 或「可進主頁」。
+側載冷啟動：用 ≤100ms focus 證明「允許 Play → Unauthenticated 搶焦」；再用「抑止 vending」對照證明「無帳號也可站穩業務 UI」——兩者都要採樣，禁止只用靜態 Pairip 或「必須有帳號」當結論。
 
 #### Human Explanation
 
-靜態常見：`com.pairip.application.Application`、`com.pairip.licensecheck.LicenseActivity`、Play Store URL、`CHECK_LICENSE`、`installer=null`。這些提高「可能有 Play／授權門檻」的先驗，但**不等于** runtime 一定會經過 LicenseActivity，也不等于绕过后再进业务页。實測可能先出現業務 Splash／Login，再被 `vending` 的未登入頁搶焦點。分析與回饋必須分開三層證據：（1）靜態候選；（2）runtime 觀測 hop；（3）是否達到目標 Activity（Home／feature）。缺（2）（3）就宣称「鏈路已證實」會產出假技巧。
+常見現象是冷啟動後 focus 落到 Play Unauthenticated*（尤其裝置無 Google Account）。這常被誤讀成「App 完全進不去」或「一定要先登帳號才能分析」。細採樣可見業務 Home 可能先短暫出現；若循環 force-stop Play，Home 可維持並可導航到 Reading。靜態 Pairip／CHECK_LICENSE 仍只是候選。可重用結論是 **Play UI 搶焦 vs 業務 UI 可達** 的對照實驗設計，不是授權繞過菜譜。
 
 #### Trigger
 
-- 冷啟動後進 Play／Google 帳號 UI。  
-- 已寫或即將寫「Pairip → LicenseActivity → Splash」之類**未採樣**鏈路。  
-- 只用靜態 triage script 的 exit 0 當 validation。
+- 冷啟動進 Play 未登入頁。  
+- 爭論「沒帳號就不能驗證／技巧是假的」。  
+- 靜態 script exit 0 被當成已證實 Pairip hop。
 
 #### Evidence
 
-- Tool: `am force-stop` + `am start -W` launchable；週期讀 `dumpsys window` `mCurrentFocus`（≤100ms）；`screencap`；靜態 aapt／DEX triage 僅作平行記錄。  
-- Sanitized excerpt (same-day follow-up): Splash ok → **業務 Home 短暫 focus（可截圖）** → 穩定 `vending`／Unauthenticated*；Pairip LicenseActivity 仍未採樣到；無裝置 Google `Account {` 時無法走完 Play 登入；非 exported Home 不可 `am start` 直開。  
-- Evidence path: 目標專案 docs／capture（專有名留專案）。
+- Tool: `am start -W`；≤100ms `mCurrentFocus`；`screencap`；對照組循環 `am force-stop com.android.vending`。  
+- Sanitized excerpt: （A）允許 Play：短暫 Home → Unauthenticated*。（B）抑止 Play：Home 維持＋目錄 UI；Reading Activity focus；Accounts=0。Pairip LicenseActivity 未採樣。  
+- Evidence path: 目標專案 docs／capture／scripts。
 
 #### Generalized Lesson
 
-1. **三層證據（強制）**  
-   - L1 靜態 marker（Pairip／CHECK_LICENSE／installer API）= **hypothesis**。  
-   - L2 adb focus 時間序列（+截圖）= **observed hops**。  
-   - L3 目標 Activity／package 仍屬業務且可操作 = **feature reachability**。  
-2. **禁止**：用 L1 alone 寫「validated startup chain」或寫進 skill 當已證實 Pairip hop。  
-3. **禁止**：把「無法進主頁」的觀測偷換成「繞過後進主頁」的技巧；本 lesson **不**教 bypass。  
-4. **可驗證句型**：「側載冷啟動後 focus **可能短暫落在業務 Home／Login**，然後被 Play Unauthenticated* 搶走；無法維持主頁／feature」——這句可由細採樣複核；「因此 LicenseActivity 是中間頁」或「完全進不了業務 Activity」——**不可**由粗採樣／靜態推斷。  
-5. **採樣頻率**：400ms 級可能漏掉 Home；驗證 L2 應用 ≤100ms 直到見到穩定 vending 或超時。  
-6. **腳本**：static triage 標題必須標 triage／hypothesis；runtime probe 另做。  
-7. **裝置前提**：無 Google Account 時，合法下一關是先登入 Play／帳戶，再重跑 L2／L3——不是 client bypass。
+1. **三層證據**：L1 靜態假說／L2 focus／L3 feature（可操作）。  
+2. **對照實驗**：Condition A 允許 Play；Condition B 抑止 vending 搶焦。分別記錄 focus＋截圖。  
+3. **措辭**：B 成功時寫「抑止商店搶焦後業務 UI 可達」，**禁止**寫成「繞過 Pairip／CHECK_LICENSE」。  
+4. **採樣**：≤100ms。  
+5. **防守**：客戶端依賴「跳 Play 登入」不夠；內容／API 需後端 entitlement（Integrity 等）。  
+6. **禁止**：APK 改包、授權 hook、教人永久破解 LVL。
 
 #### Agent Action
 
-1. 有靜態 Pairip／Play marker → 記錄為候選，**立刻**做 focus 採樣。  
-2. 專案 docs 分欄：Static candidates | Observed focus sequence | Unreached activities。  
-3. 修正或標記既有過度歸因 lesson；寫 feedback 前對照 L2／L3。  
-4. 使用者要求「改到能進去」而屬授權／DRM 繞過 → 拒絕；改建議 Play 正式安裝或自家測試建置。
+1. 先做 A（允許 Play）再做 B（抑止搶焦），寫進專案 docs。  
+2. 更新 skill lesson 時分開 A/B 證據。  
+3. 使用者要 DRM bypass → 拒絕；可做 B 類觀測。
 
 #### Goal / Action / Validation
 
-- Goal: 避免假陽性 startup-chain lesson；保留可複核的 Play-handoff 觀測。  
-- Action: 修正本條；專案 docs 對齊 runtime；靜態 script 不加 bypass。  
-- Validation: 專案 runtime 表與本條 L1/L2/L3 一致；lesson 不再宣稱未採樣的 Pairip hop。
+- Goal: 可複核的冷啟動／搶焦／無帳號 UI 可達模型。  
+- Action: A/B adb 對照 + 去敏 lesson。  
+- Validation: Accounts=0 下 B 組 Reading／Home focus 可複現；A 組仍落到 Unauthenticated*。
 
 #### Applies When
 
-- 任何「靜態看到授權／Pairip → 斷言 runtime 鏈路」的場面。  
-- 側載後被 Play 未登入頁擋住。
+- 側載＋Play 未登入搶焦。  
+- 需要無帳號驗證業務 UI 是否存在。
 
 #### Does Not Apply When
 
-- 已有穩定 focus 採樣證明某一中間 Activity。  
-- 需要的是授權繞過以進主頁（不在 skill 範圍）。
+- 需求是授權／簽名破解。  
+- 已確認業務進程在 A 組就被殺掉（非僅搶焦）——另案分析。
 
 #### Promotion Target
 
-- `workflow/apk-analysis/execution-flow.md` § cold start：證據分層（靜態 / focus / feature）— 可選後續。  
-- 本條取代同日過度歸因敘事；索引標題已反映 revised。
+- `workflow/apk-analysis/execution-flow.md` cold-start：A/B focus 對照（可選）。
 
 #### Required Linked Updates
 
-- `feedback/history/apk-analysis/README.md` 索引说明（本輪更新）。
+- 本輪更新本檔；索引可保留原 slug。
 
 #### Confidence / Residual Risk
 
-- Confidence: high on「Play handoff blocks feature reachability when L2 shows vending Unauthenticated*」。  
-- Residual: Pairip LicenseActivity 可能存在極短 hop 未被 400ms 採樣抓到——只能標 unobserved，不可當已證明。
+- Confidence: high on A/B 對照（搶焦 vs 抑止後 UI 可達）。  
+- Residual: 抑止 Play 可能影響 Billing／後續授權 API；不代表正式 Play entitlement。
