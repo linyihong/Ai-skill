@@ -74,3 +74,17 @@ constraints:
     rationale: "Toast + scrim usually means misclassified modal overlay."
     evidence_level: observed
     hypotheses: [H4, H5]
+
+  # --- H4 stress 2026-07-14 (Case A): first valuable failure → Constraint, not Entry ---
+  - id: overlay.no_concurrent_temporary_overlays
+    subject: episode_detail
+    cannot_coexist_open:
+      - bottom_sheet
+      - modal_dialog
+    rationale: >
+      Episode may list both as optional tree nodes, but they must not be open
+      at the same time. Discovered under Case A stress (sheet↔dialog swap /
+      dual-open). Fix lives here — do NOT rewrite selection_rules on either entry.
+    evidence_level: observed
+    hypotheses: [H4]
+    evidence: plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3h4-independence-stress.md

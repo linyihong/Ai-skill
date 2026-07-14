@@ -537,7 +537,8 @@ Episode Detail
 
 `Entry Modifications ≠ 0` ⇒ Phase 2 Freeze 未被真正守住；Closure 失敗。
 
-基線見 [`evidence/3-metrics.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3-metrics.md)：Deferred=2；Rule Count=4；Entry Modifications=0。
+基線／進度見 [`evidence/3-metrics.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3-metrics.md)。  
+H4 stress：[`evidence/3h4-independence-stress.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3h4-independence-stress.md)（Case A 首輪 FAIL → 新 Constraint；Entry Mods=0）。
 
 ### Scope 鎖死
 
@@ -549,11 +550,11 @@ Episode Detail
 - [x] Constraints：[`composition_rules.yaml`](../../workflow/software-delivery/ui-pattern-knowledge/composition_rules.yaml)  
 - [x] Start lock：[`evidence/phase3-start.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/phase3-start.md)  
 - [x] Metrics baseline：[`evidence/3-metrics.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3-metrics.md)  
-- [ ] **H4 mini-cycle** evidence（Independence only）  
+- [x] **H4 mini-cycle** evidence（Independence stress）— [`3h4-independence-stress.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3h4-independence-stress.md)  
 - [ ] **H5 mini-cycle** evidence（Completeness only）  
 - [ ] **H6 mini-cycle** evidence（Trace Graph）  
 - [ ] Metrics 終值記入 Closure  
-- [x] **Invariant**：Entry Modifications = 0
+- [x] **Invariant**：Entry Modifications = 0（H4 後仍 0）
 
 ### Exit Gate = **Composition Closure**
 

@@ -42,8 +42,17 @@ contains:
     optional: true
     role: overlay_compositional
     notes: "伴隨 temporary overlay；非主任務面"
+  # H4 Case D stress — Completeness via deferred（不開 Entry）
+  - pattern: floating_hint
+    knowledge: deferred
+    reason: uncovered_pattern
+    optional: true
+    role: unknown_candidate
+    notes: "H4 stress；H5 Completeness 用 deferred；H6 Recipe trace 刻意欠缺"
 
 notes: >
   Drawer 不在本 screen 預設樹內（Episode Page 範圍鎖死）。
   Selection 仍讀 Phase 2 entries；Composition 只描述「會出現哪些 pattern」，
   不覆寫 selection_rules。
+  Concurrent open of bottom_sheet + modal_dialog forbidden by
+  composition_rules overlay.no_concurrent_temporary_overlays (H4 Case A).

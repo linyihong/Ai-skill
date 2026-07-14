@@ -1,29 +1,24 @@
-# Phase 3 Composition Metrics（baseline）
+# Phase 3 Composition Metrics
 
-**Date**: 2026-07-14  
-**Screen under test**: `episode_detail`  
-**Invariant check**: Entry Modifications **must stay 0** through Closure.
+**Screen**: `episode_detail`  
+**Invariant**: Entry Modifications **must stay 0**.
 
-| Metric | Baseline | Expected at Closure | Source |
+| Metric | Baseline (start) | After H4 stress (2026-07-14) | Expected at Closure |
 | --- | --- | --- | --- |
-| Deferred Nodes | **2** | ≥ baseline（誠實增加可接受） | `app_bar`, `player` in `compositions/episode_detail.yaml` |
-| Composition Rule Count | **4** | ≥ baseline | `composition_rules.yaml` `constraints:` |
-| Entry Modifications | **0** | **0** | `git diff` on `ui-pattern-knowledge/entries/` during Phase 3 |
+| Deferred Nodes | 2 | **3**（+`floating_hint`） | ≥ honest count |
+| Composition Rule Count | 4 | **5**（+`overlay.no_concurrent_temporary_overlays`） | ≥ honest count |
+| Entry Modifications | 0 | **0** | **0** |
 
-## How to recount
+## Recount
 
 ```bash
-# Deferred Nodes
-rg -c 'knowledge: deferred' workflow/software-delivery/ui-pattern-knowledge/compositions/episode_detail.yaml
-
-# Composition Rule Count
-rg -c '^- id:' workflow/software-delivery/ui-pattern-knowledge/composition_rules.yaml
-
-# Entry Modifications (Phase 3 window — expect empty)
-git log --oneline -- workflow/software-delivery/ui-pattern-knowledge/entries/
+grep -c 'knowledge: deferred' workflow/software-delivery/ui-pattern-knowledge/compositions/episode_detail.yaml
+grep -c '^  - id:' workflow/software-delivery/ui-pattern-knowledge/composition_rules.yaml
+git status -- workflow/software-delivery/ui-pattern-knowledge/entries/
 ```
 
 ## Notes
 
-- Metrics 不是 KPI；不優化「減少 Deferred」。
-- `Entry Modifications ≠ 0` → Composition Closure **FAIL**（Invariant 失敗）。
+- Case A 增加 Rule Count 是 **正向**（Invariant 施壓後成立），不是 KPI 膨脹。
+- Deferred 增加來自 Case D 誠實記帳，不是 Coverage 推進。
+- Evidence：[`3h4-independence-stress.md`](3h4-independence-stress.md)
