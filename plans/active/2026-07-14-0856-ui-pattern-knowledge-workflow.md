@@ -40,11 +40,13 @@ revision:
     note: "H4 stress-validated（Composition self-absorbs via Constraint）；Metrics=Entry Mods Primary；H5=Deferred disposition；Protocol Constraint Accumulation pair"
   - date: 2026-07-14
     note: "H6 Traceability=可追溯+可停止；T1/T2/T3；Waiver first-class；Protocol Explicit Termination；Composition Knowledge → Stable；Composition Closure"
+  - date: 2026-07-14
+    note: "Research Cycle 1 CLOSED；retrospective research-cycle-1.md；Knowledge Evolution Method Emerging；不開 Phase 4 / Interaction"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
 
-**Status**: `in-progress` — **Phase 0–2 complete**；**Phase 3 Composition Closure ✅**（H4–H6；Episode Pattern Tree Validated）  
+**Status**: `in-progress` — **Research Cycle 1 CLOSED**（P1–P3 假說鏈）；沉澱中；**不開 Phase 4** · Retrospective [`evidence/research-cycle-1.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-1.md)  
 
 **Owner**: linyihong  
 **建立日期**: 2026-07-14  
@@ -584,13 +586,15 @@ H5：[`3h5-completeness-disposition.md`](./2026-07-14-0856-ui-pattern-knowledge-
 
 ### Knowledge-layer maturity（非「Phase 完成 %」）
 
-| Layer | 狀態 | 評語 |
+| Artifact | 成熟度 | 評語 |
 | --- | --- | --- |
-| Pattern Knowledge | 🟢 **Stable** | Representability + Inferability 已驗證 |
-| Composition Knowledge | 🟢 **Stable** | H4 Independence + H5 Completeness + H6 Traceability；靠三能力成熟，非整批 Pattern |
-| Interaction / Orchestrability | ⚪ **Observation only** | 尚未形成可驗證假說；不升格 |
+| Pattern Knowledge | 🟢 **Stable** | Representability + Inferability |
+| Composition Knowledge | 🟢 **Stable** | Independence + Completeness + Traceability |
+| **Knowledge Evolution Method** | 🟡 **Emerging** | first independent validation = Research Cycle 1（非 UI 附屬） |
+| Interaction / Orchestrability | ⚪ **Observation** | 無 Flow Failure Case → **不開 Phase 4** |
 
-**Composition Closure（2026-07-14）**：✅ Pattern Tree Validated — H4∧H5∧H6 + Entry Mods=0。
+**Composition Closure（2026-07-14）**：✅ Pattern Tree Validated — H4∧H5∧H6 + Entry Mods=0。  
+**Research Cycle 1**：✅ CLOSED — [`evidence/research-cycle-1.md`](./2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-1.md)
 
 ### Exit Gate = **Composition Closure**
 
@@ -603,10 +607,14 @@ H5：[`3h5-completeness-disposition.md`](./2026-07-14-0856-ui-pattern-knowledge-
 
 （觀察：Flow·Orchestrability 可能自然露出——**不**預寫 plan Phase 4。）
 
-## Phase 4 —（可選）Extended 加厚
+## Phase 4 — **DEFERRED**（不開）
 
-- [ ] anti_patterns、recipe→partial/complete、evidence_level 升級規則  
-- [ ] 仍不引入 DS 百科；governance 一行承接 anti-pattern warn
+> Research Cycle 1 之後優先 **沉澱**（retrospective / Knowledge Evolution Method），不是 Interaction。  
+> Phase 4 Extended 加厚與 Orchestrability **保持 Observation**，直到出現可驗證的 Flow Failure Case。
+
+- [ ] ~~anti_patterns / recipe 加厚~~ — deferred  
+- [ ] ~~Interaction / Orchestrability plan~~ — **forbidden until Failure Case**
+
 
 ---
 
@@ -650,7 +658,8 @@ H5：[`3h5-completeness-disposition.md`](./2026-07-14-0856-ui-pattern-knowledge-
 - [x] Phase 3 formal start：Entry Freeze **升格 Invariant**（anti back-propagation）；Exit = Composition Closure；P4 Orchestrability 不入 plan
 - [x] Phase 3 mini-cycles（H4→H5→H6）+ Composition Metrics；Layer Growth Rhythm recorded in Architecture Evolution Protocol  
 - [x] H4 Invariant stress evidence；H5 Deferred disposition success；Entry Mods = Primary Metric；Constraint Accumulation pair in Protocol  
-- [x] H6 Traceability（T1/T2/T3）+ Waiver first-class；Composition Closure；Protocol Explicit Termination trio
+- [x] H6 Traceability（T1/T2/T3）+ Waiver first-class；Composition Closure；Protocol Explicit Termination trio  
+- [x] Research Cycle 1 CLOSED + research-cycle-1.md；Knowledge Evolution Method Emerging；Phase 4/Interaction 不開
 
 ---
 

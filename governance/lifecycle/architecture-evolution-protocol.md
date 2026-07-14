@@ -93,6 +93,7 @@ When editing this file, classify each change:
 | 2026-07-14 | New governance pattern | Optional appendix §Layer Growth Rhythm（Grow one layer, freeze the previous）— non-core；sourced from UI Pattern Knowledge Phase 1–3 rhythm |
 | 2026-07-14 | Editorial | Pair Constraint Accumulation sentence into §Layer Growth Rhythm；cite H4 stress evidence (Entry Mods=0) |
 | 2026-07-14 | Editorial | Third Layer Growth Rhythm sentence: Every trace must terminate explicitly (H6 Explicit Termination) |
+| 2026-07-14 | Editorial | Name Knowledge Layer Evolution Pattern / Method as Emerging (Research Cycle 1 retrospective) |
 
 ---
 
@@ -394,10 +395,13 @@ Full record in [ADR-013 §Dogfood Evidence](../../constitution/ADR-013-cognitive
 
 ---
 
-## Appendix — Layer Growth Rhythm（optional Governance Pattern）
+## Appendix — Layer Growth Rhythm / Knowledge Layer Evolution Pattern（optional）
 
 > **Classification**: optional appendix / reusable research rhythm — **non-core**（does not amend Protocol Core invariants）.  
-> **Source observation**: UI Pattern Knowledge workflow（Phase 1–3）+ prior Evidence / Governance layering practice.
+> **Also known as**: **Knowledge Evolution Method**（Emerging — first independent validation = UI Pattern Research Cycle 1）.  
+> **Source observation**: UI Pattern Knowledge workflow（Phase 1–3）+ prior Evidence / Governance layering practice.  
+> **Retrospective**: `plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-1.md`
+
 
 ### Pattern
 
@@ -414,6 +418,15 @@ Every trace must terminate explicitly, either in validated knowledge or a govern
 | Every trace must terminate explicitly… | **Explicit Termination** — Traceability = 可追溯 + 可停止；終點只能是 Recipe 或 Waived（無 `?????`） |
 
 Trio: Growth ⊕ Constraint Accumulation ⊕ Explicit Termination.
+
+Four durable steps（Knowledge Layer Evolution Pattern）:
+
+```text
+Layer → Freeze → Constraint Accumulation → Governed Termination
+```
+
+First full research-cycle validation: UI Pattern Knowledge（2026-07-14）. Method status **Emerging** until a second independent research line reuses the same four steps without amending them.
+
 
 | Phase（instance） | New artifact layer | Freeze target（previous） |
 | --- | --- | --- |
