@@ -67,4 +67,7 @@ Single-stack apps where all traffic shares one HTTP client and proxy policy.
 
 #### Promotion Target
 
-`analysis/apk/traffic-triage.md` — candidate；links to existing proxy-config / pinning-tier lessons.
+- `analysis/apk/traffic-triage.md` §三欄分流（linked 2026-07-14）
+- `analysis/apk/tools-and-failures.md` mixed-row（linked 2026-07-14）
+- `intelligence/engineering/analytical-reasoning/heuristics/mitm-route-column-diagnosis.md`
+- `intelligence/engineering/analytical-reasoning/signals/mitm-route-column-signals.md`

@@ -22,4 +22,5 @@
 |------|------|------|-----------|
 | [`flutter-dart-aot-detection.md`](flutter-dart-aot-detection.md) | Flutter/Dart AOT 辨識信號 — 主要/次要/排除信號表與判斷流程 | `skills/apk-analysis/techniques/flutter-dart-aot/`（已刪除） | — |
 | [`local-proxy-detection.md`](local-proxy-detection.md) | Local Proxy 偵測信號 — 主要/次要/排除信號表與判斷流程 | `skills/apk-analysis/techniques/local-proxy/`（已刪除） | — |
+| [`mitm-route-column-signals.md`](mitm-route-column-signals.md) | MITM 三欄訊號 — 導流／UI+TLS trust fail／業務 API bypass 的觀測表 | `feedback/history/apk-analysis/local-proxy/2026-07-14_*` | — |
 | [`media-type-detection.md`](media-type-detection.md) | 媒體類型偵測信號 — Magic Bytes 參考表、靜態 vs 動畫判斷、Container Probe 指令 | `skills/apk-analysis/techniques/media-hls/`（已刪除） | Magic Bytes 參考表已提取到 [`intelligence/engineering/heuristics/magic-bytes-reference.md`](../../heuristics/magic-bytes-reference.md) |

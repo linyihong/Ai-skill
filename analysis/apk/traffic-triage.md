@@ -107,6 +107,28 @@ native backtrace 落在哪裡？
 - `connect <api-host>:443`：仍是直連，優先查注入時機、proxy host/port、client 是否已初始化。
 - proxy 有 CONNECT 但無 HTTPS 明文：導流與 TLS 要分開查。
 
+### 三欄分流（同一冷啟動窗常見混合象限）
+
+不要把 MITM 結果壓成單一「pinning / 沒流量」標籤。同一窗常可同時成立：
+
+| 欄 | 問題 | 典型證據 | 下一步 |
+| --- | --- | --- | --- |
+| **A. Proxy-aware stack** | 代理設定是否真的接到流量？ | 廣告／analytics／mediation CONNECT + 可解密 | 證明導流成功即可；勿當成業務主線已覆蓋 |
+| **B. Proxy-entered first-party trust** | 進了代理的第一方 host 是否拒憑證？ | MITM `certificate unknown`／handshake fail；**裝置 UI 出現 SSL certificate verification** | 記為該 host 的 trust／pinning 訊號；UI 錯誤是證據不是噪音 |
+| **C. Business API proxy membership** | 主業務 API 有沒有進代理？ | **零 CONNECT** + no-proxy pcap／SNI 仍見業務候選 IP | **bypass**（Cronet／native／自訂 client）→ 升級 Frida／in-process；勿再拉長純 MITM |
+
+關鍵分離：
+
+- **B ≠ C**：某一第一方 H5／m-site 進代理並彈 SSL UI，**不代表**主 API 也進了代理。
+- **僅當 C 是「有 CONNECT + handshake fail」** 才能說該業務 API 屬 MITM pinning tier。
+- **C 是零 CONNECT** 時，優先 no-proxy SNI／pcap 確認仍有業務連線，再選 hook 主線。
+
+可重用 lesson：
+
+- [`feedback/history/apk-analysis/local-proxy/2026-07-14_095200-on-device-ssl-certificate-ui-is-tls-path-signal.md`](../../feedback/history/apk-analysis/local-proxy/2026-07-14_095200-on-device-ssl-certificate-ui-is-tls-path-signal.md)
+- [`feedback/history/apk-analysis/local-proxy/2026-07-14_095210-mixed-mitm-ads-ok-firstparty-ssl-api-bypass.md`](../../feedback/history/apk-analysis/local-proxy/2026-07-14_095210-mixed-mitm-ads-ok-firstparty-ssl-api-bypass.md)
+- [`feedback/history/apk-analysis/common/2026-05-01_112900-proxy-config-vs-business-route.md`](../../feedback/history/apk-analysis/common/2026-05-01_112900-proxy-config-vs-business-route.md)
+
 ## Response 解碼流程
 
 遇到 outer response 包 encrypted `data` 時：

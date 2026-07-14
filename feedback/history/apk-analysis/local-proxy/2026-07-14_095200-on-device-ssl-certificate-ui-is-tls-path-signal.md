@@ -67,4 +67,7 @@ Do not stop the analysis window solely because the App shows a certificate page�
 
 #### Promotion Target
 
-`analysis/apk/traffic-triage.md` / `tools-and-failures.md` — candidate until second consumer corroborates UI-as-signal wording.
+- `analysis/apk/traffic-triage.md` §三欄分流 + UI TLS 訊號（linked 2026-07-14）
+- `analysis/apk/tools-and-failures.md` failure rows（linked 2026-07-14）
+- `intelligence/engineering/analytical-reasoning/heuristics/mitm-route-column-diagnosis.md`
+- `intelligence/engineering/analytical-reasoning/signals/mitm-route-column-signals.md`

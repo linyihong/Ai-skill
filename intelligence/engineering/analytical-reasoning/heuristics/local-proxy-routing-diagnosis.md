@@ -23,6 +23,7 @@ APK 分析中，何時該懷疑 app 使用 local proxy/loopback 路由？如何�
 | Logcat 提到 `ProxyServer`、Netty handler、local bridge、TUN、sing-box | 確認 local proxy | 找出 handler 類別 |
 | Hooking OkHttp/WebView 不暴露 business upstream | 可能是 local proxy | 檢查 local handler objects |
 | 同時有 loopback 證據 + MITM SSL error | 兩者皆有 | 先處理 local proxy handler hook，再處理 pinning |
+| 廣告可解密 + UI SSL（某一第一方）+ 主 API 零 CONNECT | **非**單一 local-proxy／pinning；走 MITM 三欄分流 | 見 `mitm-route-column-diagnosis.md`；no-proxy pcap 後 Frida |
 
 ### 何時該開始 Handler Hook
 
@@ -42,6 +43,7 @@ APK 分析中，何時該懷疑 app 使用 local proxy/loopback 路由？如何�
 ## 相關 atoms
 
 - `intelligence/engineering/analytical-reasoning/signals/local-proxy-detection.md`
+- `intelligence/engineering/analytical-reasoning/heuristics/mitm-route-column-diagnosis.md`（MITM 三欄：導流／trust／bypass）
 - `analysis/apk/workflows/local-proxy-hook-flow.md`
 - `analysis/apk/traffic-triage.md`
 

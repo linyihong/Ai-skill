@@ -60,4 +60,5 @@ Pure Q&A with no new method and no runtime work（FeedbackDecision may be NONE�
 
 #### Promotion Target
 
-Project overlay（immediate）；optional later pointer from `workflow/apk-analysis` documentation-discipline slice.
+- Project overlay：`<PROJECT_ROOT>/.ai-skill/project/rules/ai-skill-session-feedback-writeback.md`（linked）
+- Linked-update reminder：lesson naming `analysis/` / `intelligence/` targets must be executed in the same writeback transaction（見 [`enforcement/linked-updates.md`](../../../../enforcement/linked-updates.md)）
