@@ -4,12 +4,20 @@
 
 | 分類 | 數量 | 說明 |
 |------|------|------|
-| [`common/`](common/) | 57 | 跨分類或通用 lesson（工具選擇、流程、UI、分析策略等） |
+| [`common/`](common/) | 58 | 跨分類或通用 lesson（工具選擇、流程、UI、分析策略等） |
 | [`flutter-dart-aot/`](flutter-dart-aot/) | 23 | Flutter/Dart AOT 相關 hook 與分析 |
 | [`http-api/`](http-api/) | 25 | HTTP API 分析、文件化、UI 操作流程 |
-| [`local-proxy/`](local-proxy/) | 8 | Local proxy 設定、診斷、hook |
+| [`local-proxy/`](local-proxy/) | 10 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
+
+## Recent (2026-07-14)
+
+| Slug | Category |
+|------|----------|
+| `local-proxy/2026-07-14_095200-on-device-ssl-certificate-ui-is-tls-path-signal` | On-device SSL UI = TLS signal |
+| `local-proxy/2026-07-14_095210-mixed-mitm-ads-ok-firstparty-ssl-api-bypass` | Mixed MITM: ads OK / SSL UI / API bypass |
+| `common/2026-07-14_095220-apk-analysis-window-closeout-cognitive-and-feedback` | Window close-out: Cognitive + Feedback |
 
 ## Recent (2026-06-22)
 
