@@ -4,7 +4,7 @@ plan_kind: main
 status: in-progress
 owner: linyihong
 created: 2026-07-08
-last_updated: 2026-07-13
+last_updated: 2026-07-14
 parent: null
 baseline_ref: 2026-06-22-1009-subplan-agent-delegation
 revision:
@@ -46,11 +46,13 @@ revision:
     note: "Dogfood 2r — <PROJECT_ROOT> player overlay Mode A：soft-nav 绿→cold URL 死；entry-path / elementFromPoint 回馈"
   - date: 2026-07-13
     note: "Sync 跨域表：Research 改標 2e 已驗證；Architecture / Knowledge 仍 analogy；紀律邊界與 adoption stage 2 進度同步"
+  - date: 2026-07-14
+    note: "Dogfood 2s — Architecture 域：UI Pattern Knowledge plan review（R1+R2 Verifier）；跨域表 Architecture→已驗證；stage 2 = 2/3（Knowledge 仍缺）；evidence/2s-…"
 ---
 
 # Delegation Verification & Arbitration Loop（委派執行→獨立驗證→仲裁閉環）
 
-**Status**: `in-progress`（Phase 0–2 完成；外部 monorepo dogfood **2a–2q** + consumer **2o/2r**；**2n/2p 正向闭环**；2026-07-13 2q/2r；Phase 3 / closure **仍不收斂** — Q5 schema promotion open，deadline 2026-08-31）
+**Status**: `in-progress`（Phase 0–2 完成；外部 monorepo dogfood **2a–2q** + consumer **2o/2r**；跨域 **2e Research** + **2s Architecture**；**2n/2p 正向闭环**；Phase 3 / closure **仍不收斂** — Q5 schema promotion open，deadline 2026-08-31；stage 2 **2/3** Knowledge 仍缺）
 **Owner**: linyihong
 **建立日期**: 2026-07-08
 **Source**: 2026-07-08 對話 — 使用者觀察到外部框架的三角色模式：主 session 只做規劃 / 切分 / 仲裁，執行交給獨立 agent session，驗證再交給另一個獨立 session，最後由主 session 仲裁每條驗證發現（要修 / 超出範圍 / 駁回）。目標：補漏「預計與實現的落差」。主要針對 `workflow/software-delivery` 的交付處理；Ai-skill 自身任務比照辦理，觀察品質是否提升。
@@ -185,10 +187,10 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 |---|---|---|---|---|
 | Coding | Executor | Verifier | Orchestrator | **已驗證（2b）** |
 | Research | Research agent | Fact checker | Planner | **已驗證（2e）** — grandfather sunset audit |
-| Architecture | Designer | Architecture reviewer | Architect | analogy，無真實 run |
+| Architecture | Designer | Architecture reviewer | Architect | **已驗證（2s）** — UI Pattern Knowledge plan review |
 | Knowledge | Extractor | Evidence validator | Knowledge maintainer | analogy，無真實 run |
 
-**紀律邊界（依 falsification ladder / governance veto test）**：真實證據目前在 delivery 域（2b / 2a-external / 2c / **2d**…）+ **Research（2e）**；Architecture / Knowledge 在有真實 run 前維持 analogy。「很像 ≠ 同 family」。Q6 最低門檻（≥1 非 delivery 域）已由 2e 滿足；adoption stage 2「三域各一輪」仍缺 Architecture / Knowledge。通用化定位——graduate 時以「Evidence-driven Closed Control Loop（Specification → Production → Independent Evidence → Arbitration → Specification）」取代「Delegation」——列為 Q6，改名裁決留 Phase 3；在此之前 SOP 維持 delegation 措辭，不新增通用 primitive、不改名、不建跨域框架。
+**紀律邊界（依 falsification ladder / governance veto test）**：真實證據目前在 delivery 域（2b / 2a-external / 2c / **2d**…）+ **Research（2e）** + **Architecture（2s）**；Knowledge 在有真實 run 前維持 analogy。「很像 ≠ 同 family」。Q6 最低門檻（≥1 非 delivery 域）已由 2e 滿足；adoption stage 2「三域各一輪」= Research ✅ / Architecture ✅ / **Knowledge 仍缺（2/3）**。通用化定位——graduate 時以「Evidence-driven Closed Control Loop（Specification → Production → Independent Evidence → Arbitration → Specification）」取代「Delegation」——列為 Q6，改名裁決留 Phase 3；在此之前 SOP 維持 delegation 措辭，不新增通用 primitive、不改名、不建跨域框架。
 
 **Execution Pattern ≠ Role Topology（使用者 review 第二輪，2026-07-08）**：穩定的候選是**四責任**（Spec → Produce → Evidence → Decision），不是三角色。Role topology 是 domain-variable 實例化——Research 可能是 Planner → Research Agent → Fact Checker → Planner、Knowledge 是 Curator → Extractor → Validator → Curator、Architecture 是 Architect → Designer → Architecture Review → Architect；角色名全換、四責任不變。**Q6 驗的是 pattern（四責任是否自然收斂），不是 topology（角色名是否對得上）**。
 
@@ -199,10 +201,10 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 | 階段 | 條件 | 定位 |
 |---|---|---|
 | **1（已過）** | evidence 來自 delivery 域 | 維持 **Delegation Loop**；作為 software-delivery 委派任務的 execution pattern 證據已強（**仍 advisory**，不動 SOP 強制度） |
-| **2（進行中，1/3）** | Research / Knowledge / Architecture 各一輪真實 run **自然收斂**到四責任閉環（非靠類比解釋） | Research ✅（2e）；Knowledge / Architecture 仍缺。Q6 最低門檻（≥1 非 delivery）已滿足；family 宣稱仍等 3/3 |
+| **2（進行中，2/3）** | Research / Knowledge / Architecture 各一輪真實 run **自然收斂**到四責任閉環（非靠類比解釋） | Research ✅（2e）；Architecture ✅（2s）；**Knowledge 仍缺**。Q6 最低門檻（≥1 非 delivery）已滿足；family 宣稱仍等 3/3 |
 | 3 | cross-domain + cross-workflow + cross-project evidence 齊備 | 才考慮 execution runtime 全面預設採用 |
 
-現在最多能說「對 software delivery + Research/Audit 這是有效模式」，推不出「所有 workflow 都該採用」。
+現在最多能說「對 software delivery + Research/Audit + Architecture（plan review）這是有效模式」，推不出「所有 workflow 都該採用」；Knowledge 尚未有真實 run。
 
 **第三輪 review（使用者，2026-07-08，讀 `sd-delegated-execution` 後）**——三個新命題，各立 open question：
 
@@ -223,7 +225,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
    ```
 3. **Invariant candidate 正式命名（Q8 核心）**：**Evidence Producer must not be Closure Authority（自產證據不能自我關閉）**——sd（inner test 不能關 user-visible slice）與 research（調查者自查 necessary but insufficient）**自然形成、非 SOP 規定**，兩域同構。
 4. **Primitive 候選排序（使用者裁定，2026-07-09）**：① Evidence Responsibility（誰可以生產什麼證據）② Evidence-first Acceptance（acceptance 如何先定義證據）③ Independent Verification（誰不能驗證自己）④ Four Responsibility Loop（工作如何流動）。**Delegation 大幅降級——它是一種 deployment，不是底層不變量。**
-5. **核心假說改名**：Evidence-driven Control Loop 是**表面結構**；真正浮現的核心 = **Evidence Responsibility Architecture（ERA）**——跨域最終都回答同四問（誰產哪類證據 / 哪些證據足以支持哪類結論 / 誰不能靠自產證據關閉 / 裁決權屬誰）。已有跨域實證（N=2 域），仍需更多驗證與**反例**。
+5. **核心假說改名**：Evidence-driven Control Loop 是**表面結構**；真正浮現的核心 = **Evidence Responsibility Architecture（ERA）**——跨域最終都回答同四問（誰產哪類證據 / 哪些證據足以支持哪類結論 / 誰不能靠自產證據關閉 / 裁決權屬誰）。已有跨域實證（成功域 **N=3**：sd + Research + Architecture；2s 帶 orchestrator 越界疤仍 pattern-held），仍需 Knowledge 與**反例**。
 6. **方法論轉向（下一步）**：**falsification-first**——不急著找第三個成功域，**刻意選預期會失敗的域**（Brainstorming / Creative Writing / Open-ended Design / Ideation）做下一個 run：若它們也自然長出 evidence-first acceptance + independent evidence + closure authority → 假說極強；若沒有 → 明確畫出適用邊界。**兩種結果都是有效裁決素材，比繼續累積成功案例更有研究價值。**仍須真實任務（自然出現的 ideation 需求），不 manufacture。
 
 **第五輪 review（使用者，2026-07-09）——研究階段轉換：accumulation → boundary discovery**：
@@ -354,9 +356,9 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 | Q3 | 品質信號怎麼量：verifier 差集 findings 數 + 仲裁分佈（fix/defer/reject 比例）是否構成「品質提升」的有效指標？null result 如何記錄？ | Phase 2 | **resolved（2026-07-08，advisory 指標）** | 雙 dogfood 各留差集 + 分佈；複合指標明文化 | **複合指標**（kit §2a-external 結論表）：(1) acceptance-violation 率（2a-external **0/2 rounds**）；(2) test delta（+6）；(3) pre-merge bug fix 數（2：guard + envelope）；(4) 協調成本（spawn×4、plan commit×6）；(5) orchestrator 越界次數（1）。**結論**：品質↑有量化證據；orchestrator 寫 code↓、協調↑；verifier 邊際 catch 本任務為中等（強制 IT/結構化 defer 價值 > acceptance 差集）。null result 未出現 |
 | Q4 | 仲裁紀錄落點：被委派 sub-plan 內 table（傾向）vs 獨立 artifact？ | Phase 1 | **resolved（2026-07-08）** | 落點決定並在 dogfood 實際使用 ✅ | 落點 = 被委派任務的 plan artifact 內 table（SOP 已載明）；dogfood 期記於 kit §Dogfood 紀錄（2b 仲裁表實際使用） |
 | Q5 | Schema promotion 門檻：什麼證據才允許動 delegation schema（如 `delegation.verification`）？ | Phase 3 | open | 門檻明文化；未達門檻則明確記錄維持 doc-only | kit §2c + **§2d** 增強信號；consumer 機械 gate（2c/2d）後 orchestrator 零 manageCode diff；**§2g 第二個獨立 consumer**（ExternalRepoA overlay + backfill + 自建 gate，BDD 7/7）——consumer-layer 自理模式 ×2 成立，slice 各項 promotion eligibility 達標、評估歸 Phase 3 批次 — schema 本身**仍維持 doc-only**。**2j 負向補充（2026-07-10）**：機械 gate「擋寫不擋不驗」缺口實證——role boundary 需 **Verifier-spawn tracking** 類 gate（consumer `verifier-after-executor` 回饋），Phase 3 門檻明文化的直接素材 |
-| Q6 | 通用化定位：graduate 時是否以「Evidence-driven Closed Control Loop」（四責任分離：Specification → Production → Independent Evidence → Arbitration → Specification）取代「Delegation」定位？（使用者 review 2026-07-08 提出，見 §架構收斂觀察） | Phase 3（adoption stage 2 gate） | open（**stage-2 條件首次滿足**，2026-07-09；改名裁決留 Phase 3 / maintainer） | 至少一個**非 delivery 域**（Research / Knowledge / Architecture）真實 run **自然收斂**到四責任閉環（非類比解釋）；**驗 pattern 不驗 topology**（角色名可全換）；stage 3（runtime 全面預設）另需 cross-domain + cross-workflow + cross-project evidence，不在本 plan scope | **2e（Research/Audit 域，真實 deadline 任務）**：四責任自然成立、角色 topology 自然不同（調查者/查核者 + maintainer 第二層 decision）——pattern held, topology differed，正是 closed criteria 預測的形態；kit §2e 觀察表 |
+| Q6 | 通用化定位：graduate 時是否以「Evidence-driven Closed Control Loop」（四責任分離：Specification → Production → Independent Evidence → Arbitration → Specification）取代「Delegation」定位？（使用者 review 2026-07-08 提出，見 §架構收斂觀察） | Phase 3（adoption stage 2 gate） | open（**stage-2 進行中 2/3**，2026-07-14；改名裁決留 Phase 3 / maintainer） | Research / Knowledge / Architecture 各一輪真實 run；**驗 pattern 不驗 topology**；stage 3 另需 cross-domain + cross-workflow + cross-project，不在本 plan scope | **2e Research** ✅；**2s Architecture** ✅（UI Pattern Knowledge plan review；Task Verifier；orchestrator 越界疤；**不**填 Knowledge）——pattern held, topology differed；**Knowledge 仍缺** |
 | Q7 | **Verification Backfill 是否為獨立 primitive（Evidence-first Execution）**：「acceptance 在 execution 前映射成證據」是否比 delegation 本身更根本？（第三輪 review 命題 2） | Phase 3 / stage 2 觀察 | open | (a) sd 域內：backfill 在 ≥2 個真實委派任務穩定使用且能擋「做完再想怎麼驗」；(b) 跨域：至少一個非 delivery 域**自然出現或明確缺席**「execution 前的 acceptance→evidence 映射」——缺席也是有效答案（支持「backfill 是 sd-specific，不是 primitive」） | **resolved（2026-07-09）**：(a) sd 域 ≥2 真實使用成立（2c/2d）；(b) 2e Research 域觀察——**結構化 backfill（tier+owner 表）明確缺席且不需要**，出現的是弱形式 **evidence-first acceptance**（acceptance 內嵌證據標準）。**結論：Verification Backfill 是 sd 域強形式 primitive，非 universal；universal 候選改為 evidence-first acceptance**。Reopen 條件：任一非 delivery 域自然長出結構化 tier+owner 映射需求 |
-| Q8 | **Evidence Responsibility Architecture（ERA）是否為更底層共同骨架**：跨域是否自然收斂出相同的「證據責任分配」結構——誰產生哪種證據 / 哪種證據足以支持哪類結論 / 誰不能靠自產證據關閉 / 裁決權屬誰？（第三輪 review 命題 4 立案；**第四輪 review 命名 ERA + invariant candidate「Evidence Producer ≠ Closure Authority」**） | Phase 3 / stage 2 觀察 | open（N=2 域同構；**2f falsification run 已預註冊**，[`evidence/2f-falsification-naming-run.md`](evidence/2f-falsification-naming-run.md)） | **雙向裁決**：(a) 成功域同構累積（不預設 sd 詞彙）；(b) **反例探測（2f，判準已預註冊，run 前定死防無限弱形式回歸）**——F1（evidence requirement 自然形成？）+ **F2（closure 真的依賴 independent evidence？證據裝飾性 = fail）**兩獨立觀察；目標選擇依**工作性質**（preference-allowed）非 domain 名。邊界維度猜想：**Justification Required vs Preference Allowed**（ERA 或為 High-integrity Work 的 primitive，非所有 AI 工作）。升格裁決需成功域 ≥2 ✓ + 邊界至少初步描繪（待 2f） | **2e 第一個跨域同構資料點**：四問以 Research 域原生形態重現；invariant candidate **Evidence Producer ≠ Closure Authority** 兩域自然形成非 SOP 規定；domain variant：decision 兩級分層。Primitive 候選排序（使用者 2026-07-09）：ERA > Evidence-first Acceptance > Independent Verification > Four-Responsibility Loop；**Delegation 降級為 deployment**。**負向同構 ×3（2026-07-10）**：2j（單 Task 跳過 Verifier）+ writeback-collision + **2l**（S2′ mirror 首发 bypass + Shell hole）——兩者皆「Production 與 Evidence 合併」，模型正確診斷斷裂形狀（診斷力 = predictive power 的另一形態） |
+| Q8 | **Evidence Responsibility Architecture（ERA）是否為更底層共同骨架**：跨域是否自然收斂出相同的「證據責任分配」結構——誰產生哪種證據 / 哪種證據足以支持哪類結論 / 誰不能靠自產證據關閉 / 裁決權屬誰？（第三輪 review 命題 4 立案；**第四輪 review 命名 ERA + invariant candidate「Evidence Producer ≠ Closure Authority」**） | Phase 3 / stage 2 觀察 | open（成功域 **N=3**：sd + Research + Architecture；**2f falsification** 預註冊，[`evidence/2f-falsification-naming-run.md`](evidence/2f-falsification-naming-run.md)；Knowledge 未跑） | **雙向裁決**：(a) 成功域同構累積（不預設 sd 詞彙）；(b) **反例探測（2f，判準已預註冊）**——F1 + F2；目標選擇依**工作性質**（preference-allowed）非 domain 名。邊界維度猜想：Justification Required vs Preference Allowed | **2e** 第一個跨域同構；**2s Architecture** 四問重現（見 [`evidence/2s-architecture-ui-pattern-knowledge-plan-review.md`](evidence/2s-architecture-ui-pattern-knowledge-plan-review.md)）。Primitive 候選排序：ERA > Evidence-first Acceptance > Independent Verification > Four-Responsibility Loop；Delegation 降級為 deployment。負向同構 ×3（2j/writeback-collision/2l）仍有效 |
 | Q9 | **Behavioral Falsification 是否為 V3 evidence producer family**：mutation / fault injection / property-based / model-based 是否收斂為可替換 producer（皆產出「此行為未被驗證區分」型 evidence）？（Mutation review 命題 5，見 §架構收斂觀察） | Phase 3 / 後續 delivery dogfood | open | (a) targeted mutation 作為 V3 producer 在 ≥1 個真實委派 run 實際使用，且 survived mutant → semantic-gap finding 契約成立（orchestrator 未被迫理解 mutation engine）；(b) 至少第二種 producer 自然出現於真實 run——缺席亦為有效答案（family 維持 mutation-only，不建抽象）；graduate 前不建 producer registry / 通用 taxonomy | <V3 producer run evidence> |
 
 ## 完成條件
@@ -427,6 +429,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 - [x] **2p — ExternalRepoC Integration 默认切流 INT-D0–D5** — 2026-07-13 **正向证据**（[`evidence/2p-externalrepoc-integration-default-cutover-d0-d5.md`](evidence/2p-externalrepoc-integration-default-cutover-d0-d5.md)）；6/6 E+V、same-branch 连续、一口气压力未跳 Verifier；live defer；**不**單獨視為 Phase 3 closure（Q5 仍 open）
 - [x] **2q — ExternalRepoC transport inner-only runtime gap** — 2026-07-13 **负向/纠偏**（[`evidence/2q-externalrepoc-transport-inner-only-runtime-gap.md`](evidence/2q-externalrepoc-transport-inner-only-runtime-gap.md)）；loop 绿≠路径通；features+L3+V5；**不**视为 Phase 3 closure
 - [x] **2r — <PROJECT_ROOT> player overlay Mode A hit-trap** — 2026-07-13 **负向证据**（[`evidence/2r-consumer-player-overlay-mode-a-hit-trap.md`](evidence/2r-consumer-player-overlay-mode-a-hit-trap.md)）；soft-nav 绿→cold URL 全死；programmatic click / 单入口假绿；consumer entry-path 矩阵回馈；**不**视为 Phase 3 closure
+- [x] **2s — 跨域 run（Architecture 域）：UI Pattern Knowledge plan review** — 2026-07-14（[`evidence/2s-architecture-ui-pattern-knowledge-plan-review.md`](evidence/2s-architecture-ui-pattern-knowledge-plan-review.md)）；R1+R2 Task Verifier；stakeholder 仲裁；**不**填 Knowledge 格；**不**視為 UI Pattern Knowledge Phase 1 完成；**不**視為 Phase 3 closure
 - [x] **2e — 跨域 run（Research/Audit 域）：grandfather sunset audit** ✅ — 2026-07-08–09（[`evidence/2e-grandfather-sunset-audit.md`](evidence/2e-grandfather-sunset-audit.md)）；Q6/Q7(b)/Q8 的 stage-2 裁決 run。完整 loop：調查者（worktree，252 行報告 `c8ff035`，中斷後 resume 完成）→ 事實查核者（fresh，引文逐條命中、5 surfaces 獨立重跑一致、findings ×2 全 observation）→ 仲裁（defer×2，無 fix）。**實質產出**：5/5 surfaces 已 wired、flag 條款過時、延展不觸發、sunset 只剩行政收尾（處置決定保留 maintainer，見 `02-grandfather-sunset-audit.md`）。**跨域觀察**：四責任自然成立（topology 不同：+maintainer 第二層 decision）；backfill 結構化形式明確缺席、弱形式（evidence-first acceptance）出現；證據責任四問同構重現（含「自產證據不能自我關閉」跨域不變式）——詳 kit §2e Q6/Q7/Q8 觀察表
 - [x] 回饋迴路（2b 觸發 ×1）：F2 暴露 brief v1 缺「reusable doc 目標須含 tool-neutral 措辭條款」→ brief v2 追加 acceptance 9、kit 使用說明補教訓；修契約未修執行者；fix leg 重跑通過。2a 若再暴露缺漏比照處理。
 

@@ -27,6 +27,7 @@
 | **2n** | [`2n-externalrepoc-push-delivery-s1-s6-compliant-loop.md`](2n-externalrepoc-push-delivery-s1-s6-compliant-loop.md) | 正向证据 | ExternalRepoC **07 push delivery** DEL-S1–S6：6/6 E+V loop、sub-plan `completed`、零 post-close bypass；对照 2j/2k/2l |
 | **2o** | [`2o-consumer-tab-scroll-single-vs-delegation.md`](2o-consumer-tab-scroll-single-vs-delegation.md) | 正负对照 | `<PROJECT_ROOT>` `/h5` tab-scroll：**单 session 部分关** vs **三角色全 linked**；authority model 桥接 State Trust；deploy smoke≠L3 |
 | **2r** | [`2r-consumer-player-overlay-mode-a-hit-trap.md`](2r-consumer-player-overlay-mode-a-hit-trap.md) | 负向证据 | <PROJECT_ROOT> player overlay：**Mode A** soft-nav 绿 → cold URL 全死；programmatic click / 单入口假绿；回馈 entry-path 矩阵 |
+| **2s** | [`2s-architecture-ui-pattern-knowledge-plan-review.md`](2s-architecture-ui-pattern-knowledge-plan-review.md) | 跨域 Architecture | UI Pattern Knowledge **plan** review：四責任成立；Knowledge 格仍空；orchestrator 越界疤保留 |
 | 2d | —（inline） | 證據 only | 見 [`01-dogfood-prompt-kit.md`](../01-dogfood-prompt-kit.md) → `### 2d` |
 | 2c | —（inline） | 證據 only | 見 kit → `### 2c` |
 | 2g | —（inline） | 證據 only | 見 kit → `### 2g` |
