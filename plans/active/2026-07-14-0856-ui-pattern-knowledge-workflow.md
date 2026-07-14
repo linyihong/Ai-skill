@@ -17,7 +17,7 @@ revision:
   - date: 2026-07-14
     note: "Sanitization：dogfood 改 <PROJECT_ROOT>"
   - date: 2026-07-14
-    note: "Round-1 Verifier 仲裁落地：#1樣本表 #2 Q1已決議 #3 Phase0.0 #5標頭 #6 doc-only語義 #8 event-based promote-or-sunset；#4/#7 defer+pointer；Authority Boundary 入 Executive Summary"
+    note: "Round-2 Verifier：澄清 D9 trigger（T1–T5 任一成立；T1∨T2 強調句與 ≥2 consumers 不再語意打架）"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
@@ -215,18 +215,21 @@ L1 / Expansion：**verified** 可硬要求；**observed** 建議；**hypothesize
 
 #### D9 — promote-or-sunset（事件驅動，非固定日曆）
 
-取代「固定截止日期」。觸發 **promote-or-sunset review** 當 **任一**成立：
+取代「固定截止日期」。**任一 trigger 成立即啟動 review**（不必等齊全部條件）：
 
-| Trigger | 說明 |
-| --- | --- |
-| 時距 | 自本 plan `in-progress` 起 **滿 3 個月** |
-| 採用 | **≥2 consumers** 採用 Core schema（含跨專案第一個也可計） |
-| 深度 | **≥5** completed Core pattern entries（Ai-skill 種子 + consumer 合計） |
-| 放棄 | dogfood **abandoned**（書面） |
+| # | Trigger | 說明 |
+| --- | --- | --- |
+| T1 | 時距 | 自本 plan `in-progress` 起 **滿 3 個月** |
+| T2 | 跨專案採用 | **第一次** cross-project 採用 Core schema |
+| T3 | 消費者數 | **≥2** consumers 採用 Core schema（T2 可計入其中之一） |
+| T4 | 深度 | **≥5** completed Core pattern entries（Ai-skill 種子 + consumer 合計） |
+| T5 | 放棄 | dogfood **abandoned**（書面） |
 
-**Outcome（三選一，書面）**：`Promote`（含可選 L2 wiring）/ `Continue`（延續 doc-only + 新 review 條件）/ `Sunset`（撤回或縮 scope）。
+Stakeholder 強調的壓縮讀法：**T1 OR T2 以先發生者啟動**；T3–T5 同屬「任一成立」集合，不互相覆蓋。
 
-優先語意：**within 3 months OR after first cross-project adoption（以先到為準）**，並與上表其他 trigger 並存（任一觸發即 review）。
+**Outcome（三選一，書面）**：`Promote`（含可選 L2 wiring）/ `Continue`（延續 doc-only + 寫下一次 review 條件）/ `Sunset`。
+
+**禁止**：用單一固定日（如 `2026-09-30`）代替本表。
 
 ### Alternatives Considered
 
