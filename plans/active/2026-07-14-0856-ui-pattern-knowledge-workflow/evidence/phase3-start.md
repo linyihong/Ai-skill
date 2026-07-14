@@ -36,9 +36,9 @@ NOT
 
 | Order | Cycle | Evidence shape |
 | --- | --- | --- |
-| 1 | **H4 Independence** | 施壓：±Toast、Dialog↔Sheet；Decision Boundary 不變 |
-| 2 | **H5 Completeness** | 每 Node → Pattern \| deferred(`reason: uncovered_pattern`)；零 Unknown（≠ Coverage） |
-| 3 | **H6 Traceability** | Deliverable = **Trace Graph**（非 YAML 齊全） |
+| 1 | **H4 Independence** | 施壓；Failure→Constraint；Invariant stress-validated |
+| 2 | **H5 Completeness** | Every Deferred has **disposition**（非 Deferred→0） |
+| 3 | **H6 Traceability** | Deliverable = **Trace Graph** |
 
 H6 鏈形：
 
