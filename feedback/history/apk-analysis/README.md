@@ -6,7 +6,7 @@
 |------|------|------|
 | [`common/`](common/) | 58 | 跨分類或通用 lesson（工具選擇、流程、UI、分析策略等） |
 | [`flutter-dart-aot/`](flutter-dart-aot/) | 23 | Flutter/Dart AOT 相關 hook 與分析 |
-| [`http-api/`](http-api/) | 26 | HTTP API 分析、文件化、UI 操作流程 |
+| [`http-api/`](http-api/) | 27 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 11 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
@@ -15,6 +15,7 @@
 
 | Slug | Category |
 |------|----------|
+| `http-api/2026-07-14_112000-rsa-public-unwrap-to-short-key-then-content-decrypt` | RSA unwrap → short key → content decrypt |
 | `http-api/2026-07-14_105600-named-getcontentbody-decrypt-yields-utf8-chapter-plaintext` | getContentBody → UTF-8 chapter plaintext |
 | `local-proxy/2026-07-14_105100-column-c-bypass-may-be-okhttp-no-proxy-not-cronet` | Column-C bypass may be OkHttp no-proxy |
 | `local-proxy/2026-07-14_095200-on-device-ssl-certificate-ui-is-tls-path-signal` | On-device SSL UI = TLS signal |

@@ -136,16 +136,20 @@ native backtrace 落在哪裡？
 
 1. 找 response interceptor / decoder / decrypt function。
 2. **捷徑**：若存在具名 `*DecryptUtils*.getContentBody`／`decrypt`，先 hook 這些出口（R8 下 `Response.peekBody` 常失敗時尤其有用）。用 **inLen／outLen／printable ratio／shape（JSON vs prose vs binary）** 分類，勿把正文樣本寫進可分享文件。
-3. 記錄輸入格式：base64、prefix/salt、ciphertext、version field。
-4. 記錄演算法：KDF、AES mode、padding、MAC、compression。
-5. 用 hook 取得 decrypted output（專案私有 capture）。
-6. 寫離線 decoder。
-7. 建立 raw encrypted -> decrypted fixture。
-8. 用 fixture 驗證 SDK/client mapping。
+3. **兩段式常見**：`RSA*decryptByPublicKey*(大)→短`（key material）再進 content decrypt／`getContentBody`；短 RSA 輸出通常**不是**章節正文。讀者側 helper（如 `*ReaderUtils*.readContent`）常是明文入口。
+4. 記錄輸入格式：base64、prefix/salt、ciphertext、version field。
+5. 記錄演算法：KDF、AES mode、padding、MAC、compression。
+6. 用 hook 取得 decrypted output（專案私有 capture）。
+7. 寫離線 decoder。
+8. 建立 raw encrypted -> decrypted fixture。
+9. 用 fixture 驗證 SDK/client mapping。
 
 離線化完成後，後續不應每次依賴 Frida 才能跑測試。
 
-可重用 lesson：[`feedback/history/apk-analysis/http-api/2026-07-14_105600-named-getcontentbody-decrypt-yields-utf8-chapter-plaintext.md`](../../feedback/history/apk-analysis/http-api/2026-07-14_105600-named-getcontentbody-decrypt-yields-utf8-chapter-plaintext.md)
+可重用 lesson：
+
+- [`feedback/history/apk-analysis/http-api/2026-07-14_105600-named-getcontentbody-decrypt-yields-utf8-chapter-plaintext.md`](../../feedback/history/apk-analysis/http-api/2026-07-14_105600-named-getcontentbody-decrypt-yields-utf8-chapter-plaintext.md)
+- [`feedback/history/apk-analysis/http-api/2026-07-14_112000-rsa-public-unwrap-to-short-key-then-content-decrypt.md`](../../feedback/history/apk-analysis/http-api/2026-07-14_112000-rsa-public-unwrap-to-short-key-then-content-decrypt.md)
 
 ## Session / Token 重新取得
 
