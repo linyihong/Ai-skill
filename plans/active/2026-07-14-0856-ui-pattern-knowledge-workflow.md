@@ -1,7 +1,7 @@
 ---
 id: 2026-07-14-0856-ui-pattern-knowledge-workflow
 plan_kind: main
-status: draft
+status: in-progress
 owner: linyihong
 created: 2026-07-14
 last_updated: 2026-07-14
@@ -18,15 +18,18 @@ revision:
     note: "Sanitization：dogfood 改 <PROJECT_ROOT>"
   - date: 2026-07-14
     note: "Round-2 Verifier：澄清 D9 trigger（T1–T5 任一成立；T1∨T2 強調句與 ≥2 consumers 不再語意打架）"
+  - date: 2026-07-14
+    note: "Phase 0 complete → status in-progress；D9 T1 時距自今日起算；Phase 1 未開始"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
 
-**Status**: `draft` — Round-1 Verifier fix 已入檔；第二輪 Verifier 通過後 → 簽署 → `in-progress`  
+**Status**: `in-progress` — **Phase 0 complete**（2026-07-14）；Phase 1 尚未開始  
 **Owner**: linyihong  
 **建立日期**: 2026-07-14  
 **Source**: 2026-07-14 對話 — NameThatUI 對照 + stakeholder 回饋（Knowledge layer，非 glossary；非 NameThatUI clone）。  
 **Glossary Impact**: yes — candidates（未註冊）：`ui_pattern_knowledge`、`pattern_selection_rules`、`pattern_composition`、`pattern_family`、`implementation_recipe`、`pattern_prompt_expansion`、`pattern_knowledge_core|extended`、`pattern_evidence_level`（verified / observed / …）。舊詞 `ui_pattern_vocabulary` = 子能力。graduate 後才註冊。
+**D9 clock**: `in-progress` since **2026-07-14**（T1 三月時距起算點）
 
 > **Watch-Out List citation**（[`architecture/ai-native-cognitive-ecosystem-system.md`](../../architecture/ai-native-cognitive-ecosystem-system.md) §Watch-Out List）：
 > - **process bloat** — 不新建 lifecycle；不建 Intent Ontology / Design-System 百科；Prompt checklist **不**每次 commit。
@@ -325,9 +328,31 @@ Stakeholder 強調的壓縮讀法：**T1 OR T2 以先發生者啟動**；T3–T5
 - [x] Authority Boundary 入 Executive Summary  
 - [x] Inner-docs 邊界：knowledge 放 outer `docs/frontend-contracts/ui-pattern-knowledge/`  
 - [x] 混名樣本表（Appendix A）≥5  
-- [ ] 正式簽署 → `in-progress`（等 Round-2 Verifier）
+- [x] 正式簽署 → `in-progress`（stakeholder 2026-07-14：先跑 Phase 0；R2 wording-only 已清）
 
-**完成條件**：同意項簽署；Appendix A 就緒（已）。
+### Phase 0.2 — Pre-build Interrogation + Architecture Compatibility Preflight
+
+| 欄位 | 內容 |
+| --- | --- |
+| Trigger | 完成 Phase 0 → 允許之後進 Phase 1（本輪**只關 Phase 0**，不開始 Phase 1 實作） |
+| Goal | 補 UI Pattern Knowledge Layer（選型／組成／展開），掛在 contracts→design contract 之間 |
+| Scope | Ai-skill：templates + `ui-contracts` Lock + indexes + overlay Core 種子；consumer overlay 屬 Phase 2 |
+| Non-goals | Intent DB；DS 百科 platform_map；機械檔名攔截；新 lifecycle / 獨立 slice（先）；自動設計 agent |
+| Acceptance（Phase 0） | Q 全 resolved；Appendix A；Authority Boundary；preflight Decision=proceed；status=`in-progress` |
+| Checked sources | `ui-contracts.md`、`ui-governance.md`、`artifact-gates.md`、`plans/README.md` Phase 0.0／preflight、本 plan D1–D9 |
+| Layer | workflow（gate+template）；專案 overlay 屬 consumer docs；不搶 Design Contract / Governance |
+| Compiler / runtime | Phase 1–3 **doc-only**（見 Runtime Execution Path）；無 `runtime/*.yaml`；不宣稱 runtime integration |
+| Duplication risk | 低：Lock 獨立小節，不塞 Screen Mapping；不建第二套 Intent/平台百科 |
+| Conflicts | 無 blocking；Screen Mapping「不承載 framework pattern」與 Lock 分開小節已寫死 |
+| Linked updates（Phase 1 時） | `ui-contracts.md`、`artifact-gates.md` / software-delivery `README` / `execution-flow` 索引；**本 Phase 0 不改那些檔** |
+| Open Questions 核對 | Q1–Q11 全 `resolved`（見 0.0） |
+| Decision | **proceed**（Phase 0 close；Phase 1 另開，建議 Executor Task） |
+| Validation | checklist + R1/R2 Verifier evidence（delegation `evidence/2s-…`） |
+
+- [x] Pre-build Interrogation 記錄齊  
+- [x] Architecture Compatibility Preflight Decision = proceed  
+
+**Phase 0 完成條件**：同意項簽署；Appendix A 就緒；preflight proceed — **全部滿足（2026-07-14）**。
 
 ---
 
@@ -408,8 +433,8 @@ Stakeholder 強調的壓縮讀法：**T1 OR T2 以先發生者啟動**；T3–T5
 - [x] Round-1 仲裁：#1/#2/#3/#5/#6/#8 fix；#4/#7 defer；#9–11 reject  
 - [x] D9 事件驅動 promote-or-sunset（非固定日）  
 - [x] Authority Boundary 四句  
-- [ ] Round-2 Verifier 通過後正式 → `in-progress`  
-- [ ] 簽署開始 Phase 1 實作
+- [x] Round-2 Verifier 通過 → `in-progress`（2026-07-14 Phase 0 close）  
+- [ ] 簽署開始 Phase 1 實作（另開；本輪不做）
 
 ---
 
