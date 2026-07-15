@@ -196,6 +196,6 @@ player_immersive_episode
 | --- | --- | --- |
 | 1. `interaction_composition_rules.yaml` scaffold | ✅ | [`interaction_composition_rules.yaml`](../../../../workflow/software-delivery/ui-interaction-knowledge/interaction_composition_rules.yaml) |
 | 2. Consumer P3 intake | ▶ | `<PROJECT_ROOT>/.ai-skill/project/evidence/rc2-p3-interaction-composition-intake.md` |
-| 3. CH1 Independence stress | ⏸ | `rc2-p3-ch1-independence-stress.md`（待首輪 dogfood） |
+| 3. CH1 Independence stress | ✅ | [`rc2-p3-ch1-independence-stress.md`](rc2-p3-ch1-independence-stress.md) |
 | 4. CH2 Completeness | ⏸ | `rc2-p3-ch2-completeness-disposition.md` |
 | 5. CH3 Traceability | ⏸ | `rc2-p3-ch3-traceability.md` |

@@ -42,4 +42,45 @@ entry_freeze_policy: >
   (same discipline as RC2-P2).
 
 # Seed empty — constraints land via CH1–CH3 mini-cycle dogfood only.
-constraints: []
+constraints:
+  # --- CH1 stress 2026-07-15 (Case A): preview gate + confirm_intent pointer channel ---
+  - id: interaction.preview_gate_preserves_confirm_semantic_path
+    screen: player_immersive_episode
+    when_active:
+      - preview_gate_transition
+    while_nested_lifecycle:
+      channel: confirm_intent
+    requires:
+      semantic_confirm_path:
+        - role_button
+        - keyboard_enter
+        - focus_chain
+    forbids_trust:
+      pointer_only_on_overlay_actions: true
+    rationale: >
+      Preview gate overlay captures pointer hits; confirm_intent on the same screen
+      must remain reachable via semantic interaction path. Pointer injection alone
+      falsifies interaction success (Phase C finding). Composition edge between
+      preview_gate_transition and confirm channel — do NOT expand preview entry.
+    evidence_level: observed
+    hypotheses: [CH1]
+    evidence: plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p3-ch1-independence-stress.md
+    consumer_anchor: "<PROJECT_ROOT> episode-coupon-redeem-journey · I-04"
+
+  # --- CH1 stress 2026-07-15 (Case B): owner invalidation before nested confirm ---
+  - id: interaction.preview_gate_owner_stable_during_nested_confirm
+    screen: player_immersive_episode
+    when_active:
+      - preview_gate_transition
+    while_nested:
+      invariant: confirm_root_stable_during_inflight
+    forbids_invalidation:
+      - preview_limit_cleared_before_confirm_terminal
+    rationale: >
+      owner-invalidation-before-complete: clearing preview gate owner while confirm
+      inflight unmounts confirm root. Composition constraint — do NOT widen
+      preview_gate_transition invalidation_event.
+    evidence_level: observed
+    hypotheses: [CH1]
+    evidence: plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p3-ch1-independence-stress.md
+    consumer_anchor: "<PROJECT_ROOT> episode-coupon-redeem-journey · ownership map"
