@@ -29,6 +29,7 @@
 | **2r** | [`2r-consumer-player-overlay-mode-a-hit-trap.md`](2r-consumer-player-overlay-mode-a-hit-trap.md) | 负向证据 | <PROJECT_ROOT> player overlay：**Mode A** soft-nav 绿 → cold URL 全死；programmatic click / 单入口假绿；回馈 entry-path 矩阵 |
 | **2s** | [`2s-architecture-ui-pattern-knowledge-plan-review.md`](2s-architecture-ui-pattern-knowledge-plan-review.md) | 跨域 Architecture | UI Pattern Knowledge **plan** review：四責任成立；Knowledge 格仍空；orchestrator 越界疤保留 |
 | **2t** | [`2t-apk-capability-handoff.md`](2t-apk-capability-handoff.md) | **partial / 2t-A observational** | 真實 APK Discovery consumer：overlay→[`04`](../04-apk-capability-handoff-boundary.md)；Assessment 持續 `no`（含可重放 sign 後）；**未**套三角色、**未** 2t-B |
+| **2u** | [`2u-externalrepoc-p12-r1-mapping-removal-impl-done.md`](2u-externalrepoc-p12-r1-mapping-removal-impl-done.md) | 正负对照 | ExternalRepoC **P12-R1** 删 merchant-product-mapping：完整 E+V；`implementation_done`；V5-M linked、V5-A captcha/Redis defer；merge rebase + post-merge build fix |
 | 2d | —（inline） | 證據 only | 見 [`01-dogfood-prompt-kit.md`](../01-dogfood-prompt-kit.md) → `### 2d` |
 | 2c | —（inline） | 證據 only | 見 kit → `### 2c` |
 | 2g | —（inline） | 證據 only | 見 kit → `### 2g` |
