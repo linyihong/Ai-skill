@@ -433,8 +433,11 @@ First full research-cycle validation: UI Pattern Knowledge（2026-07-14）. Meth
 | 1 | Entry / Schema layer | Schema contract |
 | 2 | Scenario / Inferability layer | Entry |
 | 3 | Composition Constraints layer | Entry + Scenario |
+| RC2-1 | Interaction entry / Representability | Pattern + Composition（frozen） |
+| RC2-2 | Interaction scenario / Inferability | Interaction entry |
+| RC2-3 | Interaction composition | Interaction entry + scenario |
 
-Each phase **adds** one knowledge surface and **freezes** what the prior phase already validated. New discoveries flow into the **new** layer — not back into frozen layers（anti **back-propagation**）. H4 Episode stress (2026-07-14)：Composition Failure → new Constraint → Entry Modifications = 0（first positive evidence of Constraint Accumulation）.
+Each phase **adds** one knowledge surface and **freezes** what the prior phase already validated. New discoveries flow into the **new** layer — not back into frozen layers（anti **back-propagation**）. RC2 invariant: Interaction MUST NOT redefine Pattern selection or Composition constraints（symmetric to Composition MUST NOT modify Entry）. H4 Episode stress (2026-07-14)：Composition Failure → new Constraint → Entry Modifications = 0（first positive evidence of Constraint Accumulation）.
 
 ### Why reusable
 

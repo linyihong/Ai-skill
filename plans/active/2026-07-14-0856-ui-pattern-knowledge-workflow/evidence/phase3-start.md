@@ -72,4 +72,4 @@ Episode Detail
 
 ## Explicit non-promotion
 
-Flow / Orchestrability 若自然露出，**不**預寫進本 plan Phase 4。
+Flow / Orchestrability 在 Readiness 已升格為 RC2（2026-07-15）；本句為 Phase 3 當時紀律。

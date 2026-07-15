@@ -4,7 +4,7 @@ plan_kind: main
 status: in-progress
 owner: linyihong
 created: 2026-07-14
-last_updated: 2026-07-14
+last_updated: 2026-07-15
 parent: null
 priority: P2
 revision:
@@ -46,11 +46,15 @@ revision:
     note: "Phase 4 Readiness Gate ACTIVE（R1–R3）；Phase 4 Not Started；主動找 Flow 反例 ≠ Observation"
   - date: 2026-07-14
     note: "Readiness 設計凍結；R1→R2→R3 有序必要條件；Cycle2=validated cannot-represent Flow；Interaction=Not yet justified；停設計 Phase4"
+  - date: 2026-07-15
+    note: "Readiness CLOSED：R1∧R2∧R3 PASS（C1+C2 consumer dogfood）；Interaction=Research Justified；廢止 Phase4 命名→Research Cycle 2 Start；RC2 ladder=Representability/Inferability/Composition"
+  - date: 2026-07-15
+    note: "RC2-P1 Interaction Representability kickoff（H1–H3+Invariant+Hazard boundary）；first entry=preview_gate_transition；stakeholder 點頭啟動"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
 
-**Status**: `in-progress` — Research Cycle 1 ✅ Closed · Phase 4 ⏸ Not Started · **Phase 4 Readiness ▶ Active** · [`phase4-readiness-gate.md`](./evidence/phase4-readiness-gate.md) · Retro [`research-cycle-1.md`](./evidence/research-cycle-1.md)  
+**Status**: `in-progress` — RC1 ✅ · Readiness ✅ · **RC2-P1 ▶ Interaction Representability** · [`rc2-p1-interaction-representability-start.md`](./evidence/rc2-p1-interaction-representability-start.md)  
 
 **Owner**: linyihong  
 **建立日期**: 2026-07-14  
@@ -594,9 +598,10 @@ H5：[`3h5-completeness-disposition.md`](./evidence/3h5-completeness-disposition
 | --- | --- | --- |
 | Pattern Knowledge | 🟢 **Stable** | 維護與擴充 Pattern |
 | Composition Knowledge | 🟢 **Stable** | 新 Screen 持續 dogfood |
-| Knowledge Evolution Method | 🟡 **Emerging** | 第二條獨立研究線驗證普適性 |
-| Phase 4 Readiness | ▶ **Active** | 持續收集 R1 反例（設計凍結） |
-| Interaction Knowledge | ⚪ **Not yet justified** | 缺證成新 Layer 的理由（≠缺觀察） |
+| Knowledge Evolution Method | 🟡 **Emerging** | RC2 驗證普適性（第二研究線） |
+| Readiness Gate | ✅ **Closed** | R1∧R2∧R3 PASS（2026-07-15） |
+| Interaction Knowledge | 🟡 **Research Justified** | RC2 Phase 1 — Interaction Schema |
+| Research Cycle 2 | ▶ **Started** | 非 Phase 4；新 Layer → 新 Cycle |
 
 **Composition Closure（2026-07-14）**：✅ Pattern Tree Validated — H4∧H5∧H6 + Entry Mods=0。  
 **Research Cycle 1**：✅ CLOSED — [`evidence/research-cycle-1.md`](./evidence/research-cycle-1.md)  
@@ -611,41 +616,62 @@ H5：[`3h5-completeness-disposition.md`](./evidence/3h5-completeness-disposition
 
 **Composition Closure** = H4∧H5∧H6 mini-cycles PASS + Entry Modifications = 0。
 
-（觀察：Flow·Orchestrability 可能自然露出——**不**預寫 plan Phase 4。）
+（Flow 層在 Readiness 已證成新 Layer 理由 — 見 §Research Cycle 2。）
 
-## Phase 4 — ⏸ Not Started · Readiness ▶ Active
+## Research Cycle 2 — Interaction Knowledge ▶ Started
 
-> **不直接開 Phase 4。** Cycle 1 證明的是方法，尚未證明 Interaction 是新 Layer。  
-> Canonical gate：[`evidence/phase4-readiness-gate.md`](./evidence/phase4-readiness-gate.md)
+> **不是 Cycle 1 的 Phase 4。** 新 Knowledge Layer → 新 Research Cycle（Layer Growth Rhythm）。  
+> Readiness ✅ CLOSED（stakeholder 2026-07-15）：[`evidence/phase4-readiness-gate.md`](./evidence/phase4-readiness-gate.md) · [`evidence/r1-consumer-dogfood-2026-07-15.md`](./evidence/r1-consumer-dogfood-2026-07-15.md)
 
 ### 階段狀態
 
 | 階段 | 狀態 |
 | --- | --- |
 | Research Cycle 1 | ✅ Closed |
-| Phase 4 | ⏸ Not Started |
-| Phase 4 Readiness | ▶ **Active**（≠ 被動 Observation） |
+| Readiness Gate（R1→R2→R3） | ✅ **Closed** |
+| Research Cycle 2 | ▶ **Started** |
+| RC2-P1 — **Interaction Representability** | ▶ **Active** |
+| RC2-P2 — Interaction Inferability | ⏸ Not Started |
+| RC2-P3 — Interaction Composition | ⏸ Not Started |
 
-### 唯一問題
+Kickoff：[`evidence/rc2-p1-interaction-representability-start.md`](./evidence/rc2-p1-interaction-representability-start.md)
 
-> Interaction 失敗是否 **無法** 用 Pattern Knowledge + Composition Knowledge 解釋？  
-> 只有 **是** → 才開 Phase 4。
+### R3 定稿（Interaction Knowledge 邊界）
 
-### Gates（摘要）
+**English**
 
-| Gate | 要求 |
-| --- | --- |
-| **R1** | 真實案例：Pattern ✅ · Composition ✅ · Flow 仍 ❌ |
-| **R2** | 不是 `composition_rules` +1 就能修；需要狀態／事件／轉移 |
-| **R3** | 一句話定義 Interaction Knowledge（先於 Plan） |
+> Interaction Knowledge describes the valid temporal lifecycle of UI state **after Pattern selection and Composition have been validated**, including state ownership, transition triggers, invalidation events, and recovery boundaries.
 
-觸發形狀：Flow FAIL 且 Composition 無法表示 → Interaction Hypothesis → Research Cycle 2。  
-找不到反例 = Phase 3 更完整（好結果）；**仍不開** Phase 4。
+**中文**
 
-- [ ] R1 案例卡片 ≥1  
-- [ ] R2 判定：Constraint 不夠  
-- [ ] R3 最小假說定稿  
-- [ ] ~~Start Phase 4 plan~~ — blocked until R1∧R2∧R3
+> Interaction Knowledge 描述在 Pattern 選型與 Composition 驗證完成後，UI 狀態於時間軸上的合法生命週期，包括狀態擁有者、轉移觸發、失效事件與恢復邊界。
+
+🟡 **Research Justified** = 值得開始研究；**不是**已知道怎麼做（≠ 🟢 Stable）。
+
+### Research ladder（Cycle 2 — 與 Cycle 1 方法平行）
+
+| Phase | 名稱 | Unit | Capability（對照 RC1） |
+| --- | --- | --- | --- |
+| **RC2-P1** | **Interaction Representability** | Interaction entry | Representability（最小可表示單位） |
+| RC2-P2 | Interaction Inferability | Scenario | Inferability |
+| RC2-P3 | Interaction Composition | Screen / flow | Composability |
+
+RC2-P1 **不**問「Interaction 長什麼樣」，先問 **minimum representable unit**（見 kickoff H1–H3）。
+
+### Readiness 結案紀錄
+
+| Gate | 判定 | 證據 |
+| --- | --- | --- |
+| **R1** | ✅ PASS | 2 independent consumer cases（C1 preview gate · C2 payment leave） |
+| **R2** | ✅ PASS | Spatial constraint 類型證偽；需 state owner / trigger / recovery |
+| **R3** | ✅ PASS | 定稿見上 |
+
+- [x] R1 案例卡片 ≥1（2 cases）  
+- [x] R2 判定：Constraint **類型**不足（非「覺得 rule 不夠」）  
+- [x] R3 最小假說定稿  
+- [x] RC2-P1 — Interaction Representability kickoff（stakeholder 2026-07-15）  
+- [ ] RC2-P1 Exit：第一個 entry `preview_gate_transition` 可表示（H1 四欄）  
+- [x] ~~Phase 4~~ — **已廢止命名**；見 Research Cycle 2
 
 
 ---
@@ -691,9 +717,10 @@ H5：[`3h5-completeness-disposition.md`](./evidence/3h5-completeness-disposition
 - [x] Phase 3 mini-cycles（H4→H5→H6）+ Composition Metrics；Layer Growth Rhythm recorded in Architecture Evolution Protocol  
 - [x] H4 Invariant stress evidence；H5 Deferred disposition success；Entry Mods = Primary Metric；Constraint Accumulation pair in Protocol  
 - [x] H6 Traceability（T1/T2/T3）+ Waiver first-class；Composition Closure；Protocol Explicit Termination trio  
-- [x] Research Cycle 1 CLOSED + research-cycle-1.md；Knowledge Evolution Method Emerging；Phase 4/Interaction 不開  
-- [x] Phase 4 Readiness Gate（R1–R3）Active；Phase 4 Not Started until unexplained Flow failure  
-- [x] Readiness 設計凍結；R1→R2→R3 有序；Interaction = Not yet justified；Cycle2 = validated cannot-represent Flow
+- [x] Research Cycle 1 CLOSED + research-cycle-1.md；Knowledge Evolution Method Emerging  
+- [x] Readiness Gate CLOSED（R1∧R2∧R3）；Research Cycle 2 Started；Interaction 🟡 Research Justified（stakeholder 2026-07-15）  
+- [x] 廢止「Phase 4」命名；RC2 ladder = Representability / Inferability / Composition  
+- [x] RC2-P1 Interaction Representability kickoff（H1–H3、Invariant、Hazard boundary、first entry=preview_gate_transition）
 
 ---
 

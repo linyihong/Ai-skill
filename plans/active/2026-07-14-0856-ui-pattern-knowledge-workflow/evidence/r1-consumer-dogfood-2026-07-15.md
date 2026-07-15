@@ -1,4 +1,4 @@
-# R1 — Consumer dogfood evidence（Phase 4 Readiness）
+# R1 — Consumer dogfood evidence（Readiness Gate → RC2）
 
 **Plan**: [`../_plan.md`](../_plan.md)  
 **Gate**: [`phase4-readiness-gate.md`](phase4-readiness-gate.md)  
@@ -133,16 +133,34 @@ Flow layer        ❌  pending → accordion unmount → 未經 confirm 的狀�
 
 ---
 
-## R3 draft hint（本輪不定稿）
+## R3 — Interaction Knowledge 定稿（stakeholder 2026-07-15 ✅ PASS）
 
-兩案共同形狀：
+**English**
 
-> Interaction Knowledge 描述 **在 Pattern 選型與空間組合已正確時，跨時間的合法狀態擁有、失效事件與恢復邊界** — 而非再選 overlay 或加 spatial constraint。
+> Interaction Knowledge describes the valid temporal lifecycle of UI state **after Pattern selection and Composition have been validated**, including state ownership, transition triggers, invalidation events, and recovery boundaries.
+
+**中文**
+
+> Interaction Knowledge 描述在 Pattern 選型與 Composition 驗證完成後，UI 狀態於時間軸上的合法生命週期，包括狀態擁有者、轉移觸發、失效事件與恢復邊界。
+
+兩案共同形狀：Flow 失敗發生在 **validated Pattern + Composition 之後** 的時序／狀態層 — 非 overlay 選型、非 spatial constraint。
+
+---
+
+## Gate 結案（stakeholder judgment）
+
+| Gate | Verdict | Basis |
+| --- | --- | --- |
+| R1 | ✅ PASS | C1 + C2；2 independent consumers |
+| R2 | ✅ PASS | Spatial constraint 類型證偽；需 owner / trigger / recovery |
+| R3 | ✅ PASS | 定稿見上 |
+
+→ [`phase4-readiness-gate.md`](phase4-readiness-gate.md) **Closed** · **Research Cycle 2 Start**（非 Phase 4）。
 
 ---
 
 ## Explicit non-actions（本 run）
 
 - [x] 未改 `ui-pattern-knowledge/entries/*.yaml`
-- [x] 未起草 Phase 4 / Interaction Knowledge schema
+- [x] 未起草 Interaction Knowledge **schema**（RC2 Phase 1 待啟動）
 - [x] 未將 Continuation / Navigation 詞彙替代 Pattern Knowledge attestation

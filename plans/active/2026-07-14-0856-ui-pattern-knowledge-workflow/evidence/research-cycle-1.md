@@ -107,7 +107,7 @@ Knowledge Layer Evolution Pattern
   (🟡 Emerging — first independent validation = this cycle)
 ```
 
-**紀律**：**不開 Phase 4**，直到 [`phase4-readiness-gate.md`](phase4-readiness-gate.md) 的 R1∧R2∧R3 PASS。
+**紀律**：Readiness Gate ✅ CLOSED（2026-07-15）→ **Research Cycle 2** 已啟動；見 [`phase4-readiness-gate.md`](phase4-readiness-gate.md)。
 Readiness = 主動找反例（非被動 Observation）。找不到反例也是有效結果（Phase 3 能力更完整）。
 
 ---
@@ -119,6 +119,6 @@ Readiness = 主動找反例（非被動 Observation）。找不到反例也是�
 | Pattern Knowledge | 🟢 Stable |
 | Composition Knowledge | 🟢 Stable |
 | **Knowledge Evolution Method** | 🟡 **Emerging**（first independent validation） |
-| Interaction Knowledge | ⚪ **Not yet justified** |
+| Interaction Knowledge | 🟡 **Research Justified**（RC2 啟動；見 Readiness gate） |
 
 **UI Pattern Knowledge Research Cycle 1：CLOSED** — 假說鏈驗證完畢。最大長期產出可能不是更多 UI Pattern，而是 AI-native Cognitive System 第一個完整驗證過的 Knowledge Evolution Method。

@@ -1,13 +1,16 @@
-# Phase 4 Readiness Gate
+# Readiness Gate — Interaction Knowledge（原 Phase 4 Readiness）
 
 **Plan**: [`../_plan.md`](../_plan.md)  
-**Status**: ▶ **Active**（設計凍結 — 不再往前設計 Phase 4）  
-**Phase 4 / Research Cycle 2**: ⏸ **Not Started** · Interaction Knowledge = **Not yet justified**  
-**Date opened**: 2026-07-14
+**Status**: ✅ **Closed**（R1∧R2∧R3 PASS — stakeholder 2026-07-15）  
+**Research Cycle 2**: ▶ **Started** · Interaction Knowledge = 🟡 **Research Justified**  
+**Date opened**: 2026-07-14 · **Date closed**: 2026-07-15
+
+> **檔名保留** `phase4-readiness-gate.md` 以免連結斷裂；語意上本檔為 **Readiness Gate**，不是「Phase 4」。  
+> **不再使用「Phase 4」** 指 Interaction — 見 [`../_plan.md`](../_plan.md) §Research Cycle 2。
 
 ---
 
-## Research rhythm（凍結）
+## Research rhythm（結案版）
 
 ```text
 Research Cycle 1
@@ -16,86 +19,93 @@ Research Cycle 1
 Knowledge Evolution Method (Emerging)
         │
         ▼
-Phase 4 Readiness
+Readiness Gate (R1 → R2 → R3)
         │
-        ├── 找不到 R1
-        │      └── Pattern + Composition 足夠（好結果）
+        ├── R1 FAIL → 留在 Phase 3 / 繼續搜證
         │
-        └── 找到 R1
+        └── R1∧R2∧R3 PASS
                │
                ▼
-        驗證 R2
-               │
-               ▼
-        驗證 R3
-               │
-               ▼
-        才成立 Interaction Knowledge
-               │
-               ▼
-        Open Research Cycle 2
+        Research Cycle 2 — Interaction Knowledge
+        （新 Cycle；非 Cycle 1 的 Phase 4）
 ```
 
-Method：**不是下一層看起來合理就建下一層；是上一層第一次解釋不了真實現象，才建下一層。**  
-不再設計 Phase 4 本體，直到 R1→R2→R3 有序通過。
+Method：**不是下一層看起來合理就建下一層；是上一層第一次解釋不了真實現象，才建下一層。**
 
 ---
 
-## Research Cycle 2 開啟條件（鎖定一句）
+## Research Cycle 2 開啟條件（已滿足）
 
 > 發現一個**經過驗證（validated）**、且**無法由既有 Knowledge Layer 表達（cannot be represented）**的 Flow 問題。
 
-不是「看起來麻煩／很複雜／很多 Rule」。
+**Evidence**: [`r1-consumer-dogfood-2026-07-15.md`](r1-consumer-dogfood-2026-07-15.md) — C1（preview gate projection break）+ C2（payment leave confirm counterfactual）；兩個獨立 consumer。
 
 ---
 
-## Gates = 必要且有序（非平行）
+## Gates = 必要且有序（結案）
 
 ```text
-R1
-│
-├─ FAIL → 留在 Phase 3 / 繼續搜證（無新 Layer）
-│
-└─ PASS
+R1  ✅ PASS
       │
       ▼
-R2
-│
-├─ FAIL → 新增 Composition Constraint（Constraint Accumulation；仍 Phase 3）
-│
-└─ PASS
+R2  ✅ PASS
       │
       ▼
-R3
-│
-├─ FAIL → 繼續 Readiness（假說未成形；Not yet justified）
-│
-└─ PASS
+R3  ✅ PASS
       │
       ▼
-Open Research Cycle 2 / Phase 4
+Research Cycle 2 Start
 ```
 
-每一個 FAIL 都有明確去向：升格 vs 補 Rule 不再模糊。
+### R1 — Pattern ✅ + Composition ✅，Flow ❌ — ✅ PASS
 
-### R1 — Pattern ✅ + Composition ✅，Flow 仍 ❌
+| Case | Pattern | Composition | Flow |
+| --- | --- | --- | --- |
+| **C1** preview gate projection break | modal_dialog ✅ | episode_detail + scrim + constraints ✅ | listener owner / projection break ❌ |
+| **C2** payment leave confirm (C.5) | modal_dialog ✅ | dialog + scrim + accordion ✅ | pending invalidation ❌ |
 
-真實案例同時：選型正確、空間組合／Constraints 正確、**整體互動仍錯誤**。  
-FAIL = 尚無此案例（預設）→ 不進入 R2。
+**不是**單一 incident：**兩個獨立 consumer** 滿足同一 gate 形狀。
 
-### R2 — 不能靠 composition_rules +1 修復
+### R2 — 不能靠 composition_rules +1 修復 — ✅ PASS
 
-+1 Constraint 能修 → R2 FAIL → 寫入 `composition_rules.yaml`，**留在 Phase 3**。  
-需要狀態／事件／轉移且 Constraint 無法承載 → R2 PASS。
+已試且**不足以**修復的 constraint 類型（spatial）：
 
-### R3 — 一句定義 Interaction Knowledge（先於 Plan）
+- `overlay.dialog_requires_scrim`（已有）
+- `overlay.no_concurrent_temporary_overlays`（已有）
+- `player.cannot_coexist_with: adjacent_preload`（假設 — 與 vertical snap 衝突）
 
-草稿欄（空 = R3 FAIL）：
+**證偽的是 Constraint 類型**，不是「覺得 rule 不夠」。需要的是：
 
-> Interaction Knowledge 描述 _______________________________ 。
+- State Owner
+- Transition Trigger
+- Recovery Boundary
 
-示意（非正式）：時間軸合法狀態轉移，而非空間組合。  
-講不清 → 繼續 Readiness；**Not yet justified**。
+→ **非 Spatial Constraint** → R2 PASS。
+
+### R3 — Interaction Knowledge 一句定義 — ✅ PASS
+
+**English（canonical）**
+
+> Interaction Knowledge describes the valid temporal lifecycle of UI state **after Pattern selection and Composition have been validated**, including state ownership, transition triggers, invalidation events, and recovery boundaries.
+
+**中文**
+
+> Interaction Knowledge 描述在 Pattern 選型與 Composition 驗證完成後，UI 狀態於時間軸上的合法生命週期，包括狀態擁有者、轉移觸發、失效事件與恢復邊界。
+
+**鎖定句**：`after Pattern selection and Composition have been validated` — Interaction 是**下一層**，不是另一種 Composition。
+
+---
+
+## Stakeholder judgment（2026-07-15）
+
+| 項目 | 判定 |
+| --- | --- |
+| R1 | ✅ PASS（2 independent consumer cases） |
+| R2 | ✅ PASS（Constraint 類型已證偽） |
+| R3 | ✅ PASS（Interaction 邊界可一句話定義） |
+| Interaction Knowledge | 🟡 **Research Justified**（≠ Stable；≠ Observation） |
+| Research Cycle 2 | ✅ **可以啟動** |
+| ~~Phase 4 Start~~ | **不簽** — 改用 Research Cycle 2 命名 |
 
 ---
 
@@ -104,23 +114,25 @@ FAIL = 尚無此案例（預設）→ 不進入 R2。
 | 層 | 成果 |
 | --- | --- |
 | **Domain（UI）** | Pattern Knowledge · Composition Knowledge |
+| **Domain（下一層）** | Interaction Knowledge — 🟡 Research Justified |
 | **Method（Architecture）** | Layer Growth Rhythm · Constraint Accumulation · Governed Trace Termination · **Readiness-before-New-Layer** |
 
-後四項構成 **Knowledge Evolution Method**（🟡 Emerging — first validation = Cycle 1；待第二研究線）。
+Knowledge Evolution Method 仍 🟡 Emerging — RC2 為 Method 的**第二條獨立研究線**驗證機會。
 
 ---
 
-## Final maturity（收尾判定）
+## Final maturity（Readiness 結案）
 
 | 對象 | 狀態 | 下一步 |
 | --- | --- | --- |
 | Pattern Knowledge | 🟢 Stable | 維護與擴充 Pattern |
 | Composition Knowledge | 🟢 Stable | 新 Screen 持續 dogfood |
-| Knowledge Evolution Method | 🟡 Emerging | 等待第二條獨立研究線驗證 |
-| Phase 4 Readiness | ▶ Active | 持續收集 R1 反例 |
-| Interaction Knowledge | ⚪ **Not yet justified** | 尚未證成新 Layer（≠「缺觀察」） |
+| Knowledge Evolution Method | 🟡 Emerging | RC2 驗證普適性 |
+| Readiness Gate | ✅ Closed | — |
+| Interaction Knowledge | 🟡 **Research Justified** | RC2-P1 Interaction Representability ▶ |
+| Research Cycle 2 | ▶ Started | 見 [`../_plan.md`](../_plan.md) §Research Cycle 2 |
 
-「Not yet justified」≠ Observation：缺的是**開新 Layer 的理由**，不是缺被動觀察。
+🟡 **Research Justified** = 值得開始研究；**不是**已知道怎麼做（≠ Stable）。
 
 ---
 
@@ -128,15 +140,13 @@ FAIL = 尚無此案例（預設）→ 不進入 R2。
 
 | Date | Candidate | R1 | R2 | R3 | Disposition |
 | --- | --- | --- | --- | --- | --- |
-| 2026-07-15 | C1 player preview gate projection break | PASS | PASS | — | 進 R3；見 [`r1-consumer-dogfood-2026-07-15.md`](r1-consumer-dogfood-2026-07-15.md) |
-| 2026-07-15 | C2 payment leave confirm (C.5) | PASS | PASS | — | 進 R3；同上 |
+| 2026-07-15 | C1 player preview gate projection break | PASS | PASS | PASS | RC2 justified；見 [`r1-consumer-dogfood-2026-07-15.md`](r1-consumer-dogfood-2026-07-15.md) |
+| 2026-07-15 | C2 payment leave confirm (C.5) | PASS | PASS | PASS | 同上（獨立 consumer #2） |
 
 ---
 
-## Explicit non-design
+## Explicit non-design（Readiness 期間 — 仍有效）
 
-- [x] Readiness 設計完整 → **停止擴寫 Phase 4**  
-- [ ] ~~Interaction Knowledge schema / plan draft~~  
-- [ ] ~~Runtime Projection for interaction~~  
-
-Until ordered R1→R2→R3 PASS.
+- [x] Readiness 設計完整 → Gate closed  
+- [ ] ~~Interaction Knowledge schema~~ — **RC2 Phase 1 可啟動**（仍非 Stable claim）  
+- [ ] ~~Runtime Projection for interaction~~ — 仍不做，直到 RC2 promote 條件

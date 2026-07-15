@@ -26,5 +26,6 @@
 | **3H4** | [`3h4-independence-stress.md`](3h4-independence-stress.md) | 完成 | H4 Independence：concurrent overlay 規則；Entry Mods=0 |
 | **3H5** | [`3h5-completeness-disposition.md`](3h5-completeness-disposition.md) | 完成 | H5 Completeness：deferred disposition 枚舉 |
 | **3H6** | [`3h6-traceability.md`](3h6-traceability.md) | 完成 | H6 Traceability：complete \| waived 終止 |
-| **P4-ready** | [`phase4-readiness-gate.md`](phase4-readiness-gate.md) | ▶ Active | Phase 4 Readiness：R1→R2→R3 有序門；Interaction 尚未開 |
-| **R1-dogfood** | [`r1-consumer-dogfood-2026-07-15.md`](r1-consumer-dogfood-2026-07-15.md) | 完成 | `<PROJECT_ROOT>` dogfood：C1 preview gate + C2 payment leave；R1∧R2 PASS → 待 R3 |
+| **P4-ready** | [`phase4-readiness-gate.md`](phase4-readiness-gate.md) | ✅ Closed | Readiness R1∧R2∧R3 PASS；RC2 啟動（非 Phase 4） |
+| **R1-dogfood** | [`r1-consumer-dogfood-2026-07-15.md`](r1-consumer-dogfood-2026-07-15.md) | 完成 | C1+C2；R1∧R2∧R3 PASS → Interaction 🟡 Research Justified |
+| **RC2-P1** | [`rc2-p1-interaction-representability-start.md`](rc2-p1-interaction-representability-start.md) | ▶ Active | Interaction Representability kickoff；entry=`preview_gate_transition` |
