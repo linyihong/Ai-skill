@@ -35,6 +35,6 @@ interaction:
   recovery_boundary: >
     Stay keeps pending visible and poll; Leave clears pending then allows
     collapse; disablePointerDismissal on confirm; capability integration
-  evidence on consumer test deploy.
+    evidence on consumer test deploy.
 
 consumer_anchor: "<PROJECT_ROOT> membership payment leave confirm · C.5 trial · RC2-P2 I-05"

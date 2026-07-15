@@ -610,11 +610,10 @@ H5：[`3h5-completeness-disposition.md`](./evidence/3h5-completeness-disposition
 | --- | --- | --- |
 | Pattern Knowledge | 🟢 **Stable** | 維護與擴充 Pattern |
 | Composition Knowledge | 🟢 **Stable** | 新 Screen 持續 dogfood |
-| Knowledge Evolution Method | 🟡 **Replicated once** | Inferability replication confirmed（RC2-P2）；見 [Protocol §Method Validation Log](../../../governance/lifecycle/architecture-evolution-protocol.md#method-validation-log) |
+| Knowledge Evolution Method | 🟡 **Replicated once** | Inferability + Composability replication confirmed（RC2-P2/P3）；見 [Protocol §Method Validation Log](../../../governance/lifecycle/architecture-evolution-protocol.md#method-validation-log) |
 | Readiness Gate | ✅ **Closed** | R1∧R2∧R3 PASS（2026-07-15） |
-| Interaction Knowledge | 🟢 **Stable** | RC2-P1/P2/P3 ✅ Closed |
-| Knowledge Evolution Method | 🟡 **Replicated once** | Inferability + Composability replication confirmed |
-| Research Cycle 2 | ▶ **Started** | 非 Phase 4；新 Layer → 新 Cycle |
+| Interaction Knowledge | 🟢 **Stable** | RC2 ✅ Closed — [`research-cycle-2.md`](./evidence/research-cycle-2.md) |
+| Research Cycle 2 | ✅ **Closed** | Vocabulary exit — [`rc2-vocabulary-exit-review.md`](./evidence/rc2-vocabulary-exit-review.md) |
 
 **Composition Closure（2026-07-14）**：✅ Pattern Tree Validated — H4∧H5∧H6 + Entry Mods=0。  
 **Research Cycle 1**：✅ CLOSED — [`evidence/research-cycle-1.md`](./evidence/research-cycle-1.md)  
@@ -642,7 +641,7 @@ H5：[`3h5-completeness-disposition.md`](./evidence/3h5-completeness-disposition
 | --- | --- |
 | Research Cycle 1 | ✅ Closed |
 | Readiness Gate（R1→R2→R3） | ✅ **Closed** |
-| Research Cycle 2 | ▶ **Started** |
+| Research Cycle 2 | ✅ **Closed** — [`research-cycle-2.md`](./evidence/research-cycle-2.md) |
 | RC2-P1 — **Interaction Representability** | ✅ **Closed** |
 | RC2-P2 — Interaction Inferability | ✅ **Closed** |
 | RC2-P3 — Interaction Composition | ✅ **Closed** |
@@ -721,6 +720,8 @@ Pilot consumer（`<AI_SKILL_DOGFOOD_EVIDENCE>`）在 `.ai-skill/project/evidence
 - [x] RC2-P3 CH3 Traceability — [`rc2-p3-ch3-traceability.md`](./evidence/rc2-p3-ch3-traceability.md)  
 - [x] RC2-P3 Closure — [`rc2-p3-interaction-composition-closure.md`](./evidence/rc2-p3-interaction-composition-closure.md)  
 - [x] RC2-P3 Exit：Interaction Composition Closure + Interaction Knowledge 🟢 Stable    
+- [x] RC2 retrospective — [`research-cycle-2.md`](./evidence/research-cycle-2.md)  
+- [x] Vocabulary exit review — [`rc2-vocabulary-exit-review.md`](./evidence/rc2-vocabulary-exit-review.md)  
 - [x] ~~Phase 4~~ — **已廢止命名**；見 Research Cycle 2
 
 

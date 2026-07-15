@@ -2,7 +2,7 @@
 
 **Plan**: [`../_plan.md`](../_plan.md)  
 **Status**: ✅ **Closed**（R1∧R2∧R3 PASS — stakeholder 2026-07-15）  
-**Research Cycle 2**: ▶ **Started** · Interaction Knowledge = 🟡 **Research Justified**  
+**Research Cycle 2**: ✅ **Closed** · Interaction Knowledge = 🟢 **Stable** — [`research-cycle-2.md`](research-cycle-2.md)  
 **Date opened**: 2026-07-14 · **Date closed**: 2026-07-15
 
 > **檔名保留** `phase4-readiness-gate.md` 以免連結斷裂；語意上本檔為 **Readiness Gate**，不是「Phase 4」。  
@@ -130,7 +130,7 @@ Knowledge Evolution Method 仍 🟡 **Replicated once**（RC2-P1 independent rep
 | Knowledge Evolution Method | 🟡 Replicated once | RC2-P1 independent replication；見 Protocol §Method Validation Log |
 | Readiness Gate | ✅ Closed | — |
 | Interaction Knowledge | 🟢 **Stable** | RC2-P1/P2/P3 ✅ Closed |
-| Research Cycle 2 | ▶ Started | 見 [`../_plan.md`](../_plan.md) §Research Cycle 2 |
+| Research Cycle 2 | ✅ Closed | [`research-cycle-2.md`](research-cycle-2.md) · [`rc2-vocabulary-exit-review.md`](rc2-vocabulary-exit-review.md) |
 
 🟡 **Research Justified** = 值得開始研究；**不是**已知道怎麼做（≠ Stable）。
 
