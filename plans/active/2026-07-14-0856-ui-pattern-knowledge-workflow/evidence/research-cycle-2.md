@@ -113,4 +113,6 @@ Post-P3 review：[`rc2-vocabulary-exit-review.md`](rc2-vocabulary-exit-review.md
 | **Interaction Knowledge** | 🟢 **Stable** |
 | **Knowledge Evolution Method** | 🟡 **Replicated once**（三 capability 跨 Layer 確認） |
 
-**Research Cycle 2：CLOSED** — Interaction Knowledge 三階梯完備。下一層增長 **不** 自動開啟；新 Screen dogfood 在 Stable 維護節奏下進行。
+**Research Cycle 2：CLOSED** — Interaction Knowledge 三階梯完備。下一層增長 **不** 自動開啟。
+
+**Post-research**：[`maintenance-governance.md`](../../../../workflow/software-delivery/maintenance-governance.md) — Stable Maintenance Dogfood；**不**規劃 RC3。

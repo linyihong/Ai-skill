@@ -15,6 +15,7 @@
 6. 需要完整開發流程 overview 或 embedded / producer-consumer fallback 時參考 [`development-process.md`](development-process.md)
 7. 需要前端、行動、CLI、SDK 或其他 consumer surface 的 Screen Mapping、Consumer / UI Behavior / Screen / ViewModel Contract 或 Screen Traceability 時參考 [`ui-contracts.md`](ui-contracts.md)
 7b. overlay／pattern 選型不明或宣告 pattern 對齊時，載入 [`ui-contracts.md`](ui-contracts.md) **Pattern Knowledge Lock** 與 [`ui-pattern-knowledge/`](ui-pattern-knowledge/README.md)（不塞進 Screen Mapping）
+7c. Pattern / Composition / Interaction **Stable** 後的新 UI incident：載入 [`maintenance-governance.md`](maintenance-governance.md) — Stable Maintenance Dogfood（mapping only；**不**預設擴 vocabulary 或新 entry）
 8. 需要 UI compliance、design-system enforcement、accessibility evidence、behavior pattern checks、visual baseline review 或 AI visual review scoping 時參考 [`ui-governance.md`](ui-governance.md)；responsive taxonomy / authority / severity 本體引用 [`responsive-ui`](../../intelligence/engineering/governance/responsive-ui/README.md)
 9. 需要 pre-build interrogation / product impact alignment / requirements cognition / BDD-lite / acceptance criteria / ambiguity resolution 時參考 [`requirements/`](requirements/README.md)
 10. 需要 architecture fit analysis、DDD / CQRS / event sourcing / microservices decision 時參考 [`architecture/`](architecture/README.md)

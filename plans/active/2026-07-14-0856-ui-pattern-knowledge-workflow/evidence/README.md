@@ -43,6 +43,7 @@
 | **RC2-P2-intake** | Consumer `<PROJECT_ROOT>/.ai-skill/project/evidence/rc2-p2-interaction-incident-intake.md` | ✅ Writeback | 10 incidents；I-05 觸發第二 entry |
 | **RC2** | [`research-cycle-2.md`](research-cycle-2.md) | ✅ CLOSED | RC2 retrospective：Representability → Inferability → Composability |
 | **RC2-vocab** | [`rc2-vocabulary-exit-review.md`](rc2-vocabulary-exit-review.md) | ✅ Closed | Post-P3 vocabulary exit：四欄維持；無 schema 擴充 |
+| **maint-gov** | [`maintenance-governance.md`](../../../../workflow/software-delivery/maintenance-governance.md) | ▶ Active | Post-research：Stable Maintenance Dogfood；no RC3 |
 | **RC2-P2-intake-wb** | [`rc2-p2-interaction-incident-intake-summary.md`](rc2-p2-interaction-incident-intake-summary.md) | ✅ Writeback | Generalized metrics + Table 1 |
 | **RC2-P2-sel** | [`interaction-inferability-scenarios.yaml`](interaction-inferability-scenarios.yaml) | 完成 | 8 scenarios：I-01–I-05 + decoys I-06–I-08 |
 | **RC2-P2-run** | [`rc2-p2-inferability-run.md`](rc2-p2-inferability-run.md) | ✅ Closed | rule-trace 8/8 · blind cumulative 8/8 · Exit met |

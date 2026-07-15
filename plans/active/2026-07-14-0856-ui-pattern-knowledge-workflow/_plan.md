@@ -62,11 +62,13 @@ revision:
     note: "RC2-P2 Evidence Intake：consumer 10 incidents layer-first；preview-only entry；payment_leave deferred until I-05 confirms"
   - date: 2026-07-15
     note: "RC2-P3 CLOSED — CH1–CH3 PASS; Interaction Knowledge Stable; Composability replication confirmed"
+  - date: 2026-07-15
+    note: "Research Closure Hygiene — plan/README/summary sync; maintenance-governance.md; Stable Maintenance Dogfood; RC2 truly ended; no RC3"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
 
-**Status**: `in-progress` — RC1 ✅ · Readiness ✅ · **RC2 ✅ Closed** · Interaction Knowledge 🟢 **Stable** · [`rc2-p3-interaction-composition-closure.md`](./evidence/rc2-p3-interaction-composition-closure.md)  
+**Status**: `in-progress`（research **closed** · maintenance mode）— RC1 ✅ · RC2 ✅ · Interaction 🟢 **Stable** · [`maintenance-governance.md`](../../../workflow/software-delivery/maintenance-governance.md)  
 
 **Owner**: linyihong  
 **建立日期**: 2026-07-14  
@@ -724,6 +726,22 @@ Pilot consumer（`<AI_SKILL_DOGFOOD_EVIDENCE>`）在 `.ai-skill/project/evidence
 - [x] Vocabulary exit review — [`rc2-vocabulary-exit-review.md`](./evidence/rc2-vocabulary-exit-review.md)  
 - [x] ~~Phase 4~~ — **已廢止命名**；見 Research Cycle 2
 
+---
+
+## Research Closure Hygiene ✅（2026-07-15）
+
+RC2 研究假說鏈已 Closed；本節為 **真正結束** 的最後一步 — 維護研究完整性，不是文書裝飾。
+
+| Item | Status |
+| --- | --- |
+| `plans/README.md` 與 RC2 狀態同步 | ✅ |
+| `rc2-p2-interaction-incident-intake-summary.md` 過時內容修正 | ✅ |
+| `_plan.md` closure checklist / maintenance handoff | ✅ |
+| [`maintenance-governance.md`](../../../workflow/software-delivery/maintenance-governance.md) landed | ✅ |
+| Consumer Stable Maintenance Dogfood rule | ✅ `<PROJECT_ROOT>/.ai-skill/project/rules/stable-maintenance-dogfood.md` |
+| RC3 / 新 Layer | **不規劃** — Continuation = Neighbor until Readiness |
+
+**Post-research rhythm**：[`maintenance-governance.md`](../../../workflow/software-delivery/maintenance-governance.md) — *Stable knowledge evolves through evidence mapping, not vocabulary expansion.*
 
 ---
 
@@ -744,12 +762,13 @@ Pilot consumer（`<AI_SKILL_DOGFOOD_EVIDENCE>`）在 `.ai-skill/project/evidence
 
 ## 完成條件（整 plan）
 
-- [ ] Phase 0–2（✓）；Phase 3 有 **Pattern Composition** + expansion **evidence**  
-- [ ] Core/Extended 邊界寫進 template  
-- [ ] 無 Intent DB；platform_map 無 DS 百科  
-- [ ] Q 全關；glossary 註冊或明示不註冊  
-- [ ] 無 runtime 則不宣稱 runtime integration  
-- [ ] D9 review 至少執行一次（Promote / Continue / Sunset 書面）
+- [x] Phase 0–3 + RC1 + RC2 — Pattern / Composition / Interaction 三層 Stable + evidence  
+- [x] Core/Extended 邊界寫進 template  
+- [x] 無 Intent DB；platform_map 無 DS 百科  
+- [x] Q1–Q11 決議（glossary candidates 未註冊 — 見 Glossary Impact）  
+- [x] 無 runtime 則不宣稱 runtime integration（本 plan scope）  
+- [ ] D9 review 至少執行一次（Promote / Continue / Sunset 書面）— **deferred**；research 已 closed，D9 為 plan 生命週期  
+- [x] Research Closure Hygiene + maintenance governance handoff
 
 ---
 
@@ -773,7 +792,8 @@ Pilot consumer（`<AI_SKILL_DOGFOOD_EVIDENCE>`）在 `.ai-skill/project/evidence
 - [x] 廢止「Phase 4」命名；RC2 ladder = Representability / Inferability / Composition  
 - [x] RC2-P1 Interaction Representability kickoff（H1–H3、Invariant、Hazard boundary、Vocabulary Freeze、first entry=preview_gate_transition）  
 - [x] RC2-P1 Representability complete（dogfood H1 PASS；metrics 全 0）  
-- [x] RC2-P1 Closure + RC2-P2 kickoff（stakeholder 2026-07-15）
+- [x] RC2-P1 Closure + RC2-P2 kickoff（stakeholder 2026-07-15）  
+- [x] RC2-P2/P3 Closed · Interaction Knowledge 🟢 Stable · Research Closure Hygiene（2026-07-15）
 
 ---
 

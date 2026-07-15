@@ -59,3 +59,9 @@ New composition knowledge flows into interaction_composition_rules.yaml ONLY.
 - P1：[`rc2-p1-interaction-representability-closure.md`](../../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p1-interaction-representability-closure.md)
 - P2：[`rc2-p2-interaction-inferability-closure.md`](../../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p2-interaction-inferability-closure.md)
 - P3：[`rc2-p3-interaction-composition-closure.md`](../../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p3-interaction-composition-closure.md)
+
+## Post-research maintenance
+
+**Stable Maintenance Dogfood** — [`../maintenance-governance.md`](../maintenance-governance.md)
+
+New incidents: Layer First → Existing Entry/Constraint → PASS → Archive. **No** default vocabulary expansion.
