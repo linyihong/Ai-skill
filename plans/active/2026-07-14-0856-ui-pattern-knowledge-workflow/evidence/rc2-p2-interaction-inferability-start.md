@@ -135,9 +135,10 @@ dialog_open → user_confirm_stay_or_leave → dialog_close
 
 **P2 dogfood 前置產物**：
 
-1. Consumer incident intake ≥10（layer-first 分類完成）
-2. [`interaction-inferability-scenarios.yaml`](interaction-inferability-scenarios.yaml) — 精煉自 intake + boundary decoys
-3. `payment_leave_transition.yaml` — **僅在** intake 確認需要第二 entry 時
+1. Consumer incident intake ≥10（layer-first 分類完成） — ✅
+2. [`interaction-inferability-scenarios.yaml`](interaction-inferability-scenarios.yaml) — ✅ 8 scenarios（I-01–I-05 + decoys）
+3. [`rc2-p2-inferability-run.md`](rc2-p2-inferability-run.md) — ▶ rule-trace round 1 **8/8 PASS**；blind LLM ⏸
+4. `payment_leave_transition.yaml` — **僅在** intake 確認需要第二 entry 時 — ⏸ I-05 confirmed trigger；landing deferred
 
 ---
 

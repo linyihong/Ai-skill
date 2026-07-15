@@ -1,0 +1,154 @@
+# RC2-P2 — Interaction Inferability scenarios
+# Success gate: layer-first classification + entry mapping (existing entry only unless I-05).
+# NOT a runtime surface. Verifier / dogfood evidence only.
+#
+# Canonical ordering:
+#   Incident prompt → expected_layer → expected_entry → repair_layer
+#
+# Consumer source: <PROJECT_ROOT>/.ai-skill/project/evidence/rc2-p2-interaction-incident-intake.md
+
+schema_version: "1.0"
+id: plan.2026-07-14.ui_pattern_knowledge.interaction_inferability_scenarios
+kind: interaction_inferability_dogfood
+status: active
+phase: rc2-p2
+existing_entries_only:
+  - preview_gate_transition
+deferred_entry:
+  id: payment_leave_transition
+  trigger_incident: I-05
+  landing: deferred_until_dogfood_confirms
+
+run_order:
+  - preview_gate_transition_cases
+  - second_entry_trigger
+  - boundary_decoys
+
+scenarios:
+  # --- Interaction layer → preview_gate_transition (I-01–I-04) ---
+  - id: I-01_preview_projection_break
+    source_incident: I-01
+    group: preview_gate_transition_cases
+    prompt: >
+      訪客試看播放到上限後，訂閱遮罩應出現，但 integration 顯示 BDD source 綠、
+      browser 無 mask。根因是 preview_limit_reached 的 poll 綁在 adjacent preload
+      video，而非主舞台 playerStage 的 boundVideo。
+    expected_layer: Interaction
+    expected_entry: preview_gate_transition
+    expected_not_layers:
+      - Pattern
+      - Composition
+      - Runtime
+    decoy_entries:
+      - modal_dialog
+    pass_rule: >
+      Layer=Interaction（狀態擁有者 + 轉移觸發錯綁）；
+      Entry=preview_gate_transition（preview→gated）；
+      不修 modal_dialog selection 或 composition scrim。
+
+  - id: I-02_hls_stall_preview_poll
+    source_incident: I-02
+    group: preview_gate_transition_cases
+    prompt: >
+      HLS 在試看秒數上限前 stall，timeupdate 不再前進，preview gate 未在 bounded
+      time 內出現；需在 waiting/stalled/interval poll 上 enforce preview limit。
+    expected_layer: Interaction
+    expected_entry: preview_gate_transition
+    expected_not_layers:
+      - Runtime
+      - Pattern
+    pass_rule: >
+      同一 entry：invalidation=主舞台未收到 preview_limit_reached；
+      recovery=temporal_behavior poll log。
+
+  - id: I-03_preview_auto_next_leak
+    source_incident: I-03
+    group: preview_gate_transition_cases
+    prompt: >
+      試看期間影片 ended 仍觸發 auto-next navigation，pathname 在 gate 前已離開
+      player；preview 態應禁用 onEnded replace。
+    expected_layer: Interaction
+    expected_entry: preview_gate_transition
+    expected_not_layers:
+      - Navigation
+      - Pattern
+    pass_rule: >
+      Interaction 轉移鏈未完整（preview 態洩漏到 route change）；
+      非 Navigation back-stack 或 Pattern 選型問題。
+
+  - id: I-04_coupon_confirm_under_preview
+    source_incident: I-04
+    group: preview_gate_transition_cases
+    prompt: >
+      Preview overlay 已顯示；使用者在 overlay 下點 coupon confirm，pointer 被攔截
+      或 confirm_intent 在 in-flight 不穩定。Pattern 選 modal_dialog 正確。
+    expected_layer: Interaction
+    expected_entry: preview_gate_transition
+    entry_fit: partial
+    expected_not_layers:
+      - Pattern
+    pass_rule: >
+      Layer=Interaction（preview invalidation + confirm 通道）；
+      可 partial 映射 preview_gate invalidation 形狀；不修 modal_dialog.yaml。
+
+  # --- Interaction layer → payment_leave_transition (I-05 trigger) ---
+  - id: I-05_payment_leave_accordion_unmount
+    source_incident: I-05
+    group: second_entry_trigger
+    prompt: >
+      會員訂閱 pending QR 顯示中；使用者收合 accordion，children unmount 使 poll
+      停止、QR 消失，未經 Stay/Leave 確認。modal_dialog 選型與 scrim 組合正確。
+    expected_layer: Interaction
+    expected_entry: payment_leave_transition
+    expected_not_layers:
+      - Composition
+      - Pattern
+    decoy_entries:
+      - preview_gate_transition
+    pass_rule: >
+      Layer=Interaction（pending→leaveConfirm 狀態鏈）；
+      Entry≠preview_gate_transition（無 preview→gated 語意）；
+      不修 composition_rules；觸發第二 entry landing。
+
+  # --- Boundary decoys (expected layer ≠ Interaction) ---
+  - id: I-06_episode_sheet_hit_steal
+    source_incident: I-06
+    group: boundary_decoys
+    prompt: >
+      Soft-nav 進 player 後，TabBar 與 player dock 同 z-index，elementFromPoint 命中
+      TabBar 而非「打开选集」；或 cold-load 空 playerOverlay 蓋住真 player。
+    expected_layer: Composition
+    expected_entry: null
+    decoy_layers:
+      - Interaction
+    pass_rule: >
+      空間互斥 / hit-test / overlay mount — Composition constraint 域；
+      非 Interaction entry 轉移。
+
+  - id: I-07_player_return_g4
+    source_incident: I-07
+    group: boundary_decoys
+    prompt: >
+      Home 非預設分類 + mid scroll → player → back 後 ?tab= 丟失、chip 回推薦；
+      scrollTop px 同但 maxScrollTop 變（語義 viewport 丟失）。
+    expected_layer: Continuation
+    expected_entry: null
+    decoy_layers:
+      - Interaction
+      - Navigation
+    pass_rule: >
+      capture→restore authority（entry URL + viewport）；Continuation 主責。
+
+  - id: I-08_scroll_load_more_bottom_gate
+    source_incident: I-08
+    group: boundary_decoys
+    prompt: >
+      無限滾動 API 仍有 nextCursor，但滑到底後需上滑才觸發；bottomReachConsumed
+      在 duplicate/in-flight 路徑未 rearm。
+    expected_layer: Pagination_runtime
+    expected_entry: null
+    decoy_layers:
+      - Interaction
+      - Flow
+    pass_rule: >
+      scroll-load-more 閘門狀態機；非 Interaction Knowledge 四欄語意。

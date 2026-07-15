@@ -12,7 +12,6 @@
 | **用標題錨點** | 定位寫 `evidence/foo.md` 內 `##` 標題或表格欄，不用絕對行號 |
 | **專案細節** | dogfood / inner commit → consumer `<PROJECT_ROOT>`；本目錄只留 generalized metrics（[`enforcement/sanitization.md`](../../../../enforcement/sanitization.md)） |
 | **新 run** | 新增 `evidence/<run-id>-<slug>.md` + 更新本表同一 commit |
-| **Consumer writeback** | `<AI_SKILL_DOGFOOD_EVIDENCE>` 等 consumer 取證後 **mandatory** 回寫本目錄（generalized metrics）；流程見 consumer `rc2-consumer-evidence-writeback.md`；**不可**只在 consumer 留全文 |
 
 ## Run 索引
 
@@ -27,13 +26,13 @@
 | **3H4** | [`3h4-independence-stress.md`](3h4-independence-stress.md) | 完成 | H4 Independence：concurrent overlay 規則；Entry Mods=0 |
 | **3H5** | [`3h5-completeness-disposition.md`](3h5-completeness-disposition.md) | 完成 | H5 Completeness：deferred disposition 枚舉 |
 | **3H6** | [`3h6-traceability.md`](3h6-traceability.md) | 完成 | H6 Traceability：complete \| waived 終止 |
-| **P4-ready** | [`phase4-readiness-gate.md`](phase4-readiness-gate.md) | ✅ Closed | Readiness R1∧R2∧R3 PASS；RC2 啟動（非 Phase 4） |
-| **R1-dogfood** | [`r1-consumer-dogfood-2026-07-15.md`](r1-consumer-dogfood-2026-07-15.md) | 完成 | C1+C2；R1∧R2∧R3 PASS → Interaction 🟡 Research Justified |
-| **RC2-P1** | [`rc2-p1-interaction-representability-start.md`](rc2-p1-interaction-representability-start.md) | ✅ Closed | Kickoff：Vocabulary Freeze、metrics、scope lock |
+| **P4-ready** | [`phase4-readiness-gate.md`](phase4-readiness-gate.md) | ▶ Active | Phase 4 Readiness：R1→R2→R3 有序門；Interaction 尚未開 |
+| **R1-dogfood** | [`r1-consumer-dogfood-2026-07-15.md`](r1-consumer-dogfood-2026-07-15.md) | 完成 | `<PROJECT_ROOT>` dogfood：C1 preview gate + C2 payment leave；R1∧R2 PASS → 待 R3 |
+| **RC2-P1** | [`rc2-p1-interaction-representability-start.md`](rc2-p1-interaction-representability-start.md) | ✅ Closed | H1–H3 kickoff；`preview_gate_transition` scope lock |
 | **RC2-P1-run** | [`rc2-p1-preview-gate-representability-run.md`](rc2-p1-preview-gate-representability-run.md) | ✅ Closed | `preview_gate_transition` H1 PASS；Frozen Layer Mods=0 |
-| **RC2-P1-close** | [`rc2-p1-interaction-representability-closure.md`](rc2-p1-interaction-representability-closure.md) | ✅ Closed | Stakeholder closure：四假說 PASS；P1 🟢 Stable |
-| **RC2-P2** | [`rc2-p2-interaction-inferability-start.md`](rc2-p2-interaction-inferability-start.md) | ▶ Active | IH1–IH3；dual evidence chains；boundary-first report |
-| **RC2-P2-intake** | Consumer `<PROJECT_ROOT>/.ai-skill/project/evidence/rc2-p2-interaction-incident-intake.md` | ▶ Active | 10 incidents；preview-only entry；I-05 觸發第二 entry |
-| **RC2-P2-intake-wb** | [`rc2-p2-interaction-incident-intake-summary.md`](rc2-p2-interaction-incident-intake-summary.md) | ✅ Writeback | Generalized metrics + Table 1；consumer intake 首輪回寫 |
-
-**Meta evidence**（Method Knowledge — 不在本目錄）：[`Architecture Evolution Protocol` §Method Validation Log](../../../../governance/lifecycle/architecture-evolution-protocol.md#method-validation-log)
+| **RC2-P1-closure** | [`rc2-p1-interaction-representability-closure.md`](rc2-p1-interaction-representability-closure.md) | ✅ Closed | P1 🟢 Stable |
+| **RC2-P2** | [`rc2-p2-interaction-inferability-start.md`](rc2-p2-interaction-inferability-start.md) | ▶ Active | IH1–IH3；dual evidence chains；boundary-first |
+| **RC2-P2-intake** | Consumer `<PROJECT_ROOT>/.ai-skill/project/evidence/rc2-p2-interaction-incident-intake.md` | ▶ Active | 10 incidents；I-05 觸發第二 entry |
+| **RC2-P2-intake-wb** | [`rc2-p2-interaction-incident-intake-summary.md`](rc2-p2-interaction-incident-intake-summary.md) | ✅ Writeback | Generalized metrics + Table 1 |
+| **RC2-P2-sel** | [`interaction-inferability-scenarios.yaml`](interaction-inferability-scenarios.yaml) | 完成 | 8 scenarios：I-01–I-05 + decoys I-06–I-08 |
+| **RC2-P2-run** | [`rc2-p2-inferability-run.md`](rc2-p2-inferability-run.md) | ▶ Round 1 | rule-trace 8/8 PASS；blind LLM ⏸ |
