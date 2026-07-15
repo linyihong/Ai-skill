@@ -36,7 +36,8 @@
 | **RC2-P3** | [`rc2-p3-interaction-composition-start.md`](rc2-p3-interaction-composition-start.md) | ▶ Active | CH1–CH3；`player_immersive_episode` |
 | **RC2-P3-intake** | Consumer `<PROJECT_ROOT>/.ai-skill/project/evidence/rc2-p3-interaction-composition-intake.md` | ▶ Active | C1/C2 from I-04 |
 | **RC2-P3-CH1** | [`rc2-p3-ch1-independence-stress.md`](rc2-p3-ch1-independence-stress.md) | ✅ Complete | CH1 PASS · 2 constraints · Entry Mods=0 |
-| **RC2-P3-metrics** | [`rc2-p3-composition-metrics.md`](rc2-p3-composition-metrics.md) | ▶ Active | CH1 done · CH2/CH3 pending |
+| **RC2-P3-CH2** | [`rc2-p3-ch2-completeness-disposition.md`](rc2-p3-ch2-completeness-disposition.md) | ✅ Complete | CH2 PASS · 8/8 disposition |
+| **RC2-P3-metrics** | [`rc2-p3-composition-metrics.md`](rc2-p3-composition-metrics.md) | ▶ Active | CH1–CH2 done · CH3 pending |
 | **RC2-P2-intake** | Consumer `<PROJECT_ROOT>/.ai-skill/project/evidence/rc2-p2-interaction-incident-intake.md` | ▶ Active | 10 incidents；I-05 觸發第二 entry |
 | **RC2-P2-intake-wb** | [`rc2-p2-interaction-incident-intake-summary.md`](rc2-p2-interaction-incident-intake-summary.md) | ✅ Writeback | Generalized metrics + Table 1 |
 | **RC2-P2-sel** | [`interaction-inferability-scenarios.yaml`](interaction-inferability-scenarios.yaml) | 完成 | 8 scenarios：I-01–I-05 + decoys I-06–I-08 |

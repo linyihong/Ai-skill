@@ -154,5 +154,5 @@ Interaction Composition Constraint
 
 - [x] 未修改 `preview_gate_transition.yaml` / `payment_leave_transition.yaml`
 - [x] 未修改 `ui-pattern-knowledge/composition_rules.yaml`
-- [ ] CH2 Completeness — deferred disposition（下一 mini-cycle）
+- [x] CH2 Completeness — [`rc2-p3-ch2-completeness-disposition.md`](rc2-p3-ch2-completeness-disposition.md)
 - [ ] CH3 Traceability

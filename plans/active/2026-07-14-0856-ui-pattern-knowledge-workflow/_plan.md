@@ -61,7 +61,7 @@ revision:
   - date: 2026-07-15
     note: "RC2-P2 Evidence Intake：consumer 10 incidents layer-first；preview-only entry；payment_leave deferred until I-05 confirms"
   - date: 2026-07-15
-    note: "RC2-P3 CH1 Independence PASS — 2 interaction composition constraints; Entry Mods=0"
+    note: "RC2-P3 CH2 Completeness PASS — 8/8 deferred disposition; zero Unknown; Entry Mods=0"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
@@ -716,8 +716,9 @@ Pilot consumer（`<AI_SKILL_DOGFOOD_EVIDENCE>`）在 `.ai-skill/project/evidence
 - [x] RC2-P2 Closure — [`rc2-p2-interaction-inferability-closure.md`](./evidence/rc2-p2-interaction-inferability-closure.md)  
 - [x] RC2-P3 — Interaction Composition kickoff（CH1–CH3；`interaction_composition_rules.yaml` scaffold）  
 - [x] RC2-P3 CH1 Independence stress — [`rc2-p3-ch1-independence-stress.md`](./evidence/rc2-p3-ch1-independence-stress.md)  
-- [ ] RC2-P3 CH2 Completeness disposition  
-- [ ] RC2-P3 Exit：Interaction Composition Closure + Interaction Knowledge 🟢 Stable  
+- [x] RC2-P3 CH2 Completeness disposition — [`rc2-p3-ch2-completeness-disposition.md`](./evidence/rc2-p3-ch2-completeness-disposition.md)  
+- [ ] RC2-P3 CH3 Traceability  
+- [ ] RC2-P3 Exit：Interaction Composition Closure + Interaction Knowledge 🟢 Stable    
 - [x] ~~Phase 4~~ — **已廢止命名**；見 Research Cycle 2
 
 
