@@ -31,7 +31,7 @@
 
 | 對象 | 狀態 |
 | --- | --- |
-| **RC2-P1 Interaction Representability** | 🟢 **Stable** |
+| **RC2-P1 Interaction Representability** | ✅ **Closed** |
 | Interaction Knowledge（整層） | 🟡 Research Justified（待 P2+P3） |
 
 RC1 經驗：單層 Stable ≠ 整個 Knowledge Layer Stable — 需 Representability + Inferability + Composability 三者完成。
@@ -46,5 +46,6 @@ P1 exit：**四欄 vocabulary 已驗證**。`guard_condition` 等 defer 項保�
 
 ## Handoff → RC2-P2
 
-- **P2 案例**：`payment_leave_transition`（C2）— **不得**沿用 `preview_gate_transition`（泛化證據需要第二獨立案例）
+- **P2 狀態**：▶ **Active**（kickoff 完成；對齊 RC1-P2 慣例）
+- **P2 案例**：`payment_leave_transition`（C2）— **不得**沿用 `preview_gate_transition`
 - Kickoff：[`rc2-p2-interaction-inferability-start.md`](rc2-p2-interaction-inferability-start.md)

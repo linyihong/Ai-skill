@@ -31,4 +31,4 @@
 | **RC2-P1** | [`rc2-p1-interaction-representability-start.md`](rc2-p1-interaction-representability-start.md) | ✅ Closed | Kickoff：Vocabulary Freeze、metrics、scope lock |
 | **RC2-P1-run** | [`rc2-p1-preview-gate-representability-run.md`](rc2-p1-preview-gate-representability-run.md) | ✅ Closed | `preview_gate_transition` H1 PASS；Frozen Layer Mods=0 |
 | **RC2-P1-close** | [`rc2-p1-interaction-representability-closure.md`](rc2-p1-interaction-representability-closure.md) | ✅ Closed | Stakeholder closure：四假說 PASS；P1 🟢 Stable |
-| **RC2-P2** | [`rc2-p2-interaction-inferability-start.md`](rc2-p2-interaction-inferability-start.md) | ▶ Ready | IH1–IH3；layer-first；案例=`payment_leave_transition` |
+| **RC2-P2** | [`rc2-p2-interaction-inferability-start.md`](rc2-p2-interaction-inferability-start.md) | ▶ Active | IH1–IH3；layer-first；案例=`payment_leave_transition` |

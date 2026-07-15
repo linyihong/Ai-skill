@@ -1,6 +1,6 @@
 # UI Interaction Knowledge — reusable rule seeds（Ai-skill）
 
-**Research Cycle 2** · RC2-P1 🟢 **Stable** · RC2-P2 ▶ **Inferability**
+**Research Cycle 2** · RC2-P1 ✅ **Closed** · RC2-P2 ▶ **Active**
 
 Interaction Knowledge describes the valid temporal lifecycle of UI state **after Pattern selection and Composition have been validated** — not another Composition layer, and **not application business workflow**.
 
@@ -17,8 +17,8 @@ Interaction Knowledge describes the valid temporal lifecycle of UI state **after
 
 | RC2 | 狀態 |
 | --- | --- |
-| P1 Representability | 🟢 Stable |
-| P2 Inferability | ▶ Ready to Start |
+| P1 Representability | ✅ Closed |
+| P2 Inferability | ▶ Active |
 | P3 Composition | ⏸ Locked |
 | Interaction Knowledge | 🟡 Research Justified |
 

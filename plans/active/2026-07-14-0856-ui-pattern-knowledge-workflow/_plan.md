@@ -54,11 +54,13 @@ revision:
     note: "RC2 Vocabulary Freeze+metrics；preview_gate_transition+schema landed；dogfood H1 PASS；Frozen Layer Mods=0；RC2-P1 Representability complete"
   - date: 2026-07-15
     note: "RC2-P1 CLOSED（stakeholder）：四假說 PASS、與 RC1-P1 對稱；P1 🟢 Stable；RC2-P2 kickoff（IH1–IH3、layer-first、payment_leave_transition 第二案例）"
+  - date: 2026-07-15
+    note: "RC2-P2 ▶ Active（stakeholder）：kickoff 完成且 success criteria / boundary / 第二案例 / primary metric 已鎖；對齊 RC1-P2 Active 慣例"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
 
-**Status**: `in-progress` — RC1 ✅ · Readiness ✅ · **RC2-P1 🟢 Stable** · **RC2-P2 ▶ Inferability** · [`rc2-p2-interaction-inferability-start.md`](./evidence/rc2-p2-interaction-inferability-start.md)  
+**Status**: `in-progress` — RC1 ✅ · Readiness ✅ · **RC2-P1 ✅ Closed** · **RC2-P2 ▶ Active** · [`rc2-p2-interaction-inferability-start.md`](./evidence/rc2-p2-interaction-inferability-start.md)  
 
 **Owner**: linyihong  
 **建立日期**: 2026-07-14  
@@ -604,7 +606,7 @@ H5：[`3h5-completeness-disposition.md`](./evidence/3h5-completeness-disposition
 | Composition Knowledge | 🟢 **Stable** | 新 Screen 持續 dogfood |
 | Knowledge Evolution Method | 🟡 **Emerging** | RC2 驗證普適性（第二研究線） |
 | Readiness Gate | ✅ **Closed** | R1∧R2∧R3 PASS（2026-07-15） |
-| Interaction Knowledge | 🟡 **Research Justified** | RC2-P1 🟢 Stable；RC2-P2 ▶ Inferability（`payment_leave_transition`） |
+| Interaction Knowledge | 🟡 **Research Justified** | RC2-P1 ✅ Closed；RC2-P2 ▶ Active（`payment_leave_transition`） |
 | Research Cycle 2 | ▶ **Started** | 非 Phase 4；新 Layer → 新 Cycle |
 
 **Composition Closure（2026-07-14）**：✅ Pattern Tree Validated — H4∧H5∧H6 + Entry Mods=0。  
@@ -634,8 +636,8 @@ H5：[`3h5-completeness-disposition.md`](./evidence/3h5-completeness-disposition
 | Research Cycle 1 | ✅ Closed |
 | Readiness Gate（R1→R2→R3） | ✅ **Closed** |
 | Research Cycle 2 | ▶ **Started** |
-| RC2-P1 — **Interaction Representability** | 🟢 **Stable** |
-| RC2-P2 — Interaction Inferability | ▶ **Ready to Start** |
+| RC2-P1 — **Interaction Representability** | ✅ **Closed** |
+| RC2-P2 — Interaction Inferability | ▶ **Active** |
 | RC2-P3 — Interaction Composition | ⏸ Locked |
 
 P1：[`rc2-p1-interaction-representability-closure.md`](./evidence/rc2-p1-interaction-representability-closure.md) · P2 kickoff：[`rc2-p2-interaction-inferability-start.md`](./evidence/rc2-p2-interaction-inferability-start.md)

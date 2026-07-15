@@ -2,7 +2,7 @@
 
 **Plan**: [`../_plan.md`](../_plan.md)  
 **Date**: 2026-07-15  
-**Status**: RC2-P2 **Ready to Start**（stakeholder kickoff）  
+**Status**: RC2-P2 **Active**（stakeholder kickoff complete — 對齊 RC1-P2 Active 慣例）  
 **Prerequisite**: RC2-P1 🟢 Stable — [`rc2-p1-interaction-representability-closure.md`](rc2-p1-interaction-representability-closure.md)
 
 ---
@@ -161,6 +161,6 @@ Vocabulary: 仍僅四欄，除非 P2 exit review 批准擴充。
 | RC2 | 狀態 |
 | --- | --- |
 | P1 Representability | 🟢 Stable |
-| P2 Inferability | ▶ Ready to Start |
+| P2 Inferability | ▶ Active |
 | P3 Composition | ⏸ Locked |
 | Interaction Knowledge | 🟡 Research Justified |
