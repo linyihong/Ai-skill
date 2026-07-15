@@ -12,6 +12,7 @@
 | **用標題錨點** | 定位寫 `evidence/foo.md` 內 `##` 標題或表格欄，不用絕對行號 |
 | **專案細節** | dogfood / inner commit → consumer `<PROJECT_ROOT>`；本目錄只留 generalized metrics（[`enforcement/sanitization.md`](../../../../enforcement/sanitization.md)） |
 | **新 run** | 新增 `evidence/<run-id>-<slug>.md` + 更新本表同一 commit |
+| **Consumer writeback** | `<AI_SKILL_DOGFOOD_EVIDENCE>` 等 consumer 取證後 **mandatory** 回寫本目錄（generalized metrics）；流程見 consumer `rc2-consumer-evidence-writeback.md`；**不可**只在 consumer 留全文 |
 
 ## Run 索引
 
@@ -33,5 +34,6 @@
 | **RC2-P1-close** | [`rc2-p1-interaction-representability-closure.md`](rc2-p1-interaction-representability-closure.md) | ✅ Closed | Stakeholder closure：四假說 PASS；P1 🟢 Stable |
 | **RC2-P2** | [`rc2-p2-interaction-inferability-start.md`](rc2-p2-interaction-inferability-start.md) | ▶ Active | IH1–IH3；dual evidence chains；boundary-first report |
 | **RC2-P2-intake** | Consumer `<PROJECT_ROOT>/.ai-skill/project/evidence/rc2-p2-interaction-incident-intake.md` | ▶ Active | 10 incidents；preview-only entry；I-05 觸發第二 entry |
+| **RC2-P2-intake-wb** | [`rc2-p2-interaction-incident-intake-summary.md`](rc2-p2-interaction-incident-intake-summary.md) | ✅ Writeback | Generalized metrics + Table 1；consumer intake 首輪回寫 |
 
 **Meta evidence**（Method Knowledge — 不在本目錄）：[`Architecture Evolution Protocol` §Method Validation Log](../../../../governance/lifecycle/architecture-evolution-protocol.md#method-validation-log)

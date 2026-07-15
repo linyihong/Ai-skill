@@ -21,6 +21,8 @@ RC2-P2 同時產出兩條證據鏈（stakeholder 2026-07-15）：
 
 Meta record（**不在 RC2 evidence 目錄**）：[`Architecture Evolution Protocol` §Method Validation Log](../../../../governance/lifecycle/architecture-evolution-protocol.md#method-validation-log)
 
+**Consumer writeback**（mandatory）：每輪 `<AI_SKILL_DOGFOOD_EVIDENCE>` intake / dogfood 結束 → 回寫本 plan `evidence/`。Consumer rule：`<PROJECT_ROOT>/.ai-skill/project/rules/rc2-consumer-evidence-writeback.md` · workflow：`docs/framework-development-workflow.yaml` §`rc2_p2_consumer_evidence_writeback`
+
 ---
 
 ## Methodology lock（與 RC1-P2 平行）

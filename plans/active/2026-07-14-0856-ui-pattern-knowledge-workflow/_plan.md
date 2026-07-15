@@ -60,6 +60,8 @@ revision:
     note: "Method Validation Log → Architecture Evolution Protocol；Knowledge Evolution Method 🟡 Replicated once（RC2-P1 independent replication）；RC2-P2=dual evidence chains（Domain+Method）"
   - date: 2026-07-15
     note: "RC2-P2 Evidence Intake：consumer 10 incidents layer-first；preview-only entry；payment_leave deferred until I-05 confirms"
+  - date: 2026-07-15
+    note: "Consumer→Ai-skill writeback mandatory；<AI_SKILL_DOGFOOD_EVIDENCE> rc2-consumer-evidence-writeback rule；intake-summary writeback"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
@@ -682,6 +684,16 @@ RC2-P2 **不是**只做 Interaction 研究 — 同時是 **Knowledge Evolution M
 Meta evidence（非 RC2 目錄）：[`Architecture Evolution Protocol` §Method Validation Log](../../../governance/lifecycle/architecture-evolution-protocol.md#method-validation-log)
 
 **P2 主證據表**（Boundary before accuracy）：Incident · Initial Guess · Final Layer — 非 10/10 accuracy 先行。
+
+### Consumer → Ai-skill writeback（mandatory）
+
+Pilot consumer（`<AI_SKILL_DOGFOOD_EVIDENCE>`）在 `.ai-skill/project/evidence/` 收集 Interaction Incident；**每輪結束必須回寫**本 plan [`evidence/`](./evidence/README.md)（generalized metrics — Evidence Producer ≠ Closure Authority）。
+
+| Consumer | Ai-skill writeback |
+| --- | --- |
+| `rc2-p2-interaction-incident-intake.md` | [`rc2-p2-interaction-incident-intake-summary.md`](./evidence/rc2-p2-interaction-incident-intake-summary.md) |
+| 流程規則 | `<PROJECT_ROOT>/.ai-skill/project/rules/rc2-consumer-evidence-writeback.md` |
+| Workflow hook | `<PROJECT_ROOT>/docs/framework-development-workflow.yaml` §`rc2_p2_consumer_evidence_writeback` |
 
 ### Readiness 結案紀錄
 
