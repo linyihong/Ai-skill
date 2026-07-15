@@ -33,7 +33,10 @@
 | **RC2-P1-closure** | [`rc2-p1-interaction-representability-closure.md`](rc2-p1-interaction-representability-closure.md) | ✅ Closed | P1 🟢 Stable |
 | **RC2-P2** | [`rc2-p2-interaction-inferability-start.md`](rc2-p2-interaction-inferability-start.md) | ✅ Closed | IH1–IH3 PASS；blind cumulative 8/8 |
 | **RC2-P2-closure** | [`rc2-p2-interaction-inferability-closure.md`](rc2-p2-interaction-inferability-closure.md) | ✅ Closed | P2 symmetric with RC1-P2 |
-| **RC2-P3** | [`rc2-p3-interaction-composition-start.md`](rc2-p3-interaction-composition-start.md) | ▶ Active | CH1–CH3；`player_immersive_episode` |
+| **RC2-P3** | [`rc2-p3-interaction-composition-start.md`](rc2-p3-interaction-composition-start.md) | ✅ Closed | CH1–CH3 PASS |
+| **RC2-P3-closure** | [`rc2-p3-interaction-composition-closure.md`](rc2-p3-interaction-composition-closure.md) | ✅ Closed | Interaction Knowledge 🟢 Stable |
+| **RC2-P3-CH3** | [`rc2-p3-ch3-traceability.md`](rc2-p3-ch3-traceability.md) | ✅ Complete | CT1–CT3 PASS |
+| **RC2-P3-metrics** | [`rc2-p3-composition-metrics.md`](rc2-p3-composition-metrics.md) | ✅ Closed | P3 exit met |
 | **RC2-P3-intake** | Consumer `<PROJECT_ROOT>/.ai-skill/project/evidence/rc2-p3-interaction-composition-intake.md` | ▶ Active | C1/C2 from I-04 |
 | **RC2-P3-CH1** | [`rc2-p3-ch1-independence-stress.md`](rc2-p3-ch1-independence-stress.md) | ✅ Complete | CH1 PASS · 2 constraints · Entry Mods=0 |
 | **RC2-P3-CH2** | [`rc2-p3-ch2-completeness-disposition.md`](rc2-p3-ch2-completeness-disposition.md) | ✅ Complete | CH2 PASS · 8/8 disposition |

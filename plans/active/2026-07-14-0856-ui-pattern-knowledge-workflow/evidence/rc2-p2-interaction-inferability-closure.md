@@ -47,8 +47,8 @@ Round 2 初跑 6/8（I-07 Navigation、I-08 Interaction 誤判）→ round 2b �
 | --- | --- |
 | **RC2-P2 Interaction Inferability** | ✅ **Closed** |
 | RC2-P1 Representability | 🟢 Stable |
-| RC2-P3 Composition | ▶ Active |
-| Interaction Knowledge（整層） | 🟡 Research Justified（待 P3） |
+| RC2-P3 Composition | ✅ Closed |
+| Interaction Knowledge（整層） | 🟢 **Stable** |
 | Knowledge Evolution Method | 🟡 **Replicated once** + **Inferability replication confirmed**（見 Protocol §Method Validation Log） |
 
 RC1 經驗：P2 Inferability closure ≠ 整層 Stable — 仍需 P3 Composability。
@@ -65,7 +65,7 @@ Blind protocol lesson（寫入 method，非 entry）：decoy 場景需 **canonic
 
 ## Handoff → RC2-P3
 
-- **P3 狀態**：▶ **Active** — [`rc2-p3-interaction-composition-start.md`](rc2-p3-interaction-composition-start.md)
+- **P3 狀態**：✅ **Closed** — [`rc2-p3-interaction-composition-closure.md`](rc2-p3-interaction-composition-closure.md)
 - **P3 單位**：Screen / flow — Interaction Composition（Composability）
 - **不得**：在 P3 前把 Interaction Knowledge 升格 🟢 Stable
 - P1 closure：[`rc2-p1-interaction-representability-closure.md`](rc2-p1-interaction-representability-closure.md)

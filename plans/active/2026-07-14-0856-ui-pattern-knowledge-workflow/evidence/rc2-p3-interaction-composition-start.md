@@ -2,7 +2,7 @@
 
 **Plan**: [`../_plan.md`](../_plan.md)  
 **Date**: 2026-07-15  
-**Status**: RC2-P3 **Active**（stakeholder kickoff — 對齊 RC1 Phase 3 / RC2-P1/P2 慣例）  
+**Status**: RC2-P3 ✅ **Closed** — [`rc2-p3-interaction-composition-closure.md`](rc2-p3-interaction-composition-closure.md)  
 **Prerequisite**: RC2-P2 ✅ Closed — [`rc2-p2-interaction-inferability-closure.md`](rc2-p2-interaction-inferability-closure.md)
 
 ---
@@ -185,8 +185,8 @@ player_immersive_episode
 | --- | --- |
 | P1 Representability | 🟢 Stable |
 | P2 Inferability | ✅ Closed |
-| P3 Composition | ▶ **Active** |
-| Interaction Knowledge | 🟡 Research Justified（P3 exit → 🟢 Stable） |
+| P3 Composition | ✅ Closed |
+| Interaction Knowledge | 🟢 **Stable** |
 
 ---
 
@@ -198,4 +198,5 @@ player_immersive_episode
 | 2. Consumer P3 intake | ▶ | `<PROJECT_ROOT>/.ai-skill/project/evidence/rc2-p3-interaction-composition-intake.md` |
 | 3. CH1 Independence stress | ✅ | [`rc2-p3-ch1-independence-stress.md`](rc2-p3-ch1-independence-stress.md) |
 | 4. CH2 Completeness | ✅ | [`rc2-p3-ch2-completeness-disposition.md`](rc2-p3-ch2-completeness-disposition.md) |
-| 5. CH3 Traceability | ⏸ | `rc2-p3-ch3-traceability.md` |
+| 5. CH3 Traceability | ✅ | [`rc2-p3-ch3-traceability.md`](rc2-p3-ch3-traceability.md) |
+| 6. P3 Closure | ✅ | [`rc2-p3-interaction-composition-closure.md`](rc2-p3-interaction-composition-closure.md) |

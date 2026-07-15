@@ -113,4 +113,4 @@ Deferred Interaction composition node
 
 - [x] 未新增 Interaction entry
 - [x] 未新增 CH2 composition rule（C3 正確判定 single_entry_sufficient）
-- [ ] CH3 Traceability — next mini-cycle
+- [x] CH3 Traceability — [`rc2-p3-ch3-traceability.md`](rc2-p3-ch3-traceability.md)

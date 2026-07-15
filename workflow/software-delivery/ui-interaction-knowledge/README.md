@@ -1,6 +1,6 @@
 # UI Interaction Knowledge — reusable rule seeds（Ai-skill）
 
-**Research Cycle 2** · RC2-P1 ✅ **Closed** · RC2-P2 ✅ **Closed** · RC2-P3 ▶ **Active**
+**Research Cycle 2** · RC2-P1/P2/P3 ✅ **Closed** · Interaction Knowledge 🟢 **Stable**
 
 Interaction Knowledge describes the valid temporal lifecycle of UI state **after Pattern selection and Composition have been validated** — not another Composition layer, and **not application business workflow**.
 
@@ -12,7 +12,7 @@ Interaction Knowledge describes the valid temporal lifecycle of UI state **after
 | Pattern Knowledge（frozen） | What pattern is appropriate |
 | Composition Knowledge（frozen） | Spatial / constraint edges between patterns |
 | **Interaction Knowledge** | State ownership, transition trigger, invalidation, recovery |
-| **Interaction Composition**（RC2-P3） | Constraints between interaction lifecycles on a Screen / flow |
+| **Interaction Composition** | Constraints between interaction lifecycles on a Screen / flow |
 
 ## Maturity（RC2）
 
@@ -20,15 +20,15 @@ Interaction Knowledge describes the valid temporal lifecycle of UI state **after
 | --- | --- |
 | P1 Representability | ✅ Closed |
 | P2 Inferability | ✅ Closed |
-| P3 Composition | ▶ Active |
-| Interaction Knowledge | 🟡 Research Justified（P3 exit → 🟢 Stable） |
+| P3 Composition | ✅ Closed |
+| **Interaction Knowledge** | 🟢 **Stable** |
 
 ## Layout
 
 ```text
 ui-interaction-knowledge/
   README.md
-  interaction_composition_rules.yaml   # RC2-P3 constraints（NOT entries）
+  interaction_composition_rules.yaml
   validation/
     interaction-entry-schema.yaml
   entries/
@@ -52,20 +52,10 @@ New composition knowledge flows into interaction_composition_rules.yaml ONLY.
 
 ## Vocabulary Freeze
 
-**四欄 vocabulary 已於 RC2-P1 驗證**：`state_owner`, `transition_trigger`, `invalidation_event`, `recovery_boundary`
-
-## RC2 Metrics（non-KPI）
-
-| Metric | Target |
-| --- | --- |
-| **Interaction Entry Modifications**（P3 Primary） | **0** |
-| **Frozen Layer Mods** | **0** always |
-| **Schema Extensions** | **0** until exit review |
+**四欄 vocabulary 已於 RC2-P1 驗證** — post-P3 exit review 前不擴 schema。
 
 ## Plan evidence
 
-- P1 closure：[`rc2-p1-interaction-representability-closure.md`](../../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p1-interaction-representability-closure.md)
-- P2 closure：[`rc2-p2-interaction-inferability-closure.md`](../../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p2-interaction-inferability-closure.md)
-- P3 kickoff：[`rc2-p3-interaction-composition-start.md`](../../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p3-interaction-composition-start.md)
-
-**禁止**：Runtime projection；完整 Player / Payment business state machines；P3 kickoff 預填 constraints.
+- P1：[`rc2-p1-interaction-representability-closure.md`](../../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p1-interaction-representability-closure.md)
+- P2：[`rc2-p2-interaction-inferability-closure.md`](../../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p2-interaction-inferability-closure.md)
+- P3：[`rc2-p3-interaction-composition-closure.md`](../../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p3-interaction-composition-closure.md)
