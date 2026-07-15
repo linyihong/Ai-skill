@@ -129,7 +129,7 @@ Knowledge Evolution Method 仍 🟡 **Replicated once**（RC2-P1 independent rep
 | Composition Knowledge | 🟢 Stable | 新 Screen 持續 dogfood |
 | Knowledge Evolution Method | 🟡 Replicated once | RC2-P1 independent replication；見 Protocol §Method Validation Log |
 | Readiness Gate | ✅ Closed | — |
-| Interaction Knowledge | 🟡 **Research Justified** | RC2-P1 ✅ · RC2-P2 ✅ Closed · RC2-P3 ⏸ Locked |
+| Interaction Knowledge | 🟡 **Research Justified** | RC2-P1/P2 ✅ · RC2-P3 ▶ Active |
 | Research Cycle 2 | ▶ Started | 見 [`../_plan.md`](../_plan.md) §Research Cycle 2 |
 
 🟡 **Research Justified** = 值得開始研究；**不是**已知道怎麼做（≠ Stable）。

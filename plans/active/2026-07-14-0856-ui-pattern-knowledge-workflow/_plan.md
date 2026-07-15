@@ -61,12 +61,12 @@ revision:
   - date: 2026-07-15
     note: "RC2-P2 Evidence Intake：consumer 10 incidents layer-first；preview-only entry；payment_leave deferred until I-05 confirms"
   - date: 2026-07-15
-    note: "RC2-P2 CLOSED（stakeholder）：IH1–IH3 PASS、blind cumulative 8/8、payment_leave_transition landed；Method Inferability replication confirmed；RC2-P3 locked"
+    note: "RC2-P3 ▶ Active（stakeholder）：CH1–CH3 kickoff；player_immersive_episode；interaction_composition_rules scaffold"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
 
-**Status**: `in-progress` — RC1 ✅ · Readiness ✅ · **RC2-P1 ✅ Closed** · **RC2-P2 ✅ Closed** · [`rc2-p2-interaction-inferability-closure.md`](./evidence/rc2-p2-interaction-inferability-closure.md) · RC2-P3 ⏸ Locked  
+**Status**: `in-progress` — RC1 ✅ · Readiness ✅ · **RC2-P1/P2 ✅ Closed** · **RC2-P3 ▶ Active** · [`rc2-p3-interaction-composition-start.md`](./evidence/rc2-p3-interaction-composition-start.md)  
 
 **Owner**: linyihong  
 **建立日期**: 2026-07-14  
@@ -612,7 +612,7 @@ H5：[`3h5-completeness-disposition.md`](./evidence/3h5-completeness-disposition
 | Composition Knowledge | 🟢 **Stable** | 新 Screen 持續 dogfood |
 | Knowledge Evolution Method | 🟡 **Replicated once** | Inferability replication confirmed（RC2-P2）；見 [Protocol §Method Validation Log](../../../governance/lifecycle/architecture-evolution-protocol.md#method-validation-log) |
 | Readiness Gate | ✅ **Closed** | R1∧R2∧R3 PASS（2026-07-15） |
-| Interaction Knowledge | 🟡 **Research Justified** | RC2-P1 ✅ · RC2-P2 ✅ Closed；RC2-P3 ⏸ Locked |
+| Interaction Knowledge | 🟡 **Research Justified** | RC2-P1/P2 ✅ · RC2-P3 ▶ Active |
 | Research Cycle 2 | ▶ **Started** | 非 Phase 4；新 Layer → 新 Cycle |
 
 **Composition Closure（2026-07-14）**：✅ Pattern Tree Validated — H4∧H5∧H6 + Entry Mods=0。  
@@ -644,9 +644,9 @@ H5：[`3h5-completeness-disposition.md`](./evidence/3h5-completeness-disposition
 | Research Cycle 2 | ▶ **Started** |
 | RC2-P1 — **Interaction Representability** | ✅ **Closed** |
 | RC2-P2 — Interaction Inferability | ✅ **Closed** |
-| RC2-P3 — Interaction Composition | ⏸ Locked |
+| RC2-P3 — Interaction Composition | ▶ **Active** |
 
-P1：[`rc2-p1-interaction-representability-closure.md`](./evidence/rc2-p1-interaction-representability-closure.md) · P2：[`rc2-p2-interaction-inferability-closure.md`](./evidence/rc2-p2-interaction-inferability-closure.md)
+P1：[`rc2-p1-interaction-representability-closure.md`](./evidence/rc2-p1-interaction-representability-closure.md) · P2：[`rc2-p2-interaction-inferability-closure.md`](./evidence/rc2-p2-interaction-inferability-closure.md) · P3：[`rc2-p3-interaction-composition-start.md`](./evidence/rc2-p3-interaction-composition-start.md)
 
 **Vocabulary Freeze** · **Business boundary**（UI semantics ≠ business workflow）· **RC2 Metrics**：Schema Extensions / Interaction Entry Mods / Frozen Layer Mods = 0
 
@@ -714,6 +714,9 @@ Pilot consumer（`<AI_SKILL_DOGFOOD_EVIDENCE>`）在 `.ai-skill/project/evidence
 - [x] `payment_leave_transition.yaml` landed（I-05）  
 - [x] RC2-P2 Exit：blind Boundary Misclassification = 0（cumulative）  
 - [x] RC2-P2 Closure — [`rc2-p2-interaction-inferability-closure.md`](./evidence/rc2-p2-interaction-inferability-closure.md)  
+- [x] RC2-P3 — Interaction Composition kickoff（CH1–CH3；`interaction_composition_rules.yaml` scaffold）  
+- [ ] RC2-P3 CH1 Independence stress  
+- [ ] RC2-P3 Exit：Interaction Composition Closure + Interaction Knowledge 🟢 Stable  
 - [x] ~~Phase 4~~ — **已廢止命名**；見 Research Cycle 2
 
 

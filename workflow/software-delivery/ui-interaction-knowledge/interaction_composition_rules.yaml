@@ -1,0 +1,45 @@
+# Interaction Composition Constraints — Interaction ↔ Interaction edges (RC2-P3+)
+#
+# This is NOT:
+#   - an Interaction entry schema
+#   - a Rule Library / business workflow dump
+#   - Runtime Projection
+#
+# This IS:
+#   Composition Constraint — edges between interaction lifecycles on a Screen / flow.
+#
+# === RC2-P3 INVARIANT (anti back-propagation) ===
+# Interaction Composition evidence MUST NOT modify validated Interaction entries.
+# New knowledge discovered during composition flows ONLY into THIS file,
+# NEVER into entries/*.yaml.
+# Interaction Composition MUST NOT edit ui-pattern-knowledge/entries/* or composition_rules.yaml.
+# Violation ⇒ RC2-P3 evidence invalid until entry edits are reverted.
+
+schema_version: "0.1"
+id: workflow.software_delivery.ui_interaction_knowledge.interaction_composition_constraints
+kind: interaction_composition_constraints
+status: draft
+owner_layer: workflow
+legacy_filename: interaction_composition_rules.yaml
+
+phase: rc2-p3
+
+rc2_p3_invariant:
+  id: invariant.no_interaction_entry_back_propagation
+  statement: >
+    Interaction Composition evidence MUST NOT modify validated Interaction entries.
+    New knowledge discovered during composition flows into interaction_composition_rules.yaml
+    (this file), NOT entries/*.yaml. Frozen Pattern and Composition layers remain untouched.
+  risk: back_propagation
+  enforcement: >
+    Any git diff under ui-interaction-knowledge/entries/ during RC2-P3 dogfood
+    fails Composition Closure unless accompanied by an explicit plan revision
+    that unfreezes Interaction entries (rare; default = revert).
+
+entry_freeze_policy: >
+  RC2-P3 must not edit entries/*.yaml to fix interaction-composition problems.
+  Prefer constraints here; new entry only after Layer + existing-entry mapping fails
+  (same discipline as RC2-P2).
+
+# Seed empty — constraints land via CH1–CH3 mini-cycle dogfood only.
+constraints: []

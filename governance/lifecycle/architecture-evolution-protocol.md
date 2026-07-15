@@ -468,6 +468,7 @@ This is not UI-Pattern-specific. The same rhythm appears when Evidence, Governan
 | RC1 | Pattern Knowledge | **First application** | [`research-cycle-1.md`](../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-1.md) |
 | RC2-P1 | Interaction Knowledge | **Independent replication** | [`rc2-p1-interaction-representability-closure.md`](../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p1-interaction-representability-closure.md) |
 | RC2-P2 | Interaction Knowledge（Inferability） | **Inferability replication** | [`rc2-p2-interaction-inferability-closure.md`](../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p2-interaction-inferability-closure.md) |
+| RC2-P3 | Interaction Knowledge（Composability） | ▶ **Active** — Method Composability replication | [`rc2-p3-interaction-composition-start.md`](../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p3-interaction-composition-start.md) |
 
 **Method maturity (2026-07-15)**
 
