@@ -84,6 +84,19 @@ frida -U -l hook_okhttp.js -f com.target.app --no-pause
 
 記錄 SDK/client 實際消耗的欄位、相容性預期、fixture/test 狀態。
 
+### Sign path 驗證（雙路徑 App）
+
+若觀測到 H5 bridge sign 與 Retrofit interceptor sign 並存：
+
+| Check | Path A (H5) | Path B (Retrofit) |
+| --- | --- | --- |
+| Wire body | JSON | JSON（常 PostJsonBody） |
+| Canonical `bodyStr` | JSON string | 常 **空字串** |
+| Typical APIs | tasks, awards | bootstrap, read upload |
+| Offline module | `gn_h5_sign` 類 | `gn_retrofit_sign` 類 |
+
+驗證矩陣：每條 path 至少一個端點 device replay `status=0`。主機 403 且 sign parity OK → anti-bot tier，見 [`headless-sdk-device-executor-flow.md`](headless-sdk-device-executor-flow.md)。
+
 ## 步驟 6：執行 Catalog Finish Gate
 
 在回報 API-list 任務完成前，檢查：

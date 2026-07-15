@@ -164,8 +164,25 @@ native backtrace 落在哪裡？
 2. token 存在哪裡，何時清空。
 3. device identity 來源是什麼。
 4. login / device login body 如何組。
-5. request signing 的 canonical path 是否正確。
+5. request signing 的 canonical path 是否正確（**同一 App 可能有多條 path**：H5 JSON body vs Retrofit `bodyStr=""` — 見 [`workflows/headless-sdk-device-executor-flow.md`](workflows/headless-sdk-device-executor-flow.md)）。
 6. 成功後 token 如何寫回。
+
+### 外部 SDK 被 WAF 擋時：裝置執行器
+
+當離線 sign 已對齊（`sign_len` + key FP match）但主機直連仍 **HTTP 403**（edgesuite HTML），優先判 **anti-bot tier**，不要繼續改 sign 公式。Production private SDK 可採：
+
+```text
+合成 identity → 裝置端 bootstrap (path B) → session → 裝置端下游 API (path A)
+```
+
+主機 `probe_*.py` 保留 sign 驗證；**Done 門檻**以裝置 E2E `http=200` 為準。
+
+可重用 lesson：
+
+- [`feedback/history/development-guidance/common/2026-07-15_140200-correct-sign-length-still-403-means-anti-bot-not-sign.md`](../../feedback/history/development-guidance/common/2026-07-15_140200-correct-sign-length-still-403-means-anti-bot-not-sign.md)
+- [`feedback/history/apk-analysis/http-api/2026-07-15_140000-cold-start-token-may-come-from-bootstrap-not-login.md`](../../feedback/history/apk-analysis/http-api/2026-07-15_140000-cold-start-token-may-come-from-bootstrap-not-login.md)
+- [`feedback/history/apk-analysis/http-api/2026-07-15_140100-dual-sign-canonical-h5-json-vs-retrofit-empty-bodystr.md`](../../feedback/history/apk-analysis/http-api/2026-07-15_140100-dual-sign-canonical-h5-json-vs-retrofit-empty-bodystr.md)
+- [`workflows/headless-sdk-device-executor-flow.md`](workflows/headless-sdk-device-executor-flow.md)
 
 ## 媒體 / HLS 分析
 

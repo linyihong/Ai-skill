@@ -182,6 +182,17 @@ resource decrypt hook:
 
 詳見 [`traffic-triage.md`](../traffic-triage.md) §混合功能、[`feedback/.../hybrid-native-shell-plus-embedded-h5-frida-routing.md`](../../feedback/history/apk-analysis/common/2026-05-19_101500-hybrid-native-shell-plus-embedded-h5-frida-routing.md)。
 
+## 裝置執行器 E2E（Private SDK / anti-bot 403）
+
+當離線 signer 已對齊但主機直連 403，用 Frida spawn 在 **裝置內** 完成 bootstrap → downstream API。完整流程見 [`headless-sdk-device-executor-flow.md`](headless-sdk-device-executor-flow.md)。
+
+要點：
+
+1. **Token gate**：hook `HttpGlobal` Authorization setter 或 prefs `setUserToken`；`req.url()` 在 R8 下可能 TypeError（見 `140400`）。
+2. **雙簽名路徑**：bootstrap 用 Retrofit path B（`bodyStr=""`）；任務 API 用 H5 path A（JSON in canonical）。
+3. **Host bridge**：`send()` 只送 `{path, http, status}`；HTTP 在 Frida 執行緒，非 main thread（見 `132500`）。
+4. **pm clear + spawn** 驗證冷啟遊客態；session 寫 gitignore capture。
+
 ## 注意事項
 
 - 避免 broad hooks on global Dart runtime helpers（如 `LinkedHashMap._set`）

@@ -10,3 +10,9 @@
 ## 來源
 
 所有 lesson 原位於 `skills/app-development-guidance/feedback_history/`，已於 2026-05-13 搬遷至此，舊目錄已刪除。
+
+## Recent (2026-07-15)
+
+| Slug | Category |
+|------|----------|
+| `common/2026-07-15_140200-correct-sign-length-still-403-means-anti-bot-not-sign` | Sign parity OK but 403 = anti-bot, not formula |

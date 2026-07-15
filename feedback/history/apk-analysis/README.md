@@ -16,6 +16,10 @@
 | Slug | Category |
 |------|----------|
 | `common/2026-07-15_132500-frida-e2e-compact-send-and-off-main-thread-http` | Frida E2E compact send + off-main-thread HTTP |
+| `common/2026-07-15_140400-httpglobal-header-setter-hook-for-token-when-okhttp-introspect-fails` | HttpGlobal token hook when OkHttp introspect fails |
+| `http-api/2026-07-15_140000-cold-start-token-may-come-from-bootstrap-not-login` | Guest token from bootstrap not login |
+| `http-api/2026-07-15_140100-dual-sign-canonical-h5-json-vs-retrofit-empty-bodystr` | Dual sign path A/B |
+| `http-api/2026-07-15_140300-bootstrap-body-may-carry-analytics-ids-not-device-gaid` | Bootstrap analytics IDs |
 
 ## Recent (2026-07-14)
 

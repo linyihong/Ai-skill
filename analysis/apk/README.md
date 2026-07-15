@@ -51,7 +51,7 @@ analysis/apk/
 2. 用本文件了解分析層的邊界。
 3. 讀 `traffic-triage.md` 了解流量／執行路徑分流。
 4. 讀 `tools-and-failures.md` 了解工具選擇、失敗判讀與命令模板。
-5. 證據確定路線後，讀 `workflows/` 了解 HOW TO DO 執行步驟（含 [`workflows/cold-start-play-focus-ab.md`](workflows/cold-start-play-focus-ab.md) 冷啟動 Play 搶焦 A/B）。
+5. 證據確定路線後，讀 `workflows/` 了解 HOW TO DO 執行步驟（含 [`workflows/cold-start-play-focus-ab.md`](workflows/cold-start-play-focus-ab.md) 冷啟動 Play 搶焦 A/B、[`workflows/headless-sdk-device-executor-flow.md`](workflows/headless-sdk-device-executor-flow.md) 裝置執行器 SDK）。
 6. 讀 `intelligence/engineering/analytical-reasoning/` 了解 HOW TO THINK 決策指引（含 `heuristics/play-focus-steal-vs-hard-kill.md`）。
 
 ## 遷移備註（Migration Notes）
