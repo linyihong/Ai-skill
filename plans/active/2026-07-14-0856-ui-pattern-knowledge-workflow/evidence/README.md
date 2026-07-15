@@ -32,5 +32,6 @@
 | **RC2-P1-run** | [`rc2-p1-preview-gate-representability-run.md`](rc2-p1-preview-gate-representability-run.md) | ✅ Closed | `preview_gate_transition` H1 PASS；Frozen Layer Mods=0 |
 | **RC2-P1-close** | [`rc2-p1-interaction-representability-closure.md`](rc2-p1-interaction-representability-closure.md) | ✅ Closed | Stakeholder closure：四假說 PASS；P1 🟢 Stable |
 | **RC2-P2** | [`rc2-p2-interaction-inferability-start.md`](rc2-p2-interaction-inferability-start.md) | ▶ Active | IH1–IH3；dual evidence chains；boundary-first report |
+| **RC2-P2-intake** | Consumer `<PROJECT_ROOT>/.ai-skill/project/evidence/rc2-p2-interaction-incident-intake.md` | ▶ Active | 10 incidents；preview-only entry；I-05 觸發第二 entry |
 
 **Meta evidence**（Method Knowledge — 不在本目錄）：[`Architecture Evolution Protocol` §Method Validation Log](../../../../governance/lifecycle/architecture-evolution-protocol.md#method-validation-log)

@@ -92,14 +92,36 @@ Interaction 的價值：**知道應改哪一層**。
 
 ---
 
-## 2. Second entry（P2 前置 — 仍用 P1 vocabulary）
+## Evidence Intake（stakeholder 2026-07-15 — RC1 紀律）
 
-| 選擇 | ID | 理由 |
+收集目標：**可證偽 RC2-P2 假說**的 Interaction Incident — 不是泛泛 Flow。
+
+```text
+Incident → Layer First? → Interaction Entry? → Repair Layer? → Evidence
+```
+
+**禁止**：`Incident → 寫新 Entry`
+
+**Entry 節奏**（與先前 kickoff 修正）：
+
+1. **現在**：僅 `preview_gate_transition` 已 landing
+2. 用 ~10 個 Incident 嘗試映射到**既有** entry
+3. 當 **Layer 判對** 且 **無法合理映射** `preview_gate_transition` → 才建 `payment_leave_transition.yaml`
+
+Consumer intake（Evidence Producer）：  
+`<PROJECT_ROOT>/.ai-skill/project/evidence/rc2-p2-interaction-incident-intake.md`
+
+---
+
+## 2. Entry landing 節奏（修正 — preview first）
+
+| 階段 | Entry | 狀態 |
 | --- | --- | --- |
-| defer P2 dogfood | `preview_gate_transition` | P1 已用 — **禁止**作為 P2 唯一案例 |
-| ✅ **P2 案例** | `payment_leave_transition` | C2 counterfactual；第二獨立 consumer；證明 schema **泛化** |
+| P1 | `preview_gate_transition` | ✅ landed |
+| P2 intake | 用既有 entry 分類 Incident | ▶ Active |
+| P2 trigger | `payment_leave_transition` | ⏸ **deferred** — 待 intake I-05 層級確認後 landing |
 
-**Scope lock**（同 P1 紀律）：
+**Scope lock**（第二 entry，landing 時）：
 
 ```text
 dialog_open → user_confirm_stay_or_leave → dialog_close
@@ -107,12 +129,13 @@ dialog_open → user_confirm_stay_or_leave → dialog_close
 
 **不是** `order_paid` / `payment_pending` business states。
 
-**Consumer anchor**：Readiness C2 · [`r1-consumer-dogfood-2026-07-15.md`](r1-consumer-dogfood-2026-07-15.md) §C2
+**Consumer anchor**：Readiness C2 · [`r1-consumer-dogfood-2026-07-15.md`](r1-consumer-dogfood-2026-07-15.md) §C2 · intake **I-05**
 
-**前置產物**（P2 dogfood 前）：
+**P2 dogfood 前置產物**：
 
-1. [`entries/payment_leave_transition.yaml`](../../../../workflow/software-delivery/ui-interaction-knowledge/entries/payment_leave_transition.yaml) — 同四欄 vocabulary；Schema Extensions = 0
-2. [`interaction-inferability-scenarios.yaml`](interaction-inferability-scenarios.yaml) — incident prompts + expected layer + entry + repair
+1. Consumer incident intake ≥10（layer-first 分類完成）
+2. [`interaction-inferability-scenarios.yaml`](interaction-inferability-scenarios.yaml) — 精煉自 intake + boundary decoys
+3. `payment_leave_transition.yaml` — **僅在** intake 確認需要第二 entry 時
 
 ---
 
@@ -120,7 +143,10 @@ dialog_open → user_confirm_stay_or_leave → dialog_close
 
 | Metric | Role | P2 目標 |
 | --- | --- | --- |
-| **Boundary Misclassification** | **Primary** | 0（Flow→Composition / Flow→Pattern / Flow→Runtime = FAIL） |
+| **Layer Classification Accuracy** | **Primary** | 第一層判對 |
+| **Boundary Misclassification** | **Primary** | 誤判到哪一層（非 accuracy KPI） |
+| **Existing Entry Reuse Rate** | Supporting | Interaction 層能否重用既有 entry |
+| **New Entry Required** | Supporting | 是否真的需要第三/第四 entry |
 | Scenario Accuracy | Supporting | IH1：正確 entry id |
 | Frozen Layer Mods | Blocking | **0** always |
 

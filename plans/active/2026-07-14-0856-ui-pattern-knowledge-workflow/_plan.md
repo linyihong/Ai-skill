@@ -58,6 +58,8 @@ revision:
     note: "RC2-P2 ▶ Active（stakeholder）：kickoff 完成且 success criteria / boundary / 第二案例 / primary metric 已鎖；對齊 RC1-P2 Active 慣例"
   - date: 2026-07-15
     note: "Method Validation Log → Architecture Evolution Protocol；Knowledge Evolution Method 🟡 Replicated once（RC2-P1 independent replication）；RC2-P2=dual evidence chains（Domain+Method）"
+  - date: 2026-07-15
+    note: "RC2-P2 Evidence Intake：consumer 10 incidents layer-first；preview-only entry；payment_leave deferred until I-05 confirms"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
