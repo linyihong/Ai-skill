@@ -467,7 +467,7 @@ This is not UI-Pattern-specific. The same rhythm appears when Evidence, Governan
 | --- | --- | --- | --- |
 | RC1 | Pattern Knowledge | **First application** | [`research-cycle-1.md`](../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-1.md) |
 | RC2-P1 | Interaction Knowledge | **Independent replication** | [`rc2-p1-interaction-representability-closure.md`](../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p1-interaction-representability-closure.md) |
-| RC2-P2 | Interaction Knowledge（Inferability） | ▶ **Active** — Method Inferability replication in progress | [`rc2-p2-interaction-inferability-start.md`](../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p2-interaction-inferability-start.md) |
+| RC2-P2 | Interaction Knowledge（Inferability） | **Inferability replication** | [`rc2-p2-interaction-inferability-closure.md`](../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p2-interaction-inferability-closure.md) |
 
 **Method maturity (2026-07-15)**
 
@@ -476,7 +476,7 @@ This is not UI-Pattern-specific. The same rhythm appears when Evidence, Governan
 | Pattern Knowledge | 🟢 Stable |
 | Composition Knowledge | 🟢 Stable |
 | Interaction Knowledge | 🟡 Research Justified |
-| **Knowledge Evolution Method** | 🟡 **Replicated once** |
+| **Knowledge Evolution Method** | 🟡 **Replicated once**（Inferability replication confirmed — RC2-P2） |
 
 **RC2-P2 dual evidence chains**（each active RC phase should produce both）:
 

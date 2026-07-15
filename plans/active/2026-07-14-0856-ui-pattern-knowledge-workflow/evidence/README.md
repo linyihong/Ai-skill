@@ -31,7 +31,8 @@
 | **RC2-P1** | [`rc2-p1-interaction-representability-start.md`](rc2-p1-interaction-representability-start.md) | ✅ Closed | H1–H3 kickoff；`preview_gate_transition` scope lock |
 | **RC2-P1-run** | [`rc2-p1-preview-gate-representability-run.md`](rc2-p1-preview-gate-representability-run.md) | ✅ Closed | `preview_gate_transition` H1 PASS；Frozen Layer Mods=0 |
 | **RC2-P1-closure** | [`rc2-p1-interaction-representability-closure.md`](rc2-p1-interaction-representability-closure.md) | ✅ Closed | P1 🟢 Stable |
-| **RC2-P2** | [`rc2-p2-interaction-inferability-start.md`](rc2-p2-interaction-inferability-start.md) | ▶ Active | IH1–IH3；dual evidence chains；boundary-first |
+| **RC2-P2** | [`rc2-p2-interaction-inferability-start.md`](rc2-p2-interaction-inferability-start.md) | ✅ Closed | IH1–IH3 PASS；blind cumulative 8/8 |
+| **RC2-P2-closure** | [`rc2-p2-interaction-inferability-closure.md`](rc2-p2-interaction-inferability-closure.md) | ✅ Closed | P2 symmetric with RC1-P2 |
 | **RC2-P2-intake** | Consumer `<PROJECT_ROOT>/.ai-skill/project/evidence/rc2-p2-interaction-incident-intake.md` | ▶ Active | 10 incidents；I-05 觸發第二 entry |
 | **RC2-P2-intake-wb** | [`rc2-p2-interaction-incident-intake-summary.md`](rc2-p2-interaction-incident-intake-summary.md) | ✅ Writeback | Generalized metrics + Table 1 |
 | **RC2-P2-sel** | [`interaction-inferability-scenarios.yaml`](interaction-inferability-scenarios.yaml) | 完成 | 8 scenarios：I-01–I-05 + decoys I-06–I-08 |

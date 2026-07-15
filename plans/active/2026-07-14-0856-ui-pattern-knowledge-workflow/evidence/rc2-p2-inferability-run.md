@@ -5,7 +5,7 @@
 **Scenarios**: [`interaction-inferability-scenarios.yaml`](interaction-inferability-scenarios.yaml)  
 **Consumer intake**: `<PROJECT_ROOT>/.ai-skill/project/evidence/rc2-p2-interaction-incident-intake.md`  
 **Date**: 2026-07-15  
-**Method**: rule-trace against `preview_gate_transition` entry + layer-first intake Table 1（blind LLM round ⏸ deferred）
+**Closure**: [`rc2-p2-interaction-inferability-closure.md`](rc2-p2-interaction-inferability-closure.md)
 
 ---
 
