@@ -129,7 +129,7 @@ Knowledge Evolution Method 仍 🟡 Emerging — RC2 為 Method 的**第二條�
 | Composition Knowledge | 🟢 Stable | 新 Screen 持續 dogfood |
 | Knowledge Evolution Method | 🟡 Emerging | RC2 驗證普適性 |
 | Readiness Gate | ✅ Closed | — |
-| Interaction Knowledge | 🟡 **Research Justified** | RC2-P1 Interaction Representability ▶ |
+| Interaction Knowledge | 🟡 **Research Justified** | RC2-P1 🟢 Stable · RC2-P2 ▶ Inferability |
 | Research Cycle 2 | ▶ Started | 見 [`../_plan.md`](../_plan.md) §Research Cycle 2 |
 
 🟡 **Research Justified** = 值得開始研究；**不是**已知道怎麼做（≠ Stable）。

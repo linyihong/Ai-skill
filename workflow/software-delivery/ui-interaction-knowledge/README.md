@@ -1,6 +1,6 @@
 # UI Interaction Knowledge — reusable rule seeds（Ai-skill）
 
-**Research Cycle 2** · RC2-P1 **Interaction Representability** in progress.
+**Research Cycle 2** · RC2-P1 🟢 **Stable** · RC2-P2 ▶ **Inferability**
 
 Interaction Knowledge describes the valid temporal lifecycle of UI state **after Pattern selection and Composition have been validated** — not another Composition layer, and **not application business workflow**.
 
@@ -13,7 +13,16 @@ Interaction Knowledge describes the valid temporal lifecycle of UI state **after
 | Composition Knowledge（frozen） | Spatial / constraint edges between patterns |
 | **Interaction Knowledge** | State ownership, transition trigger, invalidation, recovery |
 
-## Layout（RC2-P1 — do not bloat）
+## Maturity（RC2）
+
+| RC2 | 狀態 |
+| --- | --- |
+| P1 Representability | 🟢 Stable |
+| P2 Inferability | ▶ Ready to Start |
+| P3 Composition | ⏸ Locked |
+| Interaction Knowledge | 🟡 Research Justified |
+
+## Layout
 
 ```text
 ui-interaction-knowledge/
@@ -21,22 +30,8 @@ ui-interaction-knowledge/
   validation/
     interaction-entry-schema.yaml   # Vocabulary freeze: four core fields only
   entries/
-    preview_gate_transition.yaml    # First entry — RC2-P1 dogfood only
-```
-
-**Sequence**（locked）：
-
-```text
-interaction-entry-schema
-        │
-        ▼
-preview_gate_transition.yaml
-        │
-        ▼
-Dogfood（representability evidence）
-        │
-        ▼
-Frozen Layer Mods = 0
+    preview_gate_transition.yaml    # P1 entry
+    payment_leave_transition.yaml   # P2 second entry（dogfood 前落地）
 ```
 
 ## RC2 Invariant
@@ -46,23 +41,28 @@ Interaction evidence MUST NOT redefine Pattern selection or Composition constrai
 Interaction MUST NOT edit ui-pattern-knowledge/entries/* or composition_rules.yaml.
 ```
 
-## Vocabulary Freeze（RC2-P1）
+## Vocabulary Freeze
 
-Until first entry **representability** exit review:
+**四欄 vocabulary 已於 RC2-P1 驗證**：`state_owner`, `transition_trigger`, `invalidation_event`, `recovery_boundary`
 
-- **Allowed** interaction primitives: `state_owner`, `transition_trigger`, `invalidation_event`, `recovery_boundary`
-- **Forbidden** mid-dogfood schema adds（e.g. `guard_condition`, `rollback`, `checkpoint`, `priority`）
-- If dogfood surfaces a gap → **Evidence note only** → dogfood end → Review → decide schema extension
-
-Symmetric discipline to RC1 **Entry Freeze**.
+- **Forbidden** mid-P2 schema adds without exit review
+- Dogfood gaps → evidence note → P2 exit review
 
 ## RC2 Metrics（non-KPI）
 
-| Metric | RC2-P1 target |
+| Metric | Target |
 | --- | --- |
 | **Schema Extensions** | **0** until exit review |
-| **Interaction Entry Mods** | **0** after first entry lands（one entry only） |
 | **Frozen Layer Mods** | **0** always |
+| **Boundary Misclassification**（P2 primary） | **0** |
+
+## RC2-P2 Inferability（layer-first）
+
+> Inferability must classify the **correct knowledge layer** before identifying the **correct interaction entry**.
+
+**Direction**：Incident / Scenario → Interaction Entry（不是 Entry → Scenario）
+
+**P2 case**：`payment_leave_transition`（非 `preview_gate_transition` — 泛化證據）
 
 ## Hazard Review boundary
 
@@ -72,7 +72,7 @@ Shared vocabulary · **not** shared responsibility.
 
 ## Plan evidence
 
-- Kickoff：[`plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p1-interaction-representability-start.md`](../../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p1-interaction-representability-start.md)
-- Dogfood：[`plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p1-preview-gate-representability-run.md`](../../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p1-preview-gate-representability-run.md)
+- P1 closure：[`plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p1-interaction-representability-closure.md`](../../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p1-interaction-representability-closure.md)
+- P2 kickoff：[`plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p2-interaction-inferability-start.md`](../../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p2-interaction-inferability-start.md)
 
-**禁止**：Runtime projection；多 entry 堆疊；完整 Player / Payment business state machines in Interaction entries.
+**禁止**：Runtime projection；完整 Player / Payment business state machines in Interaction entries；P2 用 preview 作唯一案例.

@@ -52,11 +52,13 @@ revision:
     note: "RC2-P1 Interaction Representability kickoff（H1–H3+Invariant+Hazard boundary）；first entry=preview_gate_transition；stakeholder 點頭啟動"
   - date: 2026-07-15
     note: "RC2 Vocabulary Freeze+metrics；preview_gate_transition+schema landed；dogfood H1 PASS；Frozen Layer Mods=0；RC2-P1 Representability complete"
+  - date: 2026-07-15
+    note: "RC2-P1 CLOSED（stakeholder）：四假說 PASS、與 RC1-P1 對稱；P1 🟢 Stable；RC2-P2 kickoff（IH1–IH3、layer-first、payment_leave_transition 第二案例）"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
 
-**Status**: `in-progress` — RC1 ✅ · Readiness ✅ · **RC2-P1 ✅ Representability** · RC2-P2 ⏸ · [`rc2-p1-preview-gate-representability-run.md`](./evidence/rc2-p1-preview-gate-representability-run.md)  
+**Status**: `in-progress` — RC1 ✅ · Readiness ✅ · **RC2-P1 🟢 Stable** · **RC2-P2 ▶ Inferability** · [`rc2-p2-interaction-inferability-start.md`](./evidence/rc2-p2-interaction-inferability-start.md)  
 
 **Owner**: linyihong  
 **建立日期**: 2026-07-14  
@@ -602,7 +604,7 @@ H5：[`3h5-completeness-disposition.md`](./evidence/3h5-completeness-disposition
 | Composition Knowledge | 🟢 **Stable** | 新 Screen 持續 dogfood |
 | Knowledge Evolution Method | 🟡 **Emerging** | RC2 驗證普適性（第二研究線） |
 | Readiness Gate | ✅ **Closed** | R1∧R2∧R3 PASS（2026-07-15） |
-| Interaction Knowledge | 🟡 **Research Justified** | RC2-P1 ✅ Representability；RC2-P2 Inferability 待啟動 |
+| Interaction Knowledge | 🟡 **Research Justified** | RC2-P1 🟢 Stable；RC2-P2 ▶ Inferability（`payment_leave_transition`） |
 | Research Cycle 2 | ▶ **Started** | 非 Phase 4；新 Layer → 新 Cycle |
 
 **Composition Closure（2026-07-14）**：✅ Pattern Tree Validated — H4∧H5∧H6 + Entry Mods=0。  
@@ -632,11 +634,11 @@ H5：[`3h5-completeness-disposition.md`](./evidence/3h5-completeness-disposition
 | Research Cycle 1 | ✅ Closed |
 | Readiness Gate（R1→R2→R3） | ✅ **Closed** |
 | Research Cycle 2 | ▶ **Started** |
-| RC2-P1 — **Interaction Representability** | ✅ **Complete** |
-| RC2-P2 — Interaction Inferability | ⏸ Not Started |
-| RC2-P3 — Interaction Composition | ⏸ Not Started |
+| RC2-P1 — **Interaction Representability** | 🟢 **Stable** |
+| RC2-P2 — Interaction Inferability | ▶ **Ready to Start** |
+| RC2-P3 — Interaction Composition | ⏸ Locked |
 
-Kickoff：[`evidence/rc2-p1-interaction-representability-start.md`](./evidence/rc2-p1-interaction-representability-start.md) · Closure：[`evidence/rc2-p1-preview-gate-representability-run.md`](./evidence/rc2-p1-preview-gate-representability-run.md)
+P1：[`rc2-p1-interaction-representability-closure.md`](./evidence/rc2-p1-interaction-representability-closure.md) · P2 kickoff：[`rc2-p2-interaction-inferability-start.md`](./evidence/rc2-p2-interaction-inferability-start.md)
 
 **Vocabulary Freeze** · **Business boundary**（UI semantics ≠ business workflow）· **RC2 Metrics**：Schema Extensions / Interaction Entry Mods / Frozen Layer Mods = 0
 
@@ -675,7 +677,9 @@ RC2-P1 **不**問「Interaction 長什麼樣」，先問 **minimum representable
 - [x] R3 最小假說定稿  
 - [x] RC2-P1 — Interaction Representability kickoff（stakeholder 2026-07-15）  
 - [x] RC2-P1 Exit：`preview_gate_transition` 四欄可表示；Schema Extensions = 0；Frozen Layer Mods = 0  
-- [ ] RC2-P2 — Interaction Inferability kickoff  
+- [x] RC2-P1 Closure（stakeholder）：四假說 PASS；與 RC1-P1 對稱；P1 🟢 Stable  
+- [x] RC2-P2 — Interaction Inferability kickoff（IH1–IH3；layer-first；`payment_leave_transition`）  
+- [ ] RC2-P2 Exit：Boundary Misclassification = 0；scenario → entry + repair  
 - [x] ~~Phase 4~~ — **已廢止命名**；見 Research Cycle 2
 
 
@@ -726,7 +730,8 @@ RC2-P1 **不**問「Interaction 長什麼樣」，先問 **minimum representable
 - [x] Readiness Gate CLOSED（R1∧R2∧R3）；Research Cycle 2 Started；Interaction 🟡 Research Justified（stakeholder 2026-07-15）  
 - [x] 廢止「Phase 4」命名；RC2 ladder = Representability / Inferability / Composition  
 - [x] RC2-P1 Interaction Representability kickoff（H1–H3、Invariant、Hazard boundary、Vocabulary Freeze、first entry=preview_gate_transition）  
-- [x] RC2-P1 Representability complete（dogfood H1 PASS；metrics 全 0）
+- [x] RC2-P1 Representability complete（dogfood H1 PASS；metrics 全 0）  
+- [x] RC2-P1 Closure + RC2-P2 kickoff（stakeholder 2026-07-15）
 
 ---
 
