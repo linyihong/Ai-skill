@@ -128,7 +128,8 @@ FAIL = 尚無此案例（預設）→ 不進入 R2。
 
 | Date | Candidate | R1 | R2 | R3 | Disposition |
 | --- | --- | --- | --- | --- | --- |
-| — | （尚未登記） | — | — | — | OPEN |
+| 2026-07-15 | C1 player preview gate projection break | PASS | PASS | — | 進 R3；見 [`r1-consumer-dogfood-2026-07-15.md`](r1-consumer-dogfood-2026-07-15.md) |
+| 2026-07-15 | C2 payment leave confirm (C.5) | PASS | PASS | — | 進 R3；同上 |
 
 ---
 
