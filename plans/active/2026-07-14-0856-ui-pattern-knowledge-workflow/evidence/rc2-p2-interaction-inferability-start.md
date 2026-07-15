@@ -137,7 +137,7 @@ dialog_open → user_confirm_stay_or_leave → dialog_close
 
 1. Consumer incident intake ≥10（layer-first 分類完成） — ✅
 2. [`interaction-inferability-scenarios.yaml`](interaction-inferability-scenarios.yaml) — ✅ 8 scenarios（I-01–I-05 + decoys）
-4. [`rc2-p2-inferability-run.md`](rc2-p2-inferability-run.md) — rule-trace 8/8 + blind round 2（6/8 layer）
+4. [`rc2-p2-inferability-run.md`](rc2-p2-inferability-run.md) — rule-trace 8/8 + blind cumulative 8/8（round 2b remediation）
 5. `payment_leave_transition.yaml` — ✅ landed（I-05）
 
 ---

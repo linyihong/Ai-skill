@@ -14,7 +14,7 @@
 | Artifact | Path |
 | --- | --- |
 | Existing entry | [`workflow/software-delivery/ui-interaction-knowledge/entries/preview_gate_transition.yaml`](../../../../workflow/software-delivery/ui-interaction-knowledge/entries/preview_gate_transition.yaml) |
-| Deferred entry | `payment_leave_transition.yaml` — **not landed**（I-05 trigger confirmed） |
+| Second entry | [`payment_leave_transition.yaml`](../../../../workflow/software-delivery/ui-interaction-knowledge/entries/payment_leave_transition.yaml) — landed（I-05） |
 | Readiness | [`r1-consumer-dogfood-2026-07-15.md`](r1-consumer-dogfood-2026-07-15.md) |
 | Intake summary | [`rc2-p2-interaction-incident-intake-summary.md`](rc2-p2-interaction-incident-intake-summary.md) |
 
@@ -81,7 +81,7 @@
 | Rule-trace dogfood | ✅ round 1 complete |
 | Blind LLM inferability | ✅ **round 2 complete**（8 subagents · simple prompt · see below） |
 | `payment_leave_transition.yaml` | ✅ landed（I-05 blind + rule-trace trigger） |
-| RC2-P2 Exit gate | ❌ **not met** — blind Boundary Misclassification **2**（I-07, I-08） |
+| RC2-P2 Exit gate | ✅ **met** — cumulative blind **8/8 layer** · Boundary Misclassification **0**（round 2b remediation） |
 
 ---
 
@@ -138,7 +138,79 @@
 
 ---
 
+## Blind LLM round 2b — targeted retry（2026-07-15）
+
+**Method**: 3 isolated subagents（`gemini-2.5-flash`）· **I-05, I-07, I-08 only**（round 2 misses）· canonical layer enum in prompt · **no** expected fields · **no** intake.
+
+| Variant | I-05 | I-07 | I-08 |
+| --- | --- | --- | --- |
+| Entry files | `preview_gate_transition` + `payment_leave_transition` | `preview_gate_transition` only | `preview_gate_transition` only |
+| Layer hint | enum only | Continuation vs Navigation disambiguation | Pagination_runtime vs Interaction disambiguation |
+
+### Round 2b matrix
+
+| ID | Blind layer | Blind entry | Expected layer | Expected entry | Layer | Entry |
+| --- | --- | --- | --- | --- | --- | --- |
+| I-05 | **Interaction** | `payment_leave_transition` | Interaction | `payment_leave_transition` | ✅ | ✅ |
+| I-07 | **Continuation** | `null` | Continuation | — | ✅ | ✅ |
+| I-08 | **Pagination_runtime** | `null` | Pagination_runtime | — | ✅ | ✅ |
+
+**Round 2b layer accuracy**: **3 / 3** · **Boundary Misclassification**: **0**
+
+### Cumulative blind（round 2 ∪ round 2b）
+
+| ID | Source | Layer | Entry |
+| --- | --- | --- | --- |
+| I-01 | round 2 | ✅ Interaction | ✅ `preview_gate_transition` |
+| I-02 | round 2 | ✅ Interaction | ✅ `preview_gate_transition` |
+| I-03 | round 2 | ✅ Interaction | ⚠️ ambiguous literal |
+| I-04 | round 2 | ✅ Interaction | ⚠️ ambiguous literal |
+| I-05 | **round 2b** | ✅ Interaction | ✅ `payment_leave_transition` |
+| I-06 | round 2 | ✅ Composition | ✅ `null` |
+| I-07 | **round 2b** | ✅ Continuation | ✅ `null` |
+| I-08 | **round 2b** | ✅ Pagination_runtime | ✅ `null` |
+
+**Cumulative blind layer accuracy**: **8 / 8** · **Boundary Misclassification**: **0**  
+**IH1 entry（Interaction positives）**: I-01–I-04 → `preview_gate_transition`；I-05 → `payment_leave_transition`（round 2b）
+
+### P2 Evidence Dashboard（cumulative blind）
+
+| Metric | rule-trace | blind round 2 | blind cumulative |
+| --- | --- | --- | --- |
+| Layer Classification Accuracy | 8/8 | 6/8 | **8/8** |
+| Boundary Misclassification | 0 | 2 | **0** |
+| Existing Entry Reuse (I-01–I-04) | 4/4 | 2 clear + 2 ambiguous | 2 clear + 2 ambiguous |
+| New Entry Required (I-05) | confirmed | confirmed（null） | ✅ named |
+| Frozen Layer Mods | 0 | 0 | 0 |
+
+### Hypothesis results（final）
+
+| Hypothesis | rule-trace | blind cumulative | Verdict |
+| --- | --- | --- | --- |
+| IH1 Inferability | partial | **PASS** | I-05 maps `payment_leave_transition`；I-01–I-04 reuse preview entry |
+| IH2 Boundary | PASS | **PASS** | round 2b fixes I-07/I-08 decoy misclassification |
+| IH3 Repair localization | PASS | PASS | 無 Pattern/Composition 回改建議 |
+| Frozen Layer Mods | 0 | 0 | held |
+
+### Knowledge Layer Confusion Matrix（cumulative blind — normalized）
+
+| Actual ↓ / Predicted → | Interaction | Composition | Continuation | Navigation | Pagination_runtime |
+| --- | --- | --- | --- | --- | --- |
+| **Interaction** | 5 | 0 | 0 | 0 | 0 |
+| **Composition** | 0 | 1 | 0 | 0 | 0 |
+| **Continuation** | 0 | 0 | 1 | 0 | 0 |
+| **Pagination_runtime** | 0 | 0 | 0 | 1 | 0 |
+
+---
+
 ## Disposition（updated）
+
+| Item | Status |
+| --- | --- |
+| Rule-trace dogfood | ✅ 8/8 |
+| Blind LLM round 2 | ✅ documented（6/8 — decoy misses） |
+| Blind LLM round 2b | ✅ 3/3 remediation |
+| RC2-P2 Exit gate | ✅ **met** |
 
 ---
 
@@ -146,5 +218,5 @@
 
 - [x] No frozen Pattern/Composition edits
 - [x] `payment_leave_transition.yaml` landed（I-05 blind + rule-trace trigger）
-- [x] Blind LLM round 2 documented
-- [ ] RC2-P2 Exit — blocked on blind Boundary Misclassification = 0
+- [x] Blind LLM round 2 + round 2b documented
+- [x] RC2-P2 Exit — blind Boundary Misclassification = 0（cumulative）
