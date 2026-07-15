@@ -11,6 +11,12 @@
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
 
+## Recent (2026-07-15)
+
+| Slug | Category |
+|------|----------|
+| `common/2026-07-15_132500-frida-e2e-compact-send-and-off-main-thread-http` | Frida E2E compact send + off-main-thread HTTP |
+
 ## Recent (2026-07-14)
 
 | Slug | Category |
