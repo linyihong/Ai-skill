@@ -28,4 +28,5 @@
 | **3H6** | [`3h6-traceability.md`](3h6-traceability.md) | 完成 | H6 Traceability：complete \| waived 終止 |
 | **P4-ready** | [`phase4-readiness-gate.md`](phase4-readiness-gate.md) | ✅ Closed | Readiness R1∧R2∧R3 PASS；RC2 啟動（非 Phase 4） |
 | **R1-dogfood** | [`r1-consumer-dogfood-2026-07-15.md`](r1-consumer-dogfood-2026-07-15.md) | 完成 | C1+C2；R1∧R2∧R3 PASS → Interaction 🟡 Research Justified |
-| **RC2-P1** | [`rc2-p1-interaction-representability-start.md`](rc2-p1-interaction-representability-start.md) | ▶ Active | Interaction Representability kickoff；entry=`preview_gate_transition` |
+| **RC2-P1** | [`rc2-p1-interaction-representability-start.md`](rc2-p1-interaction-representability-start.md) | ✅ Complete | Kickoff：Vocabulary Freeze、metrics、scope lock |
+| **RC2-P1-run** | [`rc2-p1-preview-gate-representability-run.md`](rc2-p1-preview-gate-representability-run.md) | ✅ Complete | `preview_gate_transition` H1 PASS；Frozen Layer Mods=0 |

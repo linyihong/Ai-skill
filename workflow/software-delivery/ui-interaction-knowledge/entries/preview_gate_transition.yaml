@@ -1,0 +1,41 @@
+# RC2-P1 — First Interaction entry (representability dogfood only)
+# Scope: ONE transition — NOT a full player state machine.
+
+id: preview_gate_transition
+plain_name: "Preview period ends → subscription gate overlay becomes visible"
+entry_status: declared
+evidence_level: observed
+phase: rc2-p1
+
+references:
+  pattern_entry: modal_dialog
+  composition: episode_detail
+
+scope_note: >
+  Single UI-semantics chain only: preview → preview_limit_reached → gated.
+  NOT a full Player state machine. NOT payment/order/navigation business workflow.
+  Proves four vocabulary fields are sufficient — not schema completeness.
+
+transition:
+  from: preview
+  via: preview_limit_reached
+  to: gated
+
+interaction:
+  state_owner: >
+    Main player stage bound video element (playerStage DOM ownership after mount).
+    Owner is the video surface that drives the visible preview period — not an
+    adjacent preload video used for vertical snap prefetch.
+  transition_trigger: >
+    preview_limit_reached fires on the state_owner video (timeupdate / poll on
+    main-stage boundVideo).
+  invalidation_event: >
+    preview_limit_reached listeners or poll bound to a non-owner video (e.g.
+    adjacent preload), so the main stage never receives the transition signal
+    and the gate overlay does not surface (projection break).
+  recovery_boundary: >
+    Gate mask + guide observable on main player stage after limit; closed by
+    temporal_behavior integration evidence (not behavior-only source assert).
+    Consumer integration class: evidence:temporal_behavior.
+
+consumer_anchor: "<PROJECT_ROOT> player preview gate · Readiness C1 · r1-consumer-dogfood §C1"

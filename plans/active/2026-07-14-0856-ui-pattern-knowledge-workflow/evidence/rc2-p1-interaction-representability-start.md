@@ -21,6 +21,44 @@ RC2-P1 **不**回答「Interaction 長什麼樣」，先回答 **Interaction 的
 
 Cross-method：[`Architecture Evolution Protocol` §Layer Growth Rhythm](../../../../governance/lifecycle/architecture-evolution-protocol.md#appendix--layer-growth-rhythmoptional-governance-pattern) — Pattern + Composition **frozen**；Interaction 為新 surface。
 
+**Canonical boundary（比 Schema 更重要）**
+
+> Interaction Knowledge describes **UI interaction semantics**, not application business workflow.
+
+例：`dialog_open` → `user_confirm` → `dialog_close` ✅ · `order_paid` / payment-order `pending` ❌
+
+---
+
+## Vocabulary Freeze（RC2 對稱 RC1 Entry Freeze）
+
+第一個 entry **representability exit** 完成前：
+
+- **不得**新增 interaction primitive（schema 或 entry）
+- 現行四欄：`state_owner` · `transition_trigger` · `invalidation_event` · `recovery_boundary`
+- Dogfood 若覺得需要 `guard_condition` / `rollback` / `checkpoint` / `priority` → **只寫 evidence** → dogfood 結束 → Review → 再決是否擴 schema
+
+---
+
+## RC2 Metrics（non-KPI）
+
+| Metric | RC2-P1 target |
+| --- | --- |
+| **Schema Extensions** | **0** until exit review |
+| **Interaction Entry Mods** | **0** after first entry lands |
+| **Frozen Layer Mods** | **0** always |
+
+---
+
+## `preview_gate_transition` scope lock
+
+**不是**完整 Player State Machine。只表示：
+
+```text
+preview → preview_limit_reached → gated
+```
+
+目的：證明四欄位足夠 — **不是**證明 Interaction Schema 很完整。
+
 ---
 
 ## 1. Success Definition
@@ -167,9 +205,21 @@ RC2-P1 **不**合併兩者 artifact；只釘清邊界。
 
 ---
 
-## Next execution（不在本 kickoff 範圍）
+## Next execution
 
-1. 選定 artifact 路徑（候選：`workflow/software-delivery/ui-interaction-knowledge/` — 待 RC2-P1 第一個 entry 落地時建立）
-2. `validation/interaction-entry-schema.yaml`（最小 — 僅 H1 四欄 + `references.pattern`）
-3. `entries/preview_gate_transition.yaml` dogfood + 表示法證據檔
-4. Verifier：frozen layer diff = 0
+| Step | Status | Artifact |
+| --- | --- | --- |
+| 1. interaction-entry-schema | ✅ | [`ui-interaction-knowledge/validation/interaction-entry-schema.yaml`](../../../../workflow/software-delivery/ui-interaction-knowledge/validation/interaction-entry-schema.yaml) |
+| 2. preview_gate_transition entry | ✅ | [`entries/preview_gate_transition.yaml`](../../../../workflow/software-delivery/ui-interaction-knowledge/entries/preview_gate_transition.yaml) |
+| 3. Dogfood | ✅ | [`rc2-p1-preview-gate-representability-run.md`](rc2-p1-preview-gate-representability-run.md) |
+| 4. Frozen Layer Mods = 0 | ✅ | Metrics in dogfood run |
+
+## Stakeholder evaluation（RC2-P1）
+
+| 項目 | 狀態 |
+| --- | --- |
+| Method | 🟢 Ready |
+| Scope | 🟢 Well bounded |
+| Invariant | 🟢 Defined |
+| Entry | 🟢 First validation（dogfood run） |
+| Schema | 🟢 Vocabulary validated（extensions = 0） |

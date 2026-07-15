@@ -50,11 +50,13 @@ revision:
     note: "Readiness CLOSED：R1∧R2∧R3 PASS（C1+C2 consumer dogfood）；Interaction=Research Justified；廢止 Phase4 命名→Research Cycle 2 Start；RC2 ladder=Representability/Inferability/Composition"
   - date: 2026-07-15
     note: "RC2-P1 Interaction Representability kickoff（H1–H3+Invariant+Hazard boundary）；first entry=preview_gate_transition；stakeholder 點頭啟動"
+  - date: 2026-07-15
+    note: "RC2 Vocabulary Freeze+metrics；preview_gate_transition+schema landed；dogfood H1 PASS；Frozen Layer Mods=0；RC2-P1 Representability complete"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
 
-**Status**: `in-progress` — RC1 ✅ · Readiness ✅ · **RC2-P1 ▶ Interaction Representability** · [`rc2-p1-interaction-representability-start.md`](./evidence/rc2-p1-interaction-representability-start.md)  
+**Status**: `in-progress` — RC1 ✅ · Readiness ✅ · **RC2-P1 ✅ Representability** · RC2-P2 ⏸ · [`rc2-p1-preview-gate-representability-run.md`](./evidence/rc2-p1-preview-gate-representability-run.md)  
 
 **Owner**: linyihong  
 **建立日期**: 2026-07-14  
@@ -600,7 +602,7 @@ H5：[`3h5-completeness-disposition.md`](./evidence/3h5-completeness-disposition
 | Composition Knowledge | 🟢 **Stable** | 新 Screen 持續 dogfood |
 | Knowledge Evolution Method | 🟡 **Emerging** | RC2 驗證普適性（第二研究線） |
 | Readiness Gate | ✅ **Closed** | R1∧R2∧R3 PASS（2026-07-15） |
-| Interaction Knowledge | 🟡 **Research Justified** | RC2 Phase 1 — Interaction Schema |
+| Interaction Knowledge | 🟡 **Research Justified** | RC2-P1 ✅ Representability；RC2-P2 Inferability 待啟動 |
 | Research Cycle 2 | ▶ **Started** | 非 Phase 4；新 Layer → 新 Cycle |
 
 **Composition Closure（2026-07-14）**：✅ Pattern Tree Validated — H4∧H5∧H6 + Entry Mods=0。  
@@ -630,11 +632,13 @@ H5：[`3h5-completeness-disposition.md`](./evidence/3h5-completeness-disposition
 | Research Cycle 1 | ✅ Closed |
 | Readiness Gate（R1→R2→R3） | ✅ **Closed** |
 | Research Cycle 2 | ▶ **Started** |
-| RC2-P1 — **Interaction Representability** | ▶ **Active** |
+| RC2-P1 — **Interaction Representability** | ✅ **Complete** |
 | RC2-P2 — Interaction Inferability | ⏸ Not Started |
 | RC2-P3 — Interaction Composition | ⏸ Not Started |
 
-Kickoff：[`evidence/rc2-p1-interaction-representability-start.md`](./evidence/rc2-p1-interaction-representability-start.md)
+Kickoff：[`evidence/rc2-p1-interaction-representability-start.md`](./evidence/rc2-p1-interaction-representability-start.md) · Closure：[`evidence/rc2-p1-preview-gate-representability-run.md`](./evidence/rc2-p1-preview-gate-representability-run.md)
+
+**Vocabulary Freeze** · **Business boundary**（UI semantics ≠ business workflow）· **RC2 Metrics**：Schema Extensions / Interaction Entry Mods / Frozen Layer Mods = 0
 
 ### R3 定稿（Interaction Knowledge 邊界）
 
@@ -670,7 +674,8 @@ RC2-P1 **不**問「Interaction 長什麼樣」，先問 **minimum representable
 - [x] R2 判定：Constraint **類型**不足（非「覺得 rule 不夠」）  
 - [x] R3 最小假說定稿  
 - [x] RC2-P1 — Interaction Representability kickoff（stakeholder 2026-07-15）  
-- [ ] RC2-P1 Exit：第一個 entry `preview_gate_transition` 可表示（H1 四欄）  
+- [x] RC2-P1 Exit：`preview_gate_transition` 四欄可表示；Schema Extensions = 0；Frozen Layer Mods = 0  
+- [ ] RC2-P2 — Interaction Inferability kickoff  
 - [x] ~~Phase 4~~ — **已廢止命名**；見 Research Cycle 2
 
 
@@ -720,7 +725,8 @@ RC2-P1 **不**問「Interaction 長什麼樣」，先問 **minimum representable
 - [x] Research Cycle 1 CLOSED + research-cycle-1.md；Knowledge Evolution Method Emerging  
 - [x] Readiness Gate CLOSED（R1∧R2∧R3）；Research Cycle 2 Started；Interaction 🟡 Research Justified（stakeholder 2026-07-15）  
 - [x] 廢止「Phase 4」命名；RC2 ladder = Representability / Inferability / Composition  
-- [x] RC2-P1 Interaction Representability kickoff（H1–H3、Invariant、Hazard boundary、first entry=preview_gate_transition）
+- [x] RC2-P1 Interaction Representability kickoff（H1–H3、Invariant、Hazard boundary、Vocabulary Freeze、first entry=preview_gate_transition）  
+- [x] RC2-P1 Representability complete（dogfood H1 PASS；metrics 全 0）
 
 ---
 

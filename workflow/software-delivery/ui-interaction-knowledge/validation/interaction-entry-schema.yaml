@@ -1,0 +1,99 @@
+# Interaction entry schema — RC2-P1 Representability (validator-facing).
+# NOT Runtime Projection. Structural validation + Vocabulary Freeze only.
+#
+# Core vocabulary is FROZEN until first entry representability exit review.
+# Symmetric discipline to RC1 Entry Freeze — RC2 freezes Vocabulary.
+
+schema_version: "1.0"
+id: workflow.software_delivery.ui_interaction_knowledge.entry_schema
+kind: structural_validation
+status: rc2_p1_vocabulary_frozen
+owner_layer: workflow
+
+canonical_boundary: >
+  Interaction Knowledge describes UI interaction semantics, not application
+  business workflow. Do not encode order/payment/navigation business states
+  (e.g. order_paid, payment_pending) as Interaction primitives.
+
+vocabulary_freeze:
+  id: invariant.vocabulary_freeze_until_first_entry_exit
+  statement: >
+    Before RC2-P1 exit review, no new interaction primitives may be added
+    to this schema or entries. Gaps discovered during dogfood are recorded
+    in plan evidence only; schema extension requires post-dogfood review.
+  allowed_interaction_keys:
+    - state_owner
+    - transition_trigger
+    - invalidation_event
+    - recovery_boundary
+  deferred_review_examples:
+    - guard_condition
+    - rollback
+    - checkpoint
+    - priority
+  violation: adding keys to interaction.* or schema core during RC2-P1 dogfood
+
+core:
+  required_keys:
+    - id
+    - plain_name
+    - references
+    - transition
+    - interaction
+    - evidence_level
+    - entry_status
+  references:
+    required_keys:
+      - pattern_entry
+    optional_keys:
+      - composition
+    pattern_entry_rule: must reference id under ui-pattern-knowledge/entries/
+  transition:
+    required_keys:
+      - from
+      - via
+      - to
+    rc2_p1_scope: >
+      Single transition chain only — not a full state machine graph.
+      preview_gate_transition: preview → preview_limit_reached → gated
+  interaction:
+    required_keys:
+      - state_owner
+      - transition_trigger
+      - invalidation_event
+      - recovery_boundary
+    forbidden_extra_keys_during_rc2_p1: true
+  enums:
+    evidence_level:
+      - verified
+      - observed
+      - hypothesized
+    entry_status:
+      - declared
+      - validated
+
+complete_entry_rule: >
+  An entry is representability-complete when all core keys exist, interaction
+  uses exactly the four frozen vocabulary fields, references.pattern_entry
+  points to a frozen Pattern entry, and transition documents one UI-semantics
+  chain (not business workflow).
+
+rc2_metrics:
+  schema_extensions:
+    role: primary
+    rc2_p1_target: 0
+  interaction_entry_mods:
+    role: supporting
+    rc2_p1_target: 0
+  frozen_layer_mods:
+    role: blocking
+    rc2_p1_target: 0
+    frozen_paths:
+      - workflow/software-delivery/ui-pattern-knowledge/entries/
+      - workflow/software-delivery/ui-pattern-knowledge/composition_rules.yaml
+
+forbidden:
+  - editing_frozen_pattern_entries
+  - editing_composition_rules
+  - business_workflow_states_as_interaction
+  - full_application_state_machines_in_single_entry

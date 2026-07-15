@@ -47,3 +47,4 @@ Core 欄位凍結；新能力進 Extended，不反复改 Core key 名。
 - **Phase 3**：Composability · **constraints**（非再審知識本體）· H4→H5→H6 **mini-cycles** · Composition Metrics · exit = **Composition Closure**。  
   **Invariant**：Composition MUST NOT modify `entries/*`（anti **back-propagation**）→ 只寫 `composition_rules.yaml`。  
   Rhythm：*Grow one layer, freeze the previous*（Architecture Evolution Protocol appendix）。
+- **RC2 Interaction Knowledge**：[`../ui-interaction-knowledge/`](../ui-interaction-knowledge/) — RC2-P1 Representability ✅；Vocabulary Freeze；see plan `evidence/rc2-p1-preview-gate-representability-run.md`。
