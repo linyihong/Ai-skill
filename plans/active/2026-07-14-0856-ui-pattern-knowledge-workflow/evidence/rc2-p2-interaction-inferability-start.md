@@ -121,7 +121,7 @@ Consumer intake（Evidence Producer）：
 | --- | --- | --- |
 | P1 | `preview_gate_transition` | ✅ landed |
 | P2 intake | 用既有 entry 分類 Incident | ▶ Active |
-| P2 trigger | `payment_leave_transition` | ⏸ **deferred** — 待 intake I-05 層級確認後 landing |
+| P2 trigger | `payment_leave_transition` | ✅ landed（I-05 blind + rule-trace） |
 
 **Scope lock**（第二 entry，landing 時）：
 
@@ -137,8 +137,8 @@ dialog_open → user_confirm_stay_or_leave → dialog_close
 
 1. Consumer incident intake ≥10（layer-first 分類完成） — ✅
 2. [`interaction-inferability-scenarios.yaml`](interaction-inferability-scenarios.yaml) — ✅ 8 scenarios（I-01–I-05 + decoys）
-3. [`rc2-p2-inferability-run.md`](rc2-p2-inferability-run.md) — ▶ rule-trace round 1 **8/8 PASS**；blind LLM ⏸
-4. `payment_leave_transition.yaml` — **僅在** intake 確認需要第二 entry 時 — ⏸ I-05 confirmed trigger；landing deferred
+4. [`rc2-p2-inferability-run.md`](rc2-p2-inferability-run.md) — rule-trace 8/8 + blind round 2（6/8 layer）
+5. `payment_leave_transition.yaml` — ✅ landed（I-05）
 
 ---
 

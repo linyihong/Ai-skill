@@ -43,9 +43,9 @@ First RC2-P2 consumer intake landed **10 Interaction-adjacent incidents** with l
 | Item | Status |
 | --- | --- |
 | IH2 boundary decoys | I-06–I-10 reserved for P2 scenario matrix |
-| Second entry trigger | I-05 — land `payment_leave_transition` at dogfood execution |
-| `interaction-inferability-scenarios.yaml` | ✅ landed — [`interaction-inferability-scenarios.yaml`](interaction-inferability-scenarios.yaml) |
-| Inferability dogfood run | ▶ Round 1 — [`rc2-p2-inferability-run.md`](rc2-p2-inferability-run.md)（rule-trace 8/8）；blind LLM ⏸ |
+| Second entry trigger | I-05 — ✅ `payment_leave_transition` landed |
+| `interaction-inferability-scenarios.yaml` | ✅ landed |
+| Inferability dogfood run | ✅ Round 2 — blind 6/8 layer · [`rc2-p2-inferability-run.md`](rc2-p2-inferability-run.md) |
 
 ---
 

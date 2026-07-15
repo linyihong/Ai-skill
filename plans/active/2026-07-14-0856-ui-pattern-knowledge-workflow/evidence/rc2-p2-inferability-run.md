@@ -79,14 +79,72 @@
 | --- | --- |
 | `interaction-inferability-scenarios.yaml` | ✅ landed（8 scenarios） |
 | Rule-trace dogfood | ✅ round 1 complete |
-| Blind LLM inferability | ⏸ round 2 |
-| `payment_leave_transition.yaml` | ⏸ land at P2 execution after stakeholder review |
-| RC2-P2 Exit gate | ⏸ open — needs blind run + Boundary Misclassification = 0 under LLM |
+| Blind LLM inferability | ✅ **round 2 complete**（8 subagents · simple prompt · see below） |
+| `payment_leave_transition.yaml` | ✅ landed（I-05 blind + rule-trace trigger） |
+| RC2-P2 Exit gate | ❌ **not met** — blind Boundary Misclassification **2**（I-07, I-08） |
+
+---
+
+## Blind LLM round 2（2026-07-15）
+
+**Method**: 8 isolated subagents（`gemini-2.5-flash`）· each received **only** one incident prompt + `preview_gate_transition.yaml` · **no** scenarios expected fields · **no** intake.
+
+**Normalizer**: map free-text layer → canonical `{Interaction, Composition, Continuation, Navigation, Pagination_runtime, Pattern, Runtime}`.
+
+### Blind matrix
+
+| ID | Blind layer (raw → canonical) | Blind entry | Expected layer | Expected entry | Layer | Entry |
+| --- | --- | --- | --- | --- | --- | --- |
+| I-01 | Interaction Knowledge → **Interaction** | `preview_gate_transition` | Interaction | `preview_gate_transition` | ✅ | ✅ |
+| I-02 | ui-interaction-knowledge → **Interaction** | `preview_gate_transition` (via invalidation_event) | Interaction | `preview_gate_transition` | ✅ | ✅ |
+| I-03 | player interaction logic → **Interaction** | ambiguous literal | Interaction | `preview_gate_transition` | ✅ | ⚠️ |
+| I-04 | ui-interaction → **Interaction** | ambiguous literal | Interaction | `preview_gate_transition` | ✅ | ⚠️ |
+| I-05 | ui-interaction → **Interaction** | `null`（拒絕 preview） | Interaction | `payment_leave_transition` | ✅ | ⚠️ new entry implied, id 未說出 |
+| I-06 | UI Layering → **Composition** | `null` | Composition | — | ✅ | ✅ |
+| I-07 | UI_Navigation_State → **Navigation** | `null` | Continuation | — | ❌ | ✅ |
+| I-08 | ui-interaction-knowledge → **Interaction** | `new_entry_required` | Pagination_runtime | — | ❌ | ✅ |
+
+**Blind layer accuracy**: **6 / 8**（strict canonical）· **7 / 8**（I-03 entry ambiguous 不計 layer）  
+**Boundary Misclassification**: **2**（I-07 Navigation≠Continuation · I-08 Interaction≠Pagination_runtime）  
+**IH1 entry（Interaction positives）**: I-01–I-04 → `preview_gate_transition`；I-05 正確拒絕 preview → 觸發第二 entry landing
+
+### P2 Evidence Dashboard（blind round 2）
+
+| Metric | rule-trace | blind LLM |
+| --- | --- | --- |
+| Layer Classification Accuracy | 8/8 | **6/8** |
+| Boundary Misclassification | 0 | **2** |
+| Existing Entry Reuse (I-01–I-04) | 4/4 | 2 clear + 2 ambiguous |
+| New Entry Required (I-05) | confirmed | confirmed（null entry） |
+| Frozen Layer Mods | 0 | 0 |
+
+### Hypothesis results（cumulative）
+
+| Hypothesis | rule-trace | blind LLM | Verdict |
+| --- | --- | --- | --- |
+| IH1 Inferability | partial | partial | I-05 需命名 `payment_leave_transition` — entry landed post-blind |
+| IH2 Boundary | PASS | **FAIL** | I-07/I-08 誤吸 Interaction/Navigation |
+| IH3 Repair localization | PASS | PASS | 無 Pattern/Composition 回改建議 |
+| Frozen Layer Mods | 0 | 0 | held |
+
+### Knowledge Layer Confusion Matrix（blind — normalized）
+
+| Actual ↓ / Predicted → | Interaction | Composition | Continuation | Navigation | Pagination_runtime |
+| --- | --- | --- | --- | --- | --- |
+| **Interaction** | 5 | 0 | 0 | 0 | 0 |
+| **Composition** | 0 | 1 | 0 | 0 | 0 |
+| **Continuation** | 0 | 0 | 0 | **1** | 0 |
+| **Pagination_runtime** | **1** | 0 | 0 | 0 | 0 |
+
+---
+
+## Disposition（updated）
 
 ---
 
 ## Explicit non-actions
 
-- [x] No `payment_leave_transition.yaml` landing（I-05 confirmed trigger only）
 - [x] No frozen Pattern/Composition edits
-- [x] No Continuation/Navigation events written into Interaction entry
+- [x] `payment_leave_transition.yaml` landed（I-05 blind + rule-trace trigger）
+- [x] Blind LLM round 2 documented
+- [ ] RC2-P2 Exit — blocked on blind Boundary Misclassification = 0

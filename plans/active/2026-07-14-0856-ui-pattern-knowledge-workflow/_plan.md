@@ -710,8 +710,9 @@ Pilot consumer（`<AI_SKILL_DOGFOOD_EVIDENCE>`）在 `.ai-skill/project/evidence
 - [x] RC2-P1 Exit：`preview_gate_transition` 四欄可表示；Schema Extensions = 0；Frozen Layer Mods = 0  
 - [x] RC2-P1 Closure（stakeholder）：四假說 PASS；與 RC1-P1 對稱；P1 🟢 Stable  
 - [x] RC2-P2 — Interaction Inferability kickoff（IH1–IH3；layer-first；`payment_leave_transition`）  
-- [x] RC2-P2 scenarios + rule-trace round 1（8/8 PASS）— [`interaction-inferability-scenarios.yaml`](./evidence/interaction-inferability-scenarios.yaml) · [`rc2-p2-inferability-run.md`](./evidence/rc2-p2-inferability-run.md)  
-- [ ] RC2-P2 Exit：Boundary Misclassification = 0 under blind LLM；scenario → entry + repair  
+- [x] RC2-P2 scenarios + rule-trace + **blind round 2**（6/8 layer）— [`rc2-p2-inferability-run.md`](./evidence/rc2-p2-inferability-run.md)  
+- [x] `payment_leave_transition.yaml` landed（I-05）  
+- [ ] RC2-P2 Exit：blind Boundary Misclassification = 0  
 - [x] ~~Phase 4~~ — **已廢止命名**；見 Research Cycle 2
 
 

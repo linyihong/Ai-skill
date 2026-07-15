@@ -1,0 +1,40 @@
+# RC2-P2 — Second Interaction entry (inferability dogfood landing)
+# Scope: ONE transition — dialog stay/leave while pending surface visible.
+# NOT order_paid / payment_pending business workflow.
+
+id: payment_leave_transition
+plain_name: "Pending payment surface → leave confirm → stay or leave"
+entry_status: declared
+evidence_level: observed
+phase: rc2-p2
+
+references:
+  pattern_entry: modal_dialog
+  composition: null
+
+scope_note: >
+  Single UI-semantics chain: leave_confirm_open → stay_or_leave_choice →
+  confirm_closed. Covers accordion/pending surface unmount trap — NOT
+  preview→gated and NOT membership order lifecycle.
+
+transition:
+  from: leave_confirm_open
+  via: stay_or_leave_choice
+  to: confirm_closed
+
+interaction:
+  state_owner: >
+    PaymentLeaveConfirmDialog hoisted with MembershipSubscribeForm — owns
+    leave intent while pending payment surface (QR/poll) is visible.
+  transition_trigger: >
+    User requests close (accordion collapse or explicit leave) while
+    pendingPaymentVisible — must route through confirm before unmount.
+  invalidation_event: >
+    Accordion open&&children unmount or backdrop dismiss clears pending
+    surface without Stay/Leave decision — poll stops, QR disappears.
+  recovery_boundary: >
+    Stay keeps pending visible and poll; Leave clears pending then allows
+    collapse; disablePointerDismissal on confirm; capability integration
+  evidence on consumer test deploy.
+
+consumer_anchor: "<PROJECT_ROOT> membership payment leave confirm · C.5 trial · RC2-P2 I-05"

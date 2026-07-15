@@ -14,10 +14,11 @@ status: active
 phase: rc2-p2
 existing_entries_only:
   - preview_gate_transition
+  - payment_leave_transition
 deferred_entry:
   id: payment_leave_transition
   trigger_incident: I-05
-  landing: deferred_until_dogfood_confirms
+  landing: landed_rc2_p2_blind_round2
 
 run_order:
   - preview_gate_transition_cases

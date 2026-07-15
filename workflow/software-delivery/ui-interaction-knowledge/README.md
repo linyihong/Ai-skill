@@ -30,8 +30,8 @@ ui-interaction-knowledge/
   validation/
     interaction-entry-schema.yaml   # Vocabulary freeze: four core fields only
   entries/
-    preview_gate_transition.yaml    # P1 entry（P2 intake 先用此 entry 分類）
-    payment_leave_transition.yaml   # deferred — intake 確認需要時才 landing
+    preview_gate_transition.yaml    # P1 entry
+    payment_leave_transition.yaml   # P2 entry（I-05 blind trigger）
 ```
 
 ## RC2 Invariant
