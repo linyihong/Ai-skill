@@ -20,6 +20,8 @@
 | `http-api/2026-07-15_140000-cold-start-token-may-come-from-bootstrap-not-login` | Guest token from bootstrap not login |
 | `http-api/2026-07-15_140100-dual-sign-canonical-h5-json-vs-retrofit-empty-bodystr` | Dual sign path A/B |
 | `http-api/2026-07-15_140300-bootstrap-body-may-carry-analytics-ids-not-device-gaid` | Bootstrap analytics IDs |
+| `http-api/2026-07-15_140500-bootstrap-retrofit-sign-may-include-wire-json-in-bodystr` | Bootstrap bodyStr may be wire JSON (W27b) |
+| `http-api/2026-07-15_140600-invalid-sign-json-200-may-mean-missing-initheaders-not-bad-rsa` | JSON Invalid sign → check initHeaders (W27c) |
 
 ## Recent (2026-07-14)
 
