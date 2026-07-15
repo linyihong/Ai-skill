@@ -116,3 +116,5 @@ Post-P3 review：[`rc2-vocabulary-exit-review.md`](rc2-vocabulary-exit-review.md
 **Research Cycle 2：CLOSED** — Interaction Knowledge 三階梯完備。下一層增長 **不** 自動開啟。
 
 **Post-research**：[`maintenance-governance.md`](../../../../workflow/software-delivery/maintenance-governance.md) — Stable Maintenance Dogfood；**不**規劃 RC3。
+
+**Stakeholder closure**：[`stakeholder-research-line-closure-2026-07-15.md`](stakeholder-research-line-closure-2026-07-15.md) — research line formally ended.

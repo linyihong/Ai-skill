@@ -96,6 +96,7 @@ When editing this file, classify each change:
 | 2026-07-14 | Editorial | Name Knowledge Layer Evolution Pattern / Method as Emerging (Research Cycle 1 retrospective) |
 | 2026-07-15 | New governance pattern | §Method Validation Log — Knowledge Evolution Method independent-replication record (non-core) |
 | 2026-07-15 | Editorial | Method maturity → 🟡 Replicated once (RC2-P1 independent replication); RC2-P2 framed as Method Inferability replication |
+| 2026-07-15 | Editorial | §Knowledge Lifecycle — *Research creates knowledge; maintenance protects its boundaries*; stakeholder research-line closure |
 
 ## Positioning — what was once mixed (summary)
 
@@ -476,8 +477,8 @@ This is not UI-Pattern-specific. The same rhythm appears when Evidence, Governan
 | --- | --- |
 | Pattern Knowledge | 🟢 Stable |
 | Composition Knowledge | 🟢 Stable |
-| Interaction Knowledge | 🟡 Research Justified |
-| **Knowledge Evolution Method** | 🟡 **Replicated once**（Inferability + Composability replication confirmed — RC2） |
+| Interaction Knowledge | 🟢 Stable |
+| **Knowledge Evolution Method** | 🟡 **Replicated once**（RC1 + RC2 UI Knowledge Family；**not** 🟢 Stable until different families replicate） |
 
 **RC2-P2 dual evidence chains**（each active RC phase should produce both）:
 
@@ -497,6 +498,26 @@ If RC2-P2 fails → disambiguate Interaction-layer gap vs Method applicability b
 | Projection Break | Runtime | Interaction |
 
 Supporting: **Knowledge Layer Confusion Matrix**（Actual × Predicted）— maturation signal when Hazard / Runtime / Continuation mislabels decrease cycle-over-cycle.
+
+### Knowledge Lifecycle（Research → Maintenance）
+
+> **Research creates knowledge; maintenance protects its boundaries.**
+
+Pairs with Stable Maintenance policy（[`maintenance-governance.md`](../../workflow/software-delivery/maintenance-governance.md)）:
+
+> **Stable knowledge evolves through evidence mapping, not vocabulary expansion.**
+
+| Phase | Question |
+| --- | --- |
+| **Research**（RC1 · RC2） | How is knowledge **created**? |
+| **Maintenance** | How does knowledge **not degrade**? |
+
+```text
+Research → Validation → Closure → Stable Maintenance → Evidence Mapping
+    → Boundary Break（if any）→ Readiness → Next Research Cycle
+```
+
+**Stakeholder closure（2026-07-15）**: UI Knowledge research line ended — [`stakeholder-research-line-closure-2026-07-15.md`](../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/stakeholder-research-line-closure-2026-07-15.md). **Do not** actively seek RC3; let consumer maintenance accumulate mapping outcomes (~3–4 weeks) before any reopen.
 
 ---
 

@@ -64,11 +64,13 @@ revision:
     note: "RC2-P3 CLOSED — CH1–CH3 PASS; Interaction Knowledge Stable; Composability replication confirmed"
   - date: 2026-07-15
     note: "Research Closure Hygiene — plan/README/summary sync; maintenance-governance.md; Stable Maintenance Dogfood; RC2 truly ended; no RC3"
+  - date: 2026-07-15
+    note: "Stakeholder formal closure — research line ended; Governed Maintenance watch; Protocol lifecycle sentence; no active RC3"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
 
-**Status**: `in-progress`（research **closed** · maintenance mode）— RC1 ✅ · RC2 ✅ · Interaction 🟢 **Stable** · [`maintenance-governance.md`](../../../workflow/software-delivery/maintenance-governance.md)  
+**Status**: `in-progress`（**research line closed** · governed maintenance watch）— RC1 ✅ · RC2 ✅ · [`stakeholder-research-line-closure-2026-07-15.md`](./evidence/stakeholder-research-line-closure-2026-07-15.md) · [`maintenance-governance.md`](../../../workflow/software-delivery/maintenance-governance.md)  
 
 **Owner**: linyihong  
 **建立日期**: 2026-07-14  
@@ -742,6 +744,8 @@ RC2 研究假說鏈已 Closed；本節為 **真正結束** 的最後一步 — �
 | RC3 / 新 Layer | **不規劃** — Continuation = Neighbor until Readiness |
 
 **Post-research rhythm**：[`maintenance-governance.md`](../../../workflow/software-delivery/maintenance-governance.md) — *Stable knowledge evolves through evidence mapping, not vocabulary expansion.*
+
+**Stakeholder formal closure（2026-07-15）**：[`stakeholder-research-line-closure-2026-07-15.md`](./evidence/stakeholder-research-line-closure-2026-07-15.md) — research line ended · **do not** seek RC3 · consumer maintenance watch ~3–4 weeks.
 
 ---
 

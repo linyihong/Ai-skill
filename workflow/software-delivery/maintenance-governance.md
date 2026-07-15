@@ -8,6 +8,12 @@
 
 **Stable knowledge evolves through evidence mapping, not vocabulary expansion.**
 
+**Protocol pairing**（[`Architecture Evolution Protocol`](../../governance/lifecycle/architecture-evolution-protocol.md#knowledge-lifecycle-research--maintenance)）:
+
+> **Research creates knowledge; maintenance protects its boundaries.**
+
+Research cycles answer how knowledge **comes**; this document answers how knowledge **does not break**.
+
 Research cycles（Representability → Inferability → Composability）**已結束**的 layer，進入本節奏。新 incident **不**自動重開 research。
 
 ---
