@@ -117,7 +117,7 @@ Research Cycle 2 Start
 | **Domain（下一層）** | Interaction Knowledge — 🟡 Research Justified |
 | **Method（Architecture）** | Layer Growth Rhythm · Constraint Accumulation · Governed Trace Termination · **Readiness-before-New-Layer** |
 
-Knowledge Evolution Method 仍 🟡 Emerging — RC2 為 Method 的**第二條獨立研究線**驗證機會。
+Knowledge Evolution Method 仍 🟡 **Replicated once**（RC2-P1 independent replication）— RC2-P2 為 Method Inferability replication。Canonical log：[`Architecture Evolution Protocol` §Method Validation Log](../../../../governance/lifecycle/architecture-evolution-protocol.md#method-validation-log)
 
 ---
 
@@ -127,7 +127,7 @@ Knowledge Evolution Method 仍 🟡 Emerging — RC2 為 Method 的**第二條�
 | --- | --- | --- |
 | Pattern Knowledge | 🟢 Stable | 維護與擴充 Pattern |
 | Composition Knowledge | 🟢 Stable | 新 Screen 持續 dogfood |
-| Knowledge Evolution Method | 🟡 Emerging | RC2 驗證普適性 |
+| Knowledge Evolution Method | 🟡 Replicated once | RC2-P1 independent replication；見 Protocol §Method Validation Log |
 | Readiness Gate | ✅ Closed | — |
 | Interaction Knowledge | 🟡 **Research Justified** | RC2-P1 ✅ Closed · RC2-P2 ▶ Active |
 | Research Cycle 2 | ▶ Started | 見 [`../_plan.md`](../_plan.md) §Research Cycle 2 |

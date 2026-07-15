@@ -3,7 +3,23 @@
 **Plan**: [`../_plan.md`](../_plan.md)  
 **Date**: 2026-07-15  
 **Status**: RC2-P2 **Active**（stakeholder kickoff complete — 對齊 RC1-P2 Active 慣例）  
-**Prerequisite**: RC2-P1 🟢 Stable — [`rc2-p1-interaction-representability-closure.md`](rc2-p1-interaction-representability-closure.md)
+**Prerequisite**: RC2-P1 ✅ Closed — [`rc2-p1-interaction-representability-closure.md`](rc2-p1-interaction-representability-closure.md)
+
+---
+
+## Framing — Dual evidence chains
+
+RC2-P2 同時產出兩條證據鏈（stakeholder 2026-07-15）：
+
+| Chain | Validates |
+| --- | --- |
+| **Domain Knowledge** | Interaction Inferability |
+| **Method Knowledge** | Knowledge Evolution Method **Inferability independent replication** |
+
+- P2 **成功** → 方法在 Representability 之外再次跨 Layer 成立  
+- P2 **失敗** → 可分辨 Interaction-layer gap vs Method 適用邊界  
+
+Meta record（**不在 RC2 evidence 目錄**）：[`Architecture Evolution Protocol` §Method Validation Log](../../../../governance/lifecycle/architecture-evolution-protocol.md#method-validation-log)
 
 ---
 
@@ -104,11 +120,34 @@ dialog_open → user_confirm_stay_or_leave → dialog_close
 
 | Metric | Role | P2 目標 |
 | --- | --- | --- |
-| **Boundary Misclassification** | **Primary** | 0（Flow→Composition / Flow→Pattern = FAIL） |
+| **Boundary Misclassification** | **Primary** | 0（Flow→Composition / Flow→Pattern / Flow→Runtime = FAIL） |
 | Scenario Accuracy | Supporting | IH1：正確 entry id |
 | Frozen Layer Mods | Blocking | **0** always |
 
 **不是 KPI**：scenario 數量、entry 數量、覆蓋率。
+
+### P2 Report — Table 1（primary；before accuracy）
+
+**第一張表不是 Accuracy**，而是 layer boundary 分類：
+
+| Incident | Initial Guess | Final Layer |
+| --- | --- | --- |
+| Payment Leave | Composition | Interaction |
+| Projection Break | Runtime | Interaction |
+| Listener bound to preload video | Pattern (`modal_dialog`) | Interaction |
+
+RC1 最強證據不是 10/10，而是「這不是 Bottom Sheet」。RC2 對稱：「這不是 Composition / Runtime」。
+
+### Knowledge Layer Confusion Matrix（emerging）
+
+若 Hazard / Runtime / Continuation 持續被誤判，記錄 **Actual × Predicted** 矩陣；矩陣越乾淨 → Knowledge Boundary 越成熟 — 研究價值高於 scenario accuracy 單一數字。
+
+| Actual | Predicted | Notes |
+| --- | --- | --- |
+| Interaction | Composition | Primary failure mode |
+| Interaction | Runtime | P2 watch |
+| Interaction | Continuation | P2 watch |
+| Composition | Interaction | Inverse mislabel |
 
 ---
 
@@ -144,6 +183,7 @@ Vocabulary: 仍僅四欄，除非 P2 exit review 批准擴充。
 | 3 | Primary metric？ | Boundary Misclassification = 0 |
 | 4 | 順序？ | Layer first，Entry second |
 | 5 | 鄰居風險？ | 不吸 Continuation / Navigation / Hazard / Runtime |
+| 6 | 驗方法還是驗 Domain？ | **Both** — dual evidence chains；Method Validation Log 在 Protocol |
 
 ---
 

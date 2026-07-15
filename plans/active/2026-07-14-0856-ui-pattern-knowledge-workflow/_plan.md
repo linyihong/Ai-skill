@@ -56,6 +56,8 @@ revision:
     note: "RC2-P1 CLOSED（stakeholder）：四假說 PASS、與 RC1-P1 對稱；P1 🟢 Stable；RC2-P2 kickoff（IH1–IH3、layer-first、payment_leave_transition 第二案例）"
   - date: 2026-07-15
     note: "RC2-P2 ▶ Active（stakeholder）：kickoff 完成且 success criteria / boundary / 第二案例 / primary metric 已鎖；對齊 RC1-P2 Active 慣例"
+  - date: 2026-07-15
+    note: "Method Validation Log → Architecture Evolution Protocol；Knowledge Evolution Method 🟡 Replicated once（RC2-P1 independent replication）；RC2-P2=dual evidence chains（Domain+Method）"
 ---
 
 # UI Pattern Knowledge — Workflow 強化計畫
@@ -604,7 +606,7 @@ H5：[`3h5-completeness-disposition.md`](./evidence/3h5-completeness-disposition
 | --- | --- | --- |
 | Pattern Knowledge | 🟢 **Stable** | 維護與擴充 Pattern |
 | Composition Knowledge | 🟢 **Stable** | 新 Screen 持續 dogfood |
-| Knowledge Evolution Method | 🟡 **Emerging** | RC2 驗證普適性（第二研究線） |
+| Knowledge Evolution Method | 🟡 **Replicated once** | RC2-P2 ▶ Method Inferability replication；見 [Protocol §Method Validation Log](../../../governance/lifecycle/architecture-evolution-protocol.md#method-validation-log) |
 | Readiness Gate | ✅ **Closed** | R1∧R2∧R3 PASS（2026-07-15） |
 | Interaction Knowledge | 🟡 **Research Justified** | RC2-P1 ✅ Closed；RC2-P2 ▶ Active（`payment_leave_transition`） |
 | Research Cycle 2 | ▶ **Started** | 非 Phase 4；新 Layer → 新 Cycle |
@@ -665,6 +667,19 @@ P1：[`rc2-p1-interaction-representability-closure.md`](./evidence/rc2-p1-intera
 | RC2-P3 | Interaction Composition | Screen / flow | Composability |
 
 RC2-P1 **不**問「Interaction 長什麼樣」，先問 **minimum representable unit**（見 kickoff H1–H3）。
+
+### Dual evidence chains（RC2-P2 起）
+
+RC2-P2 **不是**只做 Interaction 研究 — 同時是 **Knowledge Evolution Method** 的 Inferability **independent replication**。
+
+| Chain | 驗什麼 |
+| --- | --- |
+| **Domain Knowledge** | Interaction boundary / entry inference / repair localization |
+| **Method Knowledge** | Representability → Inferability ladder 能否跨 Layer 重現 |
+
+Meta evidence（非 RC2 目錄）：[`Architecture Evolution Protocol` §Method Validation Log](../../../governance/lifecycle/architecture-evolution-protocol.md#method-validation-log)
+
+**P2 主證據表**（Boundary before accuracy）：Incident · Initial Guess · Final Layer — 非 10/10 accuracy 先行。
 
 ### Readiness 結案紀錄
 

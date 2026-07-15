@@ -122,3 +122,5 @@ Readiness = 主動找反例（非被動 Observation）。找不到反例也是�
 | Interaction Knowledge | 🟡 **Research Justified**（RC2 啟動；見 Readiness gate） |
 
 **UI Pattern Knowledge Research Cycle 1：CLOSED** — 假說鏈驗證完畢。最大長期產出可能不是更多 UI Pattern，而是 AI-native Cognitive System 第一個完整驗證過的 Knowledge Evolution Method。
+
+**Post-closure method maturity**（2026-07-15）：RC2-P1 = **independent replication** → Method 🟡 **Replicated once**。見 [`Architecture Evolution Protocol` §Method Validation Log](../../../governance/lifecycle/architecture-evolution-protocol.md#method-validation-log)（meta evidence 不在本 RC 目錄）。

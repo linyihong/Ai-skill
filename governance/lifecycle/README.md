@@ -62,7 +62,7 @@ Lifecycle executable contracts include [`directory-structure-governance.yaml`](d
 
 **Governance loop**：Decision → RI → Protocol Validation → Maturity。
 
-**Protocol Core**（修改 = 重新評估成熟度）vs **non-core**（Validated Instances、RI 索引、editorial、optional patterns 如 [§Layer Growth Rhythm / Knowledge Evolution Method](architecture-evolution-protocol.md#appendix--layer-growth-rhythm--knowledge-layer-evolution-patternoptional)）。詳見文件 §Protocol Core · §Protocol Changelog。
+**Protocol Core**（修改 = 重新評估成熟度）vs **non-core**（Validated Instances、RI 索引、editorial、optional patterns 如 [§Layer Growth Rhythm / Knowledge Evolution Method](architecture-evolution-protocol.md#appendix--layer-growth-rhythm--knowledge-layer-evolution-patternoptional)、[§Method Validation Log](architecture-evolution-protocol.md#method-validation-log)）。詳見文件 §Protocol Core · §Protocol Changelog。
 
 ## 持久目標邊界（Durable Goal Boundary）
 

@@ -94,8 +94,8 @@ When editing this file, classify each change:
 | 2026-07-14 | Editorial | Pair Constraint Accumulation sentence into §Layer Growth Rhythm；cite H4 stress evidence (Entry Mods=0) |
 | 2026-07-14 | Editorial | Third Layer Growth Rhythm sentence: Every trace must terminate explicitly (H6 Explicit Termination) |
 | 2026-07-14 | Editorial | Name Knowledge Layer Evolution Pattern / Method as Emerging (Research Cycle 1 retrospective) |
-
----
+| 2026-07-15 | New governance pattern | §Method Validation Log — Knowledge Evolution Method independent-replication record (non-core) |
+| 2026-07-15 | Editorial | Method maturity → 🟡 Replicated once (RC2-P1 independent replication); RC2-P2 framed as Method Inferability replication |
 
 ## Positioning — what was once mixed (summary)
 
@@ -398,9 +398,10 @@ Full record in [ADR-013 §Dogfood Evidence](../../constitution/ADR-013-cognitive
 ## Appendix — Layer Growth Rhythm / Knowledge Layer Evolution Pattern（optional）
 
 > **Classification**: optional appendix / reusable research rhythm — **non-core**（does not amend Protocol Core invariants）.  
-> **Also known as**: **Knowledge Evolution Method**（Emerging — first independent validation = UI Pattern Research Cycle 1）.  
+> **Also known as**: **Knowledge Evolution Method**（🟡 **Replicated once** — RC1 first application + RC2-P1 independent replication）.  
 > **Source observation**: UI Pattern Knowledge workflow（Phase 1–3）+ prior Evidence / Governance layering practice.  
-> **Retrospective**: `plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-1.md`
+> **Retrospective**: `plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-1.md`  
+> **Method validation log**: [§Method Validation Log](#method-validation-log)
 
 
 ### Pattern
@@ -425,7 +426,9 @@ Four durable steps（Knowledge Layer Evolution Pattern）:
 Layer → Freeze → Constraint Accumulation → Governed Termination
 ```
 
-First full research-cycle validation: UI Pattern Knowledge（2026-07-14）. Method status **Emerging** until a second independent research line reuses the same four steps without amending them.
+First full research-cycle validation: UI Pattern Knowledge（2026-07-14）— **first application**.  
+RC2-P1 Interaction Representability（2026-07-15）— **independent replication**（different domain; no UI Pattern work; same Vocabulary Freeze / Layer Boundary / Frozen Layer Mods = 0 discipline).  
+Method status **🟡 Replicated once** — not merely a second success in the same domain, but repeatable method transfer to a new Knowledge Layer without amending the four-step ladder.
 
 
 | Phase（instance） | New artifact layer | Freeze target（previous） |
@@ -452,6 +455,47 @@ This is not UI-Pattern-specific. The same rhythm appears when Evidence, Governan
 
 - Single-shot bugfix with no layered knowledge claim
 - Explicit plan revision that **unfreezes** a prior layer（rare；must be written，not accidental）
+
+### Method Validation Log
+
+> **Classification**: optional appendix / meta-evidence — **non-core**.  
+> **Not** domain RC evidence — records whether **Knowledge Evolution Method** reproduces across independent Knowledge Layers.
+
+**Terminology**: use **Independent replication** — not "second validation". What matters is success in a **different domain**, not a repeat win in the same surface.
+
+| Cycle | Layer | Method Result | Evidence |
+| --- | --- | --- | --- |
+| RC1 | Pattern Knowledge | **First application** | [`research-cycle-1.md`](../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-1.md) |
+| RC2-P1 | Interaction Knowledge | **Independent replication** | [`rc2-p1-interaction-representability-closure.md`](../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p1-interaction-representability-closure.md) |
+| RC2-P2 | Interaction Knowledge（Inferability） | ▶ **Active** — Method Inferability replication in progress | [`rc2-p2-interaction-inferability-start.md`](../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p2-interaction-inferability-start.md) |
+
+**Method maturity (2026-07-15)**
+
+| Object | Status |
+| --- | --- |
+| Pattern Knowledge | 🟢 Stable |
+| Composition Knowledge | 🟢 Stable |
+| Interaction Knowledge | 🟡 Research Justified |
+| **Knowledge Evolution Method** | 🟡 **Replicated once** |
+
+**RC2-P2 dual evidence chains**（each active RC phase should produce both）:
+
+| Chain | What it validates |
+| --- | --- |
+| **Domain Knowledge** | Interaction Inferability（layer boundary, entry inference, repair localization） |
+| **Method Knowledge** | Knowledge Evolution Method **Inferability** independent replication |
+
+If RC2-P2 succeeds → method validated beyond Representability.  
+If RC2-P2 fails → disambiguate Interaction-layer gap vs Method applicability boundary.
+
+**P2 primary evidence shape**（Boundary before accuracy）:
+
+| Incident | Initial Guess | Final Layer |
+| --- | --- | --- |
+| Payment Leave | Composition | Interaction |
+| Projection Break | Runtime | Interaction |
+
+Supporting: **Knowledge Layer Confusion Matrix**（Actual × Predicted）— maturation signal when Hazard / Runtime / Continuation mislabels decrease cycle-over-cycle.
 
 ---
 
