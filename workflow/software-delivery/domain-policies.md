@@ -69,7 +69,11 @@ Canonical **Policy** layer for [`README.md`](README.md) §Framework Domain Model
 | Project decision | `docs/decisions/` | ADR 風格即可 |
 | 憑證 / 樣本 ID | gitignored `.local/` 或專案宣告的 ignored 路徑 | 不進版控 |
 
-**專案 overlay（合法）**：bounded-context 專案可將同一 domain 的 brief、contracts、invariants、screen-mapping **共置**於 `docs/domains/{domain}/`（domain bundle），取代扁平 `docs/planning/` + `docs/contracts/`。須在專案 Policy 正文宣告（例如 `docs/architecture/framework-charter.md` 或 `.ai-skill/project/rules/`），且不得與 framework term 定義衝突。外部 dogfood 範例：[`plans/active/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-3-external-greenfield-consumer.md`](../../plans/active/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-3-external-greenfield-consumer.md)。
+**專案 overlay（合法）**：bounded-context 專案可將同一 domain 的 brief、contracts、invariants、screen-mapping **共置**於 `docs/domains/{domain}/`（domain bundle），取代扁平 `docs/planning/` + `docs/contracts/`。須在專案 Policy 正文宣告（例如 `docs/architecture/framework-charter.md` 或 `.ai-skill/project/rules/`），且不得與 framework term 定義衝突。
+
+**Consumer charter 最小章節**（greenfield 對齊 N=3，避免與 framework 脫鉤）：(1) Domain Model 三桶對照；(2) Asset class → placement（含 `docs/evidence/`）；(3) document authority 優先序；(4) knowledge boundary；(5) classify-before-create 步驟。Dogfood：[`plans/active/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-3-charter-completeness-audit.md`](../../plans/active/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-3-charter-completeness-audit.md)。
+
+外部 dogfood 範例：[`phase-3-external-greenfield-consumer.md`](../../plans/active/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-3-external-greenfield-consumer.md)。
 
 多倉 workspace：外層 orchestrator vs sibling 分工見 [`implementation/multi-repository-workspace-mode.md`](implementation/multi-repository-workspace-mode.md)。
 

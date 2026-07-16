@@ -11,7 +11,7 @@ revision:
   - date: 2026-07-16
     note: "Reviewer feedback — Success Criterion 北極星；Phase 0 改為最小完整核心集合（非預設三核心）；Constitution → Principles → Policy 層次修正"
   - date: 2026-07-16
-    note: "Phase 3 execute preflight — dual-plan test with greenfield consumer; evidence phase-3-external-greenfield-consumer-execute"
+    note: "Phase 3 charter completeness audit — consumer Policy 對齊 N=3；domain-policies consumer charter 最小章節"
 required_for_completion: false
 parent: null
 ---
@@ -333,19 +333,20 @@ Automation（Policy + Process 的 runtime projection）
 
 ## Phase 3 — External validation + Automation projection（選做）
 
-### 3a External dogfood — greenfield consumer（observational ✅）
+### 3a External dogfood — greenfield consumer（observational ✅ + charter audit ✅）
 
-比照 [`2026-07-08-0825-delegation-verification-arbitration-loop`](../../2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) 外部 repo 證據慣例；**本 run 僅分類與回饋，未派 E/V**。Consumer 綁定寫 `local/plan-evidence/`（gitignored），不進版控。
+比照 ERA 外部 repo 證據慣例。Consumer 綁定寫 `local/plan-evidence/`（gitignored）。
 
 | 項 | 結論 |
 | --- | --- |
 | N=3 適用 consumer | ✅ pass |
-| `framework-charter` = project Policy | ✅ 非 dual source |
-| domain-bundle `docs/domains/{domain}/` | ✅ 合法 overlay；已回寫 `domain-policies.md` §3.2 |
-| ERA 已落地 | ✅ `delegated-execution.md` + yaml `delegation_loop` |
-| 下一輪 | ~~consumer Phase 2 SPA scaffold O→E→V~~ → **preflight ✅**；完整 loop 待使用者 Execute |
+| `framework-charter` = project Policy | ✅ §8 補齊 Asset/Authority/KB/Lifecycle |
+| Charter 完整度 | 72% → ~95%（見 charter audit） |
+| domain-bundle | ✅ 合法 overlay |
+| ERA 已落地 | ✅ |
+| 流程脫鉤 | ✅ yaml priority + classify_before_create 已修正 |
 
-全文：[`evidence/phase-3-external-greenfield-consumer.md`](evidence/phase-3-external-greenfield-consumer.md) · Execute：[`evidence/phase-3-external-greenfield-consumer-execute.md`](evidence/phase-3-external-greenfield-consumer-execute.md)
+全文：[`phase-3-external-greenfield-consumer.md`](evidence/phase-3-external-greenfield-consumer.md) · Execute：[`phase-3-external-greenfield-consumer-execute.md`](evidence/phase-3-external-greenfield-consumer-execute.md) · Charter：[`phase-3-charter-completeness-audit.md`](evidence/phase-3-charter-completeness-audit.md)
 
 ### 3b Automation projection（仍 open）
 
