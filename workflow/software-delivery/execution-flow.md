@@ -6,6 +6,8 @@
 
 Software-delivery 的 AI runtime gate 見 [`software-delivery-governance.md`](../../governance/ai-runtime-governance/software-delivery-governance.md)；本 workflow 保留執行順序、模板選擇與交付流程。
 
+> **Domain Model**：本檔描述 **Process** 層（何時載入哪個 slice）。Asset 分類與 Policy 規則見 [`README.md`](README.md) §Framework Domain Model；完整驗證見 [`phase-0-classification-matrix.md`](../../plans/active/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-0-classification-matrix.md)。Process **不**定義 placement / owner。
+
 > **Incident path (2026-06)**: 對未知 UI incident，software-delivery 從 execution system 擴展為 **learning system** 決策鏈：delivery produces evidence → evidence decides change → change produces knowledge。Discover → Observe → Classify → Select Layer → Execute → Ship → Retrospective。見 [`incident-observation.md`](incident-observation.md)、[`ui-incident-governance-workflow.md`](ui-incident-governance-workflow.md)、[`change-retrospective.md`](change-retrospective.md)。
 
 > ## Cognitive Slice 導航（thin index）

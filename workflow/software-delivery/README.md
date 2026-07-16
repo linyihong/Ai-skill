@@ -2,6 +2,48 @@
 
 `workflow/software-delivery/` 負責 software-delivery 執行流程。本目錄保存 planning、**capability invoke**（含 review）、handoff 與 contract-first 開發流程，讓開發與審查過程可重複、可驗證。
 
+## Framework Domain Model（Primary Model）
+
+> Canonical 驗證：[`plans/active/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-0-classification-matrix.md`](../../plans/active/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-0-classification-matrix.md)（Phase 0，2026-07-16）。**N = 3**：Asset、Policy、Process。
+
+Software Delivery Framework 的核心抽象只有三個；其餘（Principles、Automation、taxonomy）為 meta 或 projection，不與三核心並列。
+
+```text
+         Governing Principles  ← meta（指導 Policy，非第四核心）
+                 │
+                 ▼
+              +--------+
+              | Policy |  ownership · placement · promotion · authority · lifecycle
+              +--------+
+                 ▲   │
+                 │   ▼
+              +--------+     Intent → (triggers Process)
+              | Asset  |     class: Plan · Contract · Evidence · Decision · Template · Knowledge · …
+              +--------+
+                 │
+                 ▼
+              +---------+
+              | Process |  intake → contracts → implementation → validation → closure
+              +---------+
+                 │
+                 ▼
+            Automation  ← Policy + Process 的 runtime projection
+```
+
+**推導順序**（建立任何產物前先分類，不要先看 workflow）：
+
+```text
+Intent → Asset (class) → Policy → Process (typical stage) → Automation
+```
+
+| 核心 | 回答 | Workflow 的角色 |
+| --- | --- | --- |
+| **Asset** | 世界裡有什麼可管理實體？ | **不擁有** asset 定義；只消費 class |
+| **Policy** | 這類 asset 怎麼管？ | 引用規則；正文收斂中（見 plan Phase 2） |
+| **Process** | 通常何時產生 / 消費？ | `execution-flow.md` + slices 描述此層 |
+
+**Artifact**：Project 層為完成 delivery intent 而產生的 Asset **實例**（術語），非第四核心。
+
 ## 何時進入此 Workflow
 
 當工作任務需要**開發、實作、修改程式碼、進行 code review / design review / release review** 時，agent 應自行判斷並載入本 workflow。不需要 runtime 觸發——agent 知道什麼時候需要開發。

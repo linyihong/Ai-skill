@@ -6,6 +6,8 @@
 
 Artifact completeness 與 same-session closure 的治理 gate 見 [`software-delivery-governance.md`](../../governance/ai-runtime-governance/software-delivery-governance.md)；本檔保留 reusable note 與 artifact 品質門檻。
 
+> **Domain Model**：本檔 §2 的放置表混合 **Policy**（placement）與 **Asset** 分類，待 Phase 2 收斂至統一 Policy 正文。分類順序見 [`README.md`](README.md) §Framework Domain Model（Intent → Asset → Policy → Process）。
+
 ## 1. 可重複使用的筆記結構（Reusable Note Structure）
 
 當將 APK 分析課程、實作觀察、嵌入式/韌體觀察、硬體產品課程或設計審查轉換為可重複使用的開發指引時，使用此結構：
