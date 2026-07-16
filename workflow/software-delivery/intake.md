@@ -19,6 +19,8 @@
 
 > **條件子流程（不另開 slice）**：Backfill for existing project（本檔 §既有專案文件回填 + §已實作專案的回填規則）掛 `sd-intake` 的 `tags: domain-specific,backfill`，僅在處理「已實作但文件缺失」的專案時觸發。Embedded / Hardware Product Flow 不在本 slice，掛 `sd-implementation`。
 
+> **Domain Model**：建立 change brief / plan 等產物前，先分類 **Asset class** 並查 [`domain-policies.md`](domain-policies.md)（ownership · placement）。本 slice 為 **Process** 層，不重定義放置規則。
+
 ---
 
 ## 1. 從證據開始（Start From Evidence）

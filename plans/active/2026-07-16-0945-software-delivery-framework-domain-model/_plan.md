@@ -301,22 +301,23 @@ Automation（Policy + Process 的 runtime projection）
 - [x] 在 plan 記錄 **N = 3** 與定義（見 §Phase 0 結論）
 - [x] 更新 `workflow/software-delivery/README.md`：§Framework Domain Model（圖 + 推導鏈 + 三核心表）
 - [x] `execution-flow.md` 加 Domain Model pointer（Process 層邊界）
-- [ ] 決定 glossary 策略：`knowledge/glossary/software-delivery.md` vs README 內嵌（register Asset / Policy / Process / Artifact terms）
+- [x] 決定 glossary 策略：`knowledge/glossary/software-delivery.md`（5 個 candidate terms；owner-layer workflow-orchestration）
 - [x] **零** 新第一級目錄；未建 `domain-model.md`（README 足夠）
 
 ---
 
-## Phase 2 — Documentation Architecture（僅在 Phase 1 通過後）
+## Phase 2 — Documentation Architecture（進行中）
 
-依 Phase 0 結論選 **最小** 文件切分；下列為候選，**非承諾**：
+依 Phase 0 結論選 **最小** 文件切分：
 
-| 檔 / 目錄 | 條件 |
+| 檔 / 目錄 | 狀態 |
 | --- | --- |
-| `domain-model.md` | Primary Model + 圖 + 推導鏈（若 README 不足） |
-| `policies/*.md` | 僅當 Policy 條目 > ~15 且 README 超載 |
-| `constitution.md` | 僅當信念條文需與 operational policy 分離且 > 1 頁 |
-| `artifact-placement.md` | Policy 子檔：placement 表 |
-| `automation/*.yaml` | Policy 穩定後再投影 |
+| `domain-policies.md` | ✅ 單檔 Policy canonical（無 `policies/` 目錄） |
+| `knowledge/glossary/software-delivery.md` | ✅ Primary Model 詞彙 |
+| `artifact-gates.md` §2 | ✅ pointer；placement 雙寫已移除 |
+| `contracts.md` authority | ✅ pointer 至 domain-policies §4 |
+| `constitution.md` | ⏸ 未建（Principles 在 domain-policies §1 足夠） |
+| `intake.md` | ✅ classify-before-create pointer |
 
 **原則**：文件架構可重組；**Domain 名詞不隨目錄改名**。
 

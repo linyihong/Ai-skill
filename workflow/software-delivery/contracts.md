@@ -35,6 +35,8 @@
 
 ## Contract Governance Gate（合約治理關卡）
 
+> **Authority Policy canonical**：文件衝突優先序與衝突處置的 Policy 正文見 [`domain-policies.md`](domain-policies.md) §4。以下保留 Process 層操作細節與衝突分類表。
+
 每個有多份文件的專案必須定義當文件不一致時哪個 artifact 優先。除非專案有更強的本地規則，否則使用這個預設優先順序：
 
 1. Governance / framework contract：repository 層級的 invariants、必要更新規則、依賴方向、命名、build/run 限制

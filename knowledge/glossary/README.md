@@ -1,6 +1,6 @@
 # Ai-skill Glossary
 
-> Canonical shared-language source for Ai-skill framework vocabulary. 第一批只收 framework / runtime semantics / cognitive vocabulary / architecture contracts。Domain glossary（`software-delivery.md` / `runtime.md` / `validation.md`）延後。
+> Canonical shared-language source for Ai-skill framework vocabulary. 第一批只收 framework / runtime semantics / cognitive vocabulary / architecture contracts。Domain glossary：[`software-delivery.md`](software-delivery.md)（SD Primary Model N=3）；其餘 domain（`runtime.md` / `validation.md`）延後。
 >
 > 上游 plan：[`plans/active/2026-05-25-1000-context-language-glossary-system.md`](../../plans/active/2026-05-25-1000-context-language-glossary-system.md)
 >

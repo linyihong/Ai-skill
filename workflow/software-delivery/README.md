@@ -39,7 +39,7 @@ Intent → Asset (class) → Policy → Process (typical stage) → Automation
 | 核心 | 回答 | Workflow 的角色 |
 | --- | --- | --- |
 | **Asset** | 世界裡有什麼可管理實體？ | **不擁有** asset 定義；只消費 class |
-| **Policy** | 這類 asset 怎麼管？ | 引用規則；正文收斂中（見 plan Phase 2） |
+| **Policy** | 這類 asset 怎麼管？ | [`domain-policies.md`](domain-policies.md)（ownership · placement · authority · promotion） |
 | **Process** | 通常何時產生 / 消費？ | `execution-flow.md` + slices 描述此層 |
 
 **Artifact**：Project 層為完成 delivery intent 而產生的 Asset **實例**（術語），非第四核心。

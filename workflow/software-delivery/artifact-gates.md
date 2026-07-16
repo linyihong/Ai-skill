@@ -6,7 +6,7 @@
 
 Artifact completeness 與 same-session closure 的治理 gate 見 [`software-delivery-governance.md`](../../governance/ai-runtime-governance/software-delivery-governance.md)；本檔保留 reusable note 與 artifact 品質門檻。
 
-> **Domain Model**：本檔 §2 的放置表混合 **Policy**（placement）與 **Asset** 分類，待 Phase 2 收斂至統一 Policy 正文。分類順序見 [`README.md`](README.md) §Framework Domain Model（Intent → Asset → Policy → Process）。
+> **Domain Model**：本檔 §2 的放置表混合 **Policy**（placement）與 **Asset** 分類，已收斂至 [`domain-policies.md`](domain-policies.md) §3。分類順序見 [`README.md`](README.md) §Framework Domain Model（Intent → Asset → Policy → Process）。
 
 ## 1. 可重複使用的筆記結構（Reusable Note Structure）
 
@@ -40,28 +40,13 @@ Artifact completeness 與 same-session closure 的治理 gate 見 [`software-del
 
 ## 2. 內容分類（保持分離）
 
-| 內容 | 放置位置 |
+> **Policy canonical**：Framework 與 Project 的 placement 規則已收斂至 [`domain-policies.md`](domain-policies.md) §3。本節不再維護雙寫表。
+
+| 內容類型 | 放置規則 |
 | --- | --- |
-| 跨平台安全原則 | `controls/` |
-| 平台、應用類型、嵌入式、韌體或硬體產品實作細節 | `platforms/` |
-| 語言/執行時期特定的陷阱 | `languages/` |
-| 具體的可建置實作模式 | `implementation/` |
-| 可重複的審查流程 | `checklists/` |
-| 尚未提升的可重複使用開發原則 | 匹配的 `feedback/history/development-guidance/<category>/`，或跨領域的 `feedback/history/development-guidance/common/` |
-| APK 分析方法或 hook 技術 | `analysis/apk/`、`workflow/apk-analysis/` |
-| 專案特定的板子接線、校準日誌、韌體 dump、bench 測量、裝置識別碼或目標硬體結論 | 專案儲存庫文件 |
-| 產品特定的 API 主機、端點、schema 或令牌細節 | 專案儲存庫文件 |
-| 原始供應商文件、帳戶特定條款、憑證、沙箱/正式主機、私人 webhook 負載或真實客戶資料 | 專案儲存庫文件，附清理和存取控制 |
-| 生成的客戶端、SDK、fixtures 和提供者/消費者合約檢查 | `implementation/` 和專案儲存庫 |
-| Screen Mapping、Consumer Contract、UI Behavior Contract、Screen Contract、Frontend ViewModel Contract、Accessibility Contract、Screen Traceability | [`ui-contracts.md`](ui-contracts.md)、templates 和專案儲存庫的 planning / contract artifacts |
-| Pattern Knowledge Lock（pattern 選型／對齊、Core entry、composition、prompt expansion；非 Screen Mapping） | [`ui-contracts.md`](ui-contracts.md) §Pattern Knowledge Lock、[`ui-pattern-knowledge/`](ui-pattern-knowledge/README.md)、[`ui-pattern-knowledge/pattern-index.yaml`](ui-pattern-knowledge/pattern-index.yaml)、[`ui-pattern-knowledge/validation/entry-schema.yaml`](ui-pattern-knowledge/validation/entry-schema.yaml)、[`templates/ui-pattern-knowledge.entry.template.yaml`](templates/ui-pattern-knowledge.entry.template.yaml)、[`templates/ui-pattern-knowledge.composition.template.yaml`](templates/ui-pattern-knowledge.composition.template.yaml)、[`templates/ui-pattern-prompt-expansion.template.md`](templates/ui-pattern-prompt-expansion.template.md) |
-| UI governance evidence：governance domain、render context、collection method、validation mechanism、evidence class、severity、project-local design-system policy、responsive / visual / AI review scope | [`ui-governance.md`](ui-governance.md)、[`responsive-ui`](../../intelligence/engineering/governance/responsive-ui/README.md)、[`templates/ui-governance-evidence-template.md`](templates/ui-governance-evidence-template.md) 和專案 review / validation artifacts |
-| Journey Specification / Journey Validation evidence：project-defined critical journey、BDD scenario ref、side-effect chain、expected outcomes、observable evidence、validation result | [`test-strategy.md`](test-strategy.md)、[`validation.md`](validation.md) 和專案 `tests/bdd` / validation artifacts |
-| Product Brief 驗證、Impact Map × Customer Journey Map 對齊、文件優先順序、可追溯性和 BDD 閉環流程 | `process/`、templates 和 checklists |
-| 重構、遷移、replacement 或新入口替代舊入口的新舊能力 parity inventory | 專案規劃文件、implementation plan 或專屬 parity inventory；若是可重用流程缺口，回饋到 `workflow/software-delivery/` |
-| 效能預算、負載/壓力/尖峰/浸泡策略、CI smoke 檢查和發布證據 | `process/`、`CHECKLIST.md`、templates 和專案儲存庫的測試或發布筆記 |
-| 共享的清理或回饋規則 | `enforcement/` |
-| 僅限本機的暫記筆記、憑證或暫時性流程產出 | 僅限專案儲存庫：**gitignored** 路徑搭配**中性**目錄命名；透過環境變數和可選的未追蹤檔案進行配置；保持追蹤的 README 不含檔案系統導覽和內部代號 |
+| Framework knowledge 分類 | [`domain-policies.md`](domain-policies.md) §3.1 |
+| Project delivery asset 預設路徑 | [`domain-policies.md`](domain-policies.md) §3.2 |
+| Artifact 品質與 evidence shape | 本檔 §5 起 |
 
 ## 3. 可重複使用指引邊界（Reusable Guidance Boundary）
 
