@@ -15,6 +15,9 @@ runtime/runtime-state.db-*
 # Claude Code 本地設定（per-machine，不進版控）
 .claude/settings.local.json
 
+# Operator-local paths and consumer labels — never commit
+local/
+
 # releasebuild dev artifacts（stable-names 才寫到 bin/，dev 名稱寫到 dist/，不進版控）
 scripts/ai-skill-cli/dist/
 # Host-local dev build (hooks default path); committed artifacts use platform suffix names.

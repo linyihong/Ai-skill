@@ -10,13 +10,15 @@ revision:
     note: "Phase 0 完成 — N=3 驗證；evidence matrix；README + execution-flow pointer（零新第一級目錄）"
   - date: 2026-07-16
     note: "Reviewer feedback — Success Criterion 北極星；Phase 0 改為最小完整核心集合（非預設三核心）；Constitution → Principles → Policy 層次修正"
+  - date: 2026-07-16
+    note: "Phase 2 完成 + Phase 3 external greenfield consumer observational dogfood；domain-bundle overlay"
 required_for_completion: false
 parent: null
 ---
 
 # Software Delivery Framework Domain Model
 
-**Status**: `in-progress`（Phase 0 ✅ · Phase 1 部分 ✅）  
+**Status**: `in-progress`（Phase 0 ✅ · Phase 1 ✅ · Phase 2 ✅ · Phase 3 external observational ✅）  
 **Owner**: framework maintainer (linyihong)  
 **建立日期**：2026-07-16  
 **Priority**：**P1**（架構收斂；阻擋 premature documentation sprawl）
@@ -329,7 +331,23 @@ Automation（Policy + Process 的 runtime projection）
 
 ---
 
-## Phase 3 — Automation projection（選做，Phase 2 穩定後）
+## Phase 3 — External validation + Automation projection（選做）
+
+### 3a External dogfood — greenfield consumer（observational ✅）
+
+比照 [`2026-07-08-0825-delegation-verification-arbitration-loop`](../../2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) 外部 repo 證據慣例；**本 run 僅分類與回饋，未派 E/V**。Consumer 綁定寫 `local/plan-evidence/`（gitignored），不進版控。
+
+| 項 | 結論 |
+| --- | --- |
+| N=3 適用 consumer | ✅ pass |
+| `framework-charter` = project Policy | ✅ 非 dual source |
+| domain-bundle `docs/domains/{domain}/` | ✅ 合法 overlay；已回寫 `domain-policies.md` §3.2 |
+| ERA 已落地 | ✅ `delegated-execution.md` + yaml `delegation_loop` |
+| 下一輪 | consumer active plan 下一 phase SPA scaffold 走完整 O→E→V（可登記 ERA 2v） |
+
+全文：[`evidence/phase-3-external-greenfield-consumer.md`](evidence/phase-3-external-greenfield-consumer.md)
+
+### 3b Automation projection（仍 open）
 
 - [ ] 評估 `artifact-gates.yaml` / intake gate 是否可表達 `Asset class → required policy fields`
 - [ ] 與 `enforcement-registry` 對齊：SD framework policy 是否需新 `rule_class`
