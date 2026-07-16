@@ -50,6 +50,8 @@ revision:
     note: "Dogfood 2s — Architecture 域：UI Pattern Knowledge plan review（R1+R2 Verifier）；跨域表 Architecture→已驗證；stage 2 = 2/3（Knowledge 仍缺）；evidence/2s-…"
   - date: 2026-07-14
     note: "Domain Boundary — APK Analysis ↔ Software Delivery Capability Handoff（不對稱成熟度）；companion 04；預註冊 dogfood 2t（2t-A Discovery / 2t-B Handoff→SD Intake）；不套三角色於 apk-analysis"
+  - date: 2026-07-16
+    note: "Dogfood 2v — greenfield consumer Phase 2 preflight（brief+backfill；0 E+V；配對 domain-model execute）"
 ---
 
 # Delegation Verification & Arbitration Loop（委派執行→獨立驗證→仲裁閉環）
@@ -440,6 +442,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 - [x] **2q — ExternalRepoC transport inner-only runtime gap** — 2026-07-13 **负向/纠偏**（[`evidence/2q-externalrepoc-transport-inner-only-runtime-gap.md`](evidence/2q-externalrepoc-transport-inner-only-runtime-gap.md)）；loop 绿≠路径通；features+L3+V5；**不**视为 Phase 3 closure
 - [x] **2r — <PROJECT_ROOT> player overlay Mode A hit-trap** — 2026-07-13 **负向证据**（[`evidence/2r-consumer-player-overlay-mode-a-hit-trap.md`](evidence/2r-consumer-player-overlay-mode-a-hit-trap.md)）；soft-nav 绿→cold URL 全死；programmatic click / 单入口假绿；consumer entry-path 矩阵回馈；**不**视为 Phase 3 closure
 - [x] **2s — 跨域 run（Architecture 域）：UI Pattern Knowledge plan review** — 2026-07-14（[`evidence/2s-architecture-ui-pattern-knowledge-plan-review.md`](evidence/2s-architecture-ui-pattern-knowledge-plan-review.md)）；R1+R2 Task Verifier；stakeholder 仲裁；**不**填 Knowledge 格；**不**視為 UI Pattern Knowledge Phase 1 完成；**不**視為 Phase 3 closure
+- [x] **2v — greenfield consumer Phase 2 preflight** — 2026-07-16（[`evidence/2v-external-greenfield-consumer-phase2-preflight.md`](evidence/2v-external-greenfield-consumer-phase2-preflight.md)）；brief+backfill 寫入 `<PROJECT_ROOT>` plan evidence；0 E+V；配對 domain-model execute；consumer verify OK；**不**視為 Phase 3 closure
 - [ ] **2t — APK Analysis ↔ Software Delivery Capability Handoff（預註冊，2026-07-14）** — 契約與雙軌設計見 [`04-apk-capability-handoff-boundary.md`](04-apk-capability-handoff-boundary.md)。**2t-A**：真實 APK Discovery（candidate workflow；Decision = *Can we explain?*；**不**強制三角色）。**2t-B**（僅 Capability Assessment = Yes）：Capability Proposal → SD Intake → **既有** Delegated Execution。預註冊 F1–F4。**不**填 Knowledge；**不**宣稱 APK Delegated Execution 已驗證；**不**視為 Phase 3 closure。啟動：指定 consumer `<PROJECT_ROOT>` 後開 `evidence/2t-…`
 - [x] **2e — 跨域 run（Research/Audit 域）：grandfather sunset audit** ✅ — 2026-07-08–09（[`evidence/2e-grandfather-sunset-audit.md`](evidence/2e-grandfather-sunset-audit.md)）；Q6/Q7(b)/Q8 的 stage-2 裁決 run。完整 loop：調查者（worktree，252 行報告 `c8ff035`，中斷後 resume 完成）→ 事實查核者（fresh，引文逐條命中、5 surfaces 獨立重跑一致、findings ×2 全 observation）→ 仲裁（defer×2，無 fix）。**實質產出**：5/5 surfaces 已 wired、flag 條款過時、延展不觸發、sunset 只剩行政收尾（處置決定保留 maintainer，見 `02-grandfather-sunset-audit.md`）。**跨域觀察**：四責任自然成立（topology 不同：+maintainer 第二層 decision）；backfill 結構化形式明確缺席、弱形式（evidence-first acceptance）出現；證據責任四問同構重現（含「自產證據不能自我關閉」跨域不變式）——詳 kit §2e Q6/Q7/Q8 觀察表
 - [x] 回饋迴路（2b 觸發 ×1）：F2 暴露 brief v1 缺「reusable doc 目標須含 tool-neutral 措辭條款」→ brief v2 追加 acceptance 9、kit 使用說明補教訓；修契約未修執行者；fix leg 重跑通過。2a 若再暴露缺漏比照處理。

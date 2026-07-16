@@ -17,25 +17,29 @@
 
 | Run ID | 檔案 | 狀態 | 摘要 |
 |---|---|---|---|
+| **2a** | [`2a-software-delivery-review-invoke.md`](2a-software-delivery-review-invoke.md) | 完成 | software-delivery review invoke dogfood |
+| **2a-external** | [`2a-external-sync-adapter-step6.md`](2a-external-sync-adapter-step6.md) | 完成 | 外部 sync adapter step6 |
+| **2b** | [`2b-plans-sop-expansion.md`](2b-plans-sop-expansion.md) | 完成 | plans SOP 擴充 + brief v2 回饋 |
+| **2c** | [`2c-tiered-archive-platform.md`](2c-tiered-archive-platform.md) | 證據 only | tiered archive platform dogfood |
+| **2d** | [`2d-outbound-sync-phase3.md`](2d-outbound-sync-phase3.md) | 證據 only | outbound sync Phase 3（4 slices） |
 | **2d′** | [`2d-prime-externalrepoc-module-alignment.md`](2d-prime-externalrepoc-module-alignment.md) | 證據 only | ExternalRepoC 9j2 模組 01/02 對齊 follow-on；integration gate、remote_absent_delete、live teardown、release-time gate |
-| **2h** | [`2h-externalrepoc-common-url-verification-gaps.md`](2h-externalrepoc-common-url-verification-gaps.md) | 證據 only | ExternalRepoC 03 common-url Execute：RBAC 三连漏网、V5 仅 list、combined defer L1–L3、api-surface gate 回饋 |
-| **2i** | [`2i-externalrepoc-user-feedback-pull-execute.md`](2i-externalrepoc-user-feedback-pull-execute.md) | 證據 only | ExternalRepoC 04 user-feedback S0–S4 Execute：2h 教训迁移、Stop/resume、inventory gate、sync_jobs 分表、mapping defer |
+| **2f** | [`2f-falsification-naming-run.md`](2f-falsification-naming-run.md) | 預註冊 | falsification naming run |
+| **2g** | [`2g-externalrepoa-server-doc-placement.md`](2g-externalrepoa-server-doc-placement.md) | 證據 only | ExternalRepoA server_doc test placement + overlay |
+| **2h** | [`2h-externalrepoc-common-url-verification-gaps.md`](2h-externalrepoc-common-url-verification-gaps.md) | 證據 only | ExternalRepoC common-url Execute 验证不严 |
+| **2i** | [`2i-externalrepoc-user-feedback-pull-execute.md`](2i-externalrepoc-user-feedback-pull-execute.md) | 證據 only | ExternalRepoC user-feedback S0–S4 Execute |
 | **2j** | [`2j-externalrepoc-push-execute-skip-verifier-loop.md`](2j-externalrepoc-push-execute-skip-verifier-loop.md) | 负向证据 | ExternalRepoC 05 push Execute：**0 Verifier**、单 Task 包办、`delegation.enabled:false` 误豁免；consumer verifier-after-executor gate 回饋 |
 | **2k** | [`2k-externalrepoc-push-post-close-runtime-gaps.md`](2k-externalrepoc-push-post-close-runtime-gaps.md) | 證據 only | ExternalRepoC 05 push **2j 纠偏后**：slice 关闭 vs 用户手验（模版/商户/远程同步）；Worker 拓扑、pull 映射、post-close surgical debt |
 | **2l** | [`2l-externalrepoc-common-url-s2-mirror-skip-loop.md`](2l-externalrepoc-common-url-s2-mirror-skip-loop.md) | 负向证据 | ExternalRepoC 03 S2′ mirror：**0 Executor/Verifier**、surgical bypass 滥用、Shell 绕过 preToolUse；2j/2k 教训未内化 |
 | **2m** | [`2m-externalrepoc-phase-g-mirror-batch-retrofit.md`](2m-externalrepoc-phase-g-mirror-batch-retrofit.md) | 正负对照 | ExternalRepoC **Phase G-mirror** 批量 retrofit：V-m1–V-m5 + 登记总表；02/01 合规 loop vs 03/2l；stale JVM V5-A 复发 |
 | **2n** | [`2n-externalrepoc-push-delivery-s1-s6-compliant-loop.md`](2n-externalrepoc-push-delivery-s1-s6-compliant-loop.md) | 正向证据 | ExternalRepoC **07 push delivery** DEL-S1–S6：6/6 E+V loop、sub-plan `completed`、零 post-close bypass；对照 2j/2k/2l |
-| **2o** | [`2o-consumer-tab-scroll-single-vs-delegation.md`](2o-consumer-tab-scroll-single-vs-delegation.md) | 正负对照 | `<PROJECT_ROOT>` `/h5` tab-scroll：**单 session 部分关** vs **三角色全 linked**；authority model 桥接 State Trust；deploy smoke≠L3 |
-| **2r** | [`2r-consumer-player-overlay-mode-a-hit-trap.md`](2r-consumer-player-overlay-mode-a-hit-trap.md) | 负向证据 | <PROJECT_ROOT> player overlay：**Mode A** soft-nav 绿 → cold URL 全死；programmatic click / 单入口假绿；回馈 entry-path 矩阵 |
+| **2o** | [`2o-consumer-tab-scroll-single-vs-delegation.md`](2o-consumer-tab-scroll-single-vs-delegation.md) | 正负对照 | `<PROJECT_ROOT>` tab-scroll 单 session vs 三角色 |
+| **2p** | [`2p-externalrepoc-integration-default-cutover-d0-d5.md`](2p-externalrepoc-integration-default-cutover-d0-d5.md) | 正向证据 | Integration 默认切流 INT-D0–D5：6/6 E+V |
+| **2q** | [`2q-externalrepoc-transport-inner-only-runtime-gap.md`](2q-externalrepoc-transport-inner-only-runtime-gap.md) | 负向/纠偏 | transport inner-only 假绿 |
+| **2r** | [`2r-consumer-player-overlay-mode-a-hit-trap.md`](2r-consumer-player-overlay-mode-a-hit-trap.md) | 负向证据 | player overlay Mode A hit-trap |
 | **2s** | [`2s-architecture-ui-pattern-knowledge-plan-review.md`](2s-architecture-ui-pattern-knowledge-plan-review.md) | 跨域 Architecture | UI Pattern Knowledge **plan** review：四責任成立；Knowledge 格仍空；orchestrator 越界疤保留 |
 | **2t** | [`2t-apk-capability-handoff.md`](2t-apk-capability-handoff.md) | **partial / 2t-A observational** | 真實 APK Discovery consumer：overlay→[`04`](../04-apk-capability-handoff-boundary.md)；Assessment 持續 `no`（含可重放 sign 後）；**未**套三角色、**未** 2t-B |
 | **2u** | [`2u-externalrepoc-p12-r1-mapping-removal-impl-done.md`](2u-externalrepoc-p12-r1-mapping-removal-impl-done.md) | 正负对照 | ExternalRepoC **P12-R1** 删 merchant-product-mapping：完整 E+V；`implementation_done`；V5-M linked、V5-A captcha/Redis defer；merge rebase + post-merge build fix |
-| 2d | —（inline） | 證據 only | 見 [`01-dogfood-prompt-kit.md`](../01-dogfood-prompt-kit.md) → `### 2d` |
-| 2c | —（inline） | 證據 only | 見 kit → `### 2c` |
-| 2g | —（inline） | 證據 only | 見 kit → `### 2g` |
+| **2v** | [`2v-external-greenfield-consumer-phase2-preflight.md`](2v-external-greenfield-consumer-phase2-preflight.md) | preflight | Greenfield consumer Phase 2 scaffold：brief+backfill；0 E+V |
 | 2e | [`2e-grandfather-sunset-audit.md`](2e-grandfather-sunset-audit.md) | 完成 | Research 域 grandfather sunset；Q6/Q7/Q8 跨域观察 |
-| 2f | —（inline，預註冊） | 進行中 | 見 kit → `### 2f`；產出候選 [`03-repo-naming-candidates.md`](../03-repo-naming-candidates.md) |
-| 2b | —（inline） | 完成 | 見 kit → `### 2b` |
-| 2a / 2a-external | —（inline） | 完成 | 見 kit → `### 2a` / `### 2a-external` |
 
-> **漸進遷移**：2026-07-09 起新證據進本目錄；舊 run 仍 inline 於 kit，後續可按需拆檔，拆後更新本表「檔案」欄。
+> **漸進遷移**：2026-07-09 起新證據進本目錄；kit 保留傳輸模板與精簡指標。
