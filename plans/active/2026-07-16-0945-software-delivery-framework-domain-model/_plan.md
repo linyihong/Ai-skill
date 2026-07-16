@@ -306,7 +306,7 @@ Automation（Policy + Process 的 runtime projection）
 
 ---
 
-## Phase 2 — Documentation Architecture（進行中）
+## Phase 2 — Documentation Architecture（完成）
 
 依 Phase 0 結論選 **最小** 文件切分：
 
@@ -385,9 +385,9 @@ Automation（Policy + Process 的 runtime projection）
 - [x] Primary Model 圖通過「懸空盒子」檢查
 - [x] **Success Criterion 滿足**：README + execution-flow pointer；零新第一級目錄
 - [x] Phase 1 README 更新合併
-- [ ] 至少 1 次 dogfood：用模型回答 3 個新 artifact 問題（placement / owner / stage）無需開新目錄
-- [ ] 若 Phase 2 執行：workflow slice 無 placement dual source-of-truth（grep 驗證）
-- [ ] Linked updates：`workflow/software-delivery/README.md`、`knowledge/glossary/`（若新增 SD terms）、相關 validation scenario（若 automation）
+- [x] 至少 1 次 dogfood：用模型回答 3 個新 artifact 問題（placement / owner / stage）無需開新目錄 — 見 [`evidence/phase-2-dogfood.md`](evidence/phase-2-dogfood.md)
+- [x] 若 Phase 2 執行：workflow slice 無 placement dual source-of-truth（grep 驗證）— 見 dogfood evidence
+- [x] Linked updates：`workflow/software-delivery/README.md`、`knowledge/glossary/software-delivery.md`
 
 ---
 
