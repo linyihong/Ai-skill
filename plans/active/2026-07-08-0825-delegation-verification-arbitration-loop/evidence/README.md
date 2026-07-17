@@ -40,7 +40,7 @@
 | **2t** | [`2t-apk-capability-handoff.md`](2t-apk-capability-handoff.md) | **partial / 2t-A observational** | 真實 APK Discovery consumer：overlay→[`04`](../04-apk-capability-handoff-boundary.md)；Assessment 持續 `no`（含可重放 sign 後）；**未**套三角色、**未** 2t-B |
 | **2u** | [`2u-externalrepoc-p12-r1-mapping-removal-impl-done.md`](2u-externalrepoc-p12-r1-mapping-removal-impl-done.md) | 正负对照 | ExternalRepoC **P12-R1** 删 merchant-product-mapping：完整 E+V；`implementation_done`；V5-M linked、V5-A captcha/Redis defer；merge rebase + post-merge build fix |
 | **2v** | [`2v-external-greenfield-consumer-phase2-preflight.md`](2v-external-greenfield-consumer-phase2-preflight.md) | preflight | Greenfield consumer Phase 2 scaffold：brief+backfill；0 E+V |
-| **2w** | （啟動時新增 `2w-travel-planning-independent-verification.md`） | **預註冊** | Travel Planning：高風險路書獨立驗證委派；見 `_plan` Phase 2 與 `workflow/travel-planning/execution-flow.md` §17.1；不填 Knowledge |
+| **2w** | [`2w-travel-planning-independent-verification.md`](2w-travel-planning-independent-verification.md) | **完成（一輪）** | Travel Planning：分宿 2+3＋車停城堡；獨立 Verifier findings×13；仲裁 fix 預算標題／司機歸屬／09:00 受付／早接駁；不填 Knowledge |
 | 2e | [`2e-grandfather-sunset-audit.md`](2e-grandfather-sunset-audit.md) | 完成 | Research 域 grandfather sunset；Q6/Q7/Q8 跨域观察 |
 
 > **漸進遷移**：2026-07-09 起新證據進本目錄；kit 保留傳輸模板與精簡指標。
