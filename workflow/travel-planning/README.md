@@ -68,6 +68,7 @@
 15. 車中泊 / road trip checks → permission, quietness, support stops.
 16. Recommendation pass → 30+ point checklist before finalizing.
 17. Final verification → goal, action, validation for every conclusion.
+   （可選）高風險行程可委派 fresh-context Verifier 做獨立驗證；見 `execution-flow.md` §17.1 與委派 loop dogfood **2w**。
 ```
 
 ### Transportation Research Flow

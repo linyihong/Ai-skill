@@ -51,7 +51,12 @@ steps:
     action: Build stops, food, weather backups, long-distance transport comparison, transport mode, lodging base, route shape, and country/region-specific checks.
   - id: finalize_feasible_itinerary
     order: 6
-    action: Produce route/order with feasibility, fallback plans, confidence labels, exact locations, next actions, and practical booking checks.
+    action: >
+      Produce route/order with feasibility, fallback plans, confidence labels,
+      exact locations, next actions, and practical booking checks. For high-risk
+      itineraries (ferry anchors, multi-base lodging, immovable hard constraints),
+      optionally delegate Final Verification to a fresh-context verifier agent
+      per plans/README.md Delegation loop (dogfood 2w; see source_markdown §17.1).
     gates:
       - gate.travel_planning.feasibility_checked
 
@@ -98,6 +103,14 @@ failure_modes:
   - id: hidden_backtracking
     detection: Route doubles back without explanation.
     recovery: Reorder, move lodging base, or label backtracking warning with reason.
+  - id: self_verified_high_risk_itinerary
+    detection: >
+      High-risk itinerary (ferry schedule, dual lodging rendezvous, hard booking
+      anchors) closed with author-only verification and no independent check.
+    recovery: >
+      Optionally spawn a fresh-context verifier against artifact-gates checklist;
+      orchestrator arbitrates findings (fix/defer/reject). Not mandatory for
+      trivial edits.
 
 final_status_report:
   required_fields:

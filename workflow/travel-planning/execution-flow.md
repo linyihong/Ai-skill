@@ -293,3 +293,17 @@
 - 驗證或參考來源：官方/當前來源，或明確的不確定性標籤。
 
 如果當前無法存取網路，請說明並提供規劃骨架以及使用者在旅行前應驗證的來源檢查清單。
+
+### 17.1 可選：獨立驗證委派（Independent Verification）
+
+高風險行程（自駕＋渡輪／多日分宿／不可移動硬錨點）可把本節驗證腿委派給 **另一個 fresh-context agent**，對齊 [`plans/README.md`](../../plans/README.md) §Delegation「派發 → 獨立驗證 → 仲裁」：
+
+| 角色 | Travel 實例化 |
+| --- | --- |
+| Production | 行程撰寫 agent（產出路書／Day plan／MapCode 表） |
+| Evidence | Verifier：重查官方來源、MapCode、硬錨點時間、分宿／會合邏輯；**只產 findings** |
+| Decision | 使用者或主 session：fix / defer / reject |
+
+- **不強制**每次旅遊規劃都走三角色；小修補或純問答直接做。
+- 這是 **workflow 消費委派協議**，不是把 travel-planning 改寫成 software-delivery；跨域 dogfood 預註冊見 [`plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md`](../../plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)（dogfood **2w**）。
+- Verifier 量尺優先：`artifact-gates` 的 exact location / source / feasibility / confidence labels，而非程式測試命令。
