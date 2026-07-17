@@ -56,11 +56,13 @@ revision:
     note: "Dogfood 2w 預註冊 — Travel Planning 獨立驗證委派（execution-flow §17.1）；跨域表加 Travel 列；不填 Knowledge"
   - date: 2026-07-17
     note: "Dogfood 2w 完成一輪 — 城堡×2＋車／新栄×3；Verifier findings×13；仲裁 fix；evidence/2w-…"
+  - date: 2026-07-17
+    note: "Dogfood 2x — consumer player 單 fixture 假綠與 A-fix-B-break；回饋 acceptance-equivalence gate、最小 variant matrix、decoded-frame oracle；模型自然落位"
 ---
 
 # Delegation Verification & Arbitration Loop（委派執行→獨立驗證→仲裁閉環）
 
-**Status**: `in-progress`（Phase 0–2 完成；外部 monorepo dogfood **2a–2q** + consumer **2o/2r**；跨域 **2e Research** + **2s Architecture**；**2n/2p 正向闭环**；**2t 預註冊** APK↔SD Capability Handoff（見 [`04-apk-capability-handoff-boundary.md`](04-apk-capability-handoff-boundary.md)，未跑）；Phase 3 / closure **仍不收斂** — Q5 schema promotion open，deadline 2026-08-31；stage 2 **2/3** Knowledge 仍缺）
+**Status**: `in-progress`（Phase 0–2 完成；外部 monorepo dogfood **2a–2q** + consumer **2o/2r/2x**；跨域 **2e Research** + **2s Architecture**；**2n/2p 正向闭环**；**2t 預註冊** APK↔SD Capability Handoff（見 [`04-apk-capability-handoff-boundary.md`](04-apk-capability-handoff-boundary.md)，未跑）；Phase 3 / closure **仍不收斂** — Q5 schema promotion open，deadline 2026-08-31；stage 2 **2/3** Knowledge 仍缺）
 **Owner**: linyihong
 **建立日期**: 2026-07-08
 **Source**: 2026-07-08 對話 — 使用者觀察到外部框架的三角色模式：主 session 只做規劃 / 切分 / 仲裁，執行交給獨立 agent session，驗證再交給另一個獨立 session，最後由主 session 仲裁每條驗證發現（要修 / 超出範圍 / 駁回）。目標：補漏「預計與實現的落差」。主要針對 `workflow/software-delivery` 的交付處理；Ai-skill 自身任務比照辦理，觀察品質是否提升。**2026-07-14 延伸**：真實 APK 分析專案進入視野 → 落實 Domain vs Workflow 邊界（APK Discovery candidate ≠ SD Delegated Execution validated）；Capability Handoff 為 Domain Boundary，非把三角色套到 apk-analysis。
@@ -449,6 +451,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 - [x] **2s — 跨域 run（Architecture 域）：UI Pattern Knowledge plan review** — 2026-07-14（[`evidence/2s-architecture-ui-pattern-knowledge-plan-review.md`](evidence/2s-architecture-ui-pattern-knowledge-plan-review.md)）；R1+R2 Task Verifier；stakeholder 仲裁；**不**填 Knowledge 格；**不**視為 UI Pattern Knowledge Phase 1 完成；**不**視為 Phase 3 closure
 - [x] **2v — greenfield consumer Phase 2 preflight** — 2026-07-16（[`evidence/2v-external-greenfield-consumer-phase2-preflight.md`](evidence/2v-external-greenfield-consumer-phase2-preflight.md)）；brief+backfill 寫入 `<PROJECT_ROOT>` plan evidence；0 E+V；配對 domain-model execute；consumer verify OK；**不**視為 Phase 3 closure
 - [x] **2w — Travel Planning 獨立驗證委派** — 2026-07-17（[`evidence/2w-travel-planning-independent-verification.md`](evidence/2w-travel-planning-independent-verification.md)）；城堡×2＋車／新栄×3；fresh Verifier findings×13；仲裁 fix 後寫回路書；**不**填 Knowledge；**不**視為 Phase 3 closure；未跑第二輪 Verifier
+- [x] **2x — consumer player variant matrix** — 2026-07-17（[`evidence/2x-consumer-player-variant-matrix.md`](evidence/2x-consumer-player-variant-matrix.md)）；Mode A 單 fixture 假綠後發生 A-fix-B-break；回饋 acceptance-equivalence gate、方向×裝置×media-path 最小矩陣、decoded-frame oracle；現有 ERA 模型自然落位；**不**視為 Phase 3 closure
 - [ ] **2t — APK Analysis ↔ Software Delivery Capability Handoff（預註冊，2026-07-14）** — 契約與雙軌設計見 [`04-apk-capability-handoff-boundary.md`](04-apk-capability-handoff-boundary.md)。**2t-A**：真實 APK Discovery（candidate workflow；Decision = *Can we explain?*；**不**強制三角色）。**2t-B**（僅 Capability Assessment = Yes）：Capability Proposal → SD Intake → **既有** Delegated Execution。預註冊 F1–F4。**不**填 Knowledge；**不**宣稱 APK Delegated Execution 已驗證；**不**視為 Phase 3 closure。啟動：指定 consumer `<PROJECT_ROOT>` 後開 `evidence/2t-…`
 - [x] **2e — 跨域 run（Research/Audit 域）：grandfather sunset audit** ✅ — 2026-07-08–09（[`evidence/2e-grandfather-sunset-audit.md`](evidence/2e-grandfather-sunset-audit.md)）；Q6/Q7(b)/Q8 的 stage-2 裁決 run。完整 loop：調查者（worktree，252 行報告 `c8ff035`，中斷後 resume 完成）→ 事實查核者（fresh，引文逐條命中、5 surfaces 獨立重跑一致、findings ×2 全 observation）→ 仲裁（defer×2，無 fix）。**實質產出**：5/5 surfaces 已 wired、flag 條款過時、延展不觸發、sunset 只剩行政收尾（處置決定保留 maintainer，見 `02-grandfather-sunset-audit.md`）。**跨域觀察**：四責任自然成立（topology 不同：+maintainer 第二層 decision）；backfill 結構化形式明確缺席、弱形式（evidence-first acceptance）出現；證據責任四問同構重現（含「自產證據不能自我關閉」跨域不變式）——詳 kit §2e Q6/Q7/Q8 觀察表
 - [x] 回饋迴路（2b 觸發 ×1）：F2 暴露 brief v1 缺「reusable doc 目標須含 tool-neutral 措辭條款」→ brief v2 追加 acceptance 9、kit 使用說明補教訓；修契約未修執行者；fix leg 重跑通過。2a 若再暴露缺漏比照處理。
