@@ -55,9 +55,10 @@ ECS criterion → 期望「把最高頻 plan 接成 ECS feeder」**證實不成�
 從「感覺」變成**結構事實**：registered ECS plan 全是低頻來源（governance subsystem ~1–2/月、economics
 事件式、interaction 事件式、perf 卡 family-undetermined），而唯一高頻的 plan 是**不同 family**。
 
-→ ECS `phase2_gate=20` 在自然速率下**現實上是 distant / maybe-never**。這是 gate calibration 的觀察點
-（門檻當初是猜的，沒有 rate 數據），**現在不改**；先讓 EL-5 起的 velocity 數據累積。此結論**不推動、也不
-阻擋** Phase 1（Phase 1 已是價值）。
+→ ECS `phase2_gate=20` **現在不能 calibrate**（2026-07-21 修正：不是「distant/maybe-never」——那是無據
+推理；正確是 **denominator 未知**：一年合規案例 8 個則 20 太高、80 個則 20 合理，目前無資料）。**不改
+數字**；observation period 改為累積 **discovery rate / stop rate / velocity** 三個 rate（見 ECS plan 執行
+入口）。此結論**不推動、也不阻擋** Phase 1（Phase 1 已是價值）。
 
 ## Shared Trait（recurrence，analogy 非 same-family）
 

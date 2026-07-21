@@ -36,6 +36,37 @@ age_p95<30d）的真實數據決定是否開 Phase 2。在 gate 未達前主動�
 scanner / evidence-rule 演進——**改進由真實資料驅動，不由設計想像驅動**。ECS 真正要等的證據不是
 「再多一個 sample」，而是累積到能回答「expire 為何多／哪類最易 discard／哪些 rule 幾乎不產 candidate
 ／哪些 plan 永遠沒 evidence」的那批資料。
+
+**真正被驗證的是 applicability，不是 ECS 本身（2026-07-21 maintainer 修正）**。本輪最大產出 =
+不斷回答「**什麼根本不該進 ECS**」，applicability boundary 開始長出來：
+
+| Artifact 類 | 進 ECS? | 理由（family-analysis 判定） |
+|---|---|---|
+| governance subsystem（mechanical） | ✅ | `new_6step_sample`（sample #8 已 accept） |
+| delegation-loop | ❌ | different family（人工角色協議，無 mechanical executor） |
+| perf-governance | ❌ | family 未定（EL-3A） |
+| cache-read-path / play-view-dedup | ❌ | perf-governance 的 consumer，非獨立 subject |
+| app performance 數據 | ❌ | domain evidence，非 Ai-skill 架構 |
+
+→ ECS 不是「任何 evidence 都能放」，而是 **narrow-applicability / high-precision** 系統。**低 candidate
+rate 是健康，不是失敗。**
+
+**`phase2_gate=20` 現在不能 calibrate（不是「很遠」，是「denominator 未知」）**：一年真正合規案例是 8 個
+（→ 20 太高）還是 80 個（→ 20 合理），目前**沒有資料**。改數字無依據。observation period 要累積的
+**不是 count，是三個 rate**（皆可經自然使用累積，不需新機制）：
+
+| Metric | 公式 | 回答什麼 |
+|---|---|---|
+| **Candidate discovery rate** | candidate ÷ analyzed artifacts | ECS 實際 applicability 有多窄（precision）；長期低是健康 |
+| **Family-analysis stop rate** | Different / Same / Insufficient 分布 | Analysis layer 是否成為高頻決策工具（見下） |
+| **Candidate velocity** | 每月 accepted / discard / expire | 校準 `phase2_gate`（20 到底合不合理） |
+
+> **Analysis layer 可能比 ECS 更高頻（watch，不升格）**：實際高頻路徑正在變成
+> `Observation → Analysis → Different family → Stop`，而非 `Observation → Candidate`。family-analysis
+> 已從「找共同點」長出**否決能力（negative power：能有信心說「不是」，理由具體到 lifecycle/authority/
+> executor/applicability）**。這暗示它可能是獨立 decision-support layer，非只是 ECS 前置——但證據仍全在
+> governance 域，維持 `governance/family-analysis/README.md` 的 watch-point，**現在不抽 primitive**。
+
 **Glossary Impact**: yes（候選新詞 `evidence_candidate` / `candidate_registry` / `notify_rule`；**尚未**註冊到 `knowledge/glossary/ai-skill.md`，待 gate 通過再決定）
 
 ## Executive summary
