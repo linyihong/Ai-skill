@@ -16,10 +16,10 @@ required_for_completion: false
 
 | Field | Value |
 |-------|-------|
-| **Status** | Observed Across Dual Paths |
-| **Confidence** | stop path → **verified** (`01`); happy path → **partial-verified** (`02`) |
+| **Status** | Observed Across Triple Paths（happy path Gate A **passed** via `03`） |
+| **Confidence** | stop path → **verified** (`01`); happy path → **verified** (`03`, Gate A passed); earlier happy path → **partial-verified** (`02`) |
 | **Enforcement** | disabled（no ai-skill validator / commit-msg hook） |
-| **Promotion** | pending independent audit（pointer/SHA → **Promoted**, not Verified） |
+| **Promotion** | `03` has SHA pointer（project repo, local/未 push；具體 SHA 記在專案本地 `.ai-skill/dogfood/`）→ **Promoted** 仍 pending push + independent audit |
 
 Phase 3 / 5 / validator hook **延後**。最有價值資產：evidence maturity 語言穩定，非再擴文件。
 
@@ -425,8 +425,9 @@ compatibility:
 ## Phase 4 — Dogfood & optional scenario
 
 - [x] **必填（validator 前置 gate）**：≥1 真實任務走 `change_kind: feature` + `execution_mode: preparatory_refactoring`
-- [x] **有效證據路徑（dual path collected）**：
-  - **Happy path**：structure → checkpoint → stop (`exit_when`) → feature — [`02`](02-vidoe-test-project-dogfood-evidence.md) **partial-verified**（structure-transition only；feature 未閉環）
+- [x] **有效證據路徑（triple path collected）**：
+  - **Happy path（Gate A passed）**：structure → checkpoint（observable equivalence）→ stop (`exit_when`) → feature — [`03`](03-external-spa-return-qty-verified.md) **verified**（external SPA return-qty；e2e 10→10 isolated + karma 32）
+  - **Happy path（earlier）**：structure → checkpoint → stop → feature — `02`（earlier project-layer dogfood）**partial-verified**（structure-transition only；equivalence 未證明）
   - **Stop 設計驗證 path**：structure → structure → `force_exit_when` → 縮 scope — [`01`](01-dogfood-evidence.md) **verified**
 - [x] 記錄：change_kind、execution_mode、intent 序列、transition 理由（含 illegal transition 有無）、checkpoint、exit_when / force_exit_when 觸發理由
 - [x] Dogfood 通過後才開 maturity ladder（優先 **illegal transition** validator）— 本 phase **不** runtime 化
@@ -441,16 +442,17 @@ Observed → Partial Verified → Verified (behavior proven) → Promoted (indep
 | Evidence | Class | Role |
 |----------|-------|------|
 | [`01-dogfood-evidence.md`](01-dogfood-evidence.md) | **verified** | stop / `force_exit` 機制有效 |
-| [`02-vidoe-test-project-dogfood-evidence.md`](02-vidoe-test-project-dogfood-evidence.md) | **partial-verified** | structure→transition 可運作；equivalence 未證明 |
+| `02`（earlier project-layer dogfood） | **partial-verified** | structure→transition 可運作；equivalence 未證明 |
+| [`03`](03-external-spa-return-qty-verified.md) | **verified** | happy path 全程；Gate A observable equivalence **proven** |
 
 **Phase 4 status (do not over-read)**:
 
-- [x] dual evidence path **collected**
+- [x] triple evidence path **collected**
 - [x] `force_exit` path **verified** (`01`)
-- [ ] happy path **completed** — **no**
+- [x] happy path **completed** (`03` — structure→checkpoint→stop→feature 全程閉環)
 - [x] happy path **partial-verified** (`02`)
-- [ ] happy path **Verified** — pending Gate A（equivalence / behavior proven）
-- [ ] happy path **Promoted** — pending pointer/SHA + independent audit (+ future validator wiring)
+- [x] happy path **Verified** (`03`) — **Gate A passed**（equivalence proven；behavior proven）
+- [ ] happy path **Promoted** — SHA pointer exists (project repo, recorded project-locally) but **local/未 push**；pending push + independent audit (+ future validator wiring)
 
 **Upgrade gates**（collection ≠ promotion）:
 
@@ -470,7 +472,7 @@ Observed → Partial Verified → Verified (behavior proven) → Promoted (indep
 - [ ] linked-updates 檢查
 - [ ] archive plan + dogfood evidence
 
-**Phase 5 阻塞說明（2026-06-29）**：dogfood 已雙路徑（`01` ai-skill + `02` Vidoe-Test）；glossary / linked-updates / archive 仍待觀察期結束或 Phase 3 四檔 cross-link 補齊後一次收口。
+**Phase 5 阻塞說明（2026-06-29）**：dogfood 已多路徑（`01` ai-skill + `02` earlier project + `03` external SPA）；glossary / linked-updates / archive 仍待觀察期結束或 Phase 3 四檔 cross-link 補齊後一次收口。
 
 ---
 
@@ -482,7 +484,7 @@ Observed → Partial Verified → Verified (behavior proven) → Promoted (indep
 - [ ] Stop condition（exit_when + force_exit_when）+ avoid + Intent Transition Rule 在正文與 review checklist
 - [ ] Compatibility default 在 implementation-plan template 或正文
 - [ ] Observable Equivalence Checkpoint 定義（不綁 no-op）
-- [x] ≥1 dogfood evidence — dual path: `01` **verified** + `02` **partial-verified**（happy path 未 completed / 未獨立稽核）
+- [x] ≥1 dogfood evidence — triple path: `01` **verified** (force_exit) + `03` **verified** (happy path, Gate A passed) + `02` **partial-verified**（Promoted 仍待 push + 獨立稽核）
 - [ ] doc-only 宣告；無 runtime projection 本輪
 
 ---
@@ -506,7 +508,8 @@ Observed → Partial Verified → Verified (behavior proven) → Promoted (indep
 | Plan | 關係 |
 |------|------|
 | [`02-software-delivery-plan-first-ordering`](2026-06-22-1009-plans-system-portability-and-delivery-integration/02-software-delivery-plan-first-ordering.md) | plan artifact ⟲ preflight；本 plan 定義 implementation plan 內 intent schema |
-| **Vidoe-Test landscape player** | project-layer dogfood — [`02`](02-vidoe-test-project-dogfood-evidence.md) (**partial-verified**); Gate A → Verified; pointer → Promoted |
+| **`02` earlier project dogfood** | project-layer — `02` (**partial-verified**); Gate A → Verified; pointer → Promoted |
+| **`03` external SPA dogfood** | project-layer — [`03`](03-external-spa-return-qty-verified.md) (**verified**, Gate A passed); SHA local (project-local pointer) → push → Promoted |
 | [`gen3-workflow-analysis-cognitive-slice-decomposition`](../archived/2026-05-29-0916-gen3-workflow-analysis-cognitive-slice-decomposition.md) | 延續 sd-implementation retained；**不**新增 slice id |
 | Recovery / Release 擴充 | out of scope |
 
@@ -528,4 +531,5 @@ Observed → Partial Verified → Verified (behavior proven) → Promoted (indep
 | 2026-06-29 | Phase 4 force_exit dogfood；觀察期 sign-off；enforcement 延後 | stakeholder：dogfood 驗 contract 站得住 | 本對話 |
 | 2026-06-29 | Phase 1 落地 execution-modes.md + execution-flow 導航；Phase 2 intake 雙軸 + templates intent 欄位 | implementation execution governance | agent |
 | 2026-06-29 | Maturity ladder refine: Verified=behavior proven; Promoted=independently auditable; pointer blocks Promoted only | stakeholder gate semantics | 本對話 |
-| 2026-06-29 | Vidoe-Test project-layer dogfood **partial-verified** | landscape Phase 0 guard + structure-transition | [`02-vidoe-test-project-dogfood-evidence.md`](02-vidoe-test-project-dogfood-evidence.md) |
+| 2026-06-29 | `02` project-layer dogfood **partial-verified** | Phase 0 guard + structure-transition | `02` |
+| 2026-07-22 | `03` external SPA happy-path dogfood **verified**（Gate A observable equivalence proven；SHA project-local） | 補齊 `02` 缺的 equivalence checkpoint | [`03`](03-external-spa-return-qty-verified.md) |
