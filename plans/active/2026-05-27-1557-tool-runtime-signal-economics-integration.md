@@ -13,6 +13,21 @@ parent: null
 
 draft
 
+> **RESUME (new session / cold start) — read this first.**
+> 這是一個**受控觀察計畫**，不是待實作的 plan。接手時 **DO NOT** 直接去 build Phase 3–12、也 **DO
+> NOT** 主動蒐集更多證據案例（兩者都是本 plan 明文要避免的失敗模式）。
+>
+> - **現況**：Round 1 reduction（D1/D2/D3）完成 → durability observation 模式。細節見 §Reduction
+>   Decisions、§Round 1 結案 + Evidence-Accumulation Gate、§Durability Observation。
+> - **下一個動作點（唯二）**：(1) **W2 盤點**——2026-07-31 窗口結束後，依 §Durability Observation
+>   的 Boundary Stability 方法重跑 tally（new artifacts / owner relocation / distribution）；
+>   (2) **Gate 1 事件**——若正常開發撞到 `decision_blocked=yes` / 跨層定義衝突 rework /
+>   `owner relocation>0`，記入 §Evidence Log 並人工決定是否 reopen。
+> - **平時**：不碰此 plan。推動它的是正常開發產生的真實壓力，不是編輯 plan。
+> - **判讀上限**：durability ≠ correctness；closure 前須做 coverage sanity check（見 §Durability
+>   Observation）。
+> - 對應 [[evidence-log-resolution-locality]] / [[observation-only-evidence-gate]] memory。
+
 **目前執行入口（next）**：Reduction **Round 1 complete**（D1/D2/D3，見 §Reduction Decisions），
 已進入 **durability observation**（2026-06-24 reframe，見 §Durability Observation）——**不是「等
 更多證據」**，而是驗證 Round 1 boundary 決策在真實演進下是否裂開。不主動尋找案例；讓正常開發持續，
@@ -800,11 +815,11 @@ lifecycle 會重開 ownership）。
 
 | date | class | artifact | observation | strength | decision_blocked | resolution_locality |
 | --- | --- | --- | --- | --- | --- | --- |
-| 2026-06-12 | B | Vidoe-Test `docs/plans/2026-06-16-state-trust-transition-pilot.md` §Phase C outcome; `tests/integration/episode_coupon_redeem_journey.integration.mjs`; `.ai-skill/project/rules/interaction-hazard-review.md` §Interaction Evidence Hierarchy | Downstream pilot falsified proxy-success: integration could PASS on L3 signals (synthetic click / POST 200) while user journey failed; fix required L2 semantic + L1 capability close-out. Current Cognitive Mode close-out reports execution/context cost and CHECKLIST validation but has no field for **evidence authority layer** (diagnosis vs journey close-out) or confidence that success was declared at the correct layer. Plan vocabulary `evidence_depth` / split `execution_cost` does not distinguish “test passed” from “capability persists”. | soft | no | local |
-| 2026-06-12 | B | Vidoe-Test Phase C close-out + coupon pointer-interception fix (`ImmersivePlayerFrame.tsx` `previewCouponExpanded` capture dismiss); same pilot plan §success authority transfer | Same session: `confirm_intent` failed on pointer path but keyboard path worked — failure mode is **interaction-channel untrustworthy**, not API/Dialog owner alone. Report split (`runtime_state` vs `ecosystem_state`) has no surface for **input-path invalidation** or interaction-channel owner; economics pressure model would need cross-layer join not yet named in ecosystem contract. | soft | no | local |
-| 2026-06-12 | A | Vidoe-Test pilot: deliberate refusal to promote Interaction Evidence Hierarchy + authority model to Ai-skill canonical (`interaction-hazard-review.md` §Learning vs governance; pilot plan §Governance discipline) | Downstream explicitly parked “what evidence may claim user capability holds” in **project overlay** pending C.5/ADR #4. No clear promotion target between `workflow/` project overlay, not-yet-created `ecosystem/`, and `governance/` — agent writeback defaulted to `project-docs`. Not blocking work, but repeats D1 gap: interaction/derived phenomena observed without ecosystem owner path materialized. | soft | no | local |
-| 2026-06-17 | A | Vidoe-Test `docs/plans/2026-06-17-1400-performance-validation-architecture-pilot.md` (L438/452/894) + Ai-skill `workflow/software-delivery/perf-governance.md` (`result ⊥ stability`, `confidence: validated`) + Vidoe-Test `.ai-skill/project/rules/interaction-hazard-review.md` | 同一 cross-cutting 概念「evidence-authority / result-confidence（pass ≠ 可信 capability）」在不同情境被獨立重新發明，且各自落在**不同層**：perf → `workflow/software-delivery/perf-governance.md`；interaction → project overlay；Finding 4 原意 → cognitive-state（未做）。無 agreed owner，散落 ≥3 層；每次 `resolution_locality` 皆 **local**。重演 D1 gap：interaction/derived 現象被觀察但無 ecosystem owner path。 | soft | no | local |
-| 2026-06-17 | A/B (pending) | Vidoe-Test perf pilot `result ⊥ stability`（L438「result/stability 拆分」、L452「Performance OK / Measurement confidence LOW」）→ promoted Ai-skill `perf-governance.md`（validated） | 不同領域（perf 量測）獨立撞到「pass ≠ 可信」，且**就地自解**——promote 成 `workflow/software-delivery/perf-governance.md` slice，未走 cognitive-state。`resolution_locality` = local。分類 A(owner) vs B(state) **pending interpretation**：最強訊號是「同概念被不同層吸收」，尚不足以斷定 state 必須有 confidence 維度。 | soft | no | local |
+| 2026-06-12 | B | <AI_SKILL_DOGFOOD_EVIDENCE> `docs/plans/2026-06-16-state-trust-transition-pilot.md` §Phase C outcome; `tests/integration/episode_coupon_redeem_journey.integration.mjs`; `.ai-skill/project/rules/interaction-hazard-review.md` §Interaction Evidence Hierarchy | Downstream pilot falsified proxy-success: integration could PASS on L3 signals (synthetic click / POST 200) while user journey failed; fix required L2 semantic + L1 capability close-out. Current Cognitive Mode close-out reports execution/context cost and CHECKLIST validation but has no field for **evidence authority layer** (diagnosis vs journey close-out) or confidence that success was declared at the correct layer. Plan vocabulary `evidence_depth` / split `execution_cost` does not distinguish “test passed” from “capability persists”. | soft | no | local |
+| 2026-06-12 | B | <AI_SKILL_DOGFOOD_EVIDENCE> Phase C close-out + coupon pointer-interception fix (`ImmersivePlayerFrame.tsx` `previewCouponExpanded` capture dismiss); same pilot plan §success authority transfer | Same session: `confirm_intent` failed on pointer path but keyboard path worked — failure mode is **interaction-channel untrustworthy**, not API/Dialog owner alone. Report split (`runtime_state` vs `ecosystem_state`) has no surface for **input-path invalidation** or interaction-channel owner; economics pressure model would need cross-layer join not yet named in ecosystem contract. | soft | no | local |
+| 2026-06-12 | A | <AI_SKILL_DOGFOOD_EVIDENCE> pilot: deliberate refusal to promote Interaction Evidence Hierarchy + authority model to Ai-skill canonical (`interaction-hazard-review.md` §Learning vs governance; pilot plan §Governance discipline) | Downstream explicitly parked “what evidence may claim user capability holds” in **project overlay** pending C.5/ADR #4. No clear promotion target between `workflow/` project overlay, not-yet-created `ecosystem/`, and `governance/` — agent writeback defaulted to `project-docs`. Not blocking work, but repeats D1 gap: interaction/derived phenomena observed without ecosystem owner path materialized. | soft | no | local |
+| 2026-06-17 | A | <AI_SKILL_DOGFOOD_EVIDENCE> `docs/plans/2026-06-17-1400-performance-validation-architecture-pilot.md` (L438/452/894) + Ai-skill `workflow/software-delivery/perf-governance.md` (`result ⊥ stability`, `confidence: validated`) + <AI_SKILL_DOGFOOD_EVIDENCE> `.ai-skill/project/rules/interaction-hazard-review.md` | 同一 cross-cutting 概念「evidence-authority / result-confidence（pass ≠ 可信 capability）」在不同情境被獨立重新發明，且各自落在**不同層**：perf → `workflow/software-delivery/perf-governance.md`；interaction → project overlay；Finding 4 原意 → cognitive-state（未做）。無 agreed owner，散落 ≥3 層；每次 `resolution_locality` 皆 **local**。重演 D1 gap：interaction/derived 現象被觀察但無 ecosystem owner path。 | soft | no | local |
+| 2026-06-17 | A/B (pending) | <AI_SKILL_DOGFOOD_EVIDENCE> perf pilot `result ⊥ stability`（L438「result/stability 拆分」、L452「Performance OK / Measurement confidence LOW」）→ promoted Ai-skill `perf-governance.md`（validated） | 不同領域（perf 量測）獨立撞到「pass ≠ 可信」，且**就地自解**——promote 成 `workflow/software-delivery/perf-governance.md` slice，未走 cognitive-state。`resolution_locality` = local。分類 A(owner) vs B(state) **pending interpretation**：最強訊號是「同概念被不同層吸收」，尚不足以斷定 state 必須有 confidence 維度。 | soft | no | local |
 | 2026-06-24 | A-counterevidence | `enforcement/evidence-hierarchy.md`（Authority 軸 + Confidence Integrity：aligned/inflated/degraded/unsupported）；`runtime/cognitive-modes-discovery.yaml:220`（discovery signal 已 consume `enforcement.evidence_hierarchy.contract` + `route.governance.cognitive-state-evidence`）；`governance/evidence-candidates/README.md`（owned by governance、不接入 runtime） | 回查發現 evidence-authority / confidence 已有**共享 canonical owner（enforcement）**；runtime 僅 consume signal。投影鏈 canonical owner → governance index → runtime consume → workflow specialize 為正常分層、**非 duplication**。目前較符合 **surface-exposure gap**（Cognitive Mode 報告未 surface confidence-integrity）而非 ownership gap。對 06-17「owner ambiguity」假設構成**反證（counterevidence），非 resolved**：已證明 owner exists，尚未證明 existing owner sufficient。 | hard | no | shared |
 
 **欄位**：`class` ∈ A / B / C（見上方「三類證據」表）；`artifact` 必須指向**真實物件**（plan /
@@ -832,7 +847,7 @@ scenario / validator / report / diff / commit / issue）；`strength` ∈ `hard`
 ### Durability Observation（Gate 重解讀, 2026-06-24, maintainer）
 
 > **定位修正**：目前狀態**不是「等證據」，而是驗證 Round 1 決策的持續性（durability）**。「等證據」
-> 容易滑成無止境蒐集案例；但證據已經不少（Round 1 完成、Vidoe-Test 三類 pilot、Ai-skill 自身
+> 容易滑成無止境蒐集案例；但證據已經不少（Round 1 完成、<AI_SKILL_DOGFOOD_EVIDENCE> 三類 pilot、Ai-skill 自身
 > governance 演進、一筆 A-counterevidence）。真正的問題已從「證據夠不夠」變成：**Round 1 的
 > boundary 決策，在真實演進下會不會開始裂開。**
 
@@ -861,7 +876,7 @@ scenario / validator / report / diff / commit / issue）；`strength` ∈ `hard`
 
 - **06/16–06/30 盤點方法**：`git log --since --until --diff-filter=A` 數新落地 `plans/ workflow/
   validation/scenarios/ enforcement/ governance/ runtime/*.{md,yaml}`（Ai-skill 26：含 ECS 9、
-  workflow slices 6、plans 8、scenario 1、governance template 1、schema 2）+ Vidoe-Test
+  workflow slices 6、plans 8、scenario 1、governance template 1、schema 2）+ <AI_SKILL_DOGFOOD_EVIDENCE>
   `.ai-skill/project/**` 19（rules 11、feedback 5、operations 1、evidence 1、lifecycle 1）；
   relocation 用 `--diff-filter=R` 查 cross-layer rename = 0。
 - **判斷紀錄**：perf-governance P4b promote（overlay→`workflow/`）與 ui-incident-governance 的
