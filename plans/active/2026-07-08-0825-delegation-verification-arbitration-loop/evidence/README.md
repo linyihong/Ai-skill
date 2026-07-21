@@ -42,6 +42,7 @@
 | **2v** | [`2v-external-greenfield-consumer-phase2-preflight.md`](2v-external-greenfield-consumer-phase2-preflight.md) | preflight | Greenfield consumer Phase 2 scaffold：brief+backfill；0 E+V |
 | **2w** | [`2w-travel-planning-independent-verification.md`](2w-travel-planning-independent-verification.md) | **完成（一輪）** | Travel Planning：分宿 2+3＋車停城堡；獨立 Verifier findings×13；仲裁 fix 預算標題／司機歸屬／09:00 受付／早接駁；不填 Knowledge |
 | **2x** | [`2x-consumer-player-variant-matrix.md`](2x-consumer-player-variant-matrix.md) | 負向證據 | Player 單 fixture 假綠與 A-fix-B-break；回饋 acceptance-equivalence gate、方向×裝置×media-path 最小矩陣、decoded-frame oracle |
+| **2y** | [`2y-kaizenwms-phase2-spa-scaffold-c1b.md`](2y-kaizenwms-phase2-spa-scaffold-c1b.md) | 正向＋C1b 纠偏 | KaizenWMS Phase 2 SPA scaffold：完整 O→E→V；Verifier 擋 deliverable-only A3；Orchestrator integration smoke 後 `slice_compliant_closed` |
 | 2e | [`2e-grandfather-sunset-audit.md`](2e-grandfather-sunset-audit.md) | 完成 | Research 域 grandfather sunset；Q6/Q7/Q8 跨域观察 |
 
 > **漸進遷移**：2026-07-09 起新證據進本目錄；kit 保留傳輸模板與精簡指標。
