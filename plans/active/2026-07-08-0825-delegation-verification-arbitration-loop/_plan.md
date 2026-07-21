@@ -62,16 +62,18 @@ revision:
     note: "Dogfood 2y — KaizenWMS Phase 2 SPA scaffold 完整 O→E→V：C1b deliverable-only 假綠→integration smoke；evidence/2y-…"
   - date: 2026-07-21
     note: "Dogfood 2z — KaizenWMS Phase 3 Karma-only 假綠＋stale ng serve/HMR：browser e2e DoD、verifier 須重跑瀏覽器、V5-U stale-dev-server；evidence/2z-…"
+  - date: 2026-07-21
+    note: "External Validation / Positioning（Graph Engineering 對照）— roadmap reprioritized，非研究方向修正；Q5 重述為 Shared State Contract Promotion；見 §External Validation"
 ---
 
 # Delegation Verification & Arbitration Loop（委派執行→獨立驗證→仲裁閉環）
 
-**Status**: `in-progress`（Phase 0–2 完成；外部 monorepo dogfood **2a–2q** + consumer **2o/2r/2x**；跨域 **2e Research** + **2s Architecture**；**2n/2p 正向闭环**；**2t 預註冊** APK↔SD Capability Handoff（見 [`04-apk-capability-handoff-boundary.md`](04-apk-capability-handoff-boundary.md)，未跑）；Phase 3 / closure **仍不收斂** — Q5 schema promotion open，deadline 2026-08-31；stage 2 **2/3** Knowledge 仍缺）
+**Status**: `in-progress`（Phase 0–2 完成；外部 monorepo dogfood **2a–2q** + consumer **2o/2r/2x**；跨域 **2e Research** + **2s Architecture**；**2n/2p 正向闭环**；**2t 預註冊** APK↔SD Capability Handoff（見 [`04-apk-capability-handoff-boundary.md`](04-apk-capability-handoff-boundary.md)，未跑）；Phase 3 / closure **仍不收斂** — Q5 **Shared State Contract Promotion** open，deadline 2026-08-31；stage 2 **2/3** Knowledge 仍缺）
 **Owner**: linyihong
 **建立日期**: 2026-07-08
 **Source**: 2026-07-08 對話 — 使用者觀察到外部框架的三角色模式：主 session 只做規劃 / 切分 / 仲裁，執行交給獨立 agent session，驗證再交給另一個獨立 session，最後由主 session 仲裁每條驗證發現（要修 / 超出範圍 / 駁回）。目標：補漏「預計與實現的落差」。主要針對 `workflow/software-delivery` 的交付處理；Ai-skill 自身任務比照辦理，觀察品質是否提升。**2026-07-14 延伸**：真實 APK 分析專案進入視野 → 落實 Domain vs Workflow 邊界（APK Discovery candidate ≠ SD Delegated Execution validated）；Capability Handoff 為 Domain Boundary，非把三角色套到 apk-analysis。
 **Baseline**: [`03-subplan-agent-delegation`](../../archived/2026-06-22-1009-plans-system-portability-and-delivery-integration/03-subplan-agent-delegation.md)（completed，2026-07-06）— delegation `brief` schema + 雙路徑 dogfood ★★★★☆。本 plan 是其 loop 延伸（情境 C：sibling main plan + baseline_ref，不重開該 tree）。
-**Glossary Impact**: yes — candidate terms：`independent_verification`（fresh-context 驗證 leg，非 executor 自驗、非 orchestrator 自 review）、`arbitration`（orchestrator 對 verifier findings 的處置協議：fix / defer / reject）、`evidence_driven_control_loop`（四責任閉環通用化候選，Q6 gated）、`evidence_responsibility_architecture`（ERA，Q8 假說，第四輪 review 命名）、`evidence_first_acceptance`（Q7 結論的 universal 候選，parent of backfill / embedded evidence rules）、`behavioral_falsification`（V3 evidence producer family 候選，Q9 gated）、`capability_handoff` / `deliverable_capability` / `discovery_evidence`（2026-07-14 Domain Boundary；見 [`04`](04-apk-capability-handoff-boundary.md)）。見 §架構收斂觀察。graduate 時才註冊到 `knowledge/glossary/ai-skill.md`；未定稿前不註冊。
+**Glossary Impact**: yes — candidate terms：`independent_verification`（fresh-context 驗證 leg，非 executor 自驗、非 orchestrator 自 review）、`arbitration`（orchestrator 對 verifier findings 的處置協議：fix / defer / reject）、`evidence_driven_control_loop`（四責任閉環通用化候選，Q6 gated）、`evidence_responsibility_architecture`（ERA，Q8 假說，第四輪 review 命名）、`evidence_first_acceptance`（Q7 結論的 universal 候選，parent of backfill / embedded evidence rules）、`behavioral_falsification`（V3 evidence producer family 候選，Q9 gated）、`capability_handoff` / `deliverable_capability` / `discovery_evidence`（2026-07-14 Domain Boundary；見 [`04`](04-apk-capability-handoff-boundary.md)）、`shared_state_contract` / `transition_contract` / `join_contract`（2026-07-21 External Validation；Q5 重述與 roadmap 優先序，見 §External Validation）。見 §架構收斂觀察。graduate 時才註冊到 `knowledge/glossary/ai-skill.md`；未定稿前不註冊。
 
 > **Watch-Out List citation**：對應 [`architecture/ai-native-cognitive-ecosystem-system.md`](../../../architecture/ai-native-cognitive-ecosystem-system.md) §Watch-Out List 的「process bloat」「premature abstraction」「over-engineering」防呆：
 > - **不建自動 orchestrator** — 03 的 reservation 邊界維持不變；本 plan 是**角色協議**（主 session 人工扮演 orchestrator），不是 automation。
@@ -368,7 +370,50 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 
 **doc-only trial 宣告**：本 plan 不接入 runtime——不新增 `route.*`、不新增 commit-msg validator、不動 `runtime.db` generated surfaces、不動 delegation schema / `validatePlanTreeFrontmatter`。協議以文件 + 行為紀律承載；驗證 leg 復用既有 review capability invoke（`ai-skill runtime capability-invoke --capability code-review --stance fault_finding`，既有 warning-only surface，無新 wiring）。
 
-**未來接入條件（graduation）**：Phase 3 證據評估時決策——若 (a) 三角色 loop 在 ≥2 個真實任務有效、且 (b) role boundary invariant 出現行為維持不住的證據（如 verifier fresh-context 被反覆略過），才評估 schema 欄位（`delegation.verification`）或機械檢查；由後續 plan 承載，本 plan 不 carry。**決策 deadline：2026-08-31**（與本 plan closure 同批；未達證據門檻則明確記錄「維持 doc-only」）。
+**未來接入條件（graduation）**：Phase 3 證據評估時決策——若 (a) 三角色 loop 在 ≥2 個真實任務有效、且 (b) role boundary invariant 出現行為維持不住的證據（如 verifier fresh-context 被反覆略過），才評估 **Shared State Contract**（writer / reader / owner / mutable / immutable；含既有 `delegation.*` 欄位是否納入合約）或機械檢查；由後續 plan 承載，本 plan 不 carry。**決策 deadline：2026-08-31**（與本 plan closure 同批；未達證據門檻則明確記錄「維持 doc-only / procedural governance」）。
+
+### External Validation / Positioning（2026-07-21）— Roadmap 調整，非研究方向修正
+
+**Frame**: External comparison confirms current direction; roadmap reprioritized.  
+對照來源：[Graph Engineering Guide (2026)](https://www.aibuilderclub.com/blog/graph-engineering-guide-2026) + Agents 101 Part 4 orchestration patterns。**不是**「採納 Graph Engineering」；是外部定位驗證。
+
+| 驗證結論 | 含義 |
+|---|---|
+| Loop-first 並非落後 | 與 Graph-first 是不同架構取向：本線 = Evidence → Loop → Governance →（需要時才）Graph |
+| 高價值 graph 能力已覆蓋 | Delegation / ERA 已覆蓋獨立驗證節點與治理閉環（Graph Engineering 清單中最值錢的 reviewer node） |
+| 真實差距 | Shared State 與 Transition / Join 契約——**不是**缺少 Graph Runtime |
+| 定位標籤（辨識度） | **Governance-first Multi-Agent Architecture**（載體可含 graph；核心資產 = ERA + 委派契約 + 獨立驗證 + Constraint/Selection Responsibility） |
+
+**差異化收穫（長期保留）**：Current research identifies **Transition Contracts** as a more fundamental abstraction than explicit graph topology. Graph visualization remains a derived representation rather than the primary design artifact.
+
+```text
+他們（典型 Graph Engineering）     我們（本研究線）
+Graph                              Transition Contract
+  ↓                                  ↓
+Nodes                              Shared State
+  ↓                                  ↓
+Execution                          Governance
+                                     ↓
+                                   Graph（可視化／載體，非一級設計物）
+```
+
+**Roadmap priority（Q5 下游序，Phase 3 起參考）**：
+
+```text
+Q5 — Shared State Contract Promotion
+ │
+ ├─ Shared State Contract（writer / reader / owner / mutable / immutable）
+ ├─ Transition / Edge Contract（Brief · Finding · Arbitration · Decision→Specification）
+ ├─ Join / Fan-in Contract（多 producer／多 reviewer 如何合併、誰 resolve、conflict 如何表示）
+ └─ Graph Visualization（future；State 穩定後才考慮）
+```
+
+**Out of Current Research Scope**（非「永遠不做」——目前沒有足夠證據支持它們符合本研究方向；未來若證據飽和可重開）：
+
+- Auto Orchestrator（與 Selection Responsibility 衝突；維持人工 orchestrator 協議）
+- Generic Graph Runtime / scheduler（成本在 scheduler；本線證據不足以支撐）
+
+**與第十二輪「Q5 Evidence Complete」的關係**：「gate 能限制寫入、不能替代 verification」的研究結論**仍成立**。本次重述提升的是 **promotion target 的精度**（Shared State Contract，而非「幾個 delegation 欄位」），不是重開抽象層級或取消 8/31 批次裁決窗。
 
 ## Open Questions
 
@@ -378,7 +423,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 | Q2 | 協議文件落點：plans/README.md §Delegation 擴充（delegation 擁有 loop）vs `workflow/cross-cutting/review/` consumer doc（review 擁有驗證 leg）？stance 復用不得重定義 | Phase 1 | **resolved（2026-07-08）** | 落點決定 + 文件落地，且未在 consumer 層重定義 stance / requires_context ✅ | 落點 = plans/README.md §Delegation loop SOP 子節（delegation 擁有 loop 生命週期；review 只被 invoke 引用）。commit `af26064` + `2d5bc60`；獨立驗證確認未重定義 stance。副作用：F1 措辭 drift 隨 canonical 移轉消解 |
 | Q3 | 品質信號怎麼量：verifier 差集 findings 數 + 仲裁分佈（fix/defer/reject 比例）是否構成「品質提升」的有效指標？null result 如何記錄？ | Phase 2 | **resolved（2026-07-08，advisory 指標）** | 雙 dogfood 各留差集 + 分佈；複合指標明文化 | **複合指標**（kit §2a-external 結論表）：(1) acceptance-violation 率（2a-external **0/2 rounds**）；(2) test delta（+6）；(3) pre-merge bug fix 數（2：guard + envelope）；(4) 協調成本（spawn×4、plan commit×6）；(5) orchestrator 越界次數（1）。**結論**：品質↑有量化證據；orchestrator 寫 code↓、協調↑；verifier 邊際 catch 本任務為中等（強制 IT/結構化 defer 價值 > acceptance 差集）。null result 未出現 |
 | Q4 | 仲裁紀錄落點：被委派 sub-plan 內 table（傾向）vs 獨立 artifact？ | Phase 1 | **resolved（2026-07-08）** | 落點決定並在 dogfood 實際使用 ✅ | 落點 = 被委派任務的 plan artifact 內 table（SOP 已載明）；dogfood 期記於 kit §Dogfood 紀錄（2b 仲裁表實際使用） |
-| Q5 | Schema promotion 門檻：什麼證據才允許動 delegation schema（如 `delegation.verification`）？ | Phase 3 | open | 門檻明文化；未達門檻則明確記錄維持 doc-only | kit §2c + **§2d** 增強信號；consumer 機械 gate（2c/2d）後 orchestrator 零 manageCode diff；**§2g 第二個獨立 consumer**（ExternalRepoA overlay + backfill + 自建 gate，BDD 7/7）——consumer-layer 自理模式 ×2 成立，slice 各項 promotion eligibility 達標、評估歸 Phase 3 批次 — schema 本身**仍維持 doc-only**。**2j 負向補充（2026-07-10）**：機械 gate「擋寫不擋不驗」缺口實證——role boundary 需 **Verifier-spawn tracking** 類 gate（consumer `verifier-after-executor` 回饋），Phase 3 門檻明文化的直接素材 |
+| Q5 | **Shared State Contract Promotion**（2026-07-21 重述；原「Schema promotion 門檻」）。**Current**: Markdown plan / brief / backfill / evidence + procedural governance。**Research Question**: Should the shared state contract（writer / reader / owner / mutable / immutable）be promoted to a first-class primitive？**Promotion Target**: Shared State Contract（**not** delegation fields themselves）。附帶：什麼證據門檻才允許 promote；未達則維持 doc-only。 | Phase 3 | open（**reprioritized** 2026-07-21；Evidence Complete 結論「gate≠verification」仍持） | 門檻明文化；promote → Shared State Contract 契約（含寫入權）；未達則明確記錄維持 doc-only / procedural governance | kit §2c + **§2d** 增強信號；consumer 機械 gate（2c/2d）後 orchestrator 零 manageCode diff；**§2g** consumer-layer 自理 ×2；schema **仍 doc-only**。**2j**：「擋寫不擋不驗」。**writeback-collision ×3**：canonical writeback 缺 state 寫入契約。**2026-07-21 External Validation**：對齊 Graph Engineering shared-state 缺口與 producer/reviewer join 壓力——提升 Q5 優先級與 target 精度，**不改研究方向**（見 §External Validation） |
 | Q6 | 通用化定位：graduate 時是否以「Evidence-driven Closed Control Loop」（四責任分離：Specification → Production → Independent Evidence → Arbitration → Specification）取代「Delegation」定位？（使用者 review 2026-07-08 提出，見 §架構收斂觀察） | Phase 3（adoption stage 2 gate） | open（**stage-2 進行中 2/3**，2026-07-14；改名裁決留 Phase 3 / maintainer） | Research / Knowledge / Architecture 各一輪真實 run；**驗 pattern 不驗 topology**；stage 3 另需 cross-domain + cross-workflow + cross-project，不在本 plan scope | **2e Research** ✅；**2s Architecture** ✅（UI Pattern Knowledge plan review；Task Verifier；orchestrator 越界疤；**不**填 Knowledge）——pattern held, topology differed；**Knowledge 仍缺** |
 | Q7 | **Verification Backfill 是否為獨立 primitive（Evidence-first Execution）**：「acceptance 在 execution 前映射成證據」是否比 delegation 本身更根本？（第三輪 review 命題 2） | Phase 3 / stage 2 觀察 | open | (a) sd 域內：backfill 在 ≥2 個真實委派任務穩定使用且能擋「做完再想怎麼驗」；(b) 跨域：至少一個非 delivery 域**自然出現或明確缺席**「execution 前的 acceptance→evidence 映射」——缺席也是有效答案（支持「backfill 是 sd-specific，不是 primitive」） | **resolved（2026-07-09）**：(a) sd 域 ≥2 真實使用成立（2c/2d）；(b) 2e Research 域觀察——**結構化 backfill（tier+owner 表）明確缺席且不需要**，出現的是弱形式 **evidence-first acceptance**（acceptance 內嵌證據標準）。**結論：Verification Backfill 是 sd 域強形式 primitive，非 universal；universal 候選改為 evidence-first acceptance**。Reopen 條件：任一非 delivery 域自然長出結構化 tier+owner 映射需求 |
 | Q8 | **Evidence Responsibility Architecture（ERA）是否為更底層共同骨架**：跨域是否自然收斂出相同的「證據責任分配」結構——誰產生哪種證據 / 哪種證據足以支持哪類結論 / 誰不能靠自產證據關閉 / 裁決權屬誰？（第三輪 review 命題 4 立案；**第四輪 review 命名 ERA + invariant candidate「Evidence Producer ≠ Closure Authority」**） | Phase 3 / stage 2 觀察 | open（成功域 **N=3**：sd + Research + Architecture；**2f falsification** 預註冊，[`evidence/2f-falsification-naming-run.md`](evidence/2f-falsification-naming-run.md)；Knowledge 未跑） | **雙向裁決**：(a) 成功域同構累積（不預設 sd 詞彙）；(b) **反例探測（2f，判準已預註冊）**——F1 + F2；目標選擇依**工作性質**（preference-allowed）非 domain 名。邊界維度猜想：Justification Required vs Preference Allowed | **2e** 第一個跨域同構；**2s Architecture** 四問重現（見 [`evidence/2s-architecture-ui-pattern-knowledge-plan-review.md`](evidence/2s-architecture-ui-pattern-knowledge-plan-review.md)）。Primitive 候選排序：ERA > Evidence-first Acceptance > Independent Verification > Four-Responsibility Loop；Delegation 降級為 deployment。負向同構 ×3（2j/writeback-collision/2l）仍有效 |
@@ -388,7 +433,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 
 - [x] Phase 1 協議落地（verifier 契約 + 仲裁協議 + 3 條 role boundary invariants，落點依 Q2 = plans/README.md §Delegation loop SOP）— 2026-07-08，經 2b 委派 loop 產出
 - [x] Phase 2 雙 dogfood 完成：software-delivery 外部 repo 真實任務 ×1 + Ai-skill 內部任務 ×1，各留差集 + 仲裁分佈 evidence — 2026-07-08（2a demo SD read-only + **2a-external 外部 sync-adapter Step 6** 實作 + 2b SOP 擴充；evidence → kit §Dogfood 紀錄）
-- [ ] Phase 3 證據評估：Q5 schema promotion 決策（promote 或明確維持 doc-only）+ glossary 註冊決策落實
+- [ ] Phase 3 證據評估：Q5 **Shared State Contract Promotion** 決策（promote 契約或明確維持 doc-only / procedural governance）+ glossary 註冊決策落實（`shared_state_contract` / `transition_contract` / `join_contract` 候選）
 - [ ] Open Questions 全部 `resolved` / `deferred`（附原因）並回寫
 - [ ] 執行 Plan Completion Closure
 
@@ -408,7 +453,7 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 | Q1 verifier 報告自足性 | resolved | 2b + 2a-external 量測欄：loop 後仲裁未回讀 diff |
 | Q3 品質信號 | resolved（advisory） | 複合指標見 kit §2a-external 結論表 + 2b 量測欄 |
 | Q4 仲裁紀錄落點 | still-open（dogfood 期 interim） | dogfood 期記於 kit §Dogfood 紀錄；真實委派任務落點 Phase 1 決 |
-| Q5 schema promotion 門檻 | still-open | Phase 3 |
+| Q5 Shared State Contract Promotion | still-open（2026-07-21 重述） | Phase 3 |
 
 ### Phase 0.1 — 架構相容性 preflight ✅（2026-07-08）
 
