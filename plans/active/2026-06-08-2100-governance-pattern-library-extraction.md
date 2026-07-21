@@ -4,8 +4,10 @@ plan_kind: main
 status: active
 execution_status: deferred
 owner: linyihong
-last_updated: 2026-07-10
+last_updated: 2026-07-21
 revision:
+  - date: 2026-07-21
+    note: "T3A Authority Surface Decision DECIDED (declaration-site scope only): author declares → system derives → lint verifies; exemption reason = closed vocabulary (new class needs governance review). Lint impl = next step, report-only, 3 checks. T3B unchanged."
   - date: 2026-07-10
     note: "Consumer dogfood §2026-07-10b — Mode A vs B 对照（2o）；deploy-smoke-not-l3-authority"
   - date: 2026-07-10
@@ -218,14 +220,26 @@ reason?), never adjudicating prose.
   - **R2** — if Rule omitted → a `governance_exemptions` entry `step: rule, reason: pure-structural-invariant` exists.
   - **R3** — if Projection omitted → a `governance_exemptions` entry `step: projection, reason: direct-authoritative-consumption` exists.
 - [x] Specify the typed `governance_exemptions` schema + closed `reason` enum (above).
-- [ ] **T3A first decision — "Authority Surface Decision"** (NOT YET DECIDED; blocks lint implementation; resolve only when the first real consumer arrives — do not pre-decide for a system that does not exist yet). Where does `governance_exemptions` get *declared*, and where does enforcement *read* it from?
-  - **Candidate A** — `rule_class` in `enforcement-registry.yaml` → registry-authoritative.
-  - **Candidate B** — plan frontmatter → author-local.
-  - **Candidate C** — template-conformance record → a derived artifact.
-  - **Recorded leaning (2026-06-25, reviewer; tentative)**: a **split** — *author declares* the exemption on an authoring surface (plan / registry, i.e. A and/or B), the lint *produces* a conformance record (C as a **derived** artifact), and enforcement *reads only the conformance record*.
-  - **Rationale — `Validity ≠ Authority`** (the Failure Authority family's core principle): if the exemption is allowed to live *inside* the lint's own record, the validator silently becomes the authority owner of what is exempt. Keeping declaration on the authoring surface and the conformance record strictly *derived* preserves the separation — the lint verifies standing, it does not grant it.
-  - Difference this decides: linting a *structured authoring surface* vs scanning prose; and who owns the exemption truth (author vs validator).
-- [ ] Implement the advisory lint (report-only) — **deferred within T3A** until either (i) the declaration site is decided AND a real subsystem exists to lint against, or (ii) explicit go-ahead to dry-run against the template's own examples. Cost is **not** low (declaration-site parse + runtime-compile advisory wiring + report artifacts), and with no live subsystem yet the false-positive log would be synthetic-only — low evidentiary value.
+- [x] **T3A first decision — "Authority Surface Decision" — DECIDED 2026-07-21** (unblocked because the first real consumer arrived: sample #8/#9, L3 verification closure, §2026-07-10 dogfood). Scope of this decision is deliberately **only the Declaration Site**; lint implementation and the shadow trial are the *next* step, not part of this decision. The resolved pipeline:
+
+  ```
+  Authoritative Declaration        (author declares — plan frontmatter and/or registry rule_class)
+          ↓
+  Derived Conformance Record       (tool artifact — system derives; never author-owned)
+          ↓
+  Shadow Lint (read-only)          (verifies the declaration; never creates/infers it)
+          ↓
+  Report
+  ```
+
+  - **Declaration site (定案)**: `governance_exemptions` is declared on an **authoring surface** — plan frontmatter and/or the subsystem's `enforcement-registry.yaml` rule_class (candidates A + B). **Not** the conformance record.
+  - **Declaration ownership (定案)**: the exemption is the **author's / designer's** responsibility. *Standing is declared, not inferred.* The conformance record (candidate C) is strictly a **derived tool artifact**; enforcement reads only the derived record.
+  - **Lint role = verifier, not authority (定案)**: the lint checks whether a declaration *exists and is valid*. It **must not** infer or synthesise a declaration — it may never conclude "you should be `direct-authoritative-consumption`". Author declares → system derives → lint verifies. Letting the lint infer standing turns verifier → classifier → authority (the exact `Validity ≠ Authority` violation this whole family guards against).
+  - **Decision Contract — closed vocabulary (定案)**: exemption `reason` values are a **closed vocabulary** (`pure-structural-invariant`, `direct-authoritative-consumption`). **Adding a new reason class (e.g. `legacy-system`) requires governance review** — because an exemption reason *is itself a governance contract*, not a free-text field. Ad-hoc reason additions are rejected; without this the shadow lint loses consistency.
+  - **Grounding**: `Validity ≠ Authority` · Standing is declared, not inferred · Evidence constrains decision, not vice versa.
+  - **Done Definition for this decision (all four met → decision closed, stop here):** (1) declaration site fixed · (2) declaration ownership fixed · (3) exemption vocabulary closed · (4) lint positioned as verifier (not authority). ✅ all four recorded above.
+  - **Next step (NOT this decision)**: report-only shadow trial on sample #8/#9, verifying **only three things** — (a) a declaration exists, (b) its reason ∈ closed vocabulary, (c) the report correctly flags `validation_coverage_gap`. It must **not** judge whether the declaration is *reasonable*, whether the *architecture* is right, or whether anything should be *rewritten* — that is design review, not T3A.
+- [ ] Implement the advisory lint (report-only) — precondition (i) **now MET** (declaration site decided 2026-07-21 AND a real subsystem exists: sample #8/#9, L3 verification closure). This is the **immediate next step**, scoped to the three checks in the decision above (declaration exists · reason ∈ closed vocabulary · report flags `validation_coverage_gap`). Still report-only; no CI/merge/compile gate. Cost remains non-trivial (declaration-site parse + advisory wiring + report artifacts) but the false-positive log will now carry *real* evidence, not synthetic.
 - [ ] Outputs (once implemented): `lint_report` (per-subsystem R1/R2/R3 status) + `false_positive_log` (omissions correctly exempted that an enforcing lint *would* have flagged).
 
 **T3A hard constraints** (what makes it "shadow", not enforcement):
