@@ -160,6 +160,7 @@ deliverables:
 | **single-agent skip verifier**（consumer 2j 2026-07-10） | orchestrator 只 spawn **一个** Task 包办 implement + 自验 mvn；**0** Verifier session；用 `delegation.enabled: false` 当不 loop 理由 | Execute 意图 → loop mandatory；consumer **verifier-after-executor** gate；须标 `implementation_done` 非 `slice_compliant_closed` |
 | **batch-todo single Task**（dogfood 2p 对照） | 用户「一口气 / all todos」被解读为一次 Task 做完多 slice | **多 todo = 多轮** brief→E→V；禁止合并 |
 | **transport inner-only path proof**（dogfood 2q） | Verifier 只重跑 mock/unit，默认已切正式 API 却从未 V5-A/sync-remote；对外说「功能通」 | backfill 强制 `tier=runtime` + features↔L3；无密钥 defer follow-up；consumer `gate.plan_transport_runtime_evidence` |
+| **SPA unit-only / stale serve**（dogfood 2z） | Karma／TestBed 绿即关 SPA slice；或长跑 `ng serve` watcher 失效仍手验旧 bundle；HMR 被误当验收 | C1b 要求 browser e2e／runtime UI；V1 独立重跑 Playwright；V5-U：冷启动或确认 watcher 后再验；HMR ≠ evidence |
 | combined mega-slice | 單一 slice 塞過多 deliverables，verifier V4 單輪負載過高、核對品質下降 | 拆 2–3 輪 verifier 或拆 slice（§6） |
 | deploy 隱含在 loop 外 | runtime deploy / migration 無人宣告歸屬，orchestrator 默默代做 | backfill 鐵則 5：列 acceptance 或明標 `beyond-loop` |
 | 綠燈假象（missing constraint） | build 綠 + 測試綠 + 檔案齊，但 runtime 打不開——既有證據只能排除 implementation failure，**無任何證據約束 runtime 可行性**，Close 在過大的可行集裡做出 | backfill 補 `runtime` tier 行 + Verifier V5；未來勿再往 V6/V7 疊 checklist，先問「缺的是哪一種 constraint」 |
