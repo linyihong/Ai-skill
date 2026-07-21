@@ -449,7 +449,13 @@ func resolveClaudeAiSkillRepo(projectDir string) string {
 // route activated (conflict → Stage 2), or the active route has no
 // primary_source. It only blocks the narrow, unambiguous case so a new/
 // imperfect detector never wedges unrelated tool calls.
-func workflowPrimarySourceGate(transcriptPath, aiSkillRepo string) (block bool, routeID, primarySource string) {
+//
+// Cursor flush race: agent-transcripts JSONL often lags behind completed Read
+// tool calls within the same user turn. projectDir side-channel evidence
+// recorded at PreToolUse(Read) time satisfies the gate even when the
+// transcript has not flushed yet (see feedback/history/2026-07-14-workflow-
+// primary-source-read-cursor-evidence.md).
+func workflowPrimarySourceGate(transcriptPath, aiSkillRepo, projectDir string) (block bool, routeID, primarySource string) {
 	if transcriptPath == "" || aiSkillRepo == "" {
 		return false, "", ""
 	}
@@ -477,6 +483,9 @@ func workflowPrimarySourceGate(transcriptPath, aiSkillRepo string) (block bool, 
 	}
 	if ok, _ := transcriptHasRequiredBootstrapReads(transcriptPath, []string{ps}); ok {
 		return false, ctx.ActiveRoute, ps // already read → satisfied
+	}
+	if projectDir != "" && sideChannelHasReadSuffix(projectDir, ps) {
+		return false, ctx.ActiveRoute, ps // Cursor flush lag → side-channel
 	}
 	return true, ctx.ActiveRoute, ps
 }
@@ -605,6 +614,7 @@ func preToolUseReadAllowed(host hookHost, toolName string) bool {
 		case "read",
 			"read_file",
 			"readfile",
+			"functions.read",
 			"functions.readfile",
 			"list_dir",
 			"grep",
@@ -632,9 +642,11 @@ func preToolUseReadAllowed(host hookHost, toolName string) bool {
 // — non-blocking, injected via hookSpecificOutput.additionalContext.
 func finishPreToolUse(host hookHost, transcriptPath, projectDir string, stdout, stderr io.Writer) int {
 	aiSkillRepo := resolveClaudeAiSkillRepo(projectDir)
-	block, routeID, ps := workflowPrimarySourceGate(transcriptPath, aiSkillRepo)
+	block, routeID, ps := workflowPrimarySourceGate(transcriptPath, aiSkillRepo, projectDir)
 	if block {
 		_, _ = fmt.Fprintf(stderr, "BLOCK_WORKFLOW_PRIMARY_SOURCE route=%s primary_source=%s\n", routeID, ps)
+		appendLog("/tmp/ai-skill-bootstrap-hook.log",
+			fmt.Sprintf("deny workflow primary_source route=%s ps=%s transcript=%s", routeID, ps, transcriptPath))
 		reason := fmt.Sprintf("Workflow activation evidence missing (gate.workflow.primary_source_read). "+
 			"The detector locked active_route=%s for this task, but its primary_source has not been Read yet:\n  %s\n"+
 			"Read that workflow primary_source before other (non-Read) tool calls so execution follows the activated "+
@@ -1041,9 +1053,75 @@ func markSeenReadPath(fp string, seen map[string]bool) {
 	}
 }
 
+// workflowPrimarySourceSideChannelPath is a project-scoped evidence file used to
+// bridge Cursor agent-transcript JSONL flush lag. PreToolUse(Read) records paths
+// here immediately; workflowPrimarySourceGate accepts this evidence when the
+// transcript has not yet flushed the same Read tool_use.
+func workflowPrimarySourceSideChannelPath(projectDir string) string {
+	return "/tmp/ai-skill-wf-ps-" + md5Short(projectDir) + ".seen"
+}
+
+func recordSideChannelReadPath(projectDir, filePath string) {
+	if projectDir == "" || strings.TrimSpace(filePath) == "" {
+		return
+	}
+	path := workflowPrimarySourceSideChannelPath(projectDir)
+	normalized := strings.ReplaceAll(strings.TrimSpace(filePath), "\\", "/")
+	f, err := os.OpenFile(path, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0o644)
+	if err != nil {
+		return
+	}
+	defer f.Close()
+	_, _ = fmt.Fprintln(f, normalized)
+}
+
+func sideChannelHasReadSuffix(projectDir, suffix string) bool {
+	if projectDir == "" || strings.TrimSpace(suffix) == "" {
+		return false
+	}
+	data, err := os.ReadFile(workflowPrimarySourceSideChannelPath(projectDir))
+	if err != nil {
+		return false
+	}
+	suffix = strings.ReplaceAll(strings.TrimSpace(suffix), "\\", "/")
+	for _, line := range strings.Split(string(data), "\n") {
+		line = strings.ReplaceAll(strings.TrimSpace(line), "\\", "/")
+		if line == "" {
+			continue
+		}
+		if strings.HasSuffix(line, suffix) {
+			return true
+		}
+	}
+	return false
+}
+
+func toolPathFromPreToolUsePayload(payload map[string]json.RawMessage) string {
+	for _, key := range []string{"tool_input", "arguments", "input"} {
+		raw, ok := payload[key]
+		if !ok {
+			continue
+		}
+		var input map[string]json.RawMessage
+		if err := json.Unmarshal(raw, &input); err != nil {
+			continue
+		}
+		var fp string
+		if transcriptToolInputPath(input, &fp) {
+			return fp
+		}
+	}
+	return ""
+}
+
 func isTranscriptBootstrapReadTool(toolName string) bool {
 	switch strings.ToLower(strings.TrimSpace(toolName)) {
-	case "read", "readfile", "functions.readfile", "read_file", "functions.read_file":
+	case "read",
+		"readfile",
+		"functions.read",
+		"functions.readfile",
+		"read_file",
+		"functions.read_file":
 		return true
 	default:
 		return false
@@ -1342,6 +1420,9 @@ func runPreToolUseHook(projectDir string, stdout io.Writer, stderr io.Writer) in
 	_, _ = fmt.Fprintf(stderr, "DIAG host=%d tool=%q transcript=%q\n", host, toolName, transcriptPath)
 
 	if preToolUseReadAllowed(host, toolName) {
+		if fp := toolPathFromPreToolUsePayload(payload); fp != "" && projectDir != "" {
+			recordSideChannelReadPath(projectDir, fp)
+		}
 		_, _ = fmt.Fprintln(stderr, "ALLOW_READ_TOOL:", toolName)
 		return ExitSuccess
 	}

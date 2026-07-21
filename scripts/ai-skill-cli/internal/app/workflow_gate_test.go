@@ -81,7 +81,7 @@ func writeTranscript(t *testing.T, lines ...string) string {
 func TestWorkflowGate_LockedAndUnread_Blocks(t *testing.T) {
 	repo := writeGateRegistry(t)
 	tr := writeTranscript(t, userLine("幫我做 web scraping 抓網站"))
-	block, route, ps := workflowPrimarySourceGate(tr, repo)
+	block, route, ps := workflowPrimarySourceGate(tr, repo, "")
 	if !block {
 		t.Fatalf("expected block (locked, primary_source unread); route=%q ps=%q", route, ps)
 	}
@@ -96,7 +96,7 @@ func TestWorkflowGate_LockedAndRead_Allows(t *testing.T) {
 		userLine("幫我做 web scraping 抓網站"),
 		assistantReadLine("/abs/path/analysis/web/README.md"), // suffix match
 	)
-	block, _, _ := workflowPrimarySourceGate(tr, repo)
+	block, _, _ := workflowPrimarySourceGate(tr, repo, "")
 	if block {
 		t.Fatal("expected allow once primary_source Read")
 	}
@@ -106,7 +106,7 @@ func TestWorkflowGate_Conflict_Allows(t *testing.T) {
 	repo := writeGateRegistry(t)
 	// both routes activate → conflict → ActiveRoute empty → never block
 	tr := writeTranscript(t, userLine("做 web scraping 並評估 DDD 架構"))
-	block, _, _ := workflowPrimarySourceGate(tr, repo)
+	block, _, _ := workflowPrimarySourceGate(tr, repo, "")
 	if block {
 		t.Fatal("conflict (>1 route) must never block")
 	}
@@ -115,7 +115,7 @@ func TestWorkflowGate_Conflict_Allows(t *testing.T) {
 func TestWorkflowGate_Miss_Allows(t *testing.T) {
 	repo := writeGateRegistry(t)
 	tr := writeTranscript(t, userLine("hi 早安"))
-	block, _, _ := workflowPrimarySourceGate(tr, repo)
+	block, _, _ := workflowPrimarySourceGate(tr, repo, "")
 	if block {
 		t.Fatal("detector miss must never block")
 	}
@@ -123,17 +123,43 @@ func TestWorkflowGate_Miss_Allows(t *testing.T) {
 
 func TestWorkflowGate_FailOpen_NoRepo(t *testing.T) {
 	tr := writeTranscript(t, userLine("幫我做 web scraping"))
-	if block, _, _ := workflowPrimarySourceGate(tr, ""); block {
+	if block, _, _ := workflowPrimarySourceGate(tr, "", ""); block {
 		t.Fatal("must fail open when repo unresolvable")
 	}
-	if block, _, _ := workflowPrimarySourceGate(tr, t.TempDir()); block {
+	if block, _, _ := workflowPrimarySourceGate(tr, t.TempDir(), ""); block {
 		t.Fatal("must fail open when registry missing")
 	}
 }
 
 func TestWorkflowGate_NoTranscript_Allows(t *testing.T) {
 	repo := writeGateRegistry(t)
-	if block, _, _ := workflowPrimarySourceGate("", repo); block {
+	if block, _, _ := workflowPrimarySourceGate("", repo, ""); block {
 		t.Fatal("no transcript path must fail open")
+	}
+}
+
+// Cursor agent-transcript JSONL often lags: Read completed but tool_use not
+// flushed yet. Side-channel recorded at PreToolUse(Read) must clear the gate.
+func TestWorkflowGate_SideChannelClearsFlushRace(t *testing.T) {
+	repo := writeGateRegistry(t)
+	project := t.TempDir()
+	tr := writeTranscript(t, userLine("幫我做 web scraping 抓網站"))
+	// Transcript has NO Read yet → would block without side-channel
+	block, _, _ := workflowPrimarySourceGate(tr, repo, project)
+	if !block {
+		t.Fatal("expected block before side-channel evidence")
+	}
+	recordSideChannelReadPath(project, "/Users/me/Ai-skill/analysis/web/README.md")
+	block, route, ps := workflowPrimarySourceGate(tr, repo, project)
+	if block {
+		t.Fatalf("side-channel should clear flush race; route=%q ps=%q", route, ps)
+	}
+}
+
+func TestIsTranscriptBootstrapReadTool_FunctionsRead(t *testing.T) {
+	for _, name := range []string{"Read", "functions.Read", "functions.read", "ReadFile", "functions.ReadFile"} {
+		if !isTranscriptBootstrapReadTool(name) {
+			t.Fatalf("expected %q to count as read evidence tool", name)
+		}
 	}
 }
