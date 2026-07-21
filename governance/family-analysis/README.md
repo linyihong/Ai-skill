@@ -62,3 +62,4 @@ project-specific working layer，還是 AI-native Cognitive System 的通用 Ana
 | 日期 | 分析 | 結論 |
 |---|---|---|
 | 2026-07-06 | [perf-governance vs cache-read-path vs play-view-dedup](2026-07-06-structural-family-analysis.md) | **Different family**（B、C 為 A 的 consumer） |
+| 2026-07-21 | [delegation-loop (ERA) vs registered ECS families](2026-07-21-delegation-loop-vs-registered-families.md) | **Different family**（人工角色協議，無 mechanical executor）→ **不會 feed ECS**；evidence≠decision recurrence 第 5 域 |
