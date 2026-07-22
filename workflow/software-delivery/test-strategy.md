@@ -116,6 +116,8 @@ Keep `expected_outcomes` separate from `observable_evidence`: `membership_active
 
 在實作前區分「保護舊行為」和「驗證新 code」。高總體覆蓋率可以證明舊行為受到保護，但不能證明新產生或新撰寫的 code 是正確的。
 
+> **Intent → validation 分流**（見 [`implementation/execution-modes.md`](implementation/execution-modes.md) §2 Change Intent Lock）：`intent: structure`（`behavior_change.allowed: false`）走 **observable equivalence / parity**（Observable Equivalence Checkpoint，§3）；`intent: feature`（`behavior_change.allowed: true`）走 **new acceptance / BDD / contract proof**（下表「新需求或新 code」列）。同一 implementation plan 內兩種 intent 分別對應下表不同列，不可混用同一 validation 要求。
+
 | 目標 | 目的 | 必要驗證 |
 | --- | --- | --- |
 | 既有 / 舊有行為 | 防止 regression 並保護已知 contracts | 執行覆蓋受影響行為的既有 unit、BDD、contract、integration 和 regression tests |

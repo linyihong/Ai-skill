@@ -50,7 +50,7 @@ Intent → Asset (class) → Policy → Process (typical stage) → Automation
 
 進入方式：
 1. 讀取 [`execution-flow.md`](execution-flow.md) thin index 了解執行流程與 focused loading surfaces
-2. 依 task intent 載入需要的 execution surface：[`intake.md`](intake.md)、[`incident-observation.md`](incident-observation.md)、[`ui-incident-governance-workflow.md`](ui-incident-governance-workflow.md)、[`layer-ownership-matrix.md`](layer-ownership-matrix.md)、[`change-retrospective.md`](change-retrospective.md)、[`contracts.md`](contracts.md)、[`ui-contracts.md`](ui-contracts.md)、[`ui-governance.md`](ui-governance.md)、[`test-strategy.md`](test-strategy.md)、[`validation.md`](validation.md)、[`closure.md`](closure.md)、[`surgical-changes.md`](surgical-changes.md)
+2. 依 task intent 載入需要的 execution surface：[`intake.md`](intake.md)、[`incident-observation.md`](incident-observation.md)、[`ui-incident-governance-workflow.md`](ui-incident-governance-workflow.md)、[`layer-ownership-matrix.md`](layer-ownership-matrix.md)、[`change-retrospective.md`](change-retrospective.md)、[`contracts.md`](contracts.md)、[`ui-contracts.md`](ui-contracts.md)、[`ui-governance.md`](ui-governance.md)、[`test-strategy.md`](test-strategy.md)、[`validation.md`](validation.md)、[`closure.md`](closure.md)、[`surgical-changes.md`](surgical-changes.md)、[`implementation/execution-modes.md`](implementation/execution-modes.md)（`direct_change` vs `preparatory_refactoring`、Change Intent Lock、stop condition）
 3. 依流程的 Start From Evidence / Change Intake 開始；新需求、重構、parity、缺失資訊或既有專案回填時載入 [`intake.md`](intake.md)
 4. 需要 artifact 規範時參考 [`artifact-gates.md`](artifact-gates.md)
 5. Post-implementation review：invoke capability（見下方 §Review invoke）— 不是 lifecycle slice

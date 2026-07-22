@@ -513,7 +513,99 @@ anti-meaning: >
 related-terms:
   - { type: related_to, target: context_mode }
   - { type: related_to, target: discovery_signal }
+  - { type: distinct_from, target: implementation_execution_mode }
 introduced-by: plans/archived/2026-05-22-1629-runtime-cognitive-modes-system.md
+```
+
+## implementation_execution_mode
+
+```yaml
+term: implementation_execution_mode
+status: canonical
+owner-layer: workflow
+meaning: >
+  implementation lifecycle stage 內選擇「怎麼安全地改既有 code」的 mode：
+  direct_change（結構已足夠，直接做 feature）或 preparatory_refactoring
+  （feature 被結構 block → structure sub-mode 建 seam → feature sub-mode）。
+  不是新 lifecycle stage，也不是新 cognitive slice；是 sd-implementation 的
+  execution-mode 契約。
+affects:
+  - workflow/software-delivery/implementation/execution-modes.md
+anti-meaning: >
+  不是 runtime cognitive 的 execution_mode（FAST/NORMAL/DEEP）。命名刻意加
+  implementation_ 前綴以避免與 cognitive execution_mode 碰撞。
+related-terms:
+  - { type: distinct_from, target: execution_mode }
+  - { type: related_to, target: preparatory_refactoring }
+  - { type: related_to, target: change_intent_lock }
+introduced-by: plans/archived/2026-06-29-1430-preparatory-refactoring-workflow/_plan.md
+```
+
+## preparatory_refactoring
+
+```yaml
+term: preparatory_refactoring
+status: canonical
+owner-layer: workflow
+meaning: >
+  implementation_execution_mode 的一種：change_kind 仍是 feature 但
+  blocked_by_structure 時，先做 behavior-preserving 的 structure sub-mode
+  steps（建 seam）→ stop condition → feature sub-mode steps。是 execution
+  mode，不是 change_kind。structure_preparation 為其概念別名。
+affects:
+  - workflow/software-delivery/implementation/execution-modes.md
+anti-meaning: >
+  不是 change_kind.preparatory_refactor（Q6 resolved — 用雙軸 change_kind ×
+  execution_mode）；與 replacement / migration parity 正交，不觸發 parity inventory。
+related-terms:
+  - { type: related_to, target: implementation_execution_mode }
+  - { type: related_to, target: change_intent_lock }
+  - { type: related_to, target: observable_equivalence_checkpoint }
+aliases:
+  - structure_preparation
+introduced-by: plans/archived/2026-06-29-1430-preparatory-refactoring-workflow/_plan.md
+```
+
+## change_intent_lock
+
+```yaml
+term: change_intent_lock
+status: canonical
+owner-layer: workflow
+meaning: >
+  每個 implementation plan step 宣告 intent（structure / feature）與對應
+  behavior_change.allowed，validation 依 intent 分流。含 intent state machine：
+  structure→feature 需 observable_equivalence_passed，feature→structure 需
+  explicit_reopen_reason；guard 未滿足的 transition 即 illegal_transition。
+affects:
+  - workflow/software-delivery/implementation/execution-modes.md
+anti-meaning: >
+  不只是 commit / PR 分離（那是副產物）；不是 permission / ACL lock。
+related-terms:
+  - { type: related_to, target: preparatory_refactoring }
+  - { type: has_part, target: observable_equivalence_checkpoint }
+introduced-by: plans/archived/2026-06-29-1430-preparatory-refactoring-workflow/_plan.md
+```
+
+## observable_equivalence_checkpoint
+
+```yaml
+term: observable_equivalence_checkpoint
+status: canonical
+owner-layer: workflow
+meaning: >
+  intent: structure step 的 canonical 要求：允許內部結構改變，但 observable
+  contract 必須等價，並附 evidence 類型（fixture / regression test / mutation
+  check / manual parity note）。checkpoint_exists ≠ checkpoint_valid：需實際
+  regression 證據，否則為 fake equivalence。
+affects:
+  - workflow/software-delivery/implementation/execution-modes.md
+anti-meaning: >
+  不綁死 insert no-op 為唯一手法；標了 pass 但未跑 regression 不算成立。
+related-terms:
+  - { type: related_to, target: change_intent_lock }
+  - { type: related_to, target: preparatory_refactoring }
+introduced-by: plans/archived/2026-06-29-1430-preparatory-refactoring-workflow/_plan.md
 ```
 
 ## experience_runtime

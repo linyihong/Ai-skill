@@ -1,7 +1,7 @@
 ---
 id: 2026-06-29-1430-preparatory-refactoring-workflow
 plan_kind: main
-status: draft
+status: completed
 owner: linyihong
 created: 2026-06-29
 priority: P1
@@ -10,18 +10,18 @@ required_for_completion: false
 
 # Software-Delivery Implementation Execution Mode — Structure Preparation
 
-**Status**: `draft` — **觀察期**
+**Status**: `completed`（doc-only；enforcement/validator 與 Promoted = 明確 follow-up，非本計畫完成條件）
 
 **Execution Governance snapshot**（stakeholder 2026-06-29）：
 
 | Field | Value |
 |-------|-------|
-| **Status** | Observed Across Triple Paths（happy path Gate A **passed** via `03`） |
+| **Status** | **Completed（doc-only）** — 正文 + intake 雙軸 + templates + Phase 3 cross-links + glossary 全數落地；happy-path Gate A **passed** via `03` |
 | **Confidence** | stop path → **verified** (`01`); happy path → **verified** (`03`, Gate A passed); earlier happy path → **partial-verified** (`02`) |
-| **Enforcement** | disabled（no ai-skill validator / commit-msg hook） |
-| **Promotion** | `03` has SHA pointer（project repo, local/未 push；具體 SHA 記在專案本地 `.ai-skill/dogfood/`）→ **Promoted** 仍 pending push + independent audit |
+| **Enforcement** | disabled（no ai-skill validator / commit-msg hook）— **明確 follow-up**，非本計畫 scope |
+| **Promotion** | `03` has SHA pointer（project repo, local/未 push；具體 SHA 記在專案本地 `.ai-skill/dogfood/`）→ **Promoted** = **follow-up**（pending push + independent audit），不擋本計畫 completed |
 
-Phase 3 / 5 / validator hook **延後**。最有價值資產：evidence maturity 語言穩定，非再擴文件。
+Phase 1–5 全數完成並收尾 archive。validator/enforcement hook 與 Promoted 為明確 follow-up（非本 doc-only 計畫完成條件）。最有價值資產：evidence maturity 語言穩定 + happy-path Gate A 實證。
 
 **Owner**: linyihong
 **建立日期**: 2026-06-29
@@ -243,7 +243,7 @@ force_exit_when:
 
 #### D6 — Surgical-changes reconciliation
 
-[`surgical-changes.md`](../../workflow/software-delivery/surgical-changes.md) 的 scope 紀律仍適用於 **direct_change** 與 **feature intent** steps。
+[`surgical-changes.md`](../../../workflow/software-delivery/surgical-changes.md) 的 scope 紀律仍適用於 **direct_change** 與 **feature intent** steps。
 
 **例外**：`intent: structure` steps 在 implementation plan 內、有 Observable Equivalence Checkpoint、且符合 stop condition — 不算 scope creep。不得用 preparatory 名義做 `avoid` 清單內的工作。
 
@@ -301,7 +301,7 @@ compatibility:
 **Glossary Impact**: yes
 - 新引入：`implementation_execution_mode`、`preparatory_refactoring`（execution mode）、`change_intent_lock`、`intent_state_machine`、`illegal_transition`、`structure_intent`、`feature_intent`、`observable_equivalence_checkpoint`、`structure_preparation`（概念，非 change_kind）
 - **不**引入：`change_kind.preparatory_refactor`（Q6 resolved — 雙軸）
-- 需加入 [`knowledge/glossary/ai-skill.md`](../../knowledge/glossary/ai-skill.md)
+- 需加入 [`knowledge/glossary/ai-skill.md`](../../../knowledge/glossary/ai-skill.md)
 
 ---
 
@@ -340,9 +340,9 @@ compatibility:
 
 ### Phase 0.0 — Open Questions 核對
 
-- [ ] 已讀 §Open Questions 全部條目
-- [ ] 對每條標記 `resolved` / `still-open` / `deferred`
-- [ ] `resolved` 回寫
+- [x] 已讀 §Open Questions 全部條目
+- [x] 對每條標記 `resolved` / `still-open` / `deferred`（見下表；Q6/Q7 resolved，Q1–Q5 於 Phase 1–2 執行時 dispositioned）
+- [x] `resolved` 回寫
 
 | Open Question | 處置 | 證據 |
 |---|---|---|
@@ -351,13 +351,15 @@ compatibility:
 
 ### Phase 0.1 — 架構盤點
 
-- [ ] 讀 [`workflow/software-delivery/execution-flow.md`](../../workflow/software-delivery/execution-flow.md) §sd-implementation 保留決策
-- [ ] 讀 [`governance/cognitive-slice-taxonomy.md`](../../governance/cognitive-slice-taxonomy.md) §3 granularity（不 over-fragment）
-- [ ] 讀 [`intake.md`](../../workflow/software-delivery/intake.md) 重構 / parity 分類
-- [ ] 讀 [`surgical-changes.md`](../../workflow/software-delivery/surgical-changes.md)
-- [ ] 讀 [`test-strategy.md`](../../workflow/software-delivery/test-strategy.md) old vs new behavior
-- [ ] 讀 [`templates/implementation-plan-template.md`](../../workflow/software-delivery/templates/implementation-plan-template.md)
-- [ ] 讀 plan-first ordering sub-plan 接點
+- [x] 讀 [`workflow/software-delivery/execution-flow.md`](../../../workflow/software-delivery/execution-flow.md) §sd-implementation 保留決策
+- [x] 讀 [`governance/cognitive-slice-taxonomy.md`](../../../governance/cognitive-slice-taxonomy.md) §3 granularity（不 over-fragment）
+- [x] 讀 [`intake.md`](../../../workflow/software-delivery/intake.md) 重構 / parity 分類
+- [x] 讀 [`surgical-changes.md`](../../../workflow/software-delivery/surgical-changes.md)
+- [x] 讀 [`test-strategy.md`](../../../workflow/software-delivery/test-strategy.md) old vs new behavior
+- [x] 讀 [`templates/implementation-plan-template.md`](../../../workflow/software-delivery/templates/implementation-plan-template.md)
+- [x] 讀 plan-first ordering sub-plan 接點
+
+> Phase 0.1 preflight reads：於 Phase 1–2 執行時完成（execution-modes.md 正文 + intake 雙軸 + templates 落地即其產物）；收尾時 mechanical reconciliation 補勾。
 
 ### Phase 0.2 — Stakeholder decisions 記錄
 
@@ -390,7 +392,7 @@ compatibility:
 
 ## Phase 2 — Intake taxonomy & templates
 
-- [x] [`intake.md`](../../workflow/software-delivery/intake.md)：`change_kind` 表 + `blocked_by_structure` → `execution_mode` 路由 + 與 replacement 正交說明
+- [x] [`intake.md`](../../../workflow/software-delivery/intake.md)：`change_kind` 表 + `blocked_by_structure` → `execution_mode` 路由 + 與 replacement 正交說明
 - [x] 雙軸對照表（修訂）：
 
   | change_kind | blocked_by_structure? | parity? | execution_mode |
@@ -401,24 +403,24 @@ compatibility:
   | `feature` | true | 否 | `preparatory_refactoring` |
   | `bugfix` | 視情況 | 否 | 預設 `direct_change` |
 
-- [x] [`templates/implementation-plan-template.md`](../../workflow/software-delivery/templates/implementation-plan-template.md)：
+- [x] [`templates/implementation-plan-template.md`](../../../workflow/software-delivery/templates/implementation-plan-template.md)：
   - `execution_mode: direct_change | preparatory_refactoring`
   - `steps[]` with `intent` + `behavior_change` + optional `checkpoint`
   - Stop condition checklist
-- [x] [`templates/change-brief-template.md`](../../workflow/software-delivery/templates/change-brief-template.md)：`change_kind` 對齊
+- [x] [`templates/change-brief-template.md`](../../../workflow/software-delivery/templates/change-brief-template.md)：`change_kind` 對齊
 
 ---
 
 ## Phase 3 — Routing & cross-links（不新增 lifecycle step）
 
-- [x] [`execution-flow.md`](../../workflow/software-delivery/execution-flow.md)：sd-implementation 列更新 — 指向 implementation execution modes（Phase 1 已落地；見 §Phase 2 進度 2026-06-29）
-- [x] [`execution-flow.yaml`](../../workflow/software-delivery/execution-flow.yaml)：`loading_surfaces.implementation`（`source: implementation/execution-modes.md`；**不**加新 ordered step）
-- [ ] [`README.md`](../../workflow/software-delivery/README.md) 進入方式
-- [ ] [`test-strategy.md`](../../workflow/software-delivery/test-strategy.md) cross-link：intent → validation 分流
-- [ ] [`surgical-changes.md`](../../workflow/software-delivery/surgical-changes.md) reconciliation 一節
-- [ ] [`cross-cutting/review/checklist.md`](../../workflow/cross-cutting/review/checklist.md)：intent lock + stop condition 檢查
+- [x] [`execution-flow.md`](../../../workflow/software-delivery/execution-flow.md)：sd-implementation 列更新 — 指向 implementation execution modes（Phase 1 已落地；見 §Phase 2 進度 2026-06-29）
+- [x] [`execution-flow.yaml`](../../../workflow/software-delivery/execution-flow.yaml)：`loading_surfaces.implementation`（`source: implementation/execution-modes.md`；**不**加新 ordered step）
+- [x] [`README.md`](../../../workflow/software-delivery/README.md) 進入方式 — execution surface 清單加入 `implementation/execution-modes.md`
+- [x] [`test-strategy.md`](../../../workflow/software-delivery/test-strategy.md) cross-link：intent → validation 分流（§3 Test Strategy Gate）
+- [x] [`surgical-changes.md`](../../../workflow/software-delivery/surgical-changes.md) reconciliation 一節（§9.6）
+- [x] [`cross-cutting/review/checklist.md`](../../../workflow/cross-cutting/review/checklist.md)：intent lock + stop condition 檢查（新增 Implementation Execution Mode 一節）
 
-**Phase 3 進度（2026-06-29）**：routing surface 已在 execution-flow 接通；README / test-strategy / surgical-changes / review-checklist 四檔仍待補 cross-link（觀察期內可完成，不阻塞 dogfood 結論）。
+**Phase 3 進度（2026-07-22 完成）**：routing surface 早已在 execution-flow 接通；README / test-strategy / surgical-changes / review-checklist 四檔 cross-link 於收尾時補齊，四檔皆反向連回 `implementation/execution-modes.md`。
 
 ---
 
@@ -468,11 +470,11 @@ Observed → Partial Verified → Verified (behavior proven) → Promoted (indep
 
 ## Phase 5 — Glossary & closeout
 
-- [ ] glossary 註冊新詞彙（**注意**：既有 `execution_mode` 詞條指 cognitive FAST/NORMAL/DEEP；implementation mode 需用 `implementation_execution_mode` 或 `preparatory_refactoring` 獨立詞條，避免 collision）
-- [ ] linked-updates 檢查
-- [ ] archive plan + dogfood evidence
+- [x] glossary 註冊新詞彙 — `implementation_execution_mode`、`preparatory_refactoring`（alias `structure_preparation`）、`change_intent_lock`、`observable_equivalence_checkpoint` 已入 [`knowledge/glossary/ai-skill.md`](../../../knowledge/glossary/ai-skill.md)，並在 cognitive `execution_mode` 詞條加 `distinct_from` 交叉指向（避 collision）
+- [x] linked-updates 檢查 — Phase 3 四檔反向 link + glossary introduced-by 皆指向 archived 路徑，收尾時一致
+- [x] archive plan + dogfood evidence — 搬移 `plans/active/` → `plans/archived/`（本次收尾）
 
-**Phase 5 阻塞說明（2026-06-29）**：dogfood 已多路徑（`01` ai-skill + `02` earlier project + `03` external SPA）；glossary / linked-updates / archive 仍待觀察期結束或 Phase 3 四檔 cross-link 補齊後一次收口。
+**Phase 5 收口（2026-07-22）**：Phase 3 四檔 cross-link 補齊觸發一次收口；glossary / linked-updates / archive 一併完成。enforcement/validator 與 Promoted 為明確 follow-up（見下）。
 
 ---
 
@@ -481,11 +483,11 @@ Observed → Partial Verified → Verified (behavior proven) → Promoted (indep
 - [x] Implementation execution mode 正文落地（非獨立 lifecycle slice）
 - [x] Change Intent Lock 在 implementation-plan template 可機械填寫
 - [x] Intake 雙軸（`change_kind` × `execution_mode`）與 replacement 邊界清楚
-- [ ] Stop condition（exit_when + force_exit_when）+ avoid + Intent Transition Rule 在正文與 review checklist
-- [ ] Compatibility default 在 implementation-plan template 或正文
-- [ ] Observable Equivalence Checkpoint 定義（不綁 no-op）
+- [x] Stop condition（exit_when + force_exit_when）+ avoid + Intent Transition Rule — 正文 [`execution-modes.md`](../../../workflow/software-delivery/implementation/execution-modes.md) §4 + review checklist（收尾補齊）
+- [x] Compatibility default 在正文（execution-modes.md §5 `default_execution_mode: direct_change`）
+- [x] Observable Equivalence Checkpoint 定義（不綁 no-op）— execution-modes.md §3
 - [x] ≥1 dogfood evidence — triple path: `01` **verified** (force_exit) + `03` **verified** (happy path, Gate A passed) + `02` **partial-verified**（Promoted 仍待 push + 獨立稽核）
-- [ ] doc-only 宣告；無 runtime projection 本輪
+- [x] doc-only 宣告；無 runtime projection 本輪 — 無新 `runtime/*.yaml`、無 commit-msg validator；enforcement 明確延後
 
 ---
 
@@ -517,7 +519,7 @@ Observed → Partial Verified → Verified (behavior proven) → Promoted (indep
 
 ## Watch-Out List citation
 
-[`architecture/ai-native-cognitive-ecosystem-system.md`](../../architecture/ai-native-cognitive-ecosystem-system.md) §Watch-Out List — 防 lifecycle slice 增殖、防 infinite refactor（stop condition）、防 tacit pattern 未 contract 化。
+[`architecture/ai-native-cognitive-ecosystem-system.md`](../../../architecture/ai-native-cognitive-ecosystem-system.md) §Watch-Out List — 防 lifecycle slice 增殖、防 infinite refactor（stop condition）、防 tacit pattern 未 contract 化。
 
 ---
 

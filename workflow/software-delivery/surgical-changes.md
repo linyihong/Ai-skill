@@ -53,3 +53,7 @@ git diff                 # 逐行檢查是否有不相關的變更
 ```
 
 如果 diff 包含超過解決問題所需的變更，還原不相關的部分。
+
+## 9.6 Preparatory refactoring 例外（reconciliation）
+
+本規則適用於 `direct_change` 與 `intent: feature` steps。**例外**：implementation plan 內的 `intent: structure` steps（`execution_mode: preparatory_refactoring`），只要具 Observable Equivalence Checkpoint、符合 stop condition（`exit_when` / `force_exit_when`）、且不在 `avoid` 清單（broad_cleanup / style_only / debt_harvesting / opportunistic_refactor），其為了建立 seam 的結構改動**不算** §9.3 的「順便功能」或 scope creep。不得以 preparatory 名義做 `avoid` 清單內的工作。完整契約見 [`implementation/execution-modes.md`](implementation/execution-modes.md) §7。

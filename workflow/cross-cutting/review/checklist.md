@@ -41,6 +41,17 @@
 - 可能影響延遲、吞吐量、資源使用、啟動、背景工作、資料庫存取、批次處理、快取、並發性或外部呼叫量的變更在程式碼之前定義效能預算和測試類型。
 - 阻擋性問題在實作前已回答、有證據支持或明確排除範圍。
 
+## Implementation Execution Mode（Change Intent Lock / Stop Condition）
+
+適用於走 `execution_mode: preparatory_refactoring` 或 plan 明確宣告 execution mode 的 implementation。完整契約見 [`implementation/execution-modes.md`](../../software-delivery/implementation/execution-modes.md)。
+
+- 每個 step 已宣告 `intent`（`structure` / `feature`）與對應 `behavior_change.allowed`；`structure` 為 `false`、`feature` 為 `true`。
+- `intent: structure` step 有 **Observable Equivalence Checkpoint**（`observable_equivalence.required: true` + evidence 類型）；checkpoint 有實際 regression / parity 證據，非只標 pass（防 fake equivalence）。
+- `structure → feature` transition 有 `observable_equivalence_passed`；`feature → structure` 有可 review 的 `explicit_reopen_reason`（非「再整理一下」）——否則為 **illegal transition** / intent oscillation。
+- Structure 批次有 **stop condition**：`exit_when`（target 局部化 / test 可 expressible / 新 seam 建立）觸發即停；無進展時 `force_exit_when`（no_structure_progress / abstraction_not_used_by_next_feature）強制退出，不得無限 structure。
+- Structure steps 未做 `avoid` 清單工作（broad_cleanup / style_only / debt_harvesting / opportunistic_refactor）。
+- `change_kind: feature` + `blocked_by_structure` 走 `preparatory_refactoring`，**未**被誤塞進 `replacement` / `migration` parity inventory。
+
 ## Test Strategy（測試策略）
 
 - 既有/舊有行為對受影響路徑有回歸覆蓋。

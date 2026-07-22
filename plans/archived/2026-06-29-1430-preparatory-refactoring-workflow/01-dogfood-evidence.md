@@ -5,7 +5,7 @@
 **Evidence class**: **verified** (`force_exit` / stop-design path)  
 **Task**: Advisory `illegal_transition` scan for implementation-plan `steps[]` YAML (dogfood-before-validator)
 
-Pair with [`02-vidoe-test-project-dogfood-evidence.md`](02-vidoe-test-project-dogfood-evidence.md) (**partial-verified** — happy path / structure-transition only).
+Pair with [`02-external-player-dogfood-evidence.md`](02-external-player-dogfood-evidence.md) (**partial-verified** — happy path / structure-transition only).
 
 **Maturity**: `verified` = behavior/stop mechanism proven in-repo; `promoted` = not claimed (no ai-skill validator wiring).
 
