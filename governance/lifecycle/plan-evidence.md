@@ -2,6 +2,7 @@
 
 > **Status**：validated（2026-07-09，dogfood 2d′ 落地 + `validatePlanEvidenceConvention` commit-msg validator）
 > **Canonical source**：本檔為 plan 證據目錄與引用規則的人類可讀 rule；機械檢查見 `scripts/ai-skill-cli/internal/app/plan_evidence.go`，obligation `obligation.commit.plan_evidence_convention`。
+> **與 ECS 的關係（layer seam，非重複系統）**：本 `evidence/` 是 **intra-plan storage**（單一 plan 自己的 run 全文落點）；[ECS](../evidence-candidates/README.md) 是 **inter-plan routing**（哪個 plan 該看某筆 + 是否 accept）。兩者是**同一條 pipeline 的相鄰 stage**（`ECS route → accept → 這裡 storage`），**不是做一樣的事、也不 merge**。本 `evidence/` 是 ECS 五層「Plan Evidence」destination 的一種 storage realization（folder-plan 專用；其他 plan 可落 draft / inline）。偵查與 convergence 監測見 ECS plan §Evidence Log EL-4。
 
 ## 目的
 

@@ -309,7 +309,7 @@ ECS 自己的 observation 載體（記關於本系統架構的真實案例，非
 | EL-2 | 2026-06-16 | resolve-consumability | scanner `cmd/evidencecandidate` pointer-resolve（`os.Stat` only）+ 新 committed pointer `design-contract-validation-pilot.pointer.yaml`（status `section_pending`）+ live probe | scanner resolve 原本**只檢查檔案存在**，不看 `status`。實測：把 `section_pending` 的 pointer 當 matched_plan → **EMIT(exit 0)**。即 **consumer 把「存在性」當「可消費性」**（`index ≠ consumable`），撞到 ECS authority 分層。**已修**：status-aware resolve（exists AND status==resolved；section_pending → WARN no-emit）。觸發並 resolve Q7。 | hard | no |
 | EL-3 | 2026-06-17 | cross-domain-recurrence | perf-governance pilot（`workflow/software-delivery/perf-governance.md` + `perf-governance-pilot.pointer.yaml` status `section_pending`；ExternalRepoA `docs/evidence/perf/`） | **Finding**：拿掉 perf metrics（p95/variance）後**治理形狀仍成立**（L0 intake gate / `result` 可決策 vs `stability` 僅觀測 / project-vs-canonical 升級邊界）→ 非純 app telemetry。**Note**：其 lifecycle（L0–L3 delivery）**≠ governance-pattern 6-step**（已驗，不命中 `new_6step_sample`）。**Claim**：`recurrence_detected` — 多個域各自把 observation layer 與 decision layer 分開；**status: not_promoted**。**analogy_candidates（analogy，非 criterion_hit）**：`observation_only`（economics）/ `index_vs_consumable`（ECS）。**next_check**：observe recurrence（不抽 invariant、不開 candidate、不標 sibling_family）。發現方法見下方否決測試備註。 | soft | no |
 | EL-3A | 2026-06-24 | evidence-system-lens | ExternalRepoA `docs/evidence/perf/` 結構（`intake/` → `baseline.yaml`(registry) → `tests/perf/*` runners → `summaries/`(schema_version'd) → `reports/`/G5 review）| **不同 lens 的新 observation（不覆寫 EL-3；artifact changes → observation may change）**。EL-3 看的是 **delivery lifecycle**（L0–L3）→ ≠ 6-step；本筆看的是 **evidence system**。`lens: evidence_system` / `finding: resembles 4-step invariant core（Observation→Registry→Executor→Validation）+ Rule` / `missing: projection` / `status: unresolved` / `note: mapping ≠ admission`。**效果：把 perf-governance 從 EL-3 delivery-lens 的「不命中 6-step」改判為 `not_rejected / reclassification_pending`**（門重新打開，不是結論）。 | soft | no |
-| EL-4 | 2026-07-09 | terminology-surface | `governance/lifecycle/plan-evidence.md`（Plan Evidence）與 `governance/evidence-candidates/`（Evidence Candidate）兩個 subsystem 同名 "evidence" | **兩者回答不同問題**：Evidence Candidate =「這值得哪個 plan 看？」/ Plan Evidence =「這個 plan 接不接受（的全文 run 證據）」。目前**無實際誤判案例** → 依 terminology-collision 紀律**不改名、掛 watch**；若未來有人把 candidate 引用成 plan evidence（或反向），才是加 qualifier / 改名的證據。 | soft | no |
+| EL-4 | 2026-07-09→07-21 | terminology-surface → layer-seam | `governance/lifecycle/plan-evidence.md`（Plan Evidence Accumulation）與 `governance/evidence-candidates/`（ECS）同名 "evidence" | **偵查（2026-07-21，四查）**：機械**無重疊** —— (1) `validatePlanEvidenceConvention` 的 path scope（`plans/{active,archived}/<plan>/evidence/`）**排除** ECS/family-analysis/draft；(2) ECS accept 落點（如 governance-pattern draft）**≠** `plans/**/evidence/`；(3) **零 plan 同時是 ECS target 且用 evidence/**（3 個 target 全單檔；3 個 evidence/ 使用者皆非 target）。**結構判定**：非「做一樣的事」—— ECS = inter-plan **routing**、plan-evidence/ = intra-plan **storage**，不同 layer → **不 merge**（merge = 被同名誤導的 force-unify）。**Seam（宣告，非合併）**：plan-evidence/ 是「Plan Evidence」destination 的一種 storage realization；pipeline = `ECS route → accept → Plan Evidence storage(draft/evidence/inline)`。 | soft | no |
 | EL-5 | 2026-07-09 | first-real-accept | candidate `C-12cd0d07`（artifact: `governance/lifecycle/plan-evidence.md` @ `30e794c`）→ accept → governance-pattern draft sample #8 | **ECS 第一次真實 end-to-end**：本 repo 真實 artifact → 人工標 `new_6step_sample`（actor: human）→ assembler emit → accept → 寫回 consuming plan 的 evidence 面（draft inventory）→ candidate 離開 inbox。全鏈依 Phase 1B 證明的機制運作，無需修任何 plumbing。**phase2_gate 計數**：created 累計 2 / accepted 1 / deferred 1。 | hard | no |
 | EL-6 | 2026-07-10 | cross-repo-positive-loop | ExternalRepoC delegation dogfood **2n**（artifact: `plans/active/.../evidence/2n-externalrepoc-push-delivery-s1-s6-compliant-loop.md`）+ deferred ledger `DF-20260710-001` | **NON_LOCAL session 首次闭环 writeback**：consumer 6-slice sub-plan completed → Ai-skill evidence + ledger closed entry。候选 criterion（**未 accept**）：`slice_compliant_closed_positive_chain` / `verifier_after_executor_sustained`。**phase2_gate 計數**：created 累計 **3**（+1 observation 待人工 assembler）/ accepted 1 / deferred 1 / **ledger open 2**。 | hard | no |
 | EL-7 | 2026-07-10 | defer-tier-discipline | 2n §失败/defer D1–D3 + deferred `DF-002`（L4）+ `DF-003`（V5-A） | L4 live 与 V5-A runtime **显式 defer** 未污染 `slice_compliant_closed` — 与 2k post-close gap 对照。候选 criterion：`runtime_defer_explicit_registration`（actor: human，待 assembler）。 | soft | no |
@@ -332,6 +332,20 @@ ECS 自己的 observation 載體（記關於本系統架構的真實案例，非
 **規則同 economics Evidence Log**：只記實例、指向真實 artifact、不自動觸發 reopen/phase 推進。
 **邊界（2026-07-06 maintainer）**：EL 只收 **observation**；對 observation 做的**分析**（structural
 matrix / family determination）**不進 EL**，放 [`governance/family-analysis/`](../../governance/family-analysis/README.md)（Stage 1 工作層）。
+
+> **EL-4 為什麼不 merge plan-evidence 進 ECS（2026-07-21 maintainer 提議 → 偵查後改判 seam）**：
+> 使用者觀察「兩邊都在做 evidence、放不同地方偵測不到 → 計畫卡住」。偵查後三點修正：
+> 1. **不同 layer，非 duplicate** — ECS = inter-plan routing（哪個 plan / 是否 accept）、plan-evidence/ =
+>    intra-plan storage（單一 plan 自己的 run 全文）。merge 會被同名 "evidence" 誤導成 force-unify。
+> 2. **「卡住」的真因不是 silo 隱形**——是 **narrow applicability**（已驗）：delegation-loop 等
+>    non-ECS-family plan 的 evidence **不 feed ECS 是正確的**（applicability），不是卡住。ECS gate 空
+>    ≠ 證據藏錯地方；是多數證據本就非 ECS-eligible。
+> 3. **宣告接縫，不合併**：plan-evidence/ 是「Plan Evidence」destination 的一種 storage realization；
+>    `ECS route → accept → Plan Evidence storage` 是同一 pipeline。反向連結已加於 `plan-evidence.md`。
+>
+> **Convergence 監測（re-check query，發生時再跑，不建 auto-detector）**：
+> `evidence-rules/*.pointer.yaml 的 plan_ref` ∩ `find plans -type d -name evidence`。目前交集 = **空**。
+> 交集非空 = 某 plan 同時是 ECS target 且用 evidence/ → 那時 accept 就寫進它的 evidence/，接縫才實體化。
 
 ## 完成條件
 
