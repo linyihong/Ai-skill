@@ -25,6 +25,7 @@
 | surgical 小修、單 session、無 delegation | 不走；直接 implementation + validation |
 | 純問答 / 只讀審計（不進入 Execute） | 不觸發 |
 | **Transport adaptation**：使用者明確要主 session 當 executor | 允許，但**必須在 plan 註明**（角色降格是記錄在案的例外，不是默認滑移） |
+| **Spawn／bootstrap 摩擦**（dogfood **3a**） | **不是豁免**；不得改成同 session 包辦並暗示 closed。書面 transport fallback；Verifier 仍要有（獨立優先；同 session 驗證最高 `implementation_done`） |
 
 ## 1b. Orchestrator 執行順序（不可跳過）
 
@@ -158,6 +159,7 @@ deliverables:
 | orchestrator 探路讀碼 | 「為了寫 brief」大量讀實作源碼 | brief 只記路徑給 executor 讀；越界記入量測欄 |
 | verifier 兼任 | 同一 session 先執行後驗證 | fresh-context invariant（canonical SOP invariant 1） |
 | **single-agent skip verifier**（consumer 2j 2026-07-10） | orchestrator 只 spawn **一个** Task 包办 implement + 自验 mvn；**0** Verifier session；用 `delegation.enabled: false` 当不 loop 理由 | Execute 意图 → loop mandatory；consumer **verifier-after-executor** gate；须标 `implementation_done` 非 `slice_compliant_closed` |
+| **spawn-friction / gate-misattribution**（dogfood **3a** 2026-07-23） | Cursor Task spawn 失敗或貴 → 主 session 直做；或把 Ai-skill **candidate／bootstrap** 說成「擋三角色」 | spawn 摩擦 ≠ 豁免；candidate ≠ deny-loop；書面 transport fallback；同 session 驗證 ≤ `implementation_done`；見 `evidence/3a-…` |
 | **batch-todo single Task**（dogfood 2p 对照） | 用户「一口气 / all todos」被解读为一次 Task 做完多 slice | **多 todo = 多轮** brief→E→V；禁止合并 |
 | **transport inner-only path proof**（dogfood 2q） | Verifier 只重跑 mock/unit，默认已切正式 API 却从未 V5-A/sync-remote；对外说「功能通」 | backfill 强制 `tier=runtime` + features↔L3；无密钥 defer follow-up；consumer `gate.plan_transport_runtime_evidence` |
 | **SPA unit-only / stale serve**（dogfood 2z） | Karma／TestBed 绿即关 SPA slice；或长跑 `ng serve` watcher 失效仍手验旧 bundle；HMR 被误当验收 | C1b 要求 browser e2e／runtime UI；V1 独立重跑 Playwright；V5-U：冷启动或确认 watcher 后再验；HMR ≠ evidence |

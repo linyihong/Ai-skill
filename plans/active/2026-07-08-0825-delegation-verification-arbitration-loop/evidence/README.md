@@ -44,6 +44,7 @@
 | **2x** | [`2x-consumer-player-variant-matrix.md`](2x-consumer-player-variant-matrix.md) | 負向證據 | Player 單 fixture 假綠與 A-fix-B-break；回饋 acceptance-equivalence gate、方向×裝置×media-path 最小矩陣、decoded-frame oracle |
 | **2y** | [`2y-kaizenwms-phase2-spa-scaffold-c1b.md`](2y-kaizenwms-phase2-spa-scaffold-c1b.md) | 正向＋C1b 纠偏 | KaizenWMS Phase 2 SPA scaffold：完整 O→E→V；Verifier 擋 deliverable-only A3；Orchestrator integration smoke 後 `slice_compliant_closed` |
 | **2z** | [`2z-kaizenwms-phase3-karma-stale-serve.md`](2z-kaizenwms-phase3-karma-stale-serve.md) | 负向／纠偏 | KaizenWMS Phase 3：Karma-only 假綠＋stale `ng serve`／HMR 失效；回饋 browser e2e DoD、V5-U stale-dev-server、與 2q/2k 同構 |
+| **3a** | [`3a-kaizenwms-spawn-friction-skip-loop.md`](3a-kaizenwms-spawn-friction-skip-loop.md) | 负向＋同日正向 | KaizenWMS：把 Cursor spawn／bootstrap 摩擦**誤當** Ai-skill 擋三角色 → 同 session 跳過 loop；§2.1 portable fallback＋shell-nav Phase 1 完整 O→E→V 對照 |
 | 2e | [`2e-grandfather-sunset-audit.md`](2e-grandfather-sunset-audit.md) | 完成 | Research 域 grandfather sunset；Q6/Q7/Q8 跨域观察 |
 
 > **漸進遷移**：2026-07-09 起新證據進本目錄；kit 保留傳輸模板與精簡指標。
