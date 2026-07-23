@@ -9,7 +9,9 @@ parent: null
 baseline_ref: 2026-06-22-1009-subplan-agent-delegation
 revision:
   - date: 2026-07-23
-    note: "Dogfood 3a — KaizenWMS spawn-friction／gate-misattribution 跳過三角色（负向）＋同日 shell-nav Phase 1 完整 O→E→V（正向）；portable §2.1 fallback；evidence/3a-…"
+    note: "Dogfood 3a — 主軸：Cursor 機械 bootstrap／primary_source gate × Task 冷啟動 → 假「三角色被擋」→ 放棄 E／V；consumer §2.1 fallback；與 2j F6 對偶；evidence/3a-…"
+  - date: 2026-07-23
+    note: "Dogfood 3a（初版）— KaizenWMS spawn-friction／gate-misattribution；後修訂強化機械 gate×subagent 主軸"
   - date: 2026-07-08
     note: "Verifier 三層驗證契約 + 測試職責分工（防 executor 自寫測試 + verifier 只重跑的自證循環）"
   - date: 2026-07-08
@@ -505,7 +507,7 @@ Q5 — Shared State Contract Promotion
 - [x] **2x — consumer player variant matrix** — 2026-07-17（[`evidence/2x-consumer-player-variant-matrix.md`](evidence/2x-consumer-player-variant-matrix.md)）；Mode A 單 fixture 假綠後發生 A-fix-B-break；回饋 acceptance-equivalence gate、方向×裝置×media-path 最小矩陣、decoded-frame oracle；現有 ERA 模型自然落位；**不**視為 Phase 3 closure
 - [x] **2y — KaizenWMS Phase 2 SPA scaffold** — 2026-07-21（[`evidence/2y-kaizenwms-phase2-spa-scaffold-c1b.md`](evidence/2y-kaizenwms-phase2-spa-scaffold-c1b.md)）；完整 O→E→V；C1b 擋 deliverable-only user-visible A3；integration smoke 後 `slice_compliant_closed`；**不**視為 Phase 3 closure
 - [x] **2z — KaizenWMS Phase 3 Karma-only／stale serve** — 2026-07-21（[`evidence/2z-kaizenwms-phase3-karma-stale-serve.md`](evidence/2z-kaizenwms-phase3-karma-stale-serve.md)）；SPA unit 假綠＋HMR／watcher stale；回饋 browser e2e DoD、`stale-dev-server-checklist`；同構 2q/2k；**不**視為 Phase 3 closure
-- [x] **3a — KaizenWMS spawn-friction／gate-misattribution 跳過 loop** — 2026-07-23（[`evidence/3a-kaizenwms-spawn-friction-skip-loop.md`](evidence/3a-kaizenwms-spawn-friction-skip-loop.md)）；負向：誤指 Ai-skill 擋三角色→同 session 直做；糾偏 portable §2.1＋同日 shell-nav Phase 1 完整 O→E→V；回饋 `spawn-friction-not-exemption`／`gate-misattribution`；**不**視為 Phase 3／Q5 closure
+- [x] **3a — Cursor 機械 bootstrap gate × Task 冷啟動 → 放棄三角色** — 2026-07-23（[`evidence/3a-kaizenwms-spawn-friction-skip-loop.md`](evidence/3a-kaizenwms-spawn-friction-skip-loop.md)）；主反例：通用 Receipt／primary_source deny 被誤讀成「三角色被擋」；consumer §2.1 fallback＋同日 shell-nav Phase 1 正向；與 2j F6 對偶；**不**視為 Phase 3／Q5 closure
 - [ ] **2t — APK Analysis ↔ Software Delivery Capability Handoff（預註冊，2026-07-14）** — 契約與雙軌設計見 [`04-apk-capability-handoff-boundary.md`](04-apk-capability-handoff-boundary.md)。**2t-A**：真實 APK Discovery（candidate workflow；Decision = *Can we explain?*；**不**強制三角色）。**2t-B**（僅 Capability Assessment = Yes）：Capability Proposal → SD Intake → **既有** Delegated Execution。預註冊 F1–F4。**不**填 Knowledge；**不**宣稱 APK Delegated Execution 已驗證；**不**視為 Phase 3 closure。啟動：指定 consumer `<PROJECT_ROOT>` 後開 `evidence/2t-…`
 - [x] **2e — 跨域 run（Research/Audit 域）：grandfather sunset audit** ✅ — 2026-07-08–09（[`evidence/2e-grandfather-sunset-audit.md`](evidence/2e-grandfather-sunset-audit.md)）；Q6/Q7(b)/Q8 的 stage-2 裁決 run。完整 loop：調查者（worktree，252 行報告 `c8ff035`，中斷後 resume 完成）→ 事實查核者（fresh，引文逐條命中、5 surfaces 獨立重跑一致、findings ×2 全 observation）→ 仲裁（defer×2，無 fix）。**實質產出**：5/5 surfaces 已 wired、flag 條款過時、延展不觸發、sunset 只剩行政收尾（處置決定保留 maintainer，見 `02-grandfather-sunset-audit.md`）。**跨域觀察**：四責任自然成立（topology 不同：+maintainer 第二層 decision）；backfill 結構化形式明確缺席、弱形式（evidence-first acceptance）出現；證據責任四問同構重現（含「自產證據不能自我關閉」跨域不變式）——詳 kit §2e Q6/Q7/Q8 觀察表
 - [x] 回饋迴路（2b 觸發 ×1）：F2 暴露 brief v1 缺「reusable doc 目標須含 tool-neutral 措辭條款」→ brief v2 追加 acceptance 9、kit 使用說明補教訓；修契約未修執行者；fix leg 重跑通過。2a 若再暴露缺漏比照處理。

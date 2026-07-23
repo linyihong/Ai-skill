@@ -1,99 +1,114 @@
-# 3a — KaizenWMS：spawn 摩擦誤當「Ai-skill 擋三角色」→ 同 session 跳過 loop（2026-07-23）
+# 3a — KaizenWMS／Cursor：機械 bootstrap gate 讓 Task subagent 跑不起來 → 三角色被放棄（2026-07-23）
 
 > **專案證據邊界**：consumer commit／plan 路徑留 KaizenWMS；本檔只留 generalized dogfood metrics 與契約回饋。  
-> **同構**：[`2j`](2j-externalrepoc-push-execute-skip-verifier-loop.md)／[`2l`](2l-externalrepoc-common-url-s2-mirror-skip-loop.md)（跳過 Verifier）；[`2o`](2o-consumer-tab-scroll-single-vs-delegation.md)（單 session vs 三角色）；[`2y`](2y-kaizenwms-phase2-spa-scaffold-c1b.md)／[`2z`](2z-kaizenwms-phase3-karma-stale-serve.md)（同 consumer 正負前例）。  
-> **正向對照（同日）**：shell-nav Phase 1 強制 O→E→V 後 Verifier 擋下 §3/§6 路徑矛盾（F1）→ fix → `slice_compliant_closed`。
+> **同構**：[`2j`](2j-externalrepoc-push-execute-skip-verifier-loop.md)／[`2l`](2l-externalrepoc-common-url-s2-mirror-skip-loop.md)（跳過 Verifier）；[`2o`](2o-consumer-tab-scroll-single-vs-delegation.md)（單 session）；[`2y`](2y-kaizenwms-phase2-spa-scaffold-c1b.md)／[`2z`](2z-kaizenwms-phase3-karma-stale-serve.md)（同 consumer）。  
+> **本 run 主反例（stakeholder 指定）**：不是「又少 spawn 一次 Verifier」 alone，而是 **通用機械 gate（Bootstrap Receipt／workflow primary_source）作用在 fresh Task subagent 上 → 看起來「三角色被 Ai-skill gate 卡住」→ orchestrator 乾脆不跑 E／V**。  
+> **糾偏（consumer 已修）**：portable `delegated-execution` **§2.1 Cursor transport fallback**（spawn／gate 失敗 ≠ 豁免；同 session 驗證 ≤ `implementation_done`）。  
+> **正向對照（同日）**：明示走 Task E＋V 的 shell-nav Phase 1 → Verifier 擋 F1 → `slice_compliant_closed`。
+
+## 因果鏈（主反例）
+
+```text
+Execute 意圖 → 政策要求 O→E→V（獨立 Task）
+  ↓
+Cursor spawn fresh Executor／Verifier Task
+  ↓
+subagent 尚未滿足 gate.bootstrap.receipt_present
+  （及／或 workflow primary_source Read）
+  ↓
+preToolUse 機械 deny 非-Read 工具  ←── 通用 bootstrap gate，非「三角色 deny gate」
+  ↓
+看起來像「Ai-skill 擋三角色驗證」
+  ↓
+orchestrator 放棄 spawn／改同 session 直做＋自驗
+  ↓
+Production＝Evidence（loop 斷裂）
+```
+
+**關鍵誤判**：把 **transport／bootstrap L3** 的攔截，讀成 **delegation loop 被禁止**。  
+**事實**：`sd-delegated-execution` 仍為 **candidate**（沒有「未 spawn Verifier → deny」閘）；真常擋工具的是 **Bootstrap Receipt** 等通用 hook（見 Cursor adapter `preToolUse`）。
 
 ## Run 摘要
 
 | 欄 | 值 |
 | --- | --- |
-| **Consumer** | KaizenWMS（portable `docs/workflow/delegated-execution.md`；Ai-skill optional） |
-| **負向切片** | SPA shell chrome（手機漢堡）＋列表 queryParams 還原等近期 Execute — **0** 獨立 Executor／Verifier；同 session 直做＋自跑 `verify-frontend` |
-| **觸發敘事（錯誤）** | Agent／對話歸因：「Ai-skill gates／bootstrap 擋住三角色，所以只好自己做完」 |
-| **事實** | `sd-delegated-execution` 仍為 **candidate**（無機械 deny「未 spawn Verifier」）；Cursor Task／子 agent bootstrap 成本高 → **軟性略過**，非硬 gate 拒絕 |
-| **糾偏** | Consumer 寫入 **Cursor transport fallback**（spawn 失敗 ≠ 豁免；same-session Verifier 最高 `implementation_done`）；欠債 slice 回填 `implementation_done`、禁止追溯 `slice_compliant_closed` |
-| **正向對照** | 同 consumer **shell-nav Phase 1**（文件契約）：brief commit → Task Executor → Task Verifier → F1 fix → re-verify → `slice_compliant_closed` |
-
-## 相對 2y／2z 的退步（反模式）
-
-| 2y／2z 已驗證 | 3a 負向表現 |
-| --- | --- |
-| Execute 前 brief／backfill／獨立 Verifier | 近期 chrome／列表 slice：**無** `delegation:`、**無** Verifier evidence |
-| C1b／browser e2e 紀律（2z） | 有跑 verify／e2e，但 **Production＝Evidence＝同 session**（自證） |
-| 關閉語意清楚 | 暗示「做完＝closed」；審計後才降為 `implementation_done` |
+| **Consumer** | KaizenWMS（Ai-skill optional；Cursor + project bootstrap pointer） |
+| **Stakeholder 觸發** | 「三角色驗證好像被 Ai-skill gate 卡住，是不是要修，不然都會被擋著」 |
+| **負向結果（糾偏前）** | 近期 Execute（shell chrome／list-detail 等）**0** 獨立 E／V；同 session 直做 |
+| **根因（本 3a）** | **mechanical-gate × subagent cold-start** → 假「三角色不可用」信號 → 放棄 loop |
+| **糾偏** | consumer §2.1 fallback 寫清：Task／bootstrap 失敗時的書面 transport；**不得**暗示 `slice_compliant_closed` |
+| **正向對照** | 同日 shell-nav Phase 1：brief → Task E → Task V → F1 fix → closed |
 
 ## 失敗／不如預期
 
 | # | 現象 | 根因分類 | 應有行為 |
 | --- | --- | --- | --- |
-| F1 | 可見 shell／列表行為變更當「小刀」同 session 做完 | **process-omission**（同 2j／2l） | Execute 意圖 → mandatory loop；chrome／BDD ≠ surgical |
-| F2 | 把 Ai-skill **bootstrap／receipt／candidate 成熟度**說成「擋三角色」 | **gate-misattribution** | candidate = 行為契約；缺的是 Verifier spawn 追蹤 gate，不是「禁止 loop」 |
-| F3 | Cursor Task spawn／子 agent bootstrap 摩擦 → 直接主 session 包辦 | **transport-friction skip** | transport adaptation 須書面；Verifier 仍不可省；否則僅 `implementation_done` |
-| F4 | 自跑 `verify-frontend` 當獨立驗證 | **verifier 降級** | V1 須 fresh context；同 session 通過 ≠ `slice_compliant_closed` |
+| **F0（主）** | fresh Task 被 bootstrap／primary_source 機械 gate 卡住 → 不跑或半死 | **mechanical-gate × delegation-transport collision** | subagent brief 強制 bootstrap 讀＋Receipt；或 adapter 對 Task 冷啟動有明確路徑；失敗則 **§2.1 fallback**，不是放棄 loop |
+| F1 | 可見 chrome／列表當同 session 「小刀」做完 | process-omission（2j／2l 同構） | Execute → loop；chrome／BDD ≠ surgical |
+| F2 | 對外說「Ai-skill 擋三角色」 | **gate-misread** | 擋的是 bootstrap 工具權，不是三角色專用 deny |
+| F3 | 自跑 verify 當獨立 Verifier | verifier 降級 | fresh Verifier；同 session ≤ `implementation_done` |
 
-## 仲裁紀要（consumer Orchestrator／stakeholder，2026-07-23）
+## 仲裁紀要
 
 | finding | 處置 | 理由 | 後續 |
 | --- | --- | --- | --- |
-| F1 跳過 loop | **fix**（流程＋文件） | acceptance-violation（流程） | consumer §2.1 fallback；欠債標 `implementation_done` |
-| F2 gate 誤讀 | **reject**（誤讀） | Ai-skill 未機械 deny Verifier spawn | 本 3a 回饋；Q5／機械 gate 仍 open |
-| F3 spawn 摩擦豁免 | **fix**（契約） | spawn 失敗 ≠ surgical／≠ Execute 豁免 | portable fallback 順序寫進 consumer YAML |
-| F4 自證關閉 | **fix** | C2／C4 | 獨立 Verifier 後才可升 `slice_compliant_closed` |
+| F0 gate×subagent | **fix**（契約＋adapter 認知） | 通用機械 gate 不應默認殺死委派 transport | 3a 回饋；consumer §2.1 已落地；Cursor adapter 須寫清 Task 冷啟動 |
+| F1 跳過 loop | **fix** | 流程 violation | process debt → `implementation_done` |
+| F2 誤讀 | **reject**（敘事） | 無三角色專用機械 deny | 本檔＋SOP 用語修正 |
+| F3 自證 | **fix** | C2／C4 | 獨立 V 後才可升 closed |
 
 ## 量測欄
 
 | 指標 | 值 |
 | --- | --- |
-| 負向 Execute slice（審計） | **≥2**（shell hamburger；list-detail restore） |
-| 負向 Executor／Verifier spawn | **0／0** |
-| gate-misattribution 事件 | **≥1**（stakeholder 明確指出） |
-| consumer 契約回寫 | **1**（portable delegated-execution §2.1＋YAML rules） |
-| 糾偏後正向 E+V（同日） | **1**（shell-nav Phase 1；Verifier findings ≥1 → fix → closed） |
-| Ai-skill 機械 gate 阻止略過 | **否**（candidate；與 2j F6 同構） |
+| stakeholder 明確指向「gate 卡住三角色」 | **1** |
+| 負向 Execute（無獨立 E／V） | **≥2** |
+| 真「Verifier-not-spawned」機械 deny 存在？ | **否**（candidate） |
+| 常擋工具的機械層 | **Bootstrap Receipt／workflow primary_source（Cursor preToolUse）** |
+| consumer 糾偏文件 | **§2.1 transport fallback** |
+| 糾偏後正向 Task E＋V | **1**（shell-nav Phase 1） |
 
-## 契約回饋（寫回 canonical／consumer overlay）
+## 契約回饋（寫回 canonical／adapter／consumer）
 
-1. **`spawn-friction-not-exemption`** — Cursor Task／Verifier spawn 失敗、bootstrap 成本高、或「怕 gate」**不得**豁免三角色；須走 **transport fallback**（書面 `same_session_executor`／same-session Verifier checklist），關閉上限 `implementation_done`。  
-2. **`gate-misattribution`** — 不可把 **candidate／behavioral** 契約說成「runtime 擋我做 loop」。缺的是 Verifier-spawn tracking（2j）；現況是 agent **選擇跳過**，不是被 deny。  
-3. **`portable-consumer-fallback`** — 外部 repo 可在自有 `delegated-execution` 寫 Cursor fallback（KaizenWMS 已落地）；Ai-skill 正文加深 anti-pattern，**不**等 Q5 promotion 才有可執行路徑。  
-4. **`chrome-bdd-never-surgical`** — shell chrome／列表行為／新 BDD＝Execute → loop（與 consumer surgical 窄邊界一致）。  
-5. **Q5／機械 gate 仍欠** — 3a 再證：無 `verifier_required_before_next_executor` 時，摩擦會重複製造 2j／2l／3a 負向；**不**因本 run 提前關閉 Q5。  
-6. **正負同日對照有效** — 審計債務 + 強制下一 slice 走 loop（Verifier 真抓到 F1）＝ 2l→2m 同構的 consumer 版。
+1. **`mechanical-bootstrap-vs-delegation-transport`（主）** — `gate.bootstrap.receipt_present`／workflow `primary_source` 等 **通用**機械閘，作用在 **fresh Cursor Task** 上時，會產生「三角色被擋」的假信號。契約必須區分：  
+   - **A** 三角色專用 deny（尚未存在於 Ai-skill candidate）  
+   - **B** bootstrap／workflow 冷啟動 deny（存在）  
+   B 失敗 → **transport fallback**，**不是**「loop 取消」。
+2. **`subagent-cold-start-bootstrap-tax`** — Executor／Verifier Task brief **必須**要求首步 Read CORE_BOOTSTRAP＋`core-bootstrap.yaml`＋Receipt（Ai-skill repo）；consumer／portable 路徑則寫明：gate fail-open 或 §2.1 checklist。Kit／Cursor adapter 應有一句「Task 冷啟動必過 bootstrap，否則看起來像三角色壞了」。
+3. **`spawn-or-gate-fail-not-exemption`** — Task spawn 失敗 **或** 機械 gate 連續 deny ≥N → 書面 `transport: same_session_*`；Verifier 仍要有；關閉 ≤ `implementation_done`。
+4. **`portable-consumer-fallback`** — KaizenWMS 已示範不依賴 Q5 promotion 即可寫可執行 fallback（§2.1）。
+5. **與 2j F6 對偶** — 2j：機械閘 **沒擋**「跳過 Verifier」。3a：機械閘 **擋了** subagent 工具 → **誘發**跳過。Q5 若只做 verifier-spawn tracking 而不處理 **bootstrap×Task**，仍會再出 3a。
+6. **不關閉 Q5** — 3a 是 transport／adapter 反例＋行為契約回饋，不是 Shared State promotion 證據。
 
-## 相對 2j／2l／2o 的增量
+## 相對 2j／2l 的增量
 
-| 主題 | 2j／2l／2o | **3a 新增** |
+| 主題 | 2j／2l | **3a** |
 | --- | --- | --- |
-| 跳過理由 | `enabled:false`／surgical 濫用／「小修」 | **誤指 Ai-skill gate 擋住三角色** |
-| Transport | 單 Task 包辦 | **spawn 摩擦 → 主 session 包辦**（未標 transport adaptation） |
-| Consumer 成熟度 | ExternalRepoC 有機械 gate 候選 | KaizenWMS **portable-only** 仍可寫 fallback 並跑通正向 loop |
-| 關閉語意 | 常缺 `implementation_done` | 審計強制降級＋正向 slice 達 `slice_compliant_closed` |
+| 跳過近因 | 故意單 Task／surgical／`enabled:false` | **機械 bootstrap gate → Task 不可用 → 放棄 spawn** |
+| Gate 角色 | 「該擋略過卻沒擋」（缺口） | 「不該被讀成三角色禁令卻擋了冷啟動」（誤傷／誤讀） |
+| 修復面 | verifier-after-executor tracking | **transport fallback ＋ adapter 冷啟動說明** |
 
-## 四責任閉環（負向 run — 斷裂點）
+## 四責任閉環（斷裂點）
 
 ```text
-Specification — 使用者 Execute／可見 chrome（缺 brief／backfill）
+Specification — Execute／mandatory loop
   ↓
-Production — 主 session 直做（應為 Executor leg）
+Production — ❌ Task 冷啟動被 bootstrap 機械 gate 卡住 → 改主 session
   ↓
-Evidence — ❌ 與 Production 合併（自跑 verify）
+Evidence — ❌ 與 Production 合併
   ↓
-Decision — ❌ 未仲裁即暗示完成
+Decision — ❌ 未仲裁即「做完」
   ↓
-Specification — 3a 本文 + consumer §2.1 + 本 plan anti-pattern
+Specification — 3a + consumer §2.1 + Cursor adapter 冷啟動註記
 ```
 
-**斷裂點**：把 **transport 脆弱性** 誤讀成 **governance 禁止 loop** → Production／Evidence 合併。
+## Evidence pointers（consumer／adapter）
 
-## Evidence pointers（consumer）
-
-- `docs/workflow/delegated-execution.md` §2.1／§8.1（process debt 表）
-- `docs/workflow/software-delivery.yaml` `delegation_loop.rules`（spawn failure ≠ exemption）
-- `plans/active/2026-07-23-1422-shell-nav-groups-module-isolation/evidence/2026-07-23-phase-1-nav-contract.md`（正向對照）
+- KaizenWMS：`docs/workflow/delegated-execution.md` §2.1；`software-delivery.yaml` `delegation_loop.rules`
+- 正向：`…/1422-shell-nav-groups-…/evidence/2026-07-23-phase-1-nav-contract.md`
+- Cursor：`ai-tools/agent/cursor.md`（preToolUse＝機械 deny；`AI_SKILL_REPO` 不可解析時 fail-open）
 
 ## Disposition
 
-- **寫回**：本 evidence + plan 索引／checkbox；`delegated-execution.md` anti-pattern 列；`plans/README.md` Delegation SOP 一小段。  
-- **不**視為 Phase 3／Q5 closure。  
-- **不**新建 feedback-history lesson 檔（本輪以 plan dogfood evidence 為準；可後續 promote）。
+- 更新本 evidence（本修訂以 F0 為主軸）＋ anti-pattern／`plans/README`／Cursor adapter 一句。  
+- **不**視為 Phase 3／Q5 closure。

@@ -133,7 +133,7 @@
 
 **Ai-skill repo 內委派的 bootstrap 注意事項**：brief 的 `context.required` 須含 [`CORE_BOOTSTRAP.md`](../CORE_BOOTSTRAP.md) 與 [`runtime/core-bootstrap.yaml`](../runtime/core-bootstrap.yaml)，executor / verifier 首則回覆須輸出 Bootstrap Receipt（否則本 repo 的 bootstrap gate（`gate.bootstrap.receipt_present`）會擋非讀取工具）；外部 repo 無此需求（gate fail-open）。
 
-**Cursor spawn 摩擦（dogfood 3a，2026-07-23）**：子 agent bootstrap／Task 失敗成本高時，**不得**把「Ai-skill 擋住三角色」當略過理由（`sd-delegated-execution` 仍為 candidate，無機械 deny Verifier spawn）。正確路徑：書面 transport fallback；Verifier 仍要跑；同 session 驗證最高 `implementation_done`。細節與正負對照見 [`evidence/3a-kaizenwms-spawn-friction-skip-loop.md`](active/2026-07-08-0825-delegation-verification-arbitration-loop/evidence/3a-kaizenwms-spawn-friction-skip-loop.md)。
+**Cursor 機械 gate × Task 冷啟動（dogfood 3a，2026-07-23）**：`preToolUse` 的 Bootstrap Receipt／workflow `primary_source` 閘是**通用**機械擋，不是「三角色專用 deny」。fresh Executor／Verifier Task 若尚未過 bootstrap，會被 deny 非-Read 工具 → **誤讀成三角色不可用** → 放棄 spawn。正確路徑：(1) Task brief 強制冷啟動讀＋Receipt；(2) 失敗則書面 transport fallback；(3) 同 session 驗證最高 `implementation_done`。全文見 [`evidence/3a-kaizenwms-spawn-friction-skip-loop.md`](active/2026-07-08-0825-delegation-verification-arbitration-loop/evidence/3a-kaizenwms-spawn-friction-skip-loop.md)。
 
 Transport 模板（executor / verifier / 仲裁表）見 [`active/2026-07-08-0825-delegation-verification-arbitration-loop/01-dogfood-prompt-kit.md`](active/2026-07-08-0825-delegation-verification-arbitration-loop/01-dogfood-prompt-kit.md)；決策紀錄（canonical 契約）見 [`active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md`](active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) §Decision Rationale。
 
