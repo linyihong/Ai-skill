@@ -50,13 +50,25 @@ steps:
     action: Cursor hooks must never silently edit files, close goals, or auto-commit. The preToolUse gate IS a mechanical block (native permission:deny on a real bootstrap/workflow gate hit) but fails open (exit 0) when AI_SKILL_REPO is unresolvable; Cursor read/search tools are always allowed so bootstrap/workflow reads cannot self-lock. The stop check uses followup_message loopback only for true final close-out validation. Do not describe the preToolUse gate as a mere reminder.
     gates:
       - gate.cursor.hooks_fail_open
-  - id: enforce_cursor_cognitive_close_out
+  - id: distinguish_bootstrap_gate_from_delegation_ban
     order: 6
+    action: >
+      Treat preToolUse Bootstrap Receipt / workflow primary_source denies on a fresh
+      Cursor Task (Executor/Verifier) as cold-start bootstrap tax, not as a
+      Delegated Execution / 三角色 ban. Task prompts must require CORE_BOOTSTRAP +
+      runtime/core-bootstrap.yaml + Receipt before non-Read tools; on repeated
+      spawn/gate failure use written transport fallback (same-session verify max
+      implementation_done). Dogfood evidence:
+      plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/evidence/3a-kaizenwms-spawn-friction-skip-loop.md
+    gates:
+      - gate.cursor.task_cold_start_not_delegation_ban
+  - id: enforce_cursor_cognitive_close_out
+    order: 7
     action: Ensure init-project Cursor hooks include sessionStart dirty repo close-out guidance, a preToolUse mechanical gate (calls the canonical hook runner; native permission:deny on block; actual Cursor read/search tools allowed; fail-open when repo unresolvable), and a stop close-out check that uses Cursor's followup_message loopback when Bootstrap Receipt, final Cognitive Mode reporting, Feedback / Learning Report, or required Project Git Report is missing from a true final assistant response.
     gates:
       - gate.cursor.cognitive_close_out
   - id: enforce_thin_adapter_boundary
-    order: 7
+    order: 8
     action: Do not duplicate canonical bootstrap obligations, runtime phase details, or shared enforcement text in Cursor adapter files.
     gates:
       - gate.cursor.thin_adapter_boundary
@@ -68,6 +80,12 @@ gates:
       - hooks do not silently edit files, close goals, or auto-commit unless explicitly configured
       - the preToolUse gate blocks via native permission:deny on a real gate hit, and fails open (exit 0) when AI_SKILL_REPO is unresolvable so a missing repo never blocks every tool
       - the stop check fails closed (exit 2 + failClosed) only for close-out bootstrap wiring, while runtime stop validation uses followup_message loopback only for true final assistant responses
+  - id: gate.cursor.task_cold_start_not_delegation_ban
+    blocks: delegation_transport_claim
+    pass_when:
+      - adapter docs distinguish bootstrap/workflow preToolUse deny from a Delegated Execution ban
+      - Task cold-start guidance requires bootstrap reads + Receipt before non-Read tools
+      - spawn/gate failure routes to transport fallback rather than cancelling O→E→V
   - id: gate.cursor.thin_adapter_boundary
     blocks: reusable_doc_change
     pass_when:
@@ -100,6 +118,7 @@ success_criteria:
   - Cursor init-project installs sessionStart dirty repo close-out guidance, a preToolUse mechanical gate, and a stop close-out check for Bootstrap Receipt, final Cognitive Mode reporting, Feedback / Learning Report, and required Project Git Report.
   - Project-local custom checks can live in .ai-skill/project/rules/ and remain available to non-Cursor tools without adding separate project-rule .mdc files.
   - The Cursor preToolUse gate mechanically blocks (native permission:deny) on a real bootstrap/workflow gate hit while failing open when the repo is unresolvable; hooks never silently edit files, close goals, or auto-commit.
+  - Bootstrap/workflow preToolUse denies on fresh Tasks are documented as cold-start tax, not as a Delegated Execution ban; transport fallback is required when spawn/gate fails.
   - Cursor-specific details stay in the adapter layer and canonical bootstrap content is not duplicated.
   - Execution-affecting adapter changes are projected and validated.
 
@@ -107,6 +126,9 @@ failure_modes:
   - id: cursor_hook_overclaim
     detection: Documentation claims the stop/close-out check deterministically enforces completion, or claims the preToolUse gate blocks even when AI_SKILL_REPO is unresolvable (it fails open).
     recovery: Scope the claim to what the hook runner actually does — preToolUse mechanically denies only on a real gate hit with the repo resolved; stop uses followup_message loopback — or add the real implementation and validation.
+  - id: cursor_bootstrap_gate_misread_as_delegation_ban
+    detection: Agents cancel O→E→V because a fresh Task hit Bootstrap Receipt / primary_source deny, treating it as an Ai-skill ban on delegated execution.
+    recovery: Require Task cold-start bootstrap + Receipt; use written transport fallback; see dogfood 3a evidence.
   - id: cursor_path_leaks_to_shared_rule
     detection: Generic enforcement or workflow doc makes .cursor paths universal.
     recovery: Move path and UI detail back to ai-tools/agent/cursor.md or .cursor config.
