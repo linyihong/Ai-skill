@@ -7,7 +7,8 @@
 | 工具 | 類型 | JS 渲染 | Anti-bot Bypass | 效能 | 適用場景 |
 |------|------|---------|-----------------|------|---------|
 | **Scrapling** | Python framework | ✅ (DynamicFetcher) | ✅ (StealthyFetcher) | ⭐⭐⭐⭐⭐ | 進階爬蟲、AI 整合、MCP |
-| **Playwright** | Browser automation | ✅ | ❌ (需自行處理) | ⭐⭐⭐⭐ | 動態內容、SPA API 抓包 |
+| **Playwright** | Browser automation | ✅ | ❌ (需自行處理) | ⭐⭐⭐⭐ | 動態內容、SPA API 抓包（低～中 anti-bot） |
+| **Patchright / stealth Chromium fork** | Browser automation | ✅ | ✅（修 CDP／automation 洩漏） | ⭐⭐⭐ | 高 anti-bot 登入；搭配 headed + persistent profile |
 | **Chrome CDP** | Browser automation | ✅ | ❌ | ⭐⭐⭐⭐ | 本机 Chrome 远程调试、Session 真实 |
 | **httpx** | HTTP client | ❌ | ❌ | ⭐⭐⭐⭐⭐ | 簡單靜態頁面 |
 | **requests** | HTTP client | ❌ | ❌ | ⭐⭐⭐⭐⭐ | 最簡單的靜態頁面 |
@@ -31,6 +32,7 @@
 | **Scrapling DynamicFetcher** | ⭐⭐⭐⭐ | ❌ | ✅ | ✅ |
 | **Scrapling StealthyFetcher** | ⭐⭐⭐ | ✅ | ✅ | ✅ |
 | **Playwright** | ⭐⭐⭐⭐ | ❌ (需 stealth 套件) | ✅ | ✅ |
+| **Patchright 等 stealth fork** | ⭐⭐⭐ | ✅ | ✅（user-data-dir／storage_state） | ✅ |
 | **Puppeteer** | ⭐⭐⭐⭐ | ❌ (需 stealth 套件) | ✅ | ✅ |
 | **Selenium** | ⭐⭐ | ⚠️ | ✅ | ⚠️ |
 
@@ -61,8 +63,8 @@ Scrapling MCP Server
 | **無** | 直接回傳 HTML | httpx / requests |
 | **低** | User-Agent 檢查 | Scrapling Fetcher + 自訂 headers |
 | **中** | Rate limiting、Cookie 驗證 | Scrapling Session + retry |
-| **高** | Cloudflare、reCAPTCHA、JS challenge | Scrapling StealthyFetcher |
-| **極高** | 行為分析、指紋辨識 | StealthyFetcher + proxy rotation + 人類行為模擬 |
+| **高** | Cloudflare、reCAPTCHA、JS challenge | Scrapling StealthyFetcher；或 Patchright 級 fork |
+| **極高** | 行為分析、TLS／JA3、FunCAPTCHA／enforcement | Stealth + **headed 冷登入** + **persistent profile（session-first）** + 住宅代理；CAPTCHA 預設人工一次 |
 
 ### 4. 根據整合需求選擇
 

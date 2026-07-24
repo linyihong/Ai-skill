@@ -100,9 +100,12 @@ curl -sS 'https://target/jse/index-*.js' | rg -o '"/api/[^"]+"'
 
 | 情况 | 策略 |
 | --- | --- |
-| 登录页 **无** captcha 字段 | 账密自动化即可（console.9j2.cn 即此类） |
+| 登录页 **无** captcha 字段 | 账密自动化即可（低 anti-bot SPA） |
 | 图形 captcha | 人工一次提供 code，或 HAR；见 `intelligence/web-scraping/anti-bot-bypass.md` §CAPTCHA |
-| reCAPTCHA / hCaptcha | Stealth + 打码服务或人工；**不**假设能「破解」 |
+| reCAPTCHA / hCaptcha / FunCAPTCHA | Stealth + headed；**session-first**（一次过关后持久化 profile）；打码服务或 `WAIT_HUMAN`；**不**假设能「破解」 |
+| TLS／行为指纹导致「Something went wrong」 | 不要只改 delay；升级 stealth fork、对齐真实 Chrome channel、避免无头冷登录 |
+
+相关 lesson：[`../../feedback/history/web-scraping/common/2026-07-24_093318-session-first-stealth-auth-high-antibot-spa.md`](../../feedback/history/web-scraping/common/2026-07-24_093318-session-first-stealth-auth-high-antibot-spa.md)
 
 ## 产出检查清单
 

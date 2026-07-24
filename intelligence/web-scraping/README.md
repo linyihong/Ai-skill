@@ -5,4 +5,8 @@
 ## Atoms
 
 - [`adaptive-parsing.md`](adaptive-parsing.md)：自適應解析 — 當網站結構變動時自動重新定位元素
-- [`anti-bot-bypass.md`](anti-bot-bypass.md)：Anti-bot Bypass 技術 — 繞過 Cloudflare、reCAPTCHA 等保護
+- [`anti-bot-bypass.md`](anti-bot-bypass.md)：Anti-bot Bypass 技術 — 繞過 Cloudflare、reCAPTCHA 等保護（含 L4–L6 **session-first**）
+
+## Related feedback
+
+- [`../../feedback/history/web-scraping/README.md`](../../feedback/history/web-scraping/README.md)

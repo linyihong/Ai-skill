@@ -136,9 +136,20 @@ async def handle_captcha(fetcher, url, max_retries=3):
 | **L1 - 基本檢查** | User-Agent、Referer 檢查 | 自訂 headers | 不需要 |
 | **L2 - Rate Limiting** | 短時間內多次請求被限 | 請求間隔 + retry | 代理輪換 |
 | **L3 - JS Challenge** | Cloudflare 5 秒盾 | StealthyFetcher | 瀏覽器指紋偽裝 |
-| **L4 - CAPTCHA** | reCAPTCHA、hCaptcha | StealthyFetcher + 代理輪換 | CAPTCHA 解決服務 |
+| **L4 - CAPTCHA** | reCAPTCHA、hCaptcha、FunCAPTCHA | StealthyFetcher + 代理輪換；**headed + WAIT_HUMAN 一次** | CAPTCHA 解決服務（合規前提） |
 | **L5 - 行為分析** | 滑鼠軌跡、滾動模式 | 人類行為模擬 | 真實瀏覽器錄製回放 |
-| **L6 - 指紋辨識** | TLS、WebGL、Canvas 指紋 | StealthyFetcher | 專用指紋偽裝工具 |
+| **L6 - 指紋辨識** | TLS、WebGL、Canvas 指紋 | StealthyFetcher／stealth Chromium fork | 專用指紋偽裝 + **session-first persistent profile** |
+
+### Session-first（L4–L6 登入閘門）
+
+當目標同時有 CAPTCHA 與 TLS／行為指紋時：
+
+1. 用 **headed** stealth 瀏覽器做**一次**登入（含人工過 CAPTCHA／2FA）。
+2. 持久化 `user-data-dir` 或 Playwright `storage_state`（cookie + 必要 storage）。
+3. 後續 run 只檢查 session 是否仍有效；失效再回步驟 1。
+4. **不要**用 vanilla headless 對同一帳號狂重試帳密（易 lock／升挑戰強度）。
+
+Lesson：[`../../feedback/history/web-scraping/common/2026-07-24_093318-session-first-stealth-auth-high-antibot-spa.md`](../../feedback/history/web-scraping/common/2026-07-24_093318-session-first-stealth-auth-high-antibot-spa.md)
 
 ## 注意事項
 

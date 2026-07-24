@@ -57,19 +57,22 @@ Web Scraping Analysis 負責**分析網頁內容提取的需求與可行性**，
 
 ### 3. 工具選擇
 - **HTTP client**（requests/httpx）：靜態 HTML，無 anti-bot
-- **Headless browser**（Playwright/Puppeteer）：需要 JS 渲染、**SPA 登录后 API 抓包**
+- **Headless browser**（Playwright/Puppeteer）：需要 JS 渲染、**SPA 登录后 API 抓包**（低～中 anti-bot）
 - **Chrome DevTools 远程调试（CDP）**：驱动本机 Chrome，与 Playwright `connectOverCDP` 或 spawn `--remote-debugging-port` 配合
-- **Stealth browser**（Scrapling StealthyFetcher）：有 anti-bot 保护
+- **Stealth browser**（Scrapling StealthyFetcher、Patchright 等 Playwright stealth fork）：有 anti-bot 保护；**冷登入優先 headed + persistent profile（session-first）**
 - **MCP Server**（Scrapling MCP）：AI agent 整合场景
 - **SPA API 发现 playbook**：[`spa-api-discovery-via-browser.md`](./spa-api-discovery-via-browser.md) — Playwright / CDP / HAR / bundle 扫描
 - 詳細策略對照：[`../../intelligence/engineering/multi-strategy-routing.md`](../../intelligence/engineering/multi-strategy-routing.md) — 提取/解析/Session/並發策略選擇
 - MCP 架構參考：[`../../intelligence/engineering/mcp-server-patterns.md`](../../intelligence/engineering/mcp-server-patterns.md) — 3-Layer 工具選擇策略
+- Session-first lesson：[`../../feedback/history/web-scraping/common/2026-07-24_093318-session-first-stealth-auth-high-antibot-spa.md`](../../feedback/history/web-scraping/common/2026-07-24_093318-session-first-stealth-auth-high-antibot-spa.md)
 
 ### 4. 策略設計
 - CSS selector / XPath 定位
 - 自適應解析（Find Similar Elements）
 - 分頁處理（pagination / infinite scroll）
 - 並發控制（rate limiting、retry、backoff）
+- **登入閘門（高 anti-bot）**：同 URL 多步驟用 `data-testid`／文案狀態機；TOTP／SMS 靠文案分流；CAPTCHA 預設人工一次（`WAIT_HUMAN`）；成功後持久化 cookie／profile，後續 run 只做 session 健康檢查
+- **登入後寫入動作**：先 UI 驗證 session，再按 SPA API discovery 抓 mutation；勿未 live 驗證就重放
 - 策略組合範例：[`../../intelligence/engineering/multi-strategy-routing.md`](../../intelligence/engineering/multi-strategy-routing.md) — HTTP Direct / Dynamic Browser / Stealth Browser 組合
 
 ### 5. 風險評估

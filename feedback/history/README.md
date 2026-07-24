@@ -21,6 +21,7 @@ feedback/history/
 | `apk-analysis/` | APK 分析 | lesson 已就位 |
 | `development-guidance/` | 開發指引 | lesson 已就位 |
 | `travel-planning/` | 旅遊規劃 | 尚無 lesson |
+| `web-scraping/` | Web／SPA／anti-bot 分析 | lesson 已就位（2026-07-24） |
 
 ## 規則
 
