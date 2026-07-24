@@ -151,6 +151,8 @@ async def handle_captcha(fetcher, url, max_retries=3):
 
 Lesson：[`../../feedback/history/web-scraping/common/2026-07-24_093318-session-first-stealth-auth-high-antibot-spa.md`](../../feedback/history/web-scraping/common/2026-07-24_093318-session-first-stealth-auth-high-antibot-spa.md)
 
+登入挑戰若含郵箱／簡訊／Authenticator／身分確認，另見文案分流：[`login-challenge-text-routing.md`](login-challenge-text-routing.md)。
+
 ## 注意事項
 
 - **法律合規**：遵守網站的 `robots.txt` 和 Terms of Service

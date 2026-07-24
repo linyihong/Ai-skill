@@ -71,7 +71,8 @@ Web Scraping Analysis 負責**分析網頁內容提取的需求與可行性**，
 - 自適應解析（Find Similar Elements）
 - 分頁處理（pagination / infinite scroll）
 - 並發控制（rate limiting、retry、backoff）
-- **登入閘門（高 anti-bot）**：同 URL 多步驟用 `data-testid`／文案狀態機；TOTP／SMS 靠文案分流；CAPTCHA 預設人工一次（`WAIT_HUMAN`）；成功後持久化 cookie／profile，後續 run 只做 session 健康檢查
+- **登入閘門（高 anti-bot）**：同 URL 多步驟用 `data-testid`／文案狀態機；**挑戰先分類再動作**（email OTP／SMS／TOTP／identity knowledge）— 見 [`../../intelligence/web-scraping/login-challenge-text-routing.md`](../../intelligence/web-scraping/login-challenge-text-routing.md)；CAPTCHA 預設人工一次（`WAIT_HUMAN`）；成功後持久化 cookie／profile，後續 run 只做 session 健康檢查
+- **挑戰文案校正**：可用 ephemeral／incognito profile 刻意觸發挑戰以抓真文案；日常作業仍 session-first。真 headed 需互動桌面，SSH 服務工作階段的 headed 常點不動 Continue
 - **登入後寫入動作**：先 UI 驗證 session，再按 SPA API discovery 抓 mutation；勿未 live 驗證就重放
 - 策略組合範例：[`../../intelligence/engineering/multi-strategy-routing.md`](../../intelligence/engineering/multi-strategy-routing.md) — HTTP Direct / Dynamic Browser / Stealth Browser 組合
 
