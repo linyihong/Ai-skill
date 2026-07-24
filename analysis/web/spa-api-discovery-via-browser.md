@@ -13,6 +13,18 @@
 
 **不要**在未 live 验证时用 monorepo 内 Controller 推断他人线上 API。
 
+### 登录壳改版（probe-before-contract）
+
+`*/flow/login` 可能 redirect 到新的 onboarding web（SSO + email 同屏）。旧文献 `data-testid` 可能全部消失。
+
+| 做法 | 说明 |
+| --- | --- |
+| Headed probe 优先 | 列出实际 `input[name]`、按钮文案、最终 URL |
+| 双轨状态机 | 新壳 / 经典壳分流；勿把「找不到旧 testid」当成指纹失败 |
+| 避免 signup 陷阱 | 误点可能进入 phone 注册；侦测后 fail loud |
+
+Lesson：[`../../feedback/history/web-scraping/common/2026-07-24_095600-live-probe-login-shell-before-literature-selectors.md`](../../feedback/history/web-scraping/common/2026-07-24_095600-live-probe-login-shell-before-literature-selectors.md)
+
 ## 方法 A：Playwright（推荐，Agent 可脚本化）
 
 ```javascript
