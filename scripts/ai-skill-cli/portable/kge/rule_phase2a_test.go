@@ -647,3 +647,32 @@ func TestPlanTreeArchiveOrderRule(t *testing.T) {
 		t.Fatalf("want archive-order pass, got %#v", got)
 	}
 }
+
+func TestPlanTreeFolderConventionRule(t *testing.T) {
+	eng := NewEngine(PlanTreeFolderConventionRule{})
+	ctx := Context{
+		CommitMsg:   "docs: deep",
+		StagedPaths: []string{"plans/active/foo/bar/baz/deep.md"},
+		Provided:    map[CapabilityID]bool{CapCommitMsg: true, CapStagedPaths: true},
+	}
+	got := eng.Run(ctx)
+	if len(got) != 1 || got[0].Code != "plan_tree_folder_convention" {
+		t.Fatalf("want depth advisory, got %#v", got)
+	}
+	if Blocking(got) {
+		t.Fatal("folder convention must be advisory")
+	}
+	ctx.StagedPaths = []string{"plans/active/cluster/_plan.md", "plans/active/cluster/01-schema.md"}
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want clean layout, got %#v", got)
+	}
+	base := "2026-06-01-1200-sample"
+	ctx.StagedPaths = []string{"plans/active/" + base + ".md"}
+	ctx.DirListings = map[string][]string{
+		"plans/active": {base + ".md", base + "-dogfood.md"},
+	}
+	ctx.Provided[CapRepoFS] = true
+	if got := eng.Run(ctx); len(got) != 1 || !strings.Contains(got[0].Message, "flat multi-file cluster") {
+		t.Fatalf("want flat cluster advisory, got %#v", got)
+	}
+}

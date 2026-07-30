@@ -23,7 +23,6 @@ package app
 // See: plans/active/2026-06-02-1200-plan-tree-hierarchy-governance/02-validator-implementation.md
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -108,7 +107,6 @@ type DelegationSpec struct {
 var (
 	planTreeFrontmatterDelim = []byte("---")
 	planTreeYAMLKeyValueRE   = regexp.MustCompile(`^([A-Za-z_][A-Za-z0-9_]*)\s*:\s*(.*)$`)
-	planTreeFolderNameRE     = regexp.MustCompile(`^\d{2}-`)
 )
 
 // parsePlanFrontmatterFromBytes extracts the frontmatter fields from a plan
@@ -395,53 +393,7 @@ func validatePlanTreeUniqueID(text string, staged []string, root string) string 
 // hooks.go renders warnings without blocking.
 // ---------------------------------------------------------------------------
 func validatePlanTreeFolderConvention(text string, staged []string, root string) string {
-	if hasOptOutTrailer(text, "[skip-plan-tree-folder-convention]") {
-		return ""
-	}
-	var warnings []string
-	for _, rel := range stagedPlanPaths(staged) {
-		segs := strings.Split(rel, "/")
-		// segs[0]=plans, segs[1]=active|archived, segs[2..]=...
-		if len(segs) < 3 {
-			continue
-		}
-		base := segs[len(segs)-1]
-		// evidence/ subdirectory: exempt from NN- prefix and depth limits (see
-		// governance/lifecycle/plan-evidence.md).
-		inEvidence := false
-		for i, seg := range segs {
-			if i >= 2 && seg == "evidence" {
-				inEvidence = true
-				break
-			}
-		}
-		// Depth check: levels under plans/<active|archived>/.
-		depth := len(segs) - 2
-		if depth >= 3 && !inEvidence {
-			warnings = append(warnings, fmt.Sprintf("%s: nested depth %d (recommend < 3, consider splitting into independent main plan)", rel, depth))
-		}
-		// Filename convention (only for files inside a folder, not top-level
-		// active/archived siblings).
-		if depth >= 2 {
-			if inEvidence {
-				if !strings.HasSuffix(strings.ToLower(base), ".md") {
-					warnings = append(warnings, fmt.Sprintf("%s: evidence files should be .md", rel))
-				}
-				continue
-			}
-			if base != "_plan.md" && !planTreeFolderNameRE.MatchString(base) {
-				warnings = append(warnings, fmt.Sprintf("%s: filename should be `_plan.md` or `NN-<slug>.md`", rel))
-			}
-		}
-	}
-	warnings = append(warnings, flatClusterWarningsForStaged(staged, root)...)
-	if len(warnings) == 0 {
-		return ""
-	}
-	return "plan-tree-folder-convention (warning): UI convention advisories (non-blocking):\n    - " +
-		strings.Join(warnings, "\n    - ") +
-		"\n  Folder shape is a recommendation — frontmatter `parent` is the source of truth." +
-		"\n  Opt-out: standalone `[skip-plan-tree-folder-convention]` trailer."
+	return runKGEPlanTreeFolderConvention(text, staged, root)
 }
 
 // hasOptOutTrailer returns true if the commit message body contains the given

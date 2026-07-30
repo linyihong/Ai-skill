@@ -35,6 +35,7 @@ func DefaultRules() []Rule {
 		PlanTreeArchiveOrderRule{},
 		PlanTreeParentReferenceRule{},
 		PlanTreeUniqueIDRule{},
+		PlanTreeFolderConventionRule{},
 	}
 }
 

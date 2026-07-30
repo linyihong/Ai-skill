@@ -632,6 +632,37 @@ func runKGEPlanTreeUniqueID(text string, staged []string, root string) string {
 	return kgeFindingsMessage(eng.Run(runKGEPlanTreeContext(text, staged, root)))
 }
 
+func runKGEPlanTreeFolderConvention(text string, staged []string, root string) string {
+	listings := map[string][]string{}
+	for _, loc := range []string{"active", "archived"} {
+		dir := filepath.Join(root, "plans", loc)
+		entries, err := os.ReadDir(dir)
+		if err != nil {
+			continue
+		}
+		var names []string
+		for _, e := range entries {
+			if e.IsDir() {
+				continue
+			}
+			names = append(names, e.Name())
+		}
+		listings["plans/"+loc] = names
+	}
+	ctx := kge.Context{
+		CommitMsg:   text,
+		StagedPaths: staged,
+		DirListings: listings,
+		Provided: map[kge.CapabilityID]bool{
+			kge.CapCommitMsg:   true,
+			kge.CapStagedPaths: true,
+			kge.CapRepoFS:      true,
+		},
+	}
+	eng := kge.NewEngine(kge.PlanTreeFolderConventionRule{})
+	return kgeFindingsMessage(eng.Run(ctx))
+}
+
 // countKGEAdvisories runs advisory-only rules (D9 commit-msg count path).
 // Does not run validation or discovery rules.
 func countKGEAdvisories(root string, staged []string) int {
