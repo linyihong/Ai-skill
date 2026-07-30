@@ -327,6 +327,61 @@ func runKGEPlanStatusSync(text string, staged []string) string {
 	return kgeFindingsMessage(eng.Run(ctx))
 }
 
+// runKGEPlanCheckboxSync loads per-plan staged diffs into PathDiffs.
+func runKGEPlanCheckboxSync(text string, staged []string, root string) string {
+	pathDiffs := map[string]string{}
+	for _, ref := range kge.FindActivePlanRefs(text) {
+		clean := strings.TrimRight(ref, "),]\"")
+		if clean == "" {
+			continue
+		}
+		diff := stagedDiffCached(root, clean)
+		if diff != "" {
+			pathDiffs[clean] = diff
+		}
+	}
+	ctx := kge.Context{
+		CommitMsg:   text,
+		StagedPaths: staged,
+		PathDiffs:   pathDiffs,
+		Provided: map[kge.CapabilityID]bool{
+			kge.CapCommitMsg:   true,
+			kge.CapStagedPaths: true,
+			kge.CapStagedDiff:  true,
+		},
+	}
+	eng := kge.NewEngine(kge.PlanCheckboxSyncRule{})
+	return kgeFindingsMessage(eng.Run(ctx))
+}
+
+// runKGEPlanArchivalAudit loads staged archived plan contents for the portable rule.
+func runKGEPlanArchivalAudit(text string, staged []string, root string) string {
+	contents := map[string]string{}
+	for _, s := range staged {
+		p := filepath.ToSlash(s)
+		if !strings.HasPrefix(p, "plans/archived/") || !strings.HasSuffix(p, ".md") {
+			continue
+		}
+		body, err := os.ReadFile(filepath.Join(root, filepath.FromSlash(p)))
+		if err != nil {
+			continue
+		}
+		contents[p] = string(body)
+	}
+	ctx := kge.Context{
+		CommitMsg:    text,
+		StagedPaths:  staged,
+		FileContents: contents,
+		Provided: map[kge.CapabilityID]bool{
+			kge.CapCommitMsg:     true,
+			kge.CapStagedPaths:   true,
+			kge.CapStagedContent: true,
+		},
+	}
+	eng := kge.NewEngine(kge.PlanArchivalAuditRule{})
+	return kgeFindingsMessage(eng.Run(ctx))
+}
+
 // countKGEAdvisories runs advisory-only rules (D9 commit-msg count path).
 // Does not run validation or discovery rules.
 func countKGEAdvisories(root string, staged []string) int {

@@ -30,6 +30,7 @@ type Context struct {
 	Modes        map[string]string // cognitive modes if parsed
 	StagedPaths  []string
 	StagedDiff   string            // empty = not supplied (may fail rules that require CapStagedDiff)
+	PathDiffs    map[string]string // CapStagedDiff: optional path → unified diff (per-file)
 	FileContents map[string]string // path → content when CapStagedContent provided
 	ExistingPaths map[string]bool  // CapRepoFS: paths attested to exist on disk
 	KnownSignals  map[string]bool  // CapKnownSignals: discovery signal vocabulary

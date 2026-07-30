@@ -15,6 +15,11 @@ var completionPhrases = []string{
 	"完成", "結案", "結束", "✅",
 }
 
+// FindActivePlanRefs returns plans/active/*.md path references in text.
+func FindActivePlanRefs(text string) []string {
+	return planPathRE.FindAllString(text, -1)
+}
+
 // PlanStatusSyncRule requires referenced active plan files to be staged when
 // the commit body claims phase/milestone completion.
 //
@@ -50,7 +55,7 @@ func (PlanStatusSyncRule) Validate(ctx Context) []Finding {
 	if !phaseMentionRE.MatchString(text) {
 		return nil
 	}
-	planRefs := planPathRE.FindAllString(text, -1)
+	planRefs := FindActivePlanRefs(text)
 	if len(planRefs) == 0 {
 		return nil
 	}

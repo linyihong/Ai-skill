@@ -362,3 +362,68 @@ func TestPlanStatusSyncRule(t *testing.T) {
 		t.Fatalf("want opt-out pass, got %#v", got)
 	}
 }
+
+func TestPlanCheckboxSyncRule(t *testing.T) {
+	eng := NewEngine(PlanCheckboxSyncRule{})
+	plan := "plans/active/foo.md"
+	ctx := Context{
+		CommitMsg:   "feat: work on " + plan,
+		StagedPaths: []string{"scripts/ai-skill-cli/internal/app/x.go"},
+		PathDiffs:   map[string]string{},
+		Provided: map[CapabilityID]bool{
+			CapCommitMsg: true, CapStagedPaths: true, CapStagedDiff: true,
+		},
+	}
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "plan_checkbox_sync" {
+		t.Fatalf("want not-staged violation, got %#v", got)
+	}
+	ctx.StagedPaths = []string{plan, "scripts/ai-skill-cli/internal/app/x.go"}
+	ctx.PathDiffs = map[string]string{plan: "+some other change\n"}
+	if got := eng.Run(ctx); len(got) != 1 {
+		t.Fatalf("want no-flip violation, got %#v", got)
+	}
+	ctx.PathDiffs = map[string]string{plan: "+- [x] done item\n"}
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want flip pass, got %#v", got)
+	}
+	if !PlanDiffFlipsCheckbox("+  - [X] Done\n") {
+		t.Fatal("want PlanDiffFlipsCheckbox true for + - [X]")
+	}
+	ctx.CommitMsg = ctx.CommitMsg + "\n\n[skip-plan-checkbox-sync]\n"
+	ctx.PathDiffs = map[string]string{plan: "+no flip\n"}
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want opt-out pass, got %#v", got)
+	}
+}
+
+func TestPlanArchivalAuditRule(t *testing.T) {
+	eng := NewEngine(PlanArchivalAuditRule{})
+	path := "plans/archived/foo.md"
+	ctx := Context{
+		CommitMsg:   "chore: archive plan",
+		StagedPaths: []string{path},
+		FileContents: map[string]string{
+			path: "# plan\n\n- [ ] leftover\n- [x] done\n",
+		},
+		Provided: map[CapabilityID]bool{
+			CapCommitMsg: true, CapStagedPaths: true, CapStagedContent: true,
+		},
+	}
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "plan_archival_audit" {
+		t.Fatalf("want archival audit violation, got %#v", got)
+	}
+	ctx.CommitMsg = "chore: archive plan — remaining items deferred"
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want deferred justification pass, got %#v", got)
+	}
+	ctx.CommitMsg = "chore: archive plan"
+	ctx.FileContents[path] = "# plan\n\n- [x] all done\n"
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want all-checked pass, got %#v", got)
+	}
+	ctx.FileContents[path] = "# plan\n\n- [ ] leftover\n"
+	ctx.CommitMsg = "chore: archive\n\n[skip-plan-archival-audit]\n"
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want opt-out pass, got %#v", got)
+	}
+}

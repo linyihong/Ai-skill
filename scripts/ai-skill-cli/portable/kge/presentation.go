@@ -25,6 +25,8 @@ func DefaultRules() []Rule {
 		AdaptiveTriggersRule{},
 		EvidenceHierarchyRule{},
 		PlanStatusSyncRule{},
+		PlanCheckboxSyncRule{},
+		PlanArchivalAuditRule{},
 	}
 }
 
