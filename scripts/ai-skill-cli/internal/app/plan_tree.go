@@ -27,7 +27,6 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
-	"sort"
 	"strings"
 
 	"gopkg.in/yaml.v3"
@@ -342,68 +341,7 @@ func readStagedPlan(root, rel string) (PlanFrontmatter, bool) {
 // we accept either explicit `parent: null` or no parent field.
 // ---------------------------------------------------------------------------
 func validatePlanTreeFrontmatter(text string, staged []string, root string) string {
-	if hasOptOutTrailer(text, "[skip-plan-tree-frontmatter]") {
-		return ""
-	}
-	var violations []string
-	for _, rel := range stagedPlanPaths(staged) {
-		pf, ok := readStagedPlan(root, rel)
-		if !ok || !pf.HasFrontmatter {
-			continue
-		}
-		kind := pf.PlanKind
-		if kind == "" {
-			// Untagged plan — backward-compatible skip.
-			continue
-		}
-		if kind != "sub" && kind != "spike" {
-			continue
-		}
-		var missing []string
-		if !pf.HasParentField || strings.TrimSpace(pf.Parent) == "" {
-			missing = append(missing, "parent")
-		}
-		if !pf.HasReasonField || pf.SubPlanReason == "" {
-			missing = append(missing, "sub_plan_reason (non-empty)")
-		}
-		if pf.RequiredForCompletion == nil {
-			missing = append(missing, "required_for_completion")
-		}
-		if len(missing) > 0 {
-			violations = append(violations, fmt.Sprintf("%s missing: %s", rel, strings.Join(missing, ", ")))
-		}
-
-		// Delegation (sub-plan 03, consumer-layer). Only an ENABLED delegation adds
-		// checks; delegation absent OR enabled:false takes this no-op branch, giving
-		// byte-identical behavior to a plan with no delegation block at all
-		// (Gate P2-2 zero-behavior-change; Gate P2-4 enabled:false == undeclared).
-		if d := pf.Delegation; d != nil && d.Enabled {
-			var dm []string
-			if strings.TrimSpace(d.Brief.Goal) == "" {
-				dm = append(dm, "delegation.brief.goal")
-			}
-			if !d.Brief.Acceptance.hasContent() {
-				dm = append(dm, "delegation.brief.acceptance")
-			}
-			if !d.Brief.Verification.hasContent() {
-				dm = append(dm, "delegation.brief.verification")
-			}
-			if !d.Execution.Modes.hasContent() {
-				dm = append(dm, "delegation.execution.modes")
-			}
-			if len(dm) > 0 {
-				violations = append(violations, fmt.Sprintf("%s delegation enabled but missing: %s", rel, strings.Join(dm, ", ")))
-			}
-		}
-	}
-	if len(violations) == 0 {
-		return ""
-	}
-	return "plan-tree-frontmatter: sub/spike plan(s) missing required frontmatter fields:\n    - " +
-		strings.Join(violations, "\n    - ") +
-		"\n  Add `parent: <main-id>`, `sub_plan_reason: <non-empty>` and `required_for_completion: true|false` " +
-		"(see plans/active/2026-06-02-1200-plan-tree-hierarchy-governance/01-frontmatter-schema.md)" +
-		"\n  Opt-out (emergency only): standalone `[skip-plan-tree-frontmatter]` trailer."
+	return runKGEPlanTreeFrontmatter(text, staged, root)
 }
 
 // ---------------------------------------------------------------------------
@@ -415,56 +353,7 @@ func validatePlanTreeFrontmatter(text string, staged []string, root string) stri
 // still-active OR already-archived both qualify as long as status==completed).
 // ---------------------------------------------------------------------------
 func validatePlanTreeArchiveOrder(text string, staged []string, root string) string {
-	if hasOptOutTrailer(text, "[skip-plan-tree-archive-order]") {
-		return ""
-	}
-	archivedMains := []PlanFrontmatter{}
-	for _, rel := range stagedPlanPaths(staged) {
-		if !strings.HasPrefix(rel, "plans/archived/") {
-			continue
-		}
-		pf, ok := readStagedPlan(root, rel)
-		if !ok || !pf.HasFrontmatter {
-			continue
-		}
-		if pf.PlanKind == "main" {
-			archivedMains = append(archivedMains, pf)
-		}
-	}
-	if len(archivedMains) == 0 {
-		return ""
-	}
-	all := scanAllPlanFrontmatter(root)
-	var violations []string
-	for _, main := range archivedMains {
-		if main.ID == "" {
-			continue
-		}
-		for _, p := range all {
-			if !p.HasFrontmatter {
-				continue
-			}
-			if p.Parent != main.ID {
-				continue
-			}
-			if p.RequiredForCompletion == nil || !*p.RequiredForCompletion {
-				continue
-			}
-			if p.Status == "completed" {
-				continue
-			}
-			violations = append(violations,
-				fmt.Sprintf("main %s (%s) blocked by required sub %s (status=%s)",
-					main.ID, main.Path, p.Path, displayStatus(p.Status)))
-		}
-	}
-	if len(violations) == 0 {
-		return ""
-	}
-	return "plan-tree-archive-order: cannot archive main plan(s) with unfinished required sub-plans:\n    - " +
-		strings.Join(violations, "\n    - ") +
-		"\n  Complete the required sub-plan(s) first or flip required_for_completion: false with rationale." +
-		"\n  Opt-out (emergency only): standalone `[skip-plan-tree-archive-order]` trailer."
+	return runKGEPlanTreeArchiveOrder(text, staged, root)
 }
 
 func displayStatus(s string) string {
@@ -482,47 +371,7 @@ func displayStatus(s string) string {
 // excluding fixtures/). Prevents dangling parent pointers.
 // ---------------------------------------------------------------------------
 func validatePlanTreeParentReference(text string, staged []string, root string) string {
-	if hasOptOutTrailer(text, "[skip-plan-tree-parent-reference]") {
-		return ""
-	}
-	var stagedSubs []PlanFrontmatter
-	for _, rel := range stagedPlanPaths(staged) {
-		pf, ok := readStagedPlan(root, rel)
-		if !ok || !pf.HasFrontmatter {
-			continue
-		}
-		if pf.PlanKind != "sub" && pf.PlanKind != "spike" {
-			continue
-		}
-		if strings.TrimSpace(pf.Parent) == "" {
-			continue
-		}
-		stagedSubs = append(stagedSubs, pf)
-	}
-	if len(stagedSubs) == 0 {
-		return ""
-	}
-	all := scanAllPlanFrontmatter(root)
-	known := map[string]bool{}
-	for _, p := range all {
-		if p.HasFrontmatter && p.ID != "" {
-			known[p.ID] = true
-		}
-	}
-	var violations []string
-	for _, p := range stagedSubs {
-		if !known[p.Parent] {
-			violations = append(violations,
-				fmt.Sprintf("%s references parent: %q which does not resolve to any plan id", p.Path, p.Parent))
-		}
-	}
-	if len(violations) == 0 {
-		return ""
-	}
-	return "plan-tree-parent-reference: dangling parent pointer(s) detected:\n    - " +
-		strings.Join(violations, "\n    - ") +
-		"\n  Either fix the parent id or create the referenced main plan first." +
-		"\n  Opt-out (emergency only): standalone `[skip-plan-tree-parent-reference]` trailer."
+	return runKGEPlanTreeParentReference(text, staged, root)
 }
 
 // ---------------------------------------------------------------------------
@@ -532,54 +381,7 @@ func validatePlanTreeParentReference(text string, staged []string, root string) 
 // `id:` frontmatter value. Fires when staged plans introduce or modify the id.
 // ---------------------------------------------------------------------------
 func validatePlanTreeUniqueID(text string, staged []string, root string) string {
-	if hasOptOutTrailer(text, "[skip-plan-tree-unique-id]") {
-		return ""
-	}
-	all := scanAllPlanFrontmatter(root)
-	byID := map[string][]string{}
-	for _, p := range all {
-		if !p.HasFrontmatter || p.ID == "" {
-			continue
-		}
-		byID[p.ID] = append(byID[p.ID], p.Path)
-	}
-	stagedSet := map[string]bool{}
-	for _, s := range staged {
-		stagedSet[filepath.ToSlash(s)] = true
-	}
-	// Only surface duplicates whose duplicate set touches a staged file —
-	// avoids re-litigating pre-existing repo state on unrelated commits.
-	var ids []string
-	for id := range byID {
-		ids = append(ids, id)
-	}
-	sort.Strings(ids)
-	var violations []string
-	for _, id := range ids {
-		paths := byID[id]
-		if len(paths) < 2 {
-			continue
-		}
-		touchesStage := false
-		for _, p := range paths {
-			if stagedSet[p] {
-				touchesStage = true
-				break
-			}
-		}
-		if !touchesStage {
-			continue
-		}
-		sort.Strings(paths)
-		violations = append(violations, fmt.Sprintf("id %q appears in: %s", id, strings.Join(paths, ", ")))
-	}
-	if len(violations) == 0 {
-		return ""
-	}
-	return "plan-tree-unique-id: duplicate frontmatter id(s) detected:\n    - " +
-		strings.Join(violations, "\n    - ") +
-		"\n  Plan ids must be globally unique across active + archived." +
-		"\n  Opt-out (emergency only): standalone `[skip-plan-tree-unique-id]` trailer."
+	return runKGEPlanTreeUniqueID(text, staged, root)
 }
 
 // ---------------------------------------------------------------------------

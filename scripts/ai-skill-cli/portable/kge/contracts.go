@@ -24,7 +24,28 @@ const (
 	CapAddedPaths   CapabilityID = "cap.added_paths"
 	CapSearchCorpus CapabilityID = "cap.search_corpus"
 	CapBoundPaths   CapabilityID = "cap.bound_paths"
+	CapPlanIndex   CapabilityID = "cap.plan_index"
 )
+
+// PlanMeta is adapter-normalized plan frontmatter for plan-tree rules.
+// Parsing stays in the host adapter; portable rules only consume this struct.
+type PlanMeta struct {
+	Path                    string
+	HasFrontmatter          bool
+	ID                      string
+	PlanKind                string
+	Status                  string
+	Parent                  string
+	HasParentField          bool
+	RequiredForCompletion   *bool
+	HasReasonField          bool
+	SubPlanReason           string
+	DelegationEnabled       bool
+	DelegationHasGoal       bool
+	DelegationHasAcceptance bool
+	DelegationHasVerification bool
+	DelegationHasModes      bool
+}
 
 // Context is the adapter-normalized input. No git handles.
 type Context struct {
@@ -41,6 +62,7 @@ type Context struct {
 	KnownSignals  map[string]bool  // CapKnownSignals: discovery signal vocabulary
 	SearchCorpus  string           // CapSearchCorpus: searchable text blob from adapter
 	BoundPaths    map[string]bool  // CapBoundPaths: registry-bound source paths
+	PlanIndex     []PlanMeta       // CapPlanIndex: parsed plan frontmatter (repo + staged)
 	// Provided lists which capabilities the adapter filled.
 	Provided map[CapabilityID]bool
 }

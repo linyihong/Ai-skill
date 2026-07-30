@@ -31,6 +31,10 @@ func DefaultRules() []Rule {
 		RuntimeTriggerWiringRule{},
 		EnforcementRuleRegistrySyncRule{},
 		PlanEvidenceConventionRule{},
+		PlanTreeFrontmatterRule{},
+		PlanTreeArchiveOrderRule{},
+		PlanTreeParentReferenceRule{},
+		PlanTreeUniqueIDRule{},
 	}
 }
 

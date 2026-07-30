@@ -555,6 +555,83 @@ func runKGEPlanEvidenceConvention(text string, staged []string, root string) str
 	return kgeFindingsMessage(eng.Run(ctx))
 }
 
+func planFrontmatterToMeta(pf PlanFrontmatter) kge.PlanMeta {
+	m := kge.PlanMeta{
+		Path:           filepath.ToSlash(pf.Path),
+		HasFrontmatter: pf.HasFrontmatter,
+		ID:             pf.ID,
+		PlanKind:       pf.PlanKind,
+		Status:         pf.Status,
+		Parent:         pf.Parent,
+		HasParentField: pf.HasParentField,
+		RequiredForCompletion: pf.RequiredForCompletion,
+		HasReasonField: pf.HasReasonField,
+		SubPlanReason:  pf.SubPlanReason,
+	}
+	if d := pf.Delegation; d != nil && d.Enabled {
+		m.DelegationEnabled = true
+		m.DelegationHasGoal = strings.TrimSpace(d.Brief.Goal) != ""
+		m.DelegationHasAcceptance = d.Brief.Acceptance.hasContent()
+		m.DelegationHasVerification = d.Brief.Verification.hasContent()
+		m.DelegationHasModes = d.Execution.Modes.hasContent()
+	}
+	return m
+}
+
+// buildKGEPlanIndex loads all plan frontmatter and overlays staged plan paths.
+func buildKGEPlanIndex(staged []string, root string) []kge.PlanMeta {
+	all := scanAllPlanFrontmatter(root)
+	byPath := map[string]kge.PlanMeta{}
+	for _, pf := range all {
+		m := planFrontmatterToMeta(pf)
+		byPath[m.Path] = m
+	}
+	for _, rel := range kge.StagedPlanPaths(staged) {
+		if pf, ok := readStagedPlan(root, rel); ok {
+			m := planFrontmatterToMeta(pf)
+			byPath[m.Path] = m
+		}
+	}
+	out := make([]kge.PlanMeta, 0, len(byPath))
+	for _, m := range byPath {
+		out = append(out, m)
+	}
+	return out
+}
+
+func runKGEPlanTreeContext(text string, staged []string, root string) kge.Context {
+	return kge.Context{
+		CommitMsg:   text,
+		StagedPaths: staged,
+		PlanIndex:   buildKGEPlanIndex(staged, root),
+		Provided: map[kge.CapabilityID]bool{
+			kge.CapCommitMsg:   true,
+			kge.CapStagedPaths: true,
+			kge.CapPlanIndex:   true,
+		},
+	}
+}
+
+func runKGEPlanTreeFrontmatter(text string, staged []string, root string) string {
+	eng := kge.NewEngine(kge.PlanTreeFrontmatterRule{})
+	return kgeFindingsMessage(eng.Run(runKGEPlanTreeContext(text, staged, root)))
+}
+
+func runKGEPlanTreeArchiveOrder(text string, staged []string, root string) string {
+	eng := kge.NewEngine(kge.PlanTreeArchiveOrderRule{})
+	return kgeFindingsMessage(eng.Run(runKGEPlanTreeContext(text, staged, root)))
+}
+
+func runKGEPlanTreeParentReference(text string, staged []string, root string) string {
+	eng := kge.NewEngine(kge.PlanTreeParentReferenceRule{})
+	return kgeFindingsMessage(eng.Run(runKGEPlanTreeContext(text, staged, root)))
+}
+
+func runKGEPlanTreeUniqueID(text string, staged []string, root string) string {
+	eng := kge.NewEngine(kge.PlanTreeUniqueIDRule{})
+	return kgeFindingsMessage(eng.Run(runKGEPlanTreeContext(text, staged, root)))
+}
+
 // countKGEAdvisories runs advisory-only rules (D9 commit-msg count path).
 // Does not run validation or discovery rules.
 func countKGEAdvisories(root string, staged []string) int {

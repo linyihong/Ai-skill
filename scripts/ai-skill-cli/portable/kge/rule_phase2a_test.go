@@ -563,3 +563,87 @@ func TestPlanEvidenceConventionRule(t *testing.T) {
 		t.Fatalf("want opt-out pass, got %#v", got)
 	}
 }
+
+func TestPlanTreeFrontmatterRule(t *testing.T) {
+	eng := NewEngine(PlanTreeFrontmatterRule{})
+	req := true
+	ctx := Context{
+		CommitMsg:   "feat: add sub",
+		StagedPaths: []string{"plans/active/child.md"},
+		PlanIndex: []PlanMeta{{
+			Path: "plans/active/child.md", HasFrontmatter: true, PlanKind: "sub",
+		}},
+		Provided: map[CapabilityID]bool{CapCommitMsg: true, CapStagedPaths: true, CapPlanIndex: true},
+	}
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "plan_tree_frontmatter" {
+		t.Fatalf("want frontmatter violation, got %#v", got)
+	}
+	ctx.PlanIndex[0] = PlanMeta{
+		Path: "plans/active/child.md", HasFrontmatter: true, PlanKind: "sub",
+		HasParentField: true, Parent: "main-id", HasReasonField: true, SubPlanReason: "why",
+		RequiredForCompletion: &req,
+	}
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want frontmatter pass, got %#v", got)
+	}
+}
+
+func TestPlanTreeUniqueIDRule(t *testing.T) {
+	eng := NewEngine(PlanTreeUniqueIDRule{})
+	ctx := Context{
+		CommitMsg:   "feat: dup",
+		StagedPaths: []string{"plans/active/a.md"},
+		PlanIndex: []PlanMeta{
+			{Path: "plans/active/a.md", HasFrontmatter: true, ID: "same"},
+			{Path: "plans/archived/b.md", HasFrontmatter: true, ID: "same"},
+		},
+		Provided: map[CapabilityID]bool{CapCommitMsg: true, CapStagedPaths: true, CapPlanIndex: true},
+	}
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "plan_tree_unique_id" {
+		t.Fatalf("want unique-id violation, got %#v", got)
+	}
+	ctx.PlanIndex[1].ID = "other"
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want unique pass, got %#v", got)
+	}
+}
+
+func TestPlanTreeParentReferenceRule(t *testing.T) {
+	eng := NewEngine(PlanTreeParentReferenceRule{})
+	ctx := Context{
+		CommitMsg:   "feat: sub",
+		StagedPaths: []string{"plans/active/child.md"},
+		PlanIndex: []PlanMeta{
+			{Path: "plans/active/child.md", HasFrontmatter: true, PlanKind: "sub", Parent: "missing-main"},
+		},
+		Provided: map[CapabilityID]bool{CapCommitMsg: true, CapStagedPaths: true, CapPlanIndex: true},
+	}
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "plan_tree_parent_reference" {
+		t.Fatalf("want dangling parent, got %#v", got)
+	}
+	ctx.PlanIndex = append(ctx.PlanIndex, PlanMeta{Path: "plans/active/main.md", HasFrontmatter: true, ID: "missing-main", PlanKind: "main"})
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want parent resolve pass, got %#v", got)
+	}
+}
+
+func TestPlanTreeArchiveOrderRule(t *testing.T) {
+	eng := NewEngine(PlanTreeArchiveOrderRule{})
+	req := true
+	ctx := Context{
+		CommitMsg:   "chore: archive",
+		StagedPaths: []string{"plans/archived/main.md"},
+		PlanIndex: []PlanMeta{
+			{Path: "plans/archived/main.md", HasFrontmatter: true, PlanKind: "main", ID: "main-1"},
+			{Path: "plans/active/child.md", HasFrontmatter: true, PlanKind: "sub", Parent: "main-1", RequiredForCompletion: &req, Status: "in-progress"},
+		},
+		Provided: map[CapabilityID]bool{CapCommitMsg: true, CapStagedPaths: true, CapPlanIndex: true},
+	}
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "plan_tree_archive_order" {
+		t.Fatalf("want archive-order violation, got %#v", got)
+	}
+	ctx.PlanIndex[1].Status = "completed"
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want archive-order pass, got %#v", got)
+	}
+}
