@@ -12,6 +12,8 @@ func DefaultRules() []Rule {
 		CognitiveCostRule{},
 		CLIDocSyncRule{},
 		DocumentSizingRule{},
+		MarkdownYamlSyncRule{},
+		BootstrapEntryThinnessRule{},
 	}
 }
 

@@ -30,6 +30,7 @@ type Context struct {
 	StagedPaths  []string
 	StagedDiff   string            // empty = not supplied (may fail rules that require CapStagedDiff)
 	FileContents map[string]string // path → content when CapStagedContent provided
+	ExistingPaths map[string]bool  // CapRepoFS: paths attested to exist on disk
 	// Provided lists which capabilities the adapter filled.
 	Provided map[CapabilityID]bool
 }

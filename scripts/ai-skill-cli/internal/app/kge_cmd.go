@@ -123,21 +123,53 @@ func buildKGEWorkspaceContext(root string) (kge.Context, error) {
 		}
 		contents[filepath.ToSlash(p)] = string(body)
 	}
+	// Load bootstrap entry files even when not .md (e.g. .mdc, .roomodes).
+	entrySet := make(map[string]bool, len(kge.BootstrapEntryPaths))
+	for _, p := range kge.BootstrapEntryPaths {
+		entrySet[p] = true
+	}
+	for _, p := range staged {
+		if !entrySet[p] {
+			continue
+		}
+		if _, ok := contents[p]; ok {
+			continue
+		}
+		body, readErr := os.ReadFile(filepath.Join(root, filepath.FromSlash(p)))
+		if readErr != nil {
+			continue
+		}
+		contents[p] = string(body)
+	}
+
+	existing := map[string]bool{}
+	for _, p := range staged {
+		if !strings.HasSuffix(p, ".md") {
+			continue
+		}
+		sibling := strings.TrimSuffix(p, ".md") + ".yaml"
+		if _, err := os.Stat(filepath.Join(root, filepath.FromSlash(sibling))); err == nil {
+			existing[sibling] = true
+		}
+	}
+
 	diff := stagedDiffCached(root, "scripts/ai-skill-cli/internal/app/")
 	provided := map[kge.CapabilityID]bool{
 		kge.CapStagedPaths: true,
 		kge.CapCommitMsg:   true,
 		kge.CapStagedDiff:  true,
+		kge.CapRepoFS:      true,
 	}
 	if len(contents) > 0 {
 		provided[kge.CapStagedContent] = true
 	}
 	return kge.Context{
-		RepoRoot:     root,
-		CommitMsg:    "",
-		StagedPaths:  staged,
-		StagedDiff:   diff,
-		FileContents: contents,
-		Provided:     provided,
+		RepoRoot:      root,
+		CommitMsg:     "",
+		StagedPaths:   staged,
+		StagedDiff:    diff,
+		FileContents:  contents,
+		ExistingPaths: existing,
+		Provided:      provided,
 	}, nil
 }

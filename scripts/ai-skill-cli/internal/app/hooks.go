@@ -3252,101 +3252,17 @@ func validateAdaptiveTriggers(modes map[string]string, text string) string {
 
 // validateBootstrapEntryThinness implements runtime/bootstrap-entry-points.yaml:
 // when a commit stages an AI-tool entry file (repo-root CLAUDE.md,
-// .cursor/rules/ai-skill-bootstrap.mdc, .roomodes), enforce that the file
-// remains a thin pointer to canonical sources.
+// .cursor/rules/ai-skill-bootstrap.mdc, .roomodes, AGENTS.md), enforce that
+// the file remains a thin pointer to canonical sources.
 //
-// Checks:
+// Checks (portable/kge.BootstrapEntryThinnessRule):
 //   - Line count ≤ 30
-//   - No mode enum substrings (FAST/NORMAL/DEEP/FORENSIC/RECOVERY etc.)
-//   - No Bootstrap Receipt format example with the literal phase pattern
-//   - No full Cognitive Mode 報告 markdown table (the "| 維度 | 值 | 理由 |" header)
+//   - No mode enum / Bootstrap Receipt / Cognitive Mode table fragments
 //
 // Opt-out: standalone "[skip-bootstrap-thinness]" trailer line.
-var bootstrapEntryPaths = []string{
-	"CLAUDE.md",
-	".cursor/rules/ai-skill-bootstrap.mdc",
-	".roomodes",
-	// AGENTS.md is generic agent entry (Codex, Cursor partial, Aider, Cline,
-	// other AGENTS.md-aware tools); thinness applies equally.
-	"AGENTS.md",
-}
-
+// Implementation: adapter loads entry contents; rule has no filesystem I/O.
 func validateBootstrapEntryThinness(text string, staged []string, root string) string {
-	// Opt-out marker on its own line
-	for _, line := range strings.Split(text, "\n") {
-		if strings.TrimSpace(line) == "[skip-bootstrap-thinness]" {
-			return ""
-		}
-	}
-
-	// Identify staged entry files
-	stagedEntries := []string{}
-	for _, s := range staged {
-		for _, p := range bootstrapEntryPaths {
-			if s == p {
-				stagedEntries = append(stagedEntries, s)
-				break
-			}
-		}
-	}
-	if len(stagedEntries) == 0 {
-		return ""
-	}
-
-	// Forbidden substrings (each substring is enough to fail)
-	forbiddenSubs := []string{
-		"FAST/NORMAL/DEEP/FORENSIC/RECOVERY",
-		"INDEX_ONLY/SUMMARY_FIRST/CHECKLIST_FIRST/SOURCE_BACKED/GRAPH_ASSISTED",
-		"LIGHT/STANDARD/STRICT/LOCKDOWN",
-		"NONE/EPISODIC/DECISION_REPLAY/FAILURE_REPLAY/PROJECT_CONTEXT",
-		"Bootstrap: rules=✓ phase=phase.bootstrap obligations=",
-		"| 維度 | 值 | 理由 |",
-	}
-
-	const maxLines = 30
-	var violations []string
-	for _, path := range stagedEntries {
-		fullPath := path
-		if !filepath.IsAbs(fullPath) {
-			fullPath = filepath.Join(root, fullPath)
-		}
-		body, err := os.ReadFile(fullPath)
-		if err != nil {
-			// File might be staged for deletion; ignore
-			continue
-		}
-		content := string(body)
-		// Line count check (count lines including trailing-newline content)
-		lineCount := 1
-		for _, b := range content {
-			if b == '\n' {
-				lineCount++
-			}
-		}
-		// Strip count if file ends with newline
-		if strings.HasSuffix(content, "\n") {
-			lineCount--
-		}
-		if lineCount > maxLines {
-			violations = append(violations,
-				"bootstrap-entry-thinness: "+path+" is "+itoa(lineCount)+
-					" lines (max "+itoa(maxLines)+"); move obligation content to CORE_BOOTSTRAP.md or ai-tools/agent/<tool>.md per runtime/bootstrap-entry-points.yaml.")
-			continue
-		}
-		// Forbidden substring check
-		for _, sub := range forbiddenSubs {
-			if strings.Contains(content, sub) {
-				violations = append(violations,
-					"bootstrap-entry-thinness: "+path+" contains canonical content fragment '"+
-						sub+"'; this belongs in CORE_BOOTSTRAP.md / models/cognitive-modes/, not in tool entries.")
-				break // one violation per file is enough
-			}
-		}
-	}
-	if len(violations) == 0 {
-		return ""
-	}
-	return strings.Join(violations, "\n  - ")
+	return runKGEBootstrapEntryThinness(text, staged, root)
 }
 
 // validateCLIDocSync enforces runtime/cli-modification-policy.yaml
@@ -3912,39 +3828,7 @@ func validateRuntimeYamlProjects(text string, staged []string, root string) stri
 //
 // Opt-out: standalone `[skip-markdown-yaml-sync]` trailer line.
 func validateMarkdownYamlSync(text string, staged []string, root string) string {
-	for _, line := range strings.Split(text, "\n") {
-		if strings.TrimSpace(line) == "[skip-markdown-yaml-sync]" {
-			return ""
-		}
-	}
-	stagedSet := make(map[string]bool, len(staged))
-	for _, s := range staged {
-		stagedSet[s] = true
-	}
-	var violations []string
-	for _, s := range staged {
-		if !strings.HasSuffix(s, ".md") {
-			continue
-		}
-		stem := strings.TrimSuffix(s, ".md")
-		sibling := stem + ".yaml"
-		siblingFull := sibling
-		if !filepath.IsAbs(siblingFull) {
-			siblingFull = filepath.Join(root, sibling)
-		}
-		if _, err := os.Stat(siblingFull); err != nil {
-			// Sibling YAML does not exist on disk; no companion enforcement.
-			continue
-		}
-		if !stagedSet[sibling] {
-			violations = append(violations,
-				"markdown-yaml-sync: "+s+" staged but sibling companion "+sibling+" not staged. Canonical .md edits typically need YAML companion update. If markdown-only change is intentional, use [skip-markdown-yaml-sync].")
-		}
-	}
-	if len(violations) == 0 {
-		return ""
-	}
-	return strings.Join(violations, "\n  - ")
+	return runKGEMarkdownYamlSync(text, staged, root)
 }
 
 // commitMsgCtx is the uniform context for per-obligation validators
