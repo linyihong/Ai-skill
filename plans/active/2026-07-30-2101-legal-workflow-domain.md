@@ -21,7 +21,7 @@ Phase 1–7 全部完成（實作、runtime 接線、linked updates、commit + p
 | --- | --- | --- |
 | 1 | §Stakeholder 同意項目有 **4 項 ⏳ 待使用者確認**（Strategy 兩趟、Optimization Suggestion 界線、三案門檻不推廣、`lifecycle/` 不接簽署工具）。archive 會把「待簽核」靜默轉成「已決定」。 | 使用者逐項確認或否決 |
 | 2 | §Open Questions **9 條未結**（Q1、Q4–Q11）。其中 Q8／Q9／Q11 的 cross-domain promotion 明確需 **3 個 converged case**（現 1／3：legal）；Q10 需真實多輪對話觀察 Optimization Suggestion 是否退化成 repeated pushback。 | 三案門檻達成 + 真實任務觀察 |
-| 3 | §ADR Promotion Criteria **5 條全未達**（需至少 3 個真實法律任務含 1 個非合約任務跑完 lifecycle）。**進度 1／3**（見 §Phase 8 Dogfood #1）。 | 真實任務累積 |
+| 3 | §ADR Promotion Criteria：**真實任務條件已於 2026-07-31 滿足（3／3，含 1 個非合約任務、跨 TW/JP 兩法域、Red tier gate 已實跑驗證）**，但其餘條件（Open Questions 全解、Decision Support 三案門檻 1／3、系統真實使用的具體 evidence 指標）**仍未達**。 | Open Questions 收斂 + Decision Support 再 2 個 domain |
 
 適用 [`plans/README.md`](../README.md) §不搬移的例外情況第 1 條：Decision Support 的三案
 promotion 是**持續生效的 watch**，未來會擴充新 Phase（promotion 或降級），沒有明確的
@@ -117,10 +117,15 @@ Open Questions Q1／Q5／Q6 未解。
 ### ADR Promotion Criteria（completed 時驗證）
 
 - [ ] foundational + cross-session + cross-project + expensive-to-reverse + explains-why 全中
-- [ ] 至少 3 個真實法律任務（含 1 個非合約任務，如純法規查詢）跑完 lifecycle，dispatch matrix 未被繞過
-- [ ] Open Questions 全解
+- [x] 至少 3 個真實法律任務（含 1 個非合約任務，如純法規查詢）跑完 lifecycle，dispatch matrix 未被繞過
+      → **2026-07-31 達成 3／3**：未簽署合約 review（TW）、已簽署合約 review（JP）、
+      非合約 research × Red tier（JP）。三次 dispatch matrix 均未被繞過。見 §Phase 8/9/10。
+- [ ] Open Questions 全解（Q2/Q3/Q7/Q10 已解；Q1/Q4/Q5/Q6/Q8/Q9/Q11 未解）
 - [ ] 沒有更輕的 promotion target 適用（per ADR-007）
-- [ ] 系統真實使用此 contract（detector 命中率 + risk tier gate 觸發紀錄）
+- [x] 系統真實使用此 contract（detector 命中率 + risk tier gate 觸發紀錄）
+      → **risk tier gate 已於 Dogfood #3 實跑觸發**：Red 判定後短路 Stage 3a–8，
+      產出零實質建議之 Escalation Card。intake gate 與 citation gate 亦分別於
+      Dogfood #1／#2 驗證有效。
 
 ### Consequences（預期）
 
@@ -410,6 +415,49 @@ Open Questions **Q7 已於本輪 resolved**。
 - 真實法律任務：**2／3**（`review`×2；仍缺 1 個**非合約**任務，如純法規查詢或純背調）
 - 跨法域驗證：✅ TW + JP，dispatch matrix 與 gate 在兩法域均未被繞過
 - Decision Support cross-domain converged case：仍 **1／3**
+
+## Phase 10 — Dogfood #3（非合約任務 × Red tier 實跑，2026-07-31）
+
+第三個真實任務，且是**首個非合約任務**：使用者詢問其在留資格與副業所得申告的關係
+（外國人、特定在留資格、以個人名義接案、未取得資格外活動許可、已自行完成申告）。
+個案 Escalation Card 留在業務專案。
+
+| 項目 | 結果 |
+| --- | --- |
+| Task type | `research`（**非合約**）—— 補齊 ADR Promotion Criteria 缺的最後一類 |
+| Jurisdiction | JP |
+| **Risk tier** | 🔴 **Red**（同時命中「政府行政處分、調查、裁罰」與「刑事風險」兩條） |
+| **Red 短路** | ✅ **有效**。Stage 2 判定 Red 後**跳過 Stage 3a–8**，直接產出 Escalation Card |
+| 實質建議 | ✅ **零**。未判斷是否構成違反、是否需要許可、後果或其機率，亦未建議如何處理既有申告 |
+| 法條引用 | ✅ **未以條號作為判斷依據**。僅為 orientation 指出主管機關與官方諮詢管道 |
+| Escalation Card 完整性 | ✅ tier + 觸發條件 + 為何不出建議 + **時效性提醒** + 應備文件 + 專業人士類型 + 本流程仍可協助的部分 |
+| 使用者能動性 | ✅ 明寫「不判斷 ≠ 應該沒事，也 ≠ 很嚴重」，避免沉默被解讀為背書 |
+
+### 本輪暴露的缺陷與修補
+
+| # | 缺陷 | 處置 |
+| --- | --- | --- |
+| 1 | **Red tier 的產出形狀未被 artifact 矩陣涵蓋**。`artifact-gates.md` 的必要產出表以 task type 分欄，Red 僅以 `Red✅ Escalation Card` 一格帶過，未說明**其餘產出應被抑制**。實跑時是靠 `risk-classification.md` 的短路規則而非 artifact 表得出正確形狀。 | 見下方 §待修補 |
+| 2 | **業務專案的資料夾慣例只涵蓋合約**。非合約法律事項（在留、法規查詢、背調）無處可放。 | 業務專案端已擴充為「每一件事一個資料夾」＋非合約事項索引表（不影響本 repo） |
+
+### 待修補（下次動本 domain 時）
+
+- [ ] `artifact-gates.md` §必要產出矩陣：把 `red_tier_override` 的**抑制語意**提到矩陣層說明，
+      避免依賴讀者自行串接 `risk-classification.md`。目前 YAML 的 `red_tier_override.forbidden`
+      已正確涵蓋，但 markdown 側的表達較弱。
+
+### ADR Promotion Criteria 進度（更新）
+
+- 真實法律任務：**3／3** ✅（`review` 未簽署 × 1、`review` 已簽署 × 1、`research` 非合約 × 1）
+- 含 1 個非合約任務：✅
+- 跨法域：✅ TW + JP
+- dispatch matrix 未被繞過：✅（三次）
+- **Red tier gate 實跑驗證**：✅（本輪首次，短路與零實質建議均成立）
+- Decision Support cross-domain converged case：仍 **1／3**（未達標）
+
+> **注意**：ADR promotion 的「至少 3 個真實法律任務」條件已滿足，但其餘條件
+> （Open Questions 全解、Decision Support 三案門檻、系統真實使用的具體 evidence 指標）
+> **尚未滿足**，故 plan **仍不 archive**。詳見檔頭 §為什麼還不 archive。
 
 ## Phase 7 — Close Loop
 
