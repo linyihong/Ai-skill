@@ -28,6 +28,23 @@ Git history operations 在 [`conversation-goal-ledger.md`](../conversation-goal-
 
 即使結果碰巧無害（無路徑重疊、fast-forward 乾淨），**檢查發生在操作之後就不算 prevention**。
 
+### 變體：同一 working tree 的共存 session（preflight 盲點）
+
+上述檢查全部是**快照**，且都假設「其他擁有者在別的 worktree」。當兩個 agent session 共用**同一個** working tree 時，這些檢查會全部回報乾淨，卻完全偵測不到共存者：
+
+- `git worktree list` 只有一筆 → 看起來沒有其他 worktree
+- `.agent-goals/locks/` 空 → 對方若用不同工具或未建 lock 就查不到
+- `ahead/behind` 為 0 → 只反映查詢當下那一刻
+
+具體後果：agent 在 `git add` 之後、`git commit` 之前，共存 session 執行了自己的 `git add -A` + `commit`，於是 agent 的 staged 檔案被**捲進對方的 commit**，掛在一個與內容無關的 message 下；agent 自己的 `git commit` 回報 "nothing to commit"。之後對方 push，agent 的 push 因 ref lock 失敗（remote 已前進）。內容不會遺失，但 authorship 與 commit message 已錯置。
+
+追加要求：
+
+- **不要只在開始時檢查一次**。`git add` 與 `git commit` 之間若夾雜其他工具呼叫，commit 前重新確認 HEAD 未移動（先記錄 HEAD SHA，commit 前比對）。
+- **主動偵測共存訊號**：working tree 出現不是自己改的 modified 檔案、背景 dev server／任務在跑、`git log` 出現分鐘級的新 commit。任一出現就假設有共存者，並在回報中說明。
+- **commit 後立即覆核**：確認 `git log -1` 的 message 與 file list 確實是自己的。若被併入他人 commit，**停止並回報**，不要 amend 或 reset 他人剛產生的 commit。
+- **push 被 ref lock 拒絕時先 fetch 再判斷**：對方可能已把你的內容一併推上去，此時不需要也不應該再 push；盲目 rebase／force 會製造重複或覆蓋。
+
 ## Risk
 
 - 覆蓋或干擾其他 agent / 使用者未提交的工作
