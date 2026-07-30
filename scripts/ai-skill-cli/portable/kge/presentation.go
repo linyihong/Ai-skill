@@ -27,6 +27,8 @@ func DefaultRules() []Rule {
 		PlanStatusSyncRule{},
 		PlanCheckboxSyncRule{},
 		PlanArchivalAuditRule{},
+		NoNewShellScriptsRule{},
+		RuntimeTriggerWiringRule{},
 	}
 }
 

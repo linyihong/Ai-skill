@@ -382,6 +382,83 @@ func runKGEPlanArchivalAudit(text string, staged []string, root string) string {
 	return kgeFindingsMessage(eng.Run(ctx))
 }
 
+// runKGENoNewShellScripts adapts git Added paths for the portable rule.
+func runKGENoNewShellScripts(text string, root string) string {
+	added, err := gitLines(root, "diff", "--cached", "--diff-filter=A", "--name-only")
+	if err != nil {
+		return "" // fail-open: don't block on git error
+	}
+	ctx := kge.Context{
+		CommitMsg:  text,
+		AddedPaths: added,
+		Provided: map[kge.CapabilityID]bool{
+			kge.CapCommitMsg:  true,
+			kge.CapAddedPaths: true,
+		},
+	}
+	eng := kge.NewEngine(kge.NoNewShellScriptsRule{})
+	return kgeFindingsMessage(eng.Run(ctx))
+}
+
+// runKGERuntimeTriggerWiring loads PathDiffs + discovery/Go corpus + routing-registry body.
+func runKGERuntimeTriggerWiring(text string, staged []string, root string) string {
+	pathDiffs := map[string]string{}
+	for _, s := range staged {
+		p := filepath.ToSlash(s)
+		if p == "knowledge/runtime/routing-registry.yaml" ||
+			(strings.HasPrefix(p, "runtime/") && strings.HasSuffix(p, ".yaml")) {
+			diff := stagedDiffCached(root, p)
+			if diff != "" {
+				pathDiffs[p] = diff
+			}
+		}
+	}
+	var corpus strings.Builder
+	if b, err := os.ReadFile(filepath.Join(root, "runtime", "cognitive-modes-discovery.yaml")); err == nil {
+		corpus.Write(b)
+		corpus.WriteByte('\n')
+	}
+	appendGoCorpus(&corpus, filepath.Join(root, "scripts", "ai-skill-cli"))
+	contents := map[string]string{}
+	if b, err := os.ReadFile(filepath.Join(root, "knowledge", "runtime", "routing-registry.yaml")); err == nil {
+		contents["knowledge/runtime/routing-registry.yaml"] = string(b)
+	}
+	ctx := kge.Context{
+		CommitMsg:    text,
+		StagedPaths:  staged,
+		PathDiffs:    pathDiffs,
+		FileContents: contents,
+		SearchCorpus: corpus.String(),
+		Provided: map[kge.CapabilityID]bool{
+			kge.CapCommitMsg:     true,
+			kge.CapStagedPaths:   true,
+			kge.CapStagedDiff:    true,
+			kge.CapSearchCorpus:  true,
+			kge.CapStagedContent: true,
+		},
+	}
+	eng := kge.NewEngine(kge.RuntimeTriggerWiringRule{})
+	return kgeFindingsMessage(eng.Run(ctx))
+}
+
+func appendGoCorpus(b *strings.Builder, dir string) {
+	_ = filepath.Walk(dir, func(p string, info os.FileInfo, err error) error {
+		if err != nil || info.IsDir() {
+			return nil
+		}
+		if !strings.HasSuffix(p, ".go") {
+			return nil
+		}
+		data, rerr := os.ReadFile(p)
+		if rerr != nil {
+			return nil
+		}
+		b.Write(data)
+		b.WriteByte('\n')
+		return nil
+	})
+}
+
 // countKGEAdvisories runs advisory-only rules (D9 commit-msg count path).
 // Does not run validation or discovery rules.
 func countKGEAdvisories(root string, staged []string) int {

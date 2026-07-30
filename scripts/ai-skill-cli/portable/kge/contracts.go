@@ -21,6 +21,8 @@ const (
 	CapRepoFS       CapabilityID = "cap.repo_fs"
 	CapPathCochange CapabilityID = "cap.path_cochange"
 	CapKnownSignals CapabilityID = "cap.known_signals"
+	CapAddedPaths   CapabilityID = "cap.added_paths"
+	CapSearchCorpus CapabilityID = "cap.search_corpus"
 )
 
 // Context is the adapter-normalized input. No git handles.
@@ -29,11 +31,13 @@ type Context struct {
 	CommitMsg    string
 	Modes        map[string]string // cognitive modes if parsed
 	StagedPaths  []string
+	AddedPaths   []string          // CapAddedPaths: newly added paths (diff-filter=A)
 	StagedDiff   string            // empty = not supplied (may fail rules that require CapStagedDiff)
 	PathDiffs    map[string]string // CapStagedDiff: optional path → unified diff (per-file)
 	FileContents map[string]string // path → content when CapStagedContent provided
 	ExistingPaths map[string]bool  // CapRepoFS: paths attested to exist on disk
 	KnownSignals  map[string]bool  // CapKnownSignals: discovery signal vocabulary
+	SearchCorpus  string           // CapSearchCorpus: searchable text blob from adapter
 	// Provided lists which capabilities the adapter filled.
 	Provided map[CapabilityID]bool
 }

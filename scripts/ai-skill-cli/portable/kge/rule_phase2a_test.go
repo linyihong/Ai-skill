@@ -427,3 +427,72 @@ func TestPlanArchivalAuditRule(t *testing.T) {
 		t.Fatalf("want opt-out pass, got %#v", got)
 	}
 }
+
+func TestNoNewShellScriptsRule(t *testing.T) {
+	eng := NewEngine(NoNewShellScriptsRule{})
+	ctx := Context{
+		CommitMsg:  "feat: add helper",
+		AddedPaths: []string{"scripts/foo.sh", "scripts/bar.go"},
+		Provided:   map[CapabilityID]bool{CapCommitMsg: true, CapAddedPaths: true},
+	}
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "no_new_shell_scripts" {
+		t.Fatalf("want shell block, got %#v", got)
+	}
+	ctx.AddedPaths = []string{"scripts/existing.go"}
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want no .sh pass, got %#v", got)
+	}
+	ctx.AddedPaths = []string{"scripts/foo.sh"}
+	ctx.CommitMsg = "feat: x\n\n[skip-go-migration]\n"
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want opt-out pass, got %#v", got)
+	}
+}
+
+func TestRuntimeTriggerWiringRule(t *testing.T) {
+	eng := NewEngine(RuntimeTriggerWiringRule{})
+	reg := "knowledge/runtime/routing-registry.yaml"
+	ctx := Context{
+		CommitMsg:   "feat: add route",
+		StagedPaths: []string{reg},
+		PathDiffs: map[string]string{
+			reg: "+  - id: route.orphan.test\n",
+		},
+		SearchCorpus: "unrelated content",
+		FileContents: map[string]string{reg: "routes: []\n"},
+		Provided: map[CapabilityID]bool{
+			CapCommitMsg: true, CapStagedPaths: true, CapStagedDiff: true,
+			CapSearchCorpus: true, CapStagedContent: true,
+		},
+	}
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "runtime_trigger_wiring" {
+		t.Fatalf("want orphan route, got %#v", got)
+	}
+	ctx.SearchCorpus = "mentions route.orphan.test in discovery"
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want wired via corpus, got %#v", got)
+	}
+	ctx.SearchCorpus = ""
+	ctx.PathDiffs[reg] = "+  - id: route.manual.only\n+    manual_activation:\n+      reason: docs\n"
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want manual_activation pass, got %#v", got)
+	}
+	yamlPath := "runtime/foo.yaml"
+	ctx.StagedPaths = []string{yamlPath}
+	ctx.PathDiffs = map[string]string{
+		yamlPath: "+  target_key: runtime.orphan.key\n",
+	}
+	ctx.FileContents = map[string]string{reg: "no key here\n"}
+	if got := eng.Run(ctx); len(got) != 1 {
+		t.Fatalf("want orphan target_key, got %#v", got)
+	}
+	ctx.FileContents[reg] = "uses runtime.orphan.key\n"
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want registry consumer pass, got %#v", got)
+	}
+	ctx.CommitMsg = "feat: x\n\n[skip-runtime-trigger-wiring]\n"
+	ctx.FileContents[reg] = ""
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want opt-out pass, got %#v", got)
+	}
+}

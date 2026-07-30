@@ -45,6 +45,8 @@ revision:
     note: "Phase 2a batch 5 — evidence_hierarchy、plan_status_sync（git-free CapCommitMsg+CapStagedPaths）"
   - date: "2026-07-30"
     note: "Phase 2a batch 6 — plan_checkbox_sync（PathDiffs/CapStagedDiff）、plan_archival_audit（CapStagedContent）"
+  - date: "2026-07-30"
+    note: "Phase 2a batch 7 — no_new_shell_scripts（CapAddedPaths）、runtime_trigger_wiring（PathDiffs+CapSearchCorpus）"
 ---
 
 # Knowledge Governance Engine（知識治理引擎）
@@ -692,7 +694,7 @@ Graduation：Phase 0 Exit 通過後進 Phase 1；若長期卡住則修 hypothesi
 | T9 | 使用者簽核 Phase 0 Exit | **done** |
 | T10 | Phase 1：portable `kge` + Rule A/B + adapter 委派 | **done**（Exit ✅；擴大遷移 → Phase 2） |
 | T11 | Portable copy README / 邊界 | **done** |
-| T12 | Phase 2a：更多 mechanical validators → KGE | **partial** — +plan_checkbox_sync, plan_archival_audit |
+| T12 | Phase 2a：更多 mechanical validators → KGE | **partial** — +no_new_shell_scripts, runtime_trigger_wiring |
 | T13 | Phase 2b：document_sizing advisory Finding + D9 呈現 | **done**（rule + `kge check`/`validate --advisory`） |
 | T14 | 明確不把 neutral_language 做成 KGE block（對齊 not_mechanizable） | **done** |
 | T15 | Q6 / Adapter Presentation Policy | **done（D9）** |
