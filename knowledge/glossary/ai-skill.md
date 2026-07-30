@@ -566,6 +566,29 @@ aliases:
 introduced-by: plans/archived/2026-06-29-1430-preparatory-refactoring-workflow/_plan.md
 ```
 
+## capability_registry
+
+```yaml
+term: capability_registry
+status: candidate
+owner-layer: architecture-contracts
+meaning: >
+  The named set of context units (capabilities) a Knowledge Governance Engine
+  rule may require — for example commit message, staged paths, or repo FS
+  attestation. Adapters fill capabilities; rules only consume them.
+affects:
+  - scripts/ai-skill-cli/portable/kge/contracts.go
+  - scripts/ai-skill-cli/portable/kge/README.md
+  - plans/active/2026-07-30-0950-knowledge-governance-runtime/_plan.md
+anti-meaning: >
+  Not the enforcement-registry.yaml rule_class coverage table, not
+  runtime.db phase/gate tables, and not a plugin packaging format by itself.
+introduced-by: plans/active/2026-07-30-0950-knowledge-governance-runtime/_plan.md
+related-terms:
+  - { type: related_to, target: knowledge_governance_engine }
+  - { type: related_to, target: runtime_adapter }
+```
+
 ## change_intent_lock
 
 ```yaml
@@ -844,6 +867,30 @@ affects:
   - plans/active/2026-05-27-1557-tool-runtime-signal-economics-integration.md
   - governance/lifecycle/knowledge-update-flow.md
 introduced-by: plans/active/2026-05-27-1557-tool-runtime-signal-economics-integration.md
+```
+
+## knowledge_governance_engine
+
+```yaml
+term: knowledge_governance_engine
+status: candidate
+owner-layer: architecture-contracts
+aliases:
+  - kge
+meaning: >
+  Portable engine that turns governance knowledge into Validate(Context)→Findings
+  rules. Adapters (git hooks, CLI, CI, IDE) supply capabilities and present
+  findings; the engine does not call git or own Ai-skill session phase state.
+affects:
+  - scripts/ai-skill-cli/portable/kge/
+  - plans/active/2026-07-30-0950-knowledge-governance-runtime/_plan.md
+anti-meaning: >
+  Not the runtime/ phase machine or runtime.db, not a generic lint framework,
+  and not Task Execution (see Delegation Loop as the task-side counterpart).
+introduced-by: plans/active/2026-07-30-0950-knowledge-governance-runtime/_plan.md
+related-terms:
+  - { type: related_to, target: capability_registry }
+  - { type: related_to, target: runtime_adapter }
 ```
 
 ## journey_specification
@@ -1190,6 +1237,30 @@ related-terms:
   - { type: related_to, target: validation_capability }
   - { type: related_to, target: evidence_type }
   - { type: related_to, target: authority_decision }
+```
+
+## runtime_adapter
+
+```yaml
+term: runtime_adapter
+status: candidate
+owner-layer: architecture-contracts
+meaning: >
+  Host-side wiring that builds a Knowledge Governance Engine Context from
+  local IO (git, filesystem, IDE buffers), runs the portable engine, and
+  applies Adapter Presentation Policy (for example commit-msg count-only,
+  push summary, CI full advisory, IDE diagnostics JSON).
+affects:
+  - scripts/ai-skill-cli/internal/app/kge_adapter.go
+  - scripts/ai-skill-cli/internal/app/kge_cmd.go
+  - plans/active/2026-07-30-0950-knowledge-governance-runtime/_plan.md
+anti-meaning: >
+  Not the runtime/ session phase machine, not runtime.db, and not the
+  portable rule implementations themselves.
+introduced-by: plans/active/2026-07-30-0950-knowledge-governance-runtime/_plan.md
+related-terms:
+  - { type: related_to, target: knowledge_governance_engine }
+  - { type: related_to, target: capability_registry }
 ```
 
 ## runtime_refresh

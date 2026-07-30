@@ -61,6 +61,10 @@ jobs:
       - name: Smoke native runtime compile
         run: go run ./cmd/ai-skill runtime compile --repo ../.. --db scripts/ai-skill-cli/runtime-native-smoke.db --json
 
+      # D9 CI adapter: validation fails the job; advisory prints full report (does not fail alone).
+      - name: KGE validate with full advisory report
+        run: go run ./cmd/ai-skill kge validate --advisory --root ../..
+
   artifacts:
     name: Build artifacts
     runs-on: ubuntu-latest

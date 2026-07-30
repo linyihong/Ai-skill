@@ -7,11 +7,11 @@ created: 2026-07-30
 last_updated: 2026-07-30
 required_for_completion: false
 parent: null
-glossary_impact: candidate
+glossary_impact: registered
 canonical_name: Knowledge Governance Engine
 canonical_abbrev: KGE
 legacy_working_title: Knowledge Governance Runtime (KGR)
-current_phase: 1
+current_phase: 4
 revision:
   - date: 2026-07-30
     note: "初稿落檔 — KGR 定位、兩層 Framework/Plugin、pipeline draft"
@@ -57,17 +57,20 @@ revision:
     note: "Phase 2a batch 11 — enforcement_registry_transition（CapRegistrySnapshots + CapSymbolIndex；YAML/git show/symbol grep 留 adapter）；archival_link_integrity 仍 remaining"
   - date: "2026-07-30"
     note: "Phase 2a batch 12 — plan_archival_link_integrity（CapPathRenames + CapStagedContent + CapRepoFS；git rename/ls-files/staged-first 留 adapter）；T12 Phase 2a mechanical 遷移完成"
+  - date: "2026-07-30"
+    note: "Plan close-out slice — CI D9 full advisory（workflow step）；glossary KGE/capability_registry/runtime_adapter；Delegation Loop 雙向交叉引用；T4/T5 done；T6/Phase3/Plans/IDE dogfood 明確 Later"
 ---
 
 # Knowledge Governance Engine（知識治理引擎）
 
-**Status**: `in-progress`（**Phase 1 Exit ✅** — adapter 已委派 Rule A/B；下一步 Phase 2 擴大遷移）  
+**Status**: `in-progress`（**Core Exit ✅** — Phase 0–2 + D9 adapters（含 CI）完成；Later = Plans pack / external dogfood / IDE host / Unified Execution explore）  
 **Owner**: framework maintainer (linyihong)  
 **建立日期**: 2026-07-30  
 **Canonical name**: **Knowledge Governance Engine (KGE)**  
 **Folder slug**: `…-knowledge-governance-runtime`（歷史 working title；id 維持穩定，不改 folder）  
 **Priority**: **P1**  
-**Maturity framing**: Architecture Hypothesis **validated (Phase 0)** → Contracts + Thin Engine
+**Maturity framing**: Architecture Hypothesis **validated** → Contracts + Engine + Ai-skill pack migrated → Multi-adapter observable  
+**current_phase**: 4（CI report landed；IDE host / external dogfood still Later）
 
 > ## Success Criterion（北極星）
 >
@@ -507,7 +510,7 @@ scripts/ai-skill-cli/internal/app/
 
 ---
 
-## Phase 0 — 驗證 Architecture Hypothesis（進行中）
+## Phase 0 — 驗證 Architecture Hypothesis（✅）
 
 > **Phase 0 要回答的不是「有哪些 validator？」**  
 > 而是：**「這個 Architecture 能不能裝得下目前的 validator？」**  
@@ -569,7 +572,7 @@ Phase 0
 
 ---
 
-## Phase 1 — Contracts + Thin Engine（進行中）
+## Phase 1 — Contracts + Thin Engine（✅）
 
 ### 目標
 
@@ -609,14 +612,14 @@ Phase 0
 
 | Phase | 目標 | Exit |
 | --- | --- | --- |
-| **0 — Architecture Hypothesis validation** | Inventory + Mapping（五問）+ Mini Spike；首批三域；不搬 Plans | 見上方 Exit checklist |
-| **1 — Contracts + thin engine** | Context/Finding/Rule/Severity/Capability；實作薄 engine；掛首批 mapping 通過的 rules | hook 行為相容；CLI 同路徑 |
-| **2 — Migrate Ai-skill pack** | **2a** 既有 mechanical → KGE；**2b** document_sizing 等 advisory 原型 | coverage 不倒退；advisory 不誤升 block |
-| **3 — External plugin dogfood** | 外部少量 rules + thin adapter；可逆 | portability success 子集 |
-| **4 — Multi-adapter** | IDE + **`kge check`** + pre-push + CI report | D9 矩陣可觀測；advisory 不誤擋 push |
-| **5 — Advisory / Discovery** | 落實 D9 呈現；擴大提醒類；**不**強制 not_mechanizable | commit ≤3 行；`--advisory` 完整 |
-| **Later — Plans pack** | 將 plans validation 收斂為 KGE domain pack | 首批三域 + Phase 1–2 穩定後 |
-| **Explore** | KGE + Delegation 統一 Execution Model | **獨立 spike/plan** |
+| **0 — Architecture Hypothesis validation** | Inventory + Mapping（五問）+ Mini Spike；首批三域；不搬 Plans | ✅ |
+| **1 — Contracts + thin engine** | Context/Finding/Rule/Severity/Capability；實作薄 engine；掛首批 mapping 通過的 rules | ✅ |
+| **2 — Migrate Ai-skill pack** | **2a** 既有 mechanical → KGE；**2b** document_sizing 等 advisory 原型 | ✅ |
+| **3 — External plugin dogfood** | 外部少量 rules + thin adapter；可逆 | **Later**（optional dogfood） |
+| **4 — Multi-adapter** | IDE CLI surface + **`kge check`** + pre-push + CI report | ✅（`kge diagnose` CLI 已有；IDE host 接線仍 Later） |
+| **5 — Advisory / Discovery** | 落實 D9 呈現；擴大提醒類；**不**強制 not_mechanizable | **Partial ✅** — D9 + document_sizing；擴大 behavioral_only 子集 = Later |
+| **Later — Plans pack** | 將 plans validation 收斂為 KGE domain pack | Deferred（Q4） |
+| **Explore** | KGE + Delegation 統一 Execution Model | Deferred（T6 / Q10；見 §D7 + Delegation plan 交叉引用） |
 
 ---
 
@@ -658,14 +661,14 @@ Graduation：Phase 0 Exit 通過後進 Phase 1；若長期卡住則修 hypothesi
 | --- | --- | --- |
 | Q1 | 正式名？ | **Resolved: KGE** |
 | Q2 | Plugin 格式：純 YAML vs YAML+Go？Phase 1 first-party Go only？ | **Resolved (working)**: Phase 1 = first-party Go rules in `portable/kge`；外部 = copy pack（非強制 go get）；YAML plugin 格式延後 |
-| Q3 | Candidate B → 第一級目錄門檻？ | open |
+| Q3 | Candidate B → 第一級目錄門檻？ | **Deferred** — portable copy 已夠用；升第一級目錄另裁決 |
 | Q4 | plans engine：併入 KGE pack vs subdomain 呼叫？ | **Deferred** — Phase 0 不搬 Plans；Q4 延到 Later—Plans pack |
 | Q5 | 第一個非-plan pack 優先序？ | **Resolved: Commit Message → README Sync → Linked Updates**（Plans later） |
 | Q6 | Advisory 呈現？→ **改問：Severity×Adapter Presentation？** | **Resolved: D9** — commit=count+pointer；push/`kge check`=summary 不擋；IDE/`--advisory`/CI=完整 |
-| Q7 | 外部 manifest 路徑 / branding？ | open |
+| Q7 | 外部 manifest 路徑 / branding？ | **Deferred** — Phase 3 dogfood 時再定 |
 | Q8 | Discovery/Evolution 永需 human promotion？ | **lean Yes** |
 | Q9 | Capability Registry 最小 schema？ | **Phase 0 產出**（對五問 C/D） |
-| Q10 | 與 Delegation 統一模型是否另開 plan？ | open（建議 Yes） |
+| Q10 | 與 Delegation 統一模型是否另開 plan？ | **Deferred Yes** — 另開 explore；本 plan 不實作合併（§D7 + Related plans） |
 
 ---
 
@@ -684,8 +687,17 @@ Graduation：Phase 0 Exit 通過後進 Phase 1；若長期卡住則修 hypothesi
 - [x] 五問 A–E 傾向成立（p0-map §3；**已簽核**）
 - [x] Mini Spike A+B evidence 完成（A=`cognitive_cost`；B=`cli_doc_sync` — **共變而非 Projection**）
 - [x] Capability 候選集合草案寫出（~7 caps，見 p0-map §1）
-- [ ] Q2 至少有工作假設（可改）— Phase 1 進行中補
+- [x] Q2 至少有工作假設（可改）— first-party Go + copy pack
 - [x] **使用者簽核** Phase 0 Exit → 授權 Phase 1
+
+---
+
+## Related plans
+
+| Plan | Relation |
+| --- | --- |
+| [`2026-07-08-0825-delegation-verification-arbitration-loop`](../2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) | Task Execution（Delegation Loop）對偶；共享 Capability/Registry/Adapter 候選；**不合併**（§D7） |
+| [`2026-05-25-1000-context-language-glossary-system`](../2026-05-25-1000-context-language-glossary-system.md) | Glossary schema；本 plan T4 註冊 KGE 詞條 |
 
 ---
 
@@ -696,25 +708,28 @@ Graduation：Phase 0 Exit 通過後進 Phase 1；若長期卡住則修 hypothesi
 | T1 | 使用者審閱 Decision / Naming / Non-goals | done |
 | T2 | Phase 0：Architecture Mapping（五問） | **done + 簽核** |
 | T3 | Phase 0：Mini Spike A/B | **done + 簽核** |
-| T4 | Glossary：KGE、Capability Registry、Runtime Adapter（vs `runtime/`） | pending |
-| T5 | 交叉引用 Delegation Loop | pending |
-| T6 | Unified Knowledge/Task Execution Model 探索 plan | pending |
+| T4 | Glossary：KGE、Capability Registry、Runtime Adapter（vs `runtime/`） | **done** — `knowledge_governance_engine` / `capability_registry` / `runtime_adapter` |
+| T5 | 交叉引用 Delegation Loop | **done** — 雙向 Related plans |
+| T6 | Unified Knowledge/Task Execution Model 探索 plan | **deferred** — 另開 explore；本 plan 只保留 §D7 + 交叉引用 |
 | T7 | Phase 0 evidence/ | done |
 | T8 | 可選：`p0-capability-schema-draft.md` | deferred（caps 已在 p0-map §1） |
 | T9 | 使用者簽核 Phase 0 Exit | **done** |
-| T10 | Phase 1：portable `kge` + Rule A/B + adapter 委派 | **done**（Exit ✅；擴大遷移 → Phase 2） |
+| T10 | Phase 1：portable `kge` + Rule A/B + adapter 委派 | **done** |
 | T11 | Portable copy README / 邊界 | **done** |
-| T12 | Phase 2a：更多 mechanical validators → KGE | **done** — +plan_archival_link_integrity（batch 12）；Phase 2a mechanical 遷移完成 |
-| T13 | Phase 2b：document_sizing advisory Finding + D9 呈現 | **done**（rule + `kge check`/`validate --advisory`） |
+| T12 | Phase 2a：更多 mechanical validators → KGE | **done** |
+| T13 | Phase 2b：document_sizing advisory Finding + D9 呈現 | **done** |
 | T14 | 明確不把 neutral_language 做成 KGE block（對齊 not_mechanizable） | **done** |
 | T15 | Q6 / Adapter Presentation Policy | **done（D9）** |
-| T16 | 實作 `kge check` + commit-msg advisory count path + pre-push 掛載 | **done** — CLI check/validate/diagnose；commit-msg count；pre-push `kge check` |
+| T16 | 實作 `kge check` + commit-msg advisory count path + pre-push 掛載 | **done** |
+| T17 | CI full advisory report（D9） | **done** — `.github/workflows/ai-skill-cli.yml` `kge validate --advisory` |
 
 ---
 
 ## Next Action
 
-1. CI full advisory report（D9 CI 列）。
-2. Plans pack 仍 Later。
-3. IDE host 接線（Cursor/VS Code task 呼叫 `kge diagnose`）可另開。
-4. Optional：外部專案 dogfood copy of `portable/kge/`。
+**本 plan Core Exit 已達成。** 剩餘皆為明確 Later / optional（不阻塞北極星）：
+
+1. **Later — Plans pack**（Q4）：plans validation 收斂為 KGE domain pack。
+2. **Later — IDE host**：Cursor/VS Code task 呼叫 `kge diagnose`（CLI surface 已存在）。
+3. **Later — External dogfood**：外部專案 copy `portable/kge/`（Phase 3）。
+4. **Explore — Unified Execution Model**（T6 / Q10）：另開 spike；見 Delegation Loop 交叉引用。
