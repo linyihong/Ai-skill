@@ -36,6 +36,7 @@ func DefaultRules() []Rule {
 		PlanTreeParentReferenceRule{},
 		PlanTreeUniqueIDRule{},
 		PlanTreeFolderConventionRule{},
+		EnforcementRegistryTransitionRule{},
 	}
 }
 

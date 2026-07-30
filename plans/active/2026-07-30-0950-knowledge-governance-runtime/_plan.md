@@ -53,6 +53,8 @@ revision:
     note: "Phase 2a batch 9 — plan_tree frontmatter/archive-order/parent-reference/unique-id（CapPlanIndex）"
   - date: "2026-07-30"
     note: "Phase 2a batch 10 — plan_tree_folder_convention（KindAdvisory + DirListings flat-cluster）；registry_transition / archival_link_integrity 延後（重 git/registry 耦合）"
+  - date: "2026-07-30"
+    note: "Phase 2a batch 11 — enforcement_registry_transition（CapRegistrySnapshots + CapSymbolIndex；YAML/git show/symbol grep 留 adapter）；archival_link_integrity 仍 remaining"
 ---
 
 # Knowledge Governance Engine（知識治理引擎）
@@ -700,7 +702,7 @@ Graduation：Phase 0 Exit 通過後進 Phase 1；若長期卡住則修 hypothesi
 | T9 | 使用者簽核 Phase 0 Exit | **done** |
 | T10 | Phase 1：portable `kge` + Rule A/B + adapter 委派 | **done**（Exit ✅；擴大遷移 → Phase 2） |
 | T11 | Portable copy README / 邊界 | **done** |
-| T12 | Phase 2a：更多 mechanical validators → KGE | **near-complete** — +plan_tree_folder_convention；remaining: registry_transition, archival_link_integrity |
+| T12 | Phase 2a：更多 mechanical validators → KGE | **near-complete** — +enforcement_registry_transition；remaining: plan_archival_link_integrity |
 | T13 | Phase 2b：document_sizing advisory Finding + D9 呈現 | **done**（rule + `kge check`/`validate --advisory`） |
 | T14 | 明確不把 neutral_language 做成 KGE block（對齊 not_mechanizable） | **done** |
 | T15 | Q6 / Adapter Presentation Policy | **done（D9）** |
@@ -710,7 +712,7 @@ Graduation：Phase 0 Exit 通過後進 Phase 1；若長期卡住則修 hypothesi
 
 ## Next Action
 
-1. Phase 2a 剩餘重耦合：`enforcement_registry_transition`、`plan_archival_link_integrity`（或明確 defer 到 Later pack）。
+1. Phase 2a 最後一項重耦合：`plan_archival_link_integrity`（或明確 defer 到 Later pack）。
 2. CI full advisory report（D9 CI 列）。
 3. Plans pack 仍 Later。
 4. IDE host 接線（Cursor/VS Code task 呼叫 `kge diagnose`）可另開。

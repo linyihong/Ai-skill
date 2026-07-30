@@ -6,9 +6,9 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"regexp"
 	"strings"
 
+	"github.com/linyihong/Ai-skill/scripts/ai-skill-cli/portable/kge"
 	"gopkg.in/yaml.v3"
 )
 
@@ -22,9 +22,9 @@ import (
 //      registry entry obligation.commit.enforcement_registry_transition;
 //      blocks commits that violate R1/R2/R3 self-governance lint rules)
 //
-// The two surfaces share the same `checkRegistryTransitions` core so a
-// scenario passing the CLI is genuine evidence the commit-msg path
-// behaves identically.
+// Both surfaces share portable kge.EnforcementRegistryTransitionRule. This
+// package only loads YAML snapshots, resolves ADR/symbol IO, and presents
+// findings.
 
 // ─────────────────────────────────────────────────────────────────────
 // Violation model
@@ -35,10 +35,13 @@ type registryTransitionViolation struct {
 	RuleClass string // empty for R1 commit-msg-level violations
 	From      string // empty for R1
 	To        string // empty for R1
-	Detail    string // human readable
+	Detail    string // human readable (or full formatted line from kge)
 }
 
 func (v registryTransitionViolation) String() string {
+	if strings.HasPrefix(v.Detail, "[") {
+		return v.Detail
+	}
 	parts := []string{"[" + v.Code + "]"}
 	if v.RuleClass != "" {
 		parts = append(parts, "rule_class="+v.RuleClass)
@@ -56,52 +59,86 @@ type transitionInput struct {
 	oldSnap   *registrySnapshot
 	newSnap   *registrySnapshot
 	commitMsg string
+	// stagedPaths optional: when non-nil, CapStagedPaths is provided so the
+	// rule gates on staged enforcement-registry.yaml (commit-msg path).
+	stagedPaths []string
 }
-
-// Demotion / promotion tables (Phase 4.5 contract — see
-// registry-transition-{demotion-without-adr,promotion-verification-gap}-v1.yaml
-// phase_4_5_validator_contract sections).
-var demotionTable = map[string]map[string]bool{
-	"mechanical": {
-		"behavioral_only":        true,
-		"not_mechanizable":       true,
-		"research_required":      true,
-		"pending_implementation": true,
-		// mechanical → deprecated is end-of-life, not demotion (handled
-		// by existing Phase 3 deprecated_disposal lint).
-	},
-	"pending_implementation": {
-		"behavioral_only":   true,
-		"research_required": true,
-	},
-	"behavioral_only": {
-		"not_mechanizable": true,
-	},
-}
-
-func isDemotion(from, to string) bool {
-	if m, ok := demotionTable[from]; ok {
-		return m[to]
-	}
-	return false
-}
-
-func isPromotionToMechanical(from, to string) bool {
-	if to != "mechanical" {
-		return false
-	}
-	switch from {
-	case "(new)", "pending_implementation", "research_required", "behavioral_only":
-		return true
-	}
-	return false
-}
-
-// ─────────────────────────────────────────────────────────────────────
-// Core engine
-// ─────────────────────────────────────────────────────────────────────
 
 const transitionOptOutMarker = "[skip-registry-transition]"
+
+func toKGERegistrySnapshot(snap *registrySnapshot) *kge.RegistrySnapshotMeta {
+	if snap == nil {
+		return nil
+	}
+	out := &kge.RegistrySnapshotMeta{
+		HelperAllowlist:      append([]string(nil), snap.InternalHelperAllowlist.Symbols...),
+		BindingRequiredKinds: append([]string(nil), snap.ExecutorKindSpec.BindingRequiredFor...),
+	}
+	for _, rc := range snap.RuleClasses {
+		meta := kge.RegistryClassMeta{
+			ID:           rc.ID,
+			Coverage:     rc.Coverage,
+			AdrReference: rc.AdrReference,
+		}
+		for _, ex := range rc.Executors {
+			meta.Executors = append(meta.Executors, kge.RegistryExecutorMeta{
+				File:         ex.File,
+				Symbol:       ex.Symbol,
+				ExecutorKind: ex.ExecutorKind,
+			})
+		}
+		out.RuleClasses = append(out.RuleClasses, meta)
+	}
+	return out
+}
+
+func buildTransitionSymbolIndex(repo string, snap *registrySnapshot) map[string]map[string]bool {
+	out := map[string]map[string]bool{}
+	if snap == nil {
+		return out
+	}
+	seen := map[string]bool{}
+	for _, rc := range snap.RuleClasses {
+		for _, ex := range rc.Executors {
+			rel := filepath.ToSlash(strings.TrimSpace(ex.File))
+			if rel == "" || !strings.HasSuffix(rel, ".go") || seen[rel] {
+				continue
+			}
+			seen[rel] = true
+			full := filepath.Join(repo, filepath.FromSlash(rel))
+			data, err := os.ReadFile(full)
+			syms := map[string]bool{}
+			if err == nil {
+				for _, m := range goFuncDeclPattern.FindAllStringSubmatch(string(data), -1) {
+					if len(m) >= 2 {
+						syms[m[1]] = true
+					}
+				}
+			}
+			out[rel] = syms
+		}
+	}
+	return out
+}
+
+func buildTransitionExistingPaths(repo string, snap *registrySnapshot) map[string]bool {
+	out := map[string]bool{}
+	if snap == nil {
+		return out
+	}
+	for _, rc := range snap.RuleClasses {
+		adr := strings.TrimSpace(rc.AdrReference)
+		if adr == "" {
+			continue
+		}
+		rel := filepath.ToSlash(adr)
+		full := filepath.Join(repo, filepath.FromSlash(rel))
+		if _, err := os.Stat(full); err == nil {
+			out[rel] = true
+		}
+	}
+	return out
+}
 
 func checkRegistryTransitions(in transitionInput) []registryTransitionViolation {
 	if strings.Contains(in.commitMsg, transitionOptOutMarker) {
@@ -110,143 +147,34 @@ func checkRegistryTransitions(in transitionInput) []registryTransitionViolation 
 	if in.oldSnap == nil || in.newSnap == nil {
 		return nil
 	}
-
-	// Build id → coverage maps; missing in old means "(new)".
-	oldByID := map[string]string{}
-	for _, rc := range in.oldSnap.RuleClasses {
-		oldByID[rc.ID] = rc.Coverage
+	ctx := kge.Context{
+		RepoRoot:      in.repoRoot,
+		CommitMsg:     in.commitMsg,
+		RegistryOld:   toKGERegistrySnapshot(in.oldSnap),
+		RegistryNew:   toKGERegistrySnapshot(in.newSnap),
+		ExistingPaths: buildTransitionExistingPaths(in.repoRoot, in.newSnap),
+		FileSymbols:   buildTransitionSymbolIndex(in.repoRoot, in.newSnap),
+		Provided: map[kge.CapabilityID]bool{
+			kge.CapCommitMsg:         true,
+			kge.CapRegistrySnapshots: true,
+			kge.CapRepoFS:            true,
+			kge.CapSymbolIndex:       true,
+		},
 	}
-	newByID := map[string]*registryRuleClass{}
-	for i := range in.newSnap.RuleClasses {
-		rc := &in.newSnap.RuleClasses[i]
-		newByID[rc.ID] = rc
+	if in.stagedPaths != nil {
+		ctx.StagedPaths = in.stagedPaths
+		ctx.Provided[kge.CapStagedPaths] = true
 	}
-
-	// Detect transitions: any new class whose coverage differs from
-	// its old counterpart (or which is new entirely).
-	type transition struct {
-		id   string
-		from string
-		to   string
-		rc   *registryRuleClass
-	}
-	var transitions []transition
-	for id, rc := range newByID {
-		from, existed := oldByID[id]
-		if !existed {
-			from = "(new)"
-		}
-		if from == rc.Coverage {
-			continue
-		}
-		transitions = append(transitions, transition{id: id, from: from, to: rc.Coverage, rc: rc})
-	}
-
+	eng := kge.NewEngine(kge.EnforcementRegistryTransitionRule{})
+	findings := eng.Run(ctx)
 	var violations []registryTransitionViolation
-
-	// R1 — trailer + rationale gate. Fires once if any transition is
-	// present and the commit message is missing either marker. The R1
-	// gate does NOT block R2/R3 from firing; all violations surface
-	// together so the maintainer sees the full picture in one shot.
-	if len(transitions) > 0 {
-		if !containsTrailer(in.commitMsg, "[registry-status-change]") {
-			violations = append(violations, registryTransitionViolation{
-				Code:   "R1_missing_trailer",
-				Detail: "commit body must include [registry-status-change] trailer when staged diff changes rule_class coverage",
-			})
-		}
-		if !containsRationaleLine(in.commitMsg) {
-			violations = append(violations, registryTransitionViolation{
-				Code:   "R1_missing_rationale",
-				Detail: "commit body must include a `rationale: <text>` line explaining the status change",
-			})
-		}
-	}
-
-	// R2 / R3 — per transition.
-	for _, t := range transitions {
-		if isDemotion(t.from, t.to) {
-			violations = append(violations, checkR2DemotionADR(in.repoRoot, t.id, t.from, t.to, t.rc)...)
-		}
-		if isPromotionToMechanical(t.from, t.to) {
-			violations = append(violations, checkR3PromotionExecutor(in.repoRoot, t.id, t.from, t.to, t.rc, in.newSnap)...)
-		}
-	}
-
-	return violations
-}
-
-// containsTrailer checks for a stand-alone trailer token on its own line
-// (mirrors the existing skip-marker convention in hooks.go).
-func containsTrailer(commitMsg, trailer string) bool {
-	scan := strings.Split(commitMsg, "\n")
-	for _, line := range scan {
-		if strings.TrimSpace(line) == trailer {
-			return true
-		}
-	}
-	return false
-}
-
-var rationaleLinePattern = regexp.MustCompile(`(?im)^\s*rationale\s*:\s*\S`)
-
-func containsRationaleLine(commitMsg string) bool {
-	return rationaleLinePattern.MatchString(commitMsg)
-}
-
-func checkR2DemotionADR(repo, classID, from, to string, rc *registryRuleClass) []registryTransitionViolation {
-	adr := strings.TrimSpace(rc.AdrReference)
-	if adr == "" {
-		return []registryTransitionViolation{{
-			Code: "R2_demotion_missing_adr", RuleClass: classID, From: from, To: to,
-			Detail: "demotion requires adr_reference field on the rule_class pointing to constitution/ADR-*.md",
-		}}
-	}
-	if !strings.HasPrefix(adr, "constitution/ADR-") || !strings.HasSuffix(adr, ".md") {
-		return []registryTransitionViolation{{
-			Code: "R2_demotion_invalid_adr_format", RuleClass: classID, From: from, To: to,
-			Detail: fmt.Sprintf("adr_reference %q must match constitution/ADR-*.md", adr),
-		}}
-	}
-	full := filepath.Join(repo, filepath.FromSlash(adr))
-	if _, err := os.Stat(full); err != nil {
-		return []registryTransitionViolation{{
-			Code: "R2_demotion_adr_unresolved", RuleClass: classID, From: from, To: to,
-			Detail: fmt.Sprintf("adr_reference %q does not resolve to an existing file under <repo>", adr),
-		}}
-	}
-	return nil
-}
-
-func checkR3PromotionExecutor(repo, classID, from, to string, rc *registryRuleClass, newSnap *registrySnapshot) []registryTransitionViolation {
-	// Re-use the Phase 3 missing_executor_symbol engine, but restricted
-	// to this single class within the new registry. We synthesize a
-	// snapshot containing just this class so the existing
-	// lintMissingExecutorSymbols logic surfaces the gap.
-	scoped := *newSnap // shallow copy
-	scoped.RuleClasses = []registryRuleClass{*rc}
-	errs := lintMissingExecutorSymbols(repo, &scoped)
-	if len(errs) == 0 {
-		return nil
-	}
-	var out []registryTransitionViolation
-	for _, e := range errs {
-		// Pull the expected_symbol + file out of the lint finding.
-		var sym, file string
-		for _, f := range e.Fields {
-			switch f.Key {
-			case "expected_symbol":
-				sym = f.Value
-			case "file":
-				file = f.Value
-			}
-		}
-		out = append(out, registryTransitionViolation{
-			Code: "R3_promotion_missing_executor", RuleClass: classID, From: from, To: to,
-			Detail: fmt.Sprintf("promotion to mechanical requires symbol_exists; symbol %q not found in %s", sym, file),
+	for _, f := range findings {
+		violations = append(violations, registryTransitionViolation{
+			Code:   f.Code,
+			Detail: f.Message,
 		})
 	}
-	return out
+	return violations
 }
 
 // ─────────────────────────────────────────────────────────────────────
@@ -429,6 +357,25 @@ func validateEnforcementRuleRegistrySync(text string, staged []string, root stri
 //
 // Opt-out: include [skip-registry-transition] in the commit body.
 func validateEnforcementRegistryTransition(text string, staged []string, root string) string {
+	return runKGEEnforcementRegistryTransition(text, staged, root)
+}
+
+// formatRegistryTransitionFindings preserves the legacy commit-msg block shape.
+func formatRegistryTransitionFindings(findings []kge.Finding) string {
+	if len(findings) == 0 {
+		return ""
+	}
+	var b strings.Builder
+	fmt.Fprintf(&b, "enforcement_registry_transition: %d violation(s) — fix or use [skip-registry-transition] opt-out:\n", len(findings))
+	for _, f := range findings {
+		fmt.Fprintf(&b, "  - %s\n", f.Message)
+	}
+	return strings.TrimRight(b.String(), "\n")
+}
+
+// loadStagedRegistrySnapshots loads HEAD + working-tree registry YAML when
+// enforcement-registry.yaml is staged. Returns ok=false when not applicable.
+func loadStagedRegistrySnapshots(text string, staged []string, root string) (oldSnap, newSnap *registrySnapshot, errMsg string, ok bool) {
 	registryRel := "enforcement/enforcement-registry.yaml"
 	stagedHit := false
 	for _, p := range staged {
@@ -438,42 +385,25 @@ func validateEnforcementRegistryTransition(text string, staged []string, root st
 		}
 	}
 	if !stagedHit {
-		return ""
+		return nil, nil, "", false
 	}
 	if strings.Contains(text, transitionOptOutMarker) {
-		return ""
+		return nil, nil, "", false
 	}
-	// Read the previous (HEAD) version. If there is no HEAD (initial
-	// commit), treat old as empty registry — every rule_class will be
-	// "(new)" which only triggers R1 + (none of the demotion paths).
 	oldData, err := exec.Command("git", "-C", root, "show", "HEAD:"+registryRel).Output()
 	if err != nil {
 		oldData = []byte("schema_version: 2\nrule_classes: []\n")
 	}
 	newData, err := os.ReadFile(filepath.Join(root, filepath.FromSlash(registryRel)))
 	if err != nil {
-		return fmt.Sprintf("enforcement_registry_transition: cannot read staged %s: %v", registryRel, err)
+		return nil, nil, fmt.Sprintf("enforcement_registry_transition: cannot read staged %s: %v", registryRel, err), false
 	}
-	var oldSnap, newSnap registrySnapshot
-	if err := yaml.Unmarshal(oldData, &oldSnap); err != nil {
-		return fmt.Sprintf("enforcement_registry_transition: cannot parse HEAD %s: %v", registryRel, err)
+	var old, neu registrySnapshot
+	if err := yaml.Unmarshal(oldData, &old); err != nil {
+		return nil, nil, fmt.Sprintf("enforcement_registry_transition: cannot parse HEAD %s: %v", registryRel, err), false
 	}
-	if err := yaml.Unmarshal(newData, &newSnap); err != nil {
-		return fmt.Sprintf("enforcement_registry_transition: cannot parse staged %s: %v", registryRel, err)
+	if err := yaml.Unmarshal(newData, &neu); err != nil {
+		return nil, nil, fmt.Sprintf("enforcement_registry_transition: cannot parse staged %s: %v", registryRel, err), false
 	}
-	violations := checkRegistryTransitions(transitionInput{
-		repoRoot:  root,
-		oldSnap:   &oldSnap,
-		newSnap:   &newSnap,
-		commitMsg: text,
-	})
-	if len(violations) == 0 {
-		return ""
-	}
-	var b strings.Builder
-	fmt.Fprintf(&b, "enforcement_registry_transition: %d violation(s) — fix or use [skip-registry-transition] opt-out:\n", len(violations))
-	for _, v := range violations {
-		fmt.Fprintf(&b, "  - %s\n", v.String())
-	}
-	return strings.TrimRight(b.String(), "\n")
+	return &old, &neu, "", true
 }

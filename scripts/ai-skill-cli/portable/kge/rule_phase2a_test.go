@@ -676,3 +676,90 @@ func TestPlanTreeFolderConventionRule(t *testing.T) {
 		t.Fatalf("want flat cluster advisory, got %#v", got)
 	}
 }
+
+func TestEnforcementRegistryTransitionRule(t *testing.T) {
+	eng := NewEngine(EnforcementRegistryTransitionRule{})
+	baseProvided := map[CapabilityID]bool{
+		CapCommitMsg: true, CapRegistrySnapshots: true, CapRepoFS: true, CapSymbolIndex: true,
+	}
+	oldSnap := &RegistrySnapshotMeta{
+		RuleClasses: []RegistryClassMeta{{ID: "rule.demo", Coverage: "mechanical"}},
+	}
+	newSnap := &RegistrySnapshotMeta{
+		RuleClasses: []RegistryClassMeta{{ID: "rule.demo", Coverage: "behavioral_only"}},
+		BindingRequiredKinds: []string{"go_function"},
+	}
+	ctx := Context{
+		CommitMsg:     "feat: demote without gates",
+		RegistryOld:   oldSnap,
+		RegistryNew:   newSnap,
+		ExistingPaths: map[string]bool{},
+		FileSymbols:   map[string]map[string]bool{},
+		Provided:      baseProvided,
+	}
+	got := eng.Run(ctx)
+	codes := map[string]bool{}
+	for _, f := range got {
+		codes[f.Code] = true
+	}
+	for _, want := range []string{"R1_missing_trailer", "R1_missing_rationale", "R2_demotion_missing_adr"} {
+		if !codes[want] {
+			t.Fatalf("want %s among %#v", want, got)
+		}
+	}
+
+	ctx.CommitMsg = "feat: demote\n\nrationale: justified demotion for tests\n\n[registry-status-change]\n"
+	newSnap.RuleClasses[0].AdrReference = "constitution/ADR-999-missing.md"
+	got = eng.Run(ctx)
+	codes = map[string]bool{}
+	for _, f := range got {
+		codes[f.Code] = true
+	}
+	if !codes["R2_demotion_adr_unresolved"] {
+		t.Fatalf("want unresolved ADR, got %#v", got)
+	}
+	ctx.ExistingPaths["constitution/ADR-999-missing.md"] = true
+	if got = eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want demotion pass with ADR, got %#v", got)
+	}
+
+	// Promotion missing executor
+	oldSnap = &RegistrySnapshotMeta{
+		RuleClasses: []RegistryClassMeta{{ID: "rule.promo", Coverage: "pending_implementation"}},
+	}
+	newSnap = &RegistrySnapshotMeta{
+		RuleClasses: []RegistryClassMeta{{
+			ID: "rule.promo", Coverage: "mechanical",
+			Executors: []RegistryExecutorMeta{{
+				File: "internal/app/hooks.go", Symbol: "DoesNotExistSymbolXYZ", ExecutorKind: "go_function",
+			}},
+		}},
+		BindingRequiredKinds: []string{"go_function"},
+	}
+	ctx.RegistryOld = oldSnap
+	ctx.RegistryNew = newSnap
+	ctx.FileSymbols = map[string]map[string]bool{"internal/app/hooks.go": {"validateSomething": true}}
+	ctx.CommitMsg = "feat: promote\n\nrationale: ready\n\n[registry-status-change]\n"
+	got = eng.Run(ctx)
+	if len(got) != 1 || got[0].Code != "R3_promotion_missing_executor" {
+		t.Fatalf("want R3 missing executor, got %#v", got)
+	}
+	ctx.FileSymbols["internal/app/hooks.go"]["DoesNotExistSymbolXYZ"] = true
+	if got = eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want promotion pass, got %#v", got)
+	}
+
+	// CapStagedPaths gate: registry not staged → skip
+	ctx.StagedPaths = []string{"README.md"}
+	ctx.Provided[CapStagedPaths] = true
+	ctx.FileSymbols["internal/app/hooks.go"] = map[string]bool{"validateSomething": true}
+	if got = eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want skip when registry not staged, got %#v", got)
+	}
+
+	ctx.CommitMsg = "feat: x\n[skip-registry-transition]\n"
+	ctx.StagedPaths = []string{"enforcement/enforcement-registry.yaml"}
+	if got = eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want opt-out pass, got %#v", got)
+	}
+}

@@ -25,6 +25,8 @@ const (
 	CapSearchCorpus CapabilityID = "cap.search_corpus"
 	CapBoundPaths   CapabilityID = "cap.bound_paths"
 	CapPlanIndex   CapabilityID = "cap.plan_index"
+	CapRegistrySnapshots CapabilityID = "cap.registry_snapshots"
+	CapSymbolIndex CapabilityID = "cap.symbol_index"
 )
 
 // PlanMeta is adapter-normalized plan frontmatter for plan-tree rules.
@@ -47,6 +49,28 @@ type PlanMeta struct {
 	DelegationHasModes      bool
 }
 
+// RegistryExecutorMeta is one rule_class executor binding (no YAML in kge).
+type RegistryExecutorMeta struct {
+	File         string
+	Symbol       string
+	ExecutorKind string
+}
+
+// RegistryClassMeta is one rule_class row for transition checks.
+type RegistryClassMeta struct {
+	ID           string
+	Coverage     string
+	AdrReference string
+	Executors    []RegistryExecutorMeta
+}
+
+// RegistrySnapshotMeta is an adapter-normalized enforcement-registry view.
+type RegistrySnapshotMeta struct {
+	RuleClasses           []RegistryClassMeta
+	HelperAllowlist       []string
+	BindingRequiredKinds  []string
+}
+
 // Context is the adapter-normalized input. No git handles.
 type Context struct {
 	RepoRoot     string
@@ -63,6 +87,9 @@ type Context struct {
 	SearchCorpus  string           // CapSearchCorpus: searchable text blob from adapter
 	BoundPaths    map[string]bool  // CapBoundPaths: registry-bound source paths
 	PlanIndex     []PlanMeta       // CapPlanIndex: parsed plan frontmatter (repo + staged)
+	RegistryOld   *RegistrySnapshotMeta // CapRegistrySnapshots
+	RegistryNew   *RegistrySnapshotMeta // CapRegistrySnapshots
+	FileSymbols   map[string]map[string]bool // CapSymbolIndex: path → symbol → present
 	// Provided lists which capabilities the adapter filled.
 	Provided map[CapabilityID]bool
 }

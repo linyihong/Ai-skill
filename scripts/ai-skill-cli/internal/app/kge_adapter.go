@@ -663,6 +663,36 @@ func runKGEPlanTreeFolderConvention(text string, staged []string, root string) s
 	return kgeFindingsMessage(eng.Run(ctx))
 }
 
+// runKGEEnforcementRegistryTransition adapts HEAD/staged registry YAML +
+// ADR/symbol IO into CapRegistrySnapshots / CapRepoFS / CapSymbolIndex.
+func runKGEEnforcementRegistryTransition(text string, staged []string, root string) string {
+	oldSnap, newSnap, errMsg, ok := loadStagedRegistrySnapshots(text, staged, root)
+	if errMsg != "" {
+		return errMsg
+	}
+	if !ok {
+		return ""
+	}
+	ctx := kge.Context{
+		RepoRoot:      root,
+		CommitMsg:     text,
+		StagedPaths:   staged,
+		RegistryOld:   toKGERegistrySnapshot(oldSnap),
+		RegistryNew:   toKGERegistrySnapshot(newSnap),
+		ExistingPaths: buildTransitionExistingPaths(root, newSnap),
+		FileSymbols:   buildTransitionSymbolIndex(root, newSnap),
+		Provided: map[kge.CapabilityID]bool{
+			kge.CapCommitMsg:         true,
+			kge.CapStagedPaths:       true,
+			kge.CapRegistrySnapshots: true,
+			kge.CapRepoFS:            true,
+			kge.CapSymbolIndex:       true,
+		},
+	}
+	eng := kge.NewEngine(kge.EnforcementRegistryTransitionRule{})
+	return formatRegistryTransitionFindings(eng.Run(ctx))
+}
+
 // countKGEAdvisories runs advisory-only rules (D9 commit-msg count path).
 // Does not run validation or discovery rules.
 func countKGEAdvisories(root string, staged []string) int {
