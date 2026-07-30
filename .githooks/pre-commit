@@ -1,10 +1,12 @@
 #!/usr/bin/env sh
 # Minimal Git hook adapter. Business logic lives in `ai-skill hooks run pre-commit`.
+# Prefer platform-stable binary; a bare bin/ai-skill is often a stale local alias.
 set -eu
 
 ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
-BIN="${AI_SKILL_CLI:-$ROOT/scripts/ai-skill-cli/bin/ai-skill}"
-if [ ! -x "$BIN" ]; then
+if [ -n "${AI_SKILL_CLI:-}" ] && [ -x "$AI_SKILL_CLI" ]; then
+  BIN="$AI_SKILL_CLI"
+else
   os="$(uname -s 2>/dev/null | tr '[:upper:]' '[:lower:]')"
   arch="$(uname -m 2>/dev/null || echo unknown)"
   case "$os" in darwin) os=darwin ;; linux) os=linux ;; mingw*|msys*|cygwin*) os=windows ;; *) os=unknown ;; esac
@@ -12,5 +14,8 @@ if [ ! -x "$BIN" ]; then
   suffix=""
   [ "$os" = "windows" ] && suffix=".exe"
   BIN="$ROOT/scripts/ai-skill-cli/bin/ai-skill-$os-$arch$suffix"
+  if [ ! -x "$BIN" ]; then
+    BIN="$ROOT/scripts/ai-skill-cli/bin/ai-skill"
+  fi
 fi
 exec "$BIN" hooks run pre-commit --repo "$ROOT"
