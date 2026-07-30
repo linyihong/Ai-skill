@@ -13,7 +13,9 @@ ai-skill hooks install
 - **pre-commit** — runtime validate、**sanitization_scan**（shared-layer 去敏）、knowledge 檢查
 - **commit-msg** — plan-tree / cognitive contract / 其他治理 validators
 - **post-commit** — 閉環輔助
-- **pre-push** — **push governance replay**（重跑 sanitization + commit-msg validators，擋 `--no-verify` 繞過的 commit）+ CLI CI preflight
+- **pre-push** — **push governance replay** + **`kge check`（D9；validation 可 block、advisory 不擋）** + CLI CI preflight
+
+Adapter 解析順序：`AI_SKILL_CLI` → `bin/ai-skill-<os>-<arch>` → `bin/ai-skill`（後者常為本機 alias，可能過期）。
 
 驗證安裝：
 
