@@ -239,6 +239,24 @@ signals:
     priority: 14
     description: Diff touches model selection / execution strategy surfaces → load route.models.model-aware-routing + SOURCE_BACKED context per archived model-aware-execution-routing plan
 
+  # ── legal workflow domain (2026-07-30) ─────────────────────────────────
+  - name: user_keyword_legal_work
+    signal_type: user_keyword
+    pattern: "合約|保密協議|NDA|採購契約|契約範本|政府採購|準據法|管轄法院|仲裁|違約金|背景調查|盡職調查|due diligence|法規查詢|法律策略|經銷合約|授權合約|MOU"
+    execution_mode: null
+    context_mode: SOURCE_BACKED
+    governance_mode: STRICT
+    memory_mode: null
+    priority: 19
+    description: >
+      User signals legal work (contract draft/review, applicable-law research,
+      counterparty diligence, legal strategy, negotiation) → load
+      route.workflow.legal + workflow.legal.execution_flow.contract.
+      SOURCE_BACKED because this domain's top failure mode is asserting statutes
+      from training memory without a versioned official source; STRICT governance
+      because the intake / strategy / citation-version / risk-tier gates must not
+      be skipped (workflow/legal/artifact-gates.md).
+
 fallback:
   description: >
     No signal matched. Use 4 mode defaults from cognitive-modes.yaml.

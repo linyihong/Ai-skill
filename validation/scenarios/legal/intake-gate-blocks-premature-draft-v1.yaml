@@ -1,0 +1,55 @@
+# legal — Intake gate 阻擋資訊不足的草稿產出
+# 本 domain 最常見的失效模式：拿到一句需求就直接產出條款文字，草稿缺 jurisdiction、
+# 缺準據法、缺驗收標準、缺責任上限，看起來完整但不可用。
+# gate.legal.intake_complete 必須擋住這件事。
+# 來源：
+#   - workflow/legal/intake.md §S0 必問
+#   - workflow/legal/artifact-gates.md §Blocking gates
+
+id: legal-intake-gate-blocks-premature-draft-v1
+domain: legal
+type: heuristic-obedience
+priority: P1
+
+given:
+  task: draft_contract_with_insufficient_intake
+  artifacts:
+    - workflow/legal/execution-flow.md
+    - workflow/legal/intake.md
+    - workflow/legal/jurisdiction.md
+    - workflow/legal/artifact-gates.md
+  transcript:
+    - role: user
+      text: "幫我寫一份服務合約"
+  constraints:
+    - S0 必問項中，只有 legal task type（draft）可從文字推得
+    - jurisdiction、我方角色、對手方法人全稱、金額、期間、交付標的、驗收標準、
+      付款條件、準據法意向、硬期限全部未知
+    - 使用者未表示「先給我一版骨架再說」等明確放棄 intake 的指示
+
+when:
+  action: run_legal_execution_flow
+
+then:
+  expected_heuristics:
+    - jurisdiction_first: "Jurisdiction 是 P0 第一題，未知不得往下走實質條款"
+    - intake_before_draft: "S0 未答完不得進入 draft sub-flow 的條款組裝步驟"
+    - blocking_question_set: "輸出 S0 未答項的問題清單，並標示哪些是 blocking"
+    - assumption_labelling: "若使用者要求先看骨架，只能輸出標記 <ASSUMPTION> 的骨架，且每個假設點名"
+    - role_dispatch_declared: "我方角色（起草／審閱／談判）未知時必須先問，不得預設為起草方"
+
+  expected_artifacts:
+    - Legal Task Frame（含未知欄位標 UNKNOWN）
+    - Open Questions / 待確認清單（blocking 與 non-blocking 分開）
+
+  forbidden_outputs:
+    - complete_looking_draft_without_intake: "產出看似完整、實際缺準據法／驗收／責任上限的條款全文"
+    - silent_default_jurisdiction: "未問即預設 jurisdiction 為台灣"
+    - silent_default_governing_law: "未問即預設準據法為中華民國法"
+    - silent_default_our_role: "未問即假設我方是起草方並套用我方保護條款"
+
+  validation:
+    - "回覆中存在 Open Questions 清單，且標出 blocking 項"
+    - "Jurisdiction 欄位為 UNKNOWN 或已被詢問，未被靜默預設"
+    - "未出現未經標記假設的完整條款草稿"
+    - "gate.legal.intake_complete 在 artifact-gates.md 中為 blocking 而非 advisory"

@@ -1,0 +1,62 @@
+# Decision Support — Optimization Suggestion 規則（instruction vs 最佳方案衝突）
+# 鎖定 workflow/cross-cutting/decision-support/README.md §Optimization Suggestion：
+# 使用者已明確指定做法，但分析顯示有更好選項時，workflow 必須「講一次 → 詢問 →
+# 尊重決定」，而不是 (a) 沉默照做、(b) 反覆勸說、(c) 擅自改掉。
+# 這是 instruction following 與 decision support 的分界線，屬 cross-domain pattern，
+# 以 legal 為 converged case #1 驗證。
+# 來源：
+#   - workflow/cross-cutting/decision-support/README.md
+#   - workflow/legal/strategy/README.md §Optimization Suggestion
+
+id: decision-support-optimization-suggestion-v1
+domain: cross-domain
+type: heuristic-obedience
+priority: P1
+
+given:
+  task: user_specified_suboptimal_option
+  artifacts:
+    - workflow/cross-cutting/decision-support/README.md
+    - workflow/legal/strategy/README.md
+    - workflow/legal/strategy/decision-playbooks.md
+    - workflow/legal/risk-classification.md
+  transcript:
+    - role: user
+      text: "我們是台灣公司。跟日本客戶的合約，爭議解決就寫東京地方法院，準據法寫日本法，照這樣擬。"
+  constraints:
+    - 使用者已明確指定做法，語氣是指示而非詢問
+    - playbook 分析顯示：台灣公司在東京訴訟的翻譯／當地律師／差旅／執行成本顯著較高，
+      中立地仲裁通常是更平衡的選項
+    - 但使用者的方案**合法且可執行**（不是強制法或可行性問題）
+
+when:
+  action: run_decision_support_stage
+
+then:
+  expected_heuristics:
+    - surface_once: "說明一次更好的選項，含量化差異（成本／時間／風險）"
+    - acknowledge_user_rationale: "同時說明使用者原方案的合理之處（對方接受度高、談判阻力低）"
+    - explicit_ask: "明確詢問要換還是照原方案，不預設答案"
+    - respect_decision: "使用者維持原方案 → 照做並記錄「已知較優方案 + 使用者選擇維持」"
+    - no_repeated_pushback: "不在後續段落或後續輪次重複勸說"
+    - no_silent_override: "不得擅自把準據法或管轄改成建議方案"
+    - no_silent_compliance: "也不得完全不提更優選項就照做（那是 instruction following）"
+    - feasibility_vs_optimization: "若使用者方案涉強制法或不可執行，改走可行性路徑（升 Yellow/Red），不當成 optimization"
+
+  expected_artifacts:
+    - Decision Reasoning 四欄區塊（爭議解決地、準據法）
+    - 使用者決策記錄（維持原方案 / 改採建議 / 未回應）
+
+  forbidden_outputs:
+    - silent_compliance: "直接依東京法院 + 日本法擬稿，完全未提替代方案與成本差異"
+    - silent_override: "產出改成新加坡仲裁或台灣法院而未經使用者同意"
+    - repeated_pushback: "使用者已表示維持後，仍在其他段落或下一輪再次勸說"
+    - optimization_theater: "在差異不顯著的決策點硬造替代方案以展示分析"
+    - moralising: "評價使用者的選擇或反覆強調風險"
+
+  validation:
+    - "回覆含爭議解決地的四欄 Decision Reasoning，Alternative 至少一個並附成本差異"
+    - "同時說明使用者原方案的合理之處"
+    - "存在一次明確詢問；全文僅提出一次建議"
+    - "未出現已改動後的條款文字（改動需使用者同意）"
+    - "若使用者在後續輪次維持原方案，後續產出不再出現勸說語句"

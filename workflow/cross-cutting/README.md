@@ -20,7 +20,10 @@ Concerns that span multiple delivery slices without becoming a new `software-del
 | --- | --- | --- |
 | Experience runtime | [`experience-runtime/README.md`](experience-runtime/README.md) | pilot — player template only |
 | Review (fault_finding consumer) | [`review/README.md`](review/README.md) | active — invoke + checklist; not stance contract owner |
+| Decision Support Stage | [`decision-support/README.md`](decision-support/README.md) | pilot — generic contract + 1／3 converged case (`workflow/legal/strategy/`) |
 
 ## Slice promotion policy
 
 Do **not** register `sd-experience-runtime` until at least **three** converged cases exist (plan: player + editor + onboarding). Until then, projects consume cross-cutting YAML as overlay alignment only.
+
+The same three-case bar applies to **Decision Support Stage**: it stays a cross-cutting pattern that domains instantiate and link back to. Until three domains have converged instantiations (each supplying decision-point inventory, playbooks, verification source and a depth gate), it is **not** a registered stage in any workflow's required order and must not be described as a repo-wide capability. Current: 1／3 (`legal`).

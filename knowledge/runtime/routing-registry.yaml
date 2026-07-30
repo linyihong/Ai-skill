@@ -1591,6 +1591,97 @@ records:
       compression_level: summary-first
       reason: 多數任務只需 workflow README 與 execution-flow；policy 全文留在 enforcement。
 
+  - id: route.workflow.legal
+    route_type: workflow
+    task_intent: 執行法律工作（合約起草／審閱／解釋／比較、適用法研究、對手方背景調查、法律策略分析、談判支援、合約生命週期）
+    activation_triggers:
+      task_intents:
+        - legal-draft
+        - legal-review
+        - contract-draft
+        - contract-review
+        - contract-compare
+        - legal-research
+        - counterparty-due-diligence
+        - legal-strategy
+        - negotiation-support
+        - contract-lifecycle
+      user_signals:
+        # 法律專屬詞：刻意不含裸「契約」，避免與 route.workflow.software-delivery
+        # 的 API / BDD behavior contract 語意衝突（見 workflow/workflow-routing.md §常見歧義）
+        - 合約
+        - 合約草擬
+        - 合約審閱
+        - 保密協議
+        - NDA
+        - 採購契約
+        - 契約範本
+        - 政府採購
+        - 準據法
+        - 管轄法院
+        - 仲裁
+        - 違約金
+        - 背景調查
+        - 盡職調查
+        - due diligence
+        - 法規查詢
+        - 法律策略
+        - 經銷合約
+        - 授權合約
+        - MOU
+      file_change_globs:
+        - "**/contracts/**"
+        - "**/legal/**"
+    primary_source: workflow/legal/execution-flow.md
+    required_dependencies:
+      - workflow/legal/README.md
+      - workflow/legal/intake.md
+      - workflow/legal/risk-classification.md
+      - workflow/legal/strategy/README.md
+      - workflow/legal/artifact-gates.md
+    candidate_sources:
+      - workflow/legal/jurisdiction.md
+      - workflow/legal/reference-sources.md
+      - workflow/legal/strategy/decision-playbooks.md
+      - workflow/legal/draft/README.md
+      - workflow/legal/review/README.md
+      - workflow/legal/due-diligence/README.md
+      - workflow/legal/research/README.md
+      - workflow/legal/negotiation/README.md
+      - workflow/legal/lifecycle/README.md
+      - knowledge/summaries/legal-workflow.md
+    # Disambiguation（無 registry 欄位可宣告 negative signal —— detector 是
+    # deterministic substring 匹配，刻意不支援 negative signal，見 ADR-006）：
+    # 「behavior contract / acceptance criteria / BDD / API contract / SDK」等訊號代表
+    # 任務其實屬 route.workflow.software-delivery。兩 route 同時命中時 detector 回
+    # conflict（ActiveRoute=""，不 block），由 workflow/workflow-routing.md §常見歧義 裁決。
+    source_of_truth_gate: new-layer-promoted
+    ranking_reason: >
+      法律工作的 canonical 執行順序。Domain 邊界是「法律任務」而非「合約文件」：
+      task type（draft / review / explain / compare / research / due-diligence /
+      strategy / negotiation-support / lifecycle）為第一級分派維度，未來新增法域、
+      法規或契約類型在本 domain 內擴充，不新增 workflow domain。
+    validation_signal: >
+      Task type / jurisdiction / risk tier 三者已明說；Strategy 的 Decision Register
+      每個決策點四欄齊備（Recommendation / Reason / Alternative / Trade-offs）；
+      每筆法規或官方範本引用帶版本與查核日；Red tier 僅輸出 Escalation Card。
+    metadata:
+      priority: P2
+      confidence: medium
+      context_cost:
+        estimated_tokens: 3200
+        load_strategy: lazy
+        cacheable: true
+        ttl:
+          task: 1
+      compatibility_state: new-layer-promoted
+    model:
+      profile: specialized
+      compression_level: source-backed
+      reason: >
+        法律任務要求 source-backed 引用（法規版本 + 查核日）與可解釋的策略推理；
+        summary-first 會讓未查證主張以確定語氣輸出，屬本 domain 最高風險失效模式。
+
   - id: route.runtime.onboarding
     route_type: runtime_doc
     task_intent: 新 session 或新專案的快速啟動指引

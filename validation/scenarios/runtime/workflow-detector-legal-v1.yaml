@@ -1,0 +1,78 @@
+# Workflow Detector — route.workflow.legal activation + 「契約」字面衝突裁決
+# 鎖定 plans/active/2026-07-30-2101-legal-workflow-domain.md §Runtime Execution Path 與 Q4：
+# 法律任務必須鎖定 route.workflow.legal，而不是被 route.workflow.software-delivery 的
+# 「契約」user_signal（指 API / BDD behavior contract）吸走。
+# 來源：
+#   - scripts/ai-skill-cli/internal/app/detector.go
+#   - knowledge/runtime/routing-registry.yaml (route.workflow.legal)
+#   - workflow/workflow-routing.md §常見歧義
+
+id: workflow-detector-legal-v1
+domain: runtime
+type: routing-decision
+priority: P1
+
+given:
+  task: detect_workflow_for_task
+  artifacts:
+    - knowledge/runtime/routing-registry.yaml
+    - scripts/ai-skill-cli/internal/app/detector.go
+    - workflow/legal/execution-flow.md
+  transcript:
+    - role: user
+      text: "我要跟一家新加坡的供應商簽保密協議跟服務合約，幫我做合約草擬，順便查一下這家公司的背景調查"
+  constraints:
+    - route.workflow.legal 的 user_signals 含「合約草擬」「保密協議」「背景調查」
+    - route.workflow.software-delivery 的 user_signals 含「契約」但**不**含上列任一詞
+    - detector 為 deterministic substring 匹配，無 negative signal（ADR-006）
+
+when:
+  action: run_detector
+
+then:
+  expected_route:
+    primary: route.workflow.legal
+    status: detected
+    conflict: false
+    steps:
+      - 任務文字含「合約草擬」「保密協議」「背景調查」
+      - detector 命中 route.workflow.legal 的 activation user_signals
+      - ActiveRoute = route.workflow.legal
+      - gate.workflow.primary_source_read 要求先讀 workflow/legal/execution-flow.md
+    reject:
+      - no_match: "回 no-match（route 未登記或 user_signals 未覆蓋法律詞彙）"
+      - wrong_workflow: "鎖定 route.workflow.software-delivery（把法律合約誤判為 API contract 任務）"
+
+  forbidden_routes:
+    - route.workflow.software-delivery
+    - no_match_on_legal_task
+
+  expected_final_route: route.workflow.legal
+
+  # 反向案例：software-delivery 的「契約」不得被 legal route 吸走
+  # 觀測（2026-07-30 實跑）：該文字命中 software-delivery + requirements-cognition 兩 route
+  # → conflict=true、ActiveRoute=""，由 workflow-routing.md Stage 2 裁決。這是本 repo 既有
+  # 行為，非本 route 造成。本案的關鍵斷言是 route.workflow.legal **不得**出現在 detected_routes。
+  counter_case:
+    transcript:
+      - role: user
+        text: "幫我補 SDK 的 behavior 契約跟 BDD acceptance criteria"
+    must_not_detect: route.workflow.legal
+    observed_detected_routes:
+      - route.intelligence.requirements-cognition
+      - route.workflow.software-delivery
+    observed_conflict: true
+    reason: 文字含「契約」但無任何法律專屬詞（無合約／保密協議／準據法／背景調查／採購契約）
+
+  trace_required:
+    - signals_matched
+    - active_route
+    - status
+
+  validation:
+    detection_command: >
+      ai-skill runtime workflow-context --transcript <jsonl containing the given transcript>
+    assertions:
+      - "主案回 status=detected、active_route=route.workflow.legal、conflict=false"
+      - "primary_source 解析為 workflow/legal/execution-flow.md"
+      - "counter_case 的 detected_routes 不含 route.workflow.legal"

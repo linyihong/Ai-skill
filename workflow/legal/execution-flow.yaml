@@ -1,0 +1,170 @@
+schema_version: executable-contract/v1
+id: workflow.legal.execution-flow.contract
+title: Legal workflow execution flow contract
+owner_layer: workflow
+source_markdown: workflow/legal/execution-flow.md
+status: active
+contract_type: workflow_flow
+blocking_level: blocking
+
+runtime_projection:
+  enabled: true
+  target_key: workflow.legal.execution_flow.contract
+  surface_type: executable_yaml_contract
+  execution_scope: workflow_execution
+
+activation:
+  events:
+    - legal_task_requested
+    - contract_draft_requested
+    - contract_review_requested
+    - contract_comparison_requested
+    - legal_regulation_research_requested
+    - counterparty_due_diligence_requested
+    - legal_strategy_analysis_requested
+    - negotiation_support_requested
+    - contract_lifecycle_management_requested
+  required_when:
+    - User asks to draft, review, explain or compare a legal contract; research applicable law or regulation currency; investigate a counterparty; analyse legal strategy; support negotiation; or manage a contract lifecycle.
+  not_applicable_when:
+    - Task concerns API / BDD behavior contracts (route.workflow.software-delivery owns those).
+
+required_sources:
+  - workflow/legal/README.md
+  - workflow/legal/execution-flow.md
+  - workflow/legal/intake.md
+  - workflow/legal/risk-classification.md
+  - workflow/legal/strategy/README.md
+  - workflow/legal/artifact-gates.md
+
+conditional_sources:
+  - source: workflow/legal/jurisdiction.md
+    when: jurisdiction spans two or more legal systems, or is not the user's home jurisdiction
+  - source: workflow/legal/strategy/decision-playbooks.md
+    when: decision points cover governing law, forum, payment, liquidated damages, IP, confidentiality, acceptance, force majeure or termination
+  - source: workflow/legal/due-diligence/README.md
+    when: a counterparty exists and its identity, operating status or risk signals are unverified
+  - source: workflow/legal/research/README.md
+    when: any statute, regulation, official template, Q&A or interpretation is cited
+  - source: workflow/legal/reference-sources.md
+    when: official templates or government procurement sources are used
+  - source: workflow/legal/draft/README.md
+    when: task_type is draft
+  - source: workflow/legal/review/README.md
+    when: task_type is review, explain or compare
+  - source: workflow/legal/negotiation/README.md
+    when: task_type is negotiation-support, or drafting/review entered multi-round redline
+  - source: workflow/legal/lifecycle/README.md
+    when: task_type is lifecycle
+
+dispatch_dimensions:
+  - id: legal_task_type
+    order: 1
+    values: [draft, review, explain, compare, research, due-diligence, strategy, negotiation-support, lifecycle]
+    unknown_behaviour: must_ask_never_infer
+  - id: jurisdiction
+    order: 2
+    severity: p0
+    unknown_behaviour: must_ask_never_default
+  - id: our_role
+    order: 3
+    values: [drafting_party, reviewing_party, negotiator, internal_assessment]
+    unknown_behaviour: must_ask_never_default
+  - id: counterparty_presence
+    order: 4
+    values: [present, absent]
+
+steps:
+  - id: frame_legal_task
+    order: 0
+    action: Confirm the task belongs to the legal domain and state that output is not legal advice; pre-flag obvious Red tier subject matter.
+
+  - id: run_task_intake
+    order: 1
+    action: Run the tiered questionnaire (S0 mandatory, S1 by document type, S2 by our role, S3 cross-border) and produce a Legal Task Frame with UNKNOWN / DECLINED markers.
+    gates:
+      - gate.legal.intake_complete
+
+  - id: classify_risk_tier
+    order: 2
+    action: Classify Green / Yellow / Red per the tier table and state the tier plus its trigger early in the response.
+    gates:
+      - gate.legal.risk_tier_declared
+    short_circuit:
+      when: tier == Red
+      goto: close_and_escalate
+      reason: Red tier produces an Escalation Card only — no substantive advice and no strategy recommendation.
+
+  - id: strategy_pass_1_framing
+    order: 3
+    action: Identify decision points, options, legal analysis, risk analysis, interest analysis (including the counterparty's real interests), trade-offs and the premises that must be verified. Mark every recommendation provisional.
+    gates:
+      - gate.legal.decision_register_present
+
+  - id: dispatch_subflows
+    order: 4
+    action: Select the minimum required downstream stages from the dispatch matrix using task type, jurisdiction, counterparty presence and the Decision Register.
+
+  - id: run_counterparty_diligence
+    order: 5
+    conditional: counterparty_presence == present
+    action: Verify Layer 1 identity, Layer 2 corporate status and Layer 3 nine risk-signal classes from public sources; map each risk flag to a concrete clause adjustment.
+    gates:
+      - gate.legal.counterparty_identified
+
+  - id: research_applicable_law
+    order: 6
+    action: Run jurisdiction, applicable law classes, recent updates, government sources and risk summary; record name, version or latest amendment date, provision, source tier and check date for every citation.
+    gates:
+      - gate.legal.law_citation_versioned
+
+  - id: select_reference_sources
+    order: 7
+    action: Select authoritative sources across all four classes (contract template, statute, official Q&A, official interpretation) and pin template version numbers.
+    gates:
+      - gate.legal.source_version_pinned
+
+  - id: strategy_pass_2_closeout
+    order: 8
+    action: Converge each decision point using verified premises into Recommendation / Reason / Alternative / Trade-offs with correct confidence, then request the user's decision on the points that need it.
+    gates:
+      - gate.legal.strategy_reasoned
+
+  - id: produce_deliverable
+    order: 9
+    action: Produce the deliverable for the task type — draft (six steps), review (five stages with Critical/Major/Minor severity), explain, compare, research report, diligence card, strategy memo, or negotiation kit.
+
+  - id: validate_artifacts
+    order: 10
+    action: Check every required artifact for the task type and every blocking gate before claiming completion.
+    gates:
+      - gate.legal.artifacts_complete
+
+  - id: close_and_escalate
+    order: 11
+    action: Deliver output plus Open Questions (blocking vs non-blocking), Escalation Card when applicable, and the four-point disclaimer.
+    gates:
+      - gate.legal.escalation_declared
+      - gate.legal.no_outbound_send
+
+forbidden:
+  - draft_before_intake_complete
+  - draft_before_strategy_confirmed
+  - ask_only_without_reasoning
+  - silent_jurisdiction_default
+  - silent_governing_law_default
+  - silent_our_role_default
+  - unsourced_statutory_claim
+  - unpinned_official_template_reference
+  - provisional_recommendation_marked_confirmed
+  - one_sided_interest_analysis
+  - diligence_without_clause_impact
+  - red_tier_substantive_advice
+  - disclaimer_only_escalation
+  - outbound_send_without_user_confirmation
+
+related:
+  companion_markdown: workflow/legal/execution-flow.md
+  artifact_contract: workflow/legal/artifact-gates.yaml
+  plan: plans/active/2026-07-30-2101-legal-workflow-domain.md
+  route: route.workflow.legal

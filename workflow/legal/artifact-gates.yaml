@@ -1,0 +1,148 @@
+schema_version: executable-contract/v1
+id: workflow.legal.artifact-gates.contract
+title: Legal workflow artifact gates contract
+owner_layer: workflow
+source_markdown: workflow/legal/artifact-gates.md
+status: active
+contract_type: workflow_flow
+blocking_level: blocking
+
+runtime_projection:
+  enabled: true
+  target_key: workflow.legal.artifact_gates.contract
+  surface_type: executable_yaml_contract
+  execution_scope: workflow_execution
+
+activation:
+  events:
+    - legal_deliverable_created
+    - legal_deliverable_reviewed
+    - legal_task_completion_claimed
+    - legal_outbound_document_send_requested
+  required_when:
+    - Producing or reviewing any legal deliverable (draft, review memo, research report, diligence card, strategy memo, negotiation kit) or claiming a legal task is complete.
+
+required_sources:
+  - workflow/legal/artifact-gates.md
+  - workflow/legal/risk-classification.md
+  - workflow/legal/execution-flow.md
+
+universal_artifacts:
+  - legal_task_frame
+  - risk_tier_determination
+  - open_questions_split_blocking_non_blocking
+  - disclaimer_four_points
+
+artifacts_by_task_type:
+  draft:
+    required: [decision_register, applicable_law_table, draft_handover]
+    conditional: [reference_source_table, counterparty_diligence_card, jurisdiction_block]
+  review:
+    required: [decision_register, applicable_law_table, review_memo]
+    conditional: [reference_source_table, counterparty_diligence_card, jurisdiction_block]
+  explain:
+    required: [applicable_law_table]
+  compare:
+    required: [review_memo]
+    conditional: [applicable_law_table, reference_source_table]
+  research:
+    required: [applicable_law_table, reference_source_table, decision_register]
+    conditional: [jurisdiction_block]
+  due-diligence:
+    required: [counterparty_diligence_card]
+    conditional: [applicable_law_table]
+  strategy:
+    required: [decision_register, applicable_law_table]
+    conditional: [reference_source_table, counterparty_diligence_card, jurisdiction_block]
+  negotiation-support:
+    required: [decision_register, issue_ledger, concession_matrix]
+    conditional: [applicable_law_table, jurisdiction_block]
+  lifecycle:
+    required: [decision_register, applicable_law_table, reference_source_table, counterparty_diligence_card, jurisdiction_block, draft_handover, review_memo]
+
+red_tier_override:
+  required: [risk_tier_determination, escalation_card, disclaimer_four_points]
+  forbidden: [substantive_clause_advice, redline_recommendation, statutory_basis_citation, win_loss_assessment, settlement_range, demand_letter_draft, strategy_recommendation]
+
+steps:
+  - id: verify_universal_artifacts
+    order: 1
+    action: Confirm task type, jurisdiction and risk tier are all stated, and that Open Questions plus the four-point disclaimer are present.
+    gates:
+      - gate.legal.artifacts_complete
+
+  - id: verify_intake_gate
+    order: 2
+    action: Confirm S0 fields all carry a value, UNKNOWN or DECLINED and that jurisdiction was asked rather than defaulted.
+    gates:
+      - gate.legal.intake_complete
+
+  - id: verify_strategy_reasoning
+    order: 3
+    action: Confirm each decision point carries Recommendation, Reason, Alternative and Trade-offs with correct confidence, and that interest analysis covered the counterparty.
+    gates:
+      - gate.legal.decision_register_present
+      - gate.legal.strategy_reasoned
+
+  - id: verify_citation_versions
+    order: 4
+    action: Confirm every statute or template citation carries a version or latest amendment date plus a check date; unsupported claims are labelled unverified and not stated with certainty.
+    gates:
+      - gate.legal.law_citation_versioned
+      - gate.legal.source_version_pinned
+
+  - id: verify_diligence_clause_impact
+    order: 5
+    conditional: counterparty_diligence_card in artifacts
+    action: Confirm counterparty legal name, registration number and signing authority are verified or explicitly unverified, and that every risk flag maps to a concrete clause adjustment.
+    gates:
+      - gate.legal.counterparty_identified
+
+  - id: verify_escalation_consistency
+    order: 6
+    action: Confirm output depth matches risk tier; Yellow lists concrete review items; Red carries an Escalation Card and no substantive advice.
+    gates:
+      - gate.legal.escalation_declared
+
+  - id: verify_no_outbound_send
+    order: 7
+    action: Confirm no outbound document was sent without explicit user confirmation in this session.
+    gates:
+      - gate.legal.no_outbound_send
+
+confidence_labels:
+  labels:
+    confirmed: tier A or B source with version and check date
+    probable: multiple tier C sources agreeing, not traced back to tier A
+    provisional: strategy pass 1, premises unverified
+    unverified: no tier A or B source
+  rule: certainty language is forbidden for provisional and unverified content
+
+advisory_checks:
+  - clause_inventory_completeness
+  - definition_and_cross_reference_consistency
+  - attachment_presence_and_finality
+  - bilingual_version_consistency
+  - open_issue_count_trending_down
+  - lifecycle_key_dates_registered
+
+definition_of_done:
+  checks:
+    - task_type_jurisdiction_risk_tier_all_stated
+    - all_blocking_gates_passed_or_blocker_reported
+    - required_artifacts_for_task_type_present
+    - every_citation_versioned_and_check_dated
+    - decision_register_four_columns_complete
+    - diligence_flags_mapped_to_clause_impact
+    - open_questions_split_and_blocking_items_surfaced
+    - disclaimer_present_yellow_review_list_or_red_escalation_card
+    - no_unconfirmed_outbound_send
+  rule: >
+    Any unmet item blocks the completion claim. Report which item is blocking
+    instead of claiming completion.
+
+related:
+  companion_markdown: workflow/legal/artifact-gates.md
+  flow_contract: workflow/legal/execution-flow.yaml
+  plan: plans/active/2026-07-30-2101-legal-workflow-domain.md
+  route: route.workflow.legal

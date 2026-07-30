@@ -1,0 +1,63 @@
+# legal — Strategy 必須推理，不得只問或只給結論
+# stakeholder review 2026-07-30 的核心要求：workflow 不能停在「詢問使用者法院選哪裡」，
+# 也不能只丟一句「建議台灣法院」。必須 Recommendation → Reason → Alternative → Trade-offs，
+# 並且分析對手方的真實利益（否則會得出對方不可能接受的方案）。
+# 來源：
+#   - workflow/legal/strategy/README.md
+#   - workflow/legal/strategy/decision-playbooks.md
+#   - workflow/legal/execution-flow.md (Stage 3a / 3b)
+
+id: legal-strategy-decision-reasoning-v1
+domain: legal
+type: heuristic-obedience
+priority: P1
+
+given:
+  task: recommend_dispute_forum_for_cross_border_deal
+  artifacts:
+    - workflow/legal/strategy/README.md
+    - workflow/legal/strategy/decision-playbooks.md
+    - workflow/legal/jurisdiction.md
+    - workflow/legal/execution-flow.md
+  transcript:
+    - role: user
+      text: "我們是台灣公司，要跟一家日本公司簽長期合作契約。爭議解決要寫哪裡？付款條件怎麼設比較好？這是第一次合作。"
+  constraints:
+    - 雙方分屬兩個法域 → Stage 3a 之前必須先讀 jurisdiction.md 五變數模型
+    - 首次合作 + 信用未知 → payment playbook 的核心觸發條件
+    - 尚未查證 SIAC/JCAA 規則版本與對手方資產所在地 → Pass 1 只能給 provisional
+
+when:
+  action: run_legal_strategy_pass_1
+
+then:
+  expected_heuristics:
+    - four_column_reasoning: "每個決策點四欄齊備：Recommendation / Reason / Alternative / Trade-offs"
+    - not_ask_only: "不得把「法院選哪裡」原封丟回使用者而不做分析"
+    - not_conclusion_only: "不得只給「建議台灣法院」而無理由與替代方案"
+    - two_sided_interest: "Reason 或 Trade-offs 必須說明對手方為何會接受或反對（成本不對稱原則）"
+    - enforcement_drives_forum: "從對手方資產所在地與裁決可執行性反推 forum，而非只比我方方便"
+    - payment_reasoned_from_credit: "付款建議綁「首次合作／信用未知」推理，而非直接問一次付或分期"
+    - provisional_marked: "Pass 1 建議標 provisional 並列出待查證前提"
+    - user_decision_points_named: "明確列出需使用者決策的點，不代替使用者決定"
+
+  expected_artifacts:
+    - Decision Register（至少含：準據法、爭議解決地、付款條件）
+    - 每個決策點的 Decision Reasoning 四欄區塊
+    - 待查證前提清單（供 Stage 6 research）
+
+  forbidden_outputs:
+    - ask_only_forum: "只輸出「請問您希望在台北、東京還是新加坡？」而無分析"
+    - conclusion_without_alternative: "給建議但無 Alternative 欄"
+    - conclusion_without_tradeoff: "給建議但無 Trade-offs 欄"
+    - one_sided_optimum: "建議台灣法院專屬管轄而未評估對方接受度"
+    - payment_menu_only: "只列付款方式選項而無依信用狀況的建議"
+    - provisional_as_confirmed: "未查證即標 confirmed"
+    - draft_clause_text_now: "在 Decision Register 未經使用者確認前就寫出條款文字"
+
+  validation:
+    - "回覆含 Decision Register，且準據法／爭議解決地／付款條件三點都有四欄"
+    - "爭議解決地的 Reason 提及成本不對稱或可執行性，且 Alternative 至少兩個"
+    - "付款建議可追溯到「首次合作／信用未知」這個推理前提"
+    - "所有 Pass 1 建議標 provisional 並附待查證前提"
+    - "未輸出條款文字（Stage 8 尚未到）"

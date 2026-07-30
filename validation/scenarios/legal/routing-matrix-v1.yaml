@@ -1,0 +1,117 @@
+# legal — 任務分派矩陣（10 案）
+# 鎖定 workflow/legal/execution-flow.md §Dispatch Matrix：每個真實法律任務必須解析出
+# (1) legal task type、(2) 要跑的 sub-flow 組合、(3) risk tier。
+# 這是 stakeholder review 2026-07-30 §第十個問題（Validation Scenarios 不夠）的直接回應：
+# 把 10 種任務收在一個矩陣 scenario，而非 10 個近似重複檔案。
+# 來源：
+#   - workflow/legal/execution-flow.md
+#   - workflow/legal/intake.md
+#   - workflow/legal/risk-classification.md
+
+id: legal-routing-matrix-v1
+domain: legal
+type: routing-decision
+priority: P1
+
+given:
+  task: dispatch_legal_task_to_subflows
+  artifacts:
+    - workflow/legal/execution-flow.md
+    - workflow/legal/intake.md
+    - workflow/legal/risk-classification.md
+    - workflow/legal/review/README.md
+    - workflow/legal/draft/README.md
+    - workflow/legal/due-diligence/README.md
+    - workflow/legal/research/README.md
+  constraints:
+    - task type 與 jurisdiction 未知時，intake 必須先問，不得預設
+    - risk tier 由 risk-classification.md 的 tier table 判定，不由 agent 直覺給
+    - 每案的 expected_subflows 為「最小必跑集合」，agent 可加不可漏
+
+when:
+  action: run_legal_intake_and_dispatch
+
+then:
+  cases:
+    - name: draft_nda
+      transcript: "幫我起草一份跟台灣廠商的雙向保密協議"
+      expected_task_type: draft
+      expected_jurisdiction: TW
+      expected_subflows: [intake, research, draft, artifact-gates]
+      expected_risk_tier: Green
+
+    - name: review_saas_agreement
+      transcript: "這是對方寄來的 SaaS 訂閱合約，幫我看有沒有問題"
+      expected_task_type: review
+      expected_jurisdiction: ASK      # 未提供，intake 必須問
+      expected_subflows: [intake, research, review, artifact-gates]
+      expected_risk_tier: Yellow      # SaaS 通常跨境 + 資料處理
+
+    - name: review_employment_contract
+      transcript: "幫我審這份勞動契約，看競業禁止條款能不能簽"
+      expected_task_type: review
+      expected_jurisdiction: ASK
+      expected_subflows: [intake, risk-classification, escalation]
+      expected_risk_tier: Red         # 勞動 → 直接升級，不出實質建議
+      must_not_produce: [substantive_clause_advice, redline_recommendation]
+
+    - name: government_procurement
+      transcript: "我們要投一個機關的資訊服務採購案，幫我看採購契約範本要注意什麼"
+      expected_task_type: review
+      expected_jurisdiction: TW
+      expected_subflows: [intake, research, reference-sources, review, artifact-gates]
+      expected_risk_tier: Yellow
+      expected_reference_source_classes: [contract_template, procurement_statute, official_qa, official_interpretation]
+
+    - name: cross_border_contract
+      transcript: "跟日本公司的合作契約，準據法要選哪一國？爭議解決寫仲裁還是法院？"
+      expected_task_type: research
+      expected_jurisdiction: [JP, TW]
+      expected_subflows: [intake, jurisdiction, research, artifact-gates]
+      expected_risk_tier: Yellow
+
+    - name: supplier_agreement
+      transcript: "供應商合約要簽三年，幫我擬一份對我方有利的版本"
+      expected_task_type: draft
+      expected_jurisdiction: ASK
+      expected_subflows: [intake, due-diligence, research, draft, artifact-gates]
+      expected_risk_tier: Green
+
+    - name: distributor_agreement
+      transcript: "要給東南亞代理商獨家經銷權，合約怎麼寫"
+      expected_task_type: draft
+      expected_jurisdiction: ASK
+      expected_subflows: [intake, jurisdiction, due-diligence, research, draft, artifact-gates]
+      expected_risk_tier: Yellow      # 獨家性 + 跨境 + 競爭法
+
+    - name: service_agreement
+      transcript: "幫我寫一份委外開發的服務合約，要有驗收條件跟 IP 歸屬"
+      expected_task_type: draft
+      expected_jurisdiction: ASK
+      expected_subflows: [intake, research, draft, artifact-gates]
+      expected_risk_tier: Yellow      # 智慧財產 → Yellow
+
+    - name: software_license
+      transcript: "對方要我們簽軟體授權合約，裡面有 audit 條款跟 indemnity，幫我比較跟上一版差在哪"
+      expected_task_type: compare
+      expected_jurisdiction: ASK
+      expected_subflows: [intake, review, artifact-gates]
+      expected_risk_tier: Yellow
+
+    - name: mou
+      transcript: "先跟對方簽一份 MOU，不要有法律拘束力"
+      expected_task_type: draft
+      expected_jurisdiction: ASK
+      expected_subflows: [intake, draft, artifact-gates]
+      expected_risk_tier: Green
+      expected_clause_focus: [non_binding_declaration, exclusivity, confidentiality, term_and_termination]
+
+  forbidden_outputs:
+    - task_type_assumed_without_asking: "jurisdiction 標 ASK 的案子未問就往下跑"
+    - red_tier_substantive_advice: "Red tier 案件仍輸出條款建議或 redline"
+    - subflow_skipped: "expected_subflows 中的必跑 slice 未載入"
+
+  validation:
+    - "逐案比對 task type / jurisdiction 處置 / subflow 集合 / risk tier"
+    - "review_employment_contract 案必須只輸出升級說明，無條款建議"
+    - "government_procurement 案的 reference source 涵蓋四類（不只範本檔）"

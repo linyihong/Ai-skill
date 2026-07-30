@@ -6,12 +6,12 @@
 
 | Surface | Path | Count / Status |
 | --- | --- | --- |
-| Routing registry | [`routing-registry.yaml`](routing-registry.yaml) | 59 records |
+| Routing registry | [`routing-registry.yaml`](routing-registry.yaml) | 60 records |
 | Refresh policy | [`refresh-policy.yaml`](refresh-policy.yaml) | candidate |
 | Model context report | [`model-context-report.md`](model-context-report.md) | generated view |
 | Model checklists | [`model-checklists.md`](model-checklists.md) | generated view |
 | SQLite runtime index | [`sqlite/`](sqlite/) | generated lookup cache prototype |
-| Summaries | [`../summaries/`](../summaries/) | 25 files |
+| Summaries | [`../summaries/`](../summaries/) | 26 files |
 | Graph records | [`../graphs/`](../graphs/) | 35 files |
 
 ## Routing Records
@@ -49,6 +49,7 @@
 | `route.workflow.greenfield` | `workflow/greenfield/execution-flow.md` | `specialized` | `source-backed` | 新分層路徑可讀取，workflow 與 templates 內容完整。 |
 | `route.workflow.travel-planning` | `workflow/travel-planning/execution-flow.md` | `specialized` | `source-backed` | 新分層路徑可讀取，workflow 與 analysis 內容已分離。 |
 | `route.workflow.documentation-ai-native` | `workflow/documentation/README.md` | `small` | `summary-first` | 新文件或目錄具 index-first 導航、分類維度（kind/audience/stability）已標註； README-as-router、停止條件與單一真相已符合 documentation context governance； 長文已按 document-sizing 拆分；語言與工具敘述依專案自訂 policy（本 route 不預設 tool-neutral）。  |
+| `route.workflow.legal` | `workflow/legal/execution-flow.md` | `specialized` | `source-backed` | Task type / jurisdiction / risk tier 三者已明說；Strategy 的 Decision Register 每個決策點四欄齊備（Recommendation / Reason / Alternative / Trade-offs）； 每筆法規或官方範本引用帶版本與查核日；Red tier 僅輸出 Escalation Card。  |
 | `route.runtime.onboarding` | `runtime/onboarding/apk-analysis-setup.md` | `specialized` | `summary-first` | 各 quickstart 的步驟可依序執行，且與對應 workflow 的內容一致。 |
 | `route.analysis.apk.workflows` | `analysis/apk/workflows/README.md` | `specialized` | `summary-first` | 各 workflow 有明確步驟與產出格式，可依序執行。 |
 | `route.analysis.web` | `analysis/web/README.md` | `specialized` | `summary-first` | 目標網站已評估（技術棧、JS 需求、anti-bot 保護），工具已選擇（HTTP/Dynamic/Stealth）， 提取策略已設計（selector/adaptive parsing），風險已評估（legal/technical/data quality）。  |
@@ -92,6 +93,7 @@
 | `feedback.promotion.pipeline` | `candidate` | [`feedback-promotion-pipeline.md`](../summaries/feedback-promotion-pipeline.md) | 定義 feedback lesson 從 skill-local history 推進到 workflow、intelligence、enforcement、memory 或 runtime surfaces 的 promotion / downgrade gate。 |
 | `governance.goal-ledger-boundary` | `validated` | [`goal-ledger-boundary.md`](../summaries/goal-ledger-boundary.md) | `.agent-goals/` 只保存 active conversation goals；長期 roadmap、phase、migration、promotion、deprecation 與治理狀態必須落到 durable planning 文件。 |
 | `knowledge.navigation` | `validated` | [`knowledge-navigation.md`](../summaries/knowledge-navigation.md) | 知識導航系統：indexes（任務路由）、summaries（300-500 token 摘要）、graphs（知識圖譜邊）、runtime（routing registry、refresh policy、SQLite lookup cache）。讓 agent 用最小 token 成本找到正確知識。 |
+| `workflow.legal` | `candidate` | [`legal-workflow.md`](../summaries/legal-workflow.md) | 法律工作的 intake-dispatched workflow。Domain 邊界是**法律任務**而非合約文件：第一級分派維度為 legal task type（draft / review / explain / compare / research / due-diligence / strategy / negotiation-support / lifecycle）。Lifecycle：Frame → Task Intake → Risk Tier → **Strategy Pass 1** → Dispatch → Due Diligence → Applicable Law → Reference Sources → **Strategy Pass 2** → Produce → Validate → Close。核心不是「問問題→寫合約」而是「問問題→推理最佳策略→使用者決策→才決定怎麼寫」。Jurisdiction 為 P0；策略建議強制四欄（Recommendation / Reason / Alternative / Trade-offs）；法規與官方範本引用強制版本 + 查核日；背調三層（Identity → Corporate Status → 九類 Risk Signals）且每個 risk flag 對應具體條款調整；風險分 Green / Yellow / Red，Red 短路為 Escalation Card。 |
 | `memory.operations` | `candidate` | [`memory-operations.md`](../summaries/memory-operations.md) | Memory 是 selective replay system：working buffer、summary、episodic、project、failure、decision 與 retrieval-governance。Replay 需要 trigger、qualification、budget、freshness/scope check 與 current source revalidation。 |
 | `metadata.schema.knowledge-atom` | `validated` | [`metadata-schema.md`](../summaries/metadata-schema.md) | Knowledge Atom metadata schema v1，定義 atom 的必填欄位、選填欄位、受控值、YAML 範本、驗證規則與 provider prompt cache hints。 |
 | `intelligence.migration-feature-bundling` | `candidate` | [`migration-feature-bundling.md`](../summaries/migration-feature-bundling.md) | 大型 migration / rewrite / platform 升級時把搬遷（refactor）與新功能（behavior change）綁進同一階段交付的反模式。後果是驗證失去 ground truth（Verification Identity Crisis）— bug 來源無法定位、時程不可預測、回滾不可行。正確路徑是 Parity-First Migration：Phase 1 達成新版 = 舊版等價並通過舊測試套件，Phase 2 才加新功能。對 stakeholder 的有效翻譯是「失望總比絕望好」。 |

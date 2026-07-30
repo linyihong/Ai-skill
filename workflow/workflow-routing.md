@@ -56,6 +56,7 @@ Recovery re-entry：
 | **Repo 結構分析** | onboarding、migration impact、tech debt、深讀 codebase（**不**以寫產品碼為主） | [`repo-analysis/`](./repo-analysis/README.md) | `route.workflow.repo-analysis`（若 routing 已登記） |
 | **跨專案 agent 友善文件** | 撰寫/拆分 `docs/`、index-first、**零**可觀察產品行為變更 | [`documentation/`](./documentation/README.md) | `route.workflow.documentation-ai-native` |
 | **旅遊規劃** | itinerary、交通、預算 | [`travel-planning/`](./travel-planning/README.md) | `route.workflow.travel-planning` |
+| **法律工作** | 合約起草／審閱、保密協議／NDA、採購契約、準據法／管轄／仲裁、違約金、背景調查／盡職調查、法規查詢、法律策略、談判支援 | [`legal/`](./legal/README.md) | `route.workflow.legal` |
 
 ### 常見歧義
 
@@ -65,6 +66,24 @@ Recovery re-entry：
 | 對目標 APK 做 Frida attach 抓 API | **apk-analysis** |
 | 只改 `docs/plans/*.md` 且會導致之後要寫 SDK | **software-delivery**；純文件架構且明確零行為變更可考慮 **documentation** |
 | 新 repo 從 spec 開始 | **greenfield** → 實作階段 often 再接 **software-delivery** |
+| **「契約」/「合約」字面同時像兩邊** | 見下方 §「契約」語意裁決 |
+
+#### 「契約」語意裁決（legal vs software-delivery）
+
+兩個 route 都有「契約」相關 user signal，但語意完全不同。detector 是 deterministic
+substring 匹配、**刻意不支援 negative signal**（ADR-006），所以兩者同時命中時
+`ActiveRoute=""`、`conflict=true`，必須在此裁決：
+
+| 判準 | 選 **legal** | 選 **software-delivery** |
+| --- | --- | --- |
+| 「契約」指什麼 | 當事人之間有法律拘束力的協議 | API / behavior / BDD contract、程式介面約定 |
+| 伴隨訊號 | 保密協議、NDA、準據法、管轄、仲裁、違約金、採購契約、背景調查、盡職調查、法規 | acceptance criteria、BDD、Gherkin、SDK、API、schema、consumer contract |
+| 產出 | 合約草稿、Review Memo、Decision Register、Diligence Card | 程式碼、behavior spec、測試 |
+| 對手方 | 外部法人（需背調） | 內部模組或 consumer surface |
+
+**兩者同時真的都需要時**（例如「幫 SDK 寫使用條款，同時要改 API contract」）：
+拆成兩個任務依序執行，先 **legal**（法律條款有外部拘束力，決定產品能承諾什麼），
+再 **software-delivery**；不要在一個 route 內混做。
 
 ## 與 activation-table / registry 的關係
 

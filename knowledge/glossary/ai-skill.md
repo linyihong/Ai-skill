@@ -835,6 +835,32 @@ related-terms:
 introduced-by: plans/archived/2026-05-22-1629-runtime-cognitive-modes-system.md
 ```
 
+## intake_dispatched_workflow
+
+```yaml
+term: intake_dispatched_workflow
+status: candidate
+owner-layer: workflow-orchestration
+meaning: >
+  A workflow whose downstream slice composition is decided by the answers
+  collected during its own intake stage, rather than being fixed by the
+  route or inferred from the task text. The lifecycle stage order is
+  constant; which stages actually run is dispatched per-task from the
+  intake frame. First instance: workflow/legal (task type × jurisdiction ×
+  our role × counterparty presence → dispatch matrix).
+affects:
+  - workflow/legal/execution-flow.md
+  - workflow/legal/intake.md
+anti-meaning: >
+  Not lazy-loading a slice by task intent (that is cognitive_slice
+  suppression, decided by the router before intake). Not a branch on
+  route_type. A workflow that always runs every stage is not
+  intake-dispatched even if it has an intake stage.
+introduced-by: plans/active/2026-07-30-2101-legal-workflow-domain.md
+related-terms:
+  - { type: related_to, target: legal_task_type }
+```
+
 ## intelligence_mode
 
 ```yaml
@@ -891,6 +917,33 @@ introduced-by: plans/active/2026-07-30-0950-knowledge-governance-runtime/_plan.m
 related-terms:
   - { type: related_to, target: capability_registry }
   - { type: related_to, target: runtime_adapter }
+```
+
+## legal_task_type
+
+```yaml
+term: legal_task_type
+status: candidate
+owner-layer: workflow-orchestration
+meaning: >
+  The first-level dispatch dimension of workflow/legal: what legal work the
+  user is doing（draft / review / explain / compare / research /
+  due-diligence / strategy / negotiation-support / lifecycle）。It is asked in
+  intake S0-1 and never inferred from a single-sentence request. The domain
+  boundary is legal work, not contract documents, so new jurisdictions,
+  statutes or contract kinds extend within the domain instead of spawning a
+  new workflow domain.
+affects:
+  - workflow/legal/README.md
+  - workflow/legal/intake.md
+  - workflow/legal/execution-flow.md
+anti-meaning: >
+  Not a contract type (NDA / service / procurement — those are intake S1
+  branches). Not a route id. Not inferable from keywords alone.
+introduced-by: plans/active/2026-07-30-2101-legal-workflow-domain.md
+related-terms:
+  - { type: related_to, target: intake_dispatched_workflow }
+  - { type: related_to, target: risk_tier_gate }
 ```
 
 ## journey_specification
@@ -1298,6 +1351,58 @@ anti-meaning: >
   Not a generic failure pattern; it records rejected improvement attempts and
   their regression or cost evidence.
 introduced-by: plans/active/2026-05-28-1636-gen4-fitness-optimization-memory-interface-reservation.md
+```
+
+## risk_tier_gate
+
+```yaml
+term: risk_tier_gate
+status: candidate
+owner-layer: workflow-orchestration
+meaning: >
+  A three-level gate（Green / Yellow / Red）that decides how deep a
+  workflow's output may go, evaluated from a condition table rather than
+  agent intuition. Green allows full output; Yellow requires a concrete
+  list of items needing expert review; Red short-circuits the lifecycle to
+  an escalation artifact with no substantive advice. Highest matching level
+  wins — one Red condition is not offset by Green conditions.
+affects:
+  - workflow/legal/risk-classification.md
+  - workflow/legal/execution-flow.md
+  - workflow/legal/artifact-gates.md
+anti-meaning: >
+  Not a disclaimer. Not a confidence label (that describes source support,
+  this describes permitted output depth). A disclaimer appended to full
+  substantive output does NOT satisfy a Red tier gate.
+introduced-by: plans/active/2026-07-30-2101-legal-workflow-domain.md
+related-terms:
+  - { type: related_to, target: legal_task_type }
+  - { type: related_to, target: counterparty_diligence_card }
+```
+
+## counterparty_diligence_card
+
+```yaml
+term: counterparty_diligence_card
+status: candidate
+owner-layer: workflow-orchestration
+meaning: >
+  The deliverable of a three-layer public-source counterparty check
+  （Layer 1 identity → Layer 2 corporate status → Layer 3 nine risk-signal
+  classes）。Every finding carries source tier and check date; every risk
+  flag must map to a concrete clause adjustment（parent guarantee, payment
+  milestone, security, arbitration seat）rather than sitting as an appendix
+  of company data.
+affects:
+  - workflow/legal/due-diligence/README.md
+  - workflow/legal/artifact-gates.md
+anti-meaning: >
+  Not a company profile or credit report. Not personal background research
+  on individuals. A card whose flags carry no clause impact does not
+  satisfy gate.legal.counterparty_identified.
+introduced-by: plans/active/2026-07-30-2101-legal-workflow-domain.md
+related-terms:
+  - { type: related_to, target: risk_tier_gate }
 ```
 
 ## repo_context

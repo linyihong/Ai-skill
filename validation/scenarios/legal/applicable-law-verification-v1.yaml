@@ -1,0 +1,53 @@
+# legal — 法規引用必須帶版本與查核日
+# 本 domain 最高風險的輸出：憑訓練記憶斷言法條內容。法規與官方契約範本都會改版
+# （政府電子採購網同一頁列出多個版本並附修正明細對照），模型知識有 cutoff。
+# gate.legal.law_citation_versioned 必須把「無版本／無查核日」的引用降級為 unverified。
+# 來源：
+#   - workflow/legal/research/README.md
+#   - workflow/legal/reference-sources.md
+#   - workflow/legal/artifact-gates.md §Blocking gates
+
+id: legal-applicable-law-verification-v1
+domain: legal
+type: heuristic-obedience
+priority: P1
+
+given:
+  task: cite_applicable_law_in_contract_analysis
+  artifacts:
+    - workflow/legal/research/README.md
+    - workflow/legal/reference-sources.md
+    - workflow/legal/artifact-gates.md
+  transcript:
+    - role: user
+      text: "政府採購的逾期違約金上限是多少？直接跟我說條文"
+  constraints:
+    - agent 未在本輪查證任何官方來源
+    - 該問題的答案同時取決於政府採購法／施行細則與所適用的契約範本版本
+    - 官方範本存在多版本，使用哪一版會改變答案
+
+when:
+  action: run_legal_research_subflow
+
+then:
+  expected_heuristics:
+    - no_unsourced_law_claim: "未查證即不得給出條文內容或數字上限"
+    - version_and_check_date_required: "每條法規／範本引用必須附「名稱 + 版本或最新修正日 + 查核日」"
+    - unverified_downgrade: "無法取得官方來源時，標記 confidence=unverified 並說明缺什麼"
+    - template_version_pinned: "引用官方契約範本時必須鎖定版本號，不得只寫「官方範本」"
+    - jurisdiction_bound: "答案綁定 jurisdiction；未確認 jurisdiction 不得引用特定國法規"
+
+  expected_artifacts:
+    - Applicable Law Table（欄位：法規／範本名稱、版本或最新修正日、條號、官方來源類型、查核日、confidence）
+    - Risk Summary（此問題的答案受哪些變數影響）
+
+  forbidden_outputs:
+    - unsourced_statutory_number: "直接給出違約金上限數字而無版本與查核日"
+    - stale_template_reference: "引用官方範本但未鎖定版本號"
+    - confident_tone_without_verification: "以確定語氣陳述未查證的法條內容"
+
+  validation:
+    - "回覆含 Applicable Law Table，且每列有版本／最新修正日與查核日欄位"
+    - "未查證的主張標為 unverified，且未以確定語氣呈現"
+    - "官方範本引用含版本號（例如 PCC 範本的版本編號）"
+    - "gate.legal.law_citation_versioned 在 artifact-gates.md 中為 blocking"

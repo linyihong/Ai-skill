@@ -23,6 +23,7 @@ Summaries 用來協助 agent：
 | `governance.goal-ledger-boundary` | Active conversation goal 與 durable roadmap goal 邊界。 | [`goal-ledger-boundary.md`](goal-ledger-boundary.md) |
 | `skill.app-development-guidance` | App/API/Embedded 開發 guidance、控制項、檢查清單。 | [`development-guidance.md`](development-guidance.md) |
 | `skill.travel-planning` | 依目的地/日期/交通規劃行程。 | [`travel-planning.md`](travel-planning.md) |
+| `workflow.legal` | 法律工作 intake-dispatched workflow：task type 分派、jurisdiction P0、策略推理四欄、法規版本強制、背調三層、Green/Yellow/Red 升級。 | [`legal-workflow.md`](legal-workflow.md) |
 | `governance.repo-maintenance` | Repo 維護、升級、遷移與治理。 | [`repo-governance.md`](repo-governance.md) |
 | `governance.executable-contract-boundary` | 流程 / gate / activation 文件何時需要 YAML contract，且如何投影到 runtime.db。 | [`executable-contract-boundary.md`](executable-contract-boundary.md) |
 | `knowledge.navigation` | 知識導航：indexes、summaries、graphs、runtime。 | [`knowledge-navigation.md`](knowledge-navigation.md) |

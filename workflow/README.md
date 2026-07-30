@@ -26,7 +26,10 @@
   - [`travel-planning/artifact-gates.yaml`](travel-planning/artifact-gates.yaml)：travel planning artifact gates executable contract。
 - [`documentation/`](documentation/README.md)：跨專案 **agent 友善文件** 的撰寫與分類流程（index-first、降低無效 token、與 `enforcement/` / `governance/` 對齊）。
   - [`documentation/execution-flow.yaml`](documentation/execution-flow.yaml)：documentation workflow 的 executable contract，包含 YAMLization decision gate。
-- [`cross-cutting/`](cross-cutting/README.md)：跨 slice 關注點模板（**非** `route.workflow.*` slice）。目前含 [`experience-runtime/`](cross-cutting/experience-runtime/README.md) pilot。
+- [`legal/`](legal/README.md)：**法律工作**的執行流程（合約起草／審閱／解釋／比較、適用法研究、對手方背景調查、法律策略分析、談判支援、合約生命週期）。第一級分派維度是 legal task type；`strategy/` 是所有任務的共同 stage。⚠️ 本 domain 的「合約／契約」指**法律合約**，與 [`software-delivery/contracts.md`](software-delivery/contracts.md) 的 API / BDD behavior contract 語意無關（裁決見 [`workflow-routing.md`](./workflow-routing.md) §常見歧義）。
+  - [`legal/execution-flow.yaml`](legal/execution-flow.yaml)：legal execution executable contract。
+  - [`legal/artifact-gates.yaml`](legal/artifact-gates.yaml)：legal artifact gates executable contract。
+- [`cross-cutting/`](cross-cutting/README.md)：跨 slice 關注點模板（**非** `route.workflow.*` slice）。目前含 [`experience-runtime/`](cross-cutting/experience-runtime/README.md) pilot 與 [`decision-support/`](cross-cutting/decision-support/README.md) pilot（Intake → **Decision Support** → Research → Execution 的 cross-domain pattern；1／3 converged case，尚**未**成為各 workflow 的必跑 stage）。
 
 ## 放什麼
 
@@ -50,6 +53,7 @@
 - [`route.workflow.software-delivery`](../knowledge/runtime/routing-registry.yaml) — candidate_sources 引用 `workflow/software-delivery/README.md`
 - [`route.workflow.travel-planning`](../knowledge/runtime/routing-registry.yaml) — candidate_sources 引用 `workflow/travel-planning/README.md`
 - [`route.workflow.documentation-ai-native`](../knowledge/runtime/routing-registry.yaml) — `primary_source` 引用 `workflow/documentation/README.md`
+- [`route.workflow.legal`](../knowledge/runtime/routing-registry.yaml) — `primary_source` 引用 `workflow/legal/execution-flow.md`；`required_dependencies` 引用 `workflow/legal/README.md`、`intake.md`、`risk-classification.md`、`strategy/README.md`、`artifact-gates.md`
 - [`route.intelligence.apk-highest-leverage-path`](../knowledge/runtime/routing-registry.yaml:251) — required_dependencies 引用 `workflow/apk-analysis/execution-flow.md`、`workflow/apk-analysis/artifact-gates.md`
 
 ## 與既有層的關係
