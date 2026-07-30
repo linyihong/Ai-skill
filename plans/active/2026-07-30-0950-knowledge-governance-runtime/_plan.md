@@ -27,6 +27,10 @@ revision:
     note: "Portable copy boundary — engine 移至 scripts/ai-skill-cli/portable/kge/（可整夾複製到外部專案）；Ai-skill 只留 Adapter wiring；刻意多檔不壓成單檔"
   - date: 2026-07-30
     note: "Phase 1 adapter — internal/app/kge_adapter.go 委派 cognitive_cost + cli_doc_sync；git diff 僅在 adapter；Q2 工作假設 first-party Go + 外部 copy pack"
+  - date: 2026-07-30
+    note: "補 Enforcement→KGE 對照 — taxonomy 已有但缺遷移清單；釐清 validation(block)/advisory(warn)/out-of-scope；document_sizing=advisory 候選；neutral_language=not_mechanizable 不強制進 KGE block"
+  - date: 2026-07-30
+    note: "D9 Adapter Presentation Policy — Q6 改問法並拍板：Severity×Adapter=Presentation；commit=checkpoint（count+pointer）；push/kge check=watershed summary；IDE=完整 advisory；validate --advisory=完整"
 ---
 
 # Knowledge Governance Engine（知識治理引擎）
@@ -215,10 +219,12 @@ Plugin 變多時，Dispatcher 不能只靠硬編碼。須有：
 | Kind | 預設 severity | Phase 1 |
 | --- | --- | --- |
 | `validation` | block | Yes |
-| `advisory` | warning | Yes |
+| `advisory` | warning（Finding severity） | Phase 1 taxonomy；**呈現由 Adapter Policy（D9）決定，≠ 一定刷屏 warn** |
 | `discovery` | suggestion | Later |
 | `evolution` | suggestion（**human promotion required**） | Later |
 | `telemetry` | metrics | Later |
+
+> **Severity ≠ UI。** Finding 的 kind/severity 由 Engine 決定；**哪個 Adapter 怎麼呈現** 由 D9 Presentation Policy 決定。
 
 #### D7 — 與 Delegation Loop 的更高層觀察（非 Phase 1）
 
@@ -245,6 +251,67 @@ Plugin 變多時，Dispatcher 不能只靠硬編碼。須有：
 
 文件：[`scripts/ai-skill-cli/portable/kge/README.md`](../../../scripts/ai-skill-cli/portable/kge/README.md)
 
+#### D9 — Adapter Presentation Policy（Q6 拍板，2026-07-30）
+
+**Reject 舊問法**：「commit-msg 要不要 warn / silent？」— 那是 hook-framework 思維。
+
+**Accept 新問法**：**同一個 Advisory，在哪個 Adapter 應如何呈現？**
+
+```text
+Severity (Engine Finding)
+        ×
+Adapter
+        =
+Presentation Policy
+```
+
+##### Checkpoint vs watershed
+
+| 動作 | 語意 | KGE 角色 |
+| --- | --- | --- |
+| **Commit** | Save checkpoint（存一下） | **Validation only**（block on fail）；Advisory **不展開**，最多 count + pointer |
+| **Push / `kge check`** | 準備分享出去 | Validation（block）+ Advisory **摘要**（不擋 push） |
+| **IDE** | 連續書寫 | Advisory / Discovery **即時完整**（最佳體驗） |
+| **`kge validate --advisory`** | 使用者主動來看 | Advisory / Discovery **完整列表** |
+| **CI** | 整合審查 | Validation fail + **Full advisory report**（給 review） |
+
+##### Presentation matrix（canonical）
+
+| Adapter | Validation | Advisory | Discovery |
+| --- | --- | --- | --- |
+| **IDE / MCP diagnostic** | 即時紅線（可選） | ✅ 即時完整提醒 | ✅ Suggestion |
+| **`kge validate`（預設）** | ❌ Fail on error | （預設可不跑） | — |
+| **`kge validate --advisory`** | ❌ Fail on error | ✅ **完整輸出** | ✅ 完整（若啟用） |
+| **`kge check`**（新 adapter） | ❌ Fail → block | ⚠️ **摘要**（例前 3 條）+ count；**不擋** | Optional 一行 |
+| **pre-commit** | ❌ Block | ⚠️ 極簡 summary 或省略 | ❌ |
+| **commit-msg** | ❌ Block | ⚠️ **≤3 行**：count + `kge validate --advisory`；**不展開內文** | ❌ |
+| **pre-push**（建議掛 `kge check`） | ❌ Block | ⚠️ Summary（同 check）；**不擋** | ❌ / Optional |
+| **CI** | ❌ Fail | ⚠️ Full report artifact | Optional |
+| **AI review** | ❌ Block（可選） | ✅ 詳細 | ✅ 詳細 |
+
+##### commit-msg 範例（上限）
+
+```text
+✔ commit accepted
+
+KGE: 2 advisory findings (document sizing, README sync).
+Run: kge validate --advisory
+```
+
+- **不要**在 commit 洗十幾條 Warning（Commit ≠ Review）。
+- **也不要**完全 silent（否則建議在整合前被忘記）。
+- **效能**：commit-msg **不必跑完全部 Advisory rules**；Validation 過後可只算 **Advisory count**（或快取／輕量計數），細節留給 `validate --advisory` / IDE。
+
+##### `kge check`（建議新增 CLI adapter）
+
+```text
+kge check  →  Validation + Advisory summary (+ optional discovery line)
+```
+
+- Validation fail → non-zero（可被 pre-push 用來 block）
+- 僅 Advisory → zero exit + “Ready to push / N recommendations”
+- git push 前可自動跑；**Advisory 永不單獨擋 push**（除非專案 profile 顯式升級，本 plan 預設不升級）
+
 ### Alternatives Considered
 
 | ID | 方案 | 結論 |
@@ -258,6 +325,9 @@ Plugin 變多時，Dispatcher 不能只靠硬編碼。須有：
 | G | Engine 只活在 `internal/`、外部必須引用整庫 | Reject — 違反「可複製組裝驗證器」 |
 | H | 壓成單一 `.go` 方便 copy | Reject — 難增刪規則；改用目錄多檔 |
 | I | **`portable/kge` 目錄為 copy unit + 宿主 Adapter** | **Accept（D8）** |
+| J | commit-msg 展開全部 Advisory warn | Reject — Commit≠Review；噪音 |
+| K | commit-msg 對 Advisory 完全 silent | Reject — push 前建議易被忽略 |
+| L | **Severity×Adapter Presentation Policy + commit summary / push check** | **Accept（D9 / Q6）** |
 
 ### Why Not an ADR Yet
 
@@ -315,16 +385,20 @@ scripts/ai-skill-cli/internal/app/
       commit-msg.rule.yaml       # commit_msg only — no projection
 ```
 
-### Adapter map
+### Adapter map + Presentation Policy
 
-| Adapter | 組裝 InputSnapshot | Exit policy |
-| --- | --- | --- |
-| pre-commit / commit-msg | staged / commit msg | block on `validation` |
-| pre-push | commit range | profile |
-| CI | PR diff / tree | fail on block |
-| AI review | dirty + hints | advisory / discovery |
-| MCP / IDE | open files / save | diagnostics |
-| CLI | `--root` + paths | json/text findings |
+> 細節見 **D9**。此表為速查。
+
+| Adapter | InputSnapshot | Validation | Advisory presentation |
+| --- | --- | --- | --- |
+| IDE / MCP | open/save buffers | 即時紅線（可選） | ✅ 完整即時 |
+| `kge validate` | `--root` + paths | Fail on error | 預設不跑；`--advisory` 完整 |
+| `kge check` | dirty / staged / range | Fail → block-capable | ⚠️ 摘要（前 N 條）；不擋 |
+| pre-commit | staged | Block | 極簡／可省 |
+| commit-msg | msg + staged | Block | ⚠️ ≤3 行 count + pointer |
+| pre-push | 建議呼叫 `kge check` | Block on validation | ⚠️ Summary；不擋 |
+| CI | PR / tree | Fail | Full report |
+| AI review | dirty + hints | Block 可選 | ✅ 詳細 |
 
 ### Non-goals
 
@@ -342,12 +416,68 @@ scripts/ai-skill-cli/internal/app/
 
 | 既有系統 | 關係 |
 | --- | --- |
-| Enforcement Registry | Capability / Implementation binding 的 coverage 面 |
-| Commit-msg / README / Linked-updates validators | **Phase 0–1 首批 architecture mapping 目標**（Context 小、Dep 少、Projection 可有可無） |
-| Plans validation engine | **Deferred migration target** — 最成熟也最複雜；不當第一個搬遷對象，以免分不清「架構失敗」vs「Plan domain 太重」。收斂為 KGE pack 排在首批三域成功之後 |
+| Enforcement Registry | Capability / Implementation binding 的 coverage 面；**KGE kind 必須尊重 6-bucket，不另造哲學** |
+| Commit-msg / README / Linked-updates validators | **Phase 0–1 首批**；Phase 2a 繼續遷既有 **mechanical** |
+| Enforcement `behavioral_only`（如 document_sizing） | **Phase 2b / 5**：優先做 **advisory（提醒）**，非一律 block；對齊各 class 的 `sunset_decision` |
+| Enforcement `not_mechanizable`（如 neutral_language） | **預設不進 KGE block**；最多極窄 heuristic discovery（opt-in），或維持 agent/review 行為 |
+| Plans validation engine | **Deferred** — Later pack |
 | `per_commit_obligations` | Rule ids 映射；commit-msg = Adapter |
 | Delegation Loop | Task Execution 對偶；共享抽象 = **follow-up** |
 | Cognitive Execution System | Knowledge Execution 橫切 |
+
+---
+
+## Enforcement → KGE 對照（規劃補齊 — 2026-07-30）
+
+> **使用者提問**：很多 `enforcement/` 現在「沒效果」（behavioral）；像 document-sizing、neutral-language 要不要進 KGE？有的強制、有的提醒？  
+> **盤點結論**：Plan **已有** severity taxonomy（D6）與「不全機械化」Non-goal，但 **Phase 2 清單寫得太窄**（只遷既有 commit-msg validators），**沒有**把 enforcement coverage 桶對到 KGE kind。本節補上。
+
+### 現況數字（`ai-skill enforcement coverage`，2026-07-30）
+
+| Coverage | 約略 | 對 KGE 的預設處置 |
+| --- | --- | --- |
+| `mechanical`（21） | 已有 executor | Phase 2a：遷入 / 對齊 KGE `validation` 或既有 warning |
+| `behavioral_only`（13） | prose + sunset | Phase 2b／5：挑 **可測子集** → 多半 `advisory`；達 sunset 才升 `validation` |
+| `not_mechanizable`（5） | 永久主觀 | **不**做 block；避免假安全感 |
+| `research_required`（2） | 路徑未清 | 不進 KGE 實作佇列 |
+
+### Kind × Adapter（強制 vs 提醒 — 已由 D9 取代「一律 warn」）
+
+| KGE kind | Engine severity | 呈現 |
+| --- | --- | --- |
+| `validation` | error | 各 Adapter：**可 block/fail**（見 D9 矩陣） |
+| `advisory` | warning | **依 Adapter**：IDE 完整；commit-msg 僅 count；push/`check` 摘要；`--advisory`/CI 完整 |
+| `discovery` | info | IDE / `--advisory` / AI review；commit-msg **不跑** |
+| （不掛 KGE） | — | agent prose / review |
+
+**Q6：✅ Resolved（D9）** — 不再問「commit-msg warn vs silent」；改為 Presentation Policy。commit-msg = **count + pointer**（非 silent、非洗版）。
+
+### 具體 class 處置（首批對照）
+
+| Rule class | Registry coverage | 進 KGE？ | 建議 kind | 備註 |
+| --- | --- | --- | --- | --- |
+| 既有 commit-msg / pre-commit mechanical | mechanical | **Yes（2a）** | `validation`（少數既有 warning 維持 warn） | 已開始（cognitive_cost、cli_doc_sync） |
+| `linked_updates` | mechanical（部分）+ 大量 behavioral 表 | **子集 Yes** | 可機械 proxy=`validation`；全文圖=`advisory` 或仍 behavioral | 勿宣稱「linked-updates.md 全機械化」 |
+| `document_sizing` | **behavioral_only** | **Yes 候選（2b）** | **`advisory` 先** | sunset：deterministic split-suggestion lint；行數超標可 warn，**拆哪一節仍是 judgment → 不 block** |
+| `dependency_reading` | behavioral_only | 晚 | advisory／discovery | 需 transcript read-log；bootstrap 已有機械子集勿重複發明 |
+| `neutral_language` | **not_mechanizable** | **預設 No block** | 最多 opt-in discovery heuristic | Registry 已寫：字面 lint 會被 gaming；**強制進 KGE = 違反 not_mechanizable** |
+| `tool_neutral_documentation` | not_mechanizable | No block | — | 同左 |
+| `rule_weight` / `decision_efficiency` 等 | behavioral / not_mech | No／極晚 | — | 衝突判斷與效率偏好不適合 Fail/Pass |
+
+### 與 Non-goals 的一致性
+
+- 「不強制全部 `behavioral_only` 機械化」仍然成立。  
+- KGE **不是**把 13 條 behavioral 一次改成 block。  
+- 正確用法：對 **可客觀測量的切片** 掛 **提醒（advisory）**；達 registry `success_criteria` 再升 validation。
+
+### Phase 切分修正
+
+| Phase | 內容（更新） |
+| --- | --- |
+| **2a** | 遷更多 **已是 mechanical** 的 validators → `portable/kge`（markdown_yaml_sync、bootstrap thinness…） |
+| **2b** | Enforcement advisory pack：**document_sizing**（Finding=`advisory`）；**呈現走 D9**（IDE 完整、commit 僅 count） |
+| **4** | Multi-adapter：**IDE diagnostic** + **`kge check`** + pre-push 掛 check；CI full report |
+| **5** | 擴大 advisory／discovery；**落實 D9 矩陣**（含 commit count-only 效能路徑）；不強制 not_mechanizable |
 
 ---
 
@@ -455,10 +585,10 @@ Phase 0
 | --- | --- | --- |
 | **0 — Architecture Hypothesis validation** | Inventory + Mapping（五問）+ Mini Spike；首批三域；不搬 Plans | 見上方 Exit checklist |
 | **1 — Contracts + thin engine** | Context/Finding/Rule/Severity/Capability；實作薄 engine；掛首批 mapping 通過的 rules | hook 行為相容；CLI 同路徑 |
-| **2 — Migrate Ai-skill pack** | 擴大至更多本 repo validators；registry binding | coverage 不倒退；無新 .sh |
+| **2 — Migrate Ai-skill pack** | **2a** 既有 mechanical → KGE；**2b** document_sizing 等 advisory 原型 | coverage 不倒退；advisory 不誤升 block |
 | **3 — External plugin dogfood** | 外部少量 rules + thin adapter；可逆 | portability success 子集 |
-| **4 — Multi-adapter** | CI + 可選 IDE/MCP | 同 pack 多入口 |
-| **5 — Advisory / Discovery（opt）** | 非 block kinds + telemetry 雛形 | opt-in |
+| **4 — Multi-adapter** | IDE + **`kge check`** + pre-push + CI report | D9 矩陣可觀測；advisory 不誤擋 push |
+| **5 — Advisory / Discovery** | 落實 D9 呈現；擴大提醒類；**不**強制 not_mechanizable | commit ≤3 行；`--advisory` 完整 |
 | **Later — Plans pack** | 將 plans validation 收斂為 KGE domain pack | 首批三域 + Phase 1–2 穩定後 |
 | **Explore** | KGE + Delegation 統一 Execution Model | **獨立 spike/plan** |
 
@@ -505,7 +635,7 @@ Graduation：Phase 0 Exit 通過後進 Phase 1；若長期卡住則修 hypothesi
 | Q3 | Candidate B → 第一級目錄門檻？ | open |
 | Q4 | plans engine：併入 KGE pack vs subdomain 呼叫？ | **Deferred** — Phase 0 不搬 Plans；Q4 延到 Later—Plans pack |
 | Q5 | 第一個非-plan pack 優先序？ | **Resolved: Commit Message → README Sync → Linked Updates**（Plans later） |
-| Q6 | advisory 在 commit-msg：warn vs silent？ | open |
+| Q6 | Advisory 呈現？→ **改問：Severity×Adapter Presentation？** | **Resolved: D9** — commit=count+pointer；push/`kge check`=summary 不擋；IDE/`--advisory`/CI=完整 |
 | Q7 | 外部 manifest 路徑 / branding？ | open |
 | Q8 | Discovery/Evolution 永需 human promotion？ | **lean Yes** |
 | Q9 | Capability Registry 最小 schema？ | **Phase 0 產出**（對五問 C/D） |
@@ -548,12 +678,18 @@ Graduation：Phase 0 Exit 通過後進 Phase 1；若長期卡住則修 hypothesi
 | T9 | 使用者簽核 Phase 0 Exit | **done** |
 | T10 | Phase 1：portable `kge` + Rule A/B + adapter 委派 | **done**（Exit ✅；擴大遷移 → Phase 2） |
 | T11 | Portable copy README / 邊界 | **done** |
-| T12 | Phase 2：更多 validators → KGE | pending |
+| T12 | Phase 2a：更多 mechanical validators → KGE | pending |
+| T13 | Phase 2b：document_sizing advisory Finding + D9 呈現 | pending |
+| T14 | 明確不把 neutral_language 做成 KGE block（對齊 not_mechanizable） | **done** |
+| T15 | Q6 / Adapter Presentation Policy | **done（D9）** |
+| T16 | 實作 `kge check` + commit-msg advisory count path + pre-push 掛載 | pending |
 
 ---
 
 ## Next Action
 
-1. **Phase 2 候選**：挑下一批 commit-msg validators（例：`markdown_yaml_sync`、bootstrap thinness）遷到 `portable/kge` + adapter。
-2. 可選：CLI `ai-skill kge validate`（或 `hooks` 旁路）直接餵 Context，進一步證明 Adapter 透明。
-3. Plans pack 仍 Later。
+1. **Phase 2a**：繼續遷 mechanical validators。
+2. **Phase 2b**：`document_sizing` → Finding kind=`advisory`（**呈現跟 D9**，不是 commit 洗 warn）。
+3. **Phase 4 優先項**：實作 **`kge check`**；commit-msg Validation-only + advisory **count**；pre-push 跑 check。
+4. **不要**把 `neutral_language` 做成強制機械鎖。
+5. Plans pack 仍 Later。
