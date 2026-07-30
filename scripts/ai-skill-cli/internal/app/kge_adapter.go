@@ -459,6 +459,102 @@ func appendGoCorpus(b *strings.Builder, dir string) {
 	})
 }
 
+// runKGEEnforcementRuleRegistrySync loads BoundPaths from the registry snapshot
+// and candidate YAML contents for the portable rule.
+func runKGEEnforcementRuleRegistrySync(text string, staged []string, root string) string {
+	regPath := filepath.Join(root, "enforcement", "enforcement-registry.yaml")
+	snap, err := loadRegistrySnapshotFromPath(regPath)
+	if err != nil {
+		return ""
+	}
+	bound := map[string]bool{}
+	for _, rc := range snap.RuleClasses {
+		for _, sf := range rc.SourceFiles {
+			bound[normalizeSourcePath(sf)] = true
+		}
+	}
+	contents := map[string]string{}
+	for _, p := range staged {
+		rel := filepath.ToSlash(strings.TrimSpace(p))
+		if !strings.HasPrefix(rel, "enforcement/") {
+			continue
+		}
+		if !strings.HasSuffix(rel, ".yaml") && !strings.HasSuffix(rel, ".yml") {
+			continue
+		}
+		if rel == "enforcement/enforcement-registry.yaml" {
+			continue
+		}
+		body, readErr := os.ReadFile(filepath.Join(root, filepath.FromSlash(rel)))
+		if readErr != nil {
+			continue
+		}
+		contents[rel] = string(body)
+	}
+	ctx := kge.Context{
+		CommitMsg:    text,
+		StagedPaths:  staged,
+		FileContents: contents,
+		BoundPaths:   bound,
+		Provided: map[kge.CapabilityID]bool{
+			kge.CapCommitMsg:     true,
+			kge.CapStagedPaths:   true,
+			kge.CapStagedContent: true,
+			kge.CapBoundPaths:    true,
+		},
+	}
+	eng := kge.NewEngine(kge.EnforcementRuleRegistrySyncRule{})
+	return kgeFindingsMessage(eng.Run(ctx))
+}
+
+// runKGEPlanEvidenceConvention loads CapRepoFS listings + README contents.
+func runKGEPlanEvidenceConvention(text string, staged []string, root string) string {
+	existing := map[string]bool{}
+	listings := map[string][]string{}
+	contents := map[string]string{}
+
+	planDirs := collectPlanDirsForEvidenceConvention(staged, root)
+	for planDir := range planDirs {
+		mainRel := planDir + "/_plan.md"
+		if _, ok := readFileString(root, mainRel); ok {
+			existing[mainRel] = true
+		}
+		flatSibling := planDir + ".md"
+		if st, err := os.Stat(filepath.Join(root, flatSibling)); err == nil && !st.IsDir() {
+			existing[flatSibling] = true
+		}
+		evDir := planDir + "/evidence"
+		if st, err := os.Stat(filepath.Join(root, evDir)); err == nil && st.IsDir() {
+			existing[evDir] = true
+		}
+		readmeRel := planDir + "/evidence/README.md"
+		if body, ok := readFileString(root, readmeRel); ok {
+			existing[readmeRel] = true
+			contents[readmeRel] = body
+		}
+		files, err := evidenceFilesInDir(root, planDir)
+		if err == nil {
+			listings[evDir] = files
+		}
+	}
+
+	ctx := kge.Context{
+		CommitMsg:     text,
+		StagedPaths:   staged,
+		ExistingPaths: existing,
+		DirListings:   listings,
+		FileContents:  contents,
+		Provided: map[kge.CapabilityID]bool{
+			kge.CapCommitMsg:     true,
+			kge.CapStagedPaths:   true,
+			kge.CapRepoFS:        true,
+			kge.CapStagedContent: true,
+		},
+	}
+	eng := kge.NewEngine(kge.PlanEvidenceConventionRule{})
+	return kgeFindingsMessage(eng.Run(ctx))
+}
+
 // countKGEAdvisories runs advisory-only rules (D9 commit-msg count path).
 // Does not run validation or discovery rules.
 func countKGEAdvisories(root string, staged []string) int {

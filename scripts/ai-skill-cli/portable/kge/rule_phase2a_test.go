@@ -496,3 +496,70 @@ func TestRuntimeTriggerWiringRule(t *testing.T) {
 		t.Fatalf("want opt-out pass, got %#v", got)
 	}
 }
+
+func TestEnforcementRuleRegistrySyncRule(t *testing.T) {
+	eng := NewEngine(EnforcementRuleRegistrySyncRule{})
+	rel := "enforcement/new-rule.yaml"
+	ctx := Context{
+		CommitMsg:   "feat: add rule",
+		StagedPaths: []string{rel},
+		FileContents: map[string]string{
+			rel: "id: rule.new\ncoverage: mechanical\n",
+		},
+		BoundPaths: map[string]bool{},
+		Provided: map[CapabilityID]bool{
+			CapCommitMsg: true, CapStagedPaths: true, CapStagedContent: true, CapBoundPaths: true,
+		},
+	}
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "enforcement_rule_registry_sync" {
+		t.Fatalf("want unbound rule, got %#v", got)
+	}
+	ctx.BoundPaths[rel] = true
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want bound pass, got %#v", got)
+	}
+	ctx.BoundPaths = map[string]bool{}
+	ctx.StagedPaths = []string{rel, "enforcement/enforcement-registry.yaml"}
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want registry staged trust pass, got %#v", got)
+	}
+	ctx.StagedPaths = []string{rel}
+	ctx.CommitMsg = "feat: x\n[skip-enforcement-registry-sync]\n"
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want opt-out pass, got %#v", got)
+	}
+}
+
+func TestPlanEvidenceConventionRule(t *testing.T) {
+	eng := NewEngine(PlanEvidenceConventionRule{})
+	planDir := "plans/active/demo"
+	ev := planDir + "/evidence/run.md"
+	ctx := Context{
+		CommitMsg:   "docs: add evidence",
+		StagedPaths: []string{ev},
+		ExistingPaths: map[string]bool{
+			planDir + "/evidence": true,
+		},
+		DirListings: map[string][]string{
+			planDir + "/evidence": {"README.md", "run.md"},
+		},
+		FileContents: map[string]string{},
+		Provided: map[CapabilityID]bool{
+			CapCommitMsg: true, CapStagedPaths: true, CapRepoFS: true, CapStagedContent: true,
+		},
+	}
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "plan_evidence_convention" {
+		t.Fatalf("want missing _plan/README violations, got %#v", got)
+	}
+	ctx.ExistingPaths[planDir+"/_plan.md"] = true
+	ctx.FileContents[planDir+"/evidence/README.md"] = "# Evidence\n\n## 引用規則\n\n## Run 索引\n| file |\n| run.md |\n"
+	ctx.ExistingPaths[planDir+"/evidence/README.md"] = true
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want convention pass, got %#v", got)
+	}
+	ctx.CommitMsg = "docs: x\n\n[skip-plan-evidence]\n"
+	ctx.FileContents = map[string]string{}
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want opt-out pass, got %#v", got)
+	}
+}

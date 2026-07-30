@@ -131,64 +131,10 @@ func collectPlanDirsForEvidenceConvention(staged []string, root string) map[stri
 	return planDirs
 }
 
-// validatePlanEvidenceConvention enforces evidence/README.md presence, index
-// coverage, and main-plan absorption (_plan.md inside the folder; no flat
-// sibling <slug>.md) when evidence/ is in play for the commit.
+// validatePlanEvidenceConvention enforces evidence/ README + index + folder main
+// (portable/kge.PlanEvidenceConventionRule). Opt-out: [skip-plan-evidence].
 func validatePlanEvidenceConvention(text string, staged []string, root string) string {
-	if hasOptOutTrailer(text, "[skip-plan-evidence]") {
-		return ""
-	}
-	planDirs := collectPlanDirsForEvidenceConvention(staged, root)
-	if len(planDirs) == 0 {
-		return ""
-	}
-
-	var violations []string
-	for planDir := range planDirs {
-		mainRel := planDir + "/_plan.md"
-		if _, ok := readFileString(root, mainRel); !ok {
-			violations = append(violations, fmt.Sprintf(
-				"%s: missing _plan.md — when evidence/ is used, the main plan must live in the folder as _plan.md (not a sibling <slug>.md)",
-				planDir))
-		}
-		flatSibling := planDir + ".md"
-		if st, err := os.Stat(filepath.Join(root, flatSibling)); err == nil && !st.IsDir() {
-			violations = append(violations, fmt.Sprintf(
-				"%s: flat sibling %s still exists — move it to %s/_plan.md before using evidence/ (ai-skill plans folderize or git mv)",
-				planDir, flatSibling, planDir))
-		}
-
-		readmeRel := planDir + "/evidence/README.md"
-		readmeBody, readmeOK := readFileString(root, readmeRel)
-		if !readmeOK {
-			violations = append(violations, fmt.Sprintf("%s: missing evidence/README.md (required when using evidence/)", planDir))
-			continue
-		}
-		if miss := readmeHasRequiredSections(readmeBody); len(miss) > 0 {
-			violations = append(violations, fmt.Sprintf("%s: evidence/README.md missing: %s", planDir, strings.Join(miss, ", ")))
-		}
-		files, err := evidenceFilesInDir(root, planDir)
-		if err != nil {
-			violations = append(violations, fmt.Sprintf("%s: cannot read evidence/: %v", planDir, err))
-			continue
-		}
-		for _, name := range files {
-			if strings.EqualFold(name, "README.md") {
-				continue
-			}
-			if !readmeReferencesFile(readmeBody, name) {
-				violations = append(violations, fmt.Sprintf("%s: evidence/%s not listed in evidence/README.md Run 索引", planDir, name))
-			}
-		}
-	}
-
-	if len(violations) == 0 {
-		return ""
-	}
-	return "plan-evidence-convention: evidence/ directory rule violation(s):\n    - " +
-		strings.Join(violations, "\n    - ") +
-		"\n  See governance/lifecycle/plan-evidence.md and plans/templates/plan-evidence/README.md." +
-		"\n  Opt-out (emergency only): standalone `[skip-plan-evidence]` trailer."
+	return runKGEPlanEvidenceConvention(text, staged, root)
 }
 
 // warnPlanEvidenceLineNumberCitations returns a non-blocking warning when staged

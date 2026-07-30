@@ -29,6 +29,8 @@ func DefaultRules() []Rule {
 		PlanArchivalAuditRule{},
 		NoNewShellScriptsRule{},
 		RuntimeTriggerWiringRule{},
+		EnforcementRuleRegistrySyncRule{},
+		PlanEvidenceConventionRule{},
 	}
 }
 

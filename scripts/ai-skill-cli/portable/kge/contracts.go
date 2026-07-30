@@ -23,6 +23,7 @@ const (
 	CapKnownSignals CapabilityID = "cap.known_signals"
 	CapAddedPaths   CapabilityID = "cap.added_paths"
 	CapSearchCorpus CapabilityID = "cap.search_corpus"
+	CapBoundPaths   CapabilityID = "cap.bound_paths"
 )
 
 // Context is the adapter-normalized input. No git handles.
@@ -36,8 +37,10 @@ type Context struct {
 	PathDiffs    map[string]string // CapStagedDiff: optional path → unified diff (per-file)
 	FileContents map[string]string // path → content when CapStagedContent provided
 	ExistingPaths map[string]bool  // CapRepoFS: paths attested to exist on disk
+	DirListings   map[string][]string // CapRepoFS: directory → basenames
 	KnownSignals  map[string]bool  // CapKnownSignals: discovery signal vocabulary
 	SearchCorpus  string           // CapSearchCorpus: searchable text blob from adapter
+	BoundPaths    map[string]bool  // CapBoundPaths: registry-bound source paths
 	// Provided lists which capabilities the adapter filled.
 	Provided map[CapabilityID]bool
 }
