@@ -20,6 +20,9 @@ func DefaultRules() []Rule {
 		ExecutionModeFloorsRule{},
 		GovernanceModeConsistencyRule{},
 		MemoryModeSubdirRule{},
+		ActivationSignalsRule{},
+		CapabilitySnippetRule{},
+		AdaptiveTriggersRule{},
 	}
 }
 

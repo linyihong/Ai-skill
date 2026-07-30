@@ -20,6 +20,7 @@ const (
 	CapStagedDiff   CapabilityID = "cap.staged_diff"
 	CapRepoFS       CapabilityID = "cap.repo_fs"
 	CapPathCochange CapabilityID = "cap.path_cochange"
+	CapKnownSignals CapabilityID = "cap.known_signals"
 )
 
 // Context is the adapter-normalized input. No git handles.
@@ -31,6 +32,7 @@ type Context struct {
 	StagedDiff   string            // empty = not supplied (may fail rules that require CapStagedDiff)
 	FileContents map[string]string // path → content when CapStagedContent provided
 	ExistingPaths map[string]bool  // CapRepoFS: paths attested to exist on disk
+	KnownSignals  map[string]bool  // CapKnownSignals: discovery signal vocabulary
 	// Provided lists which capabilities the adapter filled.
 	Provided map[CapabilityID]bool
 }

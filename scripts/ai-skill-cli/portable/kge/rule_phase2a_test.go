@@ -211,3 +211,103 @@ func TestMemoryModeSubdirRule(t *testing.T) {
 		t.Fatalf("want layer doc exemption, got %#v", got)
 	}
 }
+
+func TestActivationSignalsRule(t *testing.T) {
+	eng := NewEngine(ActivationSignalsRule{})
+	known := map[string]bool{"file_diff_runtime_schema": true, "user_keyword_deep": true}
+	ctx := Context{
+		CommitMsg: "feat: x\n\nactivation_reason:\n  - file_diff_runtime_schema\n",
+		Modes:     map[string]string{},
+		KnownSignals: known,
+		Provided: map[CapabilityID]bool{
+			CapCommitMsg: true, CapModes: true, CapKnownSignals: true,
+		},
+	}
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want known signal pass, got %#v", got)
+	}
+	ctx.CommitMsg = "feat: x\n\nactivation_reason:\n  - made_up_signal\n"
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "activation_signals_unknown" {
+		t.Fatalf("want unknown signal, got %#v", got)
+	}
+	ctx.CommitMsg = "feat: x\n"
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "activation_signals_missing" {
+		t.Fatalf("want missing signal, got %#v", got)
+	}
+	ctx.Modes = map[string]string{"activation_signal": "user_keyword_deep"}
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want compact Sig pass, got %#v", got)
+	}
+	ctx.KnownSignals = map[string]bool{}
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "activation_signals_vocab_unavailable" {
+		t.Fatalf("want vocab unavailable, got %#v", got)
+	}
+}
+
+func TestCapabilitySnippetRule(t *testing.T) {
+	eng := NewEngine(CapabilitySnippetRule{})
+	ctx := Context{
+		CommitMsg: "feat: x\n",
+		Modes:     map[string]string{"execution_mode": "DEEP", "governance_mode": "STRICT"},
+		Provided:  map[CapabilityID]bool{CapCommitMsg: true, CapModes: true},
+	}
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "capability_snippet_missing" {
+		t.Fatalf("want snippet missing, got %#v", got)
+	}
+	ctx.CommitMsg = "feat: x\n\nCapability summary:\n  DEEP -> source-backed\n"
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want snippet present pass, got %#v", got)
+	}
+	ctx.Modes = map[string]string{"execution_mode": "NORMAL", "governance_mode": "STANDARD"}
+	ctx.CommitMsg = "feat: x\n"
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want low-risk skip, got %#v", got)
+	}
+}
+
+func TestAdaptiveTriggersRule(t *testing.T) {
+	eng := NewEngine(AdaptiveTriggersRule{})
+	modes := map[string]string{
+		"execution_mode": "NORMAL", "context_mode": "SUMMARY_FIRST",
+		"governance_mode": "STANDARD", "memory_mode": "EPISODIC",
+	}
+	ctx := Context{
+		CommitMsg: "feat: reconcile contradict plans/active/a.md vs constitution/ADR-001.md",
+		Modes:     modes,
+		Provided:  map[CapabilityID]bool{CapCommitMsg: true, CapModes: true},
+	}
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "adaptive_contradiction_risk" {
+		t.Fatalf("want contradiction_risk, got %#v", got)
+	}
+	ctx.Modes = map[string]string{
+		"execution_mode": "DEEP", "context_mode": "SOURCE_BACKED",
+		"governance_mode": "STRICT", "memory_mode": "DECISION_REPLAY",
+	}
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want STRICT+SOURCE_BACKED pass, got %#v", got)
+	}
+
+	ctx.Modes = modes
+	ctx.CommitMsg = "fix: address enforcement/failure-patterns/foo.md and enforcement/failure-patterns/bar.md"
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "adaptive_repeated_failure" {
+		t.Fatalf("want repeated_failure, got %#v", got)
+	}
+	ctx.Modes = map[string]string{
+		"execution_mode": "RECOVERY", "context_mode": "CHECKLIST_FIRST",
+		"governance_mode": "STRICT", "memory_mode": "FAILURE_REPLAY",
+	}
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want RECOVERY+FAILURE_REPLAY pass, got %#v", got)
+	}
+
+	ctx.Modes = modes
+	ctx.CommitMsg = "feat: medium work\n\nToken Estimate: 4500\n"
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "adaptive_budget_near_ceiling" {
+		t.Fatalf("want near-ceiling, got %#v", got)
+	}
+
+	ctx.CommitMsg = "feat: reconcile contradict plans/a.md vs constitution/ADR-001.md\n\n[skip-adaptive]\n"
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want opt-out pass, got %#v", got)
+	}
+}

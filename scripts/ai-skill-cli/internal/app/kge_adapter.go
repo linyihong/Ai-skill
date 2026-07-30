@@ -254,6 +254,51 @@ func runKGEMemoryModeSubdir(modes map[string]string, staged []string) string {
 	return kgeFindingsMessage(eng.Run(ctx))
 }
 
+// runKGEActivationSignals loads known discovery signals into Context.
+func runKGEActivationSignals(c commitMsgCtx) string {
+	known := readKnownCognitiveSignals(c.root)
+	ctx := kge.Context{
+		CommitMsg:    c.text,
+		Modes:        c.modes,
+		KnownSignals: known,
+		Provided: map[kge.CapabilityID]bool{
+			kge.CapCommitMsg:    true,
+			kge.CapModes:        true,
+			kge.CapKnownSignals: true,
+		},
+	}
+	eng := kge.NewEngine(kge.ActivationSignalsRule{})
+	return kgeFindingsMessage(eng.Run(ctx))
+}
+
+// runKGECapabilitySnippet adapts modes + commit message for the portable rule.
+func runKGECapabilitySnippet(modes map[string]string, text string) string {
+	ctx := kge.Context{
+		CommitMsg: text,
+		Modes:     modes,
+		Provided: map[kge.CapabilityID]bool{
+			kge.CapCommitMsg: true,
+			kge.CapModes:     true,
+		},
+	}
+	eng := kge.NewEngine(kge.CapabilitySnippetRule{})
+	return kgeFindingsMessage(eng.Run(ctx))
+}
+
+// runKGEAdaptiveTriggers adapts modes + commit message for the portable rule.
+func runKGEAdaptiveTriggers(modes map[string]string, text string) string {
+	ctx := kge.Context{
+		CommitMsg: text,
+		Modes:     modes,
+		Provided: map[kge.CapabilityID]bool{
+			kge.CapCommitMsg: true,
+			kge.CapModes:     true,
+		},
+	}
+	eng := kge.NewEngine(kge.AdaptiveTriggersRule{})
+	return kgeFindingsMessage(eng.Run(ctx))
+}
+
 // countKGEAdvisories runs advisory-only rules (D9 commit-msg count path).
 // Does not run validation or discovery rules.
 func countKGEAdvisories(root string, staged []string) int {
