@@ -6,9 +6,29 @@ owner_layer: workflow
 
 # Legal Workflow Domain（`workflow/legal/`）
 
-**Status**: in-progress（2026-07-30 建立；同日依 stakeholder review 兩次修訂：(1) 從
-`legal-contract` 提升為 `legal`；(2) 新增 `strategy/` slice 與 Stage 3a／3b，把 workflow 從
-execution 提升為 legal decision support）
+**Status**: in-progress（implementation closed）
+
+2026-07-30 建立；同日依 stakeholder review 兩次修訂：(1) 從 `legal-contract` 提升為 `legal`；
+(2) 新增 `strategy/` slice 與 Stage 3a／3b，把 workflow 從 execution 提升為 legal decision
+support；(3) 抽出 `workflow/cross-cutting/decision-support/` cross-domain pattern。
+
+### 為什麼還不 archive（2026-07-30 結案評估）
+
+Phase 1–7 全部完成（實作、runtime 接線、linked updates、commit + push、clean status），
+但**不搬移至 `archived/`**，理由三項：
+
+| # | 阻擋項 | 解除條件 |
+| --- | --- | --- |
+| 1 | §Stakeholder 同意項目有 **4 項 ⏳ 待使用者確認**（Strategy 兩趟、Optimization Suggestion 界線、三案門檻不推廣、`lifecycle/` 不接簽署工具）。archive 會把「待簽核」靜默轉成「已決定」。 | 使用者逐項確認或否決 |
+| 2 | §Open Questions **9 條未結**（Q1、Q4–Q11）。其中 Q8／Q9／Q11 的 cross-domain promotion 明確需 **3 個 converged case**（現 1／3：legal）；Q10 需真實多輪對話觀察 Optimization Suggestion 是否退化成 repeated pushback。 | 三案門檻達成 + 真實任務觀察 |
+| 3 | §ADR Promotion Criteria **5 條全未達**（需至少 3 個真實法律任務含 1 個非合約任務跑完 lifecycle）。 | 真實任務累積 |
+
+適用 [`plans/README.md`](../README.md) §不搬移的例外情況第 1 條：Decision Support 的三案
+promotion 是**持續生效的 watch**，未來會擴充新 Phase（promotion 或降級），沒有明確的
+「完成」邊界。留在 `active/` 並在 `plans/README.md` §目前狀態 說明。
+
+**下一次動這個 plan 的時機**：(a) 使用者回覆 4 項 ⏳；或 (b) 第 2／3 個 domain 實例化
+Decision Support；或 (c) 第一個真實法律任務跑完 lifecycle 後回填 dogfood evidence。
 
 **Glossary Impact**: yes — 新引入 framework vocabulary：`intake-dispatched workflow`（intake
 答案決定下游 slice 組合的 workflow 形狀）、`legal task type`（draft／review／explain／compare／
@@ -330,8 +350,15 @@ software-delivery 的 stage 順序、不宣稱為全庫能力。達三案門檻�
 
 ## Phase 7 — Close Loop
 
-- [ ] `git status --short --branch` / `git diff` 去敏檢查（無本機絕對路徑、無個資、無 secrets）
-- [ ] commit（分 owner group）+ push + readback + clean status
+- [x] `git status --short --branch` / `git diff` 去敏檢查（無本機絕對路徑、無個資、無 secrets）
+- [x] rebase 到 `origin/main`（本地落後 2 週，遠端有 KGE Phase 2a migration）：
+      glossary 衝突保留雙方 entry；`runtime.db` / `runtime-index.sqlite` 取 upstream 後用
+      rebuild 後的 CLI 重跑 compile + refresh
+- [x] `kge check` → `Ready to push (validation ok)`；rebase 後 detector 重驗仍回
+      `active_route=route.workflow.legal`、`conflict=false`
+- [x] commit + push（`0411c0bd` 實作 + `313d830b` runtime regeneration）+ readback + clean status
+- [x] 結案評估：**不 archive**，理由與解除條件見檔頭 §為什麼還不 archive
+- [x] 登記於 [`plans/README.md`](../README.md) §目前狀態
 
 ## Stakeholder 同意項目
 
@@ -376,13 +403,14 @@ software-delivery 的 stage 順序、不宣稱為全庫能力。達三案門檻�
 
 ## 完成條件
 
-- [x] Phase 1–6 全部勾選
-- [ ] Phase 7 close loop
+- [x] Phase 1–7 全部勾選
 - [x] `ai-skill runtime workflow-context` 實跑證據（active_route 命中 + counter-case 不命中）
 - [x] `ai-skill runtime compile` + `refresh` 無錯
 - [x] 六個 validation scenario 存在且形狀合格
 - [x] linked updates 全部落地（workflow README / 選路表 / knowledge index / summary / glossary）
-- [ ] `git status` clean、`git log origin/main..HEAD` 為空
+- [x] `git status` clean、`git log origin/main..HEAD` 為空
+- [ ] **archive 前額外條件**（見檔頭 §為什麼還不 archive）：4 項 stakeholder ⏳ 已確認 +
+      Open Questions Q1／Q4–Q11 已結或明確 deferred + ADR Promotion Criteria 已評估
 
 ## Linked Updates
 
