@@ -48,7 +48,7 @@ Ai-skill git adapters（不在本目錄）：commit-msg = advisory **count-only*
 | Portable engine | `scripts/ai-skill-cli/portable/kge/`（本目錄） |
 | Ai-skill adapter | `scripts/ai-skill-cli/internal/app/kge_adapter.go` + `kge_cmd.go` |
 
-Plan：`plans/active/2026-07-30-0950-knowledge-governance-runtime/`
+Plan：`plans/archived/2026-07-30-0950-knowledge-governance-runtime/`
 
 ## 驗證
 

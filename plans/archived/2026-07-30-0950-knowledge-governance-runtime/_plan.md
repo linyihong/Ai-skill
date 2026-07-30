@@ -1,17 +1,17 @@
 ---
 id: 2026-07-30-0950-knowledge-governance-runtime
 plan_kind: main
-status: in-progress
+status: completed
 owner: linyihong
 created: 2026-07-30
-last_updated: 2026-07-30
+last_updated: 2026-07-31
 required_for_completion: false
 parent: null
 glossary_impact: registered
 canonical_name: Knowledge Governance Engine
 canonical_abbrev: KGE
 legacy_working_title: Knowledge Governance Runtime (KGR)
-current_phase: 4
+current_phase: archived
 revision:
   - date: 2026-07-30
     note: "初稿落檔 — KGR 定位、兩層 Framework/Plugin、pipeline draft"
@@ -59,18 +59,20 @@ revision:
     note: "Phase 2a batch 12 — plan_archival_link_integrity（CapPathRenames + CapStagedContent + CapRepoFS；git rename/ls-files/staged-first 留 adapter）；T12 Phase 2a mechanical 遷移完成"
   - date: "2026-07-30"
     note: "Plan close-out slice — CI D9 full advisory（workflow step）；glossary KGE/capability_registry/runtime_adapter；Delegation Loop 雙向交叉引用；T4/T5 done；T6/Phase3/Plans/IDE dogfood 明確 Later"
+  - date: "2026-07-31"
+    note: "Final Core Exit verification evidence；ADR criteria → disposition table；status=completed；archive to plans/archived/"
 ---
 
 # Knowledge Governance Engine（知識治理引擎）
 
-**Status**: `in-progress`（**Core Exit ✅** — Phase 0–2 + D9 adapters（含 CI）完成；Later = Plans pack / external dogfood / IDE host / Unified Execution explore）  
+**Status**: `completed`（**Core Exit ✅** — archived 2026-07-31；Later follow-ups 不阻塞 archive）  
 **Owner**: framework maintainer (linyihong)  
 **建立日期**: 2026-07-30  
 **Canonical name**: **Knowledge Governance Engine (KGE)**  
 **Folder slug**: `…-knowledge-governance-runtime`（歷史 working title；id 維持穩定，不改 folder）  
 **Priority**: **P1**  
 **Maturity framing**: Architecture Hypothesis **validated** → Contracts + Engine + Ai-skill pack migrated → Multi-adapter observable  
-**current_phase**: 4（CI report landed；IDE host / external dogfood still Later）
+**Archive note**: Final verification [`evidence/final-core-exit-verification.md`](evidence/final-core-exit-verification.md)
 
 > ## Success Criterion（北極星）
 >
@@ -366,11 +368,15 @@ kge check  →  Validation + Advisory summary (+ optional discovery line)
 
 ### ADR Promotion Criteria
 
-- [ ] KGE 名詞穩定，且與 `runtime/` phase machine **口語可分辨**
-- [ ] Capability Registry 最小 schema + ≥2 rules（一需／一不需 projection）通過
-- [ ] ≥1 非-plan domain plugin 在本 repo 以 plugin 形式 enforce
-- [ ] ≥1 外部專案 plugin pack + thin adapter，可逆移除
-- [ ] Enforcement Registry 能表達 `rule_class → KGE capability`，無第二套 coverage
+> **不阻塞本 plan Core Exit / archive。** 正式 ADR 另開；條件處置見 [`evidence/final-core-exit-verification.md`](evidence/final-core-exit-verification.md)。
+
+| Criterion | Disposition |
+| --- | --- |
+| KGE 名詞穩定，且與 `runtime/` phase machine 口語可分辨 | **met** — glossary `knowledge_governance_engine` / `runtime_adapter` |
+| Capability Registry 最小 schema + ≥2 rules（一需／一不需 projection）通過 | **met** — `Cap*` in contracts；多數 rules 無 Projection stage |
+| ≥1 非-plan domain plugin 在本 repo 以 plugin 形式 enforce | **met** — Ai-skill first-party pack（commit-msg / CLI） |
+| ≥1 外部專案 plugin pack + thin adapter，可逆移除 | **deferred** — Phase 3 Later（external dogfood） |
+| Enforcement Registry 能表達 `rule_class → KGE capability`，無第二套 coverage | **deferred** — adapter 映射已存在；正式 registry 欄位屬 ADR follow-up |
 
 ### Consequences
 
@@ -696,7 +702,7 @@ Graduation：Phase 0 Exit 通過後進 Phase 1；若長期卡住則修 hypothesi
 
 | Plan | Relation |
 | --- | --- |
-| [`2026-07-08-0825-delegation-verification-arbitration-loop`](../2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) | Task Execution（Delegation Loop）對偶；共享 Capability/Registry/Adapter 候選；**不合併**（§D7） |
+| [`2026-07-08-0825-delegation-verification-arbitration-loop`](../../active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) | Task Execution（Delegation Loop）對偶；共享 Capability/Registry/Adapter 候選；**不合併**（§D7） |
 | [`2026-05-25-1000-context-language-glossary-system`](../2026-05-25-1000-context-language-glossary-system.md) | Glossary schema；本 plan T4 註冊 KGE 詞條 |
 
 ---
@@ -727,9 +733,10 @@ Graduation：Phase 0 Exit 通過後進 Phase 1；若長期卡住則修 hypothesi
 
 ## Next Action
 
-**本 plan Core Exit 已達成。** 剩餘皆為明確 Later / optional（不阻塞北極星）：
+**Archived.** Core Exit closed 2026-07-31. Follow-ups（另開 plan / 任務，非本檔 continuation）:
 
-1. **Later — Plans pack**（Q4）：plans validation 收斂為 KGE domain pack。
-2. **Later — IDE host**：Cursor/VS Code task 呼叫 `kge diagnose`（CLI surface 已存在）。
-3. **Later — External dogfood**：外部專案 copy `portable/kge/`（Phase 3）。
-4. **Explore — Unified Execution Model**（T6 / Q10）：另開 spike；見 Delegation Loop 交叉引用。
+1. **Later — Plans pack**（Q4）
+2. **Later — IDE host** 接線 `kge diagnose`
+3. **Later — External dogfood** copy `portable/kge/`
+4. **Explore — Unified Execution Model**（T6 / Q10）
+5. **Optional — ADR** when deferred ADR criteria are met

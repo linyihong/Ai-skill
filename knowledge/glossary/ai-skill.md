@@ -579,11 +579,11 @@ meaning: >
 affects:
   - scripts/ai-skill-cli/portable/kge/contracts.go
   - scripts/ai-skill-cli/portable/kge/README.md
-  - plans/active/2026-07-30-0950-knowledge-governance-runtime/_plan.md
+  - plans/archived/2026-07-30-0950-knowledge-governance-runtime/_plan.md
 anti-meaning: >
   Not the enforcement-registry.yaml rule_class coverage table, not
   runtime.db phase/gate tables, and not a plugin packaging format by itself.
-introduced-by: plans/active/2026-07-30-0950-knowledge-governance-runtime/_plan.md
+introduced-by: plans/archived/2026-07-30-0950-knowledge-governance-runtime/_plan.md
 related-terms:
   - { type: related_to, target: knowledge_governance_engine }
   - { type: related_to, target: runtime_adapter }
@@ -909,11 +909,11 @@ meaning: >
   findings; the engine does not call git or own Ai-skill session phase state.
 affects:
   - scripts/ai-skill-cli/portable/kge/
-  - plans/active/2026-07-30-0950-knowledge-governance-runtime/_plan.md
+  - plans/archived/2026-07-30-0950-knowledge-governance-runtime/_plan.md
 anti-meaning: >
   Not the runtime/ phase machine or runtime.db, not a generic lint framework,
   and not Task Execution (see Delegation Loop as the task-side counterpart).
-introduced-by: plans/active/2026-07-30-0950-knowledge-governance-runtime/_plan.md
+introduced-by: plans/archived/2026-07-30-0950-knowledge-governance-runtime/_plan.md
 related-terms:
   - { type: related_to, target: capability_registry }
   - { type: related_to, target: runtime_adapter }
@@ -1306,11 +1306,11 @@ meaning: >
 affects:
   - scripts/ai-skill-cli/internal/app/kge_adapter.go
   - scripts/ai-skill-cli/internal/app/kge_cmd.go
-  - plans/active/2026-07-30-0950-knowledge-governance-runtime/_plan.md
+  - plans/archived/2026-07-30-0950-knowledge-governance-runtime/_plan.md
 anti-meaning: >
   Not the runtime/ session phase machine, not runtime.db, and not the
   portable rule implementations themselves.
-introduced-by: plans/active/2026-07-30-0950-knowledge-governance-runtime/_plan.md
+introduced-by: plans/archived/2026-07-30-0950-knowledge-governance-runtime/_plan.md
 related-terms:
   - { type: related_to, target: knowledge_governance_engine }
   - { type: related_to, target: capability_registry }

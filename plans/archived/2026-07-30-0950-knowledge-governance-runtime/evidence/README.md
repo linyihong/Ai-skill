@@ -17,4 +17,5 @@ Canonical：[`governance/lifecycle/plan-evidence.md`](../../../../governance/lif
 
 | Run ID | 檔案 | 狀態 | 摘要 |
 |---|---|---|---|
-| p0-map | [`p0-architecture-mapping.md`](p0-architecture-mapping.md) | active | Phase 0 五問 + validator→capability 映射；Mini Spike A/B 紙上 walkthrough；Plans 暫緩 |
+| p0-map | [`p0-architecture-mapping.md`](p0-architecture-mapping.md) | archived-with-plan | Phase 0 五問 + validator→capability 映射；Mini Spike A/B |
+| final-verify | [`final-core-exit-verification.md`](final-core-exit-verification.md) | archive-gate | Core Exit 功能驗收；Later gaps 明示；建議 archive |
