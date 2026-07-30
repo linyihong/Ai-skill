@@ -27,7 +27,14 @@ const (
 	CapPlanIndex   CapabilityID = "cap.plan_index"
 	CapRegistrySnapshots CapabilityID = "cap.registry_snapshots"
 	CapSymbolIndex CapabilityID = "cap.symbol_index"
+	CapPathRenames CapabilityID = "cap.path_renames"
 )
+
+// PathRenameMeta is one staged rename (old → new), adapter-normalized.
+type PathRenameMeta struct {
+	OldPath string
+	NewPath string
+}
 
 // PlanMeta is adapter-normalized plan frontmatter for plan-tree rules.
 // Parsing stays in the host adapter; portable rules only consume this struct.
@@ -90,6 +97,7 @@ type Context struct {
 	RegistryOld   *RegistrySnapshotMeta // CapRegistrySnapshots
 	RegistryNew   *RegistrySnapshotMeta // CapRegistrySnapshots
 	FileSymbols   map[string]map[string]bool // CapSymbolIndex: path → symbol → present
+	PathRenames   []PathRenameMeta           // CapPathRenames: staged renames (git name-status)
 	// Provided lists which capabilities the adapter filled.
 	Provided map[CapabilityID]bool
 }

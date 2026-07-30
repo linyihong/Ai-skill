@@ -763,3 +763,51 @@ func TestEnforcementRegistryTransitionRule(t *testing.T) {
 		t.Fatalf("want opt-out pass, got %#v", got)
 	}
 }
+
+func TestPlanArchivalLinkIntegrityRule(t *testing.T) {
+	eng := NewEngine(PlanArchivalLinkIntegrityRule{})
+	oldPath := "plans/active/2026-01-01-1200-demo/_plan.md"
+	newPath := "plans/archived/2026-01-01-1200-demo/_plan.md"
+	ctx := Context{
+		CommitMsg:   "chore: archive demo",
+		PathRenames: []PathRenameMeta{{OldPath: oldPath, NewPath: newPath}},
+		FileContents: map[string]string{
+			newPath:          "See [x](../sibling.md).\n",
+			"plans/README.md": "Ref [demo](active/2026-01-01-1200-demo/_plan.md).\n",
+		},
+		ExistingPaths: map[string]bool{
+			"plans/README.md": true,
+			newPath:           true,
+		},
+		Provided: map[CapabilityID]bool{
+			CapCommitMsg: true, CapPathRenames: true, CapStagedContent: true, CapRepoFS: true,
+		},
+	}
+	got := eng.Run(ctx)
+	codes := map[string]bool{}
+	for _, f := range got {
+		codes[f.Code] = true
+	}
+	if !codes["broken_inbound_link"] {
+		t.Fatalf("want inbound broken link, got %#v", got)
+	}
+
+	ctx.FileContents["plans/README.md"] = "Ref [demo](archived/2026-01-01-1200-demo/_plan.md).\n"
+	ctx.FileContents[newPath] = "ok\n"
+	ctx.ExistingPaths["plans/archived/2026-01-01-1200-demo/_plan.md"] = true
+	if got = eng.Run(ctx); len(got) != 0 {
+		// may still have outbound if sibling missing — clear outbound target
+		t.Fatalf("want clean archive after rewrite, got %#v", got)
+	}
+
+	ctx.FileContents["plans/README.md"] = "Mention plans/active/2026-01-01-1200-demo/_plan.md in prose.\n"
+	got = eng.Run(ctx)
+	if len(got) != 1 || got[0].Severity != SeverityWarning || got[0].Code != "stale_textual_reference" {
+		t.Fatalf("want textual warning, got %#v", got)
+	}
+
+	ctx.CommitMsg = "chore: x\n[skip-plan-archival-link-integrity]\n"
+	if got = eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want opt-out pass, got %#v", got)
+	}
+}

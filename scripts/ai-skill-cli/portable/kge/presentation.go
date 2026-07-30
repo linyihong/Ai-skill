@@ -37,6 +37,7 @@ func DefaultRules() []Rule {
 		PlanTreeUniqueIDRule{},
 		PlanTreeFolderConventionRule{},
 		EnforcementRegistryTransitionRule{},
+		PlanArchivalLinkIntegrityRule{},
 	}
 }
 
