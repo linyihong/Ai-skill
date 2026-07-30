@@ -1,4 +1,4 @@
-version=repo-7b327b9a
-source_commit=7b327b9a
-built_at=2026-07-30T04:30:24Z
+version=repo-bfa3367d
+source_commit=bfa3367d
+built_at=2026-07-30T04:33:28Z
 targets=windows/amd64,darwin/amd64,darwin/arm64,linux/amd64,linux/arm64
