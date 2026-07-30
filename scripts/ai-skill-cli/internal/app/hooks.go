@@ -390,6 +390,13 @@ func validateNoNewShellScripts(root string, staged []string) string {
 // Claude Code hook helpers
 // ---------------------------------------------------------------------------
 
+// hookRuntimePath returns a path under the OS temp directory for hook state and
+// diagnostic files. Hardcoding "/tmp/..." fails on Windows (no POSIX /tmp),
+// which broke CI TestWorkflowGate_SideChannelClearsFlushRace from 912fe503.
+func hookRuntimePath(name string) string {
+	return filepath.Join(os.TempDir(), name)
+}
+
 // appendLog appends a line to a diagnostic log file (best-effort, no-op on error).
 func appendLog(path, msg string) {
 	f, err := os.OpenFile(path, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0o644)
@@ -645,7 +652,7 @@ func finishPreToolUse(host hookHost, transcriptPath, projectDir string, stdout, 
 	block, routeID, ps := workflowPrimarySourceGate(transcriptPath, aiSkillRepo, projectDir)
 	if block {
 		_, _ = fmt.Fprintf(stderr, "BLOCK_WORKFLOW_PRIMARY_SOURCE route=%s primary_source=%s\n", routeID, ps)
-		appendLog("/tmp/ai-skill-bootstrap-hook.log",
+		appendLog(hookRuntimePath("ai-skill-bootstrap-hook.log"),
 			fmt.Sprintf("deny workflow primary_source route=%s ps=%s transcript=%s", routeID, ps, transcriptPath))
 		reason := fmt.Sprintf("Workflow activation evidence missing (gate.workflow.primary_source_read). "+
 			"The detector locked active_route=%s for this task, but its primary_source has not been Read yet:\n  %s\n"+
@@ -1058,7 +1065,7 @@ func markSeenReadPath(fp string, seen map[string]bool) {
 // here immediately; workflowPrimarySourceGate accepts this evidence when the
 // transcript has not yet flushed the same Read tool_use.
 func workflowPrimarySourceSideChannelPath(projectDir string) string {
-	return "/tmp/ai-skill-wf-ps-" + md5Short(projectDir) + ".seen"
+	return hookRuntimePath("ai-skill-wf-ps-" + md5Short(projectDir) + ".seen")
 }
 
 func recordSideChannelReadPath(projectDir, filePath string) {
@@ -1313,7 +1320,7 @@ func hookGitOutput(root string, args ...string) (string, error) {
 // Queries runtime.db for phase/obligation/gate counts, reads 4 bootstrap files,
 // emits hookSpecificOutput JSON, and writes a TTL flag for runPreToolUseHook.
 func runSessionStartHook(projectDir string, stdout io.Writer, stderr io.Writer) int {
-	const logFile = "/tmp/ai-skill-sessionstart-hook.log"
+	logFile := hookRuntimePath("ai-skill-sessionstart-hook.log")
 	ts := time.Now().Format("2006-01-02T15:04:05")
 	appendLog(logFile, "=== "+ts+" SessionStart hook fired (Go) ===")
 
@@ -1381,7 +1388,7 @@ func runSessionStartHook(projectDir string, stdout io.Writer, stderr io.Writer) 
 	}
 
 	projectHash := md5Short(projectDir)
-	flagFile := "/tmp/ai-skill-sessionstart-" + projectHash + ".flag"
+	flagFile := hookRuntimePath("ai-skill-sessionstart-" + projectHash + ".flag")
 	_ = os.WriteFile(flagFile, []byte(fmt.Sprintf("%d", time.Now().Unix())), 0o644)
 	appendLog(logFile, "wrote sessionstart flag: "+flagFile)
 	appendLog(logFile, fmt.Sprintf("phase=%s obligations=%d gates=%d", receipt.Phase, receipt.Obligations, receipt.Gates))
@@ -1392,7 +1399,7 @@ func runSessionStartHook(projectDir string, stdout io.Writer, stderr io.Writer) 
 // Blocks non-Read tool calls until "Bootstrap:" is found in an assistant message.
 // Uses cache file + SessionStart TTL flag to avoid redundant transcript scans.
 func runPreToolUseHook(projectDir string, stdout io.Writer, stderr io.Writer) int {
-	const logFile = "/tmp/ai-skill-bootstrap-hook.log"
+	logFile := hookRuntimePath("ai-skill-bootstrap-hook.log")
 	ts := time.Now().Format("2006-01-02T15:04:05")
 	appendLog(logFile, "=== "+ts+" PreToolUse hook fired (Go) ===")
 
@@ -1433,7 +1440,7 @@ func runPreToolUseHook(projectDir string, stdout io.Writer, stderr io.Writer) in
 	}
 
 	cacheKey := md5Short(transcriptPath)
-	cacheFile := "/tmp/ai-skill-bootstrap-" + cacheKey + ".done"
+	cacheFile := hookRuntimePath("ai-skill-bootstrap-" + cacheKey + ".done")
 	if claudeFileExists(cacheFile) {
 		_, _ = fmt.Fprintln(stderr, "ALLOW_CACHED")
 		return finishPreToolUse(host, transcriptPath, projectDir, stdout, stderr)
@@ -1441,7 +1448,7 @@ func runPreToolUseHook(projectDir string, stdout io.Writer, stderr io.Writer) in
 
 	if projectDir != "" {
 		projectHash := md5Short(projectDir)
-		flagFile := "/tmp/ai-skill-sessionstart-" + projectHash + ".flag"
+		flagFile := hookRuntimePath("ai-skill-sessionstart-" + projectHash + ".flag")
 		if data, err := os.ReadFile(flagFile); err == nil {
 			var flagTs int64
 			if _, err2 := fmt.Sscanf(strings.TrimSpace(string(data)), "%d", &flagTs); err2 == nil {
@@ -1515,7 +1522,7 @@ func runPostToolUseHook(projectDir string, stdout io.Writer, stderr io.Writer) i
 
 	if transcriptPath != "" {
 		cacheKey := md5Short(transcriptPath)
-		cacheFile := "/tmp/ai-skill-bootstrap-" + cacheKey + ".done"
+		cacheFile := hookRuntimePath("ai-skill-bootstrap-" + cacheKey + ".done")
 		if claudeFileExists(cacheFile) {
 			_, _ = fmt.Fprintln(stderr, "CACHED_DONE")
 			return ExitSuccess
@@ -1569,7 +1576,7 @@ func runPostToolUseHook(projectDir string, stdout io.Writer, stderr io.Writer) i
 // Stdin is parsed tolerantly: empty / malformed / missing transcript_path
 // degrade to the safe path (treat as not acknowledged → full bootstrap inject).
 func runUserPromptSubmitHook(projectDir string, stdout io.Writer, stderr io.Writer) int {
-	const logFile = "/tmp/ai-skill-prompt-hook.log"
+	logFile := hookRuntimePath("ai-skill-prompt-hook.log")
 	appendLog(logFile, time.Now().Format("2006-01-02T15:04:05")+" UserPromptSubmit fired (Go)")
 
 	transcriptPath := readUserPromptSubmitTranscriptPath()
@@ -1745,7 +1752,7 @@ func transcriptHasBootstrapAcknowledgment(transcriptPath string, lastN int) bool
 // text directly in the hook payload. In both cases, block stop if the final
 // assistant message lacks a Cognitive Mode block.
 func runStopHook(projectDir string, stdout io.Writer, stderr io.Writer) int {
-	const logFile = "/tmp/ai-skill-stop-hook.log"
+	logFile := hookRuntimePath("ai-skill-stop-hook.log")
 	ts := time.Now().Format("2006-01-02T15:04:05")
 	appendLog(logFile, "=== "+ts+" Stop hook fired (Go) ===")
 

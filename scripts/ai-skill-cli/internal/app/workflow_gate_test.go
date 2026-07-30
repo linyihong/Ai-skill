@@ -3,6 +3,7 @@ package app
 import (
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 )
 
@@ -150,6 +151,13 @@ func TestWorkflowGate_SideChannelClearsFlushRace(t *testing.T) {
 		t.Fatal("expected block before side-channel evidence")
 	}
 	recordSideChannelReadPath(project, "/Users/me/Ai-skill/analysis/web/README.md")
+	sidePath := workflowPrimarySourceSideChannelPath(project)
+	if !strings.HasPrefix(sidePath, os.TempDir()) {
+		t.Fatalf("side-channel must use OS temp dir (Windows has no /tmp); got %q", sidePath)
+	}
+	if _, err := os.Stat(sidePath); err != nil {
+		t.Fatalf("side-channel write failed (path=%q): %v", sidePath, err)
+	}
 	block, route, ps := workflowPrimarySourceGate(tr, repo, project)
 	if block {
 		t.Fatalf("side-channel should clear flush race; route=%q ps=%q", route, ps)
