@@ -1,4 +1,4 @@
-version=repo-bfa3367d
-source_commit=bfa3367d
-built_at=2026-07-30T04:33:28Z
+version=repo-ce9c5be9
+source_commit=ce9c5be9
+built_at=2026-07-30T05:00:39Z
 targets=windows/amd64,darwin/amd64,darwin/arm64,linux/amd64,linux/arm64
