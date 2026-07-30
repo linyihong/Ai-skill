@@ -31,6 +31,19 @@ func (e *Engine) Run(ctx Context) []Finding {
 	return out
 }
 
+// RunAvailable skips rules whose required capabilities are not provided
+// (no capability_missing noise). Used by `kge check` over a partial Context.
+func (e *Engine) RunAvailable(ctx Context) []Finding {
+	var out []Finding
+	for _, r := range e.rules {
+		if len(missingCaps(ctx, r.RequiredCapabilities())) > 0 {
+			continue
+		}
+		out = append(out, r.Validate(ctx)...)
+	}
+	return out
+}
+
 func missingCaps(ctx Context, need []CapabilityID) []CapabilityID {
 	var miss []CapabilityID
 	for _, id := range need {

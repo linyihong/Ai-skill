@@ -13,6 +13,7 @@ const commandContractPath = "scripts/ai-skill-cli/docs/command-contract.md"
 type CLIDocSyncRule struct{}
 
 func (CLIDocSyncRule) ID() string { return "rule.cli_doc_sync" }
+func (CLIDocSyncRule) Kind() Kind { return KindValidation }
 
 func (CLIDocSyncRule) RequiredCapabilities() []CapabilityID {
 	return []CapabilityID{CapStagedPaths, CapStagedDiff, CapCommitMsg}

@@ -31,14 +31,19 @@ Ai-skill 本體只負責 **Adapter**（組 `Context`、接 commit-msg／CI／CLI
 
 可刪掉不需要的 `rule_*.go`，或新增自己的 `rule_xxx.go`（實作 `kge.Rule`）。
 
+## CLI（Ai-skill adapter）
+
+```bash
+ai-skill kge check [--root PATH]              # validation + advisory summary (D9)
+ai-skill kge validate [--root PATH] [--advisory]  # validation; --advisory = full list
+```
+
 ## 與 Ai-skill 的關係
 
 | 角色 | 位置 |
 | --- | --- |
 | Portable engine | `scripts/ai-skill-cli/portable/kge/`（本目錄） |
-| Ai-skill adapter | `scripts/ai-skill-cli/internal/app/kge_adapter.go` — 組 Context、`git diff --cached`、委派 `validateCognitiveCost` / `validateCLIDocSync` |
-
-委派後：hook 仍叫原來的 `validate*` 函式名；實作轉進 KGE。新增規則時優先加在本目錄，再在 adapter 薄包一層。
+| Ai-skill adapter | `scripts/ai-skill-cli/internal/app/kge_adapter.go` + `kge_cmd.go` |
 
 Plan：`plans/active/2026-07-30-0950-knowledge-governance-runtime/`
 

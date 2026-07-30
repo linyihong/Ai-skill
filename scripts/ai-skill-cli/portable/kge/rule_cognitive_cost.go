@@ -3,7 +3,8 @@ package kge
 // CognitiveCostRule is Phase 0 Mini Spike Rule A — no projection, needs modes.
 type CognitiveCostRule struct{}
 
-func (CognitiveCostRule) ID() string { return "rule.cognitive_cost" }
+func (CognitiveCostRule) ID() string   { return "rule.cognitive_cost" }
+func (CognitiveCostRule) Kind() Kind   { return KindValidation }
 
 func (CognitiveCostRule) RequiredCapabilities() []CapabilityID {
 	return []CapabilityID{CapModes}

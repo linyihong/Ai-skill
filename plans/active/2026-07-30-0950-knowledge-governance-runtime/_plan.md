@@ -31,6 +31,8 @@ revision:
     note: "補 Enforcement→KGE 對照 — taxonomy 已有但缺遷移清單；釐清 validation(block)/advisory(warn)/out-of-scope；document_sizing=advisory 候選；neutral_language=not_mechanizable 不強制進 KGE block"
   - date: 2026-07-30
     note: "D9 Adapter Presentation Policy — Q6 改問法並拍板：Severity×Adapter=Presentation；commit=checkpoint（count+pointer）；push/kge check=watershed summary；IDE=完整 advisory；validate --advisory=完整"
+  - date: 2026-07-30
+    note: "Phase 2b+4 slice — document_sizing advisory rule；ai-skill kge check/validate --advisory；D9 presentation helpers；RunAvailable"
 ---
 
 # Knowledge Governance Engine（知識治理引擎）
@@ -679,17 +681,16 @@ Graduation：Phase 0 Exit 通過後進 Phase 1；若長期卡住則修 hypothesi
 | T10 | Phase 1：portable `kge` + Rule A/B + adapter 委派 | **done**（Exit ✅；擴大遷移 → Phase 2） |
 | T11 | Portable copy README / 邊界 | **done** |
 | T12 | Phase 2a：更多 mechanical validators → KGE | pending |
-| T13 | Phase 2b：document_sizing advisory Finding + D9 呈現 | pending |
+| T13 | Phase 2b：document_sizing advisory Finding + D9 呈現 | **done**（rule + `kge check`/`validate --advisory`） |
 | T14 | 明確不把 neutral_language 做成 KGE block（對齊 not_mechanizable） | **done** |
 | T15 | Q6 / Adapter Presentation Policy | **done（D9）** |
-| T16 | 實作 `kge check` + commit-msg advisory count path + pre-push 掛載 | pending |
+| T16 | 實作 `kge check` + commit-msg advisory count path + pre-push 掛載 | **partial** — CLI check/validate ✅；commit-msg count + pre-push 掛載 pending |
 
 ---
 
 ## Next Action
 
-1. **Phase 2a**：繼續遷 mechanical validators。
-2. **Phase 2b**：`document_sizing` → Finding kind=`advisory`（**呈現跟 D9**，不是 commit 洗 warn）。
-3. **Phase 4 優先項**：實作 **`kge check`**；commit-msg Validation-only + advisory **count**；pre-push 跑 check。
-4. **不要**把 `neutral_language` 做成強制機械鎖。
-5. Plans pack 仍 Later。
+1. **接上 git**：commit-msg advisory **count-only** 路徑；pre-push 呼叫 `ai-skill kge check`。
+2. Phase 2a：繼續遷 mechanical validators。
+3. IDE diagnostic adapter（D9 最佳體驗）可另開。
+4. Plans pack 仍 Later。

@@ -53,14 +53,16 @@ type Finding struct {
 // Rule is a pure Validate(Context) → Findings contract.
 type Rule interface {
 	ID() string
+	Kind() Kind
 	RequiredCapabilities() []CapabilityID
 	Validate(ctx Context) []Finding
 }
 
-// Kind mirrors plan taxonomy (Phase 1 focuses on validation).
+// Kind mirrors plan taxonomy (validation block vs advisory remind).
 type Kind string
 
 const (
 	KindValidation Kind = "validation"
 	KindAdvisory   Kind = "advisory"
+	KindDiscovery  Kind = "discovery"
 )
