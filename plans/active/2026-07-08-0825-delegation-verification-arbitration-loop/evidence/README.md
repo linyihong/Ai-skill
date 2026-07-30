@@ -45,6 +45,8 @@
 | **2y** | [`2y-kaizenwms-phase2-spa-scaffold-c1b.md`](2y-kaizenwms-phase2-spa-scaffold-c1b.md) | 正向＋C1b 纠偏 | KaizenWMS Phase 2 SPA scaffold：完整 O→E→V；Verifier 擋 deliverable-only A3；Orchestrator integration smoke 後 `slice_compliant_closed` |
 | **2z** | [`2z-kaizenwms-phase3-karma-stale-serve.md`](2z-kaizenwms-phase3-karma-stale-serve.md) | 负向／纠偏 | KaizenWMS Phase 3：Karma-only 假綠＋stale `ng serve`／HMR 失效；回饋 browser e2e DoD、V5-U stale-dev-server、與 2q/2k 同構 |
 | **3a** | [`3a-kaizenwms-spawn-friction-skip-loop.md`](3a-kaizenwms-spawn-friction-skip-loop.md) | 负向＋同日正向 | **主反例**：Cursor 機械 bootstrap／primary_source gate 讓 fresh Task 跑不起來 → 誤讀成「三角色被擋」→ 放棄 E／V；consumer §2.1 fallback＋shell-nav Phase 1 正向對照 |
+| **3b** | [`3b-kaizenwms-multi-round-arbitration-maturity.md`](3b-kaizenwms-multi-round-arbitration-maturity.md) | 正向成熟度 | KaizenWMS SPA mobile 多輪獨立 V：backfill ownership、gate-scope 假綠、vacuous e2e、拒絕 planted-async、orchestrator 契約自傷 |
+| **3c** | [`3c-kaizenwms-archived-adoption-batch.md`](3c-kaizenwms-archived-adoption-batch.md) | 批次收割 | archived／MES 完成計畫：`implementation_done` 誠實降級、list-detail／shell-nav／MES naming；portfolio mixed close_kind |
 | 2e | [`2e-grandfather-sunset-audit.md`](2e-grandfather-sunset-audit.md) | 完成 | Research 域 grandfather sunset；Q6/Q7/Q8 跨域观察 |
 
 > **漸進遷移**：2026-07-09 起新證據進本目錄；kit 保留傳輸模板與精簡指標。
