@@ -36,7 +36,10 @@ Ai-skill 本體只負責 **Adapter**（組 `Context`、接 commit-msg／CI／CLI
 ```bash
 ai-skill kge check [--root PATH]              # validation + advisory summary (D9)
 ai-skill kge validate [--root PATH] [--advisory]  # validation; --advisory = full list
+ai-skill kge diagnose [--root PATH]           # IDE/MCP JSON diagnostics (full)
 ```
+
+Ai-skill git adapters（不在本目錄）：commit-msg = advisory **count-only**；pre-push = `kge check`。
 
 ## 與 Ai-skill 的關係
 

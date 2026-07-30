@@ -2625,20 +2625,20 @@ func runCommitMsgHook(result Result, root string, positional []string) Result {
 	}
 	if strings.Contains(text, "### Cognitive Mode 報告") {
 		result.Checks = append(result.Checks, Check{Name: "cognitive_mode_block", Status: "ok", Message: "Cognitive Mode 報告 present + Phase 3 validators passed"})
-		return result
+		return attachKGEAdvisoryCount(result, root, staged)
 	}
 	for _, line := range strings.Split(text, "\n") {
 		if parseCompactCognitiveLine(line) != nil {
 			result.Checks = append(result.Checks, Check{Name: "cognitive_mode_block", Status: "ok", Message: "Cognitive Contract v2 compact form present (all dims at default)"})
-			return result
+			return attachKGEAdvisoryCount(result, root, staged)
 		}
 		if strings.TrimSpace(line) == "[skip-cognitive-mode]" {
 			result.Checks = append(result.Checks, Check{Name: "cognitive_mode_block", Status: "skipped", Message: "[skip-cognitive-mode] opt-out marker present on its own line"})
-			return result
+			return attachKGEAdvisoryCount(result, root, staged)
 		}
 	}
 	result.Checks = append(result.Checks, Check{Name: "cognitive_mode_block", Status: "ok", Message: "commit-msg governance passed"})
-	return result
+	return attachKGEAdvisoryCount(result, root, staged)
 }
 
 // parseCognitiveModeBlock extracts the 4-dim mode resolution from a Cognitive
@@ -4142,6 +4142,13 @@ func runPrePushHook(result Result, root string) Result {
 			Message:     replayMsg,
 			Remediation: pushGovernanceReplayRemediation,
 		}
+		return result
+	}
+
+	// D9 watershed: same presentation as `ai-skill kge check`.
+	// Validation errors block; advisory summary never blocks alone.
+	result = attachKGECheck(result, root)
+	if result.Status == "blocked" {
 		return result
 	}
 

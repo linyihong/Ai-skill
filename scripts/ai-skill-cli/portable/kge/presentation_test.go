@@ -41,6 +41,20 @@ func TestFormatCommitSummary(t *testing.T) {
 	}
 }
 
+func TestFormatIDEDiagnosticsJSON(t *testing.T) {
+	findings := []Finding{
+		{RuleID: "rule.document_sizing", Severity: SeverityWarning, Path: "docs/big.md", Code: "document_sizing_hard", Message: "too long"},
+		{RuleID: "rule.x", Severity: SeverityError, Message: "blocked"},
+	}
+	out, err := FormatIDEDiagnosticsJSON(findings)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(out, `"path": "docs/big.md"`) || !strings.Contains(out, `"severity": "error"`) {
+		t.Fatalf("unexpected diagnostics JSON:\n%s", out)
+	}
+}
+
 func TestRunAvailable_SkipsMissingCaps(t *testing.T) {
 	eng := NewEngine(CognitiveCostRule{}, DocumentSizingRule{})
 	ctx := Context{

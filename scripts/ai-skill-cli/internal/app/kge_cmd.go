@@ -10,11 +10,11 @@ import (
 	"github.com/linyihong/Ai-skill/scripts/ai-skill-cli/portable/kge"
 )
 
-// runKge dispatches `ai-skill kge <check|validate>`.
+// runKge dispatches `ai-skill kge <check|validate|diagnose>`.
 // Presentation follows plan D9 Adapter Presentation Policy.
 func runKge(args []string, stdout io.Writer, stderr io.Writer) int {
 	if len(args) == 0 {
-		_, _ = fmt.Fprintln(stderr, "usage: ai-skill kge <check|validate> [--root PATH] [--advisory]")
+		_, _ = fmt.Fprintln(stderr, "usage: ai-skill kge <check|validate|diagnose> [--root PATH] [--advisory]")
 		return ExitInvalidUsage
 	}
 	cmd := args[0]
@@ -33,9 +33,10 @@ func runKge(args []string, stdout io.Writer, stderr io.Writer) int {
 		case "--advisory":
 			advisory = true
 		case "-h", "--help":
-			_, _ = fmt.Fprintln(stdout, "usage: ai-skill kge <check|validate> [--root PATH] [--advisory]")
+			_, _ = fmt.Fprintln(stdout, "usage: ai-skill kge <check|validate|diagnose> [--root PATH] [--advisory]")
 			_, _ = fmt.Fprintln(stdout, "  check     validation + advisory summary (push watershed; advisory does not fail)")
 			_, _ = fmt.Fprintln(stdout, "  validate  validation only; add --advisory for full advisory list")
+			_, _ = fmt.Fprintln(stdout, "  diagnose  IDE/MCP JSON diagnostics (full findings, all severities)")
 			return ExitSuccess
 		default:
 			_, _ = fmt.Fprintf(stderr, "unknown flag or arg: %s\n", rest[i])
@@ -80,6 +81,17 @@ func runKge(args []string, stdout io.Writer, stderr io.Writer) int {
 		_, _ = fmt.Fprintln(stdout, "Validation ok.")
 		if advisory {
 			_, _ = fmt.Fprintln(stdout, kge.FormatAdvisoryFull(findings))
+		}
+		return ExitSuccess
+	case "diagnose":
+		payload, encErr := kge.FormatIDEDiagnosticsJSON(findings)
+		if encErr != nil {
+			_, _ = fmt.Fprintf(stderr, "encode diagnostics: %v\n", encErr)
+			return ExitGeneralFailure
+		}
+		_, _ = fmt.Fprintln(stdout, payload)
+		if kge.Blocking(findings) {
+			return ExitValidationFailed
 		}
 		return ExitSuccess
 	default:

@@ -33,6 +33,8 @@ revision:
     note: "D9 Adapter Presentation Policy — Q6 改問法並拍板：Severity×Adapter=Presentation；commit=checkpoint（count+pointer）；push/kge check=watershed summary；IDE=完整 advisory；validate --advisory=完整"
   - date: 2026-07-30
     note: "Phase 2b+4 slice — document_sizing advisory rule；ai-skill kge check/validate --advisory；D9 presentation helpers；RunAvailable"
+  - date: 2026-07-30
+    note: "D9 git+IDE adapters — commit-msg advisory count-only；pre-push 掛 kge check；ai-skill kge diagnose JSON；Finding.Path；Windows /tmp→os.TempDir 已修"
 ---
 
 # Knowledge Governance Engine（知識治理引擎）
@@ -684,13 +686,13 @@ Graduation：Phase 0 Exit 通過後進 Phase 1；若長期卡住則修 hypothesi
 | T13 | Phase 2b：document_sizing advisory Finding + D9 呈現 | **done**（rule + `kge check`/`validate --advisory`） |
 | T14 | 明確不把 neutral_language 做成 KGE block（對齊 not_mechanizable） | **done** |
 | T15 | Q6 / Adapter Presentation Policy | **done（D9）** |
-| T16 | 實作 `kge check` + commit-msg advisory count path + pre-push 掛載 | **partial** — CLI check/validate ✅；commit-msg count + pre-push 掛載 pending |
+| T16 | 實作 `kge check` + commit-msg advisory count path + pre-push 掛載 | **done** — CLI check/validate/diagnose；commit-msg count；pre-push `kge check` |
 
 ---
 
 ## Next Action
 
-1. **接上 git**：commit-msg advisory **count-only** 路徑；pre-push 呼叫 `ai-skill kge check`。
-2. Phase 2a：繼續遷 mechanical validators。
-3. IDE diagnostic adapter（D9 最佳體驗）可另開。
-4. Plans pack 仍 Later。
+1. Phase 2a：繼續遷 mechanical validators。
+2. CI full advisory report（D9 CI 列）。
+3. Plans pack 仍 Later。
+4. IDE host 接線（Cursor/VS Code task 呼叫 `kge diagnose`）可另開。

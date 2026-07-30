@@ -48,6 +48,7 @@ type Finding struct {
 	Severity Severity
 	Message  string
 	Code     string // stable machine code when useful
+	Path     string // optional repo-relative path for IDE / MCP diagnostics
 }
 
 // Rule is a pure Validate(Context) → Findings contract.

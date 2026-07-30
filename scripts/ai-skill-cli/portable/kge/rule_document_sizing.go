@@ -49,6 +49,7 @@ func (r DocumentSizingRule) Validate(ctx Context) []Finding {
 				RuleID:   r.ID(),
 				Severity: SeverityWarning,
 				Code:     "document_sizing_hard",
+				Path:     path,
 				Message:  fmt.Sprintf("document sizing: %s is %d lines (≥ %d caution); consider splitting into a folder with a single-purpose index (governance/document-sizing.md)", path, n, hard),
 			})
 		case n >= soft:
@@ -56,6 +57,7 @@ func (r DocumentSizingRule) Validate(ctx Context) []Finding {
 				RuleID:   r.ID(),
 				Severity: SeverityWarning,
 				Code:     "document_sizing_soft",
+				Path:     path,
 				Message:  fmt.Sprintf("document sizing: %s is %d lines (≥ %d); check whether topics should stay single-purpose or split", path, n, soft),
 			})
 		}

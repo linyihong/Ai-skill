@@ -1,6 +1,7 @@
 package kge
 
 import (
+	"encoding/json"
 	"fmt"
 	"strings"
 )
@@ -107,4 +108,52 @@ func shortLabel(f Finding) string {
 		return f.RuleID + ": " + msg
 	}
 	return f.Message
+}
+
+// Diagnostic is one IDE / MCP problems-panel row (D9 full advisory surface).
+type Diagnostic struct {
+	Severity string `json:"severity"` // error | warning | info
+	Path     string `json:"path,omitempty"`
+	Message  string `json:"message"`
+	RuleID   string `json:"rule_id,omitempty"`
+	Code     string `json:"code,omitempty"`
+}
+
+// FormatIDEDiagnostics maps findings to IDE diagnostics (full list, all severities).
+func FormatIDEDiagnostics(findings []Finding) []Diagnostic {
+	out := make([]Diagnostic, 0, len(findings))
+	for _, f := range findings {
+		sev := string(f.Severity)
+		if sev == "" {
+			sev = string(SeverityInfo)
+		}
+		out = append(out, Diagnostic{
+			Severity: sev,
+			Path:     f.Path,
+			Message:  f.Message,
+			RuleID:   f.RuleID,
+			Code:     f.Code,
+		})
+	}
+	return out
+}
+
+// FormatIDEDiagnosticsJSON is the machine-readable IDE adapter payload.
+func FormatIDEDiagnosticsJSON(findings []Finding) (string, error) {
+	b, err := json.MarshalIndent(FormatIDEDiagnostics(findings), "", "  ")
+	if err != nil {
+		return "", err
+	}
+	return string(b), nil
+}
+
+// AdvisoryRules returns DefaultRules filtered to KindAdvisory (commit-msg count path).
+func AdvisoryRules() []Rule {
+	var out []Rule
+	for _, r := range DefaultRules() {
+		if r.Kind() == KindAdvisory {
+			out = append(out, r)
+		}
+	}
+	return out
 }
