@@ -2999,18 +2999,7 @@ func deriveCognitiveCost(executionMode, contextMode string) string {
 }
 
 func validateCognitiveCost(modes map[string]string) string {
-	declared := modes["cognitive_cost"]
-	if declared == "" {
-		return "cognitive_cost missing from Cognitive Contract v2 block"
-	}
-	derived := deriveCognitiveCost(modes["execution_mode"], modes["context_mode"])
-	if derived == "" {
-		return "cognitive_cost: cannot derive cost for execution_mode=" + modes["execution_mode"] + " context_mode=" + modes["context_mode"]
-	}
-	if declared != derived {
-		return "cognitive_cost mismatch: declared=" + declared + " derived=" + derived + " for execution_mode=" + modes["execution_mode"] + " context_mode=" + modes["context_mode"]
-	}
-	return ""
+	return runKGECognitiveCost(modes)
 }
 
 func parseActivationSignals(text string, modes map[string]string) []string {
@@ -3365,52 +3354,10 @@ func validateBootstrapEntryThinness(text string, staged []string, root string) s
 // over false positives.
 //
 // Opt-out: standalone `[skip-cli-doc-sync]` trailer line.
+// Implementation: Ai-skill adapter assembles Context (including staged
+// diff via git); portable rule lives in portable/kge (no git).
 func validateCLIDocSync(text string, staged []string, root string) string {
-	for _, line := range strings.Split(text, "\n") {
-		if strings.TrimSpace(line) == "[skip-cli-doc-sync]" {
-			return ""
-		}
-	}
-	cliSourceStaged := false
-	docStaged := false
-	for _, s := range staged {
-		if strings.HasPrefix(s, "scripts/ai-skill-cli/internal/app/") && strings.HasSuffix(s, ".go") {
-			cliSourceStaged = true
-		}
-		if s == "scripts/ai-skill-cli/docs/command-contract.md" {
-			docStaged = true
-		}
-	}
-	if !cliSourceStaged || docStaged {
-		return ""
-	}
-	// CLI Go file staged but command-contract.md not staged. Check
-	// git diff for newly added subcommand dispatch or hook handler
-	// patterns. If none, skip (pure refactor).
-	cmd := exec.Command("git", "-C", root, "diff", "--cached", "--", "scripts/ai-skill-cli/internal/app/")
-	out, err := cmd.Output()
-	if err != nil {
-		return ""
-	}
-	diff := string(out)
-	patterns := []string{
-		`+\tcase "run `,
-		`+\tcase "obligations"`,
-		`+func runCommitMsgHook`,
-		`+func runPrePushHook`,
-		`+func runPreCommitHook`,
-		`+func buildRuntimeObligationsResult`,
-	}
-	for _, p := range patterns {
-		if strings.Contains(diff, p) {
-			return "cli-doc-sync: CLI source change adds subcommand dispatch / hook handler but scripts/ai-skill-cli/docs/command-contract.md is not staged. Per runtime/cli-modification-policy.yaml gate.cli.command_contract_synced. Use [skip-cli-doc-sync] for non-contract-affecting refactors."
-		}
-	}
-	// Also flag generic new `case "` addition + `runXxxHook` function names.
-	if regexp.MustCompile(`(?m)^\+func run[A-Z][A-Za-z]+Hook\b`).MatchString(diff) {
-		return "cli-doc-sync: CLI source change adds new runXxxHook function but command-contract.md not staged. See runtime/cli-modification-policy.yaml."
-	}
-	return ""
+	return runKGECLIDocSync(text, staged, root)
 }
 
 // validateGlossaryRetroOwn enforces runtime/cli-modification-policy.yaml

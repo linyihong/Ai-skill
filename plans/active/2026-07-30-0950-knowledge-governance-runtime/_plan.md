@@ -25,11 +25,13 @@ revision:
     note: "使用者簽核 Phase 0 Exit → 進入 Phase 1（Contracts + Thin Engine）；Rule A/B 實作路徑授權"
   - date: 2026-07-30
     note: "Portable copy boundary — engine 移至 scripts/ai-skill-cli/portable/kge/（可整夾複製到外部專案）；Ai-skill 只留 Adapter wiring；刻意多檔不壓成單檔"
+  - date: 2026-07-30
+    note: "Phase 1 adapter — internal/app/kge_adapter.go 委派 cognitive_cost + cli_doc_sync；git diff 僅在 adapter；Q2 工作假設 first-party Go + 外部 copy pack"
 ---
 
 # Knowledge Governance Engine（知識治理引擎）
 
-**Status**: `in-progress`（**Phase 1** — Contracts + Thin Engine；Phase 0 ✅ 已簽核）  
+**Status**: `in-progress`（**Phase 1 Exit ✅** — adapter 已委派 Rule A/B；下一步 Phase 2 擴大遷移）  
 **Owner**: framework maintainer (linyihong)  
 **建立日期**: 2026-07-30  
 **Canonical name**: **Knowledge Governance Engine (KGE)**  
@@ -437,11 +439,13 @@ Phase 0
 
 - [x] portable `kge` contracts + engine 可編譯／有單測（`go test ./portable/kge/` 綠）
 - [x] **Copy boundary 文件化**（`portable/kge/README.md`）— 外部可整夾複製、本 repo 只串 Adapter
-- [ ] Rule A 經 KGE 路徑與既有行為等價（抽樣）— skeleton 訊息已對齊；**尚未**委派 hook
-- [x] Rule B **不**在 Rule 內呼叫 `git`；缺 `staged_diff` → `capability_missing`（單測）
-- [x] 至少一個測試入口不經 commit-msg hook 呼叫同一 Rule（package tests）
-- [ ] 本 repo hook 無行為倒退 — **尚未**改 hooks；下步雙路徑委派
-- [ ] Q2 工作假設寫下（建議：Phase 1 = first-party Go plugins only；外部 = copy pack）
+- [x] Rule A 經 KGE 路徑與既有行為等價（`validateCognitiveCost` → `runKGECognitiveCost`；app tests 綠）
+- [x] Rule B **不**在 Rule 內呼叫 `git`；缺 `staged_diff` → `capability_missing`（單測）；hook 路徑由 adapter 注入 diff
+- [x] 至少一個測試入口不經 commit-msg hook 呼叫同一 Rule（package + adapter tests）
+- [x] 本 repo hook 無行為倒退 — `go test ./internal/app/` 綠（雙路徑委派）
+- [x] Q2 工作假設：Phase 1 = **first-party Go plugins only**；外部 = **copy `portable/kge` pack**（非強制 go get）
+
+**Phase 1 技術 Exit：✅**（尚未擴大到全 obligation 遷移 — 屬 Phase 2）
 
 ---
 
@@ -497,7 +501,7 @@ Graduation：Phase 0 Exit 通過後進 Phase 1；若長期卡住則修 hypothesi
 | # | 問題 | 狀態 |
 | --- | --- | --- |
 | Q1 | 正式名？ | **Resolved: KGE** |
-| Q2 | Plugin 格式：純 YAML vs YAML+Go？Phase 1 first-party Go only？ | open（可與 Phase 0 並行，不擋 Exit） |
+| Q2 | Plugin 格式：純 YAML vs YAML+Go？Phase 1 first-party Go only？ | **Resolved (working)**: Phase 1 = first-party Go rules in `portable/kge`；外部 = copy pack（非強制 go get）；YAML plugin 格式延後 |
 | Q3 | Candidate B → 第一級目錄門檻？ | open |
 | Q4 | plans engine：併入 KGE pack vs subdomain 呼叫？ | **Deferred** — Phase 0 不搬 Plans；Q4 延到 Later—Plans pack |
 | Q5 | 第一個非-plan pack 優先序？ | **Resolved: Commit Message → README Sync → Linked Updates**（Plans later） |
@@ -542,14 +546,14 @@ Graduation：Phase 0 Exit 通過後進 Phase 1；若長期卡住則修 hypothesi
 | T7 | Phase 0 evidence/ | done |
 | T8 | 可選：`p0-capability-schema-draft.md` | deferred（caps 已在 p0-map §1） |
 | T9 | 使用者簽核 Phase 0 Exit | **done** |
-| T10 | Phase 1：portable `kge` + Rule A/B | **in progress** — `portable/kge` ✅；hook 委派 pending |
+| T10 | Phase 1：portable `kge` + Rule A/B + adapter 委派 | **done**（Exit ✅；擴大遷移 → Phase 2） |
 | T11 | Portable copy README / 邊界 | **done** |
+| T12 | Phase 2：更多 validators → KGE | pending |
 
 ---
 
 ## Next Action
 
-1. Phase 1 續：`internal/app` Adapter 委派 `portable/kge`（組 Context；`git diff` 只在 adapter）。
-2. 外部用法：複製 `portable/kge/` 整夾即可，不必引用 Ai-skill。
-3. Q2 工作假設：本 repo first-party Go；外部 copy pack（非強制 go get）。
-4. Phase 1 Exit 剩餘項過後再 Phase 2。
+1. **Phase 2 候選**：挑下一批 commit-msg validators（例：`markdown_yaml_sync`、bootstrap thinness）遷到 `portable/kge` + adapter。
+2. 可選：CLI `ai-skill kge validate`（或 `hooks` 旁路）直接餵 Context，進一步證明 Adapter 透明。
+3. Plans pack 仍 Later。
