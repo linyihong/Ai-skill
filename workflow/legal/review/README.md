@@ -96,7 +96,11 @@
 [`../research/README.md`](../research/README.md) 查證，不憑記憶斷言。
 來源：[`feedback/history/legal/common/2026-07-30_231500-verify-upstream-ip-chain-before-promising-source-delivery.md`](../../../feedback/history/legal/common/2026-07-30_231500-verify-upstream-ip-chain-before-promising-source-delivery.md)
 
-## Stage 5 — Negotiation Suggestions
+## Stage 5 — 依**簽署狀態**分流
+
+Stage 1–4 不分簽署狀態都要跑。Stage 5 的產出形狀取決於**條款還能不能改**。
+
+### 5A. 未簽署（可談判）
 
 每項風險給**可用的替代文字方向與退讓順序**，不只是「建議修改」。
 
@@ -107,6 +111,31 @@
 
 退讓順序來自 [`../strategy/README.md`](../strategy/README.md) 的 Decision Reasoning
 `Trade-offs` 欄。多輪來回時交給 [`../negotiation/README.md`](../negotiation/README.md)。
+
+### 5B. 已簽署（不可談判）
+
+**修正條文在此無收件人**——改不動。輸出改為三段：
+
+| 段 | 內容 |
+| --- | --- |
+| **1. 存續義務盤點** | 哪些條款於期間屆滿後仍有效（多數合約有存續條款清單）、**有無期間上限**、是否被排除於責任上限之外。期間屆滿 ≠ 義務結束；保密若無期間上限即為**無期限**義務 |
+| **2. 可行動事項** | 依**當前事實**，現在還來得及做什麼：證據保全、時效確認、資產盤點、義務的持續管理。**每項必須標示風險等級** |
+| **3. 下一份合約改善清單** | 「這次的問題 → 下次必爭」對照表。本份改不動，但同樣的坑會在下一份重現——這通常是已簽署 review 的**最大價值** |
+
+**可行動事項的風險分級**（不可混為一談）：
+
+| 等級 | 例 | 處理 |
+| --- | --- | --- |
+| 零風險 | 內部整理與離線備份既有紀錄、工時盤點 | 直接做 |
+| ⚠️ 具法律效果 | 對外發函、催告、正式請求 | 具催告／時效等效果並會讓對方戒備 → **先完成證據保全再諮詢當地律師** |
+| 🔴 Red tier | 代擬請求函、催告書、律師函 | **不做**，走 [`../risk-classification.md`](../risk-classification.md) 升級 |
+
+**事實狀態是輸入，不是背景**：同一條懲罰性條款，在「我方確實未履行」與「停滯可歸責於
+對方」兩種事實下威脅程度天差地遠。已簽署的 review 必須把履約進度、收款進度、停滯原因
+與歸責、對方有無主張過違約當成 intake 的一部分（見 [`../intake.md`](../intake.md) §S0-9）。
+事實更新時**就地修訂**評估並標註更新日，不要留下互相矛盾的兩份文件。
+
+來源：[`feedback/history/legal/common/2026-07-31_064500-signed-contract-review-produces-different-artifacts.md`](../../../feedback/history/legal/common/2026-07-31_064500-signed-contract-review-produces-different-artifacts.md)
 
 ## `compare` 任務的差異
 

@@ -196,8 +196,13 @@ executable contract 皆宣告 `runtime_projection.enabled: true` 並在 Phase 5 
 - [ ] **Q6**：`lifecycle/` 的 Approve → Sign → Archive 三段需要外部工具（電子簽署、文件庫）才有
       實質行為。本輪僅定義流程與交接欄位，**不**接任何外部服務。`deferred`（理由：無授權、
       無 connector；接入前需另開 plan 並取得使用者同意）
-- [ ] **Q7**：非中文法域（JP / US / EU）的官方來源清單由 agent 依 research slice 現場查證，
-      repo 只記「該查哪一類來源」而不硬寫 URL 清單，是否足夠？`still-open`
+- [x] **Q7**：非中文法域（JP / US / EU）的官方來源清單由 agent 依 research slice 現場查證，
+      repo 只記「該查哪一類來源」而不硬寫 URL 清單，是否足夠？
+      → **`resolved`（Dogfood #2 證實足夠，但需補一條形態說明）**：JP 法域實跑 11 條條文查證
+      成功，靠的是「找該法域官方資料庫的**條文級查詢介面**」這個形態知識，而非 URL 清單。
+      已把該形態（逐條查證優於整法載入、枝番條文可直接取）與「搜尋摘要不可信須落到條文原文」
+      寫入 [`research/README.md`](../../workflow/legal/research/README.md) §法域來源對照。
+      URL 仍不硬寫——會 stale，且形態知識可跨法域遷移。
 - [ ] **Q8**（stakeholder 提出，P0）：**Workflow 是否應提供 Strategy Recommendation
       （推理與最佳化建議），而不只是依使用者指定內容產生文件？**
       準據法、管轄、仲裁 vs 訴訟、付款條件、驗收方式、違約責任、IP 歸屬都存在多種合法方案。
@@ -376,6 +381,35 @@ software-delivery 的 stage 順序、不宣稱為全庫能力。達三案門檻�
 - 真實法律任務：**1／3**（本次為 `review` + 合約類；仍缺 1 個非合約任務如純法規查詢）
 - dispatch matrix 未被繞過：✅（本次）
 - Decision Support cross-domain converged case：仍 **1／3**（本次未新增 domain）
+
+## Phase 9 — Dogfood #2（已簽署之日本法契約，2026-07-31）
+
+第二個真實任務：一份**已簽署且期間已屆滿**的日本法委外開發契約，我方為受託方（個人）。
+個案評估留在業務專案。
+
+| 項目 | 結果 |
+| --- | --- |
+| 新法域 | **JP**（首次非 TW 法域）。11 條條文全部由該法域官方資料庫逐條查證 |
+| Task type | `review`，但**已簽署** → 暴露 Stage 5 的預設假設缺陷（見下） |
+| Risk tier | 🟡 Yellow（未進形式爭議）；已標明升 Red 的具體觸發條件 |
+| Citation gate | ✅ 有效。並發現一條**若憑記憶會答錯**的改正（某條的「法院不得增減」後段已刪除） |
+| 事實輸入 | 使用者中途補充履約與收款狀態 → 風險方向**反轉**（停滯可歸責於對方），評估就地修訂 |
+| Red 邊界 | ✅ 守住。未代擬任何對外請求函；稅務項目僅標示不提供意見 |
+
+### 本輪暴露的缺陷與修補
+
+| # | 缺陷 | Durable target |
+| --- | --- | --- |
+| 1 | **Stage 5 預設「產出會拿去談判」**。合約已簽署時修正條文無收件人，流程跑到第五階段即失效。 | [`review/README.md`](../../workflow/legal/review/README.md) §Stage 5 依簽署狀態分流（5A 未簽／5B 已簽三段產出＋可行動事項風險分級）；[`intake.md`](../../workflow/legal/intake.md) 新增 S0-9 與已簽署追問 |
+| 2 | **法域來源表只寫「該查哪一類」，未記查證形態**。 | [`research/README.md`](../../workflow/legal/research/README.md)：補「逐條查證優於整法載入」「枝番條文可直接取」「搜尋摘要不可信須落到條文原文」（實測曾遇摘要掛錯條號） |
+
+Open Questions **Q7 已於本輪 resolved**。
+
+### ADR Promotion Criteria 進度（更新）
+
+- 真實法律任務：**2／3**（`review`×2；仍缺 1 個**非合約**任務，如純法規查詢或純背調）
+- 跨法域驗證：✅ TW + JP，dispatch matrix 與 gate 在兩法域均未被繞過
+- Decision Support cross-domain converged case：仍 **1／3**
 
 ## Phase 7 — Close Loop
 
