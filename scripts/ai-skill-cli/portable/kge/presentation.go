@@ -17,6 +17,9 @@ func DefaultRules() []Rule {
 		GlossaryRetroOwnRule{},
 		RuntimeYamlProjectsRule{},
 		TokenBudgetRule{},
+		ExecutionModeFloorsRule{},
+		GovernanceModeConsistencyRule{},
+		MemoryModeSubdirRule{},
 	}
 }
 

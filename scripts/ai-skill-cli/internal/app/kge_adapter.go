@@ -202,6 +202,58 @@ func runKGETokenBudget(modes map[string]string, text string) string {
 	return kgeFindingsMessage(eng.Run(ctx))
 }
 
+func normalizeStagedPaths(staged []string) []string {
+	paths := make([]string, 0, len(staged))
+	for _, s := range staged {
+		paths = append(paths, filepath.ToSlash(s))
+	}
+	return paths
+}
+
+// runKGEExecutionModeFloors adapts modes + staged paths for the portable rule.
+func runKGEExecutionModeFloors(modes map[string]string, staged []string) string {
+	ctx := kge.Context{
+		Modes:       modes,
+		StagedPaths: normalizeStagedPaths(staged),
+		Provided: map[kge.CapabilityID]bool{
+			kge.CapModes:       true,
+			kge.CapStagedPaths: true,
+		},
+	}
+	eng := kge.NewEngine(kge.ExecutionModeFloorsRule{})
+	return kgeFindingsMessage(eng.Run(ctx))
+}
+
+// runKGEGovernanceModeConsistency adapts modes + staged + commit msg.
+func runKGEGovernanceModeConsistency(modes map[string]string, staged []string, text string) string {
+	ctx := kge.Context{
+		CommitMsg:   text,
+		Modes:       modes,
+		StagedPaths: normalizeStagedPaths(staged),
+		Provided: map[kge.CapabilityID]bool{
+			kge.CapCommitMsg:   true,
+			kge.CapModes:       true,
+			kge.CapStagedPaths: true,
+		},
+	}
+	eng := kge.NewEngine(kge.GovernanceModeConsistencyRule{})
+	return kgeFindingsMessage(eng.Run(ctx))
+}
+
+// runKGEMemoryModeSubdir adapts modes + staged paths for the portable rule.
+func runKGEMemoryModeSubdir(modes map[string]string, staged []string) string {
+	ctx := kge.Context{
+		Modes:       modes,
+		StagedPaths: normalizeStagedPaths(staged),
+		Provided: map[kge.CapabilityID]bool{
+			kge.CapModes:       true,
+			kge.CapStagedPaths: true,
+		},
+	}
+	eng := kge.NewEngine(kge.MemoryModeSubdirRule{})
+	return kgeFindingsMessage(eng.Run(ctx))
+}
+
 // countKGEAdvisories runs advisory-only rules (D9 commit-msg count path).
 // Does not run validation or discovery rules.
 func countKGEAdvisories(root string, staged []string) int {

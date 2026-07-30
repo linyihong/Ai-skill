@@ -146,3 +146,68 @@ func TestTokenBudgetRule(t *testing.T) {
 		t.Fatalf("want opt-out pass, got %#v", got)
 	}
 }
+
+func TestExecutionModeFloorsRule(t *testing.T) {
+	eng := NewEngine(ExecutionModeFloorsRule{})
+	ctx := Context{
+		Modes:       map[string]string{"execution_mode": "FAST"},
+		StagedPaths: []string{"enforcement/foo.md"},
+		Provided:    map[CapabilityID]bool{CapModes: true, CapStagedPaths: true},
+	}
+	if got := eng.Run(ctx); len(got) != 1 {
+		t.Fatalf("want FAST violation, got %#v", got)
+	}
+	ctx.Modes = map[string]string{"execution_mode": "DEEP", "governance_mode": "STRICT", "context_mode": "SOURCE_BACKED"}
+	ctx.StagedPaths = nil
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want DEEP ok, got %#v", got)
+	}
+	ctx.Modes = map[string]string{"execution_mode": "RECOVERY", "governance_mode": "STRICT", "context_mode": "CHECKLIST_FIRST", "memory_mode": "EPISODIC"}
+	if got := eng.Run(ctx); len(got) != 1 {
+		t.Fatalf("want RECOVERY memory violation, got %#v", got)
+	}
+}
+
+func TestGovernanceModeConsistencyRule(t *testing.T) {
+	eng := NewEngine(GovernanceModeConsistencyRule{})
+	ctx := Context{
+		CommitMsg:   "feat: x",
+		Modes:       map[string]string{"governance_mode": "LIGHT"},
+		StagedPaths: []string{"enforcement/x.md"},
+		Provided:    map[CapabilityID]bool{CapCommitMsg: true, CapModes: true, CapStagedPaths: true},
+	}
+	if got := eng.Run(ctx); len(got) != 1 {
+		t.Fatalf("want LIGHT violation, got %#v", got)
+	}
+	ctx.Modes = map[string]string{"governance_mode": "LOCKDOWN"}
+	ctx.StagedPaths = nil
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "governance_mode_lockdown_approval" {
+		t.Fatalf("want LOCKDOWN approval violation, got %#v", got)
+	}
+	ctx.CommitMsg = "feat: critical\n\n[approved-by: alice]\n"
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want LOCKDOWN ok with approval, got %#v", got)
+	}
+}
+
+func TestMemoryModeSubdirRule(t *testing.T) {
+	eng := NewEngine(MemoryModeSubdirRule{})
+	ctx := Context{
+		Modes:       map[string]string{"memory_mode": "NONE"},
+		StagedPaths: []string{"memory/episodic/foo.md"},
+		Provided:    map[CapabilityID]bool{CapModes: true, CapStagedPaths: true},
+	}
+	if got := eng.Run(ctx); len(got) != 1 {
+		t.Fatalf("want NONE violation, got %#v", got)
+	}
+	ctx.Modes = map[string]string{"memory_mode": "EPISODIC"}
+	ctx.StagedPaths = []string{"memory/episodic/foo.md"}
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want EPISODIC ok, got %#v", got)
+	}
+	ctx.Modes = map[string]string{"memory_mode": "NONE"}
+	ctx.StagedPaths = []string{"memory/README.md", "memory/retrieval-governance/activation-thresholds.md"}
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want layer doc exemption, got %#v", got)
+	}
+}

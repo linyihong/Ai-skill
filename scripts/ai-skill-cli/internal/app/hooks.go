@@ -2394,17 +2394,6 @@ var cognitiveV2Defaults = map[string]string{
 	"cognitive_cost":  "LOW",
 }
 
-func stagedRequiresDeepStrictCognitiveMode(path string) bool {
-	return strings.HasPrefix(path, "runtime/") ||
-		strings.HasPrefix(path, "scripts/ai-skill-cli/") ||
-		strings.HasPrefix(path, "governance/") ||
-		strings.HasPrefix(path, "enforcement/") ||
-		strings.HasPrefix(path, "validation/") ||
-		path == "knowledge/runtime/routing-registry.yaml" ||
-		(strings.HasPrefix(path, "workflow/") && strings.HasSuffix(path, ".yaml")) ||
-		strings.HasPrefix(path, "plans/active/")
-}
-
 // parseCompactCognitiveLine parses a v2 compact Cognitive Contract line:
 //
 //	"Cognitive: NORMAL·SUMMARY_FIRST·STANDARD·NONE / V:CHECKLIST / Cost:LOW / Sig:<signal>"
@@ -2692,90 +2681,14 @@ func parseCognitiveModeBlock(text string) map[string]string {
 // floor requirements per runtime/cognitive-modes-phase-integration.yaml.
 // Returns empty string when valid, otherwise a violation message.
 func validateExecutionModeFloors(modes map[string]string, staged []string) string {
-	exec := modes["execution_mode"]
-	gov := modes["governance_mode"]
-	ctx := modes["context_mode"]
-	mem := modes["memory_mode"]
-
-	// FAST cannot touch governance/, enforcement/, or runtime/ (auto-escalation rule)
-	if exec == "FAST" {
-		for _, f := range staged {
-			if stagedRequiresDeepStrictCognitiveMode(f) {
-				return "execution_mode=FAST forbidden when staged files touch runtime/routing/workflow-contract/active-plan/governance-critical paths (auto-escalation rule per cognitive-modes-phase-integration.yaml). File: " + f
-			}
-		}
-	}
-
-	if exec == "NORMAL" {
-		for _, f := range staged {
-			if stagedRequiresDeepStrictCognitiveMode(f) {
-				return "execution_mode=NORMAL insufficient when staged files touch runtime/routing/workflow-contract/active-plan/governance-critical paths; use DEEP or higher. File: " + f
-			}
-		}
-	}
-
-	// DEEP / FORENSIC / RECOVERY require governance_mode ≥ STRICT
-	if exec == "DEEP" || exec == "FORENSIC" || exec == "RECOVERY" {
-		if gov != "STRICT" && gov != "LOCKDOWN" {
-			return "execution_mode=" + exec + " requires governance_mode ≥ STRICT (declared: " + gov + ")"
-		}
-	}
-
-	// DEEP requires context_mode ≥ SOURCE_BACKED
-	if exec == "DEEP" && ctx != "SOURCE_BACKED" && ctx != "GRAPH_ASSISTED" {
-		return "execution_mode=DEEP requires context_mode ≥ SOURCE_BACKED (declared: " + ctx + ")"
-	}
-	// FORENSIC requires context_mode = GRAPH_ASSISTED
-	if exec == "FORENSIC" && ctx != "GRAPH_ASSISTED" {
-		return "execution_mode=FORENSIC requires context_mode=GRAPH_ASSISTED (declared: " + ctx + ")"
-	}
-	// RECOVERY requires context_mode = CHECKLIST_FIRST and memory_mode = FAILURE_REPLAY
-	if exec == "RECOVERY" {
-		if ctx != "CHECKLIST_FIRST" {
-			return "execution_mode=RECOVERY requires context_mode=CHECKLIST_FIRST (declared: " + ctx + ")"
-		}
-		if mem != "FAILURE_REPLAY" {
-			return "execution_mode=RECOVERY requires memory_mode=FAILURE_REPLAY (declared: " + mem + ")"
-		}
-	}
-
-	return ""
+	return runKGEExecutionModeFloors(modes, staged)
 }
 
 // validateGovernanceModeConsistency implements Phase 3.3-B: enforce that the
 // declared governance_mode matches the sensitivity of staged files, and that
 // LOCKDOWN commits carry an [approved-by: ...] trailer.
 func validateGovernanceModeConsistency(modes map[string]string, staged []string, text string) string {
-	gov := modes["governance_mode"]
-	if gov == "" {
-		return "governance_mode missing from Cognitive Mode block"
-	}
-
-	// LIGHT/STANDARD: forbidden when staged files touch governance-critical paths
-	if gov == "LIGHT" || gov == "STANDARD" {
-		for _, f := range staged {
-			if stagedRequiresDeepStrictCognitiveMode(f) {
-				return "governance_mode=" + gov + " forbidden when staged files include runtime/routing/workflow-contract/active-plan/governance-critical paths; use STRICT or LOCKDOWN. File: " + f
-			}
-		}
-	}
-
-	// LOCKDOWN: require explicit [approved-by: <name>] trailer line
-	if gov == "LOCKDOWN" {
-		hasApproval := false
-		for _, line := range strings.Split(text, "\n") {
-			trimmed := strings.TrimSpace(line)
-			if strings.HasPrefix(trimmed, "[approved-by:") && strings.HasSuffix(trimmed, "]") {
-				hasApproval = true
-				break
-			}
-		}
-		if !hasApproval {
-			return "governance_mode=LOCKDOWN requires an [approved-by: <name>] trailer line in the commit body"
-		}
-	}
-
-	return ""
+	return runKGEGovernanceModeConsistency(modes, staged, text)
 }
 
 // validateMemoryModeSubdir implements Phase 3.4-B: enforce that staged memory/
@@ -2784,47 +2697,7 @@ func validateGovernanceModeConsistency(modes map[string]string, staged []string,
 // memory/decision/; FAILURE_REPLAY → memory/failure/; PROJECT_CONTEXT →
 // memory/project/.
 func validateMemoryModeSubdir(modes map[string]string, staged []string) string {
-	mem := modes["memory_mode"]
-	allowedPrefix := ""
-	switch mem {
-	case "NONE":
-		allowedPrefix = "" // any memory/ touch is a violation
-	case "EPISODIC":
-		allowedPrefix = "memory/episodic/"
-	case "DECISION_REPLAY":
-		allowedPrefix = "memory/decision/"
-	case "FAILURE_REPLAY":
-		allowedPrefix = "memory/failure/"
-	case "PROJECT_CONTEXT":
-		allowedPrefix = "memory/project/"
-	default:
-		// Unknown mode value — let block-presence validator handle absence; tolerate unrecognized strings here
-		return ""
-	}
-
-	// memory/README.md and memory/retrieval-governance/ are layer-level docs and
-	// are not subject to the per-mode subdir restriction (they describe the layer
-	// itself, not memory content).
-	isLayerDoc := func(f string) bool {
-		return f == "memory/README.md" ||
-			strings.HasPrefix(f, "memory/retrieval-governance/")
-	}
-
-	for _, f := range staged {
-		if !strings.HasPrefix(f, "memory/") {
-			continue
-		}
-		if isLayerDoc(f) {
-			continue
-		}
-		if mem == "NONE" {
-			return "memory_mode=NONE but commit touches " + f + " (NONE forbids all memory/ writes per cognitive-modes-memory-integration.yaml)"
-		}
-		if !strings.HasPrefix(f, allowedPrefix) {
-			return "memory_mode=" + mem + " allows only " + allowedPrefix + " but commit touches " + f
-		}
-	}
-	return ""
+	return runKGEMemoryModeSubdir(modes, staged)
 }
 
 // validatePlanStatusSync implements runtime/plan-status-sync-enforcement.yaml:
