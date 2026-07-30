@@ -23,6 +23,8 @@ func DefaultRules() []Rule {
 		ActivationSignalsRule{},
 		CapabilitySnippetRule{},
 		AdaptiveTriggersRule{},
+		EvidenceHierarchyRule{},
+		PlanStatusSyncRule{},
 	}
 }
 

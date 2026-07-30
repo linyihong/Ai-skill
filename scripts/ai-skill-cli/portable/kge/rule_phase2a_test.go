@@ -311,3 +311,54 @@ func TestAdaptiveTriggersRule(t *testing.T) {
 		t.Fatalf("want opt-out pass, got %#v", got)
 	}
 }
+
+func TestEvidenceHierarchyRule(t *testing.T) {
+	eng := NewEngine(EvidenceHierarchyRule{})
+	ctx := Context{
+		CommitMsg:   "feat(x): Phase 1 完成",
+		StagedPaths: []string{"scripts/ai-skill-cli/internal/app/x.go"},
+		Provided:    map[CapabilityID]bool{CapCommitMsg: true, CapStagedPaths: true},
+	}
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "evidence_hierarchy" {
+		t.Fatalf("want evidence hierarchy violation, got %#v", got)
+	}
+	ctx.CommitMsg = "feat(x): done — tests pass and fixture green"
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want evidence pass, got %#v", got)
+	}
+	ctx.CommitMsg = "feat(x): Phase 1 complete\n\n[skip-evidence-hierarchy]\n"
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want opt-out pass, got %#v", got)
+	}
+	ctx.CommitMsg = "docs: Phase 1 complete"
+	ctx.StagedPaths = []string{"README.md"}
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want doc-only bypass, got %#v", got)
+	}
+}
+
+func TestPlanStatusSyncRule(t *testing.T) {
+	eng := NewEngine(PlanStatusSyncRule{})
+	body := "feat: Phase 3 完成\n\nSee plans/active/2026-05-22-1629-runtime-cognitive-modes-system.md"
+	ctx := Context{
+		CommitMsg:   body,
+		StagedPaths: []string{"scripts/ai-skill-cli/internal/app/hooks.go"},
+		Provided:    map[CapabilityID]bool{CapCommitMsg: true, CapStagedPaths: true},
+	}
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "plan_status_sync" {
+		t.Fatalf("want plan status violation, got %#v", got)
+	}
+	ctx.StagedPaths = []string{"plans/active/2026-05-22-1629-runtime-cognitive-modes-system.md"}
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want staged plan pass, got %#v", got)
+	}
+	ctx.CommitMsg = "docs: see plans/active/foo.md for context\n\nPhase 3 context"
+	ctx.StagedPaths = nil
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want no completion trigger, got %#v", got)
+	}
+	ctx.CommitMsg = body + "\n\n[skip-plan-status-sync]\n"
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want opt-out pass, got %#v", got)
+	}
+}

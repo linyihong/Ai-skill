@@ -299,6 +299,34 @@ func runKGEAdaptiveTriggers(modes map[string]string, text string) string {
 	return kgeFindingsMessage(eng.Run(ctx))
 }
 
+// runKGEEvidenceHierarchy adapts commit message + staged paths for the portable rule.
+func runKGEEvidenceHierarchy(text string, staged []string) string {
+	ctx := kge.Context{
+		CommitMsg:   text,
+		StagedPaths: staged,
+		Provided: map[kge.CapabilityID]bool{
+			kge.CapCommitMsg:   true,
+			kge.CapStagedPaths: true,
+		},
+	}
+	eng := kge.NewEngine(kge.EvidenceHierarchyRule{})
+	return kgeFindingsMessage(eng.Run(ctx))
+}
+
+// runKGEPlanStatusSync adapts commit message + staged paths for the portable rule.
+func runKGEPlanStatusSync(text string, staged []string) string {
+	ctx := kge.Context{
+		CommitMsg:   text,
+		StagedPaths: staged,
+		Provided: map[kge.CapabilityID]bool{
+			kge.CapCommitMsg:   true,
+			kge.CapStagedPaths: true,
+		},
+	}
+	eng := kge.NewEngine(kge.PlanStatusSyncRule{})
+	return kgeFindingsMessage(eng.Run(ctx))
+}
+
 // countKGEAdvisories runs advisory-only rules (D9 commit-msg count path).
 // Does not run validation or discovery rules.
 func countKGEAdvisories(root string, staged []string) int {

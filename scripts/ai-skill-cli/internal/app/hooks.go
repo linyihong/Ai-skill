@@ -2701,81 +2701,16 @@ func validateMemoryModeSubdir(modes map[string]string, staged []string) string {
 	return runKGEMemoryModeSubdir(modes, staged)
 }
 
-// validatePlanStatusSync implements runtime/plan-status-sync-enforcement.yaml:
-// when a commit body claims phase/milestone completion AND references an active
-// plan file by path, that plan file MUST be in the staged set.
+// validatePlanStatusSync implements runtime/plan-status-sync-enforcement.yaml
+// (portable/kge.PlanStatusSyncRule). Opt-out: [skip-plan-status-sync].
 //
-// Trigger composition (all three required to fire):
-//  1. ≥1 completion vocabulary word
-//  2. ≥1 "Phase <num>" / "phase <num>" reference
-//  3. ≥1 plans/active/<f>.md path reference
-//
-// Opt-out: standalone "[skip-plan-status-sync]" trailer line.
+// planPathRE remains here for validatePlanCheckboxSync until that rule migrates.
 var (
-	planPathRE        = regexp.MustCompile(`plans/active/[^\s)"\]]+\.md`)
-	phaseMentionRE    = regexp.MustCompile(`(?i)Phase\s+\d+(?:\.\d+)?(?:[\.-][A-Za-z]+)?`)
-	completionPhrases = []string{
-		"complete", "completed", "completes", "done", "finish", "finished",
-		"完成", "結案", "結束", "✅",
-	}
+	planPathRE = regexp.MustCompile(`plans/active/[^\s)"\]]+\.md`)
 )
 
 func validatePlanStatusSync(text string, staged []string) string {
-	// Opt-out marker on its own line
-	for _, line := range strings.Split(text, "\n") {
-		if strings.TrimSpace(line) == "[skip-plan-status-sync]" {
-			return ""
-		}
-	}
-
-	// Trigger 1: completion vocabulary
-	hasCompletion := false
-	lowered := strings.ToLower(text)
-	for _, phrase := range completionPhrases {
-		if strings.Contains(lowered, strings.ToLower(phrase)) {
-			hasCompletion = true
-			break
-		}
-	}
-	if !hasCompletion {
-		return ""
-	}
-
-	// Trigger 2: Phase N mention
-	if !phaseMentionRE.MatchString(text) {
-		return ""
-	}
-
-	// Trigger 3: plans/active/*.md reference
-	planRefs := planPathRE.FindAllString(text, -1)
-	if len(planRefs) == 0 {
-		return ""
-	}
-
-	// Trigger fired. Each referenced plan must be in staged set.
-	stagedSet := make(map[string]bool, len(staged))
-	for _, s := range staged {
-		stagedSet[s] = true
-	}
-	var missing []string
-	seen := map[string]bool{}
-	for _, ref := range planRefs {
-		// Normalize: strip trailing markdown link garbage
-		clean := strings.TrimRight(ref, "),]\"")
-		if seen[clean] {
-			continue
-		}
-		seen[clean] = true
-		if !stagedSet[clean] {
-			missing = append(missing, clean)
-		}
-	}
-	if len(missing) == 0 {
-		return ""
-	}
-	return "plan-status-sync: commit body claims phase completion and references " +
-		strings.Join(missing, ", ") +
-		" but the plan file is not in the staged set. Update the plan's Phase section in the same commit (runtime/plan-status-sync-enforcement.yaml). Use a [skip-plan-status-sync] trailer for retrospective references."
+	return runKGEPlanStatusSync(text, staged)
 }
 
 // validateTokenBudget implements runtime/cognitive-modes-token-budget.yaml:
@@ -2959,73 +2894,12 @@ func validateGlossaryRetroOwn(text string, staged []string, root string) string 
 	return runKGEGlossaryRetroOwn(text, staged)
 }
 
-// validateRuntimeYamlProjects enforces the rule "every runtime/*.yaml
-// must declare runtime_projection.enabled: true AND target_key". Plans
-// that intentionally defer projection must include §Deferred Runtime
-// Projection in plan AND use [skip-runtime-yaml-projection] opt-out.
-//
-// Opt-out: standalone `[skip-runtime-yaml-projection]` trailer line.
 // validateEvidenceHierarchy consumes the executable contract
-// enforcement.evidence_hierarchy.contract (source:
-// enforcement/evidence-hierarchy.yaml). When a commit message body asserts
-// task completion via success-claim vocabulary AND the staged set contains
-// real work, the body MUST also cite at least one piece of evidence
-// (test pass / fixture green / scenario id / audit/validate output / commit
-// hash reference). Prevents inflated-reporting failure mode where "完成 /
-// done / ✅" is asserted without supporting evidence — exactly the failure
-// case enforcement/evidence-hierarchy.md §confidence_integrity flags.
-//
-// Wires route.governance.cognitive-state-evidence to a commit-msg validator
-// per Phase 4 of plans/active/2026-05-28-1200-gen3-runtime-trigger-audit-and-completion.md.
-//
-// Opt-out: standalone `[skip-evidence-hierarchy]` trailer for genuine
-// recovery / rollback / pre-existing-evidence commits where citing evidence
-// would be circular.
+// enforcement.evidence_hierarchy.contract (portable/kge.EvidenceHierarchyRule).
+// Opt-out: [skip-evidence-hierarchy].
 func validateEvidenceHierarchy(text string, staged []string, root string) string {
-	for _, line := range strings.Split(text, "\n") {
-		if strings.TrimSpace(line) == "[skip-evidence-hierarchy]" {
-			return ""
-		}
-	}
-	lower := strings.ToLower(text)
-	hasSuccessClaim := false
-	for _, phrase := range []string{"complete", "completed", "done", "✅", "完成", "結案"} {
-		if strings.Contains(lower, strings.ToLower(phrase)) {
-			hasSuccessClaim = true
-			break
-		}
-	}
-	if !hasSuccessClaim {
-		return ""
-	}
-	hasCodeWork := false
-	for _, s := range staged {
-		if strings.HasSuffix(s, ".go") ||
-			strings.HasPrefix(s, "validation/scenarios/") ||
-			strings.HasPrefix(s, "runtime/") ||
-			strings.HasPrefix(s, "governance/") ||
-			strings.HasPrefix(s, "enforcement/") {
-			hasCodeWork = true
-			break
-		}
-	}
-	if !hasCodeWork {
-		return ""
-	}
-	// Honour the enforcement.evidence_hierarchy.contract activation events
-	// from enforcement/evidence-hierarchy.yaml by requiring an evidence
-	// citation in the body. Any of these substrings counts as evidence.
-	evidenceMarkers := []string{
-		"test pass", "tests pass", "tests green", "fixture", "go test", "all green",
-		"exit 0", "scenario", "audit", "runtime validate", "validate pass",
-		"commit ", "based on", "per commit", "evidence", "證據",
-	}
-	for _, m := range evidenceMarkers {
-		if strings.Contains(lower, m) {
-			return ""
-		}
-	}
-	return "evidence-hierarchy: commit body asserts task completion (e.g., 完成 / done / ✅) without citing evidence — required by enforcement.evidence_hierarchy.contract §confidence_integrity (source: enforcement/evidence-hierarchy.yaml). Add at least one evidence reference (test pass / fixture / scenario id / audit/validate output / commit hash). Use `[skip-evidence-hierarchy]` (standalone trailer) for recovery / rollback / pre-existing-evidence commits."
+	_ = root // retained for registry signature parity; rule is git-free
+	return runKGEEvidenceHierarchy(text, staged)
 }
 
 // validatePlanCheckboxSync ensures that when a commit references a plan under
