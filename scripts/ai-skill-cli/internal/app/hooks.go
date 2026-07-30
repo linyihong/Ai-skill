@@ -2920,64 +2920,7 @@ func validatePlanStatusSync(text string, staged []string) string {
 var tokenEstimateRE = regexp.MustCompile(`(?i)Token\s+Estimate:\s*(\d+)`)
 
 func validateTokenBudget(modes map[string]string, text string) string {
-	// Opt-out marker on its own line
-	for _, line := range strings.Split(text, "\n") {
-		if strings.TrimSpace(line) == "[skip-token-budget]" {
-			return ""
-		}
-	}
-
-	match := tokenEstimateRE.FindStringSubmatch(text)
-	if len(match) < 2 {
-		// No declared estimate → no-op (validator is opt-in for this turn)
-		return ""
-	}
-	estimate := 0
-	for _, c := range match[1] {
-		estimate = estimate*10 + int(c-'0')
-	}
-
-	exec := modes["execution_mode"]
-	ctx := modes["context_mode"]
-	gov := modes["governance_mode"]
-	mem := modes["memory_mode"]
-
-	// Exact tuple budgets per runtime/cognitive-modes-token-budget.yaml §budgets
-	exactBudgets := map[string]int{
-		"FAST|INDEX_ONLY|LIGHT|NONE":                    1000,
-		"NORMAL|SUMMARY_FIRST|STANDARD|EPISODIC":        5000,
-		"DEEP|SOURCE_BACKED|STRICT|DECISION_REPLAY":     20000,
-		"FORENSIC|GRAPH_ASSISTED|STRICT|FAILURE_REPLAY": 50000,
-	}
-	// Default budget by execution_mode (when exact tuple not found)
-	execDefaults := map[string]int{
-		"FAST":     1000,
-		"NORMAL":   5000,
-		"DEEP":     20000,
-		"FORENSIC": 50000,
-		"RECOVERY": 50000,
-	}
-
-	key := exec + "|" + ctx + "|" + gov + "|" + mem
-	budget, ok := exactBudgets[key]
-	if !ok {
-		budget, ok = execDefaults[exec]
-		if !ok {
-			// Unknown execution_mode → no enforcement
-			return ""
-		}
-	}
-
-	if estimate > budget {
-		return "token_budget: declared Token Estimate=" + itoa(estimate) +
-			" exceeds budget=" + itoa(budget) +
-			" for mode tuple (execution_mode=" + exec +
-			", context_mode=" + ctx +
-			", governance_mode=" + gov +
-			", memory_mode=" + mem +
-			"). Downgrade context_mode (GRAPH_ASSISTED → SOURCE_BACKED → CHECKLIST_FIRST → SUMMARY_FIRST → INDEX_ONLY) or split the work. Use [skip-token-budget] only if exceptional."
-	}
-	return ""
+	return runKGETokenBudget(modes, text)
 }
 
 // deriveCognitiveCost implements runtime/cognitive-modes-cost-class.yaml:
@@ -3299,31 +3242,7 @@ func validateCLIDocSync(text string, staged []string, root string) string {
 // Source: plans/active/2026-05-25-1000-context-language-glossary-system.md
 // Phase 6.
 func validateGlossaryRetroOwn(text string, staged []string, root string) string {
-	for _, line := range strings.Split(text, "\n") {
-		if strings.TrimSpace(line) == "[skip-glossary-retro-own]" {
-			return ""
-		}
-	}
-	frameworkSurfaceStaged := false
-	glossaryStaged := false
-	for _, s := range staged {
-		if strings.HasPrefix(s, "runtime/cognitive-modes") && strings.HasSuffix(s, ".yaml") {
-			frameworkSurfaceStaged = true
-		}
-		if strings.HasPrefix(s, "runtime/economics/") {
-			frameworkSurfaceStaged = true
-		}
-		if strings.HasPrefix(s, "ecosystem/") {
-			frameworkSurfaceStaged = true
-		}
-		if s == "knowledge/glossary/ai-skill.md" {
-			glossaryStaged = true
-		}
-	}
-	if !frameworkSurfaceStaged || glossaryStaged {
-		return ""
-	}
-	return "glossary-retro-own: staged change touches framework cognitive vocabulary surface (runtime/cognitive-modes*.yaml, runtime/economics/, ecosystem/) but knowledge/glossary/ai-skill.md is not staged. Per plans/active/2026-05-25-1000-context-language-glossary-system.md Phase 6 and runtime/cli-modification-policy.yaml gate.glossary.retro_own_required, new framework terms must retro-own a canonical glossary entry. Use [skip-glossary-retro-own] (standalone trailer line) if this change is a typo / refactor / comment-only edit and introduces no new term."
+	return runKGEGlossaryRetroOwn(text, staged)
 }
 
 // validateRuntimeYamlProjects enforces the rule "every runtime/*.yaml
@@ -3786,37 +3705,7 @@ func stagedDiff(root, rel string) (string, error) {
 }
 
 func validateRuntimeYamlProjects(text string, staged []string, root string) string {
-	for _, line := range strings.Split(text, "\n") {
-		if strings.TrimSpace(line) == "[skip-runtime-yaml-projection]" {
-			return ""
-		}
-	}
-	var violations []string
-	for _, s := range staged {
-		if !strings.HasPrefix(s, "runtime/") || !strings.HasSuffix(s, ".yaml") {
-			continue
-		}
-		full := s
-		if !filepath.IsAbs(full) {
-			full = filepath.Join(root, s)
-		}
-		body, err := os.ReadFile(full)
-		if err != nil {
-			continue
-		}
-		content := string(body)
-		hasProjection := strings.Contains(content, "runtime_projection:") &&
-			(strings.Contains(content, "enabled: true") || strings.Contains(content, "enabled:true"))
-		hasTargetKey := strings.Contains(content, "target_key:")
-		if !hasProjection || !hasTargetKey {
-			violations = append(violations,
-				"runtime-yaml-projects: "+s+" missing runtime_projection.enabled:true or target_key. Default rule: runtime/*.yaml must project to runtime.db. If intentional deferral, declare §Deferred Runtime Projection in plan + use [skip-runtime-yaml-projection].")
-		}
-	}
-	if len(violations) == 0 {
-		return ""
-	}
-	return strings.Join(violations, "\n  - ")
+	return runKGERuntimeYamlProjects(text, staged, root)
 }
 
 // validateMarkdownYamlSync enforces sibling-pair markdown/YAML

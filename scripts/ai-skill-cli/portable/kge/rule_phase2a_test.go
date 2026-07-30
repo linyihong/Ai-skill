@@ -79,3 +79,70 @@ func TestBootstrapEntryThinnessRule(t *testing.T) {
 		t.Fatalf("want no enforcement on non-entry, got %#v", got)
 	}
 }
+
+func TestGlossaryRetroOwnRule(t *testing.T) {
+	eng := NewEngine(GlossaryRetroOwnRule{})
+	ctx := Context{
+		CommitMsg:   "feat: x",
+		StagedPaths: []string{"runtime/cognitive-modes-discovery.yaml"},
+		Provided:    map[CapabilityID]bool{CapCommitMsg: true, CapStagedPaths: true},
+	}
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "glossary_retro_own" {
+		t.Fatalf("want glossary violation, got %#v", got)
+	}
+	ctx.StagedPaths = append(ctx.StagedPaths, "knowledge/glossary/ai-skill.md")
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want pass with glossary staged, got %#v", got)
+	}
+	ctx.StagedPaths = []string{"runtime/cognitive-modes-discovery.yaml"}
+	ctx.CommitMsg = "feat: x\n\n[skip-glossary-retro-own]\n"
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want opt-out pass, got %#v", got)
+	}
+}
+
+func TestRuntimeYamlProjectsRule(t *testing.T) {
+	eng := NewEngine(RuntimeYamlProjectsRule{})
+	ctx := Context{
+		CommitMsg:    "feat: x",
+		StagedPaths:  []string{"runtime/bad.yaml"},
+		FileContents: map[string]string{"runtime/bad.yaml": "runtime_projection:\n  enabled: false\n"},
+		Provided:     map[CapabilityID]bool{CapCommitMsg: true, CapStagedPaths: true, CapStagedContent: true},
+	}
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "runtime_yaml_projects" {
+		t.Fatalf("want projection violation, got %#v", got)
+	}
+	ctx.FileContents["runtime/bad.yaml"] = "runtime_projection:\n  enabled: true\ntarget_key: runtime.test.contract\n"
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want pass for projected yaml, got %#v", got)
+	}
+	ctx.FileContents["runtime/bad.yaml"] = "runtime_projection:\n  enabled: false\n"
+	ctx.CommitMsg = "feat: x\n\n[skip-runtime-yaml-projection]\n"
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want opt-out pass, got %#v", got)
+	}
+}
+
+func TestTokenBudgetRule(t *testing.T) {
+	eng := NewEngine(TokenBudgetRule{})
+	modes := map[string]string{
+		"execution_mode": "NORMAL", "context_mode": "SUMMARY_FIRST",
+		"governance_mode": "STANDARD", "memory_mode": "NONE",
+	}
+	ctx := Context{
+		CommitMsg: "feat: x\n\nToken Estimate: 3000\n",
+		Modes:     modes,
+		Provided:  map[CapabilityID]bool{CapCommitMsg: true, CapModes: true},
+	}
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want pass under default NORMAL budget, got %#v", got)
+	}
+	ctx.CommitMsg = "feat: x\n\nToken Estimate: 9999\n"
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "token_budget" {
+		t.Fatalf("want budget violation, got %#v", got)
+	}
+	ctx.CommitMsg = "feat: x\n\nToken Estimate: 999999\n\n[skip-token-budget]\n"
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want opt-out pass, got %#v", got)
+	}
+}

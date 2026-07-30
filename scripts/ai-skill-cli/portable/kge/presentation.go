@@ -14,6 +14,9 @@ func DefaultRules() []Rule {
 		DocumentSizingRule{},
 		MarkdownYamlSyncRule{},
 		BootstrapEntryThinnessRule{},
+		GlossaryRetroOwnRule{},
+		RuntimeYamlProjectsRule{},
+		TokenBudgetRule{},
 	}
 }
 

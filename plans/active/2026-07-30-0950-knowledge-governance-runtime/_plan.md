@@ -35,6 +35,8 @@ revision:
     note: "Phase 2b+4 slice — document_sizing advisory rule；ai-skill kge check/validate --advisory；D9 presentation helpers；RunAvailable"
   - date: 2026-07-30
     note: "D9 git+IDE adapters — commit-msg advisory count-only；pre-push 掛 kge check；ai-skill kge diagnose JSON；Finding.Path；Windows /tmp→os.TempDir 已修"
+  - date: 2026-07-30
+    note: "Phase 2a batch 2 — glossary_retro_own、runtime_yaml_projects、token_budget 遷入 portable/kge"
 ---
 
 # Knowledge Governance Engine（知識治理引擎）
@@ -682,7 +684,7 @@ Graduation：Phase 0 Exit 通過後進 Phase 1；若長期卡住則修 hypothesi
 | T9 | 使用者簽核 Phase 0 Exit | **done** |
 | T10 | Phase 1：portable `kge` + Rule A/B + adapter 委派 | **done**（Exit ✅；擴大遷移 → Phase 2） |
 | T11 | Portable copy README / 邊界 | **done** |
-| T12 | Phase 2a：更多 mechanical validators → KGE | **partial** — markdown_yaml_sync + bootstrap_entry_thinness migrated |
+| T12 | Phase 2a：更多 mechanical validators → KGE | **partial** — +glossary_retro_own, runtime_yaml_projects, token_budget |
 | T13 | Phase 2b：document_sizing advisory Finding + D9 呈現 | **done**（rule + `kge check`/`validate --advisory`） |
 | T14 | 明確不把 neutral_language 做成 KGE block（對齊 not_mechanizable） | **done** |
 | T15 | Q6 / Adapter Presentation Policy | **done（D9）** |

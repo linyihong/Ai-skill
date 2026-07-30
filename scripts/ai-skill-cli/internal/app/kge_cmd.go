@@ -113,10 +113,13 @@ func buildKGEWorkspaceContext(root string) (kge.Context, error) {
 	}
 	contents := map[string]string{}
 	for _, p := range staged {
-		if !strings.HasSuffix(strings.ToLower(p), ".md") && !strings.HasSuffix(strings.ToLower(p), ".markdown") {
+		lower := strings.ToLower(p)
+		load := strings.HasSuffix(lower, ".md") || strings.HasSuffix(lower, ".markdown") ||
+			(strings.HasPrefix(p, "runtime/") && strings.HasSuffix(lower, ".yaml"))
+		if !load {
 			continue
 		}
-		full := filepath.Join(root, p)
+		full := filepath.Join(root, filepath.FromSlash(p))
 		body, readErr := os.ReadFile(full)
 		if readErr != nil {
 			continue

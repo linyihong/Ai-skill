@@ -135,6 +135,73 @@ func runKGEBootstrapEntryThinness(text string, staged []string, root string) str
 	return kgeFindingsMessage(eng.Run(ctx))
 }
 
+// runKGEGlossaryRetroOwn adapts staged paths for glossary co-change.
+func runKGEGlossaryRetroOwn(text string, staged []string) string {
+	paths := make([]string, 0, len(staged))
+	for _, s := range staged {
+		paths = append(paths, filepath.ToSlash(s))
+	}
+	ctx := kge.Context{
+		CommitMsg:   text,
+		StagedPaths: paths,
+		Provided: map[kge.CapabilityID]bool{
+			kge.CapCommitMsg:   true,
+			kge.CapStagedPaths: true,
+		},
+	}
+	eng := kge.NewEngine(kge.GlossaryRetroOwnRule{})
+	return kgeFindingsMessage(eng.Run(ctx))
+}
+
+// runKGERuntimeYamlProjects loads staged runtime/*.yaml contents for the portable rule.
+func runKGERuntimeYamlProjects(text string, staged []string, root string) string {
+	paths := make([]string, 0, len(staged))
+	contents := map[string]string{}
+	hasRuntimeYAML := false
+	for _, s := range staged {
+		p := filepath.ToSlash(s)
+		paths = append(paths, p)
+		if !strings.HasPrefix(p, "runtime/") || !strings.HasSuffix(p, ".yaml") {
+			continue
+		}
+		hasRuntimeYAML = true
+		body, err := os.ReadFile(filepath.Join(root, filepath.FromSlash(p)))
+		if err != nil {
+			continue
+		}
+		contents[p] = string(body)
+	}
+	if !hasRuntimeYAML {
+		return ""
+	}
+	ctx := kge.Context{
+		CommitMsg:    text,
+		StagedPaths:  paths,
+		FileContents: contents,
+		Provided: map[kge.CapabilityID]bool{
+			kge.CapCommitMsg:     true,
+			kge.CapStagedPaths:   true,
+			kge.CapStagedContent: true,
+		},
+	}
+	eng := kge.NewEngine(kge.RuntimeYamlProjectsRule{})
+	return kgeFindingsMessage(eng.Run(ctx))
+}
+
+// runKGETokenBudget adapts modes + commit message for the portable rule.
+func runKGETokenBudget(modes map[string]string, text string) string {
+	ctx := kge.Context{
+		CommitMsg: text,
+		Modes:     modes,
+		Provided: map[kge.CapabilityID]bool{
+			kge.CapCommitMsg: true,
+			kge.CapModes:     true,
+		},
+	}
+	eng := kge.NewEngine(kge.TokenBudgetRule{})
+	return kgeFindingsMessage(eng.Run(ctx))
+}
+
 // countKGEAdvisories runs advisory-only rules (D9 commit-msg count path).
 // Does not run validation or discovery rules.
 func countKGEAdvisories(root string, staged []string) int {
