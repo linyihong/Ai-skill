@@ -21,7 +21,7 @@ Phase 1–7 全部完成（實作、runtime 接線、linked updates、commit + p
 | --- | --- | --- |
 | 1 | §Stakeholder 同意項目有 **4 項 ⏳ 待使用者確認**（Strategy 兩趟、Optimization Suggestion 界線、三案門檻不推廣、`lifecycle/` 不接簽署工具）。archive 會把「待簽核」靜默轉成「已決定」。 | 使用者逐項確認或否決 |
 | 2 | §Open Questions **9 條未結**（Q1、Q4–Q11）。其中 Q8／Q9／Q11 的 cross-domain promotion 明確需 **3 個 converged case**（現 1／3：legal）；Q10 需真實多輪對話觀察 Optimization Suggestion 是否退化成 repeated pushback。 | 三案門檻達成 + 真實任務觀察 |
-| 3 | §ADR Promotion Criteria **5 條全未達**（需至少 3 個真實法律任務含 1 個非合約任務跑完 lifecycle）。 | 真實任務累積 |
+| 3 | §ADR Promotion Criteria **5 條全未達**（需至少 3 個真實法律任務含 1 個非合約任務跑完 lifecycle）。**進度 1／3**（見 §Phase 8 Dogfood #1）。 | 真實任務累積 |
 
 適用 [`plans/README.md`](../README.md) §不搬移的例外情況第 1 條：Decision Support 的三案
 promotion 是**持續生效的 watch**，未來會擴充新 Phase（promotion 或降級），沒有明確的
@@ -348,6 +348,35 @@ investment 都需要同一能力，抽成共同 pattern 比多加 legal sub-flow
 **刻意不做**（避免 over-engineering）：不註冊 `route.*`、不改 travel-planning 或
 software-delivery 的 stage 順序、不宣稱為全庫能力。達三案門檻前 legal 是唯一實例。
 
+## Phase 8 — Dogfood #1（真實合約審閱，2026-07-30）
+
+第一個真實任務：一份製造執行系統開發合約的**出稿前自審**（我方為開發／供應方）。
+個案 review memo 留在業務專案，不進本庫（見 §Watch-Out List）。
+
+| 項目 | 結果 |
+| --- | --- |
+| Task type 解析 | `review`（自製稿自審），未誤判為 `draft` |
+| Jurisdiction | TW（由管轄條款推得；稿內**無準據法明文**，已列為缺漏） |
+| Risk tier | 🟡 Yellow（智財＋金額未定＋對手方為受監理產業），非 Red，未誤升 |
+| Intake gate | ✅ **有效**：總金額與交期為 `UNKNOWN`，流程**未產出替代條款文字**，只出風險清單＋7 題 blocking questions |
+| Citation gate | ✅ **有效**：Applicable Law Table 5 列全標 `unverified`，全程未編造條號 |
+| Diligence | Layer 1／2 完成（C 層來源，標 `probable` 並要求回溯 A 層）；Layer 3 九類逐項有結果含「未查」 |
+| Strategy Pass 1 | 7 個決策點，四欄齊備、全標 `provisional`、列出待查證前提 |
+| Dispatch Matrix | 實跑符合：`review` → intake + research + review + artifact-gates（＋DD，因對手方不熟悉） |
+
+### 本輪產出的 learning（已回寫）
+
+| # | Learning | Durable target |
+| --- | --- | --- |
+| 1 | 背調 Layer 2 的**營業項目會反向改變條款建議**（受監理產業 → 資料保存義務＋衍生責任排除擴充）。原 flag 表缺此項。 | [`due-diligence/README.md`](../../workflow/legal/due-diligence/README.md) 新增 `REGULATED_INDUSTRY_COUNTERPARTY` flag ＋ Layer 2 營業項目改為「問兩件事」＋ 明文定義「flag 必須對應條款調整」；lesson 見 [`feedback/history/legal/`](../../feedback/history/legal/README.md) |
+| 2 | 缺 converter／office suite 時的 OPC 文字抽取備援（先探測能力再宣告不支援） | [`feedback/history/development-guidance/common/`](../../feedback/history/development-guidance/common/)（工具環境備援，非 workflow 階段） |
+
+### ADR Promotion Criteria 進度
+
+- 真實法律任務：**1／3**（本次為 `review` + 合約類；仍缺 1 個非合約任務如純法規查詢）
+- dispatch matrix 未被繞過：✅（本次）
+- Decision Support cross-domain converged case：仍 **1／3**（本次未新增 domain）
+
 ## Phase 7 — Close Loop
 
 - [x] `git status --short --branch` / `git diff` 去敏檢查（無本機絕對路徑、無個資、無 secrets）
@@ -403,7 +432,7 @@ software-delivery 的 stage 順序、不宣稱為全庫能力。達三案門檻�
 
 ## 完成條件
 
-- [x] Phase 1–7 全部勾選
+- [x] Phase 1–8 全部勾選
 - [x] `ai-skill runtime workflow-context` 實跑證據（active_route 命中 + counter-case 不命中）
 - [x] `ai-skill runtime compile` + `refresh` 無錯
 - [x] 六個 validation scenario 存在且形狀合格

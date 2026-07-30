@@ -41,7 +41,7 @@ Output   Diligence Card          → risk flag → 條款調整建議
 | 設立日期 | 成立未久 + 大額交易 = 風險 |
 | 資本額 | 與交易金額量級是否相稱 |
 | 增減資紀錄 | 近期大幅減資是警訊 |
-| 營業項目 | 是否涵蓋本交易標的（超營業項目影響效力依法域而異） |
+| 營業項目 | **問兩件事**：(1) 是否涵蓋本交易標的（超營業項目影響效力依法域而異）；(2) **對手方是否處於受法規監理產業**（需品質管理系統、批次追溯或稽核保存義務者，例如受監理之製造、金融、醫療、食品、運輸）→ 若是且交付標的會產生追溯／履歷／稽核類資料，觸發 `REGULATED_INDUSTRY_COUNTERPARTY` |
 | 稅籍登記狀態 | 是否仍為營業中 |
 | 上市櫃公司財報 | 公開財務體質（若適用） |
 | 實質營運跡象 | 官網、聯絡方式、員工規模、實體地址是否一致 |
@@ -97,8 +97,13 @@ Output   Diligence Card          → risk flag → 條款調整建議
 | `INSOLVENCY_RISK` | 破產／重整／大幅減資／欠稅 | 預付比例、擔保、破產即為立即解除事由 |
 | `ENFORCEMENT_GAP` | 資產所在地不利執行 | 改仲裁地／要求當地擔保或母公司保證 |
 | `SCOPE_MISMATCH` | 營業項目未涵蓋本交易 | 確認締約能力；必要時加陳述與保證 |
+| `REGULATED_INDUSTRY_COUNTERPARTY` | 對手方屬受法規監理產業，且交付標的會產生其法規遵循所需的追溯／履歷／稽核資料 | (1) 增訂**資料保存期限與終止後匯出義務**；(2) 擴充責任限制的排除清單，明文涵蓋「對手方法規查核未通過」與「主管機關處分」類衍生損失（標準的停工／生產／營業／預期利益清單未必涵蓋）；(3) 該產業的具體法規義務標 `unverified`，列為律師覆核項 |
 
 每個 flag 必須附：**來源（含層級）+ 查核日 + confidence（confirmed / probable / unverified）**。
+
+> **Flag 的定義**：risk flag 的價值在於它**改變了哪一條條款**，不在於它描述了對手方什麼特徵。
+> 任何背調欄位若無法對應到具體條款調整，就只是資料，不要列為 flag。
+> 來源：[`feedback/history/legal/common/2026-07-30_221637-counterparty-business-scope-drives-clause-terms.md`](../../../feedback/history/legal/common/2026-07-30_221637-counterparty-business-scope-drives-clause-terms.md)
 
 ## 產出：Counterparty Diligence Card
 
