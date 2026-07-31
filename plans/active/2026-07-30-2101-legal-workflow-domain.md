@@ -459,6 +459,24 @@ Open Questions **Q7 已於本輪 resolved**。
 > （Open Questions 全解、Decision Support 三案門檻、系統真實使用的具體 evidence 指標）
 > **尚未滿足**，故 plan **仍不 archive**。詳見檔頭 §為什麼還不 archive。
 
+## Phase 11 — Dogfood #4（公開供應方委外範本練習＋優點回寫，2026-07-31）
+
+使用者提供一份公開的軟體委託開發合約範本，要求：(a) 吸收其優點進 workflow；
+(b) 拿來當 unsigned `review` 練習，看有無 reusable feedback。
+
+| 項目 | 結果 |
+| --- | --- |
+| Task type | `review`（未簽署，Stage 5A） |
+| Jurisdiction | TW（稿內台北地院＋中華民國法令；準據法未單列） |
+| Risk tier | 🟡 Yellow（智財歸屬＋金額空白＋供應方標準範本） |
+| 吸收的優點 | 變更五步、階段確認天數、默示驗收、保固 vs 新功能、依已收款階段終止義務、IP 套件保留模式 |
+| 回寫位置 | [`draft/README.md`](../../workflow/legal/draft/README.md) Protection Pass；[`decision-playbooks.md`](../../workflow/legal/strategy/decision-playbooks.md)；[`intake.md`](../../workflow/legal/intake.md) S1；[`review/README.md`](../../workflow/legal/review/README.md) Stage 4 |
+| 練習發現的缺口 | 範圍內免加價無可判定邊界；開發費捆綁主機／維運無 SLA；默示驗收與「直至確認合格」張力；缺個資／間接損失排除／不可抗力細節 |
+| Lesson | [`feedback/history/legal/common/2026-07-31_014200-change-boundary-and-bundled-hosting-in-dev-templates.md`](../../feedback/history/legal/common/2026-07-31_014200-change-boundary-and-bundled-hosting-in-dev-templates.md) |
+
+**不計入** ADR「真實法律任務 3／3」以外的額外門檻進度（本輪為公開範本練習，非業務個案）；
+Decision Support cross-domain 仍 **1／3**。
+
 ## Phase 7 — Close Loop
 
 - [x] `git status --short --branch` / `git diff` 去敏檢查（無本機絕對路徑、無個資、無 secrets）
