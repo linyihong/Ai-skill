@@ -10,8 +10,16 @@ language-specific/
 ├── java/
 │   ├── README.md
 │   └── failure/        # Java-specific failure patterns
-└── ...                 # Other languages as needed
+├── angular/
+│   ├── README.md
+│   └── failure/        # Angular workspace/build failure patterns
+└── ...                 # Other languages or frameworks as needed
 ```
+
+Frameworks live here alongside languages. The axis that matters is "applies only inside one
+ecosystem" versus cross-language analytical technique; an Angular workspace quirk fails that test
+the same way a Java standard-library quirk does, and a separate framework tree would duplicate the
+taxonomy for no gain at this size.
 
 ## Scope
 
@@ -40,6 +48,7 @@ language-specific/<language>/
 
 ## Current Languages
 
-| Language | Directory | Atoms |
+| Language / Framework | Directory | Atoms |
 |----------|-----------|-------|
 | Java | [`java/`](java/README.md) | 1 failure pattern |
+| Angular | [`angular/`](angular/README.md) | 1 failure pattern |
