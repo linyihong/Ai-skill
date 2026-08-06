@@ -253,6 +253,17 @@ func buildHooksRunResult(opts hooksOptions) Result {
 }
 
 func runPreCommitHook(result Result, root string) Result {
+	if msg := validateAuthorEmailAllowlist(root); msg != "" {
+		result.Status = "blocked"
+		result.ExitCode = ExitValidationFailed
+		result.Error = &CommandError{
+			Code:        "author_email_allowlist_failed",
+			Message:     msg,
+			Remediation: "Set git config --local user.email to an allowlisted address, or update the local allowlist (git config --local --add ai-skill.allowedAuthorEmail <email> / .git/info/ai-skill-allowed-author-emails). Allowlist is opt-in and never committed.",
+		}
+		return result
+	}
+
 	staged, err := gitLines(root, "diff", "--cached", "--name-only")
 	if err != nil {
 		result.Status = "blocked"

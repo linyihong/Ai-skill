@@ -295,6 +295,12 @@ internal_helper_allowlist:
     - cliCIPrePushPaths
     - hasCLICIPreflightChange
     - gitLines
+    - gitVar
+    - gitConfigGetAll
+    - loadAuthorEmailAllowlist
+    - addAllowlistEmail
+    - allowlistContains
+    - emailFromGitIdent
     - hasRuntimeSourceChange
     - hasRuntimeDBChange
     - hasKnowledgeValidationChange
@@ -964,7 +970,7 @@ rule_classes:
         executor_kind: hook_dispatcher_entry
         hook_phase: pre-commit
         block_or_warn: block
-        notes: "pre-commit dispatcher; invokes validateNoNewShellScripts"
+        notes: "pre-commit dispatcher; invokes validateAuthorEmailAllowlist + validateNoNewShellScripts"
       - file: scripts/ai-skill-cli/internal/app/hooks.go
         symbol: validateNoNewShellScripts
         executor_kind: hook_dispatcher_entry  # called via runPreCommitHook
@@ -978,6 +984,28 @@ rule_classes:
       symbol_exists: ✓
       scenario_exists: pending
       regression_exists: pending
+      runtime_observed: pending
+
+  - id: author_email_allowlist
+    coverage: mechanical
+    source_files:
+      - scripts/ai-skill-cli/docs/command-contract.md
+    executors:
+      - file: scripts/ai-skill-cli/internal/app/author_email_allowlist.go
+        symbol: validateAuthorEmailAllowlist
+        executor_kind: pre_commit_validator
+        hook_phase: pre-commit
+        block_or_warn: block
+        notes: "opt-in local allowlist via git config / .git/info; unset = no restriction"
+    rationale: |
+      Prevents commits under the wrong author/committer email when a clone
+      opts in to a local allowlist (e.g. only one chosen personal address).
+      The allowlist lives in repo-local git config or .git/info and must
+      never be committed, so each machine can choose its own policy.
+    verification_status:
+      symbol_exists: ✓
+      scenario_exists: pending
+      regression_exists: ✓
       runtime_observed: pending
 
   - id: dirty_repo_close_loop
