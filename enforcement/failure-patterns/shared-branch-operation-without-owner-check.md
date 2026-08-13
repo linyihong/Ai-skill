@@ -60,9 +60,32 @@ Git history operations 在 [`conversation-goal-ledger.md`](../conversation-goal-
 - **「使用者授權 push」不等於「使用者知道會夾帶什麼」**。授權涵蓋動作，不涵蓋 agent 事後才發現的範圍擴大；範圍與授權不一致時要重新確認，而不是自行判斷「反正也是他自己的 commit」。
 - 事後才在最終回覆中補充說明，**不算 prevention**——與本檔開頭「檢查發生在操作之後就不算 prevention」同一原則。
 
+### 變體：他人的 push 發佈了你尚未推送的 commit（commit 不等於留在本地）
+
+前一個變體是「**我的** push 夾帶他人的 commit」。反方向同樣成立，而且更容易被忽略：**他人的 push 會夾帶我的 commit**。
+
+`git push` 推的是 branch，不是推送者挑選的 commit。共用 branch 上任一共存 session 執行 push 時，你尚未推送的 commit 只要在該 branch 的歷史上，就會一併發佈。因此「我 commit 了但先不 push」**不是**一個可依賴的保留狀態，也不是可回頭修改的暫存區。
+
+主要後果不是內容外流，而是 **commit message 的永久錯誤**。Agent 常在 commit message 裡描述 repo 的瞬時狀態，例如「目前某 gate 紅燈，故以 bypass 提交」「暫時 workaround，稍後 amend」。這些句子在寫下的當刻為真，但：
+
+- 共存 session 可能同時就在修那個 gate，於是 commit 落地時描述已經失真；
+- commit 一旦被他人 push 上共用 remote 並有其他 commit 疊在其上，amend / reword / rebase 的成本與風險都不再可接受；
+- 結果是一段**無法修正**的錯誤 provenance 留在共用歷史上。
+
+同一機制也讓「先 commit 當錨點，稍後再 squash / reword」這種計畫在共用 branch 上失去保障。
+
+要求：
+
+- **Commit message 只寫對該 commit 內容永遠成立的事實**。不要寫 repo 瞬時狀態（gate 紅綠、其他分支或他人工作的狀態、「稍後會…」的承諾）。
+- 需要記錄瞬時脈絡（為何 bypass、當時擋在哪）時，寫進 plan、evidence、goal ledger 這類**可再編輯**的位置，並在最終回覆說明；不要寫進 commit message。
+- **不要把 amend / squash / reword 排進後續步驟**。共用 branch 上，每個 commit 視為提交當下即不可變。
+- 回報「已 commit，尚未 push」時，必須同時說明這不構成保留；使用者若不希望內容進 remote，唯一可靠做法是不要 commit 到共用 branch。
+- **close-out 前重新確認自己的 commit 是否已被他人推上 remote**（`git branch -r --contains <sha>`），不要沿用離開時的 ahead 計數。發現已被夾帶時據實回報，不要 force push 回收。
+
 ## Risk
 
 - 覆蓋或干擾其他 agent / 使用者未提交的工作
+- 自己尚未推送的 commit 被他人 push 一併發佈，且其 message 中的瞬時狀態描述變成無法修正的錯誤紀錄
 - 把使用者尚未打算公開的既有 commit 一併推上共用 remote（回退需 force push）
 - Push 了未經目標分支最新狀態驗證的內容（本地綠、合併後紅）
 - 違反使用者明確的「不要動這個檔案」邊界而不自知

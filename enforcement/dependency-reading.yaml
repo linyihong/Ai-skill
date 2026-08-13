@@ -127,6 +127,7 @@ success_criteria:
   - Metadata, workflow, enforcement, and tool adapter changes cannot bypass linked update checks.
   - Source-of-truth miss triggers recovery before implementation continues.
   - Multiple commits may be created during a conversation when each commit is a logical unit, but final status reports do not hide dirty, staged, untracked, ahead, behind, or unpushed commit state.
+  - On a shared branch, deferring push is not a retention state; commit messages assert only what stays true of the commit content, and amend/squash/reword is never scheduled as a follow-up step.
 
 failure_modes:
   - id: single_file_conclusion
@@ -135,6 +136,9 @@ failure_modes:
   - id: source_of_truth_miss
     detection: Agent starts patching before reading canonical workflow, owner docs, runtime source, or routing registry.
     recovery: Stop patching, load source-of-truth, rebuild execution graph.
+  - id: shared_branch_commit_message_transient_state
+    detection: Commit message on a shared branch describes transient repo state (gate red/green, other work lines, "will amend later"), or the agent plans a later amend/squash/reword of an already-created commit.
+    recovery: Move transient context to plan, evidence, or goal ledger where it stays editable; treat every commit on a shared branch as immutable on creation; before close-out re-check whether a co-existing session already published the commit.
   - id: writeback_incomplete
     detection: Agent reports Ai-skill changes complete while validation, linked updates, commit, push/readback, origin/<branch>..HEAD empty confirmation, or final status remain open.
     recovery: Re-enter writeback closure and report blocker if push is not authorized.

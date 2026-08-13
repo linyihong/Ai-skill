@@ -36,6 +36,8 @@
 6. 完成 `git commit`、`git push` 與必要的 tool sync 後，必須重新讀取本次更新過的 skill/enforcement-rule 入口文件與主要依賴文件，確認目前 agent context 已載入最新版；不可只依賴提交前讀過的內容。Reference-only 策略不需要 tool sync。
 7. 最終回覆前必須執行 `git status --short --branch`。若 `Ai-skill` repo 仍有 modified/untracked/staged changes，或 branch 仍 ahead/behind remote，不得回覆「已完成」；必須先完成驗證、sync、commit、push、讀回，或明確說明被什麼阻塞。
 8. 同一輪對話可以依獨立邏輯單元建立多個 commit；不要求每個 commit 後立刻 push。但在使用者表示任務完成、切換新任務、agent 輸出最終 summary 或任何會讓本輪 writeback 交易關閉的回覆前，必須完成 `git push`、push 後讀回與 clean status，並確認 `git log origin/<branch>..HEAD` 為空。
+
+   **共用 branch 例外**：本條的「延後 push」不代表 commit 留在本地可控。若該 branch 有其他 session／agent 活動，對方的 push 會把你尚未推送的 commit 一併發佈，你將失去 amend 機會。因此 commit message 不得描述 repo 瞬時狀態（gate 紅綠、他人工作狀態、「稍後會…」），也不得把 amend／squash／reword 排進後續步驟。詳見 [`failure-patterns/shared-branch-operation-without-owner-check.md`](failure-patterns/shared-branch-operation-without-owner-check.md)。
 9. 若使用者未明確要求 push / merge，而更新後發現 `Ai-skill` 有尚未推送、尚未合併、ahead/behind、或其他 pending commit 狀態，最終回覆必須主動提醒使用者目前狀態與下一步（例如需要 push、pull/rebase、或處理既有 dirty changes），不可讓使用者以為規則已完全進入遠端主線。
 
 ### Plan Execution Preflight
