@@ -369,7 +369,7 @@ Evidence 目錄：[`evidence/`](evidence/README.md)
 
 - [x] ① `need-framing` → `theme-research` — 見 [`evidence/01-theme-research-cpo-optical.md`](evidence/01-theme-research-cpo-optical.md)
 - [x] ② `name-diligence` — 見 [`evidence/02-name-diligence-lite.md`](evidence/02-name-diligence-lite.md)（$LITE；H6 lean-promote Source Authority）
-- [ ] ③ `periodic-sweep`
+- [x] ③ `periodic-sweep` — 見 [`evidence/03-periodic-sweep-optical-lite.md`](evidence/03-periodic-sweep-optical-lite.md)（H5 lean-promote Observation／Reassessment）
 - [ ] ④ `allocation-advice`（含手續費 Interest）
 - [ ] ⑤ DVA（allocation 後）
 - [ ] ⑥ Q8 Case A／B／C
