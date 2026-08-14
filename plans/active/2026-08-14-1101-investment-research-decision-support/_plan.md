@@ -11,7 +11,8 @@ owner_layer: workflow
 **Phase 0**: ✅ CLOSED / FROZEN（2026-08-14）— 定界完成；**停止繼續改 plan 架構推測**，未知項留 Q10／Q12 由 dogfood 餵。
 
 **Phase 1**: ✅ CLOSED（2026-08-14 dogfood lab）— ①–⑥ evidence 齊；H1–H8 有假說檢驗。  
-**Phase 2**: ✅ CLOSED（2026-08-14）— `analysis/investment/` 方法層落地；下一步 Phase 3 `workflow/investment/`，不重開 Phase 0 架構推測。
+**Phase 2**: ✅ CLOSED（2026-08-14）— `analysis/investment/` 方法層落地。  
+**Phase 3**: ✅ CLOSED（2026-08-14）— `workflow/investment/` domain core（doc-only；route 未註冊）。下一步 Phase 4 Decision Support 掛接，不重開 Phase 0。
 
 2026-08-14 建立。Stakeholder 定界：形狀對齊 `workflow/legal/`（intake-dispatched +
 Decision Support），預設市場 **台股＋美股、主題預設 AI／semi／供應鏈**；語言跟隨本庫
@@ -409,13 +410,13 @@ Phase 1 結束時要能回答兩句：
 
 ## Phase 3 — `workflow/investment/` domain core
 
-- [ ] `README.md`、`execution-flow.md`、`intake.md`
-- [ ] `risk-classification.md`（Green／Yellow／Red + 無舉證不得建議）
-- [ ] `strategy/` 或等同 Decision Support instantiation（四項：inventory／playbooks／verification／depth gate）
-- [ ] `artifact-gates.md`（機率欄位、disclaimer、evidence-ledger、策略／資產摘要 gate、DVA 適用表）
-- [ ] Sub-flows：`theme-research/`、`name-diligence/`、`allocation-advice/`、`periodic-sweep/`（其餘可薄 README）
-- [ ] `allocation-advice/` 明寫：策略／資產／**費用** blocking-or-provisional intake、Interest Analysis（含手續費）、較有利方案比較、DVA brief 模板
-- [ ] 連到 `workflow/software-delivery/delegated-execution.md`／plans README 三角色契約（不重寫一份平行 DVA）
+- [x] `README.md`、`execution-flow.md`、`intake.md`
+- [x] `risk-classification.md`（Green／Yellow／Red + 無舉證不得建議）
+- [x] `strategy/` Decision Support instantiation（inventory／playbooks／verification→analysis／depth gate）
+- [x] `artifact-gates.md`（機率／disclaimer／evidence-ledger／策略資產費用／DVA 適用表）
+- [x] Sub-flows：`theme-research/`、`name-diligence/`、`allocation-advice/`、`periodic-sweep/`＋薄 README（need-framing／position-review／event-check）
+- [x] `allocation-advice/`：策略／資產／費用 blocking-or-provisional、Interest、方案比較、DVA brief 模板
+- [x] 連到 `workflow/software-delivery/delegated-execution.md`／plans README 三角色契約（不平行重寫 DVA）
 
 ## Phase 4 — Decision Support 掛接
 

@@ -3,7 +3,7 @@
 本層回答「如何取證、拆解主題／標的、分級來源、保留 uncertainty」，**不是**下單流程、也不是 broker 整合。
 
 **上游 dogfood**：[`plans/active/2026-08-14-1101-investment-research-decision-support/`](../../plans/active/2026-08-14-1101-investment-research-decision-support/_plan.md) Phase 1（①–⑥）。  
-**執行編排**（尚在 Phase 3）：未來 `workflow/investment/`。本目錄先提供方法，供 dogfood 與後續 workflow 引用。
+**執行編排**：[`workflow/investment/`](../../workflow/investment/README.md)（Phase 3 doc-only；`route.workflow.investment` 尚未註冊）。
 
 ## 範圍與邊界
 
