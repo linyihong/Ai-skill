@@ -18,7 +18,7 @@ Canonical：[`governance/lifecycle/plan-evidence.md`](../../../../governance/lif
 | Run ID | 檔案 | 狀態 | 摘要 |
 |---|---|---|---|
 | 01 | [`01-theme-research-cpo-optical.md`](01-theme-research-cpo-optical.md) | done | need-framing→theme-research；CPO／光互連供應鏈；H1–H8 檢驗 |
-| 02 | — | pending | name-diligence |
+| 02 | [`02-name-diligence-lite.md`](02-name-diligence-lite.md) | done | $LITE diligence；H6：researcher=D source type 非必要 |
 | 03 | — | pending | periodic-sweep |
 | 04 | — | pending | allocation-advice |
 | 05 | — | pending | DVA |

@@ -368,7 +368,7 @@ Evidence → (constrains) Claim → (supports) Recommendation → (human selecti
 Evidence 目錄：[`evidence/`](evidence/README.md)
 
 - [x] ① `need-framing` → `theme-research` — 見 [`evidence/01-theme-research-cpo-optical.md`](evidence/01-theme-research-cpo-optical.md)
-- [ ] ② `name-diligence`
+- [x] ② `name-diligence` — 見 [`evidence/02-name-diligence-lite.md`](evidence/02-name-diligence-lite.md)（$LITE；H6 lean-promote Source Authority）
 - [ ] ③ `periodic-sweep`
 - [ ] ④ `allocation-advice`（含手續費 Interest）
 - [ ] ⑤ DVA（allocation 後）
