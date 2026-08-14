@@ -54,7 +54,7 @@ Task type 未知時**必須先**跑 `need-framing`，不得從單句需求靜默
 ## 與既有層的關係
 
 - 方法：[`analysis/investment/`](../../analysis/investment/README.md)
-- Decision Support generic：[`cross-cutting/decision-support/`](../cross-cutting/decision-support/README.md)（本 domain = case #2 **candidate**；Phase 4 掛 Instantiations）
+- Decision Support generic：[`cross-cutting/decision-support/`](../cross-cutting/decision-support/README.md)（本 domain = **converged case #2**；全庫 stage 仍待 3／3）
 - Legal：協議／股權文件仍走 `workflow/legal/`
 - DVA loop plan：[`plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/`](../../plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)（跨域證據 4a）
 

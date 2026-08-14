@@ -29,8 +29,8 @@
 - [`legal/`](legal/README.md)：**法律工作**的執行流程（合約起草／審閱／解釋／比較、適用法研究、對手方背景調查、法律策略分析、談判支援、合約生命週期）。第一級分派維度是 legal task type；`strategy/` 是所有任務的共同 stage。⚠️ 本 domain 的「合約／契約」指**法律合約**，與 [`software-delivery/contracts.md`](software-delivery/contracts.md) 的 API / BDD behavior contract 語意無關（裁決見 [`workflow-routing.md`](./workflow-routing.md) §常見歧義）。
   - [`legal/execution-flow.yaml`](legal/execution-flow.yaml)：legal execution executable contract。
   - [`legal/artifact-gates.yaml`](legal/artifact-gates.yaml)：legal artifact gates executable contract。
-- [`investment/`](investment/README.md)：**投資研究與決策輔助**（intake-dispatched；Decision Support Pass 1／2；theme／name／allocation／sweep）。**doc-only**：`route.workflow.investment` 尚未註冊（plan Phase 5）。⚠️ 「投資」字面≠本域；協議／股權文件走 [`legal/`](legal/README.md)（Q8）。
-- [`cross-cutting/`](cross-cutting/README.md)：跨 slice 關注點模板（**非** `route.workflow.*` slice）。目前含 [`experience-runtime/`](cross-cutting/experience-runtime/README.md) pilot 與 [`decision-support/`](cross-cutting/decision-support/README.md) pilot（Intake → **Decision Support** → Research → Execution 的 cross-domain pattern；1／3 converged case，尚**未**成為各 workflow 的必跑 stage）。
+- [`investment/`](investment/README.md)：**投資研究與決策輔助**（intake-dispatched；Decision Support Pass 1／2；theme／name／allocation／sweep）。**doc-only route**：`route.workflow.investment` 尚未註冊（plan Phase 5）。Decision Support **converged case #2**。⚠️ 「投資」字面≠本域；協議／股權文件走 [`legal/`](legal/README.md)（Q8）。
+- [`cross-cutting/`](cross-cutting/README.md)：跨 slice 關注點模板（**非** `route.workflow.*` slice）。目前含 [`experience-runtime/`](cross-cutting/experience-runtime/README.md) pilot 與 [`decision-support/`](cross-cutting/decision-support/README.md) pilot（Intake → **Decision Support** → Research → Execution；**2／3** converged cases：legal＋investment；尚**未**成為各 workflow 的必跑 stage）。
 
 ## 放什麼
 

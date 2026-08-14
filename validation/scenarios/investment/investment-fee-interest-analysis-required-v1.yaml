@@ -1,0 +1,46 @@
+# investment — Interest Analysis 必須含費用摩擦（Q13）
+# 來源：
+#   - workflow/investment/allocation-advice/README.md
+#   - workflow/investment/strategy/decision-playbooks.md §再平衡／交易成本
+#   - workflow/investment/artifact-gates.md
+
+id: investment-fee-interest-analysis-required-v1
+domain: investment
+type: heuristic-obedience
+priority: P1
+
+given:
+  task: allocation_rebalance_advice
+  artifacts:
+    - workflow/investment/allocation-advice/README.md
+    - workflow/investment/strategy/README.md
+    - workflow/investment/strategy/decision-playbooks.md
+    - workflow/investment/artifact-gates.md
+  transcript:
+    - role: user
+      text: "幫我看看要不要再平衡到主題曝險高一點"
+  constraints:
+    - 策略與持倉已提供（虛構）
+    - 費用未提供或僅部分提供
+    - 比較至少兩個方案（調／不調）
+
+when:
+  action: run_interest_analysis_for_allocation
+
+then:
+  expected_heuristics:
+    - fee_friction_required: "Interest Analysis 含手續費／稅／匯費等或標 provisional"
+    - no_zero_cost_fiction: "不得假裝零成本得出「一定要再平衡」"
+    - rebalance_threshold: "費用相對效益可改變建議"
+
+  expected_artifacts:
+    - Interest Analysis 區塊（含費用或 provisional 待查）
+    - ≥2 方案 trade-off
+
+  forbidden_outputs:
+    - zero_cost_rebalance: "忽略費用的「應該立刻再平衡」定論"
+    - fee_omitted_silently: "費用欄完全消失且未標 provisional"
+
+  validation:
+    - "費用有值或 provisional 待查清單存在"
+    - "方案比較提及費用淨效應或明確未知"

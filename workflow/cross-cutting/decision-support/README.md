@@ -8,7 +8,7 @@ Intake  →  Decision Support  →  Research / Verify  →  Execution  →  Revi
 ```
 
 > **狀態**：`pilot`。本檔定義 **generic contract**（管線、格式、規則、domain 需提供什麼）。
-> 目前只有 **1 個 converged case**（`workflow/legal/strategy/`）。依
+> 目前 **2／3 converged cases**（`workflow/legal/strategy/`、`workflow/investment/strategy/`）。依
 > [`../README.md`](../README.md) §Slice promotion policy，達到 **3 個** converged case
 > 之前**不**註冊 `route.*`、**不**寫進各 workflow 的必跑 stage、也**不**宣稱已是全庫能力。
 
@@ -22,7 +22,7 @@ Workflow 的預設行為是照使用者說的做。但使用者陳述的往往�
 | legal | 「準據法寫日本法」→ 照寫 | 分析成本／可執行性／對方接受度 → 建議 + 替代 + trade-off |
 | travel-planning | 「星期五出發」→ 照排 | 分析票價／人潮／天氣 → 「星期三出發便宜且避開人潮，要換嗎？」 |
 | software-delivery | 「用 DDD」→ 照做 | 分析團隊規模／領域複雜度／演進成本 → Modular Monolith 可能更合適 |
-| investment（未來） | 「買這檔」→ 照查 | 分析風險／稅／匯率 → 提出配置建議與 trade-off |
+| investment | 「買這檔」→ 照查 | 分析風險／稅／匯率／費用 → 提出配置建議與 trade-off（human selection） |
 
 差別不在輸出多寡，而在**使用者拿到的是決策依據還是執行結果**。
 
@@ -101,9 +101,11 @@ Workflow 的預設行為是照使用者說的做。但使用者陳述的往往�
 | Domain | 實例 | 狀態 |
 | --- | --- | --- |
 | legal | [`workflow/legal/strategy/`](../../legal/strategy/README.md)（Stage 3a／3b） | ✅ converged case #1 |
+| investment | [`workflow/investment/strategy/`](../../investment/strategy/README.md)（Pass 1／2） | ✅ converged case #2（2026-08-14；Phase 1 dogfood＋四項 instantiation；**未**註冊 `route.workflow.investment`） |
 | travel-planning | — | candidate（既有 intake 已有分派性質，未抽出 decision support） |
 | software-delivery | — | candidate（architecture-fit 分析已有部分素材，未按本 contract 組織） |
-| investment / 其他 | — | 未評估 |
+
+Abstraction review（何者可升 generic follow-up、何者 investment-only）：見 investment plan [`evidence/07-phase4-abstraction-review.md`](../../../plans/active/2026-08-14-1101-investment-research-decision-support/evidence/07-phase4-abstraction-review.md)。**本檔不實作 7 個 generic primitive。**
 
 ## Anti-patterns
 
@@ -123,7 +125,7 @@ Workflow 的預設行為是照使用者說的做。但使用者陳述的往往�
 
 達成下列全部才考慮把 Decision Support 升為各 workflow 的正式 stage 並註冊 route：
 
-- [ ] **3 個** domain 有 converged instantiation（目前 1／3：legal）
+- [ ] **3 個** domain 有 converged instantiation（目前 **2／3**：legal、investment）
 - [ ] 每個 instantiation 都提供上表四項（含 depth gate）
 - [ ] 至少 2 個真實任務證明 Optimization Suggestion 規則未退化成 repeated pushback 或 silent override
 - [ ] Generic 管線在 3 個 domain 間未出現分歧定義（否則先拆 bounded context）

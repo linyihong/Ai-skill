@@ -4,7 +4,9 @@
 [`../../cross-cutting/decision-support/README.md`](../../cross-cutting/decision-support/README.md)
 generic contract。本檔只放 **investment 專屬** inventory／verification／depth 接法。
 
-> **狀態**：case #2 **candidate**（Phase 1 dogfood 已跑形狀；Phase 4 再掛 Instantiations 表）。  
+> **狀態**：Decision Support **converged case #2**（2026-08-14；對齊
+> [`../../cross-cutting/decision-support/README.md`](../../cross-cutting/decision-support/README.md)）。
+> `route.workflow.investment` 仍未註冊（Phase 5）。  
 > **Red**：不產出實質交易指令（見 [`../risk-classification.md`](../risk-classification.md)）。
 
 ## Instantiation 四項

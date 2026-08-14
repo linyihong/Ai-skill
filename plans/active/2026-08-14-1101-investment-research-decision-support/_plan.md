@@ -12,7 +12,8 @@ owner_layer: workflow
 
 **Phase 1**: ✅ CLOSED（2026-08-14 dogfood lab）— ①–⑥ evidence 齊；H1–H8 有假說檢驗。  
 **Phase 2**: ✅ CLOSED（2026-08-14）— `analysis/investment/` 方法層落地。  
-**Phase 3**: ✅ CLOSED（2026-08-14）— `workflow/investment/` domain core（doc-only；route 未註冊）。下一步 Phase 4 Decision Support 掛接，不重開 Phase 0。
+**Phase 3**: ✅ CLOSED（2026-08-14）— `workflow/investment/` domain core（doc-only；route 未註冊）。  
+**Phase 4**: ✅ CLOSED（2026-08-14）— DS Instantiations case #2（2／3）；abstraction review；6 scenarios。下一步 Phase 5 runtime（需明確 graduation），不重開 Phase 0。
 
 2026-08-14 建立。Stakeholder 定界：形狀對齊 `workflow/legal/`（intake-dispatched +
 Decision Support），預設市場 **台股＋美股、主題預設 AI／semi／供應鏈**；語言跟隨本庫
@@ -420,12 +421,10 @@ Phase 1 結束時要能回答兩句：
 
 ## Phase 4 — Decision Support 掛接
 
-- [ ] 更新 `workflow/cross-cutting/decision-support/README.md` Instantiations：investment = case #2（或 candidate→converged，依 dogfood）
-- [ ] **Abstraction review**：依 H1–H7 dogfood 結果，決定哪些升 follow-up plan／哪些標 investment-only（**本 phase 仍不實作 7 個 generic**）
-- [ ] Playbooks：配置、**交易成本／再平衡費用門檻**、主題深挖深度、何時升 Red
-- [ ] Scenario：`investment-evidence-required-before-advice-v1`、`investment-probability-framing-v1`、`investment-intake-gate-v1`、
-      `investment-strategy-asset-required-for-allocation-v1`、`investment-dva-required-for-allocation-v1`、
-      `investment-fee-interest-analysis-required-v1`
+- [x] 更新 `workflow/cross-cutting/decision-support/README.md` Instantiations：investment = **converged case #2**（2／3；route 未註冊）
+- [x] **Abstraction review**：[`evidence/07-phase4-abstraction-review.md`](evidence/07-phase4-abstraction-review.md) — H1/H3/H5/H6/H8 follow-up candidate；H4/H7 defer；**不**實作 7 generic
+- [x] Playbooks：配置／交易成本門檻／主題深度／升 Red／DVA — [`workflow/investment/strategy/decision-playbooks.md`](../../workflow/investment/strategy/decision-playbooks.md)
+- [x] Scenario：`validation/scenarios/investment/` 六檔（intake／evidence／probability／strategy-asset／dva／fee-interest）
 
 ## Phase 5 — Runtime 接線（graduation）
 
@@ -443,12 +442,12 @@ Phase 1 結束時要能回答兩句：
 
 ## 完成條件
 
-- [ ] Phase 1–5 完成或明確 deferred 剩餘項
+- [ ] Phase 1–5 完成或明確 deferred 剩餘項（Phase 1–4 ✅；Phase 5 runtime 未做）
 - [x] Stakeholder 同意項目 1–15 已決（2026-08-14）；Q10／Q12 不挡 Phase 1 開工
-- [ ] Decision Support 對 investment 的 instantiation 可引用
-- [ ] 至少一份真實（去敏）allocation 或 sweep dogfood evidence
-- [ ] Phase 1–4 產出 H1–H7 觀察結論（升候選／investment-only／棄）——**不**要求本 plan 內實作 generic primitives
-- [ ] Runtime：若宣稱 route 可用，則 trigger flow 與 consumer 表完整；否則維持 doc-only 且不宣稱 integration 完成
+- [x] Decision Support 對 investment 的 instantiation 可引用（case #2；見 cross-cutting Instantiations）
+- [x] 至少一份真實（去敏）allocation 或 sweep dogfood evidence（`evidence/04`／`05`／`03`）
+- [x] Phase 1–4 產出 H1–H7 觀察結論（[`evidence/07-phase4-abstraction-review.md`](evidence/07-phase4-abstraction-review.md)）——**不**要求本 plan 內實作 generic primitives
+- [x] Runtime：維持 **doc-only**、不宣稱 integration 完成（Phase 5 前）
 
 ## Watch-Out List
 

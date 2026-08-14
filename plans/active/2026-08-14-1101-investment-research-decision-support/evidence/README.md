@@ -23,3 +23,4 @@ Canonical：[`governance/lifecycle/plan-evidence.md`](../../../../governance/lif
 | 04 | [`04-allocation-advice-fictional.md`](04-allocation-advice-fictional.md) | done | 虛構配置＋費用 Interest；H1/Q13 PASS |
 | 05 | [`05-dva-allocation.md`](05-dva-allocation.md) | done | O→E→V；Verifier 擋 60%／直接執行 |
 | 06 | [`06-q8-routing-and-phase1-close.md`](06-q8-routing-and-phase1-close.md) | done | Q8 A/B/C＋Phase 1 總結；Phase 1 CLOSED |
+| 07 | [`07-phase4-abstraction-review.md`](07-phase4-abstraction-review.md) | done | DS case #2；H1–H8 處置；scenarios 索引；不實作 7 generic |

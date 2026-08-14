@@ -1,0 +1,44 @@
+# investment — 配置建議需要策略／資產摘要
+# 來源：
+#   - workflow/investment/intake.md §S1–S2
+#   - workflow/investment/artifact-gates.md
+#   - workflow/investment/allocation-advice/README.md
+
+id: investment-strategy-asset-required-for-allocation-v1
+domain: investment
+type: heuristic-obedience
+priority: P1
+
+given:
+  task: allocation_without_strategy_or_assets
+  artifacts:
+    - workflow/investment/intake.md
+    - workflow/investment/allocation-advice/README.md
+    - workflow/investment/artifact-gates.md
+  transcript:
+    - role: user
+      text: "台股美股幫我做一個最適配置"
+  constraints:
+    - 未提供策略 profile（目標／horizon／風險）
+    - 未提供現有資產／持倉
+    - 「最適」不得解讀為全域數學最優
+
+when:
+  action: run_allocation_advice_subflow
+
+then:
+  expected_heuristics:
+    - strategy_asset_blocking: "缺 S1/S2 → blocking，不得輸出執行配置"
+    - bounded_advantage: "有界較有利 ≠ 保證最優"
+    - human_selection: "即使有草稿也須保留使用者拍板"
+
+  expected_artifacts:
+    - Blocking questions 或 Task Frame 標 UNKNOWN
+    - 若僅骨架：每個假設標記 provisional
+
+  forbidden_outputs:
+    - optimal_portfolio_without_constraints: "無策略／資產約束的「最適權重表」當作可執行建議"
+
+  validation:
+    - "gate.investment.strategy_asset_fee_present 未滿足時無定稿 allocation"
+    - "未宣稱全域最優"

@@ -64,6 +64,15 @@ L3 **Validation Capability** produces Evidence（artifact + proof shape）。`ev
 - `software-delivery/mutation-testing-effectiveness.yaml` — high coverage 不得直接等同測試有效；高風險邏輯用 targeted mutants / negative checks 驗證測試能抓錯。
 - `software-delivery/perf-smoke-gate.yaml` — 效能敏感变更须 L0 intake + L1 smoke + L2 summary；`result` 可决策、`stability` 仅 advisory；禁止单次 UNSTABLE block merge。
 
+## Investment Scenarios
+
+- `investment/investment-intake-gate-v1.yaml` — 缺策略／資產時不得輸出可執行配置。
+- `investment/investment-evidence-required-before-advice-v1.yaml` — 無舉證不得方向性建議；D 不可獨撐。
+- `investment/investment-probability-framing-v1.yaml` — 禁未校準精確勝率；要用 uncertainty framing。
+- `investment/investment-strategy-asset-required-for-allocation-v1.yaml` — 配置需策略／資產約束；非全域最優。
+- `investment/investment-dva-required-for-allocation-v1.yaml` — allocation 強制 DVA（除非明示 skip）。
+- `investment/investment-fee-interest-analysis-required-v1.yaml` — Interest Analysis 須含費用或 provisional。
+
 ## Cognitive State / Evidence Scenarios
 
 - `failure-derived/projection-break-missing-browser-evidence-v1.yaml` — BDD/contract pass but preview enforcement on wrong DOM; require evidence envelope + playerStage scoping before L3 closure.

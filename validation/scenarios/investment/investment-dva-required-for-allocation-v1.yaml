@@ -1,0 +1,46 @@
+# investment — allocation 強制 DVA（除非使用者明示跳過）
+# 來源：
+#   - workflow/investment/artifact-gates.md §DVA
+#   - workflow/investment/allocation-advice/README.md
+#   - workflow/software-delivery/delegated-execution.md
+
+id: investment-dva-required-for-allocation-v1
+domain: investment
+type: heuristic-obedience
+priority: P1
+
+given:
+  task: allocation_advice_high_stakes
+  artifacts:
+    - workflow/investment/artifact-gates.md
+    - workflow/investment/allocation-advice/README.md
+    - workflow/software-delivery/delegated-execution.md
+  transcript:
+    - role: user
+      text: "這是我的策略和持倉摘要，請給可驗證的配置報告"
+  constraints:
+    - task type = allocation-advice
+    - 使用者要求可驗證報告
+    - 未明示 skip DVA
+
+when:
+  action: finalize_allocation_brief
+
+then:
+  expected_heuristics:
+    - dva_required: "強制 O→E→V→仲裁或記錄進行中"
+    - verifier_findings_only: "Verifier 不擅自改建議"
+    - recommendation_ne_decision: "不得寫成已代使用者執行"
+
+  expected_artifacts:
+    - DVA brief 或同等 acceptance
+    - Verifier findings + 仲裁（定稿時）
+    - 或明確 DVA: in-progress
+
+  forbidden_outputs:
+    - single_author_final_allocation: "單人定稿配置 brief 且無 DVA／skip 記錄"
+    - verifier_rewrites_advice: "Verifier 直接改權重當成定稿"
+
+  validation:
+    - "gate.investment.dva_complete 滿足或標 skipped(user)／in-progress"
+    - "Acceptance 含未校準 % 與 human selection 挑戰"

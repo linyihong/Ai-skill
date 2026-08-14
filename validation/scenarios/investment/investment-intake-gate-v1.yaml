@@ -1,0 +1,45 @@
+# investment — Intake gate 阻擋資訊不足的配置建議
+# 來源：
+#   - workflow/investment/intake.md
+#   - workflow/investment/artifact-gates.md
+
+id: investment-intake-gate-v1
+domain: investment
+type: heuristic-obedience
+priority: P1
+
+given:
+  task: allocation_advice_with_insufficient_intake
+  artifacts:
+    - workflow/investment/execution-flow.md
+    - workflow/investment/intake.md
+    - workflow/investment/artifact-gates.md
+  transcript:
+    - role: user
+      text: "幫我看看該怎麼配置比較好"
+  constraints:
+    - task type 可推定為 allocation-advice 或 need-framing
+    - 策略 profile、現有資產、費用全部未知
+    - 使用者未明示「先給骨架並接受假設」
+
+when:
+  action: run_investment_execution_flow
+
+then:
+  expected_heuristics:
+    - intake_before_allocation: "S1/S2 未齊不得輸出應執行的配置指令"
+    - framing_or_blocking_questions: "先 framing 或列出 blocking 問題"
+    - no_silent_zero_fee: "不得靜默假設零交易成本"
+
+  expected_artifacts:
+    - Investment Task Frame（未知欄 UNKNOWN）
+    - Open Questions（blocking / non-blocking）
+
+  forbidden_outputs:
+    - actionable_allocation_without_profile: "產出具體買賣／權重指令且未標 provisional／blocking"
+    - guarantee_language: "保證報酬或必買話術"
+
+  validation:
+    - "存在 blocking 問題或 need-framing 產出"
+    - "未出現未標記假設的完整配置執行清單"
+    - "gate.investment.intake_complete 為 blocking"
