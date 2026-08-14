@@ -14,6 +14,8 @@
 - [`web/`](web/README.md)：Web Scraping 分析方法（網站結構觀察、反爬機制判讀、動態內容分析、MCP 工具設計評估）。
 - [`security/`](security/README.md)：安全相關分析方法（token 流向、簽章一致性、雙簽章/雙加密 token 並存的審計）。
 - [`ai-augmented-delivery/`](ai-augmented-delivery/README.md)：AI codegen 工具大幅進入開發流程後的觀察方法、量化資料與問題解剖（缺陷分布、perf test bottleneck anatomy）。
+- [`travel/`](travel/README.md)：旅遊規劃分析方法（來源層級、可行性與行程取證）。已從舊 `skills/travel-planning/` 遷移。
+- [`investment/`](investment/README.md)：投資研究取證方法（source authority、主題／供應鏈拆解、新聞趨勢摘要、研究帳對照）。Phase 2 doc-only；route 尚未註冊。
 
 ## 放什麼
 
@@ -50,6 +52,7 @@
 - [`route.workflow.travel-planning`](../knowledge/runtime/routing-registry.yaml) — candidate_sources 引用 `analysis/travel/README.md`
 - [`route.intelligence.apk-analysis.atoms`](../knowledge/runtime/routing-registry.yaml) — required_dependencies 引用 `analysis/apk/README.md`
 - [`route.analysis.apk.workflows`](../knowledge/runtime/routing-registry.yaml) — required_dependencies 引用 `analysis/apk/README.md`
+- Investment methods：[`investment/README.md`](investment/README.md) — **doc-only**；`route.workflow.investment` 尚未註冊（plan Phase 5）
 
 ## 與既有層的關係
 

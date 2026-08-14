@@ -10,7 +10,8 @@ owner_layer: workflow
 
 **Phase 0**: ✅ CLOSED / FROZEN（2026-08-14）— 定界完成；**停止繼續改 plan 架構推測**，未知項留 Q10／Q12 由 dogfood 餵。
 
-**Phase 1**: ✅ CLOSED（2026-08-14 dogfood lab）— ①–⑥ evidence 齊；H1–H8 有假說檢驗。下一步 Phase 2 方法層實作，不重開 Phase 0 架構推測。
+**Phase 1**: ✅ CLOSED（2026-08-14 dogfood lab）— ①–⑥ evidence 齊；H1–H8 有假說檢驗。  
+**Phase 2**: ✅ CLOSED（2026-08-14）— `analysis/investment/` 方法層落地；下一步 Phase 3 `workflow/investment/`，不重開 Phase 0 架構推測。
 
 2026-08-14 建立。Stakeholder 定界：形狀對齊 `workflow/legal/`（intake-dispatched +
 Decision Support），預設市場 **台股＋美股、主題預設 AI／semi／供應鏈**；語言跟隨本庫
@@ -399,12 +400,12 @@ Phase 1 結束時要能回答兩句：
 
 ## Phase 2 — `analysis/investment/` 方法層
 
-- [ ] `analysis/investment/README.md`
-- [ ] 供應鏈／主題拆解方法
-- [ ] 來源分級（官方／監管／媒體／個人研究帳）——實作時用 **source authority** 語言，避免「Expert Knowledge」框架
-- [ ] 新聞與趨勢摘要模板
-- [ ] 大神筆記對照方法（引用、不同意點、时效）
-- [ ] `sources-and-tools.md`（公開來源類型為預設；附「使用者可選提供付費摘錄」規則；不硬編碼易 stale URL；不集成付費 API）
+- [x] `analysis/investment/README.md`
+- [x] 供應鏈／主題拆解方法 — [`theme-and-supply-chain.md`](../../analysis/investment/theme-and-supply-chain.md)
+- [x] 來源分級（官方／監管／媒體／個人研究帳）—— **source authority** A–D；拒 Expert Knowledge — [`sources-and-tools.md`](../../analysis/investment/sources-and-tools.md)
+- [x] 新聞與趨勢摘要模板 — [`news-trend-summary.md`](../../analysis/investment/news-trend-summary.md)
+- [x] 大神筆記對照方法（引用、不同意點、時效）— [`researcher-note-contrast.md`](../../analysis/investment/researcher-note-contrast.md)
+- [x] `sources-and-tools.md`（公開來源類型為預設；付費摘錄規則；不硬編碼易 stale URL；不集成付費 API）
 
 ## Phase 3 — `workflow/investment/` domain core
 
