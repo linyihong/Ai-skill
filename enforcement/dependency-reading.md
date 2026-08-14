@@ -40,6 +40,8 @@
    **共用 branch 例外**：本條的「延後 push」不代表 commit 留在本地可控。若該 branch 有其他 session／agent 活動，對方的 push 會把你尚未推送的 commit 一併發佈，你將失去 amend 機會。因此 commit message 不得描述 repo 瞬時狀態（gate 紅綠、他人工作狀態、「稍後會…」），也不得把 amend／squash／reword 排進後續步驟。詳見 [`failure-patterns/shared-branch-operation-without-owner-check.md`](failure-patterns/shared-branch-operation-without-owner-check.md)。
 9. 若使用者未明確要求 push / merge，而更新後發現 `Ai-skill` 有尚未推送、尚未合併、ahead/behind、或其他 pending commit 狀態，最終回覆必須主動提醒使用者目前狀態與下一步（例如需要 push、pull/rebase、或處理既有 dirty changes），不可讓使用者以為規則已完全進入遠端主線。
 
+10. **Push 是否成功，只以 ref 狀態判定，不以指令 exit status 判定。** `git push` 常被放進 pipeline（`| tail`）、背景任務或包裝腳本，此時回報的 exit code 屬於最外層的 shell，不是 push 本身；pre-push hook 擋下 push 時，pipeline 仍可能 exit 0。宣告已推送前必須實際查 `git log <remote>/<branch>..HEAD` 為空（或 `git status --short --branch` 不再 ahead）。這條同樣適用於任何被管線包住的長時間指令：**要斷言的是它造成的狀態，不是它的離開碼**。
+
 ### Plan Execution Preflight
 
 開始執行 `plans/active/*.md` 的任何 implementation phase 前，必須先依 [`plans/README.md`](../plans/README.md#plan-執行前架構相容性檢查architecture-compatibility-preflight) 完成 Architecture Compatibility Preflight。此檢查用來確認 candidate files、source-of-truth、compiler / generated surfaces、layer responsibility 與現行架構一致。

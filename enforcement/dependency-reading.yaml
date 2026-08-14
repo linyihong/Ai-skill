@@ -113,6 +113,7 @@ gates:
       - dirty, staged, untracked, ahead, or behind state is reported or resolved
       - push/readback completed before task completion, task switch, final summary, or writeback transaction closure
       - git log origin/<branch>..HEAD is empty before completion is claimed
+      - push success is asserted from ref state, never from the exit status of a piped, backgrounded, or wrapped push command
       - validation and linked updates are summarized
 
 required_evidence:
@@ -139,6 +140,9 @@ failure_modes:
   - id: shared_branch_commit_message_transient_state
     detection: Commit message on a shared branch describes transient repo state (gate red/green, other work lines, "will amend later"), or the agent plans a later amend/squash/reword of an already-created commit.
     recovery: Move transient context to plan, evidence, or goal ledger where it stays editable; treat every commit on a shared branch as immutable on creation; before close-out re-check whether a co-existing session already published the commit.
+  - id: push_success_inferred_from_exit_status
+    detection: Agent reports a push landed based on a command exit code, while the push was piped, backgrounded, or wrapped, so the reported status belongs to the outer shell rather than to git. A pre-push hook rejection can still surface as exit 0.
+    recovery: Re-check ref state with git log <remote>/<branch>..HEAD and correct the earlier claim to the user; generalize to any long-running wrapped command by asserting the resulting state rather than the exit code.
   - id: writeback_incomplete
     detection: Agent reports Ai-skill changes complete while validation, linked updates, commit, push/readback, origin/<branch>..HEAD empty confirmation, or final status remain open.
     recovery: Re-enter writeback closure and report blocker if push is not authorized.
