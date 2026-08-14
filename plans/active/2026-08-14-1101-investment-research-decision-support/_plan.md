@@ -1,12 +1,16 @@
 ---
 id: 2026-08-14-1101-investment-research-decision-support
-status: draft
+status: in-progress
 owner_layer: workflow
 ---
 
 # Investment Research & Decision Support（`workflow/investment/`）
 
-**Status**: draft（Phase 0 定界已收斂；可進 Phase 1 dogfood）
+**Status**: in-progress
+
+**Phase 0**: ✅ CLOSED / FROZEN（2026-08-14）— 定界完成；**停止繼續改 plan 架構推測**，未知項留 Q10／Q12 由 dogfood 餵。
+
+**Phase 1**: 🟢 IN PROGRESS — 執行順序凍結為 ① theme → ② name → ③ sweep → ④ allocation → ⑤ DVA → ⑥ Q8 A/B/C；evidence 用 PASS/FAIL/MIXED 檢驗假說是否成立，不是打勾證明「有遵守」。
 
 2026-08-14 建立。Stakeholder 定界：形狀對齊 `workflow/legal/`（intake-dispatched +
 Decision Support），預設市場 **台股＋美股、主題預設 AI／semi／供應鏈**；語言跟隨本庫
@@ -348,19 +352,28 @@ Evidence → (constrains) Claim → (supports) Recommendation → (human selecti
 
 ## Phase 1 — Spike / Dogfood（不建 route）
 
+**執行順序（凍結，勿並行亂跑）**：
 
-- [ ] 選 1 個 AI／semi 主題跑 `need-framing` → `theme-research` 全流程（對話即可）
-- [ ] 選 1 檔標的跑 `name-diligence`（新聞＋趨勢＋至少 1 則大神／公開研究對照）
-- [ ] 模擬一次 `periodic-sweep` 產出形狀
-- [ ] 用**去敏虛構**策略 profile＋資產表＋**手續費／費用假設**跑一次 `allocation-advice`（方案比較＋Interest／費用＋機率）
-- [ ] 模擬 DVA：寫 brief → Executor 產 evidence-ledger 報告 → Verifier findings 表（可同人分角色或 Task）
-- [ ] **Q8 boundary cases**（記錄實際選路／是否誤吸 legal）：
-  - **Case A**：「我想投資某家公司，幫我分析值不值得」→ 期望 `investment`
-  - **Case B**：「我想投資某家公司，幫我看投資協議」→ 期望 `legal`
-  - **Case C**：「我準備投資這家公司，幫我分析公司本身＋投資協議風險」→ 記錄單一 primary、
-    primary+secondary，或需 multi-domain decomposition（餵 Q12；**不**在本 phase 改 runtime）
-- [ ] 記錄 failure／摩擦 → 回寫本 plan Open Questions
-- [ ] 每份 dogfood evidence **加填**下方跨 domain candidate signal 表（H1–H7＋Q8／H8）
+| # | Run | 主要測 |
+| --- | --- | --- |
+| ① | `need-framing` → `theme-research` | H1–H4、H6 baseline |
+| ② | `name-diligence` | H6（researcher note 是否必要／是否只是 source type） |
+| ③ | `periodic-sweep` | H5（delta vs 全量重寫） |
+| ④ | `allocation-advice`（虛構策略／資產／費用） | H1–H4、Q13、較有利是否有約束 |
+| ⑤ | DVA（接在 allocation 後；爭議結論） | Verifier 挑戰機率／證據強度 |
+| ⑥ | Q8 Case A／B／C | H8；Case C 餵 Q12 |
+
+**Evidence 形狀（每假說）**：`PASS`／`FAIL`／`MIXED`／`N/A` + Observation + Evidence + Why matters + Investment-specific or cross-domain? + Legal comparison + Candidate consequence（Promote／defer／investment-only／reject）。**禁止**只打勾證明「有遵守」。
+
+Evidence 目錄：[`evidence/`](evidence/README.md)
+
+- [x] ① `need-framing` → `theme-research` — 見 [`evidence/01-theme-research-cpo-optical.md`](evidence/01-theme-research-cpo-optical.md)
+- [ ] ② `name-diligence`
+- [ ] ③ `periodic-sweep`
+- [ ] ④ `allocation-advice`（含手續費 Interest）
+- [ ] ⑤ DVA（allocation 後）
+- [ ] ⑥ Q8 Case A／B／C
+- [ ] Phase 1 總結：workflow 能跑？H1–H8 哪些升 cross-domain？Q12？
 
 ### Phase 1 跨 domain 觀察表（每 run 必填）
 
