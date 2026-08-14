@@ -13,7 +13,8 @@ owner_layer: workflow
 **Phase 1**: ✅ CLOSED（2026-08-14 dogfood lab）— ①–⑥ evidence 齊；H1–H8 有假說檢驗。  
 **Phase 2**: ✅ CLOSED（2026-08-14）— `analysis/investment/` 方法層落地。  
 **Phase 3**: ✅ CLOSED（2026-08-14）— `workflow/investment/` domain core（doc-only；route 未註冊）。  
-**Phase 4**: ✅ CLOSED（2026-08-14）— DS Instantiations case #2（2／3）；abstraction review；6 scenarios。下一步 Phase 5 runtime（需明確 graduation），不重開 Phase 0。
+**Phase 4**: ✅ CLOSED（2026-08-14）— DS Instantiations case #2（2／3）；abstraction review；6 scenarios。  
+**Phase 5**: ✅ CLOSED（2026-08-14）— `route.workflow.investment`＋YAML contracts＋discovery＋routing 歧義列；Q12 multi-route **仍 deferred**。
 
 2026-08-14 建立。Stakeholder 定界：形狀對齊 `workflow/legal/`（intake-dispatched +
 Decision Support），預設市場 **台股＋美股、主題預設 AI／semi／供應鏈**；語言跟隨本庫
@@ -37,13 +38,10 @@ agent 最多在 intake／設定說明裡**提醒**可設排程，不擁有 cron 
 **現在不新增 7 個 generic capability / route / glossary 定稿**——先 domain dogfood →
 證明 invariant 跨 domain → 再抽象（對齊 DVA／ERA 的 falsification ladder 紀律）。
 
-**Glossary Impact**: yes（**延後註冊**；dogfood 前只用 candidate 名）—
-domain 詞：`investment task type`、`strategy-asset profile`、`investment DVA loop`。
-abstraction **candidates**（勿過早綁 investment 措辭）：`evidence-to-decision gate`、
-`decision-support lifecycle`、`uncertainty framing`（**不是**把 glossary 定死成
-`probability-framed recommendation`）、`decision depth gate`、
-`periodic observation/reassessment`、`source authority model`、
-`knowledge/user-state boundary`、`semantic route disambiguation`（Q8 candidate）。尚未註冊於 `knowledge/glossary/ai-skill.md`。
+**Glossary Impact**: yes —
+domain 詞已註冊（candidate）：`investment_task_type`、`strategy_asset_profile`、`investment_dva_loop`；
+並更新 `intake_dispatched_workflow`／`risk_tier_gate` affects。Abstraction candidates（H1／H3…）
+**仍延後**獨立 glossary 定稿（見 evidence/07）。
 
 ## Decision Rationale
 
@@ -187,20 +185,21 @@ Intake-dispatched 與 Decision Support 已有 legal 先例與 cross-cutting pilo
 
 | 環節 | 內容 |
 | --- | --- |
-| Runtime owner | 預定：`knowledge/runtime/routing-registry.yaml` §`route.workflow.investment`（**Phase 5 才註冊**；Phase 1–4 dogfood 前不註冊） |
-| Event / signal | 投資研究／配置／盯盤／大神筆記等（Phase 5 定義 user_signals） |
-| Detector | 既有 `DetectWorkflows`；本 plan 不改 Go（除非 dogfood 證明字面衝突） |
-| Loaded contract | `workflow/investment/execution-flow.md` + required_dependencies |
-| Discovery signal | Phase 5：`cognitive-modes-discovery.yaml` 新增投資關鍵字 → 傾向 `SOURCE_BACKED` |
-| Doc-only trial 宣告 | Phase 1–4 為 **doc + dogfood trial**，**不宣稱已完成 runtime integration**；graduation 條件見 Phase 5 |
+| Runtime owner | `knowledge/runtime/routing-registry.yaml` §`route.workflow.investment` |
+| Event / signal | `user_keyword_investment_research`（配置／持倉／主題／手續費等；**不含**裸「投資」） |
+| Detector | 既有 `DetectWorkflows`；未改 Go |
+| Loaded contract | `workflow/investment/execution-flow.md` + YAML contracts |
+| Discovery signal | `runtime/cognitive-modes-discovery.yaml` → SOURCE_BACKED＋STRICT |
+| Integration 宣告 | Phase 5 **runtime integration 完成**；Q12 multi-route **未**宣稱 |
 
-### Per-surface consumer 表（Phase 5 填實；draft 預留）
+### Per-surface consumer 表
 
 | Generated surface key | Named consumer(s) | Consumer 類型 |
 | --- | --- | --- |
-| `route.workflow.investment`（預定） | `DetectWorkflows` + primary_source gate + discovery signal | discovery + Go validator |
-| `workflow.investment.execution_flow.contract`（預定） | routable lookup + `validateRuntimeYamlProjects` | routable lookup + Go validator |
-| `workflow.investment.artifact_gates.contract`（預定） | 同上 | routable lookup + Go validator |
+| `route.workflow.investment` | `DetectWorkflows`；`workflowPrimarySourceGate`；`user_keyword_investment_research` | discovery + Go validator |
+| `workflow.investment.execution_flow.contract` | routable lookup；`validateRuntimeYamlProjects` | routable lookup + Go validator |
+| `workflow.investment.artifact_gates.contract` | 同上 | routable lookup + Go validator |
+| `user_keyword_investment_research` | discovery resolution；`validateActivationSignals` | Go validator |
 
 ## Open Questions
 
@@ -428,26 +427,27 @@ Phase 1 結束時要能回答兩句：
 
 ## Phase 5 — Runtime 接線（graduation）
 
-- [ ] `route.workflow.investment` + discovery signal
-- [ ] `execution-flow.yaml` / `artifact-gates.yaml` + compile/refresh
-- [ ] `knowledge/summaries/` + glossary 詞條
-- [ ] Linked updates：`workflow/README.md`、`analysis/README.md`、`workflow-routing.md` **semantic 歧義列**（Q8 invariant：decision object，非 keyword precedence）
-- [ ] Investment／legal discovery signals 分列（ticker／portfolio vs contract／協議）；signals ≠ final arbitration
-- [ ] 若 Case C 支持 multi-domain：另開 follow-up plan（不在本 plan 偷升 multi-route runtime）
-- [ ] Per-surface consumer 表填實
+- [x] `route.workflow.investment` + discovery signal `user_keyword_investment_research`
+- [x] `execution-flow.yaml` / `artifact-gates.yaml` + compile/refresh
+- [x] `knowledge/summaries/investment-workflow.md` + glossary domain 詞
+- [x] Linked updates：`workflow/README.md`、`analysis/README.md`、`workflow-routing.md` §「投資」語意裁決、`knowledge/indexes`
+- [x] Investment／legal discovery signals 分列（ticker／portfolio vs 合約／協議）；signals ≠ final arbitration
+- [x] Case C multi-domain：**explicit defer**（Q12 still-open；不偷升 multi-route；見 routing 歧義列）
+- [x] Per-surface consumer 表填實（見 §Runtime Execution Path）
+- [x] Detector scenario：`validation/scenarios/runtime/workflow-detector-investment-v1.yaml`
 
 ## Phase 6 — Close-loop
 
-- [ ] Diff review、sanitization、commit（分 owner group）、push（需授權）、readback、clean status
+- [x] Diff review、sanitization、commit、push、readback、clean status（Phase 5 graduation commit）
 
 ## 完成條件
 
-- [ ] Phase 1–5 完成或明確 deferred 剩餘項（Phase 1–4 ✅；Phase 5 runtime 未做）
+- [x] Phase 1–5 完成；Q10／Q12 仍 open／deferred（不挡 Phase 5 graduation）
 - [x] Stakeholder 同意項目 1–15 已決（2026-08-14）；Q10／Q12 不挡 Phase 1 開工
 - [x] Decision Support 對 investment 的 instantiation 可引用（case #2；見 cross-cutting Instantiations）
 - [x] 至少一份真實（去敏）allocation 或 sweep dogfood evidence（`evidence/04`／`05`／`03`）
 - [x] Phase 1–4 產出 H1–H7 觀察結論（[`evidence/07-phase4-abstraction-review.md`](evidence/07-phase4-abstraction-review.md)）——**不**要求本 plan 內實作 generic primitives
-- [x] Runtime：維持 **doc-only**、不宣稱 integration 完成（Phase 5 前）
+- [x] Runtime：`route.workflow.investment`＋contracts＋discovery＋consumer 表完整；Q12 multi-route **未**宣稱
 
 ## Watch-Out List
 

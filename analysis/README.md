@@ -52,7 +52,7 @@
 - [`route.workflow.travel-planning`](../knowledge/runtime/routing-registry.yaml) — candidate_sources 引用 `analysis/travel/README.md`
 - [`route.intelligence.apk-analysis.atoms`](../knowledge/runtime/routing-registry.yaml) — required_dependencies 引用 `analysis/apk/README.md`
 - [`route.analysis.apk.workflows`](../knowledge/runtime/routing-registry.yaml) — required_dependencies 引用 `analysis/apk/README.md`
-- Investment methods：[`investment/README.md`](investment/README.md) — **doc-only**；`route.workflow.investment` 尚未註冊（plan Phase 5）
+- Investment methods：[`investment/README.md`](investment/README.md) — paired with [`route.workflow.investment`](../knowledge/runtime/routing-registry.yaml)
 
 ## 與既有層的關係
 

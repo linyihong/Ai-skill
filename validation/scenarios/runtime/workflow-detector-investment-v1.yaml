@@ -1,0 +1,66 @@
+# Workflow Detector — route.workflow.investment + Q8 vs legal
+# 來源：
+#   - knowledge/runtime/routing-registry.yaml (route.workflow.investment)
+#   - workflow/workflow-routing.md §「投資」語意裁決
+#   - scripts/ai-skill-cli/internal/app/detector.go
+
+id: workflow-detector-investment-v1
+domain: runtime
+type: routing-decision
+priority: P1
+
+given:
+  task: detect_workflow_for_investment_task
+  artifacts:
+    - knowledge/runtime/routing-registry.yaml
+    - scripts/ai-skill-cli/internal/app/detector.go
+    - workflow/investment/execution-flow.md
+    - workflow/workflow-routing.md
+  transcript:
+    - role: user
+      text: "依我的策略與持倉，給我一份可驗證的配置建議，並把手續費算進 Interest Analysis"
+  constraints:
+    - route.workflow.investment user_signals 含「配置建議」「手續費」
+    - pattern 刻意不含裸「投資」
+    - detector 為 deterministic substring；無 negative signal（ADR-006）
+
+when:
+  action: run_detector
+
+then:
+  expected_route:
+    primary: route.workflow.investment
+    status: detected
+    conflict: false
+    steps:
+      - 命中「配置建議」「手續費」
+      - ActiveRoute = route.workflow.investment
+      - primary_source = workflow/investment/execution-flow.md
+    reject:
+      - no_match: "route 未登記或 signals 未覆蓋"
+      - wrong_workflow: "誤鎖 route.workflow.legal"
+
+  forbidden_routes:
+    - route.workflow.legal
+
+  expected_final_route: route.workflow.investment
+
+  counter_case:
+    transcript:
+      - role: user
+        text: "我想投資某家公司，幫我看投資協議的條款風險"
+    must_not_detect_as_sole_route: route.workflow.investment
+    prefer: route.workflow.legal
+    reason: >
+      Decision object = 協議／條款；伴隨「投資協議」。裸「投資」不是 investment
+      route 充分條件；應走 legal（或 conflict 後依 workflow-routing 裁決）。
+
+  mixed_case_note: >
+    「分析公司本身＋投資協議」→ framing 拆 primary+secondary；不宣稱 multi-route runtime（Q12）。
+
+  validation:
+    detection_command: >
+      ai-skill runtime workflow-context --transcript <jsonl containing the given transcript>
+    assertions:
+      - "主案 active_route=route.workflow.investment、conflict=false"
+      - "counter_case 不以 investment 為唯一／首選 sole route"

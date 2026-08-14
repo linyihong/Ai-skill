@@ -1,0 +1,171 @@
+schema_version: executable-contract/v1
+id: workflow.investment.execution-flow.contract
+title: Investment workflow execution flow contract
+owner_layer: workflow
+source_markdown: workflow/investment/execution-flow.md
+status: active
+contract_type: workflow_flow
+blocking_level: blocking
+
+runtime_projection:
+  enabled: true
+  target_key: workflow.investment.execution_flow.contract
+  surface_type: executable_yaml_contract
+  execution_scope: workflow_execution
+
+activation:
+  events:
+    - investment_task_requested
+    - theme_research_requested
+    - name_diligence_requested
+    - allocation_advice_requested
+    - position_review_requested
+    - periodic_sweep_requested
+    - event_check_requested
+    - investment_need_framing_requested
+  required_when:
+    - User asks for investment research, theme or supply-chain mapping, single-name diligence, position review, allocation or rebalance advice, event impact, or periodic sweep reporting (report producer only).
+  not_applicable_when:
+    - Decision object is a legal investment or equity agreement (route.workflow.legal).
+    - User asks to place broker orders or integrate trading APIs (out of scope).
+
+required_sources:
+  - workflow/investment/README.md
+  - workflow/investment/execution-flow.md
+  - workflow/investment/intake.md
+  - workflow/investment/risk-classification.md
+  - workflow/investment/strategy/README.md
+  - workflow/investment/artifact-gates.md
+
+conditional_sources:
+  - source: workflow/investment/strategy/decision-playbooks.md
+    when: allocation, fee threshold, theme depth, Red escalation or DVA decisions are in play
+  - source: analysis/investment/README.md
+    when: Research stage needs method map
+  - source: analysis/investment/sources-and-tools.md
+    when: evidence authority grading is required
+  - source: analysis/investment/theme-and-supply-chain.md
+    when: task_type is theme-research
+  - source: analysis/investment/news-trend-summary.md
+    when: news, trend or sweep delta summaries are produced
+  - source: analysis/investment/researcher-note-contrast.md
+    when: personal research accounts or notes are contrasted
+  - source: workflow/investment/theme-research/README.md
+    when: task_type is theme-research
+  - source: workflow/investment/name-diligence/README.md
+    when: task_type is name-diligence
+  - source: workflow/investment/allocation-advice/README.md
+    when: task_type is allocation-advice
+  - source: workflow/investment/periodic-sweep/README.md
+    when: task_type is periodic-sweep
+  - source: workflow/software-delivery/delegated-execution.md
+    when: DVA is required or running
+  - source: knowledge/summaries/investment-workflow.md
+    when: summary-first load before expanding core files
+
+dispatch_dimensions:
+  - id: investment_task_type
+    order: 1
+    values: [need-framing, theme-research, name-diligence, position-review, allocation-advice, event-check, periodic-sweep]
+    unknown_behaviour: must_ask_never_infer
+  - id: markets
+    order: 2
+    values: [TW, US, both, other]
+    unknown_behaviour: may_default_with_label
+    default: both
+  - id: strategy_asset_fee_presence
+    order: 3
+    values: [present, provisional, absent, not_applicable]
+    unknown_behaviour: must_ask_when_allocation
+  - id: dva_required
+    order: 4
+    values: [required, skipped_user, not_applicable]
+
+steps:
+  - id: frame_investment_task
+    order: 0
+    action: Confirm decision object is investment research or decision support (not a legal agreement); state report-producer / no-order / no-guarantee boundary.
+
+  - id: run_task_intake
+    order: 1
+    action: Run tiered intake (S0 always; S1–S3 for allocation or asset-bearing position review) and produce an Investment Task Frame with UNKNOWN markers.
+    gates:
+      - gate.investment.intake_complete
+
+  - id: classify_risk_tier
+    order: 2
+    action: Classify Green / Yellow / Red and state tier plus trigger early in the response.
+    gates:
+      - gate.investment.risk_tier_declared
+    short_circuit:
+      when: tier == Red
+      goto: close_and_escalate
+      reason: Red stops trade instructions and guarantee language; Escalation Card plus allowed research only.
+
+  - id: strategy_pass_1_framing
+    order: 3
+    action: Build provisional Decision Register with decision points, options, interest analysis placeholders, and premises to verify.
+    gates:
+      - gate.investment.decision_register_present
+
+  - id: dispatch_subflows
+    order: 4
+    action: Select research and produce sub-flows from the dispatch matrix; decide whether DVA is required.
+
+  - id: run_research
+    order: 5
+    action: Gather evidence via analysis/investment methods; fill evidence-ledger with authority grades and as-of dates.
+    gates:
+      - gate.investment.evidence_ledger_present
+
+  - id: strategy_pass_2_closeout
+    order: 6
+    action: Converge recommendations with four-column Decision Reasoning, Interest Analysis including fee friction, uncertainty framing, and explicit human selection.
+    gates:
+      - gate.investment.strategy_reasoned
+      - gate.investment.strategy_asset_fee_present
+      - gate.investment.uncertainty_framed
+      - gate.investment.recommendation_ne_decision
+
+  - id: run_dva_if_required
+    order: 7
+    conditional: dva_required == required
+    action: Run Orchestrator brief → Executor draft → Verifier findings → arbitration using delegated-execution contract (do not fork a parallel DVA SOP).
+    gates:
+      - gate.investment.dva_complete
+
+  - id: produce_deliverable
+    order: 8
+    action: Produce the task-type artifact (framing note, theme map, diligence card, allocation brief, sweep brief, event card, or position review).
+
+  - id: validate_artifacts
+    order: 9
+    action: Check required artifacts and blocking gates before claiming completion.
+    gates:
+      - gate.investment.artifacts_complete
+
+  - id: close_and_escalate
+    order: 10
+    action: Deliver output plus Open Questions, Escalation Card when Red, disclaimer, and Verifier summary when DVA ran.
+    gates:
+      - gate.investment.disclaimer_present
+
+forbidden:
+  - allocation_before_intake_complete
+  - advice_without_evidence_ledger
+  - uncalibrated_success_probability
+  - recommendation_as_executed_decision
+  - d_authority_solo_high_confidence
+  - zero_cost_fee_fiction
+  - expert_knowledge_primitive
+  - broker_order_or_trading_api
+  - keyword_investment_forces_this_route
+  - red_tier_trade_instruction
+  - silent_skip_dva_on_allocation
+  - write_holdings_into_canonical_docs
+
+related:
+  companion_markdown: workflow/investment/execution-flow.md
+  artifact_contract: workflow/investment/artifact-gates.yaml
+  plan: plans/active/2026-08-14-1101-investment-research-decision-support/_plan.md
+  route: route.workflow.investment

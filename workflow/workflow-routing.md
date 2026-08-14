@@ -57,16 +57,18 @@ Recovery re-entry：
 | **跨專案 agent 友善文件** | 撰寫/拆分 `docs/`、index-first、**零**可觀察產品行為變更 | [`documentation/`](./documentation/README.md) | `route.workflow.documentation-ai-native` |
 | **旅遊規劃** | itinerary、交通、預算 | [`travel-planning/`](./travel-planning/README.md) | `route.workflow.travel-planning` |
 | **法律工作** | 合約起草／審閱、保密協議／NDA、採購契約、準據法／管轄／仲裁、違約金、背景調查／盡職調查、法規查詢、法律策略、談判支援 | [`legal/`](./legal/README.md) | `route.workflow.legal` |
+| **投資研究／決策輔助** | 配置建議、持倉複核、再平衡、主題／供應鏈研究、name diligence、盯盤 sweep、財報／基本面（**非**下單） | [`investment/`](./investment/README.md) | `route.workflow.investment` |
 
 ### 常見歧義
 
 | 情況 | 選哪個 |
 | --- | --- |
-| 在 `unwrapping` 寫 `apk-analysis-sdk` plan + 實作 | **software-delivery**（開發交付）；不是 apk-analysis |
+| 在 `unwrapping` 寫 `<AI_SKILL_DOGFOOD_EVIDENCE>` plan + 實作 | **software-delivery**（開發交付）；不是 apk-analysis |
 | 對目標 APK 做 Frida attach 抓 API | **apk-analysis** |
 | 只改 `docs/plans/*.md` 且會導致之後要寫 SDK | **software-delivery**；純文件架構且明確零行為變更可考慮 **documentation** |
 | 新 repo 從 spec 開始 | **greenfield** → 實作階段 often 再接 **software-delivery** |
 | **「契約」/「合約」字面同時像兩邊** | 見下方 §「契約」語意裁決 |
+| **「投資」字面同時像 legal／investment** | 見下方 §「投資」語意裁決（Q8） |
 
 #### 「契約」語意裁決（legal vs software-delivery）
 
@@ -85,6 +87,22 @@ substring 匹配、**刻意不支援 negative signal**（ADR-006），所以兩�
 拆成兩個任務依序執行，先 **legal**（法律條款有外部拘束力，決定產品能承諾什麼），
 再 **software-delivery**；不要在一個 route 內混做。
 
+#### 「投資」語意裁決（investment vs legal）（Q8）
+
+Detector **不含**裸「投資」作為 investment route 的充分條件（避免吸走「投資協議」）。
+裁決依 **decision object／task semantics**，禁止固定 `investment > legal` keyword precedence。
+
+| 判準 | 選 **investment** | 選 **legal** |
+| --- | --- | --- |
+| Decision object | 證券／主題／供應鏈／配置／持倉市場評估 | 投資協議、股權權利義務、增資條款、爭議文件 |
+| 伴隨訊號 | 配置建議、再平衡、持倉複核、主題研究、財報、ticker diligence、手續費 | 合約、準據法、管轄、股權、股東協議、投資協議、盡職調查（法律背調） |
+| 產出 | Thesis／diligence card／allocation brief／sweep | 合約草稿／Review Memo／Escalation（legal Red） |
+| 執行權 | Report only；不下單 | 非法律意見；Red 只升級 |
+
+**Mixed（Case C）**：一句同時要「公司分析＋投資協議」→ **先 framing**，拆成
+investment `name-diligence` + legal `review`（primary＋secondary）。**不**宣稱已支援
+runtime multi-route（Q12 still-open；另 plan）。
+
 ## 與 activation-table / registry 的關係
 
 | 機制 | 角色 |
@@ -96,7 +114,7 @@ substring 匹配、**刻意不支援 negative signal**（ADR-006），所以兩�
 
 ## 專案 overlay（第二層，非 Workflow 進入點）
 
-部分 repo 在 **已選定 workflow 之後** 提供薄 yaml（例如 `apk-analysis-sdk/runtime/workflow-activation.yaml`）。  
+部分 repo 在 **已選定 workflow 之後** 提供薄 yaml（例如 `<AI_SKILL_DOGFOOD_EVIDENCE>/runtime/workflow-activation.yaml`）。  
 那是 **software-delivery 下的專案 gate**，不是第 6 種 workflow，也不產生 `route.project.*`。
 
 ## 驗證

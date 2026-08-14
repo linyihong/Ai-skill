@@ -3,8 +3,7 @@
 `workflow/investment/` 負責「投資研究與決策輔助的執行順序」。邊界是 **Decision Support**，
 不是交易執行系統：不接券商、不下單、不擁有跨工具 cron。
 
-> **狀態**：Phase 3 **doc-only**。`route.workflow.investment` **尚未註冊**（plan Phase 5）。
-> Dogfood 證據見 [`plans/active/2026-08-14-1101-investment-research-decision-support/`](../../plans/active/2026-08-14-1101-investment-research-decision-support/_plan.md)。
+> **狀態**：`route.workflow.investment` **已註冊**（2026-08-14 Phase 5）。Decision Support **converged case #2**。
 
 > **語意邊界（Q8）**：utterance 含「投資」字樣**不是**本 route 的充分條件。
 > Decision object＝證券／主題／配置 → 本 domain；＝合約／股權權利義務文件 → [`../legal/`](../legal/README.md)。
@@ -60,7 +59,8 @@ Task type 未知時**必須先**跑 `need-framing`，不得從單句需求靜默
 
 ## Executable contracts
 
-- Phase 5 才加 `execution-flow.yaml`／`artifact-gates.yaml` 並 compile。本階段 **markdown-only**。
+- [`execution-flow.yaml`](execution-flow.yaml) — lifecycle executable contract
+- [`artifact-gates.yaml`](artifact-gates.yaml) — artifact gates executable contract
 
 ## 驗證
 

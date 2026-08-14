@@ -101,7 +101,7 @@ Workflow 的預設行為是照使用者說的做。但使用者陳述的往往�
 | Domain | 實例 | 狀態 |
 | --- | --- | --- |
 | legal | [`workflow/legal/strategy/`](../../legal/strategy/README.md)（Stage 3a／3b） | ✅ converged case #1 |
-| investment | [`workflow/investment/strategy/`](../../investment/strategy/README.md)（Pass 1／2） | ✅ converged case #2（2026-08-14；Phase 1 dogfood＋四項 instantiation；**未**註冊 `route.workflow.investment`） |
+| investment | [`workflow/investment/strategy/`](../../investment/strategy/README.md)（Pass 1／2） | ✅ converged case #2（2026-08-14；`route.workflow.investment` **已註冊** Phase 5；Q12 multi-route 未宣稱） |
 | travel-planning | — | candidate（既有 intake 已有分派性質，未抽出 decision support） |
 | software-delivery | — | candidate（architecture-fit 分析已有部分素材，未按本 contract 組織） |
 

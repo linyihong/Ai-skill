@@ -1407,12 +1407,12 @@ records:
         do_not_load_when:
           - default execution-only, evidence-only, or mixed workflow task
     project_overlays:
-      - when_repo_contains: apk-analysis-sdk/runtime/workflow-activation.yaml
+      - when_repo_contains: <AI_SKILL_DOGFOOD_EVIDENCE>/runtime/workflow-activation.yaml
         load_after_workflow_entry: true
         sources:
-          - <PROJECT_ROOT>/apk-analysis-sdk/runtime/workflow-activation.yaml
-          - <PROJECT_ROOT>/apk-analysis-sdk/runtime/README.md
-          - <PROJECT_ROOT>/apk-analysis-sdk/docs/development/README.md
+          - <PROJECT_ROOT>/<AI_SKILL_DOGFOOD_EVIDENCE>/runtime/workflow-activation.yaml
+          - <PROJECT_ROOT>/<AI_SKILL_DOGFOOD_EVIDENCE>/runtime/README.md
+          - <PROJECT_ROOT>/<AI_SKILL_DOGFOOD_EVIDENCE>/docs/development/README.md
     templates:
       product-impact-alignment: workflow/software-delivery/templates/product-impact-alignment-template.md
       change-brief: workflow/software-delivery/templates/change-brief-template.md
@@ -1432,7 +1432,7 @@ records:
       觸發由 workflow/software-delivery/README.md 定義；**不**另立 route.project.*。
       Phase 3 loading surfaces 掛在同一 hierarchical route 下，不新增 flat leaf routes；agent 先讀 execution-flow thin index，
       再依 task intent 載入 intake / contracts / test-strategy / validation / closure / surgical caveats 等 focused surfaces。
-      若 repo 含 apk-analysis-sdk/runtime/workflow-activation.yaml，在進入本 workflow 後載入 project_overlays（專案 gate，非平行 routing）。
+      若 repo 含 <AI_SKILL_DOGFOOD_EVIDENCE>/runtime/workflow-activation.yaml，在進入本 workflow 後載入 project_overlays（專案 gate，非平行 routing）。
     validation_signal: Pre-build interrogation、change intake、requirements cognition、contract precedence、BDD closure、artifact completeness、test strategy、performance evidence、same-session closure、surgical-change discipline、architecture fit analysis 與 post-implementation review invocation（capability invoke via cross-cutting/review，非 stance branching）已檢查；workflow、analysis、intelligence、metadata 與 governance 內容已分離，且 software-delivery focused loading surfaces 可由同一 hierarchical route 找到。
     metadata:
       priority: P1
@@ -1629,6 +1629,9 @@ records:
         - 經銷合約
         - 授權合約
         - MOU
+        - 投資協議
+        - 股權協議
+        - 股東協議
       file_change_globs:
         - "**/contracts/**"
         - "**/legal/**"
@@ -1681,6 +1684,84 @@ records:
       reason: >
         法律任務要求 source-backed 引用（法規版本 + 查核日）與可解釋的策略推理；
         summary-first 會讓未查證主張以確定語氣輸出，屬本 domain 最高風險失效模式。
+
+  - id: route.workflow.investment
+    route_type: workflow
+    task_intent: 執行投資研究與決策輔助（主題／供應鏈、單一標的 diligence、持倉複核、配置建議、事件檢查、定期 sweep）
+    activation_triggers:
+      task_intents:
+        - investment-theme-research
+        - investment-name-diligence
+        - investment-allocation-advice
+        - investment-position-review
+        - investment-periodic-sweep
+        - investment-event-check
+        - investment-need-framing
+      user_signals:
+        # 刻意不含裸「投資」——避免與 legal「投資協議／股權」字面衝突（Q8；見 workflow-routing.md）
+        - 配置建議
+        - 資產配置
+        - 持倉複核
+        - 再平衡
+        - 主題研究
+        - 供應鏈主題
+        - name diligence
+        - 盯盤
+        - sweep brief
+        - 財報分析
+        - 基本面
+        - allocation advice
+        - portfolio review
+        - 手續費
+        - ETF 費用
+        - diligence card
+        - IR 簡報
+      file_change_globs:
+        - "**/investment/**"
+        - "**/portfolio/**"
+    primary_source: workflow/investment/execution-flow.md
+    required_dependencies:
+      - workflow/investment/README.md
+      - workflow/investment/intake.md
+      - workflow/investment/risk-classification.md
+      - workflow/investment/strategy/README.md
+      - workflow/investment/artifact-gates.md
+    candidate_sources:
+      - workflow/investment/strategy/decision-playbooks.md
+      - workflow/investment/theme-research/README.md
+      - workflow/investment/name-diligence/README.md
+      - workflow/investment/allocation-advice/README.md
+      - workflow/investment/periodic-sweep/README.md
+      - analysis/investment/README.md
+      - analysis/investment/sources-and-tools.md
+      - knowledge/summaries/investment-workflow.md
+      - workflow/software-delivery/delegated-execution.md
+    # Disambiguation：裸「投資」不是本 route 充分條件。投資協議／股權權利義務 → legal。
+    # Mixed（公司分析＋協議）→ framing 拆 primary+secondary（Q12；不偷升 multi-route）。
+    source_of_truth_gate: new-layer-promoted
+    ranking_reason: >
+      投資研究與決策輔助的 canonical 執行順序。Domain 邊界是證券／主題／配置決策支援，
+      不是交易執行、也不是法律投資協議。task type 為第一級分派；Decision Support Pass 1／2
+      ＋ analysis/investment 取證；allocation 預設 DVA。
+    validation_signal: >
+      Task type / risk tier / DVA 狀態已明說；evidence-ledger 可覆核；recommendation strength
+      ≤ authority；uncertainty framing；配置含策略／資產／費用或 provisional；Red 無交易指令。
+    metadata:
+      priority: P2
+      confidence: medium
+      context_cost:
+        estimated_tokens: 3500
+        load_strategy: lazy
+        cacheable: true
+        ttl:
+          task: 1
+      compatibility_state: new-layer-promoted
+    model:
+      profile: specialized
+      compression_level: source-backed
+      reason: >
+        投資建議失敗模式是無舉證喊單與假精確機率；必須 SOURCE_BACKED evidence 與 STRICT
+        intake／authority／uncertainty／DVA gates。
 
   - id: route.runtime.onboarding
     route_type: runtime_doc

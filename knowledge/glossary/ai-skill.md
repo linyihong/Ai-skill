@@ -846,11 +846,14 @@ meaning: >
   collected during its own intake stage, rather than being fixed by the
   route or inferred from the task text. The lifecycle stage order is
   constant; which stages actually run is dispatched per-task from the
-  intake frame. First instance: workflow/legal (task type × jurisdiction ×
-  our role × counterparty presence → dispatch matrix).
+  intake frame. Instances: workflow/legal (task type × jurisdiction ×
+  our role × counterparty presence); workflow/investment (task type ×
+  markets × strategy/asset/fee presence × DVA requirement).
 affects:
   - workflow/legal/execution-flow.md
   - workflow/legal/intake.md
+  - workflow/investment/execution-flow.md
+  - workflow/investment/intake.md
 anti-meaning: >
   Not lazy-loading a slice by task intent (that is cognitive_slice
   suppression, decided by the router before intake). Not a branch on
@@ -859,6 +862,7 @@ anti-meaning: >
 introduced-by: plans/active/2026-07-30-2101-legal-workflow-domain.md
 related-terms:
   - { type: related_to, target: legal_task_type }
+  - { type: related_to, target: investment_task_type }
 ```
 
 ## intelligence_mode
@@ -944,6 +948,77 @@ introduced-by: plans/active/2026-07-30-2101-legal-workflow-domain.md
 related-terms:
   - { type: related_to, target: intake_dispatched_workflow }
   - { type: related_to, target: risk_tier_gate }
+```
+
+## investment_task_type
+
+```yaml
+term: investment_task_type
+status: candidate
+owner-layer: workflow-orchestration
+meaning: >
+  The first-level dispatch dimension of workflow/investment: need-framing /
+  theme-research / name-diligence / position-review / allocation-advice /
+  event-check / periodic-sweep. Asked in intake S0-1; never inferred from a
+  single-sentence request. Domain boundary is market research and decision
+  support — not broker execution and not legal investment agreements.
+affects:
+  - workflow/investment/README.md
+  - workflow/investment/intake.md
+  - workflow/investment/execution-flow.md
+anti-meaning: >
+  Not a ticker list. Not synonym of bare keyword 「投資」. Not a legal task type
+  for equity or investment agreements (those stay on workflow/legal).
+introduced-by: plans/active/2026-08-14-1101-investment-research-decision-support/_plan.md
+related-terms:
+  - { type: related_to, target: intake_dispatched_workflow }
+  - { type: related_to, target: strategy_asset_profile }
+  - { type: related_to, target: risk_tier_gate }
+  - { type: related_to, target: investment_dva_loop }
+```
+
+## investment_dva_loop
+
+```yaml
+term: investment_dva_loop
+status: candidate
+owner-layer: workflow-orchestration
+meaning: >
+  Application of the Delegation → Verification → Arbitration loop to high-stakes
+  investment deliverables (especially allocation-advice and asset-bearing
+  position-review). Consumes software-delivery delegated-execution and plans
+  Delegation loop SOP; does not fork a parallel DVA primitive. Verifier emits
+  findings only; Orchestrator arbitrates.
+affects:
+  - workflow/investment/allocation-advice/README.md
+  - workflow/investment/artifact-gates.md
+  - workflow/software-delivery/delegated-execution.md
+anti-meaning: >
+  Not a fresh-Task guarantee by itself — same-session role-sim must be labelled
+  as a transport limitation. Not Expert Knowledge review.
+introduced-by: plans/active/2026-08-14-1101-investment-research-decision-support/_plan.md
+related-terms:
+  - { type: related_to, target: investment_task_type }
+```
+
+## strategy_asset_profile
+
+```yaml
+term: strategy_asset_profile
+status: candidate
+owner-layer: workflow-orchestration
+meaning: >
+  User-local strategy constraints plus holdings and fee assumptions that bound
+  allocation Interest Analysis. Required (or provisional) before actionable
+  allocation advice; never written into Ai-skill canonical reusable docs.
+affects:
+  - workflow/investment/intake.md
+  - workflow/investment/allocation-advice/README.md
+anti-meaning: >
+  Not a market-wide optimal portfolio model. Not canonical watchlist storage.
+introduced-by: plans/active/2026-08-14-1101-investment-research-decision-support/_plan.md
+related-terms:
+  - { type: related_to, target: investment_task_type }
 ```
 
 ## journey_specification
@@ -1370,6 +1445,8 @@ affects:
   - workflow/legal/risk-classification.md
   - workflow/legal/execution-flow.md
   - workflow/legal/artifact-gates.md
+  - workflow/investment/risk-classification.md
+  - workflow/investment/artifact-gates.md
 anti-meaning: >
   Not a disclaimer. Not a confidence label (that describes source support,
   this describes permitted output depth). A disclaimer appended to full
@@ -1377,6 +1454,7 @@ anti-meaning: >
 introduced-by: plans/active/2026-07-30-2101-legal-workflow-domain.md
 related-terms:
   - { type: related_to, target: legal_task_type }
+  - { type: related_to, target: investment_task_type }
   - { type: related_to, target: counterparty_diligence_card }
 ```
 

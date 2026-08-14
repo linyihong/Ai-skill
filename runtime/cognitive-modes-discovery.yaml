@@ -242,7 +242,7 @@ signals:
   # ── legal workflow domain (2026-07-30) ─────────────────────────────────
   - name: user_keyword_legal_work
     signal_type: user_keyword
-    pattern: "合約|保密協議|NDA|採購契約|契約範本|政府採購|準據法|管轄法院|仲裁|違約金|背景調查|盡職調查|due diligence|法規查詢|法律策略|經銷合約|授權合約|MOU"
+    pattern: "合約|保密協議|NDA|採購契約|契約範本|政府採購|準據法|管轄法院|仲裁|違約金|背景調查|盡職調查|due diligence|法規查詢|法律策略|經銷合約|授權合約|MOU|投資協議|股權協議|股東協議"
     execution_mode: null
     context_mode: SOURCE_BACKED
     governance_mode: STRICT
@@ -256,6 +256,22 @@ signals:
       from training memory without a versioned official source; STRICT governance
       because the intake / strategy / citation-version / risk-tier gates must not
       be skipped (workflow/legal/artifact-gates.md).
+
+  # ── investment workflow domain (2026-08-14) ────────────────────────────
+  - name: user_keyword_investment_research
+    signal_type: user_keyword
+    pattern: "配置建議|資產配置|持倉複核|再平衡|主題研究|供應鏈主題|name diligence|盯盤|sweep brief|財報分析|基本面|allocation advice|portfolio review|手續費|ETF 費用|diligence card|IR 簡報"
+    execution_mode: null
+    context_mode: SOURCE_BACKED
+    governance_mode: STRICT
+    memory_mode: null
+    priority: 19
+    description: >
+      User signals investment research / allocation / sweep (ticker, portfolio,
+      theme, fees) → load route.workflow.investment +
+      workflow.investment.execution_flow.contract. Pattern deliberately omits bare
+      「投資」so legal 「投資協議」is not stolen (Q8). SOURCE_BACKED against
+      unsourced tips; STRICT for intake / evidence / uncertainty / DVA gates.
 
 fallback:
   description: >

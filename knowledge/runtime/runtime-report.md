@@ -6,12 +6,12 @@
 
 | Surface | Path | Count / Status |
 | --- | --- | --- |
-| Routing registry | [`routing-registry.yaml`](routing-registry.yaml) | 60 records |
+| Routing registry | [`routing-registry.yaml`](routing-registry.yaml) | 61 records |
 | Refresh policy | [`refresh-policy.yaml`](refresh-policy.yaml) | candidate |
 | Model context report | [`model-context-report.md`](model-context-report.md) | generated view |
 | Model checklists | [`model-checklists.md`](model-checklists.md) | generated view |
 | SQLite runtime index | [`sqlite/`](sqlite/) | generated lookup cache prototype |
-| Summaries | [`../summaries/`](../summaries/) | 26 files |
+| Summaries | [`../summaries/`](../summaries/) | 27 files |
 | Graph records | [`../graphs/`](../graphs/) | 35 files |
 
 ## Routing Records
@@ -50,6 +50,7 @@
 | `route.workflow.travel-planning` | `workflow/travel-planning/execution-flow.md` | `specialized` | `source-backed` | 新分層路徑可讀取，workflow 與 analysis 內容已分離。 |
 | `route.workflow.documentation-ai-native` | `workflow/documentation/README.md` | `small` | `summary-first` | 新文件或目錄具 index-first 導航、分類維度（kind/audience/stability）已標註； README-as-router、停止條件與單一真相已符合 documentation context governance； 長文已按 document-sizing 拆分；語言與工具敘述依專案自訂 policy（本 route 不預設 tool-neutral）。  |
 | `route.workflow.legal` | `workflow/legal/execution-flow.md` | `specialized` | `source-backed` | Task type / jurisdiction / risk tier 三者已明說；Strategy 的 Decision Register 每個決策點四欄齊備（Recommendation / Reason / Alternative / Trade-offs）； 每筆法規或官方範本引用帶版本與查核日；Red tier 僅輸出 Escalation Card。  |
+| `route.workflow.investment` | `workflow/investment/execution-flow.md` | `specialized` | `source-backed` | Task type / risk tier / DVA 狀態已明說；evidence-ledger 可覆核；recommendation strength ≤ authority；uncertainty framing；配置含策略／資產／費用或 provisional；Red 無交易指令。  |
 | `route.runtime.onboarding` | `runtime/onboarding/apk-analysis-setup.md` | `specialized` | `summary-first` | 各 quickstart 的步驟可依序執行，且與對應 workflow 的內容一致。 |
 | `route.analysis.apk.workflows` | `analysis/apk/workflows/README.md` | `specialized` | `summary-first` | 各 workflow 有明確步驟與產出格式，可依序執行。 |
 | `route.analysis.web` | `analysis/web/README.md` | `specialized` | `summary-first` | 目標網站已評估（技術棧、JS 需求、anti-bot 保護），工具已選擇（HTTP/Dynamic/Stealth）， 提取策略已設計（selector/adaptive parsing），風險已評估（legal/technical/data quality）。  |
@@ -92,6 +93,7 @@
 | `governance.executable-contract-boundary` | `candidate` | [`executable-contract-boundary.md`](../summaries/executable-contract-boundary.md) | 定義 executable YAML contract 邊界：source 留在 owner layer，Markdown 解釋脈絡，YAML 承載 activation / steps / gates / evidence；會影響 execution 的 contract 以 `runtime_projection.enabled: true` opt in 到 `runtime.db generated_surfaces`。Framework contract / projection 改動前必須先做 pre-build interrogation，避免雙寫 source-of-truth。 |
 | `feedback.promotion.pipeline` | `candidate` | [`feedback-promotion-pipeline.md`](../summaries/feedback-promotion-pipeline.md) | 定義 feedback lesson 從 skill-local history 推進到 workflow、intelligence、enforcement、memory 或 runtime surfaces 的 promotion / downgrade gate。 |
 | `governance.goal-ledger-boundary` | `validated` | [`goal-ledger-boundary.md`](../summaries/goal-ledger-boundary.md) | `.agent-goals/` 只保存 active conversation goals；長期 roadmap、phase、migration、promotion、deprecation 與治理狀態必須落到 durable planning 文件。 |
+| `workflow.investment` | `candidate` | [`investment-workflow.md`](../summaries/investment-workflow.md) | 投資研究與決策輔助的 intake-dispatched workflow（Decision Support case #2）。第一級分派＝investment task type（need-framing／theme-research／name-diligence／position-review／allocation-advice／event-check／periodic-sweep）。Lifecycle：Frame → Intake → Risk Tier → Strategy Pass 1 → Dispatch → Research（analysis/investment）→ Pass 2 →（條件）DVA → Produce → Validate → Close。無舉證不得建議；uncertainty framing；D 級研究帳不可獨撐；配置須策略／資產／費用；allocation 預設 DVA。Route by decision object——「投資協議」走 legal，非 keyword「投資」。Report producer only（無券商／無 cron）。 |
 | `knowledge.navigation` | `validated` | [`knowledge-navigation.md`](../summaries/knowledge-navigation.md) | 知識導航系統：indexes（任務路由）、summaries（300-500 token 摘要）、graphs（知識圖譜邊）、runtime（routing registry、refresh policy、SQLite lookup cache）。讓 agent 用最小 token 成本找到正確知識。 |
 | `workflow.legal` | `candidate` | [`legal-workflow.md`](../summaries/legal-workflow.md) | 法律工作的 intake-dispatched workflow。Domain 邊界是**法律任務**而非合約文件：第一級分派維度為 legal task type（draft / review / explain / compare / research / due-diligence / strategy / negotiation-support / lifecycle）。Lifecycle：Frame → Task Intake → Risk Tier → **Strategy Pass 1** → Dispatch → Due Diligence → Applicable Law → Reference Sources → **Strategy Pass 2** → Produce → Validate → Close。核心不是「問問題→寫合約」而是「問問題→推理最佳策略→使用者決策→才決定怎麼寫」。Jurisdiction 為 P0；策略建議強制四欄（Recommendation / Reason / Alternative / Trade-offs）；法規與官方範本引用強制版本 + 查核日；背調三層（Identity → Corporate Status → 九類 Risk Signals）且每個 risk flag 對應具體條款調整；風險分 Green / Yellow / Red，Red 短路為 Escalation Card。 |
 | `memory.operations` | `candidate` | [`memory-operations.md`](../summaries/memory-operations.md) | Memory 是 selective replay system：working buffer、summary、episodic、project、failure、decision 與 retrieval-governance。Replay 需要 trigger、qualification、budget、freshness/scope check 與 current source revalidation。 |

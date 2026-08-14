@@ -94,7 +94,7 @@ L3 **Validation Capability** produces Evidence（artifact + proof shape）。`ev
 
 ## Runtime Close-Out Scenarios
 
-- `runtime/feedback-report-required-v1.yaml` — final close-out 不得缺 Feedback / Learning Report。
+- `runtime/workflow-detector-investment-v1.yaml` — investment route 命中配置建議；「投資協議」不得sole-route 到 investment（Q8）。
 - `runtime/feedback-report-schema-v1.yaml` — Feedback / Learning Report 只做 presence / schema / enum / field-combination 機械檢查，不做語義判斷。
 - `runtime/non-local-repo-feedback-none-allowed-v1.yaml` — non-local repo 仍可在沒有 reusable learning 時回報 `feedback_decision: NONE`。
 - `failure-derived/feedback-needed-but-not-reported-v1.yaml` — user correction / reusable runtime gap 後不得漏報 `feedback_decision: NEEDED`。

@@ -1,0 +1,127 @@
+schema_version: executable-contract/v1
+id: workflow.investment.artifact-gates.contract
+title: Investment workflow artifact gates contract
+owner_layer: workflow
+source_markdown: workflow/investment/artifact-gates.md
+status: active
+contract_type: workflow_flow
+blocking_level: blocking
+
+runtime_projection:
+  enabled: true
+  target_key: workflow.investment.artifact_gates.contract
+  surface_type: executable_yaml_contract
+  execution_scope: workflow_execution
+
+activation:
+  events:
+    - investment_deliverable_created
+    - investment_deliverable_reviewed
+    - investment_task_completion_claimed
+  required_when:
+    - Producing or reviewing any investment research or decision-support deliverable, or claiming an investment task is complete.
+
+required_sources:
+  - workflow/investment/artifact-gates.md
+  - workflow/investment/risk-classification.md
+  - workflow/investment/execution-flow.md
+
+universal_artifacts:
+  - investment_task_frame
+  - risk_tier_determination
+  - open_questions_split_blocking_non_blocking
+  - disclaimer_points
+
+artifacts_by_task_type:
+  need-framing:
+    required: [framing_note, suggested_path]
+  theme-research:
+    required: [decision_register, evidence_ledger, theme_map]
+  name-diligence:
+    required: [decision_register, evidence_ledger, diligence_card]
+  position-review:
+    required: [decision_register, evidence_ledger, still_valid_card]
+    conditional: [strategy_asset_fee_summary, verifier_summary]
+  allocation-advice:
+    required: [decision_register, evidence_ledger, strategy_asset_fee_summary, interest_analysis_with_fees, alternatives_comparison, human_selection_explicit]
+    conditional: [verifier_summary]
+  event-check:
+    required: [evidence_ledger, event_impact_card]
+  periodic-sweep:
+    required: [evidence_ledger, sweep_brief_delta]
+
+red_tier_override:
+  required: [risk_tier_determination, escalation_card, disclaimer_points]
+  forbidden: [trade_execution_instructions, guarantee_return_language, bare_buy_list_without_evidence]
+
+steps:
+  - id: verify_universal_artifacts
+    order: 1
+    action: Confirm task type and risk tier are stated, Open Questions are split, and disclaimer points are present.
+    gates:
+      - gate.investment.artifacts_complete
+
+  - id: verify_intake_gate
+    order: 2
+    action: Confirm S0 fields are valued or UNKNOWN; for allocation, S1/S2 present or blocking listed.
+    gates:
+      - gate.investment.intake_complete
+
+  - id: verify_strategy_and_evidence
+    order: 3
+    action: Confirm Decision Register, evidence-ledger where Yellow+, uncertainty framing, and recommendation ≠ decision.
+    gates:
+      - gate.investment.decision_register_present
+      - gate.investment.strategy_reasoned
+      - gate.investment.evidence_ledger_present
+      - gate.investment.uncertainty_framed
+      - gate.investment.no_uncalibrated_probability
+      - gate.investment.recommendation_ne_decision
+
+  - id: verify_allocation_constraints
+    order: 4
+    conditional: task_type == allocation-advice
+    action: Confirm strategy/asset/fee summary or provisional markers, Interest Analysis with fee friction, and DVA complete or skipped(user).
+    gates:
+      - gate.investment.strategy_asset_fee_present
+      - gate.investment.dva_complete
+
+  - id: verify_escalation_consistency
+    order: 5
+    action: Confirm output depth matches risk tier; Red has Escalation Card and no trade instructions.
+    gates:
+      - gate.investment.disclaimer_present
+
+confidence_labels:
+  labels:
+    confirmed: authority A or B with locator and as-of
+    probable: multiple C sources agreeing without A/B trace
+    provisional: Pass 1 or fees/assets incomplete
+    unverified: no A/B support
+  rule: certainty language is forbidden for provisional and unverified content
+
+advisory_checks:
+  - delta_only_on_sweep
+  - researcher_notes_marked_authority_d
+  - holdings_not_written_to_canonical
+  - dva_transport_limitation_recorded_if_same_session
+
+definition_of_done:
+  checks:
+    - task_type_and_risk_tier_stated
+    - all_blocking_gates_passed_or_blocker_reported
+    - required_artifacts_for_task_type_present
+    - evidence_authority_caps_recommendation
+    - human_selection_explicit_when_advice_given
+    - allocation_has_fee_interest_or_provisional
+    - dva_complete_or_skipped_user_when_required
+    - disclaimer_present_yellow_or_red_escalation
+  rule: >
+    Any unmet item blocks the completion claim. Report which item is blocking
+    instead of claiming completion.
+
+related:
+  companion_markdown: workflow/investment/artifact-gates.md
+  flow_contract: workflow/investment/execution-flow.yaml
+  plan: plans/active/2026-08-14-1101-investment-research-decision-support/_plan.md
+  route: route.workflow.investment
