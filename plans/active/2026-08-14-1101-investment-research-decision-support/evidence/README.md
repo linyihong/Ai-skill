@@ -20,6 +20,6 @@ Canonical：[`governance/lifecycle/plan-evidence.md`](../../../../governance/lif
 | 01 | [`01-theme-research-cpo-optical.md`](01-theme-research-cpo-optical.md) | done | need-framing→theme-research；CPO／光互連供應鏈；H1–H8 檢驗 |
 | 02 | [`02-name-diligence-lite.md`](02-name-diligence-lite.md) | done | $LITE diligence；H6：researcher=D source type 非必要 |
 | 03 | [`03-periodic-sweep-optical-lite.md`](03-periodic-sweep-optical-lite.md) | done | Sweep delta；H5 PASS（未全量重寫） |
-| 04 | — | pending | allocation-advice |
+| 04 | [`04-allocation-advice-fictional.md`](04-allocation-advice-fictional.md) | done | 虛構配置＋費用 Interest；H1/Q13 PASS |
 | 05 | — | pending | DVA |
 | Q8-A/B/C | — | pending | semantic routing boundary |
