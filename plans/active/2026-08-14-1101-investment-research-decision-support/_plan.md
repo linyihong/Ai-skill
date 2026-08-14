@@ -10,7 +10,7 @@ owner_layer: workflow
 
 **Phase 0**: ✅ CLOSED / FROZEN（2026-08-14）— 定界完成；**停止繼續改 plan 架構推測**，未知項留 Q10／Q12 由 dogfood 餵。
 
-**Phase 1**: 🟢 IN PROGRESS — 執行順序凍結為 ① theme → ② name → ③ sweep → ④ allocation → ⑤ DVA → ⑥ Q8 A/B/C；evidence 用 PASS/FAIL/MIXED 檢驗假說是否成立，不是打勾證明「有遵守」。
+**Phase 1**: ✅ CLOSED（2026-08-14 dogfood lab）— ①–⑥ evidence 齊；H1–H8 有假說檢驗。下一步 Phase 2 方法層實作，不重開 Phase 0 架構推測。
 
 2026-08-14 建立。Stakeholder 定界：形狀對齊 `workflow/legal/`（intake-dispatched +
 Decision Support），預設市場 **台股＋美股、主題預設 AI／semi／供應鏈**；語言跟隨本庫
@@ -371,9 +371,9 @@ Evidence 目錄：[`evidence/`](evidence/README.md)
 - [x] ② `name-diligence` — 見 [`evidence/02-name-diligence-lite.md`](evidence/02-name-diligence-lite.md)（$LITE；H6 lean-promote Source Authority）
 - [x] ③ `periodic-sweep` — 見 [`evidence/03-periodic-sweep-optical-lite.md`](evidence/03-periodic-sweep-optical-lite.md)（H5 lean-promote Observation／Reassessment）
 - [x] ④ `allocation-advice` — 見 [`evidence/04-allocation-advice-fictional.md`](evidence/04-allocation-advice-fictional.md)
-- [ ] ⑤ DVA（allocation 後）
-- [ ] ⑥ Q8 Case A／B／C
-- [ ] Phase 1 總結：workflow 能跑？H1–H8 哪些升 cross-domain？Q12？
+- [x] ⑤ DVA — 見 [`evidence/05-dva-allocation.md`](evidence/05-dva-allocation.md)
+- [x] ⑥ Q8 Case A／B／C — 見 [`evidence/06-q8-routing-and-phase1-close.md`](evidence/06-q8-routing-and-phase1-close.md)
+- [x] Phase 1 總結 — 同 06；workflow 形狀可跑；H1/H2/H3/H5/H6/H8 lean-promote；Q12 still-open
 
 ### Phase 1 跨 domain 觀察表（每 run 必填）
 

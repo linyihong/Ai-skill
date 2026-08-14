@@ -21,5 +21,5 @@ Canonical：[`governance/lifecycle/plan-evidence.md`](../../../../governance/lif
 | 02 | [`02-name-diligence-lite.md`](02-name-diligence-lite.md) | done | $LITE diligence；H6：researcher=D source type 非必要 |
 | 03 | [`03-periodic-sweep-optical-lite.md`](03-periodic-sweep-optical-lite.md) | done | Sweep delta；H5 PASS（未全量重寫） |
 | 04 | [`04-allocation-advice-fictional.md`](04-allocation-advice-fictional.md) | done | 虛構配置＋費用 Interest；H1/Q13 PASS |
-| 05 | — | pending | DVA |
-| Q8-A/B/C | — | pending | semantic routing boundary |
+| 05 | [`05-dva-allocation.md`](05-dva-allocation.md) | done | O→E→V；Verifier 擋 60%／直接執行 |
+| 06 | [`06-q8-routing-and-phase1-close.md`](06-q8-routing-and-phase1-close.md) | done | Q8 A/B/C＋Phase 1 總結；Phase 1 CLOSED |
