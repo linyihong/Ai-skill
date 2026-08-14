@@ -17,16 +17,26 @@ Decision Support），預設市場 **台股＋美股、主題預設 AI／semi／
 何時跑由使用者在各 AI 工具的定時任務／提醒自行設定。不接券商、不下單；
 agent 最多在 intake／設定說明裡**提醒**可設排程，不擁有 cron 執行權。
 
-**資產／策略＋三角色（2026-08-14 追加）**：Intake 主動詢問（或讀取使用者設定中的）
-**投資策略 profile** 與 **現有資產／持倉**；在約束下推算對使用者較有利的方案（機率化＋
-trade-off，非保證最優）。高利害報告（尤其 `allocation-advice`／含資產的 `position-review`）
+**資產／策略／費用＋三角色（2026-08-14 追加）**：Intake 主動詢問（或讀取使用者設定中的）
+**投資策略 profile**、**現有資產／持倉**與**手續費／相關費用**；Interest Analysis 須納入費用
+摩擦，再推算對使用者較有利的方案（機率化＋trade-off，非保證最優）。高利害報告（尤其
+`allocation-advice`／含資產的 `position-review`）
 走 [`delegation-verification-arbitration`](2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)
 三角色 loop，並強制 **證據推算表**，讓報告可覆核、可閱讀。
 
-**Glossary Impact**: yes — 預期引入（Phase 實作時註冊）：`investment task type`、
-`probability-framed recommendation`、`expert-note watchlist`、`periodic market sweep`、
-`strategy-asset profile`、`evidence-ledger report`、`investment DVA loop`。
-尚未註冊於 `knowledge/glossary/ai-skill.md`。
+**系統定位（2026-08-14 外部 review 採納）**：Investment **不是**「再多一個投資 skill」的終點；
+它是 **Decision Support 的第二個大型 dogfood domain／實驗室**。真正要觀察的是它是否暴露
+可升級成 cross-cutting primitive 的不變量（見 §Cross-domain Abstraction Hypotheses）。
+**現在不新增 7 個 generic capability / route / glossary 定稿**——先 domain dogfood →
+證明 invariant 跨 domain → 再抽象（對齊 DVA／ERA 的 falsification ladder 紀律）。
+
+**Glossary Impact**: yes（**延後註冊**；dogfood 前只用 candidate 名）—
+domain 詞：`investment task type`、`strategy-asset profile`、`investment DVA loop`。
+abstraction **candidates**（勿過早綁 investment 措辭）：`evidence-to-decision gate`、
+`decision-support lifecycle`、`uncertainty framing`（**不是**把 glossary 定死成
+`probability-framed recommendation`）、`decision depth gate`、
+`periodic observation/reassessment`、`source authority model`、
+`knowledge/user-state boundary`、`semantic route disambiguation`（Q8 candidate）。尚未註冊於 `knowledge/glossary/ai-skill.md`。
 
 ## Decision Rationale
 
@@ -58,12 +68,20 @@ converged case #1；本 domain 目標成為 **case #2**。
   1. **策略 profile**：目標（保值／成長／主題曝險等）、horizon、風險承受、再平衡規則、
      禁止標的／槓桿偏好、稅／匯率約束（若有）。
   2. **現有資產**：現金、持倉清單（標的／成本／權重或約略部位）、負債／流動性需求（若有）。
-  3. 市場範圍、是否允許配置建議、大神 watchlist（可從使用者設定讀）。
-  使用者已提供策略／資產於設定檔時：intake **確認摘要**即可，不必重問全文；缺欄位才追問。
-- **「對使用者最有利」的定義（有界）**：在策略 profile＋現有資產約束下，比較可行方案的
-  風險／報酬／集中度／流動性／稅與匯率 friction，輸出 **機率化情境＋trade-off＋需拍板點**。
-  **不是**全域數學最優、**不是**保證報酬。Interest Analysis 必須同時看「市場對手／流動性現實」
-  （對齊 decision-support 不得 one-sided interest）。
+  3. **交易成本／費用 profile**（股票與相關商品；缺則追問或標 provisional）：
+     券商手續費／佣金、交易稅（若適用）、匯費／換匯成本、保管／管理費、ETF 費用率、
+     借券／融資利息（若使用）、其他平台費用；台股／美股分開記（費率結構不同）。
+  4. 市場範圍、是否允許配置建議、大神 watchlist（可從使用者設定讀）。
+  使用者已提供策略／資產／費用於設定檔時：intake **確認摘要**即可，不必重問全文；缺欄位才追問。
+- **「對使用者最有利」的定義（有界）**：在策略 profile＋現有資產＋**交易成本／費用**約束下，
+  比較可行方案的風險／報酬／集中度／流動性／稅與匯率 friction／**手續費與相關費用淨效應**，
+  輸出 **機率化情境＋trade-off＋需拍板點**。
+  **不是**全域數學最優、**不是**保證報酬。
+  **Interest Analysis（必做，對齊 decision-support）**須涵蓋：
+  (a) 對使用者較有利的安排（含「少交易／一次建倉 vs 分批」的費用差）；
+  (b) 其他方利益與現實約束（流動性、對手方可接受性）；
+  (c) **費用摩擦**：來回手續費、稅、匯費、保管／管理費、融資利息等對期望淨報酬與再平衡門檻的影響；
+     費用未提供時標 `provisional` 並列待查，**不得**假裝零成本。
 - **Decision Support 兩趟**（對齊 cross-cutting contract）：Pass 1 provisional（含策略／資產約束下的
   方案空間）→ Research（新聞／財報／趨勢／大神筆記）→ Pass 2 機率化建議＋需使用者決策點。
 - **預設市場**：台股＋美股；**預設主題焦點**：AI／半導體／光通訊／資料中心供應鏈
@@ -73,16 +91,18 @@ converged case #1；本 domain 目標成為 **case #2**。
 - **建議規則**：可給方向性／配置建議，但必須 (a) 附來源舉證、(b) 趨勢摘要、
   (c) 大神／公開研究筆記對照（若有 watchlist 命中）、(d) **機率或情境權重**呈現，
   禁止「必然漲／必買」話術。
+- **資料來源邊界**：預設公開來源。可提醒使用者「若有付費資料可提供」；**僅當該資料
+  當下可查到（已提供／已授權可讀）**才寫進證據表。不接付費資料商 API、不假設訂閱存在。
 - **Sweep 流程**：獨立 task type `periodic-sweep`——盯 watchlist 標的＋大神筆記更新＋
   重大新聞，產出 sweep brief（非即時交易訊號）。**觸發在外**（使用者／各 AI 定時任務）；
   本 workflow 是 report producer，不是 scheduler。
 - **證據推算報告（Evidence-ledger report）**：凡 Yellow／配置類產出，artifact 必須含可閱讀區塊：
   | 區塊 | 內容 |
   | --- | --- |
-  | 策略／資產摘要 | 本次分析所依據的 profile（去敏後） |
+  | 策略／資產／費用摘要 | 本次分析所依據的 profile（去敏後；含手續費假設或 provisional） |
   | 證據表 | 主張 → 來源等級 A–D → URL／日期 → 支持／削弱 |
   | 推算鏈 | 前提 → 推論步驟 → 機率／情境權重 → 結論 |
-  | 方案比較 | ≥2 方案＋trade-off＋為何較利於**該使用者**策略 |
+  | 方案比較 | ≥2 方案＋trade-off（**含費用／手續費淨效應**）＋為何較利於**該使用者**策略 |
   | Verifier 摘要 | 若跑 DVA：findings 與仲裁結果 |
 - **三角色 DVA（delegation → verification → arbitration）**：
   對齊 [`2026-07-08-0825-delegation-verification-arbitration-loop`](2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)。
@@ -103,7 +123,7 @@ converged case #1；本 domain 目標成為 **case #2**。
 | `theme-research` | 產業／供應鏈主題 | Thesis note＋供應鏈圖＋catalyst |
 | `name-diligence` | 單一標的 | Diligence card＋證據表 |
 | `position-review` | 已持倉 | Thesis still-valid?＋失效條件 |
-| `allocation-advice` | 配置／風險配置（需策略＋資產） | Allocation brief（對使用者較有利方案＋證據推算；預設 DVA） |
+| `allocation-advice` | 配置／風險配置（需策略＋資產＋費用） | Allocation brief（較有利方案＋Interest／費用分析＋證據推算；預設 DVA） |
 | `event-check` | 單次新聞／事件 | Event impact card |
 | `periodic-sweep` | 定期巡檢 | Sweep brief（標的＋大神筆記＋新聞） |
 
@@ -188,13 +208,33 @@ Intake-dispatched 與 Decision Support 已有 legal 先例與 cross-cutting pilo
       使用者自行設排程；本庫不實作跨工具 scheduler。
 - [x] **Q6** 個人持倉與 watchlist 存放？→ `resolved`（2026-08-14）：**使用者設定**（專案本地
       或工具側設定）；skill 執行時讀取該設定。不寫入 Ai-skill canonical reusable docs。
-- [ ] **Q7** 是否需要付費資料（Bloomberg 等）？預設只用公開來源？`deferred`（預設公開來源 only；
-      付費源另開 plan）
-- [ ] **Q8** 與 legal Red tier「投資／股權」字面是否衝突？選路表是否要加裁決？`still-open`
-      （Phase 5 routing 時處理；不挡 Phase 1）
+- [x] **Q7** 是否需要付費資料（Bloomberg 等）？→ `resolved`（2026-08-14）：
+      **預設公開來源**。Intake／設定說明可**告知使用者**：若持有付費資料／訂閱，可自行提供
+      摘錄、匯出或可查連結。Agent **僅在付費資料當下可查到（使用者已提供或已授權可讀）**
+      時才納入證據表；不得假設有 Bloomberg 等帳號、不得要求本庫集成付費 API。
+      付費證據仍走來源分級與 H6；無公開交叉驗證時不得單獨支撐最高信心建議。
+- [x] **Q8** 與 legal「投資／股權」是否衝突？→ `resolved`（2026-08-14 採納外部 review）：
+      **要加 routing arbitration，但不是 keyword precedence**（禁止 `investment > legal` 或
+      反向固定優先）。裁決依 **decision object + task semantics**：
+      - Market／securities／portfolio／allocation／earnings／sector → `investment`
+      - Contract／equity rights／obligation／dispute／shareholder rights／投資協議 → `legal`
+      - 語意不足 → **先 framing**（investment 的 `need-framing` 或跨域澄清），**不得**僅因
+        「投資／股權」字面自動選 `investment`
+      Discovery signals（ticker、合約、協議…）只是 detector 提示，**不是最終裁決權**。
+      Phase 5 把 invariant 投影到 `workflow-routing.md` 歧義列＋routing signals；
+      Phase 1 先用 boundary dogfood 驗證（含 mixed case）。
+- [ ] **Q12** Mixed investment＋legal（公司分析＋投資協議）應走 single primary＋secondary、
+      還是正式 multi-domain decomposition？`still-open`（Phase 1 Case C dogfood 後再決；
+      本 plan 不預設升級 multi-route runtime）
 - [x] **Q9** 是否納入策略／資產 intake＋DVA＋證據推算？→ `resolved`（2026-08-14）：是。
       配置建議缺策略或資產摘要 → blocking；高利害報告強制 DVA（可明示跳過並記錄）。
 - [ ] **Q10** 策略／資產設定檔的建議 schema 與範例路徑（專案本地）？`still-open`（Phase 2/3 定稿）
+- [x] **Q11** 是否把 plan 定位為 DS 實驗室＋H1–H7 觀察、暫不抽 7 個 generic？→ `resolved`
+      （2026-08-14 採納外部 review）：是。優先驗證 H1 Evidence-to-Decision Gate、H2 Lifecycle、
+      H3 Uncertainty Framing（與 ERA 銜接）。
+- [x] **Q13** 股票手續費與相關費用是否納入利益／方案評估？→ `resolved`（2026-08-14）：
+      **必須**。Interest Analysis 與 allocation／position／再平衡建議須評估手續費、稅、匯費、
+      保管／管理費、融資利息等；費用未知則 provisional＋待查，禁止假設零成本。
 
 ## Stakeholder 同意項目
 
@@ -211,6 +251,10 @@ Intake-dispatched 與 Decision Support 已有 legal 先例與 cross-cutting pilo
 | 9 | Q5／Q6：觸發＝各 AI 定時；設定＝使用者側；workflow＝報告產出 | ✅ 同意 |
 | 10 | Intake 詢問／讀取策略 profile＋現有資產；據此推算較有利方案（機率化） | ✅ 同意（2026-08-14） |
 | 11 | 高利害報告走 DVA 三角色＋證據推算表 | ✅ 同意（2026-08-14） |
+| 12 | 定位為 DS case #2 實驗室；H1–H7 觀察；暫不抽 7 個 generic | ✅ 採納外部 review（2026-08-14） |
+| 13 | 資料：公開預設；付費僅在使用者可提供／可查到時納入 | ✅ 同意（2026-08-14） |
+| 14 | Q8：semantic routing（decision object）；禁 keyword precedence；Phase 1 含 A/B/C | ✅ 採納（2026-08-14） |
+| 15 | 手續費／相關費用納入 Interest Analysis 與方案比較 | ✅ 同意（2026-08-14） |
 
 ## Phase 0 — Pre-Build Interrogation
 
@@ -218,18 +262,18 @@ Intake-dispatched 與 Decision Support 已有 legal 先例與 cross-cutting pilo
 
 - [x] 已讀 §Open Questions
 - [x] Q1–Q6 `resolved`（stakeholder 2026-08-14）
-- [x] Q7 `deferred`（公開來源 only）；Q8 `still-open` 不挡 Phase 1
+- [x] Q7–Q8／Q11 `resolved`；Q10／Q12 `still-open` 不挡 Phase 1（Q12 靠 Case C 餵）
 
 ### Phase 0.1 — Pre-Build Interrogation 六問
 
 | 問題 | 回答 |
 | --- | --- |
-| `goal_scope_and_non_goals` | Goal：建立投資研究／決策輔助 domain（intake、分析分派、舉證建議、sweep 報告）。Non-goals：不下單、不接券商、不實作跨工具 cron、不保證報酬、不把個人持倉寫進 canonical docs、不複製大神結論當真理。 |
+| `goal_scope_and_non_goals` | Goal：建立投資研究／決策輔助 domain（intake、分析分派、舉證建議、sweep 報告）。Non-goals：不下單、不接券商、不實作跨工具 cron、不集成付費資料商 API、不保證報酬、不把個人持倉寫進 canonical docs、不複製大神結論當真理。 |
 | `canonical_source_owner` | `workflow/investment/execution-flow.md`＝lifecycle；`intake.md`／`risk-classification.md`／`artifact-gates.md`／sub-flows 各為主題 canonical；`analysis/investment/`＝取證方法。 |
 | `projection_boundary` | Phase 5 才加 `.yaml` executable contract 並 project；Phase 1–4 不新增未 project 的 `runtime/*.yaml`。 |
-| `source_of_truth_duplication_risk` | (a) legal Red「投資」字面；(b) intelligence/engineering/economics「investment」工程投資語意。緩解：route signals 用股市／配置／ticker 等專屬詞；README 明寫邊界。 |
+| `source_of_truth_duplication_risk` | (a) legal「投資／股權」語意撞車；(b) engineering economics「investment」。緩解：**Q8 semantic routing**（decision object／task semantics），非 keyword precedence；README＋選路表歧義列。 |
 | `runtime_trigger_flow_or_doc_only_reason` | Phase 1–4 doc-only + dogfood；Phase 5 才 runtime integration（route + discovery signal + yaml projection）。 |
-| `validation_targets` | intake gate；無舉證不得建議；機率框架強制；periodic-sweep artifact；routing 不與 legal／software-delivery 誤吸。 |
+| `validation_targets` | intake gate；無舉證不得建議；uncertainty framing；periodic-sweep；**Q8 Case A/B/C**（semantic routing vs legal）；H1–H7 觀察表。 |
 
 ### Phase 0.2 — Architecture Compatibility Preflight
 
@@ -240,27 +284,114 @@ Intake-dispatched 與 Decision Support 已有 legal 先例與 cross-cutting pilo
 | 3 | Layer responsibility | 執行順序→workflow；取證方法→analysis；lesson 夠了再→intelligence（本輪可不建空殼） |
 | 4 | Compiler | Phase 5 才 compile/refresh |
 | 5 | Linked updates | workflow README、analysis README、decision-support Instantiations、routing（Phase 5）、glossary |
-| 6 | Execution decision | Q1–Q6 已收斂、Q7 deferred、Q8 不挡 → **可進 Phase 1 dogfood** |
+| 6 | Execution decision | Q1–Q9／Q11 已收斂；Q8 已定 invariant；Q10／Q12 靠 dogfood → **可進 Phase 1** |
+
+## Cross-domain Abstraction Hypotheses（實驗室觀察，非現在實作）
+
+> Stakeholder／外部 review 2026-08-14：investment 的架構價值 ≥ domain 本身。
+> 本節是 **Phase 1–4 dogfood 的額外觀察契約**；**禁止**據此立刻開 7 個 cross-cutting
+> 實作 plan 或塞進 runtime。每一條都要回答：*這個 invariant 成立是因為投資特殊，
+> 還是跨 domain 認知／治理規律？*
+
+與既有線對齊（消費、不重造）：
+[`decision-support`](../../workflow/cross-cutting/decision-support/README.md)、
+[`delegation-verification-arbitration`／ERA](2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)
+（Evidence constrains Decision Space；Evidence Producer ≠ Closure Authority）。
+
+### 優先序與候選抽象名
+
+| 優先 | Investment 表面物 | 候選抽象 | 核心 invariant |
+| --- | --- | --- | --- |
+| ⭐⭐⭐⭐⭐ | 無舉證不得建議 | **Evidence-to-Decision Gate** | Decision strength cannot exceed evidence strength |
+| ⭐⭐⭐⭐⭐ | Pass 1 → Research → Pass 2 | **Decision Support Lifecycle** | Frame → provisional → evidence → reconcile → support → human selection（≠ 系統內部 O→R→E→V） |
+| ⭐⭐⭐⭐⭐ | 機率／情境化建議 | **Uncertainty Framing** | Evidence 不足時保留 uncertainty；機率只是一種 representation |
+| ⭐⭐⭐⭐ | Green／Yellow／Red | **Decision Depth Gate** | Task depth → required evidence／verification／permitted output |
+| ⭐⭐⭐⭐ | periodic-sweep | **Periodic Observation／Reassessment** | Observation producer ≠ scheduler；Previous → New → Delta → Reassess |
+| ⭐⭐⭐⭐ | 大神筆記來源分級 | **Source Authority／Evidence Quality** | Authority×recency×directness×corroboration（非「Expert Knowledge」） |
+| ⭐⭐⭐⭐ | watchlist／持倉不進 canonical | **Knowledge／User-State Boundary** | Reusable Knowledge ≠ User State ≠ Task／Evidence／Runtime State |
+| ⭐⭐⭐⭐ | 「投資」撞 legal／investment | **Semantic Route Disambiguation**（candidate） | Route by decision object／task semantics；ambiguous → framing；禁固定 keyword precedence |
+
+### Q8 Routing invariant（定案）
+
+```text
+User request → task framing → domain object + task type → route
+```
+
+- **Investment research**（市場／標的／配置／財報／供應鏈）→ `workflow/investment`
+- **Legal investment／equity**（協議／股東權利義務／爭議）→ `workflow/legal`
+- **Ambiguous** → framing／澄清 decision object；**不得** `contains("投資") → investment`
+- Discovery signals 輔助 detector，**不**當最終裁決
+- **Mixed**（公司分析＋投資協議）→ Phase 1 Case C 觀察；是否 multi-domain 見 Q12
+
+與系統內部 Observation→Registry→Executor→Validation **不同層**；此為 **task-semantics routing**，
+升 cross-cutting 前須 legal＋investment 雙側 dogfood（同 H1–H7 紀律）。
+
+### Responsibility surfaces（銜接 ERA）
+
+```text
+Evidence → (constrains) Claim → (supports) Recommendation → (human selection) Decision
+```
+
+四個責任面（對齊 ERA：Evidence Producer ≠ Closure Authority）：
+
+1. Evidence Producer  
+2. Claim／Analysis Producer  
+3. Recommendation Producer  
+4. Decision／Selection Authority（預設＝使用者）
+
+### 刻意不做（直到 legal＋investment 雙側 dogfood 支持）
+
+- 不把 Decision Support 立刻拆成 Intake／Evidence／Uncertainty 等獨立 route。
+- 不把 glossary 定稿為 `probability-framed recommendation`（用 **uncertainty framing** 當 candidate）。
+- 不把「大神」升成 Expert Knowledge primitive。
+- 不實作跨工具 cron（維持 Observation producer ≠ scheduler）。
 
 ## Phase 1 — Spike / Dogfood（不建 route）
+
 
 - [ ] 選 1 個 AI／semi 主題跑 `need-framing` → `theme-research` 全流程（對話即可）
 - [ ] 選 1 檔標的跑 `name-diligence`（新聞＋趨勢＋至少 1 則大神／公開研究對照）
 - [ ] 模擬一次 `periodic-sweep` 產出形狀
-- [ ] 用**去敏虛構**策略 profile＋資產表跑一次 `allocation-advice` 草稿（含方案比較＋機率）
+- [ ] 用**去敏虛構**策略 profile＋資產表＋**手續費／費用假設**跑一次 `allocation-advice`（方案比較＋Interest／費用＋機率）
 - [ ] 模擬 DVA：寫 brief → Executor 產 evidence-ledger 報告 → Verifier findings 表（可同人分角色或 Task）
+- [ ] **Q8 boundary cases**（記錄實際選路／是否誤吸 legal）：
+  - **Case A**：「我想投資某家公司，幫我分析值不值得」→ 期望 `investment`
+  - **Case B**：「我想投資某家公司，幫我看投資協議」→ 期望 `legal`
+  - **Case C**：「我準備投資這家公司，幫我分析公司本身＋投資協議風險」→ 記錄單一 primary、
+    primary+secondary，或需 multi-domain decomposition（餵 Q12；**不**在本 phase 改 runtime）
 - [ ] 記錄 failure／摩擦 → 回寫本 plan Open Questions
+- [ ] 每份 dogfood evidence **加填**下方跨 domain candidate signal 表（H1–H7＋Q8／H8）
 
-完成條件：去敏 dogfood notes（可放本 plan `evidence/`），含至少一份 allocation＋DVA 形狀樣本。
+### Phase 1 跨 domain 觀察表（每 run 必填）
+
+| Observation | Hypothesis | 記什麼 |
+| --- | --- | --- |
+| 建議能否回溯到 evidence？ | H1 Evidence→Decision | 主張→來源對照是否可獨立覆核 |
+| evidence 強度是否限制 recommendation 強度？ | H1 Gate | 弱證據是否仍寫成強建議（失效） |
+| uncertainty 是否被保留（非只數字）？ | H3 Uncertainty | 是否被壓成肯定句 |
+| 不同 task 是否需要不同 depth／gate？ | H4 Depth | Green 與 allocation 的 gate 差是否合理 |
+| sweep 是否能只處理 delta？ | H5 Observation | 全量重寫 vs delta／reassessment |
+| 低權威 source 是否被過度放大？ | H6 Source Authority | D 級是否獨撐高信心 |
+| user-specific state 是否污染 canonical？ | H7 State Boundary | 持倉／watchlist 是否誤進 reusable path |
+| Pass1→Research→Pass2 是否被跳過？ | H2 Lifecycle | 是否退化成 question→answer |
+| 「投資」字面是否誤吸錯 route？ | H8／Q8 Semantic routing | Case A/B 是否正確；Case C 如何分解 |
+| Mixed 任務是否暴露 single-route 不足？ | Q12 | Case C → single vs multi-domain 證據 |
+
+完成條件：去敏 dogfood notes（`evidence/`），含至少一份 allocation＋DVA 形狀樣本，
+**且** H1–H7 觀察表有真實勾選／失敗紀錄（不只「workflow 能跑」）。
+
+Phase 1 結束時要能回答兩句：
+1. Investment workflow 能不能跑？
+2. 哪些 cognitive／governance primitive **值得**升 cross-cutting 候選（附 legal 對照或「僅投資特殊」）？
 
 ## Phase 2 — `analysis/investment/` 方法層
 
 - [ ] `analysis/investment/README.md`
 - [ ] 供應鏈／主題拆解方法
-- [ ] 來源分級（官方／監管／媒體／個人研究帳）
+- [ ] 來源分級（官方／監管／媒體／個人研究帳）——實作時用 **source authority** 語言，避免「Expert Knowledge」框架
 - [ ] 新聞與趨勢摘要模板
 - [ ] 大神筆記對照方法（引用、不同意點、时效）
-- [ ] `sources-and-tools.md`（公開來源類型；不硬編碼易 stale 的 URL 清單為真理）
+- [ ] `sources-and-tools.md`（公開來源類型為預設；附「使用者可選提供付費摘錄」規則；不硬編碼易 stale URL；不集成付費 API）
 
 ## Phase 3 — `workflow/investment/` domain core
 
@@ -269,22 +400,26 @@ Intake-dispatched 與 Decision Support 已有 legal 先例與 cross-cutting pilo
 - [ ] `strategy/` 或等同 Decision Support instantiation（四項：inventory／playbooks／verification／depth gate）
 - [ ] `artifact-gates.md`（機率欄位、disclaimer、evidence-ledger、策略／資產摘要 gate、DVA 適用表）
 - [ ] Sub-flows：`theme-research/`、`name-diligence/`、`allocation-advice/`、`periodic-sweep/`（其餘可薄 README）
-- [ ] `allocation-advice/` 明寫：策略／資產 blocking intake、較有利方案比較、DVA brief 模板
+- [ ] `allocation-advice/` 明寫：策略／資產／**費用** blocking-or-provisional intake、Interest Analysis（含手續費）、較有利方案比較、DVA brief 模板
 - [ ] 連到 `workflow/software-delivery/delegated-execution.md`／plans README 三角色契約（不重寫一份平行 DVA）
 
 ## Phase 4 — Decision Support 掛接
 
 - [ ] 更新 `workflow/cross-cutting/decision-support/README.md` Instantiations：investment = case #2（或 candidate→converged，依 dogfood）
-- [ ] Playbooks：配置、主題深挖深度、何時升 Red
+- [ ] **Abstraction review**：依 H1–H7 dogfood 結果，決定哪些升 follow-up plan／哪些標 investment-only（**本 phase 仍不實作 7 個 generic**）
+- [ ] Playbooks：配置、**交易成本／再平衡費用門檻**、主題深挖深度、何時升 Red
 - [ ] Scenario：`investment-evidence-required-before-advice-v1`、`investment-probability-framing-v1`、`investment-intake-gate-v1`、
-      `investment-strategy-asset-required-for-allocation-v1`、`investment-dva-required-for-allocation-v1`
+      `investment-strategy-asset-required-for-allocation-v1`、`investment-dva-required-for-allocation-v1`、
+      `investment-fee-interest-analysis-required-v1`
 
 ## Phase 5 — Runtime 接線（graduation）
 
 - [ ] `route.workflow.investment` + discovery signal
 - [ ] `execution-flow.yaml` / `artifact-gates.yaml` + compile/refresh
 - [ ] `knowledge/summaries/` + glossary 詞條
-- [ ] Linked updates：`workflow/README.md`、`analysis/README.md`、`workflow-routing.md` 歧義列（vs legal「投資」）
+- [ ] Linked updates：`workflow/README.md`、`analysis/README.md`、`workflow-routing.md` **semantic 歧義列**（Q8 invariant：decision object，非 keyword precedence）
+- [ ] Investment／legal discovery signals 分列（ticker／portfolio vs contract／協議）；signals ≠ final arbitration
+- [ ] 若 Case C 支持 multi-domain：另開 follow-up plan（不在本 plan 偷升 multi-route runtime）
 - [ ] Per-surface consumer 表填實
 
 ## Phase 6 — Close-loop
@@ -294,9 +429,10 @@ Intake-dispatched 與 Decision Support 已有 legal 先例與 cross-cutting pilo
 ## 完成條件
 
 - [ ] Phase 1–5 完成或明確 deferred 剩餘項
-- [x] Stakeholder 同意項目 1–11 已決（2026-08-14）；Q7 deferred／Q8／Q10 不挡 Phase 1
+- [x] Stakeholder 同意項目 1–15 已決（2026-08-14）；Q10／Q12 不挡 Phase 1 開工
 - [ ] Decision Support 對 investment 的 instantiation 可引用
 - [ ] 至少一份真實（去敏）allocation 或 sweep dogfood evidence
+- [ ] Phase 1–4 產出 H1–H7 觀察結論（升候選／investment-only／棄）——**不**要求本 plan 內實作 generic primitives
 - [ ] Runtime：若宣稱 route 可用，則 trigger flow 與 consumer 表完整；否則維持 doc-only 且不宣稱 integration 完成
 
 ## Watch-Out List
@@ -305,12 +441,19 @@ Intake-dispatched 與 Decision Support 已有 legal 先例與 cross-cutting pilo
 - 防把單一 X 帳號結論當 source of truth（來源分級 D 不可獨撐）。
 - 防未 dogfood 就註冊 route（對齊 legal／decision-support 三案紀律）。
 - 防把本庫做成跨工具 scheduler（排程屬使用者／各 AI 定時任務）。
-- 防把「最有利」寫成保證最優／保證報酬；必須綁策略約束＋機率／情境。
+- 防把「最有利」寫成保證最優／保證報酬；必須綁策略約束＋uncertainty framing。
+- 防配置／再平衡建議假設零手續費或忽略稅／匯費／保管費（Q13）。
 - 防 DVA 形式化：Verifier 只複讀 Executor 結論而無 L2 證據鏈檢查。
+- 防 Phase 1 還沒跑就開 7 個 cross-cutting primitive 實作（實驗室 ≠ 立刻建框架）。
+- 防把 Decision Support Lifecycle 與系統內部 Observation→Registry→Executor→Validation 混層。
+- 防 `contains("投資") → investment` 或固定 `investment > legal` keyword precedence（Q8）。
+- 防 Case C 未 dogfood 就宣稱已支援 multi-domain routing。
+- 防 glossary 被 `probability-framed recommendation` 綁死（用 uncertainty framing candidate）。
 - 防 scope 膨脹成「全市場量化平台」。
 
 ## 與其他 plans 的關係
 
-- **依賴／對齊**：[`2026-07-30-2101-legal-workflow-domain.md`](2026-07-30-2101-legal-workflow-domain.md)（intake-dispatched + Decision Support case #1）；`workflow/cross-cutting/decision-support/`（三案門檻）；[`2026-07-08-0825-delegation-verification-arbitration-loop`](2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)（O→E→V→仲裁契約，本 domain 消費不另造輪子）。
+- **依賴／對齊**：[`2026-07-30-2101-legal-workflow-domain.md`](2026-07-30-2101-legal-workflow-domain.md)（intake-dispatched + Decision Support case #1）；`workflow/cross-cutting/decision-support/`（三案門檻）；[`2026-07-08-0825-delegation-verification-arbitration-loop`](2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)（O→E→V→仲裁＋ERA；本 domain 消費並用 H1 對照 Evidence→Claim→Recommendation→Human Decision）。
+- **定位**：Investment = Decision Support instantiation #2 **＋** cross-domain abstraction extraction opportunity（見 §Cross-domain Abstraction Hypotheses）。
 - **不取代**：legal Red tier 的「股權／投資契約」法律任務仍走 `route.workflow.legal`。
 - **參考外部風格**：公開研究帳如 [Serenity (@aleabitoreddit)](https://x.com/aleabitoreddit) — 學供應鏈／choke-point 敘事與更新節奏，**不**把其結論寫進本庫當事實。
