@@ -4,10 +4,12 @@ plan_kind: main
 status: in-progress
 owner: linyihong
 created: 2026-07-08
-last_updated: 2026-07-30
+last_updated: 2026-08-14
 parent: null
 baseline_ref: 2026-06-22-1009-subplan-agent-delegation
 revision:
+  - date: 2026-08-14
+    note: "Dogfood 4a — Investment／Decision Support allocation DVA 跨域回饋；role-sim≠fresh Task；不填 Knowledge；evidence/4a-…"
   - date: 2026-07-30
     note: "Dogfood 3b — KaizenWMS SPA mobile 多輪仲裁成熟度（ops-chrome／scanner／device）；backfill ownership、gate-scope、vacuous e2e；evidence/3b-…"
   - date: 2026-07-30
@@ -214,9 +216,10 @@ Decision / Arbitration（orchestrator：fix / defer / reject，唯一裁決者�
 | Architecture | Designer | Architecture reviewer | Architect | **已驗證（2s）** — UI Pattern Knowledge plan review |
 | Knowledge | Extractor | Evidence validator | Knowledge maintainer | analogy，無真實 run |
 | **Travel Planning** | Itinerary author | Independent itinerary verifier（MapCode／來源／可行性／硬錨點） | Traveler / orchestrator | **已跑 2w（一輪）** — 消費既有委派協議；**不**填 Knowledge 格；**不**強制每次旅遊規劃走三角色 |
+| **Investment／Decision Support** | Allocation／research author | DS verifier（證據強度／uncertainty／human selection） | Orchestrator／使用者 | **形狀已跑（4a）** — 同 session 分角色；Verifier 擋未校準 % 與 Recommendation→Decision 僭越；**不**填 Knowledge；**不**宣稱完整 fresh-Task Delegated Execution |
 | **APK Analysis** | Discovery / RE producer |（尚無獨立 Verifier 契約）| Capability Assessment（*Can we explain?*） | **Domain Knowledge 成熟**；Discovery workflow = **candidate**；Delegated Execution = **未宣稱**（見 [`04`](04-apk-capability-handoff-boundary.md)；dogfood **2t** 預註冊） |
 
-**紀律邊界（依 falsification ladder / governance veto test）**：真實證據目前在 delivery 域（2b / 2a-external / 2c / **2d**…）+ **Research（2e）** + **Architecture（2s）**；Knowledge 在有真實 run 前維持 analogy。「很像 ≠ 同 family」。**APK Analysis 不得因為與 SD 共用 ERA Decision Semantics，就被標成 Delegated Execution 已驗證**——成熟度不對稱是刻意的（2026-07-14 stakeholder）。Q6 最低門檻（≥1 非 delivery 域）已由 2e 滿足；adoption stage 2「三域各一輪」= Research ✅ / Architecture ✅ / **Knowledge 仍缺（2/3）**；**2t 不填 Knowledge、不偷換 stage 2**。通用化定位——graduate 時以「Evidence-driven Closed Control Loop（Specification → Production → Independent Evidence → Arbitration → Specification）」取代「Delegation」——列為 Q6，改名裁決留 Phase 3；在此之前 SOP 維持 delegation 措辭，不新增通用 primitive、不改名、不建跨域框架。
+**紀律邊界（依 falsification ladder / governance veto test）**：真實證據目前在 delivery 域（2b / 2a-external / 2c / **2d**…）+ **Research（2e）** + **Architecture（2s）**；Knowledge 在有真實 run 前維持 analogy。「很像 ≠ 同 family」。**APK Analysis 不得因為與 SD 共用 ERA Decision Semantics，就被標成 Delegated Execution 已驗證**——成熟度不對稱是刻意的（2026-07-14 stakeholder）。**Investment／DS（4a）同紀律**：可記跨域 **形狀／契約回饋**，不得偷升為 fresh-Task 完整驗證，也**不**填 Knowledge 格。Q6 最低門檻（≥1 非 delivery 域）已由 2e 滿足；adoption stage 2「三域各一輪」= Research ✅ / Architecture ✅ / **Knowledge 仍缺（2/3）**；**2t／4a 不填 Knowledge、不偷換 stage 2**。通用化定位——graduate 時以「Evidence-driven Closed Control Loop（Specification → Production → Independent Evidence → Arbitration → Specification）」取代「Delegation」——列為 Q6，改名裁決留 Phase 3；在此之前 SOP 維持 delegation 措辭，不新增通用 primitive、不改名、不建跨域框架。
 
 **第十三輪 review（使用者，2026-07-14）——Domain vs Workflow 邊界落實（APK ↔ SD）**：
 
@@ -514,6 +517,7 @@ Q5 — Shared State Contract Promotion
 - [x] **3a — Cursor 機械 bootstrap gate × Task 冷啟動 → 放棄三角色** — 2026-07-23（[`evidence/3a-kaizenwms-spawn-friction-skip-loop.md`](evidence/3a-kaizenwms-spawn-friction-skip-loop.md)）；主反例：通用 Receipt／primary_source deny 被誤讀成「三角色被擋」；consumer §2.1 fallback＋同日 shell-nav Phase 1 正向；與 2j F6 對偶；**不**視為 Phase 3／Q5 closure
 - [x] **3b — KaizenWMS 多輪獨立 Verifier 成熟度** — 2026-07-30（[`evidence/3b-kaizenwms-multi-round-arbitration-maturity.md`](evidence/3b-kaizenwms-multi-round-arbitration-maturity.md)）；SPA mobile ops-chrome／scanner／device：backfill ownership、gate-scope 假綠、vacuous e2e、planted-async 拒絕、orchestrator 契約自傷；**不**視為 Phase 3／Q5 closure
 - [x] **3c — KaizenWMS archived／MES 完成計畫批次收割** — 2026-07-30（[`evidence/3c-kaizenwms-archived-adoption-batch.md`](evidence/3c-kaizenwms-archived-adoption-batch.md)）；list-detail／shell-nav／MES naming／portfolio mixed close_kind；**不**視為 Phase 3／Q5 closure
+- [x] **4a — Investment／Decision Support allocation DVA（跨域形狀）** — 2026-08-14（[`evidence/4a-investment-decision-support-allocation-dva.md`](evidence/4a-investment-decision-support-allocation-dva.md)；canonical run [`…/05-dva-allocation.md`](../2026-08-14-1101-investment-research-decision-support/evidence/05-dva-allocation.md)）；Verifier 擋未校準 60%＋「直接執行」；**同 session 分角色 ≠ fresh Task**；契約回饋 verifier_only／Recommendation≠Selection；**不**填 Knowledge；**不**視為 Phase 3／Q5／stage-2 closure
 - [ ] **2t — APK Analysis ↔ Software Delivery Capability Handoff（預註冊，2026-07-14）** — 契約與雙軌設計見 [`04-apk-capability-handoff-boundary.md`](04-apk-capability-handoff-boundary.md)。**2t-A**：真實 APK Discovery（candidate workflow；Decision = *Can we explain?*；**不**強制三角色）。**2t-B**（僅 Capability Assessment = Yes）：Capability Proposal → SD Intake → **既有** Delegated Execution。預註冊 F1–F4。**不**填 Knowledge；**不**宣稱 APK Delegated Execution 已驗證；**不**視為 Phase 3 closure。啟動：指定 consumer `<PROJECT_ROOT>` 後開 `evidence/2t-…`
 - [x] **2e — 跨域 run（Research/Audit 域）：grandfather sunset audit** ✅ — 2026-07-08–09（[`evidence/2e-grandfather-sunset-audit.md`](evidence/2e-grandfather-sunset-audit.md)）；Q6/Q7(b)/Q8 的 stage-2 裁決 run。完整 loop：調查者（worktree，252 行報告 `c8ff035`，中斷後 resume 完成）→ 事實查核者（fresh，引文逐條命中、5 surfaces 獨立重跑一致、findings ×2 全 observation）→ 仲裁（defer×2，無 fix）。**實質產出**：5/5 surfaces 已 wired、flag 條款過時、延展不觸發、sunset 只剩行政收尾（處置決定保留 maintainer，見 `02-grandfather-sunset-audit.md`）。**跨域觀察**：四責任自然成立（topology 不同：+maintainer 第二層 decision）；backfill 結構化形式明確缺席、弱形式（evidence-first acceptance）出現；證據責任四問同構重現（含「自產證據不能自我關閉」跨域不變式）——詳 kit §2e Q6/Q7/Q8 觀察表
 - [x] 回饋迴路（2b 觸發 ×1）：F2 暴露 brief v1 缺「reusable doc 目標須含 tool-neutral 措辭條款」→ brief v2 追加 acceptance 9、kit 使用說明補教訓；修契約未修執行者；fix leg 重跑通過。2a 若再暴露缺漏比照處理。
