@@ -1445,9 +1445,18 @@ func runPreToolUseHook(projectDir string, stdout io.Writer, stderr io.Writer) in
 			var flagTs int64
 			if _, err2 := fmt.Sscanf(strings.TrimSpace(string(data)), "%d", &flagTs); err2 == nil {
 				if time.Now().Unix()-flagTs < 120 {
-					_ = os.WriteFile(cacheFile, []byte{}, 0o644)
+					// Grace window only: allow this one call without marking the
+					// gate satisfied. Writing cacheFile here (as before) made the
+					// very first post-SessionStart tool call permanently disable
+					// gate.bootstrap.receipt_present for the rest of the transcript,
+					// since cacheFile is checked unconditionally above before any
+					// receipt verification. Do not do that — let the real
+					// receiptEmitted / transcriptHasRequiredBootstrapReads checks
+					// below run once the grace window elapses (or once an actual
+					// Receipt appears in the transcript, which will hit the
+					// receiptEmitted branch on its own before this flag matters).
 					_, _ = fmt.Fprintln(stderr, "ALLOW_SESSIONSTART_FLAG")
-					appendLog(logFile, "exit_code: 0 (sessionstart flag)")
+					appendLog(logFile, "exit_code: 0 (sessionstart flag, not cached)")
 					return finishPreToolUse(host, transcriptPath, projectDir, stdout, stderr)
 				}
 			}

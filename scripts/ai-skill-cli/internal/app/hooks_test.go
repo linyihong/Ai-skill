@@ -10,6 +10,7 @@ import (
 	"regexp"
 	"strings"
 	"testing"
+	"time"
 )
 
 func TestHooksInstallDryRunPlansWithoutWriting(t *testing.T) {
@@ -1569,6 +1570,54 @@ func TestPreToolUseHookAllowsReceiptWithVerifiedReads(t *testing.T) {
 	if !strings.Contains(stderr.String(), "ALLOW_RECEIPT_FOUND_WITH_READS") {
 		t.Fatalf("expected ALLOW_RECEIPT_FOUND_WITH_READS in stderr; got:\n%s", stderr.String())
 	}
+}
+
+// TestPreToolUseSessionStartFlagDoesNotPermanentlyDisableGate is a regression
+// test for the bug where the SessionStart TTL grace flag (meant to avoid
+// blocking the very first post-SessionStart tool call, before the agent has
+// had a chance to emit a Receipt) wrote the same "done" cache file used to
+// mean "a verified Bootstrap Receipt was found". Since that cache file is
+// checked unconditionally before any receipt verification, the very first
+// tool call of a session used to permanently disable
+// gate.bootstrap.receipt_present for the rest of the transcript. This test
+// asserts a second call, still with no Receipt in the transcript, is still
+// evaluated on its own merits (i.e. not silently allowed via a stale cache
+// entry written by the first call).
+func TestPreToolUseSessionStartFlagDoesNotPermanentlyDisableGate(t *testing.T) {
+	dir := t.TempDir()
+	tr := writeBootstrapTranscript(t, dir, "no receipt yet", nil)
+	projectHash := md5Short(dir)
+	flagFile := hookRuntimePath("ai-skill-sessionstart-" + projectHash + ".flag")
+	if err := os.WriteFile(flagFile, []byte(fmt.Sprintf("%d", time.Now().Unix())), 0o644); err != nil {
+		t.Fatalf("failed to seed sessionstart flag: %v", err)
+	}
+	t.Cleanup(func() { _ = os.Remove(flagFile) })
+
+	payload := fmt.Sprintf(`{"tool_name":"Bash","transcript_path":%q}`, tr)
+
+	setHookStdin(t, payload)
+	var stdout1, stderr1 bytes.Buffer
+	code := runPreToolUseHook(dir, &stdout1, &stderr1)
+	if code != ExitSuccess {
+		t.Fatalf("expected grace-window ExitSuccess on first call; got %d; stderr=%s", code, stderr1.String())
+	}
+	if !strings.Contains(stderr1.String(), "ALLOW_SESSIONSTART_FLAG") {
+		t.Fatalf("expected ALLOW_SESSIONSTART_FLAG on first call; got:\n%s", stderr1.String())
+	}
+
+	cacheFile := hookRuntimePath("ai-skill-bootstrap-" + md5Short(tr) + ".done")
+	t.Cleanup(func() { _ = os.Remove(cacheFile) })
+	if claudeFileExists(cacheFile) {
+		t.Fatalf("grace-window allow must not permanently mark the gate satisfied via %s", cacheFile)
+	}
+
+	setHookStdin(t, payload)
+	var stdout2, stderr2 bytes.Buffer
+	code = runPreToolUseHook(dir, &stdout2, &stderr2)
+	if strings.Contains(stderr2.String(), "ALLOW_CACHED") {
+		t.Fatalf("second call must not be allowed via stale cache from the grace window; got:\n%s", stderr2.String())
+	}
+	_ = code
 }
 
 func TestValidateExecutionModeFloors(t *testing.T) {
