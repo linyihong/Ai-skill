@@ -98,6 +98,12 @@ per_session_obligations:
       rather than ad-hoc SQLite. Active per-turn obligations list requires querying
       generated_surfaces[runtime.core_bootstrap.contract].per_turn_obligations
       via `ai-skill runtime obligations` (or equivalent SQLite JSON1 query).
+      `ai-skill` is not on PATH; invoke the repo-local platform binary under
+      `scripts/ai-skill-cli/bin/`. When cwd is a project repo other than
+      <AI_SKILL_REPO> (the common case), pass `--repo <AI_SKILL_REPO>` explicitly —
+      repo_root resolution tries the cwd's own git repo first and will misresolve
+      to the project repo before ever checking AI_SKILL_REPO/.ai-skill/local.env.
+      See CORE_BOOTSTRAP.md §CLI 呼叫方式.
     read_log_requirement: |
       The PreToolUse hook (gate.bootstrap.receipt_present) performs a
       mechanical check against the JSONL transcript: a Receipt is only

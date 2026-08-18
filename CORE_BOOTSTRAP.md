@@ -14,9 +14,36 @@
 | 2 | [`enforcement/dependency-reading.md`](enforcement/dependency-reading.md) | 依賴文件讀取鐵則與 Ai-skill writeback transaction | ~400 |
 | 3 | [`enforcement/conversation-goal-ledger.md`](enforcement/conversation-goal-ledger.md) | 對話目標閉環與 `.agent-goals/` 使用方式 | ~100 |
 
+## CLI 呼叫方式（跨專案工作時必讀）
+
+`ai-skill` **不在系統 PATH 上**，必須直接呼叫對應平台的 repo-local binary（見
+[`scripts/ai-skill-cli/bin/README.md`](scripts/ai-skill-cli/bin/README.md)）：
+
+| 平台 | Binary |
+| --- | --- |
+| Windows amd64 | `scripts/ai-skill-cli/bin/ai-skill-windows-amd64.exe` |
+| macOS arm64 | `scripts/ai-skill-cli/bin/ai-skill-darwin-arm64` |
+| macOS amd64 | `scripts/ai-skill-cli/bin/ai-skill-darwin-amd64` |
+| Linux amd64 | `scripts/ai-skill-cli/bin/ai-skill-linux-amd64` |
+| Linux arm64 | `scripts/ai-skill-cli/bin/ai-skill-linux-arm64` |
+
+**在其他專案（`<PROJECT_ROOT>`，例如目前正在工作的業務 repo）裡執行 `runtime receipt` / `runtime obligations` 時，必須加 `--repo <AI_SKILL_REPO>`。**
+這兩個命令的 repo_root 解析會先呼叫 `closeLoopRepoRoot`（目前 cwd 所在的 git repo）；`<PROJECT_ROOT>` 本身通常就是一個合法 git repo，
+會直接命中並誤判成 repo_root，`AI_SKILL_REPO` 環境變數或 `.ai-skill/local.env` 只有在這一步失敗後才會被檢查——不會被優先採用。
+不帶 `--repo` 在專案 repo 裡執行會得到 `unable to open database file` 或 `... not found in generated_surfaces` 之類的錯誤，
+即使 `AI_SKILL_REPO` 已正確設定也一樣。永遠明確帶 `--repo` 才穩：
+
+```text
+<AI_SKILL_REPO>/scripts/ai-skill-cli/bin/<platform-binary> runtime receipt --repo <AI_SKILL_REPO>
+<AI_SKILL_REPO>/scripts/ai-skill-cli/bin/<platform-binary> runtime obligations --repo <AI_SKILL_REPO>
+```
+
+`runtime receipt` 的輸出即是 canonical Bootstrap Receipt 內容（`phase=`、`obligations=`、`gates=`、per-turn obligation ids），
+直接引用其 `bootstrap_receipt` / `per_turn_obligations` 兩行組出 Receipt，不要手動查 SQLite 或用本 YAML 的 illustrative 範例湊數字。
+
 ## 啟動序列
 
-1. 讀本檔（companion） + 執行 `ai-skill runtime receipt` / `ai-skill runtime obligations` 取得 Bootstrap Receipt 與 obligations machine-readable list（不要臨時拼 SQLite schema）
+1. 讀本檔（companion） + 依上面「CLI 呼叫方式」執行 `ai-skill runtime receipt` / `ai-skill runtime obligations`（帶 `--repo <AI_SKILL_REPO>`）取得 Bootstrap Receipt 與 obligations machine-readable list（不要臨時拼 SQLite schema）
 2. 讀 [`README.md`](README.md) — OS layout
 3. 讀 [`runtime/runtime.db`](runtime/runtime.db) `phase_machine` / `obligations` / `gates` / `language_policy` / `output_rules` / `governance_gates`
 4. **新專案檢查**：若無 `CLAUDE.md` / `.cursor/rules/*` / `.roomodes` / `AGENTS.md`，主動詢問是否執行 `ai-skill init-project`
