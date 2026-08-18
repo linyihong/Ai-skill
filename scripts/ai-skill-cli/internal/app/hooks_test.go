@@ -1620,6 +1620,70 @@ func TestPreToolUseSessionStartFlagDoesNotPermanentlyDisableGate(t *testing.T) {
 	_ = code
 }
 
+func TestValidateReleaseBinaryParityStaged(t *testing.T) {
+	fullRelease := []string{
+		"scripts/ai-skill-cli/internal/app/hooks.go",
+		"scripts/ai-skill-cli/bin/ai-skill-windows-amd64.exe",
+		"scripts/ai-skill-cli/bin/ai-skill-darwin-amd64",
+		"scripts/ai-skill-cli/bin/ai-skill-darwin-arm64",
+		"scripts/ai-skill-cli/bin/ai-skill-linux-amd64",
+		"scripts/ai-skill-cli/bin/ai-skill-linux-arm64",
+		"scripts/ai-skill-cli/bin/BUILDINFO",
+		"scripts/ai-skill-cli/bin/SHA256SUMS",
+	}
+	if msg := validateReleaseBinaryParityStaged(fullRelease); msg != "" {
+		t.Fatalf("expected no violation when all release artifacts are staged alongside source; got %q", msg)
+	}
+
+	// The exact 2026-08-19 failure mode: source changed, only the host
+	// binary was rebuilt and staged, the other 4 + BUILDINFO/SHA256SUMS
+	// were left stale.
+	partialRelease := []string{
+		"scripts/ai-skill-cli/internal/app/hooks.go",
+		"scripts/ai-skill-cli/bin/ai-skill-windows-amd64.exe",
+	}
+	msg := validateReleaseBinaryParityStaged(partialRelease)
+	if msg == "" {
+		t.Fatal("expected a violation for a partial release build")
+	}
+	for _, want := range []string{"ai-skill-darwin-amd64", "ai-skill-darwin-arm64", "ai-skill-linux-amd64", "ai-skill-linux-arm64", "BUILDINFO", "SHA256SUMS"} {
+		if !strings.Contains(msg, want) {
+			t.Fatalf("expected missing-file message to mention %s; got %q", want, msg)
+		}
+	}
+	if strings.Contains(msg, "ai-skill-windows-amd64.exe") {
+		t.Fatalf("windows binary was staged, should not be listed as missing; got %q", msg)
+	}
+
+	// Test-only source changes don't require a rebuild.
+	testOnly := []string{"scripts/ai-skill-cli/internal/app/hooks_test.go"}
+	if msg := validateReleaseBinaryParityStaged(testOnly); msg != "" {
+		t.Fatalf("expected no violation for test-only source change; got %q", msg)
+	}
+
+	// Unrelated changes don't require a rebuild.
+	unrelated := []string{"docs/integrations/auth-roles.md"}
+	if msg := validateReleaseBinaryParityStaged(unrelated); msg != "" {
+		t.Fatalf("expected no violation for unrelated change; got %q", msg)
+	}
+
+	// bin/-only changes (e.g. a manual rebuild with no source diff in this
+	// commit) don't trip the source-change detector.
+	binOnly := []string{"scripts/ai-skill-cli/bin/ai-skill-windows-amd64.exe"}
+	if msg := validateReleaseBinaryParityStaged(binOnly); msg != "" {
+		t.Fatalf("expected no violation for bin-only change; got %q", msg)
+	}
+}
+
+func TestReleaseBinaryParityOptOut(t *testing.T) {
+	if releaseBinaryParityOptOut("fix: something\n") {
+		t.Fatal("expected no opt-out without the marker line")
+	}
+	if !releaseBinaryParityOptOut("fix: something\n\n[skip-release-binary-parity]\n") {
+		t.Fatal("expected opt-out marker line to be recognized")
+	}
+}
+
 func TestValidateExecutionModeFloors(t *testing.T) {
 	// FAST forbidden when touching enforcement/
 	v := validateExecutionModeFloors(map[string]string{"execution_mode": "FAST"}, []string{"enforcement/foo.md"})

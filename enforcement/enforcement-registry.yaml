@@ -1008,6 +1008,34 @@ rule_classes:
       regression_exists: ✓
       runtime_observed: pending
 
+  - id: release_binary_parity
+    coverage: mechanical
+    source_files:
+      - scripts/ai-skill-cli/cmd/releasebuild/main.go
+      - scripts/ai-skill-cli/cmd/releasebuild/main_test.go  # TestRepoLocalBinariesMatchChecksumsAndCurrentSource
+    executors:
+      - file: scripts/ai-skill-cli/internal/app/hooks.go
+        symbol: validateReleaseBinaryParityStaged
+        executor_kind: pre_commit_validator
+        hook_phase: pre-commit
+        block_or_warn: block
+        notes: "opt-out: [skip-release-binary-parity] on its own line in commit message"
+    rationale: |
+      2026-08-19: a hooks.go source fix was committed with only the host
+      (Windows) binary rebuilt and staged; the other 4 platform binaries
+      and BUILDINFO/SHA256SUMS were left stale, caught only after the fact
+      by TestRepoLocalBinariesMatchChecksumsAndCurrentSource in CI rather
+      than being blocked at commit time. This pre-commit gate mechanizes
+      that test's invariant one step earlier: any commit that touches
+      ai-skill-cli source (non-test .go, go.mod, go.sum) must stage the
+      full release build (all 5 platform binaries + BUILDINFO +
+      SHA256SUMS) in the same commit, or the commit is blocked.
+    verification_status:
+      symbol_exists: ✓
+      scenario_exists: pending
+      regression_exists: ✓
+      runtime_observed: pending
+
   - id: dirty_repo_close_loop
     coverage: mechanical
     source_files:

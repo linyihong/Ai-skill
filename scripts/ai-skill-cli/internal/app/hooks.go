@@ -358,6 +358,23 @@ func runPreCommitHook(result Result, root string) Result {
 			return result
 		}
 	}
+	if !releaseBinaryParityOptOut(commitMsg) {
+		if msg := validateReleaseBinaryParityStaged(staged); msg != "" {
+			result.Status = "blocked"
+			result.ExitCode = ExitValidationFailed
+			result.Error = &CommandError{
+				Code:    "release_binary_parity_failed",
+				Message: msg,
+				Remediation: "cd scripts/ai-skill-cli && SHA=$(git rev-parse HEAD) && SHORT=$(git rev-parse --short HEAD) && " +
+					"go run ./cmd/releasebuild -dist bin -stable-names -version \"repo-$SHORT\" -commit \"$SHA\", then " +
+					"git add scripts/ai-skill-cli/bin. All 5 platform binaries + BUILDINFO + SHA256SUMS must land in the " +
+					"same commit as the source change, never a partial follow-up. Opt-out (source-only branches that " +
+					"intentionally defer the rebuild to a separate commit): [skip-release-binary-parity] on its own line " +
+					"in commit message.",
+			}
+			return result
+		}
+	}
 
 	if len(result.Mutations) == 0 {
 		result.Checks = append(result.Checks, Check{Name: "pre_commit", Status: "ok", Message: "no runtime or knowledge hook action required"})
@@ -3385,6 +3402,83 @@ func hasRuntimeDBChange(paths []string) bool {
 func hasKnowledgeValidationChange(paths []string) bool {
 	for _, path := range paths {
 		if strings.HasPrefix(path, "knowledge/") || strings.HasPrefix(path, "validation/") || strings.HasPrefix(path, "scripts/validate-") {
+			return true
+		}
+	}
+	return false
+}
+
+// releaseBinaryFiles are the repo-local build artifacts that must be
+// rebuilt and staged together in the same commit as any ai-skill-cli
+// source change, so bin/ never drifts from source. Mirrors releaseTargets
+// in cmd/releasebuild/main.go (kept as a literal list here — main packages
+// aren't importable — and covered independently by
+// TestRepoLocalBinariesMatchChecksumsAndCurrentSource, which catches drift
+// after the fact; this gate is the mechanical version that blocks the
+// partial commit before it lands).
+var releaseBinaryFiles = []string{
+	"scripts/ai-skill-cli/bin/ai-skill-windows-amd64.exe",
+	"scripts/ai-skill-cli/bin/ai-skill-darwin-amd64",
+	"scripts/ai-skill-cli/bin/ai-skill-darwin-arm64",
+	"scripts/ai-skill-cli/bin/ai-skill-linux-amd64",
+	"scripts/ai-skill-cli/bin/ai-skill-linux-arm64",
+	"scripts/ai-skill-cli/bin/BUILDINFO",
+	"scripts/ai-skill-cli/bin/SHA256SUMS",
+}
+
+// hasCLISourceChange reports whether any staged path is a non-test Go
+// source file (or go.mod/go.sum) under scripts/ai-skill-cli/, excluding
+// bin/ itself. Test-only changes don't affect the built artifact and are
+// exempt.
+func hasCLISourceChange(paths []string) bool {
+	const prefix = "scripts/ai-skill-cli/"
+	const binPrefix = prefix + "bin/"
+	for _, p := range paths {
+		if !strings.HasPrefix(p, prefix) || strings.HasPrefix(p, binPrefix) {
+			continue
+		}
+		if strings.HasSuffix(p, "_test.go") {
+			continue
+		}
+		if strings.HasSuffix(p, ".go") || strings.HasSuffix(p, "go.mod") || strings.HasSuffix(p, "go.sum") {
+			return true
+		}
+	}
+	return false
+}
+
+// validateReleaseBinaryParityStaged returns a non-empty error message when
+// ai-skill-cli source changed in this commit but the repo-local release
+// artifacts (all 5 platform binaries + BUILDINFO + SHA256SUMS) were not
+// rebuilt and staged alongside it. This is the exact failure mode from
+// 2026-08-19: only the host-platform .exe got rebuilt and staged, leaving
+// the other 4 binaries and BUILDINFO/SHA256SUMS stale in the same commit,
+// caught only later by CI's TestRepoLocalBinariesMatchChecksumsAndCurrentSource
+// instead of being blocked at commit time.
+func validateReleaseBinaryParityStaged(staged []string) string {
+	if !hasCLISourceChange(staged) {
+		return ""
+	}
+	stagedSet := map[string]bool{}
+	for _, p := range staged {
+		stagedSet[p] = true
+	}
+	var missing []string
+	for _, f := range releaseBinaryFiles {
+		if !stagedSet[f] {
+			missing = append(missing, f)
+		}
+	}
+	if len(missing) == 0 {
+		return ""
+	}
+	return "ai-skill-cli source changed but the repo-local release build is missing or partial in this commit; " +
+		"not staged: " + strings.Join(missing, ", ")
+}
+
+func releaseBinaryParityOptOut(text string) bool {
+	for _, line := range strings.Split(text, "\n") {
+		if strings.TrimSpace(line) == "[skip-release-binary-parity]" {
 			return true
 		}
 	}
