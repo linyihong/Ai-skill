@@ -1168,6 +1168,47 @@ var bootstrapRequiredReadSuffixes = []string{
 	"runtime/core-bootstrap.yaml",
 }
 
+// aiSkillCLIBootstrapCommandRE matches invocations of this repo's own
+// repo-local ai-skill CLI binary running a read-only bootstrap subcommand
+// (runtime receipt / runtime obligations / hooks run). These are the only
+// way to obtain the Receipt's obligations/gates numbers (see
+// per_session_obligations[obligation.bootstrap.receipt].forcing_function),
+// but that CLI call is itself a non-Read tool (Bash) which
+// gate.bootstrap.receipt_present would otherwise block until the Receipt
+// exists — a deadlock. This exemption is scoped narrowly to those
+// subcommands; it does not exempt any other command and does not mark the
+// gate as satisfied.
+// The optional ["'] after the binary name lets a quoted Windows path
+// ("C:\...\ai-skill-windows-amd64.exe" runtime receipt) match.
+var aiSkillCLIBootstrapCommandRE = regexp.MustCompile(`(?i)ai-skill-(windows|darwin|linux)-(amd64|arm64)(\.exe)?["']?\s+(runtime\s+(receipt|obligations)|hooks\s+run\b)`)
+
+func isAiSkillBootstrapCLICommand(command string) bool {
+	return aiSkillCLIBootstrapCommandRE.MatchString(command)
+}
+
+// bashCommandFromPreToolUsePayload extracts tool_input.command from a
+// PreToolUse Bash payload, mirroring toolPathFromPreToolUsePayload's search
+// order (tool_input / arguments / input).
+func bashCommandFromPreToolUsePayload(payload map[string]json.RawMessage) string {
+	for _, key := range []string{"tool_input", "arguments", "input"} {
+		raw, ok := payload[key]
+		if !ok {
+			continue
+		}
+		var input map[string]json.RawMessage
+		if err := json.Unmarshal(raw, &input); err != nil {
+			continue
+		}
+		if cmdRaw, ok := input["command"]; ok {
+			var cmd string
+			if err := json.Unmarshal(cmdRaw, &cmd); err == nil {
+				return cmd
+			}
+		}
+	}
+	return ""
+}
+
 type gitRepoStatusReport struct {
 	Root  string
 	Rel   string
@@ -1441,6 +1482,17 @@ func runPreToolUseHook(projectDir string, stdout io.Writer, stderr io.Writer) in
 		}
 		_, _ = fmt.Fprintln(stderr, "ALLOW_READ_TOOL:", toolName)
 		return ExitSuccess
+	}
+
+	// gate.bootstrap.receipt_present deadlock fix: allow ONLY read-only
+	// bootstrap subcommands of this repo's own CLI binary through before the
+	// Receipt is verified. Does not mark the gate satisfied.
+	if toolName == "Bash" {
+		if cmd := bashCommandFromPreToolUsePayload(payload); cmd != "" && isAiSkillBootstrapCLICommand(cmd) {
+			_, _ = fmt.Fprintln(stderr, "ALLOW_BOOTSTRAP_CLI_QUERY:", cmd)
+			appendLog(logFile, "allow bootstrap CLI query (not cached): "+cmd)
+			return ExitSuccess
+		}
 	}
 
 	if transcriptPath == "" || !claudeFileExists(transcriptPath) {
