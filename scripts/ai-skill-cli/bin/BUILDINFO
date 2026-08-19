@@ -1,4 +1,4 @@
-version=repo-25bb1cab
-source_commit=25bb1cab054bd7a1cb37d4b972b5eeb11cffbd37
-built_at=2026-08-18T21:17:29Z
+version=repo-e0a61953
+source_commit=e0a619532b1365433853fd743a6ed4e5260360f3
+built_at=2026-08-19T04:01:26Z
 targets=windows/amd64,darwin/amd64,darwin/arm64,linux/amd64,linux/arm64
