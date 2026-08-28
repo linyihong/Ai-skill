@@ -61,6 +61,7 @@
 | 冷啟動後畫面變 Play 未登入／Unauthenticated* | 常為 **Play UI 搶焦**（尤其 `Accounts: 0`），不一定是業務進程硬殺。 | A/B：允許 Play vs 循環 `am force-stop com.android.vending`；≤100ms 採 `mCurrentFocus`。見 `workflows/cold-start-play-focus-ab.md`。 |
 | Tasker profile 已 import，點 icon 仍進 Play 未登入 | 常為 **試用過期**（Trial Over）、onboarding 未完成、或誤用 Run Shell 而非 ADB Wifi。 | 查 Tasker UI；profile 用 ADB Wifi + `am force-stop`；Mac Condition B 對照。見 feedback `2026-08-28_151800-tasker-adb-play-focus-suppress-automation-guards.md`。 |
 | Tasker onboarding 無法 Proceed | 第 4 checkbox（供應商電池）常需 scroll；點擊會開 Settings 關 **placeholder notification**。 | uiautomator 找 unchecked CheckBox；Settings 關通知後 BACK；勿點 overlay 整列。 |
+| SDK 只設計 refreshToken 續期 | 忽略 Flutter **device autologin**（`X-Device-*` + `/open/autologin`）；clear-data 後新 uid 是裝置 mint 信號。 | 先還原 deviceId／headers／autologin wire；refresh 當 L4。見 feedback `2026-08-28_152800-flutter-dio-device-autologin-standalone-sdk-bootstrap.md`。 |
 | 靜態有 Pairip／CHECK_LICENSE，斷言 LicenseActivity 鏈路 | L1 假說被寫成 L2 事實。 | focus 未採樣到則標 unobserved；見 heuristics `play-focus-steal-vs-hard-kill.md`。 |
 | 欄 C 零 CONNECT 但 Frida 是 OkHttp | 常為 **顯式 no-proxy**，不是 Cronet。 | Hook `OkHttpClient.Builder`／`*ProxyConfig*`；標 `bypass=okhttp-no-proxy`。 |
 | Java hook 沒命中 | 流量不在 Java HTTP stack。 | native connect trace；查 Flutter/Cronet/native client。 |

@@ -15,6 +15,7 @@
 
 | Slug | Category |
 |------|----------|
+| `common/2026-08-28_152800-flutter-dio-device-autologin-standalone-sdk-bootstrap` | Device autologin as SDK bootstrap (not refresh-harvest) |
 | `common/2026-08-28_151800-tasker-adb-play-focus-suppress-automation-guards` | Tasker ADB import / trial / onboarding guards for Play focus suppress |
 
 ## Recent (2026-07-15)
