@@ -11,6 +11,12 @@
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
 
+## Recent (2026-08-28)
+
+| Slug | Category |
+|------|----------|
+| `common/2026-08-28_151800-tasker-adb-play-focus-suppress-automation-guards` | Tasker ADB import / trial / onboarding guards for Play focus suppress |
+
 ## Recent (2026-07-15)
 
 | Slug | Category |

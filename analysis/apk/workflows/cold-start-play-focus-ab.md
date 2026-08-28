@@ -52,6 +52,18 @@ adb shell am force-stop com.android.vending
 
 記錄必須寫明：**抑止搶焦後業務 UI 可達**，不可寫「繞過 CHECK_LICENSE／Pairip」。
 
+## Phone-side 持久化（可選，L4）
+
+Mac Condition B 證明搶焦可抑止後，若需 **不連 Mac 點桌面 icon**：
+
+| 路線 | 要点 | 驗證 |
+| --- | --- | --- |
+| Tasker App trigger + **ADB Wifi** `force-stop` 迴圈 | adb 可 push/import `.prf.xml`；**非** Run Shell（無 root 通常無效） | launcher tap → `mCurrentFocus`=目標 MainActivity |
+| Mac adb 腳本 | 冷啟動 + 背景 suppress | 已於 Condition B 覆蓋 |
+| Termux / widget 捷徑 | 專案自管腳本 | 需允許 external access |
+
+Guardrails（Tasker）：sideload **Trial Over** 會停用 profile；onboarding 第 4 步常開 Settings 關 placeholder notification；**勿** disable Play Store（Pairip 類可能 hard gate）。詳見 feedback：`2026-08-28_151800-tasker-adb-play-focus-suppress-automation-guards.md`。
+
 ## 證據分層（寫進專案 docs）
 
 | Layer | 內容 |
