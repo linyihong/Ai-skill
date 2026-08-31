@@ -10,9 +10,9 @@ parent: null
 
 # 3D Character Production Workflow（`workflow/3d-character-production/`）
 
-**Status**: in-progress — Phase 0 closed；Phase 1 scenarios **intentionally RED**；
-Phase 2 artifact records 在 [`01-artifact-contracts.md`](01-artifact-contracts.md) / [`contracts/`](contracts/)（**非** workflow 正文、
-**不**投影）。`workflow/3d-character-production/` / glossary / route 仍刻意缺席。
+**Status**: in-progress — Phase 0–2 frozen；Phase 2.5 **contract probe PASS ≠ workflow PASS**；
+Phase 1 detector / workflow **intentionally RED**。`contracts/` 不投影。
+`workflow/3d-character-production/` / glossary / route / executable-contract **未授權**。
 
 **Glossary Impact**: yes — 候選詞 `character_identity_lock`、`asset_maturity_gate`、
 `deformation_acceptance_set`、`runtime_ready_character_pack`。Phase 0 glossary collision

@@ -17,4 +17,4 @@ Canonical：[`governance/lifecycle/plan-evidence.md`](../../../../governance/lif
 
 | Run ID | 檔案 | 狀態 | 摘要 |
 |---|---|---|---|
-| 2026-08-31-phase-2.5 | [`2026-08-31-phase-2.5-contract-probe.md`](2026-08-31-phase-2.5-contract-probe.md) | complete | 真實 VRM 資產可填 contract；未發明 PASS；gate 只讀欄位 |
+| 2026-08-31-phase-2.5 | [`2026-08-31-phase-2.5-contract-probe.md`](2026-08-31-phase-2.5-contract-probe.md) | complete | contract probe PASS ≠ workflow PASS；absence stays non-passing |
