@@ -1,0 +1,74 @@
+# Identity Acceptance — 判斷「候選像不像」與「舊 PASS 是否仍有效」所需資料。
+# 行為證明：identity-acceptance-blocks-mesh-v1、identity-downstream-mutation-invalidation-v1
+# 不在此重寫 scenario then；invalidation_rules 是執行期唯一 invalidation SoT（Phase 3）。
+schema_version: artifact-record/v1
+id: 3d-character.identity-acceptance
+status: draft
+runtime_projection:
+  enabled: false
+  reason: Phase 3 才 promote 到 workflow/；本檔不得投影
+
+record: identity_acceptance
+lock_refs:
+  specification_id: required
+  reference_set_id: required
+  candidate_id: required
+
+# 一次 PASS 的內容（不是終身有效）
+accepted_attributes:
+  type: list
+  item:
+    attribute_id: string
+    result: [pass, fail]
+    blocking: boolean
+    evidence_view_ids: list  # 對應 reference_set.canonical_views
+forbidden_fields:
+  - identity_score
+  - scalar_quality
+
+blocking_attributes:
+  derived_from: accepted_attributes where blocking==true and result==fail
+
+evidence:
+  rubric_applied: string  # 判斷規則名稱／版本，不是分數
+  fixed_views: list       # 實際使用的 view_id
+
+decision:
+  enum: [accepted, rejected, hold]
+  accepted_requires:
+    - blocking_attributes 為空
+    - 無 forbidden_fields
+
+# 下游 mutation 之後：這份 decision 是否仍可被引用？
+validity:
+  enum: [current, re_review_required, stale]
+  note: stale = 曾 accepted 但未依 invalidation_rules 重判
+
+invalidation_rules:
+  - mutation_class: mesh_repair
+    branches:
+      - when: no_visual_drift_on_same_fixed_views
+        identity_effect: unaffected
+        required_record: inspection  # 同一組 fixed_views 抽查紀錄
+      - when: visual_drift_on_fixed_views
+        identity_effect: re_review_required
+        required_record: new identity_acceptance 或 decision=hold
+  - mutation_class: hair_reconstruction
+    identity_effect: re_review_required
+  - mutation_class: face_topology
+    identity_effect: re_review_required
+  - mutation_class: outfit_replacement
+    branches:
+      - when: outfit_is_must_preserve == false
+        identity_effect: unaffected
+        next_gate: outfit  # identity 不失效；服裝走自己的 record
+      - when: outfit_is_must_preserve == true
+        identity_effect: re_review_required
+
+mutation_event:  # 每次下游改動要留的資料
+  required_fields:
+    - mutation_class
+    - asset_revision
+    - prior_identity_acceptance_id
+    - applied_rule_branch  # 對上列哪一條
+    - resulting_validity

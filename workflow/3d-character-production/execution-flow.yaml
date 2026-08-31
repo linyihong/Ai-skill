@@ -1,0 +1,24 @@
+# Lifecycle index for agents. Not executable-contract/v1 — Phase 5 才投影。
+schema_version: artifact-record/v1
+id: workflow.3d-character-production.execution-flow
+status: draft
+owner_layer: workflow
+source_markdown: workflow/3d-character-production/execution-flow.md
+runtime_projection:
+  enabled: false
+  reason: Phase 5 才登記 route 與投影
+
+stages:
+  - frame
+  - intake_lock
+  - candidate
+  - identity_acceptance
+  - mesh_qa
+  - deformation
+  - face_outfit_motion
+  - export_consumption
+  - validate_close
+
+record_sot: workflow/3d-character-production/records/
+identity_invalidation_sot: workflow/3d-character-production/records/identity-acceptance.yaml
+gates: workflow/3d-character-production/records/artifact-gates.yaml

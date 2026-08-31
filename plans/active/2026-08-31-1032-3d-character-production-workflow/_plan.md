@@ -10,9 +10,9 @@ parent: null
 
 # 3D Character Production Workflow（`workflow/3d-character-production/`）
 
-**Status**: in-progress — Phase 0–2 frozen；Phase 2.5 **contract probe PASS ≠ workflow PASS**；
-Phase 1 detector / workflow **intentionally RED**。`contracts/` 不投影。
-`workflow/3d-character-production/` / glossary / route / executable-contract **未授權**。
+**Status**: in-progress — Phase 3 **workflow core landed**；detector / route / projection
+**intentionally still RED／disabled**。Invalidation SoT：
+`workflow/3d-character-production/records/identity-acceptance.yaml`。
 
 **Glossary Impact**: yes — 候選詞 `character_identity_lock`、`asset_maturity_gate`、
 `deformation_acceptance_set`、`runtime_ready_character_pack`。Phase 0 glossary collision
@@ -200,7 +200,7 @@ workflow/3d-character-production/
   runtime DB 僅為 projection。
 - **Duplication risk**：需與 software-delivery、未來 ML workflow、creative media workflow 做語意裁決。
 - **Assumption**：首個 profile 為 VRM；上游 gates 不依賴特定格式；full-body 為驗收主路徑。
-- **Decision**：Phase 0 closed → Phase 1 scenarios 已落地；**仍不寫** workflow 正文（Phase 3）。
+- **Decision**：Phase 3 workflow core 已寫；route／投影仍 Phase 5。
 
 ## Open Questions
 
@@ -340,11 +340,12 @@ Phase 2 合約寫完後、Phase 3 寫滿 workflow 前：用既有 VRM 角色專�
 
 ## Phase 3 — Workflow Core
 
-- [ ] 建立 proposed workflow shape 的 README、execution flow 與 focused stage files。
-- [ ] 定義 maturity：`exploration → prototype → runtime-ready`（採用 Phase 0.2 凍結定義）。
-- [ ] 定義 gate failure 的 owner-stage rollback，不允許下游 workaround 偷渡。
-- [ ] 將工具操作與服務名稱限制在 profile/adapter 或 project evidence。
-- [ ] 建立 `artifact-gates.md` + YAML：artifact、gate、next-stage eligibility、rollback owner。
+- [x] README、execution flow 與 focused stage files（`workflow/3d-character-production/`）。
+- [x] Maturity：`exploration → prototype → runtime-ready`（Phase 0.2）。
+- [x] Gate failure rollback owner（`records/artifact-gates.yaml`）。
+- [x] 工具名不進 core；VRM profile 留 Phase 4。
+- [x] `artifact-gates.md` + YAML（eligibility 只讀欄位；invalidation 不搬出 identity-acceptance.yaml）。
+- [x] `runtime_projection.enabled: false`；**未**登記 route／glossary。
 
 ## Phase 4 — VRM First Profile
 
@@ -420,9 +421,10 @@ Phase 2 合約寫完後、Phase 3 寫滿 workflow 前：用既有 VRM 角色專�
 - [x] Phase 0 裁決完成並關閉（Q1–Q8；2026-08-31）。
 - [x] Phase 1 Test-First Scenarios 已寫入 validation（含 identity invalidation）。
 - [x] Phase 2 Artifact Contracts 已寫入 `contracts/`（不投影、不建 workflow）。
-- [x] Phase 2.5 contract probe：shape 可填；未授權 Phase 3。
-- [ ] Phase 3–7 全部完成，或 deferred 項有 owner/entry condition。
-- [ ] Routing positive/counter 與 stage-gate scenarios 在 Phase 3/5 落地後通過（現況 fail by absence）。
+- [x] Phase 2.5 contract probe PASS ≠ workflow PASS。
+- [x] Phase 3 workflow core（無 route／無投影）。
+- [ ] Phase 4–7 全部完成，或 deferred 項有 owner/entry condition。
+- [ ] Routing positive/counter 在 Phase 5 登記後通過（現況 detector 應 no_match）。
 - [ ] External dogfood 證明至少一個早期 gate 能阻止下游返工。
 - [ ] Runtime surfaces 有 named consumer，或明確採 manual activation。
 - [ ] Linked updates、runtime projection、readback 與 repository close-loop 完成。

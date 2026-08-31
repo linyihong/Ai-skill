@@ -1,0 +1,8 @@
+# Pointer only — eligibility table SoT is records/artifact-gates.yaml
+schema_version: artifact-record/v1
+id: workflow.3d-character-production.artifact-gates
+status: draft
+runtime_projection:
+  enabled: false
+  reason: Phase 5 才投影
+canonical: workflow/3d-character-production/records/artifact-gates.yaml

@@ -1,0 +1,37 @@
+# Candidate Record — 判斷 promotion／lineage 所需資料。
+# 行為證明：provenance-blocks-promotion-v1
+schema_version: artifact-record/v1
+id: 3d-character.candidate-record
+status: draft
+runtime_projection:
+  enabled: false
+  reason: Phase 3 才 promote 到 workflow/；本檔不得投影
+
+record: candidate_record
+required_fields:
+  inputs: { reference_ids: list, specification_id: string }
+  acquisition_strategy: [generated, handmade, outsourced]
+  output: { asset_ref: opaque, format: string }
+  maturity: [exploration, prototype, runtime-ready]
+  decision: [accepted, rejected, hold, unknown]
+  reason: string  # decision 非 unknown 時必填；缺則不得 promotion
+
+provenance:
+  provider: { required: true }
+  model: { required: true }
+  model_version: { required: false }
+  input_reference_ids: { required: true }
+  timestamp: { required: true }
+  seed:
+    required: false
+    if_missing: "seed: unavailable"  # 禁止捏造
+  generation_settings:
+    required: false
+    if_incomplete: "generation_settings.availability: partial"
+
+retention:
+  rejected_must_retain: true
+
+forbidden:
+  - fabricate_seed_or_full_settings
+  - promote_when_decision_or_reason_missing
