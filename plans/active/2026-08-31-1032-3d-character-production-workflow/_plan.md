@@ -334,9 +334,9 @@ Knee bend、Shoulder rotation、一個 extreme facial expression。
 Phase 2 合約寫完後、Phase 3 寫滿 workflow 前：用既有 VRM 角色專案填一次 artifact shape。
 目的只回答「這些欄位在真實資產上填得出來嗎？」；**不是** completion dogfood。
 
-- [ ] 至少填一份 Specification + 一份 Candidate Record（含 rejected 或 unknown）。
-- [ ] 標出填不出的欄位 → 回修 Phase 2，禁止用空欄硬過。
-- [ ] Evidence 留 consumer repo；本庫只記「shape 是否可填」結論。
+- [x] 至少填一份 Specification + 一份 Candidate Record（含 rejected 或 unknown）。
+- [x] 標出填不出的欄位 → 本輪 **無缺欄**；未觀察項填 fail/hold，禁止空欄硬過、禁止發明 PASS。
+- [x] Evidence 留 consumer repo；本庫結論見 [`evidence/2026-08-31-phase-2.5-contract-probe.md`](evidence/2026-08-31-phase-2.5-contract-probe.md)。
 
 ## Phase 3 — Workflow Core
 
@@ -420,7 +420,8 @@ Phase 2 合約寫完後、Phase 3 寫滿 workflow 前：用既有 VRM 角色專�
 - [x] Phase 0 裁決完成並關閉（Q1–Q8；2026-08-31）。
 - [x] Phase 1 Test-First Scenarios 已寫入 validation（含 identity invalidation）。
 - [x] Phase 2 Artifact Contracts 已寫入 `contracts/`（不投影、不建 workflow）。
-- [ ] Phase 2.5–7 全部完成，或 deferred 項有 owner/entry condition。
+- [x] Phase 2.5 contract probe：shape 可填；未授權 Phase 3。
+- [ ] Phase 3–7 全部完成，或 deferred 項有 owner/entry condition。
 - [ ] Routing positive/counter 與 stage-gate scenarios 在 Phase 3/5 落地後通過（現況 fail by absence）。
 - [ ] External dogfood 證明至少一個早期 gate 能阻止下游返工。
 - [ ] Runtime surfaces 有 named consumer，或明確採 manual activation。
