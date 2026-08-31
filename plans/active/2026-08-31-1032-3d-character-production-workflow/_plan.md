@@ -10,9 +10,9 @@ parent: null
 
 # 3D Character Production Workflow（`workflow/3d-character-production/`）
 
-**Status**: in-progress — Phase 3 **workflow core landed**；detector / route / projection
-**intentionally still RED／disabled**。Invalidation SoT：
-`workflow/3d-character-production/records/identity-acceptance.yaml`。
+**Status**: in-progress — Phase 3 **implementation landed ≠ validated**（`6567ae4e`）。
+Detector no_match **EXPECTED**。下一階段若繼續：execution dogfood（停／放行），不是再擴寫 workflow。
+Phase 4／5 未授權。Invalidation SoT：`workflow/3d-character-production/records/identity-acceptance.yaml`。
 
 **Glossary Impact**: yes — 候選詞 `character_identity_lock`、`asset_maturity_gate`、
 `deformation_acceptance_set`、`runtime_ready_character_pack`。Phase 0 glossary collision

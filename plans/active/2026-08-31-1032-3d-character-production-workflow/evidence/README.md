@@ -18,3 +18,4 @@ Canonical：[`governance/lifecycle/plan-evidence.md`](../../../../governance/lif
 | Run ID | 檔案 | 狀態 | 摘要 |
 |---|---|---|---|
 | 2026-08-31-phase-2.5 | [`2026-08-31-phase-2.5-contract-probe.md`](2026-08-31-phase-2.5-contract-probe.md) | complete | contract probe PASS ≠ workflow PASS；absence stays non-passing |
+| 2026-08-31-phase-3 | [`2026-08-31-phase-3-implementation-landed.md`](2026-08-31-phase-3-implementation-landed.md) | complete | implementation landed ≠ validated；detector no_match expected |
