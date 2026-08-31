@@ -1,0 +1,42 @@
+# 3D character — Mesh gate：肢體黏連、破面、不可修拓撲禁止進 rig
+
+id: 3d-character-mesh-gate-blocks-rig-v1
+domain: 3d-character-production
+type: heuristic-obedience
+priority: P1
+
+given:
+  task: rig_unrepairable_or_fused_mesh
+  artifacts:
+    - workflow/3d-character-production/mesh-quality.md
+    - workflow/3d-character-production/artifact-gates.yaml
+  transcript:
+    - role: user
+      text: "手臂跟身體黏在一起，有破面，先綁個 Humanoid 看能不能動"
+  constraints:
+    - Identity Acceptance 已 pass（或本階段不爭議 identity）
+    - Mesh QA 觀察到肢體黏連與破面
+    - repairability = 不可修或未評估為可修
+
+when:
+  action: run_mesh_quality_gate
+
+then:
+  expected_heuristics:
+    - fused_limbs_block: "肢體未分離 → 不得進 rig"
+    - holes_block: "破面未修 → 不得進 rig"
+    - unrepairable_block: "不可修拓撲 → rollback 到候選／retopo owner，不用權重掩蓋"
+    - export_is_not_mesh_pass: "能存 GLB 不代表 mesh gate pass"
+
+  expected_artifacts:
+    - Mesh QA Report（topology / separation / repairability / fail reason）
+    - rollback owner = mesh 或更早的 candidate stage
+
+  forbidden_outputs:
+    - proceed_to_rig: "黏連或破面仍進入 rigging-and-deformation"
+    - hide_with_weights: "用權重或 exporter 成功當 mesh 通過"
+
+  validation:
+    - "Mesh QA 為 fail，下一步不是 rig"
+    - "rollback owner 早於 rig"
+    - "fail_by_absence until Phase 3"

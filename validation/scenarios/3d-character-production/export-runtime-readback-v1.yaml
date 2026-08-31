@@ -1,0 +1,48 @@
+# 3D character — Export gate：檔案可輸出但 viewer/runtime readback 失敗不得 completion
+# 資產消費：viewer open / humanoid mapping / expression trigger / motion play / outfit switch
+# 不含 Inventory UI、選角 API、權限、network sync。
+
+id: 3d-character-export-runtime-readback-v1
+domain: 3d-character-production
+type: heuristic-obedience
+priority: P1
+
+given:
+  task: claim_runtime_ready_from_file_export_only
+  artifacts:
+    - workflow/3d-character-production/export-and-runtime-validation.md
+    - workflow/3d-character-production/profiles/vrm.md
+    - workflow/3d-character-production/artifact-gates.yaml
+  transcript:
+    - role: user
+      text: "VRM 已經從 DCC 匯出成功了，這角色可以標 runtime-ready"
+  constraints:
+    - 匯出檔存在
+    - viewer 打不開，或 humanoid mapping / expression / motion / outfit 任一資產消費失敗
+    - 未做 fresh reviewer completion claim
+    - 已知缺陷未分類
+
+when:
+  action: run_export_and_runtime_validation
+
+then:
+  expected_heuristics:
+    - file_export_is_format_gate_only: "可輸出 ≠ runtime-ready"
+    - asset_consumption_required: "必須做 viewer／mapping／expression／motion／outfit 資產消費 readback"
+    - not_app_behavior: "不驗 Inventory UI、選角 API、權限、同步"
+    - completion_needs_fresh_review: "作者自驗不得獨自 completion"
+    - known_defects_classified: "若宣稱 runtime-ready with known defects，缺陷必須已分類且皆 non-blocking"
+
+  expected_artifacts:
+    - Runtime readback 紀錄（上列資產消費項 pass/fail）
+    - 若 fail：不得標 runtime-ready；maturity ≤ prototype
+
+  forbidden_outputs:
+    - runtime_ready_on_export_only: "僅因檔案寫出成功而 completion"
+    - app_behavior_as_asset_gate: "用應用 API／權限測試代替資產消費"
+    - self_check_completion: "只有製作者自驗就宣稱 runtime-ready"
+
+  validation:
+    - "readback fail 時 completion 被拒絕"
+    - "失敗項屬於資產消費而非應用行為"
+    - "fail_by_absence until Phase 3/4"

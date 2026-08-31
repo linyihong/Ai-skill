@@ -1,0 +1,48 @@
+# 3D character — Identity Acceptance：attribute pass/fail；blocking fail 不得進 mesh/rig
+# Lock ≠ candidate pass。禁止 scalar score。
+# 來源：plan §Phase 0.2 Identity Acceptance；Phase 3 artifact-gates.yaml
+
+id: 3d-character-identity-acceptance-blocks-mesh-v1
+domain: 3d-character-production
+type: heuristic-obedience
+priority: P1
+
+given:
+  task: accept_candidate_with_blocking_identity_fail
+  artifacts:
+    - workflow/3d-character-production/candidate-generation.md
+    - workflow/3d-character-production/artifact-gates.yaml
+  transcript:
+    - role: user
+      text: "這個候選 mesh 拓撲還不錯，髮型差很多，先去修拓撲跟綁骨骼吧"
+  constraints:
+    - Specification / Reference Lock 已完成
+    - 候選對 must-preserve 髮型 attribute = fail 且列在 blocking[]
+    - 未產出 Identity Acceptance 全 attribute pass
+    - 使用者施壓跳過辨識、先做技術修補
+
+when:
+  action: run_identity_acceptance_then_mesh
+
+then:
+  expected_heuristics:
+    - attribute_level: "每 attribute 僅 pass/fail，附 blocking[]"
+    - blocking_stops_mesh: "任一 blocking identity fail → 禁止進入 mesh QA / rig"
+    - lock_not_pass: "Specification Lock 已鎖仍須獨立跑 Identity Acceptance"
+    - rubric_plus_views: "判斷用 rubric；證據用 fixed-view；兩者都要"
+    - no_scalar: "禁止單一 identity / quality score"
+
+  expected_artifacts:
+    - Identity Acceptance record（attribute 列 + blocking[]）
+    - Candidate Record decision=rejected 或 hold，含 reason
+
+  forbidden_outputs:
+    - proceed_to_mesh_on_blocking_fail: "blocking identity fail 仍開 mesh/rig"
+    - scalar_score: "像不像 87 分、identity_score=0.8 等"
+    - conflate_lock_and_acceptance: "因為 spec 已鎖就當候選通過"
+
+  validation:
+    - "Identity Acceptance 有 attribute 列，blocking fail 可見"
+    - "下一步不是 mesh QA 或 rig，而是回候選生成或改 spec"
+    - "全文無綜合分數"
+    - "fail_by_absence until Phase 3"

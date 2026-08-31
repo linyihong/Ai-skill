@@ -1,0 +1,85 @@
+# Workflow Detector — 3D character production routing（fail by absence until Phase 5）
+# 鎖定 plans/active/2026-08-31-1032-3d-character-production-workflow.md
+# §Runtime Execution Path：裸「AI 建模」不得單獨鎖 route。
+# Phase 5 前 route 尚未登記 → 本檔是契約；機械 detector 現況應為 no_match。
+# 來源：
+#   - knowledge/runtime/routing-registry.yaml（Phase 5 才新增 route）
+#   - workflow/workflow-routing.md（Phase 5 才加歧義列）
+#   - workflow/3d-character-production/execution-flow.md（Phase 3 才建立）
+
+id: workflow-detector-3d-character-production-v1
+domain: runtime
+type: routing-decision
+priority: P1
+
+given:
+  task: detect_workflow_for_3d_character_production
+  artifacts:
+    - knowledge/runtime/routing-registry.yaml
+    - scripts/ai-skill-cli/internal/app/detector.go
+    - workflow/3d-character-production/execution-flow.md
+    - workflow/workflow-routing.md
+  transcript:
+    - role: user
+      text: "幫我把這套角色做成可驅動的 full-body VRM：要過 mesh QA、humanoid rig、表情與動作驗收，不是只出一張圖"
+  constraints:
+    - 任務同時含可驅動 3D 角色資產語意（VRM / rig / mesh QA）
+    - detector 為 deterministic substring；無 negative signal（ADR-006）
+    - 精準 user_signals 尚未登記前，不得用寬鬆「建模」吸走 ML / 影像任務
+
+when:
+  action: run_detector
+
+then:
+  expected_route:
+    primary: route.workflow.3d-character-production
+    status: detected
+    conflict: false
+    after_phase: Phase 5 routing registration
+    steps:
+      - 命中 VRM + rig / mesh QA / 可驅動角色資產
+      - ActiveRoute = route.workflow.3d-character-production
+      - primary_source = workflow/3d-character-production/execution-flow.md
+    reject:
+      - no_match: "Phase 5 後仍 no_match（signals 未覆蓋明確 3D 角色任務）"
+      - wrong_workflow: "鎖 software-delivery 或未存在的 ML/media route"
+
+  forbidden_routes:
+    - route.workflow.software-delivery
+    - no_match_on_explicit_vrm_rig_task_after_phase_5
+
+  expected_final_route: route.workflow.3d-character-production
+
+  fail_by_absence:
+    until: Phase 5
+    current_expected: route.workflow.3d-character-production 不存在 → workflow-context 不得假裝已 detected
+
+  counter_cases:
+    - name: ml_training
+      transcript:
+        - role: user
+          text: "幫我 fine-tune 一個影像分類模型並部署推論服務"
+      must_not_detect: route.workflow.3d-character-production
+      reason: 機器學習訓練／部署，不是可驅動 3D 角色資產
+    - name: image_or_video_generation
+      transcript:
+        - role: user
+          text: "用參考圖生成一張角色立繪，再做成 15 秒宣傳影片"
+      must_not_detect: route.workflow.3d-character-production
+      reason: 純 2D 圖／不可驅動影片，屬未來 media/creative，不是本 domain
+    - name: bare_ai_modeling
+      transcript:
+        - role: user
+          text: "幫我做 AI 建模"
+      must_not_lock_sole_route: route.workflow.3d-character-production
+      reason: >
+        裸「AI 建模」歧義（3D character vs ML vs image）。應詢問或 manual_activation，
+        不得為 recall 單獨鎖本 route。
+
+  validation:
+    detection_command: >
+      ai-skill runtime workflow-context --transcript <jsonl containing the given transcript>
+    assertions:
+      - "Phase 5 前：主案不得回 active_route=route.workflow.3d-character-production（route 未登記）"
+      - "Phase 5 後：主案 status=detected、conflict=false、primary_source=execution-flow.md"
+      - "三個 counter_case 的 detected_routes 都不以本 route 為 sole lock"

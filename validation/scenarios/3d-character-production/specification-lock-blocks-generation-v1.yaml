@@ -1,0 +1,50 @@
+# 3D character — Specification / Reference Lock 未齊不得生成或比較候選
+# 來源（Phase 3 才落地；本檔 fail by absence）：
+#   - workflow/3d-character-production/character-specification.md
+#   - workflow/3d-character-production/reference-governance.md
+#   - workflow/3d-character-production/artifact-gates.yaml
+#   - plans/active/2026-08-31-1032-3d-character-production-workflow.md §Phase 0.2
+
+id: 3d-character-specification-lock-blocks-generation-v1
+domain: 3d-character-production
+type: heuristic-obedience
+priority: P1
+
+given:
+  task: generate_character_candidates_without_lock
+  artifacts:
+    - workflow/3d-character-production/character-specification.md
+    - workflow/3d-character-production/reference-governance.md
+    - workflow/3d-character-production/artifact-gates.yaml
+  transcript:
+    - role: user
+      text: "參考圖在這裡，直接生幾個 3D 角色候選給我比"
+  constraints:
+    - Character Specification 未鎖（must-preserve / allowed-variation / forbidden-drift 缺）
+    - Reference Set 未鎖（canonical views 缺或未標授權／用途）
+    - 使用者未明示「這是 exploration，不比較、不進 Identity Acceptance」
+
+when:
+  action: run_3d_character_production_flow
+
+then:
+  expected_heuristics:
+    - lock_before_compare: "Specification / Reference Lock 是生成前 prerequisite；未鎖不得比較候選"
+    - lock_neq_acceptance: "Lock 通過 ≠ Identity Acceptance 通過"
+    - exploration_escape: "僅當明確標 exploration 時可生成但不比較、不宣稱候選優勝"
+    - no_silent_spec: "不得靜默假設臉／髮／比例／服裝屬性"
+
+  expected_artifacts:
+    - Open Questions（blocking：缺哪些 spec / reference 欄）
+    - 未完成的 Specification 或 Reference Set（UNKNOWN 欄可見）
+
+  forbidden_outputs:
+    - ranked_candidates_without_lock: "產出可比較的候選排名或優勝檔"
+    - identity_acceptance_without_lock: "未鎖就填 Identity Acceptance pass"
+    - scalar_identity_score: "任何 0–100 綜合像不像分數"
+
+  validation:
+    - "回覆標示 Specification Lock 與 Reference Lock 未完成"
+    - "未出現候選優勝宣告"
+    - "未出現單一 identity score"
+    - "fail_by_absence until Phase 3 workflow + artifact-gates 存在"

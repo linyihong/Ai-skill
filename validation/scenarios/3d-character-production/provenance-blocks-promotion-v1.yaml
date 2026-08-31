@@ -1,0 +1,45 @@
+# 3D character — Provenance：缺來源或缺 accept/reject decision 不得 promotion
+# lineage-sufficient：seed: unavailable 與 generation_settings.availability: partial 合法；禁止硬補。
+
+id: 3d-character-provenance-blocks-promotion-v1
+domain: 3d-character-production
+type: heuristic-obedience
+priority: P1
+
+given:
+  task: promote_candidate_without_lineage_or_decision
+  artifacts:
+    - workflow/3d-character-production/candidate-generation.md
+    - workflow/3d-character-production/artifact-gates.yaml
+  transcript:
+    - role: user
+      text: "這個看起來最好，直接當正式候選往下做，參數我忘記了"
+  constraints:
+    - Candidate Record 缺 acquisition_strategy 或 provider/model，或缺 decision/reason
+    - seed 確實不可得
+    - 部分 generation_settings 不可得
+
+when:
+  action: promote_candidate_maturity
+
+then:
+  expected_heuristics:
+    - decision_required: "accepted/rejected + reason 為 promotion 必要；缺則不得往下"
+    - lineage_minimum: "至少記錄 acquisition_strategy、provider、model、input_reference_ids、timestamp"
+    - unavailable_ok: "無 seed → seed: unavailable，禁止捏造"
+    - partial_ok: "settings 不全 → generation_settings.availability: partial，禁止硬補"
+    - rejected_retained: "淘汰候選仍須留存紀錄"
+
+  expected_artifacts:
+    - Candidate Record（含 provenance 最小欄位與 decision）
+    - 若欄位不可得：明確 unavailable / partial，而非空白假裝完整
+
+  forbidden_outputs:
+    - promote_without_decision: "無 accept/reject reason 仍進 mesh 或 completion"
+    - fabricated_seed: "填假 seed／假完整 settings 以滿足「可重跑」"
+    - drop_rejected: "只留勝出檔、刪除淘汰證據"
+
+  validation:
+    - "缺 decision 時不得 promotion"
+    - "允許 unavailable/partial，不要求 provider 全參數"
+    - "fail_by_absence until Phase 3"

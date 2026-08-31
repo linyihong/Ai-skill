@@ -19,6 +19,7 @@ validation/
 │   ├── apk-analysis/    # APK 分析領域
 │   ├── app-dev/         # App 開發領域
 │   ├── software-delivery/ # Requirements cognition / behavior validation / delivery correctness
+│   ├── 3d-character-production/ # 可驅動 3D 角色資產 gates（fail by absence until workflow）
 │   ├── architecture/    # 架構選型與 DDD adoption 決策
 │   └── travel/          # 旅遊規劃領域
 ├── rules/               # 規則定義（YAML）
@@ -64,6 +65,19 @@ L3 **Validation Capability** produces Evidence（artifact + proof shape）。`ev
 - `software-delivery/mutation-testing-effectiveness.yaml` — high coverage 不得直接等同測試有效；高風險邏輯用 targeted mutants / negative checks 驗證測試能抓錯。
 - `software-delivery/perf-smoke-gate.yaml` — 效能敏感变更须 L0 intake + L1 smoke + L2 summary；`result` 可决策、`stability` 仅 advisory；禁止单次 UNSTABLE block merge。
 
+## 3D Character Production Scenarios
+
+Test-first（plan `2026-08-31-1032`）。Phase 3/5 落地前 **fail by absence**。
+
+- `runtime/workflow-detector-3d-character-production-v1.yaml` — 明確 VRM/rig 任務；ML、純圖/影片、裸「AI 建模」不得 sole-lock。
+- `3d-character-production/specification-lock-blocks-generation-v1.yaml` — 未鎖不得比較候選。
+- `3d-character-production/identity-acceptance-blocks-mesh-v1.yaml` — blocking identity fail 禁 mesh/rig；禁 scalar。
+- `3d-character-production/identity-downstream-mutation-invalidation-v1.yaml` — Identity PASS 非永久；mesh/髮/臉/服裝修改的 re-review 規則。
+- `3d-character-production/mesh-gate-blocks-rig-v1.yaml` — 黏連／破面／不可修拓撲禁 rig。
+- `3d-character-production/deformation-gate-blocks-animation-v1.yaml` — 最小充分 set 失敗禁表情／動畫。
+- `3d-character-production/export-runtime-readback-v1.yaml` — 可匯出 ≠ runtime-ready；只驗資產消費。
+- `3d-character-production/provenance-blocks-promotion-v1.yaml` — 缺 decision 不得 promotion；unavailable/partial 合法。
+
 ## Investment Scenarios
 
 - `investment/investment-intake-gate-v1.yaml` — 缺策略／資產時不得輸出可執行配置。
@@ -95,6 +109,7 @@ L3 **Validation Capability** produces Evidence（artifact + proof shape）。`ev
 ## Runtime Close-Out Scenarios
 
 - `runtime/workflow-detector-investment-v1.yaml` — investment route 命中配置建議；「投資協議」不得sole-route 到 investment（Q8）。
+- `runtime/workflow-detector-3d-character-production-v1.yaml` — 3D 角色 route（Phase 5 前 fail by absence）；裸「AI 建模」不得 sole-lock。
 - `runtime/feedback-report-schema-v1.yaml` — Feedback / Learning Report 只做 presence / schema / enum / field-combination 機械檢查，不做語義判斷。
 - `runtime/non-local-repo-feedback-none-allowed-v1.yaml` — non-local repo 仍可在沒有 reusable learning 時回報 `feedback_decision: NONE`。
 - `failure-derived/feedback-needed-but-not-reported-v1.yaml` — user correction / reusable runtime gap 後不得漏報 `feedback_decision: NEEDED`。

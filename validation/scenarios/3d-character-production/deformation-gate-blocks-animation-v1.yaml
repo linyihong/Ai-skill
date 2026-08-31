@@ -1,0 +1,43 @@
+# 3D character — Deformation gate：最小充分 set 上破面或權重污染禁止進 expression/animation
+# 禁止把測試集合膨脹成「能想到的 pose 全測」。
+
+id: 3d-character-deformation-gate-blocks-animation-v1
+domain: 3d-character-production
+type: heuristic-obedience
+priority: P1
+
+given:
+  task: start_face_and_motion_despite_deformation_fail
+  artifacts:
+    - workflow/3d-character-production/rigging-and-deformation.md
+    - workflow/3d-character-production/artifact-gates.yaml
+  transcript:
+    - role: user
+      text: "T-pose 還行，舉手腋下破了，先做表情跟一套舞蹈動作"
+  constraints:
+    - 最小充分 set 含 Neutral、T/A-pose、Arms up、Knee bend、Shoulder rotation、一個 extreme face
+    - Arms up 觀察到破面或權重污染
+    - 使用者要求先做 expression / animation
+
+when:
+  action: run_deformation_acceptance_set
+
+then:
+  expected_heuristics:
+    - min_sufficient_set: "只測凍結最小充分集合，不要求全 pose 覆蓋"
+    - one_fail_blocks: "set 內任一 pose 破面或權重污染 → 禁止進 expression / animation"
+    - no_set_inflation: "不得因單次失敗把 set 擴成無限 pose 清單才算過"
+
+  expected_artifacts:
+    - Deformation Acceptance Set 紀錄（pose / expected / forbidden / pass|fail）
+    - rollback owner = rig / weights，不是動畫師 workaround
+
+  forbidden_outputs:
+    - proceed_to_face_or_motion: "deformation fail 仍進 facial-expression 或 outfit-and-animation"
+    - infinite_pose_list: "用「再加 20 個 pose」代替修權重"
+    - hide_with_export: "檔案仍可匯出就當 deformation pass"
+
+  validation:
+    - "Arms up 為 fail 且阻擋下一 stage"
+    - "set 長度仍是最小充分，不是全覆蓋"
+    - "fail_by_absence until Phase 3"

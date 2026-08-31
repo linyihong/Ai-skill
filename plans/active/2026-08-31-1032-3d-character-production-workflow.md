@@ -1,14 +1,14 @@
 ---
 id: 2026-08-31-1032-3d-character-production-workflow
-status: draft
+status: in-progress
 owner_layer: workflow
 ---
 
 # 3D Character Production Workflow（`workflow/3d-character-production/`）
 
-**Status**: draft — Phase 0 裁決已收錄（2026-08-31 stakeholder review）；**尚未進入
-Phase 1 implementation**。Architecture shape Ready；implementation semantics 待 Phase 1
-scenarios 落地。
+**Status**: in-progress — Phase 0 **closed**（stakeholder 2026-08-31：architecture shape
+Ready，無需再改）。Phase 1 Test-First Scenarios 已寫入 `validation/scenarios/`（fail by
+absence；**尚未**寫 `workflow/3d-character-production/`）。
 
 **Glossary Impact**: yes — 候選詞 `character_identity_lock`、`asset_maturity_gate`、
 `deformation_acceptance_set`、`runtime_ready_character_pack`。Phase 0 glossary collision
@@ -196,7 +196,7 @@ workflow/3d-character-production/
   runtime DB 僅為 projection。
 - **Duplication risk**：需與 software-delivery、未來 ML workflow、creative media workflow 做語意裁決。
 - **Assumption**：首個 profile 為 VRM；上游 gates 不依賴特定格式；full-body 為驗收主路徑。
-- **Decision**：Phase 0 裁決完成 → **允許進入 Phase 1**；本輪仍不寫 workflow 正文。
+- **Decision**：Phase 0 closed → Phase 1 scenarios 已落地；**仍不寫** workflow 正文（Phase 3）。
 
 ## Open Questions
 
@@ -210,10 +210,10 @@ workflow/3d-character-production/
   `blocking gates PASS` + `target runtime contract PASS` + `known defects 已分類`。
   不是「所有東西完美」。允許 `runtime-ready with known defects`；blocking 未過 = 不得 completion。
 - [x] **Q3**：Identity 用人工 rubric 還是固定 turnaround/render？
-  → **`resolved`（兩者都要，非二選一）**：Identity Contract（required attributes）+
-  attribute-level rubric（判斷規則）+ fixed-view evidence（turnaround/render）。
-  Rubric = decision rule；render = evidence。禁止 AI scalar score。拆成 Specification Lock
-  vs Identity Acceptance。
+  → **`resolved`（兩者都要，非二選一）**：Specification / Reference Lock 的 required
+  attributes + attribute-level rubric（判斷規則）+ fixed-view evidence（turnaround/render）。
+  Rubric = decision rule；render = evidence。禁止 AI scalar score。兩閘僅
+  Specification / Reference Lock 與 Identity Acceptance（不另設第三個 Identity Contract 閘）。
 - [x] **Q4**：full-body vs half-body？
   → **`resolved`**：full-body = **primary required** profile；half-body = optional/derived。
   Rig / deformation / outfit / animation 的 workflow 價值主要在 full-body。
@@ -221,8 +221,9 @@ workflow/3d-character-production/
   → **`resolved`（雙層）**：self-check = **stage progression**；fresh reviewer =
   **completion claim**。不得用自驗宣稱 `runtime-ready`。
 - [x] **Q6**：第二個 graduation profile？
-  → **`deferred`**：等第二個真實（非 VRM）案例出現再選 GLB/FBX/Live2D。ADR 的「至少 1 個
-  非 VRM」是 promotion 條件，**不是** Phase 4 現在就要寫第二個 profile。
+  → **`deferred`**：等第二個真實（非 VRM）案例出現再選 GLB/FBX/Live2D。
+  **Owner** = workflow maintainer at second-profile intake（屆時選定格式；Phase 0 不預選）。
+  ADR 的「至少 1 個非 VRM」是 promotion 條件，**不是** Phase 4 現在就要寫第二個 profile。
 - [x] **Q7**：provenance 粒度？
   → **`resolved`**：目標是 **candidate lineage 可解釋的足夠重跑**，不是保存服務全部內部
   參數。最小欄位：`acquisition_strategy` / `provider` / `model` / `model_version` /
@@ -247,10 +248,10 @@ workflow/3d-character-production/
 | --- | --- | --- |
 | Q1 Domain 名稱 | resolved | stakeholder 2026-08-31：`3d-character-production` |
 | Q2 第一版 maturity | resolved | `runtime-ready` = blocking + runtime contract + classified defects |
-| Q3 Identity | resolved | Contract + rubric + fixed-view evidence；拆 Lock vs Acceptance |
+| Q3 Identity | resolved | Lock + rubric + fixed-view；僅兩閘，無第三 Contract 閘 |
 | Q4 Body scope | resolved | full-body required；half-body optional/derived |
 | Q5 Reviewer | resolved | self-check = stage；fresh = completion |
-| Q6 Second profile | deferred | 等第二個真實非 VRM 案例 |
+| Q6 Second profile | deferred | 等第二案例；owner = workflow maintainer at intake |
 | Q7 Provenance | resolved | lineage-sufficient；unavailable/partial 合法 |
 | Q8 Handoff contract | resolved | 併入 artifact-gates.yaml，不新增檔 |
 
@@ -266,7 +267,8 @@ workflow/3d-character-production/
 - [x] Glossary collision：四候選詞無同名；近鄰 `change_intent_lock` 不合併。
 
 完成條件：Q1/Q2 resolved ✓；source-of-truth、route 邊界與第一版 maturity 明確 ✓。
-**Decision = proceed to Phase 1**（寫 scenarios / contracts）；**本輪不寫 workflow 檔案**。
+**Decision = Phase 0 closed**（stakeholder 2026-08-31 二次確認，無 architecture blocker）。
+Phase 1 scenarios 已寫；**仍不寫** workflow 檔案。
 
 ### Phase 0.2 — Frozen semantics（裁決後不得 silently 改寫）
 
@@ -287,15 +289,25 @@ Knee bend、Shoulder rotation、一個 extreme facial expression。
 
 ## Phase 1 — Test-First Scenarios
 
-- [ ] Routing positive：明確 VRM/角色 rig 任務命中本 workflow。
-- [ ] Routing counter：ML 模型訓練不命中。
-- [ ] Routing counter：純圖片/影片生成不命中。
-- [ ] Specification/Reference Lock：未鎖禁止生成／比較候選。
-- [ ] Identity Acceptance：attribute-level；blocking fail 禁止進 mesh/rig；禁止 scalar score。
-- [ ] Mesh gate：肢體黏連、破面、不可修拓撲禁止進 rig。
-- [ ] Deformation gate：目標 pose 破面或權重污染禁止進 expression/animation。
-- [ ] Export gate：檔案可輸出但 viewer/runtime readback 失敗不得宣稱完成。
-- [ ] Provenance gate：候選缺少來源與 rejection/acceptance decision 時不得 promotion。
+完成條件：下列 YAML 存在、符合 `validation/scenario.schema.json` 形狀；在 Phase 3/5 落地前
+**預期 fail by absence**（不得假裝 detector 或 gate 已綠）。
+
+- [x] Routing positive + counters（ML、純圖/影片、裸「AI 建模」）：
+      [`validation/scenarios/runtime/workflow-detector-3d-character-production-v1.yaml`](../../validation/scenarios/runtime/workflow-detector-3d-character-production-v1.yaml)
+- [x] Specification/Reference Lock：
+      [`validation/scenarios/3d-character-production/specification-lock-blocks-generation-v1.yaml`](../../validation/scenarios/3d-character-production/specification-lock-blocks-generation-v1.yaml)
+- [x] Identity Acceptance（blocking fail 禁 mesh/rig；禁 scalar）：
+      [`validation/scenarios/3d-character-production/identity-acceptance-blocks-mesh-v1.yaml`](../../validation/scenarios/3d-character-production/identity-acceptance-blocks-mesh-v1.yaml)
+- [x] Downstream mutation → Identity re-review／unaffected（非 Phase 0 blocker）：
+      [`validation/scenarios/3d-character-production/identity-downstream-mutation-invalidation-v1.yaml`](../../validation/scenarios/3d-character-production/identity-downstream-mutation-invalidation-v1.yaml)
+- [x] Mesh gate：
+      [`validation/scenarios/3d-character-production/mesh-gate-blocks-rig-v1.yaml`](../../validation/scenarios/3d-character-production/mesh-gate-blocks-rig-v1.yaml)
+- [x] Deformation gate：
+      [`validation/scenarios/3d-character-production/deformation-gate-blocks-animation-v1.yaml`](../../validation/scenarios/3d-character-production/deformation-gate-blocks-animation-v1.yaml)
+- [x] Export / runtime readback：
+      [`validation/scenarios/3d-character-production/export-runtime-readback-v1.yaml`](../../validation/scenarios/3d-character-production/export-runtime-readback-v1.yaml)
+- [x] Provenance：
+      [`validation/scenarios/3d-character-production/provenance-blocks-promotion-v1.yaml`](../../validation/scenarios/3d-character-production/provenance-blocks-promotion-v1.yaml)
 
 ## Phase 2 — Artifact Contracts
 
@@ -303,6 +315,8 @@ Knee bend、Shoulder rotation、一個 extreme facial expression。
   allowed-variation、forbidden-drift。
 - [ ] Reference Set：canonical views、pose-only refs、style-only refs、授權/用途邊界。
 - [ ] Identity Acceptance record：每 attribute `pass`/`fail` + `blocking[]`（非分數）。
+- [ ] Identity invalidation：downstream mutation → `unaffected` / `re-review required`
+      （mesh repair／hair／face／outfit；見 Phase 1 mutation scenario）。
 - [ ] Candidate Record：inputs、strategy、settings、output、maturity、decision、reason、
   provenance（Q7 最小欄位；rejected 必須留存）。
 - [ ] Mesh QA Report：topology、separation、UV/material、scale/orientation、repairability。
@@ -379,6 +393,8 @@ Phase 2 合約寫完後、Phase 3 寫滿 workflow 前：用既有 VRM 角色專�
 | 首輪不建立 analysis/intelligence 空殼 | ✅ |
 | Routing 精準 auto-detect；歧義則 manual activation | ✅ |
 | Phase 2.5 小 probe，Phase 6 才 full dogfood | ✅ |
+| Phase 0 close；進 Phase 1；不新增 Q9+ | ✅ 2026-08-31 二次 review |
+| Identity PASS 非永久；Phase 1 測 downstream mutation | ✅ scenario 已寫 |
 
 ## Watch-Out List citation
 
@@ -396,9 +412,10 @@ Phase 2 合約寫完後、Phase 3 寫滿 workflow 前：用既有 VRM 角色專�
 
 ## 完成條件
 
-- [x] Phase 0 裁決完成（Q1–Q8；2026-08-31）。Phase 1 起仍待執行。
-- [ ] Phase 1–7 全部完成，或 deferred 項有 owner/entry condition。
-- [ ] Routing positive/counter cases 與 stage-gate scenarios 通過。
+- [x] Phase 0 裁決完成並關閉（Q1–Q8；2026-08-31）。
+- [x] Phase 1 Test-First Scenarios 已寫入 validation（含 identity invalidation）。
+- [ ] Phase 2–7 全部完成，或 deferred 項有 owner/entry condition。
+- [ ] Routing positive/counter 與 stage-gate scenarios 在 Phase 3/5 落地後通過（現況 fail by absence）。
 - [ ] External dogfood 證明至少一個早期 gate 能阻止下游返工。
 - [ ] Runtime surfaces 有 named consumer，或明確採 manual activation。
 - [ ] Linked updates、runtime projection、readback 與 repository close-loop 完成。

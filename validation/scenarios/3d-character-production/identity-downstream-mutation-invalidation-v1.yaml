@@ -1,0 +1,71 @@
+# 3D character — downstream mutation 是否使 Identity Acceptance 失效
+# Stakeholder 2026-08-31：非 Phase 0 blocker；Phase 1 必須測，避免
+# Identity PASS → mesh repair → 臉變了 → rig/runtime PASS → 已不是原角色。
+# 契約回答 invalidate / re-review / unaffected，不另建大系統。
+
+id: 3d-character-identity-downstream-mutation-invalidation-v1
+domain: 3d-character-production
+type: failure-recovery
+priority: P1
+
+failure_source:
+  pattern: Identity Acceptance 一次 PASS 被當成永久有效，下游改 mesh/髮/臉/服裝後不重審
+  why_it_matters: >
+    技術 gate 全綠仍可能漂移辨識點。completion 會宣稱 runtime-ready 但資產已不是
+    Specification Lock 指向的角色。
+
+given:
+  task: classify_identity_invalidation_after_downstream_edit
+  artifacts:
+    - workflow/3d-character-production/mesh-quality.md
+    - workflow/3d-character-production/artifact-gates.yaml
+    - workflow/3d-character-production/character-specification.md
+  transcript:
+    - role: user
+      text: "Identity 已經 PASS 了，拓撲有洞我修一下 mesh，然後繼續 rig"
+  constraints:
+    - Identity Acceptance 曾為全 attribute pass
+    - 即將或已經做下游修改
+    - 未重新跑 fixed-view Identity Acceptance
+
+when:
+  action: classify_mutation_against_identity_contract
+
+then:
+  expected_heuristics:
+    - pass_is_not_permanent: "Identity PASS 不是終身有效"
+    - contract_answers_invalidation: "artifact contract 必須能回答各類修改的 identity 後果"
+    - re_review_uses_same_lock: "重審仍對同一 Specification / Reference Lock，不另開分數"
+
+  cases:
+    - name: mesh_repair_topology_only
+      mutation: "修洞／重拓撲，固定視角下面部剪影、髮型、比例未變"
+      identity_effect: unaffected_if_fixed_views_unchanged
+      required_check: "同一組 fixed views 抽查 must-preserve；無視覺漂移才可跳過完整重審"
+      if_views_drift: re-review required
+    - name: hair_reconstruction
+      mutation: "重做頭髮／挑染／髮量"
+      identity_effect: re-review required
+    - name: face_topology_modification
+      mutation: "改臉部拓撲或臉型"
+      identity_effect: re-review required
+    - name: outfit_replacement
+      mutation: "換裝"
+      identity_effect: >
+        僅當 Specification 的 must-preserve 含 outfit（或 forbidden-drift 含服裝辨識點）
+        時 re-review required；否則 identity unaffected，改走 outfit gate
+
+  expected_artifacts:
+    - Mutation → identity effect 表（上列四類至少）
+    - 若 re-review required：新的 Identity Acceptance record 或明確 hold
+
+  forbidden_outputs:
+    - stale_identity_pass: "下游改完仍引用舊 Identity PASS 進 rig／runtime completion"
+    - skip_review_on_face_or_hair: "臉／髮重建後聲稱 identity 仍有效"
+    - scalar_re_score: "用單一分數代替 attribute re-review"
+
+  validation:
+    - "四類 mutation 都有 identity_effect，不是一句「看情況」"
+    - "mesh repair 預設不是無限期免審；視角漂移必須 re-review"
+    - "不得用舊 PASS 宣稱 runtime-ready"
+    - "fail_by_absence until Phase 2/3 contract 寫入 invalidation 表"
