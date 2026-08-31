@@ -21,7 +21,8 @@ observation_item:
   camera: string
   expected: string
   forbidden: string
-  result: [pass, fail]
+  result: [pass, fail, partial]
+  # partial: mesh delta observed but visible/readback criterion not met (e.g. texture_baked_eyes)
 
 decision:
   enum: [pass, fail]

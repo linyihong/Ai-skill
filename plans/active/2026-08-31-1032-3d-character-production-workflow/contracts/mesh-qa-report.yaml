@@ -13,6 +13,9 @@ required_fields:
   limb_separation: { result: [pass, fail], notes: string }
   holes_or_nonmanifold: { result: [pass, fail] }
   uv_material: { result: [pass, fail, not_evaluated] }
+  # failure_class examples (consumer dogfood 2026-08-31):
+  #   face_plate_neck_smear — plate UV on neck/chest; blocks rig/expression until repaired or deferred
+  #   multi_material_face_split — joined DCC mesh != runtime split mesh; vert_indices not portable
   scale_orientation: { result: [pass, fail] }
   repairability: [repairable, unrepairable, unknown]
 
