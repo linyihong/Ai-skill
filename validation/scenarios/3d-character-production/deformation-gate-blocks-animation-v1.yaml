@@ -9,8 +9,8 @@ priority: P1
 given:
   task: start_face_and_motion_despite_deformation_fail
   artifacts:
-    - workflow/3d-character-production/rigging-and-deformation.md
-    - workflow/3d-character-production/artifact-gates.yaml
+    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/deformation-acceptance-set.yaml
+    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/artifact-gates.yaml
   transcript:
     - role: user
       text: "T-pose 還行，舉手腋下破了，先做表情跟一套舞蹈動作"
@@ -40,4 +40,4 @@ then:
   validation:
     - "Arms up 為 fail 且阻擋下一 stage"
     - "set 長度仍是最小充分，不是全覆蓋"
-    - "fail_by_absence until Phase 3"
+    - "fail_by_absence until Phase 3 執行層；deformation record 契約已在 contracts/"

@@ -1,0 +1,31 @@
+# Deformation Acceptance Set — 最小充分集合的觀察資料，不是全 pose 清單。
+# 行為證明：deformation-gate-blocks-animation-v1
+schema_version: artifact-record/v1
+id: 3d-character.deformation-acceptance-set
+status: draft
+runtime_projection:
+  enabled: false
+  reason: Phase 3 才 promote 到 workflow/；本檔不得投影
+
+record: deformation_acceptance_set
+frozen_min_set:  # Phase 0.2；Phase 2 可微調內容，不可無上限膨脹
+  - Neutral
+  - T-pose_or_A-pose
+  - Arms_up
+  - Knee_bend
+  - Shoulder_rotation
+  - one_extreme_facial_expression
+
+observation_item:
+  pose_id: string  # 必須 ∈ frozen_min_set（或經記錄的微調後集合）
+  camera: string
+  expected: string
+  forbidden: string
+  result: [pass, fail]
+
+decision:
+  enum: [pass, fail]
+  fail_when: any observation_item.result == fail
+
+forbidden:
+  - unbounded_pose_list_as_pass_criterion

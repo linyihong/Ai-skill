@@ -1,14 +1,18 @@
 ---
 id: 2026-08-31-1032-3d-character-production-workflow
+plan_kind: main
 status: in-progress
+owner: workflow
 owner_layer: workflow
+created: 2026-08-31
+parent: null
 ---
 
 # 3D Character Production Workflow（`workflow/3d-character-production/`）
 
-**Status**: in-progress — Phase 0 **closed**（stakeholder 2026-08-31：architecture shape
-Ready，無需再改）。Phase 1 Test-First Scenarios 已寫入 `validation/scenarios/`（fail by
-absence；**尚未**寫 `workflow/3d-character-production/`）。
+**Status**: in-progress — Phase 0 closed；Phase 1 scenarios **intentionally RED**；
+Phase 2 artifact records 在 [`01-artifact-contracts.md`](01-artifact-contracts.md) / [`contracts/`](contracts/)（**非** workflow 正文、
+**不**投影）。`workflow/3d-character-production/` / glossary / route 仍刻意缺席。
 
 **Glossary Impact**: yes — 候選詞 `character_identity_lock`、`asset_maturity_gate`、
 `deformation_acceptance_set`、`runtime_ready_character_pack`。Phase 0 glossary collision
@@ -293,37 +297,37 @@ Knee bend、Shoulder rotation、一個 extreme facial expression。
 **預期 fail by absence**（不得假裝 detector 或 gate 已綠）。
 
 - [x] Routing positive + counters（ML、純圖/影片、裸「AI 建模」）：
-      [`validation/scenarios/runtime/workflow-detector-3d-character-production-v1.yaml`](../../validation/scenarios/runtime/workflow-detector-3d-character-production-v1.yaml)
+      [`validation/scenarios/runtime/workflow-detector-3d-character-production-v1.yaml`](../../../validation/scenarios/runtime/workflow-detector-3d-character-production-v1.yaml)
 - [x] Specification/Reference Lock：
-      [`validation/scenarios/3d-character-production/specification-lock-blocks-generation-v1.yaml`](../../validation/scenarios/3d-character-production/specification-lock-blocks-generation-v1.yaml)
+      [`validation/scenarios/3d-character-production/specification-lock-blocks-generation-v1.yaml`](../../../validation/scenarios/3d-character-production/specification-lock-blocks-generation-v1.yaml)
 - [x] Identity Acceptance（blocking fail 禁 mesh/rig；禁 scalar）：
-      [`validation/scenarios/3d-character-production/identity-acceptance-blocks-mesh-v1.yaml`](../../validation/scenarios/3d-character-production/identity-acceptance-blocks-mesh-v1.yaml)
+      [`validation/scenarios/3d-character-production/identity-acceptance-blocks-mesh-v1.yaml`](../../../validation/scenarios/3d-character-production/identity-acceptance-blocks-mesh-v1.yaml)
 - [x] Downstream mutation → Identity re-review／unaffected（非 Phase 0 blocker）：
-      [`validation/scenarios/3d-character-production/identity-downstream-mutation-invalidation-v1.yaml`](../../validation/scenarios/3d-character-production/identity-downstream-mutation-invalidation-v1.yaml)
+      [`validation/scenarios/3d-character-production/identity-downstream-mutation-invalidation-v1.yaml`](../../../validation/scenarios/3d-character-production/identity-downstream-mutation-invalidation-v1.yaml)
 - [x] Mesh gate：
-      [`validation/scenarios/3d-character-production/mesh-gate-blocks-rig-v1.yaml`](../../validation/scenarios/3d-character-production/mesh-gate-blocks-rig-v1.yaml)
+      [`validation/scenarios/3d-character-production/mesh-gate-blocks-rig-v1.yaml`](../../../validation/scenarios/3d-character-production/mesh-gate-blocks-rig-v1.yaml)
 - [x] Deformation gate：
-      [`validation/scenarios/3d-character-production/deformation-gate-blocks-animation-v1.yaml`](../../validation/scenarios/3d-character-production/deformation-gate-blocks-animation-v1.yaml)
+      [`validation/scenarios/3d-character-production/deformation-gate-blocks-animation-v1.yaml`](../../../validation/scenarios/3d-character-production/deformation-gate-blocks-animation-v1.yaml)
 - [x] Export / runtime readback：
-      [`validation/scenarios/3d-character-production/export-runtime-readback-v1.yaml`](../../validation/scenarios/3d-character-production/export-runtime-readback-v1.yaml)
+      [`validation/scenarios/3d-character-production/export-runtime-readback-v1.yaml`](../../../validation/scenarios/3d-character-production/export-runtime-readback-v1.yaml)
 - [x] Provenance：
-      [`validation/scenarios/3d-character-production/provenance-blocks-promotion-v1.yaml`](../../validation/scenarios/3d-character-production/provenance-blocks-promotion-v1.yaml)
+      [`validation/scenarios/3d-character-production/provenance-blocks-promotion-v1.yaml`](../../../validation/scenarios/3d-character-production/provenance-blocks-promotion-v1.yaml)
 
 ## Phase 2 — Artifact Contracts
 
-- [ ] Character Specification：silhouette、face、hair、proportion、outfit、must-preserve、
-  allowed-variation、forbidden-drift。
-- [ ] Reference Set：canonical views、pose-only refs、style-only refs、授權/用途邊界。
-- [ ] Identity Acceptance record：每 attribute `pass`/`fail` + `blocking[]`（非分數）。
-- [ ] Identity invalidation：downstream mutation → `unaffected` / `re-review required`
-      （mesh repair／hair／face／outfit；見 Phase 1 mutation scenario）。
-- [ ] Candidate Record：inputs、strategy、settings、output、maturity、decision、reason、
-  provenance（Q7 最小欄位；rejected 必須留存）。
-- [ ] Mesh QA Report：topology、separation、UV/material、scale/orientation、repairability。
-- [ ] Deformation Acceptance Set：**最小充分** pose/camera/expected/forbidden（見 Phase 0.2）。
-- [ ] Runtime-ready Character Pack：source、export、expressions、actions、outfits、
-  known defects（分類欄：severity / owner stage / fix-or-defer）。
-- [ ] `artifact-gates.yaml` 形狀含 next-stage eligibility + rollback owner（Q8）。
+欄位契約索引：[`01-artifact-contracts.md`](01-artifact-contracts.md)。**不**把 Phase 1 scenario 的 heuristic
+再寫成第二套規則；Phase 3 只 promote 這些 record，不另抄。
+
+- [x] Character Specification：[`contracts/character-specification.yaml`](contracts/character-specification.yaml)
+- [x] Reference Set：[`contracts/reference-set.yaml`](contracts/reference-set.yaml)
+- [x] Identity Acceptance record（attribute pass/fail + blocking；禁 scalar）
+- [x] Identity invalidation 表（唯一 SoT）：[`contracts/identity-acceptance.yaml`](contracts/identity-acceptance.yaml)
+- [x] Candidate Record：[`contracts/candidate-record.yaml`](contracts/candidate-record.yaml)
+- [x] Mesh QA Report：[`contracts/mesh-qa-report.yaml`](contracts/mesh-qa-report.yaml)
+- [x] Deformation Acceptance Set：[`contracts/deformation-acceptance-set.yaml`](contracts/deformation-acceptance-set.yaml)
+- [x] Runtime-ready Character Pack：[`contracts/runtime-ready-character-pack.yaml`](contracts/runtime-ready-character-pack.yaml)
+- [x] `artifact-gates.yaml` eligibility + rollback owner：[`contracts/artifact-gates.yaml`](contracts/artifact-gates.yaml)
+      （`runtime_projection.enabled: false`；不是 executable-contract）
 
 ## Phase 2.5 — Contract probe（非正式 dogfood）
 
@@ -395,10 +399,11 @@ Phase 2 合約寫完後、Phase 3 寫滿 workflow 前：用既有 VRM 角色專�
 | Phase 2.5 小 probe，Phase 6 才 full dogfood | ✅ |
 | Phase 0 close；進 Phase 1；不新增 Q9+ | ✅ 2026-08-31 二次 review |
 | Identity PASS 非永久；Phase 1 測 downstream mutation | ✅ scenario 已寫 |
+| Phase 2 contracts 不複製 scenario 規則；invalidation 單一 SoT | ✅ 2026-08-31 |
 
 ## Watch-Out List citation
 
-依 [`architecture/ai-native-cognitive-ecosystem-system.md`](../../architecture/ai-native-cognitive-ecosystem-system.md)
+依 [`architecture/ai-native-cognitive-ecosystem-system.md`](../../../architecture/ai-native-cognitive-ecosystem-system.md)
 §Watch-Out List：
 
 - 不為單一 dogfood 建完整新 layer hierarchy。
@@ -414,7 +419,8 @@ Phase 2 合約寫完後、Phase 3 寫滿 workflow 前：用既有 VRM 角色專�
 
 - [x] Phase 0 裁決完成並關閉（Q1–Q8；2026-08-31）。
 - [x] Phase 1 Test-First Scenarios 已寫入 validation（含 identity invalidation）。
-- [ ] Phase 2–7 全部完成，或 deferred 項有 owner/entry condition。
+- [x] Phase 2 Artifact Contracts 已寫入 `contracts/`（不投影、不建 workflow）。
+- [ ] Phase 2.5–7 全部完成，或 deferred 項有 owner/entry condition。
 - [ ] Routing positive/counter 與 stage-gate scenarios 在 Phase 3/5 落地後通過（現況 fail by absence）。
 - [ ] External dogfood 證明至少一個早期 gate 能阻止下游返工。
 - [ ] Runtime surfaces 有 named consumer，或明確採 manual activation。
@@ -432,17 +438,18 @@ Phase 2 合約寫完後、Phase 3 寫滿 workflow 前：用既有 VRM 角色專�
 | `knowledge/summaries/` | summary-first route |
 | `knowledge/glossary/ai-skill.md` | 新 framework vocabulary（若確認） |
 | `validation/scenarios/` | routing 與 stage-gate test-first scenarios |
+| `plans/.../contracts/` | Phase 2 record shapes；Phase 3 再 promote |
 | `runtime/runtime.db` | compiler projection；不得手改 |
 
 ## 與其他 plans 的關係
 
-- [`2026-07-30-2101-legal-workflow-domain.md`](2026-07-30-2101-legal-workflow-domain.md)：
+- [`2026-07-30-2101-legal-workflow-domain.md`](../2026-07-30-2101-legal-workflow-domain.md)：
   參考其 domain boundary、scenario-first、runtime wiring 與「不建空殼層」策略；不複製法律專屬
   intake/risk model。
 - Software Delivery Framework Domain Model 相關 plan：本 workflow 擁有角色 asset
   acceptance；software-delivery 只擁有其自動化程式的交付。
 - Workflow Activation Engine 相關 archived plans：沿用既有 detector 與
   `gate.workflow.primary_source_read`，本 plan 不另建 activation engine。
-- [`2026-06-16-1131-evidence-candidate-system.md`](2026-06-16-1131-evidence-candidate-system.md)：
+- [`2026-06-16-1131-evidence-candidate-system.md`](../2026-06-16-1131-evidence-candidate-system.md)：
   Candidate Record 的 accept/reject/reason 形狀相近；本 domain **不**把 evidence-candidate
   系統當 runtime 依賴，只借用形狀，避免過早抽共用 primitive。

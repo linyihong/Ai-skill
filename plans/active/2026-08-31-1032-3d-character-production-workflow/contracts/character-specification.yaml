@@ -1,0 +1,39 @@
+# Character Specification — fields needed to judge Specification Lock.
+# Behavior source: specification-lock-blocks-generation-v1（不在此重複 heuristic）。
+schema_version: artifact-record/v1
+id: 3d-character.character-specification
+status: draft
+runtime_projection:
+  enabled: false
+  reason: Phase 3 才 promote 到 workflow/；本檔不得投影
+
+record: character_specification
+lock_role: specification_lock  # 與 reference_set 一起構成 Lock；Lock ≠ Identity Acceptance
+
+required_fields:
+  silhouette: { type: text_or_ref, unknown_allowed: false_when_comparing_candidates }
+  face: { type: attribute_list }
+  hair: { type: attribute_list }
+  proportion: { type: attribute_list }
+  outfit: { type: attribute_list }
+
+classification_fields:
+  must_preserve:
+    type: list
+    item: attribute_id
+    purpose: Identity Acceptance 與 invalidation 都讀此列，不另建規則檔
+  allowed_variation:
+    type: list
+    item: attribute_id
+  forbidden_drift:
+    type: list
+    item: attribute_id
+
+derived_flags:
+  outfit_is_must_preserve:
+    computed_from: "outfit attribute_id ∈ must_preserve 或對應 forbidden_drift"
+    consumed_by: identity-acceptance.yaml invalidation_rules.outfit_replacement
+
+forbidden_fields:
+  - identity_score
+  - quality_score

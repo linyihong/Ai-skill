@@ -8,8 +8,8 @@ priority: P1
 given:
   task: rig_unrepairable_or_fused_mesh
   artifacts:
-    - workflow/3d-character-production/mesh-quality.md
-    - workflow/3d-character-production/artifact-gates.yaml
+    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/mesh-qa-report.yaml
+    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/artifact-gates.yaml
   transcript:
     - role: user
       text: "手臂跟身體黏在一起，有破面，先綁個 Humanoid 看能不能動"
@@ -39,4 +39,4 @@ then:
   validation:
     - "Mesh QA 為 fail，下一步不是 rig"
     - "rollback owner 早於 rig"
-    - "fail_by_absence until Phase 3"
+    - "fail_by_absence until Phase 3 執行層；mesh record 契約已在 contracts/"

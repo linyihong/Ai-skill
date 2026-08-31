@@ -1,0 +1,46 @@
+# Runtime-ready Character Pack — completion 判斷資料；可匯出不是本 record 的 pass。
+# 行為證明：export-runtime-readback-v1
+schema_version: artifact-record/v1
+id: 3d-character.runtime-ready-character-pack
+status: draft
+runtime_projection:
+  enabled: false
+  reason: Phase 3 才 promote 到 workflow/；本檔不得投影
+
+record: runtime_ready_character_pack
+required_fields:
+  source_refs: list
+  export_artifact: { path_or_ref: opaque, format: string, export_ok: boolean }
+  expressions: { result: [pass, fail, not_run] }
+  actions: { result: [pass, fail, not_run] }
+  outfits: { result: [pass, fail, not_run, not_applicable] }
+
+# 資產消費（本 workflow）；不是應用行為
+asset_consumption_readback:
+  viewer_open: [pass, fail]
+  humanoid_mapping: [pass, fail]
+  expression_trigger: [pass, fail]
+  motion_play: [pass, fail]
+  outfit_switch: [pass, fail, not_applicable]
+not_in_this_record:
+  - inventory_ui
+  - character_select_api
+  - permissions
+  - network_sync
+  - application_state
+
+known_defects:
+  item:
+    description: string
+    severity: [blocking, non_blocking]
+    owner_stage: string
+    disposition: [fix, defer]
+  runtime_ready_with_known_defects_requires:
+    - 全部 blocking gates 對應 record.decision == pass
+    - known_defects 無 severity=blocking
+    - defects 皆已分類
+
+completion:
+  maturity: [exploration, prototype, runtime-ready]
+  fresh_reviewer: boolean  # false 則不得標 runtime-ready
+  export_ok_alone: false   # 欄位存在但不能當 completion

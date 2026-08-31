@@ -1,0 +1,37 @@
+# Reference Set — fields needed to judge Reference Lock.
+# Behavior source: specification-lock-blocks-generation-v1
+schema_version: artifact-record/v1
+id: 3d-character.reference-set
+status: draft
+runtime_projection:
+  enabled: false
+  reason: Phase 3 才 promote 到 workflow/；本檔不得投影
+
+record: reference_set
+lock_role: reference_lock
+
+required_fields:
+  canonical_views:
+    type: list
+    item:
+      view_id: string
+      pose: string
+      camera: string
+      asset_ref: opaque  # consumer repo；本庫不存素材
+  pose_only_refs:
+    type: list
+    item: { view_id: string, purpose: pose_not_identity }
+  style_only_refs:
+    type: list
+    item: { view_id: string, purpose: style_not_identity }
+  usage_boundary:
+    license_or_purpose: string
+    forbidden_uses: list
+
+lock_complete_when:
+  - canonical_views 非空
+  - usage_boundary 已填
+  - 與 character_specification 同時鎖才能比較候選
+
+forbidden_fields:
+  - identity_score

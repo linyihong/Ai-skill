@@ -10,9 +10,8 @@ priority: P1
 given:
   task: claim_runtime_ready_from_file_export_only
   artifacts:
-    - workflow/3d-character-production/export-and-runtime-validation.md
-    - workflow/3d-character-production/profiles/vrm.md
-    - workflow/3d-character-production/artifact-gates.yaml
+    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/runtime-ready-character-pack.yaml
+    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/artifact-gates.yaml
   transcript:
     - role: user
       text: "VRM 已經從 DCC 匯出成功了，這角色可以標 runtime-ready"
@@ -45,4 +44,4 @@ then:
   validation:
     - "readback fail 時 completion 被拒絕"
     - "失敗項屬於資產消費而非應用行為"
-    - "fail_by_absence until Phase 3/4"
+    - "fail_by_absence until Phase 3/4 執行層與 VRM profile；pack record 契約已在 contracts/"

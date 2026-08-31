@@ -1,0 +1,60 @@
+# Stage eligibility + rollback owner（Q8）。
+# 只宣告「用哪些 record 欄位裁決能否進下一 stage」。
+# 不複製 Phase 1 heuristic 正文；細節在各 record YAML。
+schema_version: artifact-record/v1
+id: 3d-character.artifact-gates
+status: draft
+runtime_projection:
+  enabled: false
+  reason: Phase 3 才 promote 為 workflow executable contract；本檔不得投影
+
+handoff: encoded_here  # 不另建 handoff.yaml
+
+stages:
+  - id: specification_reference_lock
+    required_records: [character_specification, reference_set]
+    next_stage: candidate_generation
+    eligibility_fields:
+      - character_specification.lock 完整
+      - reference_set.lock 完整
+    rollback_owner: intake_or_spec_author
+
+  - id: identity_acceptance
+    required_records: [identity_acceptance]
+    next_stage: mesh_qa
+    eligibility_fields:
+      - identity_acceptance.decision == accepted
+      - identity_acceptance.blocking_attributes 為空
+      - identity_acceptance.validity == current
+    rollback_owner: candidate_generation
+
+  - id: mesh_qa
+    required_records: [mesh_qa_report]
+    also_requires:
+      - identity_acceptance.validity == current  # 下游 mutation 可把上一閘變 stale
+    next_stage: rigging
+    eligibility_fields:
+      - mesh_qa_report.decision == pass
+    rollback_owner: mesh_or_candidate
+
+  - id: deformation
+    required_records: [deformation_acceptance_set]
+    next_stage: facial_or_animation
+    eligibility_fields:
+      - deformation_acceptance_set.decision == pass
+    rollback_owner: rig_weights
+
+  - id: export_runtime
+    required_records: [runtime_ready_character_pack]
+    next_stage: completion_claim
+    eligibility_fields:
+      - asset_consumption_readback 所列項非 fail
+      - export_ok 不得單獨視為 pass
+      - fresh_reviewer == true 才可 completion
+    rollback_owner: failing_readback_stage
+
+promotion:
+  required_records: [candidate_record]
+  eligibility_fields:
+    - candidate_record.decision 與 reason 齊
+    - provenance 最小欄或 unavailable/partial 標記

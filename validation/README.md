@@ -67,7 +67,8 @@ L3 **Validation Capability** produces Evidence（artifact + proof shape）。`ev
 
 ## 3D Character Production Scenarios
 
-Test-first（plan `2026-08-31-1032`）。Phase 3/5 落地前 **fail by absence**。
+Test-first（plan `2026-08-31-1032`）。Detector / workflow **intentionally RED** until Phase 3/5。
+Record shapes 在 `plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/`（不投影）。
 
 - `runtime/workflow-detector-3d-character-production-v1.yaml` — 明確 VRM/rig 任務；ML、純圖/影片、裸「AI 建模」不得 sole-lock。
 - `3d-character-production/specification-lock-blocks-generation-v1.yaml` — 未鎖不得比較候選。

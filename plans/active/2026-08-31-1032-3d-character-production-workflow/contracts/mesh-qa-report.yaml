@@ -1,0 +1,26 @@
+# Mesh QA Report — 判斷可否進 rig 所需資料。
+# 行為證明：mesh-gate-blocks-rig-v1
+schema_version: artifact-record/v1
+id: 3d-character.mesh-qa-report
+status: draft
+runtime_projection:
+  enabled: false
+  reason: Phase 3 才 promote 到 workflow/；本檔不得投影
+
+record: mesh_qa_report
+required_fields:
+  topology: { result: [pass, fail], notes: string }
+  limb_separation: { result: [pass, fail], notes: string }
+  holes_or_nonmanifold: { result: [pass, fail] }
+  uv_material: { result: [pass, fail, not_evaluated] }
+  scale_orientation: { result: [pass, fail] }
+  repairability: [repairable, unrepairable, unknown]
+
+decision:
+  enum: [pass, fail]
+  fail_when_any:
+    - limb_separation.fail
+    - holes_or_nonmanifold.fail
+    - repairability.unrepairable
+
+eligibility_consumed_by: artifact-gates.yaml mesh_qa → rigging

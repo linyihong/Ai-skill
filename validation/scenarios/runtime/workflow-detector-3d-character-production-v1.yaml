@@ -1,5 +1,5 @@
 # Workflow Detector — 3D character production routing（fail by absence until Phase 5）
-# 鎖定 plans/active/2026-08-31-1032-3d-character-production-workflow.md
+# 鎖定 plans/active/2026-08-31-1032-3d-character-production-workflow/_plan.md
 # §Runtime Execution Path：裸「AI 建模」不得單獨鎖 route。
 # Phase 5 前 route 尚未登記 → 本檔是契約；機械 detector 現況應為 no_match。
 # 來源：

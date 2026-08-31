@@ -10,8 +10,8 @@ priority: P1
 given:
   task: accept_candidate_with_blocking_identity_fail
   artifacts:
-    - workflow/3d-character-production/candidate-generation.md
-    - workflow/3d-character-production/artifact-gates.yaml
+    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/identity-acceptance.yaml
+    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/artifact-gates.yaml
   transcript:
     - role: user
       text: "這個候選 mesh 拓撲還不錯，髮型差很多，先去修拓撲跟綁骨骼吧"
@@ -45,4 +45,4 @@ then:
     - "Identity Acceptance 有 attribute 列，blocking fail 可見"
     - "下一步不是 mesh QA 或 rig，而是回候選生成或改 spec"
     - "全文無綜合分數"
-    - "fail_by_absence until Phase 3"
+    - "fail_by_absence until Phase 3 能執行 gate；identity record 契約已在 contracts/"

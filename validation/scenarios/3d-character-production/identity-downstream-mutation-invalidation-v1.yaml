@@ -17,9 +17,9 @@ failure_source:
 given:
   task: classify_identity_invalidation_after_downstream_edit
   artifacts:
-    - workflow/3d-character-production/mesh-quality.md
-    - workflow/3d-character-production/artifact-gates.yaml
-    - workflow/3d-character-production/character-specification.md
+    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/identity-acceptance.yaml
+    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/character-specification.yaml
+    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/artifact-gates.yaml
   transcript:
     - role: user
       text: "Identity 已經 PASS 了，拓撲有洞我修一下 mesh，然後繼續 rig"
@@ -68,4 +68,4 @@ then:
     - "四類 mutation 都有 identity_effect，不是一句「看情況」"
     - "mesh repair 預設不是無限期免審；視角漂移必須 re-review"
     - "不得用舊 PASS 宣稱 runtime-ready"
-    - "fail_by_absence until Phase 2/3 contract 寫入 invalidation 表"
+    - "invalidation 表已在 identity-acceptance.yaml；workflow 執行層仍缺 → Phase 3 前不得當 gate 綠"

@@ -1,9 +1,9 @@
 # 3D character — Specification / Reference Lock 未齊不得生成或比較候選
 # 來源（Phase 3 才落地；本檔 fail by absence）：
-#   - workflow/3d-character-production/character-specification.md
-#   - workflow/3d-character-production/reference-governance.md
-#   - workflow/3d-character-production/artifact-gates.yaml
-#   - plans/active/2026-08-31-1032-3d-character-production-workflow.md §Phase 0.2
+#   - plans/active/2026-08-31-1032-3d-character-production-workflow/_plan.md §Phase 0.2
+#   - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/character-specification.yaml
+#   - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/reference-set.yaml
+# Phase 3 promotion target（刻意仍缺）：workflow/3d-character-production/*
 
 id: 3d-character-specification-lock-blocks-generation-v1
 domain: 3d-character-production
@@ -13,9 +13,9 @@ priority: P1
 given:
   task: generate_character_candidates_without_lock
   artifacts:
-    - workflow/3d-character-production/character-specification.md
-    - workflow/3d-character-production/reference-governance.md
-    - workflow/3d-character-production/artifact-gates.yaml
+    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/character-specification.yaml
+    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/reference-set.yaml
+    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/artifact-gates.yaml
   transcript:
     - role: user
       text: "參考圖在這裡，直接生幾個 3D 角色候選給我比"
@@ -47,4 +47,4 @@ then:
     - "回覆標示 Specification Lock 與 Reference Lock 未完成"
     - "未出現候選優勝宣告"
     - "未出現單一 identity score"
-    - "fail_by_absence until Phase 3 workflow + artifact-gates 存在"
+    - "fail_by_absence until Phase 3 workflow 能執行 Lock；contract 欄位已存在不算 detector 綠"
