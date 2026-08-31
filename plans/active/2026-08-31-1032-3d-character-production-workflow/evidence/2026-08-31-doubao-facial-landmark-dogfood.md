@@ -1,7 +1,7 @@
 # Doubao facial landmark dogfood — consumer evidence（去敏）
 
-**Run ID**：2026-08-31-doubao-facial-landmark  
-**Plan**：`2026-08-31-1032-3d-character-production-workflow`  
+**Run ID**：2026-08-31-doubao-facial-landmark
+**Plan**：`2026-08-31-1032-3d-character-production-workflow`
 **Maturity 判定**：**prototype**（非 runtime-ready；Phase 3 execution dogfood 七條 **未**授權）
 
 ## 觸及 stage
