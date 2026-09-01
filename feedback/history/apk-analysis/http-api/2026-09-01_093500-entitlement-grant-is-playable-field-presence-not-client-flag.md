@@ -10,12 +10,13 @@ Status: candidate
 
 #### Human Explanation
 
-三類觀察可同時成立：(1) 未解鎖列可播欄位為空，spend 後才出現（伺服器強制）；(2) 業務碼／旗標說不可播，但 JSON 仍帶 URL 與 wrapped key（控制面洩漏，client 必須 fail-closed 不當下載授權）；(3) 列表／詳情已有 source URL，但 VIP／coins／unlock 旗標顯示鎖定（前端假象）。解鎖帳號 A 可播、帳號 B 同 cid 仍無欄位，才是 entitlement bind。
+三類觀察可同時成立：(1) 未解鎖列可播欄位為空，spend 後才出現（伺服器強制）；(2) 業務碼／旗標說不可播，但 JSON 仍帶 URL 與 wrapped key（控制面洩漏，client 必須 fail-closed 不當下載授權）；(3) 列表／詳情已有**完整 source URL**，同一列卻有價格、試看時間或 unlock 提示，而 transport 可直接播放（前端假象）。不要把 `previewURL` 名稱當成證據：它可能為空，真正要追的是 player 最後採用的欄位。解鎖帳號 A 可播、帳號 B 同內容仍無可播欄位，才是 entitlement bind。
 
 #### Trigger
 
 - Parser treats non-empty media URL as downloadable while business code says unlock-first
 - UI lock overlay but detail JSON already has playable URL field
+- Preview UI exists, but the player actually consumes a full-source field rather than a distinct preview asset
 - Local download registry used as proof another identity is entitled
 
 #### Evidence
@@ -29,7 +30,8 @@ Status: candidate
 Classify entitlement by field presence across identities, not UI:
   empty playable field until spend → server grant
   URL/key present + can_play false → leak; exporter must refuse
-  URL present + lock metadata → ui-only
+  full source present + price/free-time/lock metadata + transport works → ui-only
+  preview label or previewURL field alone → inconclusive; trace the player-consumed field
   local registry ≠ server bind; probe the other identity's playlist
 ```
 
