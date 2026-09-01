@@ -8,7 +8,7 @@
 |---|---|---|---|
 | Contract review | `sd-contracts` | `contract-review`¹ | `stance: fault_finding` |
 | Architecture review | `architecture/` | `architecture-review` | `stance: fault_finding` |
-| Security audit | `sd-contracts`, `sd-implementation` | `security-audit` | `stance: fault_finding` |
+| Security audit | `sd-contracts`, `sd-implementation` | `security-audit` | `stance: fault_finding`；付費媒體控制面載入 [`media-entitlement-control-plane.md`](../../../analysis/security/media-entitlement-control-plane.md) |
 | Code review | `sd-implementation` | `code-review` | `stance: fault_finding` |
 | Performance review | `sd-test-strategy`, perf-risk-gate | `performance-review`¹ | `stance: fault_finding` |
 | UI / compliance review | `sd-ui-governance` | `ui-review`¹ | `stance: fault_finding` |

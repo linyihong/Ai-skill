@@ -12,7 +12,7 @@
 - [`production/`](production/README.md)：Production 問題分析與根因追蹤方法（incident 分類、觀測性資料判讀、RCA 流程、效能診斷）。
 - [`issue/`](issue/README.md)：Issue 分類與優先級判斷方法（triage 流程、優先級計算、初步診斷、重複偵測）。
 - [`web/`](web/README.md)：Web Scraping 分析方法（網站結構觀察、反爬機制判讀、動態內容分析、MCP 工具設計評估）。
-- [`security/`](security/README.md)：安全相關分析方法（token 流向、簽章一致性、雙簽章/雙加密 token 並存的審計）。
+- [`security/`](security/README.md)：安全相關分析方法（token 流向、簽章一致性、雙簽章/雙加密 token 並存的審計、媒體授權控制面）。
 - [`ai-augmented-delivery/`](ai-augmented-delivery/README.md)：AI codegen 工具大幅進入開發流程後的觀察方法、量化資料與問題解剖（缺陷分布、perf test bottleneck anatomy）。
 - [`travel/`](travel/README.md)：旅遊規劃分析方法（來源層級、可行性與行程取證）。已從舊 `skills/travel-planning/` 遷移。
 - [`investment/`](investment/README.md)：投資研究取證方法（source authority、主題／供應鏈拆解、新聞趨勢摘要、研究帳對照）。Phase 2 doc-only；route 尚未註冊。

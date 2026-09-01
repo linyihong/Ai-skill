@@ -11,7 +11,7 @@
 | Model context report | [`model-context-report.md`](model-context-report.md) | generated view |
 | Model checklists | [`model-checklists.md`](model-checklists.md) | generated view |
 | SQLite runtime index | [`sqlite/`](sqlite/) | generated lookup cache prototype |
-| Summaries | [`../summaries/`](../summaries/) | 27 files |
+| Summaries | [`../summaries/`](../summaries/) | 28 files |
 | Graph records | [`../graphs/`](../graphs/) | 35 files |
 
 ## Routing Records
@@ -96,6 +96,7 @@
 | `workflow.investment` | `candidate` | [`investment-workflow.md`](../summaries/investment-workflow.md) | 投資研究與決策輔助的 intake-dispatched workflow（Decision Support case #2）。第一級分派＝investment task type（need-framing／theme-research／name-diligence／position-review／allocation-advice／event-check／periodic-sweep）。Lifecycle：Frame → Intake → Risk Tier → Strategy Pass 1 → Dispatch → Research（analysis/investment）→ Pass 2 →（條件）DVA → Produce → Validate → Close。無舉證不得建議；uncertainty framing；D 級研究帳不可獨撐；配置須策略／資產／費用；allocation 預設 DVA。Route by decision object——「投資協議」走 legal，非 keyword「投資」。Report producer only（無券商／無 cron）。 |
 | `knowledge.navigation` | `validated` | [`knowledge-navigation.md`](../summaries/knowledge-navigation.md) | 知識導航系統：indexes（任務路由）、summaries（300-500 token 摘要）、graphs（知識圖譜邊）、runtime（routing registry、refresh policy、SQLite lookup cache）。讓 agent 用最小 token 成本找到正確知識。 |
 | `workflow.legal` | `candidate` | [`legal-workflow.md`](../summaries/legal-workflow.md) | 法律工作的 intake-dispatched workflow。Domain 邊界是**法律任務**而非合約文件：第一級分派維度為 legal task type（draft / review / explain / compare / research / due-diligence / strategy / negotiation-support / lifecycle）。Lifecycle：Frame → Task Intake → Risk Tier → **Strategy Pass 1** → Dispatch → Due Diligence → Applicable Law → Reference Sources → **Strategy Pass 2** → Produce → Validate → Close。核心不是「問問題→寫合約」而是「問問題→推理最佳策略→使用者決策→才決定怎麼寫」。Jurisdiction 為 P0；策略建議強制四欄（Recommendation / Reason / Alternative / Trade-offs）；法規與官方範本引用強制版本 + 查核日；背調三層（Identity → Corporate Status → 九類 Risk Signals）且每個 risk flag 對應具體條款調整；風險分 Green / Yellow / Red，Red 短路為 Escalation Card。 |
+| `analysis.media-entitlement-control-plane` | `candidate` | [`media-entitlement-control-plane.md`](../summaries/media-entitlement-control-plane.md) | 付費媒體授權以可播欄位存在與否分類（server-grant／control-plane-leak／ui-only）；第一方設計先省略欄位，再短效憑證，再分段 license。TTL 只縮小重放窗口。 |
 | `memory.operations` | `candidate` | [`memory-operations.md`](../summaries/memory-operations.md) | Memory 是 selective replay system：working buffer、summary、episodic、project、failure、decision 與 retrieval-governance。Replay 需要 trigger、qualification、budget、freshness/scope check 與 current source revalidation。 |
 | `metadata.schema.knowledge-atom` | `validated` | [`metadata-schema.md`](../summaries/metadata-schema.md) | Knowledge Atom metadata schema v1，定義 atom 的必填欄位、選填欄位、受控值、YAML 範本、驗證規則與 provider prompt cache hints。 |
 | `intelligence.migration-feature-bundling` | `candidate` | [`migration-feature-bundling.md`](../summaries/migration-feature-bundling.md) | 大型 migration / rewrite / platform 升級時把搬遷（refactor）與新功能（behavior change）綁進同一階段交付的反模式。後果是驗證失去 ground truth（Verification Identity Crisis）— bug 來源無法定位、時程不可預測、回滾不可行。正確路徑是 Parity-First Migration：Phase 1 達成新版 = 舊版等價並通過舊測試套件，Phase 2 才加新功能。對 stakeholder 的有效翻譯是「失望總比絕望好」。 |

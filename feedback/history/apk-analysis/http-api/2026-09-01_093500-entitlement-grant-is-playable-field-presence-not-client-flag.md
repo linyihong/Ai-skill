@@ -54,11 +54,12 @@ Classify entitlement by field presence across identities, not UI:
 
 #### Promotion Target
 
-- intelligence/engineering anti-pattern candidate after second corroborating target
-- this lesson remains in apk-analysis http-api
+- ✅ 觀察方法：`analysis/security/media-entitlement-control-plane.md`
+- 第一方設計 lesson：`feedback/history/development-guidance/controls/2026-09-01_095200-media-entitlement-omit-playable-fields.md`
+- this lesson remains the apk-analysis classification record
 
 #### Required Linked Updates
 
 - `feedback/history/apk-analysis/http-api/README.md` index
-- Step 6 intelligence extraction: **否**（先留 lesson；尚未抽 atom）
+- Step 6 intelligence extraction: **否**（已抽 analysis atom，不另建 intelligence anti-pattern）
 - Step 7 failure-learning: **否**（不是 agent 失效，是產品授權語意）

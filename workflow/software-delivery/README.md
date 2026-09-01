@@ -66,6 +66,7 @@ Intent → Asset (class) → Policy → Process (typical stage) → Automation
 13. 當成功訊號可能不同於真實系統狀態時，載入 validation reasoning：[`state-visibility-gap.md`](../../intelligence/engineering/execution/validation-reasoning/state-visibility-gap.md)、[`evidence-model.md`](../../intelligence/engineering/execution/validation-reasoning/evidence-model.md)、[`evidence-chain-validation.md`](../../intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md)、[`evidence-depth.md`](../../intelligence/engineering/execution/validation-reasoning/evidence-depth.md)
 14. UI / consumer incident（Navigation / Continuation / Recovery 或 modification layer 未決）時：先 [`incident-observation.md`](incident-observation.md) → [`ui-incident-governance-workflow.md`](ui-incident-governance-workflow.md) + [`layer-ownership-matrix.md`](layer-ownership-matrix.md) → governance gate [`software-delivery-governance.md`](../../governance/ai-runtime-governance/software-delivery-governance.md) §Incident *；Ship 後 [`change-retrospective.md`](change-retrospective.md)
 15. 交付任務已宣告 `delegation.enabled: true` 進入執行時，載入 [`delegated-execution.md`](delegated-execution.md)（`sd-delegated-execution`，candidate）：角色 × 證據責任矩陣（誰該做什麼）、verification backfill、deliverables 清單、slice 合規關閉；loop 契約 canonical 在 [`plans/README.md`](../../plans/README.md) §Delegation loop SOP
+16. 付費播放、playlist 發放或媒體解鎖契約的設計／審查：載入 [`analysis/security/media-entitlement-control-plane.md`](../../analysis/security/media-entitlement-control-plane.md)，並在 contract 或 implementation 敏感變更時 invoke `security-audit`。**不要**另開 `workflow/security/` domain。
 
 ## Review invoke（ADR-013 — 導航層說明）
 
@@ -173,7 +174,7 @@ Contract owner：[`governance/cognitive-stance.md`](../../governance/cognitive-s
 | Design / Contract | `contract-review` | 實作前 contract / API 穩定後 |
 | Architecture | `architecture-review` | architecture fit 決策後 |
 | Code | `code-review` | post-implementation、validation 前 |
-| Security | `security-audit` | contract 或 implementation 安全敏感變更 |
+| Security | `security-audit` | contract 或 implementation 安全敏感變更；付費媒體控制面見 [`media-entitlement-control-plane.md`](../../analysis/security/media-entitlement-control-plane.md) |
 | Release | `release-review` | validation / closure 前 |
 | Embedded / Firmware | `code-review` + domain checklist | 同 code review invoke + checklist bodies |
 

@@ -7,6 +7,7 @@
 | 文件 | 用途 |
 | --- | --- |
 | [`dual-token-audit.md`](dual-token-audit.md) | 系統同時使用兩套 token 簽章/加密機制（如 JWT + JWE、HMAC + 對稱簽章、平台 token + 廠商 token）時的審計方法 |
+| [`media-entitlement-control-plane.md`](media-entitlement-control-plane.md) | 付費媒體：以可播欄位存在分類；第一方設計先省略欄位再短效憑證 |
 
 ## 放什麼
 
@@ -16,7 +17,7 @@
 
 ## 不放什麼
 
-- 具體 CVE 與修補步驟（屬 `workflow/security/` 或專案 owner）。
+- 具體 CVE 與修補步驟（屬 [`workflow/software-delivery/`](../../workflow/software-delivery/README.md) 的 `security-audit` invoke 與專案 owner；**不**另開 `workflow/security/` domain）。
 - 安全架構決策（屬 `intelligence/engineering/architecture/system-boundaries/`）。
 - Raw findings、real tokens、specific hosts、payload；違反 `enforcement/sanitization.md`。
 - AI agent 自己的安全規則（屬 `enforcement/`）。
@@ -25,6 +26,6 @@
 
 - 安全 architecture decision → [`intelligence/engineering/architecture/system-boundaries/`](../../intelligence/engineering/architecture/system-boundaries/README.md)
 - 安全 anti-patterns → [`intelligence/engineering/anti-patterns/`](../../intelligence/engineering/anti-patterns/README.md)
-- 修補執行流程 → `workflow/`（尚未建立）
+- 修補與第一方實作順序 → [`workflow/software-delivery/`](../../workflow/software-delivery/README.md)（invoke `security-audit`）
 
 ← [回到 analysis/](../README.md)

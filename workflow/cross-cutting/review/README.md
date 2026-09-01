@@ -43,7 +43,7 @@ See [`capability-registry.yaml`](../../../knowledge/runtime/capability-registry.
 | Capability | Typical caller | Artifact |
 |---|---|---|
 | `code-review` | `sd-implementation` | review report |
-| `security-audit` | `sd-contracts`, `sd-implementation` | security finding list |
+| `security-audit` | `sd-contracts`, `sd-implementation` | security finding list；付費媒體見 [`media-entitlement-control-plane.md`](../../../analysis/security/media-entitlement-control-plane.md) |
 | `incident-analysis` | `sd-incident-observation` | incident card |
 
 Other fault-finding capabilities (`architecture-review`, `debug-trace`, …) share the **same invoke contract** — no review-specific runtime logic.

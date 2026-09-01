@@ -236,7 +236,7 @@ user_visible_counter_depth:
 
 若 API 已正確而使用者回報仍錯，先分類 **projection / client cache**（L3），再決定 patch target；勿預設為 SQL 或 deploy 漏做。
 
-Feedback lesson：[`2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md`](../../feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md)（Vidoe-Test play-view-dedup v1）。
+Feedback lesson：[`2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md`](../../feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md)（`<AI_SKILL_DOGFOOD_EVIDENCE>` play-view-dedup v1）。
 
 ### Diagnostic Hypothesis Before Patch
 
@@ -406,6 +406,7 @@ Validation rules:
 - API success does not prove expected outcomes.
 - Expected outcomes and observable evidence must stay separate.
 - Critical payment, entitlement, identity, storage, queue, email, or external API journeys require evidence depth matching the state visibility / evidence chain risk above.
+- Paid playback journeys: unentitled responses omit playable URL and unwrap key; a deny flag with those fields present is a control-plane leak. Short-lived media credentials shrink replay window only. Load [`media-entitlement-control-plane.md`](../../analysis/security/media-entitlement-control-plane.md) when designing or reviewing that path.
 - If a journey claim lacks BDD specification, side-effect chain, expected outcomes, or observable evidence, report it as `missing_journey_evidence` or `journey_validation_fail` rather than pass.
 
 > **Review report artifact**：Review report 由 **`code-review` capability** 產出（registry artifact: `review-report`），不是 Validation phase 的輸出。Post-implementation invoke 後使用 [`templates/review-report-template.md`](templates/review-report-template.md) 或專案等價格式；consumer 見 [`cross-cutting/review/self-review.md`](../../cross-cutting/review/self-review.md)。Validation 只消費已存在的 review evidence，不擁有 review report template。
