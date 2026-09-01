@@ -6,10 +6,16 @@
 |------|------|------|
 | [`common/`](common/) | 60 | 跨分類或通用 lesson（工具選擇、流程、UI、分析策略等） |
 | [`flutter-dart-aot/`](flutter-dart-aot/) | 23 | Flutter/Dart AOT 相關 hook 與分析 |
-| [`http-api/`](http-api/) | 33 | HTTP API 分析、文件化、UI 操作流程 |
+| [`http-api/`](http-api/) | 34 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 11 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
+
+## Recent (2026-09-01)
+
+| Slug | Category |
+|------|----------|
+| `http-api/2026-09-01_093500-entitlement-grant-is-playable-field-presence-not-client-flag` | Playable field presence vs client lock flag |
 
 ## Recent (2026-08-28)
 

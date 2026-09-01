@@ -2,6 +2,7 @@
 
 | 檔名 | Status | 標題 | 一句話摘要 |
 |------|--------|------|-----------|
+| `2026-09-01_093500-entitlement-grant-is-playable-field-presence-not-client-flag.md` | candidate | Entitlement grant is playable-field presence | 可播欄位空才是伺服器強制；有 URL 卻 can_play=false 是控制面洩漏 |
 | `2026-05-19_162800-wire-path-vs-signing-canonical-path.md` | candidate | Wire Path vs Signing Canonical Path | 加密 API 回 HTML 時先分離驗證 wire URL path 與 signing canonical path |
 | `2026-05-19_161700-allowlisted-route-param-capture.md` | candidate | Allowlisted Route Parameter Capture | 只側錄 live gate 需要的 route/locale 欄位，避免輸出 full raw query |
 | `2026-05-18_142100-sha256-hash-verify-python-not-shell.md` | validated | SHA256 驗證用 Python 勿用 shell | 避免 subprocess 引號／編碼導致 service hash 驗證錯誤 |
