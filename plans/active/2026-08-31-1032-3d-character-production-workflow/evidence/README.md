@@ -20,3 +20,4 @@ Canonical：[`governance/lifecycle/plan-evidence.md`](../../../../governance/lif
 | 2026-08-31-phase-2.5 | [`2026-08-31-phase-2.5-contract-probe.md`](2026-08-31-phase-2.5-contract-probe.md) | complete | contract probe PASS ≠ workflow PASS；absence stays non-passing |
 | 2026-08-31-phase-3 | [`2026-08-31-phase-3-implementation-landed.md`](2026-08-31-phase-3-implementation-landed.md) | complete | implementation landed ≠ validated；detector no_match expected |
 | 2026-08-31-doubao-landmark | [`2026-08-31-doubao-facial-landmark-dogfood.md`](2026-08-31-doubao-facial-landmark-dogfood.md) | partial | screen-raycast landmark gate；mesh UV fail；prototype only |
+| 2026-09-01-phase-3-dogfood | [`2026-09-01-phase-3-execution-dogfood.md`](2026-09-01-phase-3-execution-dogfood.md) | complete | eleven stop/go cases PASS；live pack remains prototype；not Phase 4/5/6 |
