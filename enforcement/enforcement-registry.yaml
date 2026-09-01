@@ -1471,10 +1471,15 @@ rule_classes:
         An authorization-detector executor ships and covers ≥ 80% of
         historical authorization-escape incidents.
       revisit_owner: "framework maintainer"
-      last_reviewed_at: "2026-06-01"
+      last_reviewed_at: "2026-09-01"
       last_review_summary: |
-        Initial entry creation (round-4 F12). No authorization-escape
-        incident corpus yet; remains behavioral pending incident signal.
+        Incident 1 (behavioral): reframed unauthorized-access request
+        after a block (security-testing / first-party claim / proof
+        precondition). Pattern
+        failure-patterns/reframed-authorization-claim-accepted.md
+        added. Still below sunset threshold of 2 incidents; remains
+        behavioral_only. Not yet mechanically detectable without
+        conversation-intent classification.
       depends_on_rule_classes: []
 
   # F14 (round-4 backfill)

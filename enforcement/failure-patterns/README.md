@@ -6,6 +6,7 @@
 
 | 模式 | 類別 | 狀態 | 摘要 |
 | --- | --- | --- | --- |
+| [Reframed authorization claim accepted](reframed-authorization-claim-accepted.md) | `authorization-boundary-miss` | candidate | 防止 agent 在阻擋未授權請求後，把安全測試／第一方所有權／「先證明做得到」等改口當成新授權，或把未授權示範當成治理 writeback 的前置條件。 |
 | [Correction loop bypass](correction-loop-bypass.md) | `validation-gap` | validated | 防止 agent 在使用者指出修正不完整時，只修當下文字，卻漏掉 `.agent-goals`、failure learning、linked updates、validation、commit/push/readback。 |
 | [Entrypoint positioning drift](entrypoint-positioning-drift.md) | `validation-gap` | validated | 防止 agent 在命名或架構變更後，只更新次要連結或段落，卻留下 root title、opening paragraph 或主要入口 framing 過期。 |
 | [Shared-rules architecture drift](shared-rules-architecture-drift.md) | `dependency-miss` / `validation-gap` | validated | 防止 agent 在架構重構後，只更新主要檔案（workflow、intelligence、analysis）卻漏掉 enforcement/ 中的路徑參考同步。 |

@@ -56,7 +56,7 @@
 
 | Rule | Contract | 用途 |
 | --- | --- | --- |
-| [`authorization-scope.md`](authorization-scope.md) | [`authorization-scope.yaml`](authorization-scope.yaml) | 授權範圍、第三方資料與可重用證據安全 gate。 |
+| [`authorization-scope.md`](authorization-scope.md) | [`authorization-scope.yaml`](authorization-scope.yaml) | 授權範圍、第三方資料、改口不擴大範圍、與可重用證據安全 gate。 |
 | [`content-layering.md`](content-layering.md) | [`content-layering.yaml`](content-layering.yaml) | 內容 owner layer、project evidence boundary 與索引更新 gate。 |
 | [`conversation-goal-ledger.md`](conversation-goal-ledger.md) | [`conversation-goal-ledger.yaml`](conversation-goal-ledger.yaml) | Active goal lifecycle、owner/lock、handoff、completion/delete gate。 |
 | [`cross-skill-references.md`](cross-skill-references.md) | [`cross-skill-references.yaml`](cross-skill-references.yaml) | Cross-workflow reference、handoff artifact、ownership 與 sanitization boundary gate。 |
@@ -136,7 +136,7 @@
 
 | 分類 | 檔案 | 內容摘要 | Load 策略 |
 | --- | --- | --- | --- |
-| 授權與範圍 | [authorization-scope.md](authorization-scope.md) | 僅在授權範圍內分析、資料邊界。 | lazy (P0) |
+| 授權與範圍 | [authorization-scope.md](authorization-scope.md) | 僅在授權範圍內分析、資料邊界；改口與「先證明」不得擴大未授權範圍。 | lazy (P0) |
 | 去敏與占位符 | [sanitization.md](sanitization.md) | 什麼不可寫進可重用文件、占位符約定。 | lazy (P1) |
 | 中性、低爭議與語言一致性 | [neutral-language.md](neutral-language.md) | 文件標題、檔名、摘要與正文避免高風險或爭議詞；可重用文件正文預設繁體中文，必要英文保留給路徑、指令、API 欄位與專有名詞。 | lazy (P2) |
 | 工具中立文件 | [tool-neutral-documentation.md](tool-neutral-documentation.md) | 可重用文件預設保持工具中立；工具專屬路徑、hook、同步與 UI 步驟放到 `ai-tools/` 或工具設定檔。 | lazy (P2) |

@@ -46,6 +46,7 @@
 | `handoff-gap` | Agent 留下不清楚的 next actions、blockers、owner/lock state 或 remaining decisions。 | 更新 goal ledger、Document TODO 或 handoff notes。 |
 | `tool-strategy-gap` | Reusable rule 假設單一工具行為，而沒有隔離 tool-specific execution。 | 將工具細節移到 `ai-tools/` 或 skill adapter。 |
 | `parallelization-risk` | 多個 agents 可能獨立編輯 shared state、git history、migrations、release steps 或 rules。 | 標記 `non-parallelizable` 或 `single-owner`，遇到衝突 lock 就停止。 |
+| `authorization-boundary-miss` | Agent 把改口、技術可及性或「先證明未授權動作」當成授權擴大，對未授權標的執行或步驟化原被擋動作。 | 套用 `authorization-scope.md`：改口不擴大範圍；第一方聲明須對得上來源證據；治理 writeback 不以未授權示範為前置條件。 |
 
 若 failure 不符合現有 class，先檢查能否用既有 class 清楚描述；只有必要時才新增 class。
 
