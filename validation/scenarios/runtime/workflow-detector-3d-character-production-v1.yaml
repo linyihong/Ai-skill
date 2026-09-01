@@ -1,11 +1,11 @@
-# Workflow Detector — 3D character production routing（fail by absence until Phase 5）
+# Workflow Detector — 3D character production routing（route registration deferred until Phase 5）
 # 鎖定 plans/active/2026-08-31-1032-3d-character-production-workflow/_plan.md
 # §Runtime Execution Path：裸「AI 建模」不得單獨鎖 route。
-# Phase 5 前 route 尚未登記 → 本檔是契約；機械 detector 現況應為 no_match。
+# Phase 3 workflow 已存在；Phase 5 前 route 尚未登記 → 機械 detector 現況應為 no_match。
 # 來源：
 #   - knowledge/runtime/routing-registry.yaml（Phase 5 才新增 route）
 #   - workflow/workflow-routing.md（Phase 5 才加歧義列）
-#   - workflow/3d-character-production/execution-flow.md（Phase 3 才建立）
+#   - workflow/3d-character-production/execution-flow.md（Phase 3 execution source）
 
 id: workflow-detector-3d-character-production-v1
 domain: runtime

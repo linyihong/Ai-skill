@@ -5,10 +5,11 @@ id: 3d-character.character-specification
 status: draft
 runtime_projection:
   enabled: false
-  reason: Phase 3 才 promote 到 workflow/；本檔不得投影
+  reason: Phase 5 前維持 workflow-local execution contract
 
 record: character_specification
 lock_role: specification_lock  # 與 reference_set 一起構成 Lock；Lock ≠ Identity Acceptance
+revision: string
 
 required_fields:
   silhouette: { type: text_or_ref, unknown_allowed: false_when_comparing_candidates }
@@ -33,6 +34,13 @@ derived_flags:
   outfit_is_must_preserve:
     computed_from: "outfit attribute_id ∈ must_preserve 或對應 forbidden_drift"
     consumed_by: identity-acceptance.yaml invalidation_rules.outfit_replacement
+
+lock_complete_when:
+  - revision 已填
+  - required_fields 全部存在
+  - silhouette.unknown_allowed == false_when_comparing_candidates
+  - classification_fields 三個 list 已填
+  - 與 reference_set 的 revision 同時鎖定
 
 forbidden_fields:
   - identity_score

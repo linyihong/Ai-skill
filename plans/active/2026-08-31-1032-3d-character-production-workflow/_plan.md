@@ -10,8 +10,11 @@ parent: null
 
 # 3D Character Production Workflow（`workflow/3d-character-production/`）
 
-**Status**: in-progress — Phase 3 **implementation landed ≠ validated**（`5abffb7a`）。
-Detector no_match **EXPECTED**。Execution dogfood **未開始**；等明確口令「跑 execution dogfood」，且只驗七條停／放行，不改 contract／不擴 workflow／不碰 Phase 4／5。
+**Status**: in-progress — Phase 3 gate-graph correction 已通過 plan/runtime validation；
+formal execution dogfood 尚未執行。Detector no_match **EXPECTED**。2026-09-01 defect-first
+review 發現的 execution record 分叉與 deformation／face stage 循環已修正；
+stakeholder 已同意 supersede「不得回修 Phase 3」限制。Phase 4／5／6 仍 blocked。
+Formal execution dogfood **未開始**，仍需明確口令「跑 execution dogfood」。
 
 **Glossary Impact**: yes — 候選詞 `character_identity_lock`、`asset_maturity_gate`、
 `deformation_acceptance_set`、`runtime_ready_character_pack`。Phase 0 glossary collision
@@ -273,7 +276,7 @@ workflow/3d-character-production/
 **Decision = Phase 0 closed**（stakeholder 2026-08-31 二次確認，無 architecture blocker）。
 Phase 1 scenarios 已寫；**仍不寫** workflow 檔案。
 
-### Phase 0.2 — Frozen semantics（裁決後不得 silently 改寫）
+### Phase 0.2 — Frozen semantics（2026-09-01 stakeholder correction）
 
 | 概念 | 凍結定義 |
 | --- | --- |
@@ -283,17 +286,18 @@ Phase 1 scenarios 已寫；**仍不寫** workflow 檔案。
 | `runtime-ready with known defects` | 合法子集：僅 non-blocking 缺陷；blocking 未過則仍是 prototype |
 | Specification Lock | 規格與 Reference Set 齊全；未鎖不得比較候選 |
 | Identity Acceptance | 候選對 must-preserve attributes 的 pass/fail；blocking fail = reject |
-| Deformation Acceptance Set | **最小充分** pose/camera/observation，暴露 failure class；非全 pose 覆蓋 |
+| Deformation Acceptance Set | **最小充分 body pose**／camera／observation，暴露 rig/weights failure；非全 pose 覆蓋 |
+| Facial Expression Acceptance | 獨立 stage；同一 revision 的 control mapping、real geometry、visible readback 與 neutral baseline 全部 pass |
 | Asset vs app | 資產可被正確消費 vs 應用正確實作行為 |
 | Production vs completion review | 作者自驗推進 stage；fresh reviewer 才能 completion |
 
-建議最小 deformation set（Phase 2 可微調，不可無上限膨脹）：Neutral、T-pose/A-pose、Arms up、
-Knee bend、Shoulder rotation、一個 extreme facial expression。
+最小 body deformation set：Neutral、T-pose/A-pose、Arms up、Knee bend、Shoulder rotation。
+`one_extreme_facial_expression` 移至 Facial Expression Acceptance；不得反向完成 body gate。
 
 ## Phase 1 — Test-First Scenarios
 
-完成條件：下列 YAML 存在、符合 `validation/scenario.schema.json` 形狀；在 Phase 3/5 落地前
-**預期 fail by absence**（不得假裝 detector 或 gate 已綠）。
+完成條件：下列 YAML 存在、符合 `validation/scenario.schema.json` 形狀；stage scenarios
+讀 Phase 3 execution records。只有 routing detector 在 Phase 5 前預期 no-match。
 
 - [x] Routing positive + counters（ML、純圖/影片、裸「AI 建模」）：
       [`validation/scenarios/runtime/workflow-detector-3d-character-production-v1.yaml`](../../../validation/scenarios/runtime/workflow-detector-3d-character-production-v1.yaml)
@@ -345,6 +349,14 @@ Phase 2 合約寫完後、Phase 3 寫滿 workflow 前：用既有 VRM 角色專�
 - [x] 工具名不進 core；VRM profile 留 Phase 4。
 - [x] `artifact-gates.md` + YAML（eligibility 只讀欄位；invalidation 不搬出 identity-acceptance.yaml）。
 - [x] `runtime_projection.enabled: false`；**未**登記 route／glossary。
+
+### Phase 3 correction — Gate graph repair（2026-09-01）
+
+- [x] `workflow/3d-character-production/records/` 成為唯一 execution SoT；Phase 2 contracts 僅是歷史快照。
+- [x] Body deformation 與 facial-expression acceptance 分成兩個無循環 stage。
+- [x] Mesh geometry／surface blockers、identity validity、lock completeness、export completion 可由欄位判定。
+- [x] Phase 1 scenarios 改讀 execution records，並覆蓋 `partial`、surface fail、facial evidence 與 export identity stale。
+- [x] Formal dogfood 清單擴充完成；未收到口令前不執行。
 
 ## Phase 4 — VRM First Profile
 
@@ -400,6 +412,8 @@ Phase 2 合約寫完後、Phase 3 寫滿 workflow 前：用既有 VRM 角色專�
 | Phase 0 close；進 Phase 1；不新增 Q9+ | ✅ 2026-08-31 二次 review |
 | Identity PASS 非永久；Phase 1 測 downstream mutation | ✅ scenario 已寫 |
 | Phase 2 contracts 不複製 scenario 規則；invalidation 單一 SoT | ✅ 2026-08-31 |
+| `one_extreme_facial_expression` 由獨立 Facial Expression Acceptance stage 擁有 | ✅ 2026-09-01 |
+| Phase 3 freeze 因 gate cycle／SoT drift 可回修；Phase 4–6 維持 blocked | ✅ 2026-09-01 |
 
 ## Watch-Out List citation
 
@@ -422,6 +436,8 @@ Phase 2 合約寫完後、Phase 3 寫滿 workflow 前：用既有 VRM 角色專�
 - [x] Phase 2 Artifact Contracts 已寫入 `contracts/`（不投影、不建 workflow）。
 - [x] Phase 2.5 contract probe PASS ≠ workflow PASS。
 - [x] Phase 3 workflow core（無 route／無投影）。
+- [x] Phase 3 correction 完成且機械驗證通過。
+- [ ] Formal execution dogfood 覆蓋原七案及新增的 `partial`／surface／facial／export-stale 案例。
 - [ ] Phase 4–7 全部完成，或 deferred 項有 owner/entry condition。
 - [ ] Routing positive/counter 在 Phase 5 登記後通過（現況 detector 應 no_match）。
 - [ ] External dogfood 證明至少一個早期 gate 能阻止下游返工。

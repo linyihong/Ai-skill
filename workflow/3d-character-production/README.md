@@ -22,8 +22,8 @@ AI 生成／手工／外包是 acquisition strategy，不是 domain 名稱。
 | Identity | [`records/identity-acceptance.yaml`](records/identity-acceptance.yaml) | 候選後、任何下游 mutation 後 |
 | Mesh | [`mesh-quality.md`](mesh-quality.md) | Identity 可進 mesh_qa 之後 |
 | Rig／變形 | [`rigging-and-deformation.md`](rigging-and-deformation.md) | mesh_qa pass 之後 |
-| 表情 | [`facial-expression.md`](facial-expression.md) | deformation pass 之後 |
-| 服裝／動作 | [`outfit-and-animation.md`](outfit-and-animation.md) | deformation pass 之後 |
+| 表情 | [`facial-expression.md`](facial-expression.md) | body deformation pass 之後 |
+| 服裝／動作 | [`outfit-and-animation.md`](outfit-and-animation.md) | facial-expression acceptance pass 之後 |
 | 匯出／消費 | [`export-and-runtime-validation.md`](export-and-runtime-validation.md) | 宣稱完成前 |
 | Eligibility | [`artifact-gates.md`](artifact-gates.md) | 每一 stage 推進與 completion |
 | VRM profile | [`profiles/README.md`](profiles/README.md) | Phase 4 才寫 `vrm.md` |

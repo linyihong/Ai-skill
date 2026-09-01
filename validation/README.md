@@ -67,15 +67,17 @@ L3 **Validation Capability** produces Evidence（artifact + proof shape）。`ev
 
 ## 3D Character Production Scenarios
 
-Test-first（plan `2026-08-31-1032`）。Detector / workflow **intentionally RED** until Phase 3/5。
-Record shapes 在 `plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/`（不投影）。
+Test-first（plan `2026-08-31-1032`）。Stage scenarios 讀
+`workflow/3d-character-production/records/` execution SoT；detector 在 Phase 5 前仍預期 no-match。
+Phase 2 plan contracts 只保留歷史快照，不作 scenario input。
 
 - `runtime/workflow-detector-3d-character-production-v1.yaml` — 明確 VRM/rig 任務；ML、純圖/影片、裸「AI 建模」不得 sole-lock。
 - `3d-character-production/specification-lock-blocks-generation-v1.yaml` — 未鎖不得比較候選。
 - `3d-character-production/identity-acceptance-blocks-mesh-v1.yaml` — blocking identity fail 禁 mesh/rig；禁 scalar。
 - `3d-character-production/identity-downstream-mutation-invalidation-v1.yaml` — Identity PASS 非永久；mesh/髮/臉/服裝修改的 re-review 規則。
 - `3d-character-production/mesh-gate-blocks-rig-v1.yaml` — 黏連／破面／不可修拓撲禁 rig。
-- `3d-character-production/deformation-gate-blocks-animation-v1.yaml` — 最小充分 set 失敗禁表情／動畫。
+- `3d-character-production/deformation-gate-blocks-animation-v1.yaml` — body deformation 最小充分 set 失敗禁表情／動畫。
+- `3d-character-production/facial-expression-gate-blocks-animation-v1.yaml` — facial partial、surface fail 或 helper-only evidence 禁動畫／runtime-ready。
 - `3d-character-production/export-runtime-readback-v1.yaml` — 可匯出 ≠ runtime-ready；只驗資產消費。
 - `3d-character-production/provenance-blocks-promotion-v1.yaml` — 缺 decision 不得 promotion；unavailable/partial 合法。
 

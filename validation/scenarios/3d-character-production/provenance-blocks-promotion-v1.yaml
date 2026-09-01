@@ -9,8 +9,8 @@ priority: P1
 given:
   task: promote_candidate_without_lineage_or_decision
   artifacts:
-    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/candidate-record.yaml
-    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/artifact-gates.yaml
+    - workflow/3d-character-production/records/candidate-record.yaml
+    - workflow/3d-character-production/records/artifact-gates.yaml
   transcript:
     - role: user
       text: "這個看起來最好，直接當正式候選往下做，參數我忘記了"
@@ -42,4 +42,4 @@ then:
   validation:
     - "缺 decision 時不得 promotion"
     - "允許 unavailable/partial，不要求 provider 全參數"
-    - "fail_by_absence until Phase 3 執行層；candidate record 契約已在 contracts/"
+    - "promotion 依 execution candidate record 判定，不讀 Phase 2 snapshot"

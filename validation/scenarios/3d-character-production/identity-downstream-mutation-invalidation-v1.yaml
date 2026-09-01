@@ -17,9 +17,9 @@ failure_source:
 given:
   task: classify_identity_invalidation_after_downstream_edit
   artifacts:
-    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/identity-acceptance.yaml
-    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/character-specification.yaml
-    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/artifact-gates.yaml
+    - workflow/3d-character-production/records/identity-acceptance.yaml
+    - workflow/3d-character-production/records/character-specification.yaml
+    - workflow/3d-character-production/records/artifact-gates.yaml
   transcript:
     - role: user
       text: "Identity 已經 PASS 了，拓撲有洞我修一下 mesh，然後繼續 rig"
@@ -54,6 +54,10 @@ then:
       identity_effect: >
         僅當 Specification 的 must-preserve 含 outfit（或 forbidden-drift 含服裝辨識點）
         時 re-review required；否則 identity unaffected，改走 outfit gate
+    - name: export_after_identity_stale
+      mutation: "下游修改已把 validity 更新為 stale 或 re_review_required，但 export readback 其餘項目通過"
+      identity_effect: completion blocked
+      required_check: "export_runtime gate 必須重讀 accepted + current，不得引用舊 PASS"
 
   expected_artifacts:
     - Mutation → identity effect 表（上列四類至少）
@@ -65,7 +69,7 @@ then:
     - scalar_re_score: "用單一分數代替 attribute re-review"
 
   validation:
-    - "四類 mutation 都有 identity_effect，不是一句「看情況」"
+    - "四類 mutation 與 export stale case 都有 identity_effect，不是一句「看情況」"
     - "mesh repair 預設不是無限期免審；視角漂移必須 re-review"
     - "不得用舊 PASS 宣稱 runtime-ready"
-    - "invalidation 表已在 identity-acceptance.yaml；workflow 執行層仍缺 → Phase 3 前不得當 gate 綠"
+    - "invalidation 表只在 execution identity record；deformation、face、outfit、export gates 都重讀更新後 validity"

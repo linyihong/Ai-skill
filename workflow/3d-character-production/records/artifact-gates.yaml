@@ -6,7 +6,7 @@ id: 3d-character.artifact-gates
 status: draft
 runtime_projection:
   enabled: false
-  reason: Phase 3 才 promote 為 workflow executable contract；本檔不得投影
+  reason: Phase 5 前維持 workflow-local execution contract
 
 handoff: encoded_here  # 不另建 handoff.yaml
 
@@ -15,8 +15,12 @@ stages:
     required_records: [character_specification, reference_set]
     next_stage: candidate_generation
     eligibility_fields:
-      - character_specification.lock 完整
-      - reference_set.lock 完整
+      - character_specification.required_fields 全部存在
+      - character_specification.required_fields.silhouette.unknown_allowed == false_when_comparing_candidates
+      - reference_set.required_fields.canonical_views 非空
+      - reference_set.required_fields.usage_boundary.license_or_purpose 已填
+      - reference_set.required_fields.usage_boundary.forbidden_uses 已填
+      - character_specification 與 reference_set 的 revision 同時鎖定
     rollback_owner: intake_or_spec_author
 
   - id: identity_acceptance
@@ -31,26 +35,81 @@ stages:
   - id: mesh_qa
     required_records: [mesh_qa_report]
     also_requires:
+      - identity_acceptance.decision == accepted
       - identity_acceptance.validity == current  # 下游 mutation 可把上一閘變 stale
     next_stage: rigging
     eligibility_fields:
       - mesh_qa_report.decision == pass
+      - mesh_qa_report.required_fields.topology.result == pass
+      - mesh_qa_report.required_fields.limb_separation.result == pass
+      - mesh_qa_report.required_fields.holes_or_nonmanifold.result == pass
+      - mesh_qa_report.required_fields.scale_orientation.result == pass
+      - mesh_qa_report.required_fields.repairability != unrepairable
     rollback_owner: mesh_or_candidate
 
   - id: deformation
     required_records: [deformation_acceptance_set]
-    next_stage: facial_or_animation
+    also_requires:
+      - identity_acceptance.decision == accepted
+      - identity_acceptance.validity == current
+      - mesh_qa_report.decision == pass
+    next_stage: facial_expression
     eligibility_fields:
       - deformation_acceptance_set.decision == pass
     rollback_owner: rig_weights
 
+  - id: facial_expression
+    required_records: [facial_expression_acceptance]
+    also_requires:
+      - identity_acceptance.decision == accepted
+      - identity_acceptance.validity == current
+      - mesh_qa_report.required_fields.uv_material.result == pass
+      - deformation_acceptance_set.decision == pass
+    next_stage: outfit_animation
+    eligibility_fields:
+      - facial_expression_acceptance.decision == pass
+    prototype_exception:
+      when:
+        - mesh_qa_report.required_fields.uv_material.result in [fail, not_evaluated]
+      requires:
+        - runtime_ready_character_pack.known_defects 含對應 blocking defect
+        - defect.disposition == defer
+      effects:
+        - 只允許 diagnostic facial work
+        - maturity 上限為 prototype
+        - 不得滿足 facial_expression gate 或 export_runtime gate
+    rollback_owner: face_controls_or_mesh
+
+  - id: outfit_animation
+    required_records: [facial_expression_acceptance, runtime_ready_character_pack]
+    also_requires:
+      - identity_acceptance.decision == accepted
+      - identity_acceptance.validity == current
+    next_stage: export_runtime
+    eligibility_fields:
+      - facial_expression_acceptance.decision == pass
+      - runtime_ready_character_pack.required_fields.actions.result == pass
+      - runtime_ready_character_pack.required_fields.outfits.result in [pass, not_applicable]
+    rollback_owner: outfit_or_animation
+
   - id: export_runtime
     required_records: [runtime_ready_character_pack]
+    also_requires:
+      - identity_acceptance.decision == accepted
+      - identity_acceptance.validity == current
+      - mesh_qa_report.required_fields.uv_material.result == pass
+      - deformation_acceptance_set.decision == pass
+      - facial_expression_acceptance.decision == pass
     next_stage: completion_claim
     eligibility_fields:
-      - asset_consumption_readback 所列項非 fail
+      - runtime_ready_character_pack.required_fields.expressions.result == pass
+      - runtime_ready_character_pack.required_fields.actions.result == pass
+      - runtime_ready_character_pack.required_fields.outfits.result in [pass, not_applicable]
+      - asset_consumption_readback 所有適用項存在且為 pass
+      - known_defects 無 severity == blocking
+      - completion.maturity == runtime-ready
       - export_ok 不得單獨視為 pass
-      - fresh_reviewer == true 才可 completion
+      - completion.fresh_reviewer == true 才可 completion
     rollback_owner: failing_readback_stage
 
 promotion:

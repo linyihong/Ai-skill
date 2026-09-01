@@ -5,7 +5,7 @@ id: 3d-character.mesh-qa-report
 status: draft
 runtime_projection:
   enabled: false
-  reason: Phase 3 才 promote 到 workflow/；本檔不得投影
+  reason: Phase 5 前維持 workflow-local execution contract
 
 record: mesh_qa_report
 required_fields:
@@ -18,9 +18,30 @@ required_fields:
 
 decision:
   enum: [pass, fail]
+  scope: geometry_eligibility_for_rig
   fail_when_any:
+    - topology.fail
     - limb_separation.fail
     - holes_or_nonmanifold.fail
+    - scale_orientation.fail
     - repairability.unrepairable
+  pass_requires:
+    - topology.pass
+    - limb_separation.pass
+    - holes_or_nonmanifold.pass
+    - scale_orientation.pass
+    - repairability in [repairable, unknown]
 
-eligibility_consumed_by: artifact-gates.yaml mesh_qa → rigging
+surface_eligibility:
+  facial_and_runtime_ready_requires:
+    - uv_material.result == pass
+  deferral:
+    allowed_for: [exploration, prototype]
+    requires:
+      - matching known_defect.severity == blocking
+      - matching known_defect.disposition == defer
+    forbidden_for: runtime-ready
+
+eligibility_consumed_by:
+  - artifact-gates.yaml mesh_qa → rigging reads geometry decision
+  - artifact-gates.yaml facial_expression/export_runtime reads uv_material

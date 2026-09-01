@@ -1,0 +1,58 @@
+# Facial Expression Acceptance — 實際臉部資產的控制映射、幾何與可見 readback。
+# Helper overlay、匯出成功或只有 morph delta 不構成本 stage PASS。
+schema_version: artifact-record/v1
+id: 3d-character.facial-expression-acceptance
+status: draft
+runtime_projection:
+  enabled: false
+  reason: Phase 5 前維持 workflow-local execution contract
+
+record: facial_expression_acceptance
+required_fields:
+  asset_revision: string
+  neutral_baseline:
+    identity_acceptance_id: string
+    fixed_views: list
+    visual_drift: [pass, fail]
+  control_mapping:
+    method: string
+    source_revision: string
+    target_revision: string
+    readback: [pass, fail, partial]
+  observations:
+    type: list
+    item:
+      expression_id: string
+      expected: string
+      forbidden: string
+      geometry_readback: [pass, fail, partial]
+      visible_readback: [pass, fail, partial]
+      result: [pass, fail, partial]
+
+required_observations:
+  - one_extreme_facial_expression
+
+decision:
+  enum: [pass, fail, partial]
+  pass_requires:
+    - neutral_baseline.visual_drift == pass
+    - control_mapping.readback == pass
+    - required_observations 全部存在
+    - every observation.result == pass
+  fail_when_any:
+    - neutral_baseline.visual_drift == fail
+    - control_mapping.readback == fail
+    - any observation.result == fail
+  partial_when_any:
+    - control_mapping.readback == partial
+    - any observation geometry_readback、visible_readback 或 result == partial
+    - required_observations 缺失
+  partial_blocks_next_stage: true
+
+forbidden_evidence:
+  - detached_helper_geometry
+  - overlay_only
+  - export_success_only
+  - geometry_delta_without_visible_readback
+
+eligibility_consumed_by: artifact-gates.yaml facial_expression → outfit_animation

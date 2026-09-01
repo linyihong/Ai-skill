@@ -32,7 +32,7 @@
 - [`investment/`](investment/README.md)：**投資研究與決策輔助**（intake-dispatched；Decision Support Pass 1／2；theme／name／allocation／sweep）。`route.workflow.investment` **已註冊**。Decision Support **converged case #2**。⚠️ 「投資」字面≠本域；協議／股權文件走 [`legal/`](legal/README.md)（Q8）。
   - [`investment/execution-flow.yaml`](investment/execution-flow.yaml)：investment execution executable contract。
   - [`investment/artifact-gates.yaml`](investment/artifact-gates.yaml)：investment artifact gates executable contract。
-- [`3d-character-production/`](3d-character-production/README.md)：**可驅動 3D 角色資產**生產（Lock → 候選 → Identity → Mesh → Deform → Face／Outfit → Export）。Phase 3 core；**尚未**註冊 route、**尚未** runtime 投影。Invalidation SoT：[`3d-character-production/records/identity-acceptance.yaml`](3d-character-production/records/identity-acceptance.yaml)。
+- [`3d-character-production/`](3d-character-production/README.md)：**可驅動 3D 角色資產**生產（Lock → 候選 → Identity → Mesh → Body Deform → Facial Acceptance → Outfit／Motion → Export）。Phase 3 core；**尚未**註冊 route、**尚未** runtime 投影。Invalidation SoT：[`3d-character-production/records/identity-acceptance.yaml`](3d-character-production/records/identity-acceptance.yaml)。
 - [`cross-cutting/`](cross-cutting/README.md)：跨 slice 關注點模板（**非** `route.workflow.*` slice）。目前含 [`experience-runtime/`](cross-cutting/experience-runtime/README.md) pilot 與 [`decision-support/`](cross-cutting/decision-support/README.md) pilot（Intake → **Decision Support** → Research → Execution；**2／3** converged cases：legal＋investment；尚**未**成為各 workflow 的必跑 stage）。
 
 ## 放什麼

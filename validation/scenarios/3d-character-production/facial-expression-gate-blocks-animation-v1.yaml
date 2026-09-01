@@ -1,0 +1,47 @@
+# 3D character — Facial expression：partial、surface fail 或 helper-only evidence 不得進 animation/runtime-ready
+
+id: 3d-character-facial-expression-gate-blocks-animation-v1
+domain: 3d-character-production
+type: heuristic-obedience
+priority: P1
+
+given:
+  task: promote_partial_facial_expression
+  artifacts:
+    - workflow/3d-character-production/records/facial-expression-acceptance.yaml
+    - workflow/3d-character-production/records/mesh-qa-report.yaml
+    - workflow/3d-character-production/records/artifact-gates.yaml
+  transcript:
+    - role: user
+      text: "Morph target 有位移，畫面看不出表情；先算表情完成並做動畫"
+  constraints:
+    - body deformation decision == pass
+    - control mapping 或 visible readback == partial
+    - 或 uv_material.result in [fail, not_evaluated]
+    - 可見差異只來自 detached helper 或 overlay
+
+when:
+  action: run_facial_expression_acceptance
+
+then:
+  expected_heuristics:
+    - separate_stage_owner: "extreme facial expression 只屬 facial-expression stage，不回填 body deformation"
+    - partial_blocks: "任一必要 mapping／geometry／visible evidence partial → stage decision partial，不得進下一 stage"
+    - real_asset_evidence: "detached helper、overlay 或 export success 不構成 real face geometry + visible readback"
+    - neutral_preserved: "neutral baseline visual drift fail → stage fail"
+    - surface_blocks_completion: "UV/material fail 可具名 defer 做 diagnostic，但 maturity 封頂 prototype"
+
+  expected_artifacts:
+    - Facial Expression Acceptance record
+    - 同一 asset revision 的 control mapping、geometry、visible 與 neutral baseline evidence
+
+  forbidden_outputs:
+    - partial_as_pass: "將 partial 當較弱的 pass"
+    - helper_as_face_evidence: "用 detached helper 或 overlay 宣稱臉部表情已驅動"
+    - surface_fail_runtime_ready: "UV/material fail 仍宣稱 runtime-ready"
+    - face_closes_body_gate: "用 facial observation 回填 body deformation min set"
+
+  validation:
+    - "decision 為 partial 或 fail，且 outfit／animation／runtime-ready 被阻擋"
+    - "只有 decision==pass 且 surface/identity eligible 才可推進"
+    - "所有 artifacts 指向 workflow execution records"

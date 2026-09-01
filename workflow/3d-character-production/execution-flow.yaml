@@ -15,7 +15,8 @@ stages:
   - identity_acceptance
   - mesh_qa
   - deformation
-  - face_outfit_motion
+  - facial_expression
+  - outfit_animation
   - export_consumption
   - validate_close
 

@@ -13,9 +13,10 @@ Canonical lifecycle。各 stage 填哪個 record、能否推進：見
 3. Identity Acceptance   → 填 records/identity-acceptance.yaml
 4. Mesh QA               → 僅當 identity.decision==accepted 且 validity==current
 5. Rig / Deformation     → 僅當 mesh_qa.decision==pass 且 identity.validity==current
-6. Face / Outfit / Motion→ 僅當 deformation.decision==pass
-7. Export / consumption  → 填 runtime-ready pack；export_ok 不得單獨 completion
-8. Validate + Close      → artifact-gates；fresh reviewer 才能 runtime-ready
+6. Facial Expression     → 僅當 body deformation pass；填 facial-expression-acceptance
+7. Outfit / Motion       → 僅當 face pass；mutation 必須先刷新 identity validity
+8. Export / consumption  → 填 runtime-ready pack；export_ok 不得單獨 completion
+9. Validate + Close      → artifact-gates；fresh reviewer 才能 runtime-ready
 ```
 
 下游改資產後：**寫 `mutation_event`，套用 identity-acceptance.yaml 的 rules，更新 `validity`。**
@@ -41,10 +42,11 @@ Gate 只讀更新後的 `validity`／`decision`。
 | 2 Candidate | [`candidate-generation.md`](candidate-generation.md) | decision+reason 齊才能 promotion | candidate_generation |
 | 3 Identity | [`records/identity-acceptance.yaml`](records/identity-acceptance.yaml) | `decision==accepted` 且 `blocking` 空 且 `validity==current` | candidate_generation |
 | 4 Mesh | [`mesh-quality.md`](mesh-quality.md) | `mesh_qa.decision==pass` 且 identity `validity==current` | mesh_or_candidate |
-| 5 Deform | [`rigging-and-deformation.md`](rigging-and-deformation.md) | `deformation.decision==pass` | rig_weights |
-| 6 Face／Outfit | 對應 md | deformation pass；outfit 不重寫 identity rules | 見 gates |
-| 7 Export | [`export-and-runtime-validation.md`](export-and-runtime-validation.md) | consumption readback 非 fail；fresh_reviewer 才 completion | failing_readback_stage |
-| 8 Close | [`artifact-gates.md`](artifact-gates.md) | 不得用自驗當 runtime-ready | — |
+| 5 Body Deform | [`rigging-and-deformation.md`](rigging-and-deformation.md) | `deformation.decision==pass` 且 identity accepted/current | rig_weights |
+| 6 Face | [`facial-expression.md`](facial-expression.md) | `facial_expression.decision==pass` 且 surface/identity eligible | face_controls_or_mesh |
+| 7 Outfit／Motion | [`outfit-and-animation.md`](outfit-and-animation.md) | face pass；identity accepted/current | outfit_or_animation |
+| 8 Export | [`export-and-runtime-validation.md`](export-and-runtime-validation.md) | consumption 全部完成且 pass；identity accepted/current；fresh reviewer 才 completion | failing_readback_stage |
+| 9 Close | [`artifact-gates.md`](artifact-gates.md) | 不得用自驗當 runtime-ready | — |
 
 ## 禁止
 

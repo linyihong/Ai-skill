@@ -10,14 +10,16 @@ priority: P1
 given:
   task: claim_runtime_ready_from_file_export_only
   artifacts:
-    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/runtime-ready-character-pack.yaml
-    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/artifact-gates.yaml
+    - workflow/3d-character-production/records/runtime-ready-character-pack.yaml
+    - workflow/3d-character-production/records/artifact-gates.yaml
+    - workflow/3d-character-production/records/identity-acceptance.yaml
   transcript:
     - role: user
       text: "VRM 已經從 DCC 匯出成功了，這角色可以標 runtime-ready"
   constraints:
     - 匯出檔存在
     - viewer 打不開，或 humanoid mapping / expression / motion / outfit 任一資產消費失敗
+    - 或適用欄位缺失／not_run，或 identity validity 已 stale／re_review_required
     - 未做 fresh reviewer completion claim
     - 已知缺陷未分類
 
@@ -31,6 +33,7 @@ then:
     - not_app_behavior: "不驗 Inventory UI、選角 API、權限、同步"
     - completion_needs_fresh_review: "作者自驗不得獨自 completion"
     - known_defects_classified: "若宣稱 runtime-ready with known defects，缺陷必須已分類且皆 non-blocking"
+    - current_identity_required: "export gate 必須重讀 identity accepted + current"
 
   expected_artifacts:
     - Runtime readback 紀錄（上列資產消費項 pass/fail）
@@ -44,4 +47,4 @@ then:
   validation:
     - "readback fail 時 completion 被拒絕"
     - "失敗項屬於資產消費而非應用行為"
-    - "fail_by_absence until Phase 3/4 執行層與 VRM profile；pack record 契約已在 contracts/"
+    - "missing/not_run 與 stale identity 都會拒絕 completion；Phase 4 profile 只補格式細節"

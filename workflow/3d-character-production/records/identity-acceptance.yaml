@@ -6,7 +6,7 @@ id: 3d-character.identity-acceptance
 status: draft
 runtime_projection:
   enabled: false
-  reason: Phase 3 才 promote 到 workflow/；本檔不得投影
+  reason: Phase 5 前維持 workflow-local execution contract
 
 record: identity_acceptance
 lock_refs:

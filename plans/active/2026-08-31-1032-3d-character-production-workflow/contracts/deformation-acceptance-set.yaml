@@ -22,7 +22,7 @@ observation_item:
   expected: string
   forbidden: string
   result: [pass, fail, partial]
-  # partial: mesh delta observed but visible/readback criterion not met (e.g. texture_baked_eyes)
+  # Historical Phase 2 snapshot; Phase 3 execution no longer consumes this enum.
 
 decision:
   enum: [pass, fail]

@@ -9,13 +9,14 @@ priority: P1
 given:
   task: start_face_and_motion_despite_deformation_fail
   artifacts:
-    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/deformation-acceptance-set.yaml
-    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/artifact-gates.yaml
+    - workflow/3d-character-production/records/deformation-acceptance-set.yaml
+    - workflow/3d-character-production/records/artifact-gates.yaml
   transcript:
     - role: user
       text: "T-pose 還行，舉手腋下破了，先做表情跟一套舞蹈動作"
   constraints:
-    - 最小充分 set 含 Neutral、T/A-pose、Arms up、Knee bend、Shoulder rotation、一個 extreme face
+    - body 最小充分 set 含 Neutral、T/A-pose、Arms up、Knee bend、Shoulder rotation
+    - extreme facial expression 由獨立 facial-expression acceptance stage 擁有
     - Arms up 觀察到破面或權重污染
     - 使用者要求先做 expression / animation
 
@@ -40,4 +41,4 @@ then:
   validation:
     - "Arms up 為 fail 且阻擋下一 stage"
     - "set 長度仍是最小充分，不是全覆蓋"
-    - "fail_by_absence until Phase 3 執行層；deformation record 契約已在 contracts/"
+    - "body deformation execution record 完整且不依賴尚未進入的 facial stage"

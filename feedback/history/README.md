@@ -23,6 +23,7 @@ feedback/history/
 | `travel-planning/` | 旅遊規劃 | 尚無 lesson |
 | `web-scraping/` | Web／SPA／anti-bot 分析 | lesson 已就位（2026-07-24） |
 | `legal/` | 法律工作（[`workflow/legal/`](../../workflow/legal/README.md)） | lesson 已就位（2026-07-30） |
+| [`3d-character-production/`](3d-character-production/README.md) | 可驅動 3D 角色資產 workflow | lesson 已就位（2026-09-01） |
 
 ## 規則
 

@@ -5,7 +5,7 @@ id: 3d-character.deformation-acceptance-set
 status: draft
 runtime_projection:
   enabled: false
-  reason: Phase 3 才 promote 到 workflow/；本檔不得投影
+  reason: Phase 5 前維持 workflow-local execution contract
 
 record: deformation_acceptance_set
 frozen_min_set:  # Phase 0.2；Phase 2 可微調內容，不可無上限膨脹
@@ -14,7 +14,6 @@ frozen_min_set:  # Phase 0.2；Phase 2 可微調內容，不可無上限膨脹
   - Arms_up
   - Knee_bend
   - Shoulder_rotation
-  - one_extreme_facial_expression
 
 observation_item:
   pose_id: string  # 必須 ∈ frozen_min_set（或經記錄的微調後集合）
@@ -25,7 +24,11 @@ observation_item:
 
 decision:
   enum: [pass, fail]
+  pass_requires:
+    - frozen_min_set 每一 pose 都有 observation_item
+    - every observation_item.result == pass
   fail_when: any observation_item.result == fail
 
 forbidden:
   - unbounded_pose_list_as_pass_criterion
+  - facial_expression_used_to_close_body_deformation

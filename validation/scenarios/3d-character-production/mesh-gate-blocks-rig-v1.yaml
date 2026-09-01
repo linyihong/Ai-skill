@@ -8,8 +8,8 @@ priority: P1
 given:
   task: rig_unrepairable_or_fused_mesh
   artifacts:
-    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/mesh-qa-report.yaml
-    - plans/active/2026-08-31-1032-3d-character-production-workflow/contracts/artifact-gates.yaml
+    - workflow/3d-character-production/records/mesh-qa-report.yaml
+    - workflow/3d-character-production/records/artifact-gates.yaml
   transcript:
     - role: user
       text: "手臂跟身體黏在一起，有破面，先綁個 Humanoid 看能不能動"
@@ -27,6 +27,7 @@ then:
     - holes_block: "破面未修 → 不得進 rig"
     - unrepairable_block: "不可修拓撲 → rollback 到候選／retopo owner，不用權重掩蓋"
     - export_is_not_mesh_pass: "能存 GLB 不代表 mesh gate pass"
+    - surface_scope: "UV/material fail 可與 geometry decision 分開，但必須阻擋 facial/runtime-ready；具名 defer 只保留 prototype"
 
   expected_artifacts:
     - Mesh QA Report（topology / separation / repairability / fail reason）
@@ -39,4 +40,4 @@ then:
   validation:
     - "Mesh QA 為 fail，下一步不是 rig"
     - "rollback owner 早於 rig"
-    - "fail_by_absence until Phase 3 執行層；mesh record 契約已在 contracts/"
+    - "geometry fail 阻擋 rig；surface fail 不得 silent pass 到 facial/runtime-ready"

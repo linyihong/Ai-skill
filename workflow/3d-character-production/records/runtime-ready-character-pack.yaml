@@ -5,7 +5,7 @@ id: 3d-character.runtime-ready-character-pack
 status: draft
 runtime_projection:
   enabled: false
-  reason: Phase 3 才 promote 到 workflow/；本檔不得投影
+  reason: Phase 5 前維持 workflow-local execution contract
 
 record: runtime_ready_character_pack
 required_fields:
@@ -41,6 +41,25 @@ known_defects:
     - defects 皆已分類
 
 completion:
+  decision: [pass, fail, partial]
   maturity: [exploration, prototype, runtime-ready]
   fresh_reviewer: boolean  # false 則不得標 runtime-ready
   export_ok_alone: false   # 欄位存在但不能當 completion
+  pass_requires:
+    - identity_acceptance.decision == accepted
+    - identity_acceptance.validity == current
+    - expressions.result == pass
+    - actions.result == pass
+    - outfits.result in [pass, not_applicable]
+    - asset_consumption_readback 所有適用項存在且為 pass
+    - known_defects 無 severity == blocking
+    - maturity == runtime-ready
+    - fresh_reviewer == true
+  partial_when_any:
+    - expressions、actions 或 outfits.result == not_run
+    - asset_consumption_readback 缺欄
+    - fresh_reviewer == false
+  forbidden:
+    - omitted_readback_treated_as_pass
+    - not_run_treated_as_pass
+    - blocking_defect_treated_as_runtime_ready
