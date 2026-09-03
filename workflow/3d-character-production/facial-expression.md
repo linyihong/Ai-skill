@@ -26,6 +26,32 @@ joint、curve 或 profile 定義的其他方法；core 不保存特定 DCC、gen
 - source 與 runtime mesh 結構不同時，必須有轉換／重建證據；不得假設 index 可直接沿用。
 - mapping 缺失或只有單側證據時填 `partial` 或 `fail`，不得填 pass。
 
+## Texture-baked feature articulation
+
+若眼睛、嘴型或其他應動特徵實際烘在貼圖裡，先確認 representation，再決定修復 owner；不得
+因為概念上「應該有幾何」就直接切網格、加 detached helper，或把未裁切的 2D 圖層疊到表面。
+
+可接受的 surface-driven adaptation 依序執行：
+
+1. **建立 neutral parity**：保存原始 consumer 畫面；任何重組後的正中／靜止狀態須與基準
+   一致，不得用「看起來差不多」代替 readback。
+2. **量測表示與遮擋**：從實際 texture/UV/mesh mapping 找出可動特徵、開口／邊界與局部
+   座標；色彩分類須先取樣，不能用未校準的固定亮度閾值。
+3. **分離 foreground / background / occlusion**：可動內容、被其蓋住的底圖、以及限制其
+   可見範圍的遮罩分開產出。沒有遮罩的平貼移動會越過眼皮、嘴唇或材質邊界。
+4. **在局部域內補底圖**：只用確認屬於底圖的像素作 inpaint 邊界；深色抗鋸齒、輪廓線或
+   陰影若混入邊界，會把填補區平均成錯誤色。補圖只回填原 foreground 覆蓋區，保留原輪廓。
+5. **從 UV 回到共同空間**：成對特徵的 texture island 可能各自旋轉；不得各沿自己的影像
+   長軸移動。先由 UV-to-surface mapping 解出共同 world/local direction，再映回各 island。
+6. **共享物理幅度、限制日常控制**：成對構造使用共同位移量，取較緊的可見邊界；完整極限
+   留給壓力測試，日常按鈕使用較小範圍，避免每次互動都撞到遮擋邊界。
+7. **驗證動態與隔離性**：真實控制項需證明雙向端點不同、成對方向一致、區外 readback
+   無漂移、可回 neutral，且能與既有表情／頭部或骨架動作組合。
+
+若 surface-driven adaptation 只存在於特定 viewer，這證明的是該 consumer path 可用，不會
+自動把底層資產宣稱為具有獨立幾何／骨骼；record 仍須誠實標記 control mapping 的 method
+與適用 surface。
+
 ## Expression observation
 
 至少觀察一個 extreme facial expression。每項同時記錄：

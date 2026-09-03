@@ -370,6 +370,19 @@ Consumer dogfood 首次讓 facial observation 通過（[`evidence/2026-09-03-fac
 - [x] 新增負向 scenarios：`facial-expression-negative-readback-earned-v1`、
   `facial-expression-consumer-surface-readback-v1`。
 
+### Phase 3 correction — Texture-baked feature articulation（2026-09-03）
+
+Consumer dogfood 證明「應動特徵烘在貼圖」不必然只能回退重拓撲，但 adaptation 的能力範圍
+必須誠實保留在 consumer path（[`evidence/2026-09-03-texture-baked-feature-articulation-consumer-loop.md`](evidence/2026-09-03-texture-baked-feature-articulation-consumer-loop.md)）：
+
+- [x] `facial-expression.md` 新增 representation-first、neutral parity、foreground /
+  background / occlusion 分離、校準補圖、UV-to-surface 共同方向、成對共同限幅與 consumer
+  isolation readback。
+- [x] 新增 validated lesson：`texture-baked-feature-articulation`。
+- [x] 新增 scenario：`texture-baked-feature-articulation-v1`，禁止未裁切 overlay、未校準分類、
+  污染 inpaint 邊界、per-island 影像軸與 viewer-local 能力誤宣稱。
+- [x] 不修改 asset-level completion 定義：viewer-local adaptation 不等於交換資產已有獨立 rig。
+
 ## Phase 4 — VRM First Profile
 
 - [ ] 定義 Humanoid mapping、scale/axis、required expressions、spring bones、material 與 metadata。

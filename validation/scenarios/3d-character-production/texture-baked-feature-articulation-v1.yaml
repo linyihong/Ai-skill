@@ -1,0 +1,51 @@
+# 3D character — 貼圖化臉部特徵不得以未裁切 overlay 或各自 UV 軸驅動
+
+id: 3d-character-texture-baked-feature-articulation-v1
+domain: 3d-character-production
+type: heuristic-obedience
+priority: P1
+
+given:
+  task: articulate_texture_baked_paired_facial_feature
+  artifacts:
+    - workflow/3d-character-production/facial-expression.md
+    - workflow/3d-character-production/records/facial-expression-acceptance.yaml
+  constraints:
+    - 可動特徵只存在於 diffuse 或 base-color texture
+    - 原表面輪廓含 identity-critical 眼皮、睫毛、嘴唇或眼線
+    - 成對特徵的 UV islands 在 atlas 中旋轉不同
+    - consumer 允許局部 texture update
+
+when:
+  action: choose_and_validate_surface_driven_articulation
+
+then:
+  expected_heuristics:
+    - representation_first: "先讀取 texture、UV 與 mesh mapping，不從語意假設已有獨立幾何或骨骼"
+    - neutral_parity: "保存 untouched consumer baseline；靜止 composite 必須回到同一基準"
+    - explicit_occlusion: "可動 foreground、被蓋住的 background 與開口／邊界 mask 分開產出"
+    - calibrated_background_fill: "分類閾值由像素取樣；inpaint 邊界只採用確認的底圖像素"
+    - common_surface_direction: "成對 UV islands 由 UV-to-surface mapping 解共同 world/local direction"
+    - paired_shared_limit: "成對構造共享位移量並取較緊邊界；日常控制小於壓力測試極限"
+    - consumer_isolation_readback: "真實控制項驗證雙向差異、成對一致、區外不變、回中與既有動作組合"
+    - honest_capability_scope: "viewer-local adaptation 不宣稱底層交換資產已有獨立 rig"
+
+  expected_artifacts:
+    - untouched baseline 與 neutral composite 對照
+    - foreground、background、occlusion mask 或等價局部 artifacts
+    - UV-to-surface direction probe
+    - consumer ROI isolation 與 return-to-neutral readback
+
+  forbidden_outputs:
+    - unclipped_overlay: "可動圖層越過眼皮、嘴唇或材質邊界"
+    - semantic_geometry_assumption: "未讀 representation 即切網格或新增 detached helper"
+    - uncalibrated_luma_classifier: "固定亮度閾值把陰影皮膚或輪廓誤分類"
+    - contaminated_inpaint_boundary: "把眼線、輪廓或暗部抗鋸齒當底圖種子"
+    - per_island_image_axis: "成對特徵各沿自己的影像長軸移動而在 3D 中發散"
+    - consumer_local_as_asset_rig: "只在 viewer 成立卻宣稱底層資產具有獨立幾何／骨骼"
+
+  validation:
+    - "neutral composite 與 untouched baseline 無可見漂移"
+    - "成對特徵在兩個端點沿共同表面方向移動，且使用相同位移幅度"
+    - "非目標 ROI 無可見變更，回中無累積誤差"
+    - "既有表情或頭部動作仍可組合"
