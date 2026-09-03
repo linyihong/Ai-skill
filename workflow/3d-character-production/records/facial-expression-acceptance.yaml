@@ -25,9 +25,17 @@ required_fields:
       expression_id: string
       expected: string
       forbidden: string
+      # 未產出、未觀測與已觀測失敗是三種狀態；共用一個 fail 會把成因指向錯的層。
+      artifact_state: [produced, not_produced, unknown]
       geometry_readback: [pass, fail, partial]
       visible_readback: [pass, fail, partial]
+      # 資產最終由互動介面消費時，離線算圖不能替代消費面 readback。
+      consumer_readback: [pass, fail, partial, not_applicable]
       result: [pass, fail, partial]
+  probe_calibration:
+    # 探針在已知正例上讀到訊號，其 0 才可作為 fail 證據。
+    known_positive_observed: [true, false]
+    notes: string
 
 required_observations:
   - one_extreme_facial_expression
@@ -38,21 +46,33 @@ decision:
     - neutral_baseline.visual_drift == pass
     - control_mapping.readback == pass
     - required_observations 全部存在
+    - every observation.artifact_state == produced
+    - every observation.consumer_readback in [pass, not_applicable]
     - every observation.result == pass
   fail_when_any:
     - neutral_baseline.visual_drift == fail
     - control_mapping.readback == fail
     - any observation.result == fail
+    - any observation.consumer_readback == fail
   partial_when_any:
     - control_mapping.readback == partial
-    - any observation geometry_readback、visible_readback 或 result == partial
+    - any observation geometry_readback、visible_readback、consumer_readback 或 result == partial
+    - any observation.artifact_state != produced
+    - probe_calibration.known_positive_observed == false 而 observation 以 no-change 判 fail
     - required_observations 缺失
   partial_blocks_next_stage: true
+
+# 負向 readback 必須先賺取：artifact 未產出或探針未校準時，no-change 只能是 partial。
+negative_evidence_requires:
+  - observation.artifact_state == produced
+  - probe_calibration.known_positive_observed == true
 
 forbidden_evidence:
   - detached_helper_geometry
   - overlay_only
   - export_success_only
   - geometry_delta_without_visible_readback
+  - offline_render_only_when_consumer_surface_exists
+  - uncalibrated_probe_no_change
 
 eligibility_consumed_by: artifact-gates.yaml facial_expression → outfit_animation

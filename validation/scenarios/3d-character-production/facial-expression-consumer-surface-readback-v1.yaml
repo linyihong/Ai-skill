@@ -1,0 +1,46 @@
+# 3D character — Facial expression：離線算圖不得替代互動消費面 readback
+
+id: 3d-character-facial-expression-consumer-surface-readback-v1
+domain: 3d-character-production
+type: heuristic-obedience
+priority: P1
+
+given:
+  task: claim_facial_expression_pass_from_offline_renders
+  artifacts:
+    - workflow/3d-character-production/records/facial-expression-acceptance.yaml
+    - workflow/3d-character-production/records/artifact-gates.yaml
+  transcript:
+    - role: user
+      text: "離線比對已過門檻，但我在 viewer 上看不出效果"
+  constraints:
+    - 資產最終由互動 viewer／runtime 消費
+    - stage 證據目前只有離線算圖與像素差異
+    - 消費面存在預設開啟的除錯 overlay 或標記
+    - blocking 條件寫成硬編碼常數而非讀取 record
+
+when:
+  action: run_facial_expression_acceptance
+
+then:
+  expected_heuristics:
+    - consumer_readback_required: "存在互動消費面時，consumer_readback 必須為 pass 才可 stage pass"
+    - drive_real_controls: "驗收腳本操作真實控制項，不得直接寫入底層狀態"
+    - per_control_assertion: "每個控制項各自斷言可觀測效果並回復基準態"
+    - default_view_unobstructed: "預設視圖不得被除錯輔助物遮蔽；顯示狀態與開關一致"
+    - record_derived_blocking: "blocking 逐項由 record 推導；硬編碼全域 block 在缺陷修復後仍會阻擋"
+
+  expected_artifacts:
+    - Facial Expression Acceptance record 含 consumer_readback
+    - per-control 互動檢查清單與觀察區 readback
+
+  forbidden_outputs:
+    - offline_render_as_consumer_evidence: "用離線算圖宣稱消費面可見"
+    - state_injection_as_ui_proof: "直接寫入底層狀態冒充控制項驗證"
+    - stale_hardcoded_block: "缺陷已修但硬編碼 block 仍阻擋已驗收項目"
+    - obstructed_default_view: "預設視圖被除錯輔助物遮蔽仍宣稱可見"
+
+  validation:
+    - "consumer_readback 為 partial 或 fail 時，outfit／animation 被阻擋"
+    - "移除某項 blocking 缺陷後，對應控制項不需旁路參數即可使用"
+    - "所有 artifacts 指向 workflow execution records"

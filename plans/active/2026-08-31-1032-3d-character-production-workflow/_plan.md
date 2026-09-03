@@ -11,7 +11,8 @@ parent: null
 # 3D Character Production Workflow（`workflow/3d-character-production/`）
 
 **Status**: in-progress — Phase 3 **execution dogfood 十一條 PASS**
-（[`evidence/2026-09-01-phase-3-execution-dogfood.md`](evidence/2026-09-01-phase-3-execution-dogfood.md)）。
+（[`evidence/2026-09-01-phase-3-execution-dogfood.md`](evidence/2026-09-01-phase-3-execution-dogfood.md)）；
+2026-09-03 facial evidence completeness correction 已回修（見同名 Phase 3 correction 節）。
 Live pack 仍 prototype。Detector no_match **EXPECTED**。Phase 4／5／6 仍 blocked。
 
 **Glossary Impact**: yes — 候選詞 `character_identity_lock`、`asset_maturity_gate`、
@@ -355,6 +356,19 @@ Phase 2 合約寫完後、Phase 3 寫滿 workflow 前：用既有 VRM 角色專�
 - [x] Mesh geometry／surface blockers、identity validity、lock completeness、export completion 可由欄位判定。
 - [x] Phase 1 scenarios 改讀 execution records，並覆蓋 `partial`、surface fail、facial evidence 與 export identity stale。
 - [x] Formal dogfood 清單擴充完成；2026-09-01 已執行（見 evidence）。
+
+### Phase 3 correction — Facial evidence completeness（2026-09-03）
+
+Consumer dogfood 首次讓 facial observation 通過（[`evidence/2026-09-03-facial-expression-first-pass-consumer-loop.md`](evidence/2026-09-03-facial-expression-first-pass-consumer-loop.md)），
+過程暴露兩個 contract 缺口並已回修：
+
+- [x] `facial-expression-acceptance.yaml` 新增 `artifact_state` 與 `probe_calibration`；
+  `negative_evidence_requires` 讓「未產出」「探針失明」不得記成 `fail`。
+- [x] 同 record 新增 `consumer_readback`；`forbidden_evidence` 新增
+  `offline_render_only_when_consumer_surface_exists` 與 `uncalibrated_probe_no_change`。
+- [x] `facial-expression.md` 新增 Negative readback 與 Consumer-surface readback 兩節。
+- [x] 新增負向 scenarios：`facial-expression-negative-readback-earned-v1`、
+  `facial-expression-consumer-surface-readback-v1`。
 
 ## Phase 4 — VRM First Profile
 

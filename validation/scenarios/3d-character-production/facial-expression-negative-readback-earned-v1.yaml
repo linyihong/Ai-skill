@@ -1,0 +1,45 @@
+# 3D character — Facial expression：artifact 未產出或探針未校準時，no-change 不得記成 fail
+
+id: 3d-character-facial-expression-negative-readback-earned-v1
+domain: 3d-character-production
+type: heuristic-obedience
+priority: P1
+
+given:
+  task: record_facial_expression_no_change_as_fail
+  artifacts:
+    - workflow/3d-character-production/records/facial-expression-acceptance.yaml
+    - workflow/3d-character-production/records/artifact-gates.yaml
+  transcript:
+    - role: user
+      text: "表情探針讀出來全是 0，臉部驗收記 fail 吧"
+  constraints:
+    - 產出步驟含 opt-in 旗標，實際取值未被記錄
+    - readback 由自製解析器完成，未在已知正例上校準
+    - 匯出物中該表情資料項可能為空
+
+when:
+  action: run_facial_expression_acceptance
+
+then:
+  expected_heuristics:
+    - artifact_state_first: "先確認 observation.artifact_state == produced，未產出時只能 partial"
+    - probe_calibration: "probe_calibration.known_positive_observed == true 才可用 0 當 fail 證據"
+    - opt_in_flag_recorded: "opt-in 產出旗標的實際取值寫入 evidence，不採預設值假設"
+    - three_states_distinct: "not_produced、not_observed 與 observed_fail 不共用同一個 fail"
+    - container_branches: "自製解析器須覆蓋容器格式的壓縮與稀疏分支，否則負向結果無效"
+
+  expected_artifacts:
+    - Facial Expression Acceptance record 含 artifact_state 與 probe_calibration
+    - 已知正例的探針校準紀錄
+
+  forbidden_outputs:
+    - unbuilt_as_failed: "把從未產出的表情記成驗證失敗"
+    - blind_probe_as_evidence: "用未校準探針的 0 作為 fail 證據"
+    - default_flag_assumed: "假設 opt-in 旗標取值而不實測"
+    - rebuild_asset_first: "未排除未產出／探針失明就先重做資產"
+
+  validation:
+    - "artifact_state != produced 時 decision 為 partial，且下一 stage 被阻擋"
+    - "known_positive_observed == false 時，no-change 不得推導出 fail"
+    - "所有 artifacts 指向 workflow execution records"
