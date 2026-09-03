@@ -78,6 +78,9 @@ Phase 2 plan contracts 只保留歷史快照，不作 scenario input。
 - `3d-character-production/mesh-gate-blocks-rig-v1.yaml` — 黏連／破面／不可修拓撲禁 rig。
 - `3d-character-production/deformation-gate-blocks-animation-v1.yaml` — body deformation 最小充分 set 失敗禁表情／動畫。
 - `3d-character-production/facial-expression-gate-blocks-animation-v1.yaml` — facial partial、surface fail 或 helper-only evidence 禁動畫／runtime-ready。
+- `3d-character-production/facial-expression-negative-readback-earned-v1.yaml` — artifact 未產出或探針未在正例校準時，no-change 只能是 partial。
+- `3d-character-production/facial-expression-consumer-surface-readback-v1.yaml` — 互動消費面存在時，離線算圖不能替代真實控制項 readback。
+- `3d-character-production/texture-baked-feature-articulation-v1.yaml` — 貼圖化特徵須有遮擋、共同表面方向、區外隔離與誠實能力邊界。
 - `3d-character-production/export-runtime-readback-v1.yaml` — 可匯出 ≠ runtime-ready；只驗資產消費。
 - `3d-character-production/provenance-blocks-promotion-v1.yaml` — 缺 decision 不得 promotion；unavailable/partial 合法。
 
