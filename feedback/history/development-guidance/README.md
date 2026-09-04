@@ -4,7 +4,7 @@
 
 | 分類 | 數量 | 說明 |
 |------|------|------|
-| [`common/`](common/) | 51 | 跨分類或通用 lesson（開發流程、契約治理、測試策略、後端架構、安全審計等） |
+| [`common/`](common/) | 54 | 跨分類或通用 lesson（開發流程、契約治理、測試策略、後端架構、安全審計等） |
 | [`controls/`](controls/) | 2 | 控制項相關 lesson |
 
 ## 來源
@@ -15,6 +15,9 @@
 
 | Slug | Category |
 |------|----------|
+| `common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form` | 檢查索引連結的 gate 若比對 repo 根相對路徑，會拒絕唯一可解析的相對連結；類別長期為空時完全看不出來 |
+| `common/2026-09-04_135900-lazy-migration-on-background-flush-needs-tolerant-reads` | 惰性遷移由背景批次觸發時，啟動到首次 flush 之間的查詢會 5xx；症狀外觀是 flaky test |
+| `common/2026-09-04_135746-gate-that-runs-only-at-commit-is-one-bypass-from-gone` | 只掛在 commit 的 gate 檢查的是提交而非分支狀態；繞過一次就再也不會被抓回來 |
 | `common/2026-09-04_101800-derived-state-before-blaming-shared-baseline` | 「原始碼相同」＋「可重現」不足以歸因給共用基線；過期的衍生狀態同樣滿足這兩點 |
 | `common/2026-09-04_101559-build-gate-must-restore-not-only-build` | 以 `--no-restore` 建置的 gate 驗的是還原圖不是工作樹；過期圖會誤過，比誤擋更危險 |
 
