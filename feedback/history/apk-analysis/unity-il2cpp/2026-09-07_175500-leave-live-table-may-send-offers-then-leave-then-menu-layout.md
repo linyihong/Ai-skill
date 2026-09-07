@@ -12,6 +12,8 @@ Status: validated
 
 選單上的離開按鈕可能先打一發 offers/retention RPC，畫面上才出現「看廣告拿籌碼 / 直接退出」。使用者按退出（略過 rewarded video）之後才送 leave opcode，接著再要一份 menu layout。只 hook leave 型別名會漏掉第一段；只看到 offers 會誤以為已經離桌。不要 dump 優惠內容或廣告 SDK payload。
 
+**2026-09-08 revision:** `GetLeaveTableOffers` 仍可能先送出，即使畫面只是「否／是」確認、沒有 rewarded-video overlay。不要用彈窗樣式判斷有沒有 offers 封包。
+
 #### Trigger
 
 - UI 已出現離桌確認／看廣告彈窗，但 feature leave opcode 尚未出現。
