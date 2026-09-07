@@ -9,13 +9,14 @@
 | [`http-api/`](http-api/) | 34 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 11 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
-| [`unity-il2cpp/`](unity-il2cpp/) | 2 | Unity IL2CPP、AssetBundle、UnityCache |
+| [`unity-il2cpp/`](unity-il2cpp/) | 3 | Unity IL2CPP、AssetBundle、UnityCache |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
 
 ## Recent (2026-09-07)
 
 | Slug | Category |
 |------|----------|
+| `unity-il2cpp/2026-09-07_163400-il2cpp-sendpacket-arg-class-is-the-opcode` | SendPacket: log packet class, not EncryptData string |
 | `unity-il2cpp/2026-09-07_144800-unity-game-session-may-be-custom-tcp-not-tls443` | Custom TCP game session vs HTTPS CDN |
 | `unity-il2cpp/2026-09-07_143800-unity-feature-art-lives-in-unitycache-not-apk` | Feature art in UnityCache `__data`, not APK |
 
