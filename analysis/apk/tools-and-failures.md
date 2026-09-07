@@ -43,6 +43,7 @@
 | APK 內 `.unity3d` + UnityPy | core chrome、localization、engine 資源。 | 常沒有單一「功能總包」；物件名過濾 ≠ 畫面上每一張圖。 |
 | `Android/data/<pkg>/files/UnityCache/Shared/<bundle>/<hash>/__data` | 執行期下載的 AssetBundle 本體。 | `__info` 很小；`__data` 通常可直接 `UnityPy.load`。目錄名對 UI 標題；缺的標題標 `not-yet-cached`。 |
 | `adb screencap` | 對照可見標題與 cache 目錄差集。 | Unity 畫面 `uiautomator dump` 常常幾乎是空的。 |
+| `ss` / `netstat` on the game PID | 分開 443 CDN 與非 443 長連線。 | 非 443 + 無 TLS cert → 自訂 TCP；見 unity-il2cpp protocol lesson。 |
 
 ## 解密與資料處理
 

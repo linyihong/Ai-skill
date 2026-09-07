@@ -41,6 +41,7 @@ native backtrace 落在哪裡？
 | 已對 OkHttpClient.newCall／Request$Builder.url／RealCall.enqueue 廣覆蓋，使用者操作下仍無業務 host/path | 升級為 Flutter/Dart dart:io、native connect／pcap SNI，或 MITM（僅在流量進代理時有效） |
 | Flutter / Dart AOT native path | blutter / reFlutter 類工具 + Frida Dart object hook |
 | Native C/C++ custom client | native symbol/string/disassembly + connect/send/recv 輔助 hook |
+| 進程同時有 **非 443 的長 TCP** 與多條 443 | 把非 443 當 game-session 候選；`openssl s_client` 無 peer cert、幀只有幾十 byte → 自訂 framing，不要只 MITM 443 |
 | Cronet / QUIC | Cronet hooks、flags、HTTP/2/QUIC telemetry、必要時停用 QUIC |
 | MITM CONNECT 成功但 handshake failed | CA trust、network security config、pinning 排查 |
 | 只有 pcap host/timing | 反編譯搜尋 host/path/header，再找高語意 hook 點 |
