@@ -34,6 +34,16 @@
 | reFlutter 類工具 | 改 Flutter engine / dump dart traffic 的路線。 | 侵入性較高，需評估是否符合授權範圍。 |
 | IDA / Ghidra / radare2 | native disassembly、function offset、xref。 | 用於補足自動工具看不到的邏輯。 |
 
+## Unity IL2CPP / AssetBundles
+
+功能頁已打開、目標是 2D 美術落地時，優先 cache dump，不要只掃安裝 APK。Lesson：[`unity-feature-art-lives-in-unitycache-not-apk`](../../feedback/history/apk-analysis/unity-il2cpp/2026-09-07_143800-unity-feature-art-lives-in-unitycache-not-apk.md)。
+
+| 工具 / 路徑 | 用途 | 注意 |
+| --- | --- | --- |
+| APK 內 `.unity3d` + UnityPy | core chrome、localization、engine 資源。 | 常沒有單一「功能總包」；物件名過濾 ≠ 畫面上每一張圖。 |
+| `Android/data/<pkg>/files/UnityCache/Shared/<bundle>/<hash>/__data` | 執行期下載的 AssetBundle 本體。 | `__info` 很小；`__data` 通常可直接 `UnityPy.load`。目錄名對 UI 標題；缺的標題標 `not-yet-cached`。 |
+| `adb screencap` | 對照可見標題與 cache 目錄差集。 | Unity 畫面 `uiautomator dump` 常常幾乎是空的。 |
+
 ## 解密與資料處理
 
 | 工具 / 套件 | 用途 |
