@@ -22,7 +22,7 @@
 | `tcpdump` | 裝置端 pcap，觀察 localhost、DNS、SNI、IP、port、timing。 | 需要 root 或可用抓包環境；HTTPS 內容仍是密文。 |
 | Wireshark | 讀 pcap、看 SNI、TCP stream、時序。 | 用於證據，不是直接解密工具。 |
 | Proxyman / Charles / Burp / mitmproxy | MITM、CONNECT、HTTP(S) 代理、HLS/media 可見流量。 | 先確認流量是否進代理，再處理 CA/pinning。 |
-| Frida | Java/native/Dart hook，抓 request object、decode function、connect trace。 | 優先 hook 高語意點；注意 crash、ANR、輸出量。 |
+| Frida | Java/native/Dart hook，抓 request object、decode function、connect trace。 | 優先 hook 高語意點；注意 crash、ANR、輸出量。Android：`attach(package)` 失敗時改 `adb pidof` + `enumerate_processes()` / **PID**（launcher 標題 ≠ applicationId）。 |
 | objection | 快速探索 Android runtime、常見 SSL pinning 檢查。 | 適合輔助，不取代定制 hook。 |
 
 ## Flutter / Dart AOT

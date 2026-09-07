@@ -4,7 +4,7 @@
 
 | 分類 | 數量 | 說明 |
 |------|------|------|
-| [`common/`](common/) | 60 | 跨分類或通用 lesson（工具選擇、流程、UI、分析策略等） |
+| [`common/`](common/) | 61 | 跨分類或通用 lesson（工具選擇、流程、UI、分析策略等） |
 | [`flutter-dart-aot/`](flutter-dart-aot/) | 23 | Flutter/Dart AOT 相關 hook 與分析 |
 | [`http-api/`](http-api/) | 34 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 11 | Local proxy 設定、診斷、hook |
@@ -16,6 +16,7 @@
 
 | Slug | Category |
 |------|----------|
+| `common/2026-09-07_173500-frida-attach-android-process-label-not-package` | Frida attach uses launcher label / PID, not package |
 | `unity-il2cpp/2026-09-07_172200-slot-s2c-may-apply-via-processspin-gameaction-not-parseresult` | S2C apply may be ProcessSpin GameAction[] not ParseResult |
 | `unity-il2cpp/2026-09-07_170500-parseresult-arg-class-can-be-xdocument-when-c2s-is-not-xml` | ParseResult arg1 class (XDocument) ≠ C2S first-char |
 | `unity-il2cpp/2026-09-07_163400-il2cpp-sendpacket-arg-class-is-the-opcode` | SendPacket: log packet class, not EncryptData string |

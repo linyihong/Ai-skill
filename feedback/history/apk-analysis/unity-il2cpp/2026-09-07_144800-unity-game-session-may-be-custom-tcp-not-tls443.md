@@ -29,6 +29,7 @@ IL2CPP metadata 裡同時有 `HttpService`、`WebSocket`、以及 `NetStateTCPSo
 2. 非 443：用 `openssl s_client` 判斷是不是 TLS；無 cert／讀到數 byte 即停 → 自訂 TCP。
 3. Metadata 的 `*Packet` / `SendPacket` / `SerializePacket` 指向 **packet 協定**，不是 REST path catalog。
 4. HTTP helper（例如 resolve host）可以存在，仍不是玩法通道。
+5. 確認自訂 TCP 後：S2C 常有 **明文 4-byte big-endian 長度**（後面幾 byte），C2S 可能整包密文。分段要用長度重組，不要把 MSS 中間當新 header。只記前綴，不 commit ciphertext。
 
 #### Agent Action
 

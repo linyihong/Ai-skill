@@ -31,6 +31,7 @@ Idle 會大量呼叫 `get_*TableInfo`／jackpot 探測；hook 過濾必須排除
 2. 先找 `Send*` 回傳 packet class，再找 `Process*` 回傳 action／model。
 3. Hook 排除 `get_`／jackpot-support 探測。
 4. 不要印 action 欄位值或 XML。
+5. 套用路徑清楚後：對 reel / spin-info **model** 做 `il2cpp_class_get_fields`（名＋型別）。那是 decrypt 之後的客戶端 DTO，不是線上欄位表。
 
 #### Agent Action
 
