@@ -9,7 +9,7 @@
 | [`http-api/`](http-api/) | 34 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 11 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
-| [`unity-il2cpp/`](unity-il2cpp/) | 5 | Unity IL2CPP、AssetBundle、UnityCache |
+| [`unity-il2cpp/`](unity-il2cpp/) | 6 | Unity IL2CPP、AssetBundle、UnityCache |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
 
 ## Recent (2026-09-07)
@@ -17,6 +17,7 @@
 | Slug | Category |
 |------|----------|
 | `common/2026-09-07_173500-frida-attach-android-process-label-not-package` | Frida attach uses launcher label / PID, not package |
+| `unity-il2cpp/2026-09-07_175500-leave-live-table-may-send-offers-then-leave-then-menu-layout` | Leave may be offers then leave then menu-layout |
 | `unity-il2cpp/2026-09-07_172200-slot-s2c-may-apply-via-processspin-gameaction-not-parseresult` | S2C apply may be ProcessSpin GameAction[] not ParseResult |
 | `unity-il2cpp/2026-09-07_170500-parseresult-arg-class-can-be-xdocument-when-c2s-is-not-xml` | ParseResult arg1 class (XDocument) ≠ C2S first-char |
 | `unity-il2cpp/2026-09-07_163400-il2cpp-sendpacket-arg-class-is-the-opcode` | SendPacket: log packet class, not EncryptData string |

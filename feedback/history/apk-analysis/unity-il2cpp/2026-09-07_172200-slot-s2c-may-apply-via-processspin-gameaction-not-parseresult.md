@@ -14,6 +14,8 @@ Unity 老虎機若 `ParseResult` 沒打在下注封包上，改 hook 機台 cont
 
 Idle 會大量呼叫 `get_*TableInfo`／jackpot 探測；hook 過濾必須排除 getter，否則 log 不可用。
 
+**2026-09-07 revision:** 若 method 過濾寫成「名字裡有 Slot 或 Jackpot 就 hook」，idle 探測會把主執行緒／log 灌滿。此時 HUD 可能已扣注，但 `SendPacket` 的下注型別名不會出現在 capture。Apply 短窗只 hook `SendSpin`／`ProcessSpin`／`EventSink_SlotsRound`／reel-stop 這類方法；C2S 型別用另外一支輕量 `SendPacket` script。
+
 #### Trigger
 
 - 已證明 C2S 動作封包，但該型別沒有 `ParseResult` hit。
