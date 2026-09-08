@@ -9,13 +9,14 @@
 | [`http-api/`](http-api/) | 34 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 11 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
-| [`unity-il2cpp/`](unity-il2cpp/) | 31 | Unity IL2CPP、AssetBundle、UnityCache |
+| [`unity-il2cpp/`](unity-il2cpp/) | 32 | Unity IL2CPP、AssetBundle、UnityCache |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
 
 ## Recent (2026-09-08)
 
 | Slug | Category |
 |------|----------|
+| `unity-il2cpp/2026-09-08_154000-nested-dto-may-fill-via-ctor-without-parse` | Nested DTO may fill via ctor without Parse* |
 | `unity-il2cpp/2026-09-08_153400-nested-dtos-may-have-own-parse-beside-wrapper` | Nested DTOs may have their own Parse/ParseAll beside the wrapper |
 | `unity-il2cpp/2026-09-08_152200-nested-dto-ctors-may-sit-before-after-parse-not-apply` | Nested DTO ctors may sit before/after Parse, not in apply |
 | `unity-il2cpp/2026-09-08_151000-parse-may-construct-wrapper-not-nested-dtos` | Parse may construct only the event wrapper, not nested DTOs |
