@@ -3,7 +3,7 @@
 **Run**: phase-3-external-greenfield-consumer-execute  
 **Plan**: `2026-07-16-0945-software-delivery-framework-domain-model`  
 **Consumer**: `<PROJECT_ROOT>`（見 `local/plan-evidence/` run boundary）  
-**Paired ERA run**: [`2v-external-greenfield-consumer-phase2-preflight.md`](../../2026-07-08-0825-delegation-verification-arbitration-loop/evidence/2v-external-greenfield-consumer-phase2-preflight.md)
+**Paired ERA run**: [`2v-external-greenfield-consumer-phase2-preflight.md`](../../../active/2026-07-08-0825-delegation-verification-arbitration-loop/evidence/2v-external-greenfield-consumer-phase2-preflight.md)
 
 **Method**: classify-before-create dry-run + consumer artifact audit + Phase 2 產出預分類；**未派 E/V**（preflight）。
 

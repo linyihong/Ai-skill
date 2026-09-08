@@ -4,7 +4,7 @@
 **Plan**: `2026-07-16-0945-software-delivery-framework-domain-model`  
 **Consumer**: `<PROJECT_ROOT>`（sibling greenfield；離線 portable yaml + framework charter）  
 **Run boundary（本機，不進版控）**：`<AI_SKILL_REPO>/local/plan-evidence/`（見 evidence README）  
-**Method**: ERA 式外部 repo 觀察 + Asset/Policy/Process 分類（比照 [`2026-07-08-0825-delegation-verification-arbitration-loop`](../../2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) dogfood 證據慣例；**本 run 為 doc-only 分類，未派 E/V**）
+**Method**: ERA 式外部 repo 觀察 + Asset/Policy/Process 分類（比照 [`2026-07-08-0825-delegation-verification-arbitration-loop`](../../../active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) dogfood 證據慣例；**本 run 為 doc-only 分類，未派 E/V**）
 
 ---
 

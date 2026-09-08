@@ -6,7 +6,7 @@
 
 - **任務**：greenfield consumer（SPA-first、無 `src/`/`web/`  yet）Phase 2 scaffold 的 **ERA preflight** — Orchestrator 寫 brief + verification backfill；**未** spawn Executor/Verifier。
 - **觸發**：domain-model plan Phase 3 execute + stakeholder 指定 consumer 雙 plan 測試。
-- **配對**：[`phase-3-external-greenfield-consumer-execute.md`](../../2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-3-external-greenfield-consumer-execute.md)（classify-before-create）。
+- **配對**：[`phase-3-external-greenfield-consumer-execute.md`](../../../archived/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-3-external-greenfield-consumer-execute.md)（classify-before-create）。
 
 ## Orchestrator checklist
 

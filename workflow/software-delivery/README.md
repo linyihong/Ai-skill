@@ -4,7 +4,7 @@
 
 ## Framework Domain Model（Primary Model）
 
-> Canonical 驗證：[`plans/active/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-0-classification-matrix.md`](../../plans/active/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-0-classification-matrix.md)（Phase 0，2026-07-16）。**N = 3**：Asset、Policy、Process。
+> Canonical 驗證：[`plans/archived/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-0-classification-matrix.md`](../../plans/archived/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-0-classification-matrix.md)（Phase 0，2026-07-16）。**N = 3**：Asset、Policy、Process。
 
 Software Delivery Framework 的核心抽象只有三個；其餘（Principles、Automation、taxonomy）為 meta 或 projection，不與三核心並列。
 
@@ -43,6 +43,9 @@ Intent → Asset (class) → Policy → Process (typical stage) → Automation
 | **Process** | 通常何時產生 / 消費？ | `execution-flow.md` + slices 描述此層 |
 
 **Artifact**：Project 層為完成 delivery intent 而產生的 Asset **實例**（術語），非第四核心。
+
+Intent 保存為 brief／plan 時，該記錄是 Asset；checker 檔案也是 Asset，其執行語意是 Policy／Process 投影。
+跨 consumer 的適用範圍與反例檢查見[結案覆核](../../plans/archived/2026-07-16-0945-software-delivery-framework-domain-model/evidence/2026-09-08-cross-consumer-readback.md)。
 
 ## 何時進入此 Workflow
 
@@ -113,7 +116,7 @@ Taxonomy (cross-cutting consumer — 非 sd-review)
 | Contract | `contract-review` | `sd-contracts` | `fault_finding`（draft） |
 | Release | `release-review` | `sd-validation`, `sd-closure` | `fault_finding`（draft） |
 
-完整對照：[`cross-cutting/review/invocation-points.md`](../../cross-cutting/review/invocation-points.md)
+完整對照：[`cross-cutting/review/invocation-points.md`](../cross-cutting/review/invocation-points.md)
 
 ### When should invoke?
 
@@ -124,7 +127,7 @@ Taxonomy (cross-cutting consumer — 非 sd-review)
 | 未知 incident observable | `incident-analysis` |
 | Pre-release / merge readiness | `release-review` |
 
-Consumer 入口：[`workflow/cross-cutting/review/`](../../cross-cutting/review/README.md)（checklist、self-review hook — **consumer only**，不擁有 stance contract）
+Consumer 入口：[`workflow/cross-cutting/review/`](../cross-cutting/review/README.md)（checklist、self-review hook — **consumer only**，不擁有 stance contract）
 
 ### Example invoke envelope
 
@@ -178,7 +181,7 @@ Contract owner：[`governance/cognitive-stance.md`](../../governance/cognitive-s
 | Release | `release-review` | validation / closure 前 |
 | Embedded / Firmware | `code-review` + domain checklist | 同 code review invoke + checklist bodies |
 
-Checklist bodies：[`cross-cutting/review/checklist.md`](../../cross-cutting/review/checklist.md) · 舊路徑 [`review-checklist.md`](review-checklist.md) 為 stub
+Checklist bodies：[`cross-cutting/review/checklist.md`](../cross-cutting/review/checklist.md) · 舊路徑 [`review-checklist.md`](review-checklist.md) 為 stub
 
 ## 核心原則
 

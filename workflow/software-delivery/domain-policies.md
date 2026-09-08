@@ -3,7 +3,7 @@
 Canonical **Policy** layer for [`README.md`](README.md) §Framework Domain Model（N = 3：Asset、Policy、Process）。
 
 > **邊界**：本檔定義可操作規則。Governing Principles（信念）見 §1；Process 順序見 [`execution-flow.md`](execution-flow.md)；Automation 投影見 `artifact-gates.yaml` / `execution-flow.yaml`。  
-> **驗證**：[`plans/active/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-0-classification-matrix.md`](../../plans/active/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-0-classification-matrix.md)
+> **驗證**：[`plans/archived/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-0-classification-matrix.md`](../../plans/archived/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-0-classification-matrix.md)
 
 建立任何 asset 前：`Intent → Asset (class) → **本檔 Policy** → Process stage`。
 
@@ -71,9 +71,9 @@ Canonical **Policy** layer for [`README.md`](README.md) §Framework Domain Model
 
 **專案 overlay（合法）**：bounded-context 專案可將同一 domain 的 brief、contracts、invariants、screen-mapping **共置**於 `docs/domains/{domain}/`（domain bundle），取代扁平 `docs/planning/` + `docs/contracts/`。須在專案 Policy 正文宣告（例如 `docs/architecture/framework-charter.md` 或 `.ai-skill/project/rules/`），且不得與 framework term 定義衝突。
 
-**Consumer charter 最小章節**（greenfield 對齊 N=3，避免與 framework 脫鉤）：(1) Domain Model 三桶對照；(2) Asset class → placement（含 `docs/evidence/`）；(3) document authority 優先序；(4) knowledge boundary；(5) classify-before-create 步驟。Dogfood：[`plans/active/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-3-charter-completeness-audit.md`](../../plans/active/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-3-charter-completeness-audit.md)。
+**Consumer charter 最小章節**（greenfield 對齊 N=3，避免與 framework 脫鉤）：(1) Domain Model 三桶對照；(2) Asset class → placement（含 `docs/evidence/`）；(3) document authority 優先序；(4) knowledge boundary；(5) classify-before-create 步驟。Dogfood：[`plans/archived/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-3-charter-completeness-audit.md`](../../plans/archived/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-3-charter-completeness-audit.md)。
 
-外部 dogfood 範例：[`phase-3-external-greenfield-consumer.md`](../../plans/active/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-3-external-greenfield-consumer.md)。
+外部 dogfood 範例：[`phase-3-external-greenfield-consumer.md`](../../plans/archived/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-3-external-greenfield-consumer.md)。
 
 多倉 workspace：外層 orchestrator vs sibling 分工見 [`implementation/multi-repository-workspace-mode.md`](implementation/multi-repository-workspace-mode.md)。
 

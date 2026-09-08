@@ -4,6 +4,8 @@
 **Plan**: `2026-07-16-0945-software-delivery-framework-domain-model`  
 **Method**: repo 實例分類（`workflow/software-delivery/` + 直接關聯的 governance / runtime / cross-cutting）
 
+> 歷史量測保留。Intent／Automation 的表述限定已於[2026-09-08 覆核](2026-09-08-cross-consumer-readback.md)補正；本頁不是新案例的計數。
+
 ## Primary Model 判定
 
 | 項目 | 結論 |

@@ -1,11 +1,13 @@
 ---
 id: 2026-07-16-0945-software-delivery-framework-domain-model
 plan_kind: main
-status: in-progress
+status: completed
 owner: linyihong
 created: 2026-07-16
-last_updated: 2026-07-16
+last_updated: 2026-09-08
 revision:
+  - date: 2026-09-08
+    note: "兩個 consumer 來源覆核、OQ 結案、選做 automation 延後、歸檔"
   - date: 2026-07-16
     note: "Phase 0 完成 — N=3 驗證；evidence matrix；README + execution-flow pointer（零新第一級目錄）"
   - date: 2026-07-16
@@ -18,7 +20,7 @@ parent: null
 
 # Software Delivery Framework Domain Model
 
-**Status**: `in-progress`（Phase 0 ✅ · Phase 1 ✅ · Phase 2 ✅ · Phase 3 external observational ✅）  
+**Status**: `completed`（Phase 0–2 完成；Phase 3 外部覆核完成；通用 Automation 實作 deferred）
 **Owner**: framework maintainer (linyihong)  
 **建立日期**：2026-07-16  
 **Priority**：**P1**（架構收斂；阻擋 premature documentation sprawl）
@@ -221,7 +223,7 @@ Automation（Policy + Process 的 runtime projection）
 
 ---
 
-## Phase 0 — Primary Model 驗證（**當前唯一授權工作**）
+## Phase 0 — Primary Model 驗證（歷史階段，已完成）
 
 **目標**：找出**最小且完整**的核心概念集合，足以解釋 repo 內 Software Delivery 相關實體與規則——**不預設核心個數為三**。working hypothesis（Asset / Policy / Process）僅為起點，須接受否證與修訂。
 
@@ -348,11 +350,24 @@ Automation（Policy + Process 的 runtime projection）
 
 全文：[`phase-3-external-greenfield-consumer.md`](evidence/phase-3-external-greenfield-consumer.md) · Execute：[`phase-3-external-greenfield-consumer-execute.md`](evidence/phase-3-external-greenfield-consumer-execute.md) · Charter：[`phase-3-charter-completeness-audit.md`](evidence/phase-3-charter-completeness-audit.md)
 
-### 3b Automation projection（仍 open）
+### 3b Automation projection（評估完成；實作 deferred）
 
-- [ ] 評估 `artifact-gates.yaml` / intake gate 是否可表達 `Asset class → required policy fields`
-- [ ] 與 `enforcement-registry` 對齊：SD framework policy 是否需新 `rule_class`
-- [ ] Test-first：validation scenario 先於 mechanical gate（見 `test-first-framework-upgrade`）
+- [x] 評估完成：owner-layer YAML 可描述 class 與 required fields；跨專案 declaration／overlay 尚未收斂，不實作 generic gate。
+- [x] Registry 對齊：本輪無新 executor／強制行為，不新增 rule_class，不借 consumer gate 宣稱全域 coverage。
+- [x] Test-first 處置：未來 gate 先有正反與 overlay scenarios，再實作；本輪不新增機械行為。
+
+Deferred owner：software-delivery workflow maintainer。正常開發出現既有 Policy／overlay
+無法處理的重複失效，且 asset declaration、驗收與 consumer 可明確化時，另開 implementation plan。
+本段是持續追蹤位置，不以未實作項目冒充完成。
+
+### 3c 結案覆核（2026-09-08）
+
+兩個 consumer、六個抽樣案例與局部 checker 結果見
+[`跨 consumer 讀回`](evidence/2026-09-08-cross-consumer-readback.md)。
+Preflight、Phase 3b 裁決、ADR 與 linked-update 邊界見
+[`結案裁決`](evidence/2026-09-08-closeout-decision.md)。
+Intent 可被 brief／plan 保存為 Asset；Automation 程式也是 Asset，其行為是 Policy／Process 投影。
+上述限定補正早期過強理由，樣本未要求第四核心；不宣稱所有未來情境都只能有三核心。
 
 ---
 
@@ -362,7 +377,7 @@ Automation（Policy + Process 的 runtime projection）
 
 - 討論已顯示 **Documentation Architecture 領先 Domain** 的風險。
 - 若未來文件化，constitution 承載 **Governing Principles**，**不是** operational Policy 正文；在 Primary Model 邊界未清前，憲法會把暫定 ontology 寫死。
-- 對照 [`ADR-012`](../constitution/ADR-012-route-type-activation-behavior-family.md)：ontology 與憲法混綁導致 ontology collapse。
+- 對照 [`ADR-012`](../../../constitution/ADR-012-route-type-activation-behavior-family.md)：ontology 與憲法混綁導致 ontology collapse。
 
 ### 為何 working hypothesis 暫用三個（但不預設結論）？
 
@@ -391,10 +406,10 @@ Automation（Policy + Process 的 runtime projection）
 | ID | 問題 | 關閉條件 |
 | --- | --- | --- |
 | OQ-1 | 最小完整核心集合的 **N** 是多少？ | **已關閉：N = 3**（見 evidence/phase-0） |
-| OQ-2 | `Intent` 是否為第四核心，還是 Process 的輸入？ | 分類時若 Intent 無法歸入三類則升級 |
-| OQ-3 | `Automation` 獨立為核心，還是 Policy+Process 投影？ | 與 enforcement-registry 對照後決定 |
-| OQ-4 | SD glossary 放 `knowledge/glossary/software-delivery.md` 還是 workflow 內？ | Phase 1；遵循 glossary owner-layer 規則 |
-| OQ-5 | 與 `cognitive-slice-taxonomy` 如何共處？ | 寫清：slice = Process 載入粒度；asset class = 交付實體分類 |
+| OQ-2 | `Intent` 是否為第四核心，還是 Process 的輸入？ | **resolved**：Intent 為 Process 輸入；被保存的 brief／plan 為 Asset。見 3c；未出現第四核心反例 |
+| OQ-3 | `Automation` 獨立為核心，還是 Policy+Process 投影？ | **resolved**：執行語意是 Policy＋Process 投影；checker 檔案本身為 Asset。新全域 gate deferred（3b） |
+| OQ-4 | SD glossary 放 `knowledge/glossary/software-delivery.md` 還是 workflow 內？ | **resolved**：Phase 1 已落在 knowledge/glossary/software-delivery.md，維持 candidate，不另建詞彙面 |
+| OQ-5 | 與 `cognitive-slice-taxonomy` 如何共處？ | **resolved**：slice 是 Process 載入粒度，asset class 是管理實體分類；沿用 SD README／glossary，兩者不合併 |
 
 ---
 
@@ -419,13 +434,18 @@ Automation（Policy + Process 的 runtime projection）
 
 ---
 
+## 結案範圍
+
+原 acceptance 已滿足；選做 automation 實作依 §3b 延後，ADR 不 promotion。
+本計畫完成代表 Domain Model 與最小文件面交付，不代表全域自動分類／placement gate 已實作。
+
 ## Related
 
-- [`workflow/software-delivery/README.md`](../workflow/software-delivery/README.md)
-- [`workflow/software-delivery/artifact-gates.md`](../workflow/software-delivery/artifact-gates.md)
-- [`workflow/software-delivery/contracts.md`](../workflow/software-delivery/contracts.md)
-- [`governance/cognitive-slice-taxonomy.md`](../governance/cognitive-slice-taxonomy.md)
-- [`governance/lifecycle/decision-promotion-pipeline.md`](../governance/lifecycle/decision-promotion-pipeline.md)
-- [`constitution/ADR-012-route-type-activation-behavior-family.md`](../constitution/ADR-012-route-type-activation-behavior-family.md) — ontology vs constitution 分離教訓
-- [`plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md`](active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) — Decision Semantics vs Workflow
+- [`workflow/software-delivery/README.md`](../../../workflow/software-delivery/README.md)
+- [`workflow/software-delivery/artifact-gates.md`](../../../workflow/software-delivery/artifact-gates.md)
+- [`workflow/software-delivery/contracts.md`](../../../workflow/software-delivery/contracts.md)
+- [`governance/cognitive-slice-taxonomy.md`](../../../governance/cognitive-slice-taxonomy.md)
+- [`governance/lifecycle/decision-promotion-pipeline.md`](../../../governance/lifecycle/decision-promotion-pipeline.md)
+- [`constitution/ADR-012-route-type-activation-behavior-family.md`](../../../constitution/ADR-012-route-type-activation-behavior-family.md) — ontology vs constitution 分離教訓
+- [`plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md`](../../active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) — Decision Semantics vs Workflow
 - Discussion origin: 2026-07-16 software-delivery framework / constitution / placement design session

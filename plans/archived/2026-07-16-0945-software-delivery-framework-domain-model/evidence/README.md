@@ -16,3 +16,5 @@ Plan: [`../_plan.md`](../_plan.md)
 | phase-3-external-greenfield-consumer | [`phase-3-external-greenfield-consumer.md`](phase-3-external-greenfield-consumer.md) | 外部 greenfield consumer 分類 + ERA 接點（去敏；本機邊界見 `local/plan-evidence/`） |
 | phase-3-external-greenfield-consumer-execute | [`phase-3-external-greenfield-consumer-execute.md`](phase-3-external-greenfield-consumer-execute.md) | classify-before-create + artifact audit（preflight，未 E+V） |
 | phase-3-charter-completeness | [`phase-3-charter-completeness-audit.md`](phase-3-charter-completeness-audit.md) | consumer framework-charter 完整度稽核 + 流程脫鉤修正 |
+| closeout-consumer-2026-09-08 | [`2026-09-08-cross-consumer-readback.md`](2026-09-08-cross-consumer-readback.md) | 兩個 consumer 的六個分類案例、來源綁定與局部檢查 |
+| closeout-decision-2026-09-08 | [`2026-09-08-closeout-decision.md`](2026-09-08-closeout-decision.md) | Preflight、OQ、選做項目、promotion 與連動裁決 |

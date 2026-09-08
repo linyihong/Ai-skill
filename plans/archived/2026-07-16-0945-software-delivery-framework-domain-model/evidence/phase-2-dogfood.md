@@ -2,7 +2,7 @@
 
 驗證 Primary Model（N=3）能否回答「新產物放哪、誰擁有、哪個 Process stage」而**不需開新目錄**。
 
-Canonical policy：[`workflow/software-delivery/domain-policies.md`](../../../workflow/software-delivery/domain-policies.md)
+Canonical policy：[`workflow/software-delivery/domain-policies.md`](../../../../workflow/software-delivery/domain-policies.md)
 
 ---
 

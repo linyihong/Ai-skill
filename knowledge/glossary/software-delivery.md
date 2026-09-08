@@ -3,7 +3,7 @@
 > Domain glossary for Software Delivery Framework Primary Model（N = 3）。  
 > Platform-wide terms remain in [`ai-skill.md`](ai-skill.md)。Resolution priority：[`README.md`](README.md) §Vocabulary Resolution Priority。
 
-上游：[`plans/active/2026-07-16-0945-software-delivery-framework-domain-model/_plan.md`](../../plans/active/2026-07-16-0945-software-delivery-framework-domain-model/_plan.md)
+上游：[`plans/archived/2026-07-16-0945-software-delivery-framework-domain-model/_plan.md`](../../plans/archived/2026-07-16-0945-software-delivery-framework-domain-model/_plan.md)
 
 ---
 
@@ -20,13 +20,13 @@ meaning: >
 affects:
   - workflow/software-delivery/README.md
   - workflow/software-delivery/domain-policies.md
-  - plans/active/2026-07-16-0945-software-delivery-framework-domain-model/_plan.md
+  - plans/archived/2026-07-16-0945-software-delivery-framework-domain-model/_plan.md
 aliases:
   - artifact
 anti-meaning: >
   Not synonymous with framework_asset. Templates and workflow slices are
   framework assets, not delivery artifacts.
-introduced-by: plans/active/2026-07-16-0945-software-delivery-framework-domain-model/_plan.md
+introduced-by: plans/archived/2026-07-16-0945-software-delivery-framework-domain-model/_plan.md
 related-terms:
   - { type: derived_from, target: framework_asset }
   - { type: related_to, target: framework_asset }
@@ -49,7 +49,7 @@ affects:
 anti-meaning: >
   Not the same as metadata/recovery domain policies or platform enforcement
   rules. Not governing_principles (which guide policy creation).
-introduced-by: plans/active/2026-07-16-0945-software-delivery-framework-domain-model/_plan.md
+introduced-by: plans/archived/2026-07-16-0945-software-delivery-framework-domain-model/_plan.md
 related-terms:
   - { type: derived_from, target: governing_principle }
   - { type: related_to, target: delivery_process }
@@ -75,7 +75,7 @@ affects:
 anti-meaning: >
   Not a list of what may be created in a stage; describes typical
   produce/consume timing only.
-introduced-by: plans/active/2026-07-16-0945-software-delivery-framework-domain-model/_plan.md
+introduced-by: plans/archived/2026-07-16-0945-software-delivery-framework-domain-model/_plan.md
 related-terms:
   - { type: related_to, target: delivery_policy }
 ```
@@ -94,13 +94,13 @@ meaning: >
 affects:
   - workflow/software-delivery/README.md
   - workflow/software-delivery/domain-policies.md
-  - plans/active/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-0-classification-matrix.md
+  - plans/archived/2026-07-16-0945-software-delivery-framework-domain-model/evidence/phase-0-classification-matrix.md
 aliases:
   - asset
 anti-meaning: >
   Not limited to project deliverables or markdown files. Workflow YAML and
   cognitive slice definitions are framework assets at framework layer.
-introduced-by: plans/active/2026-07-16-0945-software-delivery-framework-domain-model/_plan.md
+introduced-by: plans/archived/2026-07-16-0945-software-delivery-framework-domain-model/_plan.md
 related-terms:
   - { type: related_to, target: delivery_policy }
   - { type: related_to, target: delivery_artifact }
@@ -123,7 +123,7 @@ affects:
 anti-meaning: >
   Not a delivery_policy entry. Not stored as enforceable gate text without
   operationalization in domain-policies.md.
-introduced-by: plans/active/2026-07-16-0945-software-delivery-framework-domain-model/_plan.md
+introduced-by: plans/archived/2026-07-16-0945-software-delivery-framework-domain-model/_plan.md
 related-terms:
   - { type: related_to, target: delivery_policy }
 ```
