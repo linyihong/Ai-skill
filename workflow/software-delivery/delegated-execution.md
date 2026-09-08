@@ -30,11 +30,12 @@
 ## 1b. Orchestrator 執行順序（不可跳過）
 
 1. 讀 active plan 執行段 + 本 slice（**不讀實作源碼**）。
-2. 補 `delegation.brief`（含 slice 類型）+ verification backfill（每條 acceptance → tier + owner，§3）。
-3. **Commit plan 變更**（無 git 錨點不得派發）。
-4. 派發 **Executor**（fresh session / agent；`context.required` 由 executor 自己讀）。
-5. 派發 **Verifier**（另一個 fresh context；V1–V4，§5）。
-6. 仲裁 fix / defer / reject → `fix` 再派 executor → **重新驗證** → 關閉狀態 + C1–C5 寫入 plan 執行紀錄 → **commit** → 才開下一 slice。
+2. **認領 slice id**（搜本地／遠端／工作樹／`.agent-goals/`；已有實作則停止，不要開第二條 Executor）。見 [`named-work-unit-executed-without-claim.md`](../../enforcement/failure-patterns/named-work-unit-executed-without-claim.md)。
+3. 補 `delegation.brief`（含 slice 類型）+ verification backfill（每條 acceptance → tier + owner，§3）。
+4. **Commit plan 變更**（無 git 錨點不得派發）。
+5. 派發 **Executor**（fresh session / agent；`context.required` 由 executor 自己讀）。
+6. 派發 **Verifier**（另一個 fresh context；V1–V4，§5）。
+7. 仲裁 fix / defer / reject → `fix` 再派 executor → **重新驗證** → 關閉狀態 + C1–C5 寫入 plan 執行紀錄 → **commit** → 才開下一 slice。
 
 ## 2. 角色 × 證據責任矩陣（誰該做什麼）
 
