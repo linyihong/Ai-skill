@@ -11,3 +11,4 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 | [2026-09-07_172200-slot-s2c-may-apply-via-processspin-gameaction-not-parseresult.md](2026-09-07_172200-slot-s2c-may-apply-via-processspin-gameaction-not-parseresult.md) | validated | 旋轉 S2C 可能走 ProcessSpin / GameAction[]，不是下注封包的 ParseResult |
 | [2026-09-07_175500-leave-live-table-may-send-offers-then-leave-then-menu-layout.md](2026-09-07_175500-leave-live-table-may-send-offers-then-leave-then-menu-layout.md) | validated | 離桌可能先 offers、再 leave、再 menu-layout |
 | [2026-09-08_083000-same-packet-class-encryptdata-length-can-vary.md](2026-09-08_083000-same-packet-class-encryptdata-length-can-vary.md) | validated | 同一 packet class 的 EncryptData 長度可隨桌／下注／featured vs grid 漂移 |
+| [2026-09-08_094000-inspect-live-cryptor-object-before-key-recovery.md](2026-09-08_094000-inspect-live-cryptor-object-before-key-recovery.md) | validated | 先解析 interface field 的 live cryptor class 與 pre-encrypt packet shape |
