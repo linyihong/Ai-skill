@@ -9,13 +9,14 @@
 | [`http-api/`](http-api/) | 34 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 11 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
-| [`unity-il2cpp/`](unity-il2cpp/) | 23 | Unity IL2CPP、AssetBundle、UnityCache |
+| [`unity-il2cpp/`](unity-il2cpp/) | 24 | Unity IL2CPP、AssetBundle、UnityCache |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
 
 ## Recent (2026-09-08)
 
 | Slug | Category |
 |------|----------|
+| `unity-il2cpp/2026-09-08_142800-parse-xcontainer-element-retval-may-be-nested-ctor-not-load-tree` | Parse XContainer.Element retval may be nested ctor, not Load tree |
 | `unity-il2cpp/2026-09-08_141000-parse-xelement-args-may-navigate-via-xcontainer-element` | Parse XElement args may navigate via XContainer.Element |
 | `unity-il2cpp/2026-09-08_140200-parse-wrapper-attribute-may-share-load-tree-xattribute` | Parse wrapper Attribute may share Load-tree XAttribute |
 | `unity-il2cpp/2026-09-08_135800-xname-get-substring-this-may-not-be-xmlreader-name` | XName.Get Substring.this may not be XmlReader/XName getters |

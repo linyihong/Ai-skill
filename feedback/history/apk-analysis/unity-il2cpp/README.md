@@ -4,6 +4,7 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
+| [2026-09-08_142800-parse-xcontainer-element-retval-may-be-nested-ctor-not-load-tree.md](2026-09-08_142800-parse-xcontainer-element-retval-may-be-nested-ctor-not-load-tree.md) | validated | Parse 的 XContainer.Element 回傳可能是巢狀 ctor，不是 Load 樹 |
 | [2026-09-08_141000-parse-xelement-args-may-navigate-via-xcontainer-element.md](2026-09-08_141000-parse-xelement-args-may-navigate-via-xcontainer-element.md) | validated | Parse 參數上可能走 XContainer.Element/Elements，不是 get_Value |
 | [2026-09-08_140200-parse-wrapper-attribute-may-share-load-tree-xattribute.md](2026-09-08_140200-parse-wrapper-attribute-may-share-load-tree-xattribute.md) | validated | Parse wrapper 的 Attribute 可與 Load 樹共用 XAttribute |
 | [2026-09-07_143800-unity-feature-art-lives-in-unitycache-not-apk.md](2026-09-07_143800-unity-feature-art-lives-in-unitycache-not-apk.md) | validated | 功能美術常在 UnityCache `__data`，不在 APK |
