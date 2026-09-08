@@ -9,13 +9,15 @@
 | [`http-api/`](http-api/) | 34 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 11 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
-| [`unity-il2cpp/`](unity-il2cpp/) | 8 | Unity IL2CPP、AssetBundle、UnityCache |
+| [`unity-il2cpp/`](unity-il2cpp/) | 10 | Unity IL2CPP、AssetBundle、UnityCache |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
 
 ## Recent (2026-09-08)
 
 | Slug | Category |
 |------|----------|
+| `unity-il2cpp/2026-09-08_112201-client-il2cpp-may-embed-unused-server-factory-types` | Client IL2CPP may embed unused server-named factory types |
+| `unity-il2cpp/2026-09-08_112200-live-cipher-mode-from-backing-enum-not-string-table` | Live cipher mode from backing enum, not string table |
 | `unity-il2cpp/2026-09-08_094000-inspect-live-cryptor-object-before-key-recovery` | Inspect live cryptor object before key recovery |
 | `unity-il2cpp/2026-09-08_083000-same-packet-class-encryptdata-length-can-vary` | Same packet class EncryptData length can vary |
 

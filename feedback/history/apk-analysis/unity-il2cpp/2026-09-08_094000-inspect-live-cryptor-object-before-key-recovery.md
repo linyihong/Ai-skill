@@ -32,7 +32,7 @@ Metadata 同時列出多個 cryptor implementation，只能證明候選集合。
 2. 先解析 interface field 的 runtime class；wrapper 再解析 child runtime class。
 3. 先在加密前量 packet field shape，避免不必要的 key extraction。
 4. 敏感字串只記 type、length、first-char class；禁止印 body。
-5. Runtime class 能證明 implementation family，但不能單獨證明 mode、IV、padding 或 key schedule。
+5. Runtime class 能證明 implementation family，但不能單獨證明 mode、IV、padding 或 key schedule。**修訂（2026-09-08）：** family 仍不夠；若 live algorithm object 暴露 `CipherMode` / `PaddingMode` backing field，可讀 **enum 成員名**（不要讀 `Byte[]` key/IV）。字串表出現 CBC 等名稱仍不能當 live mode。見 `2026-09-08_112200-live-cipher-mode-from-backing-enum-not-string-table.md`。
 
 #### Agent Action
 

@@ -12,3 +12,5 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 | [2026-09-07_175500-leave-live-table-may-send-offers-then-leave-then-menu-layout.md](2026-09-07_175500-leave-live-table-may-send-offers-then-leave-then-menu-layout.md) | validated | 離桌可能先 offers、再 leave、再 menu-layout |
 | [2026-09-08_083000-same-packet-class-encryptdata-length-can-vary.md](2026-09-08_083000-same-packet-class-encryptdata-length-can-vary.md) | validated | 同一 packet class 的 EncryptData 長度可隨桌／下注／featured vs grid 漂移 |
 | [2026-09-08_094000-inspect-live-cryptor-object-before-key-recovery.md](2026-09-08_094000-inspect-live-cryptor-object-before-key-recovery.md) | validated | 先解析 interface field 的 live cryptor class 與 pre-encrypt packet shape |
+| [2026-09-08_112200-live-cipher-mode-from-backing-enum-not-string-table.md](2026-09-08_112200-live-cipher-mode-from-backing-enum-not-string-table.md) | validated | Live mode／padding 讀 algorithm backing enum 名，不是字串表 |
+| [2026-09-08_112201-client-il2cpp-may-embed-unused-server-factory-types.md](2026-09-08_112201-client-il2cpp-may-embed-unused-server-factory-types.md) | validated | Client 內嵌的 Server.* factory 可能從未被 live 呼叫 |
