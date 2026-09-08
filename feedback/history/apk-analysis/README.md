@@ -9,13 +9,14 @@
 | [`http-api/`](http-api/) | 34 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 11 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
-| [`unity-il2cpp/`](unity-il2cpp/) | 34 | Unity IL2CPP、AssetBundle、UnityCache |
+| [`unity-il2cpp/`](unity-il2cpp/) | 35 | Unity IL2CPP、AssetBundle、UnityCache |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
 
 ## Recent (2026-09-08)
 
 | Slug | Category |
 |------|----------|
+| `unity-il2cpp/2026-09-08_165800-slot-spin-fixtures-pair-json-manifest-and-reel-crop` | Pair each slot spin's JSON, reels-only crop, and manifest validation |
 | `unity-il2cpp/2026-09-08_162200-symbol-dto-id-may-be-one-char-strip-not-resource-name` | Parsed symbol ID may be a one-character strip code |
 | `common/2026-09-08_161200-curated-docs-assets-for-shareable-html-maps` | Curated docs assets for shareable HTML maps |
 | `unity-il2cpp/2026-09-08_154800-wrapper-extras-may-be-ctor-invoke-clone-not-parseall` | Event wrapper extras may be only ctor/Invoke/Clone, not nested ParseAll |
