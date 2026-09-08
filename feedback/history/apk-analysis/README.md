@@ -4,7 +4,7 @@
 
 | 分類 | 數量 | 說明 |
 |------|------|------|
-| [`common/`](common/) | 61 | 跨分類或通用 lesson（工具選擇、流程、UI、分析策略等） |
+| [`common/`](common/) | 62 | 跨分類或通用 lesson（工具選擇、流程、UI、分析策略等） |
 | [`flutter-dart-aot/`](flutter-dart-aot/) | 23 | Flutter/Dart AOT 相關 hook 與分析 |
 | [`http-api/`](http-api/) | 34 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 11 | Local proxy 設定、診斷、hook |
@@ -16,6 +16,7 @@
 
 | Slug | Category |
 |------|----------|
+| `common/2026-09-08_161200-curated-docs-assets-for-shareable-html-maps` | Curated docs assets for shareable HTML maps |
 | `unity-il2cpp/2026-09-08_154800-wrapper-extras-may-be-ctor-invoke-clone-not-parseall` | Event wrapper extras may be only ctor/Invoke/Clone, not nested ParseAll |
 | `unity-il2cpp/2026-09-08_154000-nested-dto-may-fill-via-ctor-without-parse` | Nested DTO may fill via ctor without Parse* |
 | `unity-il2cpp/2026-09-08_153400-nested-dtos-may-have-own-parse-beside-wrapper` | Nested DTOs may have their own Parse/ParseAll beside the wrapper |

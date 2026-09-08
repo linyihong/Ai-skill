@@ -41,7 +41,8 @@
 | 工具 / 路徑 | 用途 | 注意 |
 | --- | --- | --- |
 | APK 內 `.unity3d` + UnityPy | core chrome、localization、engine 資源。 | 常沒有單一「功能總包」；物件名過濾 ≠ 畫面上每一張圖。 |
-| `Android/data/<pkg>/files/UnityCache/Shared/<bundle>/<hash>/__data` | 執行期下載的 AssetBundle 本體。 | `__info` 很小；`__data` 通常可直接 `UnityPy.load`。目錄名對 UI 標題；缺的標題標 `not-yet-cached`。 |
+| `Android/data/<pkg>/files/UnityCache/Shared/<bundle>/<hash>/__data` | 執行期下載的 AssetBundle 本體。 | `__info` 很小；`__data` 通常可直接 `UnityPy.load`。目錄名對 UI 標題；缺的標題標 `not-yet-cached`。完整 dump 放 gitignored 目錄。 |
+| 精選 `docs/assets/<topic>/` + 相對路徑 HTML | clone 後仍看得到的符號／美術對照圖。 | **只**複製 HTML 真正引用的檔；禁止 `file://` 指到 gitignored dump。全文 dump 仍 gitignore。 |
 | `adb screencap` | 對照可見標題與 cache 目錄差集。 | Unity 畫面 `uiautomator dump` 常常幾乎是空的。 |
 | `ss` / `netstat` on the game PID | 分開 443 CDN 與非 443 長連線。 | 非 443 + 無 TLS cert → 自訂 TCP；見 unity-il2cpp protocol lesson。 |
 
@@ -78,6 +79,7 @@
 | Java hook 沒命中 | 流量不在 Java HTTP stack。 | native connect trace；查 Flutter/Cronet/native client。 |
 | 只看到 127.0.0.1:\<port\> loopback，沒有上游 API path | App 內建 local ProxyServer/Netty handler 先接本機請求，再由 handler 選上游。 | 反射/Frida 探測 ProxyServerHandler 方法；優先 hook FullHttpRequest + URI 類參數。 |
 | Frida 只有 banner 沒輸出 | hook 未命中、script 沒載入、sandbox/權限、attach 時機錯。 | 最小 hook 測試；spawn；降低 hook 數量。 |
+| HTML／對照圖 clone 後圖裂 | 圖還在 gitignored dump，或 `src` 用了本機 `file://`。 | 把該頁引用的精選檔複製到可追蹤 `docs/assets/`，改相對路徑；不要把整個 UnityCache 匯出提交。 |
 | App 卡住或 ANR | hook 太低層、輸出太多、代理 TLS 卡住。 | 限制輸出、pass-through、改高語意 hook。 |
 | 解密結果亂碼 | key/IV/KDF/padding/壓縮順序錯。 | hook decrypt return value 建對照 fixture。 |
 | Token 重新簽了仍失敗 | token 本身失效，不是簽章問題。 | 還原 App 的 login/device-login/session refresh 流程。 |
