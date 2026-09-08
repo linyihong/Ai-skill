@@ -4,6 +4,7 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
+| [2026-09-08_153400-nested-dtos-may-have-own-parse-beside-wrapper.md](2026-09-08_153400-nested-dtos-may-have-own-parse-beside-wrapper.md) | validated | 巢狀 DTO 可有自己的 Parse/ParseAll，在 wrapper Parse 前／後 |
 | [2026-09-08_152200-nested-dto-ctors-may-sit-before-after-parse-not-apply.md](2026-09-08_152200-nested-dto-ctors-may-sit-before-after-parse-not-apply.md) | validated | 巢狀 DTO ctor 可能在 Parse 前／後，不在 Process* apply |
 | [2026-09-08_151000-parse-may-construct-wrapper-not-nested-dtos.md](2026-09-08_151000-parse-may-construct-wrapper-not-nested-dtos.md) | validated | Parse 可能只 new 事件 wrapper，巢狀 DTO ctor 不必出現 |
 | [2026-09-08_150200-parse-may-store-dto-fields-without-setters.md](2026-09-08_150200-parse-may-store-dto-fields-without-setters.md) | validated | Parse 填 DTO 可能直接 store 欄位，不必呼叫 set_* |
