@@ -9,13 +9,14 @@
 | [`http-api/`](http-api/) | 34 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 11 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
-| [`unity-il2cpp/`](unity-il2cpp/) | 17 | Unity IL2CPP、AssetBundle、UnityCache |
+| [`unity-il2cpp/`](unity-il2cpp/) | 18 | Unity IL2CPP、AssetBundle、UnityCache |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
 
 ## Recent (2026-09-08)
 
 | Slug | Category |
 |------|----------|
+| `unity-il2cpp/2026-09-08_134800-xname-get-string-may-not-be-decrypt-getstring` | XName.Get string may not be the Decrypt GetString object |
 | `unity-il2cpp/2026-09-08_134500-ctor-xname-object-may-not-equal-load-element-get-name` | Ctor XName object may not equal Load Element/get_Name XName |
 | `unity-il2cpp/2026-09-08_134200-skipnotify-child-xelement-may-be-another-ctor-not-clonenode` | SkipNotify child XElement may be another ctor, not CloneNode or Load |
 | `unity-il2cpp/2026-09-08_134000-xelement-xname-fill-may-use-skipnotify-not-public-add` | XElement(XName) fill may use SkipNotify, not public Add |
