@@ -253,6 +253,8 @@ Goal 太大時拆分：
 
 下列 workflow 應標為 `non-parallelizable`：git history operations、merge conflict resolution、release tagging、deploys、migration sequencing、shared rule / skill writeback transactions、data migrations、destructive operations、credential rotation、production configuration，或任何兩個 agents 獨立編輯可能讓 validation 失效、重複 commit 或產生矛盾 user-facing decisions 的任務。
 
+**有名稱的計畫切片**（slice id、Phase N、numbered walkthrough）預設 `single-owner`，即使候選檔案此刻還沒 overlap。派發或動手之前：用該 id 搜本地／遠端 commit、工作樹 dirty 路徑與 ledger Planning 連結；已有實作就停止詢問，不要開第二條線。認領時把 `slice_id` 寫進 Planning 連結並建 lock。見 [`failure-patterns/named-work-unit-executed-without-claim.md`](failure-patterns/named-work-unit-executed-without-claim.md)。
+
 當使用者重導工作、改 priority，或在 side task 後要求繼續時，實質編輯前同步更新 owner/lock/parallelization、`Missing work`、`Decision needed`、`Needs strengthening`、`Planning / Todo Links` 與 `Next Action`。
 
 ## Goal 轉移

@@ -62,7 +62,7 @@ steps:
       - gate.goal_ledger.handoff_fields_complete
   - id: coordinate_lock
     order: 5
-    action: Use lock directories for overlapping single-owner or non-parallelizable work and stop on active conflicting locks.
+    action: Use lock directories for overlapping single-owner or non-parallelizable work, including named plan slices, and stop on active conflicting locks or an already-implemented slice id.
     gates:
       - gate.goal_ledger.lock_safe
   - id: transfer_or_supersede_goal
@@ -137,6 +137,9 @@ failure_modes:
   - id: unsafe_parallel_edit
     detection: Agent edits files covered by another owner, active lock, single-owner goal, or non-parallelizable workflow.
     recovery: Stop, report lock owner/age/affected files, and ask whether to wait, take over, or split work.
+  - id: named_work_unit_unclaimed
+    detection: Agent starts or dispatches a named plan slice or phase without searching for existing work on that slice id, or without a single-owner ledger row that links the slice id.
+    recovery: Stop the second implementation, report the existing SHA/paths/close state, and ask whether to take over, merge, or abandon this line.
   - id: completed_goal_archived
     detection: Completed goal remains as an active or completed archive row after validation.
     recovery: Delete the goal file, refresh the main table, and move durable state to formal planning docs if needed.

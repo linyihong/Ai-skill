@@ -130,5 +130,6 @@ Git history operations 在 [`conversation-goal-ledger.md`](../conversation-goal-
 - [`../conversation-goal-ledger.md`](../conversation-goal-ledger.md) — git history operations 屬 `non-parallelizable`；owner / lock 判斷
 - [`../dependency-reading.md`](../dependency-reading.md) — writeback transaction 的 commit / push / readback / clean status 條件
 - [`../failure-learning-system.md`](../failure-learning-system.md) — `parallelization-risk` 分類
+- [`named-work-unit-executed-without-claim.md`](named-work-unit-executed-without-claim.md) — 姊妹項：開始實作有名稱的 slice／Phase 前必須認領；本檔管 git history 操作
 - [`commit-before-validation-skip.md`](commit-before-validation-skip.md) — 同家族：commit/push 前跳過驗證；本檔補的是「共用分支與他人擁有者」面向
 - [`mandatory-step-blocker-bypass.md`](mandatory-step-blocker-bypass.md) — 若同步後驗證被環境阻斷，依該 pattern 停止並通知使用者
