@@ -9,13 +9,14 @@
 | [`http-api/`](http-api/) | 34 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 11 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
-| [`unity-il2cpp/`](unity-il2cpp/) | 20 | Unity IL2CPP、AssetBundle、UnityCache |
+| [`unity-il2cpp/`](unity-il2cpp/) | 21 | Unity IL2CPP、AssetBundle、UnityCache |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
 
 ## Recent (2026-09-08)
 
 | Slug | Category |
 |------|----------|
+| `unity-il2cpp/2026-09-08_135800-xname-get-substring-this-may-not-be-xmlreader-name` | XName.Get Substring.this may not be XmlReader/XName getters |
 | `unity-il2cpp/2026-09-08_135500-xname-get-substring-this-may-not-be-decrypt-getstring` | XName.Get Substring.this may not be Decrypt GetString |
 | `unity-il2cpp/2026-09-08_135200-xname-get-string-may-be-substring-not-getstring` | XName.Get string may be String.Substring, not Decrypt GetString |
 | `unity-il2cpp/2026-09-08_134800-xname-get-string-may-not-be-decrypt-getstring` | XName.Get string may not be the Decrypt GetString object |
