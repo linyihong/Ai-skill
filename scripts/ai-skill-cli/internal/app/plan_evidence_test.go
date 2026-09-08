@@ -115,3 +115,26 @@ func TestValidatePlanTreeFolderConvention_EvidencePathExempt(t *testing.T) {
 		t.Fatalf("evidence path should be exempt from depth warning, got: %s", got)
 	}
 }
+
+func TestValidatePlanEvidenceConvention_ArchivedSourceReplay(t *testing.T) {
+	root := t.TempDir()
+	old := "plans/active/example"
+	dest := "plans/archived/example"
+	paths := []string{old + "/_plan.md", old + "/evidence/run.md", dest + "/_plan.md", dest + "/evidence/run.md"}
+	writePlanFile(t, root, dest+"/_plan.md", "# main")
+	writePlanFile(t, root, dest+"/evidence/run.md", "# run")
+	writePlanFile(t, root, dest+"/evidence/README.md", "## Citation rule\n## Index\n[run](run.md)")
+	if got := validatePlanEvidenceConvention("", paths, root); got != "" {
+		t.Fatal(got)
+	}
+	if err := os.Remove(filepath.Join(root, dest, "evidence/README.md")); err != nil {
+		t.Fatal(err)
+	}
+	if got := validatePlanEvidenceConvention("", paths, root); !strings.Contains(got, "missing evidence/README.md") {
+		t.Fatalf("destination must remain checked: %s", got)
+	}
+	writePlanFile(t, root, old+"/evidence/run.md", "# leftover")
+	if got := validatePlanEvidenceConvention("", paths, root); !strings.Contains(got, old) {
+		t.Fatalf("partial source must remain checked: %s", got)
+	}
+}

@@ -1,4 +1,4 @@
-version=repo-e0a61953
-source_commit=e0a619532b1365433853fd743a6ed4e5260360f3
-built_at=2026-08-19T04:01:26Z
+version=repo-ead03a4e
+source_commit=ead03a4e7846c64dfcc781df73074784b1fd634c
+built_at=2026-09-08T23:22:36Z
 targets=windows/amd64,darwin/amd64,darwin/arm64,linux/amd64,linux/arm64

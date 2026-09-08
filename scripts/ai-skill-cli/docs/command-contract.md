@@ -702,3 +702,11 @@
 | `enforcement lint` | `enforcement/enforcement-registry.yaml` + `enforcement/runtime/governance/**/*.yaml` + `scripts/ai-skill-cli/internal/app/hooks.go` | 僅 `os.TempDir()` shadow repo（使用 `--registry` 時，結束即刪） | 無 |
 | `enforcement coverage` | `enforcement/enforcement-registry.yaml` + `runtime/runtime.db`（檢 `executor_observations`） + `validation/scenarios/`（heuristic scenario 命名比對） + git `show <ref>:enforcement/enforcement-registry.yaml`（`--diff` 模式） | 無 | `--diff` 模式需 Git |
 | `enforcement transition-check` | `--old` / `--new` registry yaml + `--commit-msg-file` (或 `--commit-msg` inline) + `<repo>/constitution/ADR-*.md`（R2 ADR resolve）+ `<repo>/scripts/ai-skill-cli/internal/app/hooks.go`（R3 symbol_exists） | 無 | 無 |
+
+### Plan evidence during pre-push replay
+
+Replay includes deleted paths from an archive move. The plan-evidence validator
+ignores evidence paths of a fully removed active folder only when the changed
+paths include both its old and archived `_plan.md`, and the archived main exists.
+The archived evidence still requires its README and index; a partially retained
+active folder still receives the usual checks. This does not exempt archival audit.

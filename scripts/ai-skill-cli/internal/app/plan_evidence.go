@@ -134,7 +134,27 @@ func collectPlanDirsForEvidenceConvention(staged []string, root string) map[stri
 // validatePlanEvidenceConvention enforces evidence/ README + index + folder main
 // (portable/kge.PlanEvidenceConventionRule). Opt-out: [skip-plan-evidence].
 func validatePlanEvidenceConvention(text string, staged []string, root string) string {
-	return runKGEPlanEvidenceConvention(text, staged, root)
+	// Replay includes deleted source paths. Ignore a fully removed active folder
+	// only when both main paths identify its archive move; validate the destination.
+	paths := make(map[string]bool, len(staged))
+	for _, p := range staged {
+		paths[filepath.ToSlash(p)] = true
+	}
+	filtered := make([]string, 0, len(staged))
+	for _, p := range staged {
+		dir, ok := planDirFromEvidencePath(filepath.ToSlash(p))
+		if ok && strings.HasPrefix(dir, "plans/active/") {
+			dest := strings.Replace(dir, "plans/active/", "plans/archived/", 1)
+			_, sourceErr := os.Stat(filepath.Join(root, dir))
+			if paths[dir+"/_plan.md"] && paths[dest+"/_plan.md"] && os.IsNotExist(sourceErr) {
+				if st, err := os.Stat(filepath.Join(root, dest, "_plan.md")); err == nil && !st.IsDir() {
+					continue
+				}
+			}
+		}
+		filtered = append(filtered, p)
+	}
+	return runKGEPlanEvidenceConvention(text, filtered, root)
 }
 
 // warnPlanEvidenceLineNumberCitations returns a non-blocking warning when staged
