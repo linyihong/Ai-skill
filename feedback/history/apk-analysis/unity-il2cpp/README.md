@@ -4,6 +4,7 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
+| [2026-09-08_162200-symbol-dto-id-may-be-one-char-strip-not-resource-name.md](2026-09-08_162200-symbol-dto-id-may-be-one-char-strip-not-resource-name.md) | validated | parsed symbol ID 可能是 1 字元 strip code，不是 resource 名 |
 | [2026-09-08_154800-wrapper-extras-may-be-ctor-invoke-clone-not-parseall.md](2026-09-08_154800-wrapper-extras-may-be-ctor-invoke-clone-not-parseall.md) | validated | wrapper 在 Parse 外可能只有 ctor/Invoke/Clone，不是 nested ParseAll |
 | [2026-09-08_154000-nested-dto-may-fill-via-ctor-without-parse.md](2026-09-08_154000-nested-dto-may-fill-via-ctor-without-parse.md) | validated | 無 Parse* 的巢狀 DTO 可能只靠 ctor + field store |
 | [2026-09-08_153400-nested-dtos-may-have-own-parse-beside-wrapper.md](2026-09-08_153400-nested-dtos-may-have-own-parse-beside-wrapper.md) | validated | 巢狀 DTO 可有自己的 Parse/ParseAll，在 wrapper Parse 前／後 |
