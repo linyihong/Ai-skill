@@ -14,3 +14,4 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 | [2026-09-08_094000-inspect-live-cryptor-object-before-key-recovery.md](2026-09-08_094000-inspect-live-cryptor-object-before-key-recovery.md) | validated | 先解析 interface field 的 live cryptor class 與 pre-encrypt packet shape |
 | [2026-09-08_112200-live-cipher-mode-from-backing-enum-not-string-table.md](2026-09-08_112200-live-cipher-mode-from-backing-enum-not-string-table.md) | validated | Live mode／padding 讀 algorithm backing enum 名，不是字串表 |
 | [2026-09-08_112201-client-il2cpp-may-embed-unused-server-factory-types.md](2026-09-08_112201-client-il2cpp-may-embed-unused-server-factory-types.md) | validated | Client 內嵌的 Server.* factory 可能從未被 live 呼叫 |
+| [2026-09-08_130500-xmlreader-create-first-arg-not-nearby-stream-ctors.md](2026-09-08_130500-xmlreader-create-first-arg-not-nearby-stream-ctors.md) | validated | XmlReader.Create 第一參數類型勝過同窗口 MemoryStream／GetString |
