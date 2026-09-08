@@ -9,13 +9,14 @@
 | [`http-api/`](http-api/) | 34 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 11 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
-| [`unity-il2cpp/`](unity-il2cpp/) | 15 | Unity IL2CPP、AssetBundle、UnityCache |
+| [`unity-il2cpp/`](unity-il2cpp/) | 16 | Unity IL2CPP、AssetBundle、UnityCache |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
 
 ## Recent (2026-09-08)
 
 | Slug | Category |
 |------|----------|
+| `unity-il2cpp/2026-09-08_134200-skipnotify-child-xelement-may-be-another-ctor-not-clonenode` | SkipNotify child XElement may be another ctor, not CloneNode or Load |
 | `unity-il2cpp/2026-09-08_134000-xelement-xname-fill-may-use-skipnotify-not-public-add` | XElement(XName) fill may use SkipNotify, not public Add |
 | `unity-il2cpp/2026-09-08_133000-parse-xelement-args-may-be-ctor-copies-not-load-tree` | Parse XElement args may be ctor copies, not Load tree |
 | `unity-il2cpp/2026-09-08_131500-il2cpp-object-identity-uses-return-register-not-interceptor-retval` | IL2CPP object identity uses return register, not Interceptor retval |
