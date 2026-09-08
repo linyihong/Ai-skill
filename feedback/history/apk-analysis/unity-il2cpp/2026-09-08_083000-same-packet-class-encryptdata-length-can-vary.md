@@ -14,6 +14,8 @@ Status: validated
 
 **2026-09-08 revision:** 同一長連線稍後再量，**連 ping（`GetTime`）與進場／離桌 opcode 都可能整批 +1**。不要把「只有旋轉變長」當成規則；first-char 仍穩。
 
+**Same-day revision 2:** 同一 class 也可以差超過 1：大廳 **featured vs grid** 的 category 封包、以及進場 `PlayNow*` 都量到更短／更長的觀察值。仍用 class 名，不要把區間上下界當 opcode。
+
 另外：掃 IL2CPP 方法時 `Interceptor.attach` 碰到不可 hook 的 pointer 會整支 script abort，其餘 C2S hook 也一起沒了。應用 try/catch 跳過該 pointer。
 
 #### Trigger
