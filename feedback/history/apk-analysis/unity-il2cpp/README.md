@@ -4,6 +4,7 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
+| [2026-09-08_141000-parse-xelement-args-may-navigate-via-xcontainer-element.md](2026-09-08_141000-parse-xelement-args-may-navigate-via-xcontainer-element.md) | validated | Parse 參數上可能走 XContainer.Element/Elements，不是 get_Value |
 | [2026-09-08_140200-parse-wrapper-attribute-may-share-load-tree-xattribute.md](2026-09-08_140200-parse-wrapper-attribute-may-share-load-tree-xattribute.md) | validated | Parse wrapper 的 Attribute 可與 Load 樹共用 XAttribute |
 | [2026-09-07_143800-unity-feature-art-lives-in-unitycache-not-apk.md](2026-09-07_143800-unity-feature-art-lives-in-unitycache-not-apk.md) | validated | 功能美術常在 UnityCache `__data`，不在 APK |
 | [2026-09-07_144800-unity-game-session-may-be-custom-tcp-not-tls443.md](2026-09-07_144800-unity-game-session-may-be-custom-tcp-not-tls443.md) | validated | 業務 session 常是非 443 自訂 TCP，不是只 MITM HTTPS |
