@@ -9,13 +9,14 @@
 | [`http-api/`](http-api/) | 34 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 11 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
-| [`unity-il2cpp/`](unity-il2cpp/) | 12 | Unity IL2CPP、AssetBundle、UnityCache |
+| [`unity-il2cpp/`](unity-il2cpp/) | 13 | Unity IL2CPP、AssetBundle、UnityCache |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
 
 ## Recent (2026-09-08)
 
 | Slug | Category |
 |------|----------|
+| `unity-il2cpp/2026-09-08_131500-il2cpp-object-identity-uses-return-register-not-interceptor-retval` | IL2CPP object identity uses return register, not Interceptor retval |
 | `unity-il2cpp/2026-09-08_130800-same-thread-dt-window-after-decrypt-not-global-live` | Same-thread dt window after Decrypt, not global LIVE |
 | `unity-il2cpp/2026-09-08_130500-xmlreader-create-first-arg-not-nearby-stream-ctors` | XmlReader.Create first-arg class, not nearby stream ctors |
 | `unity-il2cpp/2026-09-08_112201-client-il2cpp-may-embed-unused-server-factory-types` | Client IL2CPP may embed unused server-named factory types |

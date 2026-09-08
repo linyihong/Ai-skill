@@ -16,3 +16,4 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 | [2026-09-08_112201-client-il2cpp-may-embed-unused-server-factory-types.md](2026-09-08_112201-client-il2cpp-may-embed-unused-server-factory-types.md) | validated | Client 內嵌的 Server.* factory 可能從未被 live 呼叫 |
 | [2026-09-08_130500-xmlreader-create-first-arg-not-nearby-stream-ctors.md](2026-09-08_130500-xmlreader-create-first-arg-not-nearby-stream-ctors.md) | validated | XmlReader.Create 第一參數類型勝過同窗口 MemoryStream／GetString |
 | [2026-09-08_130800-same-thread-dt-window-after-decrypt-not-global-live.md](2026-09-08_130800-same-thread-dt-window-after-decrypt-not-global-live.md) | validated | Decrypt 後同 thread 短 dt 才算 hop，不是全域 LIVE |
+| [2026-09-08_131500-il2cpp-object-identity-uses-return-register-not-interceptor-retval.md](2026-09-08_131500-il2cpp-object-identity-uses-return-register-not-interceptor-retval.md) | validated | IL2CPP 物件 identity 用 return register，不是 Interceptor retval |
