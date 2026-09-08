@@ -4,6 +4,7 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
+| [2026-09-08_144800-parse-may-convert-xml-via-enum-parse-without-get-value.md](2026-09-08_144800-parse-may-convert-xml-via-enum-parse-without-get-value.md) | validated | Parse 可能用 Enum.Parse/Int64.TryParse 填值，不必經過 get_Value |
 | [2026-09-08_144000-nested-element-attribute-may-not-share-load-tree-xattribute.md](2026-09-08_144000-nested-element-attribute-may-not-share-load-tree-xattribute.md) | validated | 子 Element 的 Attribute 不必與 Load 樹共用 XAttribute |
 | [2026-09-08_143200-elements-iterator-current-may-be-nested-xelement-ctor.md](2026-09-08_143200-elements-iterator-current-may-be-nested-xelement-ctor.md) | validated | Elements iterator 的 Current 可能是巢狀 XElement ctor |
 | [2026-09-08_142800-parse-xcontainer-element-retval-may-be-nested-ctor-not-load-tree.md](2026-09-08_142800-parse-xcontainer-element-retval-may-be-nested-ctor-not-load-tree.md) | validated | Parse 的 XContainer.Element 回傳可能是巢狀 ctor，不是 Load 樹 |
