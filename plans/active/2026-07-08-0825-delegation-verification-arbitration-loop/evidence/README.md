@@ -2,7 +2,7 @@
 
 本目錄存放 **dogfood 量測與契約回饋** 的全文；[`01-dogfood-prompt-kit.md`](../01-dogfood-prompt-kit.md) 保留 **傳輸模板 A/B/C** 與精簡指標。
 
-> **Canonical 規則**：[`governance/lifecycle/plan-evidence.md`](../../../governance/lifecycle/plan-evidence.md)（commit-msg `validatePlanEvidenceConvention` 機械強制）
+> **Canonical 規則**：[`governance/lifecycle/plan-evidence.md`](../../../../governance/lifecycle/plan-evidence.md)（commit-msg `validatePlanEvidenceConvention` 機械強制）
 
 ## 引用規則（避免行號漂移）
 
@@ -51,3 +51,5 @@
 | 2e | [`2e-grandfather-sunset-audit.md`](2e-grandfather-sunset-audit.md) | 完成 | Research 域 grandfather sunset；Q6/Q7/Q8 跨域观察 |
 
 > **漸進遷移**：2026-07-09 起新證據進本目錄；kit 保留傳輸模板與精簡指標。
+
+| grandfather-closeout | [2026-09-09-grandfather-sunset-closeout.md](2026-09-09-grandfather-sunset-closeout.md) | 完成 | 四份歷史計畫豁免 sunset；5 items audit 讀回，scenario stub 限制明示 |

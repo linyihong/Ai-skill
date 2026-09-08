@@ -2749,7 +2749,7 @@ records:
     manual_activation:
       reason: validators_consume_by_file_path_not_route_lookup
       note: >
-        Cognitive modes are consumed by commit-msg validators (validateExecutionModeFloors, validateGovernanceModeConsistency, etc.) and the cognitive_mode_block gate that match staged files by path heuristic. The route exists for human navigation; runtime activation does not flow through this route. Grandfather-flagged per pre_2026_05_28_doc_only_completion until 2026-08-31 + conditional extension to 2026-11-30, then this annotation makes it intentionally-manual permanently.
+        Cognitive modes are consumed by commit-msg validators (validateExecutionModeFloors, validateGovernanceModeConsistency, etc.) and the cognitive_mode_block gate that match staged files by path heuristic. The route exists for human navigation; runtime activation does not flow through this route. The pre_2026_05_28_doc_only_completion exemption sunset on 2026-08-31; the 2026-09-09 readback confirms this existing intentionally-manual disposition. No runtime route activation is implied.
     primary_source: runtime/cognitive-modes.yaml
     required_dependencies:
       - runtime/cognitive-modes-discovery.yaml

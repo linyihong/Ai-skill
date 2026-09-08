@@ -298,8 +298,17 @@ final_status_report:
     - readback_and_clean_status
 
 pre_2026_05_28_doc_only_completion:
-  status: active
-  introduced_by: plans/active/2026-05-28-1200-gen3-runtime-trigger-audit-and-completion.md (Phase 3)
+  status: sunsetted
+  effective_sunset: "2026-08-31"
+  reviewed_at: "2026-09-09"
+  disposition: all_declared_surfaces_classified
+  review_evidence: plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/evidence/2026-09-09-grandfather-sunset-closeout.md
+  historical_coverage_note: >
+    covered_plans retains the original coverage inventory for audit history,
+    not active exemptions. Five declared surfaces satisfy option (a).
+    Structural audit classification does not establish scenario execution
+    coverage or runtime-observed behavior. Administrative readback was late.
+  introduced_by: plans/archived/2026-05-28-1200-gen3-runtime-trigger-audit-and-completion.md (Phase 3)
   rationale: |
     The §define_runtime_trigger_flow forbidden rules were strengthened on
     2026-05-28 to ban routing_registry_entry_without_discovery_signal_or_commit_validator

@@ -1,5 +1,8 @@
 # Grandfather Sunset 前置調查 — pre_2026_05_28_doc_only_completion
 
+> **2026-09-09 follow-up**：[sunset closeout](evidence/2026-09-09-grandfather-sunset-closeout.md) 已完成行政處置。本檔保留 2026-07-08 調查，不把舊推算當作 08-15／08-31 當日實測。
+
+
 > **產出脈絡**：本檔為 grandfather flag（`governance/lifecycle/system-upgrade-governance.yaml`
 > §`pre_2026_05_28_doc_only_completion`，L300–354）2026-08-31 sunset 的前置事實調查，
 > 由 delegation-verification-arbitration-loop 的隔離調查者產出。

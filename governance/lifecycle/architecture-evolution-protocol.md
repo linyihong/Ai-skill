@@ -401,7 +401,7 @@ Full record in [ADR-013 §Dogfood Evidence](../../constitution/ADR-013-cognitive
 > **Classification**: optional appendix / reusable research rhythm — **non-core**（does not amend Protocol Core invariants）.  
 > **Also known as**: **Knowledge Evolution Method**（🟡 **Replicated once** — RC1 first application + RC2-P1 independent replication）.  
 > **Source observation**: UI Pattern Knowledge workflow（Phase 1–3）+ prior Evidence / Governance layering practice.  
-> **Retrospective**: `plans/archived/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-1.md`  
+> **Retrospective**: `plans/archived/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-1.md`
 > **Method validation log**: [§Method Validation Log](#method-validation-log)
 
 

@@ -470,3 +470,10 @@ Pre-commit hook 會檢查 prose 與 runtime.db 是否一致，不一致時 block
 | [`plans/README.md`](../../plans/README.md) | 本要則定義了計畫書必須包含的內容，與 plans/ 的目錄規則互補 |
 | [`CORE_BOOTSTRAP.md`](../../CORE_BOOTSTRAP.md) | 升級可能影響啟動流程，需同步更新 |
 | [`enforcement/dependency-reading.md`](../../enforcement/dependency-reading.md) | 升級後的 commit/push/readback 閉環遵循 dependency-reading 的 writeback transaction 規則 |
+
+## Grandfather sunset readback（2026-09-09）
+
+YAML 的 `pre_2026_05_28_doc_only_completion` 已標 `sunsetted`，生效日保留 2026-08-31。
+四份歷史計畫所列五個 surfaces 均符合原規則 (a)；coverage list 保留為歷史，不再提供豁免。
+[結案證據](../../plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/evidence/2026-09-09-grandfather-sunset-closeout.md) 記錄延展條件、分類與 scenario 限制。
+本次是晚於期限的行政讀回，不宣稱 08-31 當天已執行結案；runtime audit 的字串引用分類也不代表完整 scenario 已執行。

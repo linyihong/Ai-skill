@@ -230,7 +230,7 @@ P8（bootstrap 分級）、P9（知識讀出率）、P10（hooks.go 巨石）、
 | 順位 | Plan | 現狀 | Entry condition / 與本 plan 的關係 |
 |---|---|---|---|
 | 1 | 本 plan Phase 1–3（ledger + resurface + cross-repo） | draft | 立即可做；不依賴其他 plan |
-| 2 | [`2026-05-28-1830-plan-archival-audit-validator`](2026-05-28-1830-plan-archival-audit-validator.md) | draft | 獨立 quick win；建議先 graduate 保護後續 archive commits |
+| 2 | [`2026-05-28-1830-plan-archival-audit-validator`](../archived/2026-05-28-1830-plan-archival-audit-validator.md) | draft | 獨立 quick win；建議先 graduate 保護後續 archive commits |
 | 3 | [`2026-07-08-0825-delegation-verification-arbitration-loop`](2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) | in-progress | 續跑 dogfood；其 verifier findings 是本 plan ledger 的天然 feed 來源之一 |
 | 4 | [`2026-06-16-1131-evidence-candidate-system`](2026-06-16-1131-evidence-candidate-system.md) Phase 2 | in-progress（observation period） | 等 `phase2_gate`（count≥20 / reviewed≥80% / accepted>50% / age_p95<30d）；本 plan ledger 與 candidate inbox 保持分工（執行債 vs 觀察） |
 | 5 | 本 plan Phase 4（機械化 gate）+ Phase 6（enforcement ladder sweep） | — | entry: ledger 運轉 ≥2 週、≥10 entries、closure 流程走通 |
@@ -275,7 +275,7 @@ P8（bootstrap 分級）、P9（知識讀出率）、P10（hooks.go 巨石）、
 
 - [x] `feedback/pipeline/deferred/README.md`：entry schema（id / created / source_repo_context / target enum 沿用 learning report 的 `feedback-history|intelligence|workflow|enforcement|project-docs` / status `open|closed|refuted|expired` / closure evidence 欄）+ 索引表 + 去敏規則（引用 `enforcement/sanitization.md`）
 - [x] 兩條 invariant 寫入 README：entry 不可指向 entry；ledger 是索引層不是 authority（closure 的 authority 在被 writeback 的目標層）
-- [x] 手動 round-trip ×1：拿一條真實 deferred feedback（ExternalRepoC push 2n writeback）走 create → writeback → close，證明鏈路可走通 — [`DF-20260710-001`](../../feedback/pipeline/deferred/entries/DF-20260710-001.md) → [`evidence/2n-*.md`](../2026-07-08-0825-delegation-verification-arbitration-loop/evidence/2n-externalrepoc-push-delivery-s1-s6-compliant-loop.md)
+- [x] 手動 round-trip ×1：拿一條真實 deferred feedback（ExternalRepoC push 2n writeback）走 create → writeback → close，證明鏈路可走通 — [`DF-20260710-001`](../../feedback/pipeline/deferred/entries/DF-20260710-001.md) → [`evidence/2n-*.md`](2026-07-08-0825-delegation-verification-arbitration-loop/evidence/2n-externalrepoc-push-delivery-s1-s6-compliant-loop.md)
 - [x] 完成條件：README + schema + 1 筆 closed entry 入庫（2026-07-10）；另 2 筆 open（L4、V5-A）供 Phase 2 resurface 觀察
 
 ## Phase 2 — Resurface + CLI
@@ -357,7 +357,7 @@ verifier 初評「Haiku 級只能可靠執行 ~60%」；8 處修正後所有被 
 ## Phase 8 — Orphan 存量清償 + Deadline 排程（E2 + E4）
 
 - [ ] 314 orphans 分批處置（每批 ≤ 20，wire / manual_activation+reason / deprecate），`ai-skill runtime audit` 驗收，orphan 數 ratchet 只降不升
-- [ ] grandfather doc-only plans（3–4 個）在 2026-08-31 前逐個結案（升 auto-detected 或降 orphan）
+- [x] grandfather 四份歷史計畫的豁免處置完成：五個 surfaces 符合原規則 (a)，effective sunset 2026-08-31；**行政結案遲至 2026-09-09，原 deadline 未準時完成**。見 [sunset readback](2026-07-08-0825-delegation-verification-arbitration-loop/evidence/2026-09-09-grandfather-sunset-closeout.md)。Phase 8 其餘 orphan／scenario 工作仍未完成。
 - [ ] 空殼層盤點（P12）：traces / evaluations / templates / tools 逐層判定 併層 / 填實 / 明文 reservation
 - [ ] 完成條件：orphan 總數 < 100 或全數帶顯式處置標記；grandfather 清零
 

@@ -70,7 +70,7 @@ revision:
 
 # UI Pattern Knowledge — Workflow 強化計畫
 
-**Status**: `completed`（2026-09-09 D9 = Continue；知識維護已交接，plan 歸檔）— RC1 ✅ · RC2 ✅ · [`stakeholder-research-line-closure-2026-07-15.md`](./evidence/stakeholder-research-line-closure-2026-07-15.md) · [`maintenance-governance.md`](../../../workflow/software-delivery/maintenance-governance.md)  
+**Status**: `completed`（2026-09-09 D9 = Continue；知識維護已交接，plan 歸檔）— RC1 ✅ · RC2 ✅ · [`stakeholder-research-line-closure-2026-07-15.md`](./evidence/stakeholder-research-line-closure-2026-07-15.md) · [`maintenance-governance.md`](../../../workflow/software-delivery/maintenance-governance.md)
 
 **Owner**: linyihong  
 **建立日期**: 2026-07-14  
@@ -318,7 +318,7 @@ RC1/RC2 dogfood 已完成；2026-09-09 不升 ADR：現有 workflow/templates �
 - [ ] foundational + cross-session + cross-project + expensive-to-reverse + explains-why  
 - [ ] ≥1 外專案用 Core schema  
 - [ ] ≥1 composition；≥1 expansion **evidence**  
-- [x] Open Questions 全解（Q1–Q11 已決議）  
+- [x] Open Questions 全解（Q1–Q11 已決議）
 - [ ] 無更輕 target 仍夠用  
 - [x] D9 review 曾執行；2026-09-09 outcome = Continue（其餘 ADR criteria 未達者不勾選）
 
@@ -771,7 +771,7 @@ RC2 研究假說鏈已 Closed；本節為 **真正結束** 的最後一步 — �
 - [x] 無 Intent DB；platform_map 無 DS 百科  
 - [x] Q1–Q11 決議（glossary candidates 未註冊 — 見 Glossary Impact）  
 - [x] 無 runtime 則不宣稱 runtime integration（本 plan scope）  
-- [x] D9 review 至少執行一次 — 2026-09-09 **Continue**；[裁決與 deferred owner](evidence/2026-09-09-d9-closeout-review.md)  
+- [x] D9 review 至少執行一次 — 2026-09-09 **Continue**；[裁決與 deferred owner](evidence/2026-09-09-d9-closeout-review.md)
 - [x] Research Closure Hygiene + maintenance governance handoff
 
 ---
