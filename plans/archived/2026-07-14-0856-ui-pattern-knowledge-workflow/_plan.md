@@ -1,10 +1,10 @@
 ---
 id: 2026-07-14-0856-ui-pattern-knowledge-workflow
 plan_kind: main
-status: in-progress
+status: completed
 owner: linyihong
 created: 2026-07-14
-last_updated: 2026-07-15
+last_updated: 2026-09-09
 parent: null
 priority: P2
 revision:
@@ -70,13 +70,13 @@ revision:
 
 # UI Pattern Knowledge — Workflow 強化計畫
 
-**Status**: `in-progress`（**research line closed** · governed maintenance watch）— RC1 ✅ · RC2 ✅ · [`stakeholder-research-line-closure-2026-07-15.md`](./evidence/stakeholder-research-line-closure-2026-07-15.md) · [`maintenance-governance.md`](../../../workflow/software-delivery/maintenance-governance.md)  
+**Status**: `completed`（2026-09-09 D9 = Continue；知識維護已交接，plan 歸檔）— RC1 ✅ · RC2 ✅ · [`stakeholder-research-line-closure-2026-07-15.md`](./evidence/stakeholder-research-line-closure-2026-07-15.md) · [`maintenance-governance.md`](../../../workflow/software-delivery/maintenance-governance.md)  
 
 **Owner**: linyihong  
 **建立日期**: 2026-07-14  
 **Source**: 2026-07-14 對話 — NameThatUI 對照 + stakeholder 回饋（Knowledge layer，非 glossary；非 NameThatUI clone）。  
 **Glossary Impact**: yes — candidates（未註冊）：`ui_pattern_knowledge`、`pattern_selection_rules`、`pattern_composition`、`pattern_family`、`implementation_recipe`、`pattern_prompt_expansion`、`pattern_knowledge_core|extended`、`pattern_evidence_level`（verified / observed / …）。舊詞 `ui_pattern_vocabulary` = 子能力。graduate 後才註冊。
-**D9 clock**: `in-progress` since **2026-07-14**（T1 三月時距起算點）
+**D9 review**: [2026-09-09 Continue／結案裁決](evidence/2026-09-09-d9-closeout-review.md)。T1 原起算點 2026-07-14 保留；下一次維護 review 見 maintenance-governance。
 
 > **Watch-Out List citation**（[`architecture/ai-native-cognitive-ecosystem-system.md`](../../../architecture/ai-native-cognitive-ecosystem-system.md) §Watch-Out List）：
 > - **process bloat** — 不新建 lifecycle；不建 Intent Ontology / Design-System 百科；Prompt checklist **不**每次 commit。
@@ -311,16 +311,16 @@ Stakeholder 強調的壓縮讀法：**T1 OR T2 以先發生者啟動**；T3–T5
 
 ### Why Not an ADR Yet
 
-未 dogfood；枚舉仍可微調。Promotion 需消費者採用 + expansion evidence。
+RC1/RC2 dogfood 已完成；2026-09-09 不升 ADR：現有 workflow/templates 足夠，本輪未補足跨專案 Core 與 expansion 證據。詳見 D9 review。
 
 ### ADR Promotion Criteria
 
 - [ ] foundational + cross-session + cross-project + expensive-to-reverse + explains-why  
 - [ ] ≥1 外專案用 Core schema  
 - [ ] ≥1 composition；≥1 expansion **evidence**  
-- [ ] Open Questions 全解  
+- [x] Open Questions 全解（Q1–Q11 已決議）  
 - [ ] 無更輕 target 仍夠用  
-- [ ] D9 review 曾執行且 outcome 不是 Sunset-without-replacement 的倉促放棄
+- [x] D9 review 曾執行；2026-09-09 outcome = Continue（其餘 ADR criteria 未達者不勾選）
 
 ### Consequences
 
@@ -751,7 +751,7 @@ RC2 研究假說鏈已 Closed；本節為 **真正結束** 的最後一步 — �
 
 ## Phase 5 — Optional L2（僅當 D9 → Promote）
 
-- [ ] `load_when` + scenario + consumer 表；不做檔名機械攔截
+- [ ] deferred：`load_when` + scenario + consumer 表；本次 D9 = Continue，未啟動 Optional L2。Owner／重啟條件見 D9 review。
 
 ---
 
@@ -771,7 +771,7 @@ RC2 研究假說鏈已 Closed；本節為 **真正結束** 的最後一步 — �
 - [x] 無 Intent DB；platform_map 無 DS 百科  
 - [x] Q1–Q11 決議（glossary candidates 未註冊 — 見 Glossary Impact）  
 - [x] 無 runtime 則不宣稱 runtime integration（本 plan scope）  
-- [ ] D9 review 至少執行一次（Promote / Continue / Sunset 書面）— **deferred**；research 已 closed，D9 為 plan 生命週期  
+- [x] D9 review 至少執行一次 — 2026-09-09 **Continue**；[裁決與 deferred owner](evidence/2026-09-09-d9-closeout-review.md)  
 - [x] Research Closure Hygiene + maintenance governance handoff
 
 ---
@@ -809,7 +809,7 @@ RC2 研究假說鏈已 Closed；本節為 **真正結束** 的最後一步 — �
 | `ui-governance.md` | 合規；不擁有選型 |
 | Design Contract | 怎麼建成（token/primitive） |
 | Evidence Governance | claims 是否被證明；`evidence_level` |
-| [`2026-07-08-0825-delegation-…`](../2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) | dogfood 可選三角色 SOP；本 plan 不擁有該 loop |
+| [`2026-07-08-0825-delegation-…`](../../active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) | dogfood 可選三角色 SOP；本 plan 不擁有該 loop |
 | `platform-adapter`（未來） | 跨 DS；不進本 Knowledge |
 | NameThatUI | 靈感；我方 = AI-consumable Knowledge Layer |
 

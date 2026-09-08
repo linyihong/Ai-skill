@@ -87,4 +87,4 @@ constraints:
       dual-open). Fix lives here — do NOT rewrite selection_rules on either entry.
     evidence_level: observed
     hypotheses: [H4]
-    evidence: plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3h4-independence-stress.md
+    evidence: plans/archived/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/3h4-independence-stress.md

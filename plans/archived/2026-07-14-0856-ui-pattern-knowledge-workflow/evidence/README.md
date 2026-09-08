@@ -48,3 +48,5 @@
 | **RC2-P2-intake-wb** | [`rc2-p2-interaction-incident-intake-summary.md`](rc2-p2-interaction-incident-intake-summary.md) | ✅ Writeback | Generalized metrics + Table 1 |
 | **RC2-P2-sel** | [`interaction-inferability-scenarios.yaml`](interaction-inferability-scenarios.yaml) | 完成 | 8 scenarios：I-01–I-05 + decoys I-06–I-08 |
 | **RC2-P2-run** | [`rc2-p2-inferability-run.md`](rc2-p2-inferability-run.md) | ✅ Closed | rule-trace 8/8 · blind cumulative 8/8 · Exit met |
+
+| **D9-closeout** | [2026-09-09-d9-closeout-review.md](2026-09-09-d9-closeout-review.md) | Complete | D9 Continue；計畫歸檔，維護責任／下一次 review 保留 |

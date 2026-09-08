@@ -64,7 +64,7 @@ constraints:
       preview_gate_transition and confirm channel — do NOT expand preview entry.
     evidence_level: observed
     hypotheses: [CH1]
-    evidence: plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p3-ch1-independence-stress.md
+    evidence: plans/archived/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p3-ch1-independence-stress.md
     consumer_anchor: "<PROJECT_ROOT> episode-coupon-redeem-journey · I-04"
 
   # --- CH1 stress 2026-07-15 (Case B): owner invalidation before nested confirm ---
@@ -82,5 +82,5 @@ constraints:
       preview_gate_transition invalidation_event.
     evidence_level: observed
     hypotheses: [CH1]
-    evidence: plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p3-ch1-independence-stress.md
+    evidence: plans/archived/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p3-ch1-independence-stress.md
     consumer_anchor: "<PROJECT_ROOT> episode-coupon-redeem-journey · ownership map"

@@ -1,6 +1,6 @@
 # 2s — 跨域 run：Architecture 域 — UI Pattern Knowledge plan review（2026-07-14）
 
-> **Stage 2 跨域證據（Architecture）**。Subject：[`plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow.md`](../../2026-07-14-0856-ui-pattern-knowledge-workflow.md)（draft plan：Authority Boundary、Core/Extended schema、event-driven promote-or-sunset）。  
+> **Stage 2 跨域證據（Architecture）**。Subject：[`plans/archived/2026-07-14-0856-ui-pattern-knowledge-workflow.md`](../../../archived/2026-07-14-0856-ui-pattern-knowledge-workflow/_plan.md)（draft plan：Authority Boundary、Core/Extended schema、event-driven promote-or-sunset）。  
 > **不是** Knowledge 域 run：未抽取／正規化／驗證 pattern **entry 內容**；Knowledge 格仍空。  
 > **不是** UI Pattern Knowledge Phase 1 交付成功證明：只閉環「架構計畫文件的四責任」。
 

@@ -82,7 +82,7 @@ Trigger when **all** hold:
 
 **Not** triggered by: single incident · decoy miss · blind LLM layer confusion（→ method protocol fix）.
 
-See [`plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-vocabulary-exit-review.md`](../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-vocabulary-exit-review.md).
+See [`plans/archived/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-vocabulary-exit-review.md`](../../plans/archived/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-vocabulary-exit-review.md).
 
 ### 2. Readiness Gate（新 Knowledge Layer）
 
@@ -124,7 +124,14 @@ Method Validation Log: [`governance/lifecycle/architecture-evolution-protocol.md
 
 | Cycle | Status | Retrospective |
 | --- | --- | --- |
-| RC1 Pattern + Composition | ✅ Closed | [`research-cycle-1.md`](../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-1.md) |
-| RC2 Interaction | ✅ Closed | [`research-cycle-2.md`](../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-2.md) |
+| RC1 Pattern + Composition | ✅ Closed | [`research-cycle-1.md`](../../plans/archived/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-1.md) |
+| RC2 Interaction | ✅ Closed | [`research-cycle-2.md`](../../plans/archived/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-2.md) |
 
 **Research Closure Hygiene**（plan sync · stale summary cleanup · maintenance handoff）— prerequisite for treating RC2 as **truly** ended. See plan `_plan.md` §Research Closure Hygiene.
+
+## D9 maintenance review handoff（2026-09-09）
+
+[本輪 D9 裁決](../../plans/archived/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/2026-09-09-d9-closeout-review.md) = **Continue**：知識維持 doc-only，delivery plan 已結案；維護 owner 為 software-delivery workflow maintainer。
+下一次人工 review：原 T1（2026-07-14 起三個月，即 2026-10-14），或先出現新確認的 Core 跨專案採用、第二 consumer、書面放棄。已審的五個 entries 不重複觸發。
+維護 run 尚無本輪可回查的三至四週量測；不以日曆經過宣稱觀察完成。
+Boundary Break 仍走上方兩條 reopen signals；L2 wiring 僅在後續明確 Promote 與 consumer/scenario 齊備時另開有界工作。沒有自動排程或 RC3。

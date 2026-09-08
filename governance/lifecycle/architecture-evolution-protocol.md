@@ -401,7 +401,7 @@ Full record in [ADR-013 §Dogfood Evidence](../../constitution/ADR-013-cognitive
 > **Classification**: optional appendix / reusable research rhythm — **non-core**（does not amend Protocol Core invariants）.  
 > **Also known as**: **Knowledge Evolution Method**（🟡 **Replicated once** — RC1 first application + RC2-P1 independent replication）.  
 > **Source observation**: UI Pattern Knowledge workflow（Phase 1–3）+ prior Evidence / Governance layering practice.  
-> **Retrospective**: `plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-1.md`  
+> **Retrospective**: `plans/archived/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-1.md`  
 > **Method validation log**: [§Method Validation Log](#method-validation-log)
 
 
@@ -466,10 +466,10 @@ This is not UI-Pattern-specific. The same rhythm appears when Evidence, Governan
 
 | Cycle | Layer | Method Result | Evidence |
 | --- | --- | --- | --- |
-| RC1 | Pattern Knowledge | **First application** | [`research-cycle-1.md`](../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-1.md) |
-| RC2-P1 | Interaction Knowledge | **Independent replication** | [`rc2-p1-interaction-representability-closure.md`](../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p1-interaction-representability-closure.md) |
-| RC2-P2 | Interaction Knowledge（Inferability） | **Inferability replication** | [`rc2-p2-interaction-inferability-closure.md`](../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p2-interaction-inferability-closure.md) |
-| RC2-P3 | Interaction Knowledge（Composability） | **Composability replication** | [`rc2-p3-interaction-composition-closure.md`](../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p3-interaction-composition-closure.md) |
+| RC1 | Pattern Knowledge | **First application** | [`research-cycle-1.md`](../../plans/archived/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/research-cycle-1.md) |
+| RC2-P1 | Interaction Knowledge | **Independent replication** | [`rc2-p1-interaction-representability-closure.md`](../../plans/archived/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p1-interaction-representability-closure.md) |
+| RC2-P2 | Interaction Knowledge（Inferability） | **Inferability replication** | [`rc2-p2-interaction-inferability-closure.md`](../../plans/archived/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p2-interaction-inferability-closure.md) |
+| RC2-P3 | Interaction Knowledge（Composability） | **Composability replication** | [`rc2-p3-interaction-composition-closure.md`](../../plans/archived/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/rc2-p3-interaction-composition-closure.md) |
 
 **Method maturity (2026-07-15)**
 
@@ -517,7 +517,7 @@ Research → Validation → Closure → Stable Maintenance → Evidence Mapping
     → Boundary Break（if any）→ Readiness → Next Research Cycle
 ```
 
-**Stakeholder closure（2026-07-15）**: UI Knowledge research line ended — [`stakeholder-research-line-closure-2026-07-15.md`](../../plans/active/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/stakeholder-research-line-closure-2026-07-15.md). **Do not** actively seek RC3; let consumer maintenance accumulate mapping outcomes (~3–4 weeks) before any reopen.
+**Stakeholder closure（2026-07-15）**: UI Knowledge research line ended — [`stakeholder-research-line-closure-2026-07-15.md`](../../plans/archived/2026-07-14-0856-ui-pattern-knowledge-workflow/evidence/stakeholder-research-line-closure-2026-07-15.md). **Do not** actively seek RC3; let consumer maintenance accumulate mapping outcomes (~3–4 weeks) before any reopen.
 
 ---
 
