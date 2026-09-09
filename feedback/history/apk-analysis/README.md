@@ -12,6 +12,12 @@
 | [`unity-il2cpp/`](unity-il2cpp/) | 38 | Unity IL2CPP、AssetBundle、UnityCache |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
 
+## Recent (2026-09-10)
+
+| Slug | Category |
+|------|----------|
+| `unity-il2cpp/2026-09-10_084100-session-scoped-c2s-command-synthesis-vs-wire-replay` | Session-scoped C2S command synthesis vs wire replay |
+
 ## Recent (2026-09-09)
 
 | Slug | Category |
