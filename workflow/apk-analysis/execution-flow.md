@@ -51,6 +51,8 @@
 
 **Post-selection lazy-load rule：** 選中 tab、category、filter、grid label 或 chip 後若短窗口沒有新增 feature API，不要直接判定該 UI action 沒有 API。先在已驗證 target package / feature context 下補一個低風險後續 gesture（例如列表 scroll、refresh 或 bounded wait），並把結果分成 `selection-only`、`post-selection-triggered`、`no-network-after-follow-up`。這類 replay knob 或 trigger pattern 一旦可重用，必須立即走 feedback lesson 檢查，不等專案收尾。
 
+**Unity canvas identity rule：** 前台是 Unity／IL2CPP activity，且 `uiautomator dump` 沒有 text／resource-id／ImageView src 時，Android XML 與「截圖對 hash 快取／對功能包 PNG」都不是 UI 檔身分來源。身分來自當下已載入的 `Texture2D.name`、`Sprite.name`、Addressable key 與 active GameObject 路徑；screenshot 只做 visiblity。功能 bundle 已快取 ≠ 當前 splash／共用 HUD 來自該包。空的 Android dump 標 `android-hierarchy-not-applicable`，改走 Unity dump。Lesson：`feedback/history/apk-analysis/unity-il2cpp/2026-09-09_112800-unity-ui-identity-from-loaded-objects-not-screenshot.md`。
+
 **UI evidence package validation rule：** 每個 screenshot / hierarchy 用於 UI-to-API 對齊前，必須驗證 foreground package / activity 屬於目標 App。若 XML package 變成 launcher、browser、Google/search、settings、permission page 或其他外部 App，該 window 要標 `external` / `invalid for target UI`，automation 應中止或記錄明確轉場；Frida 仍命中目標 PID 只能證明目標進程內事件，不能自動證明是該 UI step 觸發。對重要 feature checkpoint，package 正確後還要驗證目標 feature context（例如穩定 tab label、page title、section heading、selected tab 或 route anchor）；同 package 但跑到充值、活動、WebView 或其它 module 的 window 要標 `wrong in-app screen` / `invalid for target feature`，不可當作該 feature evidence。
 
 **Checkpoint replay runner rule：** 同一 feature/page 需要反覆測 Frida、media、tab sweep 或 reset baseline 時，將已確認路徑固化成 replay script，並為 `launch`、目標 tab、列表、詳情、媒體區等節點提供 `--target` / checkpoint 停點。每個 checkpoint 都應截圖、dump XML、驗證 target package；如果跑歪，先修 selector、fallback coordinate、wait 或 scroll，再把後續 capture 當證據。

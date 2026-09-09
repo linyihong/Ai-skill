@@ -9,13 +9,14 @@
 | [`http-api/`](http-api/) | 34 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 11 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
-| [`unity-il2cpp/`](unity-il2cpp/) | 37 | Unity IL2CPP、AssetBundle、UnityCache |
+| [`unity-il2cpp/`](unity-il2cpp/) | 38 | Unity IL2CPP、AssetBundle、UnityCache |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
 
 ## Recent (2026-09-09)
 
 | Slug | Category |
 |------|----------|
+| `unity-il2cpp/2026-09-09_112800-unity-ui-identity-from-loaded-objects-not-screenshot` | Unity on-screen UI identity from loaded objects, not screenshot matching |
 | `common/2026-09-09_100200-wellknown-http-ports-may-not-fail-named-host-resolve` | Blocking well-known HTTP(S) ports may still hit resolve Success |
 | `common/2026-09-09_094550-reset-level-may-change-login-packet-class` | force-stop vs clear-data can send different login packet classes |
 | `common/2026-09-09_094540-prefs-key-names-on-device-without-values` | Extract prefs `name=` on-device; Magisk `su -c` |

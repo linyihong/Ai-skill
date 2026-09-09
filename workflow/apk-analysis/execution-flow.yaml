@@ -57,7 +57,11 @@ steps:
     action: Start from network path triage, then load specific analysis methods only after evidence points to the right technique.
   - id: validate_ui_evidence_package
     order: 4
-    action: Validate foreground package, activity, and feature context before using screenshots or hierarchy as UI/API evidence.
+    action: >
+      Validate foreground package, activity, and feature context before using
+      screenshots or hierarchy as UI/API evidence. For Unity canvases with an
+      empty Android dump, identity is loaded Texture2D/Sprite/Addressable names,
+      not screenshot-to-cache matching.
     gates:
       - gate.apk_analysis.ui_evidence_valid
   - id: capture_feature_windows

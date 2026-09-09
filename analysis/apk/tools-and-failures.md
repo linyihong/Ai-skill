@@ -43,7 +43,9 @@
 | APK 內 `.unity3d` + UnityPy | core chrome、localization、engine 資源。 | 常沒有單一「功能總包」；物件名過濾 ≠ 畫面上每一張圖。 |
 | `Android/data/<pkg>/files/UnityCache/Shared/<bundle>/<hash>/__data` | 執行期下載的 AssetBundle 本體。 | `__info` 很小；`__data` 通常可直接 `UnityPy.load`。目錄名對 UI 標題；缺的標題標 `not-yet-cached`。完整 dump 放 gitignored 目錄。 |
 | 精選 `docs/assets/<topic>/` + 相對路徑 HTML | clone 後仍看得到的符號／美術對照圖。 | **只**複製 HTML 真正引用的檔；禁止 `file://` 指到 gitignored dump。全文 dump 仍 gitignore。 |
-| `adb screencap` | 對照可見標題與 cache 目錄差集。 | Unity 畫面 `uiautomator dump` 常常幾乎是空的。 |
+| `adb screencap` | 對照可見區塊與 **已知名** 物件；標題 vs cache 目錄差集。 | Unity 畫面 `uiautomator dump` 常常幾乎是空的。截圖不是 Texture2D 身分來源。 |
+| Frida / IL2CPP：已載入 `Texture2D.name`、`Sprite.name`、Addressable key、active GameObject 路徑 | 回答「這頁用了哪個 UI 檔」。 | 畫面仍開著時 dump；只記 name／bundle／hash。功能包 ≠ splash／共用 HUD。Lesson：[`unity-ui-identity-from-loaded-objects-not-screenshot`](../../feedback/history/apk-analysis/unity-il2cpp/2026-09-09_112800-unity-ui-identity-from-loaded-objects-not-screenshot.md)。 |
+| App `cache/` hash 檔解碼 | 可能是 PNG 或 raw RGBA。 | **無物件名**；像素比對最多輔助，標 `decoded-unidentified`。 |
 | `ss` / `netstat` on the game PID | 分開 443 CDN 與非 443 長連線。 | 非 443 + 無 TLS cert → 自訂 TCP；見 unity-il2cpp protocol lesson。 |
 
 ## 解密與資料處理
@@ -62,6 +64,7 @@
 | --- | --- | --- |
 | UI map / 截圖流程讓 App 或分析環境變卡 | 截圖、錄影、UI dump、自動遍歷、hook logging 同時進行，I/O 與主執行緒壓力太高。 | 降成 lightweight overview：只截主要 tabs/關鍵 screen；先停錄影與批量 dump，保留 API hook/pcap 主線。 |
 | 自動化操作抓 API 時結果不穩 | 操作未等待畫面穩定、背景預載/cache 混入、同一腳本含多個 action。 | 每個 operation script 只做一個 flow；輸出開始/結束 timestamp；必要時先 force-stop/冷啟動並加入短等待。 |
+| Unity 畫面要盤點用了哪張圖，卻先截圖對 hash cache／功能包 PNG | Android dump 沒有 src；hash 檔沒有物件名；功能 bundle 不含 splash／HUD。 | 先 dump 已載入 Texture2D／Sprite／Addressable／GameObject 名；截圖只做 visiblity。見 unity-il2cpp UI-identity lesson。 |
 | 抓到 API 但不知道是哪個操作觸發 | 沒有建立 UI 操作時間窗，或 startup/preload/background sync 混在一起。 | 先補 screenshot/UI hierarchy 與 operation id；每次只操作一個 screen/action。 |
 | 截圖看起來是某個 tab，但 API timing 對不上 | tab 預載、快取、背景同步、或同 endpoint 被多個 screen 共用。 | 標成 trigger confidence low/medium；用冷啟動、清 cache、單步操作或 hook sequence 重新驗證。 |
 | Proxyman 沒有核心 API | client 不走系統代理、attach 太晚、流程沒觸發。 | pcap 確認 host；用 cold-start injection 或高語意 hook。 |
