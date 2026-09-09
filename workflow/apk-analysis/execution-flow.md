@@ -31,6 +31,8 @@
 | `clear app data` | 還原 first-run / session recovery / onboarding 狀態。 | 可能移除測試 session、觸發登入或限流；需使用授權測試帳號並記錄邊界。 |
 | `reinstall` | 驗證安裝後首輪 bootstrap / permission / migration。 | 成本最高；不要在不需要 first-run 行為時使用。 |
 
+要刻意打「host resolve 失敗」時：metadata 裡的 Failed/Timeout 回呼**不能**用「擋常見 HTTP/HTTPS port」當已證明。那些 port 被擋後仍可能走 Success 再連業務 TCP。先看實際 session port 與 names-only 回呼，不要把 well-known web port 與 resolve-fail 劃等號。見 feedback `common/2026-09-09_100200-wellknown-http-ports-may-not-fail-named-host-resolve`。靜態存在的 session-confirm 類 packet 也可能從不出現在自動 Guest 路徑上。
+
 冷啟動後若畫面立刻變成 Play 未登入／Unauthenticated 頁：先依 [`analysis/apk/workflows/cold-start-play-focus-ab.md`](../../analysis/apk/workflows/cold-start-play-focus-ab.md) 做 focus A/B（允許 Play vs 抑止 vending 搶焦），判斷啟發式見 [`intelligence/engineering/analytical-reasoning/heuristics/play-focus-steal-vs-hard-kill.md`](../../intelligence/engineering/analytical-reasoning/heuristics/play-focus-steal-vs-hard-kill.md)。**不要**把靜態 Pairip／CHECK_LICENSE 單獨當成已證實 runtime 鏈路。
 
 每個 reset-to-feature capture 應拆成可反查的 window：

@@ -46,7 +46,8 @@ steps:
       Choose reset level and split reset/startup/navigation/feature/documentation
       windows when analyzing app-start-to-feature flows. force-stop-only automatic
       login may use a different packet class than clear-app-data first account;
-      do not treat one window as both. If cold start lands on
+      do not treat one window as both. Blocking well-known HTTP/HTTPS ports does
+      not prove named host-resolve Failed/Timeout callbacks. If cold start lands on
       Play Unauthenticated/sign-in UI, run analysis/apk/workflows/cold-start-play-focus-ab.md
       (allow Play vs suppress vending focus-steal) before concluding the app is unreachable;
       use intelligence/engineering/analytical-reasoning/heuristics/play-focus-steal-vs-hard-kill.md

@@ -82,6 +82,7 @@
 | HTML／對照圖 clone 後圖裂 | 圖還在 gitignored dump，或 `src` 用了本機 `file://`。 | 把該頁引用的精選檔複製到可追蹤 `docs/assets/`，改相對路徑；不要把整個 UnityCache 匯出提交。 |
 | App 卡住或 ANR | hook 太低層、輸出太多、代理 TLS 卡住。 | 限制輸出、pass-through、改高語意 hook。 |
 | 解密結果亂碼 | key/IV/KDF/padding/壓縮順序錯。 | hook decrypt return value 建對照 fixture。 |
+| 擋了常見 HTTP/HTTPS port，仍看到 host-resolve Success | resolve 可能不是那些 port、IPv6／另一條 netfilter、快取，或規則沒蓋到該 uid。 | 不要宣稱 Failed/Timeout 不存在；對照業務 TCP port 與 names-only 回呼。見 `2026-09-09_100200-wellknown-http-ports-may-not-fail-named-host-resolve`。 |
 | Token 重新簽了仍失敗 | token 本身失效，不是簽章問題。 | 還原 App 的 login/device-login/session refresh 流程。 |
 | Login too frequently | 短時間 tight-loop、device/session/IP/app fingerprint 風控。 | 停止重試、重用 session、記錄 login attempt metadata。 |
 | HLS 只保存 m3u8 仍不能播放 | 缺 key、segments、base URL、AES 解密或 remux。 | 分開抓 playlist/key/segments，最後用 ffprobe/ffmpeg 驗證。 |
