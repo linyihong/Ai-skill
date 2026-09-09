@@ -4,6 +4,7 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
+| [2026-09-09_161500-il2cpp-c2s-protocol-may-be-cli-command-templates-in-metadata.md](2026-09-09_161500-il2cpp-c2s-protocol-may-be-cli-command-templates-in-metadata.md) | validated | IL2CPP C2S 協定可能是 metadata 字串表裡的 CLI 命令模板（`VERB -x{0}`），先查表再反編譯 |
 | [2026-09-09_112800-unity-ui-identity-from-loaded-objects-not-screenshot.md](2026-09-09_112800-unity-ui-identity-from-loaded-objects-not-screenshot.md) | validated | 畫面 UI 身分來自已載入物件，不是截圖或 hash cache |
 | [2026-09-09_094510-cleardata-spawn-delay-thread-attach.md](2026-09-09_094510-cleardata-spawn-delay-thread-attach.md) | validated | `pm clear` spawn 要延遲 `il2cpp_thread_attach`，否則 domain 可見仍會 abort |
 | [2026-09-08_171200-slot-play-rules-compare-cabinets-without-rng.md](2026-09-08_171200-slot-play-rules-compare-cabinets-without-rng.md) | validated | 每個 cabinet 用固定 play-rules 欄位比較玩法，不含 RNG／數字賠表 |
