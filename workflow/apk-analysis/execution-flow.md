@@ -26,7 +26,7 @@
 
 | Reset level | 用途 | 注意事項 |
 | --- | --- | --- |
-| `force-stop only` | 保留帳號/session，只重新啟動 App 與網路 client。 | 適合避免 login/rate limit，同時觀察冷啟動與導航流程。 |
+| `force-stop only` | 保留帳號/session，只重新啟動 App 與網路 client。 | 適合避免 login/rate limit，同時觀察冷啟動與導航流程。自動登入的 **packet class 可能與 clear-data 不同**（token 恢復 vs 建帳）；不要只用這一窗代表 first-run。 |
 | `clear cache` | 減少資源/cache 對列表或詳情的干擾。 | 不一定清掉 DB/session；需記錄是否仍有本機資料。 |
 | `clear app data` | 還原 first-run / session recovery / onboarding 狀態。 | 可能移除測試 session、觸發登入或限流；需使用授權測試帳號並記錄邊界。 |
 | `reinstall` | 驗證安裝後首輪 bootstrap / permission / migration。 | 成本最高；不要在不需要 first-run 行為時使用。 |
@@ -78,6 +78,8 @@
 5. 建立 UI architecture map（若可操作裝置）。
 6. **選擇 Frida 部署策略**：
    - 初始化階段的函數（static initializer、constructor、library loading）→ 使用 **spawn 模式**（`frida -U -f <package> -l script.js`）
+   - Frida 17 **`-q` 會在 `-l` 後立刻結束**；長窗口必須加 `-t <seconds>`，不要依賴本機 GNU `timeout`
+   - `pm clear` / first-run 的 IL2CPP spawn：domain pointer 可見後仍可能 `thread_attach` abort，延遲數秒再 attach
    - 執行階段的函數（使用者操作、網路請求）→ 使用 **attach 模式**（`frida -U <package> -l script.js`）
    - 不確定時，先用 spawn 模式確認完整流程，再用 attach 模式進行細部 hook
    - 注意：Frida JS 無 `Buffer` API，操作二進位資料使用 `ptr.add(i).readU8()`

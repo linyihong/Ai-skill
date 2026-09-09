@@ -4,6 +4,7 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
+| [2026-09-09_094510-cleardata-spawn-delay-thread-attach.md](2026-09-09_094510-cleardata-spawn-delay-thread-attach.md) | validated | `pm clear` spawn 要延遲 `il2cpp_thread_attach`，否則 domain 可見仍會 abort |
 | [2026-09-08_171200-slot-play-rules-compare-cabinets-without-rng.md](2026-09-08_171200-slot-play-rules-compare-cabinets-without-rng.md) | validated | 每個 cabinet 用固定 play-rules 欄位比較玩法，不含 RNG／數字賠表 |
 | [2026-09-08_165800-slot-spin-fixtures-pair-json-manifest-and-reel-crop.md](2026-09-08_165800-slot-spin-fixtures-pair-json-manifest-and-reel-crop.md) | validated | 每轉用 sampleId 綁定完整座標 JSON、reels-only crop 與 manifest validator |
 | [2026-09-08_162200-symbol-dto-id-may-be-one-char-strip-not-resource-name.md](2026-09-08_162200-symbol-dto-id-may-be-one-char-strip-not-resource-name.md) | validated | parsed symbol ID 可能是 1 字元 strip code，不是 resource 名 |

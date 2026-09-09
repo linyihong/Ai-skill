@@ -44,7 +44,9 @@ steps:
     order: 2
     action: >
       Choose reset level and split reset/startup/navigation/feature/documentation
-      windows when analyzing app-start-to-feature flows. If cold start lands on
+      windows when analyzing app-start-to-feature flows. force-stop-only automatic
+      login may use a different packet class than clear-app-data first account;
+      do not treat one window as both. If cold start lands on
       Play Unauthenticated/sign-in UI, run analysis/apk/workflows/cold-start-play-focus-ab.md
       (allow Play vs suppress vending focus-steal) before concluding the app is unreachable;
       use intelligence/engineering/analytical-reasoning/heuristics/play-focus-steal-vs-hard-kill.md
@@ -59,7 +61,11 @@ steps:
       - gate.apk_analysis.ui_evidence_valid
   - id: capture_feature_windows
     order: 5
-    action: Use Frida/MITM/pcap/replay windows with package and feature guards; label startup, navigation, feature-triggered, cache, or ambiguous traffic.
+    action: >
+      Use Frida/MITM/pcap/replay windows with package and feature guards; label
+      startup, navigation, feature-triggered, cache, or ambiguous traffic.
+      Frida 17 quiet CLI needs -t with -q. After pm clear, delay IL2CPP
+      thread_attach even if the domain pointer is already visible.
   - id: build_durable_assets
     order: 6
     action: Produce UI map, operation/API matrix, redacted API docs, domain/runtime baseline, feature handoff, fixtures, or contract tests.
