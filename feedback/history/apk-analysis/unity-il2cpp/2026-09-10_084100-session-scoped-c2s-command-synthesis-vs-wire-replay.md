@@ -27,7 +27,9 @@ Reusable approach:
    blob — not the first `DEAL_ID` match in the batch).
 4. Model round state: after join, a player may land in `RESULT` and need an
    advance command before the next bet; bet and next often use **different**
-   deal ids — take the post-bet deal from bet S2C, do not reuse the bet input.
+   deal ids. Post-bet deal is **not** reliably the last `DEAL_ID` in a noisy
+   multi-player S2C batch — try candidates until next succeeds, then read the
+   player's new deal from that response for consecutive spins.
 5. Large S2C may be zlib-wrapped after AES — decompress before XML parse.
 6. Visible grids may be compact attributes (`id:reel:row,…`) rather than nested
    DTO tags the client SDK documents.
