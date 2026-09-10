@@ -4,7 +4,7 @@
 
 | 分類 | 數量 | 說明 |
 |------|------|------|
-| [`common/`](common/) | 67 | 跨分類或通用 lesson（工具選擇、流程、UI、分析策略等） |
+| [`common/`](common/) | 68 | 跨分類或通用 lesson（工具選擇、流程、UI、分析策略等） |
 | [`flutter-dart-aot/`](flutter-dart-aot/) | 23 | Flutter/Dart AOT 相關 hook 與分析 |
 | [`http-api/`](http-api/) | 34 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 11 | Local proxy 設定、診斷、hook |
@@ -16,6 +16,10 @@
 
 | Slug | Category |
 |------|----------|
+| `common/2026-09-10_143500-slot-dual-wild-sum-and-desk-round` | Dual mult-wild sum; desk ROUND without symbols ≠ missing lines |
+| `common/2026-09-10_142327-bison-round-jackpot-no-symbols` | ROUND jackpot RESULT may omit Symbols |
+| `common/2026-09-10_141507-bison-lineset-frida-dump` | Live GetLineSet dump for payline geometry |
+| `common/2026-09-10_042103-payline-geometry-spot-verify` | Payline geometry: spot-verify paths; do not invent full maps |
 | `unity-il2cpp/2026-09-10_084100-session-scoped-c2s-command-synthesis-vs-wire-replay` | Session-scoped C2S command synthesis vs wire replay |
 
 ## Recent (2026-09-09)
