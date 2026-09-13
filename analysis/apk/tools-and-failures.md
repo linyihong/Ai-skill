@@ -45,6 +45,8 @@
 | 精選 `docs/assets/<topic>/` + 相對路徑 HTML | clone 後仍看得到的符號／美術對照圖。 | **只**複製 HTML 真正引用的檔；禁止 `file://` 指到 gitignored dump。全文 dump 仍 gitignore。 |
 | `adb screencap` | 對照可見區塊與 **已知名** 物件；標題 vs cache 目錄差集。 | Unity 畫面 `uiautomator dump` 常常幾乎是空的。截圖不是 Texture2D 身分來源。 |
 | Frida / IL2CPP：已載入 `Texture2D.name`、`Sprite.name`、Addressable key、active GameObject 路徑 | 回答「這頁用了哪個 UI 檔」。 | 畫面仍開著時 dump；只記 name／bundle／hash。功能包 ≠ splash／共用 HUD。Lesson：[`unity-ui-identity-from-loaded-objects-not-screenshot`](../../feedback/history/apk-analysis/unity-il2cpp/2026-09-09_112800-unity-ui-identity-from-loaded-objects-not-screenshot.md)。 |
+| UnityPy **atlas manifest**（`Sprite.name → texture + rect + exported PNG`） | Cabinet bundle 素材 **name-first** 還原；避免 MSE 猜圖。 | 在 Frida name 之後、imgcache MSE 之前。Splash CDN id（`choose_category_*`）通常 **不在** reel bundle。Lesson：[`unity-atlas-manifest-after-frida-sprite-name`](../../feedback/history/apk-analysis/unity-il2cpp/2026-09-14_082500-unity-atlas-manifest-after-frida-sprite-name.md)。 |
+| imgcache **hash 直查**（`spriteName → 已知 hash.png`） | CDN cache 平面；延續先前 MSE pass 的 hash 對照。 | 優於全庫滑窗 MSE；無 hash 才 fallback MSE。 |
 | App `cache/` hash 檔解碼 | 可能是 PNG 或 raw RGBA。 | **無物件名**；像素比對最多輔助，標 `decoded-unidentified`。 |
 | `ss` / `netstat` on the game PID | 分開 443 CDN 與非 443 長連線。 | 非 443 + 無 TLS cert → 自訂 TCP；見 unity-il2cpp protocol lesson。 |
 
