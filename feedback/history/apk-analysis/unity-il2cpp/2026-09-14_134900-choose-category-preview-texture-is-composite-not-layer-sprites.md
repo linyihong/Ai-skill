@@ -46,7 +46,7 @@ Shared HUD chrome 通常有具名 `SpriteName`，可用 atlas／hash 還原。�
 
 #### Agent Action
 
-對 `preview_texture` 類物件標 composite；子視覺層標 visual-layer；維護 rejectedFalsePositives。下一步列 CDN／RenderDoc，不跑全庫 MSE。
+對 `preview_texture` 類物件標 composite；子視覺層標 visual-layer；維護 rejectedFalsePositives。還原步驟見同分類 lesson `restore-unity-preview-composite-via-main-thread-or-cdn`；不要把可執行步驟寫進 technique-free viewer HTML。
 
 #### Goal / Action / Validation
 

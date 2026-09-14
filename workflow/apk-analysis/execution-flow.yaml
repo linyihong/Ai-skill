@@ -109,6 +109,7 @@ gates:
       - runtime atlas exports require valid handle gate (valid=true, readable Pointer/entry id, non-unit UV) before ReadPixels
       - runtime atlas exports prove UV pixel size equals handle PixelSize and exported PNG dimensions
       - choose-category preview_texture composites are not claimed as separable atlas layer sprites
+      - empty-SpriteName preview/title composites restore via main-thread texture dump or CDN window, not atlas UV
       - Unity inline-icon claims distinguish verified font glyphs from standalone images
   - id: gate.apk_analysis.durable_assets_ready
     blocks: completion_claim
