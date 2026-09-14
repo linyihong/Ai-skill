@@ -13,12 +13,26 @@ Status: validated
 外部建議常列出三條路：RenderDoc、Frida 遍歷 UI.Image、還原圖集。實務上 **順序** 決定精度：
 
 1. **Frida `get_SpriteName()`** — 執行期身分（Tier-1）。已有 lesson：[`unity-ui-identity-from-loaded-objects-not-screenshot`](2026-09-09_112800-unity-ui-identity-from-loaded-objects-not-screenshot.md)。
-2. **Atlas manifest** — 對 **cabinet bundle**（如 `slots.buffalo_rush`）用 UnityPy 或已匯出 `Sprite_*.png` 索引，精確命中 `high_1` 等 reel 素材。
+2. **Atlas manifest** — 對 **feature bundle**（如 `slots.<feature-slug>`）用 UnityPy 或已匯出 `Sprite_*.png` 索引，精確命中具名 Sprite。
 3. **imgcache hash 直查** — splash / choose-category 素材在 CDN cache（hash 檔名），若先前 MSE pass 已記 `spriteName → hash`，直接用 hash 取 PNG，不要重跑 900+ 檔滑窗。
 4. **imgcache MSE** — 僅當 2/3 皆無且需弱候選時；>35 拒絕。
 5. **RenderDoc** — `SpriteName` 為 null 的 RenderTexture 合成（hero / preview_texture）。
 
-常見錯誤：用 **功能包 PNG 清單** 或 **imgcache MSE-first** 去配 splash；choose-category id（`choose_category_*`）不在 reel bundle 內。
+常見錯誤：用 **功能包 PNG 清單** 或 **imgcache MSE-first** 去配 shared splash；shared UI resource id 不一定在 feature bundle 內。
+
+#### 2026-09-14 Revision - custom runtime atlas handles
+
+`UIImage.get_Sprite()` 不一定回傳 `UnityEngine.Sprite`。部分 IL2CPP client
+使用自訂 `UIAtlasRect` / atlas handle；這時應先讀取 method 的宣告回傳型別，
+再從 handle 取得 resource name、atlas entry id、normalized UV、pixel size、
+scale / alpha 與 `UIImage.get_Texture()`。
+
+如果 texture 是 `RenderTexture`，`ImageConversion.EncodeToPNG` 不能直接匯出。
+應將 UV 乘上 texture 尺寸得到 pixel rect，再於 Unity main/render thread
+callback 內執行 `RenderTexture.active` + `Texture2D.ReadPixels`。從 Frida
+worker thread 建立 `Texture2D` 可能命中 Unity 的 main-thread breakpoint；
+可掛到該 UI renderer 的 `OnWillRenderObject`，只在目標 resource name
+相符時執行一次 bounded export。
 
 #### Trigger
 
@@ -29,8 +43,8 @@ Status: validated
 #### Evidence
 
 - Tool: `export_sprite_atlas_manifest.py`, `resolve_ui_sprites.py`, UnityPy, Frida pass-4 capture.
-- Sanitized excerpt: `slots.buffalo_rush` manifest 41 Sprite；splash Frida 176 names 中 12 個 choose-category 經 hash 直查 resolved；164 為背景/非 splash 節點（identity-only）；hero 仍 unresolved。
-- Evidence path: target project `docs/slots/ui-asset-restoration.md`, `bison-bash/interface-analysis/sprite-resolution-report.json`
+- Sanitized excerpt: feature-bundle manifest 可精確索引具名 Sprite；shared splash resource 另由 hash cache 或 runtime atlas 處理。當 custom atlas handle 的 UV×textureSize、runtime PixelSize 與匯出 PNG 尺寸一致時，可標記為 runtime-atlas verified。
+- Evidence path: `<PROJECT_ROOT>/docs/slots/ui-asset-restoration.md` 與 project-local runtime atlas evidence。
 
 #### Generalized Lesson
 
@@ -39,6 +53,9 @@ Status: validated
 3. 全 imgcache 滑窗 MSE 成本高、易假陽性；需 size prefilter + crop map。
 4. 分 plane 寫 inventory：cabinet bundle / choose-category CDN / RenderTexture composite。
 5. RenderDoc 列為 composite 的 optional pass，不取代 Frida name。
+6. `get_Sprite()` 回傳 custom atlas handle 時，依宣告型別解析 UV；不要強制套用 `UnityEngine.Sprite` 欄位。
+7. Runtime texture export 必須在 Unity main/render thread 執行，並以
+   `UV × textureSize == PixelSize == PNG size` 三方一致作為驗證。
 
 #### Agent Action
 
@@ -47,8 +64,8 @@ Implement or run name-first resolver before claiming asset restoration complete.
 #### Goal / Action / Validation
 
 - Goal: Restorable PNG path per visible UI sprite with proven identity chain.
-- Action: Frida → manifest index → hash direct → MSE fallback → mark composite unproven.
-- Validation: Report lists tier per sprite; cabinet symbols hit manifest; splash chrome hits hash or stays identity-only; no blue-on-blue false verified.
+- Action: Frida identity → declared sprite-handle type → manifest/hash direct；若為 custom runtime atlas，再以 UV + render-thread ReadPixels 匯出；最後才使用 MSE。
+- Validation: Report lists tier per sprite；runtime export 必須同時滿足 UV 尺寸、handle PixelSize、PNG 尺寸一致；純色 MSE 假陽性不得標 verified。
 
 #### Applies When
 
@@ -62,7 +79,9 @@ Implement or run name-first resolver before claiming asset restoration complete.
 
 #### Validation
 
-Re-run resolver: manifest hit count stable; hash direct rows copy readable PNG; MSE not required for hash-mapped sprites.
+Re-run resolver: manifest hit count stable；hash direct rows copy readable PNG。
+若走 runtime atlas，確認 handle resource name、atlas entry、UV 與 texture
+尺寸已記錄，且匯出 PNG 的 width/height 等於 UV pixel rect。
 
 #### Promotion Target
 

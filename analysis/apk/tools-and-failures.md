@@ -46,6 +46,7 @@
 | `adb screencap` | 對照可見區塊與 **已知名** 物件；標題 vs cache 目錄差集。 | Unity 畫面 `uiautomator dump` 常常幾乎是空的。截圖不是 Texture2D 身分來源。 |
 | Frida / IL2CPP：已載入 `Texture2D.name`、`Sprite.name`、Addressable key、active GameObject 路徑 | 回答「這頁用了哪個 UI 檔」。 | 畫面仍開著時 dump；只記 name／bundle／hash。功能包 ≠ splash／共用 HUD。Lesson：[`unity-ui-identity-from-loaded-objects-not-screenshot`](../../feedback/history/apk-analysis/unity-il2cpp/2026-09-09_112800-unity-ui-identity-from-loaded-objects-not-screenshot.md)。 |
 | UnityPy **atlas manifest**（`Sprite.name → texture + rect + exported PNG`） | Cabinet bundle 素材 **name-first** 還原；避免 MSE 猜圖。 | 在 Frida name 之後、imgcache MSE 之前。Splash CDN id（`choose_category_*`）通常 **不在** reel bundle。Lesson：[`unity-atlas-manifest-after-frida-sprite-name`](../../feedback/history/apk-analysis/unity-il2cpp/2026-09-14_082500-unity-atlas-manifest-after-frida-sprite-name.md)。 |
+| Custom runtime atlas（`UIAtlasRect` / equivalent handle） | Wrapper 不回傳 `UnityEngine.Sprite` 時，以 atlas entry + UV 從 active texture 匯出完整 RGBA。 | 先檢查 `get_Sprite()` 宣告回傳型別；`RenderTexture` 需在 Unity main/render thread 以 `ReadPixels` 匯出。驗證 `UV × textureSize == handle PixelSize == PNG size`。 |
 | imgcache **hash 直查**（`spriteName → 已知 hash.png`） | CDN cache 平面；延續先前 MSE pass 的 hash 對照。 | 優於全庫滑窗 MSE；無 hash 才 fallback MSE。 |
 | App `cache/` hash 檔解碼 | 可能是 PNG 或 raw RGBA。 | **無物件名**；像素比對最多輔助，標 `decoded-unidentified`。 |
 | `ss` / `netstat` on the game PID | 分開 443 CDN 與非 443 長連線。 | 非 443 + 無 TLS cert → 自訂 TCP；見 unity-il2cpp protocol lesson。 |
@@ -67,6 +68,7 @@
 | UI map / 截圖流程讓 App 或分析環境變卡 | 截圖、錄影、UI dump、自動遍歷、hook logging 同時進行，I/O 與主執行緒壓力太高。 | 降成 lightweight overview：只截主要 tabs/關鍵 screen；先停錄影與批量 dump，保留 API hook/pcap 主線。 |
 | 自動化操作抓 API 時結果不穩 | 操作未等待畫面穩定、背景預載/cache 混入、同一腳本含多個 action。 | 每個 operation script 只做一個 flow；輸出開始/結束 timestamp；必要時先 force-stop/冷啟動並加入短等待。 |
 | Unity 畫面要盤點用了哪張圖，卻先截圖對 hash cache／功能包 PNG | Android dump 沒有 src；hash 檔沒有物件名；功能 bundle 不含 splash／HUD。 | 先 dump 已載入 Texture2D／Sprite／Addressable／GameObject 名；截圖只做 visiblity。見 unity-il2cpp UI-identity lesson。 |
+| `get_Sprite()` 有 resource name，但當成 `UnityEngine.Sprite` 讀不到 texture rect | Client 可能回傳自訂 atlas handle；硬套 Unity Sprite 欄位會漏掉 atlas entry / UV。 | 讀 method return type 與 handle metadata；若 texture 是 RenderTexture，在 UI render callback 內 bounded `ReadPixels`，不要從 Frida worker thread 建 Texture2D。 |
 | 抓到 API 但不知道是哪個操作觸發 | 沒有建立 UI 操作時間窗，或 startup/preload/background sync 混在一起。 | 先補 screenshot/UI hierarchy 與 operation id；每次只操作一個 screen/action。 |
 | 截圖看起來是某個 tab，但 API timing 對不上 | tab 預載、快取、背景同步、或同 endpoint 被多個 screen 共用。 | 標成 trigger confidence low/medium；用冷啟動、清 cache、單步操作或 hook sequence 重新驗證。 |
 | Proxyman 沒有核心 API | client 不走系統代理、attach 太晚、流程沒觸發。 | pcap 確認 host；用 cold-start injection 或高語意 hook。 |

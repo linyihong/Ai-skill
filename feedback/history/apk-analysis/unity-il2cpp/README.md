@@ -4,7 +4,7 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
-| [2026-09-14_082500-unity-atlas-manifest-after-frida-sprite-name.md](2026-09-14_082500-unity-atlas-manifest-after-frida-sprite-name.md) | validated | Frida SpriteName 後建 atlas manifest + imgcache hash 直查；MSE 僅 fallback |
+| [2026-09-14_082500-unity-atlas-manifest-after-frida-sprite-name.md](2026-09-14_082500-unity-atlas-manifest-after-frida-sprite-name.md) | validated | Frida SpriteName 後建 manifest／hash 直查；custom `UIAtlasRect` 以 runtime UV + render-thread ReadPixels 匯出；MSE 僅 fallback |
 | [2026-09-10_084100-session-scoped-c2s-command-synthesis-vs-wire-replay.md](2026-09-10_084100-session-scoped-c2s-command-synthesis-vs-wire-replay.md) | validated | Session-scoped C2S 命令字串需動態合成；勿重播舊 desk/deal wire；RESULT→NEXT、post-bet deal、zlib S2C |
 | [2026-09-09_172000-c2s-socket-write-may-length-prefix-encrypt-data.md](2026-09-09_172000-c2s-socket-write-may-length-prefix-encrypt-data.md) | validated | EncryptData 密文送出前可能再加 C2S 長度前綴（短 `u8`、長 `FF`+u32be），不是 raw AES |
 | [2026-09-09_170600-frida-socket-send-may-be-tls-not-encrypt-data.md](2026-09-09_170600-frida-socket-send-may-be-tls-not-encrypt-data.md) | validated | Frida `send()` 可能是 TLS record（`17 03 03`），不是 EncryptData；schema 要 hook 明文入口 |

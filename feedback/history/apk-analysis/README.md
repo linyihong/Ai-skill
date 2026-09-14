@@ -16,7 +16,7 @@
 
 | Slug | Category |
 |------|----------|
-| `unity-il2cpp/2026-09-14_082500-unity-atlas-manifest-after-frida-sprite-name` | After Frida SpriteName: atlas manifest + imgcache hash before MSE |
+| `unity-il2cpp/2026-09-14_082500-unity-atlas-manifest-after-frida-sprite-name` | SpriteName 後先走 manifest／hash；custom runtime atlas 用 UV + render-thread ReadPixels，MSE 最後 |
 
 ## Recent (2026-09-10)
 
