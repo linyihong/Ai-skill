@@ -4,6 +4,7 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
+| [2026-09-14_150000-slot-variable-lines-ways-desk-match.md](2026-09-14_150000-slot-variable-lines-ways-desk-match.md) | validated | variable-lines：TB=Bet×BetMultiplier；最長 L→R ways×tableMult×TB 對 Payout |
 | [2026-09-14_144100-slot-variable-lines-is-third-win-mode.md](2026-09-14_144100-slot-variable-lines-is-third-win-mode.md) | validated | 動態高度「条赔付线」是第三種 winMode；勿塞進固定 paylines 或 all-ways，也勿重用固定線 chipScale |
 | [2026-09-14_141200-restore-unity-preview-composite-via-main-thread-or-cdn.md](2026-09-14_141200-restore-unity-preview-composite-via-main-thread-or-cdn.md) | validated | 空 SpriteName 的 preview／title：main-thread texture dump → CDN 開啟窗 → GPU；idle 需強制重繪；步驟不進 technique-free viewer |
 | [2026-09-14_134900-choose-category-preview-texture-is-composite-not-layer-sprites.md](2026-09-14_134900-choose-category-preview-texture-is-composite-not-layer-sprites.md) | validated | Choose-category `preview_texture` 是合成預覽；光暈／主體／底座／字標多半是藝術層，不是可獨立 atlas 匯出的 sprite |
