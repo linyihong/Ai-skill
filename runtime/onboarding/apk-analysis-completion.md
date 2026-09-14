@@ -18,7 +18,7 @@
 | 6 | **去敏規則與文件位置** | 已定義去敏規則並知道文件存放位置 |
 | 7 | **Domain/runtime baseline 或 blocker 清單** | 若目標包含 SDK/client/replay/live integration：domain/runtime baseline 已回答最小可跑因素，或缺口已列 blocker / scoped out；僅 skeleton 時不得宣稱可開始 live-facing 開發 |
 | 8 | **新 lesson 回饋** | 是否有新 lesson 回饋到 skill（若有發現新技巧） |
-| 9 | **Unity 素材還原證據（適用時）** | 「完整素材」宣稱須有 runtime Sprite／custom atlas handle、rect／UV、texture 尺寸與 PNG 尺寸一致性；screen crop 僅標 visibility reference |
+| 9 | **Unity 素材還原證據（適用時）** | 「完整素材」宣稱須有 runtime Sprite／custom atlas handle、rect／UV、texture 尺寸與 PNG 尺寸一致性；若為 `UIText` generated glyph，須記 codepoint、實際 font、size/style、texture size 與 glyph UV；screen crop 僅標 visibility reference |
 
 ## 第一輪分析順序
 

@@ -68,8 +68,11 @@ steps:
       and active texture dimensions. Export RenderTexture regions only from a
       bounded Unity main/render-thread callback, then require UV pixel size,
       runtime PixelSize, and PNG dimensions to agree. Escalate to RenderDoc only
-      when handle/UV/pixels are unavailable or the result is a multi-draw
-      composite.
+      after checking whether an icon missing from the Sprite list is a UIText
+      Private Use Area glyph. Generated glyph claims require the actual font,
+      size/style, texture size, and Font.GetCharacterInfo UV; they must not be
+      labeled as standalone PNGs. Escalate only when handle/glyph identity,
+      UV/pixels are unavailable or the result is a multi-draw composite.
     gates:
       - gate.apk_analysis.ui_evidence_valid
   - id: capture_feature_windows
@@ -103,6 +106,7 @@ gates:
       - repeated navigation mismatch enters recovery
       - complete Unity 2D asset claims use runtime object identity and rect/UV evidence, not screenshot crops
       - runtime atlas exports prove UV pixel size equals handle PixelSize and exported PNG dimensions
+      - Unity inline-icon claims distinguish verified font glyphs from standalone images
   - id: gate.apk_analysis.durable_assets_ready
     blocks: completion_claim
     pass_when:
@@ -115,6 +119,7 @@ required_evidence:
   - package / feature-context validation
   - sanitized pcap / MITM / hook / replay / screenshot / hierarchy references
   - runtime sprite/atlas handle type, texture dimensions, rect/UV, and size agreement when claiming Unity asset restoration
+  - text codepoint, actual font, size/style, texture dimensions, and glyph UV when claiming a Unity generated icon
   - UI map, API docs, domain/runtime baseline, or feature handoff status
 
 success_criteria:
@@ -135,6 +140,9 @@ failure_modes:
   - id: unity_screen_crop_claimed_as_source_asset
     detection: A screenshot crop or MSE match is labeled as a complete Unity sprite without runtime handle/rect/UV evidence.
     recovery: Inspect the declared sprite-handle type and atlas metadata; export readable texture pixels on the Unity render thread, or mark unresolved and escalate composite cases to RenderDoc.
+  - id: unity_font_glyph_misattributed_as_sprite
+    detection: An inline icon absent from the active Sprite list is assigned to a look-alike PNG without checking UIText codepoints and font glyph metadata.
+    recovery: Inspect the adjacent text, resolve Private Use Area codepoints with the actual font/size/style and CharacterInfo UV, then label the result generated-glyph or unresolved.
   - id: play_unauth_misread_as_hard_unreachable
     detection: Cold start focus on Play Unauthenticated/sign-in is treated as process hard-kill or "static Pairip hop proven" without focus A/B sampling.
     recovery: Run cold-start-play-focus-ab.md A/B; label L1 static vs L2 focus vs L3 reachability; do not claim unobserved Pairip LicenseActivity hops.

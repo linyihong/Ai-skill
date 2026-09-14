@@ -4,6 +4,7 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
+| [2026-09-14_111500-unity-inline-icon-may-be-private-use-font-glyph.md](2026-09-14_111500-unity-inline-icon-may-be-private-use-font-glyph.md) | validated | Sprite 清單沒有小圖示時，檢查 `UIText` Private Use Area codepoint 與 font glyph UV；勿誤配相似 PNG |
 | [2026-09-14_101121-compact-xml-attribute-may-have-sibling-overrides.md](2026-09-14_101121-compact-xml-attribute-may-have-sibling-overrides.md) | validated | Compact XML attribute 可能與 sibling elements 共同組成完整集合；三邊界計數後合併，勿推測補值 |
 | [2026-09-14_082500-unity-atlas-manifest-after-frida-sprite-name.md](2026-09-14_082500-unity-atlas-manifest-after-frida-sprite-name.md) | validated | Frida SpriteName 後建 manifest／hash 直查；custom `UIAtlasRect` 以 runtime UV + render-thread ReadPixels 匯出；MSE 僅 fallback |
 | [2026-09-10_084100-session-scoped-c2s-command-synthesis-vs-wire-replay.md](2026-09-10_084100-session-scoped-c2s-command-synthesis-vs-wire-replay.md) | validated | Session-scoped C2S 命令字串需動態合成；勿重播舊 desk/deal wire；RESULT→NEXT、post-bet deal、zlib S2C |
