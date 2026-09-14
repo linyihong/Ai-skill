@@ -85,12 +85,14 @@ Re-run resolver: manifest hit count stable；hash direct rows copy readable PNG�
 
 #### Promotion Target
 
-- `analysis/apk/tools-and-failures.md`（Unity 表加 atlas manifest + hash-direct 列）
-- `workflow/apk-analysis/execution-flow.md`（Unity canvas identity 規則補充 pass-5）
+- `analysis/apk/tools-and-failures.md`（已 promotion：manifest、hash-direct、custom runtime atlas 與 main-thread export）
+- `workflow/apk-analysis/execution-flow.md`（已 promotion：Unity runtime atlas restoration rule）
 
 #### Required Linked Updates
 
-- 必須：`feedback/history/apk-analysis/README.md`
-- 必須：`feedback/history/apk-analysis/unity-il2cpp/README.md`
-- 必須：`analysis/apk/tools-and-failures.md`
+- 已更新：`feedback/history/apk-analysis/README.md`
+- 已更新：`feedback/history/apk-analysis/unity-il2cpp/README.md`
+- 已更新：`analysis/apk/tools-and-failures.md`
+- 已更新：`workflow/apk-analysis/README.md`、`execution-flow.md` / `.yaml`
+- 已更新：`runtime/onboarding/apk-analysis-completion.md`
 - Project scripts/docs 留在 `<PROJECT_ROOT>`（不寫入本檔 raw path）

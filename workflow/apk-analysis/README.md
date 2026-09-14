@@ -43,7 +43,7 @@
 1. 確認授權、範圍、APK 版本、裝置/模擬器和允許的操作。
 2. 透過 `analysis/apk/` 路由以識別流量/執行時期路徑。
 3. 從 `analysis/apk/workflows/` 載入匹配的工作流程，並從 `intelligence/engineering/analytical-reasoning/` 載入智慧原子。
-4. 產生已清理的專案產出：UI 地圖、操作到 API 矩陣、API 目錄、執行時期基線、fixtures 和適用的開放問題。
+4. 產生已清理的專案產出：UI 地圖、操作到 API 矩陣、API 目錄、執行時期基線、fixtures 和適用的開放問題。Unity 素材若宣稱完整還原，必須保留 runtime Sprite／custom atlas handle、rect／UV、texture 尺寸與輸出尺寸一致性證據；screen crop 只能作 visibility reference。
 5. 如果發現必須成為應用程式/API/SDK 實作指引，使用已清理的 Feature Reconstruction Handoff 交接給 `workflow/software-delivery/`。
 6. 如果出現可重複使用的課程，將課程保留在 `feedback/history/apk-analysis/` 中，直到提升規則將其移至智慧或回饋層。
 

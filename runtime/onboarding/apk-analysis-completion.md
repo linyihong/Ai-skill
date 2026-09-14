@@ -18,6 +18,7 @@
 | 6 | **去敏規則與文件位置** | 已定義去敏規則並知道文件存放位置 |
 | 7 | **Domain/runtime baseline 或 blocker 清單** | 若目標包含 SDK/client/replay/live integration：domain/runtime baseline 已回答最小可跑因素，或缺口已列 blocker / scoped out；僅 skeleton 時不得宣稱可開始 live-facing 開發 |
 | 8 | **新 lesson 回饋** | 是否有新 lesson 回饋到 skill（若有發現新技巧） |
+| 9 | **Unity 素材還原證據（適用時）** | 「完整素材」宣稱須有 runtime Sprite／custom atlas handle、rect／UV、texture 尺寸與 PNG 尺寸一致性；screen crop 僅標 visibility reference |
 
 ## 第一輪分析順序
 
@@ -26,7 +27,7 @@
 3. **流量路徑判斷**：localhost / loopback、whole-device pcap、system proxy / MITM、Java HTTP stack、native connect trace、Flutter / Dart AOT if applicable。
 4. **找高語意 hook**：request options、response wrapper、response decoder / decryptor、token/session provider。
 5. **分類路由**：先用共通流程判斷 runtime / traffic family。證據指向特定技術才讀對應 techniques 文件。不要在分類未明時一次讀完所有 technique folders。
-6. **文件化**：失敗路徑也要寫、成功證據要可重現、API 結論和方法論要分開、去敏後才保存樣本。若下一步是 SDK/client/app tool/live integration 開發，先補 project-level domain/runtime baseline 的最小可跑因素；若需要 device/install/account/session/vendor/server-issued material，補 authorized identity material self-generation audit。
+6. **文件化**：失敗路徑也要寫、成功證據要可重現、API 結論和方法論要分開、去敏後才保存樣本。Unity 2D 素材若宣稱完整還原，需記錄宣告 sprite-handle 型別、atlas entry、rect／UV、texture 尺寸與輸出 PNG 尺寸；`RenderTexture` 匯出需在 Unity main／render thread。若下一步是 SDK/client/app tool/live integration 開發，先補 project-level domain/runtime baseline 的最小可跑因素；若需要 device/install/account/session/vendor/server-issued material，補 authorized identity material self-generation audit。
 7. **回饋 skill**：新技巧寫入 `feedback/history/apk-analysis/<category>/` 或 `feedback/history/apk-analysis/common/`。已驗證技巧再同步進 `workflow/apk-analysis/execution-flow.md`、`workflow/apk-analysis/artifact-gates.md`、`analysis/apk/workflows/` 或 `intelligence/engineering/analytical-reasoning/`。
 
 ## 與其他層的關係

@@ -61,7 +61,15 @@ steps:
       Validate foreground package, activity, and feature context before using
       screenshots or hierarchy as UI/API evidence. For Unity canvases with an
       empty Android dump, identity is loaded Texture2D/Sprite/Addressable names,
-      not screenshot-to-cache matching.
+      not screenshot-to-cache matching. Before claiming complete 2D asset
+      restoration, inspect the declared UIImage sprite-handle return type.
+      UnityEngine.Sprite uses texture rect/packing metadata; a custom atlas
+      handle uses resource name, atlas entry, normalized UV, PixelSize, alpha,
+      and active texture dimensions. Export RenderTexture regions only from a
+      bounded Unity main/render-thread callback, then require UV pixel size,
+      runtime PixelSize, and PNG dimensions to agree. Escalate to RenderDoc only
+      when handle/UV/pixels are unavailable or the result is a multi-draw
+      composite.
     gates:
       - gate.apk_analysis.ui_evidence_valid
   - id: capture_feature_windows
@@ -93,6 +101,8 @@ gates:
       - screenshot/hierarchy package and feature context belong to target app
       - external or wrong in-app windows are marked invalid for target feature
       - repeated navigation mismatch enters recovery
+      - complete Unity 2D asset claims use runtime object identity and rect/UV evidence, not screenshot crops
+      - runtime atlas exports prove UV pixel size equals handle PixelSize and exported PNG dimensions
   - id: gate.apk_analysis.durable_assets_ready
     blocks: completion_claim
     pass_when:
@@ -104,12 +114,14 @@ required_evidence:
   - reset baseline and capture window labels
   - package / feature-context validation
   - sanitized pcap / MITM / hook / replay / screenshot / hierarchy references
+  - runtime sprite/atlas handle type, texture dimensions, rect/UV, and size agreement when claiming Unity asset restoration
   - UI map, API docs, domain/runtime baseline, or feature handoff status
 
 success_criteria:
   - APK analysis stays within authorized target and excludes unrelated data.
   - UI/API evidence is package- and feature-validated before attribution.
   - Feature/API claims distinguish startup, navigation, feature-triggered, cache, and ambiguous requests.
+  - Unity asset-restoration claims distinguish source atlas exports from screen visibility references.
   - Durable project assets are updated before completion.
   - Reusable techniques are generalized and sanitized.
 
@@ -120,6 +132,9 @@ failure_modes:
   - id: startup_request_misattributed
     detection: Startup, preload, session recovery, or background request is claimed as current feature trigger.
     recovery: Split windows and relabel traffic before mapping.
+  - id: unity_screen_crop_claimed_as_source_asset
+    detection: A screenshot crop or MSE match is labeled as a complete Unity sprite without runtime handle/rect/UV evidence.
+    recovery: Inspect the declared sprite-handle type and atlas metadata; export readable texture pixels on the Unity render thread, or mark unresolved and escalate composite cases to RenderDoc.
   - id: play_unauth_misread_as_hard_unreachable
     detection: Cold start focus on Play Unauthenticated/sign-in is treated as process hard-kill or "static Pairip hop proven" without focus A/B sampling.
     recovery: Run cold-start-play-focus-ab.md A/B; label L1 static vs L2 focus vs L3 reachability; do not claim unobserved Pairip LicenseActivity hops.
