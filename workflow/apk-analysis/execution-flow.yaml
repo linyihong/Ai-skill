@@ -106,7 +106,9 @@ gates:
       - external or wrong in-app windows are marked invalid for target feature
       - repeated navigation mismatch enters recovery
       - complete Unity 2D asset claims use runtime object identity and rect/UV evidence, not screenshot crops
+      - runtime atlas exports require valid handle gate (valid=true, readable Pointer/entry id, non-unit UV) before ReadPixels
       - runtime atlas exports prove UV pixel size equals handle PixelSize and exported PNG dimensions
+      - choose-category preview_texture composites are not claimed as separable atlas layer sprites
       - Unity inline-icon claims distinguish verified font glyphs from standalone images
   - id: gate.apk_analysis.durable_assets_ready
     blocks: completion_claim

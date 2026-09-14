@@ -9,13 +9,15 @@
 | [`http-api/`](http-api/) | 34 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 11 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
-| [`unity-il2cpp/`](unity-il2cpp/) | 42 | Unity IL2CPP、AssetBundle、UnityCache |
+| [`unity-il2cpp/`](unity-il2cpp/) | 44 | Unity IL2CPP、AssetBundle、UnityCache |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
 
 ## Recent (2026-09-14)
 
 | Slug | Category |
 |------|----------|
+| `unity-il2cpp/2026-09-14_134900-choose-category-preview-texture-is-composite-not-layer-sprites` | Splash `preview_texture` 是合成預覽；視覺分層 ≠ 可獨立 atlas 匯出 |
+| `unity-il2cpp/2026-09-14_134800-uiatlasrect-valid-false-null-pointer-blocks-uv-export` | UIAtlasRect 有 PixelSize 但 valid=false／Pointer null 時不可 ReadPixels |
 | `unity-il2cpp/2026-09-14_113500-pua-icon-glyph-may-live-in-separate-icons-font` | PUA icon 可能在獨立 Icons font；用 cmap 找真正來源檔 |
 | `unity-il2cpp/2026-09-14_111500-unity-inline-icon-may-be-private-use-font-glyph` | 小圖示可能是 `UIText` Private Use Area 字型 glyph，不是獨立 Sprite |
 | `unity-il2cpp/2026-09-14_101121-compact-xml-attribute-may-have-sibling-overrides` | Compact attribute 與 sibling elements 可能共同組成完整集合 |

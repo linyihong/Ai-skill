@@ -4,6 +4,8 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
+| [2026-09-14_134900-choose-category-preview-texture-is-composite-not-layer-sprites.md](2026-09-14_134900-choose-category-preview-texture-is-composite-not-layer-sprites.md) | validated | Choose-category `preview_texture` 是合成預覽；光暈／主體／底座／字標多半是藝術層，不是可獨立 atlas 匯出的 sprite |
+| [2026-09-14_134800-uiatlasrect-valid-false-null-pointer-blocks-uv-export.md](2026-09-14_134800-uiatlasrect-valid-false-null-pointer-blocks-uv-export.md) | validated | UIAtlasRect 即使有 PixelSize，valid=false／Pointer null／unit UV 時不可 ReadPixels；改標 screen-isolated |
 | [2026-09-14_113500-pua-icon-glyph-may-live-in-separate-icons-font.md](2026-09-14_113500-pua-icon-glyph-may-live-in-separate-icons-font.md) | validated | PUA icon 的來源可能是獨立 Icons font；用 cmap 驗證，不要把 body font 名稱當成 glyph source |
 | [2026-09-14_111500-unity-inline-icon-may-be-private-use-font-glyph.md](2026-09-14_111500-unity-inline-icon-may-be-private-use-font-glyph.md) | validated | Sprite 清單沒有小圖示時，檢查 `UIText` Private Use Area codepoint 與 font glyph UV；勿誤配相似 PNG |
 | [2026-09-14_101121-compact-xml-attribute-may-have-sibling-overrides.md](2026-09-14_101121-compact-xml-attribute-may-have-sibling-overrides.md) | validated | Compact XML attribute 可能與 sibling elements 共同組成完整集合；三邊界計數後合併，勿推測補值 |
