@@ -39,6 +39,7 @@ Status: validated
 4. 只有 codepoint/font/UV 與畫面位置一致時，才能標 `verified-generated-glyph`。
 5. 字型 glyph 不是獨立 source PNG；screen crop 只能作 visibility reference。
 6. 外觀相近的 ticket、coin 或 chip PNG 必須拒絕，除非有 runtime object identity 鏈。
+7. Runtime body/style font 名稱不一定是 PUA icon 的來源檔；要對候選字型做 cmap 查 codepoint，另見 [`2026-09-14_113500-pua-icon-glyph-may-live-in-separate-icons-font.md`](2026-09-14_113500-pua-icon-glyph-may-live-in-separate-icons-font.md)。
 
 #### Agent Action
 

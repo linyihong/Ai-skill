@@ -71,7 +71,8 @@ steps:
       after checking whether an icon missing from the Sprite list is a UIText
       Private Use Area glyph. Generated glyph claims require the actual font,
       size/style, texture size, and Font.GetCharacterInfo UV; they must not be
-      labeled as standalone PNGs. Escalate only when handle/glyph identity,
+      labeled as standalone PNGs. When candidate font files exist, confirm the
+      Private Use Area codepoint via cmap before naming a sourceFontFile. Escalate only when handle/glyph identity,
       UV/pixels are unavailable or the result is a multi-draw composite.
     gates:
       - gate.apk_analysis.ui_evidence_valid
