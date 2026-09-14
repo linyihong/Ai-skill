@@ -4,6 +4,7 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
+| [2026-09-14_170500-frida-chain-harness-nonblocking-stdout.md](2026-09-14_170500-frida-chain-harness-nonblocking-stdout.md) | validated | Frida chain harness 勿阻塞 readline；用 select/短超時才能讓 chain timeout 生效 |
 | [2026-09-14_164000-slot-multi-level-collapse-one-result.md](2026-09-14_164000-slot-multi-level-collapse-one-result.md) | validated | Rewards 多 level + Collapse = 同 RESULT 內多段付費 cascade；先 sim tumble 再改 ways 公式 |
 | [2026-09-14_163000-slot-collapse-often-single-result.md](2026-09-14_163000-slot-collapse-often-single-result.md) | validated | Collapse NewSymbols 常同 RESULT 交付；勿假設每次 tumble 都有第 2 段 ProcessResult |
 | [2026-09-14_162000-slot-rewards-chips-per-way-and-collapse.md](2026-09-14_162000-slot-rewards-chips-per-way-and-collapse.md) | validated | Rewards 的 Chips 是每 way 一筆；Σ Amount==Payout；Collapse= cascade |
