@@ -4,6 +4,7 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
+| [2026-09-14_162000-slot-rewards-chips-per-way-and-collapse.md](2026-09-14_162000-slot-rewards-chips-per-way-and-collapse.md) | validated | Rewards 的 Chips 是每 way 一筆；Σ Amount==Payout；Collapse= cascade |
 | [2026-09-14_160500-slot-ways-payout-gap-dump-state-rewards-first.md](2026-09-14_160500-slot-ways-payout-gap-dump-state-rewards-first.md) | validated | ways 多數 exact 後若 Payout 仍偏高，先 dump StateInfo/Rewards，勿先改 ways 公式 |
 | [2026-09-14_153800-slot-in-reel-vs-paytable-art-presentations.md](2026-09-14_153800-slot-in-reel-vs-paytable-art-presentations.md) | validated | 同一協議 ID 須分錄轉軸互動與賠付表靜態兩套美術，不可互相覆蓋 |
 | [2026-09-14_153000-slot-variable-lines-reel-major-jagged-grid.md](2026-09-14_153000-slot-variable-lines-reel-major-jagged-grid.md) | validated | variable-lines `visibleGrid` 是 reel-major jagged；HTML/validator 勿當 row-major；high 角色優先賠付表完整構圖 |
