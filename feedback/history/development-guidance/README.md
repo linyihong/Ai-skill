@@ -4,7 +4,7 @@
 
 | 分類 | 數量 | 說明 |
 |------|------|------|
-| [`common/`](common/) | 56 | 跨分類或通用 lesson（開發流程、契約治理、測試策略、後端架構、安全審計等） |
+| [`common/`](common/) | 57 | 跨分類或通用 lesson（開發流程、契約治理、測試策略、後端架構、安全審計等） |
 | [`controls/`](controls/) | 2 | 控制項相關 lesson |
 
 ## 來源
@@ -15,6 +15,7 @@
 
 | Slug | Category |
 |------|----------|
+| `common/2026-09-15_110000-multi-seat-s2c-must-not-assume-fixed-row-glass` | 多座位 S2C 不可假設固定可見行；jagged 用 reel-major，且勿把 desk-wide NEXT 賠付併到 seat-scoped RESULT |
 | `common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job` | 快取 peer `ECONNREFUSED` 時強制 discovery 刷新並留下 durable job `running`，勿直接 `failed` |
 
 ## Recent (2026-09-04)
