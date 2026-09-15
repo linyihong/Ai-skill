@@ -11,6 +11,12 @@
 
 所有 lesson 原位於 `skills/app-development-guidance/feedback_history/`，已於 2026-05-13 搬遷至此，舊目錄已刪除。
 
+## Recent (2026-09-15)
+
+| Slug | Category |
+|------|----------|
+| `common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job` | 快取 peer `ECONNREFUSED` 時強制 discovery 刷新並留下 durable job `running`，勿直接 `failed` |
+
 ## Recent (2026-09-04)
 
 | Slug | Category |
