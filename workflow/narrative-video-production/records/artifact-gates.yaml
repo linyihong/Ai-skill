@@ -1,0 +1,96 @@
+# Stage eligibility. 只宣告用哪些欄位裁決；不寫渲染步驟。
+schema_version: artifact-record/v1
+id: narrative-video.artifact-gates
+status: draft
+runtime_projection:
+  enabled: false
+  reason: Phase 4 前不投影；需真實 EDR dogfood
+
+handoff: encoded_here
+
+stages:
+  - id: brief_lock
+    required_records: [edit_decision_record]
+    next_stage: source_bible
+    eligibility_fields:
+      - brief.platform 已填
+      - brief.target_duration_s 已填
+      - brief.promise 已填
+    rollback_owner: intake_author
+
+  - id: source_bible
+    required_records: [source_bible]
+    next_stage: clip_catalog
+    eligibility_fields:
+      - bible_id 已填
+      - episodes 非空
+      - characters 非空 或 no_character_entities == true
+    rollback_owner: bible_owner
+
+  - id: clip_catalog
+    required_records: [material_clip_catalog]
+    next_stage: template_select
+    eligibility_fields:
+      - 每列有 clip_id、source_in、source_out、duration_s、visual_description、tags
+    rollback_owner: catalog_owner
+
+  - id: template_select
+    required_records: [narrative_template_catalog, edit_decision_record]
+    next_stage: matching_script
+    eligibility_fields:
+      - narrative_template_id ∈ catalog
+      - template_kind ∈ [structure, mechanism, format]
+    rollback_owner: template_author
+
+  - id: matching_script
+    required_records: [matching_script]
+    next_stage: edr_open
+    eligibility_fields:
+      - 每個非 blocked shot 的 feasible_candidates 非空
+      - 每個 selected_clip_id ∈ 該 shot 的 feasible_candidates
+      - 每個 selected shot 有 selection.policy 與 rationale
+      - 每個 selected_clip_id 存在於 catalog（不得為庫外 id）
+    rollback_owner: matching_author
+
+  - id: edr_open
+    required_records: [edit_decision_record]
+    next_stage: assemble
+    eligibility_fields:
+      - film_id 已填
+      - matching_script_id 已填
+      - shots 對齊 matching_script.shot_id
+    rollback_owner: edr_author
+
+  - id: assemble
+    required_records: [edit_decision_record]
+    next_stage: locale_packs
+    eligibility_fields:
+      - qc.timeline_matches_edr == true
+      - 每個 shot 的 rendered 窗對得上 shot_id 與 selected_clip_id
+    rollback_owner: editor
+
+  - id: locale_packs
+    required_records: [caption_locale_pack]
+    next_stage: publish_qc
+    eligibility_fields:
+      - 每個 publish_locales 項有獨立 content_gate.decision、timing_gate.decision、layout_gate.decision
+      - 三閘不得合併為單一 caption_pass
+    rollback_owner: locale_author
+
+  - id: publish_qc
+    required_records: [edit_decision_record]
+    next_stage: outcome_window
+    eligibility_fields:
+      - qc.fresh_reviewer 已填
+      - qc.fresh_reviewer != producer
+      - blocking 缺陷為空
+    rollback_owner: independent_verifier
+    notes: producer self-check 最高只到 cut-ready
+
+  - id: outcome_window
+    required_records: [edit_decision_record]
+    eligibility_fields:
+      - outcome 五欄 v0 或明確 insufficient_sample
+      - evidence_status ∈ [supports, contradicts, insufficient_sample]
+      - supports/contradicts 僅當同模板 ≥ 2 部且同一窗口定義
+    rollback_owner: outcome_author

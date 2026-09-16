@@ -1,0 +1,34 @@
+schema_version: artifact-record/v1
+id: narrative-video.material-clip-catalog
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；未接 runtime
+
+record: material_clip_catalog
+ownership: one_catalog_per_source_work
+increment: true
+
+clip_required_fields:
+  clip_id: { type: id }
+  episode_id: { type: id }
+  source_in: { type: timestamp }
+  source_out: { type: timestamp }
+  duration_s: { type: number }
+  visual_description: { type: text }
+  tags: { type: list }
+
+clip_optional_fields:
+  dialogue_excerpt: { type: text }
+  duration_band: { type: enum, values: [hook, beat, hold], seconds: dogfood_q10 }
+  ingest.origin: { type: enum, values: [human, model] }
+
+retrieval_contract:
+  results_must_be: existing_clip_id
+  vector_or_llm: adapter_only
+  invent_off_catalog_clips: forbidden
+
+forbidden:
+  - impression_tags_without_in_out
+  - prose_without_clip_id
+  - whole_title_as_one_clip

@@ -1,0 +1,20 @@
+schema_version: artifact-record/v1
+id: narrative-video.source-bible
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；未接 runtime
+
+record: source_bible
+required_fields:
+  bible_id: { type: id }
+  episodes: { type: list, item: episode_id }
+  characters: { type: list, item: character_id }
+
+optional_fields:
+  places: { type: list, item: place_id }
+  no_character_entities: { type: bool }
+
+forbidden_fields:
+  - full_episode_transcript
+  - untitled_prose_cast

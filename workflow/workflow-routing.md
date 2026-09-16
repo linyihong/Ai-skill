@@ -58,6 +58,7 @@ Recovery re-entry：
 | **旅遊規劃** | itinerary、交通、預算 | [`travel-planning/`](./travel-planning/README.md) | `route.workflow.travel-planning` |
 | **法律工作** | 合約起草／審閱、保密協議／NDA、採購契約、準據法／管轄／仲裁、違約金、背景調查／盡職調查、法規查詢、法律策略、談判支援 | [`legal/`](./legal/README.md) | `route.workflow.legal` |
 | **投資研究／決策輔助** | 配置建議、持倉複核、再平衡、主題／供應鏈研究、name diligence、盯盤 sweep、財報／基本面（**非**下單） | [`investment/`](./investment/README.md) | `route.workflow.investment` |
+| **敘事向影音成品** | brief→bible／catalog→matching→EDR→發布 evidence；字幕語系 pack | [`narrative-video-production/`](./narrative-video-production/README.md) | **未註冊**（Phase 4）；手動讀 workflow README。Detector 應 no_match |
 
 ### 常見歧義
 
@@ -69,6 +70,8 @@ Recovery re-entry：
 | 新 repo 從 spec 開始 | **greenfield** → 實作階段 often 再接 **software-delivery** |
 | **「契約」/「合約」字面同時像兩邊** | 見下方 §「契約」語意裁決 |
 | **「投資」字面同時像 legal／investment** | 見下方 §「投資」語意裁決（Q8） |
+| 裸「AI 影片／幫我做短片」 | **不得**當已註冊 workflow route；若要走敘事產片契約，手動載入 [`narrative-video-production/`](./narrative-video-production/README.md)。寫產片器／ffmpeg 程式 → **software-delivery** |
+| 可驅動 3D 角色 vs 敘事成片 | 角色資產／rig／VRM → [`3d-character-production/`](./3d-character-production/README.md)；成片／EDR／字幕／流量 → narrative-video |
 
 #### 「契約」語意裁決（legal vs software-delivery）
 

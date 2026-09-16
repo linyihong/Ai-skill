@@ -1,0 +1,28 @@
+schema_version: artifact-record/v1
+id: narrative-video.caption-locale-pack
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；未接 runtime
+
+record: caption_locale_pack
+required_fields:
+  locale: { type: bcp47 }
+  role: { type: enum, values: [source, commentary, caption] }
+  text_origin: { type: enum, values: [script, asr, ocr, human, translated] }
+  cues: { type: list }
+  content_gate: { type: gate }
+  timing_gate: { type: gate }
+  layout_gate: { type: gate }
+
+optional_fields:
+  layout_script: { type: enum, examples: [cjk, latin] }
+  burn_mode: { type: enum, values: [sidecar, burned, none] }
+  name_policy: { type: text }
+  translation_qc: { type: gate, alias_of: content_gate }
+
+invariants:
+  - content_gate != timing_gate != layout_gate
+  - layout_ok_does_not_imply_readable
+  - readable_does_not_imply_safe_area
+  - no_single_caption_pass_field

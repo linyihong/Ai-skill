@@ -1,0 +1,185 @@
+# 去敏可填示範（虛構源作品）。人工可照填；非正式發布。
+# 本檔同時示範 matching 閉環與 EDR 最小欄位。
+schema_version: artifact-record/v1
+id: narrative-video.example.sanitized-film-001
+status: example
+runtime_projection:
+  enabled: false
+
+source_bible:
+  bible_id: bible.example-series-alpha
+  episodes:
+    - episode_id: ep.01
+    - episode_id: ep.02
+  characters:
+    - character_id: character.lead
+      display: Lead
+      aliases: [protagonist]
+    - character_id: character.rival
+      display: Rival
+
+clip_catalog:
+  catalog_id: catalog.example-series-alpha
+  clips:
+    - clip_id: clip.ep01.door-glance
+      episode_id: ep.01
+      source_in: "00:01:02.000"
+      source_out: "00:01:04.400"
+      duration_s: 2.4
+      visual_description: Lead glances at a closed door; hallway light
+      tags: [character.lead, door, glance]
+      duration_band: hook
+      ingest.origin: human
+    - clip_id: clip.ep01.lead-turn
+      episode_id: ep.01
+      source_in: "00:01:10.000"
+      source_out: "00:01:13.100"
+      duration_s: 3.1
+      visual_description: Lead turns toward camera; same hallway
+      tags: [character.lead, turn, hallway]
+      duration_band: hook
+      ingest.origin: human
+    - clip_id: clip.ep01.long-talk
+      episode_id: ep.01
+      source_in: "00:04:00.000"
+      source_out: "00:04:12.200"
+      duration_s: 12.2
+      visual_description: Lead and Rival argue at table
+      tags: [character.lead, character.rival, argument]
+      duration_band: hold
+      ingest.origin: model
+    - clip_id: clip.ep02.rival-only
+      episode_id: ep.02
+      source_in: "00:00:20.000"
+      source_out: "00:00:23.000"
+      duration_s: 3.0
+      visual_description: Rival alone at window
+      tags: [character.rival, window]
+      duration_band: hook
+      ingest.origin: human
+
+matching_script:
+  matching_script_id: match.film.example-hook-001
+  bible_id: bible.example-series-alpha
+  catalog_id: catalog.example-series-alpha
+  narrative_template_id: cold_open_hook
+  target_duration_s: 30
+  publish_locales: [und]
+  shots:
+    - shot_id: s01
+      need: Open on Lead; door beat under 4s
+      constraints:
+        must_tags: [character.lead]
+        entity_refs: [character.lead]
+        duration_target: 3.0
+        duration_tol: 1.5
+        duration_band: hook
+        continuity: same_hallway_ok
+      feasible_candidates:
+        - clip_id: clip.ep01.door-glance
+          matched_constraints: [must_tags, entity_refs, duration_band, duration_tol]
+          duration_delta: 0.6
+          rejection_reasons: []
+        - clip_id: clip.ep01.lead-turn
+          matched_constraints: [must_tags, entity_refs, duration_band, duration_tol]
+          duration_delta: 0.1
+          rejection_reasons: []
+      rejected:
+        - clip_id: clip.ep01.long-talk
+          rejection_reasons: [duration_band_hold, duration_tol]
+        - clip_id: clip.ep02.rival-only
+          rejection_reasons: [entity_refs_not_lead]
+      selection:
+        policy: duration_closest
+        rationale: Both clips are feasible; hook budget prefers smaller duration_delta. Policy is explicit, not a hidden default.
+      selected_clip_id: clip.ep01.lead-turn
+    - shot_id: s02
+      need: Keep Lead on screen after hook
+      constraints:
+        must_tags: [character.lead]
+        entity_refs: [character.lead]
+        duration_target: 8.0
+        duration_tol: 6.0
+        duration_band: beat
+        continuity: preserve_character_lead
+      feasible_candidates:
+        - clip_id: clip.ep01.long-talk
+          matched_constraints: [must_tags, entity_refs]
+          duration_delta: 4.2
+          rejection_reasons: []
+      rejected:
+        - clip_id: clip.ep01.lead-turn
+          rejection_reasons: [already_used_s01]
+        - clip_id: clip.ep02.rival-only
+          rejection_reasons: [entity_refs_not_lead]
+      selection:
+        policy: preserve_character_continuity
+        rationale: Only feasible Lead clip left in band tolerance; not chosen because it is closest (only one candidate).
+      selected_clip_id: clip.ep01.long-talk
+
+edit_decision_record:
+  film_id: film.example-hook-001
+  title: Example hallway hook
+  profile: null
+  bible_id: bible.example-series-alpha
+  matching_script_id: match.film.example-hook-001
+  narrative_template_id: cold_open_hook
+  template_kind: mechanism
+  secondary_template_ids: []
+  brief:
+    platform: short-vertical
+    target_duration_s: 30
+    audience: example
+    promise: Lead at the door before the argument
+    forbidden: [real-person-likeness]
+    source_locale: und
+  template_beats:
+    - beat_id: hook
+      shot_id: s01
+    - beat_id: rise
+      shot_id: s02
+  hook:
+    promise_by_s: 4
+    fulfilled: true
+  shots:
+    - shot_id: s01
+      selected_clip_id: clip.ep01.lead-turn
+      source_in: "00:01:10.000"
+      source_out: "00:01:13.100"
+      selection_policy: duration_closest
+      selection_rationale: See matching_script.s01
+    - shot_id: s02
+      selected_clip_id: clip.ep01.long-talk
+      source_in: "00:04:00.000"
+      source_out: "00:04:08.000"
+      selection_policy: preserve_character_continuity
+      selection_rationale: Trimmed hold to beat; same clip_id
+  mutations: []
+  qc:
+    producer_self_check: pass
+    timeline_matches_edr: true
+    fresh_reviewer: null
+    status: cut-ready
+    note: publish-ready blocked until independent verifier
+  publish: null
+  locale_packs:
+    - locale: und
+      role: caption
+      text_origin: script
+      cues:
+        - shot_id: s01
+          start: 0.0
+          end: 3.1
+          text: The door is still closed.
+      content_gate: { decision: pass, notes: script origin; no source residue }
+      timing_gate: { decision: pass, notes: cue under window; axis=timeline_s }
+      layout_gate: { decision: hold, notes: safe-area not yet checked against render }
+      layout_script: latin
+      burn_mode: sidecar
+  outcome:
+    evidence_status: insufficient_sample
+    impressions: null
+    views: null
+    avg_watch_pct: null
+    engagements: null
+    window_days: null

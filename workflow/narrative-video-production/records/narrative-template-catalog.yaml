@@ -1,0 +1,28 @@
+schema_version: artifact-record/v1
+id: narrative-video.narrative-template-catalog
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；未接 runtime
+
+record: narrative_template_catalog
+anonymous_templates: forbidden
+taxonomy_split: deferred_until_phase_3_edr
+
+template_kind:
+  type: enum
+  values: [structure, mechanism, format]
+  required: true
+
+v0_seed_ids:
+  - { id: hero_journey, template_kind: structure }
+  - { id: mystery_box, template_kind: structure }
+  - { id: cold_open_hook, template_kind: mechanism }
+  - { id: identity_clash, template_kind: mechanism }
+  - { id: rising_conflict, template_kind: mechanism }
+  - { id: list_payoff, template_kind: mechanism }
+  - { id: recap_explained, template_kind: format }
+
+selection_rule:
+  primary: one
+  secondary: local_beats_only

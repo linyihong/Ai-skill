@@ -1,0 +1,47 @@
+schema_version: artifact-record/v1
+id: narrative-video.edit-decision-record
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；未接 runtime
+
+record: edit_decision_record
+canonical_form: structured_yaml
+human_projection: markdown
+rendered_media: output_artifact_not_sot
+
+required_fields:
+  film_id: { type: id }
+  bible_id: { type: id }
+  matching_script_id: { type: id }
+  narrative_template_id: { type: id }
+  shots: { type: list }
+
+shot_fields:
+  - shot_id
+  - selected_clip_id
+  - source_in
+  - source_out
+  - selection_policy
+  - selection_rationale
+
+optional_fields:
+  title: { type: text }
+  profile: { type: id }
+  secondary_template_ids: { type: list }
+  template_beats: { type: list }
+  hook: { type: object }
+  mutations: { type: list }
+  brief: { type: object }
+  publish: { type: object }
+  locale_packs: { type: list }
+  outcome: { type: object }
+
+qc:
+  producer_self_check: { max_maturity: cut-ready }
+  fresh_reviewer: { required_for: publish-ready, must_differ_from: producer }
+  timeline_matches_edr: { type: bool }
+
+forbidden_fields:
+  - inferred_intent_from_mp4
+  - composite_quality_score

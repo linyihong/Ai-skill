@@ -1,0 +1,38 @@
+schema_version: artifact-record/v1
+id: narrative-video.matching-script
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；未接 runtime
+
+record: matching_script
+header:
+  - bible_id
+  - catalog_id
+  - narrative_template_id
+  - target_duration_s
+  - publish_locales
+
+per_shot:
+  need: text
+  constraints:
+    - must_tags
+    - entity_refs
+    - duration_target
+    - duration_tol
+    - duration_band
+    - continuity
+  feasible_candidates:
+    item_fields: [clip_id, matched_constraints, duration_delta, rejection_reasons]
+  selection:
+    policy:
+      type: enum
+      examples: [duration_closest, preserve_character_continuity, human_review]
+      default: none
+      note: duration_closest 不是系統默認最好
+    rationale: required_when_selected
+  selected_clip_id: must_be_in_feasible_candidates_or_shot_blocked
+
+empty_feasible_set: blocked
+select_outside_feasible: forbidden
+duration_delta_min_without_policy: forbidden
