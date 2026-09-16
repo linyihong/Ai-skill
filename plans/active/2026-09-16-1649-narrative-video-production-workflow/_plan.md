@@ -10,9 +10,9 @@ parent: null
 
 # Narrative Video Production Workflow（`workflow/narrative-video-production/`）
 
-**Status**: in-progress — Phase 2 workflow contract 已落地 `workflow/narrative-video-production/`。Architecture = ready；domain schema = experimental。**不**做工具、**不**接 runtime。
+**Status**: in-progress — Phase 1 PASS、Phase 2 PASS（`34f778d4` + `8757a578`）。Phase 3 dogfood **進行中**：真實片子驗證既有契約，不改架構。**不**做工具、**不**接 runtime。
 
-**Glossary Impact**: yes — 另增候選 `selection_policy`、`feasible_set`。字幕 [`01-captions-and-locales.md`](01-captions-and-locales.md)；素材 [`02-source-bible.md`](02-source-bible.md)；invariant [`03-architecture-invariants.md`](03-architecture-invariants.md)。Phase 5 前不登記 glossary。
+**Glossary Impact**: yes — 另增候選 `selection_policy`、`feasible_set`。字幕 [`01-captions-and-locales.md`](01-captions-and-locales.md)；素材 [`02-source-bible.md`](02-source-bible.md)；invariant [`03-architecture-invariants.md`](03-architecture-invariants.md)；dogfood [`04-phase-3-dogfood.md`](04-phase-3-dogfood.md)。Phase 5 前不登記 glossary。
 
 ## 一句話目標
 
@@ -285,6 +285,8 @@ Phase 2 已寫入：[`workflow/narrative-video-production/`](../../workflow/narr
 
 ## Phase 2 — 寫 workflow 總綱（仍無工具、無 route）
 
+**PASS**（2026-09-16）。落點 commit：`34f778d4`、`8757a578`。
+
 完成條件：Proposed Shape 檔存在；artifact-gates 寫明 publish-ready 的 completion authority 獨立於 producer；EDR／matching script／catalog 示範可人工填（去敏）；`workflow/README.md` 列入並註明未註冊 route。
 
 - [x] Proposed Shape 檔存在於 `workflow/narrative-video-production/`
@@ -292,10 +294,19 @@ Phase 2 已寫入：[`workflow/narrative-video-production/`](../../workflow/narr
 - [x] 去敏示範 [`records/examples/sanitized-matching-and-edr.yaml`](../../workflow/narrative-video-production/records/examples/sanitized-matching-and-edr.yaml)
 - [x] `workflow/README.md` 列入；route 未註冊
 - [x] 十條 invariant 在 README 落點表 + 各 contract／gate（不只引用 03）
+- [x] 使用者判定 Phase 2 PASS → 進 Phase 3（不補 Q12/Q13、不回頭改 runtime）
 
 ## Phase 3 — 一份真實 EDR dogfood
 
-完成條件：外部專案（非本庫）產出一部片子的 EDR；本庫只收去敏 scenario 或「無私有資訊的欄位填寫範例」。
+協議：[`04-phase-3-dogfood.md`](04-phase-3-dogfood.md)。證據索引：[`evidence/README.md`](evidence/README.md)。
+
+- [ ] 外部專案一部真實片子走完觀察鏈（outcome 可 `insufficient_sample`）
+- [ ] 本庫 `evidence/` 去敏 run：每站 pass 或卡住分類（`contract_gap`／`data_insufficient`／`adapter_only`／`design_error`）
+- [ ] 卡住不自動加欄位／加 phase
+- [ ] 虛構 YAML 示範不算本 phase
+- [ ] 仍無 route、無 runtime projection
+
+完成條件：外部專案產出一部片子的 EDR；本庫只收去敏 scenario。成功 = 決策鏈可驗證；失敗 = 真實 contract gap（都算有價值）。
 
 ## Phase 4 — 視需要才考慮 route
 
