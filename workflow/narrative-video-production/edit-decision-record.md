@@ -17,3 +17,5 @@
 ## Mutation
 
 換 clip、改腳本、重做 bible 必須寫 `mutations[]`（原因 + 影響的 `shot_id`）。歷史 selected 不得默默覆蓋。
+
+對白的 `dialogue.semantic_context` 若存在，抄自腳本／matching，作為決策痕跡；不得從成片口型反推 speaker。

@@ -22,6 +22,10 @@ per_shot:
     - duration_tol
     - duration_band
     - continuity
+  dialogue:
+    ref: dialogue-semantic-context.yaml
+    optional: true
+    feeds: constraints_not_selection
   feasible_candidates:
     item_fields: [clip_id, matched_constraints, duration_delta, rejection_reasons]
   selection:

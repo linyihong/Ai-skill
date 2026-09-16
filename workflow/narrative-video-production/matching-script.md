@@ -9,7 +9,8 @@ Invariant 4–5：Constraint ≠ Selection。
 
 ```text
 need
-  → constraints (must_tags / entity_refs / duration_target / duration_tol / duration_band / continuity)
+  → constraints (must_tags / entity_refs / duration_* / continuity
+       + 可選：來自 dialogue.semantic_context 的 entity / intent)
   → feasible candidates[]
        clip_id, matched_constraints, duration_delta, rejection_reasons
   → selection:
@@ -18,7 +19,8 @@ need
   → selected_clip_id   # 必須 ∈ feasible candidates
 ```
 
-- **Constraint** 決定誰進可行集。未進集者不得被選。
+- **Constraint** 決定誰進可行集。未進集者不得被選。`semantic_context` 只進入約束／查找，不代替 `selection.policy`。
+- 禁止用加長 `dialogue.text` 當查找手段；對白省略主詞時用 `semantic_context`（見 [`script-and-shot-list.md`](script-and-shot-list.md)）。
 - **Selection policy** 才決定選誰。`duration_closest` 可以是一條 policy，**不是系統默認的「最好」**。
 - 空可行集 → `blocked`：放寬約束、補 catalog、或停。禁止從集外硬挑。
 - 選中 clip **違反約束**（不是「不是最近」）→ QC 失敗。

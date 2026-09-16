@@ -19,7 +19,7 @@ Acquisition（生成／實拍／剪輯／未來工具）可換；不得反向定
 | 可剪素材 | [`material-clip-catalog.md`](material-clip-catalog.md) | 進庫、查找、時長 band |
 | 敘事模板 | [`narrative-template-catalog.md`](narrative-template-catalog.md) | 選主模板 |
 | 匹配腳本 | [`matching-script.md`](matching-script.md) | 每個 shot 選 clip |
-| 鏡頭表 | [`script-and-shot-list.md`](script-and-shot-list.md) | 模板 beat ↔ `shot_id` |
+| 鏡頭表 | [`script-and-shot-list.md`](script-and-shot-list.md) | 模板 beat ↔ `shot_id`；可選 `dialogue.semantic_context` |
 | 決策 SoT | [`edit-decision-record.md`](edit-decision-record.md) | 開 EDR、mutation、人讀投影 |
 | 字幕語系 | [`captions-and-locales.md`](captions-and-locales.md) | locale pack／三閘 |
 | 成片對帳 | [`assemble-and-qc.md`](assemble-and-qc.md) | 時間線 vs EDR；fresh verifier |

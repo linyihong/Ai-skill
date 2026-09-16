@@ -97,7 +97,7 @@ matching_script:
       need: Keep Lead on screen after hook
       constraints:
         must_tags: [character.lead]
-        entity_refs: [character.lead]
+        entity_refs: [character.lead, character.rival]
         duration_target: 8.0
         duration_tol: 6.0
         duration_band: beat
@@ -116,6 +116,16 @@ matching_script:
         policy: preserve_character_continuity
         rationale: Only feasible Lead clip left in band tolerance; not chosen because it is closest (only one candidate).
       selected_clip_id: clip.ep01.long-talk
+      dialogue:
+        text: "你真的要去？"
+        role: spoken
+        semantic_context:
+          speaker: character.rival
+          addressee: character.lead
+          subject_refs: [character.lead]
+          intent: challenge
+          summary: Rival asks Lead whether they will really go
+
 
 edit_decision_record:
   film_id: film.example-hook-001
@@ -154,6 +164,15 @@ edit_decision_record:
       source_out: "00:04:08.000"
       selection_policy: preserve_character_continuity
       selection_rationale: Trimmed hold to beat; same clip_id
+      dialogue:
+        text: "你真的要去？"
+        role: spoken
+        semantic_context:
+          speaker: character.rival
+          addressee: character.lead
+          subject_refs: [character.lead]
+          intent: challenge
+          summary: Rival asks Lead whether they will really go
   mutations: []
   qc:
     producer_self_check: pass

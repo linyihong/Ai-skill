@@ -1,0 +1,48 @@
+schema_version: artifact-record/v1
+id: narrative-video.dialogue-semantic-context
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；未接 runtime
+
+record: dialogue
+promotion: optional_until_dogfood_count
+note: Dialogue ≠ Retrieval Context. 短台詞給觀眾；semantic_context 給機器。不是字幕、不是改寫台詞、不是旁白。
+
+fields:
+  text:
+    required: when_dialogue_present
+    audience: viewer
+    may_omit_subject: true
+  role:
+    required: false
+    type: enum
+    values: [spoken, reveal, narration, other]
+    purpose: 不只有「誰對誰說」；reveal 等用 subject_refs 指向被陳述者
+  semantic_context:
+    required: false
+    audience: machine
+    when_present:
+      required: [speaker, summary]
+      conditional: [addressee, subject_refs, object_refs, intent]
+      fill_conditional_only_if_known: true
+    speaker: { type: entity_id }
+    addressee: { type: entity_id }
+    subject_refs: { type: list, item: entity_id }
+    object_refs: { type: list, item: entity_id }
+    intent: { type: text }
+    summary: { type: text }
+
+forbidden:
+  - lengthening text as a retrieval hack
+  - field names search_text / lookup_text / retrieval_text / search_keywords
+  - object_refs or subject_refs value unknown
+  - treating semantic_context as selection policy
+
+uses:
+  - dialogue_to_clip_matching_constraints
+  - character_continuity
+  - entity_resolution
+  - shot_verification
+  - subtitle_or_translation_context
+  - edr_decision_trace

@@ -24,6 +24,7 @@ shot_fields:
   - source_out
   - selection_policy
   - selection_rationale
+  - dialogue  # optional; see dialogue-semantic-context.yaml；trace only, not inferred from mp4
 
 optional_fields:
   title: { type: text }
