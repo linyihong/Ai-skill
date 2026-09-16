@@ -42,7 +42,6 @@ Companion to [`_plan.md`](_plan.md)。只記錄從參考包**抽象出的契約*
 - 「電視雙行英文字幕規範」若與直式短片衝突：參考包已選直式多行 + cue 窗；我們跟短片，不跟廣播規範當預設
 - 把語系目錄寫死成必須支援上述每一種語言才能完成 workflow
 
-## 建議 workflow 檔（Phase 2 才建）
+## 建議 workflow 檔（Phase 2）
 
-`captions-and-locales.md`：何時讀、locale pack schema、QC 閘。  
-`records/caption-locale-pack.yaml`：欄位 SoT。
+已落地：[`workflow/narrative-video-production/captions-and-locales.md`](../../workflow/narrative-video-production/captions-and-locales.md)、[`records/caption-locale-pack.yaml`](../../workflow/narrative-video-production/records/caption-locale-pack.yaml)。

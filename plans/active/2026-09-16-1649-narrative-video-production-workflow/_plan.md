@@ -10,7 +10,7 @@ parent: null
 
 # Narrative Video Production Workflow（`workflow/narrative-video-production/`）
 
-**Status**: in-progress — Phase 1 凍結 **domain invariants**（見 [`03-architecture-invariants.md`](03-architecture-invariants.md)）。Architecture = ready；domain schema = experimental。**不**做工具、**不**接 runtime。
+**Status**: in-progress — Phase 2 workflow contract 已落地 `workflow/narrative-video-production/`。Architecture = ready；domain schema = experimental。**不**做工具、**不**接 runtime。
 
 **Glossary Impact**: yes — 另增候選 `selection_policy`、`feasible_set`。字幕 [`01-captions-and-locales.md`](01-captions-and-locales.md)；素材 [`02-source-bible.md`](02-source-bible.md)；invariant [`03-architecture-invariants.md`](03-architecture-invariants.md)。Phase 5 前不登記 glossary。
 
@@ -143,6 +143,8 @@ workflow/narrative-video-production/
 
 本輪 plan **不**建立 `workflow/narrative-video-production/` 正文，直到 Phase 1 invariant 凍結（本檔 + 03）被接受且進入 Phase 2。
 
+Phase 2 已寫入：[`workflow/narrative-video-production/`](../../workflow/narrative-video-production/README.md)。
+
 ## 建議總綱（agent 執行順序）
 
 ```text
@@ -260,13 +262,13 @@ workflow/narrative-video-production/
 
 | 項 | 結果 |
 | --- | --- |
-| Candidate | `workflow/narrative-video-production/**`（尚未建立）；本 `_plan.md`；`workflow/README.md`、`workflow-routing.md`（實作時才改） |
-| Source of truth | 將是 workflow markdown + `records/` YAML；不是參考包程式 |
+| Candidate | `workflow/narrative-video-production/**`；本 `_plan.md`；`workflow/README.md`、`workflow-routing.md`（**未**改 routing-registry） |
+| Source of truth | workflow markdown + `records/` YAML；不是參考包程式 |
 | Layer | workflow；非 runtime、非 ai-tools |
 | Compiler | 不適用（本 round 無 projection） |
-| Linked updates now | `plans/README.md` 狀態列；實作時再改 workflow 索引 |
+| Linked updates now | `plans/README.md`；`workflow/README.md`；`workflow-routing.md` 手動入口。registry **刻意不改**（Invariant 10） |
 | Conflicts | 無雙 SoT。注意勿把 zip／.env 加進 git |
-| Decision | **Phase 1 進行中**：凍結 03 十條 invariant；未授權前不寫 workflow 正文 |
+| Decision | **Phase 2**：寫 workflow contract；十條 invariant 落在各檔 gate |
 
 ## Phase 1 — 凍結 domain invariants（非凍死全部 schema）
 
@@ -277,13 +279,19 @@ workflow/narrative-video-production/
 - [x] [`03-architecture-invariants.md`](03-architecture-invariants.md) 十條 invariant 寫入
 - [x] Selection：Constraints → feasible set → 明示 policy（Q11）
 - [x] EDR SoT／fresh verification／outcome=evidence／locale 三閘／catalog 只回 clip_id
-- [ ] 使用者確認 03 可作為 Phase 2 寫 workflow 的契約（本輪 review 已指示可進 Phase 1；確認後勾選）
+- [x] 使用者確認 03 可作為 Phase 2 寫 workflow 的契約（2026-09-16：Phase 1 PASS → Phase 2 proceed）
 
 不擋 Phase 1 的：Q4、Q6、Q10。Q5 以 v0 帶進 Phase 2。
 
 ## Phase 2 — 寫 workflow 總綱（仍無工具、無 route）
 
 完成條件：Proposed Shape 檔存在；artifact-gates 寫明 publish-ready 的 completion authority 獨立於 producer；EDR／matching script／catalog 示範可人工填（去敏）；`workflow/README.md` 列入並註明未註冊 route。
+
+- [x] Proposed Shape 檔存在於 `workflow/narrative-video-production/`
+- [x] `artifact-gates.md`：publish-ready 獨立於 producer
+- [x] 去敏示範 [`records/examples/sanitized-matching-and-edr.yaml`](../../workflow/narrative-video-production/records/examples/sanitized-matching-and-edr.yaml)
+- [x] `workflow/README.md` 列入；route 未註冊
+- [x] 十條 invariant 在 README 落點表 + 各 contract／gate（不只引用 03）
 
 ## Phase 3 — 一份真實 EDR dogfood
 
@@ -305,13 +313,13 @@ Entry：Phase 2+3 完成且 activation 反例寫好（裸「AI 影片」不得�
 - [x] Constraint ≠ Selection；明示 selection policy
 - [x] publish-ready 需 fresh verification；outcome 是 evidence
 - [x] Locale content／timing／layout 分閘
-- [ ] 確認 03 invariant 後開 Phase 2 寫 workflow
+- [x] 確認 03 invariant 後開 Phase 2 寫 workflow
 - [ ] Q4／Q6／Q10 留待 dogfood
 
 ## 完成條件
 
-- [ ] Phase 1 凍結
-- [ ] Phase 2 workflow 文件
+- [x] Phase 1 凍結
+- [x] Phase 2 workflow 文件
 - [ ] Phase 3 至少一份去敏 EDR 示範或外部 dogfood 指標
 - [ ] 未把參考包、金鑰、主機寫進 reusable docs
 - [ ] 未聲稱 runtime integration
