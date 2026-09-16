@@ -12,6 +12,7 @@ Phase 2 落點：`34f778d4`（workflow）、`8757a578`（plan 狀態）。
 | 分類 | 含義 | 本 round 允許 |
 | --- | --- | --- |
 | `contract_gap` | Phase 2 欄位／閘無法表達真實決策 | 記缺口；不改 workflow 除非使用者授權 |
+| `dialogue_semantic_ambiguity` | 短台詞省略主詞，查找缺語義角色 | **不是**立刻 `contract_gap`。先 optional `semantic_context`，用真實片子計數再決定是否升必填 |
 | `data_insufficient` | bible／catalog／locale 還沒填夠 | 補資料，不改契約 |
 | `adapter_only` | ffmpeg／TTS／模型／GUI 問題 | 留在外部工具；canonical 不吸收 |
 | `design_error` | invariant 本身擋不住或互相矛盾 | 停手，回 Phase 1 護欄討論 |
@@ -27,7 +28,7 @@ real brief → source bible → clip catalog → template
 
 對照檔：[`workflow/narrative-video-production/execution-flow.md`](../../workflow/narrative-video-production/execution-flow.md)。
 
-特別確認：每個 shot 有可行集 + `selection.policy`；查找只回既有 `clip_id`；成片對 EDR 而非反推；三閘分開；`publish-ready` 有獨立 verifier。Q4／Q6／Q10 只觀察，不在本 phase 凍結。
+特別確認：每個 shot 有可行集 + `selection.policy`；查找只回既有 `clip_id`；成片對 EDR 而非反推；三閘分開；`publish-ready` 有獨立 verifier。Q4／Q6／Q10 只觀察，不在本 phase 凍結。有對白的 shot 另計是否需要 `semantic_context` 才能對上素材（見 [`evidence/2026-09-16-dialogue-semantic-context.md`](evidence/2026-09-16-dialogue-semantic-context.md)）。
 
 ## 本庫 vs 外部專案
 
