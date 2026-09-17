@@ -72,7 +72,7 @@ Constraint 決定誰進可行集。Selection policy 才決定選誰。時長接�
 - 同一人物可有很多不同時長的 clip；腳本要短 hook 就選 `duration_band: hook`，要反應戲就選更長 band。
 - `clip_hint` 不再當主查找；真正可剪的是 catalog 列。
 
-Phase 3 觀察（**尚未**進 workflow）：角色顯示名／aliases／寫稿詞彙見 [`05-series-cast-canonicalization.md`](05-series-cast-canonicalization.md)。
+Phase 3 觀察（**尚未**進 workflow）：角色顯示名見 [`05-series-cast-canonicalization.md`](05-series-cast-canonicalization.md)；機械事實層見 [`07-material-fact-extraction.md`](07-material-fact-extraction.md)（`speaker_id` ≠ `character_id`）。
 
 ## drop
 
