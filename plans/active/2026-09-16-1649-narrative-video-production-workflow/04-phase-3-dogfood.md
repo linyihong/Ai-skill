@@ -12,7 +12,8 @@ Phase 2 落點：`34f778d4`（workflow）、`8757a578`（plan 狀態）。
 | 分類 | 含義 | 本 round 允許 |
 | --- | --- | --- |
 | `contract_gap` | Phase 2 欄位／閘無法表達真實決策 | 記缺口；不改 workflow 除非使用者授權 |
-| `dialogue_semantic_ambiguity` | 短台詞省略主詞，查找缺語義角色 | **不是**立刻 `contract_gap`。optional `semantic_context`；真實片子計數再決定是否升必填 |
+| `dialogue_semantic_ambiguity` | 短台詞省略主詞 | optional `dialogue.semantic_context` 已落地；升必填等計數 |
+| `shot_unit_semantic_gap` | 分鏡單元（dialogue／action／visual）缺機器可讀語義 | **不是**立刻 `contract_gap`。候選：每個單元 = `text` + `semantic_context`。本 phase **不**擴 workflow。見 [`evidence/2026-09-17-shot-unit-semantic-context.md`](evidence/2026-09-17-shot-unit-semantic-context.md) |
 | `character_naming_gap` | 角色多名稱／笼统詞／寫稿詞彙不受控 | **不是**立刻 `contract_gap`。候選 **Series Cast Canonicalization**。Phase 3 **不改** workflow。見 [`evidence/2026-09-17-series-cast-canonicalization.md`](evidence/2026-09-17-series-cast-canonicalization.md) |
 | `data_insufficient` | bible／catalog／locale 還沒填夠 | 補資料，不改契約 |
 | `adapter_only` | ffmpeg／TTS／模型／GUI 問題 | 留在外部工具；canonical 不吸收 |
@@ -29,7 +30,7 @@ real brief → source bible → clip catalog → template
 
 對照檔：[`workflow/narrative-video-production/execution-flow.md`](../../workflow/narrative-video-production/execution-flow.md)。
 
-特別確認：每個 shot 有可行集 + `selection.policy`；查找只回既有 `clip_id`；成片對 EDR 而非反推；三閘分開；`publish-ready` 有獨立 verifier。Q4／Q6／Q10 只觀察，不在本 phase 凍結。另計：`semantic_context` 需求、以及 series_cast／call_name／笼统詞（見 evidence 兩份 observation）。**本 phase 不因這兩項改 workflow。**
+特別確認：每個 shot 有可行集 + `selection.policy`；查找只回既有 `clip_id`；成片對 EDR 而非反推；三閘分開；`publish-ready` 有獨立 verifier。Q4／Q6／Q10 只觀察，不在本 phase 凍結。另計：dialogue／action／visual 是否都需要 `semantic_context`、series_cast／call_name／笼统詞。**本 phase 不因這些觀察擴 workflow**（dialogue optional 維持現況）。
 
 ## 本庫 vs 外部專案
 

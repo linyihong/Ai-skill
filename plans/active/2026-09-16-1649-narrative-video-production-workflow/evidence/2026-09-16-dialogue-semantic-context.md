@@ -2,7 +2,9 @@
 
 **Run ID**：2026-09-16-dialogue-semantic-context  
 **Kind**：Phase 3 observation（審查提煉，**不是**真實片子 dogfood，**不是** `contract_gap`）  
-**Status**：optional field 已進 workflow；升必填與否等真實片子計數
+**Status**：optional `dialogue.semantic_context` 已在 workflow；**更廣的 unit 抽象**見後續 observation，本檔不單獨升 contract。
+
+後續收窄：[`2026-09-17-shot-unit-semantic-context.md`](2026-09-17-shot-unit-semantic-context.md)（dialogue／action／visual 都是 text + semantic_context）。
 
 ## 觀察名
 
