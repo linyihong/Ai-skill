@@ -13,4 +13,5 @@
 | 2026-09-17-series-cast-canonicalization | [2026-09-17-series-cast-canonicalization.md](2026-09-17-series-cast-canonicalization.md) | observation | 角色命名 SoT 候選；不改 Phase 2 workflow |
 | 2026-09-17-identity-precedes-naming | [2026-09-17-identity-precedes-naming.md](2026-09-17-identity-precedes-naming.md) | observation | 身份先於名稱；link 不覆寫歷史；series_cast 是已解析表 |
 | 2026-09-17-material-fact-extraction | [2026-09-17-material-fact-extraction.md](2026-09-17-material-fact-extraction.md) | observation | observable 機械證據先於語義；分析器當 evidence candidates |
+| 2026-09-17-visual-text-evidence | [2026-09-17-visual-text-evidence.md](2026-09-17-visual-text-evidence.md) | observation | OCR 升 visual text evidence；非僅字幕來源；不擴 contract |
 | — | — | 尚無真實片子 | 等第一份真實 EDR dogfood |

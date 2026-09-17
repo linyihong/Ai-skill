@@ -45,3 +45,5 @@ Companion to [`_plan.md`](_plan.md)。只記錄從參考包**抽象出的契約*
 ## 建議 workflow 檔（Phase 2）
 
 已落地：[`workflow/narrative-video-production/captions-and-locales.md`](../../workflow/narrative-video-production/captions-and-locales.md)、[`records/caption-locale-pack.yaml`](../../workflow/narrative-video-production/records/caption-locale-pack.yaml)。
+
+Phase 3：locale 的 `text_origin: ocr` ≠ 源片 **visual text evidence**。後者見 [`09-visual-text-evidence.md`](09-visual-text-evidence.md)。

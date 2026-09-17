@@ -12,7 +12,7 @@ parent: null
 
 **Status**: in-progress — Phase 1 PASS、Phase 2 PASS（`34f778d4` + `8757a578`）。Phase 3 dogfood **進行中**：真實片子驗證既有契約，不改架構。**不**做工具、**不**接 runtime。
 
-**Glossary Impact**: yes — 另增候選 `selection_policy`、`feasible_set`、`semantic_context`、`series_cast`／`call_name`。字幕 [`01-captions-and-locales.md`](01-captions-and-locales.md)；素材 [`02-source-bible.md`](02-source-bible.md)；invariant [`03-architecture-invariants.md`](03-architecture-invariants.md)；dogfood [`04-phase-3-dogfood.md`](04-phase-3-dogfood.md)；cast [`05-series-cast-canonicalization.md`](05-series-cast-canonicalization.md)；單元 [`06-shot-unit-semantic-context.md`](06-shot-unit-semantic-context.md)；事實層 [`07-material-fact-extraction.md`](07-material-fact-extraction.md)；身份 [`08-identity-precedes-naming.md`](08-identity-precedes-naming.md)。Phase 5 前不登記 glossary。
+**Glossary Impact**: yes — 另增候選 `selection_policy`、`feasible_set`、`semantic_context`、`series_cast`／`call_name`。字幕 [`01-captions-and-locales.md`](01-captions-and-locales.md)；素材 [`02-source-bible.md`](02-source-bible.md)；invariant [`03-architecture-invariants.md`](03-architecture-invariants.md)；dogfood [`04-phase-3-dogfood.md`](04-phase-3-dogfood.md)；cast [`05-series-cast-canonicalization.md`](05-series-cast-canonicalization.md)；單元 [`06-shot-unit-semantic-context.md`](06-shot-unit-semantic-context.md)；事實層 [`07-material-fact-extraction.md`](07-material-fact-extraction.md)；身份 [`08-identity-precedes-naming.md`](08-identity-precedes-naming.md)；畫面文字 [`09-visual-text-evidence.md`](09-visual-text-evidence.md)。Phase 5 前不登記 glossary。
 
 ## 一句話目標
 
@@ -325,6 +325,7 @@ Entry：Phase 2+3 完成且 activation 反例寫好（裸「AI 影片」不得�
 - [ ] `dialogue.semantic_context`：optional 已落地；**shot unit（dialogue／action／visual）** 升格等真實計數
 - [ ] Series Cast Canonicalization：觀察中；**已解析表**，不是發現層；升格前不改 Phase 2 workflow
 - [ ] Identity precedes naming：觀察中；entity 可 unnamed；link 不覆寫歷史
+- [ ] Visual text evidence：觀察中；OCR ≠ 僅 caption `text_origin`；升格前不改 workflow
 - [ ] Material fact extraction（observable layer）：觀察中；外部 evidence candidates；升格前不塞十種分析器進 workflow
 - [x] publish-ready 需 fresh verification；outcome 是 evidence
 - [x] Locale content／timing／layout 分閘
