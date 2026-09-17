@@ -18,6 +18,8 @@ Phase 2 落點：`34f778d4`（workflow）、`8757a578`（plan 狀態）。
 | `character_naming_gap` | 角色多名稱／笼统詞／寫稿詞彙不受控 | **不是**立刻 `contract_gap`。候選 **Series Cast Canonicalization**（已解析表）。Phase 3 **不改** workflow。見 [`evidence/2026-09-17-series-cast-canonicalization.md`](evidence/2026-09-17-series-cast-canonicalization.md) |
 | `material_fact_gap` | 素材事實層未先於語義推理 | **不是**立刻 `contract_gap`。observable 證據 → identity／context → 決策。分析器當外部 evidence candidates。見 [`evidence/2026-09-17-material-fact-extraction.md`](evidence/2026-09-17-material-fact-extraction.md) |
 | `visual_text_gap` | 畫面文字未當一級素材證據 | **不是**立刻 `contract_gap`。候選 `visual_text_evidence`（OCR 是方法）。見 [`evidence/2026-09-17-visual-text-evidence.md`](evidence/2026-09-17-visual-text-evidence.md) |
+| `face_identity_shortcut` | Face 被當成人名／角色判定器 | **不是**立刻 `contract_gap`。Face Track 是 observable candidate evidence；由 linking 掛 ASR／OCR／Shot。本 phase **不**接辨識模型。見 [`evidence/2026-09-17-face-as-candidate-evidence.md`](evidence/2026-09-17-face-as-candidate-evidence.md) |
+| `evidence_refinement_gap` | 把 OCR／ASR 當二選一、寫死權重、或讓 script／LLM confidence 當 evidence 權威 | **不是**立刻 `contract_gap`。獨立 refinement loop：作品級 selection policy、歧義才升級 LLM、修正回寫政策。見 [`evidence/2026-09-18-evidence-refinement.md`](evidence/2026-09-18-evidence-refinement.md) |
 | `transition_layer_gap` | 畫面切換被當成劇情轉場 | **不是**立刻 `contract_gap`。editorial ≠ narrative；shot ≠ scene。見 [`evidence/2026-09-17-editorial-vs-narrative-transition.md`](evidence/2026-09-17-editorial-vs-narrative-transition.md) |
 | `data_insufficient` | bible／catalog／locale 還沒填夠 | 補資料，不改契約 |
 | `adapter_only` | ffmpeg／TTS／模型／GUI 問題 | 留在外部工具；canonical 不吸收 |
@@ -34,7 +36,7 @@ real brief → source bible → clip catalog → template
 
 對照檔：[`workflow/narrative-video-production/execution-flow.md`](../../workflow/narrative-video-production/execution-flow.md)。
 
-特別確認：每個 shot 有可行集 + `selection.policy`；查找只回既有 `clip_id`；成片對 EDR 而非反推；三閘分開；`publish-ready` 有獨立 verifier。Q4／Q6／Q10 只觀察，不在本 phase 凍結。另計：semantic unit、身份／名稱、visual text、editorial vs narrative transition、series_cast、observable 證據消費。**本 phase 不因這些觀察擴 workflow**。
+特別確認：每個 shot 有可行集 + `selection.policy`；查找只回既有 `clip_id`；成片對 EDR 而非反推；三閘分開；`publish-ready` 有獨立 verifier。Q4／Q6／Q10 只觀察，不在本 phase 凍結。另計：semantic unit、身份／名稱、visual text 幾何、Face Track／evidence link、evidence refinement loop、editorial vs narrative transition、series_cast、observable 證據消費。**本 phase 不因這些觀察擴 workflow**。
 
 ## 本庫 vs 外部專案
 

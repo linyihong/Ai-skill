@@ -15,14 +15,14 @@
 | 時間結構 | duration／FPS／scene／shot 切點／黑幀／freeze／近重複／keyframes | 敘事 beat |
 | ASR | `text` + start/end；可選 word 時間軸 | `character_id` |
 | Diarization | `speaker_id` + 聲線 profile | `character_id` |
-| Face | detect → track → cluster → `person_cluster`；出現窗 | 角色名 |
+| Face | detect → track → `face_track_id` + keyframes；cluster／embedding 可空 | 角色名／`character_id` |
 | OCR | text + bbox + timestamp | 劇情解釋 |
 | Visual mechanical | keyframe、亮度／模糊／histogram | 「悲傷」標籤 |
 | Visual embedding | retrieval 表示 | LLM 場景判決 |
 | Audio | loudness／silence／speech vs music | 音樂情緒 |
 | SFX | 專門 classifier（門／鈴聲）可選 | LLM 音效理解 |
 
-匯聚進 catalog 時可以只有 `person_cluster`／`speaker_id`／ASR／OCR，**還沒有** `character_chen`。
+匯聚進 catalog 時可以只有 `face_track`／`speaker_id`／ASR／OCR，**還沒有** `character_chen`。Face cluster 可空。連結層見 [`2026-09-17-face-as-candidate-evidence.md`](2026-09-17-face-as-candidate-evidence.md)。
 
 ## Stage B — Narrative Understanding（才允許語義）
 

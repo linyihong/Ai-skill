@@ -16,7 +16,7 @@
 | 通道 | 回答 | 例欄 |
 | --- | --- | --- |
 | `speech_text` | 有人說了什麼 | ASR + start/end + `speaker_id` |
-| `visual_text` | 畫面上出現什麼字 | OCR + start/end + region；不一定是字幕 |
+| `visual_text` | 畫面上出現什麼字 | OCR + timestamp + bbox／polygon + `frame_ref`；不一定是字幕 |
 
 Visual text 可能是硬字幕、對白燒錄、手機訊息、招牌、地名、文件、UI、名片、時間／集數標記。
 

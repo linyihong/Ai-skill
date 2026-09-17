@@ -12,7 +12,7 @@ parent: null
 
 **Status**: in-progress — Phase 1 PASS、Phase 2 PASS（`34f778d4` + `8757a578`）。Phase 3 dogfood **進行中**：真實片子驗證既有契約，不改架構。**不**做工具、**不**接 runtime。
 
-**Glossary Impact**: yes — 另增候選 `selection_policy`、`feasible_set`、`semantic_context`、`series_cast`／`call_name`。字幕 [`01-captions-and-locales.md`](01-captions-and-locales.md)；素材 [`02-source-bible.md`](02-source-bible.md)；invariant [`03-architecture-invariants.md`](03-architecture-invariants.md)；dogfood [`04-phase-3-dogfood.md`](04-phase-3-dogfood.md)；cast [`05-series-cast-canonicalization.md`](05-series-cast-canonicalization.md)；單元 [`06-shot-unit-semantic-context.md`](06-shot-unit-semantic-context.md)；事實層 [`07-material-fact-extraction.md`](07-material-fact-extraction.md)；身份 [`08-identity-precedes-naming.md`](08-identity-precedes-naming.md)；畫面文字 [`09-visual-text-evidence.md`](09-visual-text-evidence.md)；轉場 [`10-editorial-vs-narrative-transition.md`](10-editorial-vs-narrative-transition.md)。Phase 5 前不登記 glossary。
+**Glossary Impact**: yes — 另增候選 `selection_policy`、`feasible_set`、`semantic_context`、`series_cast`／`call_name`、`evidence_link`／`face_track`、`evidence_policy`／`visual_text_evidence`。字幕 [`01-captions-and-locales.md`](01-captions-and-locales.md)；素材 [`02-source-bible.md`](02-source-bible.md)；invariant [`03-architecture-invariants.md`](03-architecture-invariants.md)；dogfood [`04-phase-3-dogfood.md`](04-phase-3-dogfood.md)；cast [`05-series-cast-canonicalization.md`](05-series-cast-canonicalization.md)；單元 [`06-shot-unit-semantic-context.md`](06-shot-unit-semantic-context.md)；事實層 [`07-material-fact-extraction.md`](07-material-fact-extraction.md)；身份 [`08-identity-precedes-naming.md`](08-identity-precedes-naming.md)；畫面文字 [`09-visual-text-evidence.md`](09-visual-text-evidence.md)；轉場 [`10-editorial-vs-narrative-transition.md`](10-editorial-vs-narrative-transition.md)；人臉證據 [`11-face-as-candidate-evidence.md`](11-face-as-candidate-evidence.md)；證據收斂 [`12-evidence-refinement.md`](12-evidence-refinement.md)。Phase 5 前不登記 glossary。
 
 ## 一句話目標
 
@@ -137,6 +137,7 @@ workflow/narrative-video-production/
   assemble-and-qc.md              # 對 EDR 的符合性，不是教 ffmpeg
   publish-outcome.md              # 流量窗口 → 腳本／模板結論
   artifact-gates.md
+  evidence-refinement.md          # 候選獨立契約；parser 不吸收；Phase 3 不建檔
   records/                        # YAML SoT（EDR schema、template enum）
   profiles/README.md              # 首輪空；recap / original / split-promo 後補
 ```
@@ -302,7 +303,7 @@ Phase 2 已寫入：[`workflow/narrative-video-production/`](../../workflow/narr
 
 - [ ] 外部專案一部真實片子走完觀察鏈（outcome 可 `insufficient_sample`）
 - [ ] 本庫 `evidence/` 去敏 run：每站 pass 或卡住分類（`contract_gap`／`data_insufficient`／`adapter_only`／`design_error`）
-- [ ] 卡住不自動加欄位／加 phase（dialogue optional 維持；identity／series_cast／observable 分析器 **不**寫進本 phase workflow）
+- [ ] 卡住不自動加欄位／加 phase（dialogue optional 維持；identity／series_cast／observable 分析器／Face Recognition／權重模型 **不**寫進本 phase workflow；Face 只留 `face_track` 掛點；refinement 只留觀察契約）
 - [ ] 虛構 YAML 示範不算本 phase
 - [ ] 仍無 route、無 runtime projection
 
@@ -325,7 +326,9 @@ Entry：Phase 2+3 完成且 activation 反例寫好（裸「AI 影片」不得�
 - [ ] `dialogue.semantic_context`：optional 已落地；**shot unit（dialogue／action／visual）** 升格等真實計數
 - [ ] Series Cast Canonicalization：觀察中；**已解析表**，不是發現層；升格前不改 Phase 2 workflow
 - [ ] Identity precedes naming：觀察中；entity 可 unnamed；link 不覆寫歷史
-- [ ] Visual text evidence：觀察中；OCR ≠ 僅 caption `text_origin`；升格前不改 workflow
+- [ ] Face as candidate evidence：觀察中；`face_track` 可被 evidence link 引用；Face ≠ identity 判定器；升格前不改 workflow、不接辨識模型
+- [ ] Evidence refinement loop：觀察中；獨立於 parser；作品級 `evidence_policy`；Selection policy 先於 weight model；script 是 consumer；升格前不建 workflow 檔
+- [ ] Visual text evidence：觀察中；OCR ≠ 僅 caption `text_origin`；canonical OCR 需幾何；升格前不改 workflow
 - [ ] Editorial vs narrative transition：觀察中；shot ≠ scene；關係不塞進 catalog 本體
 - [ ] Material fact extraction（observable layer）：觀察中；外部 evidence candidates；升格前不塞十種分析器進 workflow
 - [x] publish-ready 需 fresh verification；outcome 是 evidence
