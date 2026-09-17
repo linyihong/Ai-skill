@@ -13,4 +13,4 @@ layer.decision     template / matching / selection / EDR
 
 Stage A（事實層）禁止 LLM 做主判斷。Stage B（敘事理解）才做誰是誰；身份可 unnamed：[`08-identity-precedes-naming.md`](08-identity-precedes-naming.md)。  
 OCR 在此層是 **visual text** 候選來源，不是 locale 字幕的同義詞：[`09-visual-text-evidence.md`](09-visual-text-evidence.md)。  
-外部工具產出當 **evidence candidates**；真實片子再數哪些真的被 bible／catalog／matching／EDR 消費。
+外部工具產出當 **evidence candidates**；真實片子再數哪些真的被 bible／catalog／matching／EDR 消費。Shot／scene 關係見 [`10-editorial-vs-narrative-transition.md`](10-editorial-vs-narrative-transition.md)。
