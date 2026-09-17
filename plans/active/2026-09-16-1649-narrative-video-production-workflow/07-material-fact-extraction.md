@@ -11,6 +11,6 @@ layer.identity     series_cast / entity / semantic_context
 layer.decision     template / matching / selection / EDR
 ```
 
-Stage A（事實層）禁止 LLM 做主判斷。Stage B（敘事理解）才做誰是誰、劇情、template。  
+Stage A（事實層）禁止 LLM 做主判斷。Stage B（敘事理解）才做誰是誰；身份可 unnamed：[`08-identity-precedes-naming.md`](08-identity-precedes-naming.md)。  
 `speaker_id` ≠ `character_id`；`person_cluster` ≠ 角色；vision embedding ≠ 「悲傷場景」。  
 外部工具產出當 **evidence candidates**；真實片子再數哪些真的被 bible／catalog／matching／EDR 消費。

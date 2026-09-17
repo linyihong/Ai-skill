@@ -11,5 +11,6 @@
 | 2026-09-16-dialogue-semantic-context | [2026-09-16-dialogue-semantic-context.md](2026-09-16-dialogue-semantic-context.md) | observation | 台詞≠查找；dialogue optional 已落地 |
 | 2026-09-17-shot-unit-semantic-context | [2026-09-17-shot-unit-semantic-context.md](2026-09-17-shot-unit-semantic-context.md) | observation | 單元 = text + semantic_context；含 action／visual；不擴 contract |
 | 2026-09-17-series-cast-canonicalization | [2026-09-17-series-cast-canonicalization.md](2026-09-17-series-cast-canonicalization.md) | observation | 角色命名 SoT 候選；不改 Phase 2 workflow |
+| 2026-09-17-identity-precedes-naming | [2026-09-17-identity-precedes-naming.md](2026-09-17-identity-precedes-naming.md) | observation | 身份先於名稱；link 不覆寫歷史；series_cast 是已解析表 |
 | 2026-09-17-material-fact-extraction | [2026-09-17-material-fact-extraction.md](2026-09-17-material-fact-extraction.md) | observation | observable 機械證據先於語義；分析器當 evidence candidates |
 | — | — | 尚無真實片子 | 等第一份真實 EDR dogfood |
