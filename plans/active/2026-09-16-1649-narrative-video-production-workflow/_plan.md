@@ -12,7 +12,7 @@ parent: null
 
 **Status**: in-progress — Phase 1 PASS、Phase 2 PASS（`34f778d4` + `8757a578`）。Phase 3 dogfood **進行中**：真實片子驗證既有契約，不改架構。**不**做工具、**不**接 runtime。
 
-**Glossary Impact**: yes — 另增候選 `selection_policy`、`feasible_set`、`semantic_context`。字幕 [`01-captions-and-locales.md`](01-captions-and-locales.md)；素材 [`02-source-bible.md`](02-source-bible.md)；invariant [`03-architecture-invariants.md`](03-architecture-invariants.md)；dogfood [`04-phase-3-dogfood.md`](04-phase-3-dogfood.md)。Phase 5 前不登記 glossary。
+**Glossary Impact**: yes — 另增候選 `selection_policy`、`feasible_set`、`semantic_context`、`series_cast`／`call_name`。字幕 [`01-captions-and-locales.md`](01-captions-and-locales.md)；素材 [`02-source-bible.md`](02-source-bible.md)；invariant [`03-architecture-invariants.md`](03-architecture-invariants.md)；dogfood [`04-phase-3-dogfood.md`](04-phase-3-dogfood.md)；cast 候選 [`05-series-cast-canonicalization.md`](05-series-cast-canonicalization.md)。Phase 5 前不登記 glossary。
 
 ## 一句話目標
 
@@ -302,7 +302,7 @@ Phase 2 已寫入：[`workflow/narrative-video-production/`](../../workflow/narr
 
 - [ ] 外部專案一部真實片子走完觀察鏈（outcome 可 `insufficient_sample`）
 - [ ] 本庫 `evidence/` 去敏 run：每站 pass 或卡住分類（`contract_gap`／`data_insufficient`／`adapter_only`／`design_error`）
-- [ ] 卡住不自動加欄位／加 phase（`semantic_context` 已授權為 optional 觀察欄，不因此升必填）
+- [ ] 卡住不自動加欄位／加 phase（`semantic_context` 已是 optional；**Series Cast 本 phase 不寫進 workflow**）
 - [ ] 虛構 YAML 示範不算本 phase
 - [ ] 仍無 route、無 runtime projection
 
@@ -323,6 +323,7 @@ Entry：Phase 2+3 完成且 activation 反例寫好（裸「AI 影片」不得�
 - [x] 源片 bible + clip catalog + 查找既有 clip_id
 - [x] Constraint ≠ Selection；明示 selection policy
 - [ ] `dialogue.semantic_context`：optional；真實片子計數後才決定是否升必填
+- [ ] Series Cast Canonicalization：觀察中；**不**塞進 EDR；升格前不改 Phase 2 workflow
 - [x] publish-ready 需 fresh verification；outcome 是 evidence
 - [x] Locale content／timing／layout 分閘
 - [x] 確認 03 invariant 後開 Phase 2 寫 workflow
