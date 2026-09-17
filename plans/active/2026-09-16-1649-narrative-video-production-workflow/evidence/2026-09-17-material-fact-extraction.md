@@ -1,4 +1,4 @@
-# Observation — material fact extraction (L0)
+# Observation — material fact extraction (observable layer)
 
 **Run ID**：2026-09-17-material-fact-extraction  
 **Kind**：Phase 3 observation（**不是** `contract_gap`；**不**擴 workflow）  
@@ -17,8 +17,8 @@
 | Diarization | `speaker_id` + 聲線 profile | `character_id` |
 | Face | detect → track → cluster → `person_cluster`；出現窗 | 角色名 |
 | OCR | text + bbox + timestamp | 劇情解釋 |
-| Visual L1 | keyframe、亮度／模糊／histogram | 「悲傷」標籤 |
-| Visual L2 | embedding 當 retrieval 表示 | LLM 場景判決 |
+| Visual mechanical | keyframe、亮度／模糊／histogram | 「悲傷」標籤 |
+| Visual embedding | retrieval 表示 | LLM 場景判決 |
 | Audio | loudness／silence／speech vs music | 音樂情緒 |
 | SFX | 專門 classifier（門／鈴聲）可選 | LLM 音效理解 |
 
@@ -30,4 +30,4 @@
 
 ## 真實片子要數
 
-哪些 L0 欄位實際被 source-bible／clip-catalog／matching／EDR **消費**。沒被消費的不進 schema。禁止為完整而把十種分析一次寫進 workflow。
+哪些 observable 欄位實際被 source-bible／clip-catalog／matching／EDR **消費**。沒被消費的不進 schema。禁止為完整而把十種分析一次寫進 workflow。

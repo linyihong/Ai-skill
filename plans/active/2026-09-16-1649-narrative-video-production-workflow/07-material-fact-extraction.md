@@ -6,9 +6,9 @@ Companion to [`_plan.md`](_plan.md)。**候選原則，不是 workflow schema。
 原則：劇情分析應先最大化可機械取得的素材證據，再進行語義推理。
 
 ```text
-L0  Observable Evidence   shot / ASR+timeline / speaker_id / face cluster / OCR / audio segments
-L1  Identity & Context    series_cast / entity / semantic_context
-L2  Narrative Decision    template / matching / selection / EDR
+layer.observable   shot / ASR+timeline / speaker_id / face cluster / OCR / audio segments
+layer.identity     series_cast / entity / semantic_context
+layer.decision     template / matching / selection / EDR
 ```
 
 Stage A（事實層）禁止 LLM 做主判斷。Stage B（敘事理解）才做誰是誰、劇情、template。  
