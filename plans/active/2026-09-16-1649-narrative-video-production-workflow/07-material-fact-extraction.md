@@ -16,4 +16,5 @@ Stage A（事實層）禁止 LLM 做主判斷。Stage B（敘事理解）才做�
 OCR 在此層是取得 **visual text evidence** 的一種方法（必帶 normalized box；不分類字幕／浮水印）：[`09-visual-text-evidence.md`](09-visual-text-evidence.md)。  
 Face Track 屬 observable；linking 層掛 ASR／OCR／Shot，**不做** Recognition→角色：[`11-face-as-candidate-evidence.md`](11-face-as-candidate-evidence.md)。  
 採集之後的仲裁／審查／政策學習：[`12-evidence-refinement.md`](12-evidence-refinement.md)（獨立於 parser）。  
+掃區是 Mechanical Probe，不是 LLM crop：[`13-mechanical-visual-text-probe.md`](13-mechanical-visual-text-probe.md)。  
 外部工具產出當 **evidence candidates**；真實片子再數哪些真的被 bible／catalog／matching／EDR 消費。Shot／scene 關係見 [`10-editorial-vs-narrative-transition.md`](10-editorial-vs-narrative-transition.md)。

@@ -49,7 +49,7 @@ visual_text_evidence:
 
 `acquisition.method` 可為 `ocr`／`subtitle_file`／`scene_text`／`ui_text`／`human`。
 
-禁止：缺 normalized 幾何；parser `role: watermark` 當事實；把右上角常駐 LOGO／台標拿去跟 ASR 做人名或對白仲裁。
+禁止：缺 normalized 幾何；把右上角常駐 LOGO／台標拿去跟 ASR 做人名或對白仲裁。清楚的空間／時間特徵可寫 `role.candidate` + `resolver: mechanical`；不得寫成已判定。LLM 不決定掃區：[`2026-09-18-mechanical-visual-text-probe.md`](2026-09-18-mechanical-visual-text-probe.md)。
 
 ## 真實片子要數
 

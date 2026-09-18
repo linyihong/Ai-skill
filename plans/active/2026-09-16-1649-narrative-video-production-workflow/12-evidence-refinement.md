@@ -16,9 +16,9 @@ outer loop         observe → resolve → produce → verify → correct → le
 禁止：
 
 - 只存 OCR `text`、不存 pixel／normalized box 與 persistence（幾何與持續性是一級 metadata）
-- parser 宣布「這是浮水印／字幕」（那是 Classification；只允許 `role.candidate`）
+- 把 `role.candidate` 寫成已判定事實（清楚時只允許 `resolver: mechanical`）
 - 高 persistence 邊角文字因像人名就進 ASR 人名仲裁
 - `OCR weight = 1.0` 當全域真理（字幕延遲、誤讀、LOGO 都可能）
 - LLM `confidence` 當 Decision SoT（只當另一條 evidence）
 - Script 反過來改寫 evidence（script 是 consumer）
-- 把 linking／仲裁塞進 parser
+- LLM 決定 OCR crop，或把單片 `likely_subtitle_region` 直接寫進全局 probe（見 [`13-mechanical-visual-text-probe.md`](13-mechanical-visual-text-probe.md)）

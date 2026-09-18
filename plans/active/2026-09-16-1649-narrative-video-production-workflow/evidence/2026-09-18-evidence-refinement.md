@@ -36,7 +36,7 @@ selection_policy:
 
 ## 與既有候選
 
-[`09-visual-text-evidence.md`](../09-visual-text-evidence.md) 幾何；[`11-face-as-candidate-evidence.md`](../11-face-as-candidate-evidence.md) Face 非判定器；[`07-material-fact-extraction.md`](../07-material-fact-extraction.md) 機械採集；[`08-identity-precedes-naming.md`](../08-identity-precedes-naming.md) 名稱延後。Invariant 5／8：policy 明示；publish-ready 獨立 verifier。
+[`09-visual-text-evidence.md`](../09-visual-text-evidence.md) 幾何；[`13-mechanical-visual-text-probe.md`](../13-mechanical-visual-text-probe.md) 掃區；[`11-face-as-candidate-evidence.md`](../11-face-as-candidate-evidence.md) Face 非判定器；[`07-material-fact-extraction.md`](../07-material-fact-extraction.md) 機械採集；[`08-identity-precedes-naming.md`](../08-identity-precedes-naming.md) 名稱延後。Invariant 5／8：policy 明示；publish-ready 獨立 verifier。
 
 ## 真實片子要數
 
