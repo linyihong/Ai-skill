@@ -24,7 +24,9 @@ Phase 2 落點：`34f778d4`（workflow）、`8757a578`（plan 狀態）。
 | `dialogue_as_plot` | 有對話／ASR 摘要被當成劇情 | **不是**立刻 `contract_gap`。Relevance → Event → Story State；低相關保留不刪。見 [`evidence/2026-09-18-story-evidence-vs-dialogue.md`](evidence/2026-09-18-story-evidence-vs-dialogue.md) |
 | `skip_evidence_unit` | 從 cross-modal links 直接跳劇情，或繼續加 observable detector | **不是**立刻 `contract_gap`。先 evidence_unit；凍結 observable 擴張。見 [`evidence/2026-09-18-evidence-unit.md`](evidence/2026-09-18-evidence-unit.md) |
 | `promotion_gate_gap` | upstream unresolved／空 state claim 卻升 `story_evidence: accepted` | Observation-layer gate gap；`traceable` 不等於 valid。至少 resolved upstream + resolved event + valid state claim（若有）+ independent verification。見 [`evidence/2026-09-18-real-run-promotion-gaps.md`](evidence/2026-09-18-real-run-promotion-gaps.md) |
-| `mention_as_identity` | vocative／OCR mention 被直接升 canonical identity | `data_insufficient` + identity lifecycle violation。稱呼先解析 addressee；mention ≠ entity；保持 candidate／unresolved。見同上 |
+| `text_resolution_not_consumed` | 已有 ASR／subtitle alternatives 與 selection policy，但 narrative 仍讀 raw ASR | **不是**再加模型。先做 role-qualified、span-level resolution，保留 alternatives；不得全域 OCR 優先。見 [`evidence/2026-09-18-narrative-representation-gap.md`](evidence/2026-09-18-narrative-representation-gap.md) |
+| `dialogue_centric_event` | event candidate 只是 `dialogue_cluster`，沒有跨 evidence 組裝或 event relation | **不是**放寬 threshold。候選 Narrative Window → Event Assembly → Candidate Relations；本 phase 不凍 schema。見同上 |
+| `mention_as_identity` | vocative／OCR mention 被直接升 canonical identity | `data_insufficient` + identity lifecycle violation。稱呼先解析 addressee；mention ≠ entity；保持 candidate／unresolved。見 [`evidence/2026-09-18-real-run-promotion-gaps.md`](evidence/2026-09-18-real-run-promotion-gaps.md) |
 | `episode_as_knowledge` | 本集分析結果直接寫進 identity／knowledge／rules | **不是**立刻 `contract_gap`。Episode Evidence ≠ Learning Candidate ≠ Knowledge Store／Mechanical Registry。見 [`evidence/2026-09-18-episode-vs-knowledge-accumulation.md`](evidence/2026-09-18-episode-vs-knowledge-accumulation.md) |
 | `evidence_refinement_gap` | 把 OCR／ASR 當二選一、寫死權重、或讓 script／LLM confidence 當 evidence 權威 | **不是**立刻 `contract_gap`。獨立 refinement loop：作品級 selection policy、歧義才升級 LLM、修正回寫政策。見 [`evidence/2026-09-18-evidence-refinement.md`](evidence/2026-09-18-evidence-refinement.md) |
 | `transition_layer_gap` | 畫面切換被當成劇情轉場 | **不是**立刻 `contract_gap`。editorial ≠ narrative；shot ≠ scene。見 [`evidence/2026-09-17-editorial-vs-narrative-transition.md`](evidence/2026-09-17-editorial-vs-narrative-transition.md) |
@@ -50,6 +52,10 @@ real brief → source bible → clip catalog → template
 observable／evidence unit 可用；promotion、identity、state claim 未通過。
 這是有效 dogfood evidence，**不是**整體 Phase 3 PASS。
 下一集 identity dogfood 另驗 [`18-episode-vs-knowledge-accumulation.md`](18-episode-vs-knowledge-accumulation.md)：vocative 停在 Episode Evidence；跨集才進 Learning Inbox；無 verifier 不得寫 knowledge。
+同一 run 的人工語義複核見
+[`evidence/2026-09-18-narrative-representation-gap.md`](evidence/2026-09-18-narrative-representation-gap.md)：
+Text Resolution 未被 consumer 使用、Event 過度 dialogue-centric、Window／
+Assembly／Relation 缺失。這比 event count 更早，仍不加 Agent／detector。
 
 ## 本庫 vs 外部專案
 

@@ -11,11 +11,14 @@ candidate → accepted 過鬆。去敏 run：
 `story_evidence.status: accepted` 必須同時滿足：
 
 1. 所有 blocking upstream decisions 已 resolved；任何 `final: null` → stop。
-2. Event semantics 已 resolved；`dialogue_cluster`／raw summary 只算 candidate。
-3. Evidence traceability 通過。
-4. 若宣稱 state change，必須有非空 `subject`、`change_type`，以及可驗證的
+2. Narrative consumer 使用 resolved text；raw ASR／未解析 subtitle candidate
+   不得成為 final event semantics。
+3. Event semantics 已 resolved；`dialogue_cluster`／raw summary 只算 evidence
+   grouping，不是已解析 event。
+4. Evidence traceability 通過。
+5. 若宣稱 state change，必須有非空 `subject`、`change_type`，以及可驗證的
    `before`／`after` 或明示「新增已知事實」；空物件與 null 不得 accepted。
-5. Independent verifier 通過。
+6. Independent verifier 通過。
 
 `possible_state_delta` 只能停在 `state_change_candidate`。生命週期：
 
@@ -40,6 +43,10 @@ narrative_relevance:
 ```
 
 LLM proposal 同樣不是 final。
+
+Text resolution、window、event assembly 與 candidate relations 見
+[`19-text-resolution-and-narrative-assembly.md`](19-text-resolution-and-narrative-assembly.md)。
+Relation 的 temporal proximity 只能當 evidence，不能自行宣告因果。
 
 ## Event basis
 

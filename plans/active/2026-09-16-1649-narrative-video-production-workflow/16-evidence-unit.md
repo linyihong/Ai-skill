@@ -7,10 +7,11 @@ Companion to [`_plan.md`](_plan.md)。**候選，不是 workflow。** 真實 evi
 
 ```text
 observable（凍結擴張）
-  → linking / relations（誰跟誰有什麼關係；勿讓每個物件互指）
+  → text resolution + linking（誰跟誰有什麼關係；勿讓每個物件互指）
   → evidence_unit（同一時間窗的證據包；不是劇情）
-  → event_candidate（relevance 仍 unresolved）
-  → narrative relevance / story state
+  → narrative_window（跨 unit context；不是固定秒數）
+  → event assembly + candidate relations
+  → narrative relevance / story event / typed state claim
   → script / EDR
 ```
 
@@ -20,3 +21,5 @@ observable（凍結擴張）
 dogfood**。新瓶頸是下游 promotion，不是 unit 數量。Event 應補最小
 `basis.*_refs` 以區分 dialogue-only 與真正 multimodal 支撐；見
 [`17-story-promotion-gate.md`](17-story-promotion-gate.md)。不因此新增 detector。
+Window／assembly／relation 的候選邊界見
+[`19-text-resolution-and-narrative-assembly.md`](19-text-resolution-and-narrative-assembly.md)。

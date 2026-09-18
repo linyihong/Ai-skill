@@ -100,3 +100,8 @@ reason 且允許 identity／relationship／later-reference 觸發 reactivation�
 
 完整 Phase 3 仍須走 brief → bible／catalog → matching → EDR → locale → QC →
 publish／outcome；本 run 只覆蓋 source-analysis 子鏈。
+
+同一 run 的人工語義複核另見
+[`2026-09-18-narrative-representation-gap.md`](2026-09-18-narrative-representation-gap.md)：
+上游 promotion gate 之外，text resolution 未被 narrative consumer 使用，
+window／event assembly／relation 也尚未形成。

@@ -7,8 +7,8 @@ Companion to [`_plan.md`](_plan.md)。**候選獨立契約，不是 ASR／OCR pa
 
 ```text
 layer.observable   （凍結再加 detector）shot / keyframe / visual_text+geometry / ASR+transcript / voice / speaker / face
-layer.linking      relations／evidence_unit（同一時間窗；共現 ≠ 等同 ≠ 劇情）
-layer.event        event_candidate + relevance（unresolved 起）
+layer.linking      text resolution／relations／evidence_unit（共現 ≠ 等同 ≠ 劇情）
+layer.event        narrative window／event assembly／candidate relations + relevance
 layer.story        story state / story evidence
 layer.narrative    script / template / matching / EDR / 成片
 outer loop         observe → resolve → produce → verify → correct → learn policy
@@ -26,3 +26,6 @@ outer loop         observe → resolve → produce → verify → correct → le
 - `speaker_id`／`voice_track` 直接等於 `character_id`（見 [`14-voice-speaker-evidence.md`](14-voice-speaker-evidence.md)）
 - 整段 ASR／「有意思的對話」直接當劇情摘要進 Script／EDR（見 [`15-story-evidence-vs-dialogue.md`](15-story-evidence-vs-dialogue.md)）
 - 在 observable 層繼續加 detector，或從 links 直接跳劇情（見 [`16-evidence-unit.md`](16-evidence-unit.md)）
+- 定義了 OCR／ASR selection policy，卻讓 narrative consumer 繼續讀 raw ASR；或
+  把 `dialogue_cluster` 當 resolved event（見
+  [`19-text-resolution-and-narrative-assembly.md`](19-text-resolution-and-narrative-assembly.md)）

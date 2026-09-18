@@ -23,4 +23,5 @@
 | 2026-09-18-evidence-unit | [2026-09-18-evidence-unit.md](2026-09-18-evidence-unit.md) | observation | 凍結 observable 擴張；先 evidence_unit 再 event；不改 schema |
 | 2026-09-18-real-run-promotion-gaps | [2026-09-18-real-run-promotion-gaps.md](2026-09-18-real-run-promotion-gaps.md) | real-partial | 首份真實 source-analysis；observable／unit 可用，promotion／identity／state fail |
 | 2026-09-18-episode-vs-knowledge-accumulation | [2026-09-18-episode-vs-knowledge-accumulation.md](2026-09-18-episode-vs-knowledge-accumulation.md) | observation | 本集觀察 ≠ 知識寫入；Learning Inbox 先於 Knowledge／Mechanical Registry |
+| 2026-09-18-narrative-representation-gap | [2026-09-18-narrative-representation-gap.md](2026-09-18-narrative-representation-gap.md) | real-review | resolved text 未被 narrative 消費；event 過度 dialogue-centric；window／relation 缺失 |
 | — | — | EDR chain pending | 尚未走完 matching → EDR → locale → QC → publish／outcome |

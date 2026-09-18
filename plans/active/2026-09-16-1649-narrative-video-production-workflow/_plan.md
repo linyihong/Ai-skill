@@ -12,7 +12,7 @@ parent: null
 
 **Status**: in-progress — Phase 1 PASS、Phase 2 PASS（`34f778d4` + `8757a578`）。Phase 3 dogfood **進行中**：真實片子驗證既有契約，不改架構。**不**做工具、**不**接 runtime。
 
-**Glossary Impact**: yes — 另增候選 `selection_policy`、`feasible_set`、`semantic_context`、`series_cast`／`call_name`、`evidence_link`／`face_track`、`evidence_policy`／`visual_text_evidence`／`normalized_box`／`mechanical_probe`、`voice_evidence`／`speaker_id`、`story_state`／`narrative_role`、`evidence_unit`、`learning_candidate`。字幕 [`01-captions-and-locales.md`](01-captions-and-locales.md)；素材 [`02-source-bible.md`](02-source-bible.md)；invariant [`03-architecture-invariants.md`](03-architecture-invariants.md)；dogfood [`04-phase-3-dogfood.md`](04-phase-3-dogfood.md)；cast [`05-series-cast-canonicalization.md`](05-series-cast-canonicalization.md)；單元 [`06-shot-unit-semantic-context.md`](06-shot-unit-semantic-context.md)；事實層 [`07-material-fact-extraction.md`](07-material-fact-extraction.md)；身份 [`08-identity-precedes-naming.md`](08-identity-precedes-naming.md)；畫面文字 [`09-visual-text-evidence.md`](09-visual-text-evidence.md)；轉場 [`10-editorial-vs-narrative-transition.md`](10-editorial-vs-narrative-transition.md)；人臉證據 [`11-face-as-candidate-evidence.md`](11-face-as-candidate-evidence.md)；證據收斂 [`12-evidence-refinement.md`](12-evidence-refinement.md)；機械探針 [`13-mechanical-visual-text-probe.md`](13-mechanical-visual-text-probe.md)；聲線 [`14-voice-speaker-evidence.md`](14-voice-speaker-evidence.md)；劇情證據 [`15-story-evidence-vs-dialogue.md`](15-story-evidence-vs-dialogue.md)；證據單元 [`16-evidence-unit.md`](16-evidence-unit.md)；升格閘 [`17-story-promotion-gate.md`](17-story-promotion-gate.md)；知識累積 [`18-episode-vs-knowledge-accumulation.md`](18-episode-vs-knowledge-accumulation.md)。Phase 5 前不登記 glossary。
+**Glossary Impact**: yes — 另增候選 `selection_policy`、`feasible_set`、`semantic_context`、`series_cast`／`call_name`、`evidence_link`／`face_track`、`evidence_policy`／`visual_text_evidence`／`normalized_box`／`mechanical_probe`、`voice_evidence`／`speaker_id`、`story_state`／`narrative_role`、`evidence_unit`、`learning_candidate`、`text_resolution`、`narrative_window`、`narrative_relation`。字幕 [`01-captions-and-locales.md`](01-captions-and-locales.md)；素材 [`02-source-bible.md`](02-source-bible.md)；invariant [`03-architecture-invariants.md`](03-architecture-invariants.md)；dogfood [`04-phase-3-dogfood.md`](04-phase-3-dogfood.md)；cast [`05-series-cast-canonicalization.md`](05-series-cast-canonicalization.md)；單元 [`06-shot-unit-semantic-context.md`](06-shot-unit-semantic-context.md)；事實層 [`07-material-fact-extraction.md`](07-material-fact-extraction.md)；身份 [`08-identity-precedes-naming.md`](08-identity-precedes-naming.md)；畫面文字 [`09-visual-text-evidence.md`](09-visual-text-evidence.md)；轉場 [`10-editorial-vs-narrative-transition.md`](10-editorial-vs-narrative-transition.md)；人臉證據 [`11-face-as-candidate-evidence.md`](11-face-as-candidate-evidence.md)；證據收斂 [`12-evidence-refinement.md`](12-evidence-refinement.md)；機械探針 [`13-mechanical-visual-text-probe.md`](13-mechanical-visual-text-probe.md)；聲線 [`14-voice-speaker-evidence.md`](14-voice-speaker-evidence.md)；劇情證據 [`15-story-evidence-vs-dialogue.md`](15-story-evidence-vs-dialogue.md)；證據單元 [`16-evidence-unit.md`](16-evidence-unit.md)；升格閘 [`17-story-promotion-gate.md`](17-story-promotion-gate.md)；知識累積 [`18-episode-vs-knowledge-accumulation.md`](18-episode-vs-knowledge-accumulation.md)；敘事組裝 [`19-text-resolution-and-narrative-assembly.md`](19-text-resolution-and-narrative-assembly.md)。Phase 5 前不登記 glossary。
 
 ## 一句話目標
 
@@ -312,7 +312,9 @@ Observable／Evidence Unit 可繼續；Narrative／Identity／State promotion fa
 matching → EDR → locale → QC → publish／outcome，因此 **Phase 3 未 PASS**。
 Episode 2 先驗 unresolved-upstream gate、具體 state claim、vocative／OCR mention
 維持 candidate、event basis／low reactivation，以及 identity **learning candidate
-inbox**（不得直接寫 knowledge）；不加 detector、不立即改 workflow。
+inbox**（不得直接寫 knowledge）。同時先驗 role-qualified Text Resolution 是否
+真的進 narrative consumer、Narrative Window 能否組裝 medium evidence、Relation
+是否不把相鄰誤作因果；不加 detector／Agent、不立即改 workflow。
 
 完成條件：外部專案產出一部片子的 EDR；本庫只收去敏 scenario。成功 = 決策鏈可驗證；失敗 = 真實 contract gap（都算有價值）。
 
@@ -339,6 +341,7 @@ Entry：Phase 2+3 完成且 activation 反例寫好（裸「AI 影片」不得�
 - [ ] Story evidence vs dialogue dump：觀察中；Relevance／Event／Story State；低相關 archive 不刪；候選 invariant 11 未凍結、未進 workflow gate
 - [ ] Evidence unit：觀察中；凍結再加 observable detector；先聚合同一時間窗再做劇情；升格前不改 workflow schema
 - [ ] Story promotion gate：真實 run 已證明 traceability 不足；upstream resolved + event semantics + valid state claim + independent verifier 才 accepted；Episode 2 後裁決升格
+- [ ] Narrative representation：觀察中；Text Resolution → Narrative Window → Event Assembly → Candidate Relations；`dialogue_cluster` 不是 resolved event；不以 event count／threshold 補救
 - [ ] Evidence refinement loop：觀察中；獨立於 parser；作品級 `evidence_policy`；Selection policy 先於 weight model；script 是 consumer；升格前不建 workflow 檔
 - [ ] Visual text evidence：觀察中；SoT 是「何時何地出現什麼字」；pixel + normalized box + persistence 為一級 metadata；`role` 只 candidate；升格前不改 workflow
 - [ ] Mechanical visual-text probe：觀察中；LLM 不決定掃區；coverage 不足才 expand；改 probe 須 Observation→Validation→Promotion
