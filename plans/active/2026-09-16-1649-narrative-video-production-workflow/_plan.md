@@ -12,7 +12,7 @@ parent: null
 
 **Status**: in-progress — Phase 1 PASS、Phase 2 PASS（`34f778d4` + `8757a578`）。Phase 3 dogfood **進行中**：真實片子驗證既有契約，不改架構。**不**做工具、**不**接 runtime。
 
-**Glossary Impact**: yes — 另增候選 `selection_policy`、`feasible_set`、`semantic_context`、`series_cast`／`call_name`、`evidence_link`／`face_track`、`evidence_policy`／`visual_text_evidence`／`normalized_box`／`mechanical_probe`、`voice_evidence`／`speaker_id`、`story_state`／`narrative_role`。字幕 [`01-captions-and-locales.md`](01-captions-and-locales.md)；素材 [`02-source-bible.md`](02-source-bible.md)；invariant [`03-architecture-invariants.md`](03-architecture-invariants.md)；dogfood [`04-phase-3-dogfood.md`](04-phase-3-dogfood.md)；cast [`05-series-cast-canonicalization.md`](05-series-cast-canonicalization.md)；單元 [`06-shot-unit-semantic-context.md`](06-shot-unit-semantic-context.md)；事實層 [`07-material-fact-extraction.md`](07-material-fact-extraction.md)；身份 [`08-identity-precedes-naming.md`](08-identity-precedes-naming.md)；畫面文字 [`09-visual-text-evidence.md`](09-visual-text-evidence.md)；轉場 [`10-editorial-vs-narrative-transition.md`](10-editorial-vs-narrative-transition.md)；人臉證據 [`11-face-as-candidate-evidence.md`](11-face-as-candidate-evidence.md)；證據收斂 [`12-evidence-refinement.md`](12-evidence-refinement.md)；機械探針 [`13-mechanical-visual-text-probe.md`](13-mechanical-visual-text-probe.md)；聲線 [`14-voice-speaker-evidence.md`](14-voice-speaker-evidence.md)；劇情證據 [`15-story-evidence-vs-dialogue.md`](15-story-evidence-vs-dialogue.md)。Phase 5 前不登記 glossary。
+**Glossary Impact**: yes — 另增候選 `selection_policy`、`feasible_set`、`semantic_context`、`series_cast`／`call_name`、`evidence_link`／`face_track`、`evidence_policy`／`visual_text_evidence`／`normalized_box`／`mechanical_probe`、`voice_evidence`／`speaker_id`、`story_state`／`narrative_role`、`evidence_unit`。字幕 [`01-captions-and-locales.md`](01-captions-and-locales.md)；素材 [`02-source-bible.md`](02-source-bible.md)；invariant [`03-architecture-invariants.md`](03-architecture-invariants.md)；dogfood [`04-phase-3-dogfood.md`](04-phase-3-dogfood.md)；cast [`05-series-cast-canonicalization.md`](05-series-cast-canonicalization.md)；單元 [`06-shot-unit-semantic-context.md`](06-shot-unit-semantic-context.md)；事實層 [`07-material-fact-extraction.md`](07-material-fact-extraction.md)；身份 [`08-identity-precedes-naming.md`](08-identity-precedes-naming.md)；畫面文字 [`09-visual-text-evidence.md`](09-visual-text-evidence.md)；轉場 [`10-editorial-vs-narrative-transition.md`](10-editorial-vs-narrative-transition.md)；人臉證據 [`11-face-as-candidate-evidence.md`](11-face-as-candidate-evidence.md)；證據收斂 [`12-evidence-refinement.md`](12-evidence-refinement.md)；機械探針 [`13-mechanical-visual-text-probe.md`](13-mechanical-visual-text-probe.md)；聲線 [`14-voice-speaker-evidence.md`](14-voice-speaker-evidence.md)；劇情證據 [`15-story-evidence-vs-dialogue.md`](15-story-evidence-vs-dialogue.md)；證據單元 [`16-evidence-unit.md`](16-evidence-unit.md)。Phase 5 前不登記 glossary。
 
 ## 一句話目標
 
@@ -303,7 +303,7 @@ Phase 2 已寫入：[`workflow/narrative-video-production/`](../../workflow/narr
 
 - [ ] 外部專案一部真實片子走完觀察鏈（outcome 可 `insufficient_sample`）
 - [ ] 本庫 `evidence/` 去敏 run：每站 pass 或卡住分類（`contract_gap`／`data_insufficient`／`adapter_only`／`design_error`）
-- [ ] 卡住不自動加欄位／加 phase（dialogue optional 維持；identity／series_cast／observable 分析器／Face Recognition／聲紋產品／權重模型 **不**寫進本 phase workflow；Face／Voice 只留 track 掛點；refinement 只留觀察契約）
+- [ ] 卡住不自動加欄位／加 phase（dialogue optional 維持；identity／series_cast／observable 分析器／Face Recognition／聲紋產品／權重模型 **不**寫進本 phase workflow；**凍結再加 observable detector**；Face／Voice 只留 track 掛點；refinement／evidence_unit 只留觀察契約）
 - [ ] 虛構 YAML 示範不算本 phase
 - [ ] 仍無 route、無 runtime projection
 
@@ -329,6 +329,7 @@ Entry：Phase 2+3 完成且 activation 反例寫好（裸「AI 影片」不得�
 - [ ] Face as candidate evidence：觀察中；`face_track` 可被 evidence link 引用；Face ≠ identity 判定器；升格前不改 workflow、不接辨識模型
 - [ ] Voice / speaker evidence：觀察中；ASR 只管 transcript；`speaker_id` ≠ `character_id`；共現連結不是身份等同；升格前不改 workflow
 - [ ] Story evidence vs dialogue dump：觀察中；Relevance／Event／Story State；低相關 archive 不刪；候選 invariant 11 未凍結、未進 workflow gate
+- [ ] Evidence unit：觀察中；凍結再加 observable detector；先聚合同一時間窗再做劇情；升格前不改 workflow schema
 - [ ] Evidence refinement loop：觀察中；獨立於 parser；作品級 `evidence_policy`；Selection policy 先於 weight model；script 是 consumer；升格前不建 workflow 檔
 - [ ] Visual text evidence：觀察中；SoT 是「何時何地出現什麼字」；pixel + normalized box + persistence 為一級 metadata；`role` 只 candidate；升格前不改 workflow
 - [ ] Mechanical visual-text probe：觀察中；LLM 不決定掃區；coverage 不足才 expand；改 probe 須 Observation→Validation→Promotion

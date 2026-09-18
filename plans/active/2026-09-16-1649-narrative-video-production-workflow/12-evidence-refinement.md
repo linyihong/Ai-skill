@@ -6,9 +6,10 @@ Companion to [`_plan.md`](_plan.md)。**候選獨立契約，不是 ASR／OCR pa
 原則：不是 OCR／ASR 二選一，也不是讓 LLM 一次猜對。多種 evidence 經評估、仲裁、獨立審查與回饋，讓資料室逐步接近正確值。對齊 invariant 5：Need → Constraints → Feasible set → **Selection policy** → Selection。第一版用作品級 policy，**不**寫死全域權重。
 
 ```text
-layer.observable   video / shot / frame / visual_text+geometry / ASR+transcript / voice_track / speaker_id / face_track / audio
-layer.linking      ASR↔OCR↔Voice↔Face↔Speaker↔Shot；temporal／spatial overlap（共現 ≠ 等同）
-layer.canonical    identity / dialogue / scene / place / time / event / naming
+layer.observable   （凍結再加 detector）shot / keyframe / visual_text+geometry / ASR+transcript / voice / speaker / face
+layer.linking      relations／evidence_unit（同一時間窗；共現 ≠ 等同 ≠ 劇情）
+layer.event        event_candidate + relevance（unresolved 起）
+layer.story        story state / story evidence
 layer.narrative    script / template / matching / EDR / 成片
 outer loop         observe → resolve → produce → verify → correct → learn policy
 ```
@@ -24,3 +25,4 @@ outer loop         observe → resolve → produce → verify → correct → le
 - LLM 決定 OCR crop，或把單片 `likely_subtitle_region` 直接寫進全局 probe（見 [`13-mechanical-visual-text-probe.md`](13-mechanical-visual-text-probe.md)）
 - `speaker_id`／`voice_track` 直接等於 `character_id`（見 [`14-voice-speaker-evidence.md`](14-voice-speaker-evidence.md)）
 - 整段 ASR／「有意思的對話」直接當劇情摘要進 Script／EDR（見 [`15-story-evidence-vs-dialogue.md`](15-story-evidence-vs-dialogue.md)）
+- 在 observable 層繼續加 detector，或從 links 直接跳劇情（見 [`16-evidence-unit.md`](16-evidence-unit.md)）

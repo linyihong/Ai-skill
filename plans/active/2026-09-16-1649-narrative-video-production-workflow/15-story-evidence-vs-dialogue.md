@@ -6,8 +6,10 @@ Companion to [`_plan.md`](_plan.md)。**候選原則，不是 workflow schema。
 核心：**劇情不是對話摘要；劇情是被 Evidence 支持的 Story State Change 與 Narrative Event。** Dialogue 只是 evidence carrier。有對話 ≠ 有劇情資訊。
 
 ```text
-observable → linking → event candidates → story state → narrative decision (script / EDR)
+observable → linking → evidence_unit → event candidates → story state → narrative decision (script / EDR)
 ```
+
+聚合層見 [`16-evidence-unit.md`](16-evidence-unit.md)：**先停擴 observable**。`evidence_unit` 不是劇情，只是同一時間窗的證據包。
 
 中間必過 **Relevance Assessment**：不問「這是不是劇情」（單句會誤殺伏筆），問「這組 evidence 有沒有造成可觀察的故事狀態變化」。`narrative_role` 允許多類與 `unknown`，禁止每句二元分類。多句 dialogue／action／OCR／face 聚成 **event candidate**，不要四句四個劇情點。
 

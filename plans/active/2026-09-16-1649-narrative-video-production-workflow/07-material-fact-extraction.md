@@ -7,8 +7,9 @@ Companion to [`_plan.md`](_plan.md)。**候選原則，不是 workflow schema。
 
 ```text
 layer.observable   shot / keyframe / visual_text+geometry / ASR+transcript / voice_track / speaker_id / face_track / audio
-layer.linking      ASR↔OCR↔Voice↔Face↔Shot（共現，非等同）
-layer.canonical    identity / dialogue / scene / naming（仲裁後）
+layer.linking      relations／evidence_unit（凍結再加 detector）
+layer.event        event_candidate + relevance
+layer.story        story state
 layer.narrative    script / template / matching / selection / EDR
 ```
 
@@ -18,5 +19,6 @@ Face Track 屬 observable；linking 層掛 ASR／OCR／Shot，**不做** Recogni
 Voice／Speaker 與 ASR transcript 分開掛，**不做** diarization→角色：[`14-voice-speaker-evidence.md`](14-voice-speaker-evidence.md)。  
 採集之後的仲裁／審查／政策學習：[`12-evidence-refinement.md`](12-evidence-refinement.md)（獨立於 parser）。  
 劇情路徑：Relevance → Event → Story State，禁止 ASR dump 當摘要：[`15-story-evidence-vs-dialogue.md`](15-story-evidence-vs-dialogue.md)。  
+**停止擴張 observable**；下一層是 evidence_unit：[`16-evidence-unit.md`](16-evidence-unit.md)。  
 掃區是 Mechanical Probe，不是 LLM crop：[`13-mechanical-visual-text-probe.md`](13-mechanical-visual-text-probe.md)。  
 外部工具產出當 **evidence candidates**；真實片子再數哪些真的被 bible／catalog／matching／EDR 消費。Shot／scene 關係見 [`10-editorial-vs-narrative-transition.md`](10-editorial-vs-narrative-transition.md)。
