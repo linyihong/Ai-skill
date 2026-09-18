@@ -61,7 +61,9 @@ basis:
 
 - `speaker_id`／voice cluster ≠ character。
 - Vocative 是 **稱呼關係 evidence**；先解析 addressee，不得把稱呼貼到 uttering
-  speaker，更不得直接 `canonical_name: resolved`。
+  speaker，更不得直接 `canonical_name: resolved`。單集 vocative 只進 Episode
+  Evidence；跨集累積走 Learning Inbox，見
+  [`18-episode-vs-knowledge-accumulation.md`](18-episode-vs-knowledge-accumulation.md)。
 - OCR `name_mention` ≠ entity。Visual-text role 未解析、watermark variants、
   普通片語、情緒詞與稱謂都不得建立 resolved entity。
 - 原始 ASR 永不覆寫；校正寫 `text_resolution: raw | candidate_corrected |

@@ -12,7 +12,7 @@ parent: null
 
 **Status**: in-progress — Phase 1 PASS、Phase 2 PASS（`34f778d4` + `8757a578`）。Phase 3 dogfood **進行中**：真實片子驗證既有契約，不改架構。**不**做工具、**不**接 runtime。
 
-**Glossary Impact**: yes — 另增候選 `selection_policy`、`feasible_set`、`semantic_context`、`series_cast`／`call_name`、`evidence_link`／`face_track`、`evidence_policy`／`visual_text_evidence`／`normalized_box`／`mechanical_probe`、`voice_evidence`／`speaker_id`、`story_state`／`narrative_role`、`evidence_unit`。字幕 [`01-captions-and-locales.md`](01-captions-and-locales.md)；素材 [`02-source-bible.md`](02-source-bible.md)；invariant [`03-architecture-invariants.md`](03-architecture-invariants.md)；dogfood [`04-phase-3-dogfood.md`](04-phase-3-dogfood.md)；cast [`05-series-cast-canonicalization.md`](05-series-cast-canonicalization.md)；單元 [`06-shot-unit-semantic-context.md`](06-shot-unit-semantic-context.md)；事實層 [`07-material-fact-extraction.md`](07-material-fact-extraction.md)；身份 [`08-identity-precedes-naming.md`](08-identity-precedes-naming.md)；畫面文字 [`09-visual-text-evidence.md`](09-visual-text-evidence.md)；轉場 [`10-editorial-vs-narrative-transition.md`](10-editorial-vs-narrative-transition.md)；人臉證據 [`11-face-as-candidate-evidence.md`](11-face-as-candidate-evidence.md)；證據收斂 [`12-evidence-refinement.md`](12-evidence-refinement.md)；機械探針 [`13-mechanical-visual-text-probe.md`](13-mechanical-visual-text-probe.md)；聲線 [`14-voice-speaker-evidence.md`](14-voice-speaker-evidence.md)；劇情證據 [`15-story-evidence-vs-dialogue.md`](15-story-evidence-vs-dialogue.md)；證據單元 [`16-evidence-unit.md`](16-evidence-unit.md)；升格閘 [`17-story-promotion-gate.md`](17-story-promotion-gate.md)。Phase 5 前不登記 glossary。
+**Glossary Impact**: yes — 另增候選 `selection_policy`、`feasible_set`、`semantic_context`、`series_cast`／`call_name`、`evidence_link`／`face_track`、`evidence_policy`／`visual_text_evidence`／`normalized_box`／`mechanical_probe`、`voice_evidence`／`speaker_id`、`story_state`／`narrative_role`、`evidence_unit`、`learning_candidate`。字幕 [`01-captions-and-locales.md`](01-captions-and-locales.md)；素材 [`02-source-bible.md`](02-source-bible.md)；invariant [`03-architecture-invariants.md`](03-architecture-invariants.md)；dogfood [`04-phase-3-dogfood.md`](04-phase-3-dogfood.md)；cast [`05-series-cast-canonicalization.md`](05-series-cast-canonicalization.md)；單元 [`06-shot-unit-semantic-context.md`](06-shot-unit-semantic-context.md)；事實層 [`07-material-fact-extraction.md`](07-material-fact-extraction.md)；身份 [`08-identity-precedes-naming.md`](08-identity-precedes-naming.md)；畫面文字 [`09-visual-text-evidence.md`](09-visual-text-evidence.md)；轉場 [`10-editorial-vs-narrative-transition.md`](10-editorial-vs-narrative-transition.md)；人臉證據 [`11-face-as-candidate-evidence.md`](11-face-as-candidate-evidence.md)；證據收斂 [`12-evidence-refinement.md`](12-evidence-refinement.md)；機械探針 [`13-mechanical-visual-text-probe.md`](13-mechanical-visual-text-probe.md)；聲線 [`14-voice-speaker-evidence.md`](14-voice-speaker-evidence.md)；劇情證據 [`15-story-evidence-vs-dialogue.md`](15-story-evidence-vs-dialogue.md)；證據單元 [`16-evidence-unit.md`](16-evidence-unit.md)；升格閘 [`17-story-promotion-gate.md`](17-story-promotion-gate.md)；知識累積 [`18-episode-vs-knowledge-accumulation.md`](18-episode-vs-knowledge-accumulation.md)。Phase 5 前不登記 glossary。
 
 ## 一句話目標
 
@@ -311,7 +311,8 @@ Phase 2 已寫入：[`workflow/narrative-video-production/`](../../workflow/narr
 Observable／Evidence Unit 可繼續；Narrative／Identity／State promotion fail。尚未完成
 matching → EDR → locale → QC → publish／outcome，因此 **Phase 3 未 PASS**。
 Episode 2 先驗 unresolved-upstream gate、具體 state claim、vocative／OCR mention
-維持 candidate、event basis／low reactivation；不加 detector、不立即改 workflow。
+維持 candidate、event basis／low reactivation，以及 identity **learning candidate
+inbox**（不得直接寫 knowledge）；不加 detector、不立即改 workflow。
 
 完成條件：外部專案產出一部片子的 EDR；本庫只收去敏 scenario。成功 = 決策鏈可驗證；失敗 = 真實 contract gap（都算有價值）。
 
@@ -331,7 +332,8 @@ Entry：Phase 2+3 完成且 activation 反例寫好（裸「AI 影片」不得�
 - [x] Constraint ≠ Selection；明示 selection policy
 - [ ] `dialogue.semantic_context`：optional 已落地；**shot unit（dialogue／action／visual）** 升格等真實計數
 - [ ] Series Cast Canonicalization：觀察中；**已解析表**，不是發現層；升格前不改 Phase 2 workflow
-- [ ] Identity precedes naming：觀察中；entity 可 unnamed；link 不覆寫歷史
+- [ ] Identity precedes naming：觀察中；entity 可 unnamed；link 不覆寫歷史；本集觀察 ≠ 知識寫入
+- [ ] Episode vs knowledge accumulation：觀察中；Learning Inbox 先於 Knowledge／Mechanical Registry；identity 當第一個 dogfood domain；不建完整 Knowledge DB
 - [ ] Face as candidate evidence：觀察中；`face_track` 可被 evidence link 引用；Face ≠ identity 判定器；升格前不改 workflow、不接辨識模型
 - [ ] Voice / speaker evidence：觀察中；ASR 只管 transcript；`speaker_id` ≠ `character_id`；共現連結不是身份等同；升格前不改 workflow
 - [ ] Story evidence vs dialogue dump：觀察中；Relevance／Event／Story State；低相關 archive 不刪；候選 invariant 11 未凍結、未進 workflow gate

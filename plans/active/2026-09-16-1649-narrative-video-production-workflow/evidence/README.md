@@ -22,4 +22,5 @@
 | 2026-09-18-story-evidence-vs-dialogue | [2026-09-18-story-evidence-vs-dialogue.md](2026-09-18-story-evidence-vs-dialogue.md) | observation | 劇情=state change；有對話≠劇情；低相關 archive 不刪 |
 | 2026-09-18-evidence-unit | [2026-09-18-evidence-unit.md](2026-09-18-evidence-unit.md) | observation | 凍結 observable 擴張；先 evidence_unit 再 event；不改 schema |
 | 2026-09-18-real-run-promotion-gaps | [2026-09-18-real-run-promotion-gaps.md](2026-09-18-real-run-promotion-gaps.md) | real-partial | 首份真實 source-analysis；observable／unit 可用，promotion／identity／state fail |
+| 2026-09-18-episode-vs-knowledge-accumulation | [2026-09-18-episode-vs-knowledge-accumulation.md](2026-09-18-episode-vs-knowledge-accumulation.md) | observation | 本集觀察 ≠ 知識寫入；Learning Inbox 先於 Knowledge／Mechanical Registry |
 | — | — | EDR chain pending | 尚未走完 matching → EDR → locale → QC → publish／outcome |

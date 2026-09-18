@@ -32,4 +32,4 @@ Face／voice **不是**唯一 identity key（雙角色、變裝、回憶、配�
 
 ## 真實片子要數
 
-第一集 unnamed entity 比例；後來命名是否用 link 而非覆寫；face／voice 衝突時有沒有當 identity key。畫面文字當 name evidence 見 [`2026-09-17-visual-text-evidence.md`](2026-09-17-visual-text-evidence.md)。沒有普遍需求就不進 workflow。
+第一集 unnamed entity 比例；後來命名是否用 link 而非覆寫；face／voice 衝突時有沒有當 identity key。畫面文字當 name evidence 見 [`2026-09-17-visual-text-evidence.md`](2026-09-17-visual-text-evidence.md)。本集觀察不得直接寫 knowledge 見 [`2026-09-18-episode-vs-knowledge-accumulation.md`](2026-09-18-episode-vs-knowledge-accumulation.md)。沒有普遍需求就不進 workflow。
