@@ -15,3 +15,8 @@ observable（凍結擴張）
 ```
 
 `role.candidate` + `resolver: mechanical` + `final: null` 已正確：機械像字幕 ≠ 系統宣告就是字幕。LLM 只做候選解讀；升格靠 traceability + independent verifier。Phase 3 **不**改 schema；先用現有 evidence 跑反例：閒聊、關鍵對白、跨 shot 對白、字幕／ASR 衝突、人物切鏡。
+
+首份真實 run 已產出完整 evidence units，故此層方向 **PASS for continued
+dogfood**。新瓶頸是下游 promotion，不是 unit 數量。Event 應補最小
+`basis.*_refs` 以區分 dialogue-only 與真正 multimodal 支撐；見
+[`17-story-promotion-gate.md`](17-story-promotion-gate.md)。不因此新增 detector。

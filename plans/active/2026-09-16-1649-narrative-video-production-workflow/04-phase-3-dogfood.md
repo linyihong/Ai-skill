@@ -23,6 +23,8 @@ Phase 2 落點：`34f778d4`（workflow）、`8757a578`（plan 狀態）。
 | `voice_identity_shortcut` | 把 diarization／聲線當成角色判定（「ASR 判斷人物」） | **不是**立刻 `contract_gap`。Voice／Speaker Evidence 與 transcript 分開；`speaker_id` ≠ `character_id`。見 [`evidence/2026-09-18-voice-speaker-evidence.md`](evidence/2026-09-18-voice-speaker-evidence.md) |
 | `dialogue_as_plot` | 有對話／ASR 摘要被當成劇情 | **不是**立刻 `contract_gap`。Relevance → Event → Story State；低相關保留不刪。見 [`evidence/2026-09-18-story-evidence-vs-dialogue.md`](evidence/2026-09-18-story-evidence-vs-dialogue.md) |
 | `skip_evidence_unit` | 從 cross-modal links 直接跳劇情，或繼續加 observable detector | **不是**立刻 `contract_gap`。先 evidence_unit；凍結 observable 擴張。見 [`evidence/2026-09-18-evidence-unit.md`](evidence/2026-09-18-evidence-unit.md) |
+| `promotion_gate_gap` | upstream unresolved／空 state claim 卻升 `story_evidence: accepted` | Observation-layer gate gap；`traceable` 不等於 valid。至少 resolved upstream + resolved event + valid state claim（若有）+ independent verification。見 [`evidence/2026-09-18-real-run-promotion-gaps.md`](evidence/2026-09-18-real-run-promotion-gaps.md) |
+| `mention_as_identity` | vocative／OCR mention 被直接升 canonical identity | `data_insufficient` + identity lifecycle violation。稱呼先解析 addressee；mention ≠ entity；保持 candidate／unresolved。見同上 |
 | `evidence_refinement_gap` | 把 OCR／ASR 當二選一、寫死權重、或讓 script／LLM confidence 當 evidence 權威 | **不是**立刻 `contract_gap`。獨立 refinement loop：作品級 selection policy、歧義才升級 LLM、修正回寫政策。見 [`evidence/2026-09-18-evidence-refinement.md`](evidence/2026-09-18-evidence-refinement.md) |
 | `transition_layer_gap` | 畫面切換被當成劇情轉場 | **不是**立刻 `contract_gap`。editorial ≠ narrative；shot ≠ scene。見 [`evidence/2026-09-17-editorial-vs-narrative-transition.md`](evidence/2026-09-17-editorial-vs-narrative-transition.md) |
 | `data_insufficient` | bible／catalog／locale 還沒填夠 | 補資料，不改契約 |
@@ -41,6 +43,11 @@ real brief → source bible → clip catalog → template
 對照檔：[`workflow/narrative-video-production/execution-flow.md`](../../workflow/narrative-video-production/execution-flow.md)。
 
 特別確認：每個 shot 有可行集 + `selection.policy`；查找只回既有 `clip_id`；成片對 EDR 而非反推；三閘分開；`publish-ready` 有獨立 verifier。Q4／Q6／Q10 只觀察，不在本 phase 凍結。另計：semantic unit、身份／名稱、visual text 幾何、機械探針／coverage fallback、Face Track／Voice Speaker／evidence link、evidence_unit、evidence refinement loop、story relevance／state change、editorial vs narrative transition、series_cast、observable 證據消費。**本 phase 不因這些觀察擴 workflow**；**不**再加 observable detector。優先反例：閒聊、關鍵對白、跨 shot 對白、字幕／ASR 衝突、人物切鏡。
+
+首份真實 source-analysis 子鏈見
+[`evidence/2026-09-18-real-run-promotion-gaps.md`](evidence/2026-09-18-real-run-promotion-gaps.md)：
+observable／evidence unit 可用；promotion、identity、state claim 未通過。
+這是有效 dogfood evidence，**不是**整體 Phase 3 PASS。
 
 ## 本庫 vs 外部專案
 
