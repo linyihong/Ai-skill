@@ -16,7 +16,7 @@
 | ASR | `text` + start/end；可選 word 時間軸 | `character_id` |
 | Diarization | `speaker_id` + 聲線 profile | `character_id` |
 | Face | detect → track → `face_track_id` + keyframes；cluster／embedding 可空 | 角色名／`character_id` |
-| OCR | text + bbox + timestamp | 劇情解釋 |
+| OCR | 產出 `visual_text_evidence`：text + pixel／normalized box + timestamp + persistence 可導出 | 字幕／浮水印已判定；`character_id` |
 | Visual mechanical | keyframe、亮度／模糊／histogram | 「悲傷」標籤 |
 | Visual embedding | retrieval 表示 | LLM 場景判決 |
 | Audio | loudness／silence／speech vs music | 音樂情緒 |

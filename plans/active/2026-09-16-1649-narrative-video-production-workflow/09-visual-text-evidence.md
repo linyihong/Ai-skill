@@ -1,6 +1,10 @@
 # Candidate: Visual text evidence
 
-Companion to [`_plan.md`](_plan.md)。**候選，不是 workflow contract。** OCR 已在 locale 的 `text_origin`；尚未升成源片分析一級產物。  
+Companion to [`_plan.md`](_plan.md)。**候選，不是 workflow contract。** Locale 已有 `text_origin: ocr`；源片分析尚未要求一級 `visual_text_evidence`。  
 觀察：[`evidence/2026-09-17-visual-text-evidence.md`](evidence/2026-09-17-visual-text-evidence.md)。
 
-OCR 是取得 **visual text evidence** 的一種方法，不是「OCR 字幕」。Canonical OCR 必須帶 timestamp、`region`／polygon、`frame_ref`。可與 ASR 並存、互證；可當 name／place／time evidence。與 Face 並存時只當 candidate evidence，Face 不裁定 OCR 人名：[`11-face-as-candidate-evidence.md`](11-face-as-candidate-evidence.md)。OCR 與 ASR 的作品級 policy／仲裁在 [`12-evidence-refinement.md`](12-evidence-refinement.md)，**不**寫死全域「字幕 OCR > ASR」。Phase 3 **不**改 workflow。
+資料室保存的不是「OCR 結果」，而是：**某時間、某空間位置出現了某段文字。** OCR、字幕檔、scene-text、UI 抽字、人工標註都是 `acquisition.method`。
+
+機械層一級 metadata：pixel `box` **與** `normalized_box`（跨解析度）、polygon、`frame_ref`。可從 box **算出** `spatial_features`／`temporal_features`（region、relative_area、aspect_ratio、near_edge、persistence）——不是 AI 判決。
+
+`role: candidate`（subtitle／watermark／sign／phone／name-plate）屬 Classification，**禁止** parser 宣布「這是浮水印」。右上角高覆蓋率的「林雪」不得因像人名就進 ASR 人名仲裁；下方短時且與 ASR overlap 的才進 linking。仲裁見 [`12-evidence-refinement.md`](12-evidence-refinement.md)。Phase 3 **不**改 workflow。

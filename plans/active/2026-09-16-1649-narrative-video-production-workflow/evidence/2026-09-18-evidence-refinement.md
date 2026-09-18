@@ -4,20 +4,11 @@
 **Kind**：Phase 3 observation（**不是** `contract_gap`；**不**擴 workflow；**不**建權重模型）  
 **原則**：Parsers collect. Refinement links, arbitrates, verifies, and learns. Script consumes canonical evidence; it is not evidence authority.
 
-## Canonical OCR 必須有畫面位置
+## Canonical 是 visual text，不是 OCR dump
 
-```yaml
-ocr:
-  ocr_id: ocr_00182
-  timestamp: 123.42
-  text: "林雪"
-  region: { x: 214, y: 812, width: 356, height: 74 }
-  polygon: [[214, 812], [570, 812], [570, 886], [214, 886]]
-  frame_ref: frame_004821
-  origin: { method: ocr, engine: ocr_adapter }
-```
+SoT 欄位與浮水印 persistence 見 [`09-visual-text-evidence.md`](../09-visual-text-evidence.md)／[`2026-09-17-visual-text-evidence.md`](2026-09-17-visual-text-evidence.md)。
 
-幾何用來區分標題／招牌／字幕／名稱標籤／手機訊息。OCR 是取得 **visual text evidence** 的方法，不是「OCR 字幕」。
+進 ASR↔OCR↔Face↔Speaker 仲裁前，先用 spatial／temporal features 分流：subtitle candidate 才仲裁；watermark candidate → ignore／最多當 support，不做人名決議。
 
 ## 作品級 policy，不是全域分數
 
@@ -49,4 +40,4 @@ selection_policy:
 
 ## 真實片子要數
 
-缺 bbox 的 OCR 列；被當成全域的 OCR>ASR；script 回寫 evidence；LLM confidence 當 SoT；修正是否進入 policy。沒被消費的欄位不進 schema。
+缺 normalized bbox／persistence 的 OCR 列；parser 直接標浮水印；邊角常駐字進人名仲裁；被當成全域的 OCR>ASR；script 回寫 evidence；LLM confidence 當 SoT；修正是否進入 policy。沒被消費的欄位不進 schema。
