@@ -9,4 +9,4 @@ Companion to [`_plan.md`](_plan.md)。**候選原則，不是 workflow schema。
 observed entity → identity cluster → character identity → canonical name → series_cast
 ```
 
-`series_cast` 是**已解析**角色表，不是第一集的發現資料。Face／voice 是 evidence，不是 identity key，也**不是** ASR↔OCR 人名仲裁的決策來源。掛法：[`11-face-as-candidate-evidence.md`](11-face-as-candidate-evidence.md)。歷史 observation 不因後來命名而覆寫。
+`series_cast` 是**已解析**角色表，不是第一集的發現資料。Face／voice 是 evidence，不是 identity key。掛法：Face [`11-face-as-candidate-evidence.md`](11-face-as-candidate-evidence.md)；Voice [`14-voice-speaker-evidence.md`](14-voice-speaker-evidence.md)。歷史 observation 不因後來命名而覆寫。

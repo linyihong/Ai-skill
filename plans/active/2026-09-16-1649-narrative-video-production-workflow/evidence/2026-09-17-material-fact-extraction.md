@@ -13,8 +13,8 @@
 | 候選 | 機械產物（例） | 尚未等於 |
 | --- | --- | --- |
 | 時間結構 | duration／FPS／scene／shot 切點／黑幀／freeze／近重複／keyframes | 敘事 beat |
-| ASR | `text` + start/end；可選 word 時間軸 | `character_id` |
-| Diarization | `speaker_id` + 聲線 profile | `character_id` |
+| ASR | `transcript.text` + timing；**不**內嵌角色名 | `character_id` |
+| Voice／Speaker | `speaker_id`／`voice_track` 掛在 segment 上；embedding 可空 | `character_id`（見 [`2026-09-18-voice-speaker-evidence.md`](2026-09-18-voice-speaker-evidence.md)） |
 | Face | detect → track → `face_track_id` + keyframes；cluster／embedding 可空 | 角色名／`character_id` |
 | OCR | 產出 `visual_text_evidence`：text + pixel／normalized box + timestamp + persistence 可導出 | 字幕／浮水印已判定；`character_id` |
 | Visual mechanical | keyframe、亮度／模糊／histogram | 「悲傷」標籤 |

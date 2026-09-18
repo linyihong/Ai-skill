@@ -24,7 +24,7 @@
 
 `identity_links` 獨立：`from` entity → `to` character，`relation: same_identity`，附 face／voice／narrative／explicit_name 等 evidence 與 `accepted`。不是「AI 覺得是她」。
 
-Face／voice **不是**唯一 identity key（雙角色、變裝、回憶、配音、遮臉、音質差）。它們只當 evidence，避免早期錯誤污染 series_cast。掛點與禁止捷徑見 [`2026-09-17-face-as-candidate-evidence.md`](2026-09-17-face-as-candidate-evidence.md)。
+Face／voice **不是**唯一 identity key（雙角色、變裝、回憶、配音、遮臉、音質差）。它們只當 evidence，避免早期錯誤污染 series_cast。Face：[`2026-09-17-face-as-candidate-evidence.md`](2026-09-17-face-as-candidate-evidence.md)。Voice：[`2026-09-18-voice-speaker-evidence.md`](2026-09-18-voice-speaker-evidence.md)。
 
 ## 與 series_cast 的關係
 

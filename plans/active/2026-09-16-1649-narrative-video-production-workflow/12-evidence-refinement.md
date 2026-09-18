@@ -6,8 +6,8 @@ Companion to [`_plan.md`](_plan.md)。**候選獨立契約，不是 ASR／OCR pa
 原則：不是 OCR／ASR 二選一，也不是讓 LLM 一次猜對。多種 evidence 經評估、仲裁、獨立審查與回饋，讓資料室逐步接近正確值。對齊 invariant 5：Need → Constraints → Feasible set → **Selection policy** → Selection。第一版用作品級 policy，**不**寫死全域權重。
 
 ```text
-layer.observable   video / shot / frame / visual_text+geometry / ASR+time / speaker / face_track / audio
-layer.linking      ASR↔OCR↔Face↔Speaker↔Shot；temporal／spatial overlap
+layer.observable   video / shot / frame / visual_text+geometry / ASR+transcript / voice_track / speaker_id / face_track / audio
+layer.linking      ASR↔OCR↔Voice↔Face↔Speaker↔Shot；temporal／spatial overlap（共現 ≠ 等同）
 layer.canonical    identity / dialogue / scene / place / time / event / naming
 layer.narrative    script / template / matching / EDR / 成片
 outer loop         observe → resolve → produce → verify → correct → learn policy
@@ -22,3 +22,4 @@ outer loop         observe → resolve → produce → verify → correct → le
 - LLM `confidence` 當 Decision SoT（只當另一條 evidence）
 - Script 反過來改寫 evidence（script 是 consumer）
 - LLM 決定 OCR crop，或把單片 `likely_subtitle_region` 直接寫進全局 probe（見 [`13-mechanical-visual-text-probe.md`](13-mechanical-visual-text-probe.md)）
+- `speaker_id`／`voice_track` 直接等於 `character_id`（見 [`14-voice-speaker-evidence.md`](14-voice-speaker-evidence.md)）

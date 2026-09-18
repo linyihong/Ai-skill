@@ -18,4 +18,5 @@
 | 2026-09-17-face-as-candidate-evidence | [2026-09-17-face-as-candidate-evidence.md](2026-09-17-face-as-candidate-evidence.md) | observation | Face Track 可被 evidence link 引用；非身份判定器；不接辨識 |
 | 2026-09-18-evidence-refinement | [2026-09-18-evidence-refinement.md](2026-09-18-evidence-refinement.md) | observation | 獨立 refinement loop；OCR 幾何；作品級 policy；script 是 consumer |
 | 2026-09-18-mechanical-visual-text-probe | [2026-09-18-mechanical-visual-text-probe.md](2026-09-18-mechanical-visual-text-probe.md) | observation | 探針可 fallback；LLM 不改 crop；清楚角色用機械 candidate |
+| 2026-09-18-voice-speaker-evidence | [2026-09-18-voice-speaker-evidence.md](2026-09-18-voice-speaker-evidence.md) | observation | Voice 與 ASR 文字分開；speaker ≠ character；共現不是等同 |
 | — | — | 尚無真實片子 | 等第一份真實 EDR dogfood |

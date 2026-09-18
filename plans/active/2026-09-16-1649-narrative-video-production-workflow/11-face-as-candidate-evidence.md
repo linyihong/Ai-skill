@@ -10,4 +10,4 @@ Companion to [`_plan.md`](_plan.md)。**候選原則，不是 workflow schema。
 禁止：`OCR「林雪」+ Face 長得像 = 這人就是林雪`。同一演員可演不同角色；Face 不是 canonical identity key。
 
 現在合法產物：`face_track_id`、keyframes；`embedding_ref`／`cluster_id` 可空。跨集 cluster 與人物圖像判別延後到 evidence 足夠。  
-ASR／OCR parser 不吸收 Face；採集與 refinement 分開——不要做「ASR-OCR-Face 仲裁器」塞進 parser。
+ASR／OCR parser 不吸收 Face；採集與 refinement 分開——不要做「ASR-OCR-Face 仲裁器」塞進 parser。Voice 同理：[`14-voice-speaker-evidence.md`](14-voice-speaker-evidence.md)。
