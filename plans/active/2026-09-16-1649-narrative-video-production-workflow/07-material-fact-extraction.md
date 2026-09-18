@@ -17,5 +17,6 @@ OCR 在此層是取得 **visual text evidence** 的一種方法（必帶 normali
 Face Track 屬 observable；linking 層掛 ASR／OCR／Shot，**不做** Recognition→角色：[`11-face-as-candidate-evidence.md`](11-face-as-candidate-evidence.md)。  
 Voice／Speaker 與 ASR transcript 分開掛，**不做** diarization→角色：[`14-voice-speaker-evidence.md`](14-voice-speaker-evidence.md)。  
 採集之後的仲裁／審查／政策學習：[`12-evidence-refinement.md`](12-evidence-refinement.md)（獨立於 parser）。  
+劇情路徑：Relevance → Event → Story State，禁止 ASR dump 當摘要：[`15-story-evidence-vs-dialogue.md`](15-story-evidence-vs-dialogue.md)。  
 掃區是 Mechanical Probe，不是 LLM crop：[`13-mechanical-visual-text-probe.md`](13-mechanical-visual-text-probe.md)。  
 外部工具產出當 **evidence candidates**；真實片子再數哪些真的被 bible／catalog／matching／EDR 消費。Shot／scene 關係見 [`10-editorial-vs-narrative-transition.md`](10-editorial-vs-narrative-transition.md)。

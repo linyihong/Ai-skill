@@ -7,4 +7,4 @@ Companion to [`_plan.md`](_plan.md)。**候選原則，不是新的 Phase 2／3 
 
 `semantic_context` 不是 lookup keyword。Retrieval 只是用途之一（還有 continuity、translation、QC、EDR trace）。
 
-升格前 **不**把 `action`／`visual` 寫進 `script-and-shot-list` contract。Dialogue 的 optional 欄維持現況，不在本 phase 再擴。
+升格前 **不**把 `action`／`visual` 寫進 `script-and-shot-list` contract。Dialogue 的 optional 欄維持現況，不在本 phase 再擴。有對話 ≠ 劇情：[`15-story-evidence-vs-dialogue.md`](15-story-evidence-vs-dialogue.md)。

@@ -19,4 +19,5 @@
 | 2026-09-18-evidence-refinement | [2026-09-18-evidence-refinement.md](2026-09-18-evidence-refinement.md) | observation | 獨立 refinement loop；OCR 幾何；作品級 policy；script 是 consumer |
 | 2026-09-18-mechanical-visual-text-probe | [2026-09-18-mechanical-visual-text-probe.md](2026-09-18-mechanical-visual-text-probe.md) | observation | 探針可 fallback；LLM 不改 crop；清楚角色用機械 candidate |
 | 2026-09-18-voice-speaker-evidence | [2026-09-18-voice-speaker-evidence.md](2026-09-18-voice-speaker-evidence.md) | observation | Voice 與 ASR 文字分開；speaker ≠ character；共現不是等同 |
+| 2026-09-18-story-evidence-vs-dialogue | [2026-09-18-story-evidence-vs-dialogue.md](2026-09-18-story-evidence-vs-dialogue.md) | observation | 劇情=state change；有對話≠劇情；低相關 archive 不刪 |
 | — | — | 尚無真實片子 | 等第一份真實 EDR dogfood |

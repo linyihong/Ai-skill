@@ -23,3 +23,4 @@ outer loop         observe → resolve → produce → verify → correct → le
 - Script 反過來改寫 evidence（script 是 consumer）
 - LLM 決定 OCR crop，或把單片 `likely_subtitle_region` 直接寫進全局 probe（見 [`13-mechanical-visual-text-probe.md`](13-mechanical-visual-text-probe.md)）
 - `speaker_id`／`voice_track` 直接等於 `character_id`（見 [`14-voice-speaker-evidence.md`](14-voice-speaker-evidence.md)）
+- 整段 ASR／「有意思的對話」直接當劇情摘要進 Script／EDR（見 [`15-story-evidence-vs-dialogue.md`](15-story-evidence-vs-dialogue.md)）

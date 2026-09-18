@@ -50,3 +50,10 @@ Phase 3 有真實 EDR 前**不**把 catalog 拆成三套。禁止執行時發明
 | A 架構 | Q1 語意（模板是一級 artifact + kind slot）、Q2 成熟度邊界、Q3／Q8 SoT 形狀、Q7 所有權、Q9 受控 tag、Q11 Selection | 本 companion 凍結 |
 | B 可改 v0 | Q5 outcome 欄位 | 先用建議五欄，dogfood 可修 |
 | C dogfood | Q4 first profile、Q6 首輪語、Q10 band 秒數 | 不擋 Phase 1 完成 |
+
+## Candidate invariant（Phase 3；未凍結、未進 workflow gate）
+
+不改上方十條凍結文。升格前只當觀察契約，見 [`15-story-evidence-vs-dialogue.md`](15-story-evidence-vs-dialogue.md)。
+
+11. **Story events require evidence traceability.** 劇情不是對話摘要。進入 Script／EDR 的 story event／state change 必須回指 observable evidence。獨立審查：回指得到 → 保留；得不到 → 降級或重分析。禁止「整段 ASR → LLM 摘要 → 這就是劇情」。
+
