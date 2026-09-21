@@ -58,6 +58,14 @@ Status: validated
 - Action: Plane 分類 → 進桌 hierarchy → 動畫三棧 → ID→prefab 對照。
 - Validation: 文件分三平面；進桌 inventory 含 Spine／Animator／Particle 計數或明確 not-applicable；符號表同時列協議 ID 與資源名。
 
+
+
+#### Amendment 2026-09-21 (idle live dump)
+
+停輪 idle 時 `Spine.Unity.SkeletonAnimation` 的 `FindObjectsOfTypeAll` 可為 **0**。不要因此判定「沒有 Spine」：同場仍有 per-symbol `*_spine_animated_controller`（AnimatorOverrideController）與 `item_*_animated` Animator／GameObject，以及 `AccelerateStart`／`AccelerateProcess`／`AccelerateStop` clip 名。
+
+Agent action：idle 先列 AnimationClip／RuntimeAnimatorController／Animator GO 名；要 track clip（idle／win／land）需在旋轉中或另讀 Override 映射，不能只靠 SkeletonAnimation 實例計數。
+
 #### Applies / Does Not Apply
 
 - Applies: Unity IL2CPP slot cabinets with Addressable／UnityCache feature packs + choose-category splash。
