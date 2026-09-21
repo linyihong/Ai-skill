@@ -33,5 +33,5 @@ outer loop         observe → resolve → produce → verify → correct → le
   [`21-spoken-vs-subtitle-reconstruction.md`](21-spoken-vs-subtitle-reconstruction.md)）
 - 只存 ASR grapheme、丟掉 phonetic／syllable；或 ASR 直接進 LLM 修句；或開局寫死字幕替換表（見
   [`22-phonetic-text-reconstruction.md`](22-phonetic-text-reconstruction.md)）
-- 顯示詞自動改成 spoken 猜測，或只做單次掃描、不做整集 Final Text Audit（見
+- 顯示詞自動改成 spoken 猜測，或把 OCR 和諧詞拿去同音展開，或只做單次掃描、不做整集 Final Text Audit（見
   [`23-sanitization-anomaly-audit.md`](23-sanitization-anomaly-audit.md)）

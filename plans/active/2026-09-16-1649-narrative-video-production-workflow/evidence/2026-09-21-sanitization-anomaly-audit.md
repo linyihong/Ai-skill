@@ -4,22 +4,18 @@
 **Kind**：Phase 3 observation（**不是** `contract_gap`；**不是**新 Agent；**不**擴 workflow）  
 **Extends**：[`2026-09-21-phonetic-text-reconstruction.md`](2026-09-21-phonetic-text-reconstruction.md)、[`2026-09-18-episode-vs-knowledge-accumulation.md`](2026-09-18-episode-vs-knowledge-accumulation.md)
 
-## 不學硬對照
+## 兩條獨立 evidence chain
 
-顯示詞與 spoken 猜測對上一次，仍不得寫成自動替換。要學的是：正面／中性 OCR 詞在衝突語境下可能是 sanitization，因此產生 `text_alert`（`possible_sanitized_subtitle` 等），status 只 candidate。Raw OCR／ASR 不動。
+OCR 顯示詞保持 `role: subtitle`、`status: observed`。若與 spoken 線索衝突，只標 `sanitization.suspicion`（`possible_substitution`、`conflict_with_spoken_evidence`）。**不得**把該顯示詞送進 homophone decoder。
+
+ASR grapheme → phonetic → spoken candidate 是另一條鏈。LLM 最後才解釋：字幕可能替換；ASR 近音＋語境可能指向 spoken candidate。路徑是「疑似和諧 → 找 spoken evidence」，不是「顯示詞 → spoken 對照」。
+
+OCR 與 ASR 同詞時，歷史 sanitization pattern 不得強改。OCR 與另一無關 ASR 詞時亦然。
+
+## 警覺來源（不是字典 lookup）
+
+OCR-only suspicious、OCR／ASR 語意衝突、ASR phonetic anomaly、context anomaly、historical pattern（只加權，不結案）。機械發現異常 → phonetic 產候選 → LLM 語境選擇 → verifier。Learning candidate 可累積「顯示詞可能是和諧」，不得升永久規則。
 
 ## 前警覺 + 後複核
 
-Alignment 後做 Suspicion Detection：和諧詞候選、異常語境、音近異常、歷史替換模式。訊號疊加（ocr_asr_mismatch、phonetic_anomaly、contextual_mismatch）才提高 risk 並進 reconstruction。
-
-整集 episode analysis 後做 Final Text Audit：同一顯示詞反覆出現在衝突句式時，第一階段「看起來正常」的 span 重新進 reconstruction。未解決 anomaly 不得當 Story Truth。
-
-## 三級警覺
-
-| 級 | 含義 | 例 |
-| --- | --- | --- |
-| A 詞彙 | 常見可替換詞本身無過 | risk low |
-| B 語境 | vocative／action／emotion 衝突 | risk medium |
-| C 多證據 | OCR＋ASR phonetic＋語境同時衝突 | risk high → reconstruct |
-
-統稱 **Sanitization / Substitution Anomaly**（辱罵／敏感／審核弱化／同音諧音／OCR／ASR 誤識）。不是暴力詞表。Learning candidate 多集後才 `verified` mapping。
+Alignment 後 suspicion；整集後 Final Text Audit。三級 risk：詞彙 low、語境 medium、多證據 high。統稱 Sanitization / Substitution Anomaly。

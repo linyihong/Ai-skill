@@ -341,7 +341,7 @@ Entry：Phase 2+3 完成且 activation 反例寫好（裸「AI 影片」不得�
 - [ ] Story evidence vs dialogue dump：觀察中；Relevance／Event／Story State；低相關 archive 不刪；候選 invariant 11 未凍結、未進 workflow gate
 - [ ] Evidence unit：觀察中；凍結再加 observable detector；先聚合同一時間窗再做劇情；升格前不改 workflow schema
 - [ ] Story promotion gate：真實 run 已證明 traceability 不足；upstream resolved + event semantics + valid state claim + independent verifier 才 accepted；Episode 2 後裁決升格
-- [ ] Narrative representation：觀察中；Text Resolution（phonetic＋`text_alert`）→ Narrative Window；前警覺＋Final Text Audit；禁止自動替換表；無證據 → unresolved
+- [ ] Narrative representation：觀察中；OCR 顯示詞不進 homophone；兩條 chain 最後才串；前警覺＋Final Text Audit；無證據 → unresolved
 - [ ] Evidence refinement loop：觀察中；獨立於 parser；作品級 `evidence_policy`；Selection policy 先於 weight model；script 是 consumer；升格前不建 workflow 檔
 - [ ] Visual text evidence：觀察中；SoT 是「何時何地出現什麼字」；pixel + normalized box + persistence 為一級 metadata；`role` 只 candidate；`visual_style` 是 feature 不是標籤；升格前不改 workflow
 - [ ] Mechanical visual-text probe：觀察中；LLM 不決定掃區；coverage 不足才 expand；改 probe 須 Observation→Validation→Promotion
