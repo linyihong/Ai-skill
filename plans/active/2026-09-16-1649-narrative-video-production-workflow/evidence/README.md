@@ -27,4 +27,5 @@
 | 2026-09-18-narrative-representation-gap | [2026-09-18-narrative-representation-gap.md](2026-09-18-narrative-representation-gap.md) | real-review | resolved text 未被 narrative 消費；event 過度 dialogue-centric；window／relation 缺失 |
 | 2026-09-21-spoken-vs-subtitle-reconstruction | [2026-09-21-spoken-vs-subtitle-reconstruction.md](2026-09-21-spoken-vs-subtitle-reconstruction.md) | observation | spoken ≠ subtitle；禁止 OCR 優先；LLM 不改 raw ASR；duration／word time 當 constraint |
 | 2026-09-21-phonetic-text-reconstruction | [2026-09-21-phonetic-text-reconstruction.md](2026-09-21-phonetic-text-reconstruction.md) | observation | 音→字第二次 decoding；syllable 優於字數；LLM 最後；sanitization 走 inbox |
+| 2026-09-21-sanitization-anomaly-audit | [2026-09-21-sanitization-anomaly-audit.md](2026-09-21-sanitization-anomaly-audit.md) | observation | 不自動替換；前警覺＋整集 audit；三級 risk；substitution anomaly |
 | — | — | EDR chain pending | 尚未走完 matching → EDR → locale → QC → publish／outcome |

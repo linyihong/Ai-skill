@@ -45,6 +45,8 @@ semantics。
 [`21-spoken-vs-subtitle-reconstruction.md`](21-spoken-vs-subtitle-reconstruction.md)。
 ASR 還要 phonetic／syllable 證據；LLM 只在 candidate set 上 ranking。見
 [`22-phonetic-text-reconstruction.md`](22-phonetic-text-reconstruction.md)。
+Suspicion／Final Text Audit 是 reconstruction 內能力，不是替換表也不是新 Agent。見
+[`23-sanitization-anomaly-audit.md`](23-sanitization-anomaly-audit.md)。
 
 ## Narrative window
 

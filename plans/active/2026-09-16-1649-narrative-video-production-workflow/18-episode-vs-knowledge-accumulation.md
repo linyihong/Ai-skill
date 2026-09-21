@@ -33,6 +33,6 @@ episode analysis
 | 已驗證的跨集知識 | Knowledge Store（需 provenance／status／validity） |
 | 可重複且可機械驗證的模式 | Mechanical Registry |
 
-機械與語意走不同路徑：watermark 區域反覆出現 → pattern candidate → validation → mechanical rule；稱呼／關係 → semantic candidate，不得一次 resolved。字幕 sanitization／vocative 槽位同樣先 inbox，見 [`22-phonetic-text-reconstruction.md`](22-phonetic-text-reconstruction.md)。
+機械與語意走不同路徑：watermark 區域反覆出現 → pattern candidate → validation → mechanical rule；稱呼／關係 → semantic candidate，不得一次 resolved。字幕 sanitization／vocative 槽位同樣先 inbox，見 [`22-phonetic-text-reconstruction.md`](22-phonetic-text-reconstruction.md)、[`23-sanitization-anomaly-audit.md`](23-sanitization-anomaly-audit.md)。
 
 最小 dogfood：先只做 identity domain 的 Episode Evidence → Learning Inbox → Verification → Promotion。不建完整 Knowledge DB，不讓 agent 直接改 registry／knowledge 檔。Phase 3 **不**改 workflow。
