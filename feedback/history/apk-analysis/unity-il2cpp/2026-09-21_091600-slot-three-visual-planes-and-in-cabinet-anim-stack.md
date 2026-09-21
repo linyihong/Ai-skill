@@ -24,6 +24,7 @@ Status: validated
 | Symbols | Spine skeleton（常見 authored 60 fps） | 每格符號 idle／落地／中獎演出 |
 | State | Animator + OverrideController + clips | 窗口、線數、bonus 狀態切換 |
 | FX | ParticleSystem + SpriteRenderer | 加速光、金幣、煙火、線閃 |
+| Audio | AudioClip + sound_store | SFX／BGM bed；慶祝窗字級常與 `*_big_win`／`*_huge_win`／`*_super_win` 同名 |
 
 伺服器 spin 結果只提供 strip／符號 ID 與 reel/row；客戶端查表後在 `items`／`animated_items` 等節點掛對應 prefab。協議 ID（短字元）≠ Spine／GameObject 資源名（`high_*`／`wild_*`）。
 
@@ -44,7 +45,7 @@ Status: validated
 
 1. **先標 plane**：lobby tile ≠ splash preview ≠ in-cabinet stack。三平面各自 inventory，禁止跨平面標 `verified-matched`。
 2. **進桌層級用邏輯層（L0…Ln）描述骨架**；不要宣稱已還原精確 Canvas draw-call，除非有 sibling index／sorting／mask dump。
-3. **動畫三棧分開**：Spine＝符號表演；Animator＝狀態／窗口；Particle＝瞬間特效。缺一就不能說「動畫做完了」。
+3. **動畫棧分開**：Spine＝符號表演；Animator＝狀態／窗口；Particle＝瞬間特效；**Audio＝SFX／BGM**（見同日 `slot-audio-fourth-stack-and-win-tier-sfx-names`）。缺一就不能說「動畫做完了」。
 4. **資料流**：C2S/S2C 符號 ID → client lookup → instantiate／enable prefab；靜態 PNG 只服務 L0–L2／L4 等底板，不驅動 L3 動態。
 5. **Shared HUD**（玩家列、下注、旋轉鍵）屬共用 slot UI，不要算進單機台 feature-bundle 資產清單。
 
@@ -64,7 +65,7 @@ Status: validated
 
 停輪 idle 時 `Spine.Unity.SkeletonAnimation` 的 `FindObjectsOfTypeAll` 可為 **0**。不要因此判定「沒有 Spine」：同場仍有 per-symbol `*_spine_animated_controller`（AnimatorOverrideController）與 `item_*_animated` Animator／GameObject，以及 `AccelerateStart`／`AccelerateProcess`／`AccelerateStop` clip 名。
 
-Agent action：idle 先列 AnimationClip／RuntimeAnimatorController／Animator GO 名；要 track clip（idle／win／land）需在旋轉中或另讀 Override 映射，不能只靠 SkeletonAnimation 實例計數。
+Agent action：idle 先列 AnimationClip／RuntimeAnimatorController／Animator GO 名；要 track clip（idle／win／land）需在旋轉中或另讀 Override 映射，不能只靠 SkeletonAnimation 實例計數。進桌 checklist 另加 AudioClip／sound_store（見 `2026-09-21_111200-slot-audio-fourth-stack-and-win-tier-sfx-names.md`）。
 
 #### Applies / Does Not Apply
 
@@ -73,6 +74,8 @@ Agent action：idle 先列 AnimationClip／RuntimeAnimatorController／Animator 
 
 #### Related
 
+- `2026-09-21_111200-slot-audio-fourth-stack-and-win-tier-sfx-names.md`
+- `2026-09-21_111500-slot-celebration-window-hunt-continue-cta-not-midreel-gold.md`
 - `2026-09-14_134900-choose-category-preview-texture-is-composite-not-layer-sprites.md`
 - `2026-09-14_141200-restore-unity-preview-composite-via-main-thread-or-cdn.md`
 - `2026-09-14_153800-slot-in-reel-vs-paytable-art-presentations.md`

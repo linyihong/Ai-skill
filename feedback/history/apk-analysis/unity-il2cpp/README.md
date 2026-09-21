@@ -4,7 +4,9 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
-| [2026-09-21_091600-slot-three-visual-planes-and-in-cabinet-anim-stack.md](2026-09-21_091600-slot-three-visual-planes-and-in-cabinet-anim-stack.md) | validated | 同一 cabinet 三視覺平面；進桌動畫是 ID→Spine/Animator/Particle，不是 5×3 靜態拼圖 |
+| [2026-09-21_111500-slot-celebration-window-hunt-continue-cta-not-midreel-gold.md](2026-09-21_111500-slot-celebration-window-hunt-continue-cta-not-midreel-gold.md) | validated | 獵慶祝窗用 Continue CTA；轉輪中金色多半是 Wild 金幣誤報 |
+| [2026-09-21_111200-slot-audio-fourth-stack-and-win-tier-sfx-names.md](2026-09-21_111200-slot-audio-fourth-stack-and-win-tier-sfx-names.md) | validated | 進桌第四棧 AudioClip／sound_store；BIG／HUGE／SUPER 常與同名 SFX 對齊 |
+| [2026-09-21_091600-slot-three-visual-planes-and-in-cabinet-anim-stack.md](2026-09-21_091600-slot-three-visual-planes-and-in-cabinet-anim-stack.md) | validated | 同一 cabinet 三視覺平面；進桌動畫是 ID→Spine/Animator/Particle/Audio，不是 5×3 靜態拼圖 |
 | [2026-09-15_091500-slot-collapse-level-concurrent-pays.md](2026-09-15_091500-slot-collapse-level-concurrent-pays.md) | validated | 同一 Collapse level 可並發多符號；chip multiset partition + union tumble |
 | [2026-09-14_170500-frida-chain-harness-nonblocking-stdout.md](2026-09-14_170500-frida-chain-harness-nonblocking-stdout.md) | validated | Frida chain harness 勿阻塞 readline；用 select/短超時才能讓 chain timeout 生效 |
 | [2026-09-14_164000-slot-multi-level-collapse-one-result.md](2026-09-14_164000-slot-multi-level-collapse-one-result.md) | validated | Rewards 多 level + Collapse = 同 RESULT 內多段付費 cascade；先 sim tumble 再改 ways 公式 |
