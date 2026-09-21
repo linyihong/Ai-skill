@@ -9,8 +9,14 @@
 | [`http-api/`](http-api/) | 34 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 11 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
-| [`unity-il2cpp/`](unity-il2cpp/) | 45 | Unity IL2CPP、AssetBundle、UnityCache |
+| [`unity-il2cpp/`](unity-il2cpp/) | 46 | Unity IL2CPP、AssetBundle、UnityCache |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
+
+## Recent (2026-09-21)
+
+| Slug | Category |
+|------|----------|
+| `unity-il2cpp/2026-09-21_091600-slot-three-visual-planes-and-in-cabinet-anim-stack` | 同一 cabinet 三視覺平面；進桌動畫是 ID→Spine/Animator/Particle |
 
 ## Recent (2026-09-14)
 
