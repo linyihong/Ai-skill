@@ -29,3 +29,5 @@ outer loop         observe → resolve → produce → verify → correct → le
 - 定義了 OCR／ASR selection policy，卻讓 narrative consumer 繼續讀 raw ASR；或
   把 `dialogue_cluster` 當 resolved event（見
   [`19-text-resolution-and-narrative-assembly.md`](19-text-resolution-and-narrative-assembly.md)）
+- 全域 OCR 優先／ASR fallback；或 LLM 原地改 ASR；或把字幕 sanitization 當成 spoken truth（見
+  [`21-spoken-vs-subtitle-reconstruction.md`](21-spoken-vs-subtitle-reconstruction.md)）

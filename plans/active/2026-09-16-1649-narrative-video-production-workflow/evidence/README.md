@@ -25,4 +25,5 @@
 | 2026-09-18-real-run-promotion-gaps | [2026-09-18-real-run-promotion-gaps.md](2026-09-18-real-run-promotion-gaps.md) | real-partial | 首份真實 source-analysis；observable／unit 可用，promotion／identity／state fail |
 | 2026-09-18-episode-vs-knowledge-accumulation | [2026-09-18-episode-vs-knowledge-accumulation.md](2026-09-18-episode-vs-knowledge-accumulation.md) | observation | 本集觀察 ≠ 知識寫入；Learning Inbox 先於 Knowledge／Mechanical Registry |
 | 2026-09-18-narrative-representation-gap | [2026-09-18-narrative-representation-gap.md](2026-09-18-narrative-representation-gap.md) | real-review | resolved text 未被 narrative 消費；event 過度 dialogue-centric；window／relation 缺失 |
+| 2026-09-21-spoken-vs-subtitle-reconstruction | [2026-09-21-spoken-vs-subtitle-reconstruction.md](2026-09-21-spoken-vs-subtitle-reconstruction.md) | observation | spoken ≠ subtitle；禁止 OCR 優先；LLM 不改 raw ASR；duration／word time 當 constraint |
 | — | — | EDR chain pending | 尚未走完 matching → EDR → locale → QC → publish／outcome |

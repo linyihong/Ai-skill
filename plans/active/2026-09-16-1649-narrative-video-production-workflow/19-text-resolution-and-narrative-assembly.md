@@ -40,6 +40,10 @@ text_resolution:
 Raw evidence 永不覆寫。`status: unresolved` 時，下游不得把破碎文字當 final event
 semantics。
 
+`spoken_text` ≠ `subtitle_text`。OCR 準確不等于原音；ASR 有時間不等于字對。重建任務是
+**Spoken Text Reconstruction**，不是 OCR 優先也不是改寫 raw ASR。見
+[`21-spoken-vs-subtitle-reconstruction.md`](21-spoken-vs-subtitle-reconstruction.md)。
+
 ## Narrative window
 
 `narrative_window` 是 context carrier，不是 event，也不是固定秒數。候選邊界可由
