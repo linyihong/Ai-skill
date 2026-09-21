@@ -31,3 +31,5 @@ outer loop         observe → resolve → produce → verify → correct → le
   [`19-text-resolution-and-narrative-assembly.md`](19-text-resolution-and-narrative-assembly.md)）
 - 全域 OCR 優先／ASR fallback；或 LLM 原地改 ASR；或把字幕 sanitization 當成 spoken truth（見
   [`21-spoken-vs-subtitle-reconstruction.md`](21-spoken-vs-subtitle-reconstruction.md)）
+- 只存 ASR grapheme、丟掉 phonetic／syllable；或 ASR 直接進 LLM 修句；或開局寫死字幕替換表（見
+  [`22-phonetic-text-reconstruction.md`](22-phonetic-text-reconstruction.md)）

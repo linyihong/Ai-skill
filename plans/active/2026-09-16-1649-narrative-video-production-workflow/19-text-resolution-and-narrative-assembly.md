@@ -43,6 +43,8 @@ semantics。
 `spoken_text` ≠ `subtitle_text`。OCR 準確不等于原音；ASR 有時間不等于字對。重建任務是
 **Spoken Text Reconstruction**，不是 OCR 優先也不是改寫 raw ASR。見
 [`21-spoken-vs-subtitle-reconstruction.md`](21-spoken-vs-subtitle-reconstruction.md)。
+ASR 還要 phonetic／syllable 證據；LLM 只在 candidate set 上 ranking。見
+[`22-phonetic-text-reconstruction.md`](22-phonetic-text-reconstruction.md)。
 
 ## Narrative window
 

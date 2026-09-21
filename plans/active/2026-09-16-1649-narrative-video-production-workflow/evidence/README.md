@@ -26,4 +26,5 @@
 | 2026-09-18-episode-vs-knowledge-accumulation | [2026-09-18-episode-vs-knowledge-accumulation.md](2026-09-18-episode-vs-knowledge-accumulation.md) | observation | 本集觀察 ≠ 知識寫入；Learning Inbox 先於 Knowledge／Mechanical Registry |
 | 2026-09-18-narrative-representation-gap | [2026-09-18-narrative-representation-gap.md](2026-09-18-narrative-representation-gap.md) | real-review | resolved text 未被 narrative 消費；event 過度 dialogue-centric；window／relation 缺失 |
 | 2026-09-21-spoken-vs-subtitle-reconstruction | [2026-09-21-spoken-vs-subtitle-reconstruction.md](2026-09-21-spoken-vs-subtitle-reconstruction.md) | observation | spoken ≠ subtitle；禁止 OCR 優先；LLM 不改 raw ASR；duration／word time 當 constraint |
+| 2026-09-21-phonetic-text-reconstruction | [2026-09-21-phonetic-text-reconstruction.md](2026-09-21-phonetic-text-reconstruction.md) | observation | 音→字第二次 decoding；syllable 優於字數；LLM 最後；sanitization 走 inbox |
 | — | — | EDR chain pending | 尚未走完 matching → EDR → locale → QC → publish／outcome |
