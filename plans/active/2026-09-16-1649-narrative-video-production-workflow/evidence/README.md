@@ -18,6 +18,7 @@
 | 2026-09-22-text-group-preserve-variants | [2026-09-22-text-group-preserve-variants.md](2026-09-22-text-group-preserve-variants.md) | contract_gap candidate | 高相似≠同一段；group 保留 variants；禁止 dst 反推 source |
 | 2026-09-22-subtitle-layout-engine | [2026-09-22-subtitle-layout-engine.md](2026-09-22-subtitle-layout-engine.md) | observation | content≠layout；glyph／safe area solver；V0 先於 face obstruction |
 | 2026-09-22-typography-layout-profile | [2026-09-22-typography-layout-profile.md](2026-09-22-typography-layout-profile.md) | observation | font 是 range＋canvas scale＋overflow.order；禁止字數估寬 |
+| 2026-09-22-layout-review-loop | [2026-09-22-layout-review-loop.md](2026-09-22-layout-review-loop.md) | observation | AI 只出 adjustment；engine 執行；budget；跨集才升 profile |
 | 2026-09-21-ocr-visual-style | [2026-09-21-ocr-visual-style.md](2026-09-21-ocr-visual-style.md) | observation | visual_style 機械量測；非 subtitle_color；非新 detector |
 | 2026-09-17-editorial-vs-narrative-transition | [2026-09-17-editorial-vs-narrative-transition.md](2026-09-17-editorial-vs-narrative-transition.md) | observation | 畫面切了 ≠ 劇情轉場；shot ≠ scene |
 | 2026-09-17-face-as-candidate-evidence | [2026-09-17-face-as-candidate-evidence.md](2026-09-17-face-as-candidate-evidence.md) | observation | Face Track 可被 evidence link 引用；非身份判定器；不接辨識 |
