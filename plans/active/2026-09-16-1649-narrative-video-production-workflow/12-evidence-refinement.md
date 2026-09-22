@@ -41,3 +41,5 @@ outer loop         observe → resolve → produce → verify → correct → le
   [`25-text-group-preserve-variants.md`](25-text-group-preserve-variants.md)）
 - 用字數切行、寫死 bottom％、或讓 LLM 做最終斷行／選位（見
   [`26-subtitle-layout-engine.md`](26-subtitle-layout-engine.md)）
+- 全片固定 `font_size` px、或 `字數 × 字級` 估寬（見
+  [`27-typography-layout-profile.md`](27-typography-layout-profile.md)）

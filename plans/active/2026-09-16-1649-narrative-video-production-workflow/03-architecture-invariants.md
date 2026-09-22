@@ -53,7 +53,7 @@ Phase 3 有真實 EDR 前**不**把 catalog 拆成三套。禁止執行時發明
 
 ## Candidate invariant（Phase 3；未凍結、未進 workflow gate）
 
-不改上方十條凍結文。升格前只當觀察契約，見 [`15-story-evidence-vs-dialogue.md`](15-story-evidence-vs-dialogue.md)、[`24-ocr-role-projection.md`](24-ocr-role-projection.md)、[`25-text-group-preserve-variants.md`](25-text-group-preserve-variants.md)、[`26-subtitle-layout-engine.md`](26-subtitle-layout-engine.md)。
+不改上方十條凍結文。升格前只當觀察契約，見 [`15-story-evidence-vs-dialogue.md`](15-story-evidence-vs-dialogue.md)、[`24-ocr-role-projection.md`](24-ocr-role-projection.md)、[`25-text-group-preserve-variants.md`](25-text-group-preserve-variants.md)、[`26-subtitle-layout-engine.md`](26-subtitle-layout-engine.md)、[`27-typography-layout-profile.md`](27-typography-layout-profile.md)。
 
 11. **Story events require evidence traceability and resolved promotion.** 劇情不是對話摘要。進入 Script／EDR 的 story event／state change 必須回指 observable evidence（經 evidence_unit／event_candidate，見 [`16-evidence-unit.md`](16-evidence-unit.md)）。首份真實 run 證明 `traceable: true` 不足：blocking upstream、event semantics 必須 resolved；若宣稱 state change，subject／change／before-after 不得空；最後需 independent verifier。完整候選閘見 [`17-story-promotion-gate.md`](17-story-promotion-gate.md)。禁止「整段 ASR → LLM 摘要 → 這就是劇情」。
 
@@ -61,5 +61,5 @@ Phase 3 有真實 EDR 前**不**把 catalog 拆成三套。禁止執行時發明
 
 13. **Similarity-based merging MUST NOT discard a candidate when the differing span may carry semantic information. Only exact duplicates may be destructively merged at the evidence layer.** Timestamp 是 alignment signal，不是 identity key。見 [`25-text-group-preserve-variants.md`](25-text-group-preserve-variants.md)。未凍結。
 
-14. **Subtitle content ≠ subtitle layout.** `layout_gate` 是 feasible-layout selection，不是字數切行。LLM 可提 semantic break candidates；fit／position／font 由 mechanical solver。見 [`26-subtitle-layout-engine.md`](26-subtitle-layout-engine.md)。未凍結。
+14. **Subtitle content ≠ subtitle layout.** `layout_gate` 是 feasible-layout selection，不是字數切行。`font_size` 是 range＋canvas scale＋fit，不是固定 px。LLM 可提 semantic break candidates；fit／position／font 由 mechanical solver。見 [`26-subtitle-layout-engine.md`](26-subtitle-layout-engine.md)、[`27-typography-layout-profile.md`](27-typography-layout-profile.md)。未凍結。
 
