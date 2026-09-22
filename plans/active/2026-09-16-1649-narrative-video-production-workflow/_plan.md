@@ -302,7 +302,7 @@ Phase 2 已寫入：[`workflow/narrative-video-production/`](../../workflow/narr
 協議：[`04-phase-3-dogfood.md`](04-phase-3-dogfood.md)。證據索引：[`evidence/README.md`](evidence/README.md)。
 
 - [ ] 外部專案一部真實片子走完觀察鏈（outcome 可 `insufficient_sample`）
-- [ ] 本庫 `evidence/` 去敏 run：每站 pass 或卡住分類（`contract_gap`／`data_insufficient`／`adapter_only`／`design_error`）
+- [ ] 本庫 `evidence/` 去敏 run：每站 pass 或卡住分類（`contract_gap`／`data_insufficient`／`adapter_only`／`design_error`）— 主鏈 ledger 已記；matching／EDR 仍缺
 - [ ] 卡住不自動加欄位／加 phase（dialogue optional 維持；identity／series_cast／observable 分析器／Face Recognition／聲紋產品／權重模型 **不**寫進本 phase workflow；**凍結再加 observable detector**；Face／Voice 只留 track 掛點；refinement／evidence_unit 只留觀察契約）
 - [ ] 虛構 YAML 示範不算本 phase
 - [ ] 仍無 route、無 runtime projection
@@ -315,6 +315,7 @@ Episode 2 先驗 unresolved-upstream gate、具體 state claim、vocative／OCR 
 inbox**（不得直接寫 knowledge）。同時先驗 role-qualified Text Resolution 是否
 真的進 narrative consumer、Narrative Window 能否組裝 medium evidence、Relation
 是否不把相鄰誤作因果；不加 detector／Agent、不立即改 workflow。
+主鏈 station 分類：[`evidence/2026-09-22-phase-3-chain-station-ledger.md`](evidence/2026-09-22-phase-3-chain-station-ledger.md)。
 
 完成條件：外部專案產出一部片子的 EDR；本庫只收去敏 scenario。成功 = 決策鏈可驗證；失敗 = 真實 contract gap（都算有價值）。
 

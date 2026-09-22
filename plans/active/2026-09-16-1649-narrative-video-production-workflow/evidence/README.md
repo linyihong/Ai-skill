@@ -30,3 +30,4 @@
 | 2026-09-21-phonetic-text-reconstruction | [2026-09-21-phonetic-text-reconstruction.md](2026-09-21-phonetic-text-reconstruction.md) | observation | 音→字第二次 decoding；syllable 優於字數；LLM 最後；sanitization 走 inbox |
 | 2026-09-21-sanitization-anomaly-audit | [2026-09-21-sanitization-anomaly-audit.md](2026-09-21-sanitization-anomaly-audit.md) | observation | OCR 不進同音；兩條 chain；alert 非字典；前警覺＋整集 audit |
 | — | — | EDR chain pending | 尚未走完 matching → EDR → locale → QC → publish／outcome |
+| 2026-09-22-phase-3-chain-station-ledger | [2026-09-22-phase-3-chain-station-ledger.md](2026-09-22-phase-3-chain-station-ledger.md) | station ledger | 主鏈卡在 bible／catalog／matching／EDR（`data_insufficient`）；子鏈 promotion／watermark 已分類 |

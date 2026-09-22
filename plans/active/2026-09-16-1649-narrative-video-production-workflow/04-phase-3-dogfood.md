@@ -62,6 +62,10 @@ observable／evidence unit 可用；promotion、identity、state claim 未通過
 Text Resolution 未被 consumer 使用、Event 過度 dialogue-centric、Window／
 Assembly／Relation 缺失。這比 event count 更早，仍不加 Agent／detector。
 
+主鏈每站分類見
+[`evidence/2026-09-22-phase-3-chain-station-ledger.md`](evidence/2026-09-22-phase-3-chain-station-ledger.md)：
+matching／EDR 仍 `data_insufficient`；不是 `design_error`。
+
 ## 本庫 vs 外部專案
 
 - **執行與原始媒體**在 `<PROJECT_ROOT>`（非本庫）。
