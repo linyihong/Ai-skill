@@ -15,7 +15,7 @@ Companion to [`_plan.md`](_plan.md)。
 
 ## Translation Context Contract（Phase 1，P0）
 
-`source_locale`／`target_locale` 由 **NVP locale pack／job** 傳入，屬 **authoritative Constraint**（I1：Locale Resolution ≠ Language Detection）。Actor 禁止只吃 `{ src, dst }`；禁止每段猜 target。
+`source_locale`／`target_locale` 由 **NVP locale pack／job** 傳入，屬 **authoritative Constraint**（I1：Locale Resolution ≠ Language Detection）。Actor 禁止只吃 `{ src, dst }`；禁止每段猜 target。**dst 不得用來判斷哪些 source 該 merge**；canonical spoken 先於 translation（NVP [`25-text-group-preserve-variants.md`](../2026-09-16-1649-narrative-video-production-workflow/25-text-group-preserve-variants.md)）。
 
 稱謂案例：[`04`](04-dogfood-case-address-title-id-ID.md)。Freeze：[`06`](06-phase-0-freeze-invariants.md)。
 

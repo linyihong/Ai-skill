@@ -31,6 +31,7 @@
 | observable OCR／ASR／face／unit | 可繼續 | pass |
 | watermark role | 判定合理 | — |
 | watermark 當刪除／crop／contains | 切掉有效專名 | `watermark_as_deletion`（contract_gap candidate） |
+| 同 timestamp 近形句 merge 成一筆 | variant／truncation 被丟 | `similarity_as_identity`（contract_gap candidate） |
 | spoken ≠ subtitle／phonetic／alert | 已記觀察 | 尚未在 consumer 落地 |
 | text resolution 進 narrative | 未消費 | `text_resolution_not_consumed` |
 | story promotion | fail | `promotion_gate_gap` |

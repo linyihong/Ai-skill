@@ -47,6 +47,8 @@ ASR 還要 phonetic／syllable 證據；LLM 只在 candidate set 上 ranking。�
 [`22-phonetic-text-reconstruction.md`](22-phonetic-text-reconstruction.md)。
 Suspicion／Final Text Audit 是 reconstruction 內能力，不是替換表也不是新 Agent。見
 [`23-sanitization-anomaly-audit.md`](23-sanitization-anomaly-audit.md)。
+Candidate group 保留 variants；僅 exact duplicate 可刪。見
+[`25-text-group-preserve-variants.md`](25-text-group-preserve-variants.md)。
 
 ## Narrative window
 

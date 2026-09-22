@@ -37,3 +37,5 @@ outer loop         observe → resolve → produce → verify → correct → le
   [`23-sanitization-anomaly-audit.md`](23-sanitization-anomaly-audit.md)）
 - 把 watermark role 當刪除／區域 crop／contains 整條丟棄，或讓廠標變體進 name learning（見
   [`24-ocr-role-projection.md`](24-ocr-role-projection.md)）
+- 同 timestamp／高相似就 destructive merge；或用翻譯 dst 反推哪個 source 相同（見
+  [`25-text-group-preserve-variants.md`](25-text-group-preserve-variants.md)）
