@@ -53,7 +53,9 @@ Phase 3 有真實 EDR 前**不**把 catalog 拆成三套。禁止執行時發明
 
 ## Candidate invariant（Phase 3；未凍結、未進 workflow gate）
 
-不改上方十條凍結文。升格前只當觀察契約，見 [`15-story-evidence-vs-dialogue.md`](15-story-evidence-vs-dialogue.md)。
+不改上方十條凍結文。升格前只當觀察契約，見 [`15-story-evidence-vs-dialogue.md`](15-story-evidence-vs-dialogue.md)、[`24-ocr-role-projection.md`](24-ocr-role-projection.md)。
 
 11. **Story events require evidence traceability and resolved promotion.** 劇情不是對話摘要。進入 Script／EDR 的 story event／state change 必須回指 observable evidence（經 evidence_unit／event_candidate，見 [`16-evidence-unit.md`](16-evidence-unit.md)）。首份真實 run 證明 `traceable: true` 不足：blocking upstream、event semantics 必須 resolved；若宣稱 state change，subject／change／before-after 不得空；最後需 independent verifier。完整候選閘見 [`17-story-promotion-gate.md`](17-story-promotion-gate.md)。禁止「整段 ASR → LLM 摘要 → 這就是劇情」。
+
+12. **OCR role classification MUST NOT destructively remove observable visual-text evidence; downstream consumers MUST use role-aware projections.** Watermark exclusion is a projection rule, not an evidence deletion rule。見 [`24-ocr-role-projection.md`](24-ocr-role-projection.md)。未凍結。
 

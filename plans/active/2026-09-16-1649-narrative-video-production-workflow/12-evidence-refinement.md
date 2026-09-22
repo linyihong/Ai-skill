@@ -35,3 +35,5 @@ outer loop         observe → resolve → produce → verify → correct → le
   [`22-phonetic-text-reconstruction.md`](22-phonetic-text-reconstruction.md)）
 - 顯示詞自動改成 spoken 猜測，或把 OCR 和諧詞拿去同音展開，或只做單次掃描、不做整集 Final Text Audit（見
   [`23-sanitization-anomaly-audit.md`](23-sanitization-anomaly-audit.md)）
+- 把 watermark role 當刪除／區域 crop／contains 整條丟棄，或讓廠標變體進 name learning（見
+  [`24-ocr-role-projection.md`](24-ocr-role-projection.md)）

@@ -11,6 +11,6 @@ Companion to [`_plan.md`](_plan.md)。**候選，不是 workflow。** 掃區是�
 ③ LLM Classification   僅 ambiguous：這些字是什麼角色（不是哪裡有字）
 ```
 
-第一版：bottom／top／optional center／fallback full-frame。有結果不立刻結束；先 coverage check，不足再擴大。清楚的右上小 box + 高 persistence → `role.candidate: watermark`、`resolver: mechanical`。中央短時「林雪」才 LLM vision。
+第一版：bottom／top／optional center／fallback full-frame。有結果不立刻結束；先 coverage check，不足再擴大。清楚的右上小 box + 高 persistence → `role.candidate: watermark`、`resolver: mechanical`。這是 **prior**，不是把該區 crop 掉；同區其他 token 仍可進 candidate。見 [`24-ocr-role-projection.md`](24-ocr-role-projection.md)。中央短時「林雪」才 LLM vision。
 
 禁止：LLM 決定 crop；LLM 一張圖改成 `subtitle_y: 0.65`；LLM 直接改全局 probe 規則。LLM 觀察只進 evidence，經 Observation → Accumulation → Policy candidate → Validation → Promotion 才改探針。換更強 Vision LLM 只換 ambiguous resolver，不重寫 pipeline。Phase 3 **不**改 workflow。
