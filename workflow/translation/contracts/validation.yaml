@@ -1,0 +1,54 @@
+schema_version: artifact-record/v1
+id: translation.validation
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；Phase 1 doc-only
+
+record: translation_validation
+purpose: >
+  Multi-dimension validation. No single translation_quality score.
+  Mechanical gates are not self-certified by the Selection Actor.
+
+dimensions:
+  semantic: { type: enum, values: [pass, fail, review] }
+  intent: { type: enum, values: [pass, fail, review] }
+  register: { type: enum, values: [pass, fail, review] }
+  terminology: { type: enum, values: [pass, fail, review] }
+  cultural: { type: enum, values: [pass, fail, review] }
+  format: { type: enum, values: [pass, fail, review] }
+  completeness: { type: enum, values: [pass, fail, review] }
+
+locale_consistency:
+  status: { type: enum, values: [pass, fail, review] }
+  reason: { type: text, examples: [target_locale_residue] }
+  note: >
+    id-ID + English title token (Miss/Ms.) → review + target_locale_residue by default.
+    Not automatic "incorrect". accepted requires rationale or waiver.
+
+mechanical:
+  segment_coverage: { type: enum, values: [pass, fail] }
+  placeholders: { type: enum, values: [pass, fail] }
+  numbers: { type: enum, values: [pass, fail] }
+  proper_names: { type: enum, values: [pass, fail, review] }
+  tags_markup: { type: enum, values: [pass, fail] }
+  source_language_residue: { type: enum, values: [pass, fail, review] }
+
+residue_columns:
+  source_language_residue:
+    meaning: residual tokens from SOURCE language in dst
+    example: "ja→id dst contains それは"
+  target_locale_residue:
+    meaning: dst uses forms inconsistent with TARGET locale (often via wrong default locale)
+    example: "zh→id-ID dst = Miss Chen"
+
+invariants:
+  - id: I8
+    rule: source_language_residue ≠ target_locale_residue — MUST remain separate columns
+  - rule: Selection Actor MUST NOT self-close locale_consistency or mechanical gates
+  - rule: target_locale_residue defaults to review, not automatic fail
+
+forbidden:
+  - single_scalar_translation_quality
+  - merging_source_and_target_locale_residue
+  - llm_waiver_by_vibes_without_explicit_waiver_record

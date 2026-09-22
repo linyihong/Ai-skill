@@ -1,0 +1,37 @@
+schema_version: artifact-record/v1
+id: translation.finality
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；Phase 1 doc-only
+
+record: translation_finality
+purpose: Mechanical closure status for one Translation Decision.
+
+required_fields:
+  status: { type: enum, values: [accepted, needs_review, unresolved, rejected] }
+
+optional_fields:
+  blocking_reasons: { type: list }
+  waivers: { type: list }
+
+accepted_requires:
+  - translation_context_present
+  - expression_analysis_present
+  - selection_exists_with_explicit_policy
+  - selected_is_feasible_or_waivered
+  - required_validation_pass_or_waivered
+  - no_unresolved_blocking_reason
+
+invariants:
+  - id: I9
+    rule: >
+      finality.accepted iff required context present AND selection exists
+      AND required validation pass-or-waivered AND no unresolved blocking reason
+  - rule: missing context → needs_review or unresolved; never accepted
+  - rule: locale_consistency=review without waiver → not accepted
+
+forbidden:
+  - accepted_with_empty_selection
+  - accepted_with_unresolved_blocking_reasons
+  - accepted_on_src_dst_only_path

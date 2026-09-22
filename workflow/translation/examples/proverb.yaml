@@ -1,0 +1,55 @@
+schema_version: translation-decision-example/v0
+id: TD-EX-proverb-001
+status: example
+expression_type: proverb
+
+translation_context:
+  source: { language: zh, locale: zh-CN }
+  target: { language: en, locale: en-US }
+
+source_text: "覆水難收"
+
+expression_analysis:
+  surface: "覆水難收"
+  composite_type: proverb
+  structure:
+    - span: "覆水難收"
+      type: proverb
+      role: proverb
+      handling: target_proverb
+  literal_meaning: [spilled_water_hard_to_recover]
+  pragmatic_meaning: [irreversible_action]
+  register: [literary]
+  ambiguity: []
+
+candidate_space:
+  seeds: ["What's done is done.", "There's no use crying over spilled milk."]
+
+candidates:
+  - text: "Spilled water is hard to gather."
+    strategy: literal_plus_explanation
+    feasible: false
+    reason: not_natural_proverb_register
+  - text: "What's done is done."
+    strategy: target_proverb
+    feasible: true
+  - text: "There's no use crying over spilled milk."
+    strategy: cultural_equivalent
+    feasible: true
+
+selection:
+  policy: [prefer_target_proverb, preserve_irreversibility]
+  selected: "What's done is done."
+  rationale: Target proverb carries irreversible-action force without calque.
+  decision_basis: [expression_analysis, candidate_space, selection.policy]
+
+constraints:
+  preserve: [irreversible_action]
+  prohibit: [invented_proverb]
+
+validation:
+  semantic: pass
+  cultural: pass
+  locale_consistency: { status: pass }
+
+finality: { status: accepted }

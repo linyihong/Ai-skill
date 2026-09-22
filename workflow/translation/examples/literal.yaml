@@ -1,0 +1,51 @@
+schema_version: translation-decision-example/v0
+id: TD-EX-literal-001
+status: example
+expression_type: literal
+
+translation_context:
+  source: { language: en, locale: en-US }
+  target: { language: zh, locale: zh-TW, variant: traditional }
+
+source_text: "The meeting starts at 3:00."
+
+expression_analysis:
+  surface: "The meeting starts at 3:00."
+  composite_type: literal
+  structure:
+    - span: "The meeting starts at 3:00."
+      type: literal
+      role: statement
+      handling: semantic_translation
+  pragmatic_meaning: [announce_meeting_time]
+  register: [neutral]
+  ambiguity: []
+
+candidate_space:
+  notes: direct semantic renderings preserving number/time
+
+candidates:
+  - text: "會議三點開始。"
+    strategy: semantic_translation
+    feasible: true
+  - text: "會議於 3:00 開始。"
+    strategy: semantic_translation
+    feasible: true
+
+selection:
+  policy: [preserve_numbers, natural_TW_register]
+  selected: "會議三點開始。"
+  rationale: Natural zh-TW clock phrasing; number preserved as 三點.
+  decision_basis: [target_locale, expression_analysis, constraints]
+
+constraints:
+  preserve: [numbers, factual_meaning]
+  prohibit: [source_language_residue]
+
+validation:
+  semantic: pass
+  completeness: pass
+  locale_consistency: { status: pass }
+  mechanical: { numbers: pass, source_language_residue: pass }
+
+finality: { status: accepted }

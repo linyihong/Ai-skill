@@ -1,0 +1,60 @@
+schema_version: artifact-record/v1
+id: translation.translation-strategies
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；Phase 1 doc-only
+
+purpose: Catalog of strategy ids referenced by expression-types and TDR candidates[].strategy.
+
+strategies:
+  semantic_translation:
+    intent: convey meaning with natural target wording
+  semantic_equivalent:
+    intent: same pragmatic force without literal form
+  cultural_equivalent:
+    intent: target-culture parallel expression
+  literal_plus_explanation:
+    intent: keep form + brief gloss when needed
+  target_proverb:
+    intent: use established target proverb
+  target_slang:
+    intent: target community slang with similar social function
+  register_preserving_adaptation:
+    intent: keep register even if lexical form changes
+  cultural_adaptation:
+    intent: adapt meme/reference for target audience
+  preserve_reference:
+    intent: keep source reference when recognizable
+  dialect_equivalent:
+    intent: map dialect flavor without flattening via standard only
+  regional_register:
+    intent: preserve regional register cues
+  preserve_source_flavor:
+    intent: allow marked source flavor when policy permits
+  recreate_wordplay:
+    intent: rebuild joke/pun in target
+  semantic_substitution:
+    intent: drop wordplay; keep sense
+  relationship_preserving:
+    intent: honorific/politeness matched to relationship
+  locale_aware:
+    intent: choose among locale-appropriate forms via Selection Policy
+  target_locale_equivalent:
+    intent: map title/honorific into target-locale candidate set
+  terminology_table:
+    intent: controlled term from glossary seed (still Selection, not auto)
+  transliterate:
+    intent: phonetic/orthographic transfer of proper name
+  preserve_identity:
+    intent: keep person/entity identity stable across locales
+  preserve:
+    intent: keep source form
+  adapt:
+    intent: adapt cultural item
+  explain:
+    intent: gloss or annotate
+
+forbidden:
+  - strategy_that_bypasses_explicit_selection_policy
+  - strategy_that_mutates_constraints

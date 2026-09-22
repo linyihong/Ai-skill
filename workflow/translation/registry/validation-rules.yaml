@@ -1,0 +1,53 @@
+schema_version: artifact-record/v1
+id: translation.validation-rules
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；Phase 1 doc-only
+
+purpose: Named mechanical / locale rules for validation.yaml dimensions.
+
+rules:
+  - id: segment_coverage
+    column: mechanical.segment_coverage
+    check: every source span accounted for or explicitly omitted with reason
+
+  - id: placeholders_intact
+    column: mechanical.placeholders
+    check: variables / ICU / markup placeholders preserved
+
+  - id: source_language_residue
+    column: mechanical.source_language_residue
+    check: no unintended source-language tokens in dst
+    distinct_from: target_locale_residue
+
+  - id: target_locale_residue
+    column: locale_consistency
+    check: dst forms consistent with authoritative target_locale
+    default_on_mismatch: review
+    reason_code: target_locale_residue
+    examples:
+      - target_locale: id-ID
+        dst: "Miss Chen"
+        expect: review
+      - target_locale: id-ID
+        dst: "Ms. Chen"
+        expect: review
+      - target_locale: id-ID
+        dst: "Nona Chen"
+        expect: pass
+
+  - id: title_honorific_consistency
+    column: locale_consistency
+    check: address titles drawn from locale-aware Candidate Space or waivered
+
+  - id: no_scalar_quality
+    column: meta
+    check: forbid translation_quality / confidence scalar as closure
+
+invariants:
+  - id: I8
+    rule: source_language_residue and target_locale_residue remain separate
+  - Selection Actor cannot self-close these rules
+
+p0_regression_fixture: examples/address-title-chen-xiaojie-id.yaml

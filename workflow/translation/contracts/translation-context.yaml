@@ -1,0 +1,48 @@
+schema_version: artifact-record/v1
+id: translation.translation-context
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；Phase 1 doc-only；未接 runtime
+
+record: translation_context
+purpose: >
+  Authoritative where-am-I-translating binding for every Translation Decision.
+  Locales come from consumer / job / locale pack — not per-segment language detection.
+
+required_fields:
+  source:
+    language: { type: text, note: ISO 639-ish short code }
+    locale: { type: bcp47, note: authoritative; may include region }
+  target:
+    language: { type: text }
+    locale: { type: bcp47, note: AUTHORITATIVE INPUT — Constraint, not Selection }
+
+optional_fields:
+  source.dialect: { type: text }
+  source.register: { type: text }
+  target.script: { type: text, examples: [Latn, Hans, Hant] }
+  target.variant: { type: text }
+  target.register: { type: text }
+  consumer_ref: { type: text, note: e.g. NVP locale pack / job id }
+  episode: { type: text }
+  scene: { type: text }
+
+invariants:
+  - id: I1
+    rule: TranslationContext MUST exist on every Translation Decision path
+  - id: I2
+    rule: target_locale is authoritative input, not an inferred translation decision
+  - id: I2b
+    rule: Locale Resolution binds consumer locales; it is NOT Language Detection
+  - id: I3-partial
+    rule: actors MUST consume TranslationContext; src/dst alone is insufficient
+
+forbidden:
+  - inferring_target_locale_from_segment_text_via_llm
+  - omitting_translation_context_on_decision
+  - treating_target_language_as_equivalent_to_target_locale
+
+notes:
+  - language ≠ locale ≠ dialect ≠ register
+  - NVP path: caption-locale-pack.locale → translation_context.target

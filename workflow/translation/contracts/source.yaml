@@ -1,0 +1,28 @@
+schema_version: artifact-record/v1
+id: translation.source
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；Phase 1 doc-only
+
+record: translation_source_segment
+purpose: Source segment payload for one Translation Decision unit.
+
+required_fields:
+  text: { type: text }
+  translation_context_ref: { type: ref, to: translation.translation-context }
+
+optional_fields:
+  text_origin: { type: enum, values: [script, asr, ocr, human, translated] }
+  segment_id: { type: text }
+  evidence_refs: { type: list }
+  semantic_context: { type: object, note: e.g. NVP dialogue.semantic_context }
+
+invariants:
+  - id: I3
+    rule: no src/dst-only Translation Decision path — translation_context_ref required
+  - rule: dst is OUTPUT of a decision, never a substitute for TranslationContext
+
+forbidden:
+  - decision_input_shape_src_dst_only
+  - inventing_target_locale_from_dst_language_guess

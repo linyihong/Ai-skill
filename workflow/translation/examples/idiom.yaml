@@ -1,0 +1,55 @@
+schema_version: translation-decision-example/v0
+id: TD-EX-idiom-001
+status: example
+expression_type: idiom
+
+translation_context:
+  source: { language: zh, locale: zh-TW }
+  target: { language: en, locale: en-US }
+
+source_text: "畫蛇添足"
+
+expression_analysis:
+  surface: "畫蛇添足"
+  composite_type: idiom
+  structure:
+    - span: "畫蛇添足"
+      type: idiom
+      role: proverbial_idiom
+      handling: semantic_equivalent
+  literal_meaning: [draw_snake_add_feet]
+  pragmatic_meaning: [ruin_by_overdoing]
+  register: [literary, idiomatic]
+  ambiguity: []
+
+candidate_space:
+  seeds: ["ruin something by overdoing it", "gild the lily"]
+
+candidates:
+  - text: "draw a snake and add feet"
+    strategy: literal_plus_explanation
+    feasible: false
+    reason: loses_pragmatic_force_for_general_audience
+  - text: "ruin something by overdoing it"
+    strategy: semantic_equivalent
+    feasible: true
+  - text: "gild the lily"
+    strategy: cultural_equivalent
+    feasible: true
+
+selection:
+  policy: [preserve_pragmatic_meaning, target_idiom_when_natural]
+  selected: "ruin something by overdoing it"
+  rationale: Semantic equivalent is safer than opaque cultural idiom without scene support.
+  decision_basis: [expression_analysis, candidate_space, selection.policy]
+
+constraints:
+  preserve: [pragmatic_meaning]
+  prohibit: [pure_literal_without_gloss_when_audience_general]
+
+validation:
+  semantic: pass
+  cultural: pass
+  locale_consistency: { status: pass }
+
+finality: { status: accepted }

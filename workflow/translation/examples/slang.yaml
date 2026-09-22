@@ -1,0 +1,55 @@
+schema_version: translation-decision-example/v0
+id: TD-EX-slang-001
+status: example
+expression_type: slang
+
+translation_context:
+  source: { language: ja, locale: ja-JP, register: colloquial }
+  target: { language: zh, locale: zh-TW, register: colloquial }
+
+source_text: "それ、ちょっとヤバくない？"
+
+expression_analysis:
+  surface: "それ、ちょっとヤバくない？"
+  composite_type: slang
+  structure:
+    - span: "ヤバくない"
+      type: slang
+      role: evaluative
+      handling: register_preserving_adaptation
+  literal_meaning: [dangerous, serious]
+  pragmatic_meaning: [surprising, concerning, casually_flagging_problem]
+  register: [casual]
+  ambiguity: [polarity_depends_on_scene]
+
+candidate_space:
+  seeds: ["那個，不太妙吧？", "那個，不是很危險嗎？", "那個，也太扯了吧？"]
+
+candidates:
+  - text: "那個，不是很危險嗎？"
+    strategy: literal
+    feasible: false
+    reason: over_literal_misses_casual_slang_force
+  - text: "那個，不太妙吧？"
+    strategy: register_preserving_adaptation
+    feasible: true
+  - text: "那個，也太扯了吧？"
+    strategy: target_slang
+    feasible: true
+
+selection:
+  policy: [preserve_pragmatic_meaning, preserve_casual_register]
+  selected: "那個，不太妙吧？"
+  rationale: Keeps concern + casual tone without forcing literal「危險」.
+  decision_basis: [target_locale, expression_analysis, candidate_space, constraints]
+
+constraints:
+  preserve: [concern, casual_tone]
+  prohibit: [formal_register]
+
+validation:
+  semantic: pass
+  register: pass
+  locale_consistency: { status: pass }
+
+finality: { status: accepted }

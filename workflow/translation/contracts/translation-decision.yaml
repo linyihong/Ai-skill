@@ -1,0 +1,62 @@
+schema_version: artifact-record/v1
+id: translation.translation-decision
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；Phase 1 doc-only
+
+record: translation_decision_record
+alias: TDR
+purpose: >
+  Canonical decision record for one segment translation.
+  Evidence → Candidate Space → Constraints → Feasible Candidates → Selection → Validation → Finality.
+
+required_fields:
+  id: { type: text }
+  translation_context: { type: object, ref_shape: translation.translation-context }
+  source_text: { type: text }
+  expression_analysis: { type: object, ref_shape: translation.expression-analysis }
+  candidate_space:
+    type: object
+    note: seeds from registry / knowledge; NOT the selected string (I5, I10)
+  constraints:
+    preserve: { type: list }
+    prohibit: { type: list }
+  candidates:
+    type: list
+    item:
+      text: { type: text }
+      strategy: { type: text }
+      feasible: { type: bool }
+      reason: { type: text, required_when: "feasible == false" }
+  selection:
+    policy: { type: list, note: explicit; required (I6) }
+    selected: { type: text }
+    rationale: { type: text }
+    decision_basis: { type: list, note: artifact refs; not only natural-language praise }
+
+optional_fields:
+  review: { type: object }
+  validation: { type: object, ref_shape: translation.validation }
+  finality: { type: object, ref_shape: translation.finality }
+  waivers: { type: list }
+
+invariants:
+  - id: I3
+    rule: TranslationContext required; src/dst-only path forbidden
+  - id: I5
+    rule: candidate_space ≠ candidates[] (feasible set); ≠ selection.selected
+  - id: I6
+    rule: selection.policy MUST be present and non-empty
+  - id: I7
+    rule: Selection Actor (incl. LLM) may choose among feasible candidates only; MUST NOT own Constraint Responsibility
+  - id: I10
+    rule: title_mapping / registry seeds populate candidate_space only; MUST NOT be copied as final answer without Selection
+  - rule: selection.selected MUST be in candidates where feasible==true (unless explicit waiver)
+  - rule: selection.decision_basis MUST list artifact bases (e.g. target_locale, expression_analysis, candidate_space, constraints)
+
+forbidden:
+  - llm_rewriting_constraints
+  - selecting_from_infeasible_set_without_waiver
+  - collapsing_candidate_space_into_single_forced_output
+  - quality_or_confidence_scalar_as_closure

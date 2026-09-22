@@ -1,0 +1,155 @@
+# P0 regression fixture — workflow/translation (Phase 1)
+# Plan twin: plans/active/2026-09-22-1000-translation-decision-workflow/05-example-address-title-chen-xiaojie-id.yaml
+# Invariants: workflow/translation/README.md I1–I10
+schema_version: translation-decision-example/v0
+id: TD-EX-001-chen-xiaojie-id
+status: p0_regression_fixture
+source_case:
+  observed_io:
+    src: "陈小姐"
+    dst: "Nona Chen"
+    episode: 14
+  failure_class: locale_resolution_not_in_decision
+  note: >
+    Nona Chen can be correct for id-ID. Miss Chen / Ms. Chen under id-ID
+    → locale_consistency=review (target_locale_residue), not automatic fail.
+    Accepting them requires explicit rationale or waiver (I5).
+
+translation_context:
+  source:
+    language: zh
+    locale: zh-CN
+  target:
+    language: id
+    locale: id-ID
+    script: Latn
+  episode: 14
+  # Authoritative from consumer / locale pack — not LLM language detection (I1).
+
+evidence:
+  - type: contextual_usage
+    ref: episode_14
+  - type: segment_record
+    ref: "{ src, dst }"
+
+expression_analysis:
+  # Artifact shape only — producer may be matcher / dictionary / LLM (I2).
+  surface: "陈小姐"
+  composite_type: name_with_address_title
+  structure:
+    - span: "陈"
+      type: proper_name
+      role: family_name
+      handling: transliteration
+      semantic_role: person_name
+    - span: "小姐"
+      type: address_title
+      role: honorific
+      handling: locale_equivalent
+      semantic_role: address_title
+  pragmatic_meaning:
+    - address_person_with_title
+  register:
+    - polite
+  ambiguity: []
+  strategy:
+    name:
+      preserve_identity: true
+      transliteration: required
+    title:
+      target_locale_equivalent: required
+
+constraints:
+  preserve:
+    - person_name_identity
+    - address_relationship
+    - use_target_locale
+  prohibit:
+    - semantic_translation_of_proper_name
+    - accept_english_title_without_waiver_when_target_is_id
+
+candidate_space:
+  # Seeded by registry / title_mapping — NOT final answer (I3, I7)
+  title_seeds:
+    - Nona
+    - Miss
+    - Ms.
+  name_transliteration: Chen
+
+candidates:
+  - text: "Nona Chen"
+    strategy: locale_aware
+    feasible: true
+  - text: "Miss Chen"
+    strategy: literal_equivalent
+    feasible: false
+    reason: target_locale_mismatch
+  - text: "Ms. Chen"
+    strategy: literal_equivalent
+    feasible: false
+    reason: target_locale_mismatch
+  - text: "Chen"
+    strategy: name_only
+    feasible: true
+    reason: title_omitted_needs_policy_review
+
+selection:
+  policy:
+    - target_locale_naturalness
+    - preserve_address_title
+    - subtitle_register
+  selected: "Nona Chen"
+  rationale: >
+    Under id-ID, Nona is a natural Indonesian address title for 小姐;
+    Chen preserves identity via transliteration.
+  decision_basis:
+    - target_locale
+    - expression_analysis
+    - candidate_space
+    - constraints
+
+validation:
+  semantic: pass
+  intent: pass
+  register: pass
+  terminology: pass
+  cultural: pass
+  format: pass
+  completeness: pass
+  locale_consistency:
+    status: pass
+    target_locale: id-ID
+    checks:
+      target_language_consistency: pass
+      title_honorific_consistency: pass
+      # source_language_residue is a separate column from target_locale_residue (I6)
+      source_language_residue: pass
+
+mechanical:
+  placeholders: pass
+  numbers: pass
+  segment_coverage: pass
+
+finality:
+  status: accepted
+  # I9: context present ∧ validation pass ∧ no unresolved blocking ∧ selection exists
+
+regression_fixtures:
+  - name: id-ID English title without waiver → review
+    translation_context.target.locale: id-ID
+    dst: "Miss Chen"
+    expect:
+      validation.locale_consistency.status: review
+      validation.locale_consistency.reason: target_locale_residue
+      finality.accepted: false_without_waiver
+  - name: id-ID Ms prefix → review
+    translation_context.target.locale: id-ID
+    dst: "Ms. Chen"
+    expect:
+      validation.locale_consistency.status: review
+      validation.locale_consistency.reason: target_locale_residue
+  - name: id-ID Nona Chen → pass
+    translation_context.target.locale: id-ID
+    dst: "Nona Chen"
+    expect:
+      validation.locale_consistency.status: pass

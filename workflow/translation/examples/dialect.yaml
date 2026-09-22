@@ -1,0 +1,63 @@
+schema_version: translation-decision-example/v0
+id: TD-EX-dialect-001
+status: example
+expression_type: dialect
+
+translation_context:
+  source:
+    language: ja
+    locale: ja-JP
+    dialect: kansai
+    register: colloquial
+  target:
+    language: zh
+    locale: zh-TW
+    register: colloquial
+
+source_text: "ほんまにええやん"
+
+expression_analysis:
+  surface: "ほんまにええやん"
+  composite_type: dialect
+  structure:
+    - span: "ほんまにええやん"
+      type: dialect
+      role: evaluative_praise
+      handling: preserve_source_flavor
+  pragmatic_meaning: [strong_casual_approval]
+  register: [kansai_colloquial]
+  ambiguity: []
+
+candidate_space:
+  seeds: ["真的讚耶", "真的很好啊", "（關西腔味）真的讚"]
+  note: Do NOT route Kansai → Standard Japanese → Chinese (dialect flattening)
+
+candidates:
+  - text: "真的很好啊"
+    strategy: semantic_equivalent
+    feasible: true
+    reason: meaning_ok_but_flavor_flattened
+  - text: "真的讚耶"
+    strategy: regional_register
+    feasible: true
+  - text: "本当にいいね"
+    strategy: via_standard_japanese
+    feasible: false
+    reason: dialect_flattening_path_forbidden
+
+selection:
+  policy: [preserve_dialect_flavor_when_possible, natural_TW_colloquial]
+  selected: "真的讚耶"
+  rationale: Colloquial TW keeps approval force without Standard-JP pivot.
+  decision_basis: [source.dialect, expression_analysis, candidate_space, constraints]
+
+constraints:
+  preserve: [approval, colloquial_force]
+  prohibit: [dialect_flattening_via_standard_only]
+
+validation:
+  semantic: pass
+  register: pass
+  locale_consistency: { status: pass }
+
+finality: { status: accepted }

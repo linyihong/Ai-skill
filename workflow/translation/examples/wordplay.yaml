@@ -1,0 +1,54 @@
+schema_version: translation-decision-example/v0
+id: TD-EX-wordplay-001
+status: example
+expression_type: wordplay
+
+translation_context:
+  source: { language: en, locale: en-US }
+  target: { language: zh, locale: zh-TW }
+
+source_text: "Time flies like an arrow; fruit flies like a banana."
+
+expression_analysis:
+  surface: "Time flies like an arrow; fruit flies like a banana."
+  composite_type: wordplay
+  structure:
+    - span: "flies"
+      type: wordplay
+      role: pivot
+      handling: recreate_wordplay
+  pragmatic_meaning: [pun_on_flies]
+  register: [witty]
+  ambiguity: [garden_path]
+
+candidate_space:
+  seeds: ["recreate_zh_pun", "semantic_substitution_explain"]
+
+candidates:
+  - text: "時光如箭飛逝；果蠅喜歡香蕉。"
+    strategy: semantic_substitution
+    feasible: true
+    reason: sense_kept_pun_lost
+  - text: "（中文雙關重建，場景許可時）"
+    strategy: recreate_wordplay
+    feasible: true
+    reason: requires_scene_support
+
+selection:
+  policy: [prefer_recreate_when_scene_allows, else_semantic_substitution]
+  selected: "時光如箭飛逝；果蠅喜歡香蕉。"
+  rationale: Without scene support for a rebuilt pun, preserve sense explicitly.
+  decision_basis: [expression_analysis, selection.policy, scene_context]
+
+constraints:
+  preserve: [recognizable_pun_intent_or_explicit_sense]
+  prohibit: [pretend_pun_survived_when_it_did_not]
+
+validation:
+  semantic: pass
+  cultural: review
+  locale_consistency: { status: pass }
+
+finality:
+  status: needs_review
+  blocking_reasons: [wordplay_recreation_uncertain]

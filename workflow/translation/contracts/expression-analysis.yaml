@@ -1,0 +1,43 @@
+schema_version: artifact-record/v1
+id: translation.expression-analysis
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；Phase 1 doc-only
+
+record: expression_analysis
+purpose: >
+  Intermediate artifact describing what the expression is.
+  Producer is opaque (registry matcher, dictionary, OCR+LLM, LLM, human).
+
+required_fields:
+  surface: { type: text }
+  composite_type: { type: enum_or_text, note: must resolve via expression-types registry when known }
+  structure:
+    type: list
+    item:
+      span: { type: text }
+      type: { type: text }
+      role: { type: text }
+      handling: { type: text, examples: [transliteration, locale_equivalent, semantic_equivalent] }
+
+optional_fields:
+  literal_meaning: { type: list }
+  pragmatic_meaning: { type: list }
+  register: { type: list }
+  speaker_intent: { type: list }
+  ambiguity: { type: list }
+  producer:
+    type: enum
+    values: [registry_matcher, dictionary, hybrid, llm, human, other]
+    note: optional provenance only — NOT a required step type
+  strategy_hints: { type: object }
+
+invariants:
+  - id: I4
+    rule: Expression Analysis is an artifact; contracts MUST NOT require LLM-as-producer
+  - rule: no Expression Analysis → no DECIDE / Selection
+
+forbidden:
+  - equating_expression_analysis_with_ai_analysis_step
+  - source_text_to_translation_without_analysis_artifact

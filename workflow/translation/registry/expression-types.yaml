@@ -1,0 +1,58 @@
+schema_version: artifact-record/v1
+id: translation.expression-types
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；Phase 1 doc-only
+
+purpose: >
+  Expression type → allowed strategy ids. Seeds Candidate Space.
+  Does NOT emit final translations (I10).
+
+invariant:
+  - Candidate Space ≠ Final Answer
+  - title_mapping / type seeds never auto-select
+
+expression_types:
+  literal:
+    strategies: [semantic_translation]
+  idiom:
+    strategies: [semantic_equivalent, cultural_equivalent, literal_plus_explanation]
+  proverb:
+    strategies: [target_proverb, semantic_equivalent]
+  slang:
+    strategies: [target_slang, register_preserving_adaptation]
+  meme:
+    strategies: [cultural_adaptation, preserve_reference]
+  dialect:
+    strategies: [dialect_equivalent, regional_register, preserve_source_flavor]
+  wordplay:
+    strategies: [recreate_wordplay, semantic_substitution]
+  honorific:
+    strategies: [relationship_preserving]
+  address_title:
+    translation_mode: locale_aware
+    strategies: [locale_aware, target_locale_equivalent]
+    components: [title, name]
+    note: title_mapping seeds Candidate Space only
+  name_with_address_title:
+    translation_mode: locale_aware
+    strategies: [locale_aware]
+    components: [proper_name, address_title]
+    handling:
+      proper_name: transliteration_or_preserve
+      address_title: locale_equivalent
+  cultural_reference:
+    strategies: [preserve, adapt, explain]
+  proper_noun:
+    strategies: [terminology_table, transliterate, preserve]
+  proper_name_transliteration:
+    strategies: [transliterate, preserve_identity]
+  terminology:
+    strategies: [terminology_table, transliterate, preserve]
+
+knowledge_seeds:
+  title_mapping:
+    role: candidate_space_seed_only
+    path_direction: knowledge/translation/locale/title-mapping.yaml
+    forbidden: use_as_final_answer_without_selection
