@@ -1,0 +1,24 @@
+schema_version: knowledge-seed/v0
+id: knowledge.translation.locale.ms-MY.address-title
+status: draft
+role: candidate_space_seed_only
+forbidden: use_as_final_answer_without_selection
+
+purpose: >
+  ms-MY native address-title Candidate Space seeds.
+  Supports failure_pattern foreign_honorific_leak — not a prompt case dump.
+
+address_title:
+  female:
+    - Cik
+    - Puan
+  male:
+    - Encik
+    - Tuan
+  note: >
+    Ms./Miss/Mr. may appear in Candidate Space as rejected/infeasible under
+    native_honorific policy when target_locale=ms-MY (or review with reason
+    target_locale_residue). Selection still required (I10).
+
+linked_failure_patterns:
+  - foreign_honorific_leak

@@ -1,0 +1,85 @@
+schema_version: artifact-record/v1
+id: translation.failure-pattern
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；doc-only；未接 runtime
+
+record: failure_pattern
+purpose: >
+  Domain failure patterns for Translation Decision. Captures dogfood failures
+  as abstract guards that seed Constraints / Validation / Selection Policy —
+  NOT as prompt case lists. Aligns with enforcement/failure-learning-system.md
+  promotion discipline: AI may propose candidates; MUST NOT self-promote to
+  active governance.
+
+lifecycle: |
+  Dogfood / Observed IO
+    → Failure Evidence (plan evidence/ or consumer log)
+    → Failure Classification
+    → Candidate Rule / Pattern (status=candidate)
+    → Governance Review
+    → Registry / Knowledge (status=active) OR reject / defer
+    → Constraint Guards + Validation on next Decision
+
+required_fields:
+  id: { type: text, note: stable slug e.g. foreign_honorific_leak }
+  status:
+    type: enum
+    values: [observed, candidate, reviewed, active, rejected, deprecated]
+  detected:
+    expression_type: { type: text }
+    target_locale: { type: bcp47, optional: true }
+  classification:
+    type:
+      type: enum
+      values:
+        - source_language_residue
+        - target_locale_residue
+        - name_realization_incomplete
+        - invented_information
+        - idiom_literalization
+        - temporal_direction_flip
+        - clock_time_shift
+        - content_type_mismatch
+        - other
+  response:
+    constraint: { type: object, note: require / prohibit applied to Feasible set }
+    validation: { type: object, note: column + rule id }
+    selection: { type: object, note: policy hints only; not auto-select }
+
+optional_fields:
+  symptom: { type: list, note: surface tokens that trigger suspicion — not translations }
+  evidence_refs: { type: list, note: plan evidence paths or fixture ids }
+  knowledge_seeds: { type: list, note: locale knowledge paths that expand Candidate Space }
+  learning_candidate_note:
+    type: text
+    note: AI-authored proposal text; ignored until status reaches reviewed/active
+
+invariants:
+  - id: I13
+    rule: >
+      Selection Actor / LLM MUST NOT write status=active on failure patterns.
+      Promotion requires Governance Review (human or explicit governance process).
+  - id: I13b
+    rule: >
+      Hard-coded prompt case lists (小姐→Cik, 今晚→malam ini, …) are NOT the
+      durable form. Abstract to expression_type + constraint + knowledge seed.
+  - id: I13c
+    rule: >
+      Asking "is this a new case or evidence of a known failure_pattern?" is the
+      default disposition when a new dogfood error appears — not "append to prompt".
+  - id: I10-link
+    rule: knowledge seeds from failure patterns still only seed Candidate Space
+
+forbidden:
+  - accumulating_locale_if_blocks_in_selection_adapter_prompts
+  - llm_self_promoting_candidate_to_active_guard
+  - treating_symptom_tokens_as_final_translations
+  - duplicating_full_enforcement_failure_patterns_here
+    # cross-skill agent failures stay in enforcement/failure-patterns/
+
+notes:
+  - Domain patterns live in registry/failure-patterns.yaml
+  - Cross-skill agent failure learning: enforcement/failure-learning-system.md
+  - Prompt / Selection adapter only receives active constraints + Candidate Space

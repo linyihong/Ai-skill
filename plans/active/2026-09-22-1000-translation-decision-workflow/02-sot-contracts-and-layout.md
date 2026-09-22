@@ -8,6 +8,7 @@ Companion to [`_plan.md`](_plan.md)。Phase 1 實作清單。
 1. **Translation Decision Contract** — `contracts/translation-decision.yaml`
 2. **Expression Type Registry** — `registry/expression-types.yaml` + `registry/translation-strategies.yaml`
 3. **Validation Contract** — `contracts/validation.yaml` + `registry/validation-rules.yaml`（含 **locale_consistency**）
+4. **Failure Pattern Contract**（I13）— `contracts/failure-pattern.yaml` + `registry/failure-patterns.yaml` — dogfood → abstract guards；**不成** Selection prompt 例句庫
 
 定穩後，LLM／翻譯模型／供應商 = Selection Actor 替換，不重做 workflow。
 

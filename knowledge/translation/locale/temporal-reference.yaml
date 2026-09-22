@@ -1,0 +1,36 @@
+schema_version: knowledge-seed/v0
+id: knowledge.translation.locale.temporal-reference
+status: draft
+role: candidate_space_seed_only
+forbidden: use_as_final_answer_without_selection
+
+purpose: >
+  Abstract temporal_reference families — NOT per-phrase prompt glosses.
+  Constraint preserve_temporal_direction + locale knowledge drive Candidate Space.
+
+families:
+  tonight_this_evening:
+    source_examples: [今晚, 今天晚上]
+    constraint: preserve_temporal_direction
+    note: do not hard-code 今晚=malam ini; locale pack supplies Candidate Space
+  tomorrow_night:
+    source_examples: [明晚]
+    constraint: preserve_temporal_direction
+  last_night:
+    source_examples: [昨晚]
+    constraint: preserve_temporal_direction
+    note: direction ≠ tonight; flips are temporal_direction_flip failures
+
+linked_failure_patterns:
+  - temporal_direction_flip
+
+clock:
+  expression_type: temporal_clock
+  constraint: preserve_numeric_time
+  validation: clock_time_numeric_match
+  note: >
+    八点半 must preserve clock value mechanically (08:30 / equivalent locale
+    form). Prompt examples of pukul … are not the durable guard.
+
+linked_failure_patterns_clock:
+  - clock_time_shift

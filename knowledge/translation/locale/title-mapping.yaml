@@ -12,11 +12,14 @@ title_mapping:
   zh:
     小姐:
       id: [Nona]
+      ms: [Cik, Puan]
       en: [Ms., Miss]
       ja: [さん, ミス]
-    # Phase 3: only titles evidenced in dogfood. Do not expand to full honorific lexicon.
+    # Seeds only. Do not expand to full honorific lexicon without dogfood.
+    # Prefer failure_pattern foreign_honorific_leak over per-name prompt cases.
 
 notes:
-  - 小姐 → Nona / Ms. / さん are seeds for Candidate Space composition with name_realization
-  - id-ID + Miss/Ms. without waiver → locale_consistency review (not auto-final)
+  - 小姐 → Nona / Cik / Puan / Ms. / さん are Candidate Space seeds — Selection required
+  - id-ID / ms-MY + Miss/Ms. without waiver → locale_consistency review (foreign_honorific_leak)
   - ja-JP + さん with Latin surname → name_realization may still be review (I11)
+  - Durable form = expression_type + pattern + locale knowledge — not prompt if-blocks

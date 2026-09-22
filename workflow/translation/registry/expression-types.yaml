@@ -73,6 +73,18 @@ expression_types:
   grammatical_marker:
     strategies: [structural_render]
     note: e.g. 被 as passive_marker — do not over-narrativize without policy
+  temporal_reference:
+    strategies: [semantic_equivalent, locale_aware]
+    constraints: [preserve_temporal_direction]
+    note: >
+      tonight/this-evening/last-night families — abstract, not per-gloss prompt
+      cases. Linked failure_pattern: temporal_direction_flip.
+  temporal_clock:
+    strategies: [preserve_numeric_time, locale_clock_form]
+    constraints: [preserve_numeric_time]
+    note: >
+      Mechanical clock value must match source. Linked failure_pattern:
+      clock_time_shift. Not solved by prompt examples.
 
 knowledge_seeds:
   title_mapping:
@@ -83,4 +95,13 @@ knowledge_seeds:
     role: candidate_space_seed_only
     path_direction: knowledge/translation/locale/<locale>/name-realization.yaml
     example: knowledge/translation/locale/ja-JP/name-realization.yaml
+    forbidden: use_as_final_answer_without_selection
+  address_title_locale:
+    role: candidate_space_seed_only
+    path_direction: knowledge/translation/locale/<locale>/address-title.yaml
+    example: knowledge/translation/locale/ms-MY/address-title.yaml
+    forbidden: use_as_final_answer_without_selection
+  temporal_reference:
+    role: candidate_space_seed_only
+    path_direction: knowledge/translation/locale/temporal-reference.yaml
     forbidden: use_as_final_answer_without_selection

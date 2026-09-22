@@ -41,6 +41,8 @@ Evidence
 
 Evidence **不直接決定譯文**；Evidence 約束 candidate space，再由 Selection Policy 選定。
 
+**Failure Learning（I13）**：Dogfood failure → classification → pattern **candidate** → Governance Review → Registry／Knowledge／Guards。禁止把案例永久堆進 Selection prompt。見 [`10`](10-failure-pattern-learning.md)。
+
 ## Locale Resolution（P0，在 Analysis 之前）
 
 **Locale Resolution ≠ Language Detection。**

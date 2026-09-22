@@ -1,0 +1,166 @@
+schema_version: artifact-record/v1
+id: translation.failure-patterns
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；doc-only
+
+purpose: >
+  Active / candidate Translation Failure Patterns. Each pattern replaces
+  many prompt examples with one expression_type-scoped guard response.
+  Seeds Constraints + Validation; does not emit translations (I10 / I13).
+
+promotion:
+  candidate_author: any_actor_including_llm
+  active_author: governance_review_only
+  see: contracts/failure-pattern.yaml
+
+patterns:
+  - id: foreign_honorific_leak
+    status: active
+    detected:
+      expression_type: address_title
+      # applies across locales that have native honorific Candidate Space
+    symptom: [Ms., Miss., Mr.]
+    classification:
+      type: target_locale_residue
+    response:
+      constraint:
+        require: native_locale_honorific_candidate
+        prohibit: [untranslated_foreign_honorific_as_sole_feasible]
+      validation:
+        column: locale_consistency
+        rule: title_honorific_consistency
+        reason_code: target_locale_residue
+      selection:
+        policy: [target_locale_naturalness, prefer_native_honorific]
+    knowledge_seeds:
+      - knowledge/translation/locale/title-mapping.yaml
+      - knowledge/translation/locale/ms-MY/address-title.yaml
+    evidence_refs:
+      - examples/address-title-chen-xiaojie-id.yaml
+    replaces_prompt_cases:
+      - "小姐 → Cik/Puan (not Ms./Miss)"
+      - "陈小姐 / 王小姐 / 李小姐 case lists"
+
+  - id: temporal_direction_flip
+    status: candidate
+    detected:
+      expression_type: temporal_reference
+    symptom: []
+    classification:
+      type: temporal_direction_flip
+    response:
+      constraint:
+        require: preserve_temporal_direction
+      validation:
+        column: semantic
+        rule: temporal_direction_consistency
+      selection:
+        policy: [semantic_equivalence]
+    knowledge_seeds:
+      - knowledge/translation/locale/temporal-reference.yaml
+    note: >
+      Do not hard-code 今晚=malam ini. Abstract: tonight/this-evening family
+      shares temporal_reference + preserve_temporal_direction.
+
+  - id: clock_time_shift
+    status: active
+    detected:
+      expression_type: temporal_clock
+    classification:
+      type: clock_time_shift
+    response:
+      constraint:
+        require: preserve_numeric_time
+      validation:
+        column: mechanical
+        rule: clock_time_numeric_match
+        note: >
+          Mechanical — 八点半 → 08:30 / pukul lapan setengah must not become
+          07:30 or 20:30 without explicit source evidence. Not a prompt rule.
+      selection:
+        policy: [preserve_numeric_facts]
+    replaces_prompt_cases:
+      - "八点半 = pukul lapan setengah / 8:30 examples"
+
+  - id: invented_information
+    status: active
+    detected:
+      expression_type: title
+    classification:
+      type: invented_information
+    response:
+      constraint:
+        prohibit: [unsupported_marketing_claim, marketing_generation_without_evidence]
+      validation:
+        column: invented_information
+        rule: invented_information
+      selection:
+        policy: [avoid_invented_information]
+    evidence_refs:
+      - examples/title-kongjie-yiriqianli.yaml
+
+  - id: idiom_literalization
+    status: active
+    detected:
+      expression_type: [idiom, title_idiom]
+    classification:
+      type: idiom_literalization
+    response:
+      constraint:
+        prohibit: [literal_idiom_as_sole_candidate]
+      validation:
+        column: semantic
+        rule: title_idiom_without_ambiguity_space
+      selection:
+        policy: [avoid_literal_idiom_translation, require_ambiguity_candidate_space]
+    evidence_refs:
+      - examples/title-kongjie-yiriqianli.yaml
+
+  - id: name_script_mismatch
+    status: active
+    detected:
+      expression_type: proper_name_transliteration
+      target_locale: ja-JP
+    classification:
+      type: name_realization_incomplete
+    response:
+      constraint:
+        prefer: realization_profile.preferred_script
+        forbid_hard_fail: all_non_preferred_scripts
+      validation:
+        column: name_realization
+        rule: name_realization_incomplete
+      selection:
+        policy: [prefer_preferred_script_realization]
+    evidence_refs:
+      - examples/address-title-chen-xiaojie-ja.yaml
+
+  - id: source_language_residue
+    status: active
+    detected:
+      expression_type: "*"
+    classification:
+      type: source_language_residue
+    response:
+      validation:
+        column: mechanical.source_language_residue
+        rule: source_language_residue
+
+  - id: target_locale_residue
+    status: active
+    detected:
+      expression_type: "*"
+    classification:
+      type: target_locale_residue
+    response:
+      validation:
+        column: locale_consistency
+        rule: target_locale_residue
+    note: umbrella; prefer specific patterns (e.g. foreign_honorific_leak) when they fit
+
+disposition_question: >
+  When a new dogfood error appears, ask:
+  "Is this a new failure_pattern, or new evidence for a known pattern?"
+  — never "Should we append another case to the Selection prompt?"

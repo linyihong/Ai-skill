@@ -74,11 +74,18 @@ invariants:
       add unsupported marketing claims. Classify outputs as translation | adaptation |
       marketing_generation; marketing_generation without allow_marketing_expansion
       → feasible=false or validation blocking accepted.
+  - id: I13
+    rule: >
+      Failure patterns seed Constraints/Validation only after Governance Review
+      (status=active). Selection Actor MUST NOT self-promote candidates, rewrite
+      guards, or accumulate locale case lists in the Selection prompt.
   - rule: selection.selected MUST be in candidates where feasible==true (unless explicit waiver)
   - rule: selection.decision_basis MUST list artifact bases
 
 forbidden:
   - llm_rewriting_constraints
+  - llm_self_promoting_failure_patterns_to_active
+  - accumulating_locale_if_case_lists_in_selection_prompt
   - selecting_from_infeasible_set_without_waiver
   - collapsing_candidate_space_into_single_forced_output
   - quality_or_confidence_scalar_as_closure

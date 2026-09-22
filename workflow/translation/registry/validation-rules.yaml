@@ -82,6 +82,24 @@ rules:
     default_on_mismatch: review
     reason_code: idiom_semantic_uncertain
 
+  - id: temporal_direction_consistency
+    column: semantic
+    check: >
+      temporal_reference spans must preserve past/present/future direction
+      relative to source (今晚 ≠ 昨晚). Linked failure_pattern:
+      temporal_direction_flip.
+    default_on_mismatch: review
+    reason_code: temporal_direction_flip
+
+  - id: clock_time_numeric_match
+    column: mechanical
+    check: >
+      temporal_clock spans must preserve numeric clock value (八点半 → 08:30
+      or locale equivalent). 07:30 / 20:30 without source evidence → fail.
+      Mechanical — not a Selection prompt rule. Linked: clock_time_shift.
+    default_on_mismatch: fail
+    reason_code: clock_time_shift
+
   - id: no_scalar_quality
     column: meta
     check: forbid translation_quality / confidence scalar as closure
@@ -93,6 +111,10 @@ invariants:
     rule: name_realization column distinct from locale_consistency
   - id: I12
     rule: invented_information column distinct from semantic idiom uncertainty
+  - id: I13
+    rule: >
+      failure_pattern status=active only via Governance Review; Selection
+      Actor cannot self-promote candidates (see registry/failure-patterns.yaml)
   - Selection Actor cannot self-close these rules
 
 p0_regression_fixtures:
