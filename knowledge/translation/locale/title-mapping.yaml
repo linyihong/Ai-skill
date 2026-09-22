@@ -1,0 +1,22 @@
+schema_version: knowledge-seed/v0
+id: knowledge.translation.locale.title-mapping
+status: draft
+role: candidate_space_seed_only
+forbidden: use_as_final_answer_without_selection
+
+purpose: >
+  Seed address-title Candidate Space across target locales.
+  Selection Policy + context still decide; not a dictionary pipeline (I10).
+
+title_mapping:
+  zh:
+    小姐:
+      id: [Nona]
+      en: [Ms., Miss]
+      ja: [さん, ミス]
+    # Phase 3: only titles evidenced in dogfood. Do not expand to full honorific lexicon.
+
+notes:
+  - 小姐 → Nona / Ms. / さん are seeds for Candidate Space composition with name_realization
+  - id-ID + Miss/Ms. without waiver → locale_consistency review (not auto-final)
+  - ja-JP + さん with Latin surname → name_realization may still be review (I11)

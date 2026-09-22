@@ -5,7 +5,7 @@ Not translation truth. Selection still required（I10）.
 
 | Path | Role |
 | --- | --- |
-| [`locale/ja-JP/name-realization.yaml`](locale/ja-JP/name-realization.yaml) | Foreign surname → katakana／Latin／preserve seeds（Phase 1：陈 only） |
-| `locale/title-mapping.yaml` | Deferred — title seeds may live here later |
+| [`locale/title-mapping.yaml`](locale/title-mapping.yaml) | Address-title seeds（Phase 3：小姐 → id／en／ja） |
+| [`locale/ja-JP/name-realization.yaml`](locale/ja-JP/name-realization.yaml) | Foreign surname realization seeds（陈 only） |
 
-Do **not** grow a full surname dictionary in Phase 1.
+Do **not** grow full surname／honorific dictionaries without dogfood evidence.

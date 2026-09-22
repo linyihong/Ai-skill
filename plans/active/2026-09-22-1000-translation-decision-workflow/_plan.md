@@ -10,7 +10,7 @@ parent: null
 
 # Translation Decision Workflow（`workflow/translation/`）
 
-**Status**: in-progress — Phase 0 freeze；Phase 1 contracts + static walkthrough **PASS**（[`08`](08-static-walkthrough-pass.md)）；Phase 2 subtitle adapter **landed**。邊界 [`06`](06-phase-0-freeze-invariants.md)；Realization [`07`](07-target-locale-realization.md)。
+**Status**: in-progress — Phase 0–2 done；Phase 3 dogfood evidence **landed**（[`evidence/`](evidence/README.md)）。Phase 4 optional。邊界 [`06`](06-phase-0-freeze-invariants.md)；Realization [`07`](07-target-locale-realization.md)；walkthrough [`08`](08-static-walkthrough-pass.md)。
 
 
 **Glossary Impact**: yes — 候選詞 `translation_decision_record`（TDR）、`expression_analysis`、`expression_type_registry`、`translation_context_contract`、`candidate_space`、`decision_basis`、`constraint_responsibility`、`selection_responsibility`（後兩者若與 ERA plan 重複則 Phase 5 只 cross-link）。Phase 5 前不登記 glossary。
@@ -127,8 +127,8 @@ Ai-skill 已有 Loop-first／Governance-first 與 ERA v2（Evidence constrains D
 
 ### Phase 3 — Knowledge skeleton + dogfood
 
-- [x] `knowledge/translation/` 骨架（ja-JP name-realization 种子；title-mapping 仍 deferred）
-- [ ] episode 14／Qwen dogfood 正式 run 入 `evidence/`（可引用既有 segment；靜態 fixture 已有）
+- [x] `knowledge/translation/` 骨架（ja-JP name-realization + [`title-mapping`](../../knowledge/translation/locale/title-mapping.yaml) 最小種子）
+- [x] Qwen ep12–14 dogfood run 入 [`evidence/`](evidence/README.md)（[`2026-09-22-qwen-ep12-14-locale-realization.md`](evidence/2026-09-22-qwen-ep12-14-locale-realization.md)）
 
 ### Phase 4 — 可選（不擋 v0）
 
@@ -146,11 +146,12 @@ Ai-skill 已有 Loop-first／Governance-first 與 ERA v2（Evidence constrains D
 
 ## Success Criteria（v0 完成）
 
-- SoT 可獨立閱讀，不依賴任何模型名；I1–I10 寫進 contracts
-- ≥3 expression examples + **P0** 陈小姐 id-ID regression fixtures
-- README 一句話說清 Context／Analysis／Registry／Constraints／Candidates／Policy／Actor／Finality
-- subtitle adapter（Phase 2）餵 NVP content_gate，不碰 timing／layout
-- 未註冊 route、未 runtime 投影
+- [x] SoT 可獨立閱讀；I1–I11 寫進 contracts
+- [x] ≥3 expression examples + P0 陈小姐 **id + ja** fixtures
+- [x] README 說清 Context／Analysis／Realization／Registry／Constraints／Candidates／Policy／Actor／Finality
+- [x] subtitle adapter 餵 NVP content_gate，不碰 timing／layout
+- [x] Phase 3 dogfood evidence 入庫
+- [x] 未註冊 route、未 runtime 投影
 
 ## Linked Updates（Phase 1+ 觸發）
 
