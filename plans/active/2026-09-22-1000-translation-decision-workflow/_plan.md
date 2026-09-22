@@ -10,7 +10,8 @@ parent: null
 
 # Translation Decision Workflow（`workflow/translation/`）
 
-**Status**: in-progress — **Phase 0 freeze**（2026-09-22 review）；進 Phase 1（doc-only contracts）。邊界見 [`06-phase-0-freeze-invariants.md`](06-phase-0-freeze-invariants.md)。
+**Status**: in-progress — Phase 0 freeze；Phase 1 contracts + static walkthrough **PASS**（[`08`](08-static-walkthrough-pass.md)）；Phase 2 subtitle adapter **landed**。邊界 [`06`](06-phase-0-freeze-invariants.md)；Realization [`07`](07-target-locale-realization.md)。
+
 
 **Glossary Impact**: yes — 候選詞 `translation_decision_record`（TDR）、`expression_analysis`、`expression_type_registry`、`translation_context_contract`、`candidate_space`、`decision_basis`、`constraint_responsibility`、`selection_responsibility`（後兩者若與 ERA plan 重複則 Phase 5 只 cross-link）。Phase 5 前不登記 glossary。
 
@@ -42,7 +43,7 @@ Ai-skill 已有 Loop-first／Governance-first 與 ERA v2（Evidence constrains D
 - 所有 actor 只吃 `TranslationContext`；禁止僅 `{ src, dst }`。
 - Phase 1 **只釘資料契約**（Context／Analysis／Decision／Registry／Validation／examples／P0 regression）；**不加** memory／glossary engine／prompt／routing／auto-correct／runtime route。
 
-架構 [`01`](01-architecture-and-era.md) · SoT [`02`](02-sot-contracts-and-layout.md) · NVP [`03`](03-nvp-and-adapters.md) · dogfood [`04`](04-dogfood-case-address-title-id-ID.md) · freeze [`06`](06-phase-0-freeze-invariants.md)。
+架構 [`01`](01-architecture-and-era.md) · SoT [`02`](02-sot-contracts-and-layout.md) · NVP [`03`](03-nvp-and-adapters.md) · dogfood [`04`](04-dogfood-case-address-title-id-ID.md) · freeze [`06`](06-phase-0-freeze-invariants.md) · realization [`07`](07-target-locale-realization.md) · walkthrough [`08`](08-static-walkthrough-pass.md)。
 
 ### Domain Boundary
 
@@ -109,25 +110,25 @@ Ai-skill 已有 Loop-first／Governance-first 與 ERA v2（Evidence constrains D
 - [x] Stakeholder review：Phase 0 freeze → `in-progress`；邊界 [`06`](06-phase-0-freeze-invariants.md)
 - [x] 確認不做：runtime／route／prompt／工具／memory／glossary engine／score／auto-correct（Phase 0–1 邊界）
 
-### Phase 1 — Contracts + Registry（doc-only；**到此停**）
+### Phase 1 — Contracts + Registry（doc-only）
 
-- [ ] 建立 `workflow/translation/` 目錄骨架
-- [ ] 落地 SoT：`translation-context`（I1）、`expression-analysis`（I2 artifact）、`translation-decision`（I3／I8 `decision_basis`）、registry、validation（I5／I6／I9）
-- [ ] README + `execution-flow.md`（依 [`06`](06-phase-0-freeze-invariants.md) Phase 1 shape）
-- [ ] `examples/`：slang／proverb／dialect 各一；**另**把 `05` 標為 P0 regression（可放 `examples/` 或未來 `tests/regression/locale/` 路徑註記，不建 runner）
-- [ ] Registry invariant：**Candidate Space ≠ Final Answer**（I7）
-- [ ] 寫作檢查：I1／I2／I3 三處不偏離（見 [`06`](06-phase-0-freeze-invariants.md) §Phase 1 SoT 寫作檢查）
+- [x] 建立 `workflow/translation/` 目錄骨架
+- [x] 落地 SoT：context／analysis／decision／validation／finality + registry（含 realization）
+- [x] README + `execution-flow.md`
+- [x] `examples/`：P0 id+ja + literal／idiom／slang／proverb／dialect／wordplay
+- [x] Registry invariant：Candidate Space ≠ Final Answer；I11 Realization
+- [x] 寫作檢查 I1–I3；靜態走讀 A+B **PASS**（[`08`](08-static-walkthrough-pass.md)）
 
 ### Phase 2 — Subtitle adapter + NVP link
 
-- [ ] `adapters/subtitle.yaml` ↔ `caption-locale-pack` `content_gate`
-- [ ] NVP [`captions-and-locales.md`](../../workflow/narrative-video-production/captions-and-locales.md) inbound pointer（linked update）
-- [ ] 明文化 `semantic_context` 為 Translation Context 上游
+- [x] `adapters/subtitle.yaml` ↔ `caption-locale-pack` `content_gate`
+- [x] NVP [`captions-and-locales.md`](../../workflow/narrative-video-production/captions-and-locales.md) inbound pointer
+- [x] 明文化 `semantic_context` 為 Translation Context 上游（`dialogue-semantic-context.yaml` inbound）
 
 ### Phase 3 — Knowledge skeleton + dogfood
 
-- [ ] `knowledge/translation/` 骨架（含 `locale/title-mapping` 種子）
-- [ ] episode 14 案例正式 dogfood run + `evidence/`（可引用既有 segment 紀錄）
+- [x] `knowledge/translation/` 骨架（ja-JP name-realization 种子；title-mapping 仍 deferred）
+- [ ] episode 14／Qwen dogfood 正式 run 入 `evidence/`（可引用既有 segment；靜態 fixture 已有）
 
 ### Phase 4 — 可選（不擋 v0）
 

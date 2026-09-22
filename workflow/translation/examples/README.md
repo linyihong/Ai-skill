@@ -33,4 +33,4 @@ Phase 1 = **doc-only**. No test runner.
 6. `チェンさん` → preferred pass → accepted if I9  
 7. **禁止**非片假一律 FAIL  
 
-A+B PASS → Phase 2 eligible。
+A+B **PASS**（2026-09-22）：[`08-static-walkthrough-pass.md`](../../../plans/active/2026-09-22-1000-translation-decision-workflow/08-static-walkthrough-pass.md) → Phase 2 subtitle adapter eligible／landed。

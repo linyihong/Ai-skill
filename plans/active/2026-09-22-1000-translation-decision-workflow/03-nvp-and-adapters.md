@@ -27,21 +27,24 @@ Companion to [`_plan.md`](_plan.md)。
 - `semantic_context` 或等價 structured context
 - `text_origin`（script／asr／ocr／human／translated）
 
-## Subtitle adapter（Phase 2）
+## Subtitle adapter（Phase 2 — landed）
 
-檔案：`workflow/translation/adapters/subtitle.yaml`
+檔案：[`workflow/translation/adapters/subtitle.yaml`](../../workflow/translation/adapters/subtitle.yaml)
 
 職責：
 
-1. 輸入：segment + TDR 或 in-progress decision state
-2. 輸出：通過 translation content validation 的 cue 文案 + TDR id 引用
-3. 餵 NVP locale pack 的 `content_gate` / `translation_qc` 欄位語意
-4. **不**裁決 CPS、安全區、burn_mode
+1. 輸入：segment + TDR／decision state + `semantic_context`（若有）
+2. 輸出：cue 文案 + TDR id → NVP `content_gate`／`translation_qc`
+3. **不**裁決 CPS、安全區、burn_mode
 
-Linked update（Phase 2）：
+Linked updates：
 
-- [`workflow/narrative-video-production/captions-and-locales.md`](../../workflow/narrative-video-production/captions-and-locales.md) — 一行：content 決策見 `workflow/translation/`
-- 可選：[`plans/active/2026-09-16-1649-narrative-video-production-workflow/01-captions-and-locales.md`](../2026-09-16-1649-narrative-video-production-workflow/01-captions-and-locales.md) — inbound link
+- [`captions-and-locales.md`](../../workflow/narrative-video-production/captions-and-locales.md)
+- [`caption-locale-pack.yaml`](../../workflow/narrative-video-production/records/caption-locale-pack.yaml)
+- [`dialogue-semantic-context.yaml`](../../workflow/narrative-video-production/records/dialogue-semantic-context.yaml) — upstream for TranslationContext／Selection
+- NVP companion [`01-captions-and-locales.md`](../2026-09-16-1649-narrative-video-production-workflow/01-captions-and-locales.md)
+
+Static gate：[`08-static-walkthrough-pass.md`](08-static-walkthrough-pass.md)。
 
 ## 其他 adapters（Phase 4）
 

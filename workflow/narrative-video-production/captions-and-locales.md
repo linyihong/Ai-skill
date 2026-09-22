@@ -19,3 +19,12 @@
 `burn_mode`：`sidecar`／`burned`／`none`。
 
 供應商聲音、翻譯模型、ffmpeg 濾鏡 = adapter。首輪要幾種語 = dogfood Q6。
+
+## Content 決策（Translation Decision）
+
+語意／專名／稱謂／locale／name realization 的 **content** 決策走  
+[`workflow/translation/`](../translation/README.md)（TDR + Finality）。  
+Subtitle 接線：[`workflow/translation/adapters/subtitle.yaml`](../translation/adapters/subtitle.yaml)。
+
+`content_gate` 可引用 `cue.translation_decision_ref`；**不得**因此省略或合併 `timing_gate`／`layout_gate`。
+

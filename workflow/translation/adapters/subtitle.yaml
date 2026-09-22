@@ -1,0 +1,127 @@
+schema_version: artifact-record/v1
+id: translation.adapter.subtitle
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；Phase 2 doc-only；未接 runtime
+
+adapter: subtitle
+consumer: narrative-video-production
+purpose: >
+  Bridge Translation Decision Records (content correctness) into NVP
+  caption-locale-pack content_gate. Does NOT own timing_gate or layout_gate.
+
+owns:
+  - translation_context binding from locale pack
+  - TDR content validation → content_gate / translation_qc
+  - cue text that has finality.accepted (or explicit needs_review handoff)
+
+does_not_own:
+  - timing_gate (CPS, cue window, axis seconds)
+  - layout_gate (safe area, occlusion, line break cosmetics)
+  - burn_mode / TTS / ffmpeg / provider prompts
+  - single composite "subtitle PASS"
+
+## inputs
+
+required:
+  translation_context:
+    from: caption_locale_pack.locale (+ optional realization_profile)
+    invariants: [I1, I2]
+  source_segment:
+    text: cue source or aligned source span
+    text_origin: caption_locale_pack.text_origin
+    translation_context_ref: required
+  semantic_context:
+    from: dialogue.semantic_context when present
+    note: upstream evidence for speaker/addressee/intent; missing → no finality.accepted (I9)
+  expression_analysis: { ref: translation.expression-analysis }
+  tdr: { ref: translation.translation-decision }
+
+optional:
+  realization_profile: { from: translation_context.target.realization_profile }
+
+## outputs
+
+required:
+  cue_text: { type: text, note: selection.selected when finality allows publish to pack }
+  tdr_id: { type: ref }
+  content_gate:
+    type: gate
+    maps_from:
+      - validation.semantic
+      - validation.intent
+      - validation.terminology
+      - validation.locale_consistency
+      - validation.name_realization
+      - mechanical.source_language_residue
+      - finality.status
+    decision_enum: [pass, fail, review]
+    note: >
+      content_gate.decision=pass only if finality.accepted and no unresolved
+      content-blocking validation. review/fail never imply timing/layout pass.
+
+optional:
+  translation_qc: { alias_of: content_gate }
+  blocking_reasons: { from: finality.blocking_reasons }
+
+## field_mapping
+
+translation_context:
+  target.locale: caption_locale_pack.locale
+  target.language: derived_from_locale_or_pack
+  target.script: caption_locale_pack.layout_script_hint_optional
+  source.locale: film_or_job_source_locale
+
+source_segment:
+  text_origin: caption_locale_pack.text_origin
+  semantic_context: dialogue.semantic_context  # when dialogue present
+
+tdr_to_pack:
+  selection.selected → cue.display_text
+  tdr.id → cue.translation_decision_ref
+  finality.status → content_gate supporting evidence
+  validation.* → content_gate dimensions (not timing/layout)
+
+## content_gate_projection
+
+pass_when:
+  - finality.status == accepted
+  - selection exists with explicit policy
+  - locale_consistency != fail
+  - name_realization != fail
+  - no unresolved blocking_reasons on content dimensions
+
+review_when:
+  - locale_consistency == review (e.g. Miss Chen under id-ID)
+  - name_realization == review (e.g. Chenさん under ja-JP preferred katakana)
+  - semantic/cultural == review
+  - missing semantic_context when required for dialogue
+
+fail_when:
+  - src/dst-only path detected (I3)
+  - mechanical.source_language_residue == fail without waiver
+  - finality.status == rejected
+
+## invariants
+
+  - content_gate != timing_gate != layout_gate
+  - adapter MUST NOT synthesize a single subtitle PASS
+  - target_locale from pack is authoritative (I2); adapter MUST NOT re-detect per cue
+  - Selection Actor MUST NOT self-close content_gate
+  - I8 / I11 columns remain distinct when projecting validation
+
+## forbidden
+
+  - writing CPS / duration / safe-area decisions into TDR finality
+  - calling provider APIs from this contract file
+  - treating content_gate pass as publish-ready (NVP still needs timing+layout+fresh verifier)
+
+## references
+
+  - workflow/translation/README.md
+  - workflow/translation/contracts/*.yaml
+  - workflow/narrative-video-production/records/caption-locale-pack.yaml
+  - workflow/narrative-video-production/records/dialogue-semantic-context.yaml
+  - plans/.../03-nvp-and-adapters.md
+  - plans/.../08-static-walkthrough-pass.md

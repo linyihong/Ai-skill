@@ -40,9 +40,4 @@ Canonical lifecycle。欄位 SoT 在 [`contracts/`](contracts/)。**不要**在�
 - `Chenさん` 當完整 ja name realization 卻無 review／waiver（I11）
 - **所有**外國名非片假 → mechanical FAIL
 
-## Static walkthrough（Phase 1 gate）
-
-1. id-ID：[`examples/address-title-chen-xiaojie-id.yaml`](examples/address-title-chen-xiaojie-id.yaml)  
-2. ja-JP：[`examples/address-title-chen-xiaojie-ja.yaml`](examples/address-title-chen-xiaojie-ja.yaml) — `Chenさん`→review；`チェンさん`→preferred pass  
-
-兩案靜態走讀 PASS 後再開 Phase 2。不需 test runner。
+Static walkthrough（Phase 1 gate）**PASS** — [`08-static-walkthrough-pass.md`](../../../plans/active/2026-09-22-1000-translation-decision-workflow/08-static-walkthrough-pass.md)。Phase 2：[`adapters/subtitle.yaml`](adapters/subtitle.yaml)。

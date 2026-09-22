@@ -3,9 +3,10 @@
 `workflow/translation/` 是 **cross-cutting governed translation decision** capability：  
 Meaning → Intent → Register → Cultural Expression → Target Expression，不是「原文 → LLM → 完成」。
 
-> **狀態**：Phase 1 contract／registry（doc-only）+ **Target-Locale Realization** 補強。  
+> **狀態**：Phase 1 contracts PASS（靜態走讀 A+B）+ **Phase 2 subtitle adapter**（doc-only）。  
 > **沒有** `route.workflow.translation`。YAML **不**投影。不接 provider／prompt。  
 > Plan：[`2026-09-22-1000-translation-decision-workflow`](../../plans/active/2026-09-22-1000-translation-decision-workflow/_plan.md)。  
+> Walkthrough PASS：[`08`](../../plans/active/2026-09-22-1000-translation-decision-workflow/08-static-walkthrough-pass.md)。  
 > Phase 0 freeze：[`06`](../../plans/active/2026-09-22-1000-translation-decision-workflow/06-phase-0-freeze-invariants.md)。  
 > Realization：[`07`](../../plans/active/2026-09-22-1000-translation-decision-workflow/07-target-locale-realization.md)。
 
@@ -52,8 +53,9 @@ Meaning → Intent → Register → Cultural Expression → Target Expression，
 | Decision | [`contracts/translation-decision.yaml`](contracts/translation-decision.yaml) |
 | Validate／Close | [`contracts/validation.yaml`](contracts/validation.yaml)、[`contracts/finality.yaml`](contracts/finality.yaml) |
 | Types／strategies／realization | [`registry/`](registry/)（含 [`realization-strategies.yaml`](registry/realization-strategies.yaml)） |
+| Subtitle → NVP | [`adapters/subtitle.yaml`](adapters/subtitle.yaml) — **content_gate only** |
 | Name seeds | [`knowledge/translation/locale/ja-JP/name-realization.yaml`](../../knowledge/translation/locale/ja-JP/name-realization.yaml) |
-| Walkthrough | [`examples/`](examples/) — id P0 + **ja** [`address-title-chen-xiaojie-ja.yaml`](examples/address-title-chen-xiaojie-ja.yaml) |
+| Walkthrough | [`examples/`](examples/) — id + ja P0；PASS 見 plan [`08`](../../plans/active/2026-09-22-1000-translation-decision-workflow/08-static-walkthrough-pass.md) |
 
 ## 核心原則
 

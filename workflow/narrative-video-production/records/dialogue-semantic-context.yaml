@@ -46,3 +46,8 @@ uses:
   - shot_verification
   - subtitle_or_translation_context
   - edr_decision_trace
+
+inbound_consumers:
+  - workflow/translation/adapters/subtitle.yaml
+    role: TranslationContext / Selection upstream evidence
+    note: when present, feeds speaker/addressee/intent; missing → translation finality must not be accepted for dialogue cues (I9)

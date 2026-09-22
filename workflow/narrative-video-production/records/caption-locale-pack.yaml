@@ -20,9 +20,21 @@ optional_fields:
   burn_mode: { type: enum, values: [sidecar, burned, none] }
   name_policy: { type: text }
   translation_qc: { type: gate, alias_of: content_gate }
+  # Phase 2 — translation adapter (content only; not timing/layout)
+  translation_decision_refs:
+    type: list
+    item: text
+    note: TDR ids from workflow/translation; optional until dogfood requires them
+
+cue_optional_fields:
+  translation_decision_ref: { type: text, note: per-cue TDR id when translated }
 
 invariants:
   - content_gate != timing_gate != layout_gate
   - layout_ok_does_not_imply_readable
   - readable_does_not_imply_safe_area
   - no_single_caption_pass_field
+  - content_gate_may_consume_translation_tdr_but_never_implies_timing_or_layout_pass
+
+inbound:
+  - workflow/translation/adapters/subtitle.yaml
