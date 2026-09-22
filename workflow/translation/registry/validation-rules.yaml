@@ -41,6 +41,23 @@ rules:
     column: locale_consistency
     check: address titles drawn from locale-aware Candidate Space or waivered
 
+  - id: name_realization_incomplete
+    column: name_realization
+    check: >
+      When realization_profile declares preferred_script (e.g. katakana for ja-JP
+      foreign names), Latin-only surname + correct honorific (Chenさん) → review
+      with reason name_realization_incomplete. Distinct from target_locale_residue.
+    default_on_mismatch: review
+    reason_code: name_realization_incomplete
+    examples:
+      - target_locale: ja-JP
+        dst: "Chenさん"
+        expect: review
+      - target_locale: ja-JP
+        dst: "チェンさん"
+        expect: pass
+    forbidden: hard_fail_all_non_katakana
+
   - id: no_scalar_quality
     column: meta
     check: forbid translation_quality / confidence scalar as closure
@@ -48,6 +65,10 @@ rules:
 invariants:
   - id: I8
     rule: source_language_residue and target_locale_residue remain separate
+  - id: I11
+    rule: name_realization column distinct from locale_consistency
   - Selection Actor cannot self-close these rules
 
-p0_regression_fixture: examples/address-title-chen-xiaojie-id.yaml
+p0_regression_fixtures:
+  - examples/address-title-chen-xiaojie-id.yaml
+  - examples/address-title-chen-xiaojie-ja.yaml

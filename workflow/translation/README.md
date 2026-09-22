@@ -3,10 +3,11 @@
 `workflow/translation/` 是 **cross-cutting governed translation decision** capability：  
 Meaning → Intent → Register → Cultural Expression → Target Expression，不是「原文 → LLM → 完成」。
 
-> **狀態**：Phase 1 contract／registry（doc-only）。**沒有** `route.workflow.translation`。  
-> YAML **不**投影（`runtime_projection.enabled: false`）。不接 provider／prompt／model routing。  
+> **狀態**：Phase 1 contract／registry（doc-only）+ **Target-Locale Realization** 補強。  
+> **沒有** `route.workflow.translation`。YAML **不**投影。不接 provider／prompt。  
 > Plan：[`2026-09-22-1000-translation-decision-workflow`](../../plans/active/2026-09-22-1000-translation-decision-workflow/_plan.md)。  
-> Phase 0 freeze：[`06-phase-0-freeze-invariants.md`](../../plans/active/2026-09-22-1000-translation-decision-workflow/06-phase-0-freeze-invariants.md)。
+> Phase 0 freeze：[`06`](../../plans/active/2026-09-22-1000-translation-decision-workflow/06-phase-0-freeze-invariants.md)。  
+> Realization：[`07`](../../plans/active/2026-09-22-1000-translation-decision-workflow/07-target-locale-realization.md)。
 
 ## 一句話責任邊界
 
@@ -14,6 +15,7 @@ Meaning → Intent → Register → Cultural Expression → Target Expression，
 | --- | --- |
 | Context | Where am I translating? |
 | Analysis | What is this expression? |
+| Realization | How does it look in the target locale (script／phonetics／form)? |
 | Registry | What possibilities exist? |
 | Constraints | What is not allowed to be wrong? |
 | Candidates | What is feasible? |
@@ -22,41 +24,45 @@ Meaning → Intent → Register → Cultural Expression → Target Expression，
 | Verifier | Is the decision defensible? |
 | Finality | Can this be closed? |
 
+**Translation Strategy ≠ Target-Locale Realization**（I11）。例：`Chenさん` = title OK，name 未完成 katakana realization。
+
 ## Mechanical invariants（Phase 1）
 
 | ID | 規則 |
 | --- | --- |
 | I1 | `TranslationContext` 必須存在 |
-| I2 | `target_locale` 是 **authoritative input**（Constraint），不是推論出的 decision |
-| I3 | **禁止** src／dst-only translation decision path |
-| I4 | Expression Analysis 是 **artifact**；不限定 producer |
+| I2 | `target_locale` 是 **authoritative input**（Constraint） |
+| I3 | **禁止** src／dst-only path |
+| I4 | Expression Analysis 是 **artifact** |
 | I5 | **Candidate Space ≠ Feasible Candidates** |
 | I6 | Selection 必須有 **explicit `selection.policy`** |
-| I7 | LLM／模型只當 Selection Actor；**不**擁有 Constraint Responsibility |
-| I8 | `source_language_residue` ≠ `target_locale_residue`（分欄） |
-| I9 | `finality.accepted` ⇔ context + validation（或 waiver）+ selection + no unresolved blocking |
-| I10 | `title_mapping`／registry seeds **只**種子 Candidate Space；**不得**當 final answer |
+| I7 | LLM 只當 Selection Actor |
+| I8 | `source_language_residue` ≠ `target_locale_residue` |
+| I9 | `finality.accepted` ⇔ context + validation／waiver + selection + no blocking |
+| I10 | mapping／realization seeds **只**種子 Candidate Space |
+| I11 | Realization ≠ translation strategy；incomplete name realization → **review**（非硬 FAIL 全部非片假） |
 
 ## 何時讀哪個檔
 
 | 認知階段 | 檔案 |
 | --- | --- |
 | Lifecycle | [`execution-flow.md`](execution-flow.md) |
-| Context | [`contracts/translation-context.yaml`](contracts/translation-context.yaml)、[`contracts/source.yaml`](contracts/source.yaml) |
+| Context | [`contracts/translation-context.yaml`](contracts/translation-context.yaml) |
 | Analysis | [`contracts/expression-analysis.yaml`](contracts/expression-analysis.yaml) |
 | Decision | [`contracts/translation-decision.yaml`](contracts/translation-decision.yaml) |
 | Validate／Close | [`contracts/validation.yaml`](contracts/validation.yaml)、[`contracts/finality.yaml`](contracts/finality.yaml) |
-| Types／strategies | [`registry/`](registry/) |
-| Walkthrough | [`examples/`](examples/) — P0：[`address-title-chen-xiaojie-id.yaml`](examples/address-title-chen-xiaojie-id.yaml) |
+| Types／strategies／realization | [`registry/`](registry/)（含 [`realization-strategies.yaml`](registry/realization-strategies.yaml)） |
+| Name seeds | [`knowledge/translation/locale/ja-JP/name-realization.yaml`](../../knowledge/translation/locale/ja-JP/name-realization.yaml) |
+| Walkthrough | [`examples/`](examples/) — id P0 + **ja** [`address-title-chen-xiaojie-ja.yaml`](examples/address-title-chen-xiaojie-ja.yaml) |
 
 ## 核心原則
 
-1. Locale Resolution ≠ Language Detection；locales 由 consumer／job／locale pack 傳入。
+1. Locale Resolution ≠ Language Detection。
 2. Constraints 定義可行集；Selection 是明示 policy。
-3. 禁止單一 translation quality／confidence score。
-4. 換模型／API 不應改變本目錄契約形狀。
-5. NVP 字幕：本 workflow 管 **content** decision；timing／layout 仍屬 [`narrative-video-production`](../narrative-video-production/captions-and-locales.md)（Phase 2 adapter）。
+3. `preferred_script` 約束 Candidate Space，**禁止**「非片假＝FAIL」。
+4. 換模型不應改變契約形狀。
+5. NVP 字幕 content vs timing／layout 分界不變。
 
 ## 明確不做（Phase 1）
 
-runtime route、provider／prompt、translation memory、glossary engine、auto terminology、auto-correct、test runner。
+runtime route、provider／prompt、完整姓氏庫、glossary engine、test runner。

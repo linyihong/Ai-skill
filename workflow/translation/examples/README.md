@@ -4,24 +4,33 @@ Phase 1 = **doc-only**. No test runner.
 
 | File | Role |
 | --- | --- |
-| [`address-title-chen-xiaojie-id.yaml`](address-title-chen-xiaojie-id.yaml) | **P0 regression** — locale-aware title + `target_locale_residue` |
+| [`address-title-chen-xiaojie-id.yaml`](address-title-chen-xiaojie-id.yaml) | **P0** — id-ID title + `target_locale_residue` |
+| [`address-title-chen-xiaojie-ja.yaml`](address-title-chen-xiaojie-ja.yaml) | **P0** — ja-JP **name realization**（Chenさん → review） |
 | [`literal.yaml`](literal.yaml) | literal |
 | [`idiom.yaml`](idiom.yaml) | idiom |
 | [`slang.yaml`](slang.yaml) | slang |
 | [`proverb.yaml`](proverb.yaml) | proverb |
-| [`dialect.yaml`](dialect.yaml) | dialect (anti-flattening) |
+| [`dialect.yaml`](dialect.yaml) | dialect |
 | [`wordplay.yaml`](wordplay.yaml) | wordplay |
 
-## Static walkthrough checklist（陈小姐 → id-ID）
+## Static walkthrough A（陈小姐 → id-ID）
 
-Use before Phase 2:
+1. context.target = `id-ID`（authoritative）  
+2. Analysis splits 陈／小姐  
+3. Candidate Space titles（Nona, Miss, Ms.）  
+4. Feasible：`Nona Chen` true；`Miss`/`Ms.` false  
+5. Policy + decision_basis  
+6. `Miss Chen` → locale_consistency=review → not accepted without waiver  
+7. `Nona Chen` → accepted if I9  
 
-1. `translation_context.target.locale` = `id-ID` from consumer（not LLM guess）
-2. Expression Analysis splits 陈 / 小姐
-3. **Candidate Space** seeds titles（Nona, Miss, Ms.）— not final
-4. **Feasible Candidates**：`Nona Chen` feasible；`Miss Chen`／`Ms. Chen` feasible=false
-5. **Selection Policy** non-empty + `decision_basis` lists artifacts
-6. `Miss Chen` without waiver → `locale_consistency=review` → **not** `accepted`
-7. `Nona Chen` → pass → `finality.accepted` only if I9 holds
+## Static walkthrough B（陈小姐 → ja-JP）
 
-PASS this walkthrough → eligible for Phase 2 subtitle adapter.
+1. context.target = `ja-JP` + realization_profile  
+2. Analysis：proper_name → `name_realization`；title → locale_aware  
+3. Name Candidate Space：チェン／陳／Chen；Title：さん／ミス  
+4. Composed：チェンさん／陳さん／Chenさん  
+5. `Chenさん` → **name_realization=review**（title OK；≠ locale_consistency residue）  
+6. `チェンさん` → preferred pass → accepted if I9  
+7. **禁止**非片假一律 FAIL  
+
+A+B PASS → Phase 2 eligible。

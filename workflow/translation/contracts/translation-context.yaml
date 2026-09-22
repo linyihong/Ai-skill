@@ -21,9 +21,16 @@ required_fields:
 optional_fields:
   source.dialect: { type: text }
   source.register: { type: text }
-  target.script: { type: text, examples: [Latn, Hans, Hant] }
+  target.script: { type: text, examples: [Latn, Hans, Hant, Jpan] }
   target.variant: { type: text }
   target.register: { type: text }
+  target.realization_profile:
+    type: text
+    examples: [ja-JP, id-ID, en-US]
+    note: >
+      Optional profile id for Target-Locale Realization preferences
+      (e.g. preferred_script=katakana). Preference constrains Candidate Space;
+      does NOT hard-fail non-preferred scripts without waiver policy.
   consumer_ref: { type: text, note: e.g. NVP locale pack / job id }
   episode: { type: text }
   scene: { type: text }
@@ -37,12 +44,18 @@ invariants:
     rule: Locale Resolution binds consumer locales; it is NOT Language Detection
   - id: I3-partial
     rule: actors MUST consume TranslationContext; src/dst alone is insufficient
+  - id: I11-partial
+    rule: >
+      realization_profile preferences (e.g. preferred_script) constrain
+      Candidate Space; MUST NOT encode as all_foreign_names→katakana hard FAIL
 
 forbidden:
   - inferring_target_locale_from_segment_text_via_llm
   - omitting_translation_context_on_decision
   - treating_target_language_as_equivalent_to_target_locale
+  - hard_fail_non_katakana_foreign_names
 
 notes:
-  - language ≠ locale ≠ dialect ≠ register
+  - language ≠ locale ≠ dialect ≠ register ≠ script ≠ realization_profile
   - NVP path: caption-locale-pack.locale → translation_context.target
+  - Realization ≠ Translation Strategy (see registry/realization-strategies.yaml)

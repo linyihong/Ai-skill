@@ -1,0 +1,148 @@
+schema_version: translation-decision-example/v0
+id: TD-EX-002-chen-xiaojie-ja
+status: p0_regression_fixture
+source_case:
+  observed_io:
+    src: "陈小姐"
+    dst_observed_qwen: "Chenさん"
+    episode: "12-14 dogfood"
+  failure_class: name_realization_incomplete
+  note: >
+    Address-title realization OK (小姐→さん). Name stayed Latin (Chen) instead of
+    completing ja-JP name realization (チェン). Not a generic "bad translation";
+    distinct from id-ID target_locale_residue on Miss/Ms.
+
+translation_context:
+  source:
+    language: zh
+    locale: zh-CN
+  target:
+    language: ja
+    locale: ja-JP
+    script: Jpan
+    realization_profile: ja-JP
+  # Authoritative from consumer — not LLM detection.
+
+expression_analysis:
+  surface: "陈小姐"
+  composite_type: name_with_address_title
+  structure:
+    - span: "陈"
+      type: proper_name
+      role: family_name
+      handling: name_realization
+      realization:
+        strategies: [phonetic_katakana, preserve_source_script, latin_transliteration]
+    - span: "小姐"
+      type: address_title
+      role: honorific
+      handling: locale_aware
+      realization:
+        strategies: [target_locale_honorific, loanword]
+  pragmatic_meaning: [address_person_with_title]
+  register: [polite]
+  ambiguity: []
+
+constraints:
+  preserve:
+    - person_name_identity
+    - address_relationship
+    - use_target_locale
+  prohibit:
+    - semantic_translation_of_proper_name
+  preferences:
+    - preferred_script: katakana   # preference on space — NOT mechanical FAIL if Latin used with waiver
+
+candidate_space:
+  name_realization:
+    source: 陈
+    target_locale: ja-JP
+    seeds_ref: knowledge/translation/locale/ja-JP/name-realization.yaml
+    candidates:
+      - text: チェン
+        strategy: phonetic_katakana
+      - text: 陳
+        strategy: preserve_source_script
+      - text: Chen
+        strategy: latin_transliteration
+  title_realization:
+    source: 小姐
+    candidates:
+      - text: さん
+        strategy: target_locale_honorific
+      - text: ミス
+        strategy: loanword
+  composed_forms:
+    - チェンさん
+    - 陳さん
+    - Chenさん
+
+candidates:
+  - text: "チェンさん"
+    strategy: phonetic_katakana + target_locale_honorific
+    feasible: true
+  - text: "陳さん"
+    strategy: preserve_source_script + target_locale_honorific
+    feasible: true
+  - text: "Chenさん"
+    strategy: latin_transliteration + target_locale_honorific
+    feasible: true
+    reason: title_ok_name_realization_incomplete_vs_preferred_katakana
+  - text: "Ms. Chen"
+    strategy: english_default
+    feasible: false
+    reason: target_locale_mismatch
+
+selection:
+  policy:
+    - ja-JP_naturalness
+    - preferred_script_katakana
+    - preserve_address_title
+    - preserve_identity
+  selected: "チェンさん"
+  rationale: >
+    Under ja-JP realization_profile, katakana surname + さん is the preferred
+    natural form; Latin+さん remains feasible but incomplete vs preferred_script.
+  decision_basis:
+    - target_locale
+    - realization_profile
+    - expression_analysis
+    - candidate_space
+    - knowledge.translation.locale.ja-JP.name-realization
+
+validation:
+  semantic: pass
+  intent: pass
+  register: pass
+  locale_consistency:
+    status: pass
+    target_locale: ja-JP
+  name_realization:
+    status: pass
+    preferred_script: katakana
+  mechanical:
+    source_language_residue: pass
+
+finality:
+  status: accepted
+
+regression_fixtures:
+  - name: Chenさん = title OK, name realization incomplete vs preferred katakana
+    translation_context.target.locale: ja-JP
+    dst: "Chenさん"
+    expect:
+      validation.name_realization.status: review
+      validation.name_realization.reason: name_realization_incomplete
+      finality.accepted: false_without_waiver_or_explicit_policy_allowing_latin
+  - name: チェンさん preferred path passes
+    translation_context.target.locale: ja-JP
+    dst: "チェンさん"
+    expect:
+      validation.name_realization.status: pass
+      finality.accepted: true_when_I9_holds
+  - name: Ms. Chen under ja-JP is locale mismatch
+    translation_context.target.locale: ja-JP
+    dst: "Ms. Chen"
+    expect:
+      validation.locale_consistency.status: review
+      validation.locale_consistency.reason: target_locale_residue

@@ -1,0 +1,53 @@
+schema_version: artifact-record/v1
+id: translation.realization-strategies
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；Phase 1 reinforcement；未接 runtime
+
+purpose: >
+  Target-Locale Realization strategies: how an analyzed expression component
+  is rendered in the target writing system / conventional form.
+  Distinct from translation strategies (what communicative move to make).
+  Seeds Candidate Space only — never auto-final (I10).
+
+distinction:
+  translation_strategy: how to express meaning / social function
+  realization_strategy: how it looks in target locale (script, phonetics, established form)
+
+realization_strategies:
+  phonetic_katakana:
+    applies_to: [proper_name, foreign_name]
+    locales: [ja-JP]
+    intent: render foreign name in katakana phonetics (陈 → チェン)
+  latin_transliteration:
+    applies_to: [proper_name]
+    intent: Latin-script transliteration (陈 → Chen)
+  preserve_source_script:
+    applies_to: [proper_name]
+    intent: keep source glyphs when policy allows (陈 → 陳)
+  established_target_form:
+    applies_to: [proper_name, terminology]
+    intent: use known conventional target-language form when seeded
+  transliteration:
+    applies_to: [proper_name]
+    intent: generic script transfer (non-locale-specific umbrella)
+  target_locale_honorific:
+    applies_to: [address_title, honorific]
+    intent: locale honorific form (小姐 → さん / Ms. / Nona)
+  loanword:
+    applies_to: [address_title]
+    intent: borrowed title form (ミス) — candidate only
+  preserve_identity:
+    applies_to: [proper_name]
+    intent: identity-stable rendering across locales
+
+invariants:
+  - Realization strategies populate Candidate Space; Selection still required
+  - preferred_script on realization_profile is Constraint/preference, not hard FAIL
+  - Forbidden: all_foreign_names must be katakana → mechanical FAIL
+
+forbidden:
+  - hardcoding_katakana_as_only_legal_foreign_name_form
+  - putting_surname_lexicon_inside_translation-strategies
+  - treating_realization_seed_as_final_answer

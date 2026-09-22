@@ -40,14 +40,18 @@ expression_types:
     strategies: [locale_aware]
     components: [proper_name, address_title]
     handling:
-      proper_name: transliteration_or_preserve
-      address_title: locale_equivalent
+      proper_name: name_realization
+      address_title: locale_aware
+    realization:
+      proper_name_ref: registry/realization-strategies.yaml
+      note: Latin transliteration ≠ completed ja-JP katakana realization
   cultural_reference:
     strategies: [preserve, adapt, explain]
   proper_noun:
     strategies: [terminology_table, transliterate, preserve]
   proper_name_transliteration:
     strategies: [transliterate, preserve_identity]
+    note: umbrella; prefer Target-Locale Realization strategies for script-specific forms
   terminology:
     strategies: [terminology_table, transliterate, preserve]
 
@@ -55,4 +59,9 @@ knowledge_seeds:
   title_mapping:
     role: candidate_space_seed_only
     path_direction: knowledge/translation/locale/title-mapping.yaml
+    forbidden: use_as_final_answer_without_selection
+  name_realization:
+    role: candidate_space_seed_only
+    path_direction: knowledge/translation/locale/<locale>/name-realization.yaml
+    example: knowledge/translation/locale/ja-JP/name-realization.yaml
     forbidden: use_as_final_answer_without_selection

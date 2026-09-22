@@ -1,0 +1,30 @@
+schema_version: knowledge-seed/v0
+id: knowledge.translation.locale.ja-JP.name-realization
+status: draft
+role: candidate_space_seed_only
+forbidden: use_as_final_answer_without_selection
+
+locale: ja-JP
+purpose: >
+  Seed Target-Locale Name Realization candidates for foreign surnames.
+  preferred_script=katakana is a preference/constraint on the space, not a hard fail.
+
+foreign_name_realization:
+  preferred_script: katakana
+  fallback_scripts: [preserve_source_script, latin_transliteration]
+  note: Chenさん without katakana name = title OK + name realization incomplete → review
+
+surname:
+  陈:
+    candidates:
+      - text: チェン
+        strategy: phonetic_katakana
+      - text: チン
+        strategy: phonetic_katakana
+        note: alternate reading seed; Selection decides
+      - text: 陳
+        strategy: preserve_source_script
+      - text: Chen
+        strategy: latin_transliteration
+
+# Phase 1: do not expand full surname DB. Add rows only with dogfood evidence.

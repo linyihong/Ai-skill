@@ -9,7 +9,8 @@ record: translation_decision_record
 alias: TDR
 purpose: >
   Canonical decision record for one segment translation.
-  Evidence → Candidate Space → Constraints → Feasible Candidates → Selection → Validation → Finality.
+  Evidence → Analysis → Target-Locale Realization seeds → Candidate Space
+  → Constraints → Feasible Candidates → Selection → Validation → Finality.
 
 required_fields:
   id: { type: text }
@@ -18,7 +19,9 @@ required_fields:
   expression_analysis: { type: object, ref_shape: translation.expression-analysis }
   candidate_space:
     type: object
-    note: seeds from registry / knowledge; NOT the selected string (I5, I10)
+    note: >
+      May include name_realization / title_realization sub-spaces then composed forms.
+      Seeds from registry + knowledge; NOT the selected string (I5, I10).
   constraints:
     preserve: { type: list }
     prohibit: { type: list }
@@ -36,6 +39,9 @@ required_fields:
     decision_basis: { type: list, note: artifact refs; not only natural-language praise }
 
 optional_fields:
+  realization:
+    type: object
+    note: optional explicit Target-Locale Realization block (name/title candidate refs)
   review: { type: object }
   validation: { type: object, ref_shape: translation.validation }
   finality: { type: object, ref_shape: translation.finality }
@@ -51,12 +57,19 @@ invariants:
   - id: I7
     rule: Selection Actor (incl. LLM) may choose among feasible candidates only; MUST NOT own Constraint Responsibility
   - id: I10
-    rule: title_mapping / registry seeds populate candidate_space only; MUST NOT be copied as final answer without Selection
+    rule: title_mapping / name-realization / registry seeds populate candidate_space only; MUST NOT be final answer without Selection
+  - id: I11
+    rule: >
+      Translation Strategy ≠ Target-Locale Realization. Name transliteration (Chen)
+      does not complete ja-JP realization when preferred_script is katakana (チェン).
+      Incomplete realization → validation.name_realization=review (not auto-fail).
   - rule: selection.selected MUST be in candidates where feasible==true (unless explicit waiver)
-  - rule: selection.decision_basis MUST list artifact bases (e.g. target_locale, expression_analysis, candidate_space, constraints)
+  - rule: selection.decision_basis MUST list artifact bases (e.g. target_locale, realization_profile, expression_analysis, candidate_space, constraints)
 
 forbidden:
   - llm_rewriting_constraints
   - selecting_from_infeasible_set_without_waiver
   - collapsing_candidate_space_into_single_forced_output
   - quality_or_confidence_scalar_as_closure
+  - equating_latin_name_plus_honorific_with_complete_ja_name_realization
+  - hard_fail_all_non_katakana_names

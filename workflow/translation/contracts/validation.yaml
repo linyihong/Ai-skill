@@ -26,6 +26,16 @@ locale_consistency:
     id-ID + English title token (Miss/Ms.) → review + target_locale_residue by default.
     Not automatic "incorrect". accepted requires rationale or waiver.
 
+name_realization:
+  status: { type: enum, values: [pass, fail, review] }
+  reason: { type: text, examples: [name_realization_incomplete] }
+  preferred_script: { type: text, optional: true }
+  note: >
+    Distinct from locale_consistency. Example: ja-JP dst "Chenさん" —
+    title realization OK (さん), name stayed Latin vs preferred katakana (チェン)
+    → name_realization=review. Not automatic fail; waiver or explicit policy ok.
+    MUST NOT merge with target_locale_residue or source_language_residue.
+
 mechanical:
   segment_coverage: { type: enum, values: [pass, fail] }
   placeholders: { type: enum, values: [pass, fail] }
@@ -41,14 +51,22 @@ residue_columns:
   target_locale_residue:
     meaning: dst uses forms inconsistent with TARGET locale (often via wrong default locale)
     example: "zh→id-ID dst = Miss Chen"
+  name_realization_incomplete:
+    meaning: title/locale OK but name not realized per realization_profile preference
+    example: "zh→ja-JP dst = Chenさん while preferred_script=katakana"
 
 invariants:
   - id: I8
     rule: source_language_residue ≠ target_locale_residue — MUST remain separate columns
-  - rule: Selection Actor MUST NOT self-close locale_consistency or mechanical gates
-  - rule: target_locale_residue defaults to review, not automatic fail
+  - id: I11
+    rule: name_realization is a separate validation column from locale_consistency
+  - rule: Selection Actor MUST NOT self-close locale_consistency, name_realization, or mechanical gates
+  - rule: target_locale_residue and name_realization_incomplete default to review, not automatic fail
+  - rule: Forbidden to hard-fail all non-katakana foreign names
 
 forbidden:
   - single_scalar_translation_quality
   - merging_source_and_target_locale_residue
+  - merging_name_realization_into_locale_consistency
   - llm_waiver_by_vibes_without_explicit_waiver_record
+  - hard_fail_non_katakana_foreign_names

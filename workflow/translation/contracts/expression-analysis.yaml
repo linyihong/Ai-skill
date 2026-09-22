@@ -19,7 +19,16 @@ required_fields:
       span: { type: text }
       type: { type: text }
       role: { type: text }
-      handling: { type: text, examples: [transliteration, locale_equivalent, semantic_equivalent] }
+      handling:
+        type: text
+        examples: [name_realization, locale_aware, transliteration, locale_equivalent, semantic_equivalent]
+      realization:
+        type: object
+        optional: true
+        fields:
+          strategies:
+            type: list
+            note: ids from registry/realization-strategies.yaml — seed Candidate Space only
 
 optional_fields:
   literal_meaning: { type: list }
@@ -37,7 +46,12 @@ invariants:
   - id: I4
     rule: Expression Analysis is an artifact; contracts MUST NOT require LLM-as-producer
   - rule: no Expression Analysis → no DECIDE / Selection
+  - id: I11-analysis
+    rule: >
+      proper_name handling may declare realization strategies; this is NOT
+      the selected surface form — Target-Locale Realization fills Candidate Space next
 
 forbidden:
   - equating_expression_analysis_with_ai_analysis_step
   - source_text_to_translation_without_analysis_artifact
+  - treating_latin_transliteration_as_complete_ja_name_realization
