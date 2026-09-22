@@ -3,12 +3,13 @@ id: translation.translation-context
 status: draft
 runtime_projection:
   enabled: false
-  reason: workflow-local；Phase 1 doc-only；未接 runtime
+  reason: workflow-local；Phase 1/3 reinforcement；未接 runtime
 
 record: translation_context
 purpose: >
   Authoritative where-am-I-translating binding for every Translation Decision.
   Locales come from consumer / job / locale pack — not per-segment language detection.
+  content.type selects policy family (subtitle ≠ title ≠ ui ≠ description).
 
 required_fields:
   source:
@@ -31,9 +32,32 @@ optional_fields:
       Optional profile id for Target-Locale Realization preferences
       (e.g. preferred_script=katakana). Preference constrains Candidate Space;
       does NOT hard-fail non-preferred scripts without waiver policy.
+  content:
+    type:
+      type: enum
+      values: [subtitle, title, description, ui, hashtag, other]
+      note: REQUIRED when known; missing → treat as needs_review for non-dialogue surfaces
+    subtype:
+      type: text
+      examples: [short_drama_title, episode_title, platform_hashtag]
+    decision_mode:
+      type: enum
+      values: [faithful_translation, title_adaptation]
+      default: faithful_translation
+      note: >
+        Mode A faithful_translation — no new plot/emotion/marketing claim.
+        Mode B title_adaptation — may reshape hook style; still MUST NOT invent
+        unsupported marketing claims (I12).
+  structure:
+    part: { type: text, examples: ["1", "上", "Part One"] }
   consumer_ref: { type: text, note: e.g. NVP locale pack / job id }
   episode: { type: text }
   scene: { type: text }
+  marketing_tags:
+    type: list
+    note: only when upstream evidence explicitly provides; never inferred by Selection Actor
+  title_adaptation_constraints:
+    allow_marketing_expansion: { type: bool, default: false }
 
 invariants:
   - id: I1
@@ -48,14 +72,25 @@ invariants:
     rule: >
       realization_profile preferences (e.g. preferred_script) constrain
       Candidate Space; MUST NOT encode as all_foreign_names→katakana hard FAIL
+  - id: I12-partial
+    rule: >
+      content.type selects Selection Policy family. Title/headline MUST NOT be
+      treated as ordinary subtitle sentence without Title Structure Analysis.
+  - id: I12b
+    rule: >
+      allow_marketing_expansion defaults false. Hashtags/claims absent from
+      source+evidence → invented_information (blocking or review).
 
 forbidden:
   - inferring_target_locale_from_segment_text_via_llm
   - omitting_translation_context_on_decision
   - treating_target_language_as_equivalent_to_target_locale
   - hard_fail_non_katakana_foreign_names
+  - inventing_marketing_tags_without_upstream_evidence
+  - treating_short_drama_title_as_ordinary_dialogue_sentence
 
 notes:
-  - language ≠ locale ≠ dialect ≠ register ≠ script ≠ realization_profile
-  - NVP path: caption-locale-pack.locale → translation_context.target
+  - language ≠ locale ≠ dialect ≠ register ≠ script ≠ realization_profile ≠ content.type
+  - Content-Type / Context Resolution sits after Locale Resolution, before Expression Analysis
+  - NVP path: caption-locale-pack.locale → translation_context.target; cue role may imply content.type
   - Realization ≠ Translation Strategy (see registry/realization-strategies.yaml)

@@ -6,6 +6,7 @@ Phase 1 = **doc-only**. No test runner.
 | --- | --- |
 | [`address-title-chen-xiaojie-id.yaml`](address-title-chen-xiaojie-id.yaml) | **P0** — id-ID title + `target_locale_residue` |
 | [`address-title-chen-xiaojie-ja.yaml`](address-title-chen-xiaojie-ja.yaml) | **P0** — ja-JP **name realization**（Chenさん → review） |
+| [`title-kongjie-yiriqianli.yaml`](title-kongjie-yiriqianli.yaml) | **P0** — short-drama **title**；idiom + invented_information（I12） |
 | [`literal.yaml`](literal.yaml) | literal |
 | [`idiom.yaml`](idiom.yaml) | idiom |
 | [`slang.yaml`](slang.yaml) | slang |
@@ -33,4 +34,14 @@ Phase 1 = **doc-only**. No test runner.
 6. `チェンさん` → preferred pass → accepted if I9  
 7. **禁止**非片假一律 FAIL  
 
-A+B **PASS**（2026-09-22）：[`08-static-walkthrough-pass.md`](../../../plans/active/2026-09-22-1000-translation-decision-workflow/08-static-walkthrough-pass.md) → Phase 2 subtitle adapter eligible／landed。
+A+B **PASS**（2026-09-22）：[`08-static-walkthrough-pass.md`](../../../plans/active/2026-09-22-1000-translation-decision-workflow/08-static-walkthrough-pass.md)。
+
+## Static walkthrough C（空姐被一日千里-上）
+
+1. `content.type=title` + `subtype=short_drama_title`  
+2. Title Structure：idiom + part_marker + nonstandard  
+3. 一日千里 → Candidate Space（急速な進展／目まぐるしい展開…），非唯一 Rapid Changes  
+4. `#ギリギリのセクシーなドラマ` → `invented_information=fail`（I12）  
+5. Observed model dst → **not** `finality.accepted`  
+
+見 [`title-kongjie-yiriqianli.yaml`](title-kongjie-yiriqianli.yaml)、[`09-title-content-type.md`](../../../plans/active/2026-09-22-1000-translation-decision-workflow/09-title-content-type.md)。

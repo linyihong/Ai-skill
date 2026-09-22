@@ -3,14 +3,14 @@ id: translation.translation-decision
 status: draft
 runtime_projection:
   enabled: false
-  reason: workflow-local；Phase 1 doc-only
+  reason: workflow-local；Phase 1/3 reinforcement；未接 runtime
 
 record: translation_decision_record
 alias: TDR
 purpose: >
   Canonical decision record for one segment translation.
-  Evidence → Analysis → Target-Locale Realization seeds → Candidate Space
-  → Constraints → Feasible Candidates → Selection → Validation → Finality.
+  Locale Resolution → Content-Type Resolution → Analysis → Realization seeds
+  → Candidate Space → Constraints → Feasible → Selection → Validation → Finality.
 
 required_fields:
   id: { type: text }
@@ -20,7 +20,7 @@ required_fields:
   candidate_space:
     type: object
     note: >
-      May include name_realization / title_realization sub-spaces then composed forms.
+      May include name_realization / title_realization / idiom_equivalent sub-spaces.
       Seeds from registry + knowledge; NOT the selected string (I5, I10).
   constraints:
     preserve: { type: list }
@@ -32,6 +32,11 @@ required_fields:
       strategy: { type: text }
       feasible: { type: bool }
       reason: { type: text, required_when: "feasible == false" }
+      decision_class:
+        type: enum
+        optional: true
+        values: [translation, adaptation, marketing_generation]
+        note: marketing_generation without upstream evidence is not feasible (I12)
   selection:
     policy: { type: list, note: explicit; required (I6) }
     selected: { type: text }
@@ -41,7 +46,7 @@ required_fields:
 optional_fields:
   realization:
     type: object
-    note: optional explicit Target-Locale Realization block (name/title candidate refs)
+    note: optional explicit Target-Locale Realization block
   review: { type: object }
   validation: { type: object, ref_shape: translation.validation }
   finality: { type: object, ref_shape: translation.finality }
@@ -55,16 +60,22 @@ invariants:
   - id: I6
     rule: selection.policy MUST be present and non-empty
   - id: I7
-    rule: Selection Actor (incl. LLM) may choose among feasible candidates only; MUST NOT own Constraint Responsibility
+    rule: Selection Actor may choose among feasible candidates only; MUST NOT own Constraint Responsibility
   - id: I10
-    rule: title_mapping / name-realization / registry seeds populate candidate_space only; MUST NOT be final answer without Selection
+    rule: registry/knowledge seeds populate candidate_space only; MUST NOT be final answer without Selection
   - id: I11
     rule: >
-      Translation Strategy ≠ Target-Locale Realization. Name transliteration (Chen)
-      does not complete ja-JP realization when preferred_script is katakana (チェン).
-      Incomplete realization → validation.name_realization=review (not auto-fail).
+      Translation Strategy ≠ Target-Locale Realization. Incomplete name realization
+      → validation.name_realization=review (not auto-fail).
+  - id: I12
+    rule: >
+      invented_information (claims/hashtags/plot/emotion absent from source+evidence)
+      is prohibited. Title adaptation (Mode B) may reshape hook style but MUST NOT
+      add unsupported marketing claims. Classify outputs as translation | adaptation |
+      marketing_generation; marketing_generation without allow_marketing_expansion
+      → feasible=false or validation blocking accepted.
   - rule: selection.selected MUST be in candidates where feasible==true (unless explicit waiver)
-  - rule: selection.decision_basis MUST list artifact bases (e.g. target_locale, realization_profile, expression_analysis, candidate_space, constraints)
+  - rule: selection.decision_basis MUST list artifact bases
 
 forbidden:
   - llm_rewriting_constraints
@@ -73,3 +84,5 @@ forbidden:
   - quality_or_confidence_scalar_as_closure
   - equating_latin_name_plus_honorific_with_complete_ja_name_realization
   - hard_fail_all_non_katakana_names
+  - invented_marketing_hashtags_or_claims_without_upstream_evidence
+  - literal_idiom_guess_as_sole_title_candidate_without_ambiguity_space

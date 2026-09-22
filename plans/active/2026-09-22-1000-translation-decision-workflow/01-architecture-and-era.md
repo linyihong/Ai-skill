@@ -52,12 +52,19 @@ Consumer / job / locale pack
 TranslationContext (source_locale + target_locale authoritative)
        │
        ▼
+Content-Type / Context Resolution   ← content.type (subtitle|title|ui|…)
+       │
+       ▼
+Title Structure Analysis (when content.type=title)
+       │
+       ▼
 Expression Analysis
 ```
 
 - `target_locale` 由 consumer 傳入，**不是**每段 LLM 猜出來的。
 - **Invariant**：`target_locale is authoritative input, not an inferred translation decision.`
 - **Target locale = Constraint，不是 Selection。**
+- **content.type** 選 Selection Policy 家族；title ≠ ordinary subtitle sentence（I12；[`09`](09-title-content-type.md)）。
 
 若 target 只存在 pipeline 最外層、未進入每段 Decision，稱謂等會被模型自行假設 target（典型 zh→en）。Dogfood：[`04`](04-dogfood-case-address-title-id-ID.md)。Freeze：[`06`](06-phase-0-freeze-invariants.md) I1。
 

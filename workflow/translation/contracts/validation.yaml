@@ -34,7 +34,16 @@ name_realization:
     Distinct from locale_consistency. Example: ja-JP dst "Chenさん" —
     title realization OK (さん), name stayed Latin vs preferred katakana (チェン)
     → name_realization=review. Not automatic fail; waiver or explicit policy ok.
-    MUST NOT merge with target_locale_residue or source_language_residue.
+
+invented_information:
+  status: { type: enum, values: [pass, fail, review] }
+  reason: { type: text, examples: [unsupported_marketing_claim, invented_hashtag] }
+  note: >
+    I12. Claims/hashtags/plot/emotion absent from source+evidence.
+    Example: source title「空姐被一日千里-上」+ dst adds
+    #ギリギリのセクシーなドラマ → fail (or review only with explicit waiver /
+    allow_marketing_expansion=true + marketing_tags evidence).
+    Distinct from idiom semantic_equivalent uncertainty (that is semantic=review).
 
 mechanical:
   segment_coverage: { type: enum, values: [pass, fail] }
@@ -54,19 +63,26 @@ residue_columns:
   name_realization_incomplete:
     meaning: title/locale OK but name not realized per realization_profile preference
     example: "zh→ja-JP dst = Chenさん while preferred_script=katakana"
+  invented_information:
+    meaning: dst introduces unsupported claims/hashtags/marketing
+    example: "title dst adds セクシー claim absent from source"
 
 invariants:
   - id: I8
     rule: source_language_residue ≠ target_locale_residue — MUST remain separate columns
   - id: I11
     rule: name_realization is a separate validation column from locale_consistency
-  - rule: Selection Actor MUST NOT self-close locale_consistency, name_realization, or mechanical gates
+  - id: I12
+    rule: invented_information is a separate column; marketing_generation ≠ translation
+  - rule: Selection Actor MUST NOT self-close locale_consistency, name_realization, invented_information, or mechanical gates
   - rule: target_locale_residue and name_realization_incomplete default to review, not automatic fail
+  - rule: invented_information without waiver/allow_marketing_expansion blocks finality.accepted
   - rule: Forbidden to hard-fail all non-katakana foreign names
 
 forbidden:
   - single_scalar_translation_quality
   - merging_source_and_target_locale_residue
   - merging_name_realization_into_locale_consistency
+  - treating_invented_hashtags_as_harmless_adaptation
   - llm_waiver_by_vibes_without_explicit_waiver_record
   - hard_fail_non_katakana_foreign_names

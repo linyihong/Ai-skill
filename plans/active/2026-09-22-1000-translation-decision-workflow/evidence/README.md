@@ -10,4 +10,5 @@
 
 | Run ID | 檔案 | 狀態 | 摘要 |
 | --- | --- | --- | --- |
-| 2026-09-22-qwen-ep12-14 | [`2026-09-22-qwen-ep12-14-locale-realization.md`](2026-09-22-qwen-ep12-14-locale-realization.md) | observed | en／ja／id 整集預譯覆蓋率 + 称谓对照；驅動 I11 name realization |
+| 2026-09-22-qwen-ep12-14 | [`2026-09-22-qwen-ep12-14-locale-realization.md`](2026-09-22-qwen-ep12-14-locale-realization.md) | observed | en／ja／id 覆盖率 + 称谓；I11 name realization |
+| 2026-09-22-title-yiriqianli | [`2026-09-22-title-yiriqianli.md`](2026-09-22-title-yiriqianli.md) | observed | 空姐被一日千里-上；I12 invented_information + title content_type |

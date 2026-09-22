@@ -54,7 +54,20 @@ strategies:
     intent: adapt cultural item
   explain:
     intent: gloss or annotate
+  title_faithful:
+    intent: Mode A — semantic equivalent title without new marketing claims
+  title_semantic_adaptation:
+    intent: >
+      Mode B — reshape title hook for target platform naturalness;
+      still forbid invented_information without upstream marketing_tags
+  preserve_drama_hook:
+    intent: keep short-drama attention force without adding plot claims
+  part_normalization:
+    intent: map 上/下/中 to Part One/Two style markers
+  structural_render:
+    intent: render grammatical relations without inventing narrative
 
 forbidden:
   - strategy_that_bypasses_explicit_selection_policy
   - strategy_that_mutates_constraints
+  - strategy_that_adds_marketing_claims_without_evidence

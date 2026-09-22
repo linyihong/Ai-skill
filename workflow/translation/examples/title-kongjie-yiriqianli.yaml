@@ -1,0 +1,165 @@
+schema_version: translation-decision-example/v0
+id: TD-EX-003-kongjie-yiriqianli-title
+status: p0_regression_fixture
+source_case:
+  observed_io:
+    src: "空姐被一日千里-上"
+    dst_observed_model: >
+      Airhostess Falls Victim to Rapid Changes - Part One
+      #shortdrama #ギリギリのセクシーなドラマ
+  failure_class:
+    - idiom_semantic_uncertain
+    - invented_information
+  note: >
+    Not merely "bad Qwen quality". Missing content.type=title + Title Structure
+    Analysis + I12 invented_information gate. 一日千里 ≠ Rapid Changes without
+    Candidate Space; セクシー hashtag is marketing_generation without evidence.
+
+translation_context:
+  source:
+    language: zh
+    locale: zh-CN
+  target:
+    language: ja
+    locale: ja-JP
+    script: Jpan
+  content:
+    type: title
+    subtype: short_drama_title
+    decision_mode: faithful_translation
+  structure:
+    part: "上"
+  title_adaptation_constraints:
+    allow_marketing_expansion: false
+
+expression_analysis:
+  surface: "空姐被一日千里-上"
+  composite_type: [title, title_idiom, part_marker]
+  title_structure:
+    is_title: true
+    is_truncated_or_nonstandard: true
+    has_part_marker: true
+    has_idiom: true
+    platform_metadata_present: false
+  structure:
+    - span: "空姐"
+      type: occupation
+      role: protagonist_descriptor
+      handling: semantic_equivalent
+    - span: "被"
+      type: grammatical_marker
+      role: passive_marker
+      handling: structural_render
+    - span: "一日千里"
+      type: title_idiom
+      role: predicate
+      handling: semantic_equivalent
+      ambiguity: [idiomatic_meaning, literal_meaning]
+    - span: "上"
+      type: part_marker
+      role: installment_marker
+      handling: part_normalization
+  pragmatic_meaning: [short_drama_title_hook]
+  ambiguity: [idiom_contextual_meaning_uncertain]
+
+constraints:
+  preserve:
+    - source_meaning
+    - part_marker
+    - title_intent
+  prohibit:
+    - invented_information
+    - unsupported_marketing_claim
+    - literal_idiom_as_sole_candidate
+    - marketing_generation_without_evidence
+
+candidate_space:
+  occupation: [CA, 客室乗務員, 空姐]
+  idiom_一日千里:
+    note: seeds only — Selection required
+    candidates:
+      - text: 急速な進展
+        strategy: semantic_equivalent
+      - text: 目まぐるしい展開
+        strategy: title_semantic_adaptation
+      - text: 飛躍的な進展
+        strategy: semantic_equivalent
+      - text: Rapid Changes
+        strategy: literal_english_gloss
+        locale_fit: poor_for_ja-JP_title
+  part_marker:
+    - text: 上
+      strategy: preserve
+    - text: 前編
+      strategy: part_normalization
+
+candidates:
+  - text: "CAが一日千里-上"
+    strategy: title_faithful
+    decision_class: translation
+    feasible: true
+    reason: placeholder_faithful_shape_needs_idiom_selection
+  - text: "空姐、目まぐるしい展開-上"
+    strategy: title_semantic_adaptation
+    decision_class: adaptation
+    feasible: true
+  - text: "Airhostess Falls Victim to Rapid Changes - Part One"
+    strategy: english_narrative_gloss
+    decision_class: translation
+    feasible: false
+    reason: target_locale_mismatch_and_idiom_gloss_uncertain
+  - text: "Airhostess Falls Victim to Rapid Changes - Part One #shortdrama #ギリギリのセクシーなドラマ"
+    strategy: marketing_generation
+    decision_class: marketing_generation
+    feasible: false
+    reason: invented_information_sexy_claim_absent_from_source
+
+selection:
+  policy:
+    - preserve_title_intent
+    - target_locale_naturalness
+    - preserve_drama_hook
+    - semantic_equivalence
+    - avoid_literal_idiom_translation
+    - avoid_invented_information
+  selected: "空姐、目まぐるしい展開-上"
+  rationale: >
+    Illustrative feasible adaptation under ja-JP title policy; idiom Candidate
+    Space used; no invented sexy marketing. Final wording remains Selection.
+  decision_basis:
+    - content.type
+    - expression_analysis
+    - candidate_space
+    - constraints
+    - selection.policy
+
+validation:
+  semantic: review
+  intent: pass
+  invented_information: pass
+  locale_consistency:
+    status: pass
+    target_locale: ja-JP
+  mechanical:
+    source_language_residue: pass
+
+finality:
+  status: needs_review
+  blocking_reasons: [idiom_semantic_uncertain]
+  note: accepted only after idiom Selection settles with evidence
+
+regression_fixtures:
+  - name: observed model output fails invented_information
+    dst: "Airhostess Falls Victim to Rapid Changes - Part One #ギリギリのセクシーなドラマ"
+    expect:
+      validation.invented_information.status: fail
+      validation.invented_information.reason: unsupported_marketing_claim
+      candidates.marketing_generation.feasible: false
+      finality.accepted: false
+  - name: Rapid Changes alone without idiom Candidate Space → semantic review
+    idiom_render: "Rapid Changes"
+    expect:
+      validation.semantic.status: review
+      reason: idiom_semantic_uncertain
+  - name: #shortdrama alone may be platform metadata if consumer supplies tag policy
+    note: platform tag retention is consumer/profile; still not license for セクシー claim

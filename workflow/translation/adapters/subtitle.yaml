@@ -45,6 +45,12 @@ inputs:
   optional:
     realization_profile:
       from: translation_context.target.realization_profile
+    content_type_hint:
+      default: subtitle
+      note: >
+        Caption cues default content.type=subtitle. Episode/film/short-drama
+        titles MUST set content.type=title (+ Title Structure Analysis) upstream;
+        do not treat title strings as ordinary dialogue sentences (I12).
 
 outputs:
   required:
@@ -99,10 +105,13 @@ content_gate_projection:
     - locale_consistency == review
     - name_realization == review
     - semantic_or_cultural == review
+    - invented_information == review
+    - content.type == title without title_structure
     - missing semantic_context when required for dialogue
   fail_when:
     - src_dst_only_path_detected
     - mechanical.source_language_residue == fail without waiver
+    - invented_information == fail
     - finality.status == rejected
 
 invariants:
@@ -111,8 +120,10 @@ invariants:
   - target_locale from pack is authoritative (I2)
   - Selection Actor MUST NOT self-close content_gate
   - I8 and I11 columns remain distinct when projecting validation
+  - invented_information (I12) projects to content_gate fail/review; ≠ timing/layout
 
 forbidden:
+  - treating_title_or_hashtag_strings_as_ordinary_subtitle_cues_without_content_type
   - writing CPS duration or safe-area decisions into TDR finality
   - calling provider APIs from this contract
   - treating content_gate pass as publish-ready

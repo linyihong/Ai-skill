@@ -10,7 +10,7 @@ parent: null
 
 # Translation Decision Workflow（`workflow/translation/`）
 
-**Status**: in-progress — Phase 0–2 done；Phase 3 dogfood evidence **landed**（[`evidence/`](evidence/README.md)）。Phase 4 optional。邊界 [`06`](06-phase-0-freeze-invariants.md)；Realization [`07`](07-target-locale-realization.md)；walkthrough [`08`](08-static-walkthrough-pass.md)。
+**Status**: in-progress — Phase 0–3 + **title／content_type（I12）**（[`09`](09-title-content-type.md)）。Phase 4 optional。證據 [`evidence/`](evidence/README.md)。
 
 
 **Glossary Impact**: yes — 候選詞 `translation_decision_record`（TDR）、`expression_analysis`、`expression_type_registry`、`translation_context_contract`、`candidate_space`、`decision_basis`、`constraint_responsibility`、`selection_responsibility`（後兩者若與 ERA plan 重複則 Phase 5 只 cross-link）。Phase 5 前不登記 glossary。
@@ -43,7 +43,7 @@ Ai-skill 已有 Loop-first／Governance-first 與 ERA v2（Evidence constrains D
 - 所有 actor 只吃 `TranslationContext`；禁止僅 `{ src, dst }`。
 - Phase 1 **只釘資料契約**（Context／Analysis／Decision／Registry／Validation／examples／P0 regression）；**不加** memory／glossary engine／prompt／routing／auto-correct／runtime route。
 
-架構 [`01`](01-architecture-and-era.md) · SoT [`02`](02-sot-contracts-and-layout.md) · NVP [`03`](03-nvp-and-adapters.md) · dogfood [`04`](04-dogfood-case-address-title-id-ID.md) · freeze [`06`](06-phase-0-freeze-invariants.md) · realization [`07`](07-target-locale-realization.md) · walkthrough [`08`](08-static-walkthrough-pass.md)。
+架構 [`01`](01-architecture-and-era.md) · SoT [`02`](02-sot-contracts-and-layout.md) · NVP [`03`](03-nvp-and-adapters.md) · dogfood [`04`](04-dogfood-case-address-title-id-ID.md) · freeze [`06`](06-phase-0-freeze-invariants.md) · realization [`07`](07-target-locale-realization.md) · walkthrough [`08`](08-static-walkthrough-pass.md) · title [`09`](09-title-content-type.md)。
 
 ### Domain Boundary
 
@@ -129,6 +129,7 @@ Ai-skill 已有 Loop-first／Governance-first 與 ERA v2（Evidence constrains D
 
 - [x] `knowledge/translation/` 骨架（ja-JP name-realization + [`title-mapping`](../../knowledge/translation/locale/title-mapping.yaml) 最小種子）
 - [x] Qwen ep12–14 dogfood run 入 [`evidence/`](evidence/README.md)（[`2026-09-22-qwen-ep12-14-locale-realization.md`](evidence/2026-09-22-qwen-ep12-14-locale-realization.md)）
+- [x] Title／content_type 補強（I12）：[`09`](09-title-content-type.md) + fixture [`title-kongjie-yiriqianli`](../../workflow/translation/examples/title-kongjie-yiriqianli.yaml) + evidence [`2026-09-22-title-yiriqianli`](evidence/2026-09-22-title-yiriqianli.md)（**不成** title-translation-workflow）
 
 ### Phase 4 — 可選（不擋 v0）
 
@@ -146,12 +147,12 @@ Ai-skill 已有 Loop-first／Governance-first 與 ERA v2（Evidence constrains D
 
 ## Success Criteria（v0 完成）
 
-- [x] SoT 可獨立閱讀；I1–I11 寫進 contracts
-- [x] ≥3 expression examples + P0 陈小姐 **id + ja** fixtures
-- [x] README 說清 Context／Analysis／Realization／Registry／Constraints／Candidates／Policy／Actor／Finality
+- [x] SoT 可獨立閱讀；I1–I12 寫進 contracts（含 content.type／title）
+- [x] ≥3 expression examples + P0 陈小姐 **id + ja** + **空姐被一日千里** title fixtures
+- [x] README 說清 Context／Content-Type／Analysis／Realization／Registry／Constraints／Candidates／Policy／Actor／Finality
 - [x] subtitle adapter 餵 NVP content_gate，不碰 timing／layout
-- [x] Phase 3 dogfood evidence 入庫
-- [x] 未註冊 route、未 runtime 投影
+- [x] Phase 3 dogfood evidence 入庫（含 title invented_information）
+- [x] 未註冊 route、未 runtime 投影、未另開 title-translation-workflow
 
 ## Linked Updates（Phase 1+ 觸發）
 

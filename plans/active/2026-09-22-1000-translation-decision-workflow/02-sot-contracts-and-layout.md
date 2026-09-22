@@ -34,13 +34,15 @@ workflow/translation/
     ui.yaml
   examples/
     address-title-chen-xiaojie-id.yaml   # copy from plan 05-example-*
+    address-title-chen-xiaojie-ja.yaml
+    title-kongjie-yiriqianli.yaml        # I12 title + invented_information
     literal.yaml
     idiom.yaml
     slang.yaml
     proverb.yaml
     dialect.yaml
     wordplay.yaml
-  evidence/                 # Phase 3 dogfood 後
+  evidence/                 # Phase 3 dogfood 後（plan-local）
 ```
 
 ## 建議 `knowledge/translation/` 布局（Phase 3 骨架）
@@ -71,11 +73,15 @@ Registry 不寫死在 prompt；新增日本語関西弁／若者言葉等 = 擴 
 | honorific | relationship_preserving |
 | address_title | locale_aware, target_locale_equivalent |
 | name_with_address_title | transliteration + locale_aware title; components name + title |
+| title | title_faithful, title_semantic_adaptation（需 content.type=title） |
+| title_idiom | semantic_equivalent, cultural_equivalent, title_semantic_adaptation |
+| title_hook / title_wordplay | title_semantic_adaptation, preserve_drama_hook |
+| part_marker | part_normalization, preserve |
 | cultural_reference | preserve, adapt, explain |
 | proper_noun / terminology | terminology_table, transliterate, preserve |
 | proper_name_transliteration | transliterate, preserve_identity（陈→Chen，非語意翻譯） |
 
-完整 enum 在 Phase 1 YAML。
+完整 enum 在 Phase 1 YAML。Title／I12：[`09`](09-title-content-type.md)。
 
 ## TDR 欄位方向（illustrative）
 

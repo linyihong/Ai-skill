@@ -54,6 +54,25 @@ expression_types:
     note: umbrella; prefer Target-Locale Realization strategies for script-specific forms
   terminology:
     strategies: [terminology_table, transliterate, preserve]
+  title:
+    strategies: [title_faithful, title_semantic_adaptation]
+    note: requires content.type=title; Title Structure Analysis first
+  title_idiom:
+    strategies: [semantic_equivalent, cultural_equivalent, title_semantic_adaptation, literal_plus_explanation]
+    note: lexical form ≠ contextual meaning; Candidate Space must carry ambiguity
+  title_wordplay:
+    strategies: [recreate_wordplay, semantic_substitution, title_semantic_adaptation]
+  title_hook:
+    strategies: [title_semantic_adaptation, preserve_drama_hook]
+  part_marker:
+    strategies: [part_normalization]
+    examples: [上, 下, Part One]
+  occupation:
+    strategies: [semantic_equivalent, terminology_table]
+    note: e.g. 空姐 as protagonist_descriptor in titles
+  grammatical_marker:
+    strategies: [structural_render]
+    note: e.g. 被 as passive_marker — do not over-narrativize without policy
 
 knowledge_seeds:
   title_mapping:

@@ -58,6 +58,30 @@ rules:
         expect: pass
     forbidden: hard_fail_all_non_katakana
 
+  - id: invented_information
+    column: invented_information
+    check: >
+      Dst must not introduce hashtags/claims/plot/emotion absent from
+      source+evidence unless allow_marketing_expansion=true and marketing_tags
+      present. Distinct from idiom semantic uncertainty (semantic=review).
+    default_on_mismatch: fail
+    reason_code: unsupported_marketing_claim
+    examples:
+      - source: "空姐被一日千里-上"
+        dst_extra: "#ギリギリのセクシーなドラマ"
+        expect: fail
+      - source: "空姐被一日千里-上"
+        dst: "CAが一日千里-上"
+        expect: pass_or_review_on_idiom_only
+
+  - id: title_idiom_without_ambiguity_space
+    column: semantic
+    check: >
+      For content.type=title with idiom span, sole literal/English gloss guess
+      without Candidate Space ambiguity → review (literal_idiom_mistranslation risk)
+    default_on_mismatch: review
+    reason_code: idiom_semantic_uncertain
+
   - id: no_scalar_quality
     column: meta
     check: forbid translation_quality / confidence scalar as closure
@@ -67,8 +91,11 @@ invariants:
     rule: source_language_residue and target_locale_residue remain separate
   - id: I11
     rule: name_realization column distinct from locale_consistency
+  - id: I12
+    rule: invented_information column distinct from semantic idiom uncertainty
   - Selection Actor cannot self-close these rules
 
 p0_regression_fixtures:
   - examples/address-title-chen-xiaojie-id.yaml
   - examples/address-title-chen-xiaojie-ja.yaml
+  - examples/title-kongjie-yiriqianli.yaml

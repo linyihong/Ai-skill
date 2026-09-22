@@ -3,16 +3,19 @@ id: translation.expression-analysis
 status: draft
 runtime_projection:
   enabled: false
-  reason: workflow-local；Phase 1 doc-only
+  reason: workflow-local；Phase 1/3 reinforcement；未接 runtime
 
 record: expression_analysis
 purpose: >
   Intermediate artifact describing what the expression is.
   Producer is opaque (registry matcher, dictionary, OCR+LLM, LLM, human).
+  For content.type=title, Title Structure Analysis precedes/feeds this artifact.
 
 required_fields:
   surface: { type: text }
-  composite_type: { type: enum_or_text, note: must resolve via expression-types registry when known }
+  composite_type:
+    type: list_or_text
+    note: may be list for titles (title + idiom + part_marker); resolve via expression-types
   structure:
     type: list
     item:
@@ -21,7 +24,18 @@ required_fields:
       role: { type: text }
       handling:
         type: text
-        examples: [name_realization, locale_aware, transliteration, locale_equivalent, semantic_equivalent]
+        examples:
+          - name_realization
+          - locale_aware
+          - transliteration
+          - locale_equivalent
+          - semantic_equivalent
+          - title_structure
+          - part_normalization
+      ambiguity:
+        type: list
+        optional: true
+        note: e.g. idiomatic_meaning vs literal_meaning — informs Selection, not auto-pick
       realization:
         type: object
         optional: true
@@ -31,6 +45,17 @@ required_fields:
             note: ids from registry/realization-strategies.yaml — seed Candidate Space only
 
 optional_fields:
+  title_structure:
+    type: object
+    note: >
+      Required path when content.type=title. Records whether surface is truncated,
+      platform title, idiom recombination, installment marker, etc.
+    fields:
+      is_title: { type: bool }
+      is_truncated_or_nonstandard: { type: bool }
+      has_part_marker: { type: bool }
+      has_idiom: { type: bool }
+      platform_metadata_present: { type: bool }
   literal_meaning: { type: list }
   pragmatic_meaning: { type: list }
   register: { type: list }
@@ -50,8 +75,15 @@ invariants:
     rule: >
       proper_name handling may declare realization strategies; this is NOT
       the selected surface form — Target-Locale Realization fills Candidate Space next
+  - id: I12-analysis
+    rule: >
+      When content.type=title, Title Structure Analysis MUST populate structure
+      (and preferably title_structure) before Selection. Idiom spans MUST carry
+      ambiguity when lexical form ≠ contextual meaning is possible.
 
 forbidden:
   - equating_expression_analysis_with_ai_analysis_step
   - source_text_to_translation_without_analysis_artifact
   - treating_latin_transliteration_as_complete_ja_name_realization
+  - collapsing_title_idiom_to_single_guess_without_candidate_space
+  - asking_how_do_i_translate_this_idiom_in_english_when_task_is_target_locale_title
