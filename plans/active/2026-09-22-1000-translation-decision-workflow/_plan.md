@@ -1,7 +1,7 @@
 ---
 id: 2026-09-22-1000-translation-decision-workflow
 plan_kind: main
-status: draft
+status: in-progress
 owner: workflow
 owner_layer: workflow
 created: 2026-09-22
@@ -10,13 +10,13 @@ parent: null
 
 # Translation Decision Workflow（`workflow/translation/`）
 
-**Status**: draft — 計畫已落盤；Phase 0 待確認後進 Phase 1（contracts + registry，doc-only）。
+**Status**: in-progress — **Phase 0 freeze**（2026-09-22 review）；進 Phase 1（doc-only contracts）。邊界見 [`06-phase-0-freeze-invariants.md`](06-phase-0-freeze-invariants.md)。
 
-**Glossary Impact**: yes — 候選詞 `translation_decision_record`（TDR）、`expression_analysis`、`expression_type_registry`、`translation_context_contract`、`constraint_responsibility`、`selection_responsibility`（後兩者若與 ERA plan 重複則 Phase 5 只 cross-link，不 duplicate 定義）。Phase 5 前不登記 glossary。
+**Glossary Impact**: yes — 候選詞 `translation_decision_record`（TDR）、`expression_analysis`、`expression_type_registry`、`translation_context_contract`、`candidate_space`、`decision_basis`、`constraint_responsibility`、`selection_responsibility`（後兩者若與 ERA plan 重複則 Phase 5 只 cross-link）。Phase 5 前不登記 glossary。
 
 ## 一句話目標
 
-建立 **governed translation decision** 總綱：先 Expression Analysis，再 Constraints → Feasible Candidates → Selection Policy → Translation Decision Record → Independent Review → Mechanical Gate → Finality；LLM 只當 Selection Actor，workflow／runtime 管限制、驗證與收斂。
+建立 **governed translation decision** 總綱：`TranslationContext` → Locale Resolution → Expression Analysis（artifact）→ Candidate Space → Constraints → Feasible Candidates → Selection Policy → Selection Actor → TDR → Independent Review + Mechanical Gate → Finality。LLM 只在可行集內做 Selection；workflow 管限制、驗證與收斂。
 
 ## Decision Rationale
 
@@ -32,18 +32,17 @@ Ai-skill 已有 Loop-first／Governance-first 與 ERA v2（Evidence constrains D
 
 新增 **`workflow/translation/`** 為 **cross-cutting capability workflow**（非 NVP 子目錄）。第一版是 **Translation Decision Workflow**，不是 Translation Pipeline。
 
-凍結意圖：
+凍結意圖（Phase 0 freeze；細節 [`06`](06-phase-0-freeze-invariants.md)）：
 
-- Expression Analysis 為必經中間層；禁止 `source_text → translation` 跳步。
-- **Constraint Responsibility**（不能錯什麼）可大量機械化；**Selection Responsibility**（哪個表達最好）由明示 policy + Selection Actor，LLM 不能當 Governance。
-- 品質用 **多維 validation + finality**，禁止單一 `translation_quality: 0.92`。
-- **translation-core** + **adapters**（document／subtitle／UI；dubbing 後續）；不把四套互不相干的流程寫死。
-- Locale 模型：`language ≠ locale ≠ dialect ≠ register`；禁止隱式 `方言 → 標準語 → 目標語` flattening。
-- Phase 1 **SoT**：**Translation Context Contract**（P0，與 decision／registry／validation 同批）+ Translation Decision、Expression Type Registry、Validation Contract（含 **Locale Validation**）。不先寫模型 prompt。
-- 所有 translation actor **只吃 `TranslationContext`**，禁止 decision 路徑僅有 `{ src, dst }`。
-- **Locale Resolution** 必須在 Expression Analysis **之前**（見 04 案例）。
+- Expression Analysis 為必經 **artifact**；禁止 `source_text → translation` 跳步；**≠** 「必須 LLM 分析」。
+- **Constraint ≠ Selection**；LLM 不能當 Governance。
+- **Locale Resolution ≠ Language Detection**；`target_locale` 是 **authoritative Constraint 輸入**，不是推論出的 translation decision。
+- **Candidate Space ≠ Feasible Candidates ≠ Selected**；`title_mapping` 只種子 Candidate Space。
+- 品質用多維 validation + finality；禁止單一 quality／confidence score。
+- 所有 actor 只吃 `TranslationContext`；禁止僅 `{ src, dst }`。
+- Phase 1 **只釘資料契約**（Context／Analysis／Decision／Registry／Validation／examples／P0 regression）；**不加** memory／glossary engine／prompt／routing／auto-correct／runtime route。
 
-架構與 ERA 對照見 [`01-architecture-and-era.md`](01-architecture-and-era.md)。目錄與 SoT 見 [`02-sot-contracts-and-layout.md`](02-sot-contracts-and-layout.md)。NVP 接線見 [`03-nvp-and-adapters.md`](03-nvp-and-adapters.md)。印尼語稱謂 dogfood 見 [`04-dogfood-case-address-title-id-ID.md`](04-dogfood-case-address-title-id-ID.md)。
+架構 [`01`](01-architecture-and-era.md) · SoT [`02`](02-sot-contracts-and-layout.md) · NVP [`03`](03-nvp-and-adapters.md) · dogfood [`04`](04-dogfood-case-address-title-id-ID.md) · freeze [`06`](06-phase-0-freeze-invariants.md)。
 
 ### Domain Boundary
 
@@ -97,26 +96,27 @@ Ai-skill 已有 Loop-first／Governance-first 與 ERA v2（Evidence constrains D
 | --- | --- |
 | Q1 計畫形態 | **獨立 main plan**（NVP 為 consumer，非 sub-plan） |
 | Q2 目標語 | **契約語系無關**；examples 用 ja／zh-TW／**zh-CN→id-ID**（稱謂案例） |
-| Q3 缺 context | 無 speaker／intent／scene 等必要 context 時 **禁止 `finality: accepted`**；須 `needs_review` 或 `unresolved` + `blocking_reasons` |
-| Q4 TDR 存放 | v0 只定 **schema**；專案 artifact 路徑由 consumer profile 定 |
+| Q3 缺 context | 無必要 context 時 **禁止 `accepted`**；見 I9 Finality closure |
+| Q4 TDR 存放 | v0 只定 **schema**；專案路徑由 consumer profile 定 |
+| Q5 Phase 0 freeze | **2026-09-22 accept** — 進 Phase 1；I1–I10 釘死（[`06`](06-phase-0-freeze-invariants.md)） |
 
 ## Phases
 
-### Phase 0 — Plan freeze（本 commit）
+### Phase 0 — Plan freeze
 
-- [x] 計畫落盤 `plans/active/2026-09-22-1000-translation-decision-workflow/`
-- [x] 第一個 real-data case：陈小姐 → id-ID（[`04`](04-dogfood-case-address-title-id-ID.md) + [`05-example-address-title-chen-xiaojie-id.yaml`](05-example-address-title-chen-xiaojie-id.yaml)）
-- [ ] Stakeholder 確認 status：`draft` → `in-progress`
-- [ ] 確認不做：runtime 投影、route 註冊、模型 prompt、工具實作（Phase 0 邊界）
+- [x] 計畫落盤
+- [x] 第一個 real-data case：陈小姐 → id-ID（[`04`](04-dogfood-case-address-title-id-ID.md) + [`05`](05-example-address-title-chen-xiaojie-id.yaml) = **P0 regression fixture**）
+- [x] Stakeholder review：Phase 0 freeze → `in-progress`；邊界 [`06`](06-phase-0-freeze-invariants.md)
+- [x] 確認不做：runtime／route／prompt／工具／memory／glossary engine／score／auto-correct（Phase 0–1 邊界）
 
-### Phase 1 — Contracts + Registry（doc-only）
+### Phase 1 — Contracts + Registry（doc-only；**到此停**）
 
 - [ ] 建立 `workflow/translation/` 目錄骨架
-- [ ] 落地 SoT YAML（**translation-context**、decision、expression-types、validation + locale_consistency）
-- [ ] README + `execution-flow.md`（Locale Resolution → 六層）
-- [ ] `examples/`：自 plan `05-example-*` 複製 **address-title-chen-xiaojie-id** + slang、proverb、dialect 各一
-- [ ] `registry/`：`name_with_address_title`、`address_title`（locale_aware）
-- [ ] `locale_consistency` regression 對照 example `regression_fixtures`
+- [ ] 落地 SoT：`translation-context`（I1）、`expression-analysis`（I2 artifact）、`translation-decision`（I3／I8 `decision_basis`）、registry、validation（I5／I6／I9）
+- [ ] README + `execution-flow.md`（依 [`06`](06-phase-0-freeze-invariants.md) Phase 1 shape）
+- [ ] `examples/`：slang／proverb／dialect 各一；**另**把 `05` 標為 P0 regression（可放 `examples/` 或未來 `tests/regression/locale/` 路徑註記，不建 runner）
+- [ ] Registry invariant：**Candidate Space ≠ Final Answer**（I7）
+- [ ] 寫作檢查：I1／I2／I3 三處不偏離（見 [`06`](06-phase-0-freeze-invariants.md) §Phase 1 SoT 寫作檢查）
 
 ### Phase 2 — Subtitle adapter + NVP link
 
@@ -134,20 +134,21 @@ Ai-skill 已有 Loop-first／Governance-first 與 ERA v2（Evidence constrains D
 - [ ] document／UI／dubbing adapter
 - [ ] `route.workflow.translation` + runtime 投影（需 Phase 3 證據）
 
-## Out of Scope（v0）
+## Out of Scope（v0／Phase 1）
 
-- 翻譯 API／prompt／模型選型寫進 canonical
-- 單一 quality score
+- 翻譯 API／prompt／模型選型／model routing 寫進 canonical
+- translation memory、glossary engine、automatic terminology extraction
+- 單一 quality／confidence score、automatic correction
 - 合併 NVP timing／layout 進 translation content gate
-- 完整方言／成語知識庫
-- 自動 orchestrator
+- 完整方言／成語知識庫當 dictionary truth
+- 自動 orchestrator、runtime route、test runner（regression 先 doc fixture）
 
 ## Success Criteria（v0 完成）
 
-- 三 SoT 可獨立閱讀，不依賴任何模型名
-- ≥3 expression examples 填滿 TDR 欄位（含 **陈小姐 id-ID** + locale regression fixtures）
-- README 一句話說清 Constraint／Selection／Finality
-- subtitle adapter 說明餵 NVP content_gate，不碰 timing／layout
+- SoT 可獨立閱讀，不依賴任何模型名；I1–I10 寫進 contracts
+- ≥3 expression examples + **P0** 陈小姐 id-ID regression fixtures
+- README 一句話說清 Context／Analysis／Registry／Constraints／Candidates／Policy／Actor／Finality
+- subtitle adapter（Phase 2）餵 NVP content_gate，不碰 timing／layout
 - 未註冊 route、未 runtime 投影
 
 ## Linked Updates（Phase 1+ 觸發）

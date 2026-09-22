@@ -13,17 +13,19 @@ Companion to [`_plan.md`](_plan.md)。
 
 `dialogue-semantic-context.yaml` 已列 `subtitle_or_translation_context` 為 use case；Phase 2 明文化欄位映射。
 
-## Translation Context Contract（Phase 1 contract，P0）
+## Translation Context Contract（Phase 1，P0）
 
-必須含 **source／target locale**（含 `id-ID` 等），且在所有 segment decision **之前** 完成 Locale Resolution。Actor 禁止只吃 `{ src, dst }`。稱謂案例：[`04-dogfood-case-address-title-id-ID.md`](04-dogfood-case-address-title-id-ID.md)。
+`source_locale`／`target_locale` 由 **NVP locale pack／job** 傳入，屬 **authoritative Constraint**（I1：Locale Resolution ≠ Language Detection）。Actor 禁止只吃 `{ src, dst }`；禁止每段猜 target。
 
-從 episode evidence 補足「一句話沒有主詞」類問題，**再**進入 translation selection。缺必要 context 時 plan 已裁決：不得 `finality: accepted`。
+稱謂案例：[`04`](04-dogfood-case-address-title-id-ID.md)。Freeze：[`06`](06-phase-0-freeze-invariants.md)。
 
-建議必填（when dialogue translation）：
+從 episode evidence 補足缺主詞等問題後再 Selection。缺必要 context 或 blocking validation 未 resolved → 不得 `accepted`（I9）。
 
-- `source_locale` / `target_locale`（含 register；dialect 若已知）
+建議必填（dialogue translation）：
+
+- `source_locale` / `target_locale`（來自 locale pack）
 - `semantic_context` 或等價 structured context
-- `text_origin`（script／asr／ocr／human／translated）— 對齊 NVP locale pack
+- `text_origin`（script／asr／ocr／human／translated）
 
 ## Subtitle adapter（Phase 2）
 

@@ -84,13 +84,27 @@ Phase 1 contract 為準；此處只作 plan 內導讀。
 ```yaml
 translation_decision:
   id: TD-000123
-  source: { text, locale }
-  context: { speaker, addressee, scene }
-  expression_analysis: { ... }
+  translation_context: { source, target }   # authoritative locales
+  expression_analysis: { ... }              # artifact; producer opaque
+  candidate_space_refs: [...]               # registry / title_mapping seeds
   constraints: { preserve, prohibit }
   candidates:
-    - { text, strategy }
-  selection: { policy, selected, rationale }
+    - text: "Nona Chen"
+      strategy: locale_aware
+      feasible: true
+    - text: "Miss Chen"
+      strategy: literal_equivalent
+      feasible: false
+      reason: target_locale_mismatch
+  selection:
+    policy: [...]
+    selected: "Nona Chen"
+    rationale: "..."
+    decision_basis:
+      - target_locale
+      - expression_analysis
+      - scene_context
+      - candidate_registry
   review: { semantic, register, cultural }
   finality: { status }
 ```
@@ -102,40 +116,31 @@ translation_decision:
 - source segment coverage、missing／duplicated segments
 - placeholders、numbers、dates、URLs、variables
 - proper names、terminology、tags、markup
-- source-language residue
+- **source_language_residue**（與 target_locale_residue **分欄**，I6）
 
 ## Locale validation（translation-core，P0）
 
-與 mechanical 分欄；**不可**由 LLM 自證「英文稱謂也可以」。
+與 mechanical 分欄；**不可**由 LLM 自證關閉。
 
-- target **language** consistency
-- target **locale** consistency（language ≠ locale）
-- register consistency
-- title／honorific consistency（例：`id-ID` + `Miss`/`Ms.` → `review` + `target_locale_residue`）
-- dialect consistency（source／target）
-- source-language residue（與 mechanical 可交叉引用）
+- target language／locale／register／title-honorific／dialect
+- **target_locale_residue** → 預設 **`review`**（I5），非自動 incorrect／fail
+- `accepted` 需 explicit rationale 或 waiver
 
-Regression fixtures：[`05-example-address-title-chen-xiaojie-id.yaml`](05-example-address-title-chen-xiaojie-id.yaml) §`regression_fixtures`。
+**P0 regression fixture**：[`05-example-address-title-chen-xiaojie-id.yaml`](05-example-address-title-chen-xiaojie-id.yaml)。
 
-## Knowledge：`title_mapping`（種子 candidate space）
+## Knowledge：`title_mapping`（種子 Candidate Space）
 
-路徑方向：`knowledge/translation/locale/title-mapping.yaml`。  
-`小姐 → Nona`（id）等條目只 **種子 Candidate Space**；final selection 仍靠 policy + context。見 [`04-dogfood-case-address-title-id-ID.md`](04-dogfood-case-address-title-id-ID.md)。
+路徑：`knowledge/translation/locale/title-mapping.yaml`（Phase 3）。  
+**Registry invariant（I7）**：Candidate Space ≠ Final Answer。禁止把 mapping 當 translation truth。
 
-Subtitle **adapter** 追加（消費 NVP，不重定義 content）：
+Subtitle **adapter**（Phase 2）追加 NVP timing／layout 消費，不重定義 content。
 
-- CPS、duration、line count、line length、break position、speaker attribution、cue overlap、reading speed（對齊 NVP timing／layout 分工）
+## Phase 1 checklist
 
-## 成語／諺語／流行語策略差異（設計備忘）
-
-- **成語**（畫蛇添足）：semantic equivalent 或 target idiom，非字面 snake + feet
-- **諺語**（覆水難收）：target proverb 或 semantic equivalent（What's done is done）
-- **流行語**：先 source culture 語氣／誰說／對誰／極性，再問 target 是否有同等 social function
-
-## Phase 1 checklist（從 plan 複製追蹤）
-
-- [ ] `schema_version` 與 `artifact-record/v1` 慣例對齊 NVP records
-- [ ] `runtime_projection: enabled: false` 直到 Phase 4 條件
-- [x] plan-local example：`05-example-address-title-chen-xiaojie-id.yaml`（regression）
-- [ ] examples 六類至少各一檔或合併為三檔（slang／proverb／dialect 優先）
-- [ ] `translation-context.yaml` + locale_consistency rules
+- [ ] `schema_version` 對齊 NVP records 慣例
+- [ ] `runtime_projection: enabled: false`
+- [x] P0 regression：`05-example-*`（I4）
+- [ ] contracts 寫清 I1／I2／I3（見 [`06`](06-phase-0-freeze-invariants.md)）
+- [ ] `decision_basis` + Finality I9
+- [ ] slang／proverb／dialect examples
+- [ ] **不加** I10 禁止清單（memory／prompt／score／route…）

@@ -1,6 +1,6 @@
 # Dogfood case — 陈小姐 → id-ID（稱謂／語系判定混線）
 
-Companion to [`_plan.md`](_plan.md)。**第一個 real-data failure case**；機械 regression 見 [`05-example-address-title-chen-xiaojie-id.yaml`](05-example-address-title-chen-xiaojie-id.yaml)。
+Companion to [`_plan.md`](_plan.md)。**P0 regression fixture**（不只是一般 example）：[`05-example-address-title-chen-xiaojie-id.yaml`](05-example-address-title-chen-xiaojie-id.yaml)。Freeze：[`06`](06-phase-0-freeze-invariants.md) I4–I6。
 
 ## 觀察到的輸入／輸出
 
@@ -12,93 +12,53 @@ Companion to [`_plan.md`](_plan.md)。**第一個 real-data failure case**；機
 }
 ```
 
-目標語為 **印尼語**（`id` / `id-ID`）。`Nona Chen` 本身可以是正確結果（`Nona` ≈ Miss／小姐），但常見錯誤路徑是 workflow 把片段當「中文 → 英文」處理，產出 `Miss Chen`、`Ms. Chen` 等 **target locale 不一致** 的稱謂。
+目標 **id-ID**。`Nona Chen` 可為正確結果。常見偏離路徑：未綁定 target locale，走「中文→英文」稱謂，產出 `Miss Chen`／`Ms. Chen` → **`locale_consistency: review`**（`target_locale_residue`），**不是**自動判定「翻譯錯誤／fail」（borrowed／international／character voice／mixed language 可能合法；`accepted` 需 rationale／waiver）。
 
 ## 暴露的三責任混線
 
 | 責任 | 應做 | 混線時 |
 | --- | --- | --- |
-| **Language / Locale Resolution** | 在 Translation Decision **之前** 固定 `source` + `target` locale；所有 actor 只吃 `TranslationContext` | 目標語只存在 pipeline 最外層，未進入每段 decision |
-| **Name resolution** | `陈` = proper name（family_name）→ transliteration `Chen`，非語意翻譯 | 整串 `陈小姐` 當一般句子丟給模型 |
-| **Address title translation** | `小姐` = address_title → **locale-aware** 候選（id：`Nona` 等） | `小姐` 當普通詞彙或英文預設 `Miss`/`Ms.` |
+| **Locale Resolution**（≠ Language Detection） | consumer／locale pack → `TranslationContext`；target = Constraint | 每段 LLM 猜 target／最外層 locale 未進 decision |
+| **Name resolution** | `陈` → transliteration `Chen` | 整串當普通句子 |
+| **Address title** | `小姐` → locale-aware **Candidate Space**（含 Nona） | 當普通詞或英文預設 Miss／Ms. |
 
-根因通常 **不是**「LLM 不會翻」，而是 **target locale 未進入 expression decision**。
+根因通常不是「LLM 不會翻」，而是 **target_locale 未當 authoritative Constraint 進入 decision**。
 
 ## 正確決策鏈（目標 id-ID）
 
 ```text
-陈小姐
+NVP locale pack / job → TranslationContext (id-ID)
   ↓
-[Locale Resolution]  target = id-ID（script: Latn）
+Expression Analysis (artifact)
+  陈 → proper_name / transliteration
+  小姐 → address_title / locale_equivalent
   ↓
-[Expression Analysis]
-  陈 → proper_name / family_name / transliteration
-  小姐 → address_title / honorific / locale_equivalent
+Candidate Space (title_mapping seeds: Nona, Miss, Ms., …)
   ↓
-[Constraints]
-  preserve person identity; title must match target locale; no semantic translation of name
+Constraints → Feasible Candidates
+  Nona Chen feasible:true
+  Miss Chen feasible:false reason:target_locale_mismatch
   ↓
-[Candidate Space]
-  Nona Chen | Miss Chen | Ms. Chen | Chen
+Selection + decision_basis → Nona Chen
   ↓
-[Selection]  policy: target_locale_naturalness + preserve_address_title + subtitle_register
-  ↓
-Nona Chen
-  ↓
-[Locale Validation Gate]  PASS（無 en title residue）
+Locale Validation → pass（無未 waiver 的 en title residue）
 ```
 
-## 錯誤路徑（regression 要擋）
+## Regression（P0）
 
-```text
-陈小姐 → LLM → English-like title → Miss Chen / Ms. Chen
-```
-
-當 `target.locale = id-ID` 且 `dst` 含英文稱謂 token（`Miss`、`Ms.`、`Mr.`…）時：
+`target.locale = id-ID` 且 dst 含 `Miss`／`Ms.`／`Mr.`…：
 
 ```yaml
 validation:
   locale_consistency:
-    status: review   # 或 warn，依 profile
+    status: review
     reason: target_locale_residue
 ```
 
-LLM 不得用「Ms. 也可以吧」關閉此項；需 `needs_review` 或 explicit selection rationale + waiver policy。
+不得以 LLM「也可以吧」關閉；需 `needs_review` 或 explicit rationale + waiver。
 
-## P0 contract 增量（相對初版 plan）
+**勿與 `source_language_residue` 合併**（I6）：ja→id 殘日文 ≠ zh→id 的 English title。
 
-1. **Translation Context Contract**（Phase 1 SoT #0 或併入 `source.yaml`）— 所有 translation actor **禁止** 只吃 `{ src, dst }`。
-2. **Locale Resolution** — 在 Expression Analysis **之前** 的 mandatory step（INGEST 子步或 Layer 1.5）。
-3. **Structured Expression Analysis** — `surface` + `structure[]`（span、type、role、handling）。
-4. **Registry：`name_with_address_title` / `address_title`** — `translation_mode: locale_aware`；knowledge `title_mapping` 提供 **candidate space**，非 final answer。
-5. **Locale Validation**（併入 validation contract）— target language／locale／register／title-honorific／dialect／source residue 分欄。
+## Knowledge：`title_mapping`
 
-`target language ≠ target locale`：例如 `zh-CN → id-ID` vs `zh-TW → id-ID` vs `zh-HK → id-ID` 可能影響 source 表達與 title 候選，不可只寫 `Chinese → Indonesian`。
-
-## Knowledge：`title_mapping`（示意，非 exhaustive）
-
-Registry 不應只是一張死表；表只 **縮小／種子** candidate space，Selection 仍看 scene、relationship、formal／informal、subtitle style。
-
-```yaml
-# knowledge/translation/locale/title-mapping.yaml (Phase 3 方向)
-title_mapping:
-  zh:
-    小姐:
-      id: [Nona]           # 候選，非唯一答案
-      en: [Ms., Miss]
-      ja: [さん]
-```
-
-同一 `小姐` 在 id-ID 下仍可能選 `Nona Chen` vs `Miss Chen`（后者應被 locale gate 標 review）。
-
-## Phase 對照
-
-| Phase | 本案例觸發物 |
-| --- | --- |
-| 0 | 本 companion + example YAML |
-| 1 | `contracts/translation-context.yaml`、`expression-analysis` structure、`validation` locale_consistency |
-| 3 | dogfood run 引用 episode 14；`locale_consistency` regression fixture |
-
-## 與 NVP
-
-若 `dst` 進 caption pack 且 `target_locale: id-ID`，`content_gate` 應能引用 TDR + locale validation；timing／layout 不變。
+只種子 Candidate Space；**≠ Final Answer**（I7）。

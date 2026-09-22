@@ -43,21 +43,25 @@ Evidence **不直接決定譯文**；Evidence 約束 candidate space，再由 Se
 
 ## Locale Resolution（P0，在 Analysis 之前）
 
+**Locale Resolution ≠ Language Detection。**
+
 ```text
-Source segment
-  ↓
-Language / Locale Resolution   ← mandatory; before Expression Analysis
-  ↓
-TranslationContext (source + target locale, script, register hints)
-  ↓
+Consumer / job / locale pack
+       │
+       ▼
+TranslationContext (source_locale + target_locale authoritative)
+       │
+       ▼
 Expression Analysis
-  ↓
-…
 ```
 
-若 `target locale` 只存在 pipeline 最外層、未進入每段 Translation Decision，稱謂／成語／人名／方言段會被模型 **自行假設 target language**（典型：zh→en 稱謂）。Dogfood：[`04-dogfood-case-address-title-id-ID.md`](04-dogfood-case-address-title-id-ID.md)。
+- `target_locale` 由 consumer 傳入，**不是**每段 LLM 猜出來的。
+- **Invariant**：`target_locale is authoritative input, not an inferred translation decision.`
+- **Target locale = Constraint，不是 Selection。**
 
-**Invariant**：translation actor 輸入 = `TranslationContext` + segment + evidence；**禁止** decision 路徑僅 `{ src, dst }`。
+若 target 只存在 pipeline 最外層、未進入每段 Decision，稱謂等會被模型自行假設 target（典型 zh→en）。Dogfood：[`04`](04-dogfood-case-address-title-id-ID.md)。Freeze：[`06`](06-phase-0-freeze-invariants.md) I1。
+
+**Invariant**：actor 輸入 = `TranslationContext` + segment + evidence；**禁止**僅 `{ src, dst }`。
 
 ## 七步決策鏈（邏輯模型）
 
@@ -75,13 +79,13 @@ Expression Analysis
 
 | Layer | 名稱 | 主要產出 |
 | --- | --- | --- |
-| 1 | INGEST | **TranslationContext**（source／target locale）+ segment + evidence refs |
-| 1b | LOCALE RESOLVE | 固定 target locale；禁止 implicit zh→en path |
-| 2 | UNDERSTAND | structured **expression_analysis**（必填才進 DECIDE） |
-| 3 | CLASSIFY | expression.type ∈ registry |
-| 4 | DECIDE | candidates + selection.policy + selected |
-| 5 | VALIDATE | validation.* + mechanical.* |
-| 6 | FINALITY | status + blocking_reasons |
+| 1 | INGEST | **TranslationContext** 自 consumer／locale pack 綁定 |
+| 1b | LOCALE RESOLVE | 綁定 authoritative locales（≠ language detection） |
+| 2 | UNDERSTAND | **expression_analysis artifact**（producer 可替換） |
+| 3 | CLASSIFY | type ∈ registry → **Candidate Space** |
+| 4 | DECIDE | Constraints → feasible `candidates[]` → selection + **decision_basis** |
+| 5 | VALIDATE | validation.* + mechanical.* + locale_consistency（review ≠ auto-fail） |
+| 6 | FINALITY | I9 closure：context + validation + no blocking + selection |
 
 ## Constraint vs Selection
 
@@ -106,9 +110,9 @@ constraints:
 
 在符合 constraints 的候選中選表達。取決於：上下文、speaker、relationship、場景、時代、locale、角色個性、詞彙極性（例：ヤバい 正／負）、target audience。
 
-必須記錄：`selection.policy`、`selected`、`rationale`（與 NVP invariant 5 同形）。
+必須記錄：`selection.policy`、`selected`、`rationale`、**`decision_basis`**（artifact 依據，非僅「比較自然」）。見 [`06`](06-phase-0-freeze-invariants.md) I8。
 
-## Expression Analysis（中間層，Invariant）
+## Expression Analysis（artifact，Invariant）
 
 禁止：
 
@@ -119,16 +123,28 @@ source_text → translation
 要求：
 
 ```text
-source_text → expression_analysis → translation_decision → translation
+source_text → expression_analysis (artifact) → translation_decision → translation
 ```
 
-最小方向：`surface`、`composite_type`、`structure[]`（span、type、role、handling）、`literal_meaning`、`pragmatic_meaning`、`register`、`speaker_intent`、`ambiguity[]`。
+**Expression Analysis ≠ LLM step。** Contract 只要求欄位；producer 可為 registry matcher／dictionary／OCR+LLM／LLM。見 I2。
 
-**Structured 範例**（陈小姐 → id-ID）：[`05-example-address-title-chen-xiaojie-id.yaml`](05-example-address-title-chen-xiaojie-id.yaml) — `陈` = proper_name／transliteration；`小姐` = address_title／locale_equivalent。
+最小方向：`surface`、`composite_type`、`structure[]`、`pragmatic_meaning`、`register`、`ambiguity[]`（及條件欄位）。
+
+**Structured 範例**：[`05`](05-example-address-title-chen-xiaojie-id.yaml)。
+
+## Candidate Space vs Candidates（兩層）
+
+```text
+Registry / knowledge → Candidate Space
+  → Constraints → Feasible Candidates (candidates[]: feasible, reason)
+  → Selection Policy → Selection Actor → selected
+```
+
+見 I3／I7。`title_mapping` 種子 Candidate Space，不是 final answer。
 
 ## Translation Decision Record（TDR）
 
-正式 artifact 形狀見 Phase 1 `contracts/translation-decision.yaml`。用途：爭議時追溯整條 decision chain，對齊 Evidence Chain／EDR 思維。
+正式形狀見 Phase 1 `contracts/translation-decision.yaml`。Selection 含 `decision_basis`。
 
 ## Validation（禁止單一分數）
 
@@ -142,14 +158,17 @@ validation:
   format: pass|fail|review
   completeness: pass|fail|review
   locale_consistency:
-    status: pass|fail|review
-    reason: target_locale_residue   # e.g. id-ID dst contains Miss/Ms.
+    status: pass|fail|review   # English title under id-ID → review（I5），非自動 fail
+    reason: target_locale_residue
+  # source_language_residue 與 target_locale_residue 分欄（I6）
 finality:
   status: accepted|needs_review|unresolved|rejected
   blocking_reasons: []
 ```
 
-文字完全正確但文化等價不確定 → `needs_review` + `cultural_equivalence_uncertain` 類 blocking reason。
+**Finality（I9）**：`accepted` ⇔ required context present ∧ required validation pass／waivered ∧ no unresolved blocking ∧ selection exists。
+
+文字正確但文化不確定 → `needs_review`。`id-ID` + `Miss`/`Ms.` → `review` + rationale／waiver 才能 accepted。
 
 ## Locale（反 dialect flattening）
 
