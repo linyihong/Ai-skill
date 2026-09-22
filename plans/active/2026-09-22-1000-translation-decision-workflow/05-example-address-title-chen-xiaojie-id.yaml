@@ -1,0 +1,136 @@
+# Illustrative TDR — plan dogfood / regression baseline (not runtime SoT until Phase 1 contracts land)
+schema_version: translation-decision-example/v0
+id: TD-EX-001-chen-xiaojie-id
+status: example
+source_case:
+  observed_io:
+    src: "陈小姐"
+    dst: "Nona Chen"
+    episode: 14
+  failure_class: locale_resolution_not_in_decision
+  note: >
+    Nona Chen can be correct for id-ID; failure is treating segment as zh→en
+    or accepting Miss Chen / Ms. Chen without locale_consistency review.
+
+translation_context:
+  source:
+    language: zh
+    locale: zh-CN
+  target:
+    language: id
+    locale: id-ID
+    script: Latn
+  episode: 14
+  # All translation actors MUST consume translation_context, not only src/dst.
+
+evidence:
+  - type: contextual_usage
+    ref: episode_14
+  - type: segment_record
+    ref: "{ src, dst }"
+
+expression_analysis:
+  surface: "陈小姐"
+  composite_type: name_with_address_title
+  structure:
+    - span: "陈"
+      type: proper_name
+      role: family_name
+      handling: transliteration
+      semantic_role: person_name
+    - span: "小姐"
+      type: address_title
+      role: honorific
+      handling: locale_equivalent
+      semantic_role: address_title
+  strategy:
+    name:
+      preserve_identity: true
+      transliteration: required
+    title:
+      target_locale_equivalent: required
+
+constraints:
+  preserve:
+    - person_name_identity
+    - address_relationship
+    - use_target_locale
+  prohibit:
+    - semantic_translation_of_proper_name
+    - default_to_english_title_when_target_is_id
+    - source_language_residue
+
+registry_hint:
+  expression_type: address_title
+  translation_mode: locale_aware
+  knowledge_seed:
+    title_mapping:
+      zh.小姐.id: [Nona]
+      zh.小姐.en: [Ms., Miss]
+
+candidates:
+  - text: "Nona Chen"
+    strategy: locale_equivalent_title_plus_transliterated_name
+    title_component: Nona
+    name_component: Chen
+  - text: "Miss Chen"
+    strategy: english_title_residue
+    locale_fit: poor_for_id-ID
+  - text: "Ms. Chen"
+    strategy: english_title_residue
+    locale_fit: poor_for_id-ID
+  - text: "Chen"
+    strategy: name_only
+    locale_fit: acceptable_with_review
+
+selection:
+  policy:
+    - target_locale_naturalness
+    - preserve_address_title
+    - subtitle_register
+  selected: "Nona Chen"
+  rationale: >
+    target id-ID; Nona is Indonesian address title equivalent to 小姐;
+    Chen is standard transliteration of 陈.
+
+validation:
+  semantic: pass
+  intent: pass
+  register: pass
+  terminology: pass
+  cultural: pass
+  format: pass
+  completeness: pass
+  locale_consistency:
+    status: pass
+    target_locale: id-ID
+    checks:
+      target_language_consistency: pass
+      title_honorific_consistency: pass
+      source_language_residue: pass
+
+mechanical:
+  placeholders: pass
+  numbers: pass
+  segment_coverage: pass
+
+finality:
+  status: accepted
+
+regression_fixtures:
+  - name: id-ID rejects English title without waiver
+    translation_context.target.locale: id-ID
+    dst: "Miss Chen"
+    expect:
+      validation.locale_consistency.status: review
+      validation.locale_consistency.reason: target_locale_residue
+  - name: id-ID warns on Ms prefix
+    translation_context.target.locale: id-ID
+    dst: "Ms. Chen"
+    expect:
+      validation.locale_consistency.status: review
+  - name: id-ID Nona Chen passes locale gate
+    translation_context.target.locale: id-ID
+    dst: "Nona Chen"
+    expect:
+      validation.locale_consistency.status: pass
