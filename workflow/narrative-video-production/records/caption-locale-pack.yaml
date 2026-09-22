@@ -28,6 +28,8 @@ optional_fields:
 
 cue_optional_fields:
   translation_decision_ref: { type: text, note: per-cue TDR id when translated }
+  speech_unit_ref: { type: id, note: generated speech; timing from speech artifact }
+  timing_source: { type: enum, values: [speech_artifact, asr] }
 
 invariants:
   - content_gate != timing_gate != layout_gate
@@ -35,6 +37,8 @@ invariants:
   - readable_does_not_imply_safe_area
   - no_single_caption_pass_field
   - content_gate_may_consume_translation_tdr_but_never_implies_timing_or_layout_pass
+  - generated_speech_cues_require_speech_artifact_timing
 
 inbound:
   - workflow/translation/adapters/subtitle.yaml
+  - workflow/narrative-video-production/records/speech-unit.yaml

@@ -45,3 +45,5 @@ outer loop         observe → resolve → produce → verify → correct → le
   [`27-typography-layout-profile.md`](27-typography-layout-profile.md)）
 - 讓 AI 的「舒服」直接寫進 profile，或無 iteration budget 調字級（見
   [`28-layout-review-loop.md`](28-layout-review-loop.md)）
+- 為 generated 口播猜 cue 秒數，或把 speech／layout 合成一次重做（見
+  [`29-speech-timing-authority.md`](29-speech-timing-authority.md)）

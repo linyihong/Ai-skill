@@ -1,0 +1,32 @@
+# Generated speech / commentary units. TTS 實作不進本契約。
+schema_version: artifact-record/v1
+id: narrative-video.speech-unit
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；未接 runtime
+
+record: speech_unit
+required_fields:
+  speech_unit_id: { type: id }
+  text: { type: text }
+  locale: { type: bcp47 }
+  timing_source: { type: enum, values: [speech_artifact, asr] }
+
+optional_fields:
+  shot_id: { type: id }
+  semantic_boundary: { type: text }
+  screen_fit: { type: gate }
+  speech_artifact_ref: { type: text, note: adapter 產出 id；canonical 不寫 provider }
+  duration_s: { type: number }
+  cps: { type: number }
+  pause_ratio: { type: number }
+  speech_timing_gate: { type: gate }
+  caption_cue_ref: { type: id }
+
+invariants:
+  - tts_ffmpeg_providers_are_adapters
+  - generated_speech_cue_timing_requires_speech_artifact
+  - speech_timing_qc_is_not_layout_gate
+  - speech_loop_must_not_merge_with_layout_loop
+  - no_guessed_cue_duration_for_generated_speech

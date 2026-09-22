@@ -17,7 +17,7 @@ Canonical lifecycle。各 stage 填哪個 record、能否推進：見
 5. Continuity            → 需要時鎖角色／場景／風格
 6. Acquisition           → 策略可換；結果回寫 EDR（不得用 mp4 當 SoT）
 7. Assemble vs EDR       → 時間線對 shot_id／selected_clip_id
-7b. Locale packs         → content／timing／layout 三閘分開
+7b. Locale packs         → content／timing／layout；generated 口播 cue 時軸 = speech artifact（TTS=adapter）
 8. Publish QC            → 平台規格；publish-ready 需 fresh verification
 9. Outcome window        → evidence_status 回寫模板假設（非 truth）
 ```
@@ -46,7 +46,7 @@ Canonical lifecycle。各 stage 填哪個 record、能否推進：見
 | 4 EDR | [`edit-decision-record.md`](edit-decision-record.md) | 結構化 EDR 存在；對齊 script | edr_author |
 | 6 Acquisition | EDR `shots[]` 回寫 | 實際入出點仍指向 `selected_clip_id` 或記 mutation | acquisition |
 | 7 Assemble | [`assemble-and-qc.md`](assemble-and-qc.md) | 成片軸對 `shot_id` | editor |
-| 7b Locale | [`captions-and-locales.md`](captions-and-locales.md) | 三閘分別有 decision | locale_author |
+| 7b Locale | [`captions-and-locales.md`](captions-and-locales.md)、[`speech-unit-and-timing.md`](speech-unit-and-timing.md) | 三閘分別有 decision；generated 口播 cue 有 speech timing evidence | locale_author |
 | 8 Publish | [`artifact-gates.md`](artifact-gates.md) | `fresh_reviewer` + blocking 空 | independent_verifier |
 | 9 Outcome | [`publish-outcome.md`](publish-outcome.md) | 窗口欄位；不足樣 → `insufficient_sample` | outcome_author |
 
@@ -56,3 +56,5 @@ Canonical lifecycle。各 stage 填哪個 record、能否推進：見
 - 從 mp4 反推「當初為什麼這樣剪」。
 - 無觀察填 PASS；合成單一「字幕 PASS」。
 - 裸「AI 影片」當已註冊 route（尚未註冊）。
+- 為 generated 口播猜 cue 秒數，或把 TTS／ffmpeg 寫成本 lifecycle 新 stage。
+- 把 speech timing QC 與 layout QC 合成一次「字幕重做」。

@@ -26,5 +26,7 @@ dialogue.semantic_context  → 給機器的結構化語義補充
 
 Phase 3：先 optional。真實片子裡「幾乎每段對白 shot 都要靠它才能對上素材」才考慮升成必填；少數特例維持 optional。觀察名：`dialogue_semantic_ambiguity`（不是立刻 `contract_gap`）。
 
+自製口播／破題文案不是 matching 選 clip：先 [`speech-unit-and-timing.md`](speech-unit-and-timing.md) 切可說單位，cue 時軸吃 speech artifact。
+
 推進：每個將上成片的 beat 有 `shot_id`；每個 `shot_id` 在 matching script 有一列。
 失敗 rollback：`script_author`。

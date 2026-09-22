@@ -22,6 +22,7 @@ Acquisition（生成／實拍／剪輯／未來工具）可換；不得反向定
 | 鏡頭表 | [`script-and-shot-list.md`](script-and-shot-list.md) | 模板 beat ↔ `shot_id`；可選 `dialogue.semantic_context` |
 | 決策 SoT | [`edit-decision-record.md`](edit-decision-record.md) | 開 EDR、mutation、人讀投影 |
 | 字幕語系 | [`captions-and-locales.md`](captions-and-locales.md) | locale pack／三閘 |
+| 口播時軸 | [`speech-unit-and-timing.md`](speech-unit-and-timing.md) | 自製口播 Speech Unit；cue 時軸 SoT |
 | 成片對帳 | [`assemble-and-qc.md`](assemble-and-qc.md) | 時間線 vs EDR；fresh verifier |
 | 發布證據 | [`publish-outcome.md`](publish-outcome.md) | 窗口後填 evidence status |
 | Eligibility | [`artifact-gates.md`](artifact-gates.md) | 每一 stage 推進與 completion |
@@ -37,7 +38,7 @@ Acquisition（生成／實拍／剪輯／未來工具）可換；不得反向定
 | 4 | Constraints 定義可行集 | [`matching-script.md`](matching-script.md)、[`records/matching-script.yaml`](records/matching-script.yaml) |
 | 5 | Selection 是明示 policy | 同上；缺 `selection.policy` = 閘失敗 |
 | 6 | Assembly 對得上 EDR | [`assemble-and-qc.md`](assemble-and-qc.md) |
-| 7 | Locale 三閘獨立 | [`captions-and-locales.md`](captions-and-locales.md) |
+| 7 | Locale 三閘獨立 | [`captions-and-locales.md`](captions-and-locales.md)；generated 口播時軸 [`speech-unit-and-timing.md`](speech-unit-and-timing.md) |
 | 8 | publish-ready 需 fresh verifier | [`artifact-gates.md`](artifact-gates.md) |
 | 9 | Outcome 是 evidence 不是真理 | [`publish-outcome.md`](publish-outcome.md) |
 | 10 | Runtime 延後 | 本檔狀態列 + records `runtime_projection.enabled: false` |
