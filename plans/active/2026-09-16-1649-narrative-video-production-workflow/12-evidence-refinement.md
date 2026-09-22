@@ -39,3 +39,5 @@ outer loop         observe → resolve → produce → verify → correct → le
   [`24-ocr-role-projection.md`](24-ocr-role-projection.md)）
 - 同 timestamp／高相似就 destructive merge；或用翻譯 dst 反推哪個 source 相同（見
   [`25-text-group-preserve-variants.md`](25-text-group-preserve-variants.md)）
+- 用字數切行、寫死 bottom％、或讓 LLM 做最終斷行／選位（見
+  [`26-subtitle-layout-engine.md`](26-subtitle-layout-engine.md)）

@@ -8,7 +8,7 @@ Companion to [`_plan.md`](_plan.md)。
 | --- | --- |
 | `dialogue.semantic_context` | **Translation Context Contract** 上游 evidence（speaker、addressee、intent、subject_refs…） |
 | `caption-locale-pack` `content_gate` | Subtitle adapter **輸出**接點（語意、專名、source residue） |
-| `timing_gate` / `layout_gate` | **不在** translation-core；subtitle adapter 只 **reference** NVP |
+| `timing_gate` / `layout_gate` | **不在** translation-core；layout solver 候選見 NVP [`26-subtitle-layout-engine.md`](../2026-09-16-1649-narrative-video-production-workflow/26-subtitle-layout-engine.md) |
 | Invariant 7 三閘分開 | Translation 只擁 **content correctness** 決策鏈；禁止合成「字幕 PASS」 |
 
 `dialogue-semantic-context.yaml` 已列 `subtitle_or_translation_context` 為 use case；Phase 2 明文化欄位映射。
