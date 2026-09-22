@@ -2,7 +2,7 @@
 
 ## 引用規則
 
-- 引用寫 `evidence/<file>.md` 或 markdown 連結；**禁止**行號（`L123`）。
+- 引用寫 `evidence/<file>.md` 或 markdown 連結；**禁止**行號引用。
 - 每個 `evidence/*.md`（除本 README）必須列於下方 Run 索引。
 - 去敏：不寫 live path、API key、未公開 episode 全文；只保留契約相關 segment 對照。
 
