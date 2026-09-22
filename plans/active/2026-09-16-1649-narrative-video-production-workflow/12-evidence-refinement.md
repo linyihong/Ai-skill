@@ -47,3 +47,5 @@ outer loop         observe → resolve → produce → verify → correct → le
   [`28-layout-review-loop.md`](28-layout-review-loop.md)）
 - 為 generated 口播猜 cue 秒數，或把 speech／layout 合成一次重做（見
   [`29-speech-timing-authority.md`](29-speech-timing-authority.md)）
+- 把 `max_lines` 當填滿行數的目標，或一行放得下仍拆行（見
+  [`30-max-lines-is-bound.md`](30-max-lines-is-bound.md)）

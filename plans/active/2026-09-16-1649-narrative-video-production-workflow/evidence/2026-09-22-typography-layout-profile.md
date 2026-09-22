@@ -14,7 +14,7 @@
 
 ## Overflow 順序（policy）
 
-rebreak → reduce_font_size（逐步到 min）→ split_cue → reject。禁止一次壓到不可讀。
+預設精神：1 行 fit → 否則 2 行（仍在 max_lines 內）→ 再降 font → 仍無可行則重切 Speech Unit。實際順序由 `selection.policy` 決定。禁止「max=2 所以先做成 2 行」。見 [`30-max-lines-is-bound.md`](../30-max-lines-is-bound.md)。
 
 ## 同一 profile
 

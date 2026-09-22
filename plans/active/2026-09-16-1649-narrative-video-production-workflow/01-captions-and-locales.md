@@ -46,4 +46,4 @@ Companion to [`_plan.md`](_plan.md)。只記錄從參考包**抽象出的契約*
 
 已落地：[`workflow/narrative-video-production/captions-and-locales.md`](../../workflow/narrative-video-production/captions-and-locales.md)、[`records/caption-locale-pack.yaml`](../../workflow/narrative-video-production/records/caption-locale-pack.yaml)。
 
-Phase 3：locale 的 `text_origin: ocr` ≠ 源片 **visual text evidence**。後者見 [`09-visual-text-evidence.md`](09-visual-text-evidence.md)。`layout_gate` 的 solver 候選：[`26-subtitle-layout-engine.md`](26-subtitle-layout-engine.md)。字級／行高同屬 layout profile：[`27-typography-layout-profile.md`](27-typography-layout-profile.md)。自製口播 cue 時軸：[`29-speech-timing-authority.md`](29-speech-timing-authority.md)。
+Phase 3：locale 的 `text_origin: ocr` ≠ 源片 **visual text evidence**。後者見 [`09-visual-text-evidence.md`](09-visual-text-evidence.md)。`layout_gate` 的 solver 候選：[`26-subtitle-layout-engine.md`](26-subtitle-layout-engine.md)。字級／行高同屬 layout profile：[`27-typography-layout-profile.md`](27-typography-layout-profile.md)。自製口播 cue 時軸：[`29-speech-timing-authority.md`](29-speech-timing-authority.md)。`max_lines` 上限：[`30-max-lines-is-bound.md`](30-max-lines-is-bound.md)。

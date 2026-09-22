@@ -30,6 +30,16 @@ cue_optional_fields:
   translation_decision_ref: { type: text, note: per-cue TDR id when translated }
   speech_unit_ref: { type: id, note: generated speech; timing from speech artifact }
   timing_source: { type: enum, values: [speech_artifact, asr] }
+  layout:
+    type: object
+    note: selected layout evidence; lines != max_lines
+    fields:
+      lines: { type: integer }
+      max_lines: { type: integer }
+      font_size: { type: number }
+      width_ratio: { type: number }
+      selection_policy: { type: text }
+      status: { type: enum, examples: [pass, fail] }
 
 invariants:
   - content_gate != timing_gate != layout_gate
@@ -38,6 +48,8 @@ invariants:
   - no_single_caption_pass_field
   - content_gate_may_consume_translation_tdr_but_never_implies_timing_or_layout_pass
   - generated_speech_cues_require_speech_artifact_timing
+  - max_lines_is_upper_bound_not_target
+  - layout_must_record_selected_lines_separately_from_max_lines
 
 inbound:
   - workflow/translation/adapters/subtitle.yaml

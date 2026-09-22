@@ -76,6 +76,7 @@ stages:
       - 每個 publish_locales 項有獨立 content_gate.decision、timing_gate.decision、layout_gate.decision
       - 三閘不得合併為單一 caption_pass
       - generated 口播 cue 的 start/end 須有 speech_unit timing_source=speech_artifact（猜秒數不合格）
+      - cue.layout 若有：lines ≤ max_lines；不得只因 max_lines>1 而拆已能放下的一行
     rollback_owner: locale_author
 
   - id: publish_qc

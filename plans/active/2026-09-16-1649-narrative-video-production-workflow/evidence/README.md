@@ -20,6 +20,7 @@
 | 2026-09-22-typography-layout-profile | [2026-09-22-typography-layout-profile.md](2026-09-22-typography-layout-profile.md) | observation | font 是 range＋canvas scale＋overflow.order；禁止字數估寬 |
 | 2026-09-22-layout-review-loop | [2026-09-22-layout-review-loop.md](2026-09-22-layout-review-loop.md) | observation | AI 只出 adjustment；engine 執行；budget；跨集才升 profile |
 | 2026-09-22-speech-timing-authority | [2026-09-22-speech-timing-authority.md](2026-09-22-speech-timing-authority.md) | contract | 自製口播 cue 時軸 = speech artifact；TTS adapter；兩 loop 分開 |
+| 2026-09-22-max-lines-is-bound | [2026-09-22-max-lines-is-bound.md](2026-09-22-max-lines-is-bound.md) | contract | max_lines 上限不是 target；minimize_lines；記 selected lines |
 | 2026-09-21-ocr-visual-style | [2026-09-21-ocr-visual-style.md](2026-09-21-ocr-visual-style.md) | observation | visual_style 機械量測；非 subtitle_color；非新 detector |
 | 2026-09-17-editorial-vs-narrative-transition | [2026-09-17-editorial-vs-narrative-transition.md](2026-09-17-editorial-vs-narrative-transition.md) | observation | 畫面切了 ≠ 劇情轉場；shot ≠ scene |
 | 2026-09-17-face-as-candidate-evidence | [2026-09-17-face-as-candidate-evidence.md](2026-09-17-face-as-candidate-evidence.md) | observation | Face Track 可被 evidence link 引用；非身份判定器；不接辨識 |
