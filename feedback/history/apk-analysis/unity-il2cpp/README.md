@@ -4,6 +4,7 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
+| [2026-09-24_085100-slot-ui-harvest-lab-fixture-apply-shim-not-live-payout-forge.md](2026-09-24_085100-slot-ui-harvest-lab-fixture-apply-shim-not-live-payout-forge.md) | validated | Slot UI harvest lab＝fixture＋解密後 apply-shim；勿偽造正式派彩；Parse 常空 Symbols；set_Count 等 ABI 須對齊 |
 | [2026-09-21_111500-slot-celebration-window-hunt-continue-cta-not-midreel-gold.md](2026-09-21_111500-slot-celebration-window-hunt-continue-cta-not-midreel-gold.md) | validated | 獵慶祝窗用 Continue CTA；轉輪中金色多半是 Wild 金幣誤報 |
 | [2026-09-21_111200-slot-audio-fourth-stack-and-win-tier-sfx-names.md](2026-09-21_111200-slot-audio-fourth-stack-and-win-tier-sfx-names.md) | validated | 進桌第四棧 AudioClip／sound_store；BIG／HUGE／SUPER 常與同名 SFX 對齊 |
 | [2026-09-21_091600-slot-three-visual-planes-and-in-cabinet-anim-stack.md](2026-09-21_091600-slot-three-visual-planes-and-in-cabinet-anim-stack.md) | validated | 同一 cabinet 三視覺平面；進桌動畫是 ID→Spine/Animator/Particle/Audio，不是 5×3 靜態拼圖 |
