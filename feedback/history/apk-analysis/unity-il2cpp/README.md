@@ -4,6 +4,7 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
+| [2026-09-24_141900-slot-device-ui-harvest-via-owned-cryptor-lab-gateway.md](2026-09-24_141900-slot-device-ui-harvest-via-owned-cryptor-lab-gateway.md) | validated | 裝置 UI harvest：自有 AES lab gateway + fixture loop；Frida 只導 game TCP；禁正式 MITM |
 | [2026-09-24_135500-slot-continue-cta-scorer-needs-matte-green-and-left-band.md](2026-09-24_135500-slot-continue-cta-scorer-needs-matte-green-and-left-band.md) | validated | Continue scorer 用 matte green＋左帶；gold-alone 誤報 Wild；screencap 需 retry |
 | [2026-09-24_132000-slot-classic-chip-fx-is-not-classic-payout-window.md](2026-09-24_132000-slot-classic-chip-fx-is-not-classic-payout-window.md) | validated | Classic ChipsWin FX ≠ classic payout window；FX 常 Create-on-demand 需 hook Create |
 | [2026-09-24_114500-slot-base-line-wins-may-bypass-payout-window-show.md](2026-09-24_114500-slot-base-line-wins-may-bypass-payout-window-show.md) | validated | 小額線獎可全程不進 PayoutWindow.Show；0 enter 先用 lab Show 驗 hook |
