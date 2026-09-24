@@ -4,6 +4,7 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
+| [2026-09-24_132000-slot-classic-chip-fx-is-not-classic-payout-window.md](2026-09-24_132000-slot-classic-chip-fx-is-not-classic-payout-window.md) | validated | Classic ChipsWin FX ≠ classic payout window；FX 常 Create-on-demand 需 hook Create |
 | [2026-09-24_114500-slot-base-line-wins-may-bypass-payout-window-show.md](2026-09-24_114500-slot-base-line-wins-may-bypass-payout-window-show.md) | validated | 小額線獎可全程不進 PayoutWindow.Show；0 enter 先用 lab Show 驗 hook |
 | [2026-09-24_113000-slot-payout-create-needs-path-rect-sound-and-settings-init.md](2026-09-24_113000-slot-payout-create-needs-path-rect-sound-and-settings-init.md) | validated | Create 需 `_Path`+donor Rect/SoundStore；Settings 要 `runtime_object_init`；RuntimeAnimatorController 資產≠場景 AnimatorController 元件 |
 | [2026-09-24_110000-slot-shared-payout-show-needs-setup-not-blind-sibling-invoke.md](2026-09-24_110000-slot-shared-payout-show-needs-setup-not-blind-sibling-invoke.md) | validated | 共用 Payout Show 盲呼叫會開錯 sibling；需 Create/Setup；FindObjectsOfTypeAll poll 危險；Frida Python RPC 全小寫 |
