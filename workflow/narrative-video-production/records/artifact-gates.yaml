@@ -77,6 +77,7 @@ stages:
       - 三閘不得合併為單一 caption_pass
       - generated 口播 cue 的 start/end 須有 speech_unit timing_source=speech_artifact（猜秒數不合格）
       - cue.layout 若有：lines ≤ max_lines；不得只因 max_lines>1 而拆已能放下的一行
+      - cue.layout.font_size 若有：必須 ∈ [min, max] 且符合 step／allowed；到 min 仍 overflow 不得再縮
     rollback_owner: locale_author
 
   - id: publish_qc

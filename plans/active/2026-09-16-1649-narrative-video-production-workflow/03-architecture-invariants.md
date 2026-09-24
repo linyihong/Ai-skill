@@ -61,7 +61,7 @@ Phase 3 有真實 EDR 前**不**把 catalog 拆成三套。禁止執行時發明
 
 13. **Similarity-based merging MUST NOT discard a candidate when the differing span may carry semantic information. Only exact duplicates may be destructively merged at the evidence layer.** Timestamp 是 alignment signal，不是 identity key。見 [`25-text-group-preserve-variants.md`](25-text-group-preserve-variants.md)。未凍結。
 
-14. **Subtitle content ≠ subtitle layout.** `layout_gate` 是 feasible-layout selection。`max_lines` 是上限不是 target；`minimize_lines`。`font_size` 是 range＋canvas scale＋fit。LLM 可提 break／adjustment candidates，不得最終斷行。見 [`26-subtitle-layout-engine.md`](26-subtitle-layout-engine.md)、[`30-max-lines-is-bound.md`](30-max-lines-is-bound.md)、workflow [`subtitle-layout.md`](../../../workflow/narrative-video-production/subtitle-layout.md)。未凍結。
+14. **Subtitle content ≠ subtitle layout.** `layout_gate` 是 feasible-layout selection。`max_lines` 是上限不是 target；`minimize_lines`。`font_size` 必須機械落在 `[min, max]`／`step`；到 min 仍 overflow → 重切 Speech Unit。LLM 不得最終斷行或把字縮過下限。見 [`26-subtitle-layout-engine.md`](26-subtitle-layout-engine.md)、[`30-max-lines-is-bound.md`](30-max-lines-is-bound.md)、[`31-font-size-hard-bounds.md`](31-font-size-hard-bounds.md)、workflow [`subtitle-layout.md`](../../../workflow/narrative-video-production/subtitle-layout.md)。未凍結。
 
 15. **Caption cue timing for generated speech MUST be evidence-backed by a speech artifact (or ASR for source video).** TTS is an adapter. Speech timing QC ≠ layout QC. 見 [`29-speech-timing-authority.md`](29-speech-timing-authority.md)。未凍結十條；workflow 契約已落點。
 

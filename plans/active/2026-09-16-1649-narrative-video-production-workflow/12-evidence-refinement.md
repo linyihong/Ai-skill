@@ -43,6 +43,8 @@ outer loop         observe → resolve → produce → verify → correct → le
   [`26-subtitle-layout-engine.md`](26-subtitle-layout-engine.md)）
 - 全片固定 `font_size` px、或 `字數 × 字級` 估寬（見
   [`27-typography-layout-profile.md`](27-typography-layout-profile.md)）
+- 為了 fit 把字縮到 min 以下，或短句放到 max 以上（見
+  [`31-font-size-hard-bounds.md`](31-font-size-hard-bounds.md)）
 - 讓 AI 的「舒服」直接寫進 profile，或無 iteration budget 調字級（見
   [`28-layout-review-loop.md`](28-layout-review-loop.md)）
 - 為 generated 口播猜 cue 秒數，或把 speech／layout 合成一次重做（見

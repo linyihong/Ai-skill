@@ -34,5 +34,5 @@ Subtitle 接線：[`workflow/translation/adapters/subtitle.yaml`](../translation
 
 ## Layout：max_lines 是上限不是目標
 
-`layout_gate` 用 glyph 可行集＋`selection.policy`（預設精神：`minimize_lines`）。一行放得下禁止因 `max_lines>1` 而拆行。無可行 layout → 重切 Speech Unit。契約：[`subtitle-layout.md`](subtitle-layout.md)。cue 應記 `layout.lines` 與 `layout.max_lines` 分開。
+`layout_gate` 用 glyph 可行集＋`selection.policy`（預設精神：`minimize_lines`）。一行放得下禁止因 `max_lines>1` 而拆行。字級 **min／max／step 硬閘**；到 min 仍放不下 → 重切 Speech Unit，禁止再縮。契約：[`subtitle-layout.md`](subtitle-layout.md)。cue 應記 `layout.lines` 與 `layout.max_lines` 分開。
 
