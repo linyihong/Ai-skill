@@ -57,6 +57,7 @@ Status: validated
 
 #### Related
 
+- `2026-09-24_135500-slot-continue-cta-scorer-needs-matte-green-and-left-band.md`
 - `2026-09-21_111200-slot-audio-fourth-stack-and-win-tier-sfx-names.md`
 - `2026-09-21_091600-slot-three-visual-planes-and-in-cabinet-anim-stack.md`
 
