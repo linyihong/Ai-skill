@@ -4,6 +4,8 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
+| [2026-09-24_110000-slot-shared-payout-show-needs-setup-not-blind-sibling-invoke.md](2026-09-24_110000-slot-shared-payout-show-needs-setup-not-blind-sibling-invoke.md) | validated | 共用 Payout Show 盲呼叫會開錯 sibling；需 Create/Setup；FindObjectsOfTypeAll poll 危險；Frida Python RPC 全小寫 |
+| [2026-09-24_105900-slot-freespin-series-may-use-spin-and-series-finish-not-bonus.md](2026-09-24_105900-slot-freespin-series-may-use-spin-and-series-finish-not-bonus.md) | validated | 自然 FS 系列可走 ProcessFreeSpin+SPIN 與 SERIES_FINISH；BONUS／BonusRound 可存在但未觀測 |
 | [2026-09-24_085100-slot-ui-harvest-lab-fixture-apply-shim-not-live-payout-forge.md](2026-09-24_085100-slot-ui-harvest-lab-fixture-apply-shim-not-live-payout-forge.md) | validated | Slot UI harvest lab＝fixture＋解密後 apply-shim；勿偽造正式派彩；Parse 常空 Symbols；set_Count 等 ABI 須對齊 |
 | [2026-09-21_111500-slot-celebration-window-hunt-continue-cta-not-midreel-gold.md](2026-09-21_111500-slot-celebration-window-hunt-continue-cta-not-midreel-gold.md) | validated | 獵慶祝窗用 Continue CTA；轉輪中金色多半是 Wild 金幣誤報 |
 | [2026-09-21_111200-slot-audio-fourth-stack-and-win-tier-sfx-names.md](2026-09-21_111200-slot-audio-fourth-stack-and-win-tier-sfx-names.md) | validated | 進桌第四棧 AudioClip／sound_store；BIG／HUGE／SUPER 常與同名 SFX 對齊 |

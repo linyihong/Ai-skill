@@ -9,8 +9,16 @@
 | [`http-api/`](http-api/) | 34 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 11 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
-| [`unity-il2cpp/`](unity-il2cpp/) | 46 | Unity IL2CPP、AssetBundle、UnityCache |
+| [`unity-il2cpp/`](unity-il2cpp/) | 48 | Unity IL2CPP、AssetBundle、UnityCache |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
+
+## Recent (2026-09-24)
+
+| Slug | Category |
+|------|----------|
+| `unity-il2cpp/2026-09-24_110000-slot-shared-payout-show-needs-setup-not-blind-sibling-invoke` | 共用 Payout Show 盲呼叫會開錯 sibling；需 Create/Setup；Frida poll／RPC 全小寫 |
+| `unity-il2cpp/2026-09-24_105900-slot-freespin-series-may-use-spin-and-series-finish-not-bonus` | FS 系列可走 ProcessFreeSpin+SPIN／SERIES_FINISH；BONUS 可未觀測 |
+| `unity-il2cpp/2026-09-24_085100-slot-ui-harvest-lab-fixture-apply-shim-not-live-payout-forge` | UI harvest＝fixture＋apply-shim；勿偽造正式派彩；ABI 對齊 |
 
 ## Recent (2026-09-21)
 
