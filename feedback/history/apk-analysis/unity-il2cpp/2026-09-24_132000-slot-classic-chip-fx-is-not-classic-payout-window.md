@@ -35,6 +35,7 @@ Slot 小額／中額「經典」呈現可能是：
 2. **Create-on-demand**：idle 0 → hook `Create`（靜態回傳實例）再 `Show`。
 3. **Hunt 分列**：chip classic 與 window classic 分開計數與證據。
 4. **Lab 驗 hook**：對 resident 模組（如 line payout）強制 Show；對 ClassicFX 用 Create 或等自然 Create。
+5. **HUD Last Win ≠ 已進 ClassicFX**：餘額／上次贏得可更新，而 Create/Show/SetPayout 計數仍為 0 — 改視覺截圖或找 Animator／Spine 路徑，勿空轉同一 Interceptor。
 
 #### Agent Action
 
