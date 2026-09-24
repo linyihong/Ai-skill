@@ -6,7 +6,7 @@ Status: validated
 
 #### One-line Summary
 
-許多 slot 小額線獎只走**轉輪上籌碼浮標／線模組**，全程不呼叫 `UISlots*PayoutWindow.Show`／`Setup`。對 PayoutWindow 家族設 Interceptor 獵「classic modal」時，數十轉 **0 enter** 是合理結果，不代表 hook 壞掉。先用一次 lab Show 驗證 hook 有訊息，再把 0 enter 解讀成「本樣本未進窗家族」；下一步改 hook ViewModel／chip presenter，或等中額自然窗。
+許多 slot 小額線獎只走**轉輪上籌碼浮標／線模組**，全程不呼叫 `UISlots*PayoutWindow.Show`／`Setup`，也不呼叫對應 `*PayoutWindowViewModel.Show`／`Setup`。對窗家族設 Interceptor 獵「classic modal」時，數十～百轉 **0 enter** 是合理結果，不代表 hook 壞掉。先用一次 lab `UISlotsPayoutWindow.Show` 驗證 hook 有 `WIN_SHOW`／`FROZEN`；ViewModel 可能不是 `UnityEngine.Object`（`FindObjectsOfTypeAll` 會 AV），但仍可對 MethodInfo 掛 call-site hook。下一步改 chip presenter／提高下注等中額自然窗。
 
 #### Human Explanation
 
@@ -34,8 +34,9 @@ Idle dump 可見 classic payout GO／clip，lab 也可 Create 出實例，但自
 
 1. **Chip badge ≠ payout window**：兩條呈現路徑；勿假設線獎必 Show modal。
 2. **0 enter 先驗證 hook**：lab 強制呼叫一次；有事件才把自然 0 當成路徑證據。
-3. **下一層 hook**：對應 ViewModel.Show／line-chip presenter，或等明確中額／celebration 門檻。
-4. **IL2CPP Interceptor**：attach `MethodInfo.readPointer()`，不要 attach MethodInfo 本身。
+3. **下一層 hook**：line-chip／badge presenter，或提高下注等明確中額 celebration；ViewModel.Show 也可能同樣 0 enter。
+4. **IL2CPP Interceptor**：attach `MethodInfo.readPointer()`；lab 強制 Show 用來驗 hook，不要只用自然 0 判斷失效。
+5. **ViewModel 未必是 Unity Object**：`FindObjectsOfTypeAll(ViewModel)` 可能 AV；call-site hook 仍有效。
 
 #### Agent Action
 
