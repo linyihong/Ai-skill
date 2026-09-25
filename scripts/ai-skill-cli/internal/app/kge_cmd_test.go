@@ -104,3 +104,28 @@ func TestCountKGEAdvisories(t *testing.T) {
 		t.Fatal("commit-msg must not expand advisory body")
 	}
 }
+
+func TestAppendAllFeedbackLessonPaths(t *testing.T) {
+	root := t.TempDir()
+	lessonDir := filepath.Join(root, "feedback", "history", "demo", "common")
+	if err := os.MkdirAll(lessonDir, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	lesson := filepath.Join(lessonDir, "2026-09-25-example.md")
+	if err := os.WriteFile(lesson, []byte("# lesson\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	staged, added := appendAllFeedbackLessonPaths(root, []string{"notes.md"}, nil)
+	gotStaged := strings.Join(staged, "\n")
+	gotAdded := strings.Join(added, "\n")
+	if !strings.Contains(gotStaged, "feedback/history/demo/common/2026-09-25-example.md") {
+		t.Fatalf("lesson missing from staged paths: %q", gotStaged)
+	}
+	if !strings.Contains(gotStaged, "feedback/history/demo/common/README.md") {
+		t.Fatalf("category index missing from staged paths: %q", gotStaged)
+	}
+	if !strings.Contains(gotAdded, "feedback/history/demo/common/2026-09-25-example.md") {
+		t.Fatalf("lesson missing from added paths: %q", gotAdded)
+	}
+}

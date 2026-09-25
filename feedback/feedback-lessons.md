@@ -189,4 +189,14 @@ Status: candidate | validated | deprecated | promoted | experimental
 - **Git**：**`feedback/history/`** 版本控制；不要提交含機密的原始 log。
 - **歷史**：✅ `skills/<name>/feedback_history/` 下的既有 lesson 已於 2026-05-13 全部搬遷至 `feedback/history/<domain>/`，舊目錄已刪除。新 lesson 寫入目前位置 `feedback/history/`（derived from `route.feedback.history`）。
 
+## 全量 closure audit
+
+平常 commit-time lock 只驗證新增或修改的 lesson。要盤點既有缺口，執行：
+
+```bash
+scripts/ai-skill-cli/bin/ai-skill-darwin-arm64 kge validate --all-feedback --root <AI_SKILL_REPO>
+```
+
+此模式以相同的 closure rule 掃描所有 `feedback/history/` lesson，並把每一條視為需具備 category index 的待修復項；輸出即為可逐條補正的 backlog，不會自動改寫 lesson 或提升 Status。
+
 ← [回到 enforcement 共用規則索引](../enforcement/README.md)

@@ -726,7 +726,7 @@ func runKGEEnforcementRegistryTransition(text string, staged []string, root stri
 // countKGEAdvisories runs advisory-only rules (D9 commit-msg count path).
 // Does not run validation or discovery rules.
 func countKGEAdvisories(root string, staged []string) int {
-	ctx, err := buildKGEWorkspaceContext(root)
+	ctx, err := buildKGEWorkspaceContext(root, false)
 	if err != nil {
 		return 0
 	}
@@ -780,7 +780,7 @@ func attachKGEAdvisoryCount(result Result, root string, staged []string) Result 
 // attachKGECheck runs the full default pack with D9 check presentation.
 // Blocks only on validation (error) findings.
 func attachKGECheck(result Result, root string) Result {
-	ctx, err := buildKGEWorkspaceContext(root)
+	ctx, err := buildKGEWorkspaceContext(root, false)
 	if err != nil {
 		result.Checks = append(result.Checks, Check{
 			Name:    "kge_check",

@@ -14,13 +14,14 @@ import (
 // Presentation follows plan D9 Adapter Presentation Policy.
 func runKge(args []string, stdout io.Writer, stderr io.Writer) int {
 	if len(args) == 0 {
-		_, _ = fmt.Fprintln(stderr, "usage: ai-skill kge <check|validate|diagnose> [--root PATH] [--advisory]")
+		_, _ = fmt.Fprintln(stderr, "usage: ai-skill kge <check|validate|diagnose> [--root PATH] [--advisory] [--all-feedback]")
 		return ExitInvalidUsage
 	}
 	cmd := args[0]
 	rest := args[1:]
 	root := ""
 	advisory := false
+	allFeedback := false
 	for i := 0; i < len(rest); i++ {
 		switch rest[i] {
 		case "--root":
@@ -32,11 +33,14 @@ func runKge(args []string, stdout io.Writer, stderr io.Writer) int {
 			i++
 		case "--advisory":
 			advisory = true
+		case "--all-feedback":
+			allFeedback = true
 		case "-h", "--help":
-			_, _ = fmt.Fprintln(stdout, "usage: ai-skill kge <check|validate|diagnose> [--root PATH] [--advisory]")
+			_, _ = fmt.Fprintln(stdout, "usage: ai-skill kge <check|validate|diagnose> [--root PATH] [--advisory] [--all-feedback]")
 			_, _ = fmt.Fprintln(stdout, "  check     validation + advisory summary (push watershed; advisory does not fail)")
 			_, _ = fmt.Fprintln(stdout, "  validate  validation only; add --advisory for full advisory list")
 			_, _ = fmt.Fprintln(stdout, "  diagnose  IDE/MCP JSON diagnostics (full findings, all severities)")
+			_, _ = fmt.Fprintln(stdout, "  --all-feedback  audit every feedback/history lesson with closure requirements")
 			return ExitSuccess
 		default:
 			_, _ = fmt.Fprintf(stderr, "unknown flag or arg: %s\n", rest[i])
@@ -51,7 +55,7 @@ func runKge(args []string, stdout io.Writer, stderr io.Writer) int {
 			return ExitValidationFailed
 		}
 	}
-	ctx, err := buildKGEWorkspaceContext(root)
+	ctx, err := buildKGEWorkspaceContext(root, allFeedback)
 	if err != nil {
 		_, _ = fmt.Fprintf(stderr, "kge context: %v\n", err)
 		return ExitValidationFailed
@@ -100,7 +104,7 @@ func runKge(args []string, stdout io.Writer, stderr io.Writer) int {
 	}
 }
 
-func buildKGEWorkspaceContext(root string) (kge.Context, error) {
+func buildKGEWorkspaceContext(root string, allFeedback bool) (kge.Context, error) {
 	staged, err := gitLines(root, "diff", "--cached", "--name-only", "--diff-filter=ACMR")
 	if err != nil || len(staged) == 0 {
 		// Fallback: unstaged changed files for local check convenience
@@ -117,6 +121,9 @@ func buildKGEWorkspaceContext(root string) (kge.Context, error) {
 	}
 	for i := range staged {
 		staged[i] = filepath.ToSlash(staged[i])
+	}
+	if allFeedback {
+		staged, added = appendAllFeedbackLessonPaths(root, staged, added)
 	}
 	contents := map[string]string{}
 	for _, p := range staged {
@@ -184,4 +191,46 @@ func buildKGEWorkspaceContext(root string) (kge.Context, error) {
 		ExistingPaths: existing,
 		Provided:      provided,
 	}, nil
+}
+
+// appendAllFeedbackLessonPaths turns KGE validation into a repair audit for
+// the whole feedback history. Treating every lesson as added also verifies its
+// category index, while normal commit-time validation remains incremental.
+func appendAllFeedbackLessonPaths(root string, staged, added []string) ([]string, []string) {
+	seen := map[string]bool{}
+	for _, p := range staged {
+		seen[filepath.ToSlash(p)] = true
+	}
+	addedSet := map[string]bool{}
+	for _, p := range added {
+		addedSet[filepath.ToSlash(p)] = true
+	}
+	_ = filepath.Walk(filepath.Join(root, "feedback", "history"), func(path string, info os.FileInfo, err error) error {
+		if err != nil || info == nil || info.IsDir() || !strings.HasSuffix(info.Name(), ".md") || info.Name() == "README.md" {
+			return nil
+		}
+		rel, err := filepath.Rel(root, path)
+		if err != nil {
+			return nil
+		}
+		rel = filepath.ToSlash(rel)
+		if !kge.IsFeedbackLessonPath(rel) {
+			return nil
+		}
+		if !seen[rel] {
+			staged = append(staged, rel)
+			seen[rel] = true
+		}
+		if !addedSet[rel] {
+			added = append(added, rel)
+			addedSet[rel] = true
+		}
+		index := filepath.ToSlash(filepath.Join(filepath.Dir(rel), "README.md"))
+		if !seen[index] {
+			staged = append(staged, index)
+			seen[index] = true
+		}
+		return nil
+	})
+	return staged, added
 }
