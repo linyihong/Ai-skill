@@ -61,3 +61,4 @@ Canonical lifecycle。各 stage 填哪個 record、能否推進：見
 - 把 `max_lines` 當「做成 N 行」的 target，或一行放得下仍拆行。
 - 為了 fit 把 font 縮到 min 以下，或把短句放到 max 以上。
 - 為 fit 用字元索引截斷詞／專名，或讓同一 cue 上下行使用不同 typography。
+- 用字數均分換行，或 layout 自創未評分的斷點。

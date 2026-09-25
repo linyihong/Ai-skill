@@ -53,3 +53,5 @@ outer loop         observe → resolve → produce → verify → correct → le
   [`30-max-lines-is-bound.md`](30-max-lines-is-bound.md)）
 - 為 fit 在詞／專名中間截斷，或同一 cue 上下行使用不同字級（見
   [`32-semantic-safe-wrap-uniform-typography.md`](32-semantic-safe-wrap-uniform-typography.md)）
+- 用字數均分換行，或 layout 自創未評分斷點（見
+  [`33-caption-composition-semantic-breaks.md`](33-caption-composition-semantic-breaks.md)）

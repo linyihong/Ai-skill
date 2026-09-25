@@ -30,11 +30,15 @@ Subtitle 接線：[`workflow/translation/adapters/subtitle.yaml`](../translation
 
 ## Speech timing authority（generated 口播）
 
-自製破題／旁白／口播：先切 **Speech Unit**（語意＋screen-fit），再 adapter 生成語音，用 **實際 duration** 當 cue 時軸。禁止整段先 TTS 再切字幕；禁止猜秒數。TTS 過慢是 `speech_timing_gate`，不是 `layout_gate`。源片對白仍用 ASR timing。契約：[`speech-unit-and-timing.md`](speech-unit-and-timing.md)。
+自製破題／旁白／口播：先切 **Speech Unit**（語意邊界），再 adapter 生成語音，用 **實際 duration** 當 cue 時軸。禁止整段先 TTS 再切字幕；禁止猜秒數。TTS 過慢是 `speech_timing_gate`，不是 `layout_gate`。layout 放不下才回切 unit。源片對白仍用 ASR timing。契約：[`speech-unit-and-timing.md`](speech-unit-and-timing.md)。
 
-## Layout：max_lines 是上限不是目標
+## Layout：Caption Composition（語意先於 fit）
 
-`layout_gate` 用 glyph 可行集＋`selection.policy`（預設精神：`minimize_lines`）。一行放得下禁止因 `max_lines>1` 而拆行。字級 **min／max／step 硬閘**；到 min 仍放不下 → 重切 Speech Unit，禁止再縮。契約：[`subtitle-layout.md`](subtitle-layout.md)。cue 應記 `layout.lines` 與 `layout.max_lines` 分開。
+`layout_gate` 用 glyph 可行集＋`selection.policy`（`minimize_lines`，再看 break score）。
+一行放得下禁止因 `max_lines>1` 而拆行。兩行 **禁止** 以字數均分為目標。換行只能從
+scored `semantic_break_candidates` 選。字級 **min／max／step 硬閘**；到 min 仍放不下 →
+重切 Speech Unit。契約：[`subtitle-layout.md`](subtitle-layout.md)。cue 應記
+`layout.lines` 與 `layout.max_lines` 分開。
 
 換行是 lossless display transform：去掉換行後必須等於 cue 原文，且不得切進
 `protected_spans`。同一 cue 的所有行共用一套 typography；禁止上行大、下行小。

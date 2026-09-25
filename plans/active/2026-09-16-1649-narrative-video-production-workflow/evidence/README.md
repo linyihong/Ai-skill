@@ -23,6 +23,7 @@
 | 2026-09-22-max-lines-is-bound | [2026-09-22-max-lines-is-bound.md](2026-09-22-max-lines-is-bound.md) | contract | max_lines 上限不是 target；minimize_lines；記 selected lines |
 | 2026-09-24-font-size-hard-bounds | [2026-09-24-font-size-hard-bounds.md](2026-09-24-font-size-hard-bounds.md) | contract | font min／max／step 硬閘；禁止縮過下限塞進畫面 |
 | 2026-09-25-semantic-safe-wrap-uniform-typography | [2026-09-25-semantic-safe-wrap-uniform-typography.md](2026-09-25-semantic-safe-wrap-uniform-typography.md) | contract | wrap 不截詞／不丟字；同 cue 上下行 typography 統一 |
+| 2026-09-25-caption-composition-semantic-breaks | [2026-09-25-caption-composition-semantic-breaks.md](2026-09-25-caption-composition-semantic-breaks.md) | contract | 語意先於 fit；只從 scored 斷點換行；禁止字數均分 |
 | 2026-09-21-ocr-visual-style | [2026-09-21-ocr-visual-style.md](2026-09-21-ocr-visual-style.md) | observation | visual_style 機械量測；非 subtitle_color；非新 detector |
 | 2026-09-17-editorial-vs-narrative-transition | [2026-09-17-editorial-vs-narrative-transition.md](2026-09-17-editorial-vs-narrative-transition.md) | observation | 畫面切了 ≠ 劇情轉場；shot ≠ scene |
 | 2026-09-17-face-as-candidate-evidence | [2026-09-17-face-as-candidate-evidence.md](2026-09-17-face-as-candidate-evidence.md) | observation | Face Track 可被 evidence link 引用；非身份判定器；不接辨識 |

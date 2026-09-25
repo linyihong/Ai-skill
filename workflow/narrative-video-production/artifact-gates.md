@@ -12,7 +12,7 @@ Eligibility **只讀 record 欄位**。對照表：[`records/artifact-gates.yaml
 | matching | 每 shot 可行集非空（或明確 blocked）；`selection.policy`；selected ∈ 可行集 | 不得 assemble |
 | EDR SoT | 結構化 EDR 存在 | 不得宣稱任何發布成熟度 |
 | assemble | 成片軸 ↔ `shot_id`／`selected_clip_id` | 不得 cut-ready |
-| locale 三閘 | 每個發布語三閘各自 decision；generated 口播 cue 時軸來自 speech artifact；max_lines 不得當填滿目標；font 在 bounds；wrap lossless；cue typography 統一 | 不得 publish-ready |
+| locale 三閘 | 每個發布語三閘各自 decision；generated 口播 cue 時軸來自 speech artifact；max_lines 不得當填滿目標；font 在 bounds；wrap lossless；只從 scored 語意斷點換行；cue typography 統一 | 不得 publish-ready |
 | completion | blocking 空 + `fresh_reviewer` 已填且獨立 | 不得 publish-ready |
 
 作者自驗可推進到 cut-ready。**completion authority must be independent from the producer when claiming publish-ready.**

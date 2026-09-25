@@ -80,6 +80,7 @@ stages:
       - cue.layout.font_size 若有：必須 ∈ [min, max] 且符合 step／allowed；到 min 仍 overflow 不得再縮
       - cue.layout.text_integrity_gate.decision == pass（換行後不得缺字、重複、重排或切進 protected span）
       - cue.layout.typography_scope == cue_uniform（同一 cue 上下各行不得不同字級／行高／描邊）
+      - cue.layout 兩行時：line_break_offsets 必須 ∈ semantic_break_candidates；不得以 equal length 為 selection 目標
     rollback_owner: locale_author
 
   - id: publish_qc

@@ -23,7 +23,7 @@ Acquisition（生成／實拍／剪輯／未來工具）可換；不得反向定
 | 決策 SoT | [`edit-decision-record.md`](edit-decision-record.md) | 開 EDR、mutation、人讀投影 |
 | 字幕語系 | [`captions-and-locales.md`](captions-and-locales.md) | locale pack／三閘 |
 | 口播時軸 | [`speech-unit-and-timing.md`](speech-unit-and-timing.md) | 自製口播 Speech Unit；cue 時軸 SoT |
-| 字幕 layout | [`subtitle-layout.md`](subtitle-layout.md) | max_lines 上限；minimize_lines；font min／max 硬閘 |
+| 字幕 layout | [`subtitle-layout.md`](subtitle-layout.md) | Caption Composition：語意先於 fit；scored 斷點；font 硬閘 |
 | 成片對帳 | [`assemble-and-qc.md`](assemble-and-qc.md) | 時間線 vs EDR；fresh verifier |
 | 發布證據 | [`publish-outcome.md`](publish-outcome.md) | 窗口後填 evidence status |
 | Eligibility | [`artifact-gates.md`](artifact-gates.md) | 每一 stage 推進與 completion |

@@ -16,19 +16,20 @@ Generated 旁白／破題／自製口播的 **時間軸契約**。TTS／SSML／�
 ## 順序（不是整段先 TTS 再切字幕）
 
 ```text
-Script → Speech Unit Planning（語意邊界＋screen-fit＋max_lines／width＋語系）
+Script → Speech Unit Planning（語意邊界）
+  → Semantic Segmentation（要不要拆成兩個 cue）
   → Speech Generation（adapter）→ Actual duration
   → Speech Timing QC（CPS／語速／pause；過慢是 speech 問題）
   → Caption cue timing（primary = speech timing）
-  → Caption layout（**minimize_lines**；max_lines 是上限；見 [`subtitle-layout.md`](subtitle-layout.md)）
+  → Caption composition（integrity → wrap candidates → 1/2 行 → 字級；見 [`subtitle-layout.md`](subtitle-layout.md)）
 ```
 
 Speech timing ≠ caption layout。太長要分責：文案切 unit／TTS 語速／layout 擁擠。兩個 loop 不得合成「字幕不好看請重做」。
 
-`wrap` 不得反向截斷 Speech Unit。Layout 無合法 break 時，只能回傳
-`no_semantic_break`；Speech loop 再依語意邊界重切完整 unit。重切前後的 source
-span 必須完整、連續、不重疊；不得產生「談」／「話」這類跨詞切割。Generated
-speech 若重切 unit，須重新生成 speech artifact 與 timing evidence。
+`wrap` 不得反向截斷 Speech Unit。Layout 只能從 scored `semantic_break_candidates`
+選換行；無合法 break 時回傳 `no_semantic_break`。Speech loop 再依語意邊界重切完整
+unit。重切前後的 source span 必須完整、連續、不重疊；不得產生「談」／「話」這類跨詞
+切割。Generated speech 若重切 unit，須重新生成 speech artifact 與 timing evidence。
 
 ## 兩個 loop
 

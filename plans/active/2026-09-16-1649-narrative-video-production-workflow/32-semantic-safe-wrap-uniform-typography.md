@@ -11,3 +11,5 @@ layout 為 fit 截字，造成「談｜話」。Wrap 必須 lossless；break 不
 
 另一個硬閘：同一 cue 只有一套 typography；上下行不得各自 auto-fit。任何一行
 overflow，整個 cue 用同一候選字級重算，否則 resegment／reject。
+
+評分斷點與禁止 equal-length：[`33-caption-composition-semantic-breaks.md`](33-caption-composition-semantic-breaks.md)。
