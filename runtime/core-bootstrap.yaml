@@ -326,6 +326,16 @@ per_commit_obligations:
     severity: block
     opt_out_marker: "[skip-plan-status-sync]"
     contract_source: runtime/plan-status-sync-enforcement.yaml
+  - id: obligation.commit.feedback_lesson_closure
+    fires: every_commit_staging_feedback_history_lesson
+    validator: validateFeedbackLessonClosure
+    severity: block
+    opt_out_marker: "[skip-feedback-lesson-closure]"
+    contract_source: feedback/feedback-lessons.md + enforcement/feedback-lessons.yaml
+    rationale: >
+      New lessons must be indexed and carry the required closure fields.
+      Existing lessons are rechecked when edited so legacy records can be
+      repaired incrementally rather than being silently grandfathered forever.
   - id: obligation.commit.token_budget
     fires: every_commit_with_cognitive_block_and_estimate
     validator: validateTokenBudget

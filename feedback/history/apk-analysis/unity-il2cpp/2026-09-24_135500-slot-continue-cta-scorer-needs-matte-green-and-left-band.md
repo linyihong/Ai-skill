@@ -2,7 +2,7 @@
 
 ### 2026-09-24 - Continue CTA scorers need matte green + left band; gold-alone false+ on reels
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -62,6 +62,22 @@ ADB `screencap -p` 偶發 truncated PNG：讀圖前要 `load()`／重試，否�
 - `2026-09-24_114500-slot-base-line-wins-may-bypass-payout-window-show.md`
 - `2026-09-24_132000-slot-classic-chip-fx-is-not-classic-payout-window.md`
 
+#### Validation
+
+- 用獨立 idle、Continue、TOTAL WIN／Flash 幀比較 scorer；確認 idle 顯著較低、CTA tag 正確、且 amount 圖像不入庫。
+
 #### Promotion Target
 
 - apk-analysis slot capture SOP：慶祝窗 Continue CTA 色帶校準與互斥標籤。
+
+#### Reuse Evidence
+
+- 尚未有獨立 cabinet／專案的重用證據；色彩與版面閾值特別需要第二個來源才能升格。
+
+#### Promotion Record
+
+- 尚未 promotion；僅保留為 feedback history candidate。
+
+#### Required Linked Updates
+
+- 已更新 `unity-il2cpp/README.md` category index；尚未更新 capture SOP，避免把單一 CTA 配色寫成通用預設。

@@ -1084,6 +1084,30 @@ rule_classes:
       regression_exists: ✓
       runtime_observed: pending
 
+  - id: feedback_lesson_closure
+    coverage: mechanical
+    source_files:
+      - feedback/feedback-lessons.md
+      - enforcement/feedback-lessons.yaml
+      - runtime/core-bootstrap.yaml#per_commit_obligations[obligation.commit.feedback_lesson_closure]
+    executors:
+      - file: scripts/ai-skill-cli/internal/app/hooks.go
+        symbol: validateFeedbackLessonClosure
+        executor_kind: commit_msg_validator
+        block_or_warn: block
+    rationale: |
+      Feedback lessons must retain an auditable lifecycle state, evidence,
+      linked-update disposition, and category index. New entries are blocked
+      when incomplete; existing entries are rechecked on edit so legacy
+      lessons can be repaired incrementally. Promotion judgment remains in
+      the feedback pipeline; this validator only enforces the observable
+      closure metadata needed to revisit that judgment.
+    verification_status:
+      symbol_exists: ✓
+      scenario_exists: pending
+      regression_exists: ✓
+      runtime_observed: pending
+
   - id: github_workflow_history
     coverage: mechanical
     source_files:

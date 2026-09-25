@@ -2,7 +2,7 @@
 
 ### 2026-09-24 - Slot UI harvest lab: post-decrypt fixture apply-shim, never forge live payouts
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -64,6 +64,22 @@ Boundary：**presence-only**；標 `replay-lab`；正式服派彩權威不變。
 - `2026-09-14_170500-frida-chain-harness-nonblocking-stdout.md`
 - `2026-09-08_165800-slot-spin-fixtures-pair-json-manifest-and-reel-crop.md`
 
+#### Validation
+
+- 在自有 lab 以 fixture replay 驗證 patch 命中、目標窗可見，且 dismiss 後真實旋轉仍可完成；不得以正式派彩或帳務結果作為驗證。
+
 #### Promotion Target
 
 - apk-analysis slot capture SOP：fixture replay lab／apply-shim 邊界與 ABI 檢查。
+
+#### Reuse Evidence
+
+- 尚未有獨立 cabinet／專案的重用證據；保留為 candidate，等待以相同 safety boundary 完成第二次驗證。
+
+#### Promotion Record
+
+- 尚未 promotion；僅保留為 feedback history candidate。
+
+#### Required Linked Updates
+
+- 已更新 `unity-il2cpp/README.md` category index；尚未更新 capture SOP，因尚缺獨立重用證據。

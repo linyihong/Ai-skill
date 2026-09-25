@@ -2,7 +2,7 @@
 
 ### 2026-09-24 - Base line wins may bypass payout window Show entirely
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -58,6 +58,22 @@ Idle dump 可見 classic payout GO／clip，lab 也可 Create 出實例，但自
 - `2026-09-24_110000-slot-shared-payout-show-needs-setup-not-blind-sibling-invoke.md`
 - `2026-09-24_113000-slot-payout-create-needs-path-rect-sound-and-settings-init.md`
 
+#### Validation
+
+- 先以 lab Show 取得 hook 事件，再記錄自然樣本的 enter 計數；只有兩者皆有才可把零自然命中解讀為路徑證據。
+
 #### Promotion Target
 
 - apk-analysis slot UI hunt：chip path vs window path；Show enter 計數。
+
+#### Reuse Evidence
+
+- 尚未有獨立 cabinet／專案的重用證據；保留為 candidate。
+
+#### Promotion Record
+
+- 尚未 promotion；僅保留為 feedback history candidate。
+
+#### Required Linked Updates
+
+- 已更新 `unity-il2cpp/README.md` category index；尚未更新 UI hunt SOP，待第二個呈現家族驗證後再評估。

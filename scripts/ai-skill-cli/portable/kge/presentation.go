@@ -38,6 +38,7 @@ func DefaultRules() []Rule {
 		PlanTreeFolderConventionRule{},
 		EnforcementRegistryTransitionRule{},
 		PlanArchivalLinkIntegrityRule{},
+		FeedbackLessonClosureRule{},
 	}
 }
 

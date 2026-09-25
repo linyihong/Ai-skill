@@ -5,7 +5,7 @@ owner_layer: enforcement
 source_markdown: enforcement/feedback-lessons.md
 status: active
 contract_type: policy_gate
-blocking_level: advisory
+blocking_level: commit_time
 
 runtime_projection:
   enabled: true
@@ -41,6 +41,8 @@ gates:
     rule: "已讀 feedback/feedback-lessons.md 作為唯一正文。"
   - id: gate.feedback_lessons.no_new_legacy_body
     rule: "沒有在 enforcement redirect 裡新增規則正文。"
+  - id: gate.feedback_lessons.closure_complete
+    rule: "新增或修改 feedback/history lesson 時，必須有 required sections、linked-update disposition；validated/promoted 必須有 reuse evidence；promoted 必須有 promotion record。"
 
 required_evidence:
   - activation trigger matched or task context explains why this contract is required
@@ -58,6 +60,9 @@ failure_modes:
   - id: redirect_ignored
     detection: "仍把 enforcement/feedback-lessons.md 當唯一正文。"
     recovery: "改讀 feedback/feedback-lessons.md。"
+  - id: incomplete_lesson_closure
+    detection: "commit stages a feedback/history lesson without required sections, category index, linked-update disposition, or evidence appropriate to its lifecycle status."
+    recovery: "Use Status: candidate while evidence is incomplete; add the missing sections and category README index. Existing lessons are rechecked whenever edited, so repair can be incremental."
 
 final_status_report:
   - contract_loaded

@@ -108,6 +108,13 @@ func buildKGEWorkspaceContext(root string) (kge.Context, error) {
 			staged = unstaged
 		}
 	}
+	added, _ := gitLines(root, "diff", "--cached", "--diff-filter=A", "--name-only")
+	if len(added) == 0 {
+		added, _ = gitLines(root, "diff", "--name-only", "--diff-filter=A")
+	}
+	for i := range added {
+		added[i] = filepath.ToSlash(added[i])
+	}
 	for i := range staged {
 		staged[i] = filepath.ToSlash(staged[i])
 	}
@@ -162,6 +169,7 @@ func buildKGEWorkspaceContext(root string) (kge.Context, error) {
 		kge.CapCommitMsg:   true,
 		kge.CapStagedDiff:  true,
 		kge.CapRepoFS:      true,
+		kge.CapAddedPaths:  true,
 	}
 	if len(contents) > 0 {
 		provided[kge.CapStagedContent] = true
@@ -170,6 +178,7 @@ func buildKGEWorkspaceContext(root string) (kge.Context, error) {
 		RepoRoot:      root,
 		CommitMsg:     "",
 		StagedPaths:   staged,
+		AddedPaths:    added,
 		StagedDiff:    diff,
 		FileContents:  contents,
 		ExistingPaths: existing,

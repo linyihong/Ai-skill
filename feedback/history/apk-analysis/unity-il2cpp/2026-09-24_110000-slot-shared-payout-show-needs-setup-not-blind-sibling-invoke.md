@@ -2,7 +2,7 @@
 
 ### 2026-09-24 - Shared payout Show without settings can open the wrong sibling window
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -63,6 +63,22 @@ Lab 強制開窗前列出目標 GO／controller 實例名；只對匹配項 Setu
 - `2026-09-21_111500-slot-celebration-window-hunt-continue-cta-not-midreel-gold.md`
 - `2026-09-14_170500-frida-chain-harness-nonblocking-stdout.md`
 
+#### Validation
+
+- 螢幕截圖與實例名稱必須同時指向目標 window；若顯示 sibling 或無內容，記為 lab miss 而非成功。
+
 #### Promotion Target
 
 - apk-analysis slot UI lab：強制開窗須 Setup／實例鎖定；Frida poll／RPC naming。
+
+#### Reuse Evidence
+
+- 尚未有獨立 cabinet／專案的重用證據；保留為 candidate。
+
+#### Promotion Record
+
+- 尚未 promotion；僅保留為 feedback history candidate。
+
+#### Required Linked Updates
+
+- 已更新 `unity-il2cpp/README.md` category index；尚未更新 UI lab SOP，待重用驗證後再處理。

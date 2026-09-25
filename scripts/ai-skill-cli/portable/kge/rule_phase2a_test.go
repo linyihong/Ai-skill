@@ -41,12 +41,93 @@ func TestMarkdownYamlSyncRule(t *testing.T) {
 	}
 }
 
+func TestFeedbackLessonClosureRule(t *testing.T) {
+	path := "feedback/history/demo/common/2026-09-25_010101-example.md"
+	valid := `### Example
+
+Status: candidate
+
+#### One-line Summary
+
+summary
+
+#### Evidence
+
+- sanitized
+
+#### Generalized Lesson
+
+general rule
+
+#### Agent Action
+
+act
+
+#### Goal / Action / Validation
+
+- Goal: test
+
+#### Applies / Does Not Apply
+
+- Applies: demo
+
+#### Validation
+
+review
+
+#### Promotion Target
+
+- workflow/demo
+
+#### Required Linked Updates
+
+- Updated category index.
+`
+	ctx := Context{
+		CommitMsg:    "feedback: add lesson",
+		StagedPaths:  []string{path, "feedback/history/demo/common/README.md"},
+		AddedPaths:   []string{path},
+		FileContents: map[string]string{path: valid},
+		Provided:     map[CapabilityID]bool{CapCommitMsg: true, CapStagedPaths: true, CapStagedContent: true, CapAddedPaths: true},
+	}
+	eng := NewEngine(FeedbackLessonClosureRule{})
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want complete candidate lesson to pass, got %#v", got)
+	}
+
+	ctx.StagedPaths = []string{path}
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "feedback_lesson_closure" {
+		t.Fatalf("want new lesson index violation, got %#v", got)
+	}
+
+	ctx.StagedPaths = []string{path, "feedback/history/demo/common/README.md"}
+	ctx.FileContents[path] = strings.Replace(valid, "#### Required Linked Updates\n\n- Updated category index.", "", 1)
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "feedback_lesson_closure" {
+		t.Fatalf("want missing section violation, got %#v", got)
+	}
+
+	ctx.FileContents[path] = strings.Replace(valid, "Status: candidate", "Status: validated", 1)
+	if got := eng.Run(ctx); len(got) != 1 || !strings.Contains(got[0].Message, "Reuse Evidence") {
+		t.Fatalf("want validated reuse-evidence violation, got %#v", got)
+	}
+	ctx.FileContents[path] += "\n#### Reuse Evidence\n\n- Reused in an independent fixture with the same validation result.\n"
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want validated lesson with reuse evidence to pass, got %#v", got)
+	}
+
+	ctx.CommitMsg = "feedback: repair\n\n[skip-feedback-lesson-closure]\n"
+	ctx.FileContents[path] = "Status: nonsense\n"
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want explicit opt-out to pass, got %#v", got)
+	}
+}
+
 func TestBootstrapEntryThinnessRule(t *testing.T) {
 	eng := NewEngine(BootstrapEntryThinnessRule{})
 	thin := "# entry\n\nRead CORE_BOOTSTRAP.md. That's the canonical source.\n"
 	ctx := Context{
-		CommitMsg:   "feat: x",
-		StagedPaths: []string{"CLAUDE.md"},
+		CommitMsg:    "feat: x",
+		StagedPaths:  []string{"CLAUDE.md"},
 		FileContents: map[string]string{"CLAUDE.md": thin},
 		Provided: map[CapabilityID]bool{
 			CapCommitMsg: true, CapStagedPaths: true, CapStagedContent: true,
@@ -216,8 +297,8 @@ func TestActivationSignalsRule(t *testing.T) {
 	eng := NewEngine(ActivationSignalsRule{})
 	known := map[string]bool{"file_diff_runtime_schema": true, "user_keyword_deep": true}
 	ctx := Context{
-		CommitMsg: "feat: x\n\nactivation_reason:\n  - file_diff_runtime_schema\n",
-		Modes:     map[string]string{},
+		CommitMsg:    "feat: x\n\nactivation_reason:\n  - file_diff_runtime_schema\n",
+		Modes:        map[string]string{},
 		KnownSignals: known,
 		Provided: map[CapabilityID]bool{
 			CapCommitMsg: true, CapModes: true, CapKnownSignals: true,
@@ -686,7 +767,7 @@ func TestEnforcementRegistryTransitionRule(t *testing.T) {
 		RuleClasses: []RegistryClassMeta{{ID: "rule.demo", Coverage: "mechanical"}},
 	}
 	newSnap := &RegistrySnapshotMeta{
-		RuleClasses: []RegistryClassMeta{{ID: "rule.demo", Coverage: "behavioral_only"}},
+		RuleClasses:          []RegistryClassMeta{{ID: "rule.demo", Coverage: "behavioral_only"}},
 		BindingRequiredKinds: []string{"go_function"},
 	}
 	ctx := Context{
@@ -772,7 +853,7 @@ func TestPlanArchivalLinkIntegrityRule(t *testing.T) {
 		CommitMsg:   "chore: archive demo",
 		PathRenames: []PathRenameMeta{{OldPath: oldPath, NewPath: newPath}},
 		FileContents: map[string]string{
-			newPath:          "See [x](../sibling.md).\n",
+			newPath:           "See [x](../sibling.md).\n",
 			"plans/README.md": "Ref [demo](active/2026-01-01-1200-demo/_plan.md).\n",
 		},
 		ExistingPaths: map[string]bool{

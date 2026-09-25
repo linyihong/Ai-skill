@@ -117,6 +117,10 @@
 
 Status: candidate | validated | deprecated | promoted | experimental
 
+#### Reuse Evidence
+
+`validated` 或 `promoted` 時必填：記錄至少一次可重複使用的獨立情境、驗證結果與參考來源。只有單一專案／單一環境觀察時，維持 `candidate`；若沒有可公開的重用證據，明確寫「尚未有獨立重用證據，維持 candidate」。
+
 #### One-line Summary
 
 用一句人話說明這條 lesson。
@@ -168,10 +172,15 @@ Status: candidate | validated | deprecated | promoted | experimental
 - `intelligence/<domain>/`
 - `enforcement/`（若 lesson 適合提升為全庫規則）
 
+#### Promotion Record
+
+僅 `promoted` 時必填：目標檔案、promotion 日期、驗證結果與 commit／PR 參考。未 promotion 時寫「尚未 promotion；保留為 candidate/validated history」。
+
 #### Required Linked Updates
 
 - 依 [`linked-updates.md`](../enforcement/linked-updates.md) 列出必須同步更新或已檢查的相關文件；若無需連動更新，寫明原因。
 - 若 lesson 來自 project incident，列出已依 [`reusable-guidance-boundary.md`](../enforcement/reusable-guidance-boundary.md) 檢查：skill 只保留 generalized lesson，具體證據留 project docs。
+- 具體寫出已更新的 category／domain index、promotion target，或「not applicable」及理由；不可留空。
 ```
 
 ## 同步與索引

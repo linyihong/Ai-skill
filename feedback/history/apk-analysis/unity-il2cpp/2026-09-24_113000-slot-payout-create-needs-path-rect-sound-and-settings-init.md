@@ -2,7 +2,7 @@
 
 ### 2026-09-24 - Payout window Create needs Path+Rect+SoundStore; Settings needs object init
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -59,6 +59,22 @@ Create 前 dump overload；用 donor Rect/Sound；Settings init；只對匹配�
 - `2026-09-24_110000-slot-shared-payout-show-needs-setup-not-blind-sibling-invoke.md`
 - `2026-09-24_085100-slot-ui-harvest-lab-fixture-apply-shim-not-live-payout-forge.md`
 
+#### Validation
+
+- 確認 Create 回傳存活實例、Settings 初始化後 Setup 無 exception，並以截圖區分可見目標 chrome 與 no-chrome lab miss。
+
 #### Promotion Target
 
 - apk-analysis slot UI lab：Create ABI／Settings init／controller 資產 vs 元件。
+
+#### Reuse Evidence
+
+- 尚未有獨立 cabinet／專案的重用證據；保留為 candidate，避免把單一 factory ABI 當作通用介面。
+
+#### Promotion Record
+
+- 尚未 promotion；僅保留為 feedback history candidate。
+
+#### Required Linked Updates
+
+- 已更新 `unity-il2cpp/README.md` category index；尚未更新 UI lab SOP，待相同類型 factory 的重用驗證後再評估。

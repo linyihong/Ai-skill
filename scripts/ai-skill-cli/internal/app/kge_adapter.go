@@ -327,6 +327,36 @@ func runKGEPlanStatusSync(text string, staged []string) string {
 	return kgeFindingsMessage(eng.Run(ctx))
 }
 
+// runKGEFeedbackLessonClosure loads touched feedback lesson bodies and the
+// newly-added path set. Existing lessons are deliberately rechecked when
+// edited so legacy records can be repaired incrementally.
+func runKGEFeedbackLessonClosure(text string, staged []string, root string) string {
+	contents := map[string]string{}
+	paths := make([]string, 0, len(staged))
+	hasLesson := false
+	for _, s := range staged {
+		p := filepath.ToSlash(s)
+		paths = append(paths, p)
+		if !kge.IsFeedbackLessonPath(p) {
+			continue
+		}
+		hasLesson = true
+		body, err := os.ReadFile(filepath.Join(root, filepath.FromSlash(p)))
+		if err == nil {
+			contents[p] = string(body)
+		}
+	}
+	if !hasLesson {
+		return ""
+	}
+	added, err := gitLines(root, "diff", "--cached", "--diff-filter=A", "--name-only")
+	if err != nil {
+		return ""
+	}
+	ctx := kge.Context{CommitMsg: text, StagedPaths: paths, AddedPaths: added, FileContents: contents, Provided: map[kge.CapabilityID]bool{kge.CapCommitMsg: true, kge.CapStagedPaths: true, kge.CapStagedContent: true, kge.CapAddedPaths: true}}
+	return kgeFindingsMessage(kge.NewEngine(kge.FeedbackLessonClosureRule{}).Run(ctx))
+}
+
 // runKGEPlanCheckboxSync loads per-plan staged diffs into PathDiffs.
 func runKGEPlanCheckboxSync(text string, staged []string, root string) string {
 	pathDiffs := map[string]string{}
@@ -557,16 +587,16 @@ func runKGEPlanEvidenceConvention(text string, staged []string, root string) str
 
 func planFrontmatterToMeta(pf PlanFrontmatter) kge.PlanMeta {
 	m := kge.PlanMeta{
-		Path:           filepath.ToSlash(pf.Path),
-		HasFrontmatter: pf.HasFrontmatter,
-		ID:             pf.ID,
-		PlanKind:       pf.PlanKind,
-		Status:         pf.Status,
-		Parent:         pf.Parent,
-		HasParentField: pf.HasParentField,
+		Path:                  filepath.ToSlash(pf.Path),
+		HasFrontmatter:        pf.HasFrontmatter,
+		ID:                    pf.ID,
+		PlanKind:              pf.PlanKind,
+		Status:                pf.Status,
+		Parent:                pf.Parent,
+		HasParentField:        pf.HasParentField,
 		RequiredForCompletion: pf.RequiredForCompletion,
-		HasReasonField: pf.HasReasonField,
-		SubPlanReason:  pf.SubPlanReason,
+		HasReasonField:        pf.HasReasonField,
+		SubPlanReason:         pf.SubPlanReason,
 	}
 	if d := pf.Delegation; d != nil && d.Enabled {
 		m.DelegationEnabled = true

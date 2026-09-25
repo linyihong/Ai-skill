@@ -2,7 +2,7 @@
 
 ### 2026-09-24 - Slot free-spin series may use SPIN + SERIES_FINISH, not BONUS RoundType
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -58,6 +58,22 @@ Agent 常假設「進 feature = RoundType.BONUS 或 BonusRound sink」。實際�
 - `2026-09-24_085100-slot-ui-harvest-lab-fixture-apply-shim-not-live-payout-forge.md`
 - `2026-09-07_172200-slot-s2c-may-apply-via-processspin-gameaction-not-parseresult.md`
 
+#### Validation
+
+- 以自然 feature session 記錄 handler 與 RoundType，確認 `ProcessFreeSpin`／`SERIES_FINISH` 閉環；未命中的 BONUS path 必須標為 unobserved。
+
 #### Promotion Target
 
 - apk-analysis slot capture SOP：RoundType／handler presence table；勿強制 BONUS。
+
+#### Reuse Evidence
+
+- 尚未有獨立 cabinet／專案的重用證據；保留為 candidate，避免把單一 runtime path 視為全域協定規則。
+
+#### Promotion Record
+
+- 尚未 promotion；僅保留為 feedback history candidate。
+
+#### Required Linked Updates
+
+- 已更新 `unity-il2cpp/README.md` category index；尚未改寫 capture SOP，待第二個觀測來源驗證後再評估。

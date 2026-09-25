@@ -2776,6 +2776,13 @@ func validatePlanStatusSync(text string, staged []string) string {
 	return runKGEPlanStatusSync(text, staged)
 }
 
+// validateFeedbackLessonClosure blocks incomplete new feedback lessons and
+// rechecks existing lessons whenever they are edited, creating a repair path
+// for legacy records. Opt-out: [skip-feedback-lesson-closure].
+func validateFeedbackLessonClosure(text string, staged []string, root string) string {
+	return runKGEFeedbackLessonClosure(text, staged, root)
+}
+
 // validateTokenBudget implements runtime/cognitive-modes-token-budget.yaml:
 // when a commit body declares a Token Estimate trailer AND the declared
 // cognitive mode combination has a known budget, the estimate must not
@@ -3136,6 +3143,9 @@ var commitMsgValidatorRegistry = map[string]func(commitMsgCtx) string{
 	"obligation.commit.plan_status_sync": func(c commitMsgCtx) string {
 		return validatePlanStatusSync(c.text, c.staged)
 	},
+	"obligation.commit.feedback_lesson_closure": func(c commitMsgCtx) string {
+		return validateFeedbackLessonClosure(c.text, c.staged, c.root)
+	},
 	"obligation.commit.token_budget": func(c commitMsgCtx) string {
 		return validateTokenBudget(c.modes, c.text)
 	},
@@ -3213,6 +3223,7 @@ var defaultCommitMsgDispatchOrder = []string{
 	"obligation.commit.activation_signals",
 	"obligation.commit.capability_snippet",
 	"obligation.commit.plan_status_sync",
+	"obligation.commit.feedback_lesson_closure",
 	"obligation.commit.token_budget",
 	"obligation.commit.adaptive_triggers",
 	"obligation.commit.bootstrap_entry_thinness",

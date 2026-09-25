@@ -2,7 +2,7 @@
 
 ### 2026-09-24 - Classic chip FX class is not the classic payout window
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -57,6 +57,22 @@ Slot 小額／中額「經典」呈現可能是：
 - `2026-09-24_114500-slot-base-line-wins-may-bypass-payout-window-show.md`
 - `2026-09-24_113000-slot-payout-create-needs-path-rect-sound-and-settings-init.md`
 
+#### Validation
+
+- Inventory 必須分列 chip FX 與 payout window 的 class／實例生命週期，並以 Create 或 Show 事件驗證對應路徑。
+
 #### Promotion Target
 
 - apk-analysis slot UI：classic FX vs classic window 分路。
+
+#### Reuse Evidence
+
+- 尚未有獨立 cabinet／專案的重用證據；保留為 candidate。
+
+#### Promotion Record
+
+- 尚未 promotion；僅保留為 feedback history candidate。
+
+#### Required Linked Updates
+
+- 已更新 `unity-il2cpp/README.md` category index；尚未更新 slot UI SOP，待獨立重用驗證後再評估。

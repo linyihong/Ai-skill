@@ -2,7 +2,7 @@
 
 ### 2026-09-24 - Device UI harvest via owned cryptor lab gateway + fixture loop
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -61,6 +61,22 @@ Plaintext push-only stub（empty secret）只適合 offline client 驗線；裝�
 - `2026-09-21_111500-slot-celebration-window-hunt-continue-cta-not-midreel-gold.md`
 - `2026-09-24_135500-slot-continue-cta-scorer-needs-matte-green-and-left-band.md`
 
+#### Validation
+
+- 驗證 client 與 lab gateway 的受控 round-trip desk-match，裝置至少一轉顯示 fixture 盤面；正式 session 與 secret 不得參與驗證資料。
+
 #### Promotion Target
 
 - apk-analysis slot capture SOP：lab gateway／fixture loop／device redirect 邊界。
+
+#### Reuse Evidence
+
+- 尚未有獨立 cabinet／專案的重用證據；保留為 candidate，待不同受控 lab 證實同一安全閉環後再 promotion。
+
+#### Promotion Record
+
+- 尚未 promotion；僅保留為 feedback history candidate。
+
+#### Required Linked Updates
+
+- 已更新 `unity-il2cpp/README.md` category index；尚未更新 capture SOP，因 gateway 的協定與環境邊界仍需重用驗證。
