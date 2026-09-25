@@ -60,3 +60,4 @@ Canonical lifecycle。各 stage 填哪個 record、能否推進：見
 - 把 speech timing QC 與 layout QC 合成一次「字幕重做」。
 - 把 `max_lines` 當「做成 N 行」的 target，或一行放得下仍拆行。
 - 為了 fit 把 font 縮到 min 以下，或把短句放到 max 以上。
+- 為 fit 用字元索引截斷詞／專名，或讓同一 cue 上下行使用不同 typography。

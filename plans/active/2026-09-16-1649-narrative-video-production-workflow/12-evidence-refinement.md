@@ -51,3 +51,5 @@ outer loop         observe → resolve → produce → verify → correct → le
   [`29-speech-timing-authority.md`](29-speech-timing-authority.md)）
 - 把 `max_lines` 當填滿行數的目標，或一行放得下仍拆行（見
   [`30-max-lines-is-bound.md`](30-max-lines-is-bound.md)）
+- 為 fit 在詞／專名中間截斷，或同一 cue 上下行使用不同字級（見
+  [`32-semantic-safe-wrap-uniform-typography.md`](32-semantic-safe-wrap-uniform-typography.md)）

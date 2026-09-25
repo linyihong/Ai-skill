@@ -36,3 +36,6 @@ Subtitle 接線：[`workflow/translation/adapters/subtitle.yaml`](../translation
 
 `layout_gate` 用 glyph 可行集＋`selection.policy`（預設精神：`minimize_lines`）。一行放得下禁止因 `max_lines>1` 而拆行。字級 **min／max／step 硬閘**；到 min 仍放不下 → 重切 Speech Unit，禁止再縮。契約：[`subtitle-layout.md`](subtitle-layout.md)。cue 應記 `layout.lines` 與 `layout.max_lines` 分開。
 
+換行是 lossless display transform：去掉換行後必須等於 cue 原文，且不得切進
+`protected_spans`。同一 cue 的所有行共用一套 typography；禁止上行大、下行小。
+

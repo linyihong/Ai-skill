@@ -39,6 +39,11 @@ cue_optional_fields:
       font_size: { type: number }
       font_size_min: { type: number }
       font_size_max: { type: number }
+      typography_scope: { type: enum, values: [cue_uniform] }
+      rendered_lines: { type: list, item: text }
+      line_break_offsets: { type: list, item: integer }
+      protected_spans: { type: list, note: lexical/name/number-unit/idiom/manual no-break spans }
+      text_integrity_gate: { type: gate, note: concat(rendered_lines) equals cue text; no loss/dup/reorder }
       width_ratio: { type: number }
       selection_policy: { type: text }
       status: { type: enum, examples: [pass, fail] }
@@ -53,6 +58,9 @@ invariants:
   - max_lines_is_upper_bound_not_target
   - layout_must_record_selected_lines_separately_from_max_lines
   - actual_font_size_must_stay_in_min_max_step
+  - line_wrap_must_be_lossless_and_preserve_protected_spans
+  - every_line_in_one_cue_uses_one_uniform_typography
+  - layout_engine_must_not_segment_or_truncate_cue_text
 
 inbound:
   - workflow/translation/adapters/subtitle.yaml

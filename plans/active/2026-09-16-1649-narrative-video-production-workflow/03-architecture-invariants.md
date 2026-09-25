@@ -53,7 +53,7 @@ Phase 3 有真實 EDR 前**不**把 catalog 拆成三套。禁止執行時發明
 
 ## Candidate invariant（Phase 3；未凍結、未進 workflow gate）
 
-不改上方十條凍結文。升格前只當觀察契約，見 [`15-story-evidence-vs-dialogue.md`](15-story-evidence-vs-dialogue.md)、[`24-ocr-role-projection.md`](24-ocr-role-projection.md)、[`25-text-group-preserve-variants.md`](25-text-group-preserve-variants.md)、[`26-subtitle-layout-engine.md`](26-subtitle-layout-engine.md)、[`27-typography-layout-profile.md`](27-typography-layout-profile.md)、[`28-layout-review-loop.md`](28-layout-review-loop.md)、[`29-speech-timing-authority.md`](29-speech-timing-authority.md)。
+不改上方十條凍結文。升格前只當觀察契約，見 [`15-story-evidence-vs-dialogue.md`](15-story-evidence-vs-dialogue.md)、[`24-ocr-role-projection.md`](24-ocr-role-projection.md)、[`25-text-group-preserve-variants.md`](25-text-group-preserve-variants.md)、[`26-subtitle-layout-engine.md`](26-subtitle-layout-engine.md)、[`27-typography-layout-profile.md`](27-typography-layout-profile.md)、[`28-layout-review-loop.md`](28-layout-review-loop.md)、[`29-speech-timing-authority.md`](29-speech-timing-authority.md)、[`32-semantic-safe-wrap-uniform-typography.md`](32-semantic-safe-wrap-uniform-typography.md)。
 
 11. **Story events require evidence traceability and resolved promotion.** 劇情不是對話摘要。進入 Script／EDR 的 story event／state change 必須回指 observable evidence（經 evidence_unit／event_candidate，見 [`16-evidence-unit.md`](16-evidence-unit.md)）。首份真實 run 證明 `traceable: true` 不足：blocking upstream、event semantics 必須 resolved；若宣稱 state change，subject／change／before-after 不得空；最後需 independent verifier。完整候選閘見 [`17-story-promotion-gate.md`](17-story-promotion-gate.md)。禁止「整段 ASR → LLM 摘要 → 這就是劇情」。
 
@@ -61,7 +61,7 @@ Phase 3 有真實 EDR 前**不**把 catalog 拆成三套。禁止執行時發明
 
 13. **Similarity-based merging MUST NOT discard a candidate when the differing span may carry semantic information. Only exact duplicates may be destructively merged at the evidence layer.** Timestamp 是 alignment signal，不是 identity key。見 [`25-text-group-preserve-variants.md`](25-text-group-preserve-variants.md)。未凍結。
 
-14. **Subtitle content ≠ subtitle layout.** `layout_gate` 是 feasible-layout selection。`max_lines` 是上限不是 target；`minimize_lines`。`font_size` 必須機械落在 `[min, max]`／`step`；到 min 仍 overflow → 重切 Speech Unit。LLM 不得最終斷行或把字縮過下限。見 [`26-subtitle-layout-engine.md`](26-subtitle-layout-engine.md)、[`30-max-lines-is-bound.md`](30-max-lines-is-bound.md)、[`31-font-size-hard-bounds.md`](31-font-size-hard-bounds.md)、workflow [`subtitle-layout.md`](../../../workflow/narrative-video-production/subtitle-layout.md)。未凍結。
+14. **Subtitle content ≠ subtitle layout.** `layout_gate` 是 feasible-layout selection。`max_lines` 是上限不是 target；`font_size` 在 bounds。Wrap 必須 lossless 且不得切 protected span；segmentation 只能回上游。每 cue typography 統一，禁止逐行 auto-fit。見 [`26-subtitle-layout-engine.md`](26-subtitle-layout-engine.md)、[`30-max-lines-is-bound.md`](30-max-lines-is-bound.md)、[`31-font-size-hard-bounds.md`](31-font-size-hard-bounds.md)、[`32-semantic-safe-wrap-uniform-typography.md`](32-semantic-safe-wrap-uniform-typography.md)、workflow [`subtitle-layout.md`](../../../workflow/narrative-video-production/subtitle-layout.md)。未凍結。
 
 15. **Caption cue timing for generated speech MUST be evidence-backed by a speech artifact (or ASR for source video).** TTS is an adapter. Speech timing QC ≠ layout QC. 見 [`29-speech-timing-authority.md`](29-speech-timing-authority.md)。未凍結十條；workflow 契約已落點。
 

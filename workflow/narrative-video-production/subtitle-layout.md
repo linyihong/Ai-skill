@@ -40,6 +40,34 @@ Need（這句要可讀、可放）
 
 LLM 可出 `semantic_break_candidates`；**不得**當最終斷行／行數／字級裁決。
 
+## Wrap ≠ segmentation；換行必須 lossless
+
+- **Line wrap** 只插入顯示換行，不得刪字、補字、換字或重排。移除換行後的
+  rendered text 必須等於 canonical cue text。
+- **Cue／Speech Unit segmentation** 會建立新的時間單位，只能在上游的有效語意
+  邊界發生；layout engine 不得為了 fit 自行截字。
+- Break offset 不得落在 `protected_spans` 內。至少保護：詞彙／專名、數字＋單位、
+  成語／固定短語與人工鎖定 span。例如「談話」不可變成 cue A「談」＋cue B「話」。
+- 若沒有合法 break，回傳 `no_semantic_break`，再走字級 bounds 或 Speech Unit
+  resegment；禁止用字元索引硬切。
+
+Mechanical integrity：
+
+```text
+remove_only_inserted_linebreaks(rendered_lines) == cue.text
+all(line_break_offsets ∉ protected_spans)
+source_span_coverage == complete_and_non_overlapping
+```
+
+任何缺字／重複／順序改變都是 `layout_gate: fail`。
+
+## 同一 cue 的 typography 必須一致
+
+一個 cue 只選一次 `font_family`、`font_size`、`line_height`、stroke／outline。
+兩行字幕不得各自 auto-fit，禁止上行大、下行小。若任一行 overflow，整個 cue
+共用同一候選字級重新求解；仍無可行解就 resegment／reject。跨 cue／scene 的穩定性
+另由 profile 與 temporal review 管理。
+
 ## 七條＋字級硬閘
 
 1. `max_lines` is an upper bound, never a target.  
@@ -50,5 +78,7 @@ LLM 可出 `semantic_break_candidates`；**不得**當最終斷行／行數／�
 6. If one line fails width, evaluate two-line candidates **before** reducing font, per selection policy.  
 7. Font size MUST stay in `[min, max]` on `step`／`allowed` values. Hitting min without fit → **Speech Unit resegment**, never shrink further. Short cues MUST NOT exceed max.  
 8. If no feasible layout exists inside those bounds, **return to Speech Unit segmentation** — do not emit an overcrowded or unreadably small cue.
+9. Wrapping MUST preserve every source character and MUST NOT break a protected span.
+10. Every rendered line in one cue MUST use the same selected typography.
 
 無法 fit 時 rollback：`speech_author`（重切 unit）或 `locale_author`（policy／profile）。
