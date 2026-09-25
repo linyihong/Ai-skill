@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - Same-thread dt window after Decrypt, not global LIVE
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

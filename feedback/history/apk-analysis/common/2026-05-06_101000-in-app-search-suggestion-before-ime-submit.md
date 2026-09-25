@@ -4,7 +4,7 @@
 
 ### 2026-05-06 - In-app search suggestions before IME submit
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -82,3 +82,15 @@ The lesson is validated when:
 
 - Updated `feedback_history/common/README.md`.
 - Project-specific selectors, bounds, service hashes, and schema shapes belong in project docs.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

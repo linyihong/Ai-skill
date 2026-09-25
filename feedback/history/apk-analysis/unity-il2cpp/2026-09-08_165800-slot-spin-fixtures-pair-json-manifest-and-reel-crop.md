@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - Slot spin fixtures should pair JSON, manifest, and reel crop
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

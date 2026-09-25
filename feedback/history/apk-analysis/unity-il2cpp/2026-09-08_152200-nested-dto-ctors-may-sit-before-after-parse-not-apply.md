@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - Nested DTO ctors may sit immediately before/after Parse, not in apply
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

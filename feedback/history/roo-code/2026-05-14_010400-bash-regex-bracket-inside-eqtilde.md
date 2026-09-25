@@ -1,5 +1,7 @@
 ### 2026-05-14 - Bash Regex Bracket Inside `[[ =~ ]]` Syntax Error
 
+Status: candidate
+
 #### One-line Summary
 In bash `[[ ... ]]` conditionals, using `=~` with regex patterns containing literal `]` causes syntax errors because `]` is interpreted as closing the `[[` bracket; the fix is to store the regex in a variable.
 

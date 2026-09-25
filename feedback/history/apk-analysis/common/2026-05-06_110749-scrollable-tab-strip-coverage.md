@@ -3,7 +3,7 @@
 
 ### 2026-05-06 - Scrollable Tab Strip Coverage
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 

@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - Parse XElement args may be ctor copies, not Load tree identity
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

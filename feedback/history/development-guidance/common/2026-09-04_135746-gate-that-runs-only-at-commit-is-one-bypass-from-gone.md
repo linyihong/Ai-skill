@@ -2,7 +2,7 @@
 
 ### 2026-09-04 - 只在 commit 階段跑的 gate，繞過一次就等於永久失效
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

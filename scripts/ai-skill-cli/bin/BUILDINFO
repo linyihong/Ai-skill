@@ -1,4 +1,4 @@
-version=repo-ba7e61fa
-source_commit=ba7e61fa30f618f1983d771375f3d5c766c71cd6
-built_at=2026-09-25T02:16:18Z
+version=repo-5be9448e
+source_commit=5be9448eb2d37b77aa91dfcc861dc597c8a48bf0
+built_at=2026-09-25T04:08:52Z
 targets=windows/amd64,darwin/amd64,darwin/arm64,linux/amd64,linux/arm64

@@ -63,3 +63,15 @@ The corrected field reader should produce heap pointers in the same address rang
 
 - Project docs should record only sanitized response handoff evidence.
 - No immediate promotion until this compressed-field method is validated on at least one more Dart AOT sample or a second response-object layout.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

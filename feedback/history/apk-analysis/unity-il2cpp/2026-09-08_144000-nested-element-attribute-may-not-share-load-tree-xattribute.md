@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - Nested Element Attribute may not share Load-tree XAttribute
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

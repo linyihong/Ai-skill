@@ -66,3 +66,11 @@ Frida device E2E host bridge:
 #### Required Linked Updates
 
 - N/A
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。

@@ -2,7 +2,7 @@
 
 ### 2026-09-14 - Slot symbols may have in-reel and paytable presentations
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -46,3 +46,29 @@ Status: validated
 
 - `2026-09-14_153000-slot-variable-lines-reel-major-jagged-grid.md`
 - `2026-09-14_151200-unitypy-spine-atlas-y-origin-probe.md`
+
+#### Applies / Does Not Apply
+
+- Applies: 本條既有 Trigger、前提與 Evidence 相符時。
+- Does not apply: 跨專案、前提不明或缺少原始證據時；先重新驗證。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。
+
+#### Applies / Does Not Apply
+
+- Applies: 本條既有 Trigger、前提與 Evidence 相符時。
+- Does not apply: 跨專案、前提不明或缺少原始證據時；先重新驗證。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。

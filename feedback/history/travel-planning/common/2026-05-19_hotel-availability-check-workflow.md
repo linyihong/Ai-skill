@@ -4,7 +4,7 @@
 
 ### 2026-05-19 - 查詢飯店空房的工具優先順序與限制
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

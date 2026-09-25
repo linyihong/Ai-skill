@@ -2,7 +2,7 @@
 
 ### 2026-09-14 - UnityPy-exported Spine atlas may use top-left xy
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

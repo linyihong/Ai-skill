@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - Curated docs assets for shareable HTML maps
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

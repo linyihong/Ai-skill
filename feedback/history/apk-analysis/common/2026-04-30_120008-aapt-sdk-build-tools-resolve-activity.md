@@ -2,7 +2,7 @@
 
 ### 2026-04-30 - APK metadata：`aapt` 不在 PATH 時走 SDK build-tools；launcher 用 `resolve-activity`
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -57,3 +57,23 @@ Status: validated
 #### Promotion Target
 
 - `TOOLS.md`（命令模板、常見失敗判讀）
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。

@@ -2,7 +2,7 @@
 
 ### 2026-05-19 - Avoid Single Cached Target For Decrypt Capture
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

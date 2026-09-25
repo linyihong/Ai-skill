@@ -2,7 +2,7 @@
 
 ### 2026-09-04 - 歸因給共用基線之前，先排除本地衍生狀態
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

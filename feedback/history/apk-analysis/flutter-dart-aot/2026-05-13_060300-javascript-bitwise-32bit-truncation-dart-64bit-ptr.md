@@ -1,5 +1,7 @@
 ### 2026-05-13 - JavaScript 位元運算子在 Frida Hook 中截斷 64-bit 指標
 
+Status: candidate
+
 #### 一句話總結
 JavaScript 的位元運算子（`&`, `|`, `~`, `^`）會將數字轉為 32-bit 有號整數，導致 Dart AOT 的指標運算（如 `untagHeapPtr`）靜默截斷 64-bit 位址，造成記憶體讀取錯誤。
 
@@ -73,3 +75,65 @@ JavaScript 的位元運算子（`&`, `|`, `~`, `^`）會將數字轉為 32-bit �
 - `intelligence/engineering/analytical-reasoning/heuristics/README.md`：新增 atom 列（已更新）
 - 所有現有 hook script 中的 `untagHeapPtr` 實作都應檢查此 bug
 - 受影響的 script：`hook_eh_generation_v7_extract_key_iv.js`（已修正）、`hook_dart_request_interceptor.js`（可能有相同問題）、`hook_self_generation_phase1.js`（可能有相同問題）
+
+#### One-line Summary
+
+既有 lesson 的結論維持於本檔原始內容；此 closure 補記不新增專案事實。
+
+#### Evidence
+
+既有工具輸出、觀察與專案證據已記於本 lesson 的原始段落；未新增或推論額外證據。
+
+#### Generalized Lesson
+
+將本條的具體情境視為候選通則；未在獨立情境重複驗證前，維持 candidate。
+
+#### Agent Action
+
+重用前先核對本條既有前提、限制與驗證方法；前提不符時重新取證。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Applies / Does Not Apply
+
+- Applies: 本條既有 Trigger、前提與 Evidence 相符時。
+- Does not apply: 跨專案、前提不明或缺少原始證據時；先重新驗證。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### One-line Summary
+
+既有 lesson 的結論維持於本檔原始內容；此 closure 補記不新增專案事實。
+
+#### Evidence
+
+既有工具輸出、觀察與專案證據已記於本 lesson 的原始段落；未新增或推論額外證據。
+
+#### Generalized Lesson
+
+將本條的具體情境視為候選通則；未在獨立情境重複驗證前，維持 candidate。
+
+#### Agent Action
+
+重用前先核對本條既有前提、限制與驗證方法；前提不符時重新取證。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Applies / Does Not Apply
+
+- Applies: 本條既有 Trigger、前提與 Evidence 相符時。
+- Does not apply: 跨專案、前提不明或缺少原始證據時；先重新驗證。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。

@@ -2,7 +2,7 @@
 
 ### 2026-05-14 - Dart AOT 逆向：短函數（≤12 bytes）很可能是 trivial field accessor，不是預期的 getter
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

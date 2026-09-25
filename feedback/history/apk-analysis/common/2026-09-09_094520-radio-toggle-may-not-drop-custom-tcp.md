@@ -2,7 +2,7 @@
 
 ### 2026-09-09 - Radio toggle may not drop a custom TCP game session
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

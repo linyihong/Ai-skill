@@ -2,7 +2,7 @@
 
 ### 2026-07-14 - Request sign may live in vendored HttpGlobal interceptor, not app GnIntercept
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -47,3 +47,41 @@ App 層 interceptor 可能只管 timing／logging／body stringify，真正的 r
 #### Verification
 
 Validated when hooks show every business request gets `sign` from a vendored `intercept`→`a(String)` with constant outLen matching observed header length, while app-owned interceptor does not set `sign`.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Applies / Does Not Apply
+
+- Applies: 本條既有 Trigger、前提與 Evidence 相符時。
+- Does not apply: 跨專案、前提不明或缺少原始證據時；先重新驗證。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Applies / Does Not Apply
+
+- Applies: 本條既有 Trigger、前提與 Evidence 相符時。
+- Does not apply: 跨專案、前提不明或缺少原始證據時；先重新驗證。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。

@@ -2,7 +2,7 @@
 
 ### 2026-06-08 - Browser layout overflow integration
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

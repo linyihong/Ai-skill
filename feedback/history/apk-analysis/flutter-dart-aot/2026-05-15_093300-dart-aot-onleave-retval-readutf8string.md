@@ -1,6 +1,6 @@
 ### 2026-05-15 - Dart AOT `onLeave` 回傳值讀取：`retval` 是 `NativePointer`，用 `readUtf8String()` 直接讀 `_OneByteString`
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

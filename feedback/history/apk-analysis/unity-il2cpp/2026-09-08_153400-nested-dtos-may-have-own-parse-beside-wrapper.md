@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - Nested DTOs may have their own Parse/ParseAll beside the wrapper Parse
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

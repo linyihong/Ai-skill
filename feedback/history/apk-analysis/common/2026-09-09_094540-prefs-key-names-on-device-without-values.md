@@ -2,7 +2,7 @@
 
 ### 2026-09-09 - Extract preference key names on-device, never cat values
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

@@ -2,7 +2,7 @@
 
 ### 2026-05-21 - Document Migration Map Before Deleting Legacy Surface
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

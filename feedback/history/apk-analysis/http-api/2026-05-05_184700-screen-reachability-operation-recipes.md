@@ -3,7 +3,7 @@
 
 ### 2026-05-05 - Screen reachability operation recipes
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 
@@ -75,3 +75,15 @@ Add a `Screen Reachability / Operation Recipe` section to UI architecture maps. 
 - Updated `TOOLS.md` operation script logging.
 - Updated `techniques/http-api/README.md` automation flow.
 - Updated feedback indexes.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

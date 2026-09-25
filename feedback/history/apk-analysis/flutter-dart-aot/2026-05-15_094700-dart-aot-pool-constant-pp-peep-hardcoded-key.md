@@ -2,6 +2,8 @@
 
 ### 2026-05-15 - Dart AOT `string_refs.jsonl` PP_peep 可直接揭露硬編碼 AES 金鑰
 
+Status: candidate
+
 #### One-line Summary
 
 在 `unflutter` 產生的 `string_refs.jsonl` 中搜尋 `kind:"PP_peep"` 的條目，可直接找到函式 pool 中載入的硬編碼字串常數（如 AES key、secret、header name），無需反組譯或動態 hook。

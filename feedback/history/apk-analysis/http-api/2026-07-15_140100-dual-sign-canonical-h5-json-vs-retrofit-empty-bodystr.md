@@ -65,3 +65,11 @@ Dual-path sign triage:
 - `feedback/history/apk-analysis/README.md`
 - `analysis/apk/workflows/http-api-documentation-flow.md`
 - **Note (2026-07-15):** bootstrap cold-start may use wire JSON in Retrofit `bodyStr` — see `140500`.
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。

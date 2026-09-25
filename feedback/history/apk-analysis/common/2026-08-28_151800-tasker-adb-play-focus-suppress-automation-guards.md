@@ -2,7 +2,7 @@
 
 ### 2026-08-28 - Phone-side Play focus suppress via Tasker ADB import (trial + onboarding guards)
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -73,3 +73,11 @@ Condition B（Mac 端循環 force-stop）可證明業務 UI 可達，但使用�
 
 - Confidence: high on trial/onboarding/Run Shell vs ADB Wifi 判讀；medium on 各 OEM Tasker onboarding UI 偏移。
 - Residual: ADB Wifi 重開機後需 Mac 再跑 `tcpip 5555`；Tasker 付費與政策變更可能影響 sideload 路線。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。

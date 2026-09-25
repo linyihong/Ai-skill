@@ -2,7 +2,7 @@
 
 ### 2026-05-14 - 逆向加密 token 時：前綴在 session 內可能不是完全固定——比對 call #1 與後續 calls
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

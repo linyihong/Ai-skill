@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - SkipNotify child XElement may be another ctor, not CloneNode or Load
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

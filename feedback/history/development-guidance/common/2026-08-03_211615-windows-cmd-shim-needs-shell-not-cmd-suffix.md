@@ -2,7 +2,7 @@
 
 ### 2026-08-03 - Windows 上的 .cmd shim 要靠 shell 啟動，不是補 .cmd 副檔名
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

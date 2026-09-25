@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - Elements iterator Current may be nested XElement ctor
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

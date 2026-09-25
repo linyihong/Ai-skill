@@ -2,7 +2,7 @@
 
 ### 2026-09-09 - Reset level can change the live login packet class
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

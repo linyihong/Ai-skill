@@ -2,7 +2,7 @@
 
 ### 2026-09-21 - Slot cabinets have three visual planes; in-cabinet animation is ID→prefab, not strip art
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -80,3 +80,27 @@ Agent action：idle 先列 AnimationClip／RuntimeAnimatorController／Animator 
 - `2026-09-14_141200-restore-unity-preview-composite-via-main-thread-or-cdn.md`
 - `2026-09-14_153800-slot-in-reel-vs-paytable-art-presentations.md`
 - `2026-09-08_162200-symbol-dto-id-may-be-one-char-strip-not-resource-name.md`
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Promotion Target
+
+- 尚未 promotion；保留為 candidate history，需有獨立 reuse evidence 才可提升。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Promotion Target
+
+- 尚未 promotion；保留為 candidate history，需有獨立 reuse evidence 才可提升。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。

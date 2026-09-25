@@ -2,7 +2,7 @@
 
 ### 2026-09-03 - 互動式交付物需驅動真實控制項驗收
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

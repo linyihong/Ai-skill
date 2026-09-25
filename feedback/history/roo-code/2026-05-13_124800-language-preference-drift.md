@@ -1,3 +1,5 @@
+Status: candidate
+
 # Language Preference Drift（語言偏好漂移）
 
 ## 觀察

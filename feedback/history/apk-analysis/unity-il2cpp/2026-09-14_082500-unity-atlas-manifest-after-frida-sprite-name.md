@@ -2,7 +2,7 @@
 
 ### 2026-09-14 - After Frida SpriteName, build atlas manifest before imgcache MSE
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

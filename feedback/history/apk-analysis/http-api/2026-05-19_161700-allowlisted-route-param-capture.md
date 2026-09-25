@@ -58,3 +58,31 @@ Prefer a route-parameter allowlist over raw request dumps:
 - The log contains no full query string and no raw uid/token/device/cookie/eh.
 - Hashes match the sanitized API catalog.
 - The live gate's missing-requirements list drops only the now-derived parameter.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Promotion Target
+
+- 尚未 promotion；保留為 candidate history，需有獨立 reuse evidence 才可提升。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Promotion Target
+
+- 尚未 promotion；保留為 candidate history，需有獨立 reuse evidence 才可提升。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。

@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - Parse may store DTO fields without calling set_*
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

@@ -2,7 +2,7 @@
 
 ### 2026-09-14 - Compact XML attribute may have sibling entries
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

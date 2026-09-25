@@ -66,3 +66,21 @@ Client flags / overlays / request wrappers are not the grant
 - apk-analysis 對應分類 lesson 的 Promotion Target
 - Step 6 intelligence extraction: **否**（先留 analysis atom）
 - Step 7 failure-learning: **否**（產品控制面，不是 agent 失效）
+
+#### Applies / Does Not Apply
+
+- Applies: 本條既有 Trigger、前提與 Evidence 相符時。
+- Does not apply: 跨專案、前提不明或缺少原始證據時；先重新驗證。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Applies / Does Not Apply
+
+- Applies: 本條既有 Trigger、前提與 Evidence 相符時。
+- Does not apply: 跨專案、前提不明或缺少原始證據時；先重新驗證。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。

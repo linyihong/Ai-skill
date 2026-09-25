@@ -62,3 +62,11 @@ Frida hook strategy (large app):
 
 - `feedback/history/apk-analysis/README.md` 索引追加
 - 已依 sanitization / reusable-guidance-boundary 自查
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。

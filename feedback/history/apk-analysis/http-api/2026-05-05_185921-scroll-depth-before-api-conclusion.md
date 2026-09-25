@@ -3,7 +3,7 @@
 
 ### 2026-05-05 - Scroll Depth Before API Conclusion
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -67,3 +67,15 @@ Evidence is stronger when:
 
 - Project UI/API docs should record scroll depth evidence and any remaining unmatched regions.
 - If tools render only the first page by default, tool docs should say whether scrolling/pagination was tested.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

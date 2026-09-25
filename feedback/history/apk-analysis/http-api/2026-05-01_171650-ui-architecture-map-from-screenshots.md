@@ -3,7 +3,7 @@
 
 ### 2026-05-01 - UI architecture map from screenshots
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 
@@ -82,3 +82,15 @@ APK traffic analysis should include a UI architecture map whenever the app can b
 - 已更新 `TOOLS.md`，加入 screenshot/UI hierarchy 工具與命令。
 - 已更新 `DOCUMENTATION.md`，加入 App Architecture Map 與 Operation To API Matrix 模板。
 - 已更新 `feedback_history/README.md` 索引。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

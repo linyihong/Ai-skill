@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - Same packet class EncryptData length can vary
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

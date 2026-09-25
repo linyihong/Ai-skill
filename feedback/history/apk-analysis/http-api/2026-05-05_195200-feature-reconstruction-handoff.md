@@ -3,7 +3,7 @@
 
 ### 2026-05-05 - Feature reconstruction handoff
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 
@@ -88,3 +88,15 @@ For every high-value feature or API cluster, add a Feature Reconstruction Handof
 - Updated `README.md` goals, usage, principles, and minimum output.
 - Updated `techniques/http-api/README.md` with functional contract mapping requirements.
 - Updated `feedback_history/README.md` and `feedback_history/http-api/README.md` indexes.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

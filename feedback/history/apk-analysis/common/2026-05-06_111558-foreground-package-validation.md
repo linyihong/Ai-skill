@@ -3,7 +3,7 @@
 
 ### 2026-05-06 - Foreground Package Validation
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 

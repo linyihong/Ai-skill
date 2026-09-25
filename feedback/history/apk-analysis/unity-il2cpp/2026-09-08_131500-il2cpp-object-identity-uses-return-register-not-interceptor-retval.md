@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - IL2CPP object identity uses return register, not Interceptor retval
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

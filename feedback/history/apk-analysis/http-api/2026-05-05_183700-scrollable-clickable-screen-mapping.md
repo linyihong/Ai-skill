@@ -3,7 +3,7 @@
 
 ### 2026-05-05 - Scrollable and clickable screen mapping
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 
@@ -72,3 +72,15 @@ When building a UI architecture map for API analysis, record scrollable regions 
 - Updated `TOOLS.md` operation script template with swipe support and safety limits.
 - Updated `techniques/http-api/README.md` automation flow.
 - Updated `feedback_history/http-api/README.md` and root feedback index.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

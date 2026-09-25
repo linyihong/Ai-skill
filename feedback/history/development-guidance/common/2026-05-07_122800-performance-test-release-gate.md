@@ -3,7 +3,7 @@
 
 ### 2026-05-07 - Performance Test Release Gate
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 

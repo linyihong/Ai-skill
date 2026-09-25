@@ -3,7 +3,7 @@
 
 ### 2026-05-06 - Checkpoint Replay Runner
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 

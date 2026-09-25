@@ -3,7 +3,7 @@
 
 ### 2026-05-01 - Schema-only jsonDecode Hook
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -69,3 +69,15 @@ Next time a Flutter APK response decrypt hook returns wrapper-like objects, sear
 #### Required Linked Updates
 
 - Add response-decode workflow guidance and documentation sanitization guidance for schema-only JSON summaries. Keep endpoint-specific keys and any raw values in project docs/capture, not reusable skill files.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

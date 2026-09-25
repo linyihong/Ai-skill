@@ -2,7 +2,7 @@
 
 ### 2026-09-01 - 分離資產證據與 stage PASS
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

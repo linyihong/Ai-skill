@@ -2,7 +2,7 @@
 
 ### 2026-04-30 - Session refresh 要還原 App 的真實登入/裝置流程
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -34,3 +34,41 @@ Session refresh 要從 App 內的 token invalidation、device identity、login b
 
 - `WORKFLOW.md`
 - `TOOLS.md`
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Applies / Does Not Apply
+
+- Applies: 本條既有 Trigger、前提與 Evidence 相符時。
+- Does not apply: 跨專案、前提不明或缺少原始證據時；先重新驗證。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Applies / Does Not Apply
+
+- Applies: 本條既有 Trigger、前提與 Evidence 相符時。
+- Does not apply: 跨專案、前提不明或缺少原始證據時；先重新驗證。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。

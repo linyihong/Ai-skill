@@ -2,7 +2,7 @@
 
 ### 2026-09-09 - Unity on-screen UI identity comes from loaded objects, not screenshot matching
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

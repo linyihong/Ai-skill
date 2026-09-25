@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - XmlReader.Create first-arg class beats nearby stream ctors
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

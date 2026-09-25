@@ -2,7 +2,7 @@
 
 ### 2026-09-09 - Frida CLI quiet mode exits after -l unless -t
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

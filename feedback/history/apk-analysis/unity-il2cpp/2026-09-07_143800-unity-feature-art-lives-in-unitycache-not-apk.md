@@ -2,7 +2,7 @@
 
 ### 2026-09-07 - Unity feature art often lives in UnityCache, not the install APK
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

@@ -2,7 +2,7 @@
 
 ### 2026-09-14 - Variable-lines desk-match uses Bet×BetMultiplier and longest ways
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -70,4 +70,3 @@ Hook RESULT 時同時 dump Bet、Payout、jagged symbols；先算 TB 與 ways，
 #### Revision 2026-09-14 (same day)
 
 Second sample: WILD on an allowed reel counted as the paying symbol for both ways length and per-reel count. Recompute with substitute matched `Payout`; without substitute under-counted. Update Generalized Lesson item 4 to **validated**.
-

@@ -1,6 +1,6 @@
 # Bootstrap Bypass on Resume（Resume session 跳過 runtime/governance bootstrap）
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

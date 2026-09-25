@@ -2,7 +2,7 @@
 
 ### 2026-09-04 - 檢查索引連結的 gate，必須接受從該索引真的能解析的那種寫法
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

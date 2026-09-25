@@ -2,7 +2,7 @@
 
 ### 2026-05-18 — 寫入 Feedback Lesson 前必須先 `list_files` 確認目標目錄存在
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

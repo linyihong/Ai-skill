@@ -2,7 +2,7 @@
 
 ### 2026-09-21 - Hunt celebration windows with Continue CTA; mid-reel gold is often Wild coins
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -64,3 +64,19 @@ Status: validated
 #### Promotion Target
 
 - apk-analysis slot capture SOP：慶祝窗獵取偵測器選擇。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。

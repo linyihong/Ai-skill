@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - Parse may construct only the event wrapper, not nested DTOs
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

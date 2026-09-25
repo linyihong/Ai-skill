@@ -1,5 +1,7 @@
 ### 2026-05-21 — 流程型治理與規則文件需要 executable YAML contract boundary
 
+Status: candidate
+
 #### One-line Summary
 
 流程、gate、activation、blocking condition、required evidence 或 failure action 若會影響 agent 執行，必須提供 owner-layer YAML contract，並投影到 `runtime.db`。

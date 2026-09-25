@@ -2,7 +2,7 @@
 
 ### 2026-06-08 - Component traceability marker depth
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

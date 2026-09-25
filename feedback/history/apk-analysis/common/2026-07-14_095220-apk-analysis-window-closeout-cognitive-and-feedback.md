@@ -62,3 +62,31 @@ Pure Q&A with no new method and no runtime work（FeedbackDecision may be NONE�
 
 - Project overlay：`<PROJECT_ROOT>/.ai-skill/project/rules/ai-skill-session-feedback-writeback.md`（linked）
 - Linked-update reminder：lesson naming `analysis/` / `intelligence/` targets must be executed in the same writeback transaction（見 [`enforcement/linked-updates.md`](../../../../enforcement/linked-updates.md)）
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。

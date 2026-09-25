@@ -1,3 +1,5 @@
+Status: candidate
+
 # JSON Substring Matching Trap in API Response Validation
 
 ## One-line Summary
@@ -61,3 +63,13 @@ Test the predicate against known edge cases:
 
 ## Required Linked Updates
 None
+
+#### Applies / Does Not Apply
+
+- Applies: 本條既有 Trigger、前提與 Evidence 相符時。
+- Does not apply: 跨專案、前提不明或缺少原始證據時；先重新驗證。
+
+#### Applies / Does Not Apply
+
+- Applies: 本條既有 Trigger、前提與 Evidence 相符時。
+- Does not apply: 跨專案、前提不明或缺少原始證據時；先重新驗證。

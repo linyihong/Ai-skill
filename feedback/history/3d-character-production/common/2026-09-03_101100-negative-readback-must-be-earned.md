@@ -2,7 +2,7 @@
 
 ### 2026-09-03 - 負向 readback 必須先證明可觀測
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

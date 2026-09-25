@@ -3,7 +3,7 @@
 
 ### 2026-05-01 - Dart inline one-byte string Smi length
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -67,3 +67,15 @@ The decode is credible when the decoded length matches the tagged Smi, printable
 
 - Project docs should record only sanitized length/hash/schema/segment shape.
 - Reusable skill docs should not include target-specific paths, services, hosts, tokens, or raw payload content.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

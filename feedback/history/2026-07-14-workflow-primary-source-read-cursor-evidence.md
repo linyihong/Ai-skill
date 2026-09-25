@@ -1,3 +1,5 @@
+Status: candidate
+
 # Observation — workflow primary_source gate may miss Cursor Read evidence
 
 **Date**: 2026-07-14（updated 2026-07-21）  

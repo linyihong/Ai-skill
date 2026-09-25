@@ -1,3 +1,5 @@
+Status: candidate
+
 # SHA256 Hash Verification: Use Python Instead of Shell to Avoid Quoting Issues
 
 ## One-line Summary
@@ -59,3 +61,13 @@ If they differ, the shell command has a quoting/encoding issue.
 
 ## Required Linked Updates
 None
+
+#### Applies / Does Not Apply
+
+- Applies: 本條既有 Trigger、前提與 Evidence 相符時。
+- Does not apply: 跨專案、前提不明或缺少原始證據時；先重新驗證。
+
+#### Applies / Does Not Apply
+
+- Applies: 本條既有 Trigger、前提與 Evidence 相符時。
+- Does not apply: 跨專案、前提不明或缺少原始證據時；先重新驗證。

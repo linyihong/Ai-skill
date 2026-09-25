@@ -3,7 +3,7 @@
 
 ### 2026-05-06 - Separate regression from new code validation
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 
@@ -87,3 +87,15 @@ Before implementation, define:
 - Updated `SKILL.md` quick start and output style.
 - Updated `README.md` goals, scope, and linked update examples.
 - Updated `feedback_history/README.md` and `feedback_history/common/README.md`.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

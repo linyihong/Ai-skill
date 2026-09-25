@@ -2,7 +2,7 @@
 
 ### 2026-09-07 - Slot S2C may apply via ProcessSpin GameAction not ParseResult
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

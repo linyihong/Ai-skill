@@ -3,7 +3,7 @@
 
 ### 2026-05-06 - Auto app-development-guidance for SDK/tool outputs
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 
@@ -81,3 +81,15 @@ Use `apk-analysis` for evidence recovery and documentation. Automatically switch
 - Updated `README.md` usage and minimum output notes.
 - Updated `app-development-guidance/SKILL.md` receiver-side trigger.
 - Updated `feedback_history/README.md` and `feedback_history/http-api/README.md`.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

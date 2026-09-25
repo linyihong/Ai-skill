@@ -2,7 +2,7 @@
 
 ### 2026-09-03 - 貼圖化特徵先以遮擋約束的局部合成驗證
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

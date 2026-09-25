@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - A nested DTO may have no Parse* and fill only via ctor plus field stores
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

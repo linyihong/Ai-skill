@@ -4,7 +4,7 @@
 
 ### 2026-05-01 - Technique category routing
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 
@@ -73,3 +73,15 @@ When a reusable APK analysis technique is discovered:
 - Added initial category READMEs for Flutter/Dart AOT, HTTP API, local proxy, and media/HLS.
 - Updated `SKILL.md`, `README.md`, `WORKFLOW.md`, and `RUNBOOK.md` to route by category.
 - Updated `feedback_history/README.md` index.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

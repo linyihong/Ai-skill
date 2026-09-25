@@ -4,7 +4,7 @@
 
 ### 2026-05-21 - 日本自駕行程 mapcode 粒度規則與查詢工具鏈
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

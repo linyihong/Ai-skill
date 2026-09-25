@@ -4,7 +4,7 @@
 
 ### 2026-05-06 - Frida-heavy window UI control comparison
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -88,3 +88,15 @@ The lesson is validated when:
 
 - Updated `feedback_history/common/README.md`.
 - Project-specific retry timing and confidence changes belong in project docs, not this reusable lesson.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

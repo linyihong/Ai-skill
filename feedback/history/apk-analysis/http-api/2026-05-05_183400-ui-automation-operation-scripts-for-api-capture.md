@@ -3,7 +3,7 @@
 
 ### 2026-05-05 - UI automation operation scripts for API capture
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 
@@ -74,3 +74,15 @@ When building a UI map for API analysis:
 - Updated `DOCUMENTATION.md` UI architecture map template with automation fields.
 - Updated `techniques/http-api/README.md` with UI automation capture flow.
 - Updated `feedback_history/http-api/README.md` and root feedback index.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

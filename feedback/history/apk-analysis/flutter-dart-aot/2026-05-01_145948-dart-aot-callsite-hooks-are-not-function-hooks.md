@@ -3,7 +3,7 @@
 
 ### 2026-05-01 - Dart AOT Callsite Hooks Are Not Function Hooks
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -66,3 +66,15 @@ When a Dart AOT call edge points at a promising helper, first check whether the 
 #### Required Linked Updates
 
 - Add a concise warning to the Flutter/Dart AOT workflow and Frida/tooling failure patterns. No app-specific endpoints, hosts, or header values are included here.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

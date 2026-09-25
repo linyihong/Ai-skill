@@ -65,3 +65,11 @@ Agent 易在 403 時無限調 sign。若 `--sign-only` 已對齊 in-app key FP �
 
 - `feedback/history/development-guidance/README.md`
 - `analysis/apk/traffic-triage.md`
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。

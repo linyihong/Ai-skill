@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - XName.Get string may be String.Substring, not Decrypt GetString
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

@@ -4,7 +4,7 @@
 
 ### 2026-05-06 - Detailed API list finish gate
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 

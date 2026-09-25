@@ -2,7 +2,7 @@
 
 ### 2026-09-09 - Clear-data IL2CPP spawn needs delayed thread_attach
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

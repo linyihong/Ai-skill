@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - Parse may convert XML via Enum.Parse and Int64.TryParse without get_Value
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

@@ -1,5 +1,7 @@
 ### 2026-05-14 - Dart AOT 物件欄位讀取：`readPointer()` vs `readU32()` — 64-bit 指標不可用 32-bit 讀取
 
+Status: candidate
+
 #### One-line Summary
 Dart AOT 物件的某些欄位包含**完整的 64-bit 指標**（8 bytes），必須用 Frida 的 `NativePointer.readPointer()` 讀取；使用 `readU32()` 只會讀到低 32 bits，造成位址截斷和 access violation。
 

@@ -2,7 +2,7 @@
 
 ### 2026-09-14 - Restore Unity splash preview composites via main-thread dump or CDN window
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

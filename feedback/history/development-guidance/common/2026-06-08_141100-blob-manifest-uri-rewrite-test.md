@@ -2,7 +2,7 @@
 
 ### 2026-06-08 - Blob manifest URI rewrite test
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

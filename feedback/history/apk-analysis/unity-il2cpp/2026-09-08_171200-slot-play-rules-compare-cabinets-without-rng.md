@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - Slot play-rules should compare cabinets without RNG or paytable
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

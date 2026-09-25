@@ -3,7 +3,7 @@
 
 ### 2026-05-07 - Keep Project Incidents Out Of Skills
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 
@@ -69,3 +69,11 @@ Before editing a reusable skill, scan the proposed text for project names, priva
 - `feedback_history/common/README.md`: indexed this lesson.
 - `enforcement/reusable-guidance-boundary.md`: promoted the boundary to a global rule because it applies to all skills and shared docs, not only app development guidance.
 - `enforcement/README.md`, `content-layering.md`, `feedback-lessons.md`, `linked-updates.md`, `sanitization.md`, `goal-action-validation.md`, `dependency-reading.md`: updated or linked so agents must read and apply the global boundary, analyze incomplete closure causes, and perform required linked updates.
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。

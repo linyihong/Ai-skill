@@ -2,7 +2,7 @@
 
 ### 2026-05-14 - Dart AOT 逆向：`padRight` 使用 null bytes、`substring` 越界不 crash、dispatch hooking 技巧
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

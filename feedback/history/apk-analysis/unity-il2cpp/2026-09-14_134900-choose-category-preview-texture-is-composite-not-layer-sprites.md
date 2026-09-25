@@ -2,7 +2,7 @@
 
 ### 2026-09-14 - Choose-category preview_texture is a composite, not separable art sprites
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

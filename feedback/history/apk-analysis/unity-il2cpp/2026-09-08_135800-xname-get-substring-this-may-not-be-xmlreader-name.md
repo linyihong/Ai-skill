@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - XName.Get Substring.this may not be XmlReader/XName getters
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

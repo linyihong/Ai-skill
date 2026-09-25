@@ -2,7 +2,7 @@
 
 ### 2026-05-14 - Frida capture 應自動化：建立 reusable shell script 處理完整 lifecycle
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

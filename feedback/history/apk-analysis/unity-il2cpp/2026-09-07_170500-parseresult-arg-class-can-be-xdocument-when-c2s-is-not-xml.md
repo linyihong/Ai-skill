@@ -2,7 +2,7 @@
 
 ### 2026-09-07 - ParseResult arg class can be XDocument when C2S is not XML
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

@@ -3,7 +3,7 @@
 
 ### 2026-05-01 - JSON Shape Before Query Shape
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -63,3 +63,15 @@ Binary-like or pipe-separated decrypted payloads can also contain incidental `&`
 
 - Project docs were updated to state that `queryKeys` / `serviceHash` are limited to non-JSON decoded strings.
 - No `TOOLS.md` update is needed; this is a logging/classification rule, not a tool installation change.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

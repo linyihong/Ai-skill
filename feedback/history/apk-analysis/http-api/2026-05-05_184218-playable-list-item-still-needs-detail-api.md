@@ -3,7 +3,7 @@
 
 ### 2026-05-05 - Playable List Item Still Needs Detail API
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -63,3 +63,15 @@ The detail API should return fields not present in the list item, or the capture
 
 - Project-specific API docs should record the concrete list -> detail -> relation/comment flow.
 - Tool docs should state whether clicking an item hydrates detail first or plays directly.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

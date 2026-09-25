@@ -2,7 +2,7 @@
 
 ### 2026-05-14 - Frida 實戰：spawn 模式 vs attach 模式的初始化時機、JS 無 Buffer API
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

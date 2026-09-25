@@ -74,3 +74,27 @@ Status: candidate
 - [`workflow/legal/draft/README.md`](../../../../workflow/legal/draft/README.md) §變更控制五步、§主機或維運捆進開發費
 - [`workflow/legal/strategy/decision-playbooks.md`](../../../../workflow/legal/strategy/decision-playbooks.md) §付款、§驗收、§終止
 - [`workflow/legal/review/README.md`](../../../../workflow/legal/review/README.md) Stage 4
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Promotion Target
+
+- 尚未 promotion；保留為 candidate history，需有獨立 reuse evidence 才可提升。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Promotion Target
+
+- 尚未 promotion；保留為 candidate history，需有獨立 reuse evidence 才可提升。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。

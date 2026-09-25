@@ -3,7 +3,7 @@
 
 ### 2026-05-01 - API field documentation after analysis
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 
@@ -70,3 +70,15 @@ After an API has been observed or decoded, the analysis is not complete until th
 - 已更新 `WORKFLOW.md`，新增 API 文件化步驟與分析結束條件。
 - 已更新 `DOCUMENTATION.md`，擴充 API/Schema 模板與文件要求。
 - 已更新 `feedback_history/README.md` 索引。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

@@ -2,7 +2,7 @@
 
 ### 2026-07-14 - Cold-start Play handoff vs vending focus-steal (revised)
 
-Status: validated
+Status: candidate
 
 #### Revision (same day, second)
 
@@ -75,3 +75,11 @@ Status: validated
 
 - Confidence: high on A/B 對照（搶焦 vs 抑止後 UI 可達）。  
 - Residual: 抑止 Play 可能影響 Billing／後續授權 API；不代表正式 Play entitlement。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。

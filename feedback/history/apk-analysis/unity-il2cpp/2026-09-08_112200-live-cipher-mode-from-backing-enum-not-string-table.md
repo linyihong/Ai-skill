@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - Live cipher mode from backing enum, not string table
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

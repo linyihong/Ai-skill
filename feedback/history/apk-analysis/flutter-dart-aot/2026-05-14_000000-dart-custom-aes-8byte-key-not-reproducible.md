@@ -4,7 +4,7 @@
 
 > **⚠️ 2026-05-14 更新：此問題已解決。** 8-byte 金鑰可以透過 **AES/CTR/NoPadding + PKCS7 padding** 搭配 **zero-padding 至 16 bytes** 的方式以標準 Java AES 重現。詳見下方「## 已解決」章節。
 
-Status: resolved ✅
+Status: candidate
 
 #### One-line Summary
 

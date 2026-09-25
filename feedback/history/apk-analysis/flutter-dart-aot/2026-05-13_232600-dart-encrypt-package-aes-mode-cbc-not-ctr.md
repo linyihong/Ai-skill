@@ -2,7 +2,7 @@
 
 ### 2026-05-13 - Dart `encrypt` 套件 AES 模式：CBC 非 CTR/SIC
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

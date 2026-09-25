@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - Parsed symbol DTO ID may be a one-character strip code
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

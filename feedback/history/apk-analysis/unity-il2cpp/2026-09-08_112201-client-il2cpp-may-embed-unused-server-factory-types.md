@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - Client IL2CPP may embed unused server-named factory types
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

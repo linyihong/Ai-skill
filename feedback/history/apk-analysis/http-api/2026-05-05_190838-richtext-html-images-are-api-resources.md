@@ -3,7 +3,7 @@
 
 ### 2026-05-05 - RichText HTML Images Are API Resources
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -67,3 +67,15 @@ Confirm by comparing:
 
 - Project API docs should name the rich text fields and resource normalization rule.
 - Client/tool docs should state whether gallery/download includes rich text images.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

@@ -2,7 +2,7 @@
 
 ### 2026-09-14 - UIAtlasRect may expose PixelSize while valid=false and Pointer=null
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

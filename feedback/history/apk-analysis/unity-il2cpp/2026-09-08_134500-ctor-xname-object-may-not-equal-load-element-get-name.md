@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - Ctor XName object may not equal Load Element/get_Name XName
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

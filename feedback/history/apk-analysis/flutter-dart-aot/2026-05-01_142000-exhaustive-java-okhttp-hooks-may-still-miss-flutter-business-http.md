@@ -3,7 +3,7 @@
 
 ### 2026-05-01 - 對 `OkHttpClient.newCall`／`Request$Builder.url`／`enqueue` 廣覆蓋仍無業務 host 時
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -51,3 +51,23 @@ Flutter 類 App 在 **`libapp.so`** 主導 HTTP 時，僅 hook **Java `okhttp3`*
 
 - `WORKFLOW.md`（決策樹：OkHttp 否證後分支）
 - `DOCUMENTATION.md`
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。

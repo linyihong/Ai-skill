@@ -2,7 +2,7 @@
 
 ### 2026-09-21 - Slot in-cabinet audio is a fourth stack; win-tier SFX often share BHS letter names
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -63,3 +63,19 @@ Status: validated
 #### Promotion Target
 
 - `intelligence` / slot UI reconstruction checklist（若有）：補 Audio 為第四棧。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。

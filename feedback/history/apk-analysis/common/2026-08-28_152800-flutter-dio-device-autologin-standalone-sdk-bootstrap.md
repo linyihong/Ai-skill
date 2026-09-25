@@ -2,7 +2,7 @@
 
 ### 2026-08-28 - Flutter Dio device-autologin as standalone SDK bootstrap (not refresh-harvest)
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -68,3 +68,11 @@ Status: validated
 
 - Confidence: high on analysis order and static header/deviceId outline; medium until Dio wire replayed.
 - Residual: OEM ANDROID_ID policies; server may add signing later.
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。

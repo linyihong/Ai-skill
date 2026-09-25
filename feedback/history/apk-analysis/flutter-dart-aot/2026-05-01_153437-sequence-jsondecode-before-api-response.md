@@ -3,7 +3,7 @@
 
 ### 2026-05-01 - Sequence jsonDecode Before Calling It API Response
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -66,3 +66,15 @@ When adding a `jsonDecode` hook, also add sequence metadata from request generat
 #### Required Linked Updates
 
 - Update response decode workflow to require sequence context before promoting schema-only JSON to endpoint response evidence.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

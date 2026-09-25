@@ -3,7 +3,7 @@
 
 ### 2026-05-05 - Contract-first development flow
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 
@@ -103,3 +103,15 @@ When no frontend/backend split exists, define provider/consumer roles that match
 - Updated `DOCUMENTATION.md` with the initial development docs template link.
 - Updated `enforcement/linked-updates.md` with `process/` and `templates/` linked updates.
 - Updated `feedback_history/README.md` and `feedback_history/common/README.md`.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

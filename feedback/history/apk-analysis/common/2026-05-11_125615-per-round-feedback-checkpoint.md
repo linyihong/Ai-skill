@@ -3,7 +3,7 @@
 
 ### 2026-05-11 - Per-Round Feedback Checkpoint
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 

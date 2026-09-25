@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - Parse XElement args may navigate via XContainer.Element
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

@@ -71,3 +71,19 @@ Single-stack apps where all traffic shares one HTTP client and proxy policy.
 - `analysis/apk/tools-and-failures.md` mixed-row（linked 2026-07-14）
 - `intelligence/engineering/analytical-reasoning/heuristics/mitm-route-column-diagnosis.md`
 - `intelligence/engineering/analytical-reasoning/signals/mitm-route-column-signals.md`
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。

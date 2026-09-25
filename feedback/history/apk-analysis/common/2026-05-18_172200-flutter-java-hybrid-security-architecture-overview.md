@@ -2,6 +2,8 @@
 
 ### 2026-05-18 — Flutter + Java 混合架構 App 的安全架構總覽
 
+Status: candidate
+
 #### One-line Summary
 
 目標 App 是一個 Flutter (Dart AOT) + Java/Kotlin 混合架構的 Android 應用，使用多層安全防護：內建防機器人 SDK（自訂 TLS + AES-CTR token）、第三方閘道（TLS 指紋 + HTTP 標頭驗證）、雙層 AES-CBC 請求/回應加密、以及三種不同的請求簽名標頭格式（標準、訪客登入、minimal）。

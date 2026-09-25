@@ -63,3 +63,21 @@ Classify entitlement by field presence across identities, not UI:
 - `feedback/history/apk-analysis/http-api/README.md` index
 - Step 6 intelligence extraction: **否**（已抽 analysis atom，不另建 intelligence anti-pattern）
 - Step 7 failure-learning: **否**（不是 agent 失效，是產品授權語意）
+
+#### Applies / Does Not Apply
+
+- Applies: 本條既有 Trigger、前提與 Evidence 相符時。
+- Does not apply: 跨專案、前提不明或缺少原始證據時；先重新驗證。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Applies / Does Not Apply
+
+- Applies: 本條既有 Trigger、前提與 Evidence 相符時。
+- Does not apply: 跨專案、前提不明或缺少原始證據時；先重新驗證。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。

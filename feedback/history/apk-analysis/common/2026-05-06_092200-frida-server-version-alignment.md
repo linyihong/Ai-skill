@@ -4,7 +4,7 @@
 
 ### 2026-05-06 - Frida server version alignment before attach debugging
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -82,3 +82,15 @@ The lesson is validated when:
 
 - Updated `feedback_history/common/README.md`.
 - Not promoted to `TOOLS.md` yet because the existing Frida health-check section already covers minimal attach; this lesson adds a narrower version-alignment failure mode that can be promoted after it recurs.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

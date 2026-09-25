@@ -3,7 +3,7 @@
 
 ### 2026-05-05 - In-app route map external transitions
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 
@@ -73,3 +73,15 @@ Keep screen inventory scoped to the analyzed app. For route recipes that cross a
 - Updated operation script safety guidance.
 - Updated HTTP API UI automation flow.
 - Updated feedback indexes and related lessons.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

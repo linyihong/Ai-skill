@@ -66,3 +66,11 @@ Bootstrap sign RE:
 
 - `feedback/history/apk-analysis/README.md`
 - Cross-ref in `http-api/2026-07-15_140100-dual-sign-canonical-h5-json-vs-retrofit-empty-bodystr.md` (bootstrap exception note)
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。

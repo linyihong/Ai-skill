@@ -3,7 +3,7 @@
 
 ### 2026-05-06 - HLS Playlist Key May Be Wrapped
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 

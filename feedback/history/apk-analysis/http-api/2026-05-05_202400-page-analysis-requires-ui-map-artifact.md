@@ -3,7 +3,7 @@
 
 ### 2026-05-05 - Page analysis requires a UI map artifact
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 
@@ -83,3 +83,15 @@ Minimum page map sections:
 - Add a Quick Start checklist item requiring page-level UI map artifacts for page-specific analyses.
 - Add a documentation rule explaining where the artifact belongs and what sections it must contain.
 - Add this lesson to the feedback index.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

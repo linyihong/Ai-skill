@@ -112,17 +112,25 @@ func validLessonStatus(status string) bool {
 }
 
 func hasHeading(body, heading string) bool {
+	if heading == "Applies / Does Not Apply" {
+		return strings.Contains(body, "#### Applies / Does Not Apply") ||
+			(strings.Contains(body, "#### Applies When") && strings.Contains(body, "#### Does Not Apply When"))
+	}
 	return strings.Contains(body, "#### "+heading) || strings.Contains(body, "### "+heading) || strings.Contains(body, "## "+heading)
 }
 
 func sectionIsEmpty(body, heading string) bool {
-	needle := "#### " + heading
-	idx := strings.Index(body, needle)
+	idx, needleLen := -1, 0
+	for _, prefix := range []string{"#### ", "### ", "## "} {
+		if pos := strings.Index(body, prefix+heading); pos >= 0 && (idx < 0 || pos < idx) {
+			idx, needleLen = pos, len(prefix)+len(heading)
+		}
+	}
 	if idx < 0 {
 		return true
 	}
-	rest := body[idx+len(needle):]
-	if next := strings.Index(rest, "\n#### "); next >= 0 {
+	rest := body[idx+needleLen:]
+	if next := strings.Index(rest, "\n#"); next >= 0 {
 		rest = rest[:next]
 	}
 	return strings.TrimSpace(rest) == ""

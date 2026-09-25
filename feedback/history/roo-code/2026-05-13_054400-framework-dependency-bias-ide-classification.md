@@ -16,6 +16,8 @@ Roo Code（Code mode），deepseek-chat model
 
 ### 為什麼會犯這個錯
 
+Status: candidate
+
 這是**框架依賴偏誤（Framework Dependency Bias）**：
 
 1. **類比捷徑**：因為 `engineering/` 已經有 `apk-analysis/`、`app-development-guidance/` 等領域，我直覺地把 `ide/` 當作另一個領域，沒有考慮本質差異

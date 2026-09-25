@@ -2,7 +2,7 @@
 
 ### 2026-09-07 - Unity game session may be custom TCP, not TLS/443
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

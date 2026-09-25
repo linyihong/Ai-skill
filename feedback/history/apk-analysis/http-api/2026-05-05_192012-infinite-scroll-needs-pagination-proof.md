@@ -3,7 +3,7 @@
 
 ### 2026-05-05 - Infinite Scroll Needs Pagination Proof
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -65,3 +65,15 @@ At minimum, provide:
 
 - Project API docs should describe pagination request/response fields and stop conditions.
 - Tool docs should state whether the tool auto-loads on scroll or requires manual page navigation.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

@@ -3,7 +3,7 @@
 
 ### 2026-05-06 - Dart AOT Offset From ASM Address
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 

@@ -4,7 +4,7 @@
 
 ### 2026-05-06 - Feature handoff finish gate
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 
@@ -77,3 +77,15 @@ The lesson is validated when:
 - Promoted into `SKILL.md` durable asset list as a finish gate.
 - Promoted into `DOCUMENTATION.md` feature handoff section.
 - Updated `feedback_history/common/README.md`.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

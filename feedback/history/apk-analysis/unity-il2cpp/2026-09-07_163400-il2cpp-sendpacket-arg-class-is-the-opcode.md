@@ -2,7 +2,7 @@
 
 ### 2026-09-07 - IL2CPP SendPacket arg class is the opcode
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

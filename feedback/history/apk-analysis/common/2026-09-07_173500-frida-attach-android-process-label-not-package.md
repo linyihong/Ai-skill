@@ -2,7 +2,7 @@
 
 ### 2026-09-07 - Frida attach Android process label, not package name
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

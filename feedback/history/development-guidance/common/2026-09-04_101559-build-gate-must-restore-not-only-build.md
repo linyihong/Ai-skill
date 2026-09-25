@@ -2,7 +2,7 @@
 
 ### 2026-09-04 - 以 `--no-restore` 建置的 gate 驗的是還原圖，不是工作樹
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

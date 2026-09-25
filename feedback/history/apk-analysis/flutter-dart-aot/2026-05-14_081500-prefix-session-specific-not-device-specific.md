@@ -2,7 +2,7 @@
 
 ### 2026-05-14 - 逆向加密 token 時：固定前綴的變異邊界要跨 session 比對，不要假設是 device-specific
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

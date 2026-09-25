@@ -2,7 +2,7 @@
 
 ### 2026-09-14 - Unity inline icon may be a private-use font glyph
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

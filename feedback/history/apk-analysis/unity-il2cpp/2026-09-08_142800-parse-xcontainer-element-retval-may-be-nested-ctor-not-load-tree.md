@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - Parse XContainer.Element retval may be nested ctor, not Load tree
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

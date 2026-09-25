@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - Inspect live cryptor object before key recovery
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

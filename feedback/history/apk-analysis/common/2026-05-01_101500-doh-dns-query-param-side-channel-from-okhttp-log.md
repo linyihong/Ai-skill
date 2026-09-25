@@ -4,7 +4,7 @@
 
 ### 2026-05-01 - DoH 的 `dns=` 參數可作為「MITM 業務 host 空白」時的側信道
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -55,3 +55,23 @@ DoH 請求的 **`dns=`** 是 **可離線解析** 的側信道；與 **「MITM �
 
 - `TOOLS.md`（可選：列入「MITM 空白時的側信道檢查清單」）
 - `DOCUMENTATION.md`
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。

@@ -2,7 +2,7 @@
 
 ### 2026-05-21 — 知識更新必須先讀 `knowledge-update-flow.md` 11-step master flow，不得以子流程文件替代
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

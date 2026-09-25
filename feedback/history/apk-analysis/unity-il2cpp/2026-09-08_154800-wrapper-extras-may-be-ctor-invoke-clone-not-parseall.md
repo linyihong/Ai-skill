@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - Event wrapper extras may be only ctor/Invoke/Clone, not nested ParseAll
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

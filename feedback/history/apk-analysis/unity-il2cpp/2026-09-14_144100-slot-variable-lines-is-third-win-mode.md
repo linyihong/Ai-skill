@@ -2,7 +2,7 @@
 
 ### 2026-09-14 - Slot winMode needs a third class for variable-height lines
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

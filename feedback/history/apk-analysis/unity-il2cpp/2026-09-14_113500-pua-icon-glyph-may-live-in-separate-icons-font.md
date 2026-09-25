@@ -2,7 +2,7 @@
 
 ### 2026-09-14 - PUA icon glyph may live in a separate Icons font file
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

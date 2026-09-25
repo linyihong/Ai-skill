@@ -2,7 +2,7 @@
 
 ### 2026-09-14 - Slots Rewards chips are per-way; Collapse means cascade
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 
@@ -49,3 +49,37 @@ Dump Rewards+Collapse detail on RESULT; compare chip sum and ways; if Collapse p
 
 - `2026-09-14_150000-slot-variable-lines-ways-desk-match.md`
 - `2026-09-14_160500-slot-ways-payout-gap-dump-state-rewards-first.md`
+
+#### Applies / Does Not Apply
+
+- Applies: 本條既有 Trigger、前提與 Evidence 相符時。
+- Does not apply: 跨專案、前提不明或缺少原始證據時；先重新驗證。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Promotion Target
+
+- 尚未 promotion；保留為 candidate history，需有獨立 reuse evidence 才可提升。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。
+
+#### Applies / Does Not Apply
+
+- Applies: 本條既有 Trigger、前提與 Evidence 相符時。
+- Does not apply: 跨專案、前提不明或缺少原始證據時；先重新驗證。
+
+#### Validation
+
+依本條既有 Evidence 重做對應觀察或檢查；結果與原始結論一致才可採用。
+
+#### Promotion Target
+
+- 尚未 promotion；保留為 candidate history，需有獨立 reuse evidence 才可提升。
+
+#### Required Linked Updates
+
+- Not applicable: 這是歷史 closure 修復；未新增可安全提升的 canonical guidance，category index 已存在。

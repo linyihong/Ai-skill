@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - Parse wrapper Attribute may share Load-tree XAttribute
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

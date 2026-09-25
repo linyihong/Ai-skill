@@ -3,7 +3,7 @@
 
 ### 2026-05-05 - Existing project doc backfill requires complete BDD
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 
@@ -82,3 +82,15 @@ For existing projects:
 - Updated `SKILL.md` quick start and output style.
 - Updated `README.md` goals, classification notes, and linked update examples.
 - Updated `feedback_history/README.md` and `feedback_history/common/README.md`.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

@@ -2,7 +2,7 @@
 
 ### 2026-09-04 - 只需要一次通知的監看，必須能自己結束
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

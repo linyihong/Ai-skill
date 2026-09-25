@@ -2,7 +2,7 @@
 
 ### 2026-09-08 - XElement(XName) fill may use SkipNotify, not public Add
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

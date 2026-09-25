@@ -2,7 +2,7 @@
 
 ### 2026-09-09 - Well-known HTTP(S) ports may not fail named host resolve
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

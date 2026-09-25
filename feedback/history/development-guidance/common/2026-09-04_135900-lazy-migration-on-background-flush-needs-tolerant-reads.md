@@ -2,7 +2,7 @@
 
 ### 2026-09-04 - 惰性遷移若由背景批次觸發，讀取端必須自行容忍未遷移狀態
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

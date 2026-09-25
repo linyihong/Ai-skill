@@ -2,7 +2,7 @@
 
 ### 2026-05-27 — 可重用設計洞見不得直接寫入工具 adapter；必須先提到 intelligence 層再引用
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

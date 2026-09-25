@@ -4,7 +4,7 @@
 
 ### 2026-05-01 - Workflow as routing, not technique dump
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 
@@ -72,3 +72,15 @@ When editing `apk-analysis`:
 - Moved detailed HTTP API documentation guidance into `techniques/http-api/README.md`.
 - Moved detailed media/HLS chain guidance into `techniques/media-hls/README.md`.
 - Updated feedback indexes.
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。
+
+#### Goal / Action / Validation
+
+- Goal: 保留既有 lesson 的可驗證結論。
+- Action: 依原始 Evidence 與 Trigger 重做相關檢查。
+- Validation: 結果與原始結論一致才可重用。

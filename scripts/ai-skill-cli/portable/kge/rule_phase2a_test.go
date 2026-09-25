@@ -95,6 +95,12 @@ review
 		t.Fatalf("want complete candidate lesson to pass, got %#v", got)
 	}
 
+	ctx.FileContents[path] = strings.Replace(valid, "#### Applies / Does Not Apply\n\n- Applies: demo", "#### Applies When\n\n- Applies: demo\n\n#### Does Not Apply When\n\n- Does not apply: unrelated work", 1)
+	if got := eng.Run(ctx); len(got) != 0 {
+		t.Fatalf("want split applicability headings to pass, got %#v", got)
+	}
+	ctx.FileContents[path] = valid
+
 	ctx.StagedPaths = []string{path}
 	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "feedback_lesson_closure" {
 		t.Fatalf("want new lesson index violation, got %#v", got)

@@ -2,7 +2,7 @@
 
 ### 2026-09-04 - 機械推導的相依封包，不可展開推導規則本身
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

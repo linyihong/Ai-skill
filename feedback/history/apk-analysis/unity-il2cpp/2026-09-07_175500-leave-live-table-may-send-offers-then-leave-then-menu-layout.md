@@ -2,7 +2,7 @@
 
 ### 2026-09-07 - Leave live table may send offers then leave then menu layout
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

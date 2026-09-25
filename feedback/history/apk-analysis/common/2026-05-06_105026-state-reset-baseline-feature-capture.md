@@ -3,7 +3,7 @@
 
 ### 2026-05-06 - State reset baseline before feature capture
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 

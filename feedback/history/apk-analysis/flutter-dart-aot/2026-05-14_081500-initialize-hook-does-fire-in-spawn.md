@@ -2,7 +2,7 @@
 
 ### 2026-05-14 - Frida 實戰：初始化函數在 attach 模式不觸發不代表 offset 錯誤——改用 spawn 模式驗證
 
-Status: validated
+Status: candidate
 
 #### One-line Summary
 

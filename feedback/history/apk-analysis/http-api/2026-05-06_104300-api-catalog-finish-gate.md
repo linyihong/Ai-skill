@@ -3,7 +3,7 @@
 
 ### 2026-05-06 - API Catalog finish gate
 
-Status: promoted
+Status: candidate
 
 #### One-line Summary
 

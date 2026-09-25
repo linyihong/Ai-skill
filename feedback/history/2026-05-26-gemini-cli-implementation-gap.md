@@ -1,3 +1,5 @@
+Status: candidate
+
 # Feedback Lesson: 2026-05-26 Gemini CLI Implementation Gap
 
 **ID**: `2026-05-26-gemini-cli-implementation-gap`
