@@ -16,8 +16,105 @@ promotion:
   see: contracts/failure-pattern.yaml
 
 patterns:
+  - id: semantic_role_loss
+    status: active
+    taxonomy_id: F1
+    detected:
+      expression_type: "*"
+    classification:
+      type: semantic_role_loss
+    response:
+      constraint:
+        require: semantic_role_completeness
+        prohibit: [dropping_agent_patient_recipient_without_evidence]
+      validation:
+        column: semantic_roles
+        rule: semantic_role_preservation
+      selection:
+        policy: [preserve_semantic_roles]
+    note: >
+      Source roles A B C vs target A B → completeness fail. Particle omission
+      OK if role still recoverable (I15).
+
+  - id: grammatical_relation_error
+    status: active
+    taxonomy_id: F2
+    detected:
+      expression_type: "*"
+    classification:
+      type: grammatical_relation_error
+    response:
+      constraint:
+        require: role_to_target_grammatical_realization
+      validation:
+        column: grammatical
+        rule: grammatical_relation_consistency
+      selection:
+        policy: [target_locale_grammatical_naturalness]
+    note: >
+      Not "を must appear". theme/object → を/に/が/omitted per target grammar.
+
+  - id: target_syntax_distortion
+    status: active
+    taxonomy_id: F3
+    detected:
+      expression_type: "*"
+    classification:
+      type: target_syntax_distortion
+    response:
+      constraint:
+        prohibit: [require_source_word_order]
+        allow: [target_syntax_reorder_under_I15]
+      validation:
+        column: syntactic
+        rule: target_syntax_vs_source_order
+      selection:
+        policy: [target_syntax_realization]
+    replaces_prompt_cases:
+      - "残業して12時まで must stay that order"
+    note: >
+      残業して12時まで → 12時まで残業して may be correct Target Syntax Realization.
+
+  - id: unnatural_surface_realization
+    status: active
+    taxonomy_id: F4
+    detected:
+      expression_type: "*"
+    classification:
+      type: unnatural_surface_realization
+    response:
+      validation:
+        column: naturalness
+        rule: naturalness_under_I16
+      selection:
+        policy: [target_locale_naturalness]
+    note: Grammatical pass + unnatural → naturalness=review; must not drop roles (I16).
+
+  - id: social_address_misinterpretation
+    status: active
+    taxonomy_id: F5
+    detected:
+      expression_type: [social_address, social_address_marker, familiar_name_prefix]
+    symptom: [オヤジ, old]
+    classification:
+      type: social_address_misinterpretation
+    response:
+      constraint:
+        prohibit: [literal_age_gloss_without_evidence]
+        require: social_address_candidate_space
+      validation:
+        column: semantic
+        rule: social_address_not_literal_age
+      selection:
+        policy: [preserve_social_address, avoid_literal_age_gloss]
+    evidence_refs:
+      - examples/social-address-laozhang.yaml
+    replaces_prompt_cases:
+      - "老張 → オヤジ張さん"
+
   - id: foreign_honorific_leak
     status: active
+    taxonomy_id: F7
     detected:
       expression_type: address_title
       # applies across locales that have native honorific Candidate Space
@@ -86,6 +183,7 @@ patterns:
 
   - id: invented_information
     status: active
+    taxonomy_id: F9
     detected:
       expression_type: title
     classification:
@@ -103,6 +201,7 @@ patterns:
 
   - id: idiom_literalization
     status: active
+    taxonomy_id: F6
     detected:
       expression_type: [idiom, title_idiom]
     classification:
@@ -120,6 +219,7 @@ patterns:
 
   - id: name_script_mismatch
     status: active
+    taxonomy_id: F8
     detected:
       expression_type: proper_name_transliteration
       target_locale: ja-JP
@@ -150,6 +250,7 @@ patterns:
 
   - id: target_locale_residue
     status: active
+    taxonomy_id: F7b
     detected:
       expression_type: "*"
     classification:

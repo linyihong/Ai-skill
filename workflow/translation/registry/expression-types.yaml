@@ -85,6 +85,23 @@ expression_types:
     note: >
       Mechanical clock value must match source. Linked failure_pattern:
       clock_time_shift. Not solved by prompt examples.
+  social_address:
+    strategies: [social_address_plus_honorific, bare_surname, locale_aware]
+    components: [social_address_marker, proper_name]
+    note: >
+      老張／小王／阿明 — marker is familiarity/relation, not literal age/kin
+      by default. Linked: social_address_misinterpretation (F5).
+  social_address_marker:
+    strategies: [social_address]
+    examples: [老, 小, 阿]
+    forbidden_default: literal_age_or_kin_gloss
+  familiar_name_prefix:
+    strategies: [social_address]
+    note: alias family of social_address_marker
+  relationship_marker:
+    strategies: [relationship_preserving, social_address]
+    examples: [姐, 哥, 叔, 婶]
+    note: kin/social terms — context decides literal vs address
 
 knowledge_seeds:
   title_mapping:

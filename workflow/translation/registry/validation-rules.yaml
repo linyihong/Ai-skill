@@ -100,6 +100,55 @@ rules:
     default_on_mismatch: fail
     reason_code: clock_time_shift
 
+  - id: semantic_role_preservation
+    column: semantic_roles
+    check: >
+      Source semantic_structure arguments/roles present in target (or
+      recoverably omitted per target grammar). Missing agent/patient/recipient
+      without evidence → fail/review (F1 semantic_role_loss).
+    default_on_mismatch: fail
+    reason_code: semantic_role_loss
+
+  - id: grammatical_relation_consistency
+    column: grammatical
+    check: >
+      Case/particle/preposition/modifier attachment realizes roles in target
+      grammar — not literal particle copy. Linked F2.
+    default_on_mismatch: review
+    reason_code: grammatical_relation_error
+
+  - id: target_syntax_vs_source_order
+    column: syntactic
+    check: >
+      Do NOT require source word order. Flag only when surface order/copy
+      breaks target syntax while roles exist (F3). Reorder under I15 is OK.
+    default_on_mismatch: review
+    reason_code: target_syntax_distortion
+    forbidden: require_source_token_order_equals_target
+
+  - id: naturalness_under_I16
+    column: naturalness
+    check: >
+      Fluency/naturalness review must not alter roles, entities, temporal,
+      polarity, or intent (I16). Distinct from grammatical (F4).
+    default_on_mismatch: review
+    reason_code: unnatural_surface_realization
+
+  - id: social_address_not_literal_age
+    column: semantic
+    check: >
+      social_address_marker (老/小/阿) defaults to familiarity — not age/kin
+      gloss (オヤジ) without evidence (F5).
+    default_on_mismatch: fail
+    reason_code: social_address_misinterpretation
+    examples:
+      - source: "老張"
+        dst: "オヤジ張さん"
+        expect: fail
+      - source: "老張"
+        dst: "張さん"
+        expect: pass_or_review_on_name_only
+
   - id: no_scalar_quality
     column: meta
     check: forbid translation_quality / confidence scalar as closure
@@ -115,9 +164,16 @@ invariants:
     rule: >
       failure_pattern status=active only via Governance Review; Selection
       Actor cannot self-promote candidates (see registry/failure-patterns.yaml)
+  - id: I14
+    rule: preserve semantic relations, not source surface form
+  - id: I15
+    rule: target reorder/omit OK only with preserved semantic relations
+  - id: I16
+    rule: naturalness must not alter roles/entities/temporal/polarity/intent
   - Selection Actor cannot self-close these rules
 
 p0_regression_fixtures:
   - examples/address-title-chen-xiaojie-id.yaml
   - examples/address-title-chen-xiaojie-ja.yaml
   - examples/title-kongjie-yiriqianli.yaml
+  - examples/social-address-laozhang.yaml

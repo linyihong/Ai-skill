@@ -7,6 +7,7 @@ Phase 1 = **doc-only**. No test runner.
 | [`address-title-chen-xiaojie-id.yaml`](address-title-chen-xiaojie-id.yaml) | **P0** — id-ID title + `target_locale_residue` |
 | [`address-title-chen-xiaojie-ja.yaml`](address-title-chen-xiaojie-ja.yaml) | **P0** — ja-JP **name realization**（Chenさん → review） |
 | [`title-kongjie-yiriqianli.yaml`](title-kongjie-yiriqianli.yaml) | **P0** — short-drama **title**；idiom + invented_information（I12） |
+| [`social-address-laozhang.yaml`](social-address-laozhang.yaml) | **P0** — 老張；F5 social_address_misinterpretation（≠ オヤジ） |
 | [`literal.yaml`](literal.yaml) | literal |
 | [`idiom.yaml`](idiom.yaml) | idiom |
 | [`slang.yaml`](slang.yaml) | slang |
@@ -45,3 +46,11 @@ A+B **PASS**（2026-09-22）：[`08-static-walkthrough-pass.md`](../../../plans/
 5. Observed model dst → **not** `finality.accepted`  
 
 見 [`title-kongjie-yiriqianli.yaml`](title-kongjie-yiriqianli.yaml)、[`09-title-content-type.md`](../../../plans/active/2026-09-22-1000-translation-decision-workflow/09-title-content-type.md)。
+
+## Static walkthrough D（老張）
+
+1. Analysis：`老` = social_address_marker；`張` = proper_name  
+2. Candidate Space：張さん／張／チョウさん；**オヤジ張さん** infeasible（F5）  
+3. I14–I16：preserve social relation；naturalness 不得改 identity  
+
+見 [`social-address-laozhang.yaml`](social-address-laozhang.yaml)、[`11`](../../../plans/active/2026-09-22-1000-translation-decision-workflow/11-semantic-syntactic-realization.md)。

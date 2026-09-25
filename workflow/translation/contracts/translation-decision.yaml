@@ -9,8 +9,9 @@ record: translation_decision_record
 alias: TDR
 purpose: >
   Canonical decision record for one segment translation.
-  Locale Resolution → Content-Type Resolution → Analysis → Realization seeds
-  → Candidate Space → Constraints → Feasible → Selection → Validation → Finality.
+  Locale → Content-Type → Expression+Semantic Analysis → Realization seeds
+  → Candidate Space → Constraints → Feasible → Selection (incl. Target
+  Syntax／Naturalness under I14–I16) → Validation → Finality.
 
 required_fields:
   id: { type: text }
@@ -44,9 +45,21 @@ required_fields:
     decision_basis: { type: list, note: artifact refs; not only natural-language praise }
 
 optional_fields:
+  semantic_structure:
+    type: object
+    note: may embed or ref expression_analysis.semantic_structure for TDR completeness
+  target_realization:
+    type: object
+    note: >
+      Optional planning block after Selection Policy:
+      semantic_realize → syntax_realize → naturalness_realize.
+      Reorder/omit allowed only under I15; naturalness under I16.
+    fields:
+      syntax_plan: { type: text, optional: true }
+      naturalness_notes: { type: text, optional: true }
   realization:
     type: object
-    note: optional explicit Target-Locale Realization block
+    note: optional explicit Target-Locale Realization block (names/scripts)
   review: { type: object }
   validation: { type: object, ref_shape: translation.validation }
   finality: { type: object, ref_shape: translation.finality }
@@ -79,6 +92,17 @@ invariants:
       Failure patterns seed Constraints/Validation only after Governance Review
       (status=active). Selection Actor MUST NOT self-promote candidates, rewrite
       guards, or accumulate locale case lists in the Selection prompt.
+  - id: I14
+    rule: Translation preserves semantic relations, not source surface form.
+  - id: I15
+    rule: >
+      Target-language syntax may reorder, omit, or restructure surface elements
+      only when corresponding semantic relations remain preserved.
+  - id: I16
+    rule: >
+      Naturalness optimization MUST NOT introduce, remove, or alter
+      source-supported semantic roles, entities, temporal references,
+      polarity, or intent.
   - rule: selection.selected MUST be in candidates where feasible==true (unless explicit waiver)
   - rule: selection.decision_basis MUST list artifact bases
 
@@ -88,8 +112,11 @@ forbidden:
   - accumulating_locale_if_case_lists_in_selection_prompt
   - selecting_from_infeasible_set_without_waiver
   - collapsing_candidate_space_into_single_forced_output
+  - requiring_source_word_order_equals_target_word_order
+  - naturalness_that_drops_or_adds_semantic_roles
   - quality_or_confidence_scalar_as_closure
   - equating_latin_name_plus_honorific_with_complete_ja_name_realization
   - hard_fail_all_non_katakana_names
   - invented_marketing_hashtags_or_claims_without_upstream_evidence
   - literal_idiom_guess_as_sole_title_candidate_without_ambiguity_space
+  - defaulting_familiar_prefix_to_literal_old_age_gloss

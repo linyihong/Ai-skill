@@ -3,19 +3,20 @@ id: translation.expression-analysis
 status: draft
 runtime_projection:
   enabled: false
-  reason: workflow-local；Phase 1/3 reinforcement；未接 runtime
+  reason: workflow-local；Phase 1 reinforcement；未接 runtime
 
 record: expression_analysis
 purpose: >
-  Intermediate artifact describing what the expression is.
-  Producer is opaque (registry matcher, dictionary, OCR+LLM, LLM, human).
-  For content.type=title, Title Structure Analysis precedes/feeds this artifact.
+  Intermediate artifact describing what the expression is — lexical, semantic,
+  pragmatic, and syntactic layers. Producer is opaque (registry, dictionary,
+  hybrid, LLM, human). For content.type=title, Title Structure Analysis feeds
+  this artifact. Semantic Structure is the bridge to Target Realization (I14).
 
 required_fields:
   surface: { type: text }
   composite_type:
     type: list_or_text
-    note: may be list for titles (title + idiom + part_marker); resolve via expression-types
+    note: may be list (title + idiom + part_marker; social_address + proper_name)
   structure:
     type: list
     item:
@@ -32,24 +33,57 @@ required_fields:
           - semantic_equivalent
           - title_structure
           - part_normalization
+          - social_address
+          - grammatical_relation
       ambiguity:
         type: list
         optional: true
-        note: e.g. idiomatic_meaning vs literal_meaning — informs Selection, not auto-pick
       realization:
         type: object
         optional: true
         fields:
           strategies:
             type: list
-            note: ids from registry/realization-strategies.yaml — seed Candidate Space only
+            note: ids from registry — seed Candidate Space only
 
 optional_fields:
-  title_structure:
+  analysis_layers:
+    type: list
+    values_hint: [lexical, semantic, pragmatic, syntactic]
+    note: which layers populated; semantic recommended for multi-argument clauses
+  semantic_structure:
     type: object
     note: >
-      Required path when content.type=title. Records whether surface is truncated,
-      platform title, idiom recombination, installment marker, etc.
+      Intermediate meaning structure. Not a translation. Selection realizes
+      target surface from this under Constraints (I14–I16).
+    fields:
+      predicate: { type: text }
+      arguments:
+        type: list
+        item:
+          role:
+            type: enum
+            values_hint:
+              [agent, experiencer, patient, theme, object, recipient, beneficiary, other]
+          span: { type: text }
+      modifiers: { type: list }
+      temporal: { type: list }
+      location: { type: list }
+      manner: { type: list }
+      purpose: { type: list }
+      condition: { type: list }
+      polarity: { type: enum, values_hint: [affirmative, negative, unknown] }
+      social_address: { type: object, optional: true }
+  semantic_roles:
+    type: list
+    note: compact role inventory for completeness checks (may mirror arguments)
+    item:
+      role: { type: text }
+      source: { type: text }
+      target: { type: text, optional: true, note: filled after Selection for validation }
+  title_structure:
+    type: object
+    note: Required path when content.type=title
     fields:
       is_title: { type: bool }
       is_truncated_or_nonstandard: { type: bool }
@@ -64,7 +98,6 @@ optional_fields:
   producer:
     type: enum
     values: [registry_matcher, dictionary, hybrid, llm, human, other]
-    note: optional provenance only — NOT a required step type
   strategy_hints: { type: object }
 
 invariants:
@@ -80,6 +113,15 @@ invariants:
       When content.type=title, Title Structure Analysis MUST populate structure
       (and preferably title_structure) before Selection. Idiom spans MUST carry
       ambiguity when lexical form ≠ contextual meaning is possible.
+  - id: I14-analysis
+    rule: >
+      Multi-argument / event clauses SHOULD populate semantic_structure (or
+      semantic_roles). Token mapping without roles is insufficient for Target
+      Realization. Preserve semantic relations, not source word order.
+  - id: I14b-analysis
+    rule: >
+      social_address_marker / familiar_name_prefix / relationship_marker spans
+      MUST NOT default to literal age/kin gloss (老≠オヤジ) without evidence.
 
 forbidden:
   - equating_expression_analysis_with_ai_analysis_step
@@ -87,3 +129,5 @@ forbidden:
   - treating_latin_transliteration_as_complete_ja_name_realization
   - collapsing_title_idiom_to_single_guess_without_candidate_space
   - asking_how_do_i_translate_this_idiom_in_english_when_task_is_target_locale_title
+  - token_mapping_without_semantic_roles_for_multi_argument_clauses
+  - treating_familiar_prefix_as_literal_old_by_default

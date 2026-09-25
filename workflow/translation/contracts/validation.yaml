@@ -3,47 +3,61 @@ id: translation.validation
 status: draft
 runtime_projection:
   enabled: false
-  reason: workflow-local；Phase 1 doc-only
+  reason: workflow-local；Phase 1 reinforcement；未接 runtime
 
 record: translation_validation
 purpose: >
   Multi-dimension validation. No single translation_quality score.
+  semantic ≠ syntactic ≠ grammatical ≠ naturalness ≠ semantic_roles (I14–I16).
   Mechanical gates are not self-certified by the Selection Actor.
 
 dimensions:
   semantic: { type: enum, values: [pass, fail, review] }
+  semantic_roles:
+    type: enum
+    values: [pass, fail, review]
+    note: >
+      Completeness / mismatch of agent／patient／recipient／theme／temporal／polarity
+      vs source semantic_structure. Missing role → fail or review (F1).
   intent: { type: enum, values: [pass, fail, review] }
   register: { type: enum, values: [pass, fail, review] }
   terminology: { type: enum, values: [pass, fail, review] }
   cultural: { type: enum, values: [pass, fail, review] }
   format: { type: enum, values: [pass, fail, review] }
   completeness: { type: enum, values: [pass, fail, review] }
+  syntactic:
+    type: enum
+    values: [pass, fail, review]
+    note: >
+      Target syntax planning OK relative to roles — NOT "same word order as source".
+      Dead source-order copy that breaks target grammar → F3 review/fail.
+  grammatical:
+    type: enum
+    values: [pass, fail, review]
+    note: >
+      Case／particle／preposition／modifier attachment as Target Grammatical
+      Realization of roles — not literal particle translation (F2).
+  naturalness:
+    type: enum
+    values: [pass, fail, review]
+    note: >
+      Fluency under I16 — may prefer shorter／reordered surface but MUST NOT
+      alter roles／entities／temporal／polarity／intent. Distinct from grammatical.
 
 locale_consistency:
   status: { type: enum, values: [pass, fail, review] }
   reason: { type: text, examples: [target_locale_residue] }
   note: >
     id-ID + English title token (Miss/Ms.) → review + target_locale_residue by default.
-    Not automatic "incorrect". accepted requires rationale or waiver.
 
 name_realization:
   status: { type: enum, values: [pass, fail, review] }
   reason: { type: text, examples: [name_realization_incomplete] }
   preferred_script: { type: text, optional: true }
-  note: >
-    Distinct from locale_consistency. Example: ja-JP dst "Chenさん" —
-    title realization OK (さん), name stayed Latin vs preferred katakana (チェン)
-    → name_realization=review. Not automatic fail; waiver or explicit policy ok.
 
 invented_information:
   status: { type: enum, values: [pass, fail, review] }
   reason: { type: text, examples: [unsupported_marketing_claim, invented_hashtag] }
-  note: >
-    I12. Claims/hashtags/plot/emotion absent from source+evidence.
-    Example: source title「空姐被一日千里-上」+ dst adds
-    #ギリギリのセクシーなドラマ → fail (or review only with explicit waiver /
-    allow_marketing_expansion=true + marketing_tags evidence).
-    Distinct from idiom semantic_equivalent uncertainty (that is semantic=review).
 
 mechanical:
   segment_coverage: { type: enum, values: [pass, fail] }
@@ -52,20 +66,21 @@ mechanical:
   proper_names: { type: enum, values: [pass, fail, review] }
   tags_markup: { type: enum, values: [pass, fail] }
   source_language_residue: { type: enum, values: [pass, fail, review] }
+  clock_time: { type: enum, values: [pass, fail, review], optional: true }
 
 residue_columns:
   source_language_residue:
     meaning: residual tokens from SOURCE language in dst
-    example: "ja→id dst contains それは"
   target_locale_residue:
-    meaning: dst uses forms inconsistent with TARGET locale (often via wrong default locale)
-    example: "zh→id-ID dst = Miss Chen"
+    meaning: dst uses forms inconsistent with TARGET locale
   name_realization_incomplete:
-    meaning: title/locale OK but name not realized per realization_profile preference
-    example: "zh→ja-JP dst = Chenさん while preferred_script=katakana"
+    meaning: title/locale OK but name not realized per realization_profile
   invented_information:
     meaning: dst introduces unsupported claims/hashtags/marketing
-    example: "title dst adds セクシー claim absent from source"
+  semantic_role_loss:
+    meaning: source role missing or remapped without evidence in dst
+  social_address_misinterpretation:
+    meaning: familiar prefix glossed as literal age/kin without evidence
 
 invariants:
   - id: I8
@@ -74,15 +89,33 @@ invariants:
     rule: name_realization is a separate validation column from locale_consistency
   - id: I12
     rule: invented_information is a separate column; marketing_generation ≠ translation
-  - rule: Selection Actor MUST NOT self-close locale_consistency, name_realization, invented_information, or mechanical gates
+  - id: I14
+    rule: >
+      Translation preserves semantic relations, not source surface form.
+      semantic_roles / completeness check against source semantic_structure.
+  - id: I15
+    rule: >
+      Target-language syntax may reorder, omit, or restructure surface elements
+      only when corresponding semantic relations remain preserved.
+      source word order ≠ required target word order.
+  - id: I16
+    rule: >
+      Naturalness optimization MUST NOT introduce, remove, or alter
+      source-supported semantic roles, entities, temporal references,
+      polarity, or intent. naturalness column ≠ grammatical column.
+  - rule: Selection Actor MUST NOT self-close locale_consistency, name_realization, invented_information, semantic_roles, or mechanical gates
   - rule: target_locale_residue and name_realization_incomplete default to review, not automatic fail
   - rule: invented_information without waiver/allow_marketing_expansion blocks finality.accepted
   - rule: Forbidden to hard-fail all non-katakana foreign names
+  - rule: Forbidden to require source_token_order == target_token_order
 
 forbidden:
   - single_scalar_translation_quality
   - merging_source_and_target_locale_residue
   - merging_name_realization_into_locale_consistency
+  - merging_naturalness_into_grammatical_or_semantic
   - treating_invented_hashtags_as_harmless_adaptation
+  - requiring_source_word_order_in_target
+  - treating_particle_omission_as_role_loss_when_role_still_recoverable
   - llm_waiver_by_vibes_without_explicit_waiver_record
   - hard_fail_non_katakana_foreign_names

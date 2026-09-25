@@ -1,0 +1,86 @@
+schema_version: translation-decision-example/v0
+id: TD-EX-004-social-address-laozhang
+status: p0_regression_fixture
+source_case:
+  observed_io:
+    src: "老張"
+    dst_bad: "オヤジ張さん"
+  failure_class: [social_address_misinterpretation]
+  note: >
+    老 = familiar social_address_marker, not age=old. Lexical 老→オヤジ is
+    F5 unless context proves elderly description.
+
+translation_context:
+  source: { language: zh, locale: zh-CN }
+  target: { language: ja, locale: ja-JP, script: Jpan }
+  content: { type: subtitle, decision_mode: faithful_translation }
+
+expression_analysis:
+  surface: "老張"
+  composite_type: [social_address, proper_name]
+  analysis_layers: [lexical, semantic, pragmatic]
+  structure:
+    - span: "老"
+      type: social_address_marker
+      role: familiarity_marker
+      handling: social_address
+      ambiguity: [familiarity_prefix, literal_old_age]
+    - span: "張"
+      type: proper_name
+      role: surname
+      handling: name_realization
+  semantic_structure:
+    predicate: null
+    arguments: []
+    social_address:
+      marker: "老"
+      referent: "張"
+      relation: familiar_peer_or_known_person
+  pragmatic_meaning: [familiar_address]
+
+constraints:
+  preserve: [identity, social_relation]
+  prohibit: [literal_age_gloss_without_evidence, invented_information]
+
+candidate_space:
+  social_address:
+    - text: "張さん"
+      strategy: social_address_plus_honorific
+      feasible: true
+    - text: "張"
+      strategy: bare_surname
+      feasible: true
+    - text: "チョウさん"
+      strategy: name_realization_katakana
+      feasible: true
+    - text: "オヤジ張さん"
+      strategy: literal_old_plus_name
+      decision_class: translation
+      feasible: false
+      reason: social_address_misinterpretation_age_gloss
+
+selection:
+  policy: [preserve_social_address, target_locale_naturalness, avoid_literal_age_gloss]
+  selected: "張さん"
+  rationale: familiar marker → honorific surname; not オヤジ without age evidence
+  decision_basis: [expression_analysis, candidate_space, constraints, selection.policy]
+
+validation:
+  semantic: pass
+  semantic_roles: pass
+  naturalness: pass
+  invented_information: pass
+  mechanical:
+    source_language_residue: pass
+
+finality:
+  status: needs_review
+  note: accepted when name_realization profile settled; オヤジ張さん must not accept
+
+regression_fixtures:
+  - name: オヤジ張さん fails F5
+    dst: "オヤジ張さん"
+    expect:
+      validation.semantic.status: fail_or_review
+      reason: social_address_misinterpretation
+      finality.accepted: false

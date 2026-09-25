@@ -34,7 +34,7 @@
   - [`investment/artifact-gates.yaml`](investment/artifact-gates.yaml)：investment artifact gates executable contract。
 - [`3d-character-production/`](3d-character-production/README.md)：**可驅動 3D 角色資產**生產（Lock → 候選 → Identity → Mesh → Body Deform → Facial Acceptance → Outfit／Motion → Export）。Phase 3 core；**尚未**註冊 route、**尚未** runtime 投影。Invalidation SoT：[`3d-character-production/records/identity-acceptance.yaml`](3d-character-production/records/identity-acceptance.yaml)。
 - [`narrative-video-production/`](narrative-video-production/README.md)：**敘事向影音**從 brief 到發布 evidence（bible／clip catalog／matching／EDR／locale 三閘／outcome）。Phase 2 contract；**尚未**註冊 route、**尚未** runtime 投影。EDR SoT：[`narrative-video-production/records/edit-decision-record.yaml`](narrative-video-production/records/edit-decision-record.yaml)。裸「AI 影片」不得自動鎖路。
-- [`translation/`](translation/README.md)：**翻譯決策**（Context → Content-Type → Analysis → Guards → Selection → Finality；I1–I13）。Prompt = adapter only。P0：陈小姐 + title + failure_patterns。
+- [`translation/`](translation/README.md)：**翻譯決策**（Context → Analysis+Semantic → Guards → Selection+Target Realization → Finality；I1–I16）。Prompt = adapter only。
 - [`cross-cutting/`](cross-cutting/README.md)：跨 slice 關注點模板（**非** `route.workflow.*` slice）。目前含 [`experience-runtime/`](cross-cutting/experience-runtime/README.md) pilot 與 [`decision-support/`](cross-cutting/decision-support/README.md) pilot（Intake → **Decision Support** → Research → Execution；**2／3** converged cases：legal＋investment；尚**未**成為各 workflow 的必跑 stage）。
 
 ## 放什麼
