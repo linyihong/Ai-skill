@@ -37,8 +37,12 @@ cue_optional_fields:
       lines: { type: integer }
       max_lines: { type: integer }
       font_size: { type: number }
-      font_size_min: { type: number }
-      font_size_max: { type: number }
+      font_size_absolute_min: { type: number, note: safety floor; not the cue operating range }
+      font_size_absolute_max: { type: number, note: safety ceiling }
+      font_size_profile_min: { type: number, note: layout_script profile; inside absolute; px not frozen here }
+      font_size_profile_max: { type: number }
+      font_size_max_delta: { type: number, note: max distance from profile preferred and from scene baseline }
+      visual_height: { type: number, note: glyph box height; cross-script target, not shared px }
       typography_scope: { type: enum, values: [cue_uniform] }
       rendered_lines: { type: list, item: text }
       line_break_offsets: { type: list, item: integer }
@@ -63,6 +67,9 @@ invariants:
   - max_lines_is_upper_bound_not_target
   - layout_must_record_selected_lines_separately_from_max_lines
   - actual_font_size_must_stay_in_min_max_step
+  - font_size_must_satisfy_absolute_profile_and_max_delta
+  - profile_min_overflow_resegments_not_absolute_floor
+  - visual_consistency_is_glyph_scale_not_shared_px
   - line_wrap_must_be_lossless_and_preserve_protected_spans
   - every_line_in_one_cue_uses_one_uniform_typography
   - layout_engine_must_not_segment_or_truncate_cue_text

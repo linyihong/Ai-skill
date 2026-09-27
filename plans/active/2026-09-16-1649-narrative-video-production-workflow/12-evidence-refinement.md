@@ -55,3 +55,5 @@ outer loop         observe → resolve → produce → verify → correct → le
   [`32-semantic-safe-wrap-uniform-typography.md`](32-semantic-safe-wrap-uniform-typography.md)）
 - 用字數均分換行，或 layout 自創未評分斷點（見
   [`33-caption-composition-semantic-breaks.md`](33-caption-composition-semantic-breaks.md)）
+- 讓單句在 absolute 範圍內任意縮放，或用同一 px 當跨語系視覺一致（見
+  [`34-font-size-layers-visual-scale.md`](34-font-size-layers-visual-scale.md)）

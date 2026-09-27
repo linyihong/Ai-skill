@@ -36,8 +36,10 @@ Subtitle 接線：[`workflow/translation/adapters/subtitle.yaml`](../translation
 
 `layout_gate` 用 glyph 可行集＋`selection.policy`（`minimize_lines`，再看 break score）。
 一行放得下禁止因 `max_lines>1` 而拆行。兩行 **禁止** 以字數均分為目標。換行只能從
-scored `semantic_break_candidates` 選。字級 **min／max／step 硬閘**；到 min 仍放不下 →
-重切 Speech Unit。契約：[`subtitle-layout.md`](subtitle-layout.md)。cue 應記
+scored `semantic_break_candidates` 選。字級是三層：absolute 安全底線、`layout_script`
+profile、相對 preferred 的窄 `max_delta`。到 **profile min** 仍放不下 → 重切 Speech Unit，
+禁止滑到 absolute floor。跨語系對齊 glyph 視覺高度，不是同一 px。Profile 數字不在本檔凍死。
+契約：[`subtitle-layout.md`](subtitle-layout.md)。cue 應記
 `layout.lines` 與 `layout.max_lines` 分開。
 
 換行是 lossless display transform：去掉換行後必須等於 cue 原文，且不得切進

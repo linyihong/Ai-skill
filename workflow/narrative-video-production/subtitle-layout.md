@@ -10,7 +10,7 @@
 1. Content Integrity     不可破壞語意單位（atomic / protected spans）
 2. Caption Segmentation  要不要拆成兩個 cue（Speech Unit；時間軸）
 3. Line Composition      同一 cue 一行或兩行（wrap；lossless）
-4. Typography Constraint min／max／step；同 cue 統一字級
+4. Typography Constraint 三層字級；同 cue 統一；視覺尺度≠同一 px
 ```
 
 禁止：先塞畫面 → 塞不下就切字 → 還塞不下就縮到看不見。
@@ -24,8 +24,8 @@ Script → Speech Unit Planning → Semantic Segmentation → Caption Candidate
   → Semantic Break Candidates（AI 評分；mechanical 裁決）
   → Try 1-line → fit? YES accept
   → Try 2-line（只在 scored 合法斷點）→ fit? YES accept
-  → Reduce font size（整 cue 同一字級，∈ [min,max] step）→ retry 1-line／2-line
-  → font < min? → Re-segment Speech Unit（完整語意邊界）→ reject overcrowded cue
+  → Reduce font size（整 cue 同一字級；只在 profile＋max_delta 內）→ retry 1-line／2-line
+  → 低於 profile min？ → Re-segment Speech Unit（完整語意邊界）→ reject overcrowded cue
 ```
 
 ```text
@@ -35,21 +35,33 @@ line_policy:
   target_lines: null
   equal_line_length: forbidden   # 禁止字數／2
 
-typography.font_size:
-  preferred: 48
-  min: 36
-  max: 56
-  step: 2
+typography:
+  absolute:                 # 安全底線；不可突破。不是單句可用範圍
+    min: 36
+    max: 56
+  profile:                  # 由 layout_script 選，不是 locale。px 留給 dogfood
+    preferred: <profile>
+    min: <inside absolute>
+    max: <inside absolute>
+  adjustment:
+    max_delta: 4            # 相對 preferred；超出視為另一視覺尺度 → 重切
+  visual_target:
+    mode: glyph_box         # 跨語系對齊觀看尺寸，不是同一 font_size
+  consistency:
+    scope: scene
+    max_delta: 4
 
 overflow_policy.order:
   - try_one_line
   - try_two_lines
-  - reduce_font_size_within_bounds
+  - reduce_font_size_within_profile_delta
   - resegment_speech_unit
   - reject
 ```
 
-`min ≤ actual_font_size ≤ max` 由 **mechanical engine 強制**。Scene 已有主字級時，超過 `stability.max_delta_from_scene` 的縮字視為應重切 unit。
+三層同時成立：`absolute.min ≤ profile.min ≤ preferred − max_delta ≤ actual ≤ preferred + max_delta ≤ profile.max ≤ absolute.max`。到 **profile min** 仍放不下 → 重切 Speech Unit，禁止繼續縮到 absolute min。Profile 的 preferred／min／max 與 `visual_scale` **不在本檔凍死**；locale 只選 `layout_script` profile。
+
+跨 script 用 glyph bounding box 的視覺高度補償，不用「某語言固定 +N px」表。AI 只能出方向與建議區間；mechanical 在 profile＋delta 內選字級。Scene 先定 baseline，cue 優先靠近它。
 
 ```text
 Need → Constraints → Feasible layouts[]（glyph 實測）
@@ -65,7 +77,7 @@ Need → Constraints → Feasible layouts[]（glyph 實測）
 | --- | --- |
 | Semantic segmentation 建議 | Glyph 寬、max lines、safe area |
 | `semantic_break_candidates` + score | 只從候選選 offset；forbidden 落點直接淘汰 |
-| Break quality／meaning preservation | Font [min,max] step；cue-uniform typography |
+| Break quality／meaning preservation | 三層字級；glyph visual height；cue-uniform |
 | Visual review（adjustment candidate） | Overflow；forbidden region |
 
 AI 不得把「談話」拆成「談／話」。Mechanical 不接受 unscored／protected 內的 break。
@@ -100,8 +112,9 @@ source_span_coverage == complete_and_non_overlapping
 5. Two-line wrap MUST NOT optimize for equal character/pixel length.
 6. Line count uses rendered glyph dimensions, not character count.
 7. Line breaks MUST be chosen from scored `semantic_break_candidates`; LLM is not final fit authority.
-8. Font size MUST stay in `[min, max]` on `step`／`allowed`. Hitting min without fit → Speech Unit resegment.
+8. Font size MUST satisfy absolute bound **and** profile bound **and** `max_delta` from preferred. Hitting profile min without fit → Speech Unit resegment, never slide to the absolute floor.
 9. Every rendered line in one cue MUST use the same typography.
 10. Wrapping MUST preserve every source character and MUST NOT break a protected span.
+11. Cross-script consistency targets glyph visual size, not an identical `font_size` number. Script compensation numbers stay in profile／dogfood.
 
 無法 fit 時 rollback：`speech_author`（重切 unit）或 `locale_author`（policy／profile）。
