@@ -6,4 +6,4 @@ Companion to [`33-caption-composition-semantic-breaks.md`](33-caption-compositio
 `CjkBreakPolicy` 一類 heuristic 保留為 **v0** features。Phase 1 欄位凍在
 [`records/break-candidate.yaml`](../../../workflow/narrative-video-production/records/break-candidate.yaml)
 與 [`36-break-candidate-schema.md`](36-break-candidate-schema.md)：`hard_violation` 才排除可行集；
-`balance_score` 不是 `score`；沒有 `source`。
+`balance_score` 不是 `score`；沒有 `source`。選擇順序：[`37-natural-boundary-before-length.md`](37-natural-boundary-before-length.md)。

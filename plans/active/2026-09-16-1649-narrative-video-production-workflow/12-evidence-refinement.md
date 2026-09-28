@@ -59,3 +59,5 @@ outer loop         observe → resolve → produce → verify → correct → le
   [`34-font-size-layers-visual-scale.md`](34-font-size-layers-visual-scale.md)）
 - 把 script heuristic 當成最終斷句，或用 `phrase_integrity` 單獨排除候選（見
   [`36-break-candidate-schema.md`](36-break-candidate-schema.md)）
+- 為了靠近理想字數而跨過標點或切開 lexical unit（見
+  [`37-natural-boundary-before-length.md`](37-natural-boundary-before-length.md)）

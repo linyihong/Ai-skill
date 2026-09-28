@@ -39,7 +39,7 @@ break_candidate:
     values: [none, lexical_unit_split, function_word_dangling]
     default: none
     note: none stays in the feasible set. Any other value excludes the candidate. This is a constraint, not a score penalty.
-  score: { type: number, note: mechanical selection cost; lower is better. Distinct from balance_score. }
+  score: { type: number, note: within-tier mechanical cost; lower is better. Must not outrank a higher boundary priority. Distinct from balance_score. }
 
 absent_in_phase_1:
   fields: [source, provenance]
@@ -51,7 +51,7 @@ mapping_from_break_policy:
   dangling_end_or_start: function_word_attachment=false and hard_violation=function_word_dangling
   sticky_end_bigrams_or_phrases: lexical_integrity=false and hard_violation=lexical_unit_split
   soft_end: soft_end=true
-  distance_and_length_ratio: balance_score and score
+  distance_and_length_ratio: within-tier balance_score and score only; never outranks boundary priority
 
 responsibilities:
   break_policy: locale mechanical constraints and features
@@ -65,11 +65,27 @@ generation:
   must_not: emit only the few offsets nearest prefer_at when a legal boundary exists farther away
 
 fallback:
+  policy: natural_boundary_first
   steps:
-    - generate_break_candidates
+    - clause_segment_on_strong_and_medium_punctuation
+    - generate_break_candidates_inside_a_unit_that_does_not_fit
     - drop hard_violation other than none
-    - min score
-  note: best_cut is this fallback. It is not a second selection engine inside BreakPolicy.
+    - keep the highest boundary priority that fits
+    - within that tier only, compare balance_score then distance_from_prefer_at then line_length
+  note: best_cut is this fallback. prefer_at is not the first key. Punctuation opens a candidate; a short clause may merge with the next. It is not a second selection engine and it is not a forced cut.
+
+boundary_priority:
+  note: generation and selection order. A higher tier that fits wins before any within-tier score.
+  order:
+    - { priority: 0, kind: strong_punctuation }
+    - { priority: 1, kind: medium_punctuation }
+    - { priority: 2, kind: lexical_or_phrase_boundary }
+    - { priority: 3, kind: weak_boundary }
+    - { priority: 4, kind: llm_semantic_boundary }
+    - { priority: 5, kind: emergency_character_boundary }
+  punctuation_is_candidate_not_forced_cut: true
+  clause_segmentation_precedes_line_break: true
+  invariant: natural language boundaries precede length balance; length balance chooses only among the same tier
 
 phase_2_not_in_this_record:
   - llm semantic selection inside the feasible set

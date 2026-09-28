@@ -85,7 +85,9 @@ invariants:
   - hard_violation_is_the_only_phase_1_feasible_set_exclusion
   - phrase_integrity_must_not_remove_candidates
   - balance_score_is_not_selection_cost
-  - best_cut_is_min_score_fallback_not_a_second_engine
+  - best_cut_follows_natural_boundary_first
+  - natural_boundary_precedes_length_balance
+  - punctuation_opens_a_candidate_and_is_not_a_forced_cut
   - learned_break_patterns_require_promotion_before_policy
   - two_line_layout_must_not_optimize_for_equal_length
 

@@ -35,7 +35,7 @@ Subtitle 接線：[`workflow/translation/adapters/subtitle.yaml`](../translation
 ## Layout：Caption Composition（語意先於 fit）
 
 `layout_gate` 用 glyph 可行集＋`selection.policy`（`minimize_lines`，再看 break score）。
-一行放得下禁止因 `max_lines>1` 而拆行。兩行 **禁止** 以字數均分為目標。換行的可行集由 mechanical 產生；只有 `hard_violation` 能排除候選。沒有 Selection Actor 時用最小 `score` 當 fallback。Phase 2 的 LLM 才在集內選擇並寫 `break_evidence`。Schema：[`records/break-candidate.yaml`](records/break-candidate.yaml)。字級是三層：absolute 安全底線、`layout_script`
+一行放得下禁止因 `max_lines>1` 而拆行。兩行 **禁止** 以字數均分為目標。一行放得下禁止因 `max_lines>1` 而拆行。兩行 **禁止** 以字數均分為目標。先做 clause segmentation，再在放不下的 unit 裡換行。選擇是 `natural_boundary_first`：`prefer_at` 只在同一 boundary tier 內比較。Schema：[`records/break-candidate.yaml`](records/break-candidate.yaml)。字級是三層：absolute 安全底線、`layout_script`
 profile、相對 preferred 的窄 `max_delta`。到 **profile min** 仍放不下 → 重切 Speech Unit，
 禁止滑到 absolute floor。跨語系對齊 glyph 視覺高度，不是同一 px。Profile 數字不在本檔凍死。
 契約：[`subtitle-layout.md`](subtitle-layout.md)。cue 應記

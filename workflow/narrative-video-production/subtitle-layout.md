@@ -73,11 +73,13 @@ Need → Constraints → Feasible layouts[]（glyph 實測）
 
 ## Break candidate system
 
-Phase 1 schema：[`records/break-candidate.yaml`](records/break-candidate.yaml)。
+句段與換行是兩層。Schema：[`records/break-candidate.yaml`](records/break-candidate.yaml)。
 
-`BreakPolicy` 只提供 mechanical constraints／features。`generate_break_candidates` 找出可能斷點，不做最終決策。`hard_violation`（`lexical_unit_split`｜`function_word_dangling`）才把候選趕出可行集。`phrase_integrity` 與 Phase 1 的 `semantic_boundary: unknown` 只是特徵，不能單獨排除。`balance_score` 是左右平衡（越大越平衡）；`score` 是機械成本（越小越好）。沒有 Selection Actor 時，`best_cut` = 去掉 violation 後取最小 `score`。`window` 是搜尋範圍，不是語意範圍；不得只在 `prefer_at` 旁邊幾個字裡找。
+先依 `。`／`，` 切出 clause unit。標點是高優先候選，不是看到就強制切開；太短的 clause 可以跟下一句合併。某個 unit 一行放不下，才在該 unit 內產生 line-break candidates。`电脑｜里` 這類是 `hard_violation: lexical_unit_split`，在進 LLM 之前就離開可行集。
 
-Phase 2 才讓 LLM 在可行集內選擇並寫 `break_evidence`。Phase 1 沒有 `source`。單集反例不加成特例。
+選擇 policy 是 `natural_boundary_first`：strong 標點 > medium 標點 > lexical／phrase > semantic > weak。同一層才比較 `balance_score`、離 `prefer_at` 的距離、行長。`prefer_at` 不是第一鍵。`best_cut` 遵循這條順序，不是全局最小 `score`。
+
+`phrase_integrity` 與 Phase 1 的 `semantic_boundary: unknown` 不能單獨排除。Phase 2 的 LLM 只在較低層、且較高自然邊界都放不下時才選。Phase 1 沒有 `source`。
 
 ## Wrap ≠ segmentation；換行必須 lossless
 
@@ -111,6 +113,7 @@ source_span_coverage == complete_and_non_overlapping
 9. Every rendered line in one cue MUST use the same typography.
 10. Wrapping MUST preserve every source character and MUST NOT break a protected span.
 11. Cross-script consistency targets glyph visual size, not an identical `font_size` number. Script compensation numbers stay in profile／dogfood.
-12. Only `hard_violation` removes a Phase 1 candidate from the feasible set. `phrase_integrity` is advisory. `best_cut` is the min-score fallback, not a second selection engine.
+12. Only `hard_violation` removes a Phase 1 candidate from the feasible set. `phrase_integrity` is advisory.
+13. Natural boundaries precede length balance. `prefer_at` and `score` choose only inside the same boundary tier. Punctuation is a candidate, not a forced cut.
 
 無法 fit 時 rollback：`speech_author`（重切 unit）或 `locale_author`（policy／profile）。
