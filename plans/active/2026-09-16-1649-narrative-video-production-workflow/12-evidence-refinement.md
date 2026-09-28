@@ -61,3 +61,5 @@ outer loop         observe → resolve → produce → verify → correct → le
   [`36-break-candidate-schema.md`](36-break-candidate-schema.md)）
 - 為了靠近理想字數而跨過標點或切開 lexical unit（見
   [`37-natural-boundary-before-length.md`](37-natural-boundary-before-length.md)）
+- 讓 layout 改 Speech Unit，或讓 TTS 與字幕各自決定停頓（見
+  [`38-speech-unit-before-caption.md`](38-speech-unit-before-caption.md)）

@@ -30,12 +30,13 @@ Subtitle 接線：[`workflow/translation/adapters/subtitle.yaml`](../translation
 
 ## Speech timing authority（generated 口播）
 
-自製破題／旁白／口播：先切 **Speech Unit**（語意邊界），再 adapter 生成語音，用 **實際 duration** 當 cue 時軸。禁止整段先 TTS 再切字幕；禁止猜秒數。TTS 過慢是 `speech_timing_gate`，不是 `layout_gate`。layout 放不下才回切 unit。源片對白仍用 ASR timing。契約：[`speech-unit-and-timing.md`](speech-unit-and-timing.md)。
+自製破題／旁白／口播：先建立 **Speech Unit**（標點候選，不看字級與行數），再逐 unit 生成語音，用 **實際 duration** 當 cue 時軸。Caption 只投影該 unit，不得改 unit 原文。禁止整段先 TTS 再切字幕；禁止猜秒數。TTS 過慢是 `speech_timing_gate`。源片對白仍用 ASR timing。契約：[`speech-unit-and-timing.md`](speech-unit-and-timing.md)。
 
 ## Layout：Caption Composition（語意先於 fit）
 
-`layout_gate` 用 glyph 可行集＋`selection.policy`（`minimize_lines`，再看 break score）。
-一行放得下禁止因 `max_lines>1` 而拆行。兩行 **禁止** 以字數均分為目標。一行放得下禁止因 `max_lines>1` 而拆行。兩行 **禁止** 以字數均分為目標。先做 clause segmentation，再在放不下的 unit 裡換行。選擇是 `natural_boundary_first`：`prefer_at` 只在同一 boundary tier 內比較。Schema：[`records/break-candidate.yaml`](records/break-candidate.yaml)。字級是三層：absolute 安全底線、`layout_script`
+`layout_gate` 用 glyph 可行集＋`selection.policy`（`minimize_lines`，再看同一 tier 的 break）。
+一行放得下禁止因 `max_lines>1` 而拆行。兩行 **禁止** 以字數均分為目標。換行只在一個 Speech Unit 內。
+選擇是 `natural_boundary_first`。Schema：[`records/break-candidate.yaml`](records/break-candidate.yaml)。字級是三層：absolute 安全底線、`layout_script`
 profile、相對 preferred 的窄 `max_delta`。到 **profile min** 仍放不下 → 重切 Speech Unit，
 禁止滑到 absolute floor。跨語系對齊 glyph 視覺高度，不是同一 px。Profile 數字不在本檔凍死。
 契約：[`subtitle-layout.md`](subtitle-layout.md)。cue 應記

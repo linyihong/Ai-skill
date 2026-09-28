@@ -13,23 +13,24 @@ Generated 旁白／破題／自製口播的 **時間軸契約**。TTS／SSML／�
 
 禁止用 AI 猜「這句大概 3 秒」當 generated-speech cue 軸。`timing_gate` 讀的是 evidence-backed 時長，不是 layout 漂不漂亮。
 
-## 順序（不是整段先 TTS 再切字幕）
+## 順序
+
+Speech Unit 是語意／語音 SoT。Caption 是它的視覺投影，不得為了放得下而改 unit 原文。
 
 ```text
-Script → Speech Unit Planning（語意邊界）
-  → Semantic Segmentation（要不要拆成兩個 cue）
-  → Speech Generation（adapter）→ Actual duration
-  → Speech Timing QC（CPS／語速／pause；過慢是 speech 問題）
-  → Caption cue timing（primary = speech timing）
-  → Caption composition（integrity → wrap candidates → 1/2 行 → 字級；見 [`subtitle-layout.md`](subtitle-layout.md)）
+Script
+  → Speech segmentation（標點候選；太碎才合併。不看字級／行數／安全區）
+  → Speech Unit SoT
+  → Speech generation（adapter）→ actual duration
+  → Caption cue timing（start/end = 該 unit 的語音時間）
+  → Line break／typography（只在這個 unit 內；見 [`subtitle-layout.md`](subtitle-layout.md)）
 ```
 
-Speech timing ≠ caption layout。太長要分責：文案切 unit／TTS 語速／layout 擁擠。兩個 loop 不得合成「字幕不好看請重做」。
+三件事分開：segmentation 決定怎麼說、cue 決定哪一段時間顯示哪句、line break 決定這句在畫面上怎麼排。
 
-`wrap` 不得反向截斷 Speech Unit。Layout 的可行斷點由 mechanical 產生；LLM 只在該集內
-做語意選擇並留下 `break_evidence`。無合法 break 時回傳 `no_semantic_break`。Speech loop 再依語意邊界重切完整
-unit。重切前後的 source span 必須完整、連續、不重疊；不得產生「談」／「話」這類跨詞
-切割。Generated speech 若重切 unit，須重新生成 speech artifact 與 timing evidence。
+標點建立 boundary candidate，不是 100% 強制切開。`他说：“等等，我还没说完。”` 可以合併過短的逗號 unit。合併或重切屬於 speech loop，而且必須重做語音與 timing。
+
+Layout 無可行換行時回 `layout_blocked` 給 `speech_author`。它不得把「谈话」切成「谈｜话」，也不得把一行硬拆成兩行。
 
 ## 兩個 loop
 

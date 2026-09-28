@@ -28,6 +28,7 @@
 | 2026-09-28-break-candidate-system | [2026-09-28-break-candidate-system.md](2026-09-28-break-candidate-system.md) | contract | heuristic 是候選特徵；LLM 在可行集內選擇；升格前不改 policy |
 | 2026-09-28-break-candidate-schema | [2026-09-28-break-candidate-schema.md](2026-09-28-break-candidate-schema.md) | contract | Phase 1：balance_score、hard_violation、無 source；best_cut 是 fallback |
 | 2026-09-28-natural-boundary-before-length | [2026-09-28-natural-boundary-before-length.md](2026-09-28-natural-boundary-before-length.md) | contract | 標點／lexical 先於 prefer_at；字數只在同一 tier 比較 |
+| 2026-09-28-speech-unit-before-caption | [2026-09-28-speech-unit-before-caption.md](2026-09-28-speech-unit-before-caption.md) | contract | Speech Unit 是語音 SoT；caption 只投影；換行不改 unit |
 | 2026-09-21-ocr-visual-style | [2026-09-21-ocr-visual-style.md](2026-09-21-ocr-visual-style.md) | observation | visual_style 機械量測；非 subtitle_color；非新 detector |
 | 2026-09-17-editorial-vs-narrative-transition | [2026-09-17-editorial-vs-narrative-transition.md](2026-09-17-editorial-vs-narrative-transition.md) | observation | 畫面切了 ≠ 劇情轉場；shot ≠ scene |
 | 2026-09-17-face-as-candidate-evidence | [2026-09-17-face-as-candidate-evidence.md](2026-09-17-face-as-candidate-evidence.md) | observation | Face Track 可被 evidence link 引用；非身份判定器；不接辨識 |

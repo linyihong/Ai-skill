@@ -1,4 +1,5 @@
-# Phase 1 break-candidate schema. Not a runtime projection. Not the final break answer.
+# Line-break candidates inside one speech unit. Clause segmentation is speech-unit.yaml.
+# Phase 1 schema. Not a runtime projection. Not the final break answer.
 schema_version: artifact-record/v1
 id: narrative-video.break-candidate
 status: draft

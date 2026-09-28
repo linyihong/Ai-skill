@@ -15,8 +15,9 @@ required_fields:
 
 optional_fields:
   shot_id: { type: id }
-  semantic_boundary: { type: text }
-  screen_fit: { type: gate }
+  boundary_type: { type: enum, values: [strong, medium, weak, end], note: punctuation or sentence end; not a line break }
+  boundary_source: { type: enum, values: [punctuation, sentence_end, selection] }
+  pause: { type: bool }
   speech_artifact_ref: { type: text, note: adapter 產出 id；canonical 不寫 provider }
   duration_s: { type: number }
   cps: { type: number }
@@ -24,13 +25,20 @@ optional_fields:
   speech_timing_gate: { type: gate }
   caption_cue_ref: { type: id }
 
+segmentation:
+  ignores: [font_size, max_lines, glyph_width, safe_area]
+  punctuation: candidate_not_forced_split
+  short_units: may_merge_by_selection_before_tts
+
 invariants:
   - tts_ffmpeg_providers_are_adapters
   - generated_speech_cue_timing_requires_speech_artifact
   - speech_timing_qc_is_not_layout_gate
   - speech_loop_must_not_merge_with_layout_loop
   - no_guessed_cue_duration_for_generated_speech
-  - screen_fit_fail_returns_to_unit_segmentation
-  - max_lines_is_not_a_fill_target
-  - segmentation_is_not_line_wrap
-  - resegment_only_on_complete_semantic_spans
+  - speech_unit_is_spoken_sot_caption_is_visual_projection
+  - caption_must_not_rewrite_speech_unit_text
+  - line_break_stays_inside_one_speech_unit
+  - segmentation_ignores_layout_constraints
+  - punctuation_boundary_is_candidate_not_forced_split
+  - resegment_regenerates_speech_artifact

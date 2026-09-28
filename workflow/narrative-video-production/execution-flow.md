@@ -63,4 +63,5 @@ Canonical lifecycle。各 stage 填哪個 record、能否推進：見
 - 為 fit 用字元索引截斷詞／專名，或讓同一 cue 上下行使用不同 typography。
 - 用字數均分換行，或 layout 自創未評分的斷點。
 - 為了靠近 prefer_at 而切開 lexical unit，或把標點當成強制切句。
+- 讓 layout 改 Speech Unit 原文，或讓字幕切割與 TTS 各自決定停頓。
 - 把 script heuristic 當成 NEVER-BREAK 最終答案，或為單集反例直接改 canonical BreakPolicy。

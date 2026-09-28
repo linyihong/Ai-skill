@@ -76,6 +76,7 @@ stages:
       - 每個 publish_locales 項有獨立 content_gate.decision、timing_gate.decision、layout_gate.decision
       - 三閘不得合併為單一 caption_pass
       - generated 口播 cue 的 start/end 須有 speech_unit timing_source=speech_artifact（猜秒數不合格）
+      - generated 口播 cue 的文字必須等於其 speech unit；layout 不得改 unit 原文，換行只在該 unit 內
       - cue.layout 若有：lines ≤ max_lines；不得只因 max_lines>1 而拆已能放下的一行
       - cue.layout.font_size 若有：必須同時落在 absolute、profile、以及 preferred／scene baseline 的 max_delta 內；到 profile min 仍 overflow 不得再縮向 absolute floor
       - cue.layout.text_integrity_gate.decision == pass（換行後不得缺字、重複、重排或切進 protected span）

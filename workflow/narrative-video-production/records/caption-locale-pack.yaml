@@ -89,6 +89,7 @@ invariants:
   - natural_boundary_precedes_length_balance
   - punctuation_opens_a_candidate_and_is_not_a_forced_cut
   - learned_break_patterns_require_promotion_before_policy
+  - caption_is_visual_projection_of_speech_unit
   - two_line_layout_must_not_optimize_for_equal_length
 
 inbound:

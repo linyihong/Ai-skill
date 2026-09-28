@@ -73,13 +73,9 @@ Need → Constraints → Feasible layouts[]（glyph 實測）
 
 ## Break candidate system
 
-句段與換行是兩層。Schema：[`records/break-candidate.yaml`](records/break-candidate.yaml)。
+換行只發生在**已經決定的一個 Speech Unit 裡面**。句段切分在 [`speech-unit-and-timing.md`](speech-unit-and-timing.md)，不在本檔。Schema：[`records/break-candidate.yaml`](records/break-candidate.yaml)。
 
-先依 `。`／`，` 切出 clause unit。標點是高優先候選，不是看到就強制切開；太短的 clause 可以跟下一句合併。某個 unit 一行放不下，才在該 unit 內產生 line-break candidates。`电脑｜里` 這類是 `hard_violation: lexical_unit_split`，在進 LLM 之前就離開可行集。
-
-選擇 policy 是 `natural_boundary_first`：strong 標點 > medium 標點 > lexical／phrase > semantic > weak。同一層才比較 `balance_score`、離 `prefer_at` 的距離、行長。`prefer_at` 不是第一鍵。`best_cut` 遵循這條順序，不是全局最小 `score`。
-
-`phrase_integrity` 與 Phase 1 的 `semantic_boundary: unknown` 不能單獨排除。Phase 2 的 LLM 只在較低層、且較高自然邊界都放不下時才選。Phase 1 沒有 `source`。
+Layout 不得改 `speech_unit.text`。`电脑｜里`、`谈｜话` 是 `hard_violation: lexical_unit_split`。一行放得下就保持一行。選擇是 `natural_boundary_first`：`prefer_at` 只在同一 tier。無可行換行回 `layout_blocked`，由 speech loop 重切並重做語音。
 
 ## Wrap ≠ segmentation；換行必須 lossless
 
