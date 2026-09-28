@@ -35,6 +35,8 @@ outer loop         observe → resolve → produce → verify → correct → le
   [`22-phonetic-text-reconstruction.md`](22-phonetic-text-reconstruction.md)）
 - 顯示詞自動改成 spoken 猜測，或把 OCR 和諧詞拿去同音展開，或只做單次掃描、不做整集 Final Text Audit（見
   [`23-sanitization-anomaly-audit.md`](23-sanitization-anomaly-audit.md)）
+- 讓和諧假設抬高無效 ASR，或把語速異常單獨當成 hallucination（見
+  [`39-asr-validity-precedes-interpretation.md`](39-asr-validity-precedes-interpretation.md)）
 - 把 watermark role 當刪除／區域 crop／contains 整條丟棄，或讓廠標變體進 name learning（見
   [`24-ocr-role-projection.md`](24-ocr-role-projection.md)）
 - 同 timestamp／高相似就 destructive merge；或用翻譯 dst 反推哪個 source 相同（見
