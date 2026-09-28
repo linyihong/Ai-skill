@@ -27,6 +27,7 @@ shot_fields:
   - dialogue  # optional; see dialogue-semantic-context.yaml；trace only, not inferred from mp4
 
 optional_fields:
+  external_run_ref: { type: opaque_id, note: required by Phase 3 dogfood evidence; private mapping stays outside this repository }
   title: { type: text }
   profile: { type: id }
   secondary_template_ids: { type: list }
@@ -40,7 +41,11 @@ optional_fields:
 
 qc:
   producer_self_check: { max_maturity: cut-ready }
-  fresh_reviewer: { required_for: publish-ready, must_differ_from: producer }
+  fresh_reviewer:
+    required_for: publish-ready
+    must_differ_from: producer
+    required_fields: [reviewer_role, reviewed_artifact_ids, blocking_gate_verdicts, reviewed_at]
+    optional_fields: [exceptions, rollback_target]
   timeline_matches_edr: { type: bool }
 
 forbidden_fields:

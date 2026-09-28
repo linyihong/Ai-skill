@@ -3,7 +3,7 @@
 Companion to [`_plan.md`](_plan.md)。**不新增架構、不補 Q12/Q13、不接 runtime。**  
 Phase 2 落點：`34f778d4`（workflow）、`8757a578`（plan 狀態）。
 
-目標不是「成功做出一部片」，而是：一部真實片子能否把 **素材選擇、敘事結構、EDR 決策、locale、QC、publish 狀態** 留成可驗證決策鏈。
+目標不是「成功做出一部片」，而是：一部真實片子能否把 **素材選擇、敘事結構、EDR 決策、locale、QC、publish 狀態** 留成可驗證決策鏈。執行順序與最小 bundle 見 [`35-phase-3-delivery-contract.md`](35-phase-3-delivery-contract.md)：先完成 Phase 3A `cut-ready`，再做 Phase 3B publish／outcome。
 
 ## 核心原則
 
@@ -52,10 +52,11 @@ Phase 2 落點：`34f778d4`（workflow）、`8757a578`（plan 狀態）。
 ## 觀察鏈（依序，不可跳過分類）
 
 ```text
-real brief → source bible → clip catalog → template
+Phase 3A: real brief → source bible → clip catalog → template
   → matching script → feasible candidates → explicit selection policy
-  → EDR → locale packs → QC / independent verification
-  → publish-ready → outcome
+  → EDR → one locale's separate decisions → cut-ready
+
+Phase 3B: assembled output → fresh verification → publish-ready → outcome
 ```
 
 對照檔：[`workflow/narrative-video-production/execution-flow.md`](../../workflow/narrative-video-production/execution-flow.md)。
@@ -82,8 +83,14 @@ matching／EDR 仍 `data_insufficient`；不是 `design_error`。
 - **回寫本庫**只允許去敏摘要：進 [`evidence/`](evidence/README.md)。禁止片名／路徑／host／金鑰／未授權肖像。
 - 虛構示範 [`sanitized-matching-and-edr.yaml`](../../workflow/narrative-video-production/records/examples/sanitized-matching-and-edr.yaml) **不算** Phase 3。
 
-## Phase 3 PASS 最低條件
+## Phase 3A PASS 最低條件
 
-1. 外部有一部真實片子走過觀察鏈（outcome 可停在 `insufficient_sample`）。
-2. 本庫 `evidence/` 有一份去敏 run：鏈上每站 `pass`／卡住分類。
+1. 外部有一部真實片子走過 Phase 3A 鏈，到 `cut-ready`。
+2. 本庫 `evidence/` 有一份去敏 run：同一 opaque `external_run_ref`、最小 bundle、鏈上每站 verdict／evidence mode／卡住分類。
 3. 未註冊 route、未開 runtime projection、未把 provider 寫進 workflow。
+
+## Phase 3B PASS 最低條件
+
+1. Phase 3A 已通過，且 assembled output 對得上 EDR。
+2. fresh reviewer 的 reviewed artifact ids、blocking verdict、exception／rollback 與 timestamp 均已記錄。
+3. publish／outcome 已記；不足樣本明示 `insufficient_sample`，不以流量好壞決定 PASS。

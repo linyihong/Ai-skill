@@ -10,7 +10,7 @@ parent: null
 
 # Narrative Video Production Workflow（`workflow/narrative-video-production/`）
 
-**Status**: in-progress — Phase 1 PASS、Phase 2 PASS（`34f778d4` + `8757a578`）。Phase 3 dogfood **進行中**：真實片子驗證既有契約，不改架構。**不**做工具、**不**接 runtime。
+**Status**: in-progress — Phase 1 PASS、Phase 2 PASS（`34f778d4` + `8757a578`）。Phase 3 dogfood **進行中**：先完成真實、去敏的 Phase 3A `cut-ready` decision chain，再驗 Phase 3B publish／outcome；不改架構。**不**做工具、**不**接 runtime。
 
 **Glossary Impact**: yes — 另增候選 `selection_policy`、`feasible_set`、`semantic_context`、`series_cast`／`call_name`、`evidence_link`／`face_track`、`visual_text_evidence`／`normalized_box`／`visual_style`／`mechanical_probe`、`voice_evidence`／`speaker_id`、`story_state`／`narrative_role`、`evidence_unit`、`learning_candidate`、`text_resolution`、`spoken_text`／`subtitle_text`／`text_relation`、`phonetic_candidate`／`sanitization_mapping`／`text_alert`、`text_span_role`／`role_aware_projection`、`text_group`／`text_variant`、`subtitle_layout`／`obstruction_map`／`typography_profile`／`layout_review_loop`／`speech_unit`／`timing_authority`／`minimize_lines`／`font_size_bounds`／`font_size_layers`／`visual_scale`／`protected_spans`／`cue_uniform_typography`／`caption_composition`／`semantic_break_candidates`、`narrative_window`、`narrative_relation`。字幕 [`01-captions-and-locales.md`](01-captions-and-locales.md)；素材 [`02-source-bible.md`](02-source-bible.md)；invariant [`03-architecture-invariants.md`](03-architecture-invariants.md)；dogfood [`04-phase-3-dogfood.md`](04-phase-3-dogfood.md)；cast [`05-series-cast-canonicalization.md`](05-series-cast-canonicalization.md)；單元 [`06-shot-unit-semantic-context.md`](06-shot-unit-semantic-context.md)；事實層 [`07-material-fact-extraction.md`](07-material-fact-extraction.md)；身份 [`08-identity-precedes-naming.md`](08-identity-precedes-naming.md)；畫面文字 [`09-visual-text-evidence.md`](09-visual-text-evidence.md)、[`20-ocr-visual-style.md`](20-ocr-visual-style.md)；轉場 [`10-editorial-vs-narrative-transition.md`](10-editorial-vs-narrative-transition.md)；人臉證據 [`11-face-as-candidate-evidence.md`](11-face-as-candidate-evidence.md)；證據收斂 [`12-evidence-refinement.md`](12-evidence-refinement.md)；機械探針 [`13-mechanical-visual-text-probe.md`](13-mechanical-visual-text-probe.md)；聲線 [`14-voice-speaker-evidence.md`](14-voice-speaker-evidence.md)；劇情證據 [`15-story-evidence-vs-dialogue.md`](15-story-evidence-vs-dialogue.md)；證據單元 [`16-evidence-unit.md`](16-evidence-unit.md)；升格閘 [`17-story-promotion-gate.md`](17-story-promotion-gate.md)；知識累積 [`18-episode-vs-knowledge-accumulation.md`](18-episode-vs-knowledge-accumulation.md)；敘事組裝 [`19-text-resolution-and-narrative-assembly.md`](19-text-resolution-and-narrative-assembly.md)；spoken／字幕 [`21-spoken-vs-subtitle-reconstruction.md`](21-spoken-vs-subtitle-reconstruction.md)；音字 [`22-phonetic-text-reconstruction.md`](22-phonetic-text-reconstruction.md)；和諧警覺 [`23-sanitization-anomaly-audit.md`](23-sanitization-anomaly-audit.md)；OCR 投影 [`24-ocr-role-projection.md`](24-ocr-role-projection.md)；文本分組 [`25-text-group-preserve-variants.md`](25-text-group-preserve-variants.md)；字幕 layout [`26-subtitle-layout-engine.md`](26-subtitle-layout-engine.md)；字級 [`27-typography-layout-profile.md`](27-typography-layout-profile.md)；layout 複核 [`28-layout-review-loop.md`](28-layout-review-loop.md)；口播時軸 [`29-speech-timing-authority.md`](29-speech-timing-authority.md)；行數上限 [`30-max-lines-is-bound.md`](30-max-lines-is-bound.md)；字級硬閘 [`31-font-size-hard-bounds.md`](31-font-size-hard-bounds.md)；語意安全換行 [`32-semantic-safe-wrap-uniform-typography.md`](32-semantic-safe-wrap-uniform-typography.md)；Caption Composition [`33-caption-composition-semantic-breaks.md`](33-caption-composition-semantic-breaks.md)；三層字級 [`34-font-size-layers-visual-scale.md`](34-font-size-layers-visual-scale.md)。Phase 5 前不登記 glossary。
 
@@ -299,10 +299,13 @@ Phase 2 已寫入：[`workflow/narrative-video-production/`](../../workflow/narr
 
 ## Phase 3 — 一份真實 EDR dogfood
 
-協議：[`04-phase-3-dogfood.md`](04-phase-3-dogfood.md)。證據索引：[`evidence/README.md`](evidence/README.md)。
+協議：[`04-phase-3-dogfood.md`](04-phase-3-dogfood.md)。Phase 3A／3B 交付契約：[`35-phase-3-delivery-contract.md`](35-phase-3-delivery-contract.md)。證據索引：[`evidence/README.md`](evidence/README.md)。
 
-- [ ] 外部專案一部真實片子走完觀察鏈（outcome 可 `insufficient_sample`）
-- [ ] 本庫 `evidence/` 去敏 run：每站 pass 或卡住分類（`contract_gap`／`data_insufficient`／`adapter_only`／`design_error`）— 主鏈 ledger 已記；matching／EDR 仍缺
+### Phase 3A — contract dogfood（目前 blocking milestone）
+
+- [ ] 外部專案一部真實片子形成去敏 brief → bible → catalog → template → matching → EDR 的最小鏈，至少到 `cut-ready`
+- [ ] 本庫 `evidence/` 有同一 `external_run_ref` 的去敏 run；含最小 bundle、每站 verdict／evidence mode，及 `contract_gap`／`data_insufficient`／`adapter_only`／`design_error` 分類
+- [ ] 一個 locale 的 content／timing／layout 三閘分開記錄（可 `hold`，但不得宣稱 publish-ready）
 - [ ] 卡住不自動加欄位／加 phase（dialogue optional 維持；identity／series_cast／observable 分析器／Face Recognition／聲紋產品／權重模型 **不**寫進本 phase workflow；**凍結再加 observable detector**；Face／Voice 只留 track 掛點；refinement／evidence_unit 只留觀察契約）
 - [ ] 虛構 YAML 示範不算本 phase
 - [ ] 仍無 route、無 runtime projection
@@ -318,6 +321,14 @@ inbox**（不得直接寫 knowledge）。同時先驗 role-qualified Text Resolu
 主鏈 station 分類：[`evidence/2026-09-22-phase-3-chain-station-ledger.md`](evidence/2026-09-22-phase-3-chain-station-ledger.md)。
 
 完成條件：外部專案產出一部片子的 EDR；本庫只收去敏 scenario。成功 = 決策鏈可驗證；失敗 = 真實 contract gap（都算有價值）。
+
+### Phase 3B — publication dogfood（3A 後）
+
+- [ ] 成片時間線對得上 EDR shots；locale 三閘可通過或有可追溯 rollback
+- [ ] fresh reviewer 留下 reviewed artifact ids、blocking verdict、exception／rollback 與 timestamp；producer 自驗不得替代
+- [ ] publish 與 outcome window 已記錄；樣本不足明示為 `insufficient_sample`
+
+3B 不得回填成 3A 已完成，也不以流量表現決定 workflow 是否正確。
 
 ## Phase 4 — 視需要才考慮 route
 
@@ -363,7 +374,8 @@ Entry：Phase 2+3 完成且 activation 反例寫好（裸「AI 影片」不得�
 
 - [x] Phase 1 凍結
 - [x] Phase 2 workflow 文件
-- [ ] Phase 3 至少一份去敏 EDR 示範或外部 dogfood 指標
+- [ ] Phase 3A 至少一份去敏、真實的 `cut-ready` EDR decision-chain evidence
+- [ ] Phase 3B 的 publish／outcome dogfood，或明確保留為 3A 後的未完成工作
 - [ ] 未把參考包、金鑰、主機寫進 reusable docs
 - [ ] 未聲稱 runtime integration
 - [ ] Plan Completion Closure（若宣告 completed）

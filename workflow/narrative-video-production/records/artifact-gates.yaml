@@ -89,9 +89,10 @@ stages:
     eligibility_fields:
       - qc.fresh_reviewer 已填
       - qc.fresh_reviewer != producer
+      - qc.fresh_reviewer 有 reviewer_role、reviewed_artifact_ids、blocking_gate_verdicts、reviewed_at
       - blocking 缺陷為空
     rollback_owner: independent_verifier
-    notes: producer self-check 最高只到 cut-ready
+    notes: producer self-check 最高只到 cut-ready；fresh review 的 rendered／semantic 判斷目前屬 manual evidence mode，欄位存在不等於已由 runtime validator 執行
 
   - id: outcome_window
     required_records: [edit_decision_record]

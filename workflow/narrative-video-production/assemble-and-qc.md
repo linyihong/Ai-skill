@@ -16,5 +16,5 @@
 | producer self-check | 作者／同一 agent | `cut-ready` |
 | independent verification | 未參與該片 matching／assemble 的人 | `publish-ready` |
 
-`qc.status: pass` 若只有 producer 簽名，不得當 publish-ready。
+`qc.status: pass` 若只有 producer 簽名，不得當 publish-ready。fresh reviewer 必須留下角色、reviewed artifact ids、各 blocking gate verdict 與 review timestamp；例外時再記 exception 與 rollback target。這是可審查的 manual evidence，不能把欄位存在誤稱為 runtime 已機械驗證。
 無觀察 → 不得填 pass。
