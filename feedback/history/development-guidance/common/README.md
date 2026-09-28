@@ -63,4 +63,6 @@
 | `2026-09-15_112000-wire-rewards-parse-collapse-richest-block.md` | candidate | 2026-09-15_112000-wire-rewards-parse-collapse-richest-block | 既有 lesson 的結論維持於本檔原始內容；此 closure 補記不新增專案事實。 |
 | `2026-09-28_131830-runtime-image-must-copy-baked-repo-root-data.md` | candidate | Runtime image must ship data under baked repoRoot | 若 build 把 `repoRoot` 烤成絕對路徑，runtime 映像必須把伺服器仍會 `fs.read` 的資料樹 COPY 到同一路徑，不能只帶編譯產物目錄。 |
 
-Total: 60
+| `2026-09-28_133500-payline-chips-mirrors-vs-scaled-tags.md` | candidate | Payline CHIPS: strip line mirrors before scaling tags | Wire 常為每條線贏一筆 `<CHIPS>`；對獎時先按 lineWin 1:1 剝離镜像，剩餘標籤才當 extras |
+
+Total: 61
