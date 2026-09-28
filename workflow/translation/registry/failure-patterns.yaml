@@ -15,6 +15,12 @@ promotion:
   active_author: governance_review_only
   see: contracts/failure-pattern.yaml
 
+locale_taxonomy_index:
+  path: registry/locale-failure-taxonomy.yaml
+  note: >
+    After Locale Resolution, bind cross_locale_core + locale_taxonomies[target_locale].
+    Pattern bodies remain in this file; index only routes taxonomy_ids.
+
 patterns:
   - id: semantic_role_loss
     status: active

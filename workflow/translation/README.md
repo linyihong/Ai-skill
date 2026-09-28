@@ -35,7 +35,13 @@ Meaning → Semantic Roles → Target Syntax／Naturalness → Target Expression
 
 ## Failure taxonomy（摘要）
 
-F1–F5 + JA-F01–F10（false cognate／construction／expansion／residue／name／register／idiom／ambiguity／modality）— [`registry/failure-patterns.yaml`](registry/failure-patterns.yaml)。
+| 層 | 內容 |
+| --- | --- |
+| Index | [`registry/locale-failure-taxonomy.yaml`](registry/locale-failure-taxonomy.yaml) — 依 `target_locale` 綁定 |
+| Bodies | [`registry/failure-patterns.yaml`](registry/failure-patterns.yaml) — F* + JA-F01–F10 |
+| Core | F1–F9 全 locale |
+| ja-JP | JA-F01–F10（false cognate／construction／expansion／residue／…） |
+| id-ID／ms-MY | 最小 honorific residue；擴充需 evidence |
 
 ## 何時讀哪個檔
 
@@ -47,8 +53,8 @@ F1–F5 + JA-F01–F10（false cognate／construction／expansion／residue／na
 | Decision | [`contracts/translation-decision.yaml`](contracts/translation-decision.yaml) |
 | Failure Pattern | [`contracts/failure-pattern.yaml`](contracts/failure-pattern.yaml) |
 | Validate | [`contracts/validation.yaml`](contracts/validation.yaml) |
-| Types／guards | [`registry/`](registry/) |
-| Fixtures | [`examples/`](examples/)（含 social-address／[`laopo-false-cognate`](examples/laopo-false-cognate.yaml)／[`shuoleshe-liangju`](examples/shuoleshe-liangju.yaml)） |
+| Types／guards | [`registry/`](registry/)（含 [`locale-failure-taxonomy`](registry/locale-failure-taxonomy.yaml)） |
+| Fixtures | [`examples/`](examples/)（含 [`ep8-ja-walkthrough`](examples/ep8-ja-walkthrough.yaml)） |
 
 ## 明確不做
 

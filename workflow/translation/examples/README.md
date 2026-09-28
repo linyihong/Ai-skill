@@ -10,6 +10,7 @@ Phase 1 = **doc-only**. No test runner.
 | [`social-address-laozhang.yaml`](social-address-laozhang.yaml) | **P0** — 老張；F5 social_address_misinterpretation（≠ オヤジ） |
 | [`laopo-false-cognate.yaml`](laopo-false-cognate.yaml) | **P0** — 老婆→お婆さん；JA-F01 false cognate |
 | [`shuoleshe-liangju.yaml`](shuoleshe-liangju.yaml) | **P0** — 我说了她两句；JA-F02 construction |
+| [`ep8-ja-walkthrough.yaml`](ep8-ja-walkthrough.yaml) | **Dogfood** — ep8 26 cues zh→ja；needs human review |
 | [`literal.yaml`](literal.yaml) | literal |
 | [`idiom.yaml`](idiom.yaml) | idiom |
 | [`slang.yaml`](slang.yaml) | slang |
@@ -65,3 +66,10 @@ A+B **PASS**（2026-09-22）：[`08-static-walkthrough-pass.md`](../../../plans/
 4. 妻の振る舞い → semantic_expansion fail（JA-F04／I18）  
 
 見 [`12`](../../../plans/active/2026-09-22-1000-translation-decision-workflow/12-ja-pragmatic-lexical.md)、evidence `2026-09-29-ep7-ja-dogfood`。
+
+## Static walkthrough F（ep8 JA — human review）
+
+1. Bind `ja-JP` → load [`locale-failure-taxonomy`](../registry/locale-failure-taxonomy.yaml) JA-F*  
+2. 姐夫 → 義兄さん（JA-F05）；戴绿帽子 → 浮気（JA-F08）  
+3. Truncated「我替我姐向」「我只怕你姐」→ **blocked**（禁補全）  
+4. Pack：[`ep8-ja-walkthrough.yaml`](ep8-ja-walkthrough.yaml) · evidence `2026-09-29-ep8-ja-walkthrough`

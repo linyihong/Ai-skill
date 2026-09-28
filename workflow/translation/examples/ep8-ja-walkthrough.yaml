@@ -1,0 +1,263 @@
+schema_version: translation-decision-example/v0
+id: TD-EX-007-ep8-ja-walkthrough
+status: dogfood_walkthrough_needs_human_review
+purpose: >
+  Ep8 zh→ja static run of Translation Decision Workflow.
+  Selected strings are Selection illustrations under active JA taxonomy —
+  NOT final accepted TDR. Human reviewers should mark accept / revise / fail.
+
+translation_context:
+  source: { language: zh, locale: zh-CN }
+  target: { language: ja, locale: ja-JP, script: Jpan, realization_profile: ja-JP }
+  content: { type: subtitle, decision_mode: faithful_translation }
+
+locale_taxonomy_bound:
+  index: registry/locale-failure-taxonomy.yaml
+  active: [cross_locale_core, ja-JP]
+  taxonomy_ids: [F1-F9, JA-F01-JA-F10]
+
+reference_resolution:
+  entities:
+    - { id: E_sister, surface: [我姐, 你姐, 姐], role: elder_sister }
+    - { id: E_jiefu, surface: [姐夫], role: sisters_husband }
+  relationships:
+    - { from: E_sister, to: E_jiefu, type: married_to }
+
+selection_policy_global:
+  - preserve_semantic_roles
+  - preserve_modality
+  - avoid_false_cognate
+  - require_target_kinship_realization
+  - avoid_literal_idiom_translation
+  - avoid_semantic_expansion
+  - target_locale_naturalness
+
+segments:
+  - id: ep8-01
+    src: "这是巴掌印"
+    analysis:
+      composite_type: [literal]
+      semantic_structure:
+        predicate: identify
+        arguments: [{ role: theme, span: "巴掌印" }]
+    candidates:
+      - { text: "これは平手打ちの跡だ", feasible: true }
+      - { text: "これは掌の印だ", feasible: false, reason: unnatural_calque }
+    selection: { selected: "これは平手打ちの跡だ" }
+    validation: { semantic: pass, naturalness: review }
+    finality: { status: needs_review }
+
+  - id: ep8-02
+    src: "难道是我姐打的"
+    analysis:
+      composite_type: [speech_act_expression, modality]
+      semantic_structure:
+        predicate: hit
+        arguments:
+          - { role: agent, span: "我姐" }
+        modality: { uncertainty: speculative, marker: "难道" }
+    candidates:
+      - { text: "まさか、姉さんが殴ったの？", feasible: true }
+      - { text: "姉さんが殴ったの？", feasible: false, reason: modality_loss }
+    selection: { selected: "まさか、姉さんが殴ったの？" }
+    validation: { modality: pass, semantic: pass }
+    finality: { status: needs_review }
+    guards: [JA-F10]
+
+  - id: ep8-03
+    src: "你姐她也不是故意的"
+    analysis:
+      composite_type: [relationship_marker, literal]
+      reference: E_sister
+    candidates:
+      - { text: "お姉さんもわざとじゃないよ", feasible: true }
+      - { text: "妻もわざとじゃないよ", feasible: true, note: if addressee is husband }
+    selection: { selected: "お姉さんもわざとじゃないよ" }
+    finality: { status: needs_review }
+    note: Reviewer must pick お姉さん vs 妻 from cast/scene
+
+  - id: ep8-04
+    src: "我姐怎么可以这样"
+    analysis:
+      composite_type: [speech_act_expression]
+      pragmatic_meaning: [reproach]
+    selection: { selected: "姉さんがこんなことするなんて" }
+    finality: { status: needs_review }
+
+  - id: ep8-05
+    src: "她怎么可以打你"
+    selection: { selected: "彼女があなたを殴るなんて" }
+    finality: { status: needs_review }
+
+  - id: ep8-06
+    src: "我不怪她"
+    selection: { selected: "彼女のことは責めない" }
+    finality: { status: needs_review }
+
+  - id: ep8-07
+    src: "我去帮你拿点药"
+    selection: { selected: "薬を取ってきてあげる" }
+    finality: { status: needs_review }
+
+  - id: ep8-08
+    src: "我帮你"
+    candidates:
+      - { text: "手伝うわ", feasible: true, note: female speaker }
+      - { text: "僕がやる", feasible: true, note: male speaker }
+    selection: { selected: "手伝うわ" }
+    finality: { status: needs_review }
+    note: Cast gender required
+
+  - id: ep8-09
+    src: "姐夫好看吗"
+    analysis:
+      structure:
+        - { span: "姐夫", type: relationship_marker, handling: locale_aware }
+    candidates:
+      - { text: "義兄さん、似合ってる？", feasible: true }
+      - { text: "姐夫、似合ってる？", feasible: false, reason: kinship_target_residue }
+    selection: { selected: "義兄さん、似合ってる？" }
+    validation: { locale_consistency: { status: pass } }
+    finality: { status: needs_review }
+    guards: [JA-F05]
+
+  - id: ep8-10
+    src: "我姐脾气暴躁"
+    selection: { selected: "姉さんは気が短い" }
+    finality: { status: needs_review }
+
+  - id: ep8-11
+    src: "我替我姐向"
+    analysis: { truncated: true }
+    constraints: { prohibit: [invented_completion] }
+    selection: { selected: null }
+    finality:
+      status: blocked
+      blocking_reasons: [source_truncated]
+    note: Merge with following cue or wait ASR completion — do not invent 道歉
+
+  - id: ep8-12
+    src: "这丫头竟然发育的这么好"
+    analysis:
+      modality: { marker: "竟然", uncertainty: surprise }
+    selection: { selected: "この娘、まさかこんなに発育がいいとは" }
+    finality: { status: needs_review }
+    note: Platform／作品尺度 review
+
+  - id: ep8-13
+    src: "糟了"
+    selection: { selected: "まずい" }
+    finality: { status: needs_review }
+
+  - id: ep8-14
+    src: "药酒的劲好像发作"
+    analysis:
+      modality: { uncertainty: tentative, marker: "好像" }
+    candidates:
+      - { text: "薬酒の効き目が出てきたみたい", feasible: true }
+      - { text: "薬酒の発作が出た", feasible: false, reason: wrong_sense_发作 }
+    selection: { selected: "薬酒の効き目が出てきたみたい" }
+    finality: { status: needs_review }
+    guards: [JA-F09]
+
+  - id: ep8-15
+    src: "姐夫下面好像有东西"
+    candidates:
+      - { text: "義兄さん、下の方が当たってるみたい", feasible: true }
+      - { text: "姐夫の下に何かあるみたい", feasible: false, reason: kinship_residue }
+    selection: { selected: "義兄さん、下の方が当たってるみたい" }
+    finality: { status: needs_review }
+    guards: [JA-F05]
+
+  - id: ep8-16
+    src: "顶到我了"
+    selection: { selected: "当たっちゃった" }
+    finality: { status: needs_review }
+
+  - id: ep8-17
+    src: "你先回房休息"
+    selection: { selected: "先に部屋で休んでて" }
+    finality: { status: needs_review }
+
+  - id: ep8-18
+    src: "我去替你收拾房间"
+    selection: { selected: "部屋、片付けておくね" }
+    finality: { status: needs_review }
+
+  - id: ep8-19
+    src: "姐夫"
+    candidates:
+      - { text: "義兄さん", feasible: true }
+      - { text: "姐夫", feasible: false, reason: kinship_target_residue }
+    selection: { selected: "義兄さん" }
+    validation: { locale_consistency: { status: pass } }
+    finality: { status: needs_review }
+    guards: [JA-F05]
+
+  - id: ep8-20
+    src: "我姐是女强人"
+    analysis:
+      structure:
+        - span: "女强人"
+          type: pragmatic_expression
+          lexical_handling: { mode: culturally_bound }
+    candidates:
+      - { text: "姉さんはバリバリのキャリアウーマンだ", feasible: true }
+      - { text: "姉さんは女の強人だ", feasible: false, reason: false_cognate_or_calque }
+    selection: { selected: "姉さんはバリバリのキャリアウーマンだ" }
+    finality: { status: needs_review }
+    guards: [JA-F09, JA-F01]
+
+  - id: ep8-21
+    src: "一心都在工作上"
+    selection: { selected: "仕事一筋で" }
+    finality: { status: needs_review }
+
+  - id: ep8-22
+    src: "你平时肯定没少受委屈"
+    analysis:
+      modality: { uncertainty: assertive_inference, marker: "肯定" }
+    selection: { selected: "普段、ずいぶん我慢してるんでしょ" }
+    finality: { status: needs_review }
+    guards: [JA-F10]
+
+  - id: ep8-23
+    src: "受点委屈倒是没什么"
+    selection: { selected: "少し我慢するくらいならいいけど" }
+    finality: { status: needs_review }
+
+  - id: ep8-24
+    src: "我只怕你姐"
+    analysis: { truncated: true }
+    selection: { selected: null }
+    finality:
+      status: blocked
+      blocking_reasons: [source_truncated]
+    note: Completes in ep8-26 discourse; do not invent object of fear here
+
+  - id: ep8-25
+    src: "怕我姐什么"
+    selection: { selected: "姉さんの何が怖いの？" }
+    finality: { status: needs_review }
+
+  - id: ep8-26
+    src: "怕你姐给我戴绿帽子"
+    analysis:
+      structure:
+        - span: "戴绿帽子"
+          type: idiom
+          lexical_handling: { mode: idiomatic }
+          pragmatic_meaning: [cuckold, spouse_affair]
+    candidates:
+      - { text: "お姉さんに浮気されるのが怖い", feasible: true }
+      - { text: "お姉さんに緑の帽子をかぶせられるのが怖い", feasible: false, reason: idiom_literalization }
+    selection: { selected: "お姉さんに浮気されるのが怖い" }
+    validation: { semantic: pass, cultural: pass }
+    finality: { status: needs_review }
+    guards: [JA-F08]
+
+human_review:
+  instruction: >
+    Mark each segment accept | revise | fail. Prefer revise with alternate
+    selected text. Do not accept any segment with 姐夫 residue or 緑の帽子
+    literal idiom. Truncated #11/#24 stay blocked until source merge.

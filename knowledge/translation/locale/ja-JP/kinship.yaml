@@ -1,0 +1,26 @@
+schema_version: knowledge-seed/v0
+id: knowledge.translation.locale.ja-JP.kinship
+status: draft
+role: candidate_space_seed_only
+forbidden: use_as_final_answer_without_selection
+
+purpose: >
+  ja-JP kinship / relationship address Candidate Space seeds.
+  Supports JA-F05 kinship_target_residue — untranslated 姐夫 is fail.
+
+kinship:
+  姐夫:
+    candidates: [義兄さん, 義兄]
+    infeasible: [姐夫]
+    note: Selection picks form by register/scene; residue forbidden
+  姐:
+    candidates: [姉さん, お姉さん, 姉]
+  我姐:
+    candidates: [姉さん, お姉さん]
+  你姐:
+    candidates: [お姉さん, 姉さん, 奥さん]
+    note: 奥さん only when discourse proves wife-of-addressee
+
+linked_failure_patterns:
+  - kinship_target_residue
+  - JA-F05

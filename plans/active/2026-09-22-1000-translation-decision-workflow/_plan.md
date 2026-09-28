@@ -133,6 +133,7 @@ Ai-skill 已有 Loop-first／Governance-first 與 ERA v2（Evidence constrains D
 - [x] Failure Pattern learning（I13）：[`10`](10-failure-pattern-learning.md) + [`failure-pattern`](../../workflow/translation/contracts/failure-pattern.yaml)／[`failure-patterns`](../../workflow/translation/registry/failure-patterns.yaml) — dogfood → abstract guard，**不**堆 Selection prompt
 - [x] Semantic／Syntactic Realization（I14–I16）：[`11`](11-semantic-syntactic-realization.md) + semantic_structure／semantic_roles／naturalness 分欄 + F1–F5 + fixture [`social-address-laozhang`](../../workflow/translation/examples/social-address-laozhang.yaml)
 - [x] JA ep7 dogfood（I17–I20）：[`12`](12-ja-pragmatic-lexical.md) + evidence [`2026-09-29-ep7-ja-dogfood`](evidence/2026-09-29-ep7-ja-dogfood.md) + JA-F01–F10 + fixtures `laopo-false-cognate`／`shuoleshe-liangju`（**不**改 Selection prompt）
+- [x] Locale Failure Taxonomy 掛進 workflow：[`locale-failure-taxonomy.yaml`](../../workflow/translation/registry/locale-failure-taxonomy.yaml) + ep8 walkthrough [`2026-09-29-ep8-ja-walkthrough`](evidence/2026-09-29-ep8-ja-walkthrough.md)（**待人審**）
 
 ### Phase 4 — 可選（不擋 v0）
 
