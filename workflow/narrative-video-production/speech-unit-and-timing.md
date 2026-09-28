@@ -26,8 +26,8 @@ Script → Speech Unit Planning（語意邊界）
 
 Speech timing ≠ caption layout。太長要分責：文案切 unit／TTS 語速／layout 擁擠。兩個 loop 不得合成「字幕不好看請重做」。
 
-`wrap` 不得反向截斷 Speech Unit。Layout 只能從 scored `semantic_break_candidates`
-選換行；無合法 break 時回傳 `no_semantic_break`。Speech loop 再依語意邊界重切完整
+`wrap` 不得反向截斷 Speech Unit。Layout 的可行斷點由 mechanical 產生；LLM 只在該集內
+做語意選擇並留下 `break_evidence`。無合法 break 時回傳 `no_semantic_break`。Speech loop 再依語意邊界重切完整
 unit。重切前後的 source span 必須完整、連續、不重疊；不得產生「談」／「話」這類跨詞
 切割。Generated speech 若重切 unit，須重新生成 speech artifact 與 timing evidence。
 

@@ -80,7 +80,7 @@ stages:
       - cue.layout.font_size 若有：必須同時落在 absolute、profile、以及 preferred／scene baseline 的 max_delta 內；到 profile min 仍 overflow 不得再縮向 absolute floor
       - cue.layout.text_integrity_gate.decision == pass（換行後不得缺字、重複、重排或切進 protected span）
       - cue.layout.typography_scope == cue_uniform（同一 cue 上下各行不得不同字級／行高／描邊）
-      - cue.layout 兩行時：line_break_offsets 必須 ∈ semantic_break_candidates；不得以 equal length 為 selection 目標
+      - cue.layout 兩行時：line_break_offsets 必須 ∈ mechanical feasible set，並有 break_evidence；不得以 equal length 或單集 heuristic 特例當最終斷句
     rollback_owner: locale_author
 
   - id: publish_qc

@@ -9,4 +9,4 @@ Companion to [`32-semantic-safe-wrap-uniform-typography.md`](32-semantic-safe-wr
 換行。升級成 Caption Composition 四層：Content Integrity → Caption Segmentation
 → Line Composition → Typography。Layout **只能**從 scored
 `semantic_break_candidates` 選 wrap；`equal_line_length` 禁止。無高分合法斷點
-→ 回 Speech Unit 重切，不是硬切或再縮字。
+→ 回 Speech Unit 重切，不是硬切或再縮字。誰產生候選、誰做語意選擇：[`35-break-candidate-system.md`](35-break-candidate-system.md)。

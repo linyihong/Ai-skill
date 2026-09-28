@@ -71,18 +71,21 @@ Need → Constraints → Feasible layouts[]（glyph 實測）
 
 兩行候選 **不得**用平均長度當目標。優先：語意單位、詞組、標點、動詞結構、人名／專名。例如「徐經理」「談話」是 atomic unit。
 
-## AI vs mechanical
+## Break candidate system
 
-| AI | Mechanical |
-| --- | --- |
-| Semantic segmentation 建議 | Glyph 寬、max lines、safe area |
-| `semantic_break_candidates` + score | 只從候選選 offset；forbidden 落點直接淘汰 |
-| Break quality／meaning preservation | 三層字級；glyph visual height；cue-uniform |
-| Visual review（adjustment candidate） | Overflow；forbidden region |
+Script heuristic（`CjkBreakPolicy` 的 `dangling_*`／`sticky_*`）是 **v0**：產生候選、特徵與 penalty，不是最終斷句答案，也不是 `if char: NEVER BREAK`。
 
-AI 不得把「談話」拆成「談／話」。Mechanical 不接受 unscored／protected 內的 break。
+```text
+Mechanical candidates（全部可能 offset）
+  → features / penalties（lexical、phrase、syntactic、semantic、function-word、readability）
+  → feasible break set
+  → LLM semantic selection + break_evidence
+  → mechanical verify（glyph、lossless、protected span、三層字級）
+  → review → break evidence → learned pattern（observation）
+  → review 後才 promotion 進 policy
+```
 
-`break_protection` 來自 locale 的 linguistic units（詞／專名／數字＋單位／成語），**不是**每次讓 AI 寫一長串 `forbidden_boundaries`。AI 可標 `preferred_boundaries`；最終仍走 scored candidates。
+「看懂」是 lexical unit：`我已經｜看懂` 可進可行集；`我已經看｜懂` 是 `lexical_unit_split`。LLM 只在可行集裡選，必須寫 `break_evidence`（boundary、lexical_split、syntactic_completeness）。不得自創 offset，不得直接改 canonical policy 或程式。跨 script 共用這條架構；各 `layout_script` 只換 feature extractor。單集反例不加成特例。
 
 ## Wrap ≠ segmentation；換行必須 lossless
 
@@ -111,10 +114,11 @@ source_span_coverage == complete_and_non_overlapping
 4. A one-line layout that fits MUST NOT be split because `max_lines > 1`.
 5. Two-line wrap MUST NOT optimize for equal character/pixel length.
 6. Line count uses rendered glyph dimensions, not character count.
-7. Line breaks MUST be chosen from scored `semantic_break_candidates`; LLM is not final fit authority.
+7. Line breaks MUST be chosen from the mechanical feasible set. LLM is the semantic selector inside that set and is not the fit authority.
 8. Font size MUST satisfy absolute bound **and** profile bound **and** `max_delta` from preferred. Hitting profile min without fit → Speech Unit resegment, never slide to the absolute floor.
 9. Every rendered line in one cue MUST use the same typography.
 10. Wrapping MUST preserve every source character and MUST NOT break a protected span.
 11. Cross-script consistency targets glyph visual size, not an identical `font_size` number. Script compensation numbers stay in profile／dogfood.
+12. Script heuristics are candidate features and penalties, not a final break answer. Learned patterns stay observations until reviewed promotion.
 
 無法 fit 時 rollback：`speech_author`（重切 unit）或 `locale_author`（policy／profile）。
