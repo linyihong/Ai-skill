@@ -57,5 +57,5 @@ outer loop         observe → resolve → produce → verify → correct → le
   [`33-caption-composition-semantic-breaks.md`](33-caption-composition-semantic-breaks.md)）
 - 讓單句在 absolute 範圍內任意縮放，或用同一 px 當跨語系視覺一致（見
   [`34-font-size-layers-visual-scale.md`](34-font-size-layers-visual-scale.md)）
-- 把 script heuristic 當成最終斷句，或為單集反例直接改 BreakPolicy（見
-  [`35-break-candidate-system.md`](35-break-candidate-system.md)）
+- 把 script heuristic 當成最終斷句，或用 `phrase_integrity` 單獨排除候選（見
+  [`36-break-candidate-schema.md`](36-break-candidate-schema.md)）

@@ -6,4 +6,4 @@ Phase 4 才考慮 route；至少一次真實 EDR dogfood 後才有資格當 runt
 去敏可填示範：[`examples/sanitized-matching-and-edr.yaml`](examples/sanitized-matching-and-edr.yaml)（虛構系列，無真實片名／主機／金鑰）。
 對白語義欄位：[`dialogue-semantic-context.yaml`](dialogue-semantic-context.yaml)（Phase 3 起 optional）。
 自製口播時軸：[`speech-unit.yaml`](speech-unit.yaml)（TTS 不進本契約）。
-字幕行數：cue `layout.lines` vs `max_lines`（見 [`../subtitle-layout.md`](../subtitle-layout.md)）。字級必須同時滿足 absolute、profile、`max_delta`；`text_integrity_gate` 必須 lossless；換行的可行集由 mechanical 產生，LLM 在集內選擇並留下 `break_evidence`；heuristic 未升格前不是最終答案。`typography_scope: cue_uniform`。跨語系對齊 glyph 視覺高度。
+字幕行數：cue `layout.lines` vs `max_lines`（見 [`../subtitle-layout.md`](../subtitle-layout.md)）。字級必須同時滿足 absolute、profile、`max_delta`；`text_integrity_gate` 必須 lossless。斷點 schema：[`break-candidate.yaml`](break-candidate.yaml)（Phase 1：`hard_violation` 才排除；`best_cut` 是最小 `score` fallback）。`typography_scope: cue_uniform`。跨語系對齊 glyph 視覺高度。

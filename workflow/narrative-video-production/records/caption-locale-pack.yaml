@@ -49,13 +49,11 @@ cue_optional_fields:
       protected_spans: { type: list, note: lexical/name/number-unit/idiom/manual no-break spans }
       semantic_break_candidates:
         type: list
-        note: mechanical feasible offsets; LLM selects inside this set
-      break_features:
-        type: list
-        note: lexical/phrase/syntactic/semantic penalties; not a NEVER-BREAK table
+        ref: break-candidate.yaml
+        note: Phase 1 feasible set is hard_violation=none; schema is BreakFeature + BreakCandidate
       break_evidence:
         type: object
-        note: boundary_type, lexical_split, syntactic_completeness, naturalness
+        note: Phase 2; required when a selection actor chooses inside the feasible set
       learned_pattern_status:
         type: enum
         values: [observation, candidate, promoted]
@@ -84,11 +82,14 @@ invariants:
   - layout_engine_must_not_segment_or_truncate_cue_text
   - content_integrity_precedes_layout_fit
   - line_breaks_must_come_from_scored_semantic_candidates
-  - script_heuristics_are_features_not_final_break_answers
-  - llm_selects_inside_feasible_set_and_records_break_evidence
+  - hard_violation_is_the_only_phase_1_feasible_set_exclusion
+  - phrase_integrity_must_not_remove_candidates
+  - balance_score_is_not_selection_cost
+  - best_cut_is_min_score_fallback_not_a_second_engine
   - learned_break_patterns_require_promotion_before_policy
   - two_line_layout_must_not_optimize_for_equal_length
 
 inbound:
   - workflow/translation/adapters/subtitle.yaml
   - workflow/narrative-video-production/records/speech-unit.yaml
+  - workflow/narrative-video-production/records/break-candidate.yaml

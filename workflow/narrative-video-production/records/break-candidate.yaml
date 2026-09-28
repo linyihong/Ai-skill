@@ -1,0 +1,77 @@
+# Phase 1 break-candidate schema. Not a runtime projection. Not the final break answer.
+schema_version: artifact-record/v1
+id: narrative-video.break-candidate
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；未接 runtime
+
+record: break_candidate
+phase: 1
+
+break_feature:
+  boundary_type:
+    type: enum
+    values: [strong, medium, weak, none]
+    note: strong=句末；medium=子句；weak=空格／破折；none=無標點
+  lexical_integrity: { type: bool, default: true, note: false when a sticky bigram/phrase is split }
+  function_word_attachment: { type: bool, default: true, note: false when dangling_end/start lands on a function word }
+  syntactic_boundary: { type: bool, default: false, note: true on strong/medium punctuation }
+  soft_end: { type: bool, default: false, note: line-end modal particle; bonus only, not a violation }
+  phrase_integrity:
+    type: bool
+    default: true
+    note: advisory mechanical approximation only; MUST NOT by itself remove a candidate from the feasible set
+  balance_score: { type: number, note: "0..1; higher means more balanced left/right. Not the selection cost." }
+  semantic_boundary:
+    type: enum
+    values: [unknown, boundary, non_boundary]
+    default: unknown
+    note: Phase 1 stays unknown. Phase 2 LLM may set boundary or non_boundary.
+
+break_candidate:
+  position: { type: integer, note: character index }
+  left: { type: text }
+  right: { type: text }
+  feature: { type: object, ref: break_feature }
+  hard_violation:
+    type: enum
+    values: [none, lexical_unit_split, function_word_dangling]
+    default: none
+    note: none stays in the feasible set. Any other value excludes the candidate. This is a constraint, not a score penalty.
+  score: { type: number, note: mechanical selection cost; lower is better. Distinct from balance_score. }
+
+absent_in_phase_1:
+  fields: [source, provenance]
+  note: LLM selects a candidate; it does not author one. Provenance waits until a later phase.
+
+mapping_from_break_policy:
+  charset_strong_or_medium: boundary_type + syntactic_boundary
+  charset_weak: boundary_type=weak
+  dangling_end_or_start: function_word_attachment=false and hard_violation=function_word_dangling
+  sticky_end_bigrams_or_phrases: lexical_integrity=false and hard_violation=lexical_unit_split
+  soft_end: soft_end=true
+  distance_and_length_ratio: balance_score and score
+
+responsibilities:
+  break_policy: locale mechanical constraints and features
+  generate_break_candidates: emit possible offsets; no final decision
+  hard_violation: the only Phase 1 reason to leave the feasible set
+  best_cut: fallback selector when no selection actor is present
+
+generation:
+  window_meaning: search span for candidate generation, not a semantic judgment range
+  window_null: whole string
+  must_not: emit only the few offsets nearest prefer_at when a legal boundary exists farther away
+
+fallback:
+  steps:
+    - generate_break_candidates
+    - drop hard_violation other than none
+    - min score
+  note: best_cut is this fallback. It is not a second selection engine inside BreakPolicy.
+
+phase_2_not_in_this_record:
+  - llm semantic selection inside the feasible set
+  - break_evidence
+  - learned pattern promotion

@@ -73,25 +73,17 @@ Need → Constraints → Feasible layouts[]（glyph 實測）
 
 ## Break candidate system
 
-Script heuristic（`CjkBreakPolicy` 的 `dangling_*`／`sticky_*`）是 **v0**：產生候選、特徵與 penalty，不是最終斷句答案，也不是 `if char: NEVER BREAK`。
+Phase 1 schema：[`records/break-candidate.yaml`](records/break-candidate.yaml)。
 
-```text
-Mechanical candidates（全部可能 offset）
-  → features / penalties（lexical、phrase、syntactic、semantic、function-word、readability）
-  → feasible break set
-  → LLM semantic selection + break_evidence
-  → mechanical verify（glyph、lossless、protected span、三層字級）
-  → review → break evidence → learned pattern（observation）
-  → review 後才 promotion 進 policy
-```
+`BreakPolicy` 只提供 mechanical constraints／features。`generate_break_candidates` 找出可能斷點，不做最終決策。`hard_violation`（`lexical_unit_split`｜`function_word_dangling`）才把候選趕出可行集。`phrase_integrity` 與 Phase 1 的 `semantic_boundary: unknown` 只是特徵，不能單獨排除。`balance_score` 是左右平衡（越大越平衡）；`score` 是機械成本（越小越好）。沒有 Selection Actor 時，`best_cut` = 去掉 violation 後取最小 `score`。`window` 是搜尋範圍，不是語意範圍；不得只在 `prefer_at` 旁邊幾個字裡找。
 
-「看懂」是 lexical unit：`我已經｜看懂` 可進可行集；`我已經看｜懂` 是 `lexical_unit_split`。LLM 只在可行集裡選，必須寫 `break_evidence`（boundary、lexical_split、syntactic_completeness）。不得自創 offset，不得直接改 canonical policy 或程式。跨 script 共用這條架構；各 `layout_script` 只換 feature extractor。單集反例不加成特例。
+Phase 2 才讓 LLM 在可行集內選擇並寫 `break_evidence`。Phase 1 沒有 `source`。單集反例不加成特例。
 
 ## Wrap ≠ segmentation；換行必須 lossless
 
 - Wrap 只插入顯示換行。移除換行後必須等於 canonical cue text。
 - Cue／Speech Unit 切分只能在上游語意邊界。無合法 break → `no_semantic_break`，再走字級或 resegment。
-- `line_break_offsets` 必須 ∈ scored candidates，且 ∉ `protected_spans`。
+- `line_break_offsets` 必須 ∈ feasible set（`hard_violation: none`），且 ∉ `protected_spans`。
 
 ```text
 remove_only_inserted_linebreaks(rendered_lines) == cue.text
@@ -119,6 +111,6 @@ source_span_coverage == complete_and_non_overlapping
 9. Every rendered line in one cue MUST use the same typography.
 10. Wrapping MUST preserve every source character and MUST NOT break a protected span.
 11. Cross-script consistency targets glyph visual size, not an identical `font_size` number. Script compensation numbers stay in profile／dogfood.
-12. Script heuristics are candidate features and penalties, not a final break answer. Learned patterns stay observations until reviewed promotion.
+12. Only `hard_violation` removes a Phase 1 candidate from the feasible set. `phrase_integrity` is advisory. `best_cut` is the min-score fallback, not a second selection engine.
 
 無法 fit 時 rollback：`speech_author`（重切 unit）或 `locale_author`（policy／profile）。
