@@ -1,0 +1,67 @@
+schema_version: translation-decision-example/v0
+id: TD-EX-006-shuoleshe-liangju
+status: p0_regression_fixture
+source_case:
+  observed_io:
+    src: "我说了她两句"
+    dst_bad: "彼女に少し言及しました"
+  failure_class: [chinese_pragmatic_construction_literalization]
+  note: >
+    说了她两句 = scolded/spoke critically a few lines — Chinese speech-act
+    construction (说+人+数量补语), not "mentioned her slightly". JA-F02.
+
+translation_context:
+  source: { language: zh, locale: zh-CN }
+  target: { language: ja, locale: ja-JP }
+  content: { type: subtitle, decision_mode: faithful_translation }
+
+expression_analysis:
+  surface: "我说了她两句"
+  composite_type: [speech_act_expression, construction]
+  analysis_layers: [lexical, semantic, pragmatic]
+  structure:
+    - span: "说了她两句"
+      type: speech_act_expression
+      role: predicate
+      handling: pragmatic_construction
+      lexical_handling: { mode: collocational }
+  literal_meaning: [said two sentences about her]
+  pragmatic_meaning: [mildly_reprimanded_her, spoke_critically_a_few_lines]
+  semantic_structure:
+    predicate: reprimand_speech_act
+    arguments:
+      - { role: agent, span: "我" }
+      - { role: patient, span: "她" }
+    manner: [brief_verbal_criticism]
+    polarity: affirmative
+
+constraints:
+  preserve: [speech_act, patient, agent]
+  prohibit: [dictionary_mention_gloss]
+
+candidate_space:
+  - { text: ちょっと叱った, feasible: true }
+  - { text: 少し言ってやった, feasible: true }
+  - { text: 彼女に少し言及しました, feasible: false, reason: construction_literalization }
+
+selection:
+  policy: [preserve_speech_act, target_locale_naturalness]
+  selected: "ちょっと叱った"
+  rationale: illustrative feasible speech-act realization
+  decision_basis: [expression_analysis, candidate_space]
+
+validation:
+  semantic: pass
+  modality: pass
+  naturalness: pass
+
+finality:
+  status: needs_review
+
+regression_fixtures:
+  - name: 言及しました fails JA-F02
+    dst: "彼女に少し言及しました"
+    expect:
+      validation.semantic.status: fail
+      reason: chinese_pragmatic_construction_literalization
+      finality.accepted: false

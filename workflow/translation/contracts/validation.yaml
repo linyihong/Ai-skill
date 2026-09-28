@@ -3,57 +3,60 @@ id: translation.validation
 status: draft
 runtime_projection:
   enabled: false
-  reason: workflow-local；Phase 1 reinforcement；未接 runtime
+  reason: workflow-local；Phase 1/3 ep7 reinforcement；未接 runtime
 
 record: translation_validation
 purpose: >
   Multi-dimension validation. No single translation_quality score.
-  semantic ≠ syntactic ≠ grammatical ≠ naturalness ≠ semantic_roles (I14–I16).
-  Mechanical gates are not self-certified by the Selection Actor.
+  semantic ≠ syntactic ≠ grammatical ≠ naturalness ≠ semantic_roles ≠
+  modality ≠ semantic_expansion (I14–I20). Mechanical gates not self-certified.
 
 dimensions:
   semantic: { type: enum, values: [pass, fail, review] }
   semantic_roles:
     type: enum
     values: [pass, fail, review]
+    note: Completeness of agent／patient／recipient／theme／temporal／polarity (F1／JA-F03).
+  modality:
+    type: enum
+    values: [pass, fail, review]
     note: >
-      Completeness / mismatch of agent／patient／recipient／theme／temporal／polarity
-      vs source semantic_structure. Missing role → fail or review (F1).
+      Speculative／tentative／speech-act force (该不会…吧, 我说了…) must not
+      collapse without trace (I19／JA-F10).
+  semantic_expansion:
+    type: enum
+    values: [pass, fail, review]
+    note: >
+      I18. Fluency-driven addition of unsupported content (振る舞い) — distinct
+      from marketing invented_information; both block accepted without waiver.
   intent: { type: enum, values: [pass, fail, review] }
-  register: { type: enum, values: [pass, fail, review] }
+  register:
+    type: enum
+    values: [pass, fail, review]
+    note: >
+      I20. Meaning-correct + register elevation/depression (colloquial→べし)
+      → fail or review (JA-F07).
   terminology: { type: enum, values: [pass, fail, review] }
   cultural: { type: enum, values: [pass, fail, review] }
   format: { type: enum, values: [pass, fail, review] }
   completeness: { type: enum, values: [pass, fail, review] }
-  syntactic:
-    type: enum
-    values: [pass, fail, review]
-    note: >
-      Target syntax planning OK relative to roles — NOT "same word order as source".
-      Dead source-order copy that breaks target grammar → F3 review/fail.
-  grammatical:
-    type: enum
-    values: [pass, fail, review]
-    note: >
-      Case／particle／preposition／modifier attachment as Target Grammatical
-      Realization of roles — not literal particle translation (F2).
+  syntactic: { type: enum, values: [pass, fail, review] }
+  grammatical: { type: enum, values: [pass, fail, review] }
   naturalness:
     type: enum
     values: [pass, fail, review]
-    note: >
-      Fluency under I16 — may prefer shorter／reordered surface but MUST NOT
-      alter roles／entities／temporal／polarity／intent. Distinct from grammatical.
+    note: Under I16／I18 — must not expand semantics for fluency.
 
 locale_consistency:
   status: { type: enum, values: [pass, fail, review] }
   reason: { type: text, examples: [target_locale_residue] }
-  note: >
-    id-ID + English title token (Miss/Ms.) → review + target_locale_residue by default.
+  note: Untranslated kinship (姐夫) in ja-JP → fail (JA-F05).
 
 name_realization:
   status: { type: enum, values: [pass, fail, review] }
   reason: { type: text, examples: [name_realization_incomplete] }
   preferred_script: { type: text, optional: true }
+  note: Identity + series_cast + script_policy — not auto zh→ja kanji (JA-F06).
 
 invented_information:
   status: { type: enum, values: [pass, fail, review] }
@@ -72,40 +75,43 @@ residue_columns:
   source_language_residue:
     meaning: residual tokens from SOURCE language in dst
   target_locale_residue:
-    meaning: dst uses forms inconsistent with TARGET locale
+    meaning: dst inconsistent with TARGET locale (含未譯 姐夫)
   name_realization_incomplete:
-    meaning: title/locale OK but name not realized per realization_profile
+    meaning: name not realized per realization_profile
   invented_information:
-    meaning: dst introduces unsupported claims/hashtags/marketing
+    meaning: unsupported marketing claims/hashtags
+  semantic_expansion:
+    meaning: fluency adds source-unsupported entities／predicates
   semantic_role_loss:
-    meaning: source role missing or remapped without evidence in dst
+    meaning: source role missing without evidence
   social_address_misinterpretation:
-    meaning: familiar prefix glossed as literal age/kin without evidence
+    meaning: familiar prefix → literal age/kin
+  chinese_lexical_false_cognate:
+    meaning: character-wise zh→ja kanji friend error (老婆→お婆さん)
 
 invariants:
   - id: I8
-    rule: source_language_residue ≠ target_locale_residue — MUST remain separate columns
+    rule: source_language_residue ≠ target_locale_residue
   - id: I11
-    rule: name_realization is a separate validation column from locale_consistency
+    rule: name_realization ≠ locale_consistency column
   - id: I12
-    rule: invented_information is a separate column; marketing_generation ≠ translation
+    rule: invented_information ≠ marketing-as-translation
   - id: I14
-    rule: >
-      Translation preserves semantic relations, not source surface form.
-      semantic_roles / completeness check against source semantic_structure.
+    rule: Preserve semantic relations, not source surface form
   - id: I15
-    rule: >
-      Target-language syntax may reorder, omit, or restructure surface elements
-      only when corresponding semantic relations remain preserved.
-      source word order ≠ required target word order.
+    rule: Target reorder/omit OK only when relations preserved
   - id: I16
-    rule: >
-      Naturalness optimization MUST NOT introduce, remove, or alter
-      source-supported semantic roles, entities, temporal references,
-      polarity, or intent. naturalness column ≠ grammatical column.
-  - rule: Selection Actor MUST NOT self-close locale_consistency, name_realization, invented_information, semantic_roles, or mechanical gates
-  - rule: target_locale_residue and name_realization_incomplete default to review, not automatic fail
-  - rule: invented_information without waiver/allow_marketing_expansion blocks finality.accepted
+    rule: Naturalness MUST NOT alter roles/entities/temporal/polarity/intent
+  - id: I17
+    rule: False cognate / lexical decomposition MUST be flagged; no sole kanji gloss
+  - id: I18
+    rule: semantic_expansion distinct from invented_information; both block without waiver
+  - id: I19
+    rule: Preserve participants, event, modality/uncertainty, polarity
+  - id: I20
+    rule: Meaning-correct + register drift → register fail or review
+  - rule: Selection Actor MUST NOT self-close locale/name/invented/expansion/roles/modality/mechanical
+  - rule: untranslated kinship in ja-JP → locale_consistency fail
   - rule: Forbidden to hard-fail all non-katakana foreign names
   - rule: Forbidden to require source_token_order == target_token_order
 
@@ -114,8 +120,9 @@ forbidden:
   - merging_source_and_target_locale_residue
   - merging_name_realization_into_locale_consistency
   - merging_naturalness_into_grammatical_or_semantic
+  - merging_semantic_expansion_into_naturalness_pass
   - treating_invented_hashtags_as_harmless_adaptation
   - requiring_source_word_order_in_target
-  - treating_particle_omission_as_role_loss_when_role_still_recoverable
+  - character_wise_kanji_gloss_as_sole_zh_ja_candidate
   - llm_waiver_by_vibes_without_explicit_waiver_record
   - hard_fail_non_katakana_foreign_names

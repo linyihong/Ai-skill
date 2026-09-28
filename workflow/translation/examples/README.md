@@ -8,6 +8,8 @@ Phase 1 = **doc-only**. No test runner.
 | [`address-title-chen-xiaojie-ja.yaml`](address-title-chen-xiaojie-ja.yaml) | **P0** — ja-JP **name realization**（Chenさん → review） |
 | [`title-kongjie-yiriqianli.yaml`](title-kongjie-yiriqianli.yaml) | **P0** — short-drama **title**；idiom + invented_information（I12） |
 | [`social-address-laozhang.yaml`](social-address-laozhang.yaml) | **P0** — 老張；F5 social_address_misinterpretation（≠ オヤジ） |
+| [`laopo-false-cognate.yaml`](laopo-false-cognate.yaml) | **P0** — 老婆→お婆さん；JA-F01 false cognate |
+| [`shuoleshe-liangju.yaml`](shuoleshe-liangju.yaml) | **P0** — 我说了她两句；JA-F02 construction |
 | [`literal.yaml`](literal.yaml) | literal |
 | [`idiom.yaml`](idiom.yaml) | idiom |
 | [`slang.yaml`](slang.yaml) | slang |
@@ -54,3 +56,12 @@ A+B **PASS**（2026-09-22）：[`08-static-walkthrough-pass.md`](../../../plans/
 3. I14–I16：preserve social relation；naturalness 不得改 identity  
 
 見 [`social-address-laozhang.yaml`](social-address-laozhang.yaml)、[`11`](../../../plans/active/2026-09-22-1000-translation-decision-workflow/11-semantic-syntactic-realization.md)。
+
+## Static walkthrough E（ep7 JA）
+
+1. 老婆 → `false_cognate_risk`；お婆さん infeasible（JA-F01）  
+2. 说了她两句 → speech_act_expression；言及しました fail（JA-F02）  
+3. 姐夫 untranslated → locale fail（JA-F05）  
+4. 妻の振る舞い → semantic_expansion fail（JA-F04／I18）  
+
+見 [`12`](../../../plans/active/2026-09-22-1000-translation-decision-workflow/12-ja-pragmatic-lexical.md)、evidence `2026-09-29-ep7-ja-dogfood`。

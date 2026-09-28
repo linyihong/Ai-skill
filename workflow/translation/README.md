@@ -3,7 +3,7 @@
 `workflow/translation/` 是 **cross-cutting governed translation decision** capability：  
 Meaning → Semantic Roles → Target Syntax／Naturalness → Target Expression，不是「原文 → LLM → 完成」。
 
-> **狀態**：Phase 1–3 + I12 title + I13 failure + **I14–I16 semantic／syntax**（[`11`](../../plans/active/2026-09-22-1000-translation-decision-workflow/11-semantic-syntactic-realization.md)）。  
+> **狀態**：Phase 1–3 + I12–I20（ep7 JA dogfood [`12`](../../plans/active/2026-09-22-1000-translation-decision-workflow/12-ja-pragmatic-lexical.md)）。  
 > Prompt = Selection adapter only。未註冊 route。
 
 ## 一句話責任邊界
@@ -28,10 +28,14 @@ Meaning → Semantic Roles → Target Syntax／Naturalness → Target Expression
 | I14 | Preserve **semantic relations**, not source surface form |
 | I15 | Target reorder／omit／restructure OK **only if** relations preserved |
 | I16 | Naturalness MUST NOT alter roles／entities／temporal／polarity／intent |
+| I17 | False cognate／kanji decomposition flagged；no sole zh→ja kanji gloss |
+| I18 | semantic_expansion ≠ marketing invented_information |
+| I19 | Preserve participants／event／modality／polarity |
+| I20 | Meaning-correct + register drift → register fail／review |
 
 ## Failure taxonomy（摘要）
 
-F1 role loss · F2 grammatical relation · F3 syntax distortion · F4 unnatural · F5 social address · F6 idiom · F7 locale residue · F8 name script · F9 invented — 見 [`registry/failure-patterns.yaml`](registry/failure-patterns.yaml)。
+F1–F5 + JA-F01–F10（false cognate／construction／expansion／residue／name／register／idiom／ambiguity／modality）— [`registry/failure-patterns.yaml`](registry/failure-patterns.yaml)。
 
 ## 何時讀哪個檔
 
@@ -44,7 +48,7 @@ F1 role loss · F2 grammatical relation · F3 syntax distortion · F4 unnatural 
 | Failure Pattern | [`contracts/failure-pattern.yaml`](contracts/failure-pattern.yaml) |
 | Validate | [`contracts/validation.yaml`](contracts/validation.yaml) |
 | Types／guards | [`registry/`](registry/) |
-| Fixtures | [`examples/`](examples/)（含 [`social-address-laozhang`](examples/social-address-laozhang.yaml)） |
+| Fixtures | [`examples/`](examples/)（含 social-address／[`laopo-false-cognate`](examples/laopo-false-cognate.yaml)／[`shuoleshe-liangju`](examples/shuoleshe-liangju.yaml)） |
 
 ## 明確不做
 

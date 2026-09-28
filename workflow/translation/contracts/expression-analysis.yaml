@@ -3,20 +3,19 @@ id: translation.expression-analysis
 status: draft
 runtime_projection:
   enabled: false
-  reason: workflow-local；Phase 1 reinforcement；未接 runtime
+  reason: workflow-local；Phase 1/3 ep7 reinforcement；未接 runtime
 
 record: expression_analysis
 purpose: >
-  Intermediate artifact describing what the expression is — lexical, semantic,
-  pragmatic, and syntactic layers. Producer is opaque (registry, dictionary,
-  hybrid, LLM, human). For content.type=title, Title Structure Analysis feeds
-  this artifact. Semantic Structure is the bridge to Target Realization (I14).
+  Intermediate artifact — lexical, semantic, syntactic, pragmatic, discourse,
+  cultural layers. Semantic Structure bridges to Target Realization (I14).
+  lexical_handling flags false_cognate_risk (老婆≠お婆さん). Producer opaque.
 
 required_fields:
   surface: { type: text }
   composite_type:
     type: list_or_text
-    note: may be list (title + idiom + part_marker; social_address + proper_name)
+    note: may list title+idiom; social_address+name; construction+speech_act
   structure:
     type: list
     item:
@@ -28,13 +27,27 @@ required_fields:
         examples:
           - name_realization
           - locale_aware
-          - transliteration
-          - locale_equivalent
-          - semantic_equivalent
-          - title_structure
-          - part_normalization
+          - lexicalized
+          - idiomatic
+          - pragmatic_construction
           - social_address
           - grammatical_relation
+      lexical_handling:
+        type: object
+        optional: true
+        fields:
+          mode:
+            type: enum
+            values:
+              - literal
+              - lexicalized
+              - idiomatic
+              - collocational
+              - false_cognate_risk
+              - culturally_bound
+            note: >
+              false_cognate_risk / lexicalized → forbid character-wise kanji
+              gloss as sole Candidate (I17).
       ambiguity:
         type: list
         optional: true
@@ -42,20 +55,14 @@ required_fields:
         type: object
         optional: true
         fields:
-          strategies:
-            type: list
-            note: ids from registry — seed Candidate Space only
+          strategies: { type: list }
 
 optional_fields:
   analysis_layers:
     type: list
-    values_hint: [lexical, semantic, pragmatic, syntactic]
-    note: which layers populated; semantic recommended for multi-argument clauses
+    values_hint: [lexical, semantic, syntactic, pragmatic, discourse, cultural]
   semantic_structure:
     type: object
-    note: >
-      Intermediate meaning structure. Not a translation. Selection realizes
-      target surface from this under Constraints (I14–I16).
     fields:
       predicate: { type: text }
       arguments:
@@ -73,17 +80,32 @@ optional_fields:
       purpose: { type: list }
       condition: { type: list }
       polarity: { type: enum, values_hint: [affirmative, negative, unknown] }
+      modality:
+        type: object
+        optional: true
+        fields:
+          uncertainty: { type: enum, values_hint: [none, speculative, tentative, unknown] }
+          speech_act: { type: text, optional: true }
+        note: 该不会…吧 → speculative; must not drop (I19)
       social_address: { type: object, optional: true }
   semantic_roles:
     type: list
-    note: compact role inventory for completeness checks (may mirror arguments)
     item:
       role: { type: text }
       source: { type: text }
-      target: { type: text, optional: true, note: filled after Selection for validation }
+      target: { type: text, optional: true }
+  reference_resolution:
+    type: object
+    optional: true
+    note: >
+      Discourse referents／kinship／cast identity before surface Selection.
+      姐夫／姐／老婆／赵伟 → resolved entity + relationship, then realization.
+    fields:
+      entities: { type: list }
+      relationships: { type: list }
+      established_names: { type: list, note: series_cast / prior TDR forms }
   title_structure:
     type: object
-    note: Required path when content.type=title
     fields:
       is_title: { type: bool }
       is_truncated_or_nonstandard: { type: bool }
@@ -92,7 +114,12 @@ optional_fields:
       platform_metadata_present: { type: bool }
   literal_meaning: { type: list }
   pragmatic_meaning: { type: list }
-  register: { type: list }
+  register:
+    type: object
+    optional: true
+    fields:
+      source: { type: text, examples: [colloquial, formal, literary] }
+      target_required: { type: text, optional: true }
   speaker_intent: { type: list }
   ambiguity: { type: list }
   producer:
@@ -105,29 +132,29 @@ invariants:
     rule: Expression Analysis is an artifact; contracts MUST NOT require LLM-as-producer
   - rule: no Expression Analysis → no DECIDE / Selection
   - id: I11-analysis
-    rule: >
-      proper_name handling may declare realization strategies; this is NOT
-      the selected surface form — Target-Locale Realization fills Candidate Space next
+    rule: proper_name realization strategies seed Candidate Space only
   - id: I12-analysis
-    rule: >
-      When content.type=title, Title Structure Analysis MUST populate structure
-      (and preferably title_structure) before Selection. Idiom spans MUST carry
-      ambiguity when lexical form ≠ contextual meaning is possible.
+    rule: title Structure + idiom ambiguity before Selection when content.type=title
   - id: I14-analysis
-    rule: >
-      Multi-argument / event clauses SHOULD populate semantic_structure (or
-      semantic_roles). Token mapping without roles is insufficient for Target
-      Realization. Preserve semantic relations, not source word order.
+    rule: multi-argument clauses SHOULD populate semantic_structure / semantic_roles
   - id: I14b-analysis
+    rule: social_address_marker MUST NOT default to literal age/kin gloss
+  - id: I17-analysis
     rule: >
-      social_address_marker / familiar_name_prefix / relationship_marker spans
-      MUST NOT default to literal age/kin gloss (老≠オヤジ) without evidence.
+      Lexicalized kinship／relationship terms and false_cognate_risk spans
+      MUST NOT use character-wise Chinese→Japanese kanji decomposition as the
+      sole feasible Candidate (老婆≠お婆さん).
+  - id: I19-analysis
+    rule: >
+      Speculative／tentative constructions (该不会…吧) SHOULD populate
+      semantic_structure.modality; speech-act constructions (说了她两句)
+      SHOULD use speech_act_expression / construction types.
 
 forbidden:
   - equating_expression_analysis_with_ai_analysis_step
   - source_text_to_translation_without_analysis_artifact
   - treating_latin_transliteration_as_complete_ja_name_realization
-  - collapsing_title_idiom_to_single_guess_without_candidate_space
-  - asking_how_do_i_translate_this_idiom_in_english_when_task_is_target_locale_title
+  - character_wise_kanji_gloss_as_sole_candidate_for_false_cognate_risk
+  - dictionary_gloss_only_for_pragmatic_constructions
   - token_mapping_without_semantic_roles_for_multi_argument_clauses
   - treating_familiar_prefix_as_literal_old_by_default

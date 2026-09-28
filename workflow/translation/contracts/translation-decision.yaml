@@ -103,6 +103,19 @@ invariants:
       Naturalness optimization MUST NOT introduce, remove, or alter
       source-supported semantic roles, entities, temporal references,
       polarity, or intent.
+  - id: I17
+    rule: >
+      Cross-lingual false cognate / lexical decomposition risk MUST be flagged;
+      Selection MUST NOT default to character-wise kanji gloss as sole feasible
+      (老婆≠お婆さん).
+  - id: I18
+    rule: >
+      semantic_expansion for fluency (妻の振る舞い when source only 我老婆) is
+      prohibited without evidence — distinct from marketing invented_information.
+  - id: I19
+    rule: Preserve participants, event, modality/uncertainty, polarity.
+  - id: I20
+    rule: Meaning-correct + register elevation/depression → register fail or review.
   - rule: selection.selected MUST be in candidates where feasible==true (unless explicit waiver)
   - rule: selection.decision_basis MUST list artifact bases
 
@@ -114,6 +127,8 @@ forbidden:
   - collapsing_candidate_space_into_single_forced_output
   - requiring_source_word_order_equals_target_word_order
   - naturalness_that_drops_or_adds_semantic_roles
+  - character_wise_kanji_gloss_as_sole_zh_ja_candidate
+  - fluency_semantic_expansion_without_evidence
   - quality_or_confidence_scalar_as_closure
   - equating_latin_name_plus_honorific_with_complete_ja_name_realization
   - hard_fail_all_non_katakana_names

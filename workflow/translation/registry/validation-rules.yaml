@@ -149,6 +149,75 @@ rules:
         dst: "張さん"
         expect: pass_or_review_on_name_only
 
+  - id: false_cognate_guard
+    column: semantic
+    check: >
+      lexical_handling.mode=false_cognate_risk or lexicalized kinship MUST NOT
+      accept character-wise zh→ja kanji friend as sole feasible (老婆→お婆さん).
+      JA-F01 / I17.
+    default_on_mismatch: fail
+    reason_code: chinese_lexical_false_cognate
+    examples:
+      - source: "老婆"
+        dst: "お婆さん"
+        expect: fail
+      - source: "老婆"
+        dst: "妻"
+        expect: pass
+
+  - id: pragmatic_construction_guard
+    column: semantic
+    check: >
+      speech_act_expression / construction / 装矜持-class MUST NOT pass on
+      dictionary/hanzi-swap sole Candidate (说了她两句→言及; 矜持を装う). JA-F02/F08.
+    default_on_mismatch: fail
+    reason_code: chinese_pragmatic_construction_literalization
+
+  - id: semantic_expansion_guard
+    column: semantic_expansion
+    check: >
+      Fluency must not add unsupported predicates/entities (振る舞い). Distinct
+      from marketing invented_information. JA-F04 / I18.
+    default_on_mismatch: fail
+    reason_code: semantic_expansion
+    examples:
+      - source: "我老婆也太反常了"
+        dst: "妻の振る舞いが異常すぎる"
+        expect: fail
+
+  - id: modality_preservation
+    column: modality
+    check: >
+      Speculative/tentative force (该不会…吧) and speech-act force must leave
+      a recoverable trace. Bare したの？ may be naturalness OK but modality review/fail.
+      JA-F10 / I19.
+    default_on_mismatch: review
+    reason_code: modality_loss
+
+  - id: register_band_preservation
+    column: register
+    check: >
+      Colloquial/dialogue source elevated to classical/literary (べし) without
+      evidence → fail or review. Meaning-correct ≠ register-correct. JA-F07 / I20.
+    default_on_mismatch: review
+    reason_code: register_drift
+
+  - id: untranslated_kinship_residue
+    column: locale_consistency
+    check: >
+      Source kinship/relationship tokens left untranslated in ja-JP (姐夫)
+      → fail. Mechanical/locale — not LLM "readable enough". JA-F05.
+    default_on_mismatch: fail
+    reason_code: target_locale_residue
+
+  - id: pragmatic_ambiguity_review
+    column: semantic
+    check: >
+      Ambiguous pragmatic terms (应酬, 长草) without context/Candidate Space
+      → review. JA-F09.
+    default_on_mismatch: review
+    reason_code: pragmatic_ambiguity
+
   - id: no_scalar_quality
     column: meta
     check: forbid translation_quality / confidence scalar as closure
@@ -161,15 +230,21 @@ invariants:
   - id: I12
     rule: invented_information column distinct from semantic idiom uncertainty
   - id: I13
-    rule: >
-      failure_pattern status=active only via Governance Review; Selection
-      Actor cannot self-promote candidates (see registry/failure-patterns.yaml)
+    rule: failure_pattern status=active only via Governance Review
   - id: I14
     rule: preserve semantic relations, not source surface form
   - id: I15
     rule: target reorder/omit OK only with preserved semantic relations
   - id: I16
     rule: naturalness must not alter roles/entities/temporal/polarity/intent
+  - id: I17
+    rule: false cognate / kanji decomposition flagged; no sole kanji gloss
+  - id: I18
+    rule: semantic_expansion ≠ invented_information; both block without waiver
+  - id: I19
+    rule: preserve participants/event/modality/polarity
+  - id: I20
+    rule: register drift is a validation failure mode
   - Selection Actor cannot self-close these rules
 
 p0_regression_fixtures:
@@ -177,3 +252,5 @@ p0_regression_fixtures:
   - examples/address-title-chen-xiaojie-ja.yaml
   - examples/title-kongjie-yiriqianli.yaml
   - examples/social-address-laozhang.yaml
+  - examples/laopo-false-cognate.yaml
+  - examples/shuoleshe-liangju.yaml

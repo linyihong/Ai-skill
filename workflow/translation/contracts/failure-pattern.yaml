@@ -47,6 +47,12 @@ required_fields:
         - target_syntax_distortion
         - unnatural_surface_realization
         - social_address_misinterpretation
+        - chinese_lexical_false_cognate
+        - chinese_pragmatic_construction_literalization
+        - semantic_expansion
+        - register_drift
+        - modality_loss
+        - pragmatic_ambiguity
         - other
   response:
     constraint: { type: object, note: require / prohibit applied to Feasible set }

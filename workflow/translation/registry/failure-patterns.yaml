@@ -261,6 +261,188 @@ patterns:
         rule: target_locale_residue
     note: umbrella; prefer specific patterns (e.g. foreign_honorific_leak) when they fit
 
+  - id: chinese_lexical_false_cognate
+    status: active
+    taxonomy_id: JA-F01
+    detected:
+      expression_type: [kinship_or_relationship_term, literal]
+      target_locale: ja-JP
+    symptom: [お婆さん]
+    classification:
+      type: chinese_lexical_false_cognate
+    response:
+      constraint:
+        require: lexicalized_or_pragmatic_candidate
+        prohibit: [character_wise_kanji_decomposition_as_sole_feasible]
+      validation:
+        column: semantic
+        rule: false_cognate_guard
+      selection:
+        policy: [avoid_false_cognate, prefer_lexicalized]
+    evidence_refs:
+      - examples/laopo-false-cognate.yaml
+      - evidence/2026-09-29-ep7-ja-dogfood.md
+    replaces_prompt_cases:
+      - "老婆 → 妻 (not お婆さん)"
+
+  - id: chinese_pragmatic_construction_literalization
+    status: active
+    taxonomy_id: JA-F02
+    detected:
+      expression_type: [construction, speech_act_expression, pragmatic_expression]
+    classification:
+      type: chinese_pragmatic_construction_literalization
+    response:
+      constraint:
+        require: speech_act_or_pragmatic_candidate_space
+        prohibit: [dictionary_mention_gloss_as_sole_feasible]
+      validation:
+        column: semantic
+        rule: pragmatic_construction_guard
+      selection:
+        policy: [preserve_speech_act]
+    evidence_refs:
+      - examples/shuoleshe-liangju.yaml
+
+  - id: semantic_role_or_modifier_loss
+    status: active
+    taxonomy_id: JA-F03
+    detected:
+      expression_type: "*"
+    classification:
+      type: semantic_role_loss
+    response:
+      constraint:
+        require: [participants, event, modality_trace]
+      validation:
+        column: [semantic_roles, modality]
+        rule: semantic_role_preservation
+      selection:
+        policy: [preserve_semantic_roles, preserve_modality]
+    note: Overlaps F1; ep7 你们该不会吵架了吧 → 喧嘩したの？
+
+  - id: semantic_expansion
+    status: active
+    taxonomy_id: JA-F04
+    detected:
+      expression_type: "*"
+    classification:
+      type: semantic_expansion
+    response:
+      constraint:
+        prohibit: [fluency_added_predicates_entities]
+      validation:
+        column: semantic_expansion
+        rule: semantic_expansion_guard
+      selection:
+        policy: [avoid_semantic_expansion]
+    note: 我老婆也太反常了 → 妻の振る舞いが… adds 振る舞い (I18).
+
+  - id: kinship_target_residue
+    status: active
+    taxonomy_id: JA-F05
+    detected:
+      expression_type: [relationship_marker, kinship_or_relationship_term]
+      target_locale: ja-JP
+    symptom: [姐夫]
+    classification:
+      type: target_locale_residue
+    response:
+      validation:
+        column: locale_consistency
+        rule: untranslated_kinship_residue
+        default_on_mismatch: fail
+      selection:
+        policy: [require_target_kinship_realization]
+    note: 姐夫 → 姐夫 is mechanical/locale FAIL — not LLM judgment.
+
+  - id: foreign_name_realization_zh_ja
+    status: active
+    taxonomy_id: JA-F06
+    detected:
+      expression_type: [proper_name_transliteration, proper_noun]
+      target_locale: ja-JP
+    classification:
+      type: name_realization_incomplete
+    response:
+      constraint:
+        require: [identity_resolution, series_cast_or_script_policy]
+        forbid_hard_fail: all_non_katakana
+      validation:
+        column: name_realization
+        rule: name_realization_incomplete
+      selection:
+        policy: [identity_plus_script_policy]
+    note: 赵伟 → 趙偉 may be review; katakana when policy says so — not auto-kanji.
+
+  - id: register_drift
+    status: active
+    taxonomy_id: JA-F07
+    detected:
+      expression_type: [proverb, idiom, pragmatic_expression]
+    classification:
+      type: register_drift
+    response:
+      constraint:
+        require: register_band_match
+      validation:
+        column: register
+        rule: register_band_preservation
+      selection:
+        policy: [preserve_register]
+    note: 良田就得多耕 → 耕すべし elevates colloquial to classical (I20).
+
+  - id: idiom_literalization_ja
+    status: active
+    taxonomy_id: JA-F08
+    detected:
+      expression_type: [idiom, pragmatic_expression]
+    classification:
+      type: idiom_literalization
+    response:
+      constraint:
+        prohibit: [hanzi_swap_as_sole_candidate]
+      validation:
+        column: semantic
+        rule: pragmatic_construction_guard
+      selection:
+        policy: [require_pragmatic_candidate_space]
+    note: 又装矜持 → 矜持を装う.
+
+  - id: pragmatic_ambiguity
+    status: candidate
+    taxonomy_id: JA-F09
+    detected:
+      expression_type: [pragmatic_expression]
+    classification:
+      type: pragmatic_ambiguity
+    response:
+      constraint:
+        require: context_or_ambiguity_candidate_space
+      validation:
+        column: semantic
+        rule: pragmatic_ambiguity_review
+      selection:
+        policy: [use_scene_context]
+    note: 应酬 ≠ 接待 by default; 容易长草 needs context.
+
+  - id: modality_loss
+    status: active
+    taxonomy_id: JA-F10
+    detected:
+      expression_type: [speech_act_expression, construction]
+    classification:
+      type: modality_loss
+    response:
+      constraint:
+        require: modality_uncertainty_trace
+      validation:
+        column: modality
+        rule: modality_preservation
+      selection:
+        policy: [preserve_modality]
+    note: 该不会…吧 → bare したの？ drops speculation.
+
 disposition_question: >
   When a new dogfood error appears, ask:
   "Is this a new failure_pattern, or new evidence for a known pattern?"

@@ -1,0 +1,76 @@
+schema_version: translation-decision-example/v0
+id: TD-EX-005-laopo-false-cognate
+status: p0_regression_fixture
+source_case:
+  observed_io:
+    src: "老婆今晚给你开开荒"
+    dst_bad: "お婆さんが今夜、開拓をしてくれますよ"
+  failure_class: [chinese_lexical_false_cognate, idiom_literalization]
+  note: >
+    老婆 = wife (lexicalized), not 老+婆 → お婆さん. 开荒 needs pragmatic/idiom
+    Candidate Space — not 開拓 dictionary gloss. JA-F01.
+
+translation_context:
+  source: { language: zh, locale: zh-CN }
+  target: { language: ja, locale: ja-JP, script: Jpan }
+  content: { type: subtitle, decision_mode: faithful_translation }
+
+expression_analysis:
+  surface: "老婆今晚给你开开荒"
+  composite_type: [kinship_or_relationship_term, temporal_reference, pragmatic_expression]
+  analysis_layers: [lexical, semantic, pragmatic]
+  structure:
+    - span: "老婆"
+      type: kinship_or_relationship_term
+      role: spouse_referent
+      handling: lexicalized
+      lexical_handling: { mode: false_cognate_risk }
+      ambiguity: [wife, old_woman_decomposition]
+    - span: "开开荒"
+      type: pragmatic_expression
+      role: predicate
+      handling: idiomatic
+      lexical_handling: { mode: idiomatic }
+  literal_meaning: [old woman opens wilderness]
+  pragmatic_meaning: [wife, intimate sexual/colloquial offer — sense from scene]
+  semantic_structure:
+    predicate: colloquial_intimate_offer
+    arguments:
+      - { role: agent, span: "老婆" }
+      - { role: beneficiary, span: "你" }
+    temporal: ["今晚"]
+    polarity: affirmative
+
+constraints:
+  preserve: [spouse_identity, temporal, speech_act]
+  prohibit: [character_wise_kanji_gloss, false_cognate_obasan]
+
+candidate_space:
+  老婆:
+    - { text: 妻, feasible: true }
+    - { text: 奥さん, feasible: true }
+    - { text: お婆さん, feasible: false, reason: chinese_lexical_false_cognate }
+
+selection:
+  policy: [avoid_false_cognate, prefer_lexicalized_spouse, target_locale_naturalness]
+  selected: "今夜、妻がお前に…"
+  rationale: illustrative — お婆さん infeasible; final wording Selection
+  decision_basis: [expression_analysis, candidate_space, constraints]
+
+validation:
+  semantic: review
+  invented_information: pass
+  locale_consistency: { status: pass }
+  mechanical: { source_language_residue: pass }
+
+finality:
+  status: needs_review
+  note: observed お婆さん dst must not finality.accepted
+
+regression_fixtures:
+  - name: お婆さん fails JA-F01
+    dst: "お婆さんが今夜、開拓をしてくれますよ"
+    expect:
+      validation.semantic.status: fail
+      reason: chinese_lexical_false_cognate
+      finality.accepted: false
