@@ -64,5 +64,6 @@
 | `2026-09-28_131830-runtime-image-must-copy-baked-repo-root-data.md` | candidate | Runtime image must ship data under baked repoRoot | 若 build 把 `repoRoot` 烤成絕對路徑，runtime 映像必須把伺服器仍會 `fs.read` 的資料樹 COPY 到同一路徑，不能只帶編譯產物目錄。 |
 
 | `2026-09-28_133500-payline-chips-mirrors-vs-scaled-tags.md` | candidate | Payline CHIPS: strip line mirrors before scaling tags | Wire 常為每條線贏一筆 `<CHIPS>`；對獎時先按 lineWin 1:1 剝離镜像，剩餘標籤才當 extras |
+| `2026-09-29_105651-translation-decision-selection-adapter-finality-gates.md` | candidate | Translation Decision: Selection adapter + mechanical Finality | LLM 只當 Selection Actor；截斷源文／親屬殘留用機械 Finality／Validation，禁止 case map 與 sole gloss |
 
-Total: 61
+Total: 62

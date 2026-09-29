@@ -4,17 +4,18 @@
 
 | 分類 | 數量 | 說明 |
 |------|------|------|
-| [`common/`](common/) | 60 | 跨分類或通用 lesson（開發流程、契約治理、測試策略、後端架構、安全審計等） |
+| [`common/`](common/) | 62 | 跨分類或通用 lesson（開發流程、契約治理、測試策略、後端架構、安全審計等） |
 | [`controls/`](controls/) | 2 | 控制項相關 lesson |
 
 ## 來源
 
 所有 lesson 原位於 `skills/app-development-guidance/feedback_history/`，已於 2026-05-13 搬遷至此，舊目錄已刪除。
 
-## Recent (2026-09-28)
+## Recent (2026-09-29)
 
 | Slug | Category |
 |------|----------|
+| `common/2026-09-29_105651-translation-decision-selection-adapter-finality-gates` | Selection adapter + 機械 Finality（I21／親屬 residual） |
 | `common/2026-09-28_133500-payline-chips-mirrors-vs-scaled-tags` | 连线 CHIPS 先剥镜像，剩余标签再 ×lineBet 对服赔 |
 | `common/2026-09-28_131830-runtime-image-must-copy-baked-repo-root-data` | 多階段映像若烤死絕對 repoRoot，final stage 必須把仍 fs 讀取的資料樹 COPY 到同一路徑 |
 

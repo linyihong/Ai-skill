@@ -69,3 +69,4 @@ Core failure-patterns    locale/<target>/failure-patterns
 ## Dogfood
 
 - Ep8（PASS／REVIEW／BLOCK retune）：[`ep8-ja-walkthrough.yaml`](examples/ep8-ja-walkthrough.yaml)
+- Product gate mapping（mechanical subset）：truncated source → Finality `blocked` before Selection；kinship source token left in target → Validation residue（not accepted／blank publish）；locale honorific via structured／Candidate Space. See [`adapters/README.md`](adapters/README.md) §Product Selection Actor wiring.
