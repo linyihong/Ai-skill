@@ -1,17 +1,29 @@
-# Text evidence — language / role / relation (workflow-local)
+# Text evidence — language / role / relation / regions (workflow-local)
 # runtime_projection.enabled: false
 id: narrative-video.text-evidence
 runtime_projection:
   enabled: false
 description: >
-  Per-window OCR/ASR text evidence with language, locale, text_role, and
-  text_relation. Absorbs cross-language subtitle↔spoken without a new Phase.
-  LLM may support alignment; it must not invent language tags.
+  Per-window OCR/ASR text evidence with language, locale, text_role,
+  text_relation, text_region, and subtitle_group. Absorbs cross-language and
+  bilingual hardsubs without a new Phase. LLM may support alignment; it must
+  not invent language tags or invent region splits.
 
 fields:
-  observed_text:
-    required: [text, language]
-    optional: [locale, text_role, bbox_ref, confidence]
+  text_region:
+    required: [id, text, language_candidate]
+    optional:
+      - box
+      - normalized_box
+      - box_size
+      - timestamp
+      - frame
+      - persistence
+      - visual_style
+      - text_role
+      - confidence
+    language_candidate_notes: >
+      Script-family or detector candidate only (en/zh/ja/ko/th/ar/unknown…).
     text_role_enum:
       - translated_subtitle
       - hardcoded_subtitle
@@ -21,14 +33,32 @@ fields:
       - watermark
       - title
       - unknown
+  subtitle_group:
+    required: [group_id, start, end, regions]
+    optional: [type, spatial_relation, language_relation, temporal_overlap]
+    type_enum: [mono, bilingual, multi, unresolved]
+    spatial_relation_enum: [stacked, overlapping, adjacent, unresolved]
+    language_relation_enum:
+      - same_language
+      - bilingual_pair
+      - translation_pair
+      - unrelated_text
+      - unresolved
+  observed_text:
+    required: [text, language]
+    optional: [locale, text_role, bbox_ref, region_refs, confidence]
+    notes: >
+      Prefer deriving from dialogue text_region(s); do not collapse bilingual
+      lines into one undifferentiated string when split is possible.
   spoken_text:
     required: [text, language]
     optional: [locale, speaker_id, confidence, asr_validity]
   alignment:
     required: [window_ref]
-    optional: [temporal_status]
+    optional: [temporal_status, region_refs]
   text_relation:
     required: [type]
+    optional: [source_ref, target_ref]
     type_enum:
       - same_language_match
       - same_language_variant
@@ -37,22 +67,30 @@ fields:
       - unresolved
       - cross_language_unresolved
     notes: >
+      May be multi-valued per window (e.g. ocr_en↔asr + ocr_zh↔asr).
       sanitization_candidate only after same-language gate.
       cross_language_translation must not enter sanitization.
+      Translation subtitle is semantic evidence only — never spoken_text.
   resolution:
     required: [status]
-    optional: [spoken_selected, subtitle_observed, evidence_refs]
+    optional: [spoken_selected, subtitle_observed, evidence_refs, subtitle_group_ref]
     status_enum: [resolved, unresolved]
 
 gates:
   - id: language_tags_present
     rule: aligned OCR/ASR pair must carry language (or explicit unknown) before Text Resolution
+  - id: regions_before_bilingual_collapse
+    rule: bilingual stacked hardsub windows must expose text_regions or an explicit split-failure note
   - id: sanitization_after_same_language
     rule: sanitization_candidate forbidden when languages differ unless relation is not cross_language_translation
+  - id: spoken_not_from_translation_only
+    rule: spoken canonical must not be taken from a cross-language translation region when same-language dialogue/ASR exists
   - id: locale_content_uses_resolved_pair
     rule: locale content source must consume resolved spoken/subtitle pair, not raw Latin hardsub as zh spoken
 
 linked:
   - workflow/narrative-video-production/text-evidence-language-relation.md
+  - workflow/narrative-video-production/text-evidence-regions.md
   - plans/active/2026-09-16-1649-narrative-video-production-workflow/40-language-role-before-text-resolution.md
+  - plans/active/2026-09-16-1649-narrative-video-production-workflow/41-bilingual-ocr-regions-and-subtitle-groups.md
   - workflow/narrative-video-production/records/caption-locale-pack.yaml

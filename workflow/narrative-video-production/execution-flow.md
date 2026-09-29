@@ -16,7 +16,7 @@ Canonical lifecycle。各 stage 填哪個 record、能否推進：見
 4. EDR open              → 決策 SoT；shot 對齊腳本／bible／clip_id
 5. Continuity            → 需要時鎖角色／場景／風格
 6. Acquisition           → 策略可換；結果回寫 EDR（不得用 mp4 當 SoT）
-6b. Text evidence        → OCR／ASR：language／text_role → Language Relation Gate → 再 Text Resolution（跨語言字幕≠conflict）
+6b. Text evidence        → OCR text_region／subtitle_group → language／text_role → Language Relation Gate → Text Resolution（跨語言／雙語≠conflict；翻譯列≠spoken）
 7. Assemble vs EDR       → 時間線對 shot_id／selected_clip_id
 7b. Locale packs         → content／timing／layout；content 源 = resolved spoken／subtitle 對；generated 口播 cue 時軸 = speech artifact（TTS=adapter）
 8. Publish QC            → 平台規格；publish-ready 需 fresh verification
@@ -46,7 +46,7 @@ Canonical lifecycle。各 stage 填哪個 record、能否推進：見
 | 3 Matching | [`matching-script.md`](matching-script.md) | 每 shot：可行集 + policy + selected ∈ 可行集 | matching_author |
 | 4 EDR | [`edit-decision-record.md`](edit-decision-record.md) | 結構化 EDR 存在；對齊 script | edr_author |
 | 6 Acquisition | EDR `shots[]` 回寫 | 實際入出點仍指向 `selected_clip_id` 或記 mutation | acquisition |
-| 6b Text evidence | [`text-evidence-language-relation.md`](text-evidence-language-relation.md)、[`records/text-evidence.yaml`](records/text-evidence.yaml) | 對齊窗有 language（或 unknown）；cross-language 不得當 same-language conflict／sanitization；spoken canonical 非 raw 拉丁硬字幕充中文 | text_evidence |
+| 6b Text evidence | [`text-evidence-regions.md`](text-evidence-regions.md)、[`text-evidence-language-relation.md`](text-evidence-language-relation.md)、[`records/text-evidence.yaml`](records/text-evidence.yaml) | 雙語疊字有 text_region／group；對齊窗有 language（或 unknown）；cross-language／bilingual 不得當 same-language conflict／sanitization；spoken 非翻譯列／raw 拉丁硬字幕充中文 | text_evidence |
 | 7 Assemble | [`assemble-and-qc.md`](assemble-and-qc.md) | 成片軸對 `shot_id` | editor |
 | 7b Locale | [`captions-and-locales.md`](captions-and-locales.md)、[`speech-unit-and-timing.md`](speech-unit-and-timing.md)、[`subtitle-layout.md`](subtitle-layout.md) | 三閘分別有 decision；content 源用 resolved spoken／subtitle 對；generated 口播 cue 有 speech timing evidence；layout.lines ≤ max_lines 且非把 max 當 target | locale_author |
 | 8 Publish | [`artifact-gates.md`](artifact-gates.md) | `fresh_reviewer` + blocking 空 | independent_verifier |
@@ -68,4 +68,5 @@ Canonical lifecycle。各 stage 填哪個 record、能否推進：見
 - 讓 layout 改 Speech Unit 原文，或讓字幕切割與 TTS 各自決定停頓。
 - 把 script heuristic 當成 NEVER-BREAK 最終答案，或為單集反例直接改 canonical BreakPolicy。
 - 把「OCR 英文、ASR 中文」直接當 conflict／OCR 優先 spoken，或未過 Language Relation Gate 就跑和諧偵測。
-- 讓 LLM 單獨斷言「英文 OCR＝翻譯」而不先有 mechanical `language` tags。
+- 讓 LLM 單獨斷言「英文 OCR＝翻譯」或「哪一行是哪種語言」而不先有 mechanical `text_region`／`language` tags。
+- 把雙語硬字幕黏成單一字串再進 Text Resolution；或把翻譯列當 spoken_text。

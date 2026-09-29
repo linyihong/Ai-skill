@@ -5,7 +5,9 @@ Companion to [`19-text-resolution-and-narrative-assembly.md`](19-text-resolution
 [`23-sanitization-anomaly-audit.md`](23-sanitization-anomaly-audit.md)。
 **不是新 Phase、不是新 Agent、不推翻 Phase 1/2。**
 觀察：[`evidence/2026-09-29-cross-language-subtitle-spoken-alignment.md`](evidence/2026-09-29-cross-language-subtitle-spoken-alignment.md)。
-Workflow 落點：[`workflow/narrative-video-production/text-evidence-language-relation.md`](../../../workflow/narrative-video-production/text-evidence-language-relation.md)。
+Workflow 落點：[`text-evidence-language-relation.md`](../../../workflow/narrative-video-production/text-evidence-language-relation.md)。
+雙語疊字／多 box：[`41-bilingual-ocr-regions-and-subtitle-groups.md`](41-bilingual-ocr-regions-and-subtitle-groups.md)、
+[`text-evidence-regions.md`](../../../workflow/narrative-video-production/text-evidence-regions.md)。
 
 ## 問題
 
@@ -29,9 +31,9 @@ OCR 英文硬字幕與 ASR 中文口播**可以同時正確**。若直接做「�
 ## 前置管線（插在 Text Resolution 前）
 
 ```text
-OCR / ASR
+OCR → text_region (+ box, language_candidate) → Subtitle Grouping
   → Language & Text-Role Detection   (mechanical first)
-  → Evidence Alignment               (time / window)
+  → Evidence Alignment               (time / window; per region ↔ ASR)
   → Language Relation Gate
   → Text Resolution                 (selection / reconstruction)
   → Narrative Analysis
@@ -87,4 +89,4 @@ Sanitization Detection **必須**先過 Language Relation Gate。
 | --- | --- |
 | `cross_language_collapsed_to_conflict` | 跨語言對齊被当成 conflict／OCR 勝出 | **contract_gap candidate**；優先既有欄位吸收（本檔＋workflow 落點）；不開 Q12/Q13、不加 Phase |
 
-本 round：記缺口＋workflow／companion 吸收；產品 adapter 另改，不得反向定義本契約。
+雙語硬字幕不得黏成單一字串再猜語言（見 41）。本 round：記缺口＋workflow／companion 吸收；產品 adapter 另改，不得反向定義本契約。

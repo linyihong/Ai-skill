@@ -11,9 +11,9 @@ Plan companion：[`40-language-role-before-text-resolution.md`](../../plans/acti
 插在「可觀測 OCR／ASR」與「Text Resolution／locale content 源」之間（acquisition／assemble 準備證據時即可跑；**不是**新的 publish stage）：
 
 ```text
-OCR / ASR
+OCR → text_region / subtitle_group   (見 text-evidence-regions.md)
   → Language & Text-Role Detection
-  → Evidence Alignment
+  → Evidence Alignment (per region ↔ ASR)
   → Language Relation Gate
   → Text Resolution
   → (spoken／subtitle 對) → locale content／narrative

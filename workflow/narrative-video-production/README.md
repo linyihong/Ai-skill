@@ -23,6 +23,7 @@ Acquisition（生成／實拍／剪輯／未來工具）可換；不得反向定
 | 決策 SoT | [`edit-decision-record.md`](edit-decision-record.md) | 開 EDR、mutation、人讀投影 |
 | 字幕語系 | [`captions-and-locales.md`](captions-and-locales.md) | locale pack／三閘 |
 | 文本語言／角色 | [`text-evidence-language-relation.md`](text-evidence-language-relation.md) | OCR／ASR 進 Text Resolution 前：language／text_role／Language Relation Gate |
+| OCR region／雙語組 | [`text-evidence-regions.md`](text-evidence-regions.md) | 多 box／中英疊字：text_region → subtitle_group → 再 Language Relation |
 | 口播時軸 | [`speech-unit-and-timing.md`](speech-unit-and-timing.md) | 自製口播 Speech Unit；cue 時軸 SoT |
 | 字幕 layout | [`subtitle-layout.md`](subtitle-layout.md) | Caption Composition：語意先於 fit；三層字級；scored 斷點 |
 | 成片對帳 | [`assemble-and-qc.md`](assemble-and-qc.md) | 時間線 vs EDR；fresh verifier |
@@ -42,6 +43,7 @@ Acquisition（生成／實拍／剪輯／未來工具）可換；不得反向定
 | 6 | Assembly 對得上 EDR | [`assemble-and-qc.md`](assemble-and-qc.md) |
 | 7 | Locale 三閘獨立 | [`captions-and-locales.md`](captions-and-locales.md)；generated 口播時軸 [`speech-unit-and-timing.md`](speech-unit-and-timing.md)；行數 [`subtitle-layout.md`](subtitle-layout.md) |
 | 7a | 跨語言字幕≠口播 conflict | [`text-evidence-language-relation.md`](text-evidence-language-relation.md)；content 源用 resolved spoken／subtitle 對 |
+| 7b | 雙語疊字先 region／group | [`text-evidence-regions.md`](text-evidence-regions.md)；翻譯列≠spoken |
 | 8 | publish-ready 需 fresh verifier | [`artifact-gates.md`](artifact-gates.md) |
 | 9 | Outcome 是 evidence 不是真理 | [`publish-outcome.md`](publish-outcome.md) |
 | 10 | Runtime 延後 | 本檔狀態列 + records `runtime_projection.enabled: false` |
