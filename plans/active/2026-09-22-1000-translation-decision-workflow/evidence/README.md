@@ -15,3 +15,4 @@
 | 2026-09-29-ep7-ja-dogfood | [`2026-09-29-ep7-ja-dogfood.md`](2026-09-29-ep7-ja-dogfood.md) | observed | ep7 zh→ja；JA-F01–F10 |
 | 2026-09-29-ep8-ja-walkthrough | [`2026-09-29-ep8-ja-walkthrough.md`](2026-09-29-ep8-ja-walkthrough.md) | walkthrough | ep8 26 cues；locale taxonomy bound；**待人審** |
 | 2026-09-29-product-locale-registry-ja-id | [`2026-09-29-product-locale-registry-ja-id-dogfood.md`](2026-09-29-product-locale-registry-ja-id-dogfood.md) | observed | Product core∪locale binding mirror + JA／ID mechanical Finality dogfood |
+| 2026-09-29-product-other-locale-gaps | [`2026-09-29-product-other-locale-gaps.md`](2026-09-29-product-other-locale-gaps.md) | observed | ar／ko／th／vi title drop；honorific gate Latin-only bug；registry／seeds gaps |
