@@ -91,6 +91,8 @@ forbidden:
     # cross-skill agent failures stay in enforcement/failure-patterns/
 
 notes:
-  - Domain patterns live in registry/failure-patterns.yaml
-  - Cross-skill agent failure learning: enforcement/failure-learning-system.md
+  - Domain core patterns: registry/failure-patterns.yaml
+  - Locale manifestations: registry/locale/<locale>/failure-patterns.yaml
+  - Index: registry/locale-failure-taxonomy.yaml
+  - Cross-skill agent failures stay in enforcement/failure-patterns/
   - Prompt / Selection adapter only receives active constraints + Candidate Space

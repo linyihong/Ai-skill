@@ -1,0 +1,11 @@
+schema_version: artifact-record/v1
+id: translation.locale.en.failure-patterns
+status: draft
+runtime_projection:
+  enabled: false
+
+locale: en
+purpose: Placeholder — use cross_locale_core until EN-specific dogfood lands.
+binds_with: registry/failure-patterns.yaml
+patterns: []
+note: Do not invent EN-F* without evidence.

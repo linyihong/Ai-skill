@@ -38,13 +38,13 @@ Meaning → Semantic Roles → Target Syntax／Naturalness → Target Expression
 
 ## Failure taxonomy（摘要）
 
-| 層 | 內容 |
-| --- | --- |
-| Index | [`registry/locale-failure-taxonomy.yaml`](registry/locale-failure-taxonomy.yaml) — 依 `target_locale` 綁定 |
-| Bodies | [`registry/failure-patterns.yaml`](registry/failure-patterns.yaml) — F* + JA-F01–F10 |
-| Core | F1–F9 全 locale |
-| ja-JP | JA-F01–F10（false cognate／construction／expansion／residue／…） |
-| id-ID／ms-MY | 最小 honorific residue；擴充需 evidence |
+| 層 | 路徑 | 內容 |
+| --- | --- | --- |
+| Core | [`registry/failure-patterns.yaml`](registry/failure-patterns.yaml) | 跨語言 failure concepts（F*／CORE-F21） |
+| Locale | [`registry/locale/<locale>/`](registry/locale/README.md) | 高風險 manifestation（JA-F*／ID-F*…） |
+| Index | [`locale-failure-taxonomy.yaml`](registry/locale-failure-taxonomy.yaml) | `target_locale` → core ∪ locale 綁定 |
+
+Locale pattern 掛 `manifests: <core_id>`；表面形在 `knowledge/translation/`，不是 pattern body。
 
 ## 何時讀哪個檔
 

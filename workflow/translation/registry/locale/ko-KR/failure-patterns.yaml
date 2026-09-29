@@ -1,0 +1,11 @@
+schema_version: artifact-record/v1
+id: translation.locale.ko-KR.failure-patterns
+status: draft
+runtime_projection:
+  enabled: false
+
+locale: ko-KR
+purpose: Placeholder — adding Korean must not change Translation Workflow core.
+binds_with: registry/failure-patterns.yaml
+patterns: []
+note: Do not invent KO-F* without evidence.

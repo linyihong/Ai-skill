@@ -10,7 +10,7 @@ parent: null
 
 # Translation Decision Workflow（`workflow/translation/`）
 
-**Status**: in-progress — Phase 0–3 + I12–I23（ep8 Finality／Reference revision [`13`](13-ep8-contract-revision.md)）。Phase 4 optional。
+**Status**: in-progress — Phase 0–3 + I12–I23 + **locale-layered failure registry**（[`14`](14-locale-layered-failure-registry.md)）。Phase 4 optional。
 
 
 **Glossary Impact**: yes — 候選詞 `translation_decision_record`（TDR）、`expression_analysis`、`expression_type_registry`、`translation_context_contract`、`candidate_space`、`decision_basis`、`constraint_responsibility`、`selection_responsibility`（後兩者若與 ERA plan 重複則 Phase 5 只 cross-link）。Phase 5 前不登記 glossary。
@@ -43,7 +43,7 @@ Ai-skill 已有 Loop-first／Governance-first 與 ERA v2（Evidence constrains D
 - 所有 actor 只吃 `TranslationContext`；禁止僅 `{ src, dst }`。
 - Phase 1 **只釘資料契約**（Context／Analysis／Decision／Registry／Validation／examples／P0 regression）；**不加** memory／glossary engine／prompt／routing／auto-correct／runtime route。
 
-架構 [`01`](01-architecture-and-era.md) · SoT [`02`](02-sot-contracts-and-layout.md) · NVP [`03`](03-nvp-and-adapters.md) · dogfood [`04`](04-dogfood-case-address-title-id-ID.md) · freeze [`06`](06-phase-0-freeze-invariants.md) · realization [`07`](07-target-locale-realization.md) · walkthrough [`08`](08-static-walkthrough-pass.md) · title [`09`](09-title-content-type.md) · failure learning [`10`](10-failure-pattern-learning.md) · semantic／syntax [`11`](11-semantic-syntactic-realization.md) · JA ep7 [`12`](12-ja-pragmatic-lexical.md) · ep8 revision [`13`](13-ep8-contract-revision.md)。
+架構 [`01`](01-architecture-and-era.md) · SoT [`02`](02-sot-contracts-and-layout.md) · NVP [`03`](03-nvp-and-adapters.md) · dogfood [`04`](04-dogfood-case-address-title-id-ID.md) · freeze [`06`](06-phase-0-freeze-invariants.md) · realization [`07`](07-target-locale-realization.md) · walkthrough [`08`](08-static-walkthrough-pass.md) · title [`09`](09-title-content-type.md) · failure learning [`10`](10-failure-pattern-learning.md) · semantic／syntax [`11`](11-semantic-syntactic-realization.md) · JA ep7 [`12`](12-ja-pragmatic-lexical.md) · ep8 revision [`13`](13-ep8-contract-revision.md) · locale failure split [`14`](14-locale-layered-failure-registry.md)。
 
 ### Domain Boundary
 
@@ -135,6 +135,7 @@ Ai-skill 已有 Loop-first／Governance-first 與 ERA v2（Evidence constrains D
 - [x] JA ep7 dogfood（I17–I20）：[`12`](12-ja-pragmatic-lexical.md) + evidence [`2026-09-29-ep7-ja-dogfood`](evidence/2026-09-29-ep7-ja-dogfood.md) + JA-F01–F10 + fixtures `laopo-false-cognate`／`shuoleshe-liangju`（**不**改 Selection prompt）
 - [x] Locale Failure Taxonomy 掛進 workflow：[`locale-failure-taxonomy.yaml`](../../workflow/translation/registry/locale-failure-taxonomy.yaml) + ep8 walkthrough [`2026-09-29-ep8-ja-walkthrough`](evidence/2026-09-29-ep8-ja-walkthrough.md)（**待人審**）
 - [x] Ep8 contract revision（I21–I23）：[`13`](13-ep8-contract-revision.md) — Finality PASS／REVIEW／BLOCK、Reference Resolution、Target Realization voice／register；**不成**固定譯詞庫、**不成** Phase 4
+- [x] Locale-layered Failure Registry：[`14`](14-locale-layered-failure-registry.md) — core ∪ `registry/locale/<locale>/`；JA-F* 遷出主檔
 
 ### Phase 4 — 可選（不擋 v0）
 

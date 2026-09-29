@@ -38,8 +38,20 @@ Canonical lifecycle。欄位 SoT 在 [`contracts/`](contracts/)。**不要**寫 
 
 ## Locale Failure Taxonomy（step 7–8）
 
-[`registry/locale-failure-taxonomy.yaml`](registry/locale-failure-taxonomy.yaml) → bodies in [`failure-patterns.yaml`](registry/failure-patterns.yaml)。  
-`ja-JP` → JA-F*；core 含 **CORE-F21** incomplete source。
+```text
+Constraint Space =
+  registry/failure-patterns.yaml                    # cross-locale CORE
+∪ registry/locale/<target_locale>/failure-patterns.yaml   # manifestations
+```
+
+| 讀 | 路徑 |
+| --- | --- |
+| Index | [`registry/locale-failure-taxonomy.yaml`](registry/locale-failure-taxonomy.yaml) |
+| Core | [`registry/failure-patterns.yaml`](registry/failure-patterns.yaml) |
+| ja-JP | [`registry/locale/ja-JP/failure-patterns.yaml`](registry/locale/ja-JP/failure-patterns.yaml) |
+| Locale index | [`registry/locale/README.md`](registry/locale/README.md) |
+
+例：`ja-JP` → core + JA-F01–F11；`id-ID` → core + ID-F01；新語言只加 locale 檔，不改主鏈。
 
 ## 禁止
 

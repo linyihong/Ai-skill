@@ -1,0 +1,35 @@
+schema_version: artifact-record/v1
+id: translation.locale.id-ID.failure-patterns
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；id-ID locale surface — minimal dogfood
+
+locale: id-ID
+pair_hint: zh→id
+purpose: >
+  Indonesian locale Failure Taxonomy manifestations. Expand ID-F* only with
+  dogfood evidence. Core honorific residue lives in cross_locale F7.
+
+binds_with: registry/failure-patterns.yaml
+
+patterns:
+  - id: ID-F01
+    status: active
+    manifests: foreign_honorific_leak  # F7
+    concept: english_honorific_leak_on_id_locale
+    applies_when:
+      source_expression: [address_title, name_with_address_title]
+      risk: [Miss, Ms., Mr. as sole feasible]
+    constraints:
+      - require_native_locale_honorific_candidate
+      - prohibit_untranslated_foreign_honorific_as_sole_feasible
+    validation: [locale_consistency]
+    knowledge: knowledge/translation/locale/title-mapping.yaml
+    evidence_refs:
+      - examples/address-title-chen-xiaojie-id.yaml
+    note: 小姐 → Nona Candidate Space; Miss/Ms. → review (not fixed sole gloss).
+
+forbidden:
+  - inventing_ID-F_ids_without_evidence
+  - sole_fixed_nona_mapping_as_pattern_answer

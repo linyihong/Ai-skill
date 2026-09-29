@@ -1,0 +1,176 @@
+schema_version: artifact-record/v1
+id: translation.locale.ja-JP.failure-patterns
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；ja-JP locale surface only
+
+locale: ja-JP
+pair_hint: zh→ja
+purpose: >
+  Japanese locale Failure Taxonomy — manifestations of cross-locale core concepts
+  under high-risk zh→ja conditions. Constraints/Validation only; Candidate Space /
+  knowledge hold surface forms (義兄さん, チャオ・ウェイ…). Not a bad-example dump.
+
+binds_with: registry/failure-patterns.yaml  # cross_locale_core
+index: registry/locale-failure-taxonomy.yaml
+
+patterns:
+  - id: JA-F01
+    status: active
+    manifests: false_cognate_or_lexical_decomposition  # F13
+    concept: chinese_hanzi_false_friend
+    applies_when:
+      source_expression: [kinship_or_relationship_term, lexicalized]
+      risk: [character_wise_kanji_decomposition]
+    constraints:
+      - require_lexicalized_or_pragmatic_candidate
+      - prohibit_character_wise_kanji_as_sole_feasible
+    validation: [semantic]
+    knowledge_role: candidate_space_seed_only
+    evidence_refs:
+      - examples/laopo-false-cognate.yaml
+      - evidence/2026-09-29-ep7-ja-dogfood.md
+    note: 老婆≠お婆さん — do not store sole gloss 妻 as the answer.
+
+  - id: JA-F02
+    status: active
+    manifests: pragmatic_construction_literalization  # F14
+    concept: chinese_construct_literalization
+    applies_when:
+      source_expression: [construction, speech_act_expression, pragmatic_expression]
+    constraints:
+      - require_speech_act_or_pragmatic_candidate_space
+      - prohibit_dictionary_mention_gloss_as_sole_feasible
+    validation: [semantic]
+    evidence_refs:
+      - examples/shuoleshe-liangju.yaml
+
+  - id: JA-F03
+    status: active
+    manifests: semantic_role_loss  # F1
+    concept: semantic_role_or_modifier_loss_ja_dialogue
+    applies_when:
+      source_expression: ["*"]
+      risk: [participants_dropped, modality_dropped_with_roles]
+    constraints:
+      - preserve_participants_event_modality_trace
+    validation: [semantic_roles, modality]
+    note: Overlaps F1＋F11; locale dogfood emphasis.
+
+  - id: JA-F04
+    status: active
+    manifests: semantic_expansion  # F10
+    concept: fluency_semantic_expansion_ja
+    applies_when:
+      risk: [fluency_added_predicates_entities]
+    constraints:
+      - prohibit_fluency_added_predicates_entities
+    validation: [semantic_expansion]
+    note: 振る舞い-class additions — I18.
+
+  - id: JA-F05
+    status: active
+    manifests: target_locale_residue  # F7b
+    concept: address_relationship_realization
+    applies_when:
+      source_expression: [kinship_term, address_title, relational_address]
+    risk:
+      - source_language_residue
+      - wrong_relationship
+      - unnatural_target_realization
+    constraints:
+      - preserve_relationship
+      - preserve_address_function
+      - prohibit_source_residue
+      - require_reference_resolution_before_surface  # I23
+    target_realization: { required: true }
+    validation: [locale_consistency, semantic_roles, register]
+    knowledge: knowledge/translation/locale/ja-JP/kinship.yaml
+    note: >
+      Residue 姐夫 = FAIL. Surface 義兄さん／お義兄さん／兄さん = Candidate Space
+      after reference_resolution — not fixed mapping.
+
+  - id: JA-F06
+    status: active
+    manifests: name_realization_incomplete  # F8
+    concept: foreign_name_realization_zh_ja
+    applies_when:
+      source_expression: [proper_name, proper_noun]
+    constraints:
+      - require_identity_resolution_or_series_cast
+      - forbid_hard_fail_all_non_katakana
+      - name_mapping_is_candidate_space_only
+    validation: [name_realization]
+    knowledge: knowledge/translation/locale/ja-JP/name-realization.yaml
+    note: 赵伟 → 趙偉／チャオ・ウェイ… Selection; mapping ≠ final answer.
+
+  - id: JA-F07
+    status: active
+    manifests: register_drift  # F12
+    concept: register_drift_ja
+    applies_when:
+      source_expression: [proverb, idiom, pragmatic_expression, colloquial]
+    constraints:
+      - require_register_band_match
+    validation: [register]
+
+  - id: JA-F08
+    status: active
+    manifests: idiom_literalization  # F6
+    concept: idiom_literalization_ja_hanzi_swap
+    applies_when:
+      source_expression: [idiom, pragmatic_expression]
+      risk: [hanzi_swap_as_sole_candidate]
+    constraints:
+      - prohibit_hanzi_swap_as_sole_candidate
+      - require_pragmatic_candidate_space
+    validation: [semantic]
+    note: 戴绿帽子／装矜持 — knowledge seeds ≠ sole answer.
+
+  - id: JA-F09
+    status: candidate
+    manifests: pragmatic_construction_literalization  # F14
+    concept: pragmatic_ambiguity_ja
+    applies_when:
+      source_expression: [pragmatic_expression]
+      risk: [context_underspecified]
+    constraints:
+      - require_context_or_ambiguity_candidate_space
+    validation: [semantic]
+    note: 应酬／女强人 — Candidate Space from pragmatic_meaning.
+
+  - id: JA-F10
+    status: active
+    manifests: modality_loss  # F11
+    concept: modality_loss_ja_dialogue
+    applies_when:
+      source_expression: [speech_act_expression, construction]
+      markers_zh: [该不会, 难道, 好像, 肯定]
+    constraints:
+      - require_modality_uncertainty_trace
+    validation: [modality]
+    note: Manifestation of core modality_loss — do not redefine as separate invent.
+
+  - id: JA-F11
+    status: active
+    manifests: [modifier_role_misinterpretation, social_address_misinterpretation]  # F15, F5
+    concept: relational_or_social_modifier_literalization
+    applies_when:
+      source_expression: [familiar_name_prefix, social_address_marker, proper_name]
+      composition: [modifier_plus_surname]
+    risk:
+      - literal_age_gloss
+      - composition_level_mistranslation
+    constraints:
+      - require_modifier_role_analysis_before_composition
+      - prohibit_literal_オヤジ_composition_without_evidence
+    validation: [semantic]
+    evidence_refs:
+      - examples/social-address-laozhang.yaml
+    note: 老張 → not オヤジ張さん by default.
+
+forbidden:
+  - storing_sole_surface_gloss_as_pattern_body
+  - duplicating_full_core_concept_definitions_here
+  - expanding_via_prompt_if_japanese_case_lists

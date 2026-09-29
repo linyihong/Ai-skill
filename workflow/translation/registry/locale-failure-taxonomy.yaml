@@ -3,90 +3,93 @@ id: translation.locale-failure-taxonomy
 status: draft
 runtime_projection:
   enabled: false
-  reason: workflow-local；doc-only index into failure-patterns.yaml
+  reason: workflow-local；routes core ∪ locale/<locale>/failure-patterns.yaml
 
 purpose: >
-  Locale-scoped Failure Taxonomy index. After Locale Resolution, Selection /
-  Validation MUST bind the active taxonomy for target_locale (and optionally
-  source_locale pair). Patterns themselves live in registry/failure-patterns.yaml
-  — this file only routes which taxonomy_ids apply. Not a prompt case dump (I13).
+  After Locale Resolution, bind Constraint Space =
+  registry/failure-patterns.yaml (core) ∪
+  registry/locale/<target_locale>/failure-patterns.yaml (manifestations).
+  Index only — pattern bodies live in those files. Not a prompt dump (I13).
 
 binding:
   when: after_locale_resolution
-  stage: execution-flow step 6–7 (Registry + Apply Constraints / Guards)
+  stage: execution-flow Registry + Apply Constraints / Guards
   rule: >
-    Load locale_taxonomies[target_locale] (+ pair overlays when present).
-    Missing locale → use cross_locale_core only; do not invent prompt rules.
+    Load core + locale file for target_locale. Missing locale file → core only.
+    Locale patterns MUST `manifests` a core pattern id when they refine one.
 
 cross_locale_core:
-  note: Always active regardless of locale
+  path: registry/failure-patterns.yaml
+  note: Always active
   taxonomy_ids:
+    - CORE-F21
     - F1   # semantic_role_loss
     - F2   # grammatical_relation_error
     - F3   # target_syntax_distortion
     - F4   # unnatural_surface_realization
     - F5   # social_address_misinterpretation
-    - F6   # idiom_literalization (via idiom_literalization pattern)
-    - F7   # foreign_honorific_leak / target_locale_residue family
-    - F8   # name_script_mismatch
+    - F6   # idiom_literalization
+    - F7   # foreign_honorific_leak
+    - F7b  # target_locale_residue
+    - F7c  # source_language_residue
+    - F8   # name_realization_incomplete
     - F9   # invented_information
-    - CORE-F21  # incomplete_source_must_not_be_completed (I21)
+    - F10  # semantic_expansion
+    - F11  # modality_loss
+    - F12  # register_drift
+    - F13  # false_cognate_or_lexical_decomposition
+    - F14  # pragmatic_construction_literalization
+    - F15  # modifier_role_misinterpretation
+    - F16  # temporal_direction_flip
+    - F17  # clock_time_shift
 
 locale_taxonomies:
   ja-JP:
     id: JA
-    pair_hint: zh→ja
+    path: registry/locale/ja-JP/failure-patterns.yaml
     status: active
-    taxonomy_ids:
-      - JA-F01  # chinese_lexical_false_cognate
-      - JA-F02  # chinese_pragmatic_construction_literalization
-      - JA-F03  # semantic_role_or_modifier_loss
-      - JA-F04  # semantic_expansion
-      - JA-F05  # kinship_target_residue
-      - JA-F06  # foreign_name_realization_zh_ja
-      - JA-F07  # register_drift
-      - JA-F08  # idiom_literalization_ja
-      - JA-F09  # pragmatic_ambiguity
-      - JA-F10  # modality_loss
+    taxonomy_ids: [JA-F01, JA-F02, JA-F03, JA-F04, JA-F05, JA-F06, JA-F07, JA-F08, JA-F09, JA-F10, JA-F11]
     evidence:
       - plans/active/2026-09-22-1000-translation-decision-workflow/evidence/2026-09-29-ep7-ja-dogfood.md
       - plans/active/2026-09-22-1000-translation-decision-workflow/evidence/2026-09-29-ep8-ja-walkthrough.md
-    companion: plans/active/2026-09-22-1000-translation-decision-workflow/12-ja-pragmatic-lexical.md
 
   id-ID:
     id: ID
-    pair_hint: zh→id
+    path: registry/locale/id-ID/failure-patterns.yaml
     status: active_minimal
-    taxonomy_ids:
-      - F7   # honorific / Miss Chen residue
-    note: Expand ID-F* only with dogfood evidence (陈小姐 → Miss Chen).
+    taxonomy_ids: [ID-F01]
 
   ms-MY:
     id: MS
-    pair_hint: zh→ms
+    path: null
     status: candidate
-    taxonomy_ids:
-      - F7   # foreign_honorific_leak (Cik/Puan)
-    note: Expand MS-F* only with dogfood evidence.
+    taxonomy_ids: []
+    note: Use core F7 + knowledge/ms-MY until MS locale file lands.
+
+  en:
+    id: EN
+    path: registry/locale/en/failure-patterns.yaml
+    status: placeholder
+    taxonomy_ids: []
 
   en-US:
     id: EN
-    status: candidate
-    taxonomy_ids: []
-    note: Prefer cross_locale_core until EN-specific dogfood lands.
-
-  ar:
-    id: AR
+    path: registry/locale/en/failure-patterns.yaml
     status: placeholder
     taxonomy_ids: []
-    note: Do not invent AR-F* without evidence.
+
+  ko-KR:
+    id: KO
+    path: registry/locale/ko-KR/failure-patterns.yaml
+    status: placeholder
+    taxonomy_ids: []
 
 invariants:
-  - Locale taxonomy is Constraint／Validation routing — not Selection prompt text
-  - New locale codes start as placeholder／candidate until ≥1 evidence run
-  - AI may propose locale-F candidates; Governance Review alone activates (I13)
+  - Locale file = manifestations／applies_when／constraints — not sole gloss tables
+  - New locales add a file under registry/locale/ — do NOT edit workflow core chain
+  - AI proposes candidates; Governance Review activates (I13)
 
 forbidden:
+  - stuffing_all_locale_patterns_into_core_failure-patterns.yaml
   - if_locale_prompt_case_lists
   - activating_placeholder_taxonomy_without_evidence
-  - duplicating_full_pattern_bodies_here
