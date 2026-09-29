@@ -30,6 +30,7 @@ cross_locale_core:
     - F7   # foreign_honorific_leak / target_locale_residue family
     - F8   # name_script_mismatch
     - F9   # invented_information
+    - CORE-F21  # incomplete_source_must_not_be_completed (I21)
 
 locale_taxonomies:
   ja-JP:

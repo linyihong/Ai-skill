@@ -6,20 +6,22 @@ forbidden: use_as_final_answer_without_selection
 
 purpose: >
   ja-JP kinship / relationship address Candidate Space seeds.
-  Supports JA-F05 kinship_target_residue — untranslated 姐夫 is fail.
+  Supports JA-F05 after reference_resolution binds entity role.
+  NOT a fixed translation mapping (I23) — Selection among seeds required.
 
 kinship:
-  姐夫:
+  sisters_husband:   # entity role — not the Chinese surface alone
+    surface_forms_zh: [姐夫]
     candidates: [義兄さん, 義兄]
     infeasible: [姐夫]
-    note: Selection picks form by register/scene; residue forbidden
-  姐:
+    note: Resolve reference first; then pick Candidate by register/scene
+  elder_sister:
+    surface_forms_zh: [姐, 我姐, 你姐]
     candidates: [姉さん, お姉さん, 姉]
-  我姐:
-    candidates: [姉さん, お姉さん]
-  你姐:
+  you_jie_ambiguous:
+    surface_forms_zh: [你姐]
     candidates: [お姉さん, 姉さん, 奥さん]
-    note: 奥さん only when discourse proves wife-of-addressee
+    note: 奥さん only when discourse proves wife-of-addressee; else REVIEW
 
 linked_failure_patterns:
   - kinship_target_residue

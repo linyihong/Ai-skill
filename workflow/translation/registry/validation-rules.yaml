@@ -218,6 +218,14 @@ rules:
     default_on_mismatch: review
     reason_code: pragmatic_ambiguity
 
+  - id: incomplete_source_block
+    column: completeness
+    check: >
+      Truncated/incomplete source MUST NOT be completed by Selection.
+      finality.status=blocked (I21 / CORE-F21).
+    default_on_mismatch: fail
+    reason_code: source_truncated
+
   - id: no_scalar_quality
     column: meta
     check: forbid translation_quality / confidence scalar as closure
@@ -245,6 +253,10 @@ invariants:
     rule: preserve participants/event/modality/polarity
   - id: I20
     rule: register drift is a validation failure mode
+  - id: I21
+    rule: incomplete_source_must_not_be_completed → blocked
+  - id: I22
+    rule: uncertainty alone ≠ needs_review; REVIEW needs explicit reason
   - Selection Actor cannot self-close these rules
 
 p0_regression_fixtures:

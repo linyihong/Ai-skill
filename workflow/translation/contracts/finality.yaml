@@ -3,17 +3,72 @@ id: translation.finality
 status: draft
 runtime_projection:
   enabled: false
-  reason: workflow-local；Phase 1 doc-only
+  reason: workflow-local；Phase 1/3 ep8 revision；未接 runtime
 
 record: translation_finality
-purpose: Mechanical closure status for one Translation Decision.
+purpose: >
+  Mechanical closure. Ternary disposition: PASS (accepted) / REVIEW
+  (needs_review) / BLOCK (blocked). Not "any uncertainty → needs_review".
 
 required_fields:
-  status: { type: enum, values: [accepted, needs_review, unresolved, rejected] }
+  status:
+    type: enum
+    values: [accepted, needs_review, blocked, unresolved, rejected]
+    note: >
+      aliases — accepted=PASS, needs_review=REVIEW, blocked=BLOCK.
+      unresolved=legacy/unknown; prefer blocked when reason is clear.
 
 optional_fields:
+  review:
+    type: object
+    fields:
+      required: { type: bool, default: false }
+      reason:
+        type: list
+        note: >
+          Explicit reasons only (reference_ambiguous, character_voice_unknown,
+          modality_uncertain, human_gate_sensitive). Empty reason + required=true
+          is invalid.
   blocking_reasons: { type: list }
   waivers: { type: list }
+
+# --- disposition rules ---
+
+pass_when:  # → status=accepted
+  all_of:
+    - translation_context_present
+    - expression_analysis_present
+    - selection_exists_with_explicit_policy
+    - selected_is_feasible_or_waivered
+    - required_validation_dimensions_pass_or_waivered
+    - review.required == false
+    - no_unresolved_blocking_reason
+    - source_not_truncated
+  note: >
+    Semantic-equivalent reorder/natural paraphrase alone is NOT a review reason
+    (I14/I15). Example PASS: 糟了→まずい; 一心都在工作上→仕事一筋で.
+
+review_when:  # → status=needs_review
+  any_of:
+    - review.required == true with non-empty review.reason
+    - locale_consistency == review without waiver
+    - name_realization == review without waiver
+    - reference_ambiguous
+    - character_voice_or_gendered_expression_unbound_when_required
+    - platform_sensitive_content_gate
+  forbidden_as_sole_review_reason:
+    - not_word_for_word
+    - multiple_feasible_candidates_exist
+    - natural_japanese_reorder
+
+block_when:  # → status=blocked
+  any_of:
+    - source_truncated_or_incomplete
+    - missing_required_translation_context
+    - missing_required_reference_resolution_for_kinship_dialogue
+    - hard_constraint_fail_without_waiver_path
+      # e.g. invented_information=fail, kinship residue=fail, false_cognate sole candidate
+  note: I21 — incomplete_source_must_not_be_completed
 
 accepted_requires:
   - translation_context_present
@@ -21,17 +76,32 @@ accepted_requires:
   - selection_exists_with_explicit_policy
   - selected_is_feasible_or_waivered
   - required_validation_pass_or_waivered
+  - review.required_false
   - no_unresolved_blocking_reason
+  - source_complete
 
 invariants:
   - id: I9
     rule: >
-      finality.accepted iff required context present AND selection exists
-      AND required validation pass-or-waivered AND no unresolved blocking reason
-  - rule: missing context → needs_review or unresolved; never accepted
+      finality.accepted iff required context + selection + required validation
+      pass-or-waivered + review.required=false + no blocking reason + source complete
+  - id: I21
+    rule: >
+      incomplete_source_must_not_be_completed. Evidence insufficiency ≠
+      permission to infer missing content. Truncated source → blocked.
+  - id: I22
+    rule: >
+      Uncertainty alone MUST NOT force needs_review. REVIEW requires explicit
+      review.reason[]. PASS when pass_when holds. BLOCK when block_when holds.
+  - rule: missing context → blocked or needs_review; never accepted
   - rule: locale_consistency=review without waiver → not accepted
+  - rule: kinship residue fail / invented_information fail → blocked or rejected; not soft pass
 
 forbidden:
   - accepted_with_empty_selection
   - accepted_with_unresolved_blocking_reasons
   - accepted_on_src_dst_only_path
+  - accepted_with_truncated_source
+  - needs_review_without_explicit_review_reason
+  - inventing_completion_for_truncated_source
+  - treating_any_uncertainty_as_automatic_needs_review

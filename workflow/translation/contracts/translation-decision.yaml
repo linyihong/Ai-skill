@@ -45,22 +45,35 @@ required_fields:
     decision_basis: { type: list, note: artifact refs; not only natural-language praise }
 
 optional_fields:
+  reference_resolution:
+    type: object
+    ref_shape: translation.reference-resolution
+    note: Required for dialogue kinship/pronouns (I23); precedes kinship surface pick
   semantic_structure:
     type: object
     note: may embed or ref expression_analysis.semantic_structure for TDR completeness
   target_realization:
     type: object
     note: >
-      Optional planning block after Selection Policy:
-      semantic_realize → syntax_realize → naturalness_realize.
-      Reorder/omit allowed only under I15; naturalness under I16.
+      Planning after Selection Policy under Constraints:
+      semantic → syntax → register/voice/politeness/gendered → locale/script/name/kinship.
+      Reorder/omit under I15; naturalness under I16/I18. Not fixed gloss table.
     fields:
       syntax_plan: { type: text, optional: true }
+      register: { type: text, optional: true }
+      character_voice: { type: text, optional: true }
+      politeness: { type: text, optional: true }
+      gendered_expression: { type: text, optional: true }
       naturalness_notes: { type: text, optional: true }
   realization:
     type: object
-    note: optional explicit Target-Locale Realization block (names/scripts)
-  review: { type: object }
+    note: optional Target-Locale Realization block (names/scripts/kinship seeds)
+  review:
+    type: object
+    note: mirrors finality.review — required + reason[]
+    fields:
+      required: { type: bool }
+      reason: { type: list }
   validation: { type: object, ref_shape: translation.validation }
   finality: { type: object, ref_shape: translation.finality }
   waivers: { type: list }
@@ -95,29 +108,26 @@ invariants:
   - id: I14
     rule: Translation preserves semantic relations, not source surface form.
   - id: I15
-    rule: >
-      Target-language syntax may reorder, omit, or restructure surface elements
-      only when corresponding semantic relations remain preserved.
+    rule: Target syntax may reorder/omit/restructure only when relations preserved.
   - id: I16
-    rule: >
-      Naturalness optimization MUST NOT introduce, remove, or alter
-      source-supported semantic roles, entities, temporal references,
-      polarity, or intent.
+    rule: Naturalness MUST NOT introduce/remove/alter roles/entities/temporal/polarity/intent.
   - id: I17
-    rule: >
-      Cross-lingual false cognate / lexical decomposition risk MUST be flagged;
-      Selection MUST NOT default to character-wise kanji gloss as sole feasible
-      (老婆≠お婆さん).
+    rule: False cognate / lexical decomposition MUST be flagged
   - id: I18
-    rule: >
-      semantic_expansion for fluency (妻の振る舞い when source only 我老婆) is
-      prohibited without evidence — distinct from marketing invented_information.
+    rule: semantic_expansion for fluency prohibited without evidence
   - id: I19
     rule: Preserve participants, event, modality/uncertainty, polarity.
   - id: I20
-    rule: Meaning-correct + register elevation/depression → register fail or review.
+    rule: Meaning-correct + register drift → register fail or review.
+  - id: I21
+    rule: incomplete_source_must_not_be_completed → finality.blocked
+  - id: I22
+    rule: PASS/REVIEW/BLOCK — uncertainty alone ≠ needs_review
+  - id: I23
+    rule: Kinship/address realization consumes reference_resolution; no sole fixed gloss
   - rule: selection.selected MUST be in candidates where feasible==true (unless explicit waiver)
   - rule: selection.decision_basis MUST list artifact bases
+  - rule: pragmatic/cultural Candidate seeds (女强人／戴绿帽子) MUST NOT be sole forced answer
 
 forbidden:
   - llm_rewriting_constraints
@@ -129,6 +139,9 @@ forbidden:
   - naturalness_that_drops_or_adds_semantic_roles
   - character_wise_kanji_gloss_as_sole_zh_ja_candidate
   - fluency_semantic_expansion_without_evidence
+  - inventing_completion_for_truncated_source
+  - fixed_kinship_gloss_as_sole_feasible_without_reference
+  - treating_any_uncertainty_as_automatic_needs_review
   - quality_or_confidence_scalar_as_closure
   - equating_latin_name_plus_honorific_with_complete_ja_name_realization
   - hard_fail_all_non_katakana_names

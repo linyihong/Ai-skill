@@ -1,0 +1,68 @@
+schema_version: artifact-record/v1
+id: translation.reference-resolution
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；Phase 1/3 ep8 revision；未接 runtime
+
+record: reference_resolution
+purpose: >
+  Resolve who/what discourse referents are BEFORE Expression Analysis and
+  kinship/name Target Realization. Not a translation step.
+  姐夫 → sister's_husband entity; 你姐 → resolved person — then Japanese
+  address realization. Same architecture as 陈小姐 → name + locale title.
+
+required_when:
+  triggers:
+    - dialogue_or_subtitle_with_kinship_or_pronouns
+    - proper_names_with_series_cast
+  note: missing when required → finality.blocked or needs_review with reason
+
+required_fields:
+  entities:
+    type: list
+    item:
+      id: { type: text }
+      surface_forms: { type: list, note: 我姐／你姐／她／姐夫… }
+      entity_type:
+        type: enum
+        values_hint: [person, place, org, other]
+      roles:
+        type: list
+        values_hint: [elder_sister, sisters_husband, spouse, colleague, other]
+
+optional_fields:
+  relationships:
+    type: list
+    item:
+      from: { type: text }
+      to: { type: text }
+      type: { type: text, examples: [married_to, sibling_of, works_with] }
+  speaker_entity_id: { type: text }
+  addressee_entity_id: { type: text }
+  established_names:
+    type: list
+    note: series_cast / prior TDR forms — seed Candidate Space only (I10)
+  unresolved:
+    type: list
+    note: surfaces that could not be bound — forces REVIEW or BLOCK, not invent
+
+invariants:
+  - id: I23
+    rule: >
+      Kinship/address surface Realization MUST consume resolved entity +
+      relationship — MUST NOT treat 姐夫→義兄さん as sole fixed mapping.
+  - id: I23b
+    rule: >
+      Ambiguous 你姐 (sister vs wife-of-addressee) without discourse evidence
+      → review.required with reason reference_ambiguous — not silent pick.
+  - rule: Reference Resolution precedes Expression Classification for dialogue
+
+forbidden:
+  - fixed_kinship_gloss_as_sole_feasible_without_reference
+  - inventing_entity_identity_to_unblock_translation
+  - skipping_reference_when_kinship_or_pronoun_present_in_dialogue
+
+notes:
+  - Producer opaque (cast table, coref, LLM, human)
+  - Feeds Candidate Space for kinship/name realization; Selection still required

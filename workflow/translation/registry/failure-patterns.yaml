@@ -22,6 +22,25 @@ locale_taxonomy_index:
     Pattern bodies remain in this file; index only routes taxonomy_ids.
 
 patterns:
+  - id: incomplete_source_completion
+    status: active
+    taxonomy_id: CORE-F21
+    detected:
+      expression_type: "*"
+    classification:
+      type: other
+    response:
+      constraint:
+        prohibit: [invented_completion_of_truncated_source]
+      validation:
+        column: completeness
+        rule: incomplete_source_block
+      selection:
+        policy: [do_not_complete_truncated_source]
+    note: >
+      I21. 我替我姐向 / 我只怕你姐 → blocked. Evidence insufficiency ≠
+      permission to infer missing content. Cross-locale core.
+
   - id: semantic_role_loss
     status: active
     taxonomy_id: F1
@@ -361,6 +380,9 @@ patterns:
       selection:
         policy: [require_target_kinship_realization]
     note: 姐夫 → 姐夫 is mechanical/locale FAIL — not LLM judgment.
+    retune: >
+      After reference_resolution binds sister's_husband, kinship Candidate Space
+      (義兄さん／義兄…) applies — not fixed sole mapping 姐夫=義兄さん (I23).
 
   - id: foreign_name_realization_zh_ja
     status: active

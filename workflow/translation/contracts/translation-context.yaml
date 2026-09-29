@@ -53,6 +53,38 @@ optional_fields:
   consumer_ref: { type: text, note: e.g. NVP locale pack / job id }
   episode: { type: text }
   scene: { type: text }
+  speaker:
+    type: object
+    optional: true
+    fields:
+      entity_ref: { type: text, note: reference_resolution entity id }
+      gender: { type: enum, values_hint: [female, male, unknown, na] }
+      character_profile: { type: text, optional: true }
+  addressee:
+    type: object
+    optional: true
+    fields:
+      entity_ref: { type: text }
+      gender: { type: enum, values_hint: [female, male, unknown, na] }
+  relationship:
+    type: text
+    optional: true
+    examples: [siblings, spouses, in_laws, colleagues, strangers]
+    note: discourse relationship between speaker and addressee
+  target_realization:
+    type: object
+    optional: true
+    note: >
+      Preferences constraining Target Realization Candidate Space — not the
+      selected surface. Selection chooses among feasible under these + guards.
+    fields:
+      register: { type: text, examples: [colloquial, polite, intimate] }
+      character_voice: { type: text, optional: true }
+      politeness: { type: text, examples: [plain, desu_masu, honorific] }
+      gendered_expression:
+        type: enum
+        values_hint: [feminine, masculine, neutral, unknown]
+        note: unbound + required for short utterance → review.reason character_voice_unknown
   marketing_tags:
     type: list
     note: only when upstream evidence explicitly provides; never inferred by Selection Actor
@@ -80,6 +112,10 @@ invariants:
     rule: >
       allow_marketing_expansion defaults false. Hashtags/claims absent from
       source+evidence → invented_information (blocking or review).
+  - id: I24-partial
+    rule: >
+      speaker/addressee/relationship/scene feed Target Realization; missing
+      gendered_expression when short dialogue needs it → review.reason, not invent.
 
 forbidden:
   - inferring_target_locale_from_segment_text_via_llm
@@ -88,9 +124,11 @@ forbidden:
   - hard_fail_non_katakana_foreign_names
   - inventing_marketing_tags_without_upstream_evidence
   - treating_short_drama_title_as_ordinary_dialogue_sentence
+  - inventing_speaker_gender_to_force_accepted
 
 notes:
   - language ≠ locale ≠ dialect ≠ register ≠ script ≠ realization_profile ≠ content.type
-  - Content-Type / Context Resolution sits after Locale Resolution, before Expression Analysis
-  - NVP path: caption-locale-pack.locale → translation_context.target; cue role may imply content.type
+  - Content-Type / Context Resolution sits after Locale Resolution
+  - Reference Resolution (dialogue) sits after Context, before Expression Analysis
+  - NVP path: caption-locale-pack.locale → translation_context.target
   - Realization ≠ Translation Strategy (see registry/realization-strategies.yaml)

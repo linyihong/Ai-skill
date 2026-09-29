@@ -3,8 +3,8 @@
 `workflow/translation/` 是 **cross-cutting governed translation decision** capability：  
 Meaning → Semantic Roles → Target Syntax／Naturalness → Target Expression，不是「原文 → LLM → 完成」。
 
-> **狀態**：Phase 1–3 + I12–I20（ep7 JA dogfood [`12`](../../plans/active/2026-09-22-1000-translation-decision-workflow/12-ja-pragmatic-lexical.md)）。  
-> Prompt = Selection adapter only。未註冊 route。
+> **狀態**：Phase 1–3 + I12–I23（ep8 Finality／Reference [`13`](../../plans/active/2026-09-22-1000-translation-decision-workflow/13-ep8-contract-revision.md)）。  
+> Prompt = Selection adapter only。未註冊 route。不成固定譯詞庫。
 
 ## 一句話責任邊界
 
@@ -32,6 +32,9 @@ Meaning → Semantic Roles → Target Syntax／Naturalness → Target Expression
 | I18 | semantic_expansion ≠ marketing invented_information |
 | I19 | Preserve participants／event／modality／polarity |
 | I20 | Meaning-correct + register drift → register fail／review |
+| I21 | incomplete_source_must_not_be_completed → **BLOCK** |
+| I22 | PASS／REVIEW／BLOCK — uncertainty alone ≠ REVIEW |
+| I23 | Kinship／address via reference_resolution — no sole fixed gloss |
 
 ## Failure taxonomy（摘要）
 
@@ -52,6 +55,8 @@ Meaning → Semantic Roles → Target Syntax／Naturalness → Target Expression
 | Analysis | [`contracts/expression-analysis.yaml`](contracts/expression-analysis.yaml) |
 | Decision | [`contracts/translation-decision.yaml`](contracts/translation-decision.yaml) |
 | Failure Pattern | [`contracts/failure-pattern.yaml`](contracts/failure-pattern.yaml) |
+| Reference | [`contracts/reference-resolution.yaml`](contracts/reference-resolution.yaml) |
+| Finality | [`contracts/finality.yaml`](contracts/finality.yaml) — PASS／REVIEW／BLOCK |
 | Validate | [`contracts/validation.yaml`](contracts/validation.yaml) |
 | Types／guards | [`registry/`](registry/)（含 [`locale-failure-taxonomy`](registry/locale-failure-taxonomy.yaml)） |
 | Fixtures | [`examples/`](examples/)（含 [`ep8-ja-walkthrough`](examples/ep8-ja-walkthrough.yaml)） |
