@@ -1,15 +1,20 @@
-# Text evidence — language / role / relation / regions (workflow-local)
+# Text evidence — language / role / relation / regions / boundary (workflow-local)
 # runtime_projection.enabled: false
 id: narrative-video.text-evidence
 runtime_projection:
   enabled: false
 description: >
   Per-window OCR/ASR text evidence with language, locale, text_role,
-  text_relation, text_region, and subtitle_group. Absorbs cross-language and
-  bilingual hardsubs without a new Phase. LLM may support alignment; it must
-  not invent language tags or invent region splits.
+  text_relation, text_region, subtitle_group, and OCR boundary recovery.
+  recognition_language (engine) must not dictate observed_script normalize.
+  LLM must not invent language tags, region splits, or word boundaries.
 
 fields:
+  recognition_language:
+    required: false
+    notes: >
+      OCR engine/model language (e.g. paddle ch/en). Independent from
+      observed_script on each region.
   text_region:
     required: [id, text, language_candidate]
     optional:
@@ -22,6 +27,11 @@ fields:
       - visual_style
       - text_role
       - confidence
+      - raw_text
+      - boundary
+      - derived
+      - quality
+      - box_count
     language_candidate_notes: >
       Script-family or detector candidate only (en/zh/ja/ko/th/ar/unknown…).
     text_role_enum:
@@ -33,6 +43,25 @@ fields:
       - watermark
       - title
       - unknown
+    boundary:
+      optional: [status, reason, recovery_method]
+      status_enum: [ok, suspicious, recovered, unresolved]
+    derived:
+      notes: >
+        Candidates only; must not overwrite raw_text.
+      candidate_fields: [text, method, status, confidence]
+      method_enum:
+        - multi_box_space
+        - geometry_word_gap
+        - ink_projection
+        - lexical_candidate
+        - script_aware_normalize
+    quality:
+      optional:
+        - frame_width
+        - frame_height
+        - text_height_px
+        - boundary_confidence
   subtitle_group:
     required: [group_id, start, end, regions]
     optional: [type, spatial_relation, language_relation, temporal_overlap]
@@ -46,10 +75,11 @@ fields:
       - unresolved
   observed_text:
     required: [text, language]
-    optional: [locale, text_role, bbox_ref, region_refs, confidence]
+    optional: [locale, text_role, bbox_ref, region_refs, confidence, raw_text]
     notes: >
-      Prefer deriving from dialogue text_region(s); do not collapse bilingual
-      lines into one undifferentiated string when split is possible.
+      Prefer normalized/recovered dialogue text_region(s); keep raw_text for audit.
+      Do not collapse bilingual lines into one undifferentiated string when split
+      is possible.
   spoken_text:
     required: [text, language]
     optional: [locale, speaker_id, confidence, asr_validity]
@@ -81,6 +111,12 @@ gates:
     rule: aligned OCR/ASR pair must carry language (or explicit unknown) before Text Resolution
   - id: regions_before_bilingual_collapse
     rule: bilingual stacked hardsub windows must expose text_regions or an explicit split-failure note
+  - id: recognition_lang_not_space_policy
+    rule: recognition_language must not force whitespace deletion on observed latin script
+  - id: raw_text_retained_on_boundary_recovery
+    rule: boundary recovery must keep raw_text; derived candidates must not overwrite raw
+  - id: latin_glue_boundary_marked
+    rule: long latin text with zero spaces and single box must set boundary suspicious or attempt recovery
   - id: sanitization_after_same_language
     rule: sanitization_candidate forbidden when languages differ unless relation is not cross_language_translation
   - id: spoken_not_from_translation_only
@@ -91,6 +127,8 @@ gates:
 linked:
   - workflow/narrative-video-production/text-evidence-language-relation.md
   - workflow/narrative-video-production/text-evidence-regions.md
+  - workflow/narrative-video-production/text-evidence-ocr-boundary.md
   - plans/active/2026-09-16-1649-narrative-video-production-workflow/40-language-role-before-text-resolution.md
   - plans/active/2026-09-16-1649-narrative-video-production-workflow/41-bilingual-ocr-regions-and-subtitle-groups.md
+  - plans/active/2026-09-16-1649-narrative-video-production-workflow/42-ocr-boundary-and-script-aware-normalization.md
   - workflow/narrative-video-production/records/caption-locale-pack.yaml

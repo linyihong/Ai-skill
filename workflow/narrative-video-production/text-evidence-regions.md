@@ -11,7 +11,9 @@ Plan：[`41-bilingual-ocr-regions-and-subtitle-groups.md`](../../plans/active/20
 
 ```text
 OCR Detection
-  → text_region (text, box, language_candidate, …)
+  → Raw OCR Evidence
+  → Text Segmentation / Boundary Recovery  (見 text-evidence-ocr-boundary.md)
+  → text_region (text, box, language_candidate, raw/derived, …)
   → Region Classification (dialogue vs non-dialogue candidate)
   → Subtitle Grouping (incl. bilingual_pair)
   → Language Relation Gate (region ↔ ASR)
