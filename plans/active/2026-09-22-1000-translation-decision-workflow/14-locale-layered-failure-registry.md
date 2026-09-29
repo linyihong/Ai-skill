@@ -5,19 +5,26 @@ Companion to [`_plan.md`](_plan.md)。**不成**新 workflow；只拆 registry �
 ## Shape
 
 ```text
-Translation Workflow Core
-        │
+Locale Resolution
         ▼
-Constraint Space =
-  registry/failure-patterns.yaml                 # cross-locale concepts
-∪ registry/locale/<target_locale>/failure-patterns.yaml  # manifestations
+failure-registry-binding.yaml          # binding / index（非 pattern SoT）
+     /                    \
+    ▼                      ▼
+failure-patterns.yaml    locale/<locale>/failure-patterns.yaml
+(core SoT)               (manifestations; manifests: F*)
+        \                    /
+         ▼                  ▼
+           Constraint Space
 ```
 
 | Layer | Owns |
 | --- | --- |
-| Core | modality_loss、semantic_expansion、residue、incomplete_source… |
-| Locale | JA-F*／ID-F* as `manifests: <core_id>` + applies_when／constraints |
-| Knowledge | 義兄さん／チャオ・ウェイ／Nona — Candidate Space only |
+| Binding | which registries load（`pattern_ids`） |
+| Core | modality_loss、semantic_expansion、residue… |
+| Locale | JA-F*／ID-F* as `manifests: <core_id>` |
+| Knowledge | surface Candidate Space |
+
+Former name `locale-failure-taxonomy.yaml` kept as deprecated pointer → [`failure-registry-binding.yaml`](../../workflow/translation/registry/failure-registry-binding.yaml).
 
 ## Moved
 
@@ -25,4 +32,4 @@ Constraint Space =
 - ID-F01 → [`registry/locale/id-ID/failure-patterns.yaml`](../../workflow/translation/registry/locale/id-ID/failure-patterns.yaml)
 - Core cleaned → [`registry/failure-patterns.yaml`](../../workflow/translation/registry/failure-patterns.yaml)
 
-Adding ko／th／vi = new locale file；**不**改 execution-flow 主鏈。
+Adding ko／th／vi = new locale file + binding entry；**不**改 execution-flow 主鏈。

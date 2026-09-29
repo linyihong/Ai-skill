@@ -17,7 +17,7 @@ promotion:
   see: contracts/failure-pattern.yaml
 
 locale_binding:
-  index: registry/locale-failure-taxonomy.yaml
+  index: registry/failure-registry-binding.yaml
   rule: >
     After Locale Resolution: Constraint Space =
     this core registry ∪ registry/locale/<target_locale>/failure-patterns.yaml
