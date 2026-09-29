@@ -13,7 +13,7 @@ purpose: >
   knowledge hold surface forms (義兄さん, チャオ・ウェイ…). Not a bad-example dump.
 
 binds_with: registry/failure-patterns.yaml  # cross_locale_core
-index: registry/locale-failure-taxonomy.yaml
+binding_index: registry/failure-registry-binding.yaml
 
 patterns:
   - id: JA-F01

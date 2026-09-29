@@ -69,7 +69,7 @@ A+B **PASS**（2026-09-22）：[`08-static-walkthrough-pass.md`](../../../plans/
 
 ## Static walkthrough F（ep8 JA — human review）
 
-1. Bind `ja-JP` → load [`locale-failure-taxonomy`](../registry/locale-failure-taxonomy.yaml) JA-F*  
+1. Bind `ja-JP` → [`failure-registry-binding`](../registry/failure-registry-binding.yaml) → core ∪ JA-F*
 2. 姐夫 → 義兄さん（JA-F05）；戴绿帽子 → 浮気（JA-F08）  
 3. Truncated「我替我姐向」「我只怕你姐」→ **blocked**（禁補全）  
 4. Pack：[`ep8-ja-walkthrough.yaml`](ep8-ja-walkthrough.yaml) · evidence `2026-09-29-ep8-ja-walkthrough`

@@ -1,0 +1,110 @@
+schema_version: artifact-record/v1
+id: translation.failure-registry-binding
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local；binding/index only — NOT a failure-pattern SoT
+
+purpose: >
+  Failure Registry Binding Map. After Locale Resolution, answers:
+  which failure registries bind into Constraint Space for this Decision?
+  Pattern definitions live elsewhere — this file is governance routing only.
+
+authority_separation:
+  this_file: binding / index / load rule
+  cross_locale_sot: registry/failure-patterns.yaml
+  locale_manifestation_sot: registry/locale/<locale>/failure-patterns.yaml
+  forbidden: treating this file as a third pattern registry
+
+binding:
+  when: after_locale_resolution
+  stage: execution-flow — Registry + Apply Constraints / Guards
+  rule: >
+    Constraint Space = cross_locale_core.path ∪ locale_registries[target_locale].path
+    Missing locale path → core only. Locale patterns MUST manifests a core pattern_id
+    when they refine one (JA-Fxx → Fxx). Do not invent prompt rules.
+
+cross_locale_core:
+  path: registry/failure-patterns.yaml
+  note: Always active — cross-locale failure SoT
+  pattern_ids:
+    - CORE-F21  # incomplete_source_completion
+    - F1        # semantic_role_loss
+    - F2        # grammatical_relation_error
+    - F3        # target_syntax_distortion
+    - F4        # unnatural_surface_realization
+    - F5        # social_address_misinterpretation
+    - F6        # idiom_literalization
+    - F7        # foreign_honorific_leak
+    - F7b       # target_locale_residue
+    - F7c       # source_language_residue
+    - F8        # name_realization_incomplete
+    - F9        # invented_information
+    - F10       # semantic_expansion
+    - F11       # modality_loss
+    - F12       # register_drift
+    - F13       # false_cognate_or_lexical_decomposition
+    - F14       # pragmatic_construction_literalization
+    - F15       # modifier_role_misinterpretation
+    - F16       # temporal_direction_flip
+    - F17       # clock_time_shift
+
+locale_registries:
+  ja-JP:
+    id: JA
+    path: registry/locale/ja-JP/failure-patterns.yaml
+    status: active
+    pattern_ids: [JA-F01, JA-F02, JA-F03, JA-F04, JA-F05, JA-F06, JA-F07, JA-F08, JA-F09, JA-F10, JA-F11]
+    note: Each JA-F* MUST manifests a core F* / CORE-* id
+    evidence:
+      - plans/active/2026-09-22-1000-translation-decision-workflow/evidence/2026-09-29-ep7-ja-dogfood.md
+      - plans/active/2026-09-22-1000-translation-decision-workflow/evidence/2026-09-29-ep8-ja-walkthrough.md
+
+  id-ID:
+    id: ID
+    path: registry/locale/id-ID/failure-patterns.yaml
+    status: active_minimal
+    pattern_ids: [ID-F01]
+    note: ID-F01 manifests F7
+
+  ms-MY:
+    id: MS
+    path: null
+    status: candidate
+    pattern_ids: []
+    note: Use core F7 + knowledge/ms-MY until MS locale file lands.
+
+  en:
+    id: EN
+    path: registry/locale/en/failure-patterns.yaml
+    status: placeholder
+    pattern_ids: []
+
+  en-US:
+    id: EN
+    path: registry/locale/en/failure-patterns.yaml
+    status: placeholder
+    pattern_ids: []
+
+  ko-KR:
+    id: KO
+    path: registry/locale/ko-KR/failure-patterns.yaml
+    status: placeholder
+    pattern_ids: []
+
+invariants:
+  - This file is binding only; pattern bodies never authored here
+  - New locales = locale/failure-patterns.yaml + one locale_registries entry
+  - Do NOT edit Translation Decision Workflow main chain for new locales
+  - Locale pattern without manifests → review / reject at Governance
+
+forbidden:
+  - stuffing_pattern_bodies_into_this_binding_file
+  - taxonomy_ids_alias_without_pattern_ids  # use pattern_ids
+  - activating_placeholder_registry_without_evidence
+  - if_locale_prompt_case_lists
+
+legacy_id: translation.locale-failure-taxonomy
+legacy_path_note: >
+  Former filename locale-failure-taxonomy.yaml renamed — same binding role,
+  clearer that this is not the taxonomy SoT itself.

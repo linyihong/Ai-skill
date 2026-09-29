@@ -36,15 +36,15 @@ Meaning → Semantic Roles → Target Syntax／Naturalness → Target Expression
 | I22 | PASS／REVIEW／BLOCK — uncertainty alone ≠ REVIEW |
 | I23 | Kinship／address via reference_resolution — no sole fixed gloss |
 
-## Failure taxonomy（摘要）
+## Failure registry（摘要）
 
-| 層 | 路徑 | 內容 |
+| 層 | 路徑 | 角色 |
 | --- | --- | --- |
-| Core | [`registry/failure-patterns.yaml`](registry/failure-patterns.yaml) | 跨語言 failure concepts（F*／CORE-F21） |
-| Locale | [`registry/locale/<locale>/`](registry/locale/README.md) | 高風險 manifestation（JA-F*／ID-F*…） |
-| Index | [`locale-failure-taxonomy.yaml`](registry/locale-failure-taxonomy.yaml) | `target_locale` → core ∪ locale 綁定 |
+| Binding | [`failure-registry-binding.yaml`](registry/failure-registry-binding.yaml) | Locale Resolution 後載入哪些 registry |
+| Core SoT | [`failure-patterns.yaml`](registry/failure-patterns.yaml) | 跨語言 failure concepts |
+| Locale SoT | [`locale/<locale>/`](registry/locale/README.md) | manifestations（`manifests: F*`） |
 
-Locale pattern 掛 `manifests: <core_id>`；表面形在 `knowledge/translation/`，不是 pattern body。
+Binding ≠ pattern definition。`pattern_ids` 是 registry references，不是第二套 taxonomy。
 
 ## 何時讀哪個檔
 
@@ -58,7 +58,7 @@ Locale pattern 掛 `manifests: <core_id>`；表面形在 `knowledge/translation/
 | Reference | [`contracts/reference-resolution.yaml`](contracts/reference-resolution.yaml) |
 | Finality | [`contracts/finality.yaml`](contracts/finality.yaml) — PASS／REVIEW／BLOCK |
 | Validate | [`contracts/validation.yaml`](contracts/validation.yaml) |
-| Types／guards | [`registry/`](registry/)（含 [`locale-failure-taxonomy`](registry/locale-failure-taxonomy.yaml)） |
+| Types／guards | [`registry/`](registry/)（含 [`failure-registry-binding`](registry/failure-registry-binding.yaml)） |
 | Fixtures | [`examples/`](examples/)（含 [`ep8-ja-walkthrough`](examples/ep8-ja-walkthrough.yaml)） |
 
 ## 明確不做

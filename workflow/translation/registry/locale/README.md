@@ -16,5 +16,5 @@ registry/locale/<target_locale>/failure-patterns.yaml   # manifestations
 | en | [`en/failure-patterns.yaml`](en/failure-patterns.yaml) | placeholder |
 | ko-KR | [`ko-KR/failure-patterns.yaml`](ko-KR/failure-patterns.yaml) | placeholder |
 
-Index：[`../locale-failure-taxonomy.yaml`](../locale-failure-taxonomy.yaml)。  
+Index（binding，非 pattern SoT）：[`../failure-registry-binding.yaml`](../failure-registry-binding.yaml)。  
 **禁止**把 sole surface gloss 寫進 pattern body；表面形在 `knowledge/translation/`。

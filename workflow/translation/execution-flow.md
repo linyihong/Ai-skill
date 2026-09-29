@@ -14,7 +14,7 @@ Canonical lifecycle。欄位 SoT 在 [`contracts/`](contracts/)。**不要**寫 
    ├── lexical / pragmatic / syntactic / discourse / cultural
    └── semantic_structure + roles + modality
 6. Target-Locale Realization seeds → name／script／kinship Candidate Space
-7. Registry + Locale Taxonomy  → expression + locale-failure-taxonomy + patterns
+7. Registry binding + Guards → failure-registry-binding → core ∪ locale patterns
 8. Apply Constraints / Guards  → Feasible Candidates（含 CORE-F21 truncated）
 9. Selection + Target Realization
    ├── semantic / syntax（I14–I15）
@@ -36,22 +36,28 @@ Canonical lifecycle。欄位 SoT 在 [`contracts/`](contracts/)。**不要**寫 
 
 禁止：不確定 → 一律 REVIEW。詳見 [`finality.yaml`](contracts/finality.yaml)、[`13`](../../../plans/active/2026-09-22-1000-translation-decision-workflow/13-ep8-contract-revision.md)。
 
-## Locale Failure Taxonomy（step 7–8）
+## Failure registry binding（step 7–8）
 
 ```text
-Constraint Space =
-  registry/failure-patterns.yaml                    # cross-locale CORE
-∪ registry/locale/<target_locale>/failure-patterns.yaml   # manifestations
+Locale Resolution
+        ▼
+failure-registry-binding.yaml     # binding / index only
+     /                    \
+    ▼                      ▼
+Core failure-patterns    locale/<target>/failure-patterns
+        \                    /
+         ▼                  ▼
+           Constraint Space
 ```
 
-| 讀 | 路徑 |
-| --- | --- |
-| Index | [`registry/locale-failure-taxonomy.yaml`](registry/locale-failure-taxonomy.yaml) |
-| Core | [`registry/failure-patterns.yaml`](registry/failure-patterns.yaml) |
-| ja-JP | [`registry/locale/ja-JP/failure-patterns.yaml`](registry/locale/ja-JP/failure-patterns.yaml) |
-| Locale index | [`registry/locale/README.md`](registry/locale/README.md) |
+| 讀 | 路徑 | 角色 |
+| --- | --- | --- |
+| Binding | [`registry/failure-registry-binding.yaml`](registry/failure-registry-binding.yaml) | 載入哪些 registry（`pattern_ids`） |
+| Core SoT | [`registry/failure-patterns.yaml`](registry/failure-patterns.yaml) | 跨語言 failure concepts |
+| Locale SoT | [`registry/locale/<locale>/`](registry/locale/README.md) | manifestations（`manifests: F*`） |
 
-例：`ja-JP` → core + JA-F01–F11；`id-ID` → core + ID-F01；新語言只加 locale 檔，不改主鏈。
+新語言：加 locale 檔 + binding entry；**不**改主鏈。  
+舊檔名 `locale-failure-taxonomy.yaml` → deprecated pointer。
 
 ## 禁止
 

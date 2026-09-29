@@ -13,11 +13,10 @@ translation_context:
   content: { type: subtitle, decision_mode: faithful_translation }
 
 locale_taxonomy_bound:
-  index: registry/locale-failure-taxonomy.yaml
-  active: [cross_locale_core, ja-JP]
-  taxonomy_ids: [F1-F9, CORE-F21, F10-F15, JA-F01-JA-F11]
-  locale_registry: registry/locale/ja-JP/failure-patterns.yaml
+  binding: registry/failure-registry-binding.yaml
   core_registry: registry/failure-patterns.yaml
+  locale_registry: registry/locale/ja-JP/failure-patterns.yaml
+  pattern_ids: [CORE-F21, F1-F17, JA-F01-JA-F11]
 
 reference_resolution:
   entities:

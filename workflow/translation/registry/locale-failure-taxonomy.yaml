@@ -1,95 +1,14 @@
+# DEPRECATED path — use failure-registry-binding.yaml
+
 schema_version: artifact-record/v1
 id: translation.locale-failure-taxonomy
-status: draft
+status: deprecated
 runtime_projection:
   enabled: false
-  reason: workflow-local；routes core ∪ locale/<locale>/failure-patterns.yaml
+  reason: renamed — thin pointer only
 
-purpose: >
-  After Locale Resolution, bind Constraint Space =
-  registry/failure-patterns.yaml (core) ∪
-  registry/locale/<target_locale>/failure-patterns.yaml (manifestations).
-  Index only — pattern bodies live in those files. Not a prompt dump (I13).
-
-binding:
-  when: after_locale_resolution
-  stage: execution-flow Registry + Apply Constraints / Guards
-  rule: >
-    Load core + locale file for target_locale. Missing locale file → core only.
-    Locale patterns MUST `manifests` a core pattern id when they refine one.
-
-cross_locale_core:
-  path: registry/failure-patterns.yaml
-  note: Always active
-  taxonomy_ids:
-    - CORE-F21
-    - F1   # semantic_role_loss
-    - F2   # grammatical_relation_error
-    - F3   # target_syntax_distortion
-    - F4   # unnatural_surface_realization
-    - F5   # social_address_misinterpretation
-    - F6   # idiom_literalization
-    - F7   # foreign_honorific_leak
-    - F7b  # target_locale_residue
-    - F7c  # source_language_residue
-    - F8   # name_realization_incomplete
-    - F9   # invented_information
-    - F10  # semantic_expansion
-    - F11  # modality_loss
-    - F12  # register_drift
-    - F13  # false_cognate_or_lexical_decomposition
-    - F14  # pragmatic_construction_literalization
-    - F15  # modifier_role_misinterpretation
-    - F16  # temporal_direction_flip
-    - F17  # clock_time_shift
-
-locale_taxonomies:
-  ja-JP:
-    id: JA
-    path: registry/locale/ja-JP/failure-patterns.yaml
-    status: active
-    taxonomy_ids: [JA-F01, JA-F02, JA-F03, JA-F04, JA-F05, JA-F06, JA-F07, JA-F08, JA-F09, JA-F10, JA-F11]
-    evidence:
-      - plans/active/2026-09-22-1000-translation-decision-workflow/evidence/2026-09-29-ep7-ja-dogfood.md
-      - plans/active/2026-09-22-1000-translation-decision-workflow/evidence/2026-09-29-ep8-ja-walkthrough.md
-
-  id-ID:
-    id: ID
-    path: registry/locale/id-ID/failure-patterns.yaml
-    status: active_minimal
-    taxonomy_ids: [ID-F01]
-
-  ms-MY:
-    id: MS
-    path: null
-    status: candidate
-    taxonomy_ids: []
-    note: Use core F7 + knowledge/ms-MY until MS locale file lands.
-
-  en:
-    id: EN
-    path: registry/locale/en/failure-patterns.yaml
-    status: placeholder
-    taxonomy_ids: []
-
-  en-US:
-    id: EN
-    path: registry/locale/en/failure-patterns.yaml
-    status: placeholder
-    taxonomy_ids: []
-
-  ko-KR:
-    id: KO
-    path: registry/locale/ko-KR/failure-patterns.yaml
-    status: placeholder
-    taxonomy_ids: []
-
-invariants:
-  - Locale file = manifestations／applies_when／constraints — not sole gloss tables
-  - New locales add a file under registry/locale/ — do NOT edit workflow core chain
-  - AI proposes candidates; Governance Review activates (I13)
-
-forbidden:
-  - stuffing_all_locale_patterns_into_core_failure-patterns.yaml
-  - if_locale_prompt_case_lists
-  - activating_placeholder_taxonomy_without_evidence
+superseded_by: registry/failure-registry-binding.yaml
+canonical_id: translation.failure-registry-binding
+note: >
+  This was never a failure-pattern SoT. It is a binding/index map.
+  Read registry/failure-registry-binding.yaml. Do not author patterns here.
