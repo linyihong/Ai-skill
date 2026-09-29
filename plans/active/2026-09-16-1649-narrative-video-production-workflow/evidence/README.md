@@ -4,6 +4,8 @@
 
 引用寫 `evidence/<file>.md` 或 markdown 連結。禁止用檔案內絕對行號定位。去敏：專案名、絕對路徑、原始媒體檔名、host、金鑰留在 `<PROJECT_ROOT>`。
 
+Product dogfood that touches captions／locale pack／font／layout／timing／content≠timing≠layout **must** write back here（or workflow）per the Mac project overlay rule `aiskill-plan-feedback-loop`（also linked to Translation Decision plan）. Do not leave NVP-relevant findings only in the product repo.
+
 ## Run 索引
 
 | Run ID | 檔案 | 狀態 | 摘要 |

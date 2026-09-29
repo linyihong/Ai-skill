@@ -33,3 +33,12 @@ Former name `locale-failure-taxonomy.yaml` kept as deprecated pointer → [`fail
 - Core cleaned → [`registry/failure-patterns.yaml`](../../workflow/translation/registry/failure-patterns.yaml)
 
 Adding ko／th／vi = new locale file + binding entry；**不**改 execution-flow 主鏈。
+
+## Product mirror（dogfood）
+
+A product pipeline may mirror this shape without copying Ai-skill YAML as runtime:
+
+- binding JSON → core patterns JSON ∪ `locale/<locale>/failure_patterns.json`
+- locale rows `manifests` a core id；`product_detector` may alias an existing mechanical detector id
+
+Evidence：[`evidence/2026-09-29-product-locale-registry-ja-id-dogfood.md`](evidence/2026-09-29-product-locale-registry-ja-id-dogfood.md)。

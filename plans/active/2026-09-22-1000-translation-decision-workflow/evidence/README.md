@@ -14,3 +14,4 @@
 | 2026-09-22-title-yiriqianli | [`2026-09-22-title-yiriqianli.md`](2026-09-22-title-yiriqianli.md) | observed | 空姐被一日千里-上；I12 invented_information + title content_type |
 | 2026-09-29-ep7-ja-dogfood | [`2026-09-29-ep7-ja-dogfood.md`](2026-09-29-ep7-ja-dogfood.md) | observed | ep7 zh→ja；JA-F01–F10 |
 | 2026-09-29-ep8-ja-walkthrough | [`2026-09-29-ep8-ja-walkthrough.md`](2026-09-29-ep8-ja-walkthrough.md) | walkthrough | ep8 26 cues；locale taxonomy bound；**待人審** |
+| 2026-09-29-product-locale-registry-ja-id | [`2026-09-29-product-locale-registry-ja-id-dogfood.md`](2026-09-29-product-locale-registry-ja-id-dogfood.md) | observed | Product core∪locale binding mirror + JA／ID mechanical Finality dogfood |
