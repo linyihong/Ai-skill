@@ -15,11 +15,19 @@ title_mapping:
       ms: [Cik, Puan]
       en: [Ms., Miss]
       ja: [さん, ミス]
+      ko: [씨]
+      vi: [Cô, Chị]
+      th: [คุณ, น.ส.]
+      ar: [آنسة]
+      es: [Señorita, Srta.]
+      pt: [Srta., Sra.]
+      tr: [Hanım]
     # Seeds only. Do not expand to full honorific lexicon without dogfood.
     # Prefer failure_pattern foreign_honorific_leak over per-name prompt cases.
 
 notes:
-  - 小姐 → Nona / Cik / Puan / Ms. / さん are Candidate Space seeds — Selection required
+  - 小姐 → Nona / Cik / Puan / Ms. / さん / 씨 / Cô / คุณ / آنسة are Candidate Space seeds — Selection required
   - id-ID / ms-MY + Miss/Ms. without waiver → locale_consistency review (foreign_honorific_leak)
   - ja-JP + さん with Latin surname → name_realization may still be review (I11)
+  - Missing locale keys must not collapse to bare surname in product structured path
   - Durable form = expression_type + pattern + locale knowledge — not prompt if-blocks

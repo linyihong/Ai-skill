@@ -24,11 +24,22 @@ Sanitized mechanical audit across product target langs（ja／id／ms／en／tr�
 4. **Kinship Candidate seeds sparse**  
    Seeds present for ja／en／id／ms only；other langs empty → Selection lacks I23 space unless LLM invents.
 
+## Follow-up（same day）
+
+Product + knowledge seeds landed for the gaps above:
+
+- `小姐` Candidate Space：ko／vi／th／ar（Selection still required）
+- Default locale `ko-KR`（not `ko-XX`）
+- Kinship seeds expanded（ko／vi／th／tr／es／pt／ar）
+- MS／TR minimal `failure_patterns` binding for foreign_honorific_leak
+- Ai-skill [`title-mapping.yaml`](../../../../knowledge/translation/locale/title-mapping.yaml) synced with those seeds
+
+Still open: live episode LLM dogfood；further title refinement from real runs.
+
 ## Plan impact
 
 - Does **not** close Phase 4.  
-- Confirms expanding locales must extend **knowledge／locale registry／binding**，not Selection prompt case lists.  
-- Open work: evidence-backed title candidates for ko／vi／th／ar；minimal MS／TR failure manifestations when dogfood exists.
+- Confirms expanding locales must extend **knowledge／locale registry／binding**，not Selection prompt case lists.
 
 ## Sanitization
 

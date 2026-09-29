@@ -6,7 +6,7 @@ Dogfood errors → [`failure-patterns`](../../workflow/translation/registry/fail
 
 | Path | Role |
 | --- | --- |
-| [`locale/title-mapping.yaml`](locale/title-mapping.yaml) | Address-title seeds（含 ms／id／en／ja） |
+| [`locale/title-mapping.yaml`](locale/title-mapping.yaml) | Address-title seeds（含 ms／id／en／ja／ko／vi／th／ar／es／pt／tr） |
 | [`locale/ms-MY/address-title.yaml`](locale/ms-MY/address-title.yaml) | Native ms-MY honorifics（Cik／Puan…） |
 | [`locale/ja-JP/name-realization.yaml`](locale/ja-JP/name-realization.yaml) | Foreign surname realization（陈 only） |
 | [`locale/ja-JP/kinship.yaml`](locale/ja-JP/kinship.yaml) | 姐夫／姐 Candidate Space（JA-F05） |
