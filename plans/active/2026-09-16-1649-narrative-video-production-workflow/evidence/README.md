@@ -48,3 +48,4 @@ Product dogfood that touches captions／locale pack／font／layout／timing／c
 | 2026-09-21-sanitization-anomaly-audit | [2026-09-21-sanitization-anomaly-audit.md](2026-09-21-sanitization-anomaly-audit.md) | observation | OCR 不進同音；兩條 chain；alert 非字典；前警覺＋整集 audit |
 | — | — | EDR chain pending | 尚未走完 matching → EDR → locale → QC → publish／outcome |
 | 2026-09-22-phase-3-chain-station-ledger | [2026-09-22-phase-3-chain-station-ledger.md](2026-09-22-phase-3-chain-station-ledger.md) | station ledger | 主鏈卡在 bible／catalog／matching／EDR（`data_insufficient`）；子鏈 promotion／watermark 已分類 |
+| 2026-09-29-windows-console-encoding-nonlatin-captions | [2026-09-29-windows-console-encoding-nonlatin-captions.md](2026-09-29-windows-console-encoding-nonlatin-captions.md) | observed | GBK console print of Thai／non-Latin cue text must not abort UTF-8 caption jobs |
