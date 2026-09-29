@@ -1008,11 +1008,12 @@ rule_classes:
       regression_exists: ✓
       runtime_observed: pending
 
-  - id: release_binary_parity
+  - id: pre_commit_diff_integrity
     coverage: mechanical
     source_files:
       - scripts/ai-skill-cli/cmd/releasebuild/main.go
       - scripts/ai-skill-cli/cmd/releasebuild/main_test.go  # TestRepoLocalBinariesMatchChecksumsAndCurrentSource
+      - scripts/ai-skill-cli/docs/command-contract.md
     executors:
       - file: scripts/ai-skill-cli/internal/app/hooks.go
         symbol: validateReleaseBinaryParityStaged
@@ -1020,16 +1021,19 @@ rule_classes:
         hook_phase: pre-commit
         block_or_warn: block
         notes: "opt-out: [skip-release-binary-parity] on its own line in commit message"
+      - file: scripts/ai-skill-cli/internal/app/hooks.go
+        symbol: validateStagedDiffWhitespace
+        executor_kind: pre_commit_validator
+        hook_phase: pre-commit
+        block_or_warn: block
+        notes: "runs git diff --cached --check; no opt-out"
     rationale: |
-      2026-08-19: a hooks.go source fix was committed with only the host
-      (Windows) binary rebuilt and staged; the other 4 platform binaries
-      and BUILDINFO/SHA256SUMS were left stale, caught only after the fact
-      by TestRepoLocalBinariesMatchChecksumsAndCurrentSource in CI rather
-      than being blocked at commit time. This pre-commit gate mechanizes
-      that test's invariant one step earlier: any commit that touches
-      ai-skill-cli source (non-test .go, go.mod, go.sum) must stage the
-      full release build (all 5 platform binaries + BUILDINFO +
-      SHA256SUMS) in the same commit, or the commit is blocked.
+      Pre-commit integrity checks prevent malformed staged patches from
+      entering repository history. The release-parity sub-gate (2026-08-19)
+      requires all five binaries plus BUILDINFO/SHA256SUMS whenever CLI
+      source changes; the whitespace sub-gate (2026-09-29) blocks every
+      staged patch that fails Git's portable diff checker. Both validate the
+      patch before commit, rather than relying on later CI or review.
     verification_status:
       symbol_exists: ✓
       scenario_exists: pending

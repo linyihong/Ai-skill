@@ -86,6 +86,14 @@
 **And** hook file 若保留，只能作 repo-local binary adapter
 **And** 不得在 hook shell 中新增 reusable automation logic。
 
+## 場景：Staged whitespace error 在 commit 前被阻斷
+
+**Given** staged patch 含 trailing whitespace、space-before-tab 或其他 `git diff --cached --check` violation
+**When** 執行 `ai-skill hooks run pre-commit`
+**Then** command 以 `validation_failed` 結束，error code 為 `staged_diff_whitespace_failed`
+**And** 乾淨的 staged patch 通過同一檢查
+**And** Git hook shell adapter 不包含 whitespace validation business logic。
+
 ## 場景：不安全 repo 狀態阻斷 commit
 
 **Given** repository 處於 merge、rebase 或 cherry-pick 狀態

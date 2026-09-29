@@ -1675,6 +1675,25 @@ func TestValidateReleaseBinaryParityStaged(t *testing.T) {
 	}
 }
 
+func TestValidateStagedDiffWhitespace(t *testing.T) {
+	repo := initTempGitRepo(t)
+	badPath := filepath.Join(repo, "evidence.md")
+	writeFile(t, badPath, "Status: observed  \n")
+	runGit(t, repo, "add", "evidence.md")
+
+	msg := validateStagedDiffWhitespace(repo)
+	if !strings.Contains(msg, "evidence.md") || !strings.Contains(msg, "trailing whitespace") {
+		t.Fatalf("expected staged whitespace violation, got %q", msg)
+	}
+
+	runGit(t, repo, "reset", "HEAD", "evidence.md")
+	writeFile(t, badPath, "Status: observed\n")
+	runGit(t, repo, "add", "evidence.md")
+	if msg := validateStagedDiffWhitespace(repo); msg != "" {
+		t.Fatalf("expected clean staged content to pass, got %q", msg)
+	}
+}
+
 func TestReleaseBinaryParityOptOut(t *testing.T) {
 	if releaseBinaryParityOptOut("fix: something\n") {
 		t.Fatal("expected no opt-out without the marker line")

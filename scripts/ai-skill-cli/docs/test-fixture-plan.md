@@ -36,7 +36,7 @@ Fixture 必須避開使用者真實 home 目錄、真實 git config、真實 Cur
 | `fixture/legacy-to-go-migration-map` | legacy surface 刪除前的文件 gate | 每個刪除列都有 new owner、source-of-truth、validation evidence，並連到 parity/disposition docs |
 | `fixture/go-first-automation-policy` | 新 automation 入口治理 | 新功能不得新增長期 `.sh` / `.rb` / `.py`；若為 hook / bootstrap 例外，必須有 Go owner 與刪除條件 |
 | `fixture/shell-deletion-gate` | 完成 parity 後刪除 `.sh` | `init-new-project.sh`、`agent-goals.sh`、`ai-skill-close-loop.sh` 不再存在；active docs 不再導向 shell commands |
-| `fixture/go-hook-runner` | Git hook logic Go-native | pre-commit staged runtime compile / validate 與 post-commit reference-only 行為由 `ai-skill hooks run` 覆蓋；shell hook 只作 adapter |
+| `fixture/go-hook-runner` | Git hook logic Go-native | pre-commit staged whitespace validation、runtime compile / validate 與 post-commit reference-only 行為由 `ai-skill hooks run` 覆蓋；shell hook 只作 adapter |
 | `fixture/glossary-valid-entry` | `glossary validate` happy path | H2 + YAML block 配對、required fields 完整、owner-layer 合法、無 violation；validator exit 0；無檔案修改 |
 | `fixture/glossary-invalid-entry` | schema violation 阻斷 | 缺 `owner-layer`、kebab-case `term`、forbidden status、非法 enum 值各自獨立子 fixture；每個案例 validator exit 30，JSON 列出 rule id |
 | `fixture/glossary-alias-rules` | alias 規則違反 | (a) `aliases:` 字串等於另一 entry 的 `term`、(b) alias chain 形成 cycle、(c) 新 entry `status: alias-only`；每個案例 validator exit 30 |

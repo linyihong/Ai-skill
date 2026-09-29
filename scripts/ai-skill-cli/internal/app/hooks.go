@@ -271,6 +271,16 @@ func runPreCommitHook(result Result, root string) Result {
 		result.Error = &CommandError{Code: "staged_lookup_failed", Message: err.Error()}
 		return result
 	}
+	if msg := validateStagedDiffWhitespace(root); msg != "" {
+		result.Status = "blocked"
+		result.ExitCode = ExitValidationFailed
+		result.Error = &CommandError{
+			Code:        "staged_diff_whitespace_failed",
+			Message:     msg,
+			Remediation: "Remove trailing whitespace or other git diff --check violations from staged content before committing.",
+		}
+		return result
+	}
 	if hasRuntimeSourceChange(staged) {
 		var stdout strings.Builder
 		var stderr strings.Builder
@@ -380,6 +390,21 @@ func runPreCommitHook(result Result, root string) Result {
 		result.Checks = append(result.Checks, Check{Name: "pre_commit", Status: "ok", Message: "no runtime or knowledge hook action required"})
 	}
 	return result
+}
+
+// validateStagedDiffWhitespace blocks commits whose staged patch fails Git's
+// portable whitespace checker. Keeping this in the Go hook runner makes the
+// same guard available on every supported host without adding shell logic.
+func validateStagedDiffWhitespace(root string) string {
+	output, err := exec.Command("git", "-C", root, "diff", "--cached", "--check").CombinedOutput()
+	if err == nil {
+		return ""
+	}
+	message := strings.TrimSpace(string(output))
+	if message != "" {
+		return message
+	}
+	return "git diff --cached --check failed: " + err.Error()
 }
 
 // validateNoNewShellScripts returns a non-empty error message if any newly Added

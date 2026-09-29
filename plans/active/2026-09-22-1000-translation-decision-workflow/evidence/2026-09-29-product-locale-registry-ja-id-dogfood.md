@@ -1,7 +1,7 @@
 # Evidence — Product locale-layered failure registry + JA／ID mechanical dogfood
 
-Status: observed  
-Date: 2026-09-29  
+Status: observed
+Date: 2026-09-29
 Linked plan: [`14-locale-layered-failure-registry.md`](../14-locale-layered-failure-registry.md)、ep8 Finality ([`13`](../13-ep8-contract-revision.md))
 
 ## Scope
