@@ -174,4 +174,5 @@ Ai-skill 已有 Loop-first／Governance-first 與 ERA v2（Evidence constrains D
 - ERA / Constraint≠Selection：[`plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md`](../2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)
 - NVP invariants：[`plans/active/2026-09-16-1649-narrative-video-production-workflow/03-architecture-invariants.md`](../2026-09-16-1649-narrative-video-production-workflow/03-architecture-invariants.md)
 - Captions：[`workflow/narrative-video-production/captions-and-locales.md`](../../workflow/narrative-video-production/captions-and-locales.md)
+- Text language／role gate：[`workflow/narrative-video-production/text-evidence-language-relation.md`](../../workflow/narrative-video-production/text-evidence-language-relation.md)
 - Semantic context：[`workflow/narrative-video-production/records/dialogue-semantic-context.yaml`](../../workflow/narrative-video-production/records/dialogue-semantic-context.yaml)

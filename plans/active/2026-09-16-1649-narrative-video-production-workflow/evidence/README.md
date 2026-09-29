@@ -49,3 +49,4 @@ Product dogfood that touches captions／locale pack／font／layout／timing／c
 | — | — | EDR chain pending | 尚未走完 matching → EDR → locale → QC → publish／outcome |
 | 2026-09-22-phase-3-chain-station-ledger | [2026-09-22-phase-3-chain-station-ledger.md](2026-09-22-phase-3-chain-station-ledger.md) | station ledger | 主鏈卡在 bible／catalog／matching／EDR（`data_insufficient`）；子鏈 promotion／watermark 已分類 |
 | 2026-09-29-windows-console-encoding-nonlatin-captions | [2026-09-29-windows-console-encoding-nonlatin-captions.md](2026-09-29-windows-console-encoding-nonlatin-captions.md) | observed | GBK console print of Thai／non-Latin cue text must not abort UTF-8 caption jobs |
+| 2026-09-29-cross-language-subtitle-spoken-alignment | [2026-09-29-cross-language-subtitle-spoken-alignment.md](2026-09-29-cross-language-subtitle-spoken-alignment.md) | contract_gap candidate | EN hardsub＋ZH spoken 被当成 conflict／OCR 勝出；Language Relation Gate 先於 Text Resolution／sanitization |

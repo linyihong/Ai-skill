@@ -14,6 +14,9 @@ workflow schema，也不是新增 Story Agent。** 去敏觀察：
 
 ```text
 observable evidence
+  → language & text-role detection
+  → evidence alignment
+  → language relation gate
   → text resolution
   → evidence unit
   → narrative window
@@ -22,6 +25,11 @@ observable evidence
   → story event
   → typed story-state claim（若有）
 ```
+
+Language／role 先於 Text Resolution：見
+[`40-language-role-before-text-resolution.md`](40-language-role-before-text-resolution.md)。
+跨語言字幕↔口播不是 conflict。Workflow：
+[`text-evidence-language-relation.md`](../../../workflow/narrative-video-production/text-evidence-language-relation.md)。
 
 ## Text resolution
 

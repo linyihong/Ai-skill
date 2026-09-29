@@ -1,0 +1,58 @@
+# Text evidence — language / role / relation (workflow-local)
+# runtime_projection.enabled: false
+id: narrative-video.text-evidence
+runtime_projection:
+  enabled: false
+description: >
+  Per-window OCR/ASR text evidence with language, locale, text_role, and
+  text_relation. Absorbs cross-language subtitle↔spoken without a new Phase.
+  LLM may support alignment; it must not invent language tags.
+
+fields:
+  observed_text:
+    required: [text, language]
+    optional: [locale, text_role, bbox_ref, confidence]
+    text_role_enum:
+      - translated_subtitle
+      - hardcoded_subtitle
+      - dialogue_caption
+      - signage
+      - UI_text
+      - watermark
+      - title
+      - unknown
+  spoken_text:
+    required: [text, language]
+    optional: [locale, speaker_id, confidence, asr_validity]
+  alignment:
+    required: [window_ref]
+    optional: [temporal_status]
+  text_relation:
+    required: [type]
+    type_enum:
+      - same_language_match
+      - same_language_variant
+      - cross_language_translation
+      - sanitization_candidate
+      - unresolved
+      - cross_language_unresolved
+    notes: >
+      sanitization_candidate only after same-language gate.
+      cross_language_translation must not enter sanitization.
+  resolution:
+    required: [status]
+    optional: [spoken_selected, subtitle_observed, evidence_refs]
+    status_enum: [resolved, unresolved]
+
+gates:
+  - id: language_tags_present
+    rule: aligned OCR/ASR pair must carry language (or explicit unknown) before Text Resolution
+  - id: sanitization_after_same_language
+    rule: sanitization_candidate forbidden when languages differ unless relation is not cross_language_translation
+  - id: locale_content_uses_resolved_pair
+    rule: locale content source must consume resolved spoken/subtitle pair, not raw Latin hardsub as zh spoken
+
+linked:
+  - workflow/narrative-video-production/text-evidence-language-relation.md
+  - plans/active/2026-09-16-1649-narrative-video-production-workflow/40-language-role-before-text-resolution.md
+  - workflow/narrative-video-production/records/caption-locale-pack.yaml
