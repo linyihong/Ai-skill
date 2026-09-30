@@ -49,6 +49,13 @@ boundary:
 ```
 
 Derived 必須可重跑；演算法升級不得污染 raw。
+**`parts[]` 同屬 L0**；整段 `text` 若經 script-aware join，必須標 `method: script_aware_join`，且 **不得**用黏掉的 text 覆蓋 parts。
+
+### Join 接縫（2026-10-01 dogfood）
+
+Join 看**相鄰 token**，不看 cumulative `observed_script`：Latin|Latin → 空格。
+禁止 mixed／CJK 累積串否決後續 Latin 空格（`I'm fromapetstore`）。
+見 evidence [`2026-10-01-ocr-join-token-seam-not-cumulative-script.md`](evidence/2026-10-01-ocr-join-token-seam-not-cumulative-script.md)。
 
 ## Boundary suspicious（機械）
 

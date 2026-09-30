@@ -158,6 +158,12 @@ gates:
     rule: boundary recovery must keep raw_text; derived candidates must not overwrite raw
   - id: latin_glue_boundary_marked
     rule: long latin text with zero spaces and single box must set boundary suspicious or attempt recovery
+  - id: join_uses_token_seam_not_cumulative_script
+    rule: >
+      script-aware join must decide spaces from adjacent token seam
+      (Latin|Latin => space); must not deny Latin|Latin because
+      cumulative observed_script is mixed/cjk; derived text must not
+      overwrite parts[]; method script_aware_join must be rebuildable
   - id: sanitization_after_same_language
     rule: sanitization_candidate forbidden when languages differ unless relation is not cross_language_translation
   - id: spoken_not_from_translation_only

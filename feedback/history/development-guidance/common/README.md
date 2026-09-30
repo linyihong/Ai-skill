@@ -68,8 +68,6 @@
 | `2026-09-29_105651-translation-decision-selection-adapter-finality-gates.md` | candidate | Translation Decision: Selection adapter + mechanical Finality | LLM 只當 Selection Actor；截斷源文／親屬殘留用機械 Finality／Validation，禁止 case map 與 sole gloss |
 | `2026-09-29_132500-same-lang-skip-must-block-pretranslate-cache.md` | candidate | Same-lang skip must block pretranslate cache (OCR Latin junk) | `skip_translate`／源≈目標時必須短路整集預譯與 `translations/{lang}` 寫入；不可只靠 per-line detect，否則 OCR 拉丁垃圾會被當成外語翻譯 |
 | `2026-09-30_081600-ocr-recognition-lang-must-not-erase-latin-word-boundaries.md` | candidate | OCR recognition language must not erase Latin word boundaries | `recognition_language`≠`observed_script`；Latin 單框無空格要 boundary／derived，不可因 ch 路徑刪空格或覆蓋 raw |
-| `2026-09-30_150000-dialogue-cue-projection-must-not-flatten-subtitle-group.md` | candidate | Dialogue cue projection must not flatten subtitle_group | `spoken_timed` 只投影 spoken；cues 必須保留 subtitle_group／regions／alignment，burn 優先同語 OCR region |
-| `2026-09-30_154100-caption-temporal-integrity-mechanical-timing-gate.md` | candidate | Caption temporal integrity is a mechanical timing gate | 字幕互壓屬 timing／artifact，非 LLM；same-track 禁 overlap，雙語 same-group 允許 |
-| `2026-09-30_164000-timeline-ir-and-same-asr-omission.md` | candidate | Timeline IR + forbid unrelated same-ASR caption collapse | Evidence 有成片無＝projection／omission；Timeline＋coverage；同 ASR 不得合 unrelated OCR |
+| `2026-10-01_090000-ocr-join-token-seam-not-cumulative-script.md` | candidate | OCR join must use token seam not cumulative script | parts 已切、derived 黏：Latin\|Latin 必空格；禁止 cumulative mixed 否決；parts 不可被 text 覆蓋 |
 
-Total: 67
+Total: 68
