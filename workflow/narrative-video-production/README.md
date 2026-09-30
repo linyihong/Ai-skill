@@ -25,7 +25,7 @@ Acquisition（生成／實拍／剪輯／未來工具）可換；不得反向定
 | 文本語言／角色 | [`text-evidence-language-relation.md`](text-evidence-language-relation.md) | OCR／ASR 進 Text Resolution 前：language／text_role／Language Relation Gate |
 | OCR region／雙語組 | [`text-evidence-regions.md`](text-evidence-regions.md) | 多 box／中英疊字：text_region → subtitle_group → 再 Language Relation |
 | OCR 詞界／空白 | [`text-evidence-ocr-boundary.md`](text-evidence-ocr-boundary.md) | raw≠derived；recognition_language≠observed_script；單框 Latin 黏字串要 boundary recovery |
-| 多模態文本決議 | [`text-evidence-multimodal-resolution.md`](text-evidence-multimodal-resolution.md) | Language Relation 後：phonetic＋semantic candidates、anomaly→重建、resolution_reason；禁止固定 OCR>ASR |
+| 多模態文本決議 | [`text-evidence-multimodal-resolution.md`](text-evidence-multimodal-resolution.md) | Language Relation 後：observed／candidate／resolved；semantic_anchor＋semantic_reconstruction；禁止固定 OCR>ASR |
 | 口播時軸 | [`speech-unit-and-timing.md`](speech-unit-and-timing.md) | 自製口播 Speech Unit；cue 時軸 SoT |
 | 字幕 layout | [`subtitle-layout.md`](subtitle-layout.md) | Caption Composition：語意先於 fit；三層字級；scored 斷點 |
 | 成片對帳 | [`assemble-and-qc.md`](assemble-and-qc.md) | 時間線 vs EDR；fresh verifier |

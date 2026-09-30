@@ -5,7 +5,8 @@ Companion to [`19-text-resolution-and-narrative-assembly.md`](19-text-resolution
 [`22-phonetic-text-reconstruction.md`](22-phonetic-text-reconstruction.md)、
 [`40-language-role-before-text-resolution.md`](40-language-role-before-text-resolution.md)。
 **不是新 Phase、不是新 Agent、不改凍結的 Narrative Video Workflow 架構。**
-觀察：[`evidence/2026-09-30-asr-anomaly-ocr-semantic-reconstruction.md`](evidence/2026-09-30-asr-anomaly-ocr-semantic-reconstruction.md)。
+觀察：[`evidence/2026-09-30-asr-anomaly-ocr-semantic-reconstruction.md`](evidence/2026-09-30-asr-anomaly-ocr-semantic-reconstruction.md)、
+[`evidence/2026-09-30-semantic-anchor-last-lot-auction.md`](evidence/2026-09-30-semantic-anchor-last-lot-auction.md)。
 Workflow 落點：[`text-evidence-multimodal-resolution.md`](../../../workflow/narrative-video-production/text-evidence-multimodal-resolution.md)。
 
 ## 問題
@@ -99,8 +100,15 @@ LLM 只在 candidate set 上選擇並寫 `resolution_reason`，不得從 raw ASR
 - 無 phonetic／semantic／context 支撐時用 LLM 自由改寫
 - 改變凍結 Phase／新增 Story Agent
 
+## semantic_reconstruction（同能力，非 typo correction）
+
+正式區分 **observed / candidate / resolved**。OCR 領域術語可作 `semantic_anchor`
+（例 `Last Lot`→auction→「最後一件拍賣品」），與 ASR lexical anomaly（「拍皮」）
+收斂後寫入 candidate；resolved 才進敘事。OCR 非必要，但提高 evidence strength。
+
 ## 下一輪只驗
 
 1. 產品是否產出 `semantic_candidate`＋`resolution_reason`（至少 dogfood 一例）；
 2. ASR lexical anomaly 是否觸發 reconstruction 而非靜默採用字面；
-3. 跨語言路徑是否仍先過 Language Relation Gate（40／41）。
+3. 跨語言路徑是否仍先過 Language Relation Gate（40／41）；
+4. `Last Lot`＋「拍皮」類是否走 `semantic_anchor`／`semantic_reconstruction` 且保留 ASR observed。

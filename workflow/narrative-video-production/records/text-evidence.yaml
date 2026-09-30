@@ -94,13 +94,24 @@ fields:
       observed_text is observation, not spoken meaning SoT.
       phonetic may hold pinyin / syllable / phoneme sequences.
       quality.lexical_confidence signals unnatural phrases for anomaly → reconstruction.
+  semantic_anchor:
+    required: [source, domain]
+    optional: [candidate_meaning, language, status]
+    notes: >
+      Domain term from OCR observed (e.g. Last Lot → auction).
+      Must not overwrite OCR observed; used to generate semantic_reconstruction
+      candidates with ASR phonetic / lexical anomaly support.
   semantic_candidate:
     required: [text, from, source_ref]
-    optional: [language, status, confidence]
-    from_enum: [ocr_translation, ocr_normalize, context_hint]
+    optional: [language, status, confidence, semantic_anchor]
+    from_enum:
+      - ocr_translation
+      - ocr_normalize
+      - semantic_reconstruction
+      - context_hint
     notes: >
-      Translation / normalization candidate derived from OCR observed.
-      Must not overwrite OCR observed text; provenance via source_ref.
+      Translation / normalization / semantic_reconstruction candidate.
+      Must not overwrite OCR or ASR observed text; provenance via source_ref.
   alignment:
     required: [window_ref]
     optional: [temporal_status, region_refs]
@@ -157,6 +168,14 @@ gates:
     rule: asr observed_text must not become spoken canonical without candidate resolution when lexical anomaly or cross-language semantic evidence exists
   - id: semantic_candidate_keeps_ocr_observed
     rule: semantic_candidate must not overwrite OCR observed; provenance source_ref required
+  - id: observed_candidate_resolved_layers
+    rule: >
+      ASR/OCR observed must remain auditable when resolved text differs;
+      semantic_reconstruction writes candidates, not silent ASR overwrite
+  - id: semantic_anchor_optional_strength
+    rule: >
+      OCR semantic_anchor strengthens auction/domain reconstruction but is not
+      required; ASR+context-only candidates must mark lower confidence
   - id: resolution_reason_required_when_resolved
     rule: status=resolved multimodal selection should carry reason[] and sources[] (evidence_supported path)
 

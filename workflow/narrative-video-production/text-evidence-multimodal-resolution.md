@@ -25,10 +25,37 @@ Plan companion：[`43-multimodal-text-evidence-resolution.md`](../../plans/activ
 ## 核心契約
 
 1. **ASR observed ≠ spoken meaning SoT**；保存 phonetic／timing／quality。
-2. **OCR observed ≠ 自動 spoken**；跨語言時另產 `semantic_candidate`（provenance）。
+2. **OCR observed ≠ 自動 spoken**；跨語言時另產 `semantic_candidate`／`semantic_anchor`（provenance）。
 3. **LLM 只選 candidate**，必須寫 `resolution.reason`＋`sources`。
 4. **異常只觸發重建**，不機械替代表定案。
-5. **權重看 evidence_policy**，禁止全域 OCR>ASR。
+5. **權重看 evidence convergence**，禁止全域 OCR>ASR。
+6. **三層命名**：`observed` → `candidate` → `resolved`；禁止 silently overwrite observed。
+
+## observed / candidate / resolved
+
+| 層 | 含義 | 例 |
+| --- | --- | --- |
+| observed | 設備實際看到／聽到 | ASR「…拍皮」；OCR `Last Lot` |
+| candidate | evidence 推導的候選 | 「…拍卖品」（`semantic_reconstruction`） |
+| resolved | resolution 接受、供敘事消費 | 同上（若 evidence 收斂） |
+
+`拍皮→拍卖品`、`不偿→補償`、`秦舍→禽獸` 同一能力名：**semantic_reconstruction**（不是 typo correction）。
+
+## semantic_anchor（OCR 領域術語）
+
+英文硬字幕常是領域固定術語，不是逐字 gloss：
+
+```yaml
+semantic_anchor:
+  source: "Last Lot"          # OCR observed（保留）
+  domain: auction
+  candidate_meaning:
+    - "最後一件拍賣品"
+```
+
+路徑：OCR anchor ＋ ASR phonetic／lexical anomaly ＋（可選）scene domain
+→ Candidate Generation → Resolution。
+**OCR 非必要**：僅 ASR＋scene 也可產 candidate，但 confidence 應低於有 anchor 的收斂。
 
 ## 最小欄位
 
@@ -36,7 +63,8 @@ Plan companion：[`43-multimodal-text-evidence-resolution.md`](../../plans/activ
 | --- | --- |
 | `asr` | `observed_text`, `language`; 建議 `phonetic`, `timing`, `quality.lexical_confidence` |
 | `ocr` | `text`, `language`, `text_role`; 建議 `region_refs` |
-| `semantic_candidate` | `text`, `from: ocr_translation\|normalize`, `source_ref` |
+| `semantic_anchor` | `source`, `domain`; 建議 `candidate_meaning[]` |
+| `semantic_candidate` | `text`, `from: ocr_translation\|ocr_normalize\|semantic_reconstruction\|context_hint`, `source_ref` |
 | `candidates[]` | `text`, `evidence[]`, `status` |
 | `resolution` | `status`, `text`（若 resolved）, `reason[]`, `sources[]`, `confidence.type` |
 
@@ -59,6 +87,7 @@ Plan companion：[`43-multimodal-text-evidence-resolution.md`](../../plans/activ
 | ASR 怪／字幕對 | OCR semantic 清晰 | semantic_candidate＋phonetic support |
 | 跨語言對齊 | EN OCR＋ZH ASR | `cross_language_translation`；非 conflict |
 | 同語言 match | 字面一致 | `same_language_match` |
+| 領域術語錨 | OCR `Last Lot`＋ASR「拍皮」 | `semantic_anchor` → `semantic_reconstruction` |
 
 ## 禁止
 
