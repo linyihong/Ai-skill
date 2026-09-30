@@ -71,3 +71,4 @@ Canonical lifecycle。各 stage 填哪個 record、能否推進：見
 - 讓 LLM 單獨斷言「英文 OCR＝翻譯」或「哪一行是哪種語言」或「怎麼斷英文詞」而不先有 mechanical `text_region`／`language`／boundary tags。
 - 把雙語硬字幕黏成單一字串再進 Text Resolution；或把翻譯列當 spoken_text。
 - 用 `recognition_language=ch` 對 Latin 觀測刪光空格，或用 derived 覆蓋／刪除 `raw_text`。
+- 把 ASR 字面當 spoken meaning SoT，或固定 OCR>ASR 覆蓋；跨語言字幕缺 `semantic_candidate`／`resolution_reason` 就定案（見 [`text-evidence-multimodal-resolution.md`](text-evidence-multimodal-resolution.md)）。

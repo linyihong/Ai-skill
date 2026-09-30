@@ -83,6 +83,24 @@ fields:
   spoken_text:
     required: [text, language]
     optional: [locale, speaker_id, confidence, asr_validity]
+  asr_observation:
+    required: [observed_text, language]
+    optional:
+      - phonetic
+      - timing
+      - speaker_id
+      - quality
+    notes: >
+      observed_text is observation, not spoken meaning SoT.
+      phonetic may hold pinyin / syllable / phoneme sequences.
+      quality.lexical_confidence signals unnatural phrases for anomaly → reconstruction.
+  semantic_candidate:
+    required: [text, from, source_ref]
+    optional: [language, status, confidence]
+    from_enum: [ocr_translation, ocr_normalize, context_hint]
+    notes: >
+      Translation / normalization candidate derived from OCR observed.
+      Must not overwrite OCR observed text; provenance via source_ref.
   alignment:
     required: [window_ref]
     optional: [temporal_status, region_refs]
@@ -103,8 +121,20 @@ fields:
       Translation subtitle is semantic evidence only — never spoken_text.
   resolution:
     required: [status]
-    optional: [spoken_selected, subtitle_observed, evidence_refs, subtitle_group_ref]
-    status_enum: [resolved, unresolved]
+    optional:
+      - spoken_selected
+      - subtitle_observed
+      - evidence_refs
+      - subtitle_group_ref
+      - candidates
+      - reason
+      - sources
+      - confidence
+    status_enum: [resolved, unresolved, needs_review]
+    notes: >
+      Multimodal Text Evidence Resolution: select among candidates with
+      phonetic + semantic + context support; write reason[] and sources[].
+      LLM must not invent text outside the candidate set.
 
 gates:
   - id: language_tags_present
@@ -123,12 +153,20 @@ gates:
     rule: spoken canonical must not be taken from a cross-language translation region when same-language dialogue/ASR exists
   - id: locale_content_uses_resolved_pair
     rule: locale content source must consume resolved spoken/subtitle pair, not raw Latin hardsub as zh spoken
+  - id: asr_observed_not_spoken_sot
+    rule: asr observed_text must not become spoken canonical without candidate resolution when lexical anomaly or cross-language semantic evidence exists
+  - id: semantic_candidate_keeps_ocr_observed
+    rule: semantic_candidate must not overwrite OCR observed; provenance source_ref required
+  - id: resolution_reason_required_when_resolved
+    rule: status=resolved multimodal selection should carry reason[] and sources[] (evidence_supported path)
 
 linked:
   - workflow/narrative-video-production/text-evidence-language-relation.md
   - workflow/narrative-video-production/text-evidence-regions.md
   - workflow/narrative-video-production/text-evidence-ocr-boundary.md
+  - workflow/narrative-video-production/text-evidence-multimodal-resolution.md
   - plans/active/2026-09-16-1649-narrative-video-production-workflow/40-language-role-before-text-resolution.md
   - plans/active/2026-09-16-1649-narrative-video-production-workflow/41-bilingual-ocr-regions-and-subtitle-groups.md
   - plans/active/2026-09-16-1649-narrative-video-production-workflow/42-ocr-boundary-and-script-aware-normalization.md
+  - plans/active/2026-09-16-1649-narrative-video-production-workflow/43-multimodal-text-evidence-resolution.md
   - workflow/narrative-video-production/records/caption-locale-pack.yaml
