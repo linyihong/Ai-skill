@@ -46,6 +46,16 @@ bilingual 時記 `language_relation`（如 en+zh）與 `spatial_relation: stacke
 
 禁止：翻譯字幕直接當 `spoken_text`；未分 region 就把雙語黏字串當單一 OCR 證據。
 
+## Projection（locale pack／burn）
+
+`spoken_timed` 只投影 **spoken**。Dialogue cue／locale `cues[]` 必須仍帶：
+
+- `subtitle_group`（含 per-language `regions`）
+- `speech`（ASR timing＋text）
+- `alignment`（speech ↔ subtitle_group）
+
+不得為了 burn 方便把上述結構壓扁後丟棄。目標語字幕優先取同語 region evidence。詳見 plan [`41-…`](../../plans/active/2026-09-16-1649-narrative-video-production-workflow/41-bilingual-ocr-regions-and-subtitle-groups.md) §Projection。
+
 ## 推進條件
 
 | 條件 | 失敗 |

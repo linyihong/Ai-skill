@@ -67,5 +67,6 @@
 | `2026-09-29_105651-translation-decision-selection-adapter-finality-gates.md` | candidate | Translation Decision: Selection adapter + mechanical Finality | LLM 只當 Selection Actor；截斷源文／親屬殘留用機械 Finality／Validation，禁止 case map 與 sole gloss |
 | `2026-09-29_132500-same-lang-skip-must-block-pretranslate-cache.md` | candidate | Same-lang skip must block pretranslate cache (OCR Latin junk) | `skip_translate`／源≈目標時必須短路整集預譯與 `translations/{lang}` 寫入；不可只靠 per-line detect，否則 OCR 拉丁垃圾會被當成外語翻譯 |
 | `2026-09-30_081600-ocr-recognition-lang-must-not-erase-latin-word-boundaries.md` | candidate | OCR recognition language must not erase Latin word boundaries | `recognition_language`≠`observed_script`；Latin 單框無空格要 boundary／derived，不可因 ch 路徑刪空格或覆蓋 raw |
+| `2026-09-30_150000-dialogue-cue-projection-must-not-flatten-subtitle-group.md` | candidate | Dialogue cue projection must not flatten subtitle_group | `spoken_timed` 只投影 spoken；cues 必須保留 subtitle_group／regions／alignment，burn 優先同語 OCR region |
 
-Total: 64
+Total: 65

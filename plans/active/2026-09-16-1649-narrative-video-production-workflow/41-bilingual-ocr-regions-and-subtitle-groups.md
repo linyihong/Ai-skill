@@ -82,3 +82,14 @@ subtitle_group:
 | `bilingual_collapsed_to_single_string` | **contract_gap candidate**；用 region／group 吸收；不開新 Phase／Agent |
 
 產品 adapter 另改；不得反向定義本契約。翻譯字幕只作 semantic evidence，不可直接當 spoken。
+
+## Projection 契約（2026-09-30）
+
+Layer-0 OCR schema **不必重做**。缺口在 **OCR → dialogue cue → locale pack** 的投影：
+
+- `spoken_timed` = spoken／口播語 burn／phrase 投影，**不**承載 subtitle 原始結構。
+- Dialogue Cue Group 必須保留：`speech` + `subtitle_group.regions[]` + `alignment{speech_id, subtitle_group_id}`。
+- Export／reload 不得把 bilingual cue 壓成 `{src,dst,start,end}` 後丟掉 regions。
+- 目標語 burn：優先使用已存在的同語 OCR region；缺口才 MT。
+
+觀察：[`evidence/2026-09-30-dialogue-cue-projection-retains-subtitle-group.md`](evidence/2026-09-30-dialogue-cue-projection-retains-subtitle-group.md)。
