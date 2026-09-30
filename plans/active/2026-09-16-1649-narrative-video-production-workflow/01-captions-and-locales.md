@@ -17,7 +17,7 @@ Companion to [`_plan.md`](_plan.md)。只記錄從參考包**抽象出的契約*
 | `text_origin` | `script`／`asr`／`ocr`／`human`／`translated` |
 | `cues[]` | `shot_id` 或軸秒 `start`/`end`、顯示文案、可選對齊源文 |
 | `content_gate` / `translation_qc` | 語意、專名、source residue（**content correctness**）；譯文決策見 [`workflow/translation/`](../../../workflow/translation/README.md) + [`adapters/subtitle.yaml`](../../../workflow/translation/adapters/subtitle.yaml) |
-| `timing_gate` | 讀得完：CPS／cue 窗（**timing correctness**） |
+| `timing_gate` | 讀得完：CPS／cue 窗（**timing correctness**）**＋ temporal integrity**（same-track 互壓機械禁；雙語 same-group 允許） |
 | `layout_gate` | 放得下、安全區、不遮擋（**layout correctness**） |
 | `layout_script` | 排版族（cjk／latin／…），≠ locale |
 | `burn_mode` | `sidecar`／`burned`／`none` |

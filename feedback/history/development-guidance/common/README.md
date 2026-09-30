@@ -68,5 +68,6 @@
 | `2026-09-29_132500-same-lang-skip-must-block-pretranslate-cache.md` | candidate | Same-lang skip must block pretranslate cache (OCR Latin junk) | `skip_translate`／源≈目標時必須短路整集預譯與 `translations/{lang}` 寫入；不可只靠 per-line detect，否則 OCR 拉丁垃圾會被當成外語翻譯 |
 | `2026-09-30_081600-ocr-recognition-lang-must-not-erase-latin-word-boundaries.md` | candidate | OCR recognition language must not erase Latin word boundaries | `recognition_language`≠`observed_script`；Latin 單框無空格要 boundary／derived，不可因 ch 路徑刪空格或覆蓋 raw |
 | `2026-09-30_150000-dialogue-cue-projection-must-not-flatten-subtitle-group.md` | candidate | Dialogue cue projection must not flatten subtitle_group | `spoken_timed` 只投影 spoken；cues 必須保留 subtitle_group／regions／alignment，burn 優先同語 OCR region |
+| `2026-09-30_154100-caption-temporal-integrity-mechanical-timing-gate.md` | candidate | Caption temporal integrity is a mechanical timing gate | 字幕互壓屬 timing／artifact，非 LLM；same-track 禁 overlap，雙語 same-group 允許 |
 
-Total: 65
+Total: 66

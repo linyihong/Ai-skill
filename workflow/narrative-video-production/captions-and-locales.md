@@ -9,10 +9,29 @@
 | Gate | 裁決 | 不是 |
 | --- | --- | --- |
 | `content_gate` | 語意、專名、source residue | 排版漂不漂亮 |
-| `timing_gate` | 讀得完（CPS／cue 窗；軸秒 vs 觀眾秒要寫明） | 有沒有擋住臉 |
-| `layout_gate` | 放得下、安全區、不遮擋 | 譯文對不對 |
+| `timing_gate` | 讀得完（CPS／cue 窗）**＋ temporal integrity**（同 track 互壓／非法窗） | 有沒有擋住臉 |
+| `layout_gate` | 放得下、安全區、不遮擋（含空間碰撞） | 譯文對不對 |
 
 **放得下 ≠ 讀得完 ≠ 沒擋住臉。** 禁止合成單一「字幕 PASS」。Publish QC 三閘都要有各自 `decision`。
+
+### `timing_gate` — temporal integrity（機械，非 LLM）
+
+字幕內容對錯屬 Evidence Resolution；**時間軸是否互壓屬 Rendering／Temporal Integrity**。
+
+機械必檢（Caption Pack 與 burn ASS／events）：
+
+| 檢查 | 未過 |
+| --- | --- |
+| `cue.start < cue.end` | `impossible_window` |
+| same-track：`next.start < current.end`（未明示 policy） | `cue_overlap` |
+| 同 `subtitle_group` 多 locale region 同窗 | **PASS**（`bilingual_same_group` allowed） |
+| 不同 `subtitle_group` 在同一視覺字幕層互壓 | `subtitle_group_overlap` |
+| 完全相同窗／文案重複 | `duplicate_cue` |
+| CPS／min–max cue 窗 | 既有超窗規則 |
+
+`overlap_policy` 預設：`same_track=forbidden`；`bilingual_same_group=allowed`；`transition`／`karaoke` 僅 `explicit`。
+
+分類：Pack 本身互壓 → producer／timing fail；Pack 乾淨、成片／ASS 互壓 → **render adapter defect**（倍速、ASS merge、硬字幕未 scrub）；無法表達 track／group → contract_gap。見 evidence `2026-09-30-caption-temporal-integrity-overlap`。
 
 `text_origin`：`script`／`asr`／`ocr`／`human`／`translated` 分源，不得混成一條無標記對白。
 `layout_script`（cjk／latin／…）≠ `locale`。
@@ -22,8 +41,8 @@
 
 ## Content 決策（Translation Decision）
 
-語意／專名／稱謂／locale／name realization 的 **content** 決策走  
-[`workflow/translation/`](../translation/README.md)（TDR + Finality）。  
+語意／專名／稱謂／locale／name realization 的 **content** 決策走
+[`workflow/translation/`](../translation/README.md)（TDR + Finality）。
 Subtitle 接線：[`workflow/translation/adapters/subtitle.yaml`](../translation/adapters/subtitle.yaml)。
 
 `content_gate` 可引用 `cue.translation_decision_ref`；**不得**因此省略或合併 `timing_gate`／`layout_gate`。
