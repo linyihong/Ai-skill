@@ -64,3 +64,35 @@ profile、相對 preferred 的窄 `max_delta`。到 **profile min** 仍放不下
 換行是 lossless display transform：去掉換行後必須等於 cue 原文，且不得切進
 `protected_spans`。同一 cue 的所有行共用一套 typography；禁止上行大、下行小。
 
+## Timeline projection（EDR → editable IR → render）
+
+MP4 是最後 artifact，不是唯一可檢查產物。Caption／clip／voice 在 burn 前必須先投影成
+**Timeline IR**（工具中立；ASS／FCPXML／Premiere XML／EDL 只是 adapter）。
+
+```text
+Evidence → Story/Script → EDR → Timeline IR → Mechanical QC → Render → MP4
+```
+
+| 產物 | 用途 |
+| --- | --- |
+| `timeline`（canonical IR） | 每條將出現在成片的 caption／clip／voice 實例；含 `source_ref`／`edr_ref`／`group_id` |
+| editable export | 人讀／比對用 adapter（ASS／XML／JSON），不是第二套真相 |
+| coverage／omission report | 哪些 publish-required／selected evidence 沒有 downstream |
+
+**Invariant（artifact traceability）：** 凡被 EDR 選定且要求發布的 caption／audio／clip，必須在 Timeline IR 有可追溯 instance；render 不得無聲丟棄。
+
+雙語硬字幕以 **`subtitle_group`** 為 entity（多 locale region 同組），投影引用 `group_id`，禁止只投影一個 region 而默默丟另一語。
+
+### Evidence coverage／omission（機械，非 LLM）
+
+不是「OCR 每一句都必須進成片」。是：
+
+- publish-required／selected 的 evidence 必須一路 trace 到 Timeline／render
+- 高品質 subtitle candidate 若無任何 downstream → `suspicious_omission`（須明示 reason，不可 silent）
+
+分類例：`irrelevant_dialogue`／`duplicate`／`source_residue`／`timing_conflict`／`unrelated_forced_merge`／`unresolved`。
+
+### 禁止：同 ASR latch 的破壞性合併
+
+多條 **text-unrelated** 的 OCR／subtitle cue，不得只因時間上 latched 到同一長 ASR observation 就被 destructive merge 成一句。同 ASR 合併僅允許在 text relation 為 `duplicate`／`truncated_variant_of`／`variant_of`（同一口播的碎片），且須保留 loser 進 candidates／coverage `not_used`。見 evidence `2026-09-30-ocr-caption-omission-same-asr-collapse`。
+

@@ -70,5 +70,6 @@
 | `2026-09-30_081600-ocr-recognition-lang-must-not-erase-latin-word-boundaries.md` | candidate | OCR recognition language must not erase Latin word boundaries | `recognition_language`≠`observed_script`；Latin 單框無空格要 boundary／derived，不可因 ch 路徑刪空格或覆蓋 raw |
 | `2026-09-30_150000-dialogue-cue-projection-must-not-flatten-subtitle-group.md` | candidate | Dialogue cue projection must not flatten subtitle_group | `spoken_timed` 只投影 spoken；cues 必須保留 subtitle_group／regions／alignment，burn 優先同語 OCR region |
 | `2026-09-30_154100-caption-temporal-integrity-mechanical-timing-gate.md` | candidate | Caption temporal integrity is a mechanical timing gate | 字幕互壓屬 timing／artifact，非 LLM；same-track 禁 overlap，雙語 same-group 允許 |
+| `2026-09-30_164000-timeline-ir-and-same-asr-omission.md` | candidate | Timeline IR + forbid unrelated same-ASR caption collapse | Evidence 有成片無＝projection／omission；Timeline＋coverage；同 ASR 不得合 unrelated OCR |
 
-Total: 66
+Total: 67

@@ -9,6 +9,12 @@
 
 實際窗可微調，仍須同一 `clip_id`；換 clip → `mutations[]`。
 
+## Timeline IR（編輯檔）先於 MP4
+
+Assemble 產出／消費的 canonical 是 **Timeline IR**（見 [`captions-and-locales.md`](captions-and-locales.md) §Timeline projection），不是直接猜 MP4。
+每條 selected caption／clip／voice 要有 trace；機械 QC（coverage／timing／bilingual group）PASS 後才 render。
+發現「evidence 有、成片沒有」時，先查 Timeline／coverage report，不要只倒帶猜 fuse。
+
 ## QC 角色
 
 | 檢查 | 誰 | 最高成熟度 |

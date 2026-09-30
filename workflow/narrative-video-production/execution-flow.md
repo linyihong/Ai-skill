@@ -17,8 +17,8 @@ Canonical lifecycle。各 stage 填哪個 record、能否推進：見
 5. Continuity            → 需要時鎖角色／場景／風格
 6. Acquisition           → 策略可換；結果回寫 EDR（不得用 mp4 當 SoT）
 6b. Text evidence        → OCR raw＋boundary recovery＋text_region／subtitle_group → language／text_role → Language Relation Gate → Text Resolution（跨語言／雙語≠conflict；翻譯列≠spoken；黏字串≠靜默 SoT）
-7. Assemble vs EDR       → 時間線對 shot_id／selected_clip_id
-7b. Locale packs         → content／timing／layout；content 源 = resolved spoken／subtitle 對；generated 口播 cue 時軸 = speech artifact（TTS=adapter）
+7. Assemble vs EDR       → Timeline IR 對 shot_id／selected_clip_id；機械 coverage
+7b. Locale packs         → content／timing／layout；content 源 = resolved spoken／subtitle 對；generated 口播 cue 時軸 = speech artifact（TTS=adapter）；EDR→Timeline projection 不得 silent drop
 8. Publish QC            → 平台規格；publish-ready 需 fresh verification
 9. Outcome window        → evidence_status 回寫模板假設（非 truth）
 ```
@@ -47,8 +47,8 @@ Canonical lifecycle。各 stage 填哪個 record、能否推進：見
 | 4 EDR | [`edit-decision-record.md`](edit-decision-record.md) | 結構化 EDR 存在；對齊 script | edr_author |
 | 6 Acquisition | EDR `shots[]` 回寫 | 實際入出點仍指向 `selected_clip_id` 或記 mutation | acquisition |
 | 6b Text evidence | [`text-evidence-ocr-boundary.md`](text-evidence-ocr-boundary.md)、[`text-evidence-regions.md`](text-evidence-regions.md)、[`text-evidence-language-relation.md`](text-evidence-language-relation.md)、[`records/text-evidence.yaml`](records/text-evidence.yaml) | Latin 黏字串有 boundary／recovery 或標記；raw 保留；雙語疊字有 text_region／group；cross-language／bilingual 不得當 same-language conflict／sanitization；spoken 非翻譯列／raw 拉丁硬字幕充中文 | text_evidence |
-| 7 Assemble | [`assemble-and-qc.md`](assemble-and-qc.md) | 成片軸對 `shot_id` | editor |
-| 7b Locale | [`captions-and-locales.md`](captions-and-locales.md)、[`speech-unit-and-timing.md`](speech-unit-and-timing.md)、[`subtitle-layout.md`](subtitle-layout.md) | 三閘分別有 decision；content 源用 resolved spoken／subtitle 對；generated 口播 cue 有 speech timing evidence；layout.lines ≤ max_lines 且非把 max 當 target | locale_author |
+| 7 Assemble | [`assemble-and-qc.md`](assemble-and-qc.md) | Timeline IR 對 `shot_id`；selected 項可 trace | editor |
+| 7b Locale | [`captions-and-locales.md`](captions-and-locales.md)、[`speech-unit-and-timing.md`](speech-unit-and-timing.md)、[`subtitle-layout.md`](subtitle-layout.md) | 三閘分別有 decision；content 源用 resolved spoken／subtitle 對；generated 口播 cue 有 speech timing evidence；layout.lines ≤ max_lines 且非把 max 當 target；timeline projection 無未解釋 omission | locale_author |
 | 8 Publish | [`artifact-gates.md`](artifact-gates.md) | `fresh_reviewer` + blocking 空 | independent_verifier |
 | 9 Outcome | [`publish-outcome.md`](publish-outcome.md) | 窗口欄位；不足樣 → `insufficient_sample` | outcome_author |
 
@@ -72,3 +72,5 @@ Canonical lifecycle。各 stage 填哪個 record、能否推進：見
 - 把雙語硬字幕黏成單一字串再進 Text Resolution；或把翻譯列當 spoken_text。
 - 用 `recognition_language=ch` 對 Latin 觀測刪光空格，或用 derived 覆蓋／刪除 `raw_text`。
 - 把 ASR 字面當 spoken meaning SoT，或固定 OCR>ASR 覆蓋；跨語言字幕缺 `semantic_candidate`／`resolution_reason` 就定案；領域術語硬字幕應走 `semantic_anchor`→`semantic_reconstruction`（observed／candidate／resolved 三層，見 [`text-evidence-multimodal-resolution.md`](text-evidence-multimodal-resolution.md)）。
+- 只因多條 OCR 硬字幕 latched 同一長 ASR observation，就把 **text-unrelated** cue destructive merge 掉（見 captions timeline／omission）。
+- 以 MP4 當唯一檢查面、略過 Timeline IR／coverage report。

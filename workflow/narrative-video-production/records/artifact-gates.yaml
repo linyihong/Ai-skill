@@ -67,6 +67,7 @@ stages:
     eligibility_fields:
       - qc.timeline_matches_edr == true
       - 每個 shot 的 rendered 窗對得上 shot_id 與 selected_clip_id
+      - Timeline IR 存在（editable adapter 可選）；selected caption／clip／voice 可 source_ref／edr_ref trace
     rollback_owner: editor
 
   - id: locale_packs
@@ -82,6 +83,8 @@ stages:
       - cue.layout.text_integrity_gate.decision == pass（換行後不得缺字、重複、重排或切進 protected span）
       - cue.layout.typography_scope == cue_uniform（同一 cue 上下各行不得不同字級／行高／描邊）
       - cue.layout 兩行時：line_break_offsets 的 hard_violation 必須是 none；不得為了靠近 prefer_at 而跨過更高的標點／lexical tier；phrase_integrity 不得單獨排除
+      - coverage 無未解釋的 suspicious_omission；同 ASR merge 不得銷毀 text-unrelated OCR cue
+      - bilingual subtitle_group 投影完整（不得只留單 region）
     rollback_owner: locale_author
 
   - id: publish_qc
