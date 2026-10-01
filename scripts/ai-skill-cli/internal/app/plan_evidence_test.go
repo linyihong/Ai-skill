@@ -138,3 +138,38 @@ func TestValidatePlanEvidenceConvention_ArchivedSourceReplay(t *testing.T) {
 		t.Fatalf("partial source must remain checked: %s", got)
 	}
 }
+
+func TestValidatePlanEvidenceConvention_CompanionMustBeReferencedByMainPlan(t *testing.T) {
+	tmp := t.TempDir()
+	planDir := "plans/active/2026-07-08-test-plan"
+	writePlanFile(t, tmp, planDir+"/_plan.md", "# main\n")
+	writePlanFile(t, tmp, planDir+"/01-contract.md", "# companion\n")
+	got := validatePlanEvidenceConvention("", []string{planDir + "/01-contract.md"}, tmp)
+	if !strings.Contains(got, "not referenced") {
+		t.Fatalf("want missing parent companion reference block, got: %q", got)
+	}
+}
+
+func TestValidatePlanEvidenceConvention_CompletedAcceptanceCannotLeaveValidationUnchecked(t *testing.T) {
+	tmp := t.TempDir()
+	planDir := "plans/active/2026-07-08-test-plan"
+	writePlanFile(t, tmp, planDir+"/_plan.md", "[01-contract.md](01-contract.md)\n")
+	writePlanFile(t, tmp, planDir+"/01-contract.md", "Evidence: [run](evidence/run.md)\n\n## Acceptance\n\n- [x] landed\n")
+	writePlanFile(t, tmp, planDir+"/evidence/run.md", "# run\n\n## Validation checklist\n\n- [ ] verify\n")
+	got := validatePlanEvidenceConvention("", []string{planDir + "/01-contract.md"}, tmp)
+	if !strings.Contains(got, "Acceptance is complete") {
+		t.Fatalf("want acceptance/validation mismatch block, got: %q", got)
+	}
+}
+
+func TestValidatePlanEvidenceConvention_CompletedAcceptanceWithCompletedValidationPasses(t *testing.T) {
+	tmp := t.TempDir()
+	planDir := "plans/active/2026-07-08-test-plan"
+	writePlanFile(t, tmp, planDir+"/_plan.md", "[01-contract.md](01-contract.md)\n")
+	writePlanFile(t, tmp, planDir+"/01-contract.md", "Evidence: [run](evidence/run.md)\n\n## Acceptance\n\n- [x] landed\n")
+	writePlanFile(t, tmp, planDir+"/evidence/run.md", "# run\n\n## Validation checklist\n\n- [x] verify\n")
+	got := validatePlanEvidenceConvention("", []string{planDir + "/01-contract.md"}, tmp)
+	if got != "" {
+		t.Fatalf("want pass, got: %q", got)
+	}
+}

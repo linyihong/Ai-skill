@@ -4,21 +4,24 @@
 跨模態密度不合理（例 ASR 對白密、OCR 幾乎空）；或 Story 端才發現事件過少、才回頭懷疑採集。
 Plan：[`46-evidence-acquisition-escalation-loop.md`](../../plans/active/2026-09-16-1649-narrative-video-production-workflow/46-evidence-acquisition-escalation-loop.md)。
 銜接：[`text-evidence-ocr-discovery.md`](text-evidence-ocr-discovery.md)、
+[`text-evidence-subtitle-candidate.md`](text-evidence-subtitle-candidate.md)、
 [`text-evidence-multimodal-resolution.md`](text-evidence-multimodal-resolution.md)、
 [`12-evidence-refinement.md`](../../plans/active/2026-09-16-1649-narrative-video-production-workflow/12-evidence-refinement.md)。
 
-> **執行契約，不重新解釋契約。** Probe 負責發現；Monitor 負責可疑；Escalation 負責加大採集；
+> **執行契約，不重新解釋契約。** Probe 負責發現；**Candidate Detector 負責 precision**；Monitor 負責可疑；Escalation 負責加大採集；
 > LLM 只在 escalation 後、仍衝突／不足時做 arbitration。不開新 Phase／新 Agent／runtime。
 
 ## 一句話
 
 **Probe 不負責證明不存在；Probe 負責發現證據。** 當 OCR、ASR、Visual 或跨模態出現不合理缺口／衝突時，必須先 escalation，改變採集策略；只有 evidence 仍不足或語義衝突時，才交 LLM。
+**但「畫面有文字」≠字幕存在**——coverage／escalation 只在 `subtitle_like` 候選上計算（見 Candidate Detector）。
 
 ## 位置（在 6b 最前）
 
 ```text
 Source profiling → Initial acquisition (OCR | ASR | Visual)
-  → Evidence Monitor  (confirmed | inconclusive | suspicious)
+  → Subtitle Candidate Detector  (subtitle_like | non_subtitle | uncertain)
+  → Evidence Monitor  (confirmed | inconclusive | suspicious)  // densities on subtitle_like
        ├─ sufficient → Text Resolution / Story consumers
        └─ suspicious → Escalation Policy (Level 0–4) → re-acquire → Monitor again
 ```
@@ -51,7 +54,8 @@ Source profiling → Initial acquisition (OCR | ASR | Visual)
 
 | id | 條件（摘要） | 典型 escalation |
 | --- | --- | --- |
-| `ocr_asr_coverage_gap` | ASR dialogue density 高、OCR 極低（整段或時間窗） | widen OCR region／↑ sampling／targeted window |
+| `ocr_asr_coverage_gap` | ASR dialogue density 高、**subtitle_like** OCR 極低（整段或時間窗）；忽略 clock／mail／UI | widen OCR region／↑ sampling／targeted window |
+| `ocr_scene_text_only` | OCR 有字但全是 non_subtitle_like | **no_escalation**（或僅記 scene_text）；不得當 recovered dialogue |
 | `asr_ocr_coverage_gap` | OCR 對白密、ASR 幾乎空 | ASR retry／lang／segmentation |
 | `asr_language_mismatch` | OCR 大量 CJK、ASR 判成 English（或反向） | language redetect／retry |
 | `layout_drift` | 對白 cy／band 中段突變 | rediscovery／reprofile |
@@ -88,6 +92,8 @@ evidence_coverage:
 ## Adapter 驗收（產品）
 
 1. 單次 probe miss → `inconclusive`，不是 exclusion。
-2. ASR 對白密 + OCR 空／窗內缺口 → `suspicious` + 至少一級 OCR escalation，並寫 before／after。
-3. Story／event 過少不得當第一個 OCR 修復觸發；應在 acquisition Monitor 攔下。
-4. LLM 只出現在 Level 4 或 multimodal resolution，不寫死 crop／不斷言無字幕。
+2. ASR 對白密 + **subtitle_like** OCR 空／窗內缺口 → `suspicious` + 至少一級 OCR escalation，並寫 before／after。
+3. OCR 僅 clock／document／UI → 不得觸發「有字＝recovered」；coverage 仍可因缺失 subtitle_like 而 escalate。
+4. Story／event 過少不得當第一個 OCR 修復觸發；應在 acquisition Monitor 攔下。
+5. LLM 只出現在 Level 4 或 multimodal resolution，不寫死 crop／不斷言無字幕。
+6. 每次 escalate／no_escalation 留 `probe_decision.reason`（見 Candidate Detector）。

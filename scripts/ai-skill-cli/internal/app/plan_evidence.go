@@ -21,6 +21,9 @@ import (
 )
 
 var planEvidenceLineNumberRE = regexp.MustCompile(`\bL\d+\b`)
+var numberedPlanCompanionRE = regexp.MustCompile(`^\d{2}-.+\.md$`)
+var evidenceLinkRE = regexp.MustCompile(`(?m)^Evidence:\s*.*\(([^)]+\.md)\)`)
+var validationHeadingRE = regexp.MustCompile(`(?m)^##+\s+Validation(?:\s|$)`)
 
 // isPlanEvidencePath reports whether rel is under plans/{active,archived}/<plan>/evidence/.
 func isPlanEvidencePath(rel string) bool {
@@ -98,6 +101,71 @@ func readmeReferencesFile(readmeBody, filename string) bool {
 	return strings.Contains(readmeBody, filename)
 }
 
+// markdownSection returns the body below a level-two heading whose title has
+// prefix, stopping at the next level-one or level-two heading.
+func markdownSection(body, prefix string) string {
+	lines := strings.Split(body, "\n")
+	inSection := false
+	var out []string
+	for _, line := range lines {
+		if strings.HasPrefix(line, "## ") {
+			if inSection {
+				break
+			}
+			inSection = strings.HasPrefix(strings.TrimSpace(strings.TrimPrefix(line, "## ")), prefix)
+			continue
+		}
+		if inSection && strings.HasPrefix(line, "# ") {
+			break
+		}
+		if inSection {
+			out = append(out, line)
+		}
+	}
+	return strings.Join(out, "\n")
+}
+
+func allCheckboxesComplete(body string) bool {
+	hasCheckbox := strings.Contains(body, "- [ ]") || strings.Contains(strings.ToLower(body), "- [x]")
+	return hasCheckbox && !strings.Contains(body, "- [ ]")
+}
+
+func companionProgressErrors(staged []string, root string) []string {
+	var errors []string
+	for _, rel := range staged {
+		rel = filepath.ToSlash(rel)
+		parts := strings.Split(rel, "/")
+		if len(parts) != 4 || (parts[1] != "active" && parts[1] != "archived") || !numberedPlanCompanionRE.MatchString(parts[3]) {
+			continue
+		}
+		planDir := strings.Join(parts[:3], "/")
+		companion, ok := readFileString(root, rel)
+		if !ok {
+			continue // deleted companion
+		}
+		main, ok := readFileString(root, planDir+"/_plan.md")
+		if !ok || !strings.Contains(main, parts[3]) {
+			errors = append(errors, fmt.Sprintf("%s: numbered companion is not referenced by %s/_plan.md", rel, planDir))
+		}
+
+		acceptance := markdownSection(companion, "Acceptance")
+		match := evidenceLinkRE.FindStringSubmatch(companion)
+		if !allCheckboxesComplete(acceptance) || len(match) != 2 {
+			continue
+		}
+		evidenceName := filepath.Base(match[1])
+		evidence, ok := readFileString(root, planDir+"/evidence/"+evidenceName)
+		if !ok || !validationHeadingRE.MatchString(evidence) {
+			continue
+		}
+		validation := markdownSection(evidence, "Validation")
+		if strings.Contains(validation, "- [ ]") {
+			errors = append(errors, fmt.Sprintf("%s: Acceptance is complete but evidence/%s still has unchecked Validation items", rel, evidenceName))
+		}
+	}
+	return errors
+}
+
 // collectPlanDirsForEvidenceConvention returns plan folders that must satisfy
 // the evidence convention for this commit:
 //   - any staged path under .../evidence/
@@ -154,7 +222,16 @@ func validatePlanEvidenceConvention(text string, staged []string, root string) s
 		}
 		filtered = append(filtered, p)
 	}
-	return runKGEPlanEvidenceConvention(text, filtered, root)
+	result := runKGEPlanEvidenceConvention(text, filtered, root)
+	progressErrors := companionProgressErrors(filtered, root)
+	if len(progressErrors) == 0 {
+		return result
+	}
+	progressResult := "plan-evidence-progress-sync: numbered companions must be reachable from _plan.md and completed Acceptance must match evidence Validation:\n    - " + strings.Join(progressErrors, "\n    - ")
+	if result == "" {
+		return progressResult
+	}
+	return result + "\n" + progressResult
 }
 
 // warnPlanEvidenceLineNumberCitations returns a non-blocking warning when staged

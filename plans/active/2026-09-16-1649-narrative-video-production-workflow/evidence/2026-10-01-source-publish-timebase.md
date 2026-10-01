@@ -24,7 +24,7 @@ Product 側既有「源片分析 + 末端 playback speed」傾向與此一致；
 
 ## Validation checklist
 
-- [ ] 契約檔可從 NVP README／captions／assemble 連到
-- [ ] EDR optional 欄位含 `timeline_transform`（或等價）
-- [ ] 比較協議：`publish_t ↔ source_t = publish_t * rate`
-- [ ] 禁止把 sped media 當 OCR／ASR evidence source（文件＋adapter 註記）
+- [x] 契約檔可從 NVP README／captions／assemble 連到
+- [x] EDR optional 欄位含 `timeline_transform`（或等價）
+- [x] 比較協議：`publish_t ↔ source_t = publish_t * rate`
+- [x] 禁止把 sped media 當 OCR／ASR evidence source（文件＋adapter 註記）

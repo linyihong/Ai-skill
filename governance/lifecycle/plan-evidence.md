@@ -38,6 +38,8 @@ plans/{active|archived}/<YYYY-MM-DD-HHMM-slug>/
 | **索引同步** | 每個 `evidence/*.md`（除 `README.md`）必須列於 `evidence/README.md` 的 Run 索引表 |
 | **去敏** | 遵循 [`enforcement/sanitization.md`](../enforcement/sanitization.md)；class 名、live host、inner commit 細節留 consumer project plan |
 | **新 run** | 新增 evidence 檔 + 更新 `evidence/README.md` 同一 commit（或 README 已含該檔連結） |
+| **Companion 可達性** | 提交編號 companion（`NN-*.md`）時，`_plan.md` 必須直接提及其檔名，讓主計畫能揭露其進度與未完成項。 |
+| **完成狀態一致** | companion 的 `## Acceptance` 已全勾選且連到 evidence 時，evidence 的 `## Validation…` 區塊不得保留未勾項。 |
 
 ## README.md 必填結構
 
@@ -50,7 +52,7 @@ plans/{active|archived}/<YYYY-MM-DD-HHMM-slug>/
 
 | Validator | Severity | 規則 |
 |---|---|---|
-| `validatePlanEvidenceConvention` | **block** | staging `.../evidence/**` **或** staging 頂層 `<slug>.md` 且 `<slug>/evidence/` 已存在時：(1) 必須有 `<slug>/_plan.md`；(2) **禁止**仍存在頂層 `<slug>.md`；(3) `evidence/README.md` 必須存在；(4) 每個 `evidence/*.md`（除 README）須在 README 內被引用；(5) README 須含「引用規則」與「Run 索引」 |
+| `validatePlanEvidenceConvention` | **block** | 原有 evidence/ README + index + folder-main 檢查；另在提交編號 companion 時：(6) `_plan.md` 必須引用該 companion；(7) companion 的 Acceptance 全完成且其 Evidence 連到含 `## Validation…` 的檔案時，Validation 不得有未完成 checkbox。 |
 | `validatePlanTreeFolderConvention` | warning | `evidence/` 內檔名**豁免** `NN-` 前綴；`plans/.../<slug>/evidence/<file>.md` 深度視為合法（不觸發 depth≥3 warning） |
 | `warnPlanEvidenceLineNumberCitations` | **warning**（不 block） | 同 plan folder 內 staged `.md` 出現 `\bL\d+\b` 行號引用時提醒改用檔案路徑 |
 

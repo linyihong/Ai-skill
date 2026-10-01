@@ -16,7 +16,7 @@ Canonical lifecycle。各 stage 填哪個 record、能否推進：見
 4. EDR open              → 決策 SoT；shot 對齊腳本／bible／clip_id
 5. Continuity            → 需要時鎖角色／場景／風格
 6. Acquisition           → 策略可換；結果回寫 EDR（不得用 mp4 當 SoT）
-6b. Text evidence        → Evidence Monitor（confirmed／inconclusive／suspicious；OCR×ASR 互觸發 escalation）→ OCR Layout Discovery／scan_profile（probe≠exclusion）→ targeted OCR raw＋boundary recovery＋text_region／subtitle_group → language／text_role → Language Relation Gate → Text Resolution（跨語言／雙語≠conflict；翻譯列≠spoken；黏字串≠靜默 SoT；bottom miss≠無字幕；coverage gap≠進 Story）
+6b. Text evidence        → Subtitle Candidate Detector（subtitle_like≠scene text）→ Evidence Monitor（confirmed／inconclusive／suspicious；OCR×ASR 互觸發 escalation）→ OCR Layout Discovery／scan_profile（probe≠exclusion）→ targeted OCR raw＋boundary recovery＋text_region／subtitle_group → language／text_role → Language Relation Gate → Text Resolution（跨語言／雙語≠conflict；翻譯列≠spoken；黏字串≠靜默 SoT；bottom miss≠無字幕；coverage gap≠進 Story；鐘錶／郵件≠字幕）
 7. Assemble vs EDR       → Timeline IR 對 shot_id／selected_clip_id；機械 coverage；source 軸決策，publish transform 另記
 7a. Timeline transform   → constant_speed（或未來 ramp）寫入 EDR；不得對 sped media 重跑 OCR／ASR／matching（見 source-publish-timebase）
 7b. Locale packs         → content／timing／layout；timing_gate 在 publish 軸；content 源 = resolved spoken／subtitle 對；generated 口播 cue 時軸 = speech artifact（TTS=adapter）；EDR→Timeline projection 不得 silent drop
@@ -47,7 +47,7 @@ Canonical lifecycle。各 stage 填哪個 record、能否推進：見
 | 3 Matching | [`matching-script.md`](matching-script.md) | 每 shot：可行集 + policy + selected ∈ 可行集 | matching_author |
 | 4 EDR | [`edit-decision-record.md`](edit-decision-record.md) | 結構化 EDR 存在；對齊 script | edr_author |
 | 6 Acquisition | EDR `shots[]` 回寫 | 實際入出點仍指向 `selected_clip_id` 或記 mutation | acquisition |
-| 6b Text evidence | [`text-evidence-acquisition-loop.md`](text-evidence-acquisition-loop.md)、[`text-evidence-ocr-discovery.md`](text-evidence-ocr-discovery.md)、[`text-evidence-ocr-boundary.md`](text-evidence-ocr-boundary.md)、[`text-evidence-regions.md`](text-evidence-regions.md)、[`text-evidence-language-relation.md`](text-evidence-language-relation.md)、[`records/text-evidence.yaml`](records/text-evidence.yaml) | Monitor 三態＋escalation before／after；Probe miss＝inconclusive＋recovery（非無字幕）；Latin 黏字串有 boundary／recovery 或標記；raw 保留；雙語疊字有 text_region／group；cross-language／bilingual 不得當 same-language conflict／sanitization；spoken 非翻譯列／raw 拉丁硬字幕充中文；OCR×ASR coverage gap 不得當最終無對白 | text_evidence |
+| 6b Text evidence | [`text-evidence-subtitle-candidate.md`](text-evidence-subtitle-candidate.md)、[`text-evidence-acquisition-loop.md`](text-evidence-acquisition-loop.md)、[`text-evidence-ocr-discovery.md`](text-evidence-ocr-discovery.md)、[`text-evidence-ocr-boundary.md`](text-evidence-ocr-boundary.md)、[`text-evidence-regions.md`](text-evidence-regions.md)、[`text-evidence-language-relation.md`](text-evidence-language-relation.md)、[`records/text-evidence.yaml`](records/text-evidence.yaml) | Candidate 先過濾 clock／mail／UI；Monitor 三態＋escalation before／after；Probe miss＝inconclusive＋recovery（非無字幕）；Latin 黏字串有 boundary／recovery 或標記；raw 保留；雙語疊字有 text_region／group；cross-language／bilingual 不得當 same-language conflict／sanitization；spoken 非翻譯列／raw 拉丁硬字幕充中文；OCR×ASR coverage gap 不得當最終無對白；有字≠字幕 existence | text_evidence |
 | 7 Assemble | [`assemble-and-qc.md`](assemble-and-qc.md)、[`source-publish-timebase.md`](source-publish-timebase.md) | Timeline IR 對 `shot_id`；selected 項可 trace；有 speed 時 EDR 含 `timeline_transform` | editor |
 | 7a Transform | [`source-publish-timebase.md`](source-publish-timebase.md) | evidence 仍在 source；publish 僅投影；比較成片用 mapped time | editor |
 | 7b Locale | [`captions-and-locales.md`](captions-and-locales.md)、[`speech-unit-and-timing.md`](speech-unit-and-timing.md)、[`subtitle-layout.md`](subtitle-layout.md) | 三閘分別有 decision；`timing_gate.timebase=publish`；content 源用 resolved spoken／subtitle 對；generated 口播 cue 有 speech timing evidence；layout.lines ≤ max_lines 且非把 max 當 target；timeline projection 無未解釋 omission | locale_author |
@@ -75,6 +75,7 @@ Canonical lifecycle。各 stage 填哪個 record、能否推進：見
 - 用 `recognition_language=ch` 對 Latin 觀測刪光空格，或用 derived 覆蓋／刪除 `raw_text`。
 - 把預設 bottom／`no_subtitle_like` probe miss 當成「影片沒字幕」而 STOP／exclusion；缺 global discovery → targeted OCR recovery（見 [`text-evidence-ocr-discovery.md`](text-evidence-ocr-discovery.md)）。
 - 在 Evidence Monitor 仍 `suspicious`／`insufficient` 時把第一次 OCR／ASR 當最終 acquisition，或等 Story Event 過少才回頭修採集（見 [`text-evidence-acquisition-loop.md`](text-evidence-acquisition-loop.md)）。
+- 把鐘錶／郵件／UI／招牌等 scene text 當字幕 dialogue，或只因「OCR 有字」就 escalation／宣稱 recovered（見 [`text-evidence-subtitle-candidate.md`](text-evidence-subtitle-candidate.md)）。
 - 讓 LLM 先猜 `subtitle_y` 並寫死唯一 crop，且無 mechanical discovery 兜底。
 - 把 ASR 字面當 spoken meaning SoT，或固定 OCR>ASR 覆蓋；跨語言字幕缺 `semantic_candidate`／`resolution_reason` 就定案；領域術語硬字幕應走 `semantic_anchor`→`semantic_reconstruction`（observed／candidate／resolved 三層，見 [`text-evidence-multimodal-resolution.md`](text-evidence-multimodal-resolution.md)）。
 - 只因多條 OCR 硬字幕 latched 同一長 ASR observation，就把 **text-unrelated** cue destructive merge 掉（見 captions timeline／omission）。
