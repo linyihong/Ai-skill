@@ -42,9 +42,14 @@ Escalation only when subtitle-existence evidence is missing/suspicious
 - `probe_decision` 記錄 escalate／no_escalation reason。
 - Dogfood：`校园回忆录` 類片驗證雜訊下降且對白不失真。
 
+## Evidence
+
+[`evidence/2026-10-01-subtitle-candidate-detector.md`](evidence/2026-10-01-subtitle-candidate-detector.md)
+
 ## Acceptance
 
 - [x] Workflow + README／acquisition-loop 連結
-- [ ] Product classifier + monitor／probe 接入
-- [ ] Escalation 不把 non_subtitle 當 recovered dialogue
-- [ ] Sanitized dogfood note under plan `evidence/`
+- [x] Product classifier + monitor／probe 接入（第一刀；見 evidence）
+- [x] Escalation 不把 non_subtitle 當 recovered dialogue（unit `probe_decision`）
+- [x] Sanitized evidence note under plan `evidence/`（indexed）
+- [ ] 完整 pack dogfood（成片語音／字幕對齊、雜訊↓）— 見 evidence Validation deferred

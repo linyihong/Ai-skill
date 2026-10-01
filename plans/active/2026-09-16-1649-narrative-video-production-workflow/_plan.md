@@ -320,7 +320,7 @@ inbox**（不得直接寫 knowledge）。同時先驗 role-qualified Text Resolu
 是否不把相鄰誤作因果；不加 detector／Agent、不立即改 workflow。
 主鏈 station 分類：[`evidence/2026-09-22-phase-3-chain-station-ledger.md`](evidence/2026-09-22-phase-3-chain-station-ledger.md)。
 
-Phase 3 contract refinements（不改變 3A blocking milestone）：[`44-source-publish-timebase.md`](44-source-publish-timebase.md) 已完成其 contract acceptance；[`45-ocr-discovery-layout-probe.md`](45-ocr-discovery-layout-probe.md) 的產品第一刀已落地、仍待完整 adapter 驗收；[`46-evidence-acquisition-escalation-loop.md`](46-evidence-acquisition-escalation-loop.md) 的 workflow 與 OCR×ASR gap adapter 已落地；[`47-subtitle-candidate-detector.md`](47-subtitle-candidate-detector.md) 的 workflow contract 已接入，尚待產品 classifier、dogfood 與 evidence。
+Phase 3 contract refinements（不改變 3A blocking milestone）：[`44-source-publish-timebase.md`](44-source-publish-timebase.md) 已完成其 contract acceptance；[`45-ocr-discovery-layout-probe.md`](45-ocr-discovery-layout-probe.md) 的產品第一刀已落地、仍待完整 adapter 驗收；[`46-evidence-acquisition-escalation-loop.md`](46-evidence-acquisition-escalation-loop.md) 的 workflow 與 OCR×ASR gap adapter 已落地；[`47-subtitle-candidate-detector.md`](47-subtitle-candidate-detector.md) 的 workflow＋產品 classifier 第一刀＋evidence 已落地，完整 pack dogfood 仍 open（見 [`evidence/2026-10-01-subtitle-candidate-detector.md`](evidence/2026-10-01-subtitle-candidate-detector.md)）。
 
 完成條件：外部專案產出一部片子的 EDR；本庫只收去敏 scenario。成功 = 決策鏈可驗證；失敗 = 真實 contract gap（都算有價值）。
 
@@ -365,7 +365,7 @@ Entry：Phase 2+3 完成且 activation 反例寫好（裸「AI 影片」不得�
 - [ ] Text grouping：觀察中；**group ≠ delete**；僅 exact duplicate 可 merge；dst 不決定 source；候選 invariant 13 未凍結；雙語疊字 grouping 見 41
 - [ ] Mechanical visual-text probe／OCR Discovery：觀察中；**probe≠exclusion**；bottom miss→inconclusive＋recovery；LLM 不決定掃區／不寫死 crop；見 [`13-mechanical-visual-text-probe.md`](13-mechanical-visual-text-probe.md)、[`45-ocr-discovery-layout-probe.md`](45-ocr-discovery-layout-probe.md)、[`text-evidence-ocr-discovery.md`](../../workflow/narrative-video-production/text-evidence-ocr-discovery.md)；產品 adapter 另驗
 - [ ] Evidence Acquisition／Escalation：workflow 與 OCR×ASR coverage-gap adapter 已落地；Monitor 三態、before／after 與完整產品驗收仍待；見 [`46-evidence-acquisition-escalation-loop.md`](46-evidence-acquisition-escalation-loop.md)、[`text-evidence-acquisition-loop.md`](../../workflow/narrative-video-production/text-evidence-acquisition-loop.md)
-- [ ] Subtitle Candidate Detector：workflow contract 已接入；scene text≠subtitle、coverage 僅計 subtitle-like；產品 classifier、dogfood 與 evidence 尚待；見 [`47-subtitle-candidate-detector.md`](47-subtitle-candidate-detector.md)、[`text-evidence-subtitle-candidate.md`](../../workflow/narrative-video-production/text-evidence-subtitle-candidate.md)
+- [ ] Subtitle Candidate Detector：workflow＋classifier 第一刀＋evidence 已落地；完整 pack dogfood 仍 open；見 [`47-subtitle-candidate-detector.md`](47-subtitle-candidate-detector.md)、[`evidence/2026-10-01-subtitle-candidate-detector.md`](evidence/2026-10-01-subtitle-candidate-detector.md)、[`text-evidence-subtitle-candidate.md`](../../workflow/narrative-video-production/text-evidence-subtitle-candidate.md)
 - [ ] Editorial vs narrative transition：觀察中；shot ≠ scene；關係不塞進 catalog 本體
 - [ ] Material fact extraction（observable layer）：觀察中；外部 evidence candidates；升格前不塞十種分析器進 workflow
 - [x] publish-ready 需 fresh verification；outcome 是 evidence
