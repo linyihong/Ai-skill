@@ -2,6 +2,7 @@
 
 | 檔名 | Status | 標題 | 一句話摘要 |
 |------|--------|------|-----------|
+| `2026-10-01_093000-ocr-latin-boundary-geometry-before-lexical.md` | candidate | OCR Latin boundary: geometry before closed-class | boxes→geometry→lexical candidates；closed-class 非第一刀；exact-match 單字不拆 |
 | `2026-09-30_155700-release-pool-client-before-nested-checkout.md` | candidate | Release pool client before nested same-pool checkout | Never hold a DB pool client across an await that also checks out from the same pool; saturation hang |
 | `2026-05-05_194400-contract-first-development-flow.md` | candidate | Contract-first development flow | Start development from product intent, split bounded contexts, write BDD, define Domain, Architectur |
 | `2026-05-05_200500-existing-project-doc-backfill-bdd-required.md` | candidate | Existing project doc backfill requires complete BDD | When opening app-development-guidance on an already implemented project, audit and backfill missing  |

@@ -1,0 +1,74 @@
+# Latin boundary recovery — dogfood regression corpus
+# runtime_projection.enabled: false
+id: narrative-video.latin-boundary-regression
+runtime_projection:
+  enabled: false
+purpose: >
+  Fixed raw→expected cases for Latin intra-box boundary recovery.
+  Validates mechanical capability (geometry → lexical candidates), NOT
+  hard-coded if raw == "…" product rules.
+  Source dogfood: bilingual hardsub sticky Latin (2026-10-01).
+
+policy:
+  order:
+    - existing_ocr_boxes
+    - intra_box_geometry
+    - lexical_boundary_candidates
+    - asr_phonetic_and_context
+    - resolver_qc
+  notes:
+    - closed_class is a lexical candidate generator, not the first knife
+    - whole-box bbox alone is insufficient; require intra-box geometry attempt
+    - dictionary exact-match singles must stay boundary ok (no split)
+    - derived must not overwrite raw_text / L0 parts
+
+cases:
+  - id: appointmentfortoday
+    raw: appointmentfortoday
+    expected: appointment for today
+    notes: content+closed-class; geometry preferred if gaps visible
+  - id: tomasturbate
+    raw: tomasturbate
+    expected: to masturbate
+    notes: closed-class prefix to
+  - id: Workhard
+    raw: Workhard
+    expected: Work hard
+    notes: short glue; must still be suspicious (not only len>=12)
+  - id: aghostis
+    raw: aghostis
+    expected: a ghost is
+    notes: a + content + is
+  - id: alsoromantic
+    raw: alsoromantic
+    expected: also romantic
+  - id: Justlethervolunteer
+    raw: Justlethervolunteer
+    expected: Just let her volunteer
+    notes: geometry often insufficient; lexical multi-candidate ok
+  - id: commitmentremainsvalid
+    raw: commitmentremainsvalid
+    expected: commitment remains valid
+    notes: expect may also accept "the commitment remains valid" as candidate
+  - id: Thecommitmentremainsvalid
+    raw: Thecommitmentremainsvalid
+    expected: The commitment remains valid
+  - id: Itcantbesuchacoincidence
+    raw: "Itcan'tbesuchacoincidence"
+    expected: "It can't be such a coincidence"
+  - id: Ihaveahusband
+    raw: "Ihaveahusband's"
+    expected: "I have a husband's"
+    notes: possessive trailing; letter-equal checks should ignore punctuation
+
+negative_ok_singles:
+  # Must NOT be marked suspicious / must NOT be force-split
+  - Unexpectedly
+  - uncomfortable
+  - volunteer
+  - appointment
+  - coincidence
+  - Inconvenience
+  - masturbation
+  - Perfunctory
+  - Everything

@@ -55,7 +55,14 @@ fields:
         - geometry_word_gap
         - ink_projection
         - lexical_candidate
+        - closed_class_candidate
+        - orthographic_mid_capital
+        - script_aware_join
         - script_aware_normalize
+      recovery_order_note: >
+        existing OCR boxes → intra-box geometry → lexical/closed-class
+        candidates → ASR/context → resolver. Closed-class is candidate
+        generator only; not first knife / not truth.
     quality:
       optional:
         - frame_width

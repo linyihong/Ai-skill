@@ -34,12 +34,52 @@ OCR Detection
 
 | status | 含義 |
 | --- | --- |
-| `ok` | 多 box 已有合理空格，或 CJK 無需詞空格 |
-| `suspicious` | 長 Latin、無 space、單框等 |
-| `recovered` | 已產出 derived candidate |
+| `ok` | 多 box 已有合理空格、CJK 無需詞空格、或整段是合法單字（`Unexpectedly`） |
+| `suspicious` | Latin 且機械判定可能缺詞界（非「凡 Latin 都拆」） |
+| `recovered` | 已產出 derived candidate（須標 `method`） |
 | `unresolved` | 無法可靠恢復 |
 
-Recovery 優先序：multi-box spacing → geometry／ink／char boxes → lexical candidate（最後、不可直接改 raw）。
+### Suspicious 閘門（先於 recovery）
+
+**不要** `Latin → split`。至少一項成立才 `suspicious`：
+
+- 單框／單 part 長串 + `space_count=0`，且 **非整段 dictionary exact-match**
+- mid-capital／字母數字交界（`WhenI`）
+- 字元間距異常（有 char／ink evidence 時）
+- lexical 可全覆蓋拆成 ≥2 詞（僅作 **觸發**，不是真理）
+- 與 ASR／context 明顯衝突（可選）
+
+合法單字（`Unexpectedly`／`uncomfortable`／`volunteer`）→ `ok`，不進拆詞。
+
+### Layered recovery（座標優先於 closed-class）
+
+```text
+OCR raw evidence
+  → Script detection
+  → Latin + boundary_check.suspicious?
+       │
+       ├─ 1. Existing OCR boxes（word／part／char boxes 若有）
+       ├─ 2. Intra-box geometry（ink／connected-components／gap÷median_char_width）
+       ├─ 3. Lexical boundary candidates（closed-class + content lexicon；candidate only）
+       ├─ 4. ASR phonetic + subtitle context（candidate）
+       ↓
+  Candidate set → resolver／QC（必要時 LLM）
+```
+
+| 層 | `method`（derived） | 角色 |
+| --- | --- | --- |
+| multi-box | `multi_box_space` | 已有多 box／part 空格 |
+| geometry | `geometry_word_gap`／`ink_projection` | **第一刀 recovery**；畫面 evidence |
+| lexical | `lexical_candidate`／`closed_class_candidate`／`orthographic_mid_capital` | **候選產生器**，非 truth generator |
+| ASR／context | （下游 multimodal） | 加候選／重排；不直接覆寫 raw |
+
+**整句 bbox 只有一個 box 時，「有座標」≠「座標足以拆詞」** → 必須做 **intra_box_boundary_recovery**（對 bbox 再取字元／墨水間距），不是跳過幾何直接 closed-class。
+
+Closed-class（`a`／`to`／`for`／`is`／`her`…）保留，但只當 lexical candidate generator：
+`aghostis`→`a ghost is`、`tomasturbate`→`to masturbate` 是好候選，不是第一刀真理。
+
+Regression corpus（驗證機械能力，**禁止** `if raw == "…"` 特例）：
+[`records/latin-boundary-regression.yaml`](records/latin-boundary-regression.yaml)。
 
 ## Raw / derived
 
@@ -69,7 +109,9 @@ L0 OCR parts
 **禁止：** `observed_script(cumulative_out) == mixed` → 否決後續 Latin\|Latin 空格
 （典型壞例：`parts=[I'm,from,a,pet,store]` → `I'm fromapetstore`）。
 
-單 part 內仍黏（如 `appointmentfortoday`）屬 **intra-box boundary recovery**（geometry → lexical candidate → 必要時 LLM），與 join 分開；不得一開始就 LLM 斷詞。
+單 part 內仍黏（如 `appointmentfortoday`）屬 **intra-box boundary recovery**
+（boxes → geometry → lexical candidate → ASR／context → resolver），與 join 分開；
+不得一開始就 LLM 斷詞，也不得跳過幾何直接 closed-class。
 
 雙語疊字：先 `subtitle_group` 分 zh／en region，各自 script-aware normalize，再進 timeline——勿把中英 parts 先併成一大串再拆。
 
@@ -85,7 +127,10 @@ L0 OCR parts
 | 條件 | 失敗 |
 | --- | --- |
 | Latin 長串無空格時有 boundary 標記或 recovery 嘗試紀錄 | 靜默接受黏字串當唯一 SoT |
+| suspicious 閘門：合法單字 exact-match 不拆 | `Unexpectedly` 被強制拆詞 |
+| recovery 順序 geometry → lexical；closed-class 僅 candidate | 跳過幾何／詞表當第一刀真理 |
 | derived 不覆蓋 raw／parts | raw 或 parts 被改寫／刪除 |
 | normalize 依 observed_script | `ocr_lang=ch` 刪光 Latin 空格 |
 | join 依 token 接縫 | 用 cumulative mixed／CJK 否決 Latin\|Latin 空格 |
 | CJK+Latin+Latin+… 可機械重建空格 | `I'm fromapetstore` 類 derived 無標記仍當 SoT |
+| dogfood 黏串進 regression corpus | 用 `if raw==…` 特例代替能力驗證 |

@@ -59,13 +59,31 @@ Join 看**相鄰 token**，不看 cumulative `observed_script`：Latin|Latin →
 
 ## Boundary suspicious（機械）
 
-同時多數滿足即可標 `boundary_status: suspicious` → 觸發 recovery：
+**先閘門、再 recovery。** 非整段 Latin 都拆。
 
-- `observed_script = latin`
-- `box_count = 1`（或 join 後仍無空白）
-- 長串 + `space_count = 0`
+可標 `suspicious` 的便宜 signal（多數成立即可）：
 
-優先：**geometry / ink projection / character boxes**；lexical／dictionary 只作 candidate。
+- `observed_script = latin` 且非 dictionary **exact-match** 單字
+- `box_count = 1`（或 join 後仍無空白）+ 長串 + `space_count = 0`
+- mid-cap／字元間距異常／lexical 可全覆蓋 ≥2 詞（觸發用）
+
+合法單字（`Unexpectedly`）→ `ok`。
+
+## Layered recovery（2026-10-01 dogfood 調整）
+
+**座標／幾何優先於 closed-class。** 順序固定：
+
+1. **Existing OCR boxes** — word／part／char boxes（若 engine 有）
+2. **Intra-box geometry** — 僅整句 bbox 時對 crop 做 ink／gap÷median_char_width（`geometry_word_gap`／`ink_projection`）
+3. **Lexical candidates** — closed-class + content lexicon；`status=candidate`；**不是** truth generator
+4. **ASR phonetic + subtitle context** — 加候選
+5. Candidate set → resolver／QC（必要時 LLM）
+
+禁止：跳過幾何、把 closed-class 當第一刀直接改 raw。
+禁止：`if raw == "appointmentfortoday"` 硬編碼；案例進 regression corpus。
+
+Dogfood／regression：[`evidence/2026-10-01-ocr-latin-boundary-geometry-before-lexical.md`](evidence/2026-10-01-ocr-latin-boundary-geometry-before-lexical.md)、
+[`latin-boundary-regression.yaml`](../../../workflow/narrative-video-production/records/latin-boundary-regression.yaml)。
 
 ## Evidence quality（可選欄位）
 
