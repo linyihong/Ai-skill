@@ -2,6 +2,7 @@
 
 | 檔名 | Status | 標題 | 一句話摘要 |
 |------|--------|------|-----------|
+| `2026-10-01_171200-cap-recovery-loops-never-reset-gate-counter.md` | candidate | Cap recovery loops; never reset the counter that gates them | Recovery that clears its own retry counter thrash forever; separate budgets; replace not failed |
 | `2026-10-01_152600-ocr-probe-is-discovery-not-exclusion.md` | candidate | OCR Probe is discovery, not exclusion | Probe miss＝inconclusive＋recovery；不得當無字幕 STOP；discovery→classify→targeted OCR |
 | `2026-10-01_110500-source-publish-timebase-separation.md` | candidate | Source vs publish timebase separation | OCR／ASR／matching 留 source；speed=publish transform；CPS／timing_gate 在 publish 軸 |
 | `2026-10-01_093000-ocr-latin-boundary-geometry-before-lexical.md` | candidate | OCR Latin boundary: geometry before closed-class | boxes→geometry→lexical candidates；closed-class 非第一刀；exact-match 單字不拆 |
