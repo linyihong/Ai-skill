@@ -49,3 +49,10 @@ Core：`target_lexical_realization_error` — 跨語言「看起來像 target、
 JA-F12：`shared_cjk_lexical_realization` — 四層（script ≠ lexical existence ≠ semantic equivalence ≠ contextual naturalness）.
 Analysis：`lexical_units[].target_realization`；fixture：`compound-xiaoyuan-huiyilu`.
 **禁止** `if ja: 校园→学園` prompt 膨脹.
+
+## Product mirror landed（2026-10-01）
+
+Windows product mirrors F18／JA-F12 via:
+`data/strategies/translation_failure_patterns.json` + `locale/ja-JP/failure_patterns.json` +
+`translation_failure.detect_target_lexical_realization_error` (simplified-ortho + JA morphology;
+no Selection gloss map). Commit on product host: `0ddc79f`.
