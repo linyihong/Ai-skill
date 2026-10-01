@@ -191,11 +191,19 @@ gates:
       required; ASR+context-only candidates must mark lower confidence
   - id: resolution_reason_required_when_resolved
     rule: status=resolved multimodal selection should carry reason[] and sources[] (evidence_supported path)
+  - id: acquisition_monitor_before_story
+    rule: >
+      overall insufficient or cross_modal suspicious (e.g. ocr_asr_coverage_gap)
+      must escalate or defer; must not assert no-subtitle / no-dialogue into Story
+  - id: escalation_before_after_recorded
+    rule: each acquisition escalation must record trigger, level, action, before, after, resolution
 
 linked:
   - workflow/narrative-video-production/text-evidence-language-relation.md
   - workflow/narrative-video-production/text-evidence-regions.md
   - workflow/narrative-video-production/text-evidence-ocr-boundary.md
+  - workflow/narrative-video-production/text-evidence-ocr-discovery.md
+  - workflow/narrative-video-production/text-evidence-acquisition-loop.md
   - workflow/narrative-video-production/text-evidence-multimodal-resolution.md
   - plans/active/2026-09-16-1649-narrative-video-production-workflow/40-language-role-before-text-resolution.md
   - plans/active/2026-09-16-1649-narrative-video-production-workflow/41-bilingual-ocr-regions-and-subtitle-groups.md

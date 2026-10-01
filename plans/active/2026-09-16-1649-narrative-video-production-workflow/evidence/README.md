@@ -10,6 +10,7 @@ Product dogfood that touches captions／locale pack／font／layout／timing／c
 
 | Run ID | 檔案 | 狀態 | 摘要 |
 | --- | --- | --- | --- |
+| 2026-10-01-evidence-acquisition-loop | [2026-10-01-evidence-acquisition-loop.md](2026-10-01-evidence-acquisition-loop.md) | contract_gap | Monitor＋escalation；OCR×ASR 窗密度缺口不得當最終無對白 |
 | 2026-09-16-dialogue-semantic-context | [2026-09-16-dialogue-semantic-context.md](2026-09-16-dialogue-semantic-context.md) | observation | 台詞≠查找；dialogue optional 已落地 |
 | 2026-09-17-shot-unit-semantic-context | [2026-09-17-shot-unit-semantic-context.md](2026-09-17-shot-unit-semantic-context.md) | observation | 單元 = text + semantic_context；含 action／visual；不擴 contract |
 | 2026-09-17-series-cast-canonicalization | [2026-09-17-series-cast-canonicalization.md](2026-09-17-series-cast-canonicalization.md) | observation | 角色命名 SoT 候選；不改 Phase 2 workflow |

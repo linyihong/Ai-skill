@@ -26,6 +26,7 @@ Acquisition（生成／實拍／剪輯／未來工具）可換；不得反向定
 | OCR region／雙語組 | [`text-evidence-regions.md`](text-evidence-regions.md) | 多 box／中英疊字：text_region → subtitle_group → 再 Language Relation |
 | OCR 詞界／空白 | [`text-evidence-ocr-boundary.md`](text-evidence-ocr-boundary.md) | raw≠derived；recognition_language≠observed_script；單框 Latin 黏字串要 boundary recovery |
 | OCR Discovery／Layout Probe | [`text-evidence-ocr-discovery.md`](text-evidence-ocr-discovery.md) | Probe=discovery 非 exclusion；bottom miss→inconclusive＋recovery；targeted OCR；LLM 不寫死 crop |
+| Evidence Acquisition Loop | [`text-evidence-acquisition-loop.md`](text-evidence-acquisition-loop.md) | Monitor＝confirmed／inconclusive／suspicious；OCR×ASR 互觸發 escalation；充分度不足不得進 Story |
 | 多模態文本決議 | [`text-evidence-multimodal-resolution.md`](text-evidence-multimodal-resolution.md) | Language Relation 後：observed／candidate／resolved；semantic_anchor＋semantic_reconstruction；禁止固定 OCR>ASR |
 | 口播時軸 | [`speech-unit-and-timing.md`](speech-unit-and-timing.md) | 自製口播 Speech Unit；cue 時軸 SoT |
 | 字幕 layout | [`subtitle-layout.md`](subtitle-layout.md) | Caption Composition：語意先於 fit；三層字級；scored 斷點 |
@@ -51,6 +52,7 @@ Acquisition（生成／實拍／剪輯／未來工具）可換；不得反向定
 | 7b | 雙語疊字先 region／group | [`text-evidence-regions.md`](text-evidence-regions.md)；翻譯列≠spoken |
 | 7c | OCR 詞界／raw≠derived | [`text-evidence-ocr-boundary.md`](text-evidence-ocr-boundary.md)；recognition≠observed script |
 | 7d | OCR Probe＝discovery 非 exclusion | [`text-evidence-ocr-discovery.md`](text-evidence-ocr-discovery.md)；miss→inconclusive＋recovery；非 `exists=false` |
+| 7e | Acquisition Monitor／escalation | [`text-evidence-acquisition-loop.md`](text-evidence-acquisition-loop.md)；suspicious→escalate；跨模態缺口不得當最終無字幕 |
 | 8 | publish-ready 需 fresh verifier | [`artifact-gates.md`](artifact-gates.md) |
 | 9 | Outcome 是 evidence 不是真理 | [`publish-outcome.md`](publish-outcome.md) |
 | 10 | Runtime 延後 | 本檔狀態列 + records `runtime_projection.enabled: false` |

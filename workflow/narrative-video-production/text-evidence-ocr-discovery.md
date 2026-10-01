@@ -4,7 +4,8 @@
 字幕實際在 upper-middle／非預設區；或產品把 probe miss 當成「影片沒字幕」而停掃。
 Plan：[`45-ocr-discovery-layout-probe.md`](../../plans/active/2026-09-16-1649-narrative-video-production-workflow/45-ocr-discovery-layout-probe.md)。
 銜接：[`13-mechanical-visual-text-probe.md`](../../plans/active/2026-09-16-1649-narrative-video-production-workflow/13-mechanical-visual-text-probe.md)、
-[`text-evidence-regions.md`](text-evidence-regions.md)、[`24-ocr-role-projection.md`](../../plans/active/2026-09-16-1649-narrative-video-production-workflow/24-ocr-role-projection.md)。
+[`text-evidence-regions.md`](text-evidence-regions.md)、[`24-ocr-role-projection.md`](../../plans/active/2026-09-16-1649-narrative-video-production-workflow/24-ocr-role-projection.md)、
+[`text-evidence-acquisition-loop.md`](text-evidence-acquisition-loop.md)（跨模態 Monitor／時間窗 gap）。
 
 > **執行契約，不重新解釋契約。** Probe = discovery，不是 exclusion。不開新 Phase／OCR Agent。
 
