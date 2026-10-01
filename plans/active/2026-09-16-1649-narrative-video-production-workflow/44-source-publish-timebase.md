@@ -31,4 +31,4 @@ EDR／Timeline IR 應能保存：
 - [x] Workflow 契約檔存在並從 README／assemble／captions 可達
 - [x] EDR record 有 optional `timeline_transform`／timebase 註記
 - [x] Plan evidence 索引已列本 run
-- [ ] Product adapter 明示 transform metadata（下一輪；見 `<PROJECT_ROOT>`）
+- [x] Product adapter 明示 transform metadata（`<PROJECT_ROOT>` Windows SoT：`timeline_transform.py` + job `cache_extra`；sanitized only）
