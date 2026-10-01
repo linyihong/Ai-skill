@@ -3,6 +3,8 @@
 本目錄是 Phase 2 **workflow-local** field contract。`runtime_projection.enabled: false`。
 Phase 4 才考慮 route；至少一次真實 EDR dogfood 後才有資格當 runtime candidate。
 
+EDR optional `timeline_transform`／timebase：見 [`edit-decision-record.yaml`](edit-decision-record.yaml) 與 [`../source-publish-timebase.md`](../source-publish-timebase.md)（analysis=source；speed=publish adapter）。
+
 去敏可填示範：[`examples/sanitized-matching-and-edr.yaml`](examples/sanitized-matching-and-edr.yaml)（虛構系列，無真實片名／主機／金鑰）。
 對白語義欄位：[`dialogue-semantic-context.yaml`](dialogue-semantic-context.yaml)（Phase 3 起 optional）。
 文本語言／角色／關係／region／boundary／多模態決議：[`text-evidence.yaml`](text-evidence.yaml)（OCR／ASR 的 language、text_role、text_relation、text_region、subtitle_group、raw／derived boundary、asr_observation、semantic_candidate、resolution.reason；跨語言／雙語字幕≠conflict；翻譯列≠spoken；黏字串≠靜默 SoT；ASR 字面≠spoken SoT）。

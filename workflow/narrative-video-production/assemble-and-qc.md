@@ -15,6 +15,17 @@ Assemble 產出／消費的 canonical 是 **Timeline IR**（見 [`captions-and-l
 每條 selected caption／clip／voice 要有 trace；機械 QC（coverage／timing／bilingual group）PASS 後才 render。
 發現「evidence 有、成片沒有」時，先查 Timeline／coverage report，不要只倒帶猜 fuse。
 
+## Source vs publish timebase
+
+Matching／EDR／clip catalog 用 **source** 時軸；playback speed 是 **publish** transform（`publish_t = source_t / rate`），不得把 sped 成片當 OCR／ASR／story 新證據。Timeline IR／EDR 應帶 `timeline_transform`（或等價）。契約：[`source-publish-timebase.md`](source-publish-timebase.md)。
+
+| QC | 驗什麼 |
+| --- | --- |
+| `temporal_integrity` | 宣告的 transform 下 video／audio／caption 是否一致（含 A/V 同 rate） |
+| `presentation_comfort` | publish 後可讀／可聽／口型體感（機械對 ≠ 體感可接受） |
+
+比較 1× 參考片與 sped 發布片時，必須對齊 mapped source time，禁止同 wall-clock 秒互比。
+
 ## QC 角色
 
 | 檢查 | 誰 | 最高成熟度 |

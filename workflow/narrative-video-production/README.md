@@ -29,6 +29,7 @@ Acquisition（生成／實拍／剪輯／未來工具）可換；不得反向定
 | 口播時軸 | [`speech-unit-and-timing.md`](speech-unit-and-timing.md) | 自製口播 Speech Unit；cue 時軸 SoT |
 | 字幕 layout | [`subtitle-layout.md`](subtitle-layout.md) | Caption Composition：語意先於 fit；三層字級；scored 斷點 |
 | 成片對帳 | [`assemble-and-qc.md`](assemble-and-qc.md) | Timeline IR vs EDR；coverage／omission；fresh verifier |
+| 源／發布時軸 | [`source-publish-timebase.md`](source-publish-timebase.md) | OCR／ASR／matching 在 source；speed 只做 publish transform；CPS 在 publish 軸 |
 | 發布證據 | [`publish-outcome.md`](publish-outcome.md) | 窗口後填 evidence status |
 | Eligibility | [`artifact-gates.md`](artifact-gates.md) | 每一 stage 推進與 completion |
 | Profile | [`profiles/README.md`](profiles/README.md) | recap／original／split-promo；首輪空 |
@@ -43,6 +44,7 @@ Acquisition（生成／實拍／剪輯／未來工具）可換；不得反向定
 | 4 | Constraints 定義可行集 | [`matching-script.md`](matching-script.md)、[`records/matching-script.yaml`](records/matching-script.yaml) |
 | 5 | Selection 是明示 policy | 同上；缺 `selection.policy` = 閘失敗 |
 | 6 | Assembly 對得上 EDR | [`assemble-and-qc.md`](assemble-and-qc.md)；Timeline IR＋coverage |
+| 6a | Source≠publish timebase | [`source-publish-timebase.md`](source-publish-timebase.md)；speed≠新 evidence；`timing_gate` 在 publish 軸 |
 | 7 | Locale 三閘獨立 | [`captions-and-locales.md`](captions-and-locales.md)；generated 口播時軸 [`speech-unit-and-timing.md`](speech-unit-and-timing.md)；行數 [`subtitle-layout.md`](subtitle-layout.md)；timeline projection／omission |
 | 7a | 跨語言字幕≠口播 conflict | [`text-evidence-language-relation.md`](text-evidence-language-relation.md)；content 源用 resolved spoken／subtitle 對 |
 | 7b | 雙語疊字先 region／group | [`text-evidence-regions.md`](text-evidence-regions.md)；翻譯列≠spoken |

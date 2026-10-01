@@ -9,7 +9,7 @@
 | Gate | 裁決 | 不是 |
 | --- | --- | --- |
 | `content_gate` | 語意、專名、source residue | 排版漂不漂亮 |
-| `timing_gate` | 讀得完（CPS／cue 窗）**＋ temporal integrity**（同 track 互壓／非法窗） | 有沒有擋住臉 |
+| `timing_gate` | 讀得完（CPS／cue 窗）**＋ temporal integrity**（同 track 互壓／非法窗）；**`timebase: publish`** | 有沒有擋住臉；也不是 source 軸 evidence 對錯 |
 | `layout_gate` | 放得下、安全區、不遮擋（含空間碰撞） | 譯文對不對 |
 
 **放得下 ≠ 讀得完 ≠ 沒擋住臉。** 禁止合成單一「字幕 PASS」。Publish QC 三閘都要有各自 `decision`。
@@ -32,6 +32,8 @@
 `overlap_policy` 預設：`same_track=forbidden`；`bilingual_same_group=allowed`；`transition`／`karaoke` 僅 `explicit`。
 
 分類：Pack 本身互壓 → producer／timing fail；Pack 乾淨、成片／ASS 互壓 → **render adapter defect**（倍速、ASS merge、硬字幕未 scrub）；無法表達 track／group → contract_gap。見 evidence `2026-09-30-caption-temporal-integrity-overlap`。
+
+**Timebase：** OCR／ASR／dialogue evidence 的時戳屬 **source／canonical**；`timing_gate` 的 CPS／cue 窗必須在 **publish** 軸驗（source 通過不蘊含 publish 通過）。Speed 是 publish transform，不是新 evidence。契約：[`source-publish-timebase.md`](source-publish-timebase.md)。
 
 `text_origin`：`script`／`asr`／`ocr`／`human`／`translated` 分源，不得混成一條無標記對白。
 `layout_script`（cjk／latin／…）≠ `locale`。

@@ -12,7 +12,9 @@
 
 `film_id`、`title`、`profile`（可空）、`bible_id`、`matching_script_id`、主 `narrative_template_id`、`shots[]`（含 `selected_clip_id`、入出點）、`mutations[]`、`qc`、`publish`、`locale_packs[]`、`outcome`（發布後）。
 
-`qc.producer_self_check` 可推進到 cut-ready。`qc.fresh_reviewer` 才允許 publish-ready（Invariant 8）。
+有 playback speed 時另記 optional `timeline_transform`／`source_timebase`／`publish_timebase`（見 [`source-publish-timebase.md`](source-publish-timebase.md)）。`shots[].source_in`／`source_out` 永遠是 source 軸；不得把 publish 秒數寫回當 evidence 時戳。
+
+`qc.producer_self_check` 可推進到 cut-ready。`qc.fresh_reviewer` 才允許 publish-ready（Invariant 8）。Publish 後可分記 `qc.temporal_integrity` 與 `qc.presentation_comfort`。
 
 ## Mutation
 

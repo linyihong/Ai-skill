@@ -67,3 +67,5 @@ Phase 3 有真實 EDR 前**不**把 catalog 拆成三套。禁止執行時發明
 
 16. **Evidence validity precedes evidence interpretation.** Invalid ASR leaves the feasible set before a sanitization hypothesis can prefer it. `possible_subtitle_sanitization` does not override valid OCR. Temporal misalignment is not a lexical error. 見 [`39-asr-validity-precedes-interpretation.md`](39-asr-validity-precedes-interpretation.md)。未凍結。
 
+17. **Source understanding uses the canonical source timebase; publish speed is a timeline transform, not new evidence.** OCR／ASR／story／clip matching／EDR decisions stay on source；`publish_t = source_t / rate`（constant_speed）。`timing_gate` 驗 publish 軸；比較成片必須 mapped time。見 [`44-source-publish-timebase.md`](44-source-publish-timebase.md)、workflow [`source-publish-timebase.md`](../../../workflow/narrative-video-production/source-publish-timebase.md)。未凍結。
+

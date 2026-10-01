@@ -38,6 +38,14 @@ optional_fields:
   publish: { type: object }
   locale_packs: { type: list }
   outcome: { type: object }
+  timeline_transform:
+    type: object
+    note: >
+      Publish adapter only. Evidence／matching／EDR decisions stay on source_timebase.
+      Example: {type: constant_speed, source_timebase: canonical, target_timebase: publish, rate: 1.5}
+      with publish_t = source_t / rate. See source-publish-timebase.md.
+  source_timebase: { type: id, note: default canonical; analysis／clip catalog／OCR／ASR }
+  publish_timebase: { type: id, note: optional; populated after assemble projection }
 
 qc:
   producer_self_check: { max_maturity: cut-ready }
@@ -47,6 +55,8 @@ qc:
     required_fields: [reviewer_role, reviewed_artifact_ids, blocking_gate_verdicts, reviewed_at]
     optional_fields: [exceptions, rollback_target]
   timeline_matches_edr: { type: bool }
+  temporal_integrity: { type: gate, note: declared transform applied consistently to video／audio／caption }
+  presentation_comfort: { type: gate, note: publish readability／lip comfort; not a substitute for sync }
 
 forbidden_fields:
   - inferred_intent_from_mp4

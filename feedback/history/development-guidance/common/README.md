@@ -2,6 +2,7 @@
 
 | 檔名 | Status | 標題 | 一句話摘要 |
 |------|--------|------|-----------|
+| `2026-10-01_110500-source-publish-timebase-separation.md` | candidate | Source vs publish timebase separation | OCR／ASR／matching 留 source；speed=publish transform；CPS／timing_gate 在 publish 軸 |
 | `2026-10-01_093000-ocr-latin-boundary-geometry-before-lexical.md` | candidate | OCR Latin boundary: geometry before closed-class | boxes→geometry→lexical candidates；closed-class 非第一刀；exact-match 單字不拆 |
 | `2026-09-30_155700-release-pool-client-before-nested-checkout.md` | candidate | Release pool client before nested same-pool checkout | Never hold a DB pool client across an await that also checks out from the same pool; saturation hang |
 | `2026-05-05_194400-contract-first-development-flow.md` | candidate | Contract-first development flow | Start development from product intent, split bounded contexts, write BDD, define Domain, Architectur |
@@ -71,4 +72,4 @@
 | `2026-09-30_081600-ocr-recognition-lang-must-not-erase-latin-word-boundaries.md` | candidate | OCR recognition language must not erase Latin word boundaries | `recognition_language`≠`observed_script`；Latin 單框無空格要 boundary／derived，不可因 ch 路徑刪空格或覆蓋 raw |
 | `2026-10-01_090000-ocr-join-token-seam-not-cumulative-script.md` | candidate | OCR join must use token seam not cumulative script | parts 已切、derived 黏：Latin\|Latin 必空格；禁止 cumulative mixed 否決；parts 不可被 text 覆蓋 |
 
-Total: 68
+Total: 69
