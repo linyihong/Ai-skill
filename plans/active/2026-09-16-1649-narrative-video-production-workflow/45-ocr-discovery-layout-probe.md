@@ -58,3 +58,9 @@ Mechanical global discovery
 
 Adapter 應把 `no_subtitle_like` 改成 region-scoped inconclusive，並接 recovery loop／scan_profile／分層 metrics。
 細節見 workflow 檔 Adapter 驗收。
+
+## 產品 adapter 狀態（2026-10-01）
+
+Windows product host 已落地第一刀：`ocr_probe`／`dialogue_source.probe_hardsub`／`ocr` frame-diff watch。
+Dogfood：同一 clip 上 `subtitle_like=0` 但 `dialogue_candidates` → `has_hardsub=True`。
+仍待：per-source `source_ocr_profile` 持久化、LLM layout classification escape（非 crop 寫死）。
