@@ -66,6 +66,17 @@ strategies:
     intent: map 上/下/中 to Part One/Two style markers
   structural_render:
     intent: render grammatical relations without inventing narrative
+  target_construction_naturalization:
+    intent: >
+      Rebuild compound／title／address as a natural target-language construction
+      from semantic_composition (head／modifier／relation). Forbidden: imitate
+      source surface composition via token-wise reassembly (F18 symptom).
+  target_lexical_realization:
+    intent: >
+      Realize each source lexical unit as a natural target lexeme／construction.
+      Shared script (esp. CJK→ja) must not auto-preserve. Layers: script legality
+      → target lexical existence → semantic equivalence → contextual naturalness
+      (L4 = Selection). Linked: F18／JA-F12.
 
 forbidden:
   - strategy_that_bypasses_explicit_selection_policy

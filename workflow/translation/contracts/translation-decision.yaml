@@ -107,6 +107,13 @@ invariants:
       guards, or accumulate locale case lists in the Selection prompt.
   - id: I14
     rule: Translation preserves semantic relations, not source surface form.
+  - id: I14b
+    rule: >
+      Preserve semantic_composition (head／modifier／role relations), not
+      source-language surface construction. When shared script creates
+      false confidence, require Target Lexical Realization Candidate Space
+      (F18) — source-lexeme preserve / token-wise reassembly must not be
+      the sole feasible path.
   - id: I15
     rule: Target syntax may reorder/omit/restructure only when relations preserved.
   - id: I16
@@ -138,6 +145,9 @@ forbidden:
   - requiring_source_word_order_equals_target_word_order
   - naturalness_that_drops_or_adds_semantic_roles
   - character_wise_kanji_gloss_as_sole_zh_ja_candidate
+  - source_surface_composition_as_sole_feasible_compound
+  - assuming_shared_script_form_is_target_lexeme
+  - source_lexeme_preserve_as_sole_feasible_for_high_risk_units
   - fluency_semantic_expansion_without_evidence
   - inventing_completion_for_truncated_source
   - fixed_kinship_gloss_as_sole_feasible_without_reference
@@ -148,3 +158,4 @@ forbidden:
   - invented_marketing_hashtags_or_claims_without_upstream_evidence
   - literal_idiom_guess_as_sole_title_candidate_without_ambiguity_space
   - defaulting_familiar_prefix_to_literal_old_age_gloss
+  - appending_locale_compound_glosses_to_selection_prompt

@@ -170,6 +170,35 @@ patterns:
       - examples/social-address-laozhang.yaml
     note: 老張 → not オヤジ張さん by default.
 
+  - id: JA-F12
+    status: active
+    manifests: target_lexical_realization_error  # F18
+    concept: shared_cjk_lexical_realization
+    applies_when:
+      source_expression: [compound_expression, title, compound_noun, kinship_or_relationship_term, pragmatic_expression]
+      risk:
+        - source_contains_cjk_lexical_units
+        - shared_han_false_confidence
+        - lexical_equivalence_uncertain
+        - source_composition_may_not_map_to_target
+    constraints:
+      - do_not_assume_shared_han_form_is_japanese_lexeme
+      - validate_lexical_unit_as_ja_expression          # Level 2
+      - validate_semantic_equivalence                  # Level 3
+      - validate_contextual_naturalness                # Level 4 (Selection)
+      - require_target_lexical_candidate_space
+    validation: [lexical, semantic, naturalness]
+    evidence_refs:
+      - examples/compound-xiaoyuan-huiyilu.yaml
+    note: >
+      Shared CJK script → false confidence. Four layers (not regex Han dump):
+      (1) script legality — Han present ≠ error;
+      (2) Japanese lexical existence — 校园 as whole unit is high-risk;
+      (3) semantic equivalence — same characters ≠ same meaning (links F13);
+      (4) contextual naturalness — Selection among 学園の思い出／学園回想録…
+      校园の思い出録 fails as source-lexeme preserve + partial gloss reassembly.
+      Do NOT prompt-map 校园→学園／校园生活／校园恋爱…
+
 forbidden:
   - storing_sole_surface_gloss_as_pattern_body
   - duplicating_full_core_concept_definitions_here

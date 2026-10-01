@@ -28,9 +28,9 @@ Former name `locale-failure-taxonomy.yaml` kept as deprecated pointer → [`fail
 
 ## Moved
 
-- JA-F01–F11 → [`registry/locale/ja-JP/failure-patterns.yaml`](../../workflow/translation/registry/locale/ja-JP/failure-patterns.yaml)
+- JA-F01–F12 → [`registry/locale/ja-JP/failure-patterns.yaml`](../../workflow/translation/registry/locale/ja-JP/failure-patterns.yaml)（F18 `target_lexical_realization_error` → JA-F12 `shared_cjk_lexical_realization`）
 - ID-F01 → [`registry/locale/id-ID/failure-patterns.yaml`](../../workflow/translation/registry/locale/id-ID/failure-patterns.yaml)
-- Core cleaned → [`registry/failure-patterns.yaml`](../../workflow/translation/registry/failure-patterns.yaml)
+- Core cleaned → [`registry/failure-patterns.yaml`](../../workflow/translation/registry/failure-patterns.yaml)（含 F18 Target Lexical Realization）
 
 Adding ko／th／vi = new locale file + binding entry；**不**改 execution-flow 主鏈。
 
@@ -42,3 +42,10 @@ A product pipeline may mirror this shape without copying Ai-skill YAML as runtim
 - locale rows `manifests` a core id；`product_detector` may alias an existing mechanical detector id
 
 Evidence：[`evidence/2026-09-29-product-locale-registry-ja-id-dogfood.md`](evidence/2026-09-29-product-locale-registry-ja-id-dogfood.md)。
+
+## F18 Target Lexical Realization（2026-10-01）
+
+Core：`target_lexical_realization_error` — 跨語言「看起來像 target、實際不是自然 lexeme」.
+JA-F12：`shared_cjk_lexical_realization` — 四層（script ≠ lexical existence ≠ semantic equivalence ≠ contextual naturalness）.
+Analysis：`lexical_units[].target_realization`；fixture：`compound-xiaoyuan-huiyilu`.
+**禁止** `if ja: 校园→学園` prompt 膨脹.

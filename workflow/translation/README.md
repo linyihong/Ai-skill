@@ -26,6 +26,7 @@ Meaning → Semantic Roles → Target Syntax／Naturalness → Target Expression
 | --- | --- |
 | I1–I13 | Context／Analysis／Candidate／Selection／residue／title／failure |
 | I14 | Preserve **semantic relations**, not source surface form |
+| I14b | Target **Lexical Realization** — script-legal ≠ target lexeme（F18） |
 | I15 | Target reorder／omit／restructure OK **only if** relations preserved |
 | I16 | Naturalness MUST NOT alter roles／entities／temporal／polarity／intent |
 | I17 | False cognate／kanji decomposition flagged；no sole zh→ja kanji gloss |

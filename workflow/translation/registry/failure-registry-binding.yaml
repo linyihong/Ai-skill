@@ -48,13 +48,14 @@ cross_locale_core:
     - F15       # modifier_role_misinterpretation
     - F16       # temporal_direction_flip
     - F17       # clock_time_shift
+    - F18       # target_lexical_realization_error
 
 locale_registries:
   ja-JP:
     id: JA
     path: registry/locale/ja-JP/failure-patterns.yaml
     status: active
-    pattern_ids: [JA-F01, JA-F02, JA-F03, JA-F04, JA-F05, JA-F06, JA-F07, JA-F08, JA-F09, JA-F10, JA-F11]
+    pattern_ids: [JA-F01, JA-F02, JA-F03, JA-F04, JA-F05, JA-F06, JA-F07, JA-F08, JA-F09, JA-F10, JA-F11, JA-F12]
     note: Each JA-F* MUST manifests a core F* / CORE-* id
     evidence:
       - plans/active/2026-09-22-1000-translation-decision-workflow/evidence/2026-09-29-ep7-ja-dogfood.md

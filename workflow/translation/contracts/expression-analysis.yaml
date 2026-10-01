@@ -9,6 +9,7 @@ record: expression_analysis
 purpose: >
   Intermediate artifact — lexical, semantic, syntactic, pragmatic, discourse,
   cultural layers. Semantic Structure bridges to Target Realization (I14).
+  lexical_units drive Target-Language Lexical Realization (F18);
   lexical_handling flags false_cognate_risk (老婆≠お婆さん). Producer opaque.
 
 required_fields:
@@ -21,7 +22,16 @@ required_fields:
     item:
       span: { type: text }
       type: { type: text }
-      role: { type: text }
+      role:
+        type: text
+        examples:
+          - head
+          - domain_modifier
+          - familiarity_marker
+          - surname
+          - protagonist_descriptor
+          - predicate
+          - patient
       handling:
         type: text
         examples:
@@ -61,10 +71,51 @@ optional_fields:
   analysis_layers:
     type: list
     values_hint: [lexical, semantic, syntactic, pragmatic, discourse, cultural]
+  lexical_units:
+    type: list
+    optional: true
+    note: >
+      Source lexical units requiring Target-Language Lexical Realization (F18).
+      Not a script/Han dump — each unit carries target_realization risk.
+    item:
+      source_span: { type: text }
+      lexical_role: { type: text, examples: [noun, head, domain_modifier, kinship, title] }
+      source_lexeme: { type: text }
+      target_realization:
+        type: object
+        fields:
+          required: { type: bool }
+          risk: { type: enum, values_hint: [low, medium, high] }
+          reason:
+            type: list
+            values_hint:
+              - cjk_shared_script
+              - lexical_equivalence_uncertain
+              - shared_han_false_confidence
+              - source_lexeme_may_not_exist_in_target
+              - morphology_or_collocation_risk
+          layers_hint:
+            type: list
+            optional: true
+            values_hint:
+              - script_legality          # L1: Han present ≠ error
+              - target_lexical_existence # L2: whole unit used in target?
+              - semantic_equivalence     # L3: same chars ≠ same meaning
+              - contextual_naturalness   # L4: Selection responsibility
   semantic_structure:
     type: object
     fields:
       predicate: { type: text }
+      # Compound / title: head + domain modifier feeds lexical_units + F18
+      head: { type: text, optional: true, note: "e.g. 回忆录 in 校园回忆录" }
+      modifier:
+        type: object
+        optional: true
+        fields:
+          target: { type: text, note: "e.g. 校园" }
+          relation:
+            type: enum
+            values_hint: [context_domain, attribute, familiar_prefix, other]
       arguments:
         type: list
         item:
@@ -88,6 +139,19 @@ optional_fields:
           speech_act: { type: text, optional: true }
         note: 该不会…吧 → speculative; must not drop (I19)
       social_address: { type: object, optional: true }
+  target_realization_risk:
+    type: list
+    optional: true
+    values_hint:
+      - target_lexical_realization_uncertain
+      - shared_script_false_confidence
+      - source_composition_may_not_map_to_target
+      - lexical_decomposition_risk
+      - source_word_order_may_not_map_to_target
+    note: >
+      When set, Candidate Space MUST include target-language lexical
+      realizations (not source-lexeme preserve / token-wise reassembly).
+      Seeds F18 / JA-F12.
   semantic_roles:
     type: list
     item:
@@ -149,6 +213,13 @@ invariants:
       Speculative／tentative constructions (该不会…吧) SHOULD populate
       semantic_structure.modality; speech-act constructions (说了她两句)
       SHOULD use speech_act_expression / construction types.
+  - id: I25-analysis
+    rule: >
+      Lexical units that share script with the target (esp. CJK→ja) or
+      compound／title spans SHOULD populate lexical_units[].target_realization
+      + optional semantic_structure.head／modifier, then Target Lexical
+      Realization Candidate Space — not source-lexeme preserve or
+      token-wise reassembly as sole feasible (F18).
 
 forbidden:
   - equating_expression_analysis_with_ai_analysis_step
@@ -158,3 +229,6 @@ forbidden:
   - dictionary_gloss_only_for_pragmatic_constructions
   - token_mapping_without_semantic_roles_for_multi_argument_clauses
   - treating_familiar_prefix_as_literal_old_by_default
+  - assuming_shared_han_form_is_japanese_lexeme
+  - source_lexeme_preserve_as_sole_feasible_for_high_risk_units
+  - treating_script_legal_han_as_automatic_pass

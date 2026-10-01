@@ -254,6 +254,39 @@ patterns:
       constraint: { require: preserve_numeric_time }
       validation: { column: mechanical, rule: clock_time_numeric_match }
 
+  - id: target_lexical_realization_error
+    status: active
+    taxonomy_id: F18
+    scope: cross_locale
+    responsibility: constraint
+    classification: { type: target_lexical_realization_error }
+    response:
+      constraint:
+        require:
+          - lexical_unit_target_realization
+          - target_lexical_candidate_space
+        prohibit:
+          - assume_shared_script_form_is_target_lexeme
+          - source_lexeme_preserve_as_sole_feasible
+          - token_wise_reassembly_as_sole_feasible
+      selection_policy_hints:
+        - target_lexical_naturalness
+        - semantic_equivalence
+        - target_construction_naturalness
+        - avoid_source_structure_imitation
+      validation: { column: lexical, rule: target_lexical_realization }
+    note: >
+      Output uses a form that is structurally possible or visually plausible
+      but is not an appropriate natural lexical realization for the target
+      language/context. Cross-locale (not a Japanese-only kanji gate):
+      missing lexeme, false cognate, source lexical residue, bad POS,
+      unnatural collocation, illegal morphology, shared-script false confidence.
+      Distinct from F3 (word-order), F4 (surface naturalness alone),
+      F7c (raw source script residue), F13 (character-wise false cognate),
+      F14 (pragmatic construction), F15 (social-modifier role).
+      Symptom family: 校园回忆录 → 校园の思い出録; JA-F12 manifests.
+      Script-legal Han ≠ Japanese lexeme ≠ semantic equivalent ≠ natural pick.
+
 disposition_question: >
   New dogfood error → new core concept, or locale manifestation of existing core?
   Never "append another case to the Selection prompt".

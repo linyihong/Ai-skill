@@ -1,0 +1,160 @@
+schema_version: translation-decision-example/v0
+id: TD-EX-005-compound-xiaoyuan-huiyilu
+status: p0_regression_fixture
+source_case:
+  observed_io:
+    src: "校园回忆录"
+    dst_bad: "校园の思い出録"
+  failure_class:
+    - target_lexical_realization_error  # F18 primary
+    - unnatural_surface_realization     # F4
+    - source_language_residue           # F7c (校园 left as source lexeme)
+    - false_cognate_or_lexical_decomposition  # F13 (录→録 piece)
+  note: >
+    Deeper than "has Han so wrong". Model treated 校园 as a Japanese-looking
+    shared-script lexeme, partially glossed 回忆→思い出, attached の／録.
+    Script-legal Han ≠ Japanese lexeme ≠ semantic equivalent ≠ natural title.
+    Do NOT hardcode 校园→学園 in Selection prompt.
+
+translation_context:
+  source: { language: zh, locale: zh-CN }
+  target: { language: ja, locale: ja-JP, script: Jpan }
+  content: { type: title, subtype: memoir_or_work_title, decision_mode: faithful_translation }
+
+expression_analysis:
+  surface: "校园回忆录"
+  composite_type: [compound_expression, title]
+  analysis_layers: [lexical, semantic, syntactic, pragmatic]
+  structure:
+    - span: "校园"
+      type: domain_noun
+      role: domain_modifier
+      handling: target_lexical_realization
+    - span: "回忆录"
+      type: compound_noun
+      role: head
+      handling: target_lexical_realization
+      lexical_handling: { mode: lexicalized }
+  lexical_units:
+    - source_span: "校园"
+      lexical_role: noun
+      source_lexeme: "校园"
+      target_realization:
+        required: true
+        risk: high
+        reason: [cjk_shared_script, lexical_equivalence_uncertain, shared_han_false_confidence]
+        layers_hint: [script_legality, target_lexical_existence, semantic_equivalence, contextual_naturalness]
+    - source_span: "回忆录"
+      lexical_role: head
+      source_lexeme: "回忆录"
+      target_realization:
+        required: true
+        risk: medium
+        reason: [cjk_shared_script, morphology_or_collocation_risk]
+        layers_hint: [target_lexical_existence, semantic_equivalence, contextual_naturalness]
+  semantic_structure:
+    head: "回忆录"
+    modifier:
+      target: "校园"
+      relation: context_domain
+    predicate: null
+    arguments: []
+  target_realization_risk:
+    - target_lexical_realization_uncertain
+    - shared_script_false_confidence
+    - source_composition_may_not_map_to_target
+  literal_meaning: [campus_memoir, school_recollections_record]
+  pragmatic_meaning: [work_or_series_title_hook, nostalgic_school_life]
+  register: { source: literary_or_title }
+
+constraints:
+  preserve:
+    - factual_meaning
+    - semantic_composition   # NOT source syntax / surface construction
+    - speaker_intent
+  prohibit:
+    - assume_shared_han_form_is_japanese_lexeme
+    - source_lexeme_preserve_as_sole_feasible
+    - token_wise_reassembly_as_sole_feasible
+    - invented_information
+
+candidate_space:
+  lexical_校园:
+    - text: "校园"
+      realization_type: preserve
+      lexical_validation: review
+      feasible: false
+      reason: shared_cjk_lexical_realization_JA-F12
+    - text: "学園"
+      realization_type: lexical_equivalent
+      lexical_validation: pass
+      feasible: true
+    - text: "学校"
+      realization_type: semantic_equivalent
+      lexical_validation: pass
+      feasible: true
+  target_constructions:
+    - text: "学園の思い出"
+      strategy: target_lexical_realization
+      feasible: true
+    - text: "学園回想録"
+      strategy: target_lexical_realization
+      feasible: true
+    - text: "学園の回想録"
+      strategy: target_lexical_realization
+      feasible: true
+    - text: "学校の思い出"
+      strategy: target_lexical_realization
+      feasible: true
+    - text: "青春回想録"
+      strategy: target_lexical_realization
+      feasible: true
+      note: register／title-context may prefer or demote — Selection
+    - text: "校园の思い出録"
+      strategy: shared_script_preserve_plus_partial_gloss
+      decision_class: translation
+      feasible: false
+      reason: target_lexical_realization_error_F18_JA-F12
+
+selection:
+  policy:
+    - target_lexical_naturalness
+    - semantic_equivalence
+    - title_register
+    - target_construction_naturalness
+    - avoid_source_structure_imitation
+    - preserve_meaning
+  selected: "学園の思い出"
+  rationale: >
+    L2/L3: 校园 is not a natural ja lexeme — prefer 学園／学校.
+    L4 among feasible title constructions is Selection Responsibility;
+    fixture picks 学園の思い出. 校园の思い出録 must not accept.
+  decision_basis: [expression_analysis, lexical_units, candidate_space, constraints, selection.policy]
+
+validation:
+  semantic: pass
+  lexical: pass
+  naturalness: pass
+  invented_information: pass
+  mechanical:
+    source_language_residue: pass
+
+finality:
+  status: needs_review
+  note: >
+    accepted when title context settles among 学園の思い出／学園回想録／…
+    校园の思い出録 must not accept. Mechanical gate may fail lexical L2/L3;
+    L4 naturalness is Selection-constrained.
+
+regression_fixtures:
+  - name: 校园の思い出録 fails F18／JA-F12
+    dst: "校园の思い出録"
+    expect:
+      validation.lexical.status: fail_or_review
+      reason: target_lexical_realization_error
+      finality.accepted: false
+  - name: preserve 校园 alone is not Japanese lexical realization
+    dst: "校园"
+    expect:
+      validation.lexical.status: fail_or_review
+      reason: shared_cjk_lexical_realization

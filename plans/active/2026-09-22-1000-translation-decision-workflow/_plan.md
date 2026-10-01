@@ -136,6 +136,7 @@ Ai-skill 已有 Loop-first／Governance-first 與 ERA v2（Evidence constrains D
 - [x] Locale Failure Taxonomy 掛進 workflow：ep8 walkthrough [`2026-09-29-ep8-ja-walkthrough`](evidence/2026-09-29-ep8-ja-walkthrough.md)（**待人審**）
 - [x] Ep8 contract revision（I21–I23）：[`13`](13-ep8-contract-revision.md)
 - [x] Locale-layered Failure Registry：[`14`](14-locale-layered-failure-registry.md) — core ∪ `locale/<locale>/`；binding = [`failure-registry-binding.yaml`](../../workflow/translation/registry/failure-registry-binding.yaml)（`pattern_ids`；非第二套 taxonomy）
+- [x] Target Lexical Realization（F18／JA-F12）：core `target_lexical_realization_error` + ja `shared_cjk_lexical_realization` + `lexical_units` + fixture [`compound-xiaoyuan-huiyilu`](../../workflow/translation/examples/compound-xiaoyuan-huiyilu.yaml)（**不**堆 JA prompt 例句）
 
 ### Phase 4 — 可選（不擋 v0）
 

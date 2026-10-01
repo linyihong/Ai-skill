@@ -11,13 +11,22 @@ Canonical lifecycle。欄位 SoT 在 [`contracts/`](contracts/)。**不要**寫 
 3. Reference / Identity Resolution  ← dialogue kinship／pronouns（I23）
 4. Title Structure Analysis    → when content.type=title
 5. Expression + Semantic Analysis
+   ├── lexical_units + target_realization risk（F18）
    ├── lexical / pragmatic / syntactic / discourse / cultural
-   └── semantic_structure + roles + modality
+   ├── semantic_structure + roles + modality
+   └── when compound／title: head＋domain_modifier
+5b. Target-Language Lexical Realization（strengthen Analysis／Validation — not a mega-step）
+   ├── L1 script legality ≠ error
+   ├── L2 target lexical existence
+   ├── L3 semantic equivalence（links F13）
+   └── L4 contextual naturalness → Selection（not mechanical sole answer）
 6. Target-Locale Realization seeds → name／script／kinship Candidate Space
 7. Registry binding + Guards → failure-registry-binding → core ∪ locale patterns
-8. Apply Constraints / Guards  → Feasible Candidates（含 CORE-F21 truncated）
+8. Apply Constraints / Guards  → Feasible Candidates（含 CORE-F21 truncated；F18）
 9. Selection + Target Realization
    ├── semantic / syntax（I14–I15）
+   ├── target_lexical_naturalness／semantic_equivalence（F18／JA-F12）
+   ├── avoid_source_structure_imitation／source_lexeme_preserve
    ├── register / character_voice / politeness / gendered（I24）
    └── naturalness（I16／I18；≠ grammatical）
 10. Independent Review

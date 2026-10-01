@@ -8,11 +8,19 @@ runtime_projection:
 record: translation_validation
 purpose: >
   Multi-dimension validation. No single translation_quality score.
-  semantic ≠ syntactic ≠ grammatical ≠ naturalness ≠ semantic_roles ≠
-  modality ≠ semantic_expansion (I14–I20). Mechanical gates not self-certified.
+  semantic ≠ syntactic ≠ grammatical ≠ naturalness ≠ lexical ≠
+  semantic_roles ≠ modality ≠ semantic_expansion (I14–I20／F18).
+  Mechanical gates not self-certified.
 
 dimensions:
   semantic: { type: enum, values: [pass, fail, review] }
+  lexical:
+    type: enum
+    values: [pass, fail, review]
+    note: >
+      Target Lexical Realization (F18／JA-F12). Script-legal ≠ target
+      lexeme ≠ semantic equivalent ≠ contextually natural. L4 naturalness
+      stays Selection-constrained; mechanical gates may fail L2／L3 only.
   semantic_roles:
     type: enum
     values: [pass, fail, review]

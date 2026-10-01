@@ -53,6 +53,7 @@ required_fields:
         - register_drift
         - modality_loss
         - pragmatic_ambiguity
+        - target_lexical_realization_error
         - other
   response:
     constraint: { type: object, note: require / prohibit applied to Feasible set }

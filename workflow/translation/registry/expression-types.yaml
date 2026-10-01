@@ -120,6 +120,16 @@ expression_types:
     strategies: [speech_act_preserving, pragmatic_equivalent]
     examples: [我说了她两句, 该不会…吧]
     note: Preserve speech-act force + modality (I19). JA-F02／JA-F10.
+  compound_expression:
+    strategies: [target_lexical_realization, semantic_equivalent, title_faithful]
+    components: [domain_modifier, head]
+    note: >
+      校园回忆录-class. Populate lexical_units + head／modifier, then Target
+      Lexical Realization Candidate Space — not shared-Han preserve or
+      token-wise reassembly (F18／JA-F12). No per-compound Selection prompt glosses.
+  compound_noun:
+    strategies: [target_lexical_realization, semantic_equivalent]
+    note: alias family of compound_expression
 
 knowledge_seeds:
   title_mapping:

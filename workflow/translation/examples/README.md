@@ -8,6 +8,7 @@ Phase 1 = **doc-only**. No test runner.
 | [`address-title-chen-xiaojie-ja.yaml`](address-title-chen-xiaojie-ja.yaml) | **P0** — ja-JP **name realization**（Chenさん → review） |
 | [`title-kongjie-yiriqianli.yaml`](title-kongjie-yiriqianli.yaml) | **P0** — short-drama **title**；idiom + invented_information（I12） |
 | [`social-address-laozhang.yaml`](social-address-laozhang.yaml) | **P0** — 老張；F5 social_address_misinterpretation（≠ オヤジ） |
+| [`compound-xiaoyuan-huiyilu.yaml`](compound-xiaoyuan-huiyilu.yaml) | **P0** — 校园回忆录；F18／JA-F12 target lexical realization（≠ 校园の思い出録） |
 | [`laopo-false-cognate.yaml`](laopo-false-cognate.yaml) | **P0** — 老婆→お婆さん；JA-F01 false cognate |
 | [`shuoleshe-liangju.yaml`](shuoleshe-liangju.yaml) | **P0** — 我说了她两句；JA-F02 construction |
 | [`ep8-ja-walkthrough.yaml`](ep8-ja-walkthrough.yaml) | **Dogfood** — ep8 26 cues zh→ja；needs human review |
@@ -20,56 +21,65 @@ Phase 1 = **doc-only**. No test runner.
 
 ## Static walkthrough A（陈小姐 → id-ID）
 
-1. context.target = `id-ID`（authoritative）  
-2. Analysis splits 陈／小姐  
-3. Candidate Space titles（Nona, Miss, Ms.）  
-4. Feasible：`Nona Chen` true；`Miss`/`Ms.` false  
-5. Policy + decision_basis  
-6. `Miss Chen` → locale_consistency=review → not accepted without waiver  
-7. `Nona Chen` → accepted if I9  
+1. context.target = `id-ID`（authoritative）
+2. Analysis splits 陈／小姐
+3. Candidate Space titles（Nona, Miss, Ms.）
+4. Feasible：`Nona Chen` true；`Miss`/`Ms.` false
+5. Policy + decision_basis
+6. `Miss Chen` → locale_consistency=review → not accepted without waiver
+7. `Nona Chen` → accepted if I9
 
 ## Static walkthrough B（陈小姐 → ja-JP）
 
-1. context.target = `ja-JP` + realization_profile  
-2. Analysis：proper_name → `name_realization`；title → locale_aware  
-3. Name Candidate Space：チェン／陳／Chen；Title：さん／ミス  
-4. Composed：チェンさん／陳さん／Chenさん  
-5. `Chenさん` → **name_realization=review**（title OK；≠ locale_consistency residue）  
-6. `チェンさん` → preferred pass → accepted if I9  
-7. **禁止**非片假一律 FAIL  
+1. context.target = `ja-JP` + realization_profile
+2. Analysis：proper_name → `name_realization`；title → locale_aware
+3. Name Candidate Space：チェン／陳／Chen；Title：さん／ミス
+4. Composed：チェンさん／陳さん／Chenさん
+5. `Chenさん` → **name_realization=review**（title OK；≠ locale_consistency residue）
+6. `チェンさん` → preferred pass → accepted if I9
+7. **禁止**非片假一律 FAIL
 
 A+B **PASS**（2026-09-22）：[`08-static-walkthrough-pass.md`](../../../plans/active/2026-09-22-1000-translation-decision-workflow/08-static-walkthrough-pass.md)。
 
 ## Static walkthrough C（空姐被一日千里-上）
 
-1. `content.type=title` + `subtype=short_drama_title`  
-2. Title Structure：idiom + part_marker + nonstandard  
-3. 一日千里 → Candidate Space（急速な進展／目まぐるしい展開…），非唯一 Rapid Changes  
-4. `#ギリギリのセクシーなドラマ` → `invented_information=fail`（I12）  
-5. Observed model dst → **not** `finality.accepted`  
+1. `content.type=title` + `subtype=short_drama_title`
+2. Title Structure：idiom + part_marker + nonstandard
+3. 一日千里 → Candidate Space（急速な進展／目まぐるしい展開…），非唯一 Rapid Changes
+4. `#ギリギリのセクシーなドラマ` → `invented_information=fail`（I12）
+5. Observed model dst → **not** `finality.accepted`
 
 見 [`title-kongjie-yiriqianli.yaml`](title-kongjie-yiriqianli.yaml)、[`09-title-content-type.md`](../../../plans/active/2026-09-22-1000-translation-decision-workflow/09-title-content-type.md)。
 
 ## Static walkthrough D（老張）
 
-1. Analysis：`老` = social_address_marker；`張` = proper_name  
-2. Candidate Space：張さん／張／チョウさん；**オヤジ張さん** infeasible（F5）  
-3. I14–I16：preserve social relation；naturalness 不得改 identity  
+1. Analysis：`老` = social_address_marker；`張` = proper_name
+2. Candidate Space：張さん／張／チョウさん；**オヤジ張さん** infeasible（F5）
+3. I14–I16：preserve social relation；naturalness 不得改 identity
 
 見 [`social-address-laozhang.yaml`](social-address-laozhang.yaml)、[`11`](../../../plans/active/2026-09-22-1000-translation-decision-workflow/11-semantic-syntactic-realization.md)。
 
+## Static walkthrough G（校园回忆录）
+
+1. `lexical_units`：`校园` risk=high（cjk_shared_script／lexical_equivalence_uncertain）
+2. L1 script OK ≠ L2 Japanese lexical existence ≠ L3 semantic equivalence ≠ L4 naturalness
+3. Candidate Space：学園／学校＋学園の思い出／学園回想録…；**校园**／**校园の思い出録** infeasible（F18／JA-F12）
+4. Selection：`target_lexical_naturalness` — **禁止**往 JA prompt 堆「校园→学園」例句
+
+見 [`compound-xiaoyuan-huiyilu.yaml`](compound-xiaoyuan-huiyilu.yaml)。
+
 ## Static walkthrough E（ep7 JA）
 
-1. 老婆 → `false_cognate_risk`；お婆さん infeasible（JA-F01）  
-2. 说了她两句 → speech_act_expression；言及しました fail（JA-F02）  
-3. 姐夫 untranslated → locale fail（JA-F05）  
-4. 妻の振る舞い → semantic_expansion fail（JA-F04／I18）  
+1. 老婆 → `false_cognate_risk`；お婆さん infeasible（JA-F01）
+2. 说了她两句 → speech_act_expression；言及しました fail（JA-F02）
+3. 姐夫 untranslated → locale fail（JA-F05）
+4. 妻の振る舞い → semantic_expansion fail（JA-F04／I18）
 
 見 [`12`](../../../plans/active/2026-09-22-1000-translation-decision-workflow/12-ja-pragmatic-lexical.md)、evidence `2026-09-29-ep7-ja-dogfood`。
 
 ## Static walkthrough F（ep8 JA — human review）
 
 1. Bind `ja-JP` → [`failure-registry-binding`](../registry/failure-registry-binding.yaml) → core ∪ JA-F*
-2. 姐夫 → 義兄さん（JA-F05）；戴绿帽子 → 浮気（JA-F08）  
-3. Truncated「我替我姐向」「我只怕你姐」→ **blocked**（禁補全）  
+2. 姐夫 → 義兄さん（JA-F05）；戴绿帽子 → 浮気（JA-F08）
+3. Truncated「我替我姐向」「我只怕你姐」→ **blocked**（禁補全）
 4. Pack：[`ep8-ja-walkthrough.yaml`](ep8-ja-walkthrough.yaml) · evidence `2026-09-29-ep8-ja-walkthrough`
