@@ -1,4 +1,4 @@
-version=repo-bf73237b
-source_commit=bf73237b7aa0f2b62390179d3c907be1c91cf74c
-built_at=2026-10-01T09:00:00Z
+version=repo-1c5812c8
+source_commit=1c5812c822c41848c8ea3630f394eec01fa4e908
+built_at=2026-10-01T09:00:54Z
 targets=windows/amd64,darwin/amd64,darwin/arm64,linux/amd64,linux/arm64
