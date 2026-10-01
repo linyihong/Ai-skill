@@ -361,7 +361,7 @@ Entry：Phase 2+3 完成且 activation 反例寫好（裸「AI 影片」不得�
 - [ ] Evidence refinement loop：觀察中；獨立於 parser；作品級 `evidence_policy`；Selection policy 先於 weight model；script 是 consumer；升格前不建 workflow 檔
 - [ ] Visual text evidence：觀察中；role 只 candidate；**role ≠ deletion**；span projection；watermark STOP name learning；候選 invariant 12 未凍結
 - [ ] Text grouping：觀察中；**group ≠ delete**；僅 exact duplicate 可 merge；dst 不決定 source；候選 invariant 13 未凍結；雙語疊字 grouping 見 41
-- [ ] Mechanical visual-text probe：觀察中；LLM 不決定掃區；coverage 不足才 expand；改 probe 須 Observation→Validation→Promotion
+- [ ] Mechanical visual-text probe／OCR Discovery：觀察中；**probe≠exclusion**；bottom miss→inconclusive＋recovery；LLM 不決定掃區／不寫死 crop；見 [`13-mechanical-visual-text-probe.md`](13-mechanical-visual-text-probe.md)、[`45-ocr-discovery-layout-probe.md`](45-ocr-discovery-layout-probe.md)、[`text-evidence-ocr-discovery.md`](../../workflow/narrative-video-production/text-evidence-ocr-discovery.md)；產品 adapter 另驗
 - [ ] Editorial vs narrative transition：觀察中；shot ≠ scene；關係不塞進 catalog 本體
 - [ ] Material fact extraction（observable layer）：觀察中；外部 evidence candidates；升格前不塞十種分析器進 workflow
 - [x] publish-ready 需 fresh verification；outcome 是 evidence

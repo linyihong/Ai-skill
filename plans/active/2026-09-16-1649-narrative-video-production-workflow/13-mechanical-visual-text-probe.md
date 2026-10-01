@@ -1,6 +1,6 @@
 # Candidate: Mechanical visual-text probe
 
-Companion to [`_plan.md`](_plan.md)。**候選，不是 workflow。** 掃區是低成本高召回的搜尋策略，不是 canonical truth。  
+Companion to [`_plan.md`](_plan.md)。**候選，不是 workflow。** 掃區是低成本高召回的搜尋策略，不是 canonical truth。
 觀察：[`evidence/2026-09-18-mechanical-visual-text-probe.md`](evidence/2026-09-18-mechanical-visual-text-probe.md)。證據形狀：[`09-visual-text-evidence.md`](09-visual-text-evidence.md)。歧義升級：[`12-evidence-refinement.md`](12-evidence-refinement.md)。
 
 三層分開：
@@ -14,3 +14,8 @@ Companion to [`_plan.md`](_plan.md)。**候選，不是 workflow。** 掃區是�
 第一版：bottom／top／optional center／fallback full-frame。有結果不立刻結束；先 coverage check，不足再擴大。清楚的右上小 box + 高 persistence → `role.candidate: watermark`、`resolver: mechanical`。這是 **prior**，不是把該區 crop 掉；同區其他 token 仍可進 candidate。見 [`24-ocr-role-projection.md`](24-ocr-role-projection.md)。中央短時「林雪」才 LLM vision。
 
 禁止：LLM 決定 crop；LLM 一張圖改成 `subtitle_y: 0.65`；LLM 直接改全局 probe 規則。LLM 觀察只進 evidence，經 Observation → Accumulation → Policy candidate → Validation → Promotion 才改探針。換更強 Vision LLM 只換 ambiguous resolver，不重寫 pipeline。Phase 3 **不**改 workflow。
+
+## 2026-10-01 補強（必讀）
+
+**Probe miss ≠ 無字幕。** `no_subtitle_like`／預設 bottom 未命中只能是 `inconclusive`（`no_match_in_current_region`），必須有 global discovery → layout candidates → targeted OCR 的 recovery；不得 exclusion／STOP。
+升格契約：[`45-ocr-discovery-layout-probe.md`](45-ocr-discovery-layout-probe.md)、[`text-evidence-ocr-discovery.md`](../../../workflow/narrative-video-production/text-evidence-ocr-discovery.md)、[`evidence/2026-10-01-ocr-probe-discovery-not-exclusion.md`](evidence/2026-10-01-ocr-probe-discovery-not-exclusion.md)。
