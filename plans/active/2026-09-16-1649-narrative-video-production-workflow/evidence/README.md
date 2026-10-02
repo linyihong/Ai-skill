@@ -10,6 +10,7 @@ Product dogfood that touches captions／locale pack／font／layout／timing／c
 
 | Run ID | 檔案 | 狀態 | 摘要 |
 | --- | --- | --- | --- |
+| 2026-10-02-destructive-finalization-vs-preservation | [2026-10-02-destructive-finalization-vs-preservation.md](2026-10-02-destructive-finalization-vs-preservation.md) | contract_gap／PASS preserve | cues=0＝finalization failure；uncertain 一級；Evidence≠Production；metric 具名 |
 | 2026-10-02-evidence-scope-source-vs-window | [2026-10-02-evidence-scope-source-vs-window.md](2026-10-02-evidence-scope-source-vs-window.md) | contract_gap／adapter | source hardsub／cache hit ≠ window cues；window-local OCR fallback |
 | 2026-10-01-subtitle-candidate-detector | [2026-10-01-subtitle-candidate-detector.md](2026-10-01-subtitle-candidate-detector.md) | contract_gap／adapter partial | scene text≠subtitle；classifier 第一刀已落地；完整 pack dogfood 仍 open |
 | 2026-10-01-evidence-acquisition-loop | [2026-10-01-evidence-acquisition-loop.md](2026-10-01-evidence-acquisition-loop.md) | contract_gap | Monitor＋escalation；OCR×ASR 窗密度缺口不得當最終無對白 |

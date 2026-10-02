@@ -130,6 +130,30 @@ Production layer
 **禁止**把 `evidence_retained`（accepted＋uncertain＋…）解讀成「可成片字幕數」。
 Story／identity／translation／matching 各自從 Evidence store 再判斷；不得在 dialogue finalization 依 story relevance 刪 evidence。
 
+### 兩種否定（不得共用 discard）
+
+| 類型 | 含義 | status | 例 |
+| --- | --- | --- | --- |
+| Evidence 不成立 | 觀測本身不是對白／字幕 | `rejected` | watermark、platform UI、timestamp、noise |
+| Evidence 成立、interpretation 不確定 | 有對白價值但未收斂 | `uncertain` | `semantic_mismatch`；**禁止**強行選邊或刪除 |
+
+```text
+Candidate → invalid evidence → rejected
+         → valid + clear → accepted
+         → valid + unclear → uncertain   # 一級結果
+```
+
+### 具名 metrics（禁止混用 `kept`）
+
+| metric | 含義 |
+| --- | --- |
+| `merged_cue_groups` | dedup／短窗合併後 group 數 |
+| `resolution_candidates` | 進入 spoken／subtitle rebuild 的候選數 |
+| `unresolved_count` | rebuild 標 uncertain／未決的條數 |
+| `evidence_retained` / `publishable` | Evidence vs Production |
+
+兩數不一致時必須能解釋單位；見 plan evidence [`2026-10-02-destructive-finalization-vs-preservation`](../../plans/active/2026-09-16-1649-narrative-video-production-workflow/evidence/2026-10-02-destructive-finalization-vs-preservation.md)。
+
 ### 健康漏斗（Phase 3 正向證據）
 
 ```text
