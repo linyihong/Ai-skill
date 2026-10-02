@@ -15,6 +15,7 @@ Plan：[`46-evidence-acquisition-escalation-loop.md`](../../plans/active/2026-09
 
 **Probe 不負責證明不存在；Probe 負責發現證據。** 當 OCR、ASR、Visual 或跨模態出現不合理缺口／衝突時，必須先 escalation，改變採集策略；只有 evidence 仍不足或語義衝突時，才交 LLM。
 **但「畫面有文字」≠字幕存在**——coverage／escalation 只在 `subtitle_like` 候選上計算（見 Candidate Detector）。
+**且 Source-level evidence ≠ window-level evidence**——全片 `hardsub=True`／cues cache hit 不能單獨滿足「這個 clip 時間窗有可用對白」（見下方 Scope invariant）。
 
 ## 位置（在 6b 最前）
 
@@ -89,6 +90,59 @@ evidence_coverage:
 
 `overall.insufficient` → **不得**宣稱「本集無字幕／無對白」進入 Story；最多記 `acquisition_blocked`／繼續 escalation。
 
+## Scope invariant（必守）
+
+> **Source-level evidence cannot satisfy window-level evidence requirements.**
+
+| scope | 回答什麼 | 不得用來斷言什麼 |
+| --- | --- | --- |
+| `source`（全片／全集 profiling） | 這部 source 有沒有硬字幕／口播／語系 | 「這次 clip／時間窗已有可用對白」 |
+| `time_window`（`start_s`–`end_s`） | 這次要用的這一段有沒有可用 cues | 「整集沒有字幕」 |
+
+反過來也成立：window OCR 找不到 ≠ source 沒有字幕。
+
+**Cache 命中本身不能代表當前 scope 充分。**
+`dialogue_cues` cache hit + `slice` → 0 句，只能記 `cue_coverage.status=empty|sparse`（帶 window scope），不得把 source `hardsub=True` 當成 window 已滿足。
+
+```yaml
+cue_coverage:
+  status: sufficient | sparse | empty | unknown
+  scope:
+    type: time_window
+    start_s: <float>
+    end_s: <float>
+  signals:
+    cached_cues: <int>
+    asr_dialogue: present | none | unknown
+    source_hardsub: bool
+    source_speech: bool
+```
+
+### Window-local fallback（保留全片 probe）
+
+保留全片 probe（source profiling）與 cues cache；**不要**為了 scope 一致而拿掉全片 probe。
+
+```text
+source probe → hardsub/speech profile
+  → read dialogue_cues cache
+  → slice to clip window
+       ├─ cues > 0 → continue
+       └─ cues == 0
+            → assess window_evidence（勿無條件全畫面 OCR）
+                 ├─ insufficient（無 ASR／無應有訊號）→ 記錄，可 skip／defer
+                 └─ suspicious（source_hardsub ∧ window ASR／應有對白）
+                      → escalation: window_ocr（只掃該時間窗）
+                      → 更新／補充 cues → 再 slice
+```
+
+| window_evidence | decision |
+| --- | --- |
+| `cached_cues=0` ∧ `asr_dialogue=present` ∧ `source_hardsub=true` | `suspicious` → `window_ocr` |
+| `cached_cues=0` ∧ `asr_dialogue=none` ∧ `source_hardsub=true` | 多半 `insufficient`（該窗可能真無對白）；**不得**只因 source hardsub 就全窗重 OCR |
+| `cached_cues=0` ∧ 空／壞 cache ∧ `source_hardsub` ∧ `source_speech` | `suspicious` → `window_ocr` |
+
+禁止：把 Level-2／全畫面 OCR 當 window 0 cues 的第一刀。
+
 ## Adapter 驗收（產品）
 
 1. 單次 probe miss → `inconclusive`，不是 exclusion。
@@ -97,3 +151,5 @@ evidence_coverage:
 4. Story／event 過少不得當第一個 OCR 修復觸發；應在 acquisition Monitor 攔下。
 5. LLM 只出現在 Level 4 或 multimodal resolution，不寫死 crop／不斷言無字幕。
 6. 每次 escalate／no_escalation 留 `probe_decision.reason`（見 Candidate Detector）。
+7. Source `hardsub=True`／cues cache hit **不得**單獨滿足 window；window 0 cues 必須產出 `cue_coverage`（含 scope），suspicious 才 `window_ocr`，再 slice。
+8. `slice_subtitles_to_window` 本身不是修復點；修復在 scope 分層與 window-local escalation。
