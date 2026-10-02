@@ -37,9 +37,21 @@ dialogue_projected + watermark_spans[]
 
 ## Validation
 
-- [ ] unit：黏串→投影；純「哥外」→rejected；ASR 乾淨→spoken=ASR
-- [ ] ep16 re-audit：accepted sticky 比例下降；uncertain／rejected 可審計
+- [x] unit：黏串→投影；純「哥外」→rejected；ASR 乾淨→spoken=ASR
+- [x] ep16 re-audit：accepted 30→28；rejected sticky-only 3；**accepted spoken sticky=0**；retained=38
 - [x] 本 evidence + README 索引
+
+## Dogfood result（sanitized）
+
+| metric | before | after sticky projection |
+| --- | --- | --- |
+| accepted / publishable | 30 | 28 |
+| uncertain | 8 | 7 |
+| rejected | 0 | 3（純「…哥外」殘片） |
+| evidence_retained | 38 | 38 |
+| accepted spoken 仍含 sticky／brand | 多 | **0** |
+
+`sticky_projection: projected=21 uncertain=5 rejected=3`
 
 ## 產品落點
 
