@@ -99,15 +99,56 @@ semantic_anchor:
   未通過而從 evidence graph 消失（`continue`／drop 且不留 trace）
 - **Cue finalization 混入 story relevance**：是否「劇情重要」不得決定是否保留 dialogue cue
 
-## candidate → final（三態，不是 PASS／DELETE）
+## Evidence non-destructive resolution（invariant）
 
-Finalization 只回答「這條 evidence 能不能當 dialogue／subtitle cue」，輸出：
+**命名**：Evidence non-destructive resolution（不是「再抓更多 OCR」）。
 
-| status | 含義 | 下游 |
+任一 candidate 在 resolution 只能落到：
+
+| status | 含義 | 最低 trace |
 | --- | --- | --- |
-| `accepted` | 可進 final cues | narrative／burn 可消費 |
-| `uncertain` | 值得保留，但未收斂 | 不得當 resolved SoT；**必須**留給後續 LLM／人工 |
-| `rejected` | 明確非對白／字幕 | 進 `rejected[]`＋`reason[]`，仍可審計 |
+| `accepted` | 可當 dialogue／subtitle cue | `reason`／`sources` |
+| `uncertain` | 未收斂，但**一級狀態**（非垃圾桶） | `reasons[]`（例 ocr_asr_conflict） |
+| `rejected` | 明確非對白／字幕 | `reason.code`（例 watermark_region） |
+| `merged` | 併入其他 cue | `merged_into` |
+
+**禁止**：無理由從 evidence graph 消失（裸 `continue`／drop／hard-delete）。
+`rejected`／`uncertain`／`merged` 仍是 evidence，不是「刪掉」。
+
+### Evidence layer ≠ Production layer
+
+```text
+Evidence layer
+├── accepted
+├── uncertain
+└── rejected / merged（可審計）
+
+Production layer
+└── publishable ≈ accepted   # 成片／burn 只吃這一層
+```
+
+**禁止**把 `evidence_retained`（accepted＋uncertain＋…）解讀成「可成片字幕數」。
+Story／identity／translation／matching 各自從 Evidence store 再判斷；不得在 dialogue finalization 依 story relevance 刪 evidence。
+
+### 健康漏斗（Phase 3 正向證據）
+
+```text
+raw → fused → resolve_out
+                ├─ accepted
+                └─ uncertain
+→ evidence_retained > 0   （即使 publishable < retained）
+```
+
+- **raw→fused 大幅減少可以正常**：時間重疊、同句合併、duplicate、對齊、grouping — 每步需可解釋 mechanical reason。
+- **accepted＋uncertain 並存是健康**：舊邏輯「不確定→刪掉」才是 bug。
+- **cues=0 且 raw≫0**：先定性 destructive finalization；**不開新 workflow**。單集 rejection table 對照 live preserve。
+
+Lesson（問題）：[`cue-finalization-must-not-hard-delete-candidates`](../../feedback/history/narrative-video-production/common/2026-10-02_172329-cue-finalization-must-not-hard-delete-candidates.md)。
+Lesson（正向 invariant）：[`evidence-non-destructive-resolution-invariant`](../../feedback/history/narrative-video-production/common/2026-10-02_174015-evidence-non-destructive-resolution-invariant.md)。
+
+## candidate → final（不是 PASS／DELETE）
+
+Finalization 只回答「這條 evidence 能不能當 dialogue／subtitle cue」，輸出上表四態。
 
 最低審計欄位（即使 `accepted=[]`／`cues=[]` 也要有）：
 
@@ -118,21 +159,25 @@ resolution:
   uncertain: []
   rejected:
     - id: …
-      reason: [drop_latin_hardsub | no_asr_alignment | …]
+      reason: { code: watermark_region | … }
+  merged:
+    - id: …
+      merged_into: cue_…
   stage_counts:
     mechanical: …
     cross_modal: …
     lexicon_or_phonetic: …
     llm: …
+  layers:
+    evidence_retained: …    # accepted + uncertain + rejected + merged traces
+    publishable: …          # ≈ accepted only
 ```
 
 跨語言（例：Latin OCR＋CJK ASR）字面不等 **不是** automatic reject；應走 cross-modal
 resolution（見上表「跨語言對齊」），必要時標 `uncertain`，而不是刪除。
 
 診斷優先：raw≫0 且 final=0 時先做**單集 rejection table**，不要用整包重跑／模型重載
-把資源 OOM 與 resolver bug 混成同一個 failure。
-
-Lesson：[`cue-finalization-must-not-hard-delete-candidates`](../../feedback/history/narrative-video-production/common/2026-10-02_172329-cue-finalization-must-not-hard-delete-candidates.md)。
+把資源 OOM 與 resolver bug 混成同一個 failure。下一觀察點是 **uncertain 原因分佈** 與 **accepted 是否更接近真實對白**，不是再開 OCR。
 
 ## 產品落點
 
