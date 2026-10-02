@@ -95,9 +95,49 @@ semantic_anchor:
 - 未過 Language Relation Gate 就跑 sanitization／和諧覆蓋
 - 用 OCR 顯示詞做同音展開（仍遵守 22）
 - 無 evidence 時 LLM 自由改寫
+- **Hard-delete candidates**：OCR／ASR／fuse 已產生的 candidate 不得因 script／lexicon／LLM
+  未通過而從 evidence graph 消失（`continue`／drop 且不留 trace）
+- **Cue finalization 混入 story relevance**：是否「劇情重要」不得決定是否保留 dialogue cue
+
+## candidate → final（三態，不是 PASS／DELETE）
+
+Finalization 只回答「這條 evidence 能不能當 dialogue／subtitle cue」，輸出：
+
+| status | 含義 | 下游 |
+| --- | --- | --- |
+| `accepted` | 可進 final cues | narrative／burn 可消費 |
+| `uncertain` | 值得保留，但未收斂 | 不得當 resolved SoT；**必須**留給後續 LLM／人工 |
+| `rejected` | 明確非對白／字幕 | 進 `rejected[]`＋`reason[]`，仍可審計 |
+
+最低審計欄位（即使 `accepted=[]`／`cues=[]` 也要有）：
+
+```yaml
+resolution:
+  candidates: { ocr: N, asr: M, fused: K }
+  accepted: []
+  uncertain: []
+  rejected:
+    - id: …
+      reason: [drop_latin_hardsub | no_asr_alignment | …]
+  stage_counts:
+    mechanical: …
+    cross_modal: …
+    lexicon_or_phonetic: …
+    llm: …
+```
+
+跨語言（例：Latin OCR＋CJK ASR）字面不等 **不是** automatic reject；應走 cross-modal
+resolution（見上表「跨語言對齊」），必要時標 `uncertain`，而不是刪除。
+
+診斷優先：raw≫0 且 final=0 時先做**單集 rejection table**，不要用整包重跑／模型重載
+把資源 OOM 與 resolver bug 混成同一個 failure。
+
+Lesson：[`cue-finalization-must-not-hard-delete-candidates`](../../feedback/history/narrative-video-production/common/2026-10-02_172329-cue-finalization-must-not-hard-delete-candidates.md)。
 
 ## 產品落點
 
 Adapter 應在 fuse／spoken resolution 產出上述 candidates 與 reason；locale content
 消費 **resolved pair**，不消費 raw ASR 字面當唯一 SoT。Record：
 [`records/text-evidence.yaml`](records/text-evidence.yaml)。
+`resolve_fused_to_cues`（或同等 finalizer）不得對 wrong-script／watermark／empty-select
+路徑裸 `continue`；應寫入 `uncertain`／`rejected` 並保全 `subtitle.observed`。
