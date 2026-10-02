@@ -59,9 +59,10 @@ Invariant：**Source-level evidence cannot satisfy window-level evidence require
 
 產品 adapter（保留全片 probe + cache）：
 
-- [ ] window 0 cues → 寫 `cue_coverage`（`sufficient|sparse|empty|unknown` + time_window scope）
-- [ ] `suspicious`（source hardsub ∧ window ASR／空壞 cache+speech）→ **window-local OCR** → 補 cues → 再 slice
-- [ ] `insufficient`（source hardsub 但 window 無 ASR／無應有訊號）→ **不**無條件重 OCR；記錄後 skip／defer
-- [ ] 不改 `slice_subtitles_to_window` 公式當主修；不拿掉全片 probe
+- [x] window 0 cues → 寫 `cue_coverage`（`sufficient|sparse|empty|unknown` + time_window scope）
+- [x] `suspicious`（source hardsub ∧ window ASR／空壞 cache+speech）→ **window-local OCR** → 補 cues → 再 slice
+- [x] `insufficient`（source hardsub 但 window 無 ASR／無應有訊號）→ **不**無條件重 OCR；記錄後 skip／defer
+- [ ] dogfood：同 source hardsub=True + window 0 的實片驗證 before／after
+- [x] 不改 `slice_subtitles_to_window` 公式當主修；不拿掉全片 probe
 
 Phase 3 標籤補強：`evidence_scope_source_vs_window_collapsed`（contract_gap → workflow 已吸收；產品 window fallback）。
