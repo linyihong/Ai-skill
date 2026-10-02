@@ -73,11 +73,11 @@ Candidate
 | 項 | 狀態 |
 | --- | --- |
 | Evidence preservation（resolution 不得銷毀上游 evidence） | **PASS**（live preserve） |
-| Uncertain preservation（semantic conflict → uncertain，不 coerce 成 reject／delete） | **PASS／待觀察** |
-| Accepted quality（accepted 是否更接近真實對白） | **待驗證** |
-| Uncertain recoverability（uncertain 能否被後續 evidence 解掉） | **待驗證** |
+| Uncertain preservation（semantic conflict → uncertain，不 coerce 成 reject／delete） | **PASS**（見 audit：8 條保留） |
+| Accepted quality（accepted 是否更接近真實對白） | **partial fail** — [`2026-10-02-ep16-accepted-uncertain-audit`](2026-10-02-ep16-accepted-uncertain-audit.md) |
+| Uncertain recoverability（uncertain 能否被後續 evidence 解掉） | **待驗證**（原因已分類） |
 
-**暫不加功能**；下一觀察點是 accepted 品質與 uncertain 原因／可恢復性，不是再開 OCR 或新 Phase。
+**暫不加新 Phase／OCR**；下一產品切片優先 **sticky watermark／logo role-aware projection**（失敗→uncertain），不是再開 acquisition。
 
 ## 分類
 
@@ -86,10 +86,13 @@ Candidate
 | `destructive_finalization` | contract_gap（舊 rebuild）→ preserve 修正 |
 | `uncertain_first_class` | contract：semantic_mismatch 等 → uncertain |
 | `evidence_vs_production_layers` | 計數／消費分層 |
+| `accepted_sticky_watermark` | accepted 過度樂觀 — audit 2026-10-02 |
 
 ## 連動（不改架構）
 
 - Workflow：[`text-evidence-multimodal-resolution.md`](../../../workflow/narrative-video-production/text-evidence-multimodal-resolution.md)（Evidence non-destructive；兩種否定；metric 具名）
+- Follow-up audit：[`2026-10-02-ep16-accepted-uncertain-audit`](2026-10-02-ep16-accepted-uncertain-audit.md)
+- Watermark：[`2026-09-22-watermark-exclusion-is-projection`](2026-09-22-watermark-exclusion-is-projection.md)
 - Lessons：[`cue-finalization-must-not-hard-delete-candidates`](../../../feedback/history/narrative-video-production/common/2026-10-02_172329-cue-finalization-must-not-hard-delete-candidates.md)、[`evidence-non-destructive-resolution-invariant`](../../../feedback/history/narrative-video-production/common/2026-10-02_174015-evidence-non-destructive-resolution-invariant.md)
 - 產品：`resolve_fused_to_cues` preserve＋`evidence_layers` notes；metric 名稱對齊本檔
 
@@ -97,6 +100,6 @@ Candidate
 
 - [x] 單集 rejection table：歷史 cues=0；live retained＞0
 - [x] 本 evidence + `evidence/README.md` 索引
-- [ ] Accepted quality dogfood（待驗證）
+- [x] Accepted quality offline audit（partial fail；sticky watermark）
 - [ ] Uncertain recoverability dogfood（待驗證）
-- [ ] 產品 notes 全面改用具名 metrics（adapter 進行中）
+- [x] 產品 notes 具名 metrics（adapter 已加；SoT 未授權 commit）
