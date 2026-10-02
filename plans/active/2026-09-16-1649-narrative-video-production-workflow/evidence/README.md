@@ -10,6 +10,7 @@ Product dogfood that touches captions／locale pack／font／layout／timing／c
 
 | Run ID | 檔案 | 狀態 | 摘要 |
 | --- | --- | --- | --- |
+| 2026-10-02-ep16-verify-duipian-uncertain-en | [2026-10-02-ep16-verify-duipian-uncertain-en.md](2026-10-02-ep16-verify-duipian-uncertain-en.md) | validation／partial | 对片抽检 PASS+ASR notes；uncertain LIKELY；EN kick |
 | 2026-10-02-sticky-watermark-accepted-projection | [2026-10-02-sticky-watermark-accepted-projection.md](2026-10-02-sticky-watermark-accepted-projection.md) | adapter／contract | accepted 黏串→projection；純殘片 rejected；衝突 uncertain；非 delete |
 | 2026-10-02-ep16-accepted-uncertain-audit | [2026-10-02-ep16-accepted-uncertain-audit.md](2026-10-02-ep16-accepted-uncertain-audit.md) | observation／partial fail accepted | uncertain 8 保留；accepted~半數 sticky watermark／brand；下一步 projection 非再開 OCR |
 | 2026-10-02-destructive-finalization-vs-preservation | [2026-10-02-destructive-finalization-vs-preservation.md](2026-10-02-destructive-finalization-vs-preservation.md) | contract_gap／PASS preserve | cues=0＝finalization failure；uncertain 一級；Evidence≠Production；metric 具名 |
