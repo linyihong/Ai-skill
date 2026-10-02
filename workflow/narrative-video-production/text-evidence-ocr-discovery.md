@@ -48,22 +48,27 @@ LLM 只做 hypothesis／selection，不直接決定 crop 或斷言「沒有字�
 
 抽樣代表 frame（均勻比例或 scene-aware）。Full-frame **lightweight** OCR 只收 evidence：
 
-- `bbox`／`normalized_box`
-- `text`／`script`／`area`／`aspect_ratio`／`center`
-- persistence／color（若可得）
+- `bbox`／`normalized_box`（相對 frame；禁止絕對 px 當規則）
+- `text`／`script`／`area_ratio`／`aspect_ratio`／`center`
+- **typography**：`height_ratio`／`width_ratio`／`estimated_font_size_band`
+- **temporal**：persistence／text_stability／box_stability／replacement_rate（若可得）
+- color／visual attributes（若可得）
 
-產出 `subtitle_region_candidate[]`（含 watermark／title 候選），**不要**只問 `cy >= 0.68`。
+產出 `subtitle_region_candidate[]`（含 watermark／title／livestream_chat／platform_ui 候選），**不要**只問 `cy >= 0.68`。
+
+流程（機械先）：OCR boxes → geometry clustering → region behavior → `region_role` → subtitle candidate；LLM 只對 unknown／衝突 region 看少量代表幀。詳見 [text-evidence-subtitle-candidate.md](./text-evidence-subtitle-candidate.md) 的 Layout & Typography Evidence，以及 lesson `2026-10-02_172938-ocr-layout-typography-are-evidence-features`。
 
 ## LLM 的正確位置
 
-優先讓 LLM 判：**哪一組 detections 像 dialogue／watermark／title**（給 sample frames + mechanical boxes），
-而不是猜單一 `y=`。輸出是 hypothesis：
+優先讓 LLM 判：**哪一組 detections／regions 像 dialogue／watermark／title／livestream_chat／platform_ui**（給 sample frames + mechanical boxes），
+而不是猜單一 `y=`，也不是當 OCR engine。輸出是 hypothesis：
 
 ```text
 layout_hypothesis:
   subtitle_regions: [{ region, likelihood }, …]
-  text_types: { dialogue, watermark, … }
+  text_types: { dialogue, watermark, livestream_chat, platform_ui, … }
   ocr_priority / asr_priority
+  exclusion_hints: […]   # 為何某區不應進 dialogue evidence
 ```
 
 清楚機械特徵不必打 LLM（見 13／24）。

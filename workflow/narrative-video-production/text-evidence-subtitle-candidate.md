@@ -50,16 +50,52 @@ subtitle-like  non-subtitle  uncertain
 ```yaml
 text_candidate:
   text: "…"
-  geometry: { normalized_box, aspect_ratio, area, cx, cy }
+  geometry:
+    normalized_box: { x, y, w, h }   # 相對 frame；禁止絕對 px 當規則
+    aspect_ratio: …
+    area_ratio: …                    # bbox_area / frame_area
+    center_x: …
+    center_y: …
+  typography:
+    height_ratio: …                  # bbox_h / frame_h
+    width_ratio: …
+    estimated_font_size_band: small|medium|large   # 由相對高度推估，非 pt/px 閾值
+  temporal:
+    first_seen: …
+    last_seen: …
+    persistence_s: …
+    text_stability: high|low|unknown      # 同區文字是否幾乎不變
+    box_stability: high|low|unknown
+    position_stability: high|low|unknown
+    replacement_rate: low|medium|high     # 聊天高；硬字幕低
+  region:
+    region_id: …
+    region_role: subtitle_candidate|livestream_chat|platform_ui|watermark|badge|nameplate|title|unknown
   evidence:
     vertical_zone: strong|weak|non_subtitle_like
     geometry: strong|weak
-    morphology: dialogue_like|clock_like|document_like|ui_like|unknown
+    typography: strong|weak|non_subtitle_like
+    morphology: dialogue_like|clock_like|document_like|ui_like|chat_like|unknown
     temporal_persistence: short_burst|sticky|unknown
     asr_support: strong|none|unknown
+  exclusion_evidence: []   # 例 small_typography, rapidly_changing_text, avatar_present, badge_present
   status: subtitle_like|non_subtitle_like|uncertain
-  reason: []   # 例 clock_pattern, no_subtitle_geometry
+  reason: []   # 例 clock_pattern, no_subtitle_geometry, livestream_chat_layout
 ```
+
+## Layout & Typography Evidence（非硬規則）
+
+**禁止**：`font_size > X → subtitle` 或僅 `position: bottom → subtitle`。
+**必須**：typography + geometry + temporal + region_role 聯合；單特徵不得定案。
+
+| 特徵組合 | 偏向 |
+| --- | --- |
+| small band + lower_left 多行 + high `replacement_rate` + 徽章／頭像 | `livestream_chat` → non_subtitle |
+| 固定頂欄／側欄 + sticky UI 關鍵字 | `platform_ui` → non_subtitle |
+| medium/large band + 相對穩定區 + 同文持續數秒 + dialogue morphology | `subtitle_candidate` |
+| 特徵衝突或僅部分吻合 | `uncertain` → 可送少量代表幀給 LLM region classifier |
+
+Negative evidence（為何不是字幕）必須保留在 `exclusion_evidence`，不可當垃圾丟棄。
 
 ## Morphology（先機械，不打 LLM）
 
@@ -68,6 +104,7 @@ text_candidate:
 | `time_pattern` | `12:35`、`00:32` | clock_like → non_subtitle |
 | `email_pattern` / `document_keyword` | `To:` `Subject:` `From:` `@` | document_like |
 | `ui_keyword` | `PLAY` `MENU` `暫停` | ui_like |
+| `chat_layout` | 多行小字＋用戶名冒號＋高替換 | chat_like → non_subtitle |
 | `url_pattern` | `http` `www.` | non_subtitle |
 | `numeric_density` 高且無 CJK／字母詞 | 純時間／分數 | non_subtitle |
 | dialogue_like | 對白長度＋CJK／標點問句 | subtitle_like |
