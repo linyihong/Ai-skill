@@ -10,7 +10,7 @@ parent: null
 
 # Security Audit Capability Hardening（`security-audit` invoke 補實）
 
-**Status**: in-progress — Phase 0–3 完成；Phase 4 dogfood 1/2 完成（2026-10-03，fresh verifier）；Phase 5 gated。
+**Status**: in-progress — Phase 0–4 完成（2026-10-03）；Phase 5 gated（entry 條件未達，需再一輪不改 schema 的 dogfood）。
 
 **Glossary Impact**: yes（候選，Phase 4 前不登記）— `security_finding`、`security_coverage_unit`、`evidence_invalidation_contract`（若與既有 `stale-derived-state` invalidation contract 語意重疊，只 cross-link 不新登記）。
 
@@ -66,7 +66,7 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 ### ADR Promotion Criteria（completed 時驗證）
 
 - [ ] foundational + cross-session + cross-project + expensive-to-reverse + explains-why 全中
-- [ ] ≥ 2 個真實專案任務使用 finding schema + closure gate
+- [x] ≥ 2 個真實專案任務使用 finding schema + closure gate — *2 個 consumer 專案（2026-10-03）*
 - [ ] Open Questions 全解
 - [ ] 沒有更輕的 promotion target（多數內容可能只需停在 workflow / intelligence layer）
 - [ ] 至少 1 次 coverage invalidation 實際觸發重驗的證據
@@ -115,15 +115,15 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 
 ## Open Questions
 
-- [ ] Q1：Coverage unit 是否需要第四軸 `Subsystem`（Cloudflare 原版有）？還是 `Entry Surface` 已涵蓋？ — *Phase 0: deferred → Phase 3（safe assumption：三軸起步，`subsystem` 為 optional 欄位）* — *Phase 3：採用三軸 + `subsystem` 選填（[`security-coverage-ledger.md`](../../../analysis/security/security-coverage-ledger.md)）；保持 open 待 Phase 4 dogfood 驗證*
+- [x] Q1：Coverage unit 是否需要第四軸 `Subsystem`（Cloudflare 原版有）？還是 `Entry Surface` 已涵蓋？ — *Phase 0: deferred → Phase 3（safe assumption：三軸起步，`subsystem` 為 optional 欄位）* — *Phase 3：採用三軸 + `subsystem` 選填（[`security-coverage-ledger.md`](../../../analysis/security/security-coverage-ledger.md)）；保持 open 待 Phase 4 dogfood 驗證* — *resolved：`subsystem` 保持選填；兩次 dogfood 分別用到 / 用不到，三軸足夠起步*
 - [x] Q2：Finding schema 放 `workflow/software-delivery/templates/`（capability output，同 `review-report-template.md`）還是 `analysis/security/`？ — *resolved：`templates/security-finding-list-template.md`*
 - [x] Q3：Closure gate 的 risk acceptance 由誰簽：使用者 decision record 即可，還是需要 `decision` asset class？ — *resolved：Decision asset class（project decision → 專案 `docs/decisions/`），`decision_ref` 指向它；簽核者 = 專案決策者，Ai-skill 不指定人*
-- [ ] Q4：專案端 coverage 資料格式（YAML in repo / project-local SQLite）與 Ai-skill contract 的驗證方式（`ai-skill` 提供 validator？） — *Phase 0: deferred → Phase 3（safe assumption：專案 repo 內 YAML；Phase 1–4 不提供 validator）* — *Phase 3：採用專案 repo 內 YAML（ledger §專案端資料格式），Phase 1–4 不提供 validator；保持 open 待 Phase 4 驗證*
+- [x] Q4：專案端 coverage 資料格式（YAML in repo / project-local SQLite）與 Ai-skill contract 的驗證方式（`ai-skill` 提供 validator？） — *Phase 0: deferred → Phase 3（safe assumption：專案 repo 內 YAML；Phase 1–4 不提供 validator）* — *Phase 3：採用專案 repo 內 YAML（ledger §專案端資料格式），Phase 1–4 不提供 validator；保持 open 待 Phase 4 驗證* — *resolved：專案 repo 內 YAML 在兩個專案可用；回放以「解析 YAML + git diff」機械執行（契約 §機械回放），通用 validator 留 Phase 5 評估*
 - [x] Q5：Security Light 模式下「可為空的 finding list」的最低理由欄位是什麼，才不會變成形式化填表？ — *resolved：`audit_execution { status, scope, coverage_ref, evidence_ref }`*
 - [x] Q6：Reusable security intelligence（漏洞模式 / 修補 / 回歸測試）落在 `intelligence/engineering/anti-patterns/` 還是新子目錄？需走 reusable-guidance-boundary 去敏。 — *resolved：`intelligence/engineering/anti-patterns/`，不開新子目錄*
 - [x] Q7：Verifier V3「可重現證據優先」是否應寫入 `plans/README.md` §Delegation loop SOP（canonical）而非 delegated-execution.md？ — *resolved：寫 `delegated-execution.md` §5（delivery 域擴充），不動 loop canonical*
 - [x] Q8：`needs_validation` + `potential_impact: high` 的處置邊界：要求人工審查即可，還是一律需 risk acceptance 才能 closure？（`severity` 只屬 confirmed，已在 Decision 第 1 點凍結） — *resolved（使用者 2026-10-03）：人工審查紀錄即可放行，不強制 risk acceptance*
-- [ ] Q9：Coverage invalidation 的 **dependency scope** 怎麼定義：共用 control（AuthorizationHandler、policy、query filter、middleware）修改時，哪些 coverage unit 失效？以 trust boundary 為鍵，還是需顯式 dependency 清單？ — *Phase 0: deferred → Phase 3（safe assumption：trust boundary 為鍵 + 顯式 control dependency 清單；檔案 hash 不足）* — *Phase 3：採用 trust boundary 主鍵 + `depends_on_controls` 顯式清單（ledger §Dependency Scope）；保持 open 待 Phase 4 驗證*
+- [x] Q9：Coverage invalidation 的 **dependency scope** 怎麼定義：共用 control（AuthorizationHandler、policy、query filter、middleware）修改時，哪些 coverage unit 失效？以 trust boundary 為鍵，還是需顯式 dependency 清單？ — *Phase 0: deferred → Phase 3（safe assumption：trust boundary 為鍵 + 顯式 control dependency 清單；檔案 hash 不足）* — *Phase 3：採用 trust boundary 主鍵 + `depends_on_controls` 顯式清單（ledger §Dependency Scope）；保持 open 待 Phase 4 驗證* — *resolved：control 依賴 + unit 自身 source_scope、依路徑邊界比對；接受檔案 / 目錄粒度的 over-invalidation*
 - [x] Q10：Risk acceptance 的 `expires_when` 用什麼條件表達（時間、commit 範圍、被依賴 control 變更）？與 Q3 簽核者一併決定。 — *resolved（使用者 2026-10-03）：被依賴 control 變更即失效；不用時間期限或 commit 範圍*
 
 > 2026-10-03 review 回寫：外部 review 確認架構方向不變、維持 draft 直接進 Phase 0、不擴大 scope；新增 Q8–Q10 與 Decision 第 1–2 點的 severity / audit_execution / risk acceptance 欄位，Q5 的「空 finding list 最低理由」由 `audit_execution` 吸收（Phase 0 確認後標 resolved）。
@@ -231,24 +231,27 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 
 ## Phase 4 — Dogfood
 
-- [ ] ≥ 2 個真實專案任務（至少 1 個授權邊界變更）跑完 invoke → finding list → Verifier → gate
-- [ ] ≥ 1 次 coverage invalidation 觸發重驗
-- [ ] Evidence 存 `evidence/`（去敏，不含 host / token / 專案路徑）
-- [ ] **驗證邊界明寫**：Phase 4 只驗證「workflow 依契約產生正確的阻擋**決策**」（expected verdict）；「runtime 真的**擋得住**」（actual enforcement）不在 Phase 4 範圍，留給 Phase 5。Evidence 每筆標 `verdict_kind: expected | enforced`，Phase 4 只能出現 `expected`
-- [ ] 回寫 Open Questions
+- [x] ≥ 2 個真實專案任務（至少 1 個授權邊界變更）跑完 invoke → finding list → Verifier → gate
+- [x] ≥ 1 次 coverage invalidation 觸發重驗 — *dogfood 2：對真實歷史機械回放（正向 10/12、負向 0）；真實流程中的被動觸發留待 dogfood 3*
+- [x] Evidence 存 `evidence/`（去敏，不含 host / token / 專案路徑）
+- [x] **驗證邊界明寫**：Phase 4 只驗證「workflow 依契約產生正確的阻擋**決策**」（expected verdict）；「runtime 真的**擋得住**」（actual enforcement）不在 Phase 4 範圍，留給 Phase 5。Evidence 每筆標 `verdict_kind: expected | enforced`，Phase 4 只能出現 `expected`
+- [x] 回寫 Open Questions
 
 **Phase 4 進度**：
 
 | # | Task | 結果 | Evidence |
 | --- | --- | --- | --- |
 | 1 | `<CONSUMER_PROJECT>` refresh-token family 內部切片（授權邊界，事後 audit，standard） | 鏈路走通；fresh subagent verifier；expected verdict = pass；6 findings；verifier 抓到 reachability 錯誤與 deferral 冒充 risk acceptance → template / ledger 契約已修 | [`evidence/2026-10-03-dogfood-1-refresh-family.md`](evidence/2026-10-03-dogfood-1-refresh-family.md) |
-| 2 | 同專案下一切片加入第一個使用者時（預期觸發 coverage invalidation） | pending — 依賴該專案的公開 refresh 切片開工 | — |
+| 2 | `<CONSUMER_PROJECT_2>` 多租戶支付 API（授權、租戶、匿名驗證、支付回呼；deep） | 12 findings；expected verdict = **block**（首次走到 block 路徑）；coverage invalidation 對真實歷史機械回放：正向 10/12 失效、負向 0；verifier 抓到 tracked 簽章金鑰與 not_covered 誤用 → 契約已修 | [`evidence/2026-10-03-dogfood-2-payment-tenant-deep.md`](evidence/2026-10-03-dogfood-2-payment-tenant-deep.md) |
+| 3 | `<CONSUMER_PROJECT>` 下一切片加入第一個使用者時，於真實開發流程中被動觸發失效（非回放） | pending — 依賴該專案切片開工；不阻擋 Phase 4 結案 | — |
 
-角色：dogfood 1 的 verifier 為 fresh subagent（使用者 2026-10-03 選擇），auditor 為主 session。第一項 checklist（≥ 2 任務、≥ 1 授權邊界）完成 1 / 2；coverage invalidation 尚未實際觸發。
+角色：兩次 dogfood 的 verifier 皆為 fresh subagent（使用者 2026-10-03 選擇），auditor 為主 session。**Phase 4 完成**（2026-10-03）：兩個任務、至少一個授權邊界、一次對真實歷史的失效回放、證據皆標 `verdict_kind: expected`。
 
 ## Phase 5 — Mechanical Graduation（gated）
 
 Entry condition：Phase 4 完成且 schema 兩輪 dogfood 未需破壞性修改。
+
+**Entry 狀態（2026-10-03）**：未達。Phase 4 已完成，但 dogfood 1 修改了 template 欄位語意（confirmed 不再帶 `potential_impact`、新增 `execution_environment` / `examined_no_finding`）；dogfood 2 只加了指引、未改欄位。依條件還需要一輪不改欄位的 dogfood（可用 dogfood 3）才進 Phase 5。
 
 - [ ] 評估 `security-audit` stance 缺漏 warning → block（`runtime/capability-context.yaml`）
 - [ ] 評估 closure gate 是否需 commit-msg / validator 機械檢查（需宣告 named consumer）

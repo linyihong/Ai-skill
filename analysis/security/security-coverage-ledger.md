@@ -96,6 +96,17 @@ Phase 1–4 不提供 Ai-skill validator；格式依本文件人工 / agent 檢�
 
 `needs_revalidation` 的 unit 在重驗前不得被 finding list 的 `audit_execution` 引用為已覆蓋。
 
+### 機械回放
+
+失效判斷可以機械執行，不需要靠 agent 判讀：
+
+1. 解析 ledger，取得每個 control 與 unit 的 `source_scope`，以及每個 unit 的 `depends_on_controls`。
+2. 取得變更檔案清單（例如 `git diff --name-only <from> <to>`）。
+3. `source_scope` 依**路徑邊界**比對：條目與變更路徑完全相同，或變更路徑以「條目 + `/`」開頭。只做字串前綴比對會讓 `src/Payment` 誤中 `src/PaymentHistory.cs`。
+4. 被觸及的 control → 依賴它的 units；加上自身 `source_scope` 被觸及的 units → 全部標 `needs_revalidation`。
+
+粒度取捨：以檔案或目錄為範圍會 over-invalidate（同一檔案承載兩個 control 時，只改一部分也會兩邊失效）。這是刻意的，漏失效的代價高於多重驗一次；ledger 變大後若成本過高，再把 control 拆到更細的檔案，而不是改用較寬鬆的比對。
+
 這是 [`stale-derived-state.md`](../../intelligence/engineering/anti-patterns/stale-derived-state.md) 的 `stale_security_evidence` 變體：過去的 audit 結論是 derived state，source（control 實作）改變後必須有 invalidation contract。
 
 ## 執行目標程式碼的隔離要求

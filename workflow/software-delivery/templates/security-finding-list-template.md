@@ -30,6 +30,10 @@ audit_execution:
     - <entry surface / attack class not examined, or none>
 ```
 
+`not_covered` 只列「範圍外」或「沒時間看」的面，**不能**用來把範圍內的缺陷歸類掉。常見誤用：把 tracked 設定裡的金鑰寫成「secrets 不在範圍」、把可預測的驗證碼寫成「rate limit 不在範圍」。餵給受稽核 control 的設定（簽章金鑰、驗證開關、proxy header 規則）屬於範圍內。
+
+標示為 placeholder / stub / 「正式上線前替換」的實作，是必查線索：確認它有沒有被正式路徑使用，以及是否真的被呼叫。
+
 ### Reachability 宣稱
 
 「沒有呼叫者」「沒有註冊」「外部不可達」會直接影響 severity 和失效條件，所以要分開寫，且各自有依據：
