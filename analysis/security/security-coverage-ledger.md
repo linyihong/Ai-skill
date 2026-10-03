@@ -1,6 +1,6 @@
 # Security Coverage Ledger（資安覆蓋帳本契約）
 
-**Status**: `candidate-analysis`（doc-only trial；plan [`2026-10-03-2104-security-audit-capability-hardening`](../../plans/active/2026-10-03-2104-security-audit-capability-hardening.md) Phase 3）
+**Status**: `candidate-analysis`（doc-only trial；plan [`2026-10-03-2104-security-audit-capability-hardening`](../../plans/active/2026-10-03-2104-security-audit-capability-hardening/_plan.md) Phase 3）
 
 ## 目的
 
@@ -64,8 +64,9 @@ units:
 controls:
   - id: <control id>
     kind: authorization_policy    # authorization_policy | authentication | query_filter | middleware | input_validation | secret_store | other
-    source_scope:
+    source_scope:                 # 必須是路徑或模組；「某某設定」這類描述無法偵測變更
       - <path or module>
+    detection: <optional: command or check that shows the control changed, e.g. grep for new consumers>
 ```
 
 Phase 1–4 不提供 Ai-skill validator；格式依本文件人工 / agent 檢查。
@@ -90,6 +91,7 @@ Phase 1–4 不提供 Ai-skill validator；格式依本文件人工 / agent 檢�
 | 變更觸及某 unit 的 `source_scope` | 該 unit → `needs_revalidation` |
 | 新增 entry surface 或 trust boundary | 新增 `not_covered` unit |
 | control 被移除或改由其他層負責 | 依賴它的 unit → `needs_revalidation`，並更新 `depends_on_controls` |
+| 原本沒有使用者的內部介面出現第一個使用者（注入、呼叫、endpoint） | 依賴「入口」control 的 unit → `needs_revalidation`。入口以**第一個使用者**為準，不以註冊為準：依命名慣例或 assembly scanning 的註冊常常早已存在 |
 | risk acceptance 的 `expires_when` 所列 control 被變更 | 該 acceptance 失效；相關 finding 回到 open |
 
 `needs_revalidation` 的 unit 在重驗前不得被 finding list 的 `audit_execution` 引用為已覆蓋。

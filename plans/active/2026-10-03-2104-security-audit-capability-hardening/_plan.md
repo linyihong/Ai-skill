@@ -10,7 +10,7 @@ parent: null
 
 # Security Audit Capability Hardening（`security-audit` invoke 補實）
 
-**Status**: in-progress — Phase 0–3 完成（2026-10-03，主 session transport adaptation）；Phase 4 需真實專案 dogfood；Phase 5 gated。
+**Status**: in-progress — Phase 0–3 完成；Phase 4 dogfood 1/2 完成（2026-10-03，fresh verifier）；Phase 5 gated。
 
 **Glossary Impact**: yes（候選，Phase 4 前不登記）— `security_finding`、`security_coverage_unit`、`evidence_invalidation_contract`（若與既有 `stale-derived-state` invalidation contract 語意重疊，只 cross-link 不新登記）。
 
@@ -26,10 +26,10 @@ parent: null
 
 | 提案假設 | Repo 現況 |
 | --- | --- |
-| 需要新 Security Workflow | **衝突**：[`workflow/software-delivery/README.md`](../../workflow/software-delivery/README.md) #16 與 [`analysis/security/README.md`](../../analysis/security/README.md) 明文「不另開 `workflow/security/` domain」；ADR-013：Review = capability invoke，非 phase |
-| Findings schema 已有 | **缺**：`security-finding-list` 只是 [`capability-registry.yaml`](../../knowledge/runtime/capability-registry.yaml) 的 artifact 名稱，無 schema / template |
-| Mechanical gate 可擋資安問題 | **未成立**：[`runtime/capability-context.yaml`](../../runtime/capability-context.yaml) Phase 1.2 stance 缺漏 = warning，非 block；artifact-gates 無 security finding gate |
-| 獨立驗證可沿用 | **部分**：[`delegated-execution.md`](../../workflow/software-delivery/delegated-execution.md) Verifier V1–V5 已有角色 / 上下文獨立；僅限 `delegation.enabled` 任務 |
+| 需要新 Security Workflow | **衝突**：[`workflow/software-delivery/README.md`](../../../workflow/software-delivery/README.md) #16 與 [`analysis/security/README.md`](../../../analysis/security/README.md) 明文「不另開 `workflow/security/` domain」；ADR-013：Review = capability invoke，非 phase |
+| Findings schema 已有 | **缺**：`security-finding-list` 只是 [`capability-registry.yaml`](../../../knowledge/runtime/capability-registry.yaml) 的 artifact 名稱，無 schema / template |
+| Mechanical gate 可擋資安問題 | **未成立**：[`runtime/capability-context.yaml`](../../../runtime/capability-context.yaml) Phase 1.2 stance 缺漏 = warning，非 block；artifact-gates 無 security finding gate |
+| 獨立驗證可沿用 | **部分**：[`delegated-execution.md`](../../../workflow/software-delivery/delegated-execution.md) Verifier V1–V5 已有角色 / 上下文獨立；僅限 `delegation.enabled` 任務 |
 | Coverage / 證據失效可存 runtime.db | **缺且 layer 錯**：runtime.db 是治理狀態；專案 coverage 是 project data，Ai-skill 只應擁有 contract |
 
 Why now：`security-audit` 已有兩個 caller slice（`sd-contracts`、`sd-implementation`）與一個 analysis consumer（media-entitlement），但 invoke 後沒有可驗證產物——caller 無法判斷「審過了沒、審了什麼、什麼已失效」。
@@ -46,7 +46,7 @@ Why now：`security-audit` 已有兩個 caller slice（`sd-contracts`、`sd-impl
    - `confirmed` 且 `severity` ∈ {high, critical} → block
    - `needs_validation` 且 `potential_impact` ∈ {high, critical} → 需**人工審查紀錄**（審查者 + 結論）才可放行；不強制 risk acceptance、不視為已確認漏洞（Q8）
    - Risk acceptance 必須記錄 `decision_ref`、`owner`、`scope`、`expires_when`；`expires_when` = 被依賴 security control 變更（與 Phase 3 invalidation contract 同一觸發，Q10）
-3. **Coverage + invalidation contract**：定義 `Entry Surface × Trust Boundary × Attack Class` 的 coverage unit 與 invalidation contract（source dependency + security control 變更 → coverage 失效）；擴充既有 [`stale-derived-state.md`](../../intelligence/engineering/anti-patterns/stale-derived-state.md) `stale_permission_state`，不另造概念。**資料存專案端**，Ai-skill 只存 contract。
+3. **Coverage + invalidation contract**：定義 `Entry Surface × Trust Boundary × Attack Class` 的 coverage unit 與 invalidation contract（source dependency + security control 變更 → coverage 失效）；擴充既有 [`stale-derived-state.md`](../../../intelligence/engineering/anti-patterns/stale-derived-state.md) `stale_permission_state`，不另造概念。**資料存專案端**，Ai-skill 只存 contract。
 4. **Verifier 補強**（Phase 0 C3 收窄）：V3 已有 evidence producer（authorization / guard 類風險可用 targeted mutation 機械枚舉），**不重寫**。本 plan 只補兩條 security 專屬規則到 `delegated-execution.md` §5：LLM 第二意見不得單獨構成 `confirmed` / `refuted`（須有 test / SAST / mutation / schema validator 等可重現證據）；歷史 intelligence 只能產生檢查假設，不能產生 finding 裁決。
 5. **Stance gate 升級（gated）**：`security-audit` invoke 缺 `fault_finding` 由 warning → block，僅在 1–4 有 dogfood 證據後評估。
 
@@ -90,7 +90,7 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 - 歷史 intelligence 污染判斷（緩解：Decision 第 4 點，intelligence 僅能產生 hypothesis）
 - 執行目標程式碼驗證漏洞的沙箱需求（緩解：無 OS 層沙箱時不執行目標程式碼，finding 保持 `needs_validation`）
 
-**Watch-Out List citation**（[`architecture/ai-native-cognitive-ecosystem-system.md`](../../architecture/ai-native-cognitive-ecosystem-system.md) §Watch-Out List）：Wall 2 Workflow inflation（不新增 workflow / phase）；Wall 1 Discovery confused with Activation（不宣稱 diff → trust boundary 自動偵測已存在）；Wall 4 Telemetry explosion（coverage 只存 contract 要求的最小欄位，不做全量掃描紀錄）。
+**Watch-Out List citation**（[`architecture/ai-native-cognitive-ecosystem-system.md`](../../../architecture/ai-native-cognitive-ecosystem-system.md) §Watch-Out List）：Wall 2 Workflow inflation（不新增 workflow / phase）；Wall 1 Discovery confused with Activation（不宣稱 diff → trust boundary 自動偵測已存在）；Wall 4 Telemetry explosion（coverage 只存 contract 要求的最小欄位，不做全量掃描紀錄）。
 
 ## Runtime Execution Path
 
@@ -115,7 +115,7 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 
 ## Open Questions
 
-- [ ] Q1：Coverage unit 是否需要第四軸 `Subsystem`（Cloudflare 原版有）？還是 `Entry Surface` 已涵蓋？ — *Phase 0: deferred → Phase 3（safe assumption：三軸起步，`subsystem` 為 optional 欄位）* — *Phase 3：採用三軸 + `subsystem` 選填（[`security-coverage-ledger.md`](../../analysis/security/security-coverage-ledger.md)）；保持 open 待 Phase 4 dogfood 驗證*
+- [ ] Q1：Coverage unit 是否需要第四軸 `Subsystem`（Cloudflare 原版有）？還是 `Entry Surface` 已涵蓋？ — *Phase 0: deferred → Phase 3（safe assumption：三軸起步，`subsystem` 為 optional 欄位）* — *Phase 3：採用三軸 + `subsystem` 選填（[`security-coverage-ledger.md`](../../../analysis/security/security-coverage-ledger.md)）；保持 open 待 Phase 4 dogfood 驗證*
 - [x] Q2：Finding schema 放 `workflow/software-delivery/templates/`（capability output，同 `review-report-template.md`）還是 `analysis/security/`？ — *resolved：`templates/security-finding-list-template.md`*
 - [x] Q3：Closure gate 的 risk acceptance 由誰簽：使用者 decision record 即可，還是需要 `decision` asset class？ — *resolved：Decision asset class（project decision → 專案 `docs/decisions/`），`decision_ref` 指向它；簽核者 = 專案決策者，Ai-skill 不指定人*
 - [ ] Q4：專案端 coverage 資料格式（YAML in repo / project-local SQLite）與 Ai-skill contract 的驗證方式（`ai-skill` 提供 validator？） — *Phase 0: deferred → Phase 3（safe assumption：專案 repo 內 YAML；Phase 1–4 不提供 validator）* — *Phase 3：採用專案 repo 內 YAML（ledger §專案端資料格式），Phase 1–4 不提供 validator；保持 open 待 Phase 4 驗證*
@@ -142,8 +142,8 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 | Open Question | 處置 | 證據 / 原因 |
 |---|---|---|
 | Q1 Subsystem 軸 | deferred → Phase 3 | 無 dogfood 證據判斷；三軸起步、`subsystem` optional，不阻擋 Phase 1 schema |
-| Q2 schema 位置 | resolved | [`templates/README.md`](../../workflow/software-delivery/templates/README.md) 已把 `review-report-template.md` 定為 `code-review` capability output；[`analysis/security/README.md`](../../analysis/security/README.md) 只放觀察方法、不放產物 |
-| Q3 risk acceptance 簽核 | resolved | [`domain-policies.md`](../../workflow/software-delivery/domain-policies.md) Decision asset class：project decision → 專案 `docs/decisions/`，owner = 決策者 |
+| Q2 schema 位置 | resolved | [`templates/README.md`](../../../workflow/software-delivery/templates/README.md) 已把 `review-report-template.md` 定為 `code-review` capability output；[`analysis/security/README.md`](../../../analysis/security/README.md) 只放觀察方法、不放產物 |
+| Q3 risk acceptance 簽核 | resolved | [`domain-policies.md`](../../../workflow/software-delivery/domain-policies.md) Decision asset class：project decision → 專案 `docs/decisions/`，owner = 決策者 |
 | Q4 專案端資料格式 | deferred → Phase 3 | 只影響 coverage，不影響 Phase 1–2；Phase 1–4 不提供 validator（避免無 consumer surface） |
 | Q5 空 list 理由 | resolved | `audit_execution` 欄位（2026-10-03 review 回寫） |
 | Q6 reusable intelligence 位置 | resolved | `analysis/security/README.md` §與其他層的關係：安全 anti-patterns → `intelligence/engineering/anti-patterns/` |
@@ -154,7 +154,7 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 
 ### Phase 0.1 — Preflight
 
-- [x] 完成 [`pre-build-interrogation.md`](../../workflow/software-delivery/requirements/pre-build-interrogation.md)（見下方 Pre-build Interrogation）
+- [x] 完成 [`pre-build-interrogation.md`](../../../workflow/software-delivery/requirements/pre-build-interrogation.md)（見下方 Pre-build Interrogation）
 - [x] 讀 software-delivery README / execution-flow / artifact-gates / delegated-execution / domain-policies；cross-cutting/review README + invocation-points；governance/cognitive-stance.md；runtime/capability-context.yaml；analysis/security/；glossary
 - [x] 確認 `security-finding-list` 無其他 consumer 定義：只出現在 registry、ADR-014、cross-cutting/review README 與 archived plan 的名稱層級，無 schema → 無雙 source
 - [x] 確認 delegation loop plan 的 Shared State Contract 未涵蓋 Decision 第 4 點（Q5 處理 writer/reader/owner 狀態契約，非證據偏好）；但 V3 evidence producer 已部分涵蓋 → C3
@@ -194,7 +194,7 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 
 完成條件：schema + template 存在、被 registry artifact 欄位與 invocation-points 引用、link check 通過。
 
-**Phase 1 結果（2026-10-03，transport adaptation：主 session 執行）**：[`security-finding-list-template.md`](../../workflow/software-delivery/templates/security-finding-list-template.md) 落地；template 開頭標明 registry artifact 名 `security-finding-list`，registry 欄位不需改。`audit_execution` 另加 `mode` 與 `not_covered`（明列未檢查面，對應 Cloudflare「未檢查不能假裝完成」）；`resolution.kind` 加 `human_review`（Q8）。相對連結逐條驗證存在。
+**Phase 1 結果（2026-10-03，transport adaptation：主 session 執行）**：[`security-finding-list-template.md`](../../../workflow/software-delivery/templates/security-finding-list-template.md) 落地；template 開頭標明 registry artifact 名 `security-finding-list`，registry 欄位不需改。`audit_execution` 另加 `mode` 與 `not_covered`（明列未檢查面，對應 Cloudflare「未檢查不能假裝完成」）；`resolution.kind` 加 `human_review`（Q8）。相對連結逐條驗證存在。
 
 ## Phase 2 — Closure Gate + Validation Scenarios
 
@@ -223,7 +223,7 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 完成條件：contract 文件落地、去敏檢查通過、被 analysis/security README 索引。
 
 **Phase 3 結果（2026-10-03，主 session 執行）**：
-- 契約本體放 [`analysis/security/security-coverage-ledger.md`](../../analysis/security/security-coverage-ledger.md)（觀察 / 審計方法屬 analysis layer），不塞進 intelligence；[`stale-derived-state.md`](../../intelligence/engineering/anti-patterns/stale-derived-state.md) 只加 `stale_security_evidence` 變體並連過去，避免雙 source。
+- 契約本體放 [`analysis/security/security-coverage-ledger.md`](../../../analysis/security/security-coverage-ledger.md)（觀察 / 審計方法屬 analysis layer），不塞進 intelligence；[`stale-derived-state.md`](../../../intelligence/engineering/anti-patterns/stale-derived-state.md) 只加 `stale_security_evidence` 變體並連過去，避免雙 source。
 - 內容：coverage unit 與四種狀態（`not_covered` / `covered` / `needs_revalidation` / `accepted_gap`）、專案端 YAML 格式（units + controls）、Dependency Scope、Invalidation 表（含 risk acceptance `expires_when` 失效）、執行目標程式碼的隔離要求、去敏邊界。
 - 索引：analysis/security README、anti-patterns README；template `coverage_ref` 指向 ledger。
 - Scenario (c) `security-audit-control-change-invalidates-coverage` 由 `FAIL_BY_ABSENCE` 轉 `PASS`。
@@ -236,6 +236,15 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 - [ ] Evidence 存 `evidence/`（去敏，不含 host / token / 專案路徑）
 - [ ] **驗證邊界明寫**：Phase 4 只驗證「workflow 依契約產生正確的阻擋**決策**」（expected verdict）；「runtime 真的**擋得住**」（actual enforcement）不在 Phase 4 範圍，留給 Phase 5。Evidence 每筆標 `verdict_kind: expected | enforced`，Phase 4 只能出現 `expected`
 - [ ] 回寫 Open Questions
+
+**Phase 4 進度**：
+
+| # | Task | 結果 | Evidence |
+| --- | --- | --- | --- |
+| 1 | `<CONSUMER_PROJECT>` refresh-token family 內部切片（授權邊界，事後 audit，standard） | 鏈路走通；fresh subagent verifier；expected verdict = pass；6 findings；verifier 抓到 reachability 錯誤與 deferral 冒充 risk acceptance → template / ledger 契約已修 | [`evidence/2026-10-03-dogfood-1-refresh-family.md`](evidence/2026-10-03-dogfood-1-refresh-family.md) |
+| 2 | 同專案下一切片加入第一個使用者時（預期觸發 coverage invalidation） | pending — 依賴該專案的公開 refresh 切片開工 | — |
+
+角色：dogfood 1 的 verifier 為 fresh subagent（使用者 2026-10-03 選擇），auditor 為主 session。第一項 checklist（≥ 2 任務、≥ 1 授權邊界）完成 1 / 2；coverage invalidation 尚未實際觸發。
 
 ## Phase 5 — Mechanical Graduation（gated）
 
@@ -261,7 +270,7 @@ Entry condition：Phase 4 完成且 schema 兩輪 dogfood 未需破壞性修改�
 
 ## 與其他 plans 的關係
 
-- [`2026-07-08-0825-delegation-verification-arbitration-loop`](2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)：Verifier V1–V5 owner；本 plan Decision 第 4 點只補 security 證據偏好，不重定義 loop（見 Q7）
-- [`archived/2026-07-06-review-architecture-adr`](../archived/2026-07-06-review-architecture-adr/_plan.md)：ADR-013 capability invoke 模型的來源
-- [`2026-06-16-1131-evidence-candidate-system.md`](2026-06-16-1131-evidence-candidate-system.md)：dogfood 案例可走 evidence candidate 索引回流本 plan
-- [`archived/2026-06-10-1718-software-delivery-governance-invariants.md`](../archived/2026-06-10-1718-software-delivery-governance-invariants.md)：authority-coupled side effect / evidence shape 的前例
+- [`2026-07-08-0825-delegation-verification-arbitration-loop`](../2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)：Verifier V1–V5 owner；本 plan Decision 第 4 點只補 security 證據偏好，不重定義 loop（見 Q7）
+- [`archived/2026-07-06-review-architecture-adr`](../../archived/2026-07-06-review-architecture-adr/_plan.md)：ADR-013 capability invoke 模型的來源
+- [`2026-06-16-1131-evidence-candidate-system.md`](../2026-06-16-1131-evidence-candidate-system.md)：dogfood 案例可走 evidence candidate 索引回流本 plan
+- [`archived/2026-06-10-1718-software-delivery-governance-invariants.md`](../../archived/2026-06-10-1718-software-delivery-governance-invariants.md)：authority-coupled side effect / evidence shape 的前例

@@ -24,13 +24,23 @@ audit_execution:
   scope_ref: <commit range / PR / module list>
   coverage_ref: <project coverage unit id, or none>   # 見 analysis/security/security-coverage-ledger.md
   evidence_ref: <where the audit trace / tool output / notes live>
+  execution_environment: >   # 有沒有執行目標程式碼、有沒有隔離環境；沒執行就寫明證據來自既有紀錄
+    <e.g. no isolated DB; target code not executed; reproducible evidence cites recorded run X>
   not_covered:               # 明列未檢查的面，不可省略為空泛「其他」
     - <entry surface / attack class not examined, or none>
 ```
 
+### Reachability 宣稱
+
+「沒有呼叫者」「沒有註冊」「外部不可達」會直接影響 severity 和失效條件，所以要分開寫，且各自有依據：
+
+- **已註冊**：除了搜尋型別名稱，還要檢查依命名慣例、assembly scanning、反射或設定檔的註冊；只 grep 型別名會漏掉這些。
+- **有使用者**：介面在擁有者以外是否被注入、呼叫或掛到 endpoint。
+- 失效條件綁「第一個使用者出現」，不要綁「被註冊」——慣例註冊常常早就存在。
+
 ## Findings
 
-每個 finding 一個 block。未確認的 finding 不填 `severity`。
+每個 finding 一個 block。未確認的 finding 不填 `severity`；confirmed 的 finding 不填 `potential_impact`（嚴重度已由 `severity` 表達，未來可能升級的理由寫在註解或 resolution）。
 
 ```yaml
 findings:
@@ -59,7 +69,15 @@ findings:
         owner: <project decision owner>
         scope: <accepted finding scope>
         expires_when: <depended-on security control(s) whose change voids this acceptance>
+
+examined_no_finding:         # 檢查過但沒發現問題的面；給 verifier 反駁用，不可省略
+  - topic: <what was examined>
+    note: <evidence that it holds; mark which part is test-backed and which is static reasoning>
 ```
+
+### Deferral ≠ risk acceptance
+
+計畫或 brief 寫「延後到下一個切片」只是 **deferral**：它說明何時處理，不代表有人接受風險。只有決策者在 decision record 明確接受風險時，才能填 `resolution.kind: risk_acceptance`；`owner` 必須是該 record 裡的決策者，不能由稽核者推定。只有 deferral 時用 `kind: none`，並在 `ref` 指出 deferral 與「必須在何時之前處理」。
 
 ### Status 規則
 
