@@ -1,7 +1,7 @@
 ---
 id: 2026-10-03-2104-security-audit-capability-hardening
 plan_kind: main
-status: in-progress
+status: completed
 owner: workflow
 owner_layer: workflow
 created: 2026-10-03
@@ -10,7 +10,7 @@ parent: null
 
 # Security Audit Capability Hardening（`security-audit` invoke 補實）
 
-**Status**: in-progress — Phase 0–4 完成（2026-10-03）；Phase 5 gated（entry 條件未達，需再一輪不改 schema 的 dogfood）。
+**Status**: `completed`（2026-10-03）— Phase 0–4 完成；Phase 5（機械強制）deferred，restart trigger 與 graduation criteria 分開記錄（見 §Phase 5 — Deferred、§結案紀錄）。
 
 **Glossary Impact**: yes（候選，Phase 4 前不登記）— `security_finding`、`security_coverage_unit`、`evidence_invalidation_contract`（若與既有 `stale-derived-state` invalidation contract 語意重疊，只 cross-link 不新登記）。
 
@@ -65,11 +65,16 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 
 ### ADR Promotion Criteria（completed 時驗證）
 
-- [ ] foundational + cross-session + cross-project + expensive-to-reverse + explains-why 全中
 - [x] ≥ 2 個真實專案任務使用 finding schema + closure gate — *2 個 consumer 專案（2026-10-03）*
-- [ ] Open Questions 全解
-- [ ] 沒有更輕的 promotion target（多數內容可能只需停在 workflow / intelligence layer）
-- [ ] 至少 1 次 coverage invalidation 實際觸發重驗的證據
+- [x] Open Questions 全解 — *Q1–Q10 皆 resolved（2026-10-03）*
+
+結案評估（2026-10-03）：**不升 ADR，`adr_promotion: deferred`**。未達的條件如下（以清單記錄，不是待辦）：
+
+- foundational + expensive-to-reverse 不成立：內容是可回退的 workflow template、analysis 契約與 gate 文字。
+- 有更輕的 promotion target：內容留在 workflow / analysis / intelligence layer 即可。
+- 尚無「真實開發流程中被動觸發的失效」證據；dogfood 2 是對真實歷史的回放。
+
+重新評估時機與 Phase 5 相同（見 §Phase 5 — Deferred）。
 
 ### Consequences（預期）
 
@@ -253,27 +258,75 @@ Entry condition：Phase 4 完成且 schema 兩輪 dogfood 未需破壞性修改�
 
 **Entry 狀態（2026-10-03）**：未達。Phase 4 已完成，但 dogfood 1 修改了 template 欄位語意（confirmed 不再帶 `potential_impact`、新增 `execution_environment` / `examined_no_finding`）；dogfood 2 只加了指引、未改欄位。依條件還需要一輪不改欄位的 dogfood（可用 dogfood 3）才進 Phase 5。
 
-- [ ] 評估 `security-audit` stance 缺漏 warning → block（`runtime/capability-context.yaml`）
-- [ ] 評估 closure gate 是否需 commit-msg / validator 機械檢查（需宣告 named consumer）
-- [ ] 執行 Plan Completion Closure
+### Phase 5 — Deferred（2026-10-03 結案決定）
+
+本 plan 結案時 Phase 5 **不執行**，以下兩項評估一併延後（以清單記錄，不是待辦）：
+
+- `security-audit` stance 缺漏由 warning → block（`runtime/capability-context.yaml`）
+- closure gate 是否需要 commit-msg / validator 機械檢查（需宣告 named consumer）
+
+| 欄位 | 內容 |
+| --- | --- |
+| Owner | software-delivery workflow maintainer（`security-audit` capability 的契約維護者） |
+| Restart triggers（任一成立即**開始評估**） | (1) 第一個 consumer 的下一切片加入第一個使用者，完成 dogfood 3（真實流程中的被動失效）；(2) 下一次真實 `security-audit` 使用時 template 欄位不需修改 |
+| Review deadline | 2027-01-31：即使 trigger 未成立也重新評估；屆時仍無證據則記錄「維持 doc-only」 |
+
+**Restart Trigger ≠ Mechanical Graduation Approval。** Trigger 成立只代表可以重新開一個 plan 評估機械化，不代表可以把 warning 升成 block。升級前必須另外滿足：
+
+| Graduation criterion | 需要的證據 |
+| --- | --- |
+| Schema 穩定 | 至少一輪真實 audit 不需修改 template 欄位 |
+| 機械化執行位置已確定 | 明確是 `capability-invoke` CLI、commit-msg validator 或其他位置，並說明為何不是另一處 |
+| 有 named runtime consumer | 符合 `define_runtime_trigger_flow`：新 surface 有 CLI / hook / validator 實際讀取 |
+| 有對應的 validation scenarios | 至少涵蓋 block / pass / unknown（未執行 ≠ 無 finding）三條路徑，且在機械化前後都跑過 |
+| 不與現有 governance gate 重複 | 與 `gate.software_delivery.validation_complete`、artifact gates、stance enforcement 的關係寫明，沒有兩份 executable semantics |
+
+## 結案紀錄
+
+```yaml
+plan_status: completed
+capability:
+  security_audit: operational
+  finding_schema: completed
+  closure_gate_contract: completed          # doc-only executable contract, agent-read
+  coverage_invalidation_contract: completed
+mechanical_enforcement:
+  status: deferred
+  reason: awaiting_real_world_evidence
+  restart_triggers:
+    - first_consumer_next_slice_dogfood_3
+    - schema_stability_in_next_real_audit
+  restart_trigger_is_not_graduation_approval: true
+  review_deadline: 2027-01-31
+adr_promotion:
+  status: deferred
+glossary:
+  status: not_registered                    # candidate terms stay unregistered until a third consumer
+```
+
+此紀錄只是結案示意，不是新的 runtime schema。
+
+**Plan 歸檔不改變任何 finding 的狀態，也不構成 risk acceptance。** 兩個 consumer 專案中仍開著的 finding（包括被標為需人工審查者），由各專案自己的資安紀錄追蹤；Ai-skill 端不保存也不關閉它們。
 
 ## 完成條件
 
-- [ ] Phase 1–4 完成；Phase 5 完成或明確 defer（附 owner / 重啟條件）
-- [ ] 未新增 `workflow/security/` 或新 lifecycle phase
-- [ ] 專案 coverage 資料未進入 Ai-skill repo
-- [ ] Linked updates（registry、templates README、invocation-points、analysis/security README、glossary 若適用）已完成
-- [ ] 執行 Plan Completion Closure
+- [x] Phase 1–4 完成；Phase 5 完成或明確 defer（附 owner / 重啟條件）— *Phase 5 deferred，見上*
+- [x] 未新增 `workflow/security/` 或新 lifecycle phase
+- [x] 專案 coverage 資料未進入 Ai-skill repo — *兩個專案的 ledger 都在各自 repo；Ai-skill evidence 已去敏*
+- [x] Linked updates（registry、templates README、invocation-points、analysis/security README、glossary 若適用）已完成 — *glossary：候選詞不登記（見結案紀錄）*
+- [x] 執行 Plan Completion Closure — *2026-10-03：歸檔至 `archived/`、更新 plans/README 狀態、修正 inbound links、runtime compile / refresh / validate*
 
 ## Stakeholder 同意項目
 
-- [ ] ⏳ 同意不另開 Security Workflow，以 capability 補實取代
-- [ ] ⏳ 同意 coverage 資料屬專案端
-- [ ] ⏳ 同意 Phase 5 機械化為 gated，不在首輪落地
+2026-10-03 討論共識（使用者確認）：
+
+- [x] 同意不另開 Security Workflow，以 capability 補實取代（沿用 software-delivery lifecycle 與 capability invoke）
+- [x] 同意 coverage 資料屬專案端（Ai-skill 只維護跨專案治理契約）
+- [x] 同意 Phase 5 機械化延後，等待真實 dogfood 證據，不為了完成計畫製造測試任務
 
 ## 與其他 plans 的關係
 
-- [`2026-07-08-0825-delegation-verification-arbitration-loop`](../2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)：Verifier V1–V5 owner；本 plan Decision 第 4 點只補 security 證據偏好，不重定義 loop（見 Q7）
-- [`archived/2026-07-06-review-architecture-adr`](../../archived/2026-07-06-review-architecture-adr/_plan.md)：ADR-013 capability invoke 模型的來源
-- [`2026-06-16-1131-evidence-candidate-system.md`](../2026-06-16-1131-evidence-candidate-system.md)：dogfood 案例可走 evidence candidate 索引回流本 plan
-- [`archived/2026-06-10-1718-software-delivery-governance-invariants.md`](../../archived/2026-06-10-1718-software-delivery-governance-invariants.md)：authority-coupled side effect / evidence shape 的前例
+- [`2026-07-08-0825-delegation-verification-arbitration-loop`](../../active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)：Verifier V1–V5 owner；本 plan Decision 第 4 點只補 security 證據偏好，不重定義 loop（見 Q7）
+- [`archived/2026-07-06-review-architecture-adr`](../2026-07-06-review-architecture-adr/_plan.md)：ADR-013 capability invoke 模型的來源
+- [`2026-06-16-1131-evidence-candidate-system.md`](../../active/2026-06-16-1131-evidence-candidate-system.md)：dogfood 案例可走 evidence candidate 索引回流本 plan
+- [`archived/2026-06-10-1718-software-delivery-governance-invariants.md`](../2026-06-10-1718-software-delivery-governance-invariants.md)：authority-coupled side effect / evidence shape 的前例

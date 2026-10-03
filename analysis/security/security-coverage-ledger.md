@@ -1,6 +1,6 @@
 # Security Coverage Ledger（資安覆蓋帳本契約）
 
-**Status**: `candidate-analysis`（doc-only trial；plan [`2026-10-03-2104-security-audit-capability-hardening`](../../plans/active/2026-10-03-2104-security-audit-capability-hardening/_plan.md) Phase 3）
+**Status**: `candidate-analysis`（doc-only trial；plan [`2026-10-03-2104-security-audit-capability-hardening`](../../plans/archived/2026-10-03-2104-security-audit-capability-hardening/_plan.md) Phase 3）
 
 ## 目的
 
