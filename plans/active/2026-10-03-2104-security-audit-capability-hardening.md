@@ -10,7 +10,7 @@ parent: null
 
 # Security Audit Capability Hardening（`security-audit` invoke 補實）
 
-**Status**: draft — Phase 0 完成（2026-10-03，decision = proceed to Phase 1）；Phase 2 被 Q8 / Q10（使用者政策決定）阻擋。
+**Status**: draft — Phase 0 完成（2026-10-03，decision = proceed to Phase 1）；Q8 / Q10 已由使用者決定（2026-10-03），Phase 1–2 無 blocker；Phase 1 由主 session 執行（transport adaptation）。
 
 **Glossary Impact**: yes（候選，Phase 4 前不登記）— `security_finding`、`security_coverage_unit`、`evidence_invalidation_contract`（若與既有 `stale-derived-state` invalidation contract 語意重疊，只 cross-link 不新登記）。
 
@@ -44,8 +44,8 @@ Why now：`security-audit` 已有兩個 caller slice（`sd-contracts`、`sd-impl
 2. **Closure gate**（Phase 0 C1 修正位置）：`execution-flow.yaml` §gates 新增 `gate.software_delivery.security_audit_complete`（blocks `security_sensitive_completion_claim`），`artifact-gates.yaml` 只加對應 `required_evidence` 證據形狀（沿用 journey gate 雙處先例）；細化而非複製既有 `gate.software_delivery.validation_complete`「security blocker 不得隱藏」條款。裁決輸入如下：
    - `audit_execution` 缺漏或非 `completed` → block（unknown ≠ safe）
    - `confirmed` 且 `severity` ∈ {high, critical} → block
-   - `needs_validation` 且 `potential_impact` ∈ {high, critical} → 需人工審查或 risk acceptance（不視為已確認漏洞）
-   - Risk acceptance 必須記錄 `decision_ref`、`owner`、`scope`、`expires_when`（失效條件）
+   - `needs_validation` 且 `potential_impact` ∈ {high, critical} → 需**人工審查紀錄**（審查者 + 結論）才可放行；不強制 risk acceptance、不視為已確認漏洞（Q8）
+   - Risk acceptance 必須記錄 `decision_ref`、`owner`、`scope`、`expires_when`；`expires_when` = 被依賴 security control 變更（與 Phase 3 invalidation contract 同一觸發，Q10）
 3. **Coverage + invalidation contract**：定義 `Entry Surface × Trust Boundary × Attack Class` 的 coverage unit 與 invalidation contract（source dependency + security control 變更 → coverage 失效）；擴充既有 [`stale-derived-state.md`](../../intelligence/engineering/anti-patterns/stale-derived-state.md) `stale_permission_state`，不另造概念。**資料存專案端**，Ai-skill 只存 contract。
 4. **Verifier 補強**（Phase 0 C3 收窄）：V3 已有 evidence producer（authorization / guard 類風險可用 targeted mutation 機械枚舉），**不重寫**。本 plan 只補兩條 security 專屬規則到 `delegated-execution.md` §5：LLM 第二意見不得單獨構成 `confirmed` / `refuted`（須有 test / SAST / mutation / schema validator 等可重現證據）；歷史 intelligence 只能產生檢查假設，不能產生 finding 裁決。
 5. **Stance gate 升級（gated）**：`security-audit` invoke 缺 `fault_finding` 由 warning → block，僅在 1–4 有 dogfood 證據後評估。
@@ -122,9 +122,9 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 - [x] Q5：Security Light 模式下「可為空的 finding list」的最低理由欄位是什麼，才不會變成形式化填表？ — *resolved：`audit_execution { status, scope, coverage_ref, evidence_ref }`*
 - [x] Q6：Reusable security intelligence（漏洞模式 / 修補 / 回歸測試）落在 `intelligence/engineering/anti-patterns/` 還是新子目錄？需走 reusable-guidance-boundary 去敏。 — *resolved：`intelligence/engineering/anti-patterns/`，不開新子目錄*
 - [x] Q7：Verifier V3「可重現證據優先」是否應寫入 `plans/README.md` §Delegation loop SOP（canonical）而非 delegated-execution.md？ — *resolved：寫 `delegated-execution.md` §5（delivery 域擴充），不動 loop canonical*
-- [ ] Q8：`needs_validation` + `potential_impact: high` 的處置邊界：要求人工審查即可，還是一律需 risk acceptance 才能 closure？（`severity` 只屬 confirmed，已在 Decision 第 1 點凍結） — *Phase 0: still-open, `blocker_question` for Phase 2（政策決定，需使用者）*
+- [x] Q8：`needs_validation` + `potential_impact: high` 的處置邊界：要求人工審查即可，還是一律需 risk acceptance 才能 closure？（`severity` 只屬 confirmed，已在 Decision 第 1 點凍結） — *resolved（使用者 2026-10-03）：人工審查紀錄即可放行，不強制 risk acceptance*
 - [ ] Q9：Coverage invalidation 的 **dependency scope** 怎麼定義：共用 control（AuthorizationHandler、policy、query filter、middleware）修改時，哪些 coverage unit 失效？以 trust boundary 為鍵，還是需顯式 dependency 清單？ — *Phase 0: deferred → Phase 3（safe assumption：trust boundary 為鍵 + 顯式 control dependency 清單；檔案 hash 不足）*
-- [ ] Q10：Risk acceptance 的 `expires_when` 用什麼條件表達（時間、commit 範圍、被依賴 control 變更）？與 Q3 簽核者一併決定。 — *Phase 0: still-open, `blocker_question` for Phase 2（簽核者已由 Q3 解決；失效條件需使用者決定）*
+- [x] Q10：Risk acceptance 的 `expires_when` 用什麼條件表達（時間、commit 範圍、被依賴 control 變更）？與 Q3 簽核者一併決定。 — *resolved（使用者 2026-10-03）：被依賴 control 變更即失效；不用時間期限或 commit 範圍*
 
 > 2026-10-03 review 回寫：外部 review 確認架構方向不變、維持 draft 直接進 Phase 0、不擴大 scope；新增 Q8–Q10 與 Decision 第 1–2 點的 severity / audit_execution / risk acceptance 欄位，Q5 的「空 finding list 最低理由」由 `audit_execution` 吸收（Phase 0 確認後標 resolved）。
 
@@ -148,9 +148,9 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 | Q5 空 list 理由 | resolved | `audit_execution` 欄位（2026-10-03 review 回寫） |
 | Q6 reusable intelligence 位置 | resolved | `analysis/security/README.md` §與其他層的關係：安全 anti-patterns → `intelligence/engineering/anti-patterns/` |
 | Q7 V3 規則寫哪 | resolved | `delegated-execution.md` 自述 canonical 範圍 = delivery 域角色責任 / V4–V5 擴充；loop SOP 不複製。security 證據偏好屬 delivery 域擴充 |
-| Q8 needs_validation 高影響處置 | still-open（blocker for Phase 2） | 政策選擇：人工審查即可 vs 一律 risk acceptance |
+| Q8 needs_validation 高影響處置 | resolved | 使用者決定：人工審查紀錄即可 |
 | Q9 dependency scope | deferred → Phase 3 | safe assumption 已記錄；需 dogfood 驗證 |
-| Q10 `expires_when` | still-open（blocker for Phase 2） | 政策選擇：時間 / commit 範圍 / control 變更（可複選） |
+| Q10 `expires_when` | resolved | 使用者決定：依賴 control 變更 |
 
 ### Phase 0.1 — Preflight
 
@@ -161,7 +161,7 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 - [x] 記錄 preflight 最低格式（下表）
 
 **Slice claim**：搜尋本地 / 遠端 commit、工作樹與 `.agent-goals/`，無 `security-audit-capability-hardening` 既有實作；`.agent-goals/` 僅一個不相關的 paused goal。
-**Loop 判定**：Phase 0 屬只讀盤點 + plan 回寫，依 `delegated-execution.md` §1「純問答 / 只讀審計不觸發」由主 session 執行；Phase 1 起寫入 workflow 檔案，屬執行意圖，需走三角色 loop 或在 plan 記錄 transport adaptation。
+**Loop 判定**：Phase 0 屬只讀盤點 + plan 回寫，依 `delegated-execution.md` §1「純問答 / 只讀審計不觸發」由主 session 執行；Phase 1 起寫入 workflow 檔案，屬執行意圖；**transport adaptation（使用者 2026-10-03 選擇）**：Phase 1 由主 session 擔任 executor，角色降格記錄在案；Phase 2 起是否回到三角色 loop 於 Phase 1 結束時重評。
 
 | 欄位 | 內容 |
 | --- | --- |
@@ -169,8 +169,8 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 | Checked sources | 見上方 0.1 清單 |
 | Conflicts | **C1** closure gate 位置：`artifact-gates.yaml` 的 activation 是文件 artifact 審查；completion-claim gate 的慣例在 `execution-flow.yaml` §gates（`gate.software_delivery.*_complete`），證據形狀在 `artifact-gates.yaml`（journey gate 雙處先例）→ Decision 第 2 點已修正。<br>**C2** 兩個 YAML 皆 `runtime_projection.enabled: true`，原 plan「不進 projection」描述不正確 → Runtime Execution Path 已修正（不新增 surface，但需 compile + refresh）。<br>**C3** V3 evidence producer 已涵蓋 authorization 類 targeted mutation → Decision 第 4 點收窄為兩條 security 專屬規則。<br>**C4** glossary 中 `findings` 已被 KGE（Validate→Findings）使用 → 本 plan 一律用限定詞 `security_finding`，不登記裸 `finding` |
 | Interrogation | 見下方 Pre-build Interrogation |
-| Open Questions 核對 | 見 0.0 表：resolved Q2/Q3/Q5/Q6/Q7；deferred Q1/Q4/Q9；still-open Q8/Q10 |
-| Decision | **proceed to Phase 1**；Phase 2 在 Q8 / Q10 有答案前 blocked |
+| Open Questions 核對 | 見 0.0 表：resolved Q2/Q3/Q5/Q6/Q7/Q8/Q10；deferred Q1/Q4/Q9 |
+| Decision | **proceed to Phase 1**（Q8 / Q10 已決定，Phase 2 不再 blocked） |
 | Validation | grep 確認無雙 source；讀 YAML `runtime_projection`；plan diff review；commit-msg hooks |
 
 ### Pre-build Interrogation
@@ -181,9 +181,9 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 - **Acceptance / validation target**：Phase 1 = template 存在且被 registry / invocation-points / templates README 引用 + link check；Phase 2 = ≥ 4 scenarios + `runtime compile/refresh` 無錯；Phase 3 = contract 文件 + 去敏檢查；Phase 4 = `verdict_kind: expected` 證據 ≥ 2 任務。
 - **Framework discovery**：canonical source = owner-layer YAML / Markdown（execution-flow.yaml、artifact-gates.yaml、templates/、delegated-execution.md、stale-derived-state.md）；runtime.db 是 projection；registry `artifact` 欄位不變。
 - **Duplication risk**：新 gate 與 `gate.software_delivery.validation_complete` 的 security 條款重疊 → 新 gate 明文為其細化並互相引用；V3 規則與 evidence producer 重疊 → 已收窄（C3）。
-- **Open questions**：Q8 / Q10 = `blocker_question`（Phase 2）；Q1 / Q4 / Q9 = `safe_assumption`（Phase 3 驗證）。
+- **Open questions**：Q8 / Q10 已由使用者決定；Q1 / Q4 / Q9 = `safe_assumption`（Phase 3 驗證）。
 - **Assumptions**：Light 模式可只填 diff-scope `audit_execution` 與空 list；三軸 coverage 足以起步。
-- **Decision**：proceed（Phase 1）／ ask_user（Q8、Q10，Phase 2 前）
+- **Decision**：proceed（Phase 1）
 
 ## Phase 1 — Finding Schema + Template
 
