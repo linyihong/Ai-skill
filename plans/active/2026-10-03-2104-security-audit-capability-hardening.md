@@ -39,7 +39,13 @@ Why now：`security-audit` 已有兩個 caller slice（`sd-contracts`、`sd-impl
 漸進補實既有 capability，依序：
 
 1. **Finding schema + template**：定義 `security-finding-list` 的欄位（含 `status: candidate | confirmed | refuted | needs_validation`、evidence ref、attack class、trust boundary），並把「格式通過 ≠ 證據成立 ≠ 可合併」三判斷分開。
-2. **Closure gate**：`artifact-gates.yaml` 新增 gate — 未解決的 high / critical `confirmed` 或 `needs_validation` finding 不得進 `sd-closure`（除非有明確 risk acceptance decision）。
+   - **`severity` ≠ `potential_impact`**：`severity` 只在 `status: confirmed` 時有值；未確認的 finding 只填 `potential_impact` + `unresolved_fact`。不確定性必須明確表達，不得把未確認 finding 宣稱為已確認 High。
+   - **`audit_execution` 執行證明**：list 層必填 `audit_execution { status, scope, coverage_ref, evidence_ref }`。`findings: []` 只有在 `audit_execution.status: completed` 時才代表「已執行、無符合條件 finding」；缺 `audit_execution` = **unknown**，不是 safe。
+2. **Closure gate**：`artifact-gates.yaml` 新增 gate，裁決輸入如下：
+   - `audit_execution` 缺漏或非 `completed` → block（unknown ≠ safe）
+   - `confirmed` 且 `severity` ∈ {high, critical} → block
+   - `needs_validation` 且 `potential_impact` ∈ {high, critical} → 需人工審查或 risk acceptance（不視為已確認漏洞）
+   - Risk acceptance 必須記錄 `decision_ref`、`owner`、`scope`、`expires_when`（失效條件）
 3. **Coverage + invalidation contract**：定義 `Entry Surface × Trust Boundary × Attack Class` 的 coverage unit 與 invalidation contract（source dependency + security control 變更 → coverage 失效）；擴充既有 [`stale-derived-state.md`](../../intelligence/engineering/anti-patterns/stale-derived-state.md) `stale_permission_state`，不另造概念。**資料存專案端**，Ai-skill 只存 contract。
 4. **Verifier 補強**：V3 對抗性證據優先可重現來源（test / SAST / schema validator），LLM 第二意見不得單獨構成 `confirmed` / `refuted`；歷史 intelligence 只能產生檢查假設，不能產生 finding 裁決。
 5. **Stance gate 升級（gated）**：`security-audit` invoke 缺 `fault_finding` 由 warning → block，僅在 1–4 有 dogfood 證據後評估。
@@ -95,7 +101,7 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 | Trigger location | `workflow/software-delivery/artifact-gates.yaml`；`ai-skill runtime capability-invoke` |
 | Activation contract | 既有 `route.workflow.software-delivery` + capability invoke envelope；**不新增 route** |
 | Generated surface | Phase 1–3 **doc-only trial**：不新增 `runtime_projection`；artifact-gates 走既有 projection（若有） |
-| Validation scenarios | Phase 2 新增 ≥ 3 個 `validation/` scenario：(a) open high finding 擋 closure；(b) refuted finding 附可重現證據可放行；(c) coverage 依賴的 control 變更 → 標 `needs_revalidation` |
+| Validation scenarios | Phase 2 新增 ≥ 4 個 `validation/` scenario：(a) confirmed high finding 擋 closure；(b) refuted finding 附可重現證據可放行；(c) coverage 依賴的 control 變更 → 標 `needs_revalidation`；(d) `findings: []` 但無 `audit_execution` 證明 → unknown，擋 closure（未執行 ≠ 已執行但無 finding） |
 | Test passing evidence | Phase 2 / 3 dogfood evidence |
 
 **Doc-only 宣告**：Phase 1–3 不接入 runtime 機械 gate；本 plan 不得在 Phase 5 前宣稱 runtime integration 完成。接入 phase = Phase 5，entry condition = Phase 4 dogfood ≥ 2 個真實任務。Graduation deadline：2027-01-31（未達則降為 intelligence-only 並記錄）。
@@ -116,6 +122,11 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 - [ ] Q5：Security Light 模式下「可為空的 finding list」的最低理由欄位是什麼，才不會變成形式化填表？
 - [ ] Q6：Reusable security intelligence（漏洞模式 / 修補 / 回歸測試）落在 `intelligence/engineering/anti-patterns/` 還是新子目錄？需走 reusable-guidance-boundary 去敏。
 - [ ] Q7：Verifier V3「可重現證據優先」是否應寫入 `plans/README.md` §Delegation loop SOP（canonical）而非 delegated-execution.md？
+- [ ] Q8：`needs_validation` + `potential_impact: high` 的處置邊界：要求人工審查即可，還是一律需 risk acceptance 才能 closure？（`severity` 只屬 confirmed，已在 Decision 第 1 點凍結）
+- [ ] Q9：Coverage invalidation 的 **dependency scope** 怎麼定義：共用 control（AuthorizationHandler、policy、query filter、middleware）修改時，哪些 coverage unit 失效？以 trust boundary 為鍵，還是需顯式 dependency 清單？
+- [ ] Q10：Risk acceptance 的 `expires_when` 用什麼條件表達（時間、commit 範圍、被依賴 control 變更）？與 Q3 簽核者一併決定。
+
+> 2026-10-03 review 回寫：外部 review 確認架構方向不變、維持 draft 直接進 Phase 0、不擴大 scope；新增 Q8–Q10 與 Decision 第 1–2 點的 severity / audit_execution / risk acceptance 欄位，Q5 的「空 finding list 最低理由」由 `audit_execution` 吸收（Phase 0 確認後標 resolved）。
 
 ## Phase 0 — Pre-Build Interrogation + Architecture Compatibility Preflight
 
@@ -130,7 +141,7 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 
 | Open Question | 處置 | 證據 / 原因 |
 |---|---|---|
-| Q1–Q7 | | |
+| Q1–Q10 | | |
 
 ### Phase 0.1 — Preflight
 
@@ -142,7 +153,7 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 
 ## Phase 1 — Finding Schema + Template
 
-- [ ] 定義 `security-finding-list` schema：finding id、attack class、entry surface、trust boundary、status enum、severity、evidence refs（可重現 / 推理）、hypothesis source（intelligence ref，僅作假設）、resolution / risk acceptance
+- [ ] 定義 `security-finding-list` schema：list 層 `audit_execution`；finding 層 finding id、attack class、entry surface、trust boundary、status enum、`severity`（僅 confirmed）、`potential_impact`、`unresolved_fact`、evidence refs（可重現 / 推理）、hypothesis source（intelligence ref，僅作假設）、resolution / risk acceptance（`decision_ref`、`owner`、`scope`、`expires_when`）
 - [ ] 明文三判斷分離：schema valid ≠ evidence established ≠ merge allowed
 - [ ] Template 落地（位置依 Q2）並接 templates README 與 cross-cutting/review invocation-points
 - [ ] Light / Standard / Deep 對 Cognitive Mode 的映射表（不新增機制）
@@ -152,7 +163,7 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 ## Phase 2 — Closure Gate + Validation Scenarios
 
 - [ ] `artifact-gates.yaml` / `.md` 新增 security finding gate（open high/critical confirmed 或 needs_validation → block closure，除非 risk acceptance）
-- [ ] 新增 ≥ 3 個 validation scenario（見 Runtime Execution Path）
+- [ ] 新增 ≥ 4 個 validation scenario（見 Runtime Execution Path；含「未執行 ≠ 無 finding」）
 - [ ] `ai-skill runtime refresh` / validate 通過
 
 完成條件：gate 文字 + scenarios 落地；doc-only，不宣稱機械強制。
@@ -171,6 +182,7 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 - [ ] ≥ 2 個真實專案任務（至少 1 個授權邊界變更）跑完 invoke → finding list → Verifier → gate
 - [ ] ≥ 1 次 coverage invalidation 觸發重驗
 - [ ] Evidence 存 `evidence/`（去敏，不含 host / token / 專案路徑）
+- [ ] **驗證邊界明寫**：Phase 4 只驗證「workflow 依契約產生正確的阻擋**決策**」（expected verdict）；「runtime 真的**擋得住**」（actual enforcement）不在 Phase 4 範圍，留給 Phase 5。Evidence 每筆標 `verdict_kind: expected | enforced`，Phase 4 只能出現 `expected`
 - [ ] 回寫 Open Questions
 
 ## Phase 5 — Mechanical Graduation（gated）
