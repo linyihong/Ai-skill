@@ -187,16 +187,19 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 
 ## Phase 1 — Finding Schema + Template
 
-- [ ] 定義 `security-finding-list` schema：list 層 `audit_execution`；finding 層 finding id、attack class、entry surface、trust boundary、status enum、`severity`（僅 confirmed）、`potential_impact`、`unresolved_fact`、evidence refs（可重現 / 推理）、hypothesis source（intelligence ref，僅作假設）、resolution / risk acceptance（`decision_ref`、`owner`、`scope`、`expires_when`）
-- [ ] 明文三判斷分離：schema valid ≠ evidence established ≠ merge allowed
-- [ ] Template 落地於 `workflow/software-delivery/templates/security-finding-list-template.md`（Q2）並接 templates README、cross-cutting/review README 與 invocation-points
-- [ ] Light / Standard / Deep 對 Cognitive Mode 的映射表（不新增機制）
+- [x] 定義 `security-finding-list` schema：list 層 `audit_execution`；finding 層 finding id、attack class、entry surface、trust boundary、status enum、`severity`（僅 confirmed）、`potential_impact`、`unresolved_fact`、evidence refs（可重現 / 推理）、hypothesis source（intelligence ref，僅作假設）、resolution / risk acceptance（`decision_ref`、`owner`、`scope`、`expires_when`）
+- [x] 明文三判斷分離：schema valid ≠ evidence established ≠ merge allowed
+- [x] Template 落地於 `workflow/software-delivery/templates/security-finding-list-template.md`（Q2）並接 templates README、cross-cutting/review README 與 invocation-points
+- [x] Light / Standard / Deep 對 Cognitive Mode 的映射表（不新增機制）
 
 完成條件：schema + template 存在、被 registry artifact 欄位與 invocation-points 引用、link check 通過。
+
+**Phase 1 結果（2026-10-03，transport adaptation：主 session 執行）**：[`security-finding-list-template.md`](../../workflow/software-delivery/templates/security-finding-list-template.md) 落地；template 開頭標明 registry artifact 名 `security-finding-list`，registry 欄位不需改。`audit_execution` 另加 `mode` 與 `not_covered`（明列未檢查面，對應 Cloudflare「未檢查不能假裝完成」）；`resolution.kind` 加 `human_review`（Q8）。相對連結逐條驗證存在。
 
 ## Phase 2 — Closure Gate + Validation Scenarios
 
 - [ ] `execution-flow.yaml` §gates 新增 `gate.software_delivery.security_audit_complete`；`artifact-gates.yaml` / `.md` 新增對應 required_evidence（C1）；與 `validation_complete` 互相引用
+- [ ] `delegated-execution.md` §5 補 Decision 第 4 點兩條 security 規則（LLM 第二意見不單獨構成 confirmed / refuted；intelligence 只產生假設）
 - [ ] `ai-skill runtime compile` + `refresh` 確認 projection 更新（C2）
 - [ ] 新增 ≥ 4 個 validation scenario（見 Runtime Execution Path；含「未執行 ≠ 無 finding」）
 - [ ] `ai-skill runtime refresh` / validate 通過

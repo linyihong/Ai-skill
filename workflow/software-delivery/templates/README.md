@@ -9,6 +9,7 @@ Use these templates as focused artifact shapes. Load only the template that matc
 | [`bdd-scenario-template.md`](bdd-scenario-template.md) | Writing behavior scenarios and acceptance examples. |
 | [`implementation-plan-template.md`](implementation-plan-template.md) | Planning implementation slices, validation, and same-session closure. |
 | [`review-report-template.md`](review-report-template.md) | **`code-review` capability output** after post-implementation invoke — not Validation phase output. Consumer: [`cross-cutting/review/self-review.md`](../../cross-cutting/review/self-review.md). |
+| [`security-finding-list-template.md`](security-finding-list-template.md) | **`security-audit` capability output**（registry artifact `security-finding-list`）：`audit_execution` 執行證明、finding status / severity / potential_impact、可重現證據、resolution 與 closure 判斷輸入。 |
 | [`product-impact-alignment-template.md`](product-impact-alignment-template.md) | Aligning product impact, journey evidence, assumptions, and acceptance. |
 | [`ui-governance-evidence-template.md`](ui-governance-evidence-template.md) | Classifying UI compliance evidence by governance domain, collection method, validation mechanism, evidence class, severity, and project-local design-system policy. |
 | [`ui-pattern-knowledge.entry.template.yaml`](ui-pattern-knowledge.entry.template.yaml) | Core vs Extended pattern entry（selection_rules、family、near_neighbors；recipe 可 unknown）。 |
