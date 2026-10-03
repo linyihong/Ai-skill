@@ -198,13 +198,20 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 
 ## Phase 2 — Closure Gate + Validation Scenarios
 
-- [ ] `execution-flow.yaml` §gates 新增 `gate.software_delivery.security_audit_complete`；`artifact-gates.yaml` / `.md` 新增對應 required_evidence（C1）；與 `validation_complete` 互相引用
-- [ ] `delegated-execution.md` §5 補 Decision 第 4 點兩條 security 規則（LLM 第二意見不單獨構成 confirmed / refuted；intelligence 只產生假設）
-- [ ] `ai-skill runtime compile` + `refresh` 確認 projection 更新（C2）
-- [ ] 新增 ≥ 4 個 validation scenario（見 Runtime Execution Path；含「未執行 ≠ 無 finding」）
-- [ ] `ai-skill runtime refresh` / validate 通過
+- [x] `execution-flow.yaml` §gates 新增 `gate.software_delivery.security_audit_complete`；`artifact-gates.yaml` / `.md` 新增對應 required_evidence（C1）；與 `validation_complete` 互相引用
+- [x] `delegated-execution.md` §5 補 Decision 第 4 點兩條 security 規則（LLM 第二意見不單獨構成 confirmed / refuted；intelligence 只產生假設）
+- [x] `ai-skill runtime compile` + `refresh` 確認 projection 更新（C2）
+- [x] 新增 ≥ 4 個 validation scenario（見 Runtime Execution Path；含「未執行 ≠ 無 finding」）
+- [x] `ai-skill runtime refresh` / validate 通過
 
 完成條件：gate 文字 + scenarios 落地；doc-only，不宣稱機械強制。
+
+**Phase 2 結果（2026-10-03，主 session 執行）**：
+- Gate 掛在 `validate_and_close` step（與 journey gate 同層），帶 `applies_when`（trust boundary 類變更）、`refines: validation_complete` 與 doc-only `note`；`validation_complete` 反向加一條引用。
+- `artifact-gates.md` §5.4 Security Audit Evidence Shape；`artifact-gates.yaml` 加 required_evidence 與 failure mode `security_audit_absence_treated_as_safe`。
+- `runtime compile` PASSED、`refresh` 後 `validate` success；gate 文字已在 `runtime.db`（grep 確認）。
+- Scenarios（`validation/scenarios/software-delivery/security-audit-*.yaml`）：(a) confirmed high → block、(b) refuted 需可重現證據（含 LLM 一致意見變體）、(d) 空 list：已執行 pass／未執行 block 皆 `PASS`；(c) control 變更 → coverage 失效為 `FAIL_BY_ABSENCE`，是 Phase 3 的驗收目標。
+- 角色：仍為 transport adaptation（主 session 執行）；Phase 2 的 gate 文字未經 fresh verifier 對抗審查，列為 Phase 4 dogfood 前的待補項。
 
 ## Phase 3 — Coverage + Evidence Invalidation Contract
 

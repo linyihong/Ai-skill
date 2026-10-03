@@ -1,0 +1,51 @@
+# yaml-language-server: $schema=../../scenario.schema.json
+id: security-audit-empty-findings-without-execution-proof
+category: software-delivery
+domain: software-delivery
+version: v1
+type: failure-recovery
+priority: P1
+source_plan: plans/active/2026-10-03-2104-security-audit-capability-hardening.md
+source_phase: phase-2-closure-gate
+
+given:
+  task_intent: "Claim a login-flow change complete with an empty security finding list."
+  routing_entry: route.workflow.software-delivery
+  change_surface:
+    - authentication
+  case_a_executed:
+    security_finding_list:
+      audit_execution:
+        status: completed
+        mode: standard
+        scope: diff
+        evidence_ref: audit_trace_ref
+        not_covered:
+          - none
+      findings: []
+  case_b_not_executed:
+    security_finding_list:
+      findings: []
+
+when:
+  action: evaluate_security_sensitive_completion_claim
+
+then:
+  expected_load:
+    - workflow/software-delivery/execution-flow.yaml
+    - workflow/software-delivery/artifact-gates.md
+    - workflow/software-delivery/templates/security-finding-list-template.md
+  expected_route:
+    - case_a_pass_executed_audit_with_no_findings
+    - case_b_classify_as_unknown_not_safe
+    - case_b_block_until_audit_execution_recorded
+  expected_result: case_a_pass_case_b_block
+  forbidden_routes:
+    - treat_empty_findings_without_audit_execution_as_safe
+    - report_case_b_as_no_security_issues_found
+
+evidence:
+  current_expected_result: PASS
+  routing_evidence:
+    - workflow/software-delivery/execution-flow.yaml#gate.software_delivery.security_audit_complete
+    - workflow/software-delivery/artifact-gates.yaml#security_audit_absence_treated_as_safe

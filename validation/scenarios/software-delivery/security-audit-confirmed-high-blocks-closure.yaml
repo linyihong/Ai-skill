@@ -1,0 +1,51 @@
+# yaml-language-server: $schema=../../scenario.schema.json
+id: security-audit-confirmed-high-blocks-closure
+category: software-delivery
+domain: software-delivery
+version: v1
+type: routing-decision
+priority: P1
+source_plan: plans/active/2026-10-03-2104-security-audit-capability-hardening.md
+source_phase: phase-2-closure-gate
+
+given:
+  task_intent: "Claim an authorization change complete while a confirmed high-severity IDOR finding is still open."
+  routing_entry: route.workflow.software-delivery
+  change_surface:
+    - authorization
+  security_finding_list:
+    audit_execution:
+      status: completed
+      mode: standard
+      scope: trust_boundary
+    findings:
+      - status: confirmed
+        attack_class: idor
+        severity: high
+        evidence:
+          reproducible:
+            - cross_user_resource_access_test_fails
+        resolution:
+          kind: none
+
+when:
+  action: evaluate_security_sensitive_completion_claim
+
+then:
+  expected_load:
+    - workflow/software-delivery/execution-flow.yaml
+    - workflow/software-delivery/artifact-gates.md
+    - workflow/software-delivery/templates/security-finding-list-template.md
+  expected_route:
+    - apply_gate_security_audit_complete
+    - require_fix_or_complete_risk_acceptance
+  expected_result: block_completion_claim
+  forbidden_routes:
+    - accept_completion_with_open_confirmed_high_finding
+    - accept_human_review_as_resolution_for_confirmed_high_finding
+
+evidence:
+  current_expected_result: PASS
+  routing_evidence:
+    - workflow/software-delivery/execution-flow.yaml#gate.software_delivery.security_audit_complete
+    - workflow/software-delivery/artifact-gates.md#5.4 Security Audit Evidence Shape

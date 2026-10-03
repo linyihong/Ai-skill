@@ -231,6 +231,7 @@ steps:
     gates:
       - gate.software_delivery.validation_complete
       - gate.software_delivery.journey_validation_complete
+      - gate.software_delivery.security_audit_complete
 
 gates:
   - id: gate.software_delivery.evidence_classified
@@ -308,6 +309,7 @@ gates:
       - critical payment, email, external API, storage, queue, or entitlement paths include independent observation or are reported as blocked
       - unresolved blockers affecting behavior, contract, error handling, security, storage, ownership, or tests are not hidden
       - completion claim scope matches evidence
+      - security-sensitive changes are additionally governed by gate.software_delivery.security_audit_complete
   - id: gate.software_delivery.journey_validation_complete
     blocks: critical_journey_completion_claim
     pass_when:
@@ -318,6 +320,21 @@ gates:
       - expected outcomes are separated from observable evidence
       - observable evidence proves the expected outcomes at the required evidence depth
       - API success, adapter success, mock pass, screen-level UI pass, or screenshot-only evidence is not accepted as full journey proof
+  - id: gate.software_delivery.security_audit_complete
+    blocks: security_sensitive_completion_claim
+    applies_when:
+      - change touches authorization, authentication, data access scope, secrets, payment or entitlement, or another trust boundary
+    refines: gate.software_delivery.validation_complete
+    pass_when:
+      - a security-audit finding list exists in the shape of workflow/software-delivery/templates/security-finding-list-template.md
+      - audit_execution.status is completed; a missing or non-completed audit_execution is unknown, not safe, and an empty findings list alone is not proof
+      - audit_execution.not_covered lists unexamined surfaces explicitly
+      - no confirmed finding with severity critical or high remains unless resolution is fixed or a complete risk_acceptance (decision_ref, owner, scope, expires_when)
+      - no needs_validation finding with potential_impact critical or high remains without a human_review record naming reviewer and conclusion
+      - severity is set only on confirmed findings; unconfirmed findings use potential_impact and unresolved_fact
+      - confirmed and refuted findings cite at least one reproducible evidence item; LLM agreement or historical intelligence alone is not evidence
+      - risk_acceptance.expires_when names the depended-on security controls whose change voids the acceptance
+    note: Doc-only trial — agent-read executable contract; no mechanical validator consumes this gate yet (plan 2026-10-03-2104-security-audit-capability-hardening Phase 5).
 
 required_evidence:
   - goal / action / validation statement

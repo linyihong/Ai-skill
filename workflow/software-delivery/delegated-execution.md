@@ -102,6 +102,13 @@ deliverables:
 2. **不得以 mutation score 作 KPI 或關閉門檻**；通過標準沿用 test-strategy：殺掉代表真實風險的 mutant、過濾 equivalent mutants（equivalent mutant 對應仲裁 `reject` + `refuted` 留證）。
 3. Producer 可替換：mutation 只是「Behavioral Falsification」producer family（mutation / fault injection / property-based / model-based）之一，皆產出同型 evidence——「此行為未被驗證區分」。family 通用化 gated on plan Q9（forming abstraction，observe-only）；未 graduate 前本 slice 只承載 targeted mutation 這一種。
 
+**V3 security 證據規則**（`security-audit` finding；plan `2026-10-03-2104-security-audit-capability-hardening`）：
+
+1. **LLM 第二意見不能單獨裁決**。把 security finding 判為 `confirmed` 或 `refuted`，至少需要一個可重現證據（test、SAST、targeted mutation、schema validator、runtime trace）；兩個 LLM 意見一致也不算。缺可重現證據時維持 `needs_validation`。
+2. **Intelligence 只產生假設**。歷史 security intelligence（過去的漏洞模式、修補方式）可以決定 verifier 要去檢查什麼，但不能當成目前程式碼有或沒有漏洞的證據。
+
+欄位與 status 規則見 [`templates/security-finding-list-template.md`](templates/security-finding-list-template.md)。
+
 **Delivery 域 finding 分類擴充**（candidate；映射回 canonical `classification` family，第二 consumer 證據前不進 canonical enum）：
 
 | 擴充值 | 語意 | canonical 映射 |

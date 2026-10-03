@@ -1,0 +1,60 @@
+# yaml-language-server: $schema=../../scenario.schema.json
+id: security-audit-refuted-with-reproducible-evidence-passes
+category: software-delivery
+domain: software-delivery
+version: v1
+type: routing-decision
+priority: P2
+source_plan: plans/active/2026-10-03-2104-security-audit-capability-hardening.md
+source_phase: phase-2-closure-gate
+
+given:
+  task_intent: "Close a data-access change whose only candidate finding was refuted."
+  routing_entry: route.workflow.software-delivery
+  change_surface:
+    - data_access_scope
+  security_finding_list:
+    audit_execution:
+      status: completed
+      mode: standard
+      scope: diff
+      not_covered:
+        - none
+    findings:
+      - status: refuted
+        attack_class: idor
+        severity: null
+        evidence:
+          reproducible:
+            - cross_user_access_returns_forbidden_test
+          reasoning:
+            - query_filter_scopes_by_owner
+  variant_without_reproducible_evidence:
+    findings:
+      - status: refuted
+        evidence:
+          reproducible: []
+          reasoning:
+            - second_llm_review_agrees_safe
+
+when:
+  action: evaluate_security_sensitive_completion_claim
+
+then:
+  expected_load:
+    - workflow/software-delivery/execution-flow.yaml
+    - workflow/software-delivery/delegated-execution.md
+    - workflow/software-delivery/templates/security-finding-list-template.md
+  expected_route:
+    - accept_refutation_backed_by_reproducible_evidence
+    - downgrade_variant_to_needs_validation
+  expected_result: pass_with_reproducible_refutation
+  forbidden_routes:
+    - accept_llm_agreement_as_refutation
+    - set_severity_on_refuted_finding
+
+evidence:
+  current_expected_result: PASS
+  routing_evidence:
+    - workflow/software-delivery/delegated-execution.md#V3 security 證據規則
+    - workflow/software-delivery/templates/security-finding-list-template.md#Status 規則

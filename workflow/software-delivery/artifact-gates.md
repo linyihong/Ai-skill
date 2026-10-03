@@ -170,6 +170,19 @@ API 200、adapter success、mock pass、screen-level UI pass 或單一 screensho
 - **Evidence captured**：start record、completion record、final-state verification。
 - **Residual unknowns**：若 final state 無法驗證，必須縮小完成宣告或標記 blocked。
 
+## 5.4 Security Audit Evidence Shape
+
+當變更觸及授權、認證、資料存取、secret、付費 / entitlement 或其他 trust boundary，且宣告完成時，使用 [`security-finding-list-template.md`](templates/security-finding-list-template.md) 的 `security-audit` 輸出。Gate 本體是 [`execution-flow.yaml`](execution-flow.yaml) 的 `gate.software_delivery.security_audit_complete`。
+
+最小欄位：
+
+- **Audit execution**：`status`、`mode`、`scope`、`coverage_ref`、`evidence_ref`、`not_covered`。缺此段或 `status` ≠ `completed` = unknown，不是 safe；空 finding list 不能證明安全。
+- **Finding status**：candidate / needs_validation / confirmed / refuted。`severity` 只屬 confirmed；未確認的 finding 用 `potential_impact` + `unresolved_fact`。
+- **Evidence**：`reproducible`（test、SAST、mutation、schema validator、runtime trace）與 `reasoning` 分開；confirmed / refuted 至少一個 reproducible。
+- **Resolution**：fixed / human_review（reviewer + 結論）/ risk_acceptance（`decision_ref`、`owner`、`scope`、`expires_when` = 被依賴 security control 變更）。
+
+Schema 完整 ≠ 證據成立 ≠ 可以合併。歷史 intelligence 只能提供檢查假設，不能作為 finding 的裁決證據。
+
 ## 6. 避免（Avoid）
 
 - 將未發布的工作流程映射到暗示性目錄名稱、列出開發者機器路徑或重複內部調查故事的追蹤 Markdown——這些屬於 gitignore 下的僅本機筆記，而非預設分支敘述。

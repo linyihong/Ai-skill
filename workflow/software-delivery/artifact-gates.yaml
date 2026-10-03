@@ -137,6 +137,7 @@ required_evidence:
   - Authority-coupled side-effect evidence with business truth, authority event, observable proxy, durable/external evidence, and rejected proxy-only signals when a side-effect success claim is made
   - Configuration readback evidence with desired state, applied state, readback state, validation evidence, and mismatch handling when a configuration applied claim is made
   - Operational transaction closure evidence with operation, transaction state, final state readback, captured evidence, and residual unknowns when an operational completion claim is made
+  - Security audit evidence with audit_execution (status, mode, scope, coverage_ref, evidence_ref, not_covered), finding status, severity only for confirmed findings, potential_impact and unresolved_fact for unconfirmed findings, reproducible evidence, and resolution when a security-sensitive change is claimed complete (shape in templates/security-finding-list-template.md; gate in execution-flow.yaml gate.software_delivery.security_audit_complete)
   - sanitization review summary
   - linked update statement
   - validation method
@@ -177,6 +178,9 @@ failure_modes:
   - id: journey_validation_proxy_success
     detection: Critical journey claim treats API 200, adapter success, mock pass, or screen-level UI pass as proof that expected outcomes occurred.
     recovery: Load test-strategy.md and validation.md; map Journey Specification to side-effect chain, expected outcomes, and observable evidence before accepting the completion claim.
+  - id: security_audit_absence_treated_as_safe
+    detection: Security-sensitive completion claim relies on an empty finding list, a missing audit_execution record, or an unconfirmed finding labelled with severity.
+    recovery: Load artifact-gates.md §5.4 and the security finding list template; record audit_execution, move unconfirmed severity to potential_impact, and block or narrow the claim until gate.software_delivery.security_audit_complete passes.
   - id: governance_invariant_proxy_success
     detection: Runtime capability, side-effect authority, configuration readback, or operational transaction artifact uses a proxy signal as final proof.
     recovery: Load validation.md and artifact-gates.md; record the matching evidence shape and narrow or block the completion claim until readback / authority / final-state evidence exists.

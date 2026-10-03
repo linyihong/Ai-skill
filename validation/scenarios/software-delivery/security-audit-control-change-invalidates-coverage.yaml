@@ -1,0 +1,52 @@
+# yaml-language-server: $schema=../../scenario.schema.json
+id: security-audit-control-change-invalidates-coverage
+category: software-delivery
+domain: software-delivery
+version: v1
+type: heuristic-obedience
+priority: P1
+source_plan: plans/active/2026-10-03-2104-security-audit-capability-hardening.md
+source_phase: phase-2-closure-gate
+
+given:
+  task_intent: "Modify a shared authorization handler; the endpoint files that relied on it are unchanged."
+  routing_entry: route.workflow.software-delivery
+  change_surface:
+    - shared_security_control
+  prior_state:
+    coverage_unit:
+      entry_surface: user_resource_api
+      trust_boundary: authenticated_user_to_other_user_resource
+      attack_class: idor
+      status: covered
+      depends_on_controls:
+        - shared_authorization_handler
+    risk_acceptance:
+      expires_when:
+        - shared_authorization_handler_changed
+  changed_files:
+    - shared_authorization_handler
+  unchanged_files:
+    - user_resource_endpoint
+
+when:
+  action: decide_whether_prior_security_evidence_still_holds
+
+then:
+  expected_load:
+    - workflow/software-delivery/templates/security-finding-list-template.md
+    - intelligence/engineering/anti-patterns/stale-derived-state.md
+  expected_route:
+    - mark_dependent_coverage_needs_revalidation
+    - expire_risk_acceptance_tied_to_changed_control
+    - re_audit_affected_trust_boundary
+  expected_result: needs_revalidation
+  forbidden_routes:
+    - keep_coverage_because_endpoint_file_hash_unchanged
+    - keep_risk_acceptance_after_depended_on_control_changed
+
+evidence:
+  current_expected_result: FAIL_BY_ABSENCE
+  absence_reason: Coverage invalidation contract lands in plan Phase 3; this scenario is the Phase 3 acceptance target and flips to PASS then.
+  routing_evidence:
+    - plans/active/2026-10-03-2104-security-audit-capability-hardening.md#Phase 3
