@@ -23,7 +23,7 @@ AI 自動避雷。
 - [`mock-completeness-illusion.md`](mock-completeness-illusion.md) — Unit / domain / adapter / API mock 測試看似完整，但 evidence depth 不足以支持 live system claim。
 - [`validation-proxy-trap.md`](validation-proxy-trap.md) — 把 API 200、adapter success、queue publish 等 proxy signal 誤認成最終 business/user proof。
 - [`coverage-boundary-mismatch.md`](coverage-boundary-mismatch.md) — Validator 推論的 coverage 範圍比 source generator 實際產生的 canonical inventory 更大，造成 refresh/validate 成功但 freshness gate 失敗。
-- [`stale-derived-state.md`](stale-derived-state.md) — Derived state 在 source reality 改變後仍作為 authority，包含 stale layout measurement、route state、permission state、feature flag 等。
+- [`stale-derived-state.md`](stale-derived-state.md) — Derived state 在 source reality 改變後仍作為 authority，包含 stale layout measurement、route state、permission state、feature flag、security audit evidence 等。
 - [`evidence-suppression.md`](evidence-suppression.md) — 用 hiding / catching / retrying / filtering / weakening 讓 failure signal 消失，卻沒有解決或明確接受底層失敗。
 - [`pagination-accumulator-ref-shadow.md`](pagination-accumulator-ref-shadow.md) — `candidate-intelligence` — 分頁累加用 ref 當 merge 來源但 ref 在 render 後才同步，API 成功但列表不長。
 - [`scroll-load-more-bottom-gate-stall.md`](scroll-load-more-bottom-gate-stall.md) — `candidate-intelligence` — 無限滾動 bottom gate（`bottomReachConsumed` / in-flight pending / duplicate 頁）卡住，明明還有 cursor 卻要用户上滑才載入。

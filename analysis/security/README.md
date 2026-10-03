@@ -7,6 +7,7 @@
 | 文件 | 用途 |
 | --- | --- |
 | [`dual-token-audit.md`](dual-token-audit.md) | 系統同時使用兩套 token 簽章/加密機制（如 JWT + JWE、HMAC + 對稱簽章、平台 token + 廠商 token）時的審計方法 |
+| [`security-coverage-ledger.md`](security-coverage-ledger.md) | `security-audit` 的覆蓋帳本契約：coverage unit（Entry Surface × Trust Boundary × Attack Class）、unit 狀態、control 依賴與證據失效規則；資料存專案端 |
 | [`media-entitlement-control-plane.md`](media-entitlement-control-plane.md) | 付費媒體：以可播欄位存在分類；第一方設計先省略欄位再短效憑證 |
 
 ## 放什麼

@@ -1,7 +1,7 @@
 ---
 id: 2026-10-03-2104-security-audit-capability-hardening
 plan_kind: main
-status: draft
+status: in-progress
 owner: workflow
 owner_layer: workflow
 created: 2026-10-03
@@ -10,7 +10,7 @@ parent: null
 
 # Security Audit Capability Hardening（`security-audit` invoke 補實）
 
-**Status**: draft — Phase 0 完成（2026-10-03，decision = proceed to Phase 1）；Q8 / Q10 已由使用者決定（2026-10-03），Phase 1–2 無 blocker；Phase 1 由主 session 執行（transport adaptation）。
+**Status**: in-progress — Phase 0–3 完成（2026-10-03，主 session transport adaptation）；Phase 4 需真實專案 dogfood；Phase 5 gated。
 
 **Glossary Impact**: yes（候選，Phase 4 前不登記）— `security_finding`、`security_coverage_unit`、`evidence_invalidation_contract`（若與既有 `stale-derived-state` invalidation contract 語意重疊，只 cross-link 不新登記）。
 
@@ -115,15 +115,15 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 
 ## Open Questions
 
-- [ ] Q1：Coverage unit 是否需要第四軸 `Subsystem`（Cloudflare 原版有）？還是 `Entry Surface` 已涵蓋？ — *Phase 0: deferred → Phase 3（safe assumption：三軸起步，`subsystem` 為 optional 欄位）*
+- [ ] Q1：Coverage unit 是否需要第四軸 `Subsystem`（Cloudflare 原版有）？還是 `Entry Surface` 已涵蓋？ — *Phase 0: deferred → Phase 3（safe assumption：三軸起步，`subsystem` 為 optional 欄位）* — *Phase 3：採用三軸 + `subsystem` 選填（[`security-coverage-ledger.md`](../../analysis/security/security-coverage-ledger.md)）；保持 open 待 Phase 4 dogfood 驗證*
 - [x] Q2：Finding schema 放 `workflow/software-delivery/templates/`（capability output，同 `review-report-template.md`）還是 `analysis/security/`？ — *resolved：`templates/security-finding-list-template.md`*
 - [x] Q3：Closure gate 的 risk acceptance 由誰簽：使用者 decision record 即可，還是需要 `decision` asset class？ — *resolved：Decision asset class（project decision → 專案 `docs/decisions/`），`decision_ref` 指向它；簽核者 = 專案決策者，Ai-skill 不指定人*
-- [ ] Q4：專案端 coverage 資料格式（YAML in repo / project-local SQLite）與 Ai-skill contract 的驗證方式（`ai-skill` 提供 validator？） — *Phase 0: deferred → Phase 3（safe assumption：專案 repo 內 YAML；Phase 1–4 不提供 validator）*
+- [ ] Q4：專案端 coverage 資料格式（YAML in repo / project-local SQLite）與 Ai-skill contract 的驗證方式（`ai-skill` 提供 validator？） — *Phase 0: deferred → Phase 3（safe assumption：專案 repo 內 YAML；Phase 1–4 不提供 validator）* — *Phase 3：採用專案 repo 內 YAML（ledger §專案端資料格式），Phase 1–4 不提供 validator；保持 open 待 Phase 4 驗證*
 - [x] Q5：Security Light 模式下「可為空的 finding list」的最低理由欄位是什麼，才不會變成形式化填表？ — *resolved：`audit_execution { status, scope, coverage_ref, evidence_ref }`*
 - [x] Q6：Reusable security intelligence（漏洞模式 / 修補 / 回歸測試）落在 `intelligence/engineering/anti-patterns/` 還是新子目錄？需走 reusable-guidance-boundary 去敏。 — *resolved：`intelligence/engineering/anti-patterns/`，不開新子目錄*
 - [x] Q7：Verifier V3「可重現證據優先」是否應寫入 `plans/README.md` §Delegation loop SOP（canonical）而非 delegated-execution.md？ — *resolved：寫 `delegated-execution.md` §5（delivery 域擴充），不動 loop canonical*
 - [x] Q8：`needs_validation` + `potential_impact: high` 的處置邊界：要求人工審查即可，還是一律需 risk acceptance 才能 closure？（`severity` 只屬 confirmed，已在 Decision 第 1 點凍結） — *resolved（使用者 2026-10-03）：人工審查紀錄即可放行，不強制 risk acceptance*
-- [ ] Q9：Coverage invalidation 的 **dependency scope** 怎麼定義：共用 control（AuthorizationHandler、policy、query filter、middleware）修改時，哪些 coverage unit 失效？以 trust boundary 為鍵，還是需顯式 dependency 清單？ — *Phase 0: deferred → Phase 3（safe assumption：trust boundary 為鍵 + 顯式 control dependency 清單；檔案 hash 不足）*
+- [ ] Q9：Coverage invalidation 的 **dependency scope** 怎麼定義：共用 control（AuthorizationHandler、policy、query filter、middleware）修改時，哪些 coverage unit 失效？以 trust boundary 為鍵，還是需顯式 dependency 清單？ — *Phase 0: deferred → Phase 3（safe assumption：trust boundary 為鍵 + 顯式 control dependency 清單；檔案 hash 不足）* — *Phase 3：採用 trust boundary 主鍵 + `depends_on_controls` 顯式清單（ledger §Dependency Scope）；保持 open 待 Phase 4 驗證*
 - [x] Q10：Risk acceptance 的 `expires_when` 用什麼條件表達（時間、commit 範圍、被依賴 control 變更）？與 Q3 簽核者一併決定。 — *resolved（使用者 2026-10-03）：被依賴 control 變更即失效；不用時間期限或 commit 範圍*
 
 > 2026-10-03 review 回寫：外部 review 確認架構方向不變、維持 draft 直接進 Phase 0、不擴大 scope；新增 Q8–Q10 與 Decision 第 1–2 點的 severity / audit_execution / risk acceptance 欄位，Q5 的「空 finding list 最低理由」由 `audit_execution` 吸收（Phase 0 確認後標 resolved）。
@@ -215,12 +215,19 @@ Schema 與 gate 未經真實專案 dogfood；coverage unit 維度（是否需要
 
 ## Phase 3 — Coverage + Evidence Invalidation Contract
 
-- [ ] 擴充 `stale-derived-state.md`（或其子文件）定義 security coverage unit + invalidation contract（source dependency / security control 變更 → `needs_revalidation`）
-- [ ] 明文：檔案 hash 不足以判斷證據有效；需追蹤共用 control（middleware、policy、query filter）
-- [ ] 專案端資料格式 contract（依 Q4）；Ai-skill 不存專案 coverage 資料
-- [ ] 沙箱規則：無 OS 層隔離時不執行目標程式碼，finding 留 `needs_validation`
+- [x] 擴充 `stale-derived-state.md`（或其子文件）定義 security coverage unit + invalidation contract（source dependency / security control 變更 → `needs_revalidation`）
+- [x] 明文：檔案 hash 不足以判斷證據有效；需追蹤共用 control（middleware、policy、query filter）
+- [x] 專案端資料格式 contract（依 Q4）；Ai-skill 不存專案 coverage 資料
+- [x] 沙箱規則：無 OS 層隔離時不執行目標程式碼，finding 留 `needs_validation`
 
 完成條件：contract 文件落地、去敏檢查通過、被 analysis/security README 索引。
+
+**Phase 3 結果（2026-10-03，主 session 執行）**：
+- 契約本體放 [`analysis/security/security-coverage-ledger.md`](../../analysis/security/security-coverage-ledger.md)（觀察 / 審計方法屬 analysis layer），不塞進 intelligence；[`stale-derived-state.md`](../../intelligence/engineering/anti-patterns/stale-derived-state.md) 只加 `stale_security_evidence` 變體並連過去，避免雙 source。
+- 內容：coverage unit 與四種狀態（`not_covered` / `covered` / `needs_revalidation` / `accepted_gap`）、專案端 YAML 格式（units + controls）、Dependency Scope、Invalidation 表（含 risk acceptance `expires_when` 失效）、執行目標程式碼的隔離要求、去敏邊界。
+- 索引：analysis/security README、anti-patterns README；template `coverage_ref` 指向 ledger。
+- Scenario (c) `security-audit-control-change-invalidates-coverage` 由 `FAIL_BY_ABSENCE` 轉 `PASS`。
+- 去敏：只用 generic 名稱與 `<PROJECT_ROOT>` 占位；無 host / token / 專案路徑。
 
 ## Phase 4 — Dogfood
 

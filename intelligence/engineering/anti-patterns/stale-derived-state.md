@@ -25,6 +25,7 @@ system acts on stale reality
 - `stale_permission_state`: authorization or entitlement projection remains active after upstream identity or permission changed.
 - `stale_feature_flag`: a cached flag value controls behavior after rollout state changed.
 - `stale_session_projection`: session-derived UI or data state remains visible after session refresh, logout, or identity switch.
+- `stale_security_evidence`: a past security audit conclusion ("this endpoint is not vulnerable to IDOR") stays trusted after a shared security control it depended on changed, even though the endpoint file itself is unchanged. Invalidation contract: [`analysis/security/security-coverage-ledger.md`](../../../analysis/security/security-coverage-ledger.md).
 
 ## Rule
 

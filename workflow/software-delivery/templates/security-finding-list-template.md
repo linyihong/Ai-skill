@@ -22,7 +22,7 @@ audit_execution:
   mode: light                # light | standard | deep（對照下方 Audit Mode）
   scope: diff                # diff | module | trust_boundary | full
   scope_ref: <commit range / PR / module list>
-  coverage_ref: <project coverage unit id, or none>
+  coverage_ref: <project coverage unit id, or none>   # 見 analysis/security/security-coverage-ledger.md
   evidence_ref: <where the audit trace / tool output / notes live>
   not_covered:               # 明列未檢查的面，不可省略為空泛「其他」
     - <entry surface / attack class not examined, or none>

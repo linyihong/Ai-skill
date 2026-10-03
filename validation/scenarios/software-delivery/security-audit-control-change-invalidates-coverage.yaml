@@ -36,6 +36,7 @@ then:
   expected_load:
     - workflow/software-delivery/templates/security-finding-list-template.md
     - intelligence/engineering/anti-patterns/stale-derived-state.md
+    - analysis/security/security-coverage-ledger.md
   expected_route:
     - mark_dependent_coverage_needs_revalidation
     - expire_risk_acceptance_tied_to_changed_control
@@ -46,7 +47,7 @@ then:
     - keep_risk_acceptance_after_depended_on_control_changed
 
 evidence:
-  current_expected_result: FAIL_BY_ABSENCE
-  absence_reason: Coverage invalidation contract lands in plan Phase 3; this scenario is the Phase 3 acceptance target and flips to PASS then.
+  current_expected_result: PASS
   routing_evidence:
-    - plans/active/2026-10-03-2104-security-audit-capability-hardening.md#Phase 3
+    - analysis/security/security-coverage-ledger.md#Invalidation（失效規則）
+    - intelligence/engineering/anti-patterns/stale-derived-state.md#Common Variants
