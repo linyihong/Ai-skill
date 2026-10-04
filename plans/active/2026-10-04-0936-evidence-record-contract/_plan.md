@@ -122,7 +122,7 @@ Owner: framework maintainer (linyihong)
 | Q3 | I3 未達 3 個實例時，是否仍在 pattern 內列出？ | — | **resolved（maintainer 2026-10-04）**：保留為 watch，不升 invariant；watch 不是新 domain 的必要條件。Phase 0 確認 I3 = 2 + 1 variant |
 | Q4 | domain link-back 的深度 | 只加連結 + 標註對應的 invariant id，不改欄位 | **resolved（Phase 2）**：每個 domain 一行，標註 TE id，未改任何欄位或 gate |
 | Q5 | observed／candidate／resolved 三層與 evidence-hierarchy Observability 軸如何對應？ | — | **resolved（不能一對一）**：Phase 0 F1，resolved 不代表權重較高、rejected 不代表觀察失效；Phase 1 寫成「兩軸正交」說明，不改 hierarchy |
-| Q6 | 是否需要 validation scenarios？ | 依 decision-support 先例：pattern 本身 doc-only，由 domain 既有 scenarios 覆蓋 | still-open（Phase 3） |
+| Q6 | 是否需要 validation scenarios？ | 依 decision-support 先例：pattern 本身 doc-only，由 domain 既有 scenarios 覆蓋 | **resolved（補 1 個）**：decision-support 先例其實有 1 個 cross-domain heuristic scenario；比照新增 [`traceable-evidence-new-domain-adoption-v1`](../../../validation/scenarios/cross-domain/traceable-evidence-new-domain-adoption-v1.yaml)，鎖定新 domain 採用時最容易誤用的 TE1、TE5 與「watch 不是必要條件」 |
 | Q7 | I5（lifecycle ≠ epistemic）達 3 個實例，是否納入 pattern？ | 納入，並以 LG 的 `provisional` 雙義 enum 當 anti-pattern 範例 | **resolved（納入，TE5）**：maintainer 2026-10-04 |
 | Q8 | I3 是否放寬為「宣告重驗觸發條件（變更觸發或使用時觸發）」？放寬後會達 3 | 不放寬：這是為了過門檻改寫定義；兩種形狀都記在 watch 條目 | **resolved（不放寬）**：maintainer 2026-10-04；TE3 維持 watch，legal 列為 variant |
 | Q9 | 獨立性判定 | — | **resolved（maintainer 2026-10-04）**：共用同一份上游契約的實例合算 1；NV 與 TR 判定獨立（I1 維持 3） |
@@ -135,7 +135,7 @@ Owner: framework maintainer (linyihong)
 - [x] cross-cutting pattern 文件落地，含邊界表、實例表、watch 段
 - [x] 所有實例 domain 已 link back；cross-cutting README 表格已更新
 - [x] §Research Candidates 的前置欄已更新為 met
-- [ ] 執行 Plan Completion Closure
+- [ ] 執行 Plan Completion Closure（blocked：Stakeholder Q1 名稱確認）
 
 ## Phase 0: Pre-Build Interrogation ✅（2026-10-04）
 
@@ -190,11 +190,11 @@ Owner: framework maintainer (linyihong)
 - [x] 在 `stale-derived-state.md` 加連結（TE3 watch，含兩種觸發形狀）
 - [x] 更新 §Research Candidates 的前置欄狀態（met）
 
-## Phase 3: Closure
+## Phase 3: Closure（scenario + 驗證 ✅；Plan Completion Closure 等 Q1 確認）
 
-- [ ] 依 Q6 決定是否補 scenarios
-- [ ] runtime compile／refresh／validate（確認沒有誤增 surface）
-- [ ] 執行 Plan Completion Closure
+- [x] 依 Q6 補 1 個 scenario（`validation/scenarios/cross-domain/traceable-evidence-new-domain-adoption-v1.yaml`）
+- [x] runtime compile／refresh／validate（無新增 route／surface；scenario 計入既有 orphan scenarios 統計，比照 decision-support）
+- [ ] 執行 Plan Completion Closure（blocked：Stakeholder Q1 名稱確認）
 
 ## Stakeholder 同意項目
 

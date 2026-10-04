@@ -131,3 +131,5 @@
 - 每次定案是否附理由與證據引用？（TE4）
 - lifecycle 狀態與可信度是否分開記錄？有沒有單一 enum 承載兩個維度？（TE5）
 - 若 domain 宣告實作 TE3：觸發形狀是否與來源可監看性相符？
+
+行為鎖定：[`traceable-evidence-new-domain-adoption-v1`](../../../validation/scenarios/cross-domain/traceable-evidence-new-domain-adoption-v1.yaml)（新 domain 採用時的 TE1、TE5 與 watch 誤用）。

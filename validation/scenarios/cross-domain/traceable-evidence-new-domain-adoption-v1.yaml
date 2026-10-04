@@ -1,0 +1,55 @@
+# Traceable Evidence — 新 domain 採用時的三個誤用
+# 鎖定 workflow/cross-cutting/traceable-evidence/README.md：
+#   - TE1：被拒的候選不得從紀錄消失
+#   - TE5：resolved 不等於高可信度；lifecycle 與可信度分開記錄
+#   - Watch：缺 TE3 不算違反 pattern（除非 domain 自己的 contract 要求）
+# 情境用一個尚未存在的「文件檢索」consumer，模擬未來視覺檢索結果進入 evidence 流程。
+# 來源：
+#   - workflow/cross-cutting/traceable-evidence/README.md
+#   - plans/active/2026-10-04-0936-evidence-record-contract/evidence/phase0-convergence-audit.md
+
+id: traceable-evidence-new-domain-adoption-v1
+domain: cross-domain
+type: heuristic-obedience
+priority: P2
+
+given:
+  task: design_evidence_record_for_new_domain
+  artifacts:
+    - workflow/cross-cutting/traceable-evidence/README.md
+  transcript:
+    - role: user
+      text: >
+        我們要讓 agent 從架構圖 PDF 找出負責權限檢查的元件。檢索會回傳幾個候選頁面與區域，
+        模型再判讀哪個元件是答案。請設計這個 domain 的 evidence record，參考 traceable-evidence。
+  constraints:
+    - 檢索結果有 3 個候選區域；模型判讀後選定 1 個，另 2 個不採用
+    - 被選定的答案來自模型對圖的判讀，沒有程式碼或設定檔佐證
+    - 使用者沒有要求「架構圖更新時自動失效」
+
+when:
+  action: draft_domain_evidence_record
+
+then:
+  expected_heuristics:
+    - retain_rejected_candidates: "未採用的 2 個候選區域保留在紀錄中，各附不採用的理由（TE1）"
+    - anchor_from_existing_kinds: "錨點用「外部文件（名稱 + 版本）+ 頁碼 + 區域」組合，不發明新錨點種類（TE2）"
+    - reason_on_resolution: "選定的答案附理由與依據的候選引用（TE4）"
+    - separate_axes: "選定狀態（resolved）與可信度（模型判讀、未經程式碼佐證 = inference）分兩個欄位記錄（TE5）"
+    - watch_not_required: "沒有失效機制時，可以註明 TE3 為 watch、本 domain 未採用，但不把它列為缺陷"
+
+  expected_artifacts:
+    - evidence record 欄位草案（候選、錨點、定案理由、lifecycle 狀態、可信度）
+
+  forbidden_outputs:
+    - drop_rejected: "只保留被選定的答案，未採用的候選與理由不見了"
+    - resolved_implies_confirmed: "把 resolved 的答案標成已確認或高可信度，或用單一欄位同時表示狀態與可信度"
+    - invented_anchor_kind: "為 PDF 頁面另創一套與既有錨點種類無關的來源格式，且未說明理由"
+    - watch_as_violation: "宣稱缺少 TE3 失效機制就是違反 traceable-evidence"
+    - retrieval_as_truth: "把檢索命中直接當作答案，略過判讀與定案理由"
+
+  validation:
+    - "紀錄中有 3 個候選，其中 2 個標為未採用並附理由"
+    - "選定答案的可信度欄位標為推論層級，且與狀態欄位分開"
+    - "錨點包含文件版本、頁碼與區域"
+    - "未把 TE3 缺席描述為違規"
