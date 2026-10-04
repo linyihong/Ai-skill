@@ -338,7 +338,7 @@ suppression:
 
 繼續 Gen 3 的深化：cognitive modes、tool signals、model economics、memory boundary、routing、discovery。
 
-- Active：[`plans/active/2026-05-25-1000-context-language-glossary-system.md`](../plans/active/2026-05-25-1000-context-language-glossary-system.md) Phase 6 加 glossary runtime auto-detect
+- Archived（completed 2026-05-28）：[`plans/archived/2026-05-25-1000-context-language-glossary-system.md`](../plans/archived/2026-05-25-1000-context-language-glossary-system.md) Phase 6 加 glossary runtime auto-detect
 - Active：[`plans/active/2026-05-27-1557-tool-runtime-signal-economics-integration.md`](../plans/active/2026-05-27-1557-tool-runtime-signal-economics-integration.md) 把 economics 與 ecosystem signals 拉到 runtime
 - 觸及 criteria：A（partial）/ D（partial）/ J（partial）
 
@@ -436,11 +436,11 @@ User 評價提到本系統已開始出現第二代特徵。誠實對照：
 
 ---
 
-## 與 Active Plans 的關係
+## 與相關 Plans 的關係
 
 | Plan | 對 Gen 4 的貢獻 |
 |---|---|
-| [`plans/active/2026-05-28-1200-gen3-runtime-trigger-audit-and-completion.md`](../plans/active/2026-05-28-1200-gen3-runtime-trigger-audit-and-completion.md) | 先收斂 Gen 3 runtime completion 定義，避免 Gen 4 surfaces 變成 projection-only / routing-only orphan |
+| [`plans/archived/2026-05-28-1200-gen3-runtime-trigger-audit-and-completion.md`](../plans/archived/2026-05-28-1200-gen3-runtime-trigger-audit-and-completion.md)（archived，completed 2026-05-28） | 已收斂 Gen 3 runtime completion 定義，避免 Gen 4 surfaces 變成 projection-only / routing-only orphan |
 | [`plans/active/2026-05-27-1557-tool-runtime-signal-economics-integration.md`](../plans/active/2026-05-27-1557-tool-runtime-signal-economics-integration.md) | 直接攻 criteria A（cognitive economics）+ D 部分（ecosystem signals）+ J 部分（resource management）。是 Gen 4 的核心 plan，但仍 draft，未實作 |
 | [`plans/active/2026-05-28-1636-gen4-fitness-optimization-memory-interface-reservation.md`](../plans/active/2026-05-28-1636-gen4-fitness-optimization-memory-interface-reservation.md) | 預留 G2（Optimization Memory）與 fitness schema：positive evidence、rejected optimization memory、activation fitness placeholder；明確禁止 autonomous optimizer / self-modifying governance |
 
