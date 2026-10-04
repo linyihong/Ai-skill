@@ -41,7 +41,7 @@ dialogue_projected + watermark_spans[]
 - [x] unit：黏串→投影；純「哥外」→rejected；应酬/诱惑 conflict → spoken=应酬 + uncertain
 - [x] ep16 re-audit：accepted 30→28；rejected sticky-only 3；**accepted spoken sticky=0**；retained=38
 - [x] 本 evidence + README 索引
-- [ ] prefer-OCR 後再跑 ep16 offline audit（Mac/SoT helper 已更新）
+- [x] prefer-OCR 後 ep16 offline audit：accepted 21 / uncertain 14 / rejected 3；应酬≠诱惑、私会≠死回 → spoken=OCR + uncertain；`sticky_projection: projected=21 uncertain=12 rejected=3`
 
 ## Dogfood result（sanitized）
 
