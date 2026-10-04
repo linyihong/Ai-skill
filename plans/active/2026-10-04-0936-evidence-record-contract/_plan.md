@@ -11,12 +11,12 @@ required_for_completion: false
 
 # Evidence Record Contract（domain evidence 記錄形狀的跨域收斂）
 
-**Status**: `in-progress`：**Phase 0 完成**（2026-10-04），等 maintainer 對 Phase 1 決策點（Q1 定名、Q7 I5 是否納入、F2 是否放寬 I3）拍板。
+**Status**: `in-progress`：Phase 0 完成；**Phase 1 完成**（2026-10-04）：pattern 落地於 [`workflow/cross-cutting/traceable-evidence/`](../../../workflow/cross-cutting/traceable-evidence/README.md)（TE1／TE2／TE4／TE5 invariant + TE3 watch）。Q1 名稱 `traceable-evidence` 待 maintainer 確認後才能 closure。
 Owner: framework maintainer (linyihong)
 **建立日期**：2026-10-04
 **Priority**：**P2**（不阻擋其他工作；是 visual retrieval research candidate 的前置）
 
-**Glossary Impact**: deferred：名稱是 §Open Questions Q1（暫定 `source-anchored-evidence`，Phase 0 建議重新命名），Phase 1 定名後再決定是否登記到 `knowledge/glossary/ai-skill.md`。
+**Glossary Impact**: deferred：pattern 名稱 `traceable-evidence` 待 Q1 確認；pilot 期間不登記 glossary（比照 decision-support）。
 
 ## Executive summary
 
@@ -47,7 +47,7 @@ Owner: framework maintainer (linyihong)
 | I2 來源錨點 | NV、3D、SEC、LG（4） | **Promote** |
 | I3 來源變更即失效 | SEC、3D（2）+ LG variant | **Watch**（F2：使用時重驗是另一種觸發形狀，未計入） |
 | I4 定案要附理由 | NV、3D、SEC、TR、LG（5） | **Promote** |
-| I5 候選 lifecycle ≠ epistemic | NV、SEC、TR（3） | **待 Phase 1 決定**（maintainer 指示：不由 Phase 0 直接新增） |
+| I5 候選 lifecycle ≠ epistemic | NV、SEC、TR（3） | **Promote**（maintainer 2026-10-04 決定納入；pattern 編號 TE5） |
 
 獨立性：3D／NV／TR 共用 `artifact-record/v1` 版本標籤，但 repo 內沒有定義檔，標籤不含 invariant 內容；NV↔TR 有詞彙與資料流耦合，但依時間序與事故來源判定為各自寫出。細節見 audit §獨立性檢查。
 
@@ -117,21 +117,22 @@ Owner: framework maintainer (linyihong)
 
 | # | Question | 傾向 | 處置 |
 |---|---|---|---|
-| Q1 | 名稱 | maintainer 暫定 `source-anchored-evidence`；Phase 0 結束後確認是否能代表收斂結果 | **still-open**：Phase 0 發現暫定名只描述 I2；I1／I4（與 I5）講的是證據在決策過程中的保存與裁決。建議 Phase 1 改用能涵蓋「保存 + 錨定 + 裁決」的名稱 |
+| Q1 | 名稱 | maintainer 暫定 `source-anchored-evidence`，並授權「來源錨點只是其中一個特徵時可以重新命名」 | **provisional → `traceable-evidence`**（Phase 1）：暫定名只覆蓋 I2；`traceable` 涵蓋保留（TE1）、錨定（TE2）、定案理由（TE4）與分軸記錄（TE5），且不以 `evidence-` 開頭，降低與 `evidence-candidates`／`plan-evidence` 混淆。**待 maintainer 確認**；不同意時只需改目錄名與連結 |
 | Q2 | 歸屬：`workflow/cross-cutting/` 或 `intelligence/engineering/`？ | cross-cutting：它約束的是 domain artifact 形狀，比照 decision-support | **resolved（cross-cutting）**：5 個實例全部是 domain artifact 的 record／gate，不是判斷準則 |
 | Q3 | I3 未達 3 個實例時，是否仍在 pattern 內列出？ | — | **resolved（maintainer 2026-10-04）**：保留為 watch，不升 invariant；watch 不是新 domain 的必要條件。Phase 0 確認 I3 = 2 + 1 variant |
 | Q4 | domain link-back 的深度 | 只加連結 + 標註對應的 invariant id，不改欄位 | still-open（Phase 2 執行時確認） |
 | Q5 | observed／candidate／resolved 三層與 evidence-hierarchy Observability 軸如何對應？ | — | **resolved（不能一對一）**：Phase 0 F1，resolved 不代表權重較高、rejected 不代表觀察失效；Phase 1 寫成「兩軸正交」說明，不改 hierarchy |
 | Q6 | 是否需要 validation scenarios？ | 依 decision-support 先例：pattern 本身 doc-only，由 domain 既有 scenarios 覆蓋 | still-open（Phase 3） |
-| Q7 | I5（lifecycle ≠ epistemic）達 3 個實例，是否納入 pattern？ | 納入，並以 LG 的 `provisional` 雙義 enum 當 anti-pattern 範例 | **still-open**：maintainer 指示 Phase 0 不直接新增，由 Phase 1 決定 |
-| Q8 | I3 是否放寬為「宣告重驗觸發條件（變更觸發或使用時觸發）」？放寬後會達 3 | 不放寬：這是為了過門檻改寫定義；兩種形狀都記在 watch 條目 | **still-open**（maintainer 決定） |
-| Q9 | 獨立性判定 | — | **resolved（maintainer 2026-10-04）**：共用同一份上游契約的實例合算 1；Phase 0 已逐對檢查並記敏感度 |
+| Q7 | I5（lifecycle ≠ epistemic）達 3 個實例，是否納入 pattern？ | 納入，並以 LG 的 `provisional` 雙義 enum 當 anti-pattern 範例 | **resolved（納入，TE5）**：maintainer 2026-10-04 |
+| Q8 | I3 是否放寬為「宣告重驗觸發條件（變更觸發或使用時觸發）」？放寬後會達 3 | 不放寬：這是為了過門檻改寫定義；兩種形狀都記在 watch 條目 | **resolved（不放寬）**：maintainer 2026-10-04；TE3 維持 watch，legal 列為 variant |
+| Q9 | 獨立性判定 | — | **resolved（maintainer 2026-10-04）**：共用同一份上游契約的實例合算 1；NV 與 TR 判定獨立（I1 維持 3） |
+| Q10 | pattern 編號與 domain 內部編號衝突（translation 已用 I1–I23） | 加前綴 | **resolved（`TE` 前綴）**：TE1–TE5 對應 audit 的 I1–I5；全文搜尋無衝突 |
 
 ## 完成條件
 
 - [x] Phase 0 收斂矩陣每格都有檔案引用或標明 `absent`
-- [ ] 只抽取 ≥3 實例的 invariant；未達門檻者有明確處置（Q3 已定，Q7／Q8 待定）
-- [ ] cross-cutting pattern 文件落地，含邊界表、實例表、watch 段
+- [x] 只抽取 ≥3 實例的 invariant；未達門檻者有明確處置（TE3 watch；Q3／Q7／Q8 resolved）
+- [x] cross-cutting pattern 文件落地，含邊界表、實例表、watch 段
 - [ ] 所有實例 domain 已 link back；cross-cutting README 表格已更新
 - [ ] §Research Candidates 的前置欄已更新為 met
 - [ ] 執行 Plan Completion Closure
@@ -174,13 +175,13 @@ Owner: framework maintainer (linyihong)
 - [x] 掃描其他候選實例：納入 translation；排除 investment（共用 decision-support 上游）、delegated-execution（屬 security-audit 同一 capability）
 - [x] 產出結論：I1／I2／I4 Promote、I3 Watch、I5 待定
 
-## Phase 1: Pattern 文件
+## Phase 1: Pattern 文件 ✅（2026-10-04）
 
-- [ ] 依 Q1 結論建立 `workflow/cross-cutting/<name>/README.md`：每條已收斂 invariant 寫明語意、反例，以及實例表（domain → 欄位或 gate id）
-- [ ] Watch 段：I3（含兩種觸發形狀）；明寫「watch 不是新 domain 的必要條件」
-- [ ] 依 Q7 決定是否納入 I5；Q5 寫成兩軸正交說明
-- [ ] source anchor 種類表（只列實例已使用的錨點種類）與 §邊界表
-- [ ] 檢查 document sizing
+- [x] 建立 [`workflow/cross-cutting/traceable-evidence/README.md`](../../../workflow/cross-cutting/traceable-evidence/README.md)：每條已收斂 invariant 寫明語意、反例，以及實例表（domain → 欄位或 gate id）
+- [x] Watch 段：TE3（含兩種觸發形狀）；明寫「watch 不是新 domain 的必要條件」
+- [x] I5 納入為 TE5（Q7）；Q5 寫成兩軸正交說明
+- [x] source anchor 種類表（只列實例已使用的錨點種類）與 §邊界表
+- [x] 檢查 document sizing（單一主題，約 95 行，未超過 300 行警戒線，不拆分）
 
 ## Phase 2: Domain link-back 與索引
 
@@ -199,8 +200,8 @@ Owner: framework maintainer (linyihong)
 
 - [x] maintainer 確認範圍只限 domain evidence 記錄形狀，不碰 hierarchy、ECS、plan-evidence（2026-10-04 批准 Phase 0 時維持原定範圍）
 - [x] maintainer 確認 ≥3 實例門檻適用於每條 invariant（2026-10-04）
+- [x] maintainer 拍板 Q7（納入 I5）與 Q8（I3 不放寬）（2026-10-04）
 - [ ] maintainer 拍板 Q1 名稱
-- [ ] maintainer 拍板 Q7（I5）與 Q8（I3 是否放寬）
 
 ## 與其他 plans 的關係
 

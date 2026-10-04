@@ -20,6 +20,7 @@ Concerns that span multiple delivery slices without becoming a new `software-del
 | --- | --- | --- |
 | Experience runtime | [`experience-runtime/README.md`](experience-runtime/README.md) | pilot — player template only |
 | Review (fault_finding consumer) | [`review/README.md`](review/README.md) | active — invoke + checklist; not stance contract owner |
+| Traceable Evidence | [`traceable-evidence/README.md`](traceable-evidence/README.md) | pilot — reference contract（非 stage）；TE1／TE2／TE4／TE5 各有 ≥3 個獨立 domain 實例，TE3 watch |
 | Decision Support Stage | [`decision-support/README.md`](decision-support/README.md) | pilot — generic contract + **2／3** converged cases (`legal/strategy/`、`investment/strategy/`) |
 
 ## Slice promotion policy
