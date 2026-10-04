@@ -420,6 +420,22 @@ User 評價提到本系統已開始出現第二代特徵。誠實對照：
 
 ---
 
+## Research Candidates（未排程能力方向，非 graduation criterion）
+
+外部技術評估後，判定為「方向相容、但目前沒有 consumer」的能力。本節只記錄**啟動條件**：不排程、不預建介面，也不計入 §現況評估。條件成立後，需另開 plan 並走 Phase 0 preflight。
+
+| Candidate | 層 | 評估日 | 現況判定 | 啟動條件（全部成立才開 plan） | 前置 | 非目標 |
+|---|---|---|---|---|---|---|
+| Visual document retrieval provider（ColPali／ColQwen 類 late-interaction multi-vector 檢索） | Perception + Retrieval | 2026-10-04 | **watch**：本 repo 沒有視覺文件 corpus；文字檢索（grep、`knowledge/summaries/`、routing registry）已能精確定位 | (1) 某 workflow 在真實任務中留下 ≥1 筆「文字檢索找不到、必須讀圖或頁面版面才能取得證據」的紀錄（最可能是 security-audit 讀架構圖或 PDF 規格）；(2) 在 repo 外，用該專案的真實文件做 PoC，比較 OCR + BM25 baseline 與 visual retrieval 的 recall，visual 明顯勝出 | [`evidence-record-contract`](../plans/active/2026-10-04-0936-evidence-record-contract.md)：source anchor 必須 modality-neutral，visual 檢索結果才能以 candidate 身分進入既有 evidence 流程 | 不先定義 Retrieval Provider 介面；不建 standing index；檢索結果不得繞過 visibility／sanitization；檢索結果只算 candidate，不算 truth（對齊 [`retrieval-routing.md`](../memory/retrieval-governance/retrieval-routing.md)） |
+
+評估要點（2026-10-04）：
+
+- **Retrieval ≠ understanding**：visual retrieval 只負責找到頁面；精確擷取與事實驗證仍要交給後續 parser／VLM，並受 [`evidence-hierarchy.md`](../enforcement/evidence-hierarchy.md) 約束。
+- **介面形狀由第一個 consumer 決定**：沒有使用者之前先定義 provider 介面，就是在猜形狀。可替換性應該靠「檢索結果一律以 candidate 進入 evidence 流程」來取得，而不是靠預建的抽象層。
+- **工具鏈狀態啟動時再查**：評估時有說法指出原 ColPali engine 套件已標 deprecated、建議改用其他 multi-vector encoder，此說法**未經查證**，啟動時要以官方來源為準。硬體不是限制條件：這類約 3B 參數的模型，單張 16GB 消費級 GPU 就能推論。
+
+---
+
 ## 與 Active Plans 的關係
 
 | Plan | 對 Gen 4 的貢獻 |
