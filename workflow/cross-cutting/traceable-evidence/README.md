@@ -4,7 +4,7 @@
 
 > **狀態**：`pilot`（reference contract）。本檔定義**語意**，不定義欄位名；各 domain 用自己的欄位實作，再連回本檔。
 > **不是**必跑 stage、**不**註冊 `route.*`、**不**加 validator。收斂證據：
-> [`evidence/phase0-convergence-audit.md`](../../../plans/active/2026-10-04-0936-evidence-record-contract/evidence/phase0-convergence-audit.md)。
+> [`evidence/phase0-convergence-audit.md`](../../../plans/archived/2026-10-04-0936-evidence-record-contract/evidence/phase0-convergence-audit.md)。
 
 ## 收錄門檻
 

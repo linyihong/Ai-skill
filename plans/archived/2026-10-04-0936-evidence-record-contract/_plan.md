@@ -1,7 +1,7 @@
 ---
 id: 2026-10-04-0936-evidence-record-contract
 plan_kind: main
-status: in-progress
+status: completed
 owner: linyihong
 created: 2026-10-04
 priority: P2
@@ -11,12 +11,12 @@ required_for_completion: false
 
 # Evidence Record Contract（domain evidence 記錄形狀的跨域收斂）
 
-**Status**: `in-progress`：Phase 0 完成；**Phase 1 完成**（2026-10-04）：pattern 落地於 [`workflow/cross-cutting/traceable-evidence/`](../../../workflow/cross-cutting/traceable-evidence/README.md)（TE1／TE2／TE4／TE5 invariant + TE3 watch）。Q1 名稱 `traceable-evidence` 待 maintainer 確認後才能 closure。
+**Status**: `completed`（2026-10-04）：Phase 0–3 完成。pattern 落地於 [`workflow/cross-cutting/traceable-evidence/`](../../../workflow/cross-cutting/traceable-evidence/README.md)（TE1／TE2／TE4／TE5 invariant + TE3 watch，`pilot`）；六個 domain link back；1 個 cross-domain scenario。不升 ADR（見 §ADR Promotion Criteria 結案評估）。
 Owner: framework maintainer (linyihong)
 **建立日期**：2026-10-04
 **Priority**：**P2**（不阻擋其他工作；是 visual retrieval research candidate 的前置）
 
-**Glossary Impact**: deferred：pattern 名稱 `traceable-evidence` 待 Q1 確認；pilot 期間不登記 glossary（比照 decision-support）。
+**Glossary Impact**: no：pattern 名稱 `traceable-evidence` 已確認（Q1），但 pilot 期間不登記 glossary（比照 decision-support）；升級出 pilot 時再評估。
 
 ## Executive summary
 
@@ -81,10 +81,15 @@ Owner: framework maintainer (linyihong)
 
 ### ADR Promotion Criteria（completed 時驗證）
 
-- [ ] ≥1 個**新** domain（不在 Phase 0 矩陣內）直接採用此 pattern，並且不需要修改 pattern（證明有外推能力）
-- [ ] foundational + cross-session + cross-project + expensive-to-reverse + explains-why 全中
-- [ ] Open Questions 全解
-- [ ] 沒有更輕的 promotion target（per ADR-007）
+- [x] Open Questions 全解 — *Q1–Q10 皆 resolved（2026-10-04）*
+
+結案評估（2026-10-04）：**不升 ADR，`adr_promotion: deferred`**。未達的條件如下（以清單記錄，不是待辦）：
+
+- 尚無**新** domain（不在 Phase 0 矩陣內）直接採用此 pattern；外推能力未證明。
+- foundational + expensive-to-reverse 不成立：pattern 是 `pilot` reference contract，可回退，不約束任何 gate。
+- 有更輕的 promotion target：留在 `workflow/cross-cutting/` 即可。
+
+重新評估時機：第一個新 domain 採用 traceable-evidence（最可能是 Gen 4 §Research Candidates 的 visual document retrieval consumer），且採用時不需要修改 pattern。
 
 ### Consequences
 
@@ -117,7 +122,7 @@ Owner: framework maintainer (linyihong)
 
 | # | Question | 傾向 | 處置 |
 |---|---|---|---|
-| Q1 | 名稱 | maintainer 暫定 `source-anchored-evidence`，並授權「來源錨點只是其中一個特徵時可以重新命名」 | **provisional → `traceable-evidence`**（Phase 1）：暫定名只覆蓋 I2；`traceable` 涵蓋保留（TE1）、錨定（TE2）、定案理由（TE4）與分軸記錄（TE5），且不以 `evidence-` 開頭，降低與 `evidence-candidates`／`plan-evidence` 混淆。**待 maintainer 確認**；不同意時只需改目錄名與連結 |
+| Q1 | 名稱 | maintainer 暫定 `source-anchored-evidence`，並授權「來源錨點只是其中一個特徵時可以重新命名」 | **resolved（`traceable-evidence`，maintainer 2026-10-04 確認）**：暫定名只覆蓋 I2；`traceable` 涵蓋保留（TE1）、錨定（TE2）、定案理由（TE4）與分軸記錄（TE5），且不以 `evidence-` 開頭，降低與 `evidence-candidates`／`plan-evidence` 混淆。|
 | Q2 | 歸屬：`workflow/cross-cutting/` 或 `intelligence/engineering/`？ | cross-cutting：它約束的是 domain artifact 形狀，比照 decision-support | **resolved（cross-cutting）**：5 個實例全部是 domain artifact 的 record／gate，不是判斷準則 |
 | Q3 | I3 未達 3 個實例時，是否仍在 pattern 內列出？ | — | **resolved（maintainer 2026-10-04）**：保留為 watch，不升 invariant；watch 不是新 domain 的必要條件。Phase 0 確認 I3 = 2 + 1 variant |
 | Q4 | domain link-back 的深度 | 只加連結 + 標註對應的 invariant id，不改欄位 | **resolved（Phase 2）**：每個 domain 一行，標註 TE id，未改任何欄位或 gate |
@@ -135,7 +140,7 @@ Owner: framework maintainer (linyihong)
 - [x] cross-cutting pattern 文件落地，含邊界表、實例表、watch 段
 - [x] 所有實例 domain 已 link back；cross-cutting README 表格已更新
 - [x] §Research Candidates 的前置欄已更新為 met
-- [ ] 執行 Plan Completion Closure（blocked：Stakeholder Q1 名稱確認）
+- [x] 執行 Plan Completion Closure（2026-10-04）
 
 ## Phase 0: Pre-Build Interrogation ✅（2026-10-04）
 
@@ -190,24 +195,24 @@ Owner: framework maintainer (linyihong)
 - [x] 在 `stale-derived-state.md` 加連結（TE3 watch，含兩種觸發形狀）
 - [x] 更新 §Research Candidates 的前置欄狀態（met）
 
-## Phase 3: Closure（scenario + 驗證 ✅；Plan Completion Closure 等 Q1 確認）
+## Phase 3: Closure ✅（2026-10-04）
 
 - [x] 依 Q6 補 1 個 scenario（`validation/scenarios/cross-domain/traceable-evidence-new-domain-adoption-v1.yaml`）
 - [x] runtime compile／refresh／validate（無新增 route／surface；scenario 計入既有 orphan scenarios 統計，比照 decision-support）
-- [ ] 執行 Plan Completion Closure（blocked：Stakeholder Q1 名稱確認）
+- [x] 執行 Plan Completion Closure（2026-10-04）
 
 ## Stakeholder 同意項目
 
 - [x] maintainer 確認範圍只限 domain evidence 記錄形狀，不碰 hierarchy、ECS、plan-evidence（2026-10-04 批准 Phase 0 時維持原定範圍）
 - [x] maintainer 確認 ≥3 實例門檻適用於每條 invariant（2026-10-04）
 - [x] maintainer 拍板 Q7（納入 I5）與 Q8（I3 不放寬）（2026-10-04）
-- [ ] maintainer 拍板 Q1 名稱
+- [x] maintainer 拍板 Q1 名稱（`traceable-evidence`，2026-10-04）
 
 ## 與其他 plans 的關係
 
-- [`../2026-06-16-1131-evidence-candidate-system.md`](../2026-06-16-1131-evidence-candidate-system.md)：不同 layer（inter-plan routing），見 §邊界；本 plan 不 feed ECS。
-- [`../2026-09-16-1649-narrative-video-production-workflow/_plan.md`](../2026-09-16-1649-narrative-video-production-workflow/_plan.md)：I1／I2／I4／I5 實例來源。
-- [`../2026-08-31-1032-3d-character-production-workflow/_plan.md`](../2026-08-31-1032-3d-character-production-workflow/_plan.md)：I1／I2／I3／I4 實例來源；`artifact-record/v1` 標籤起源。
-- [`../2026-09-22-1000-translation-decision-workflow/_plan.md`](../2026-09-22-1000-translation-decision-workflow/_plan.md)：I1／I4／I5 實例來源（Phase 0 新增）。
-- [`../../archived/2026-10-03-2104-security-audit-capability-hardening/_plan.md`](../../archived/2026-10-03-2104-security-audit-capability-hardening/_plan.md)：I2／I3／I4／I5 實例來源。
-- [`../2026-07-30-2101-legal-workflow-domain.md`](../2026-07-30-2101-legal-workflow-domain.md)：I2／I4 實例來源；I3 variant；I5 反例形狀。
+- [`../2026-06-16-1131-evidence-candidate-system.md`](../../active/2026-06-16-1131-evidence-candidate-system.md)：不同 layer（inter-plan routing），見 §邊界；本 plan 不 feed ECS。
+- [`../2026-09-16-1649-narrative-video-production-workflow/_plan.md`](../../active/2026-09-16-1649-narrative-video-production-workflow/_plan.md)：I1／I2／I4／I5 實例來源。
+- [`../2026-08-31-1032-3d-character-production-workflow/_plan.md`](../../active/2026-08-31-1032-3d-character-production-workflow/_plan.md)：I1／I2／I3／I4 實例來源；`artifact-record/v1` 標籤起源。
+- [`../2026-09-22-1000-translation-decision-workflow/_plan.md`](../../active/2026-09-22-1000-translation-decision-workflow/_plan.md)：I1／I4／I5 實例來源（Phase 0 新增）。
+- [`../../archived/2026-10-03-2104-security-audit-capability-hardening/_plan.md`](../2026-10-03-2104-security-audit-capability-hardening/_plan.md)：I2／I3／I4／I5 實例來源。
+- [`../2026-07-30-2101-legal-workflow-domain.md`](../../active/2026-07-30-2101-legal-workflow-domain.md)：I2／I4 實例來源；I3 variant；I5 反例形狀。
