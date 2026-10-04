@@ -6,7 +6,7 @@
 # 情境用一個尚未存在的「文件檢索」consumer，模擬未來視覺檢索結果進入 evidence 流程。
 # 來源：
 #   - workflow/cross-cutting/traceable-evidence/README.md
-#   - plans/active/2026-10-04-0936-evidence-record-contract/evidence/phase0-convergence-audit.md
+#   - plans/archived/2026-10-04-0936-evidence-record-contract/evidence/phase0-convergence-audit.md
 
 id: traceable-evidence-new-domain-adoption-v1
 domain: cross-domain
