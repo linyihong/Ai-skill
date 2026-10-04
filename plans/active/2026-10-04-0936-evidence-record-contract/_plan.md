@@ -120,7 +120,7 @@ Owner: framework maintainer (linyihong)
 | Q1 | 名稱 | maintainer 暫定 `source-anchored-evidence`，並授權「來源錨點只是其中一個特徵時可以重新命名」 | **provisional → `traceable-evidence`**（Phase 1）：暫定名只覆蓋 I2；`traceable` 涵蓋保留（TE1）、錨定（TE2）、定案理由（TE4）與分軸記錄（TE5），且不以 `evidence-` 開頭，降低與 `evidence-candidates`／`plan-evidence` 混淆。**待 maintainer 確認**；不同意時只需改目錄名與連結 |
 | Q2 | 歸屬：`workflow/cross-cutting/` 或 `intelligence/engineering/`？ | cross-cutting：它約束的是 domain artifact 形狀，比照 decision-support | **resolved（cross-cutting）**：5 個實例全部是 domain artifact 的 record／gate，不是判斷準則 |
 | Q3 | I3 未達 3 個實例時，是否仍在 pattern 內列出？ | — | **resolved（maintainer 2026-10-04）**：保留為 watch，不升 invariant；watch 不是新 domain 的必要條件。Phase 0 確認 I3 = 2 + 1 variant |
-| Q4 | domain link-back 的深度 | 只加連結 + 標註對應的 invariant id，不改欄位 | still-open（Phase 2 執行時確認） |
+| Q4 | domain link-back 的深度 | 只加連結 + 標註對應的 invariant id，不改欄位 | **resolved（Phase 2）**：每個 domain 一行，標註 TE id，未改任何欄位或 gate |
 | Q5 | observed／candidate／resolved 三層與 evidence-hierarchy Observability 軸如何對應？ | — | **resolved（不能一對一）**：Phase 0 F1，resolved 不代表權重較高、rejected 不代表觀察失效；Phase 1 寫成「兩軸正交」說明，不改 hierarchy |
 | Q6 | 是否需要 validation scenarios？ | 依 decision-support 先例：pattern 本身 doc-only，由 domain 既有 scenarios 覆蓋 | still-open（Phase 3） |
 | Q7 | I5（lifecycle ≠ epistemic）達 3 個實例，是否納入 pattern？ | 納入，並以 LG 的 `provisional` 雙義 enum 當 anti-pattern 範例 | **resolved（納入，TE5）**：maintainer 2026-10-04 |
@@ -133,8 +133,8 @@ Owner: framework maintainer (linyihong)
 - [x] Phase 0 收斂矩陣每格都有檔案引用或標明 `absent`
 - [x] 只抽取 ≥3 實例的 invariant；未達門檻者有明確處置（TE3 watch；Q3／Q7／Q8 resolved）
 - [x] cross-cutting pattern 文件落地，含邊界表、實例表、watch 段
-- [ ] 所有實例 domain 已 link back；cross-cutting README 表格已更新
-- [ ] §Research Candidates 的前置欄已更新為 met
+- [x] 所有實例 domain 已 link back；cross-cutting README 表格已更新
+- [x] §Research Candidates 的前置欄已更新為 met
 - [ ] 執行 Plan Completion Closure
 
 ## Phase 0: Pre-Build Interrogation ✅（2026-10-04）
@@ -183,12 +183,12 @@ Owner: framework maintainer (linyihong)
 - [x] source anchor 種類表（只列實例已使用的錨點種類）與 §邊界表
 - [x] 檢查 document sizing（單一主題，約 95 行，未超過 300 行警戒線，不拆分）
 
-## Phase 2: Domain link-back 與索引
+## Phase 2: Domain link-back 與索引 ✅（2026-10-04）
 
-- [ ] 各實例 domain 文件加 link back，並標註對應的 invariant id（Q4）
-- [ ] 更新 `workflow/cross-cutting/README.md` 的 Current concerns 表
-- [ ] 在 `stale-derived-state.md` 加連結（I3 watch）
-- [ ] 更新 §Research Candidates 的前置欄狀態
+- [x] 各實例 domain 文件加 link back，並標註對應的 TE id（Q4）：NV `text-evidence-multimodal-resolution.md`、3D `records/README.md`、translation `README.md`、security ledger + finding list template、legal `artifact-gates.md`（TE5 反例只記為觀察，不構成 legal 的修改義務）
+- [x] 更新 `workflow/cross-cutting/README.md` 的 Current concerns 表與 `workflow/README.md`（隨 Phase 1 commit，屬新文件的 linked update）
+- [x] 在 `stale-derived-state.md` 加連結（TE3 watch，含兩種觸發形狀）
+- [x] 更新 §Research Candidates 的前置欄狀態（met）
 
 ## Phase 3: Closure
 

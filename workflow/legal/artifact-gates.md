@@ -74,6 +74,8 @@ Gate 為 blocking 者，未通過即不得輸出實質產出或宣稱完成。
 
 不得對 `unverified` 或 `provisional` 的內容使用確定語氣。
 
+跨域 pattern：[`traceable-evidence`](../cross-cutting/traceable-evidence/README.md)。`gate.legal.law_citation_versioned`／`source_version_pinned` 實作 TE2；`gate.legal.strategy_reasoned` 實作 TE4。上表 `provisional` 同時代表「Strategy Pass 1」與「前提未查證」，是 TE5 列出的反例形狀。這是觀察，不是待辦：pattern 處於 pilot，不構成本 domain 的修改義務。
+
 ## 完成定義（Definition of Done）
 
 宣稱完成前逐項確認：

@@ -12,6 +12,8 @@
 
 格式通過不代表證據成立；證據成立不代表可以合併。
 
+跨域 pattern：[`traceable-evidence`](../../cross-cutting/traceable-evidence/README.md)。`evidence.reproducible` 實作 TE2；Status 規則與 `resolution` 實作 TE4；本節的三判斷分開實作 TE5。
+
 ## Audit Execution（必填）
 
 `findings: []` 只在 `status: completed` 時代表「已執行、未發現符合條件的 finding」。缺本段或 `status` 不是 `completed` = **unknown**，不是 safe。

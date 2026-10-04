@@ -33,6 +33,7 @@ system acts on stale reality
 - The invalidation contract should name source changes, transition events, and validation evidence.
 - If no invalidation contract exists, prefer reading current source reality or letting the platform compute the derived value.
 - Do not treat a successful initial render as proof that derived state survives transitions.
+- For domain evidence records, the invalidation contract is tracked as TE3 (watch) in [`traceable-evidence`](../../../workflow/cross-cutting/traceable-evidence/README.md), with two trigger shapes: dependency-change (source is observable) and use-time recheck (external source cannot be watched).
 
 ## Viewport Measurement Drift
 

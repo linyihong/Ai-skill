@@ -37,6 +37,8 @@ Meaning → Semantic Roles → Target Syntax／Naturalness → Target Expression
 | I22 | PASS／REVIEW／BLOCK — uncertainty alone ≠ REVIEW |
 | I23 | Kinship／address via reference_resolution — no sole fixed gloss |
 
+跨域 pattern：[`traceable-evidence`](../cross-cutting/traceable-evidence/README.md)（編號用 `TE` 前綴，與上表 I1–I23 無關）。`translation-decision` 的 candidates + infeasible reason 實作 TE1；selection policy／rationale／decision_basis 與 finality `review.reason[]` 實作 TE4；I22 實作 TE5。
+
 ## Failure registry（摘要）
 
 | 層 | 路徑 | 角色 |

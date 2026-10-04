@@ -169,6 +169,7 @@ raw → fused → resolve_out
 
 Lesson（問題）：[`cue-finalization-must-not-hard-delete-candidates`](../../feedback/history/narrative-video-production/common/2026-10-02_172329-cue-finalization-must-not-hard-delete-candidates.md)。
 Lesson（正向 invariant）：[`evidence-non-destructive-resolution-invariant`](../../feedback/history/narrative-video-production/common/2026-10-02_174015-evidence-non-destructive-resolution-invariant.md)。
+跨域 pattern：本檔實作 [`traceable-evidence`](../cross-cutting/traceable-evidence/README.md) TE1（non-destructive resolution）、TE2（`source_ref`／`sources[]`）、TE4（四態最低 trace）、TE5（兩種否定）。
 
 ## candidate → final（不是 PASS／DELETE）
 

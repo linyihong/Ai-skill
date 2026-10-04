@@ -146,3 +146,11 @@ related:
   flow_contract: workflow/legal/execution-flow.yaml
   plan: plans/active/2026-07-30-2101-legal-workflow-domain.md
   route: route.workflow.legal
+  cross_cutting_pattern:
+    ref: workflow/cross-cutting/traceable-evidence/README.md
+    implements: [TE2, TE4]
+    note: >
+      confidence_labels.provisional carries both lifecycle (strategy pass 1)
+      and epistemic status (premises unverified); recorded as the TE5
+      counter-example shape. Observation only; the pilot pattern imposes
+      no change on this contract.

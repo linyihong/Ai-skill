@@ -123,5 +123,6 @@ Phase 1–4 不提供 Ai-skill validator；格式依本文件人工 / agent 檢�
 - 每次 audit 輸出 → [`security-finding-list-template.md`](../../workflow/software-delivery/templates/security-finding-list-template.md)
 - Closure gate → [`execution-flow.yaml`](../../workflow/software-delivery/execution-flow.yaml) `gate.software_delivery.security_audit_complete`
 - 失效的抽象原則 → [`stale-derived-state.md`](../../intelligence/engineering/anti-patterns/stale-derived-state.md)
+- 跨域 pattern → [`traceable-evidence`](../../workflow/cross-cutting/traceable-evidence/README.md)：`evidence_ref` + `verified_at_ref` 實作 TE2；§Invalidation 是 TE3（watch）的依賴變更觸發實例
 
 ← [回到 analysis/security/](README.md)

@@ -9,3 +9,5 @@ Phase 2 freeze（歷史、勿改 heuristic 分叉）：
 [`../artifact-gates.yaml`](../artifact-gates.yaml) 只讀欄位（尤其 `validity`）。
 
 `runtime_projection.enabled: false`。Phase 5 才考慮 executable-contract 投影。
+
+跨域 pattern：[`traceable-evidence`](../../cross-cutting/traceable-evidence/README.md)。`candidate-record.yaml` 實作 TE1（`rejected_must_retain`）、TE2（`provenance`）；`artifact-gates.yaml` promotion 實作 TE4；`identity-acceptance.yaml` 的 `invalidation_rules` 是 TE3（watch）的依賴變更觸發實例。
