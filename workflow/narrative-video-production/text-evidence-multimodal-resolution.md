@@ -206,7 +206,7 @@ resolution（見上表「跨語言對齊」），必要時標 `uncertain`，而�
 
 **Accepted 品質（Phase 3）**：`status=accepted` 不得表示 OCR 整串可 publish。若 OCR 對白與 sticky watermark／logo／platform UI 黏在同一字串，必須先做 **role-aware projection**（見 watermark exclusion-is-projection evidence）；投影失敗則降為 `uncertain`，保留 observed，**禁止**把黏串當 clean `spoken_selected`。詳見 [`2026-10-02-ep16-accepted-uncertain-audit`](../../plans/active/2026-09-16-1649-narrative-video-production-workflow/evidence/2026-10-02-ep16-accepted-uncertain-audit.md) 與 [`2026-10-02-sticky-watermark-accepted-projection`](../../plans/active/2026-09-16-1649-narrative-video-production-workflow/evidence/2026-10-02-sticky-watermark-accepted-projection.md)。
 
-Adapter：`sticky_ocr_projection` 在 `resolve_fused_to_cues` 出口前 post-pass — observed 全留；只投影 spoken／status。
+Adapter：`sticky_ocr_projection` 在 `resolve_fused_to_cues` 出口前 post-pass — observed 全留；只投影 spoken／status。中文硬字幕片源 peel 後 **spoken 以 projected OCR 為權威**；ASR 不得靠 loose Jaccard 覆蓋語義衝突（見 sticky evidence 規則 3）。
 
 ## 產品落點
 

@@ -22,24 +22,26 @@ sticky / brand span projection（機械）
         ↓
 dialogue_projected + watermark_spans[]
         ↓
-┌─ 投影成功且像對白 → accepted；spoken= projected 或更乾淨的 ASR
+┌─ 投影成功且像對白 → spoken = projected hardsub（中文硬字幕權威）
+├─ ASR ≡ projected 或 trivial containment → resolved；spoken = projected
 ├─ 僅 sticky／brand 殘片 → rejected（evidence 不成立）
-└─ 投影後仍與 ASR 衝突 → uncertain（保留 observed＋projected＋asr）
+└─ ASR 與 projected 語義衝突 → uncertain；spoken 仍 = projected（禁止 loose Jaccard 選 ASR）
 ```
 
 ## 規則
 
 1. **Projection not deletion**：`subtitle.observed` 保留原 OCR；只改 `spoken.selected`／publishable 投影。
 2. **Sticky affix／brand** 先 peel，再 decide status。
-3. ASR 更乾淨且與投影對白可對齊 → spoken 優先 ASR（observed 仍 OCR）。
-4. 失敗 → `uncertain`，reason `sticky_watermark_unresolved`／`brand_mix`；**禁止** coerce reject-unless 整段皆非對白。
+3. **Hardsub authority after peel**：中文硬字幕片源，投影後對白以 OCR projected 為 spoken；ASR 僅在完全相同或 trivial containment（短子集／≤2 字差）時與 projected 同向 resolved。**禁止** `jaccard≥0.45` 這類 loose 對齊讓 ASR 覆蓋（會把「应酬→诱惑」「私会→死回」 silently prefer）。
+4. 語義衝突 → `uncertain`，spoken 仍 projected；保留 observed＋projected＋asr；**禁止** coerce reject-unless 整段皆非對白。
 5. 不開新 OCR／新 Phase。
 
 ## Validation
 
-- [x] unit：黏串→投影；純「哥外」→rejected；ASR 乾淨→spoken=ASR
+- [x] unit：黏串→投影；純「哥外」→rejected；应酬/诱惑 conflict → spoken=应酬 + uncertain
 - [x] ep16 re-audit：accepted 30→28；rejected sticky-only 3；**accepted spoken sticky=0**；retained=38
 - [x] 本 evidence + README 索引
+- [ ] prefer-OCR 後再跑 ep16 offline audit（Mac/SoT helper 已更新）
 
 ## Dogfood result（sanitized）
 
