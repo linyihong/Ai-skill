@@ -153,6 +153,45 @@ fields:
       Multimodal Text Evidence Resolution: select among candidates with
       phonetic + semantic + context support; write reason[] and sources[].
       LLM must not invent text outside the candidate set.
+  resolution_funnel:
+    required: false
+    optional:
+      - raw_ocr
+      - usable_candidates
+      - fused_candidates
+      - accepted
+      - uncertain
+      - rejected
+      - merged
+      - anomaly_signals
+      - reprobe
+    notes: >
+      Counts describe evidence transitions, not a single quality score. A large
+      candidate-to-accepted drop is suspicious only when the non-accepted
+      candidates lack traceable uncertain/rejected/merged dispositions.
+      anomaly_signals trigger targeted re-probing; they do not silently turn
+      candidates into rejects or impose a global wall-clock caption ratio.
+  cache_meta:
+    required: false
+    optional:
+      - source_hash
+      - ocr_version
+      - asr_version
+      - region_profile_version
+      - fusion_policy_version
+      - resolution_version
+    notes: >
+      Cache reuse requires a valid artifact plus compatible provenance. A policy
+      or resolver version change invalidates a derived cue cache rather than
+      requiring an operator to guess whether to clear it.
+  artifact_integrity:
+    required: false
+    optional: [status, schema_valid, source_hash_match, write_method, reason]
+    status_enum: [valid, invalid, unknown]
+    notes: >
+      Derived coverage or cue artifacts are valid only after schema validation
+      and atomic publication. Invalid artifacts cannot count as a healthy cache
+      hit or satisfy a coverage gate.
 
 gates:
   - id: language_tags_present
@@ -197,6 +236,17 @@ gates:
       must escalate or defer; must not assert no-subtitle / no-dialogue into Story
   - id: escalation_before_after_recorded
     rule: each acquisition escalation must record trigger, level, action, before, after, resolution
+  - id: resolution_funnel_traceable
+    rule: >
+      when a resolution-loss anomaly is emitted, every non-accepted candidate
+      must remain traceable as uncertain, rejected with reason, or merged with
+      target; anomaly requires targeted reprobe or explicit defer, not silent
+      deletion.
+  - id: derived_artifact_integrity_before_cache_reuse
+    rule: >
+      invalid JSON/schema, source-hash mismatch, or incompatible cache_meta
+      invalidates a derived cue/coverage cache; cache artifacts must be
+      validated before atomic publication and before reuse.
 
 linked:
   - workflow/narrative-video-production/text-evidence-language-relation.md

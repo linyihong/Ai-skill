@@ -167,6 +167,46 @@ raw → fused → resolve_out
 - **accepted＋uncertain 並存是健康**：舊邏輯「不確定→刪掉」才是 bug。
 - **cues=0 且 raw≫0**：先定性 destructive finalization；**不開新 workflow**。單集 rejection table 對照 live preserve。
 
+### Resolution-loss monitor（定向重探，不凍結全片 coverage）
+
+`raw → usable → fused → accepted` 是 evidence transitions，不是把 OCR／ASR
+壓成單一分數。每一層必須記具名計數與非 accepted 的 disposition：
+
+```yaml
+resolution_funnel:
+  raw_ocr: N
+  usable_candidates: N
+  fused_candidates: N
+  accepted: N
+  uncertain: N
+  rejected: N       # each has reason.code
+  merged: N         # each has merged_into
+  anomaly_signals: [resolution_loss]
+```
+
+若 `candidate → accepted` 的縮減不被 `uncertain`／具 reason 的 `rejected`／
+具 target 的 `merged` 解釋，系統必須標 `resolution_loss`。它不是直接 BLOCK：
+
+```text
+resolution_loss → targeted re-probe (OCR region | ASR window | frame sample)
+                → re-resolution → recovered | still_suspicious | deferred
+```
+
+OCR、ASR、geometry 是互補 evidence：OCR 主要提供 visual text，ASR 提供
+speech timing／phonetic corroboration，geometry 提供 region identity。禁止以
+固定 OCR>ASR、ASR>OCR 或「附近無 ASR 即 reject」取代 resolution。
+
+Coverage 也必須對 expected evidence 計算：speech windows 與
+`subtitle_like` windows 分別比較 resolved coverage；全片 wall-clock 空白本身
+不能直接判漏字幕。
+
+### Derived artifact integrity 與 cache reuse
+
+`dialogue_cues`／coverage artifact 寫入需遵守：write temp → schema validate →
+atomic rename。JSON 或 schema 無效、source hash 不符、或 OCR／ASR／region profile／
+fusion／resolution version 不相容時，cache 是 `invalid`，不得被當成正常 cache hit。
+invalid cache 觸發對應 scope 的 rebuild／re-probe；不要求整片盲目重跑。
+
 Lesson（問題）：[`cue-finalization-must-not-hard-delete-candidates`](../../feedback/history/narrative-video-production/common/2026-10-02_172329-cue-finalization-must-not-hard-delete-candidates.md)。
 Lesson（正向 invariant）：[`evidence-non-destructive-resolution-invariant`](../../feedback/history/narrative-video-production/common/2026-10-02_174015-evidence-non-destructive-resolution-invariant.md)。
 跨域 pattern：本檔實作 [`traceable-evidence`](../cross-cutting/traceable-evidence/README.md) TE1（non-destructive resolution）、TE2（`source_ref`／`sources[]`）、TE4（四態最低 trace）、TE5（兩種否定）。

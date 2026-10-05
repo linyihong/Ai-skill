@@ -6,7 +6,8 @@ Companion to [`19-text-resolution-and-narrative-assembly.md`](19-text-resolution
 [`40-language-role-before-text-resolution.md`](40-language-role-before-text-resolution.md)。
 **不是新 Phase、不是新 Agent、不改凍結的 Narrative Video Workflow 架構。**
 觀察：[`evidence/2026-09-30-asr-anomaly-ocr-semantic-reconstruction.md`](evidence/2026-09-30-asr-anomaly-ocr-semantic-reconstruction.md)、
-[`evidence/2026-09-30-semantic-anchor-last-lot-auction.md`](evidence/2026-09-30-semantic-anchor-last-lot-auction.md)。
+[`evidence/2026-09-30-semantic-anchor-last-lot-auction.md`](evidence/2026-09-30-semantic-anchor-last-lot-auction.md)、
+[`evidence/2026-10-05-evidence-resolution-loss-monitor.md`](evidence/2026-10-05-evidence-resolution-loss-monitor.md)。
 Workflow 落點：[`text-evidence-multimodal-resolution.md`](../../../workflow/narrative-video-production/text-evidence-multimodal-resolution.md)。
 
 ## 問題
@@ -112,3 +113,4 @@ LLM 只在 candidate set 上選擇並寫 `resolution_reason`，不得從 raw ASR
 2. ASR lexical anomaly 是否觸發 reconstruction 而非靜默採用字面；
 3. 跨語言路徑是否仍先過 Language Relation Gate（40／41）；
 4. `Last Lot`＋「拍皮」類是否走 `semantic_anchor`／`semantic_reconstruction` 且保留 ASR observed。
+5. resolution funnel 大幅縮量是否保留 uncertain／rejected／merged trace，並由定向 re-probe 處理；derived cache 是否先通過 integrity validation。
