@@ -62,9 +62,13 @@ Source Video
 - [x] 本 evidence + README 索引
 - [x] workflow ocr-discovery 補 source profile／sticky／impact
 - [x] feedback lesson（candidate）
-- [ ] 產品：本集自學 sticky span peel（無全域單片字典）+ 春风拂我心 抽檢污染下降
+- [x] 產品：本集自學 sticky span peel（無全域單片字典）+ 春风拂我心 抽檢污染下降（text peel 9→0）
+- [x] 產品：`source_ocr_profile` discovery behavior + fuse 前 drop pure sticky（probe 純水印行 2 條）
 - [ ] profile v1/v2 impact report 欄位（後續 adapter）
+- [ ] OCR typo／插入字 sticky 變體（如「仅供娱乐了无不良…」）仍靠後續 projection
 
-## 產品落點（本輪最小）
+## 產品落點
 
-`sticky_ocr_projection`：從**本批 OCR observed** 統計高重複 span → 當 episode-local sticky tokens peel；保留 observed；不寫死單片名水印字串進全域。
+1. `sticky_ocr_projection`：本批 OCR observed → episode-local sticky spans peel（spoken）；保留 observed。
+2. `source_ocr_profile`：layout region `behavior.sticky` → `scan_profile.sticky_spans`／`exclude_boxes`；fuse 前 drop **純** sticky 行；黏串對白仍交給 projection。
+3. **禁止**單片名 watermark 字串寫進全域常數。
