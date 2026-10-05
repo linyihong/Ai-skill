@@ -76,6 +76,9 @@ A second gap is status projection: a nested unresolved or rejected decision
 cannot become publishable through an absent/stale outer status. Recovery must
 pass the same finalization gate as initial resolution, including episode-level
 role projection; an increased cue count alone is not recovery evidence.
+An accounted `merged` observation can still point to an uncertain target.
+Retry outcomes must inspect the target's final status after eligibility gates;
+accounting closure alone must not be reported as recovered dialogue.
 
 Another attribution hazard is conversion through a text/time-only summary or
 replaying raw boxes over already-projected evidence. Both can discard region
