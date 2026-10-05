@@ -133,3 +133,24 @@ script-run 只支持語言候選，沒有 box 時空間關係應 unresolved，�
 獨立 frame annotation 與成片檢查是不同證據。快取盤點需明示缺樣本，
 命中 junk heuristic 的 Latin box 不可未看畫面就稱為被漏掉的英文字幕。
 新增失敗測例揭露跨語系及空間歸屬缺口；不以既有測例通過關閉品質閘。
+
+## Retention 修復的驗收邊界
+
+禁止 script／長度／全大寫本身決定硬刪；取消此規則不表示所有 Latin
+文字都是 dialogue。Positive 要覆蓋短字幕及黏字仍可進 boundary recovery，
+negative 要覆蓋品牌、logo、水印、UI、場景文字不被直接升成 accepted。
+未決 evidence 的保留是一個正確 disposition，不是內容品質失敗，也不是
+成片驗收通過。`merged` 必須有實際可解析 target 與 target_status。
+文字／時間相同仍不足以聲稱屬於某個 accepted region；需帶來源 identity
+並確認 target 的 attribution 支持，不能把 retention ledger 又變成誤歸屬。
+
+原始 visual observation ledger 應覆蓋融合前的排除，不只追蹤已清理候選。
+明示計量單位與來源，分開報 raw-ledger 的 disposition 完整性、resolver
+候選的未決數與 accepted 品質，避免補齊 uncertain 後把 loss 警告洗掉。
+已捕捉到下游 loss 的案例不能推論整個 corpus 的 acquisition recall 足夠。
+
+雙語的語言候選與空間候選分開：缺 box、共用 aggregate box、缺有效
+共時窗口時，spatial relation 保持 unresolved。有 box 與窗口也先產候選，
+不能替代整條 pipeline 保留 region identity 的驗證。代表案例矩陣需列
+feature、獨立 annotation、expected behavior 及缺樣本狀態；不以每部
+影片跑過一次取代能力驗收。Temporal／ASS／成片閘仍待 identity 穩定。
