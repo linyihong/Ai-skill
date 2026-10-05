@@ -114,3 +114,7 @@ LLM 只在 candidate set 上選擇並寫 `resolution_reason`，不得從 raw ASR
 3. 跨語言路徑是否仍先過 Language Relation Gate（40／41）；
 4. `Last Lot`＋「拍皮」類是否走 `semantic_anchor`／`semantic_reconstruction` 且保留 ASR observed。
 5. resolution funnel 大幅縮量是否保留 uncertain／rejected／merged trace，並由定向 re-probe 處理；derived cache 是否先通過 integrity validation。
+
+Adapter progress：定向重探與 before／after、失敗保留、box／parts 失配及 nested
+decision eligibility 的 fixture 已驗證；live accepted 品質仍須獨立核對，不以 cue
+數增加當 recovery PASS。見上述 resolution-loss evidence。

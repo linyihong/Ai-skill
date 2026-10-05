@@ -30,6 +30,17 @@ OCR Detection
 
 `language_candidate`：Latin-heavy→en；CJK-heavy→zh／ja／ko；Thai→th；Arabic→ar；未知→unknown。只作 candidate。
 
+每個 region 的文字必須對得上同一 detection box 的 raw observation。
+Lexicon／boundary segmentation 的 `parts` 數量可以不同於 boxes；不得靠陣列
+等長假設配對，或失配後把整行 aggregate text 複製到每個 box。否則水印文字
+會取得 dialogue region 的 geometry／role，破壞後續 projection 與 coverage。
+若 box-local raw 不可得，需保留 grouping scope 並標記 attribution 未決。
+
+已投影的 box-local evidence 必須保留其 geometry、region identity、整個 source
+的 persistence 與 role；下游不可重新展開 raw boxes 而撤銷 projection。定向
+重探亦須傳遞這些欄位，不可用只含 text/time 的摘要取代。短窗本身不足以
+推翻整個 source 的持續性證據；不明 scene text 應待確認而非直接 publish。
+
 ## Subtitle Grouping
 
 同時間窗＋空間合理（常見：stacked、相似寬度、bottom band）→ `subtitle_group`。

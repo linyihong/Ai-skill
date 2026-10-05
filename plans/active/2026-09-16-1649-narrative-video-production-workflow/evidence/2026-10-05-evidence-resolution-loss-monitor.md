@@ -59,6 +59,33 @@ the fixture confirms that invalid cue integrity or invalid coverage JSON is
 rejected rather than treated as a healthy cache hit. The adapter emits the
 named funnel and marks an unexplained contraction as `targeted_required`.
 
-Remaining live dogfood work is to run a flagged episode through the scoped
-OCR/ASR re-probe worker and confirm that the later re-resolution reduces the
-anomaly without turning the response into a blanket rerun.
+The adapter now runs a bounded window OCR/re-resolution pass with before/after
+counts, preserving failed or unresolved observations. Fixtures distinguish
+explained duplicate reduction from missing dispositions, unrelated texts with
+shared timestamps, quiet timeline gaps, and failed acquisition.
+
+## Attribution and eligibility findings
+
+Lexicon segmentation can change the number of parts while detection boxes
+remain unchanged. A positional pairing fallback that copies the aggregate
+line into each box gives watermark text a dialogue box's geometry. Box-local
+raw text must retain ownership regardless of segmentation count. The region
+contract and a mixed watermark/dialogue fixture now capture this requirement.
+
+A second gap is status projection: a nested unresolved or rejected decision
+cannot become publishable through an absent/stale outer status. Recovery must
+pass the same finalization gate as initial resolution, including episode-level
+role projection; an increased cue count alone is not recovery evidence.
+
+Another attribution hazard is conversion through a text/time-only summary or
+replaying raw boxes over already-projected evidence. Both can discard region
+identity and source-level persistence, making a short retry incorrectly
+rehabilitate sticky or scene text. Preserve box-local metadata across retries
+and require attributable dialogue support at finalization. Source-local changing
+text bands can support mid-frame captions; short retries must not establish
+that source profile by themselves. Ambiguous roles remain uncertain.
+
+Validation remains partial: scoped acquisition executes and preserves unresolved
+observations, but accepted-content quality and remaining loss must be checked
+independently. No complete subtitle coverage or publish-ready claim is made
+from fixture passes or increased cue counts.

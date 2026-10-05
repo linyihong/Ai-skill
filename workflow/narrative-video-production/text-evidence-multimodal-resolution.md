@@ -115,6 +115,10 @@ semantic_anchor:
 **禁止**：無理由從 evidence graph 消失（裸 `continue`／drop／hard-delete）。
 `rejected`／`uncertain`／`merged` 仍是 evidence，不是「刪掉」。
 
+Production eligibility 必須消費 resolver 的實際 decision。若 nested resolution
+是 `unresolved`／`uncertain`／`rejected`，不得因外層 status 缺省或 stale accepted
+而進 publishable；adapter 應在 finalization 同步狀態，derived cache 也驗證此一致性。
+
 ### Evidence layer ≠ Production layer
 
 ```text
