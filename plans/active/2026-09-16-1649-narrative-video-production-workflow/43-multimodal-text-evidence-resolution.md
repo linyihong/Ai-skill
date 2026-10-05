@@ -125,3 +125,9 @@ precision 與 true-dialogue retention 必須分開驗證；主字幕帶頻率不
 完成不等於 content／timing／render gate 通過。
 另需 watermark lexicon extension 的 region-boundary regression：重複
 首字不等於水印末字，擴詞不可跨入另一 dialogue box。
+
+分階段 attribution 修復的機械重播已累積，但 cross-source gate 仍 open：
+英文短字幕不得僅以 Latin 長度判 junk；雙語 script split 不可在缺 box
+時聲稱已確認 stacked geometry。這些缺口須保留 failing regression，
+並補獨立 frame／region／final-cue 驗證。既有污染 derived lexicon 也需
+重驗與隔離；完整 resolver 的 uncertain 保留不等於 accepted 恢復。

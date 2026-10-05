@@ -110,3 +110,26 @@ band 的相對頻率不是否定第二字幕帶的充分證據；低頻帶、位
 term，即使 raw observation 保留完整字幕，derived dialogue 已缺字。
 擴詞應由同一 watermark region 的 raw 支持，不能跨 box 依 aggregate
 prefix 復現數定案。Regression 必須同時檢查擴詞邊界與真字幕首字保留。
+
+## 分階段修復與跨語系驗證缺口
+
+修復需凍結 raw observation、derived cache、policy version 與測試基準，
+每次只改一項 attribution 行為並重跑原 assertion。既有污染詞庫也需從
+raw box 重新驗證；僅阻止未來擴詞，不能修好已存在的跨 box 長詞。
+無 box-local 支持的衍生長詞應隔離並保留 provenance，不可繼續侵蝕對白。
+
+box／parts 數相同仍不證明文字歸屬。舊格式缺少可靠 ownership 時，整組
+保留 unresolved，而非複製 aggregate 到多個 box。理想格式的 positive
+fixture 需明示真正的 raw ownership，另保留舊格式 negative fixture。
+獨立支持的第二字幕帶不可只因頻率低被否定；反面測例須阻擋未決文字
+借用字幕角色，以免修漏字卻引入水印。
+
+單語回歸通過不等於跨語系能力通過。Latin script／單詞長度不是 junk
+的充分條件；須分開測英文短字幕、水印、品牌、UI 與未知文字。雙語
+script-run 只支持語言候選，沒有 box 時空間關係應 unresolved，不能
+聲稱已確認上下疊行。文字／時間摘要不可取代原始 region identity。
+
+目前此驗證層仍 partial：機械重播、fresh acquisition、完整 resolver、
+獨立 frame annotation 與成片檢查是不同證據。快取盤點需明示缺樣本，
+命中 junk heuristic 的 Latin box 不可未看畫面就稱為被漏掉的英文字幕。
+新增失敗測例揭露跨語系及空間歸屬缺口；不以既有測例通過關閉品質閘。
