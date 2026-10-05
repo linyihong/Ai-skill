@@ -54,7 +54,11 @@ healthy cache hit.
   integrity, and corresponding gates.
 - Plan companion and this evidence index identify the Phase 3 validation work.
 
-Validation is still pending in the product adapter: produce a fixture with
-candidate reduction, verify that all non-accepted candidates remain
-traceable, force an invalid derived artifact, and confirm cache reuse is
-rejected before a targeted re-probe/rebuild.
+Adapter validation now covers atomic cue/coverage publication and cache reuse:
+the fixture confirms that invalid cue integrity or invalid coverage JSON is
+rejected rather than treated as a healthy cache hit. The adapter emits the
+named funnel and marks an unexplained contraction as `targeted_required`.
+
+Remaining live dogfood work is to run a flagged episode through the scoped
+OCR/ASR re-probe worker and confirm that the later re-resolution reduces the
+anomaly without turning the response into a blanket rerun.
