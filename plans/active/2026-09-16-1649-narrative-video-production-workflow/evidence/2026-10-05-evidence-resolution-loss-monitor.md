@@ -87,6 +87,9 @@ rehabilitate sticky or scene text. Preserve box-local metadata across retries
 and require attributable dialogue support at finalization. Source-local changing
 text bands can support mid-frame captions; short retries must not establish
 that source profile by themselves. Ambiguous roles remain uncertain.
+Bounded retry scheduling should prioritize attributable dialogue losses over
+unresolved role noise; preserve the latter for review without starving the
+actual omission windows. Source-profile matching must tolerate box jitter.
 
 Validation remains partial: scoped acquisition executes and preserves unresolved
 observations, but accepted-content quality and remaining loss must be checked
