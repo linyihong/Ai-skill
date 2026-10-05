@@ -64,8 +64,8 @@ Source Video
 - [x] feedback lesson（candidate）
 - [x] 產品：本集自學 sticky span peel（無全域單片字典）+ 春风拂我心 抽檢污染下降（text peel 9→0）
 - [x] 產品：`source_ocr_profile` discovery behavior + fuse 前 drop pure sticky（probe 純水印行 2 條）
-- [ ] profile v1/v2 impact report 欄位（後續 adapter）
-- [ ] OCR typo／插入字 sticky 變體（如「仅供娱乐了无不良…」）仍靠後續 projection
+- [x] 產品：OCR 插入字 sticky peel（bounded subsequence）+ sticky fragment drop；filter `impact` 計數
+- [ ] profile v1/v2 跨版 fixture regression corpus（後續 adapter）
 
 ## 產品落點
 
