@@ -95,3 +95,13 @@ Validation remains partial: scoped acquisition executes and preserves unresolved
 observations, but accepted-content quality and remaining loss must be checked
 independently. No complete subtitle coverage or publish-ready claim is made
 from fixture passes or increased cue counts.
+
+## Cross-source regression validation boundary
+
+回歸驗證需保留互相獨立的兩類 assertion：non-dialogue 不進 accepted，
+以及已有可信角色支持的真字幕不因污染修復被排除。須涵蓋 box-local raw
+完整與舊快取缺失兩種格式，避免只測修復後的理想輸入。主要 changing-text
+band 的相對頻率不是否定第二字幕帶的充分證據；低頻帶、位置變更、jitter
+皆需獨立測例。舊 evidence replay 與 fresh acquisition 是不同驗證層，
+兩者皆不能以正常退出或 cue 數增加代替內容、時間與成片驗收。具體執行
+結果與未通過的 fixture 留在專案證據；cross-source 品質驗收仍未關閉。

@@ -118,3 +118,8 @@ LLM 只在 candidate set 上選擇並寫 `resolution_reason`，不得從 raw ASR
 Adapter progress：定向重探與 before／after、失敗保留、box／parts 失配及 nested
 decision eligibility 的 fixture 已驗證；live accepted 品質仍須獨立核對，不以 cue
 數增加當 recovery PASS。見上述 resolution-loss evidence。
+
+Cross-source regression gate 仍 open：新舊 OCR ownership 格式、watermark
+precision 與 true-dialogue retention 必須分開驗證；主字幕帶頻率不能單獨
+否定低頻的另一字幕帶。新採集實跑與舊快取 replay 分開記錄，pipeline
+完成不等於 content／timing／render gate 通過。

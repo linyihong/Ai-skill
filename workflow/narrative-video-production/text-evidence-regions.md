@@ -36,6 +36,12 @@ Lexicon／boundary segmentation 的 `parts` 數量可以不同於 boxes；不得
 會取得 dialogue region 的 geometry／role，破壞後續 projection 與 coverage。
 若 box-local raw 不可得，需保留 grouping scope 並標記 attribution 未決。
 
+回歸驗證必須同時涵蓋新格式與缺少 box-local raw 的舊格式；新格式 fixture
+通過不能證明舊快取安全。分別驗證 non-dialogue 排除與真字幕保留，不能只
+以污染字串消失作為成功條件。Source-local band 是輔助證據：主要帶的出現
+頻率不能單獨否定另一個已有獨立字幕角色支持的帶；低頻、位置切換與 box
+jitter 需有保留測試。未知角色仍保持未決，不因保留要求自動升格。
+
 已投影的 box-local evidence 必須保留其 geometry、region identity、整個 source
 的 persistence 與 role；下游不可重新展開 raw boxes 而撤銷 projection。定向
 重探亦須傳遞這些欄位，不可用只含 text/time 的摘要取代。短窗本身不足以
