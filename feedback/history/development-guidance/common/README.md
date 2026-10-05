@@ -2,6 +2,7 @@
 
 | 檔名 | Status | 標題 | 一句話摘要 |
 |------|--------|------|-----------|
+| `2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md` | candidate | Land a cancellation on a chosen database statement, including COMMIT | Lock the statement (or delay COMMIT with a deferred trigger), cancel with a short timeout, read back and retry |
 | `2026-10-05_103000-hook-env-leaks-into-fixture-repos.md` | candidate | Hook environment leaks into fixture repositories | Gate fixtures that spawn git must strip GIT_* and orchestrator flags; hooks redirect or silence them |
 | `2026-10-01_171200-cap-recovery-loops-never-reset-gate-counter.md` | candidate | Cap recovery loops; never reset the counter that gates them | Recovery that clears its own retry counter thrash forever; separate budgets; replace not failed |
 | `2026-10-01_152600-ocr-probe-is-discovery-not-exclusion.md` | candidate | OCR Probe is discovery, not exclusion | Probe miss＝inconclusive＋recovery；不得當無字幕 STOP；discovery→classify→targeted OCR |
