@@ -2,6 +2,7 @@
 
 | Date | Lesson | Status |
 | --- | --- | --- |
+| 2026-10-05 | [source-adaptive-ocr-region-profile-not-per-series-rules](2026-10-05_source-adaptive-ocr-region-profile-not-per-series-rules.md) | candidate |
 | 2026-10-02 | [evidence-non-destructive-resolution-invariant](2026-10-02_174015-evidence-non-destructive-resolution-invariant.md) | candidate |
 | 2026-10-02 | [ocr-layout-typography-are-evidence-features](2026-10-02_172938-ocr-layout-typography-are-evidence-features.md) | candidate |
 | 2026-10-02 | [cue-finalization-must-not-hard-delete-candidates](2026-10-02_172329-cue-finalization-must-not-hard-delete-candidates.md) | candidate |

@@ -73,11 +73,41 @@ layout_hypothesis:
 
 清楚機械特徵不必打 LLM（見 13／24）。
 
-## Per-source OCR profile
+## Per-source OCR profile（observation，可版本化）
 
-作品級可累積 `source_ocr_profile`（primary／secondary subtitle bands、watermark zones）。
-後續集直接用 profile → mechanical targeted OCR；**layout drift** 才觸發 rediscovery。
-對齊 Observation → Accumulation → Validation → Promotion；禁止單次 LLM 觀察立刻改全局規則。
+作品級累積 `source_ocr_profile`（**不是** canonical global rule）：
+
+```text
+source_ocr_profile:
+  version: 1
+  regions[]:
+    region_id, normalized_box
+    behavior: persistence | text_repetition | position_stability | change_rate | sticky?
+    role: subtitle_candidate | watermark_candidate | livestream_chat | platform_ui | unknown
+  scan_policy: include_regions / exclude_roles / sticky_spans[]
+```
+
+後續集直接用 profile → mechanical targeted OCR；**layout drift** 才觸發 rediscovery → profile v2。
+對齊 Observation → Accumulation → Validation → Promotion；**禁止**單片 dogfood 立刻寫死 `watermark_y`／全域刪字字典。
+
+### Sticky / persistent region
+
+若 region：長時存在、bbox 穩、字級穩、文本高度重複、不隨對白變 → `sticky: true` → 預設 `watermark_candidate`（機械即可）。
+正式 OCR 應盡量 **空間排除** sticky layer；若 OCR 仍把 sticky 與對白黏成一字串，走 **role-aware／sticky projection**（保留 observed，只投影 spoken）— 見 sticky-watermark evidence。
+本集高重複 span 可進 `scan_policy.sticky_spans`（source-local），不得晉升為全域詞表除非跨源 fixture 驗證。
+
+### Profile impact（必記，防「修這部壞那部」）
+
+`profile_change: v1 → v2` 至少對照：
+
+| 指標 | 用途 |
+| --- | --- |
+| OCR／dialogue candidates before／after | 掃描寬度是否塌縮 |
+| watermark_rejections／sticky peels | sticky 是否生效 |
+| accepted／uncertain／rejected | Evidence≠Production 分層 |
+| small fixture regression | 難例 clip corpus（非整部上一部） |
+
+risk 用 fixture 差計量，不用「感覺上一部怪怪的」。詳見 evidence [`2026-10-05-source-adaptive-ocr-region-profile`](../../plans/active/2026-09-16-1649-narrative-video-production-workflow/evidence/2026-10-05-source-adaptive-ocr-region-profile.md)。
 
 ## Coverage 指標（必記）
 

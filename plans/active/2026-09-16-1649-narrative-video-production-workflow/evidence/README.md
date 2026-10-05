@@ -10,6 +10,7 @@ Product dogfood that touches captions／locale pack／font／layout／timing／c
 
 | Run ID | 檔案 | 狀態 | 摘要 |
 | --- | --- | --- | --- |
+| 2026-10-05-source-adaptive-ocr-region-profile | [2026-10-05-source-adaptive-ocr-region-profile.md](2026-10-05-source-adaptive-ocr-region-profile.md) | contract_gap／adapter | 勿每片手調；region behavior→source_ocr_profile；sticky 空間優先；impact+fixture |
 | 2026-10-05-en-dogfood-source-lang-vs-qwen | [2026-10-05-en-dogfood-source-lang-vs-qwen.md](2026-10-05-en-dogfood-source-lang-vs-qwen.md) | validation／PASS clip | gemini 避 Qwen OOM；源口播勿用 en script gate；ep16 EN 成片 1 |
 | 2026-10-02-ep16-verify-duipian-uncertain-en | [2026-10-02-ep16-verify-duipian-uncertain-en.md](2026-10-02-ep16-verify-duipian-uncertain-en.md) | validation／partial | 对片抽检 PASS+ASR notes；uncertain LIKELY；EN kick |
 | 2026-10-02-sticky-watermark-accepted-projection | [2026-10-02-sticky-watermark-accepted-projection.md](2026-10-02-sticky-watermark-accepted-projection.md) | adapter／contract | accepted 黏串→projection；純殘片 rejected；衝突 uncertain；非 delete |
