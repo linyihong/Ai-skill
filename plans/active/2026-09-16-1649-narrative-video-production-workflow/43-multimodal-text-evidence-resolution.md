@@ -123,3 +123,5 @@ Cross-source regression gate 仍 open：新舊 OCR ownership 格式、watermark
 precision 與 true-dialogue retention 必須分開驗證；主字幕帶頻率不能單獨
 否定低頻的另一字幕帶。新採集實跑與舊快取 replay 分開記錄，pipeline
 完成不等於 content／timing／render gate 通過。
+另需 watermark lexicon extension 的 region-boundary regression：重複
+首字不等於水印末字，擴詞不可跨入另一 dialogue box。

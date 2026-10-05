@@ -42,6 +42,11 @@ Lexicon／boundary segmentation 的 `parts` 數量可以不同於 boxes；不得
 頻率不能單獨否定另一個已有獨立字幕角色支持的帶；低頻、位置切換與 box
 jitter 需有保留測試。未知角色仍保持未決，不因保留要求自動升格。
 
+詞庫的 watermark 擴詞亦受 box ownership 約束：行首重複的下一個字可能
+是另一 dialogue box 的首字，不能只靠復現次數將它吸收到水印詞條。先在
+同一 watermark region 驗證擴詞；缺 ownership 時保持候選並定向核對。
+測試需驗證擴詞後仍保留對白首字，而不只檢查完整水印消失。
+
 已投影的 box-local evidence 必須保留其 geometry、region identity、整個 source
 的 persistence 與 role；下游不可重新展開 raw boxes 而撤銷 projection。定向
 重探亦須傳遞這些欄位，不可用只含 text/time 的摘要取代。短窗本身不足以
