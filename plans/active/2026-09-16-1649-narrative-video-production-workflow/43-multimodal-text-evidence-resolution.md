@@ -164,3 +164,11 @@ temporal groups 被 allowlist 丟掉、而 singular view／regions／alignment
 仍存在的 adapter gap。Spoken-side projection PASS 不可替代 locale round-trip
 驗證；修正後仍須獨立驗 translation projection、caption scheduling 與成片。
 見同份 attribution precision evidence；consumer／全鏈 gate 保持 open。
+
+後續 cache round-trip 的 plural-group retention regression 已局部通過，
+但實際 display selector 又暴露 first-region partial override：metadata 全保留
+仍可漏掉另一句。保守 adapter 修正拒絕歧義的單 region override，沿用
+whole-cue translation，並以真實 locale／cache／caption consumer 的合成
+regression 驗 content coverage 與 order invariance；不拼 raw region、不改時間。
+見 [`evidence/2026-10-07-locale-selection-vs-retention.md`](evidence/2026-10-07-locale-selection-vs-retention.md)。
+Scoped adapter evidence 不升格 full-source／semantic／timing／render gate。
