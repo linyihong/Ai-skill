@@ -131,3 +131,9 @@ precision 與 true-dialogue retention 必須分開驗證；主字幕帶頻率不
 時聲稱已確認 stacked geometry。這些缺口須保留 failing regression，
 並補獨立 frame／region／final-cue 驗證。既有污染 derived lexicon 也需
 重驗與隔離；完整 resolver 的 uncertain 保留不等於 accepted 恢復。
+
+後續 precision／acquisition-integrity 核對仍有缺口：附近 scene text
+不能借用 changing dialogue band 升格；decoder 提前中止不能因後續
+resolver 完成就當全片採集完成；cached frame 與 source presentation time
+不一致時，先核對來源與時軸。見
+[`evidence/2026-10-06-attribution-precision-and-acquisition-integrity.md`](evidence/2026-10-06-attribution-precision-and-acquisition-integrity.md)。

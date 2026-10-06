@@ -53,3 +53,9 @@ Escalation only when subtitle-existence evidence is missing/suspicious
 - [x] Escalation 不把 non_subtitle 當 recovered dialogue（unit `probe_decision`）
 - [x] Sanitized evidence note under plan `evidence/`（indexed）
 - [ ] 完整 pack dogfood（成片語音／字幕對齊、雜訊↓）— 見 evidence Validation deferred
+
+此 checkbox 保持 open：獨立 frame negative pair 發現附近 clothing text
+可借用 dialogue band 被升格。新的 failing regression 應保留，同時保護
+鄰近真字幕；不可用 raw retention 或 process completion 宣稱 precision
+通過。採集完整度與 timing readback 亦分開驗證，見
+[`evidence/2026-10-06-attribution-precision-and-acquisition-integrity.md`](evidence/2026-10-06-attribution-precision-and-acquisition-integrity.md)。

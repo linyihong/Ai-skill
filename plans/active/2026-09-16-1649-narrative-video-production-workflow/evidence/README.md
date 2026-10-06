@@ -10,6 +10,7 @@ Product dogfood that touches captions／locale pack／font／layout／timing／c
 
 | Run ID | 檔案 | 狀態 | 摘要 |
 | --- | --- | --- | --- |
+| 2026-10-06-attribution-precision-and-acquisition-integrity | [2026-10-06-attribution-precision-and-acquisition-integrity.md](2026-10-06-attribution-precision-and-acquisition-integrity.md) | adapter／validation gaps | 近字幕帶場景字誤升格；採集提前中止≠完成；cached frame／source PTS 要獨立核對 |
 | 2026-10-05-evidence-resolution-loss-monitor | [2026-10-05-evidence-resolution-loss-monitor.md](2026-10-05-evidence-resolution-loss-monitor.md) | contract_gap／adapter | evidence funnel 縮量監測；uncertain 保留；定向 re-probe；artifact integrity 與 versioned cache |
 | 2026-10-05-source-adaptive-ocr-region-profile | [2026-10-05-source-adaptive-ocr-region-profile.md](2026-10-05-source-adaptive-ocr-region-profile.md) | contract_gap／adapter | 勿每片手調；region behavior→source_ocr_profile；sticky 空間優先；impact+fixture |
 | 2026-10-05-en-dogfood-source-lang-vs-qwen | [2026-10-05-en-dogfood-source-lang-vs-qwen.md](2026-10-05-en-dogfood-source-lang-vs-qwen.md) | validation／PASS clip | gemini 避 Qwen OOM；源口播勿用 en script gate；ep16 EN 成片 1 |
