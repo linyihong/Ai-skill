@@ -9,6 +9,7 @@ Status: contract confirmation / adapter validation gaps; not full content, timin
 3. Mixed scripts and vertically separated boxes do not prove bilingual subtitles: one box may be a clothing label. Region classification precedes bilingual grouping, and downstream fusion must preserve that identity.
 4. Decoder/resource failure can truncate acquisition while later resolution still completes. A successful process or nonzero cue count cannot certify an exhaustive scan. Record declared source extent, observed scan extent and termination reason; incomplete acquisition remains REVIEW or BLOCK according to the consumer's requirements.
 5. Cached frame labels, derived frame-rate times and independently decoded source presentation times can disagree. Validate media identity and source timing before certifying a short dialogue window or applying an offset. Do not turn an observed discrepancy into a global timing correction.
+6. Resolve the exact caption artifact from the run record, not an ambiguous directory glob. Metadata sidecars are not caption documents; missing cue structure must fail artifact integrity before exclusion-only checks, rather than default to an empty caption list and falsely pass.
 
 ## Validation boundaries
 
@@ -16,6 +17,7 @@ Status: contract confirmation / adapter validation gaps; not full content, timin
 - Frame-reviewed negative pairs and an isolated mechanical attribution replay revealed a band-borrowing failure. The failure remains an executable regression; neighboring true dialogue remains a required positive assertion.
 - A resource-truncated acquisition is excluded from complete baselines. GPU-heavy integration runs should be serialized unless whole-pipeline resource budgets and concurrency have been verified.
 - The adapter's source-window timing discrepancy is unresolved; retained raw text is not independently verified timing evidence.
+- An artifact-kind negative was demonstrated before tightening the acceptance checker; metadata cannot serve as caption exclusion evidence. This verifies the test infrastructure, not subtitle quality.
 - Content recovery, bilingual propagation, temporal integrity and rendered-output checks remain open. No full-pack or publish-ready checkbox is promoted.
 
 ## Linked updates
