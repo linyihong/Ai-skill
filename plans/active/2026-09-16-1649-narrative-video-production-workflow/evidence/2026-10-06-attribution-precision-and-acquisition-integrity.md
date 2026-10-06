@@ -29,6 +29,7 @@ Status: contract confirmation / adapter validation gaps; not full content, timin
 - Namespace targeted-probe identities separately from whole-source identities, so unrelated observations cannot alias during trace or projection.
 - Account for owned region texts in candidate-to-cue tracing. Restoring boxes without correcting downstream gates and accounting can still leave valid evidence uncertain or apparently missing.
 - Offline fixtures and a specified frozen-input projection check do not independently certify spoken-audio truth, semantic equivalence, fresh acquisition completeness, locale propagation, timing or rendered output.
+- Additional independent source-frame review paired a vertical disclaimer/logo negative with a bottom-dialogue positive. The mechanical gate keeps the spurious Latin reading unsupported while supporting the genuine dialogue. This extends scoped role precision evidence, not full overlay-fragment exclusion or final-caption acceptance. A manifest-driven audit records missing formal caches and missing watch observations as unverified; retention-only watches do not automatically require acceptance.
 
 ## Linked updates
 
