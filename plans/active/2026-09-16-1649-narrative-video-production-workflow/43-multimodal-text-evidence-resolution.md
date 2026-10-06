@@ -152,3 +152,9 @@ region discovery 也不得覆蓋已分類的 non-dialogue role。凍結 diagnost
 uncertain retention、cleaning recovery 與 identity propagation 分開驗收。
 此 diagnostic 僅停用部分 reconstruction，不標純機械或 normal-provider
 baseline；詳見同份 attribution precision evidence。全鏈 gate 不升格。
+
+Same-speech collapse 的 winner-only projection 已定位並以 adapter regression
+修正：同一 speech 可對齊多個獨立 temporal subtitle group，不能因 selected
+speech 字串相同就丟掉第二個 region。保留 verbatim geometry／identity／time
+與複數 group alignment；singular group 僅相容主視圖，不將 sequential groups
+當 bilingual stack。凍結 resolver 驗證局部恢復，排程／成片 gate 仍 open。
