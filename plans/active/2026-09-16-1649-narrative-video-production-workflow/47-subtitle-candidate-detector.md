@@ -44,6 +44,10 @@ Escalation only when subtitle-existence evidence is missing/suspicious
 
 ## Evidence
 
+Morphology 不等於 region ownership：平台詞可出現在台詞、冒號可為 speaker label。
+正反例 adapter regression 已確認此邊界；完整 dogfood 仍 open，見
+[`evidence/2026-10-06-morphology-without-region-ownership.md`](evidence/2026-10-06-morphology-without-region-ownership.md)。
+
 [`evidence/2026-10-01-subtitle-candidate-detector.md`](evidence/2026-10-01-subtitle-candidate-detector.md)
 
 ## Acceptance

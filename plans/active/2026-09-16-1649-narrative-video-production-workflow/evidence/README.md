@@ -1,5 +1,7 @@
 # Plan evidence — narrative-video-production
 
+- [Morphology is not region ownership](2026-10-06-morphology-without-region-ownership.md): paired adapter regression only; full pack, consumer and rendered QA remain open.
+
 ## 引用規則
 
 引用寫 `evidence/<file>.md` 或 markdown 連結。禁止用檔案內絕對行號定位。去敏：專案名、絕對路徑、原始媒體檔名、host、金鑰留在 `<PROJECT_ROOT>`。
