@@ -103,7 +103,7 @@ semantic_anchor:
 
 **命名**：Evidence non-destructive resolution（不是「再抓更多 OCR」）。
 
-任一 candidate 在 resolution 只能落到：
+任一 candidate 從清理、歸屬、分類、融合到 resolution，每一站只能落到：
 
 | status | 含義 | 最低 trace |
 | --- | --- | --- |
@@ -118,6 +118,21 @@ semantic_anchor:
 Production eligibility 必須消費 resolver 的實際 decision。若 nested resolution
 是 `unresolved`／`uncertain`／`rejected`，不得因外層 status 缺省或 stale accepted
 而進 publishable；adapter 應在 finalization 同步狀態，derived cache 也驗證此一致性。
+
+### 逐筆對帳（無條件）
+
+每筆 raw observation 必須連到 candidate 或具理由的未產候選記錄；每筆 candidate
+保留 `source_refs`、`stage`、狀態變更 history 與 reason。Merge target 必須存在且
+可追到終態，禁止循環／懸空 target；投影到 final cue 時保留 `final_cue_refs`。
+
+在同一來源範圍、同一站、同一 candidate id 計數單位下：
+`candidate = accepted + uncertain + rejected + merged`。Raw observation、fused group
+與 cue 數量的單位不同，不能直接相減；透過 id mapping 回答每筆去哪裡。
+總數對上仍需逐 id 檢查，避免重複記錄抵銷遺失。缺去向是 accounting gate 失敗，
+不是 OCR recall 缺口；uncertain 是有效 evidence，需 reason 與後續重探／明示 defer。
+
+時間／ASS 修復必須在 identity、content、region、language 可追蹤後進行；
+不得為消除 overlap 將不同台詞合併。每個 merge 需內容身份支持並保留 source trace。
 
 ### Evidence layer ≠ Production layer
 

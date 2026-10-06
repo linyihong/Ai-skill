@@ -6,6 +6,9 @@
 
 Product dogfood that touches captions／locale pack／font／layout／timing／content≠timing≠layout **must** write back here（or workflow）per the Mac project overlay rule `aiskill-plan-feedback-loop`（also linked to Translation Decision plan）. Do not leave NVP-relevant findings only in the product repo.
 
+本輪使用者確認的修復順序與 regression matrix：
+[48-evidence-retention-and-regression-matrix.md](../48-evidence-retention-and-regression-matrix.md)（驗收規劃，非實測 PASS）。
+
 ## Run 索引
 
 | Run ID | 檔案 | 狀態 | 摘要 |

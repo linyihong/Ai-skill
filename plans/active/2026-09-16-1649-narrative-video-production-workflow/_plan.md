@@ -144,7 +144,7 @@ workflow/narrative-video-production/
 
 本輪 plan **不**建立 `workflow/narrative-video-production/` 正文，直到 Phase 1 invariant 凍結（本檔 + 03）被接受且進入 Phase 2。
 
-Phase 2 已寫入：[`workflow/narrative-video-production/`](../../workflow/narrative-video-production/README.md)。
+Phase 2 已寫入：[`workflow/narrative-video-production/`](../../../workflow/narrative-video-production/README.md)。
 
 ## 建議總綱（agent 執行順序）
 
@@ -292,7 +292,7 @@ Phase 2 已寫入：[`workflow/narrative-video-production/`](../../workflow/narr
 
 - [x] Proposed Shape 檔存在於 `workflow/narrative-video-production/`
 - [x] `artifact-gates.md`：publish-ready 獨立於 producer
-- [x] 去敏示範 [`records/examples/sanitized-matching-and-edr.yaml`](../../workflow/narrative-video-production/records/examples/sanitized-matching-and-edr.yaml)
+- [x] 去敏示範 [`records/examples/sanitized-matching-and-edr.yaml`](../../../workflow/narrative-video-production/records/examples/sanitized-matching-and-edr.yaml)
 - [x] `workflow/README.md` 列入；route 未註冊
 - [x] 十條 invariant 在 README 落點表 + 各 contract／gate（不只引用 03）
 - [x] 使用者判定 Phase 2 PASS → 進 Phase 3（不補 Q12/Q13、不回頭改 runtime）
@@ -323,6 +323,11 @@ inbox**（不得直接寫 knowledge）。同時先驗 role-qualified Text Resolu
 Phase 3 contract refinements（不改變 3A blocking milestone）：[`44-source-publish-timebase.md`](44-source-publish-timebase.md) 已完成其 contract acceptance；[`45-ocr-discovery-layout-probe.md`](45-ocr-discovery-layout-probe.md) 的產品第一刀已落地、仍待完整 adapter 驗收；[`46-evidence-acquisition-escalation-loop.md`](46-evidence-acquisition-escalation-loop.md) 的 workflow 與 OCR×ASR gap adapter 已落地；[`47-subtitle-candidate-detector.md`](47-subtitle-candidate-detector.md) 的 workflow＋產品 classifier 第一刀＋evidence 已落地，完整 pack dogfood 仍 open（見 [`evidence/2026-10-01-subtitle-candidate-detector.md`](evidence/2026-10-01-subtitle-candidate-detector.md)）。
 
 完成條件：外部專案產出一部片子的 EDR；本庫只收去敏 scenario。成功 = 決策鏈可驗證；失敗 = 真實 contract gap（都算有價值）。
+
+本輪收斂決策與驗收順序見 [`48-evidence-retention-and-regression-matrix.md`](48-evidence-retention-and-regression-matrix.md)：
+先修 attribution／classification／retention，candidate 四態逐筆對帳；P1 英文保留、
+P2 owned 雙語 region、P3 八部回歸矩陣、P4 時間／ASS／成片。本輪不提高全域 OCR
+頻率、不增加更大 LLM agent。文件契約更新不代表 adapter 或 Phase 3 PASS。
 
 ### Phase 3B — publication dogfood（3A 後）
 
@@ -356,16 +361,16 @@ Entry：Phase 2+3 完成且 activation 反例寫好（裸「AI 影片」不得�
 - [ ] Evidence unit：觀察中；凍結再加 observable detector；先聚合同一時間窗再做劇情；升格前不改 workflow schema
 - [ ] Story promotion gate：真實 run 已證明 traceability 不足；upstream resolved + event semantics + valid state claim + independent verifier 才 accepted；Episode 2 後裁決升格
 - [ ] Narrative representation：觀察中；OCR 顯示詞不進 homophone；兩條 chain 最後才串；前警覺＋Final Text Audit；無證據 → unresolved
-- [ ] Language／text-role before Text Resolution：dogfood 已證 EN hardsub＋ZH spoken 被塌成 conflict；workflow [`text-evidence-language-relation.md`](../../workflow/narrative-video-production/text-evidence-language-relation.md)＋[`40-language-role-before-text-resolution.md`](40-language-role-before-text-resolution.md) 已吸收；產品 fuse（algo 22）另驗
-- [ ] Bilingual OCR regions／subtitle groups：中英疊字硬字幕需 `text_region`＋機械 grouping，禁止黏字串／雙語 Agent；見 [`41-bilingual-ocr-regions-and-subtitle-groups.md`](41-bilingual-ocr-regions-and-subtitle-groups.md)、[`text-evidence-regions.md`](../../workflow/narrative-video-production/text-evidence-regions.md)；產品 adapter 另驗
-- [ ] OCR boundary／script-aware normalize：Latin 單框無空格＝boundary gap；`recognition_language ≠ observed_script`；raw＋derived 不可覆蓋；見 [`42-ocr-boundary-and-script-aware-normalization.md`](42-ocr-boundary-and-script-aware-normalization.md)、[`text-evidence-ocr-boundary.md`](../../workflow/narrative-video-production/text-evidence-ocr-boundary.md)；產品 adapter 另驗
-- [ ] Multimodal Text Evidence Resolution：ASR／OCR／phonetic／semantic／context 三角；`semantic_candidate`＋`resolution_reason`；anomaly 觸發重建非固定 OCR>ASR；見 [`43-multimodal-text-evidence-resolution.md`](43-multimodal-text-evidence-resolution.md)、[`text-evidence-multimodal-resolution.md`](../../workflow/narrative-video-production/text-evidence-multimodal-resolution.md)；產品 adapter 另驗
+- [ ] Language／text-role before Text Resolution：dogfood 已證 EN hardsub＋ZH spoken 被塌成 conflict；workflow [`text-evidence-language-relation.md`](../../../workflow/narrative-video-production/text-evidence-language-relation.md)＋[`40-language-role-before-text-resolution.md`](40-language-role-before-text-resolution.md) 已吸收；產品 fuse（algo 22）另驗
+- [ ] Bilingual OCR regions／subtitle groups：中英疊字硬字幕需 `text_region`＋機械 grouping，禁止黏字串／雙語 Agent；見 [`41-bilingual-ocr-regions-and-subtitle-groups.md`](41-bilingual-ocr-regions-and-subtitle-groups.md)、[`text-evidence-regions.md`](../../../workflow/narrative-video-production/text-evidence-regions.md)；產品 adapter 另驗
+- [ ] OCR boundary／script-aware normalize：Latin 單框無空格＝boundary gap；`recognition_language ≠ observed_script`；raw＋derived 不可覆蓋；見 [`42-ocr-boundary-and-script-aware-normalization.md`](42-ocr-boundary-and-script-aware-normalization.md)、[`text-evidence-ocr-boundary.md`](../../../workflow/narrative-video-production/text-evidence-ocr-boundary.md)；產品 adapter 另驗
+- [ ] Multimodal Text Evidence Resolution：ASR／OCR／phonetic／semantic／context 三角；`semantic_candidate`＋`resolution_reason`；anomaly 觸發重建非固定 OCR>ASR；見 [`43-multimodal-text-evidence-resolution.md`](43-multimodal-text-evidence-resolution.md)、[`text-evidence-multimodal-resolution.md`](../../../workflow/narrative-video-production/text-evidence-multimodal-resolution.md)；產品 adapter 另驗
 - [ ] Evidence refinement loop：觀察中；獨立於 parser；作品級 `evidence_policy`；Selection policy 先於 weight model；script 是 consumer；升格前不建 workflow 檔
 - [ ] Visual text evidence：觀察中；role 只 candidate；**role ≠ deletion**；span projection；watermark STOP name learning；候選 invariant 12 未凍結
 - [ ] Text grouping：觀察中；**group ≠ delete**；僅 exact duplicate 可 merge；dst 不決定 source；候選 invariant 13 未凍結；雙語疊字 grouping 見 41
-- [ ] Mechanical visual-text probe／OCR Discovery：觀察中；**probe≠exclusion**；bottom miss→inconclusive＋recovery；LLM 不決定掃區／不寫死 crop；見 [`13-mechanical-visual-text-probe.md`](13-mechanical-visual-text-probe.md)、[`45-ocr-discovery-layout-probe.md`](45-ocr-discovery-layout-probe.md)、[`text-evidence-ocr-discovery.md`](../../workflow/narrative-video-production/text-evidence-ocr-discovery.md)；產品 adapter 另驗
-- [ ] Evidence Acquisition／Escalation：workflow 與 OCR×ASR coverage-gap adapter 已落地；Monitor 三態、before／after 與完整產品驗收仍待；見 [`46-evidence-acquisition-escalation-loop.md`](46-evidence-acquisition-escalation-loop.md)、[`text-evidence-acquisition-loop.md`](../../workflow/narrative-video-production/text-evidence-acquisition-loop.md)
-- [ ] Subtitle Candidate Detector：workflow＋classifier 第一刀＋evidence 已落地；完整 pack dogfood 仍 open；見 [`47-subtitle-candidate-detector.md`](47-subtitle-candidate-detector.md)、[`evidence/2026-10-01-subtitle-candidate-detector.md`](evidence/2026-10-01-subtitle-candidate-detector.md)、[`text-evidence-subtitle-candidate.md`](../../workflow/narrative-video-production/text-evidence-subtitle-candidate.md)
+- [ ] Mechanical visual-text probe／OCR Discovery：觀察中；**probe≠exclusion**；bottom miss→inconclusive＋recovery；LLM 不決定掃區／不寫死 crop；見 [`13-mechanical-visual-text-probe.md`](13-mechanical-visual-text-probe.md)、[`45-ocr-discovery-layout-probe.md`](45-ocr-discovery-layout-probe.md)、[`text-evidence-ocr-discovery.md`](../../../workflow/narrative-video-production/text-evidence-ocr-discovery.md)；產品 adapter 另驗
+- [ ] Evidence Acquisition／Escalation：workflow 與 OCR×ASR coverage-gap adapter 已落地；Monitor 三態、before／after 與完整產品驗收仍待；見 [`46-evidence-acquisition-escalation-loop.md`](46-evidence-acquisition-escalation-loop.md)、[`text-evidence-acquisition-loop.md`](../../../workflow/narrative-video-production/text-evidence-acquisition-loop.md)
+- [ ] Subtitle Candidate Detector：workflow＋classifier 第一刀＋evidence 已落地；完整 pack dogfood 仍 open；見 [`47-subtitle-candidate-detector.md`](47-subtitle-candidate-detector.md)、[`evidence/2026-10-01-subtitle-candidate-detector.md`](evidence/2026-10-01-subtitle-candidate-detector.md)、[`text-evidence-subtitle-candidate.md`](../../../workflow/narrative-video-production/text-evidence-subtitle-candidate.md)
 - [ ] Editorial vs narrative transition：觀察中；shot ≠ scene；關係不塞進 catalog 本體
 - [ ] Material fact extraction（observable layer）：觀察中；外部 evidence candidates；升格前不塞十種分析器進 workflow
 - [x] publish-ready 需 fresh verification；outcome 是 evidence
@@ -390,6 +395,6 @@ Entry：Phase 2+3 完成且 activation 反例寫好（裸「AI 影片」不得�
 
 ## 與其他 plans 的關係
 
-- Watch-Out：[`architecture/ai-native-cognitive-ecosystem-system.md`](../../architecture/ai-native-cognitive-ecosystem-system.md) §Watch-Out List wall 2（workflow inflation）、wall 4（telemetry）。
+- Watch-Out：[`architecture/ai-native-cognitive-ecosystem-system.md`](../../../architecture/ai-native-cognitive-ecosystem-system.md) §Watch-Out List wall 2（workflow inflation）、wall 4（telemetry）。
 - [`2026-08-31-1032-3d-character-production-workflow`](../2026-08-31-1032-3d-character-production-workflow/_plan.md)：3D 資產域；本 plan 填補 media/creative 空位。Fresh verification 對齊該 plan 的 self-check ≠ completion。
 - software-delivery：僅當未來真的寫產片器。

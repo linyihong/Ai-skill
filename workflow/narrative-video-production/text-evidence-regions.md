@@ -56,7 +56,9 @@ jitter 需有保留測試。未知角色仍保持未決，不因保留要求自�
 
 同時間窗＋空間合理（常見：stacked、相似寬度、bottom band）→ `subtitle_group`。
 `type`：`mono`｜`bilingual`｜`multi`｜`unresolved`。
-bilingual 時記 `language_relation`（如 en+zh）與 `spatial_relation: stacked`。
+bilingual 時分別記語言與空間關係；`stacked` 必須由各 region 自有且可靠的 box、時間關係與語言關係共同支持。
+只有兩種語言或兩行文字，最多是 `bilingual_candidate`；缺 box／ownership／時間支持時，
+`spatial_relation: unresolved`，另記未決原因，不得推測上下排列。語言拆分成功不代表空間身份已確認。
 
 ## 與 ASR／spoken
 

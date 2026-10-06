@@ -59,3 +59,6 @@ Escalation only when subtitle-existence evidence is missing/suspicious
 鄰近真字幕；不可用 raw retention 或 process completion 宣稱 precision
 通過。採集完整度與 timing readback 亦分開驗證，見
 [`evidence/2026-10-06-attribution-precision-and-acquisition-integrity.md`](evidence/2026-10-06-attribution-precision-and-acquisition-integrity.md)。
+
+後續英文保留與 precision 成對驗收、雙語未決與八部矩陣，見
+[`48-evidence-retention-and-regression-matrix.md`](48-evidence-retention-and-regression-matrix.md)。

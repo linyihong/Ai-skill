@@ -153,6 +153,16 @@ fields:
       Multimodal Text Evidence Resolution: select among candidates with
       phonetic + semantic + context support; write reason[] and sources[].
       LLM must not invent text outside the candidate set.
+  evidence_disposition:
+    required: [candidate_id, source_refs, stage, status, reason]
+    optional: [region_refs, merged_into, final_cue_refs, history]
+    status_enum: [accepted, uncertain, rejected, merged]
+    notes: >
+      Every candidate has a stable identity and disposition at each processing
+      stage, including cleanup, attribution, classification and fusion.
+      rejected requires reason.code; merged requires a resolvable merged_into
+      target. Accepted evidence projected into cues retains final_cue_refs.
+      State transitions append history; raw observations remain unchanged.
   resolution_funnel:
     required: false
     optional:
@@ -238,10 +248,18 @@ gates:
     rule: each acquisition escalation must record trigger, level, action, before, after, resolution
   - id: resolution_funnel_traceable
     rule: >
-      when a resolution-loss anomaly is emitted, every non-accepted candidate
-      must remain traceable as uncertain, rejected with reason, or merged with
-      target; anomaly requires targeted reprobe or explicit defer, not silent
-      deletion.
+      every candidate at every stage must remain traceable as accepted with
+      sources, uncertain with reason, rejected with reason, or merged with target; anomaly requires targeted reprobe or explicit defer, not silent
+      deletion. Missing IDs or dangling merge targets fail accounting even when
+      aggregate counts balance.
+  - id: spatial_relation_requires_owned_geometry
+    rule: >
+      stacked requires reliable owned region geometry, temporal support and
+      language relation; missing geometry remains spatially unresolved.
+  - id: latin_morphology_not_discard_policy
+    rule: >
+      Latin script or text length alone cannot reject a candidate; uncertain
+      role or speech support retains evidence for attribution and recovery.
   - id: derived_artifact_integrity_before_cache_reuse
     rule: >
       invalid JSON/schema, source-hash mismatch, or incompatible cache_meta

@@ -54,6 +54,7 @@ Acquisition（生成／實拍／剪輯／未來工具）可換；不得反向定
 | 7c | OCR 詞界／raw≠derived | [`text-evidence-ocr-boundary.md`](text-evidence-ocr-boundary.md)；recognition≠observed script |
 | 7d | OCR Probe＝discovery 非 exclusion | [`text-evidence-ocr-discovery.md`](text-evidence-ocr-discovery.md)；miss→inconclusive＋recovery；非 `exists=false` |
 | 7e | Acquisition Monitor／escalation | [`text-evidence-acquisition-loop.md`](text-evidence-acquisition-loop.md)；suspicious→escalate；跨模態缺口不得當最終無字幕 |
+| 7g | Candidate 每站四態逐筆對帳；缺 box 不推 stacked | [`text-evidence-multimodal-resolution.md`](text-evidence-multimodal-resolution.md)、[`text-evidence-regions.md`](text-evidence-regions.md)、[`records/text-evidence.yaml`](records/text-evidence.yaml) |
 | 7f | Subtitle candidate precision | [`text-evidence-subtitle-candidate.md`](text-evidence-subtitle-candidate.md)；scene text≠subtitle；escalation 要 subtitle-existence evidence |
 | 8 | publish-ready 需 fresh verifier | [`artifact-gates.md`](artifact-gates.md) |
 | 9 | Outcome 是 evidence 不是真理 | [`publish-outcome.md`](publish-outcome.md) |

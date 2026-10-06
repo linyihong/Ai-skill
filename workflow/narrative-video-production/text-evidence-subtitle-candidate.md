@@ -141,6 +141,18 @@ probe_decision:
 | acquisition-loop | OCR×ASR coverage Monitor／escalation levels | escalation 前置：**subtitle existence** 與 corpus 過濾 |
 | regions／role projection | text_region／subtitle_group | candidate `status` 餵入 role；非字幕不進 dialogue group |
 
+## 分類與保留（清理階段亦適用）
+
+分類只能改狀態，不能讓 evidence 無理由消失。從 raw 建立具穩定 id 的 candidate，
+清理、歸屬、分類、融合每站均記 `accepted | uncertain | rejected + reason | merged + target`。
+欄位見 [`records/text-evidence.yaml`](records/text-evidence.yaml) `evidence_disposition`；
+逐筆對帳與 final cue trace 見 [`text-evidence-multimodal-resolution.md`](text-evidence-multimodal-resolution.md)。
+
+Latin／字串長度只是形態訊號，不能單獨硬刪英文短句或黏字。缺 ASR 支持時保留
+`uncertain`，再定向重探或 corroboration；品牌、Logo、水印、場景文字需獨立 role
+證據才能排除出 dialogue。黏字保留 raw 並交 boundary recovery，不能當 noise 吞掉。
+水印擴詞必須在同一 owned region 驗證，不能吸收鄰近字幕首字。
+
 ## Adapter 驗收（產品）
 
 1. `12:35`／郵件頭／`PLAY` 不得計入 `dialogue_candidate`／subtitle corpus。
