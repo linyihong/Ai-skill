@@ -47,4 +47,11 @@ Status: contract confirmation / adapter validation gaps; not full content, timin
 - Frozen resolver replay confirms the second owned region survives. This is identity-preserving projection evidence, not fresh acquisition completeness, independent spoken-audio truth, caption scheduling or rendered-output acceptance. Full feature-matrix and consumer-stage gates remain open.
 - A subsequent frozen-input replay with normal configured resolution and targeted acquisition retries disabled confirms owned accepted projection in the independently frame-reviewed windows. The whole-episode resolution-loss alert remains; scoped recovery does not certify every unresolved candidate or a publish-ready episode.
 
+## Locale consumer retention: confirmed adapter gap
+
+- Passing the spoken-side projection does not establish target-locale round-trip retention. A downstream serializer and reader can retain the primary singular group, regions and plural alignment references while silently dropping the plural temporal groups themselves.
+- Synthetic temporary-pack writer and reader regressions reproduce that loss separately; the legacy singular/region/alignment control still passes. This is an adapter gap, not a reason to increase acquisition frequency or change speech timing authority.
+- Preserve the complete group identities and source times across both write and reload. Then independently exercise translation projection and caption scheduling; adding an allowlist field alone cannot certify that every group receives a caption.
+- These failing regressions do not establish real-episode locale recovery, ASS timing, rendered quality or Phase 3 acceptance. Consumer and full-chain gates remain open; software-package publication is unrelated to narrative-video publish-ready acceptance.
+
 Maps to [resolution companion](../43-multimodal-text-evidence-resolution.md) and [candidate precision companion](../47-subtitle-candidate-detector.md). Existing workflow contracts already require joint evidence and independent timebase validation; no new route, agent, global sampling policy or canonical numeric threshold is introduced. Concrete titles, source timestamps, hashes, class names and run outputs remain in consumer project documentation.

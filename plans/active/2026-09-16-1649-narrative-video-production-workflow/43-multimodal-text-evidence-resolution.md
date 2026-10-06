@@ -158,3 +158,9 @@ Same-speech collapse 的 winner-only projection 已定位並以 adapter regressi
 speech 字串相同就丟掉第二個 region。保留 verbatim geometry／identity／time
 與複數 group alignment；singular group 僅相容主視圖，不將 sequential groups
 當 bilingual stack。凍結 resolver 驗證局部恢復，排程／成片 gate 仍 open。
+
+Target-locale consumer 的 synthetic write／reload regression 已重現複數
+temporal groups 被 allowlist 丟掉、而 singular view／regions／alignment
+仍存在的 adapter gap。Spoken-side projection PASS 不可替代 locale round-trip
+驗證；修正後仍須獨立驗 translation projection、caption scheduling 與成片。
+見同份 attribution precision evidence；consumer／全鏈 gate 保持 open。
