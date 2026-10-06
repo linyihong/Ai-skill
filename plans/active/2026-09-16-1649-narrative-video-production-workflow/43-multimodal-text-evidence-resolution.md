@@ -144,3 +144,11 @@ resolver 完成就當全片採集完成；cached frame 與 source presentation t
 字串去比單一 box；配對仍須 acquisition／frame／source 與時間交集。
 raw disposition 全數有去向與 cross-language resolved label 均不能代替
 identity／semantic 驗收。完整 cross-source／locale／timing／render gate 仍 open。
+
+後投影 fuzzy watermark scrub 吃掉完整 box-local dialogue 的反例已由
+test-first adapter 修正；shared affix 不具 ownership authority，legacy
+region discovery 也不得覆蓋已分類的 non-dialogue role。凍結 diagnostic
+確認完整候選保留，但其自身 region 尚未進 broad accepted speech cue；
+uncertain retention、cleaning recovery 與 identity propagation 分開驗收。
+此 diagnostic 僅停用部分 reconstruction，不標純機械或 normal-provider
+baseline；詳見同份 attribution precision evidence。全鏈 gate 不升格。
