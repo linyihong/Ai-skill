@@ -137,3 +137,7 @@ precision 與 true-dialogue retention 必須分開驗證；主字幕帶頻率不
 resolver 完成就當全片採集完成；cached frame 與 source presentation time
 不一致時，先核對來源與時軸。見
 [`evidence/2026-10-06-attribution-precision-and-acquisition-integrity.md`](evidence/2026-10-06-attribution-precision-and-acquisition-integrity.md)。
+
+獨立雙語 region 已採集但 final cue 丟失語言與 owned geometry 的實跑反例，
+進一步確認 downstream projection gate 未通過；raw disposition 全數有去向
+與 cross-language resolved label 均不能代替 identity／semantic 驗收。
