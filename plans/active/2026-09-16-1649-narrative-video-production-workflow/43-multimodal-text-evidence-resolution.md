@@ -139,5 +139,8 @@ resolver 完成就當全片採集完成；cached frame 與 source presentation t
 [`evidence/2026-10-06-attribution-precision-and-acquisition-integrity.md`](evidence/2026-10-06-attribution-precision-and-acquisition-integrity.md)。
 
 獨立雙語 region 已採集但 final cue 丟失語言與 owned geometry 的實跑反例，
-進一步確認 downstream projection gate 未通過；raw disposition 全數有去向
-與 cross-language resolved label 均不能代替 identity／semantic 驗收。
+已由 test-first adapter 修正與指定 frozen-input 重播驗證局部恢復。
+下游 gate 必須核對各 region 的來源 identity＋自身文字，不能用合併雙語
+字串去比單一 box；配對仍須 acquisition／frame／source 與時間交集。
+raw disposition 全數有去向與 cross-language resolved label 均不能代替
+identity／semantic 驗收。完整 cross-source／locale／timing／render gate 仍 open。
