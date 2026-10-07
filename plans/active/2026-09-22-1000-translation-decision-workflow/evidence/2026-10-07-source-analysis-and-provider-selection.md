@@ -78,3 +78,20 @@ new instance health; a requested process stop is not confirmed termination.
 Keep service recovery and translation semantics as separate open gates. Whole-host
 recovery must respect authorization for other applications, not broaden from
 permission to restart the product service.
+
+## Later recovery and resource-error boundaries
+
+The service later recovered through its canonical restart without a host reboot;
+independent provider/health readback and offline suites pass. Actual generation
+then failed before analysis with allocator failure and, after class retries,
+system commit/pagefile exhaustion. Available physical or device memory alone
+does not prove allocation feasibility; pagefile usage is not commit headroom.
+The exact cause of the earlier transient service/import failure remains unproven.
+
+Resource failures now stop class compatibility retries and preserve the original
+error. Non-resource compatibility fallback remains tested. Analysis diagnostics
+checkpoint before generation, retain runtime traceback, return nonzero and mark
+remaining cases not_run. This is distinct from invalid generated schema and from
+semantic failure; no target output exists to judge. Seventeen offline suites pass
+and post-change service health recovers, but actual-generation/content gates stay
+open. Freeing resources from unrelated applications requires separate approval.
