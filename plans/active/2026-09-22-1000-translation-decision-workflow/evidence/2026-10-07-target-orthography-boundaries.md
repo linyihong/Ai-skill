@@ -52,3 +52,13 @@ loading after that change still does not establish generation or target quality.
 Keep compatibility adapters bounded to the intended weights, restore temporary
 integration hooks, and test unrelated-file preservation. A whole-file eager read
 is not equivalent to bounded lazy reads when memory headroom is limited.
+
+## Realization versus semantic acceptance
+
+A bounded local-only run subsequently produced derived target text, a timed pack,
+captions and a burned artifact. Mechanical orthography, caption text retention
+and immutable source checks passed. This closes only that adapter execution
+slice: source-subtitle compression versus acoustic evidence still requires
+semantic review, and overlaying a new locale on existing hard captions does not
+prove production layout. Do not promote ASR to automatic truth, repair one line
+with a hard-coded replacement, or mark full-source content/timing/render PASS.
