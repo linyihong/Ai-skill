@@ -172,3 +172,8 @@ whole-cue translation，並以真實 locale／cache／caption consumer 的合成
 regression 驗 content coverage 與 order invariance；不拼 raw region、不改時間。
 見 [`evidence/2026-10-07-locale-selection-vs-retention.md`](evidence/2026-10-07-locale-selection-vs-retention.md)。
 Scoped adapter evidence 不升格 full-source／semantic／timing／render gate。
+
+中文 target orthography 必須在 derived locale／caption boundaries 明確實現，
+不能把 script-family accepted 當簡體驗收，亦不能改寫 raw OCR／ASR。
+見 Translation Decision [boundary evidence](../2026-09-22-1000-translation-decision-workflow/evidence/2026-10-07-target-orthography-boundaries.md)。
+cache／identity／caption regression 僅局部驗 adapter；content／render gate 仍 open。

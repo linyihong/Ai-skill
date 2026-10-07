@@ -71,6 +71,7 @@ Ai-skill 已有 Loop-first／Governance-first 與 ERA v2（Evidence constrains D
 - [ ] 三 SoT 穩定 ≥1 次 schema revision 仍向後相容或明確 migration。
 - [ ] ≥1 真實 dogfood（影片或文件）含完整 TDR + finality。
 - [ ] subtitle adapter 與 NVP `content_gate` 對接已文件化且至少一例通過 content validation。
+  - Scoped target-orthography adapter evidence: [boundary regression](evidence/2026-10-07-target-orthography-boundaries.md). Full semantic/content acceptance remains open.
 - [ ] 未把特定翻譯供應商寫進 canonical 步驟。
 - [ ] Open Questions 全解或有 deferred owner。
 
