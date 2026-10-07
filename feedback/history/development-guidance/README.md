@@ -13,6 +13,8 @@
 
 ## Recent (2026-09-30)
 
+新增原生模型載入診斷候選：[已知案例優先與重驗邊界](common/2026-10-07_125417-native-model-load-known-case-first.md)。
+
 | Slug | Category |
 |------|----------|
 | `common/2026-09-30_081600-ocr-recognition-lang-must-not-erase-latin-word-boundaries` | recognition≠observed script；Latin 詞界／raw≠derived |

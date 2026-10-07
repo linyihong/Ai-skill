@@ -2,6 +2,7 @@
 
 | 檔名 | Status | 標題 | 一句話摘要 |
 |------|--------|------|-----------|
+| [2026-10-07_125417-native-model-load-known-case-first.md](2026-10-07_125417-native-model-load-known-case-first.md) | candidate | 原生模型載入先比對既有案例 | 階段／堆疊／版本指紋→最小隔離驗證；讀取、生成、產品驗收分開 |
 | `2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md` | candidate | Pipeline behaviour needs a host-level test, not a component test | A correct middleware can still lose to another layer in the real order; assert host-level logs and status |
 | `2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md` | candidate | Land a cancellation on a chosen database statement, including COMMIT | Lock the statement (or delay COMMIT with a deferred trigger), cancel with a short timeout, read back and retry |
 | `2026-10-05_103000-hook-env-leaks-into-fixture-repos.md` | candidate | Hook environment leaks into fixture repositories | Gate fixtures that spawn git must strip GIT_* and orchestrator flags; hooks redirect or silence them |
@@ -77,4 +78,4 @@
 | `2026-09-30_081600-ocr-recognition-lang-must-not-erase-latin-word-boundaries.md` | candidate | OCR recognition language must not erase Latin word boundaries | `recognition_language`≠`observed_script`；Latin 單框無空格要 boundary／derived，不可因 ch 路徑刪空格或覆蓋 raw |
 | `2026-10-01_090000-ocr-join-token-seam-not-cumulative-script.md` | candidate | OCR join must use token seam not cumulative script | parts 已切、derived 黏：Latin\|Latin 必空格；禁止 cumulative mixed 否決；parts 不可被 text 覆蓋 |
 
-Total: 69
+Total: 70

@@ -44,6 +44,8 @@ and environment-specific evidence remain in `<PROJECT_ROOT>`.
 
 ## Native-loader isolation
 
+Reusable candidate: [known-case lookup and revalidation boundary](../../../../feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md).
+
 Capture native failures in an owned child with parent-retained exit status and
 stack logs: an in-process Python exception handler cannot guarantee evidence
 retention after a native fault. A controlled read-method comparison can isolate
