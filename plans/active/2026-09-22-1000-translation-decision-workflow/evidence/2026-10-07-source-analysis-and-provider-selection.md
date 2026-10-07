@@ -66,3 +66,8 @@ A regression timeout also exposed fail-fast loss of the aggregate report. The
 runner now retains partial output and explicit timeout disposition, checkpoints
 each suite, and continues independent tests. An interrupted run or timeout must
 not become PASS. No production semantic integration or acceptance gate closes.
+
+The actual checkpointed follow-up completes sixteen offline suites: fifteen pass
+and the weight-reader suite times out. The runner exits nonzero, retains that
+failure and still records subsequent suites. This confirms disposition retention,
+not runtime recovery or full translation acceptance.
