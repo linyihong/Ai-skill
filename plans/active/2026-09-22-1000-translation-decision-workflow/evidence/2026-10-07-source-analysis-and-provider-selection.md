@@ -47,3 +47,22 @@ semantic consistency. Invalid rows remain retained, not accepted or silently
 translated. This is a candidate strategy, not production repair evidence.
 Clarify structural field ownership and verify reference/meaning independently
 before deployment; source-span anchoring alone cannot close these gates.
+
+## Head ownership and timeout follow-up
+
+An experimental head-scoped field now distinguishes head noun reading from
+other sentence nouns. Non-noun heads require not-applicable reading; noun heads
+cannot use it. Ambiguous readings require retained reasons, not raw instructions
+fed back into Selection. Seven mocked boundary tests pass; this is not evidence
+that the model assigns the right grammatical or semantic interpretation.
+
+The next actual probe produced no analysis before controlled termination. An
+independent bounded import diagnostic timed out while the tensor library imported
+its array dependency, before model weights. This differs from the prior native
+weight-reader fingerprint; root cause is unproven. Do not reuse the old diagnosis
+or treat missing output as translation-quality evidence.
+
+A regression timeout also exposed fail-fast loss of the aggregate report. The
+runner now retains partial output and explicit timeout disposition, checkpoints
+each suite, and continues independent tests. An interrupted run or timeout must
+not become PASS. No production semantic integration or acceptance gate closes.
