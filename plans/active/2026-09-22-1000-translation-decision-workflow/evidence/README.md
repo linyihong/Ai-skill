@@ -10,6 +10,7 @@
 
 | Run ID | 檔案 | 狀態 | 摘要 |
 | --- | --- | --- | --- |
+| 2026-10-08-durable-title-resolution | [2026-10-08-durable-title-resolution.md](2026-10-08-durable-title-resolution.md) | scoped adapter; semantic gates open | entity-scoped selected titles／existing locale catalog／atomic reuse／orthography exceptions; cache admission≠Finality |
 | 2026-10-07-source-analysis-and-provider-selection | [2026-10-07-source-analysis-and-provider-selection.md](2026-10-07-source-analysis-and-provider-selection.md) | investigation; gates open | provider≠probe override；head-scoped analysis≠semantic truth；retain timeout/runtime failure；resource error≠class mismatch |
 | 2026-10-07-target-orthography-boundaries | [2026-10-07-target-orthography-boundaries.md](2026-10-07-target-orthography-boundaries.md) | scoped adapter; corpus execution pending | locale aliases／cache／caption boundaries；source immutable；seeded background manifest／retention≠corpus acceptance |
 | 2026-09-22-qwen-ep12-14 | [`2026-09-22-qwen-ep12-14-locale-realization.md`](2026-09-22-qwen-ep12-14-locale-realization.md) | observed | en／ja／id 覆盖率 + 称谓；I11 name realization |
