@@ -177,3 +177,7 @@ Scoped adapter evidence 不升格 full-source／semantic／timing／render gate�
 不能把 script-family accepted 當簡體驗收，亦不能改寫 raw OCR／ASR。
 見 Translation Decision [boundary evidence](../2026-09-22-1000-translation-decision-workflow/evidence/2026-10-07-target-orthography-boundaries.md)。
 cache／identity／caption regression 僅局部驗 adapter；content／render gate 仍 open。
+
+Local-only realization 的 native-loader 問題需獨立程序保留堆疊與退出狀態，
+以單變量驗證讀取相容性；完整載入不能替代 generation／caption／render 驗收。
+細節與驗收邊界見同份 Translation Decision boundary evidence。

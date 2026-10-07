@@ -41,3 +41,14 @@ not full model-loader readiness: native loading failure must remain a runtime
 failure, not an orthography/content verdict. Real-provider translation and
 render gates stay open if no target artifact was generated; detailed diagnostics
 and environment-specific evidence remain in `<PROJECT_ROOT>`.
+
+## Native-loader isolation
+
+Capture native failures in an owned child with parent-retained exit status and
+stack logs: an in-process Python exception handler cannot guarantee evidence
+retention after a native fault. A controlled read-method comparison can isolate
+weight materialization from device initialization or translation. Complete
+loading after that change still does not establish generation or target quality.
+Keep compatibility adapters bounded to the intended weights, restore temporary
+integration hooks, and test unrelated-file preservation. A whole-file eager read
+is not equivalent to bounded lazy reads when memory headroom is limited.
