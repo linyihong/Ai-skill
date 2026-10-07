@@ -31,3 +31,13 @@ No full real-source translation, TDR/finality or rendered corpus gate is closed.
 This supports locale realization and the subtitle-adapter/content-gate seam;
 Phase 3 acceptance remains open. NVP caption locale projection consumes the
 same boundary without changing evidence classification or OCR sampling.
+
+## Real-provider verification boundary
+
+When local-only realization is requested, availability of cloud credentials
+must not silently authorize fallback. Use explicit per-run provider enforcement
+without mutating global settings. A basic device probe or complete weights is
+not full model-loader readiness: native loading failure must remain a runtime
+failure, not an orthography/content verdict. Real-provider translation and
+render gates stay open if no target artifact was generated; detailed diagnostics
+and environment-specific evidence remain in `<PROJECT_ROOT>`.
