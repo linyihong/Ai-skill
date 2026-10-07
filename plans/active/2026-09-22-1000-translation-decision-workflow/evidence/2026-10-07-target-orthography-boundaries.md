@@ -64,3 +64,19 @@ slice: source-subtitle compression versus acoustic evidence still requires
 semantic review, and overlaying a new locale on existing hard captions does not
 prove production layout. Do not promote ASR to automatic truth, repair one line
 with a hard-coded replacement, or mark full-source content/timing/render PASS.
+
+## Provider enforcement and source-authority verification
+
+Local-only selection must constrain empty-output retry, quality fallback and
+validation repair, even when cloud credentials are configured. Positive tests
+for explicitly authorized automatic fallback complement forbidden-provider
+negative tests; clearing a key in a diagnostic is not a production guarantee.
+
+Distinguish OCR-only translation diagnostics from resolved spoken-pivot identity
+delivery. Compare the actual translator input and provenance before attributing
+acoustic detail loss to translation. An independent identity regression must
+retain resolved content and observed evidence without translating raw ASR or
+compressed OCR again. Incompatible frozen evidence must remain rejected; use
+a compatible rebuild rather than rebranding cache versions. A generic semantic
+prompt guard that leaves the observed failure unchanged is not a repair and
+must not be deployed or counted as semantic acceptance. Full gates remain open.

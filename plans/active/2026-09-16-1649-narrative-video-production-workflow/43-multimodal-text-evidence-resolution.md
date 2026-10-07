@@ -181,3 +181,10 @@ cache／identity／caption regression 僅局部驗 adapter；content／render ga
 Local-only realization 的 native-loader 問題需獨立程序保留堆疊與退出狀態，
 以單變量驗證讀取相容性；完整載入不能替代 generation／caption／render 驗收。
 細節與驗收邊界見同份 Translation Decision boundary evidence。
+
+OCR-only translation diagnostic 與 resolved spoken-pivot identity delivery
+需分開驗 source authority；不可把前者的 acoustic detail 缺失當後者的
+成片結論，也不可將舊版 frozen cache 改標後通過 integrity gate。
+Local-only policy 必須涵蓋 repair／fallback，不只清空測試 key。
+一般 semantic prompt guard 無效時不得算 repair；同份 boundary evidence
+已記錄此 adapter 驗證方法，full semantic／timing／render gate 仍 open。
