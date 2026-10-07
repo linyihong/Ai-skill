@@ -88,3 +88,18 @@ and projection evidence, not independent validation of upstream reconstruction.
 Existing hard-caption overlap and remaining resolution-accounting gaps keep
 layout and corpus gates open. Preserve the failed OCR-only semantic diagnostic
 alongside the successful identity test; neither substitutes for the other.
+
+## New-source reports and locale alias regression
+
+A new reported orthography failure should enter the corpus as `NOT_VERIFIED`,
+with source-language alias, target locale, permitted provider and missing episode
+or time annotation recorded. Do not invent a gold line or infer a fresh model
+failure from the report. Resolve the source variant through the existing intake
+feature; catalog availability and a queued download are not acquisition success.
+
+Exercise Simplified locale aliases through timed-pack write/reload and caption
+emission, while retaining original observations byte-for-byte. Synthetic boundary
+success is separate from source-frame, provider-output and burned-video review.
+Original hard captions, legacy cache and newly projected captions are distinct
+surfaces: a visible Traditional glyph alone does not identify which one failed.
+Pending real-source verification does not close semantic or corpus acceptance.

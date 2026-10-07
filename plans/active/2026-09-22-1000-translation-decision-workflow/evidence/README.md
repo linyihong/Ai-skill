@@ -11,7 +11,7 @@
 | Run ID | 檔案 | 狀態 | 摘要 |
 | --- | --- | --- | --- |
 | 2026-10-07-source-analysis-and-provider-selection | [2026-10-07-source-analysis-and-provider-selection.md](2026-10-07-source-analysis-and-provider-selection.md) | investigation; gates open | provider≠probe override；head-scoped analysis≠semantic truth；retain timeout/runtime failure；resource error≠class mismatch |
-| 2026-10-07-target-orthography-boundaries | [2026-10-07-target-orthography-boundaries.md](2026-10-07-target-orthography-boundaries.md) | scoped adapter | target orthography≠script family；cache／identity／caption boundaries；source evidence immutable |
+| 2026-10-07-target-orthography-boundaries | [2026-10-07-target-orthography-boundaries.md](2026-10-07-target-orthography-boundaries.md) | scoped adapter; new-source review open | target orthography≠script family；locale aliases／cache／caption boundaries；source evidence immutable；intake≠verified artifact |
 | 2026-09-22-qwen-ep12-14 | [`2026-09-22-qwen-ep12-14-locale-realization.md`](2026-09-22-qwen-ep12-14-locale-realization.md) | observed | en／ja／id 覆盖率 + 称谓；I11 name realization |
 | 2026-09-22-title-yiriqianli | [`2026-09-22-title-yiriqianli.md`](2026-09-22-title-yiriqianli.md) | observed | 空姐被一日千里-上；I12 invented_information + title content_type |
 | 2026-09-29-ep7-ja-dogfood | [`2026-09-29-ep7-ja-dogfood.md`](2026-09-29-ep7-ja-dogfood.md) | observed | ep7 zh→ja；JA-F01–F10 |
