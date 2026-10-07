@@ -95,3 +95,20 @@ remaining cases not_run. This is distinct from invalid generated schema and from
 semantic failure; no target output exists to judge. Seventeen offline suites pass
 and post-change service health recovers, but actual-generation/content gates stay
 open. Freeing resources from unrelated applications requires separate approval.
+
+## Actual generation after resource relief
+
+After user authorization, the previously identified high-memory process was
+already absent; no unrelated process was stopped. With measured commit headroom
+improved, one local probe completed weight loading and all eight cases. Seven
+analyses pass shape/span/cross-field checks, one chooses a pronoun as the clause
+head and exceeds the schema. The previous verbal-head/noun-reading contradiction
+is absent, while a nominal target referent remains restored.
+
+Semantic issues remain: treating a concrete occupation's "concept" as an abstract
+lexical reading overgeneralizes ambiguity; countability and concreteness are not
+the same dimension; choosing a referent subtype still needs independent reference
+evidence. Do not add enum aliases to accept an incorrect head or promote valid
+JSON into semantic truth. No production analysis integration or content gate PASS
+is justified by this run. Artifact reader encoding failures also remain distinct
+from producer/schema failures; finalized bytes, not corrupted display, are authority.
