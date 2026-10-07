@@ -10,6 +10,7 @@
 
 | Run ID | 檔案 | 狀態 | 摘要 |
 | --- | --- | --- | --- |
+| 2026-10-07-source-analysis-and-provider-selection | [2026-10-07-source-analysis-and-provider-selection.md](2026-10-07-source-analysis-and-provider-selection.md) | investigation; gates open | effective provider≠probe override；source-analysis anchoring≠semantic acceptance；retain invalid generation |
 | 2026-10-07-target-orthography-boundaries | [2026-10-07-target-orthography-boundaries.md](2026-10-07-target-orthography-boundaries.md) | scoped adapter | target orthography≠script family；cache／identity／caption boundaries；source evidence immutable |
 | 2026-09-22-qwen-ep12-14 | [`2026-09-22-qwen-ep12-14-locale-realization.md`](2026-09-22-qwen-ep12-14-locale-realization.md) | observed | en／ja／id 覆盖率 + 称谓；I11 name realization |
 | 2026-09-22-title-yiriqianli | [`2026-09-22-title-yiriqianli.md`](2026-09-22-title-yiriqianli.md) | observed | 空姐被一日千里-上；I12 invented_information + title content_type |

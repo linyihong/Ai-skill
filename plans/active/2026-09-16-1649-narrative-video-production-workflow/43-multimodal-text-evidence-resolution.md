@@ -188,3 +188,7 @@ OCR-only translation diagnostic 與 resolved spoken-pivot identity delivery
 Local-only policy 必須涵蓋 repair／fallback，不只清空測試 key。
 一般 semantic prompt guard 無效時不得算 repair；同份 boundary evidence
 已記錄此 adapter 驗證方法，full semantic／timing／render gate 仍 open。
+
+Source-analysis candidate 的 schema／span anchoring 不等於 meaning／reference
+正確；invalid model generation 也必須保留。見 Translation Decision
+[analysis boundary](../2026-09-22-1000-translation-decision-workflow/evidence/2026-10-07-source-analysis-and-provider-selection.md)。不新增 actor 或升格全鏈 gate。
