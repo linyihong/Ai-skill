@@ -80,3 +80,11 @@ compressed OCR again. Incompatible frozen evidence must remain rejected; use
 a compatible rebuild rather than rebranding cache versions. A generic semantic
 prompt guard that leaves the observed failure unchanged is not a repair and
 must not be deployed or counted as semantic acceptance. Full gates remain open.
+
+A subsequent compatible acquisition and bounded identity-render probe confirmed
+that resolved source content survives pivot export, reload and caption emission
+without a translation call or observed-evidence mutation. This is source-authority
+and projection evidence, not independent validation of upstream reconstruction.
+Existing hard-caption overlap and remaining resolution-accounting gaps keep
+layout and corpus gates open. Preserve the failed OCR-only semantic diagnostic
+alongside the successful identity test; neither substitutes for the other.
