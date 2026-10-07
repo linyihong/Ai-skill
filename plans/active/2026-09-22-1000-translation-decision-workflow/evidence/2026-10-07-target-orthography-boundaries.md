@@ -103,3 +103,12 @@ success is separate from source-frame, provider-output and burned-video review.
 Original hard captions, legacy cache and newly projected captions are distinct
 surfaces: a visible Traditional glyph alone does not identify which one failed.
 Pending real-source verification does not close semantic or corpus acceptance.
+
+A bounded real-source diagnostic may use a manually reviewed subtitle as input,
+but must carry that annotation origin and distinguish an artificial display
+window from measured cue timing. If model loading fails before realization,
+retain the runtime failure and mark orthography/caption checks `NOT_RUN`, not
+failed translation or successful simplification. Checkpoint metadata before
+generation and preserve the original exception; native exits additionally need
+parent-owned evidence. A known resource failure should not trigger repeated
+sentence-level reloads or a forbidden-provider fallback.
