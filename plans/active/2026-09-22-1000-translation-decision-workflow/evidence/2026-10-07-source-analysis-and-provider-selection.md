@@ -71,3 +71,10 @@ The actual checkpointed follow-up completes sixteen offline suites: fifteen pass
 and the weight-reader suite times out. The runner exits nonzero, retains that
 failure and still records subsequent suites. This confirms disposition retention,
 not runtime recovery or full translation acceptance.
+
+The effective service subsequently failed its bounded canonical restart health
+gate after an empty active-job readback. Historical startup logs do not certify
+new instance health; a requested process stop is not confirmed termination.
+Keep service recovery and translation semantics as separate open gates. Whole-host
+recovery must respect authorization for other applications, not broaden from
+permission to restart the product service.
