@@ -192,3 +192,10 @@ Local-only policy 必須涵蓋 repair／fallback，不只清空測試 key。
 Source-analysis candidate 的 schema／span anchoring 不等於 meaning／reference
 正確；invalid model generation 也必須保留。見 Translation Decision
 [analysis boundary](../2026-09-22-1000-translation-decision-workflow/evidence/2026-10-07-source-analysis-and-provider-selection.md)。不新增 actor 或升格全鏈 gate。
+
+Seeded cross-source background verification 需先固定 source／locale manifest、
+baseline 與 code provenance，隔離 evidence／translation cache，保留每階段
+native exit／timeout／NOT_RUN。Scheduling fixture 與 transport-independent
+dispatch 僅驗 harness，不能當 corpus content／timing／layout PASS；bounded
+caption burn 不是 full publish。方法見同份 Translation Decision boundary
+evidence；實跑結果 pending，cross-source gate 仍 open。

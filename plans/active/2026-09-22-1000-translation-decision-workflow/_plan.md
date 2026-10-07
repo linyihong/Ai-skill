@@ -72,6 +72,7 @@ Ai-skill 已有 Loop-first／Governance-first 與 ERA v2（Evidence constrains D
 - [ ] ≥1 真實 dogfood（影片或文件）含完整 TDR + finality。
 - [ ] subtitle adapter 與 NVP `content_gate` 對接已文件化且至少一例通過 content validation。
   - Scoped target-orthography adapter evidence: [boundary regression](evidence/2026-10-07-target-orthography-boundaries.md). Locale-alias projection regression expanded; manual-source diagnostic failed before realization, so target checks remain NOT_RUN. Report retention is verified separately; full semantic/content acceptance remains open.
+  - Seeded background corpus harness: selection/retention/resource circuit-breaker fixtures verified; isolated all-active-locale batch dispatched, actual target/content results pending. This does not close corpus or subtitle content acceptance.
   - Source-analysis investigation: [provider selection and analysis boundary](evidence/2026-10-07-source-analysis-and-provider-selection.md). Service recovered, resource fail-fast/runtime retention and seventeen offline suites pass. Actual local probe completes after resource relief (seven shape-valid, one invalid); overbroad ambiguity and head selection keep semantic acceptance open. No production analysis integration.
 - [ ] 未把特定翻譯供應商寫進 canonical 步驟。
 - [ ] Open Questions 全解或有 deferred owner。

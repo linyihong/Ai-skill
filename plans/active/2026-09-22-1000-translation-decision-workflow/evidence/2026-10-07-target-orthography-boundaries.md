@@ -112,3 +112,15 @@ failed translation or successful simplification. Checkpoint metadata before
 generation and preserve the original exception; native exits additionally need
 parent-owned evidence. A known resource failure should not trigger repeated
 sentence-level reloads or a forbidden-provider fallback.
+
+## Reproducible background corpus verification
+
+Persist a seeded selection manifest before dispatch: source aliases, available
+episode set, target catalog, source fingerprints, code hashes and read-only
+baseline summaries. Keep evidence/caches and target artifacts isolated. A
+background runner must survive the initiating transport and retain per-stage
+child logs, native exit codes, timeouts and unattempted dependencies. Resource
+failure is a batch circuit breaker, not permission to retry every language.
+Execution completion remains distinct from independent content/timing/layout
+acceptance; bounded caption burns are not full-episode publish verification.
+Mocked scheduling/retention checks validate the harness, not the queued corpus.
