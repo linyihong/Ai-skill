@@ -211,3 +211,8 @@ Local realization 的清理不得先抹掉 wrong-script candidate，或把全句
 script-legal 姓名殘片。見 [realization-before-sanitization evidence](evidence/2026-10-08-local-realization-before-sanitization.md)：
 full candidate → validation reason → bounded repair → revalidation，attempt evidence
 與可發布 phrase／timed cue 分離；mechanical admission 不是 semantic Finality。
+
+Phase 3 dogfood 的驗收分欄不得從 execution／mechanical 推成全片 PASS。
+見 Translation Decision [acceptance surface evidence](../2026-09-22-1000-translation-decision-workflow/evidence/2026-10-08-phase3-acceptance-surface.md)：
+Reference／Semantic／locale lexical 與 consumer timing／visual 分責；declared
+assertions consumer 不等於可靠語意 producer，尚未接正式發布路徑或關閉成片驗收。
