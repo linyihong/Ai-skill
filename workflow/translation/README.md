@@ -61,6 +61,7 @@ Binding ≠ pattern definition。`pattern_ids` 是 registry references，不是�
 | Reference | [`contracts/reference-resolution.yaml`](contracts/reference-resolution.yaml) |
 | Finality | [`contracts/finality.yaml`](contracts/finality.yaml) — PASS／REVIEW／BLOCK |
 | Validate | [`contracts/validation.yaml`](contracts/validation.yaml) |
+| Dogfood acceptance projection | [`adapters/dogfood-acceptance.md`](adapters/dogfood-acceptance.md) — identity／semantic／lexical／multi-dimensional evidence；非新 workflow |
 | Types／guards | [`registry/`](registry/)（含 [`failure-registry-binding`](registry/failure-registry-binding.yaml)） |
 | Fixtures | [`examples/`](examples/)（含 [`ep8-ja-walkthrough`](examples/ep8-ja-walkthrough.yaml)） |
 

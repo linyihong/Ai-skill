@@ -7,6 +7,10 @@ Doc index for [`subtitle.yaml`](subtitle.yaml).
 
 Static walkthrough A+B PASS：[`08-static-walkthrough-pass.md`](../../../plans/active/2026-09-22-1000-translation-decision-workflow/08-static-walkthrough-pass.md)。
 
+Dogfood 驗收分欄／Reference／Semantic／ja-JP lexical 責任：
+[`dogfood-acceptance.md`](dogfood-acceptance.md)。接產品驗收摘要時讀取；
+不新增 workflow、不讓機械 pass 代替 semantic Finality。
+
 ## Product Selection Actor wiring（integration note）
 
 When a product dub／subtitle pipeline uses an LLM provider:

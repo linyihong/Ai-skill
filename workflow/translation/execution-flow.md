@@ -77,6 +77,8 @@ Core failure-patterns    locale/<target>/failure-patterns
 
 ## Dogfood
 
+- 驗收證據與多維摘要：[`adapters/dogfood-acceptance.md`](adapters/dogfood-acceptance.md)。Reference、Semantic、Acceptance 與 locale lexical 分責；未驗證不可投影為 pass。
+
 - Ep8（PASS／REVIEW／BLOCK retune）：[`ep8-ja-walkthrough.yaml`](examples/ep8-ja-walkthrough.yaml)
 - Product gate mapping（mechanical subset）：truncated source → Finality `blocked` before Selection；kinship source token left in target → Validation residue（not accepted／blank publish）；locale honorific via structured／Candidate Space. See [`adapters/README.md`](adapters/README.md) §Product Selection Actor wiring.
 - Product failure registry mirror：core ∪ `locale/<locale>/` + binding（plan [`14`](../../plans/active/2026-09-22-1000-translation-decision-workflow/14-locale-layered-failure-registry.md)）；JA／ID dogfood evidence [`2026-09-29-product-locale-registry-ja-id-dogfood`](../../plans/active/2026-09-22-1000-translation-decision-workflow/evidence/2026-09-29-product-locale-registry-ja-id-dogfood.md).
