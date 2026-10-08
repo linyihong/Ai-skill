@@ -10,6 +10,7 @@
 
 | Run ID | 檔案 | 狀態 | 摘要 |
 | --- | --- | --- | --- |
+| 2026-10-08-divorce-marry-polarity-invert | [2026-10-08-divorce-marry-polarity-invert.md](2026-10-08-divorce-marry-polarity-invert.md) | scoped dogfood; acceptance open | Arabic divorce cue inverted to marry root until constraint escalation; script pass ≠ meaning pass |
 | 2026-10-08-near-name-not-honorific-identity | [2026-10-08-near-name-not-honorific-identity.md](2026-10-08-near-name-not-honorific-identity.md) | scoped probe; identity still open | co-series/near-form OCR-ASR/watermark ≠ honorific identity bind; defer_no_bind without co-reference |
 | 2026-10-08-independent-name-review-binding | [2026-10-08-independent-name-review-binding.md](2026-10-08-independent-name-review-binding.md) | scoped review; content Finality open | honorific defer／conflict+Latin residue reject／independent accept only→established |
 | 2026-10-08-phase3-acceptance-surface | [2026-10-08-phase3-acceptance-surface.md](2026-10-08-phase3-acceptance-surface.md) | scoped consumer; semantic producer open | independent evidence binding／declared assertions／mechanical≠lexical≠semantic／content≠artifact acceptance／per-series Reference consumer |

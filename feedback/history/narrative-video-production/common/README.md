@@ -2,6 +2,7 @@
 
 | Date | Lesson | Status |
 | --- | --- | --- |
+| 2026-10-08 | [divorce-marry-polarity-invert](2026-10-08_140500-divorce-marry-polarity-invert.md) | candidate |
 | 2026-10-08 | [near-name-not-honorific-identity](2026-10-08_133500-near-name-not-honorific-identity.md) | candidate |
 | 2026-10-08 | [honorific-surface-not-established-name](2026-10-08_113000-honorific-surface-not-established-name.md) | candidate |
 | 2026-10-08 | [mt-name-candidates-need-independent-accept](2026-10-08_113100-mt-name-candidates-need-independent-accept.md) | candidate |
