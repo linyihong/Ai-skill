@@ -198,4 +198,9 @@ baseline 與 code provenance，隔離 evidence／translation cache，保留每�
 native exit／timeout／NOT_RUN。Scheduling fixture 與 transport-independent
 dispatch 僅驗 harness，不能當 corpus content／timing／layout PASS；bounded
 caption burn 不是 full publish。方法見同份 Translation Decision boundary
-evidence；實跑結果 pending，cross-source gate 仍 open。
+evidence；實跑仍須逐階段驗收，cross-source gate 仍 open。
+
+背景產物檢查暴露 audio fallback 被誤標為視覺觀測，以及 target projection
+無聲 omission。見 [audio attribution／locale omission](evidence/2026-10-08-audio-attribution-and-locale-omissions.md)：
+producer modality 先於 visual gate；每條 selected cue 都要 downstream disposition。
+凍結 replay／paired fixtures 僅支持 adapter 修復，不關閉 corpus 三閘。

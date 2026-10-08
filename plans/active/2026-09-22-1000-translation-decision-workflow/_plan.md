@@ -71,6 +71,7 @@ Ai-skill 已有 Loop-first／Governance-first 與 ERA v2（Evidence constrains D
 - [ ] 三 SoT 穩定 ≥1 次 schema revision 仍向後相容或明確 migration。
 - [ ] ≥1 真實 dogfood（影片或文件）含完整 TDR + finality。
 - [ ] subtitle adapter 與 NVP `content_gate` 對接已文件化且至少一例通過 content validation。
+  - Locale omission accounting: [audio/locale adapter evidence](../2026-09-16-1649-narrative-video-production-workflow/evidence/2026-10-08-audio-attribution-and-locale-omissions.md). Retain rejected realization candidates and per-cue target dispositions; count restoration is not semantic Finality. Realization/content gates remain open.
   - Scoped title reuse adapter: [durable title resolution](evidence/2026-10-08-durable-title-resolution.md). Per-entity canonical cache ownership, filtered read-only migration, identity/catalog projection, atomic multi-actor reuse, invalid-selection retention and derived-orthography fixtures verified. Cache admission is not independent semantic Finality; full title/corpus gates remain open.
   - Scoped target-orthography adapter evidence: [boundary regression](evidence/2026-10-07-target-orthography-boundaries.md). Locale-alias projection regression expanded; manual-source diagnostic failed before realization, so target checks remain NOT_RUN. Report retention is verified separately; full semantic/content acceptance remains open.
   - Seeded background corpus harness: selection/retention/resource circuit-breaker fixtures verified; isolated all-active-locale batch dispatched, actual target/content results pending. This does not close corpus or subtitle content acceptance.
