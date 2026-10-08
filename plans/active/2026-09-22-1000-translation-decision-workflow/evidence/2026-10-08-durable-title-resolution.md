@@ -14,7 +14,9 @@ catalog can drift independently from the actual selected target constraint.
   language codes. A normalized source-name fallback is weaker identity;
   never merge distinct known IDs solely because their names match.
 - Keep all localized selections and catalog-derived language labels in one
-  inspectable registry. Source title, normalized aliases, selected title,
+  inspectable file per entity, owned by the existing canonical entity-cache
+  bundle resolver. Do not create a second source-folder cache or grow one global
+  registry across unrelated entities. Source title, normalized aliases, selected title,
   provenance, admission status and validation scope remain distinct fields.
 - Reuse admitted selections before catalog lookup or model realization.
   Same-language identity is also a resolution path, not an excuse to skip
@@ -26,6 +28,9 @@ catalog can drift independently from the actual selected target constraint.
   contract-failed or generic placeholder fallbacks as accepted names.
 - Serialize read→resolve→write across actors; atomic replacement and retained
   corrupt-file evidence prevent lost updates and silent registry destruction.
+- Migrate legacy selections read-only by matching identity, retaining the legacy
+  file. An entity file must reject another owner's identity. A corrupt entity
+  file must remain visible without blocking unrelated entity caches.
 - A local-only constraint applies to realization, retries and validation
   actors even when cloud credentials exist. A registry hit needs no provider.
 
@@ -48,7 +53,8 @@ complete regional vocabulary engine. Never normalize raw acquisition evidence.
 ## Verification and plan disposition
 
 Consumer fixtures cover active catalog projection, disk reload without actors,
-cross-process single resolution, known-ID isolation, part separation, invalid
+cross-process single resolution, canonical bundle routing, per-entity storage,
+filtered read-only legacy migration, known-ID isolation, part separation, invalid
 candidate non-admission, write/corrupt-file retention and local-only negative
 paths. Existing derived-output and title-contract regressions remain green.
 An old grounding fixture accidentally invoked a model; isolate provider actors
