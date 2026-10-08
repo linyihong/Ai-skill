@@ -203,4 +203,6 @@ evidence；實跑仍須逐階段驗收，cross-source gate 仍 open。
 背景產物檢查暴露 audio fallback 被誤標為視覺觀測，以及 target projection
 無聲 omission。見 [audio attribution／locale omission](evidence/2026-10-08-audio-attribution-and-locale-omissions.md)：
 producer modality 先於 visual gate；每條 selected cue 都要 downstream disposition。
+有 phrase cache 不等於 target admission；rejected cache 須可進 bounded realization，
+並保留替換前候選／拒絕原因／repair attempt，valid hit 則不得無理由重跑。
 凍結 replay／paired fixtures 僅支持 adapter 修復，不關閉 corpus 三閘。

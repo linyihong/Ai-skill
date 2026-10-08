@@ -23,6 +23,24 @@ Reprojection with no usable captions must not retain an older timed list as
 the apparent new output. Phrase candidates can remain for review/recovery.
 Per-cue validation must receive the corresponding source, not a stale loop value.
 
+## Cached rejection must remain recoverable
+
+Nonempty phrase entries are candidates, not permanent admission decisions.
+Recheck target-locale script/residue and existing Finality restrictions at both
+episode scheduling and individual cache reuse. A rejected hit must reach the
+configured realization actor; a valid hit must remain reusable without a model
+call. Preserve the previous candidate, rejection reason and whether a repair
+was attempted in the selected cue's projection disposition, including after
+successful replacement. Failed repair remains an explicit omission.
+Short cache lookup responses must not silently remove the remaining sources.
+
+Paired fixtures reproduce the two cache-bypass defects before repair and verify
+valid-hit reuse, retry routing, failed-retry retention and lookup cardinality.
+Read-only frozen-cache replay verifies scheduling, not improved translation.
+Actual realization needs a separate bounded local-only child, isolated copied
+cache, native-exit retention and immutable baseline checks. Target-script PASS
+does not establish entity identity, event equivalence or full semantic Finality.
+
 ## Verification and limits
 
 Paired fixtures verify audio-only builder wiring, invalid audio non-promotion,
