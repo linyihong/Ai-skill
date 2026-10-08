@@ -25,6 +25,11 @@ Dogfood
 
 對齊 [`enforcement/failure-learning-system.md`](../../../enforcement/failure-learning-system.md)：Capture → Classify → Promote → Strengthen → Validate。本檔只定 **translation domain** 形狀。
 
+執行期（單句 Selection／Repair）的 Loop Interfaces 見
+[`adapters/repair-loop.md`](../../../workflow/translation/adapters/repair-loop.md)：
+`selection_notes`／`repair_of`、known→local／unknown→escalate、telemetry。
+本檔管 **學習落地**；repair-loop 管 **當輪閉環**。
+
 ## Three durable layers（取代一坨 prompt）
 
 | Layer | 內容 | 例 |

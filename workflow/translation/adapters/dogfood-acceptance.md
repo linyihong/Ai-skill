@@ -58,6 +58,11 @@ producer／版本、reviewer／證據引用，以及以下獨立維度：
 不得把相同 deterministic retry 視為修復。保留完整失敗候選與原因。
 中途報告只能是暫定；正式摘要須讀取 terminal child exit 與完整 artifact。
 
+失敗重跑應走 Repair Loop Interfaces（`selection_notes`／`repair_of`／structured
+Failure Evidence），見 [`repair-loop.md`](repair-loop.md)：known pattern 本地修；
+unknown 才 escalate。成功率上升≠模型學會；觀測 escalation／known-repair／
+regression 比率。
+
 必備負例：空字串機械假陽性、只有人名的殘片、缺 reference、動作／受事／
 否定／模態遺失、無來源的語意擴張、舊候選覆核錯用、日文合法漢字姓名、
 shared-script lexical 未決，以及內容通過但時間／畫面未驗。

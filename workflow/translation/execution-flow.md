@@ -32,8 +32,15 @@ Canonical lifecycle。欄位 SoT 在 [`contracts/`](contracts/)。**不要**寫 
 10. Independent Review
 11. Validation（分欄）
 12. Finality — PASS / REVIEW / BLOCK（I21–I22）
+12b. Repair Loop（on FAIL；不新增主鏈步驟編號意義上的 mega-step）
+    ├── Failure Evidence（pattern／manifestation／violated_constraint／repair_direction）
+    ├── known? → refine Constraint／Candidate → `selection_notes` + `repair_of` → re-Select
+    └── unknown? → Escalate Arbitration → Governance Review → registry writeback
 13. (post) Failure Learning → Governance Review（I13）
 ```
+
+校正能力屬於 Workflow／Governance，不屬於 ChatGPT／本地模型任一 Actor。
+Loop Interfaces 與 telemetry：[`adapters/repair-loop.md`](adapters/repair-loop.md)。
 
 ## Finality ternary
 
@@ -65,7 +72,7 @@ Core failure-patterns    locale/<target>/failure-patterns
 | Core SoT | [`registry/failure-patterns.yaml`](registry/failure-patterns.yaml) | 跨語言 failure concepts |
 | Locale SoT | [`registry/locale/<locale>/`](registry/locale/README.md) | manifestations（`manifests: F*`） |
 
-新語言：加 locale 檔 + binding entry；**不**改主鏈。  
+新語言：加 locale 檔 + binding entry；**不**改主鏈。
 舊檔名 `locale-failure-taxonomy.yaml` → deprecated pointer。
 
 ## 禁止
