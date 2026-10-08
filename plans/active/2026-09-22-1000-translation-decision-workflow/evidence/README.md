@@ -10,7 +10,8 @@
 
 | Run ID | 檔案 | 狀態 | 摘要 |
 | --- | --- | --- | --- |
-| 2026-10-08-phase3-acceptance-surface | [2026-10-08-phase3-acceptance-surface.md](2026-10-08-phase3-acceptance-surface.md) | scoped consumer; semantic producer open | independent evidence binding／declared assertions／mechanical≠lexical≠semantic／content≠artifact acceptance |
+| 2026-10-08-independent-name-review-binding | [2026-10-08-independent-name-review-binding.md](2026-10-08-independent-name-review-binding.md) | scoped review; content Finality open | honorific defer／conflict+Latin residue reject／independent accept only→established |
+| 2026-10-08-phase3-acceptance-surface | [2026-10-08-phase3-acceptance-surface.md](2026-10-08-phase3-acceptance-surface.md) | scoped consumer; semantic producer open | independent evidence binding／declared assertions／mechanical≠lexical≠semantic／content≠artifact acceptance／per-series Reference consumer |
 | 2026-10-08-durable-title-resolution | [2026-10-08-durable-title-resolution.md](2026-10-08-durable-title-resolution.md) | scoped adapter; semantic gates open | per-entity canonical cache bundle／existing locale catalog／read-only migration／atomic reuse／orthography exceptions; cache admission≠Finality |
 | 2026-10-07-source-analysis-and-provider-selection | [2026-10-07-source-analysis-and-provider-selection.md](2026-10-07-source-analysis-and-provider-selection.md) | investigation; gates open | provider≠probe override；head-scoped analysis≠semantic truth；retain timeout/runtime failure；resource error≠class mismatch |
 | 2026-10-07-target-orthography-boundaries | [2026-10-07-target-orthography-boundaries.md](2026-10-07-target-orthography-boundaries.md) | scoped adapter; corpus execution pending | locale aliases／cache／caption boundaries；source immutable；seeded background manifest／retention≠corpus acceptance |

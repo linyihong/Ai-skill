@@ -10,3 +10,7 @@ observed entity → identity cluster → character identity → canonical name �
 ```
 
 `series_cast` 是**已解析**角色表，不是第一集的發現資料。Face／voice 是 evidence，不是 identity key。掛法：Face [`11-face-as-candidate-evidence.md`](11-face-as-candidate-evidence.md)；Voice [`14-voice-speaker-evidence.md`](14-voice-speaker-evidence.md)。歷史 observation 不因後來命名而覆寫。本集觀察不得直接寫 knowledge：[`18-episode-vs-knowledge-accumulation.md`](18-episode-vs-knowledge-accumulation.md)。`role: watermark` 的 OCR **STOP** 進 name／entity learning：[`24-ocr-role-projection.md`](24-ocr-role-projection.md)。
+
+Dogfood 補強（2026-10-08）：姓＋職稱 address surface 可有 OCR／ASR 證據但仍
+可 identity=unresolved；不得因此寫 established 譯名。見
+[`evidence/2026-10-08-identity-before-honorific-established-name.md`](evidence/2026-10-08-identity-before-honorific-established-name.md)。

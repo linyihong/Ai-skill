@@ -63,3 +63,31 @@ producer／版本、reviewer／證據引用，以及以下獨立維度：
 shared-script lexical 未決，以及內容通過但時間／畫面未驗。
 Fixtures 驗的是 evidence consumer，不證明自然語言分析 producer 已可靠；
 兩者與真實語料、ASS、burn 的驗收分開。
+
+## 本片 Reference input 的唯讀邊界
+
+角色出場權重／`confirmed` 不等於有來源的 resolved identity，更不等於已驗收
+目標譯名。唯讀 adapter 可依呼叫者明確提供的 mention 查詢本片證據；不得
+以模糊匹配、自動共指猜測、全域词庫或 phrase cache 補成已決定身份。
+譯名候選須綁定本片、實體、當前來源名稱、locale 與獨立覆核 provenance；
+來源改名、重複 alias 或相互衝突的已驗收名稱須保留未決／歧義。
+缺檔與損壞輸入要有原因，不自動產生角色表或接受記錄。可選的每片 review
+export 僅是 adapter 儲存投影，不另立 canonical schema 或角色解析 producer。
+唯讀 replay 的 Reference context 不得直接關閉目標譯文的必要驗收 gates。
+
+## 稱謂表面 ≠ 已解析身份；MT ≠ 已驗收譯名
+
+姓＋職稱／呼語（例：姓＋「总」「总裁」「老师」）可作為 address surface
+與 OCR／ASR 證據，但**不足以**單獨建立 canonical person identity。
+在真名／身份證據不足時：source identity 保持 unresolved；locale 表面候選
+可留 `needs_review`／`deferred`，**不得**寫入 established／accepted 名稱。
+
+自動翻譯或 overnight locale pack 產出的人名形式只是 candidate space：
+- 衝突譯名必須全留，禁止 first-match
+- 目標 locale pack 內的拉丁殘留（或他語混入）不得因「英文也這麼寫」
+  就升成該 locale 的 established name
+- 僅當 `status=accepted` 且 `reviewer_role=independent`，並綁定實體、
+  當前 source_name、locale 與 evidence_refs 時，才可進入 established_names
+
+Source identity resolved 與 target-name acceptance 是兩道閘：前者通過後，
+validation／Finality 仍可保持 not_evaluated／blocked，直到獨立覆核完成。

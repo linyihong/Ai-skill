@@ -15,6 +15,7 @@ Product dogfood that touches captions／locale pack／font／layout／timing／c
 
 | Run ID | 檔案 | 狀態 | 摘要 |
 | --- | --- | --- | --- |
+| 2026-10-08-identity-before-honorific-established-name | [2026-10-08-identity-before-honorific-established-name.md](2026-10-08-identity-before-honorific-established-name.md) | observation／dogfood confirm | 稱謂表面≠resolved identity；series_cast 需 evidence_refs；譯名 export≠publish gate |
 | 2026-10-08-local-realization-before-sanitization | [2026-10-08-local-realization-before-sanitization.md](2026-10-08-local-realization-before-sanitization.md) | scoped adapter; content gates open | wrong-script actor candidate 保留到 validation／failed residue 不得縮成字幕／bounded repair reason／per-source attempt retention |
 | 2026-10-08-audio-attribution-and-locale-omissions | [2026-10-08-audio-attribution-and-locale-omissions.md](2026-10-08-audio-attribution-and-locale-omissions.md) | scoped adapter; corpus gates open | audio fallback≠invented OCR／per-cue projection dispositions／empty reprojection≠stale success／rejected cache→bounded realization, not permanent bypass |
 | 2026-10-07-locale-selection-vs-retention | [2026-10-07-locale-selection-vs-retention.md](2026-10-07-locale-selection-vs-retention.md) | scoped adapter regression | metadata 保留≠display content coverage；拒絕 first-region partial override；caption scheduling／成片 gates open |
