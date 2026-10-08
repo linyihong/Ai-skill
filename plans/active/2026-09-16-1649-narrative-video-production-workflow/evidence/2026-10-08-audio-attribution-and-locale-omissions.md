@@ -41,6 +41,16 @@ Actual realization needs a separate bounded local-only child, isolated copied
 cache, native-exit retention and immutable baseline checks. Target-script PASS
 does not establish entity identity, event equivalence or full semantic Finality.
 
+Admission reporting also requires nonempty target realization. A permissive
+script helper may legitimately return true for an empty string; the consumer
+must not count that as a caption restored. Paired result-auditor fixtures keep
+empty outputs, rejected nonempty outputs, runtime failures and pending positions
+separate. A successful parent/native exit reports execution only. Deterministic
+retranslation can reproduce rejected candidates; retry scheduling is not recovery.
+Preserve failed realization evidence and inspect actor output versus sanitization
+before another attempt, rather than relaxing guards or repeatedly replaying the
+same selection request. Target realization/content acceptance remains open.
+
 ## Verification and limits
 
 Paired fixtures verify audio-only builder wiring, invalid audio non-promotion,
