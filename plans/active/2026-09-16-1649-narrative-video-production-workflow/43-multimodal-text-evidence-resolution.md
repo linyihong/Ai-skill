@@ -206,3 +206,8 @@ producer modality 先於 visual gate；每條 selected cue 都要 downstream dis
 有 phrase cache 不等於 target admission；rejected cache 須可進 bounded realization，
 並保留替換前候選／拒絕原因／repair attempt，valid hit 則不得無理由重跑。
 凍結 replay／paired fixtures 僅支持 adapter 修復，不關閉 corpus 三閘。
+
+Local realization 的清理不得先抹掉 wrong-script candidate，或把全句裁成
+script-legal 姓名殘片。見 [realization-before-sanitization evidence](evidence/2026-10-08-local-realization-before-sanitization.md)：
+full candidate → validation reason → bounded repair → revalidation，attempt evidence
+與可發布 phrase／timed cue 分離；mechanical admission 不是 semantic Finality。
