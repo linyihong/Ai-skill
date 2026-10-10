@@ -1856,6 +1856,230 @@ records:
       compression_level: summary-first
       reason: 需要執行對應操作流程時才讀取完整 workflow。
 
+  - id: route.analysis.reverse-engineering
+    manual_activation:
+      reason: workflow_discovery
+      note: >
+        Process-first reverse-engineering landing; activation_triggers present for
+        auto-detect, but Discovery Bridge signal wiring deferred until dogfood.
+        Consumers: analysis/workflow docs + human/agent route lookup via registry.
+    route_type: analysis
+    activation_mode: auto-detect
+    task_intent: 跨目標 shipped-artifact Evidence 契約與目標分流（非單一 APK 動態主線）
+    activation_triggers:
+      activation_any_of:
+        user_signals:
+          - shipped-artifact
+          - residual unknown
+          - evidence contract
+          - 反編譯目標分流
+          - reverse-engineering analysis
+        context_signals:
+          - "**/analysis/reverse-engineering/**"
+      task_intents:
+        - reverse-engineering-routing
+        - shipped-artifact-evidence
+    primary_source: analysis/reverse-engineering/investigation-process.md
+    required_dependencies:
+      - analysis/README.md
+      - analysis/reverse-engineering/README.md
+      - analysis/reverse-engineering/evidence-contract.md
+      - analysis/reverse-engineering/target-routing.md
+      - enforcement/authorization-scope.md
+    candidate_sources:
+      - analysis/apk/static-jadx-path.md
+      - analysis/binary/README.md
+      - analysis/desktop/README.md
+    source_of_truth_gate: new-layer-promoted
+    ranking_reason: >
+      Tool-neutral investigation process first; optional MCP is not required.
+      Does not replace route.workflow.apk-analysis for Frida/traffic APK work.
+    validation_signal: >
+      Target family selected; findings separated into observation/inference/unknown;
+      authorization recorded.
+    metadata:
+      priority: P1
+      confidence: high
+      context_cost:
+        estimated_tokens: 2500
+        load_strategy: lazy
+        cacheable: true
+        ttl:
+          task: 1
+      compatibility_state: new-layer-promoted
+    model:
+      profile: specialized
+      compression_level: summary-first
+      reason: 跨目標分流時先讀契約與決策表。
+
+  - id: route.analysis.binary
+    manual_activation:
+      reason: workflow_discovery
+      note: >
+        Process-first reverse-engineering landing; activation_triggers present for
+        auto-detect, but Discovery Bridge signal wiring deferred until dogfood.
+        Consumers: analysis/workflow docs + human/agent route lookup via registry.
+    route_type: analysis
+    activation_mode: auto-detect
+    task_intent: Native／ELF／crash／managed 靜態取證
+    activation_triggers:
+      activation_any_of:
+        user_signals:
+          - ghidra
+          - hopper
+          - ida
+          - native binary
+          - 偽碼
+          - elf core
+          - nativeaot
+          - ".so 分析"
+        context_signals:
+          - "**/analysis/binary/**"
+          - "**/*.so"
+          - "**/*.dylib"
+      task_intents:
+        - native-binary-analysis
+        - managed-code-analysis
+    primary_source: analysis/binary/README.md
+    required_dependencies:
+      - analysis/reverse-engineering/evidence-contract.md
+      - enforcement/authorization-scope.md
+    candidate_sources:
+      - analysis/binary/native-investigation.md
+      - analysis/binary/offline-layout-and-crash.md
+      - analysis/binary/managed-code.md
+      - ai-tools/rea-mcp.md
+    source_of_truth_gate: new-layer-promoted
+    ranking_reason: Native/managed methods distinct from APK dynamic and web scraping.
+    validation_signal: >
+      Digest or digest_unknown recorded; provider limits kept as unknowns.
+    metadata:
+      priority: P2
+      confidence: high
+      context_cost:
+        estimated_tokens: 2500
+        load_strategy: lazy
+        cacheable: true
+        ttl:
+          task: 1
+      compatibility_state: new-layer-promoted
+    model:
+      profile: specialized
+      compression_level: summary-first
+      reason: 需要 native／managed 方法時載入。
+
+  - id: route.analysis.desktop
+    manual_activation:
+      reason: workflow_discovery
+      note: >
+        Process-first reverse-engineering landing; activation_triggers present for
+        auto-detect, but Discovery Bridge signal wiring deferred until dogfood.
+        Consumers: analysis/workflow docs + human/agent route lookup via registry.
+    route_type: analysis
+    activation_mode: auto-detect
+    task_intent: JS／Electron 發行物與 passive runtime 取證（非網站 scraping）
+    activation_triggers:
+      activation_any_of:
+        user_signals:
+          - electron
+          - asar
+          - electron ipc
+          - javascript application graph
+          - 發行物 js
+        context_signals:
+          - "**/analysis/desktop/**"
+          - "**/*.asar"
+      reinforcement_any_of:
+        artifact_signals:
+          - "asar"
+          - "contextBridge"
+      task_intents:
+        - desktop-js-analysis
+        - electron-static-analysis
+    primary_source: analysis/desktop/README.md
+    required_dependencies:
+      - analysis/reverse-engineering/target-routing.md
+      - analysis/web/README.md
+      - enforcement/authorization-scope.md
+    candidate_sources:
+      - analysis/desktop/javascript-electron-static.md
+      - analysis/desktop/passive-runtime-and-captures.md
+      - ai-tools/rea-mcp.md
+    source_of_truth_gate: new-layer-promoted
+    ranking_reason: >
+      Shipped JS/Electron reverse is distinct from analysis/web scraping.
+    validation_signal: >
+      Boundary vs web scrape stated; credentials not written into reusable docs.
+    metadata:
+      priority: P2
+      confidence: high
+      context_cost:
+        estimated_tokens: 2500
+        load_strategy: lazy
+        cacheable: true
+        ttl:
+          task: 1
+      compatibility_state: new-layer-promoted
+    model:
+      profile: specialized
+      compression_level: summary-first
+      reason: Electron／ASAR 任務時載入。
+
+  - id: route.workflow.reverse-engineering
+    manual_activation:
+      reason: workflow_discovery
+      note: >
+        Process-first reverse-engineering landing; activation_triggers present for
+        auto-detect, but Discovery Bridge signal wiring deferred until dogfood.
+        Consumers: analysis/workflow docs + human/agent route lookup via registry.
+    route_type: workflow
+    activation_mode: auto-detect
+    task_intent: 執行跨目標 reverse-engineering 編排（授權→分流→取證→gates）
+    activation_triggers:
+      activation_any_of:
+        user_signals:
+          - reverse engineer anything
+          - 跨目標反編譯
+          - shipped binary analysis workflow
+          - 反編譯工作流
+        context_signals:
+          - "**/workflow/reverse-engineering/**"
+      task_intents:
+        - reverse-engineering-workflow
+    primary_source: workflow/reverse-engineering/execution-flow.md
+    required_dependencies:
+      - workflow/reverse-engineering/artifact-gates.md
+      - analysis/reverse-engineering/investigation-process.md
+      - analysis/reverse-engineering/target-routing.md
+      - analysis/reverse-engineering/evidence-contract.md
+      - enforcement/authorization-scope.md
+      - enforcement/README.md
+    candidate_sources:
+      - workflow/apk-analysis/execution-flow.md
+      - analysis/apk/static-jadx-path.md
+      - analysis/binary/README.md
+      - analysis/desktop/README.md
+      - ai-tools/rea-mcp.md
+    source_of_truth_gate: new-layer-promoted
+    ranking_reason: >
+      Process-first orchestration; REA MCP optional; APK Frida/traffic stays apk-analysis.
+    validation_signal: >
+      Authorization first; family selected; artifact gates checked before completion claim.
+    metadata:
+      priority: P1
+      confidence: high
+      context_cost:
+        estimated_tokens: 2500
+        load_strategy: lazy
+        cacheable: true
+        ttl:
+          task: 1
+      compatibility_state: new-layer-promoted
+    model:
+      profile: specialized
+      compression_level: source-backed
+      reason: 跨目標編排需讀 execution-flow 與 gates。
+
   - id: route.analysis.web
     route_type: analysis
     activation_mode: auto-detect

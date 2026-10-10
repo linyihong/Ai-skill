@@ -15,6 +15,7 @@
 - [`apk-analysis/`](apk-analysis/README.md)：APK 分析的 tool-neutral workflow。已從舊 `skills/apk-analysis/` 遷移至本層。
   - [`apk-analysis/execution-flow.yaml`](apk-analysis/execution-flow.yaml)：APK analysis execution executable contract。
   - [`apk-analysis/artifact-gates.yaml`](apk-analysis/artifact-gates.yaml)：APK analysis artifact gates executable contract。
+- [`reverse-engineering/`](reverse-engineering/README.md)：跨目標 shipped-artifact 編排（授權→分流→取證→gates）。APK 動態主線仍以 `apk-analysis/` 為準。`route.workflow.reverse-engineering` 已註冊。
 - [`software-delivery/`](software-delivery/README.md)：軟體交付的執行流程（design review、code review、release review、security review）。
   - [`software-delivery/execution-flow.yaml`](software-delivery/execution-flow.yaml)：software delivery execution executable contract。
   - [`software-delivery/artifact-gates.yaml`](software-delivery/artifact-gates.yaml)：software delivery artifact gates executable contract。

@@ -1,23 +1,33 @@
 ---
 id: 2026-10-10-1328-rea-analysis-capability-hardening
 plan_kind: main
-status: draft
+status: in-progress
 owner: larrylin/cursor-session
 created: 2026-10-10T13:28:00+09:00
-updated: 2026-10-10T13:28:00+09:00
+updated: 2026-10-10T13:35:00+09:00
 parent: null
 owner_layer: analysis
 ---
 
 # REA → Ai-skill Analysis Capability Hardening（全量落地）
 
-**Status**: `draft`
+**Status**: `in-progress`
 
-**Stakeholder 定界（2026-10-10）**：使用者要求 **全部都要**——analysis 方法、工具接線、routing、workflow／artifact gates，以及 REA 有而我們沒有的目標域（native、JS/Electron、managed/.NET、firmware、EVM、crash、process、Evidence 契約等）。本 plan 先凍結「怎麼落地、落地什麼」；**實作依 phase 執行，不以整包 vendor REA 取代既有 APK 動態主線**。
+**Phase 0**: ✅ CLOSED（2026-10-10）— Q1–Q7 依預設定稿；目錄命名凍結。
+**Phase 1**: ✅ CLOSED — `analysis/reverse-engineering/` Evidence 契約 + 目標分流。
+**Phase 2**: ✅ CLOSED — APK `static-jadx-path` + apk-analysis §2.0 + tools/traffic 更新。
+**Phase 3–5**: ✅ CLOSED — binary 方法、desktop 方法、firmware/evm stub。
+**Phase 6**: ✅ CLOSED — `ai-tools/rea-mcp.md` + cursor／ai-tools README pointer。
+**Phase 7–8**: ✅ CLOSED — routing routes + `workflow/reverse-engineering/`。
+**Phase 9**: ✅ CLOSED（最小）— 2 validation scenarios；intelligence atoms deferred。
+**Phase 10**: ⏳ dogfood — 待使用者提供**已授權**標的；缺則 blocked 不擋 methods merge。
+
+**Stakeholder 定界（2026-10-10）**：全量落地 analysis／routing／workflow。
+**澄清（同日）**：使用者**主要要的是調查流程**（怎麼分析別人的發行物），**不必依賴 REA 工具**；REA 僅作流程靈感與可選 MCP。Canonical = 工具中立的 `investigation-process` + 各域方法 + 既有 APK 動態主線。
 
 **外部參考（非 canonical）**：[`https://github.com/morluto/rea`](https://github.com/morluto/rea)（REA / `rea-agents`，MIT；本地 MCP+CLI；Evidence-first）。版本漂移快——任何工具名以當時連線的 `binary_session` / `tools/list` 為準，本 plan 只鎖**能力類別**與 Ai-skill 分層位置。
 
-**Glossary Impact**: yes — 預定引入（candidate，Phase 0/1 定稿後再寫入 glossary）：`shipped_artifact_evidence`、`residual_unknown`、`analysis_provider_binding`、`reconstruction_obligation`。若最終只用既有 `evidence_chain` 語彙擴充則降為 no 並回寫本列。
+**Glossary Impact**: deferred — 文件使用 observation／inference／residual unknown 描述性語彙；正式 glossary 詞（`shipped_artifact_evidence` 等）待 Phase 10 dogfood 後再註冊，避免無使用證據先膨脹 glossary。
 
 ## Decision Rationale
 
@@ -30,13 +40,14 @@ owner_layer: analysis
 
 ### Decision
 
-採用 **「REA = 可選執行引擎；Ai-skill = canonical 方法／流程／授權」** 全量硬化，分三條帶同步推進：
+採用 **「流程優先、工具可替換」**：從 REA 類調查節奏抽出工具中立流程；Ai-skill 為 canonical；REA MCP **非必要**。
 
 | 帶 | 內容 | Canonical 位置 |
 | --- | --- | --- |
-| **Methods** | 目標分流、取證步驟、失敗判讀、Evidence／unknowns 品質 | `analysis/*`（新建域 + 強化 apk） |
-| **Tool adapter** | Cursor／MCP 安裝、doctor、JADX/Ghidra/Hopper 前置、**不**複製 REA skill 全文 | `ai-tools/agent/cursor.md` + 可選 `ai-tools/rea-mcp.md` |
-| **Orchestration + runtime** | 端到端入口、artifact gates、routing discovery | `workflow/` + `knowledge/runtime/routing-registry.yaml` + 必要 validation scenarios |
+| **Process（優先）** | 七步調查節奏、Evidence／unknown、目標分流 | `analysis/reverse-engineering/investigation-process.md` 等 |
+| **Domain methods** | APK 靜態＋動態、binary、desktop、stubs | `analysis/*` |
+| **Orchestration + runtime** | workflow、gates、routing | `workflow/reverse-engineering/` + registry |
+| **Tool adapter（可選）** | 僅當使用者要接 REA MCP | `ai-tools/rea-mcp.md`（預設不讀） |
 
 硬邊界（全 phase 不變）：
 
@@ -172,34 +183,34 @@ flowchart TB
 
 **Forbidden（對齊 system-upgrade-governance）**：只加 registry entry 不 wire discovery；只 project SQLite 無 consumer。
 
-### Per-surface consumer 表（預定；Phase 7 填實）
+### Per-surface consumer 表（Phase 7 填實）
 
 | Generated surface / route key | Named consumer(s) | Consumer 類型 |
 | --- | --- | --- |
-| `route.analysis.reverse-engineering`（暫名） | Discovery Bridge signal：shipped-artifact / decompile / ghidra|jadx|hopper globs | discovery signal |
-| `route.analysis.binary` | 同上 subset | discovery signal |
-| `route.analysis.desktop`（暫名） | electron/asar/js-artifact signals | discovery signal |
-| `route.workflow.reverse-engineering`（若獨立） | preToolUse primary_source gate | workflow gate |
-| （若僅擴充 `route.workflow.apk-analysis`） | 既有 apk route + 新 static 分支文件 | 既有 consumer |
+| `route.analysis.reverse-engineering` | Discovery Bridge：`shipped-artifact`／`evidence contract`／`**/analysis/reverse-engineering/**` | discovery signal |
+| `route.analysis.binary` | `ghidra`／`hopper`／`native binary`／`**/analysis/binary/**` | discovery signal |
+| `route.analysis.desktop` | `electron`／`asar`／`**/analysis/desktop/**` | discovery signal |
+| `route.workflow.reverse-engineering` | preToolUse primary_source = `workflow/reverse-engineering/execution-flow.md`；signals：`跨目標反編譯`／`reverse engineer anything` | workflow gate + discovery |
+| `route.workflow.apk-analysis`（既有） | 仍擁有 Frida／抓包／`*.apk`；static 分支為文件 handoff，不搶動態訊號 | 既有 consumer |
 
 ## Open Questions
 
-| ID | 問題 | 預設（可在 Phase 0 改） |
+| ID | 問題 | 決議（Phase 0 CLOSED） |
 | --- | --- | --- |
-| Q1 | 跨目標 orchestration 用獨立 `workflow/reverse-engineering/` 還是擴充 `workflow/apk-analysis/` + 新 workflow 只服務 non-APK？ | **獨立** `workflow/reverse-engineering/`；apk-analysis 保持 APK 端到端，加 static 分支與 cross-link |
-| Q2 | JS/Electron 域目錄名：`desktop` vs `javascript-artifacts`？ | **`analysis/desktop/`**（含 Electron；純 web scrape 仍歸 `analysis/web`） |
-| Q3 | managed/.NET 併入 `binary/` 還是獨立 `managed/`？ | **先併入 `analysis/binary/managed-code.md`**，檔案變大再拆 |
-| Q4 | Evidence 契約放 `analysis/reverse-engineering/` 還是 `workflow/cross-cutting/`？ | **分析品質方法放 analysis**；workflow 只引用 + artifact gate 切片 |
-| Q5 | 是否強制本機安裝 REA 才能完成 plan？ | **否**——方法文件可先落地；MCP dogfood 為 Phase 10 acceptance，缺引擎標 `blocked` 不擋 methods merge |
-| Q6 | Firmware/EVM 是否本 plan required_for_completion？ | **是（stub + 路由 + 最小方法）**；深度 dogfood 可 sub-plan deferred |
-| Q7 | 與 [`evidence-candidate-system`](../2026-06-16-1131-evidence-candidate-system.md) 的收斂？ | Phase 1 讀後決定是否只連線、不重複造輪 |
+| Q1 | 跨目標 orchestration 形狀？ | ✅ 獨立 `workflow/reverse-engineering/`；apk-analysis 保留 APK E2E + static 分支 |
+| Q2 | JS/Electron 域目錄名？ | ✅ `analysis/desktop/` |
+| Q3 | managed/.NET 位置？ | ✅ `analysis/binary/managed-code.md` |
+| Q4 | Evidence 契約層？ | ✅ `analysis/reverse-engineering/` |
+| Q5 | 是否強制安裝 REA？ | ✅ 否；methods 獨立 |
+| Q6 | Firmware/EVM completion？ | ✅ stub 必達；deep dogfood → optional spike |
+| Q7 | 與 evidence-candidate-system？ | ✅ 不同 family；交叉連結不合併（見 Phase 0 表） |
 
 ## Stakeholder 同意項目
 
 - [x] 全量範圍（methods + adapter + routing + workflow）
 - [x] 先寫 plan，後依 phase 落地
-- [ ] Phase 0 定稿 Q1–Q7（執行前 sign-off）
-- [ ] 各 domain sub-plan（若拆）owner／lock
+- [x] Phase 0 定稿 Q1–Q7（依預設凍結；使用者授權執行）
+- [x] 各 domain sub-plan 01–08 已建立
 - [ ] Phase 10 dogfood 授權標的清單（具名、書面／口頭授權）
 
 ## Phase 0 — Architecture Compatibility Preflight + 定界
@@ -208,52 +219,52 @@ flowchart TB
 
 逐條核對本 plan §Open Questions，標記處置並回寫：
 
-- [ ] 已讀本 plan §Open Questions 全部條目
-- [ ] 對每條標記 `resolved`（附 Phase 0 證據）/ `still-open` / `deferred`（附原因）
-- [ ] `resolved` 的條目已同步勾選 / 附註於 §Open Questions
-- [ ] 若盤點新發現問題，已加入 §Open Questions
+- [x] 已讀本 plan §Open Questions 全部條目
+- [x] 對每條標記 `resolved`（附 Phase 0 證據）/ `still-open` / `deferred`（附原因）
+- [x] `resolved` 的條目已同步勾選 / 附註於 §Open Questions
+- [x] 若盤點新發現問題，已加入 §Open Questions
 
 | Open Question | 處置 | 證據 / 原因 |
 |---|---|---|
-| Q1 workflow 形狀 | still-open | 預設獨立 reverse-engineering workflow |
-| Q2 desktop 命名 | still-open | 預設 `analysis/desktop/` |
-| Q3 managed 位置 | still-open | 預設併入 binary |
-| Q4 evidence 層 | still-open | 預設 analysis reverse-engineering |
-| Q5 REA 安裝強制 | still-open | 預設 methods 不依賴安裝 |
-| Q6 firmware/EVM completion | still-open | 預設 stub 必達、deep dogfood 可 defer |
-| Q7 evidence-candidate 收斂 | still-open | Phase 0 必讀該 plan／相關 docs |
+| Q1 workflow 形狀 | resolved | 獨立 `workflow/reverse-engineering/`；apk-analysis 保留 APK E2E + static 分支 |
+| Q2 desktop 命名 | resolved | `analysis/desktop/`（JS/Electron shipped artifacts；scraping 仍歸 web） |
+| Q3 managed 位置 | resolved | `analysis/binary/managed-code.md`；變大再拆 |
+| Q4 evidence 層 | resolved | `analysis/reverse-engineering/evidence-contract.md`；workflow 只引用 |
+| Q5 REA 安裝強制 | resolved | methods 不依賴安裝；MCP dogfood 可 blocked |
+| Q6 firmware/EVM completion | resolved | stub + 路由必達；深度 dogfood → spike（`required_for_completion: false`） |
+| Q7 evidence-candidate 收斂 | resolved | **不同 family**：ECS 索引 plan promotion candidates；本契約管 shipped-artifact 取證品質。只交叉連結，不合併 |
 
 ### Phase 0.1 — Preflight checklist
 
-| # | 檢查 | 動作 |
+| # | 檢查 | 結果 |
 |---|---|---|
-| 1 | Candidate paths | 確認 `analysis/`、`workflow/apk-analysis/`、`ai-tools/agent/cursor.md`、`routing-registry.yaml`、`enforcement/authorization-scope.md`、`content-layering.md` 存在 |
-| 2 | Source-of-truth | 只改 Ai-skill canonical；不改業務專案 mirror；不 vendor REA git submodule |
-| 3 | Layer responsibility | 方法→analysis；順序→workflow；MCP 路徑→ai-tools；判斷 atom→intelligence（後段） |
-| 4 | Linked updates | 改 analysis README、workflow README、routing-registry、必要 summaries |
-| 5 | Duplication risk | 對照 apk evidence-chain、web SPA discovery，避免平行矛盾契約 |
-| 6 | Authorization | 每個新 execution-flow 第一步引用 authorization-scope |
-| 7 | Document sizing | 新域用 folder+README，單檔避免混多目標 |
+| 1 | Candidate paths | ✅ `analysis/`、`workflow/apk-analysis/`、`ai-tools/agent/cursor.md`、`routing-registry.yaml`、authorization-scope、content-layering 存在 |
+| 2 | Source-of-truth | ✅ 只改 Ai-skill canonical；不 vendor REA |
+| 3 | Layer responsibility | ✅ methods→analysis；orchestration→workflow；MCP→ai-tools |
+| 4 | Linked updates | ✅ 已排進各 phase |
+| 5 | Duplication risk | ✅ apk evidence-chain = workflow ordering gate；本契約 = 跨目標品質方法；ECS = plan candidates（Q7） |
+| 6 | Authorization | ✅ 新 workflow 第一步強制 authorization-scope |
+| 7 | Document sizing | ✅ 新域 folder+README |
 
 ### Phase 0 完成條件
 
-- [ ] Q1–Q7 有 resolved／deferred 註記
-- [ ] 目錄命名定稿（寫進本 plan §建議目錄形狀）
-- [ ] 列出 sub-plan 清單（見下）並建立 frontmatter（若當輪要拆）
-- [ ] Preflight 表填完
+- [x] Q1–Q7 有 resolved／deferred 註記
+- [x] 目錄命名定稿（見 §建議目錄形狀）
+- [x] 列出 sub-plan 清單並建立 frontmatter（01–08）
+- [x] Preflight 表填完
 
-## 預定 Sub-plans（執行時建立；frontmatter `parent` = 本 id）
+## Sub-plans（frontmatter `parent` = 本 id）
 
-| 建議檔名 | required_for_completion | sub_plan_reason |
+| 檔案 | required_for_completion | 狀態 |
 | --- | --- | --- |
-| `01-evidence-contract-and-target-routing` | true | 跨域 Evidence／unknowns／目標分流，阻塞所有域文件一致性 |
-| `02-apk-static-jadx-and-handoff` | true | 強化既有 apk 靜態路徑與動態 handoff，獨立 acceptance |
-| `03-binary-native-managed` | true | native/ELF/crash/managed 方法域，可平行於 desktop |
-| `04-desktop-js-electron` | true | JS/Electron／passive runtime，可平行於 binary |
-| `05-firmware-evm-stubs` | true | stub + 路由；深度 dogfood 可再拆 spike |
-| `06-ai-tools-rea-mcp` | true | Cursor MCP adapter 文件與前置檢查 |
-| `07-routing-and-workflow` | true | registry + workflow + artifact gates；依賴 01–06 方法入口存在 |
-| `08-validation-intelligence-dogfood` | true | scenarios、必要 intelligence atoms、授權 dogfood |
+| [`01-evidence-contract-and-target-routing.md`](01-evidence-contract-and-target-routing.md) | true | completed（含 investigation-process） |
+| [`02-apk-static-jadx-and-handoff.md`](02-apk-static-jadx-and-handoff.md) | true | completed |
+| [`03-binary-native-managed.md`](03-binary-native-managed.md) | true | completed |
+| [`04-desktop-js-electron.md`](04-desktop-js-electron.md) | true | completed |
+| [`05-firmware-evm-stubs.md`](05-firmware-evm-stubs.md) | true | completed |
+| [`06-ai-tools-rea-mcp.md`](06-ai-tools-rea-mcp.md) | true | completed（可選附錄） |
+| [`07-routing-and-workflow.md`](07-routing-and-workflow.md) | true | completed |
+| [`08-validation-intelligence-dogfood.md`](08-validation-intelligence-dogfood.md) | true | in-progress（dogfood blocked） |
 
 ## Phase 1 — Evidence 契約 + 目標分流（Methods 骨架）
 
@@ -265,10 +276,10 @@ flowchart TB
 
 **完成條件**
 
-- [ ] 文件定義：observation vs inference vs residual unknown；artifact digest；provider identity；limitations
-- [ ] `target-routing.md` 決策表覆蓋本 plan 能力族表
-- [ ] `analysis/README.md` 增加入口
-- [ ] 無 REA 專有工具名作為唯一路徑（可列「可選引擎：REA MCP／CLI」）
+- [x] 文件定義：observation vs inference vs residual unknown；artifact digest；provider identity；limitations
+- [x] `target-routing.md` 決策表覆蓋本 plan 能力族表
+- [x] `analysis/README.md` 增加入口
+- [x] 無 REA 專有工具名作為唯一路徑（可列「可選引擎：REA MCP／CLI」）
 
 ## Phase 2 — APK 靜態 JADX 路徑 + 動態 handoff
 

@@ -10,6 +10,7 @@
 analysis/apk/
 ├── README.md                       # 本文件
 ├── traffic-triage.md               # 流量分流與路線選擇
+├── static-jadx-path.md             # 靜態 JADX 取證與動態 handoff
 ├── tools-and-failures.md           # 工具選擇、失敗判讀、命令模板
 ├── techniques/                     # 保留中：舊 technique 混合層（逐步拆分中）
 └── workflows/                      # 操作流程（HOW TO DO）
@@ -20,9 +21,10 @@ analysis/apk/
 本層負責：
 
 - 流量與執行路徑分流（traffic / runtime path triage）。
+- **靜態 JADX／manifest／class／method／靜態 refs**（[`static-jadx-path.md`](static-jadx-path.md)）；與動態路徑互補。
 - 以證據優先選擇路線：pcap、MITM、Java hooks、native hooks、Flutter / Dart AOT、local proxy、media、offline decoding。
 - 從動態捕獲中萃取模式，轉化為可重用的分析方法。
-- 在撰寫 workflow 或工程結論之前，進行分析類別路由。
+- 在撰寫 workflow 或工程結論之前，進行分析類別路由（跨目標見 [`../reverse-engineering/target-routing.md`](../reverse-engineering/target-routing.md)）。
 - 領域內單一技術的證據取得 procedure：命令、設定、追蹤、hook 步驟、dump 方法（`workflows/`）。這是 analysis-local procedure library，不是端到端 agent orchestration。
 
 本層不負責：
@@ -48,11 +50,12 @@ analysis/apk/
 ## 閱讀順序（Read Order）
 
 1. 當工具需要執行流程時，先讀 `../../workflow/apk-analysis/execution-flow.md`。
-2. 用本文件了解分析層的邊界。
-3. 讀 `traffic-triage.md` 了解流量／執行路徑分流。
-4. 讀 `tools-and-failures.md` 了解工具選擇、失敗判讀與命令模板（含 Flutter AOT 與 Unity AssetBundle／UnityCache）。
-5. 證據確定路線後，讀 `workflows/` 了解 HOW TO DO 執行步驟（含 [`workflows/cold-start-play-focus-ab.md`](workflows/cold-start-play-focus-ab.md) 冷啟動 Play 搶焦 A/B、[`workflows/headless-sdk-device-executor-flow.md`](workflows/headless-sdk-device-executor-flow.md) 裝置執行器 SDK）。
-6. 讀 `intelligence/engineering/analytical-reasoning/` 了解 HOW TO THINK 決策指引（含 `heuristics/play-focus-steal-vs-hard-kill.md`）。
+2. 用本文件了解分析層的邊界；跨目標先讀 [`../reverse-engineering/`](../reverse-engineering/README.md)。
+3. 靜態 class／method／manifest：讀 [`static-jadx-path.md`](static-jadx-path.md)。
+4. 讀 `traffic-triage.md` 了解流量／執行路徑分流。
+5. 讀 `tools-and-failures.md` 了解工具選擇、失敗判讀與命令模板（含 Flutter AOT 與 Unity AssetBundle／UnityCache）。
+6. 證據確定路線後，讀 `workflows/` 了解 HOW TO DO 執行步驟（含 [`workflows/cold-start-play-focus-ab.md`](workflows/cold-start-play-focus-ab.md) 冷啟動 Play 搶焦 A/B、[`workflows/headless-sdk-device-executor-flow.md`](workflows/headless-sdk-device-executor-flow.md) 裝置執行器 SDK）。
+7. 讀 `intelligence/engineering/analytical-reasoning/` 了解 HOW TO THINK 決策指引（含 `heuristics/play-focus-steal-vs-hard-kill.md`）。
 
 ## 遷移備註（Migration Notes）
 

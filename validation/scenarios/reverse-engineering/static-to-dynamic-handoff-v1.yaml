@@ -1,0 +1,35 @@
+# Static APK complete text must not claim dynamic coverage
+id: static-to-dynamic-handoff-v1
+domain: reverse-engineering
+type: failure-recovery
+priority: P1
+
+given:
+  goal: recover plaintext of authorized business API
+  artifacts:
+    - app.apk
+  signals:
+    - jadx method body complete
+    - no pcap
+    - no frida session
+  constraints:
+    - authorization_present: true
+    - static_only_engine: true
+
+when:
+  action: claim_dynamic_api_coverage_from_static_decompile
+
+then:
+  expected_route:
+    - record_static_observations
+    - open_residual_unknown_for_runtime
+    - handoff_traffic_triage_or_frida
+  forbidden_routes:
+    - claim_runtime_proven_from_jadx_only
+    - skip_authorization_check
+  expected_final_route: handoff-to-dynamic-apk
+  expected_intelligence: []
+  expected_analysis:
+    - analysis/apk/static-jadx-path.md
+    - analysis/reverse-engineering/evidence-contract.md
+    - analysis/apk/traffic-triage.md

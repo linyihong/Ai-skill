@@ -6,7 +6,7 @@
 
 | Surface | Path | Count / Status |
 | --- | --- | --- |
-| Routing registry | [`routing-registry.yaml`](routing-registry.yaml) | 61 records |
+| Routing registry | [`routing-registry.yaml`](routing-registry.yaml) | 65 records |
 | Refresh policy | [`refresh-policy.yaml`](refresh-policy.yaml) | candidate |
 | Model context report | [`model-context-report.md`](model-context-report.md) | generated view |
 | Model checklists | [`model-checklists.md`](model-checklists.md) | generated view |
@@ -53,6 +53,10 @@
 | `route.workflow.investment` | `workflow/investment/execution-flow.md` | `specialized` | `source-backed` | Task type / risk tier / DVA 狀態已明說；evidence-ledger 可覆核；recommendation strength ≤ authority；uncertainty framing；配置含策略／資產／費用或 provisional；Red 無交易指令。  |
 | `route.runtime.onboarding` | `runtime/onboarding/apk-analysis-setup.md` | `specialized` | `summary-first` | 各 quickstart 的步驟可依序執行，且與對應 workflow 的內容一致。 |
 | `route.analysis.apk.workflows` | `analysis/apk/workflows/README.md` | `specialized` | `summary-first` | 各 workflow 有明確步驟與產出格式，可依序執行。 |
+| `route.analysis.reverse-engineering` | `analysis/reverse-engineering/investigation-process.md` | `specialized` | `summary-first` | Target family selected; findings separated into observation/inference/unknown; authorization recorded.  |
+| `route.analysis.binary` | `analysis/binary/README.md` | `specialized` | `summary-first` | Digest or digest_unknown recorded; provider limits kept as unknowns.  |
+| `route.analysis.desktop` | `analysis/desktop/README.md` | `specialized` | `summary-first` | Boundary vs web scrape stated; credentials not written into reusable docs.  |
+| `route.workflow.reverse-engineering` | `workflow/reverse-engineering/execution-flow.md` | `specialized` | `source-backed` | Authorization first; family selected; artifact gates checked before completion claim.  |
 | `route.analysis.web` | `analysis/web/README.md` | `specialized` | `summary-first` | 目標網站已評估（技術棧、JS 需求、anti-bot 保護），工具已選擇（HTTP/Dynamic/Stealth）， 提取策略已設計（selector/adaptive parsing），風險已評估（legal/technical/data quality）。  |
 | `route.intelligence.apk-analysis.atoms` | `intelligence/engineering/apk-analysis/README.md` | `specialized` | `summary-first` | 各 atom 有明確決策表或信號表，可反查驗證。 |
 | `route.intelligence.requirements-cognition` | `intelligence/engineering/requirements/README.md` | `small` | `summary-first` | Impact / journey evidence → requirement → behavior contract → acceptance criteria → validation target → execution artifact is traceable; no unconfirmed feature is written as requirement; high coverage is not treated as test effectiveness without targeted proof when risk is high. |

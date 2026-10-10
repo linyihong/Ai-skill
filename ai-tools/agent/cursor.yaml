@@ -30,6 +30,7 @@ required_sources:
   - runtime/core-bootstrap.yaml
   - ai-tools/agent/cursor.md
   - ai-tools/README.md
+  - ai-tools/rea-mcp.md
   - enforcement/tool-neutral-documentation.md
 
 steps:
@@ -44,7 +45,7 @@ steps:
     action: Load CORE_BOOTSTRAP.md and runtime/core-bootstrap.yaml as the only bootstrap entry sources before expanding detailed sources.
   - id: load_cursor_adapter
     order: 4
-    action: Read ai-tools/agent/cursor.md only for Cursor-specific rules, hooks, workspace, and config differences.
+    action: Read ai-tools/agent/cursor.md only for Cursor-specific rules, hooks, workspace, and config differences. Optional REA MCP setup is documented in ai-tools/rea-mcp.md and is not required for reverse-engineering analysis methods.
   - id: apply_cursor_hook_boundary
     order: 5
     action: Cursor hooks must never silently edit files, close goals, or auto-commit. The preToolUse gate IS a mechanical block (native permission:deny on a real bootstrap/workflow gate hit) but fails open (exit 0) when AI_SKILL_REPO is unresolvable; Cursor read/search tools are always allowed so bootstrap/workflow reads cannot self-lock. The stop check uses followup_message loopback only for true final close-out validation. Do not describe the preToolUse gate as a mere reminder.

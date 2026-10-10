@@ -30,6 +30,8 @@ required_sources:
   - workflow/apk-analysis/artifact-gates.md
   - runtime/onboarding/apk-analysis-completion.md
   - analysis/apk/traffic-triage.md
+  - analysis/apk/static-jadx-path.md
+  - analysis/reverse-engineering/evidence-contract.md
   - enforcement/authorization-scope.md
   - enforcement/sanitization.md
   - enforcement/evidence-hierarchy.md
@@ -40,8 +42,15 @@ steps:
     action: Record APK identity, package, CPU architecture, device/emulator, root state, allowed tools, test account, and authorization scope.
     gates:
       - gate.apk_analysis.authorization_confirmed
-  - id: establish_reset_baseline
+  - id: optional_static_jadx_first
     order: 2
+    action: >
+      When the goal is primarily manifest/class/method/static refs, follow
+      analysis/apk/static-jadx-path.md and evidence-contract.md before traffic
+      triage. Static engines do not execute the APK; hand off to dynamic triage
+      when residual unknowns need runtime authority.
+  - id: establish_reset_baseline
+    order: 3
     action: >
       Choose reset level and split reset/startup/navigation/feature/documentation
       windows when analyzing app-start-to-feature flows. force-stop-only automatic
@@ -53,10 +62,10 @@ steps:
       use intelligence/engineering/analytical-reasoning/heuristics/play-focus-steal-vs-hard-kill.md
       for judgment (not a license-bypass procedure).
   - id: triage_network_path
-    order: 3
+    order: 4
     action: Start from network path triage, then load specific analysis methods only after evidence points to the right technique.
   - id: validate_ui_evidence_package
-    order: 4
+    order: 5
     action: >
       Validate foreground package, activity, and feature context before using
       screenshots or hierarchy as UI/API evidence. For Unity canvases with an
@@ -77,19 +86,19 @@ steps:
     gates:
       - gate.apk_analysis.ui_evidence_valid
   - id: capture_feature_windows
-    order: 5
+    order: 6
     action: >
       Use Frida/MITM/pcap/replay windows with package and feature guards; label
       startup, navigation, feature-triggered, cache, or ambiguous traffic.
       Frida 17 quiet CLI needs -t with -q. After pm clear, delay IL2CPP
       thread_attach even if the domain pointer is already visible.
   - id: build_durable_assets
-    order: 6
+    order: 7
     action: Produce UI map, operation/API matrix, redacted API docs, domain/runtime baseline, feature handoff, fixtures, or contract tests.
     gates:
       - gate.apk_analysis.durable_assets_ready
   - id: close_with_feedback
-    order: 7
+    order: 8
     action: Add reusable feedback lesson in the same round when a generalized technique or failure mode is discovered.
 
 gates:

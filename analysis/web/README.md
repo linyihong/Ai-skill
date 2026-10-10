@@ -32,6 +32,8 @@ Web Scraping Analysis 負責**分析網頁內容提取的需求與可行性**，
 
 | 領域 | 關係 |
 |------|------|
+| [`analysis/desktop/`](../desktop/README.md) | **分界**：`web/` = 網站 scraping；`desktop/` = 本地 JS／Electron **發行物** reverse。不要混用入口。 |
+| [`analysis/reverse-engineering/`](../reverse-engineering/README.md) | 跨目標分流；scraping 通常不進 reverse-engineering 主線 |
 | [`analysis/repo/`](../repo/README.md) | 分析 repo 結構與程式碼；`web/` 分析網頁內容，兩者互補 |
 | [`analysis/apk/`](../apk/README.md) | APK 分析可能涉及 API endpoint 提取，需要 `web/` 輔助 |
 | [`analysis/issue/`](../issue/README.md) | Issue 分析可能涉及外部連結內容提取 |

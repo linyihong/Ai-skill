@@ -10,7 +10,8 @@
 | `adb screencap` / `screenrecord` | 保存去敏 screenshot 或短影片，建立 UI/tab/操作證據。 | 需要把 API 對應回具體畫面與操作時。 |
 | `uiautomator dump` | 匯出目前畫面的 view hierarchy、text/resource-id/content-desc。 | screenshot label 不清楚、需要確認 tab/screen 元素時。 |
 | `apktool` | 解 resources、manifest、network security config、smali。 | 需要看 manifest、res、smali 或重打包時。 |
-| `jadx` | Java/Kotlin 反編譯、搜尋 class/method/string。 | Java stack、OkHttp、WebView、加密 helper。 |
+| `jadx` | Java/Kotlin 反編譯、搜尋 class/method/string。 | Java stack、OkHttp、WebView、加密 helper。步驟見 [`static-jadx-path.md`](static-jadx-path.md)。 |
+| 可選本地 Android MCP／CLI inspect 族 | 與 jadx 同等靜態步驟（package／class／method／refs），回傳帶 digest 的 Evidence。 | 僅靜態；**不**取代 Frida。缺 JDK／JAR 時標 engine_unavailable。 |
 | `aapt` / `apkanalyzer` | APK metadata、package、version、permissions。 | 開始前盤點。 |
 | `sqlite3` | 檢查本機 cache DB。 | App 有 SQLite cache、媒體 cache、離線資料時。 |
 | `strings` / `rg` | 快速找 host、path、header、secret-like string。 | 靜態初篩。 |

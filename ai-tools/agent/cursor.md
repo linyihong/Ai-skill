@@ -23,6 +23,10 @@ Cursor 的 repo 入口是 `.cursor/rules/ai-skill-bootstrap.mdc`（`alwaysApply:
 - **`stop` close-out check**：Cursor stop 不能靠 exit 2 loop back；真正 final assistant response 缺少 Bootstrap Receipt、compact `Cognitive:` / full `### Cognitive Mode 報告`、`Feedback / Learning Report`，或必要的 `### Project Git Report` 時，hook runner 一次彙整缺項，輸出 `followup_message` 並 exit 0（`failClosed: true`：`AI_SKILL_REPO` 缺失時 fail-closed，與 preToolUse 相反）。沒有 assistant final text、或 Cursor mode transition / Plan→Build handoff 這類非 final stop payload，必須 fail-open 且不產生 followup。格式與枚舉仍只在 canonical bootstrap sources。
 - 多資料夾工作區可同時打開業務專案與本 repository，讓 agent 直接讀 canonical source。
 
+## 可選：REA MCP
+
+若要在 Cursor 使用本地 reverse-engineering MCP／CLI 橋接，見 [`../rea-mcp.md`](../rea-mcp.md)。分析方法仍以 `analysis/reverse-engineering/` 與各域 `analysis/*` 為準；setup 前必須 dry-run 並取得使用者同意。
+
 ## 配置邊界
 
 Cursor-specific 路徑、hooks、UI 行為與 workspace 操作留在本檔或 `.cursor/` 設定。跨工具規則放回 `enforcement/`，runtime contract 放回 `runtime/core-bootstrap.yaml`。

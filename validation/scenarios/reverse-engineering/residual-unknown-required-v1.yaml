@@ -1,0 +1,30 @@
+# Findings must separate observation / inference / residual unknown
+id: residual-unknown-required-v1
+domain: reverse-engineering
+type: failure-recovery
+priority: P1
+
+given:
+  goal: explain how a shipped feature works without source
+  artifacts:
+    - shipped_binary_or_package
+  signals:
+    - decompiled_pseudocode_partial
+    - unresolved_dynamic_dispatch
+  constraints:
+    - authorization_present: true
+
+when:
+  action: write_findings_as_certainty_without_unknowns
+
+then:
+  expected_route:
+    - label_observations
+    - label_inferences
+    - open_residual_unknowns_with_needed_authority
+  forbidden_routes:
+    - treat_pseudocode_as_original_source
+    - treat_static_xref_as_runtime_call
+  expected_final_route: evidence-contract-compliant
+  expected_analysis:
+    - analysis/reverse-engineering/evidence-contract.md

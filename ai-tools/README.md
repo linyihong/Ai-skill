@@ -71,6 +71,7 @@ Repo-level 載入與同步方向見 [`architecture/ai-native-knowledge-operating
 | Gemini CLI | [`agent/gemini-cli.md`](agent/gemini-cli.md) | `GEMINI.md` 入口、Gemini CLI 工具能力與設定差異。 |
 | GitHub Copilot | [`agent/copilot.md`](agent/copilot.md) | `.github/copilot-instructions.md`、`.github/instructions/*.instructions.md` 與 `ai-skill copilot start` guided startup；只作 compatibility adapter，enforcement 依 hooks / CI / runtime validate。 |
 | **新增工具指引** | [`agent-onboarding.md`](agent-onboarding.md) | 新 AI agent 工具加入時的設定 checklist，含必要項目與參考來源對照。 |
+| REA MCP／CLI（可選） | [`rea-mcp.md`](rea-mcp.md) | 本地 reverse-engineering MCP 安裝／doctor；分析方法仍以 `analysis/` 為準。 |
 
 Agent adapter executable contracts:
 

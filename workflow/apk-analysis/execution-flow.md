@@ -75,6 +75,17 @@
 
 ## 2. Quick Start（預設執行順序）
 
+### 2.0 靜態優先分支（optional）
+
+當 goal 主要是 manifest／class／method／靜態 refs，且尚未需要流量或 hook：
+
+1. 確認 authorization 與允許 `decompile`。
+2. 走 [`analysis/apk/static-jadx-path.md`](../../analysis/apk/static-jadx-path.md)（可選本地 Android MCP／CLI inspect 族）。
+3. 遵守 [`analysis/reverse-engineering/evidence-contract.md`](../../analysis/reverse-engineering/evidence-contract.md)。
+4. 若 residual unknown 需要 runtime／Frida／pcap／Flutter／Unity → **不要**延長純靜態；進入下方預設動態順序與 [`analysis/apk/traffic-triage.md`](../../analysis/apk/traffic-triage.md)。
+
+靜態引擎不執行 APK、不做 native-lib／runtime capture；不得用靜態結果宣稱動態路徑已覆蓋。
+
 1. 確認 scope 與 authorization。
 2. 分離 method 與 target facts：
    - 可重用技術放 skill 目錄。

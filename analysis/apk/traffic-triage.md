@@ -1,6 +1,6 @@
 # APK 流量與執行路徑分流
 
-本文件定義如何判斷 APK 的網路流量走哪一層。這是所有 APK 分析的第一步，在選擇具體工具或 hook 策略之前。
+本文件定義如何判斷 APK 的網路流量走哪一層。這是**動態／流量** APK 分析的第一步，在選擇具體工具或 hook 策略之前。若 goal 僅需靜態 class／method／manifest，先走 [`static-jadx-path.md`](static-jadx-path.md)；出現 runtime unknown 再回到本分流。
 
 ## 核心原則
 

@@ -6,7 +6,12 @@
 
 ## 目前入口
 
+- [`reverse-engineering/`](reverse-engineering/README.md)：跨目標 shipped-artifact Evidence 契約與目標分流（靜態／動態／native／desktop 等）。計劃落地中：[`plans/active/2026-10-10-1328-rea-analysis-capability-hardening/_plan.md`](../plans/active/2026-10-10-1328-rea-analysis-capability-hardening/_plan.md)。
 - [`apk/`](apk/README.md)：APK 分析的可重用分析方法。已從舊 `skills/apk-analysis/` 遷移至本層。
+- [`binary/`](binary/README.md)：Native／ELF／crash／managed 分析方法（落地中）。
+- [`desktop/`](desktop/README.md)：JS／Electron 發行物與 passive runtime 分析方法（落地中；≠ web scraping）。
+- [`firmware/`](firmware/README.md)：Firmware 取證 stub（落地中）。
+- [`evm/`](evm/README.md)：EVM bytecode 離線取證 stub（落地中）。
 - [`development-guidance/`](development-guidance/README.md)：開發指引的分析方法（風險翻譯、控制層選擇）。
 - [`repo/`](repo/README.md)：Repository 分析與理解方法（結構觀察、依賴分析、心智模型建立、技術債評估）。
 - [`production/`](production/README.md)：Production 問題分析與根因追蹤方法（incident 分類、觀測性資料判讀、RCA 流程、效能診斷）。
