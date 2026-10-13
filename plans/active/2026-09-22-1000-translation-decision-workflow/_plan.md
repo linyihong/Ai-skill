@@ -185,3 +185,7 @@ Ai-skill 已有 Loop-first／Governance-first 與 ERA v2（Evidence constrains D
 - Captions：[`workflow/narrative-video-production/captions-and-locales.md`](../../workflow/narrative-video-production/captions-and-locales.md)
 - Text language／role gate：[`workflow/narrative-video-production/text-evidence-language-relation.md`](../../workflow/narrative-video-production/text-evidence-language-relation.md)
 - Semantic context：[`workflow/narrative-video-production/records/dialogue-semantic-context.yaml`](../../workflow/narrative-video-production/records/dialogue-semantic-context.yaml)
+
+## Evidence pointer (2026-10-13)
+
+- Locale projection / Selection scaffolding: `evidence/2026-10-13-locale-projection-and-selection-leak.md`

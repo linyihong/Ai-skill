@@ -10,6 +10,7 @@
 
 | Run ID | 檔案 | 狀態 | 摘要 |
 | --- | --- | --- | --- |
+| 2026-10-13-locale-projection-and-selection-leak | [2026-10-13-locale-projection-and-selection-leak.md](2026-10-13-locale-projection-and-selection-leak.md) | scoped dogfood; honorific／1:1 skew open | mono hardsub≠MT；strip-before-admit；I21 crumbs；Selection scaffolding≠dst |
 | 2026-10-08-repair-loop-interfaces | [2026-10-08-repair-loop-interfaces.md](2026-10-08-repair-loop-interfaces.md) | scoped adapter; publish open | Failure Evidence→selection_notes／repair_of；known→local／unknown→escalate；Governance≠Actor |
 | 2026-10-08-divorce-marry-polarity-invert | [2026-10-08-divorce-marry-polarity-invert.md](2026-10-08-divorce-marry-polarity-invert.md) | scoped dogfood; acceptance open | Arabic divorce cue inverted to marry root until constraint escalation; script pass ≠ meaning pass |
 | 2026-10-08-near-name-not-honorific-identity | [2026-10-08-near-name-not-honorific-identity.md](2026-10-08-near-name-not-honorific-identity.md) | scoped probe; identity still open | co-series/near-form OCR-ASR/watermark ≠ honorific identity bind; defer_no_bind without co-reference |
