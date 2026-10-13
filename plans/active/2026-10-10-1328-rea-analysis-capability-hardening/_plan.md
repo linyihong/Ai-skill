@@ -421,7 +421,7 @@ flowchart TB
 | --- | --- |
 | [`apk-analysis-pilot` archived](../../archived/)（知識分層 pilot） | 本 plan 延續 W/A/I 分層，不回退 skills/ |
 | [`2026-06-16-1131-evidence-candidate-system`](../2026-06-16-1131-evidence-candidate-system.md) | Evidence 契約收斂（Q7） |
-| [`2026-07-08-0825-delegation-verification-arbitration-loop`](../2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) | 高利害重建／對照可選 DVA |
+| [`2026-07-08-0825-delegation-verification-arbitration-loop`](../../archived/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) | 高利害重建／對照可選 DVA |
 | Investment / legal domain plans | 形狀參考（intake + analysis + workflow），域不同 |
 
 ## Watch-Out List citation

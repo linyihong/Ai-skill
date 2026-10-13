@@ -4,7 +4,7 @@
 **動機**：delegation-loop 是最高頻在執行的 active plan（每日 commit、~30 個 dogfood run）。問題：它的
 證據 shape 是否 map 到**已註冊的 ECS plan criterion**（若是 → 高頻 ECS feeder；若否 → 乾等的原因就
 被證實是結構性的）。
-**Source**：`plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md` + `evidence/`。
+**Source**：`plans/archived/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md` + `evidence/`。
 **Method**：Step 1 domain removal（delegation / executor / verifier / orchestrator / brief / dogfood /
 APK / SD 詞全去）→ structural matrix → determination。**不含 candidate / criterion / promotion。**
 

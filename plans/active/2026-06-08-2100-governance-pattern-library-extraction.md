@@ -305,7 +305,7 @@ evidence_rule:
 
 **Trigger**: naturally occurring governance subsystem during tab-scroll close-out + deploy — **not** a claim that Gate A / T3B passed.
 
-**Subsystem**: *L3 verification closure* (delegation loop consumer overlay). Canonical loop: [`2026-07-08-0825-delegation-verification-arbitration-loop`](2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md). Project overlay: `<PROJECT_ROOT>` `.ai-skill/project/rules/plan-delegation-execution-loop.md` + `docs/framework-development-workflow.yaml` → `failure_modes.inner_unit_test_alone_cannot_close_user_visible_slice`.
+**Subsystem**: *L3 verification closure* (delegation loop consumer overlay). Canonical loop: [`2026-07-08-0825-delegation-verification-arbitration-loop`](../archived/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md). Project overlay: `<PROJECT_ROOT>` `.ai-skill/project/rules/plan-delegation-execution-loop.md` + `docs/framework-development-workflow.yaml` → `failure_modes.inner_unit_test_alone_cannot_close_user_visible_slice`.
 
 | Step | Landed artifact |
 | --- | --- |
@@ -329,7 +329,7 @@ evidence_rule:
 
 ### Consumer dogfood 追加（2026-07-10b — Mode A vs Mode B）
 
-**Source**: Ai-skill [`2o-consumer-tab-scroll-single-vs-delegation`](2026-07-08-0825-delegation-verification-arbitration-loop/evidence/2o-consumer-tab-scroll-single-vs-delegation.md).
+**Source**: Ai-skill [`2o-consumer-tab-scroll-single-vs-delegation`](../archived/2026-07-08-0825-delegation-verification-arbitration-loop/evidence/2o-consumer-tab-scroll-single-vs-delegation.md).
 
 | Step | Mode A（单 session） | Mode B（三角色 loop） |
 | --- | --- | --- |

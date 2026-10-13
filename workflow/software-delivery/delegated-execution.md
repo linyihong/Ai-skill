@@ -196,6 +196,6 @@ Role boundary 靠行為維持不住時，consumer 可在**工具層**落機械 g
 
 ## Provenance / 升級條件
 
-- 來源：外部 consumer（ExternalRepoC）多 slice 真實 run（2026-07-08，含 consumer 層機械 gate）+ Ai-skill 內部 dogfood；決策紀錄見 [`plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md`](../../plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)。
+- 來源：外部 consumer（ExternalRepoC）多 slice 真實 run（2026-07-08，含 consumer 層機械 gate）+ Ai-skill 內部 dogfood；決策紀錄見 [`plans/archived/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md`](../../plans/archived/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)。
 - 維持 doc-only / advisory；**不新增 enforcement rule、不接 runtime、不動 delegation schema**。
 - 升級條件：第二個獨立 consumer 的真實使用證據（分類擴充進 canonical enum、backfill 模板化、機械 gate 泛化各自獨立評估，一次一階）。

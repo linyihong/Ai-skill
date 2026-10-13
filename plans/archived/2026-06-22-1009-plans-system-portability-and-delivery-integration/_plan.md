@@ -199,7 +199,7 @@ Glossary Impact: yes — 預期新增 `plan_profile`、`plan_schema`、`delegati
 - [`archived/2026-06-02-1200-plan-tree-hierarchy-governance/_plan.md`](../../archived/2026-06-02-1200-plan-tree-hierarchy-governance/_plan.md) — 本 tree 直接建立於其 frontmatter schema + 5 validators 之上；03 將擴充其 frontmatter。
 - [`archived/2026-05-28-1830-plan-archival-audit-validator.md`](../../archived/2026-05-28-1830-plan-archival-audit-validator.md) — archival audit validator，01 portable core 候選成員。
 - [`workflow/software-delivery/intake.md`](../../../workflow/software-delivery/intake.md) — 02 的接入點。
-- [`active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md`](../../active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) — 03 delegation 的 loop 延伸（sibling main plan）。
+- [`archived/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md`](../../archived/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) — 03 delegation 的 loop 延伸（sibling main plan）。
 
 ## Plan Completion Closure
 

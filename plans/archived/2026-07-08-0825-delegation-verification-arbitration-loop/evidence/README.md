@@ -49,6 +49,7 @@
 | **3c** | [`3c-kaizenwms-archived-adoption-batch.md`](3c-kaizenwms-archived-adoption-batch.md) | 批次收割 | archived／MES 完成計畫：`implementation_done` 誠實降級、list-detail／shell-nav／MES naming；portfolio mixed close_kind |
 | **4a** | [`4a-investment-decision-support-allocation-dva.md`](4a-investment-decision-support-allocation-dva.md) | **跨域 DS／形狀** | Investment allocation DVA：Verifier 擋未校準 60%＋「直接執行」；**同 session 分角色**（≠ fresh Task）；**不**填 Knowledge；契約回饋 verifier_only／Recommendation≠Selection |
 | 2e | [`2e-grandfather-sunset-audit.md`](2e-grandfather-sunset-audit.md) | 完成 | Research 域 grandfather sunset；Q6/Q7/Q8 跨域观察 |
+| **Phase 3** | [`phase3-adjudication-batch-2026-10-13.md`](phase3-adjudication-batch-2026-10-13.md) | **批次裁決完成** | Q5 doc-only；Q6 不改名；Q7 sync；Q8 ERA v2＋F2 deferred；Q9／sd／glossary／ADR deferred；計劃 completed |
 
 > **漸進遷移**：2026-07-09 起新證據進本目錄；kit 保留傳輸模板與精簡指標。
 

@@ -2,7 +2,7 @@
 
 本檔提供**五種常見任務型態**的委派 prompt 填空模板，給主 session（orchestrator）直接套用。每份都內建**派工三件套**（目標與動機 / 驗收條件 / 回報格式），與 delegation `brief` schema 對齊（`brief.goal` / `brief.acceptance` / `brief.verification`）。
 
-> **與既有 kit 的關係**：三角色 loop 的 canonical 契約在 [`../plans/README.md`](../plans/README.md) §Delegation；executor/verifier/仲裁的傳輸模板在 [`../plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/01-dogfood-prompt-kit.md`](../plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/01-dogfood-prompt-kit.md)。**本檔不重複那些**，只補「按任務型態分化的填空模板」——搜尋 / 實作 / 重構 / 研究 / 審查各一，方便主 session 選型直接貼。
+> **與既有 kit 的關係**：三角色 loop 的 canonical 契約在 [`../plans/README.md`](../plans/README.md) §Delegation；executor/verifier/仲裁的傳輸模板在 [`../plans/archived/2026-07-08-0825-delegation-verification-arbitration-loop/01-dogfood-prompt-kit.md`](../plans/archived/2026-07-08-0825-delegation-verification-arbitration-loop/01-dogfood-prompt-kit.md)。**本檔不重複那些**，只補「按任務型態分化的填空模板」——搜尋 / 實作 / 重構 / 研究 / 審查各一，方便主 session 選型直接貼。
 >
 > **模板刻意 self-contained**（貼進 fresh session 的人不讀本 repo）——這是 transport 本質，不是 dual source。
 

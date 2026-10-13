@@ -326,7 +326,7 @@ glossary:
 
 ## 與其他 plans 的關係
 
-- [`2026-07-08-0825-delegation-verification-arbitration-loop`](../../active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)：Verifier V1–V5 owner；本 plan Decision 第 4 點只補 security 證據偏好，不重定義 loop（見 Q7）
+- [`2026-07-08-0825-delegation-verification-arbitration-loop`](../../archived/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)：Verifier V1–V5 owner；本 plan Decision 第 4 點只補 security 證據偏好，不重定義 loop（見 Q7）
 - [`archived/2026-07-06-review-architecture-adr`](../2026-07-06-review-architecture-adr/_plan.md)：ADR-013 capability invoke 模型的來源
 - [`2026-06-16-1131-evidence-candidate-system.md`](../../active/2026-06-16-1131-evidence-candidate-system.md)：dogfood 案例可走 evidence candidate 索引回流本 plan
 - [`archived/2026-06-10-1718-software-delivery-governance-invariants.md`](../2026-06-10-1718-software-delivery-governance-invariants.md)：authority-coupled side effect / evidence shape 的前例

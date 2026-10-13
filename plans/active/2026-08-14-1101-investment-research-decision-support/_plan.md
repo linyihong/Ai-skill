@@ -29,7 +29,7 @@ agent 最多在 intake／設定說明裡**提醒**可設排程，不擁有 cron 
 **投資策略 profile**、**現有資產／持倉**與**手續費／相關費用**；Interest Analysis 須納入費用
 摩擦，再推算對使用者較有利的方案（機率化＋trade-off，非保證最優）。高利害報告（尤其
 `allocation-advice`／含資產的 `position-review`）
-走 [`delegation-verification-arbitration`](2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)
+走 [`delegation-verification-arbitration`](../archived/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)
 三角色 loop，並強制 **證據推算表**，讓報告可覆核、可閱讀。
 
 **系統定位（2026-08-14 外部 review 採納）**：Investment **不是**「再多一個投資 skill」的終點；
@@ -110,7 +110,7 @@ converged case #1；本 domain 目標成為 **case #2**。
   | 方案比較 | ≥2 方案＋trade-off（**含費用／手續費淨效應**）＋為何較利於**該使用者**策略 |
   | Verifier 摘要 | 若跑 DVA：findings 與仲裁結果 |
 - **三角色 DVA（delegation → verification → arbitration）**：
-  對齊 [`2026-07-08-0825-delegation-verification-arbitration-loop`](2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)。
+  對齊 [`2026-07-08-0825-delegation-verification-arbitration-loop`](../archived/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)。
   | 情境 | 是否強制 DVA |
   | --- | --- |
   | Green 名詞／地圖整理 | 否（可單 session） |
@@ -301,7 +301,7 @@ Intake-dispatched 與 Decision Support 已有 legal 先例與 cross-cutting pilo
 
 與既有線對齊（消費、不重造）：
 [`decision-support`](../../workflow/cross-cutting/decision-support/README.md)、
-[`delegation-verification-arbitration`／ERA](2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)
+[`delegation-verification-arbitration`／ERA](../archived/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)
 （Evidence constrains Decision Space；Evidence Producer ≠ Closure Authority）。
 
 ### 優先序與候選抽象名
@@ -467,7 +467,7 @@ Phase 1 結束時要能回答兩句：
 
 ## 與其他 plans 的關係
 
-- **依賴／對齊**：[`2026-07-30-2101-legal-workflow-domain.md`](2026-07-30-2101-legal-workflow-domain.md)（intake-dispatched + Decision Support case #1）；`workflow/cross-cutting/decision-support/`（三案門檻）；[`2026-07-08-0825-delegation-verification-arbitration-loop`](2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)（O→E→V→仲裁＋ERA；本 domain 消費並用 H1 對照 Evidence→Claim→Recommendation→Human Decision）。
+- **依賴／對齊**：[`2026-07-30-2101-legal-workflow-domain.md`](2026-07-30-2101-legal-workflow-domain.md)（intake-dispatched + Decision Support case #1）；`workflow/cross-cutting/decision-support/`（三案門檻）；[`2026-07-08-0825-delegation-verification-arbitration-loop`](../archived/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)（O→E→V→仲裁＋ERA；本 domain 消費並用 H1 對照 Evidence→Claim→Recommendation→Human Decision）。
 - **定位**：Investment = Decision Support instantiation #2 **＋** cross-domain abstraction extraction opportunity（見 §Cross-domain Abstraction Hypotheses）。
 - **不取代**：legal Red tier 的「股權／投資契約」法律任務仍走 `route.workflow.legal`。
 - **參考外部風格**：公開研究帳如 [Serenity (@aleabitoreddit)](https://x.com/aleabitoreddit) — 學供應鏈／choke-point 敘事與更新節奏，**不**把其結論寫進本庫當事實。

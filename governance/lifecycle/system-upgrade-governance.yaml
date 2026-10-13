@@ -302,7 +302,7 @@ pre_2026_05_28_doc_only_completion:
   effective_sunset: "2026-08-31"
   reviewed_at: "2026-09-09"
   disposition: all_declared_surfaces_classified
-  review_evidence: plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/evidence/2026-09-09-grandfather-sunset-closeout.md
+  review_evidence: plans/archived/2026-07-08-0825-delegation-verification-arbitration-loop/evidence/2026-09-09-grandfather-sunset-closeout.md
   historical_coverage_note: >
     covered_plans retains the original coverage inventory for audit history,
     not active exemptions. Five declared surfaces satisfy option (a).

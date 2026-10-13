@@ -74,7 +74,7 @@
 
 - Plan：[`2026-08-14-1101-investment-research-decision-support`](../../plans/active/2026-08-14-1101-investment-research-decision-support/_plan.md)  
 - Dogfood：同 plan `evidence/01`–`06`  
-- DVA 跨域回饋：[`4a-investment-decision-support-allocation-dva.md`](../../plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/evidence/4a-investment-decision-support-allocation-dva.md)
+- DVA 跨域回饋：[`4a-investment-decision-support-allocation-dva.md`](../../plans/archived/2026-07-08-0825-delegation-verification-arbitration-loop/evidence/4a-investment-decision-support-allocation-dva.md)
 
 ## 狀態
 

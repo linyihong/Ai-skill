@@ -305,5 +305,5 @@
 | Decision | 使用者或主 session：fix / defer / reject |
 
 - **不強制**每次旅遊規劃都走三角色；小修補或純問答直接做。
-- 這是 **workflow 消費委派協議**，不是把 travel-planning 改寫成 software-delivery；跨域 dogfood 預註冊見 [`plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md`](../../plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)（dogfood **2w**）。
+- 這是 **workflow 消費委派協議**，不是把 travel-planning 改寫成 software-delivery；跨域 dogfood 預註冊見 [`plans/archived/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md`](../../plans/archived/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md)（dogfood **2w**）。
 - Verifier 量尺優先：`artifact-gates` 的 exact location / source / feasibility / confidence labels，而非程式測試命令。

@@ -53,4 +53,4 @@ Artifact: `<USER_DOWNLOADS>/20260718-跨县越海极客路书.md`（路書本體
 
 ## 啟動條件回顧
 
-消費 [`workflow/travel-planning/execution-flow.md`](../../../workflow/travel-planning/execution-flow.md) §17.1；高風險行程（渡輪硬錨＋两地分宿）觸發可選獨立驗證。
+消費 [`workflow/travel-planning/execution-flow.md`](../../../../workflow/travel-planning/execution-flow.md) §17.1；高風險行程（渡輪硬錨＋两地分宿）觸發可選獨立驗證。

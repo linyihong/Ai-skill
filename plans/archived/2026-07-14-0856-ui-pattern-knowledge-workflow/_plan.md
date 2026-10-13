@@ -809,7 +809,7 @@ RC2 研究假說鏈已 Closed；本節為 **真正結束** 的最後一步 — �
 | `ui-governance.md` | 合規；不擁有選型 |
 | Design Contract | 怎麼建成（token/primitive） |
 | Evidence Governance | claims 是否被證明；`evidence_level` |
-| [`2026-07-08-0825-delegation-…`](../../active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) | dogfood 可選三角色 SOP；本 plan 不擁有該 loop |
+| [`2026-07-08-0825-delegation-…`](../../archived/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) | dogfood 可選三角色 SOP；本 plan 不擁有該 loop |
 | `platform-adapter`（未來） | 跨 DS；不進本 Knowledge |
 | NameThatUI | 靈感；我方 = AI-consumable Knowledge Layer |
 

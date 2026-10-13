@@ -4,8 +4,8 @@
 | --- | --- |
 | Run ID | 4a-investment-ds-allocation-dva |
 | Date | 2026-08-14 |
-| Source plan | [`2026-08-14-1101-investment-research-decision-support`](../../2026-08-14-1101-investment-research-decision-support/_plan.md) |
-| Canonical run | [`…/evidence/05-dva-allocation.md`](../../2026-08-14-1101-investment-research-decision-support/evidence/05-dva-allocation.md) |
+| Source plan | [`2026-08-14-1101-investment-research-decision-support`](../../../active/2026-08-14-1101-investment-research-decision-support/_plan.md) |
+| Canonical run | [`…/evidence/05-dva-allocation.md`](../../../active/2026-08-14-1101-investment-research-decision-support/evidence/05-dva-allocation.md) |
 | Domain | **Investment / Decision Support**（非 Coding／非 Knowledge） |
 | Mode | **同 session 分角色模擬**（**非正式** fresh Task spawn） |
 

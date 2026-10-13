@@ -19,7 +19,7 @@ verification:
   executable_coverage: not_established
   existing_binding: scripts/ai-skill-cli/internal/audit/scenarios_stub_test.go
   binding_limit: TestScenarioStubsBound checks non-empty IDs only.
-  last_readback: plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/evidence/2026-09-09-grandfather-sunset-closeout.md
+  last_readback: plans/archived/2026-07-08-0825-delegation-verification-arbitration-loop/evidence/2026-09-09-grandfather-sunset-closeout.md
 
 given:
   task: maintain_grandfather_flag_consistency

@@ -702,7 +702,7 @@ Graduation：Phase 0 Exit 通過後進 Phase 1；若長期卡住則修 hypothesi
 
 | Plan | Relation |
 | --- | --- |
-| [`2026-07-08-0825-delegation-verification-arbitration-loop`](../../active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) | Task Execution（Delegation Loop）對偶；共享 Capability/Registry/Adapter 候選；**不合併**（§D7） |
+| [`2026-07-08-0825-delegation-verification-arbitration-loop`](../../archived/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) | Task Execution（Delegation Loop）對偶；共享 Capability/Registry/Adapter 候選；**不合併**（§D7） |
 | [`2026-05-25-1000-context-language-glossary-system`](../2026-05-25-1000-context-language-glossary-system.md) | Glossary schema；本 plan T4 註冊 KGE 詞條 |
 
 ---

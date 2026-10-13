@@ -447,5 +447,5 @@ Intent 可被 brief／plan 保存為 Asset；Automation 程式也是 Asset，其
 - [`governance/cognitive-slice-taxonomy.md`](../../../governance/cognitive-slice-taxonomy.md)
 - [`governance/lifecycle/decision-promotion-pipeline.md`](../../../governance/lifecycle/decision-promotion-pipeline.md)
 - [`constitution/ADR-012-route-type-activation-behavior-family.md`](../../../constitution/ADR-012-route-type-activation-behavior-family.md) — ontology vs constitution 分離教訓
-- [`plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md`](../../active/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) — Decision Semantics vs Workflow
+- [`plans/archived/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md`](../../archived/2026-07-08-0825-delegation-verification-arbitration-loop/_plan.md) — Decision Semantics vs Workflow
 - Discussion origin: 2026-07-16 software-delivery framework / constitution / placement design session

@@ -62,6 +62,6 @@ Opt-out：`[skip-plan-evidence]` 獨立 trailer 行（緊急遷移 only）。
 
 ## 範例
 
-- 索引 + 規則：[`plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/evidence/README.md`](../../plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/evidence/README.md)
-- Run 全文：[`evidence/2d-prime-externalrepoc-module-alignment.md`](../../plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/evidence/2d-prime-externalrepoc-module-alignment.md)
+- 索引 + 規則：[`plans/archived/2026-07-08-0825-delegation-verification-arbitration-loop/evidence/README.md`](../../plans/archived/2026-07-08-0825-delegation-verification-arbitration-loop/evidence/README.md)
+- Run 全文：[`evidence/2d-prime-externalrepoc-module-alignment.md`](../../plans/archived/2026-07-08-0825-delegation-verification-arbitration-loop/evidence/2d-prime-externalrepoc-module-alignment.md)
 - 模板：[`plans/templates/plan-evidence/README.md`](../../plans/templates/plan-evidence/README.md)

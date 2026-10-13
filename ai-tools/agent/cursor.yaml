@@ -60,7 +60,7 @@ steps:
       runtime/core-bootstrap.yaml + Receipt before non-Read tools; on repeated
       spawn/gate failure use written transport fallback (same-session verify max
       implementation_done). Dogfood evidence:
-      plans/active/2026-07-08-0825-delegation-verification-arbitration-loop/evidence/3a-kaizenwms-spawn-friction-skip-loop.md
+      plans/archived/2026-07-08-0825-delegation-verification-arbitration-loop/evidence/3a-kaizenwms-spawn-friction-skip-loop.md
     gates:
       - gate.cursor.task_cold_start_not_delegation_ban
   - id: enforce_cursor_cognitive_close_out

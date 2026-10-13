@@ -90,7 +90,7 @@
 ## Writeback to DVA loop plan
 
 跨域契約回饋已寫入：
-[`…/4a-investment-decision-support-allocation-dva.md`](../../2026-07-08-0825-delegation-verification-arbitration-loop/evidence/4a-investment-decision-support-allocation-dva.md)
+[`…/4a-investment-decision-support-allocation-dva.md`](../../../archived/2026-07-08-0825-delegation-verification-arbitration-loop/evidence/4a-investment-decision-support-allocation-dva.md)
 （跨域表列 + evidence index + Phase 2 checklist；**不**填 Knowledge／不偷升 stage 2）。
 
 ---
