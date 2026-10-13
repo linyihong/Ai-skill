@@ -1,0 +1,62 @@
+schema_version: artifact-record/v1
+id: image-processing.image-decision-record
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local Phase 1 doc-only；未接 runtime
+
+record: image_decision_record
+purpose: >
+  Traceable decision artifact (IDR). Authority for what was selected, verified,
+  and how the case closed. Document mirrors do not replace IDR.
+
+required_fields:
+  contract_ref:
+    type: object
+    note: summary and/or hash of image_task_contract
+  analysis:
+    type: object
+    fields:
+      subject_count: { type: enum, values: [single, multi, unknown] }
+      edge_type: { type: enum, values: [hard, soft, mixed, unknown] }
+      content_type: { type: enum, values: [photo, illustration, ui_composite, other] }
+      risk_flags: { type: list }
+      confidence: { type: text }
+  feasible:
+    type: list
+    note: candidate_id list after constraints
+  selected:
+    type: object
+    fields:
+      candidate_ids: { type: list }
+      rationale: { type: text }
+  rejected:
+    type: list
+    note: candidate_id + reason
+  execution:
+    type: object
+    fields:
+      adapter: { type: text }
+      params_summary: { type: text }
+      output_path: { type: text }
+      output_hash: { type: text }
+  verification:
+    type: list
+    note: check results per verification.yaml
+  repairs:
+    type: list
+    note: attempts with prior selected + result
+  finality:
+    type: enum
+    values: [accepted, accepted_with_review, rejected, aborted]
+    note: omit or interim until disposition closes
+
+optional_fields:
+  disposition:
+    type: enum
+    values: [close, repair, queue_human_review, gather_evidence, reject_or_abort, abort]
+  notes: { type: text }
+
+forbidden:
+  - executor_self_pass_as_sole_verification
+  - selected_outside_feasible_set

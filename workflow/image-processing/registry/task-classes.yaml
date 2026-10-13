@@ -1,0 +1,41 @@
+schema_version: registry/v1
+id: image-processing.task-classes
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local Phase 1；未接 runtime
+
+purpose: >
+  Build-order priorities for image task classes. Not a difficulty ranking.
+
+classes:
+  - id: A
+    name: background_removal_and_transparency
+    priority: P0
+    acceptance_focus:
+      - subject_complete
+      - true_transparency
+      - no_obvious_residue_or_halo
+  - id: B
+    name: fine_mask_and_local_repair
+    priority: P1
+    acceptance_focus:
+      - hair_and_semitransparent_detail
+      - natural_edges
+      - no_subject_damage
+  - id: C
+    name: restore_and_content_edit
+    priority: P2
+    acceptance_focus:
+      - edit_region_correct
+      - unauthorized_region_fidelity
+    note: not expanded while P0 unstable
+  - id: D
+    name: deterministic_pixel_ops
+    priority: P1
+    acceptance_focus:
+      - size_format_color_space_coords
+
+notes:
+  - Multi-label allowed; require primary task_class.
+  - Consumer profiles (e.g. slot-symbol) attach as constraints, not new core classes.

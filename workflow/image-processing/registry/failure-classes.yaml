@@ -1,0 +1,52 @@
+schema_version: registry/v1
+id: image-processing.failure-classes
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local Phase 1；未接 runtime
+
+purpose: >
+  P0 failure taxonomy with preferred repair candidates. Promote to guards only
+  after human-reviewed real cases (sanitized).
+
+classes:
+  - id: subject_missing
+    preferred_repair: [relax_threshold_or_change_seg, human_review]
+    forbidden_repair: [blind_dilate_background]
+  - id: wrong_subject
+    preferred_repair: [seg.interactive, ask_subject_hint]
+    forbidden_repair: [rerun_same_generic_seg_only]
+  - id: background_residue
+    preferred_repair: [tighter_mask, post.decontaminate]
+    forbidden_repair: [unbounded_erode_subject]
+  - id: edge_halo
+    preferred_repair: [post.decontaminate, rim_recolor_limited]
+    forbidden_repair: [interior_opening]
+  - id: edge_detail_loss
+    preferred_repair: [change_matting, reduce_binarization]
+    forbidden_repair: [larger_erode]
+  - id: interior_damage
+    preferred_repair: [rollback_aggressive_morphology, protect_interior]
+    forbidden_repair: [opening_again]
+  - id: alpha_invalid
+    preferred_repair: [reassemble_rgba]
+    forbidden_repair: [jpg_as_done]
+  - id: fidelity_violation
+    preferred_repair: [abort_generative_path]
+    forbidden_repair: [generate_again_to_fix_face]
+  - id: contract_incomplete
+    preferred_repair: [ask_or_stop]
+  - id: tool_error
+    preferred_repair: [retry_once_then_human_review]
+
+repair_bounds:
+  max_repair_attempts: 2
+  same_selected_consecutive_fail: must_change_candidate_or_human_review
+
+learning_gate:
+  require:
+    - real_case_failure
+    - human_root_cause_review
+    - sanitized_reusable_guard
+  forbid:
+    - single_model_verbal_judgment_as_permanent_rule

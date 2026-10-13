@@ -1,0 +1,52 @@
+schema_version: artifact-record/v1
+id: image-processing.finality
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local Phase 1 doc-only；未接 runtime
+
+record: image_finality
+purpose: >
+  Map check status + disposition to IDR finality. human_review is a disposition,
+  not a finality enum value.
+
+finality_values:
+  - accepted
+  - accepted_with_review
+  - rejected
+  - aborted
+
+disposition_values:
+  - close
+  - repair
+  - queue_human_review
+  - gather_evidence
+  - reject_or_abort
+  - abort
+
+transitions:
+  - when: all_hard_checks_pass_and_no_review_required
+    disposition: close
+    finality: accepted
+  - when: all_hard_checks_pass_and_soft_review_required
+    disposition: queue_human_review
+    finality: accepted_with_review
+    note: not production-complete until human sign-off
+  - when: any_hard_fail_and_unused_distinct_repair_candidate
+    disposition: repair
+    finality: interim
+  - when: any_hard_fail_and_repairs_exhausted
+    disposition: reject_or_abort
+    finality: [rejected, aborted]
+  - when: critical_hard_inconclusive
+    disposition: [human_review, gather_evidence]
+    finality: not_accepted
+  - when: unrepairable_contract_conflict
+    disposition: abort
+    finality: aborted
+
+rules:
+  - hard_fail_cannot_become_accepted
+  - critical_inconclusive_cannot_be_coerced_to_pass
+  - max_repair_attempts_default: 2
+  - same_selected_consecutive_fail_must_change_candidate_or_escalate

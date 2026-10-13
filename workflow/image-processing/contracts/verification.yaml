@@ -1,0 +1,54 @@
+schema_version: artifact-record/v1
+id: image-processing.verification
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local Phase 1 doc-only；未接 runtime
+
+record: independent_image_verification
+purpose: >
+  Execute success ≠ quality success. Verifier must not reuse executor self-score
+  as sole evidence. Without ground truth, stats are anomaly detection only.
+
+principles:
+  - execution_success_is_not_quality_success
+  - checker_independent_of_executor
+  - no_ground_truth_stats_cannot_alone_prove_pass
+  - inconclusive_is_first_class
+  - checkerboard_preview_is_not_alpha_proof
+
+check_result_fields:
+  check_id: { type: text, examples: [alpha.present, alpha.not_fully_opaque, residue.rim] }
+  status: { type: enum, values: [pass, fail, inconclusive] }
+  evidence: { type: text }
+  failure_class: { type: text, optional: true }
+  repair_candidate: { type: text, optional: true }
+  review_required: { type: bool, default: false }
+  hardness: { type: enum, values: [hard, soft] }
+
+check_families:
+  - id: file_validity
+    hardness: hard
+  - id: alpha_channel
+    hardness: hard
+    notes: must include not-fully-opaque; presence alone insufficient
+  - id: subject_integrity
+    hardness: hard_for_anomaly_soft_for_semantics
+  - id: background_residue
+    hardness: hard_for_anomaly_soft_for_visual
+  - id: edge_quality
+    hardness: soft_without_reference
+  - id: fidelity_vs_source
+    hardness: hard
+  - id: consumer_profile
+    hardness: hard_for_spec_fields
+
+must_inconclusive_when:
+  - no_foreground_gt_and_stats_below_anomaly_but_high_visual_risk
+  - multi_subject_missing_hint_low_confidence
+  - consumer_alignment_reference_missing_or_hash_mismatch
+  - mechanical_vs_human_preview_conflict_unresolvable
+
+negative_fixture_matrix_ref: >
+  plans/active/2026-10-14-0832-image-processing-decision-workflow/05-independent-verification.md
+  and fixtures/cases/neg.*

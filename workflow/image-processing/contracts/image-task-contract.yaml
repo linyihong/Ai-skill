@@ -1,0 +1,82 @@
+schema_version: artifact-record/v1
+id: image-processing.image-task-contract
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local Phase 1 doc-only；未接 runtime；route 未註冊
+
+record: image_task_contract
+purpose: >
+  Freeze input, intent, output, and immutability before tool selection.
+  Incomplete contract → must not declare accepted.
+
+required_fields:
+  task_class:
+    type: enum
+    values: [A, B, C, D]
+    note: primary class; multi-label allowed with explicit primary
+  intent: { type: text }
+  source:
+    type: object
+    fields:
+      path: { type: text }
+      content_hash: { type: text, note: e.g. sha256; required after validation }
+      format: { type: text }
+      width: { type: int }
+      height: { type: int }
+      mode: { type: text }
+      has_alpha: { type: bool }
+  output:
+    type: object
+    fields:
+      format: { type: text, default: PNG }
+      size_policy: { type: text }
+      allow_crop: { type: bool, default: false }
+      allow_rescale: { type: bool, default: false }
+  background:
+    type: enum
+    values: [transparent, solid, replace]
+  immutable:
+    type: list
+    note: region/object list — NOT a fidelity grade; never write immutable=strict
+  fidelity:
+    type: object
+    fields:
+      preset:
+        type: enum
+        values: [strict, normal, allow_local_edit]
+        optional: true
+      subject_structure:
+        type: enum
+        values: [preserve, allow_fill_holes]
+        default: preserve
+      subject_color:
+        type: enum
+        values: [preserve, allow_recolor]
+        default: preserve
+      edge_treatment:
+        type: enum
+        values: [none, rim_decontaminate, matte_refine]
+      max_rim_px:
+        type: int
+        optional: true
+        note: required when edge_treatment != none for strict preset; else ask
+
+optional_fields:
+  subject_hint: { type: text }
+  consumer_profile:
+    type: enum
+    values: [slot-symbol, product, portrait, other]
+  acceptance:
+    type: object
+    note: machine checks + human-review conditions
+
+incomplete_contract_behavior:
+  missing_background: ask_or_stop
+  multi_subject_without_hint_low_confidence: ask_or_human_review
+  strict_without_rim_width: ask
+  request_prettier_with_subject_preserve: reject_generative_path
+
+notes:
+  - Preset strict expands to structure/color preserve + rim_decontaminate (max_rim_px required or ask).
+  - Authorized rim edits do not violate subject_* but remain bounded by max_rim_px and immutable.

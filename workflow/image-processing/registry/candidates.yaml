@@ -1,0 +1,53 @@
+schema_version: registry/v1
+id: image-processing.candidates
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local Phase 1；未接 runtime
+
+purpose: >
+  Strategy/tool combination registry. IDs are abstract; adapters bind concrete
+  implementations. No vendor is the sole truth.
+
+candidates:
+  - id: seg.generic
+    role: segmentation
+    signals: [single_hard_edge_subject]
+    notes: baseline_candidate allowed; replaceable
+  - id: seg.portrait_matting
+    role: matting
+    signals: [portrait, hair]
+  - id: seg.interactive
+    role: subject_selection
+    signals: [wrong_subject, multi_subject]
+  - id: post.decontaminate
+    role: edge_color_cleanup
+    signals: [edge_halo, color_fringe]
+    requires_contract:
+      edge_treatment: rim_decontaminate
+  - id: post.mask_fix
+    role: shape_repair
+    signals: [mask_shape_wrong]
+    forbidden: color_only_tweaks_when_shape_wrong
+  - id: post.deterministic
+    role: format_size_compose
+    signals: [task_class_D, canvas_assemble]
+  - id: gen.edit
+    role: generative_local_edit
+    default_feasible: false
+    requires_contract:
+      fidelity_preset: allow_local_edit
+      or_authorized_edit_region: true
+
+constraint_examples:
+  - fidelity_subject_preserve: exclude gen.edit
+  - edge_treatment_none: exclude post.decontaminate and aggressive matte_refine
+  - immutable_interior_holes: exclude aggressive hole_fill and interior_opening
+  - license_unapproved: exclude candidate
+
+selection_policy_order:
+  - contract_fit
+  - fidelity_risk
+  - expected_edge_quality_for_risk_flags
+  - cost_latency
+  - license_clarity

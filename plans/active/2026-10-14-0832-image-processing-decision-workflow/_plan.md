@@ -47,7 +47,9 @@ parent: null
 6. **工具選型不在 Phase 0 定死**：rembg 可作基準候選，非唯一真理。
 7. **不先建 Auto Orchestrator／全能圖片 Agent**。
 
-Companions：[`01`](01-problem-baseline-and-scope.md) · [`02`](02-image-task-contract.md) · [`03`](03-decision-model-and-selection.md) · [`04`](04-bg-removal-vertical-slice.md) · [`05`](05-independent-verification.md) · [`06`](06-failure-taxonomy-and-repair.md) · [`07`](07-dogfood-baseline-el-dorado-cutout.md) · [`08`](08-phase-0-freeze-invariants.md) · [`fixtures/`](fixtures/README.md)。
+Companions：[`01`](01-problem-baseline-and-scope.md) · [`02`](02-image-task-contract.md) · [`03`](03-decision-model-and-selection.md) · [`04`](04-bg-removal-vertical-slice.md) · [`05`](05-independent-verification.md) · [`06`](06-failure-taxonomy-and-repair.md) · [`07`](07-dogfood-baseline-el-dorado-cutout.md) · [`08`](08-phase-0-freeze-invariants.md) · [`09`](09-static-walkthrough.md) · [`fixtures/`](fixtures/README.md)。
+
+Primary workflow source（Phase 1+）：[`workflow/image-processing/`](../../../workflow/image-processing/README.md)。
 
 ### Domain Boundary
 
@@ -112,12 +114,21 @@ Companions：[`01`](01-problem-baseline-and-scope.md) · [`02`](02-image-task-co
 - [x] Freeze invariants → `status: in-progress`
 - **Gate**：通過 — 見 [`01`](01-problem-baseline-and-scope.md)／[`08`](08-phase-0-freeze-invariants.md)
 
-### Phase 1 — Image Task Contract + Decision Model（doc-only）
+### Phase 1 — Image Task Contract + Decision Model（doc-only） — **DONE**
 
-- [ ] 建立 `workflow/image-processing/` 骨架（README、execution-flow、contracts、registry）
-- [ ] 落地任務類型 A–D、輸入／輸出不變條件、候選策略註冊、選擇責任、驗收狀態、失敗分類
-- [ ] 靜態走讀：不依賴特定模型也能判定契約是否完整
-- **Gate**：契約可執行；無模型名寫死在 canonical 步驟
+- [x] 建立 `workflow/image-processing/` 骨架（README、execution-flow、contracts、registry、fixtures stub）
+- [x] 落地任務類型 A–D、輸入／輸出不變條件、候選策略註冊、選擇責任、驗收狀態、失敗分類
+- [x] 靜態走讀：[`09`](09-static-walkthrough.md)
+- **Gate**：通過 — 契約可靜態執行；canonical 步驟無供應商名；**未**註冊 route／runtime 投影（見下節）
+
+### Deferred Runtime Projection / Route
+
+| 項 | 宣告 |
+| --- | --- |
+| `runtime_projection` | 全部 workflow YAML `enabled: false`；reason = Phase 1 doc-only |
+| `route.workflow.image-processing` | **未註冊**（與 translation／3D／NVP 同模式） |
+| 未來接入條件 | ≥1 dogfood IDR 閉環 + Phase 2 負向 fixture 可重現後，另開 phase 評估 discovery signal + registry entry |
+| 本 phase 禁止 | 聲稱已完成 runtime integration |
 
 ### Phase 2 — 去背最小垂直切片
 
