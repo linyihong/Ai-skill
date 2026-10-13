@@ -1,0 +1,39 @@
+{
+  "input": "workflow/image-processing/fixtures/inputs/neg.consumer-layout.png",
+  "profile": "neg.consumer-layout",
+  "checks": [
+    {
+      "check_id": "alpha.present",
+      "status": "pass",
+      "evidence": "mode=RGBA",
+      "failure_class": null,
+      "repair_candidate": null,
+      "review_required": false,
+      "hardness": "hard"
+    },
+    {
+      "check_id": "alpha.not_fully_opaque",
+      "status": "pass",
+      "evidence": "alpha_min=0 opaque_ratio=0.4583",
+      "failure_class": null,
+      "repair_candidate": null,
+      "review_required": false,
+      "hardness": "hard"
+    },
+    {
+      "check_id": "consumer.canvas",
+      "status": "fail",
+      "evidence": "got=[64, 64] want=[328, 328]",
+      "failure_class": "fidelity_violation",
+      "repair_candidate": "post.deterministic",
+      "review_required": false,
+      "hardness": "hard"
+    }
+  ],
+  "disposition": "reject_or_abort",
+  "finality": "rejected",
+  "reason": "hard_check_fail",
+  "failed_checks": [
+    "consumer.canvas"
+  ]
+}

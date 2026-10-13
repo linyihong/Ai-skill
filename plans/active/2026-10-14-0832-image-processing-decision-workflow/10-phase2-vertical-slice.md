@@ -31,8 +31,8 @@ python3 workflow/image-processing/tools/run_phase2_gate.py --repo <AI_SKILL_REPO
 - [x] `neg.residue-halo` 擋住（navy rim）
 - [x] Q5 清單文件存在
 - [x] Verify 輸出含 `check_id`／`status`／`failure_class`／`repair_candidate`／`hardness`
-- [ ] rembg 端到端 dogfood（**deferred → Phase 3**；candidate 已登記，非唯一路徑）
-- [ ] `neg.interior-damage`／`neg.over-erode`／`neg.consumer-layout`（**deferred + owner: Phase 3**）
+- [x] rembg 端到端 dogfood → Phase 3（[`11`](11-phase3-dogfood.md)）
+- [x] `neg.interior-damage`／`neg.over-erode`／`neg.consumer-layout` → Phase 3
 
 ## 與契約的對齊
 

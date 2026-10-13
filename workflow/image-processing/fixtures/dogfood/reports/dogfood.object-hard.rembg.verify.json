@@ -1,0 +1,36 @@
+{
+  "input": "workflow/image-processing/fixtures/dogfood/outputs/dogfood.object-hard.rembg.png",
+  "profile": "dogfood.rembg",
+  "checks": [
+    {
+      "check_id": "alpha.present",
+      "status": "pass",
+      "evidence": "mode=RGBA",
+      "failure_class": null,
+      "repair_candidate": null,
+      "review_required": false,
+      "hardness": "hard"
+    },
+    {
+      "check_id": "alpha.not_fully_opaque",
+      "status": "pass",
+      "evidence": "alpha_min=0 opaque_ratio=0.0959",
+      "failure_class": null,
+      "repair_candidate": null,
+      "review_required": true,
+      "hardness": "hard"
+    },
+    {
+      "check_id": "residue.rim",
+      "status": "pass",
+      "evidence": "navy_opaque=0 transparent=10781",
+      "failure_class": null,
+      "repair_candidate": null,
+      "review_required": false,
+      "hardness": "hard"
+    }
+  ],
+  "disposition": "queue_human_review",
+  "finality": "accepted_with_review",
+  "reason": "synthetic_dogfood_no_gt_human_review_required"
+}

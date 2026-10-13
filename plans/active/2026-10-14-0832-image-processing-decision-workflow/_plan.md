@@ -47,7 +47,7 @@ parent: null
 6. **工具選型不在 Phase 0 定死**：rembg 可作基準候選，非唯一真理。
 7. **不先建 Auto Orchestrator／全能圖片 Agent**。
 
-Companions：[`01`](01-problem-baseline-and-scope.md) · [`02`](02-image-task-contract.md) · [`03`](03-decision-model-and-selection.md) · [`04`](04-bg-removal-vertical-slice.md) · [`05`](05-independent-verification.md) · [`06`](06-failure-taxonomy-and-repair.md) · [`07`](07-dogfood-baseline-el-dorado-cutout.md) · [`08`](08-phase-0-freeze-invariants.md) · [`09`](09-static-walkthrough.md) · [`10`](10-phase2-vertical-slice.md) · [`fixtures/`](fixtures/README.md)。
+Companions：[`01`](01-problem-baseline-and-scope.md) · [`02`](02-image-task-contract.md) · [`03`](03-decision-model-and-selection.md) · [`04`](04-bg-removal-vertical-slice.md) · [`05`](05-independent-verification.md) · [`06`](06-failure-taxonomy-and-repair.md) · [`07`](07-dogfood-baseline-el-dorado-cutout.md) · [`08`](08-phase-0-freeze-invariants.md) · [`09`](09-static-walkthrough.md) · [`10`](10-phase2-vertical-slice.md) · [`11`](11-phase3-dogfood.md) · [`fixtures/`](fixtures/README.md) · [`evidence/`](evidence/README.md)。
 
 Primary workflow source（Phase 1+）：[`workflow/image-processing/`](../../../workflow/image-processing/README.md)。
 
@@ -138,13 +138,16 @@ Primary workflow source（Phase 1+）：[`workflow/image-processing/`](../../../
 - [x] 負向 fixture 跑通：`neg.alpha-opaque`、`neg.residue-halo`（[`10`](10-phase2-vertical-slice.md)）
 - [x] Q5 授權檢查清單：[`license-checklist.md`](../../../workflow/image-processing/adapters/license-checklist.md)
 - **Gate**：通過 — `python3 workflow/image-processing/tools/run_phase2_gate.py` exit 0；報告 `fixtures/reports/phase2-gate-latest.json`
-- Deferred（Phase 3）：rembg 真實 dogfood；其餘負向類 `neg.interior-damage`／`over-erode`／`consumer-layout`
+- Deferred 已於 Phase 3 吸收：擴充負向 + rembg 合成 dogfood
 
-### Phase 3 — Dogfood + failure learning
+### Phase 3 — Dogfood + failure learning — **DONE（合成代理 + rembg）**
 
-- [ ] 真實圖：一般物件、人像髮絲、插畫／UI 合成、多主體、高風險邊緣
-- [ ] 比較候選方法；人工覆核後才可升級 guard
-- **Gate**：品質／修復成功率／成本／耗時有證據（`evidence/`）
+- [x] 類別代理圖：object／illust-glow／ui-overlay／multi-subject／soft-fringe（合成；非業務原圖）
+- [x] rembg `seg.generic` dogfood + IDR；候選比較見 [`11`](11-phase3-dogfood.md)／[`evidence/2026-10-14-phase3-synthetic-dogfood.md`](evidence/2026-10-14-phase3-synthetic-dogfood.md)
+- [x] 五類負向挡住（含 interior／over-erode／consumer-layout）
+- [x] 人工覆核前 **不**升級 guard（IDR notes + evidence 明示）
+- **Gate**：通過 — `run_phase3_gate.py`；證據在 `evidence/` + `fixtures/reports/phase3-gate-latest.json`
+- Follow-up（可選）：consumer 真實照片／El Dorado 去敏圖另開 evidence run
 
 ### Phase 4 — 擴充 B／C／D（按需）
 

@@ -1,0 +1,39 @@
+{
+  "input": "workflow/image-processing/fixtures/inputs/neg.over-erode.png",
+  "profile": "neg.over-erode",
+  "checks": [
+    {
+      "check_id": "alpha.present",
+      "status": "pass",
+      "evidence": "mode=RGBA",
+      "failure_class": null,
+      "repair_candidate": null,
+      "review_required": false,
+      "hardness": "hard"
+    },
+    {
+      "check_id": "alpha.not_fully_opaque",
+      "status": "pass",
+      "evidence": "alpha_min=0 opaque_ratio=0.0531",
+      "failure_class": null,
+      "repair_candidate": null,
+      "review_required": false,
+      "hardness": "hard"
+    },
+    {
+      "check_id": "subject.area_vs_ref",
+      "status": "fail",
+      "evidence": "out_opaque=489 ref_opaque=4181 ratio=0.117",
+      "failure_class": "subject_missing",
+      "repair_candidate": "relax_threshold_or_change_seg",
+      "review_required": false,
+      "hardness": "hard"
+    }
+  ],
+  "disposition": "reject_or_abort",
+  "finality": "rejected",
+  "reason": "hard_check_fail",
+  "failed_checks": [
+    "subject.area_vs_ref"
+  ]
+}

@@ -1,0 +1,229 @@
+{
+  "gate": "phase3.dogfood_and_negatives",
+  "negatives_required": [
+    "neg.alpha-opaque",
+    "neg.residue-halo",
+    "neg.interior-damage",
+    "neg.over-erode",
+    "neg.consumer-layout"
+  ],
+  "negatives_passed": true,
+  "rembg_dogfood": {
+    "idr": "workflow/image-processing/fixtures/dogfood/reports/dogfood.object-hard.rembg.idr.json",
+    "finality": "accepted_with_review",
+    "elapsed_sec": 31.969
+  },
+  "passed": true,
+  "results": [
+    {
+      "fixture": "neg.alpha-opaque",
+      "exit_code": 0,
+      "report": {
+        "input": "workflow/image-processing/fixtures/inputs/neg.alpha-opaque.png",
+        "profile": "neg.alpha-opaque",
+        "checks": [
+          {
+            "check_id": "alpha.present",
+            "status": "pass",
+            "evidence": "mode=RGBA",
+            "failure_class": null,
+            "repair_candidate": null,
+            "review_required": false,
+            "hardness": "hard"
+          },
+          {
+            "check_id": "alpha.not_fully_opaque",
+            "status": "fail",
+            "evidence": "alpha_min=255 opaque_ratio=1.0000",
+            "failure_class": "alpha_invalid",
+            "repair_candidate": "reassemble_rgba",
+            "review_required": false,
+            "hardness": "hard"
+          }
+        ],
+        "disposition": "reject_or_abort",
+        "finality": "rejected",
+        "reason": "hard_check_fail",
+        "failed_checks": [
+          "alpha.not_fully_opaque"
+        ]
+      }
+    },
+    {
+      "fixture": "neg.residue-halo",
+      "exit_code": 0,
+      "report": {
+        "input": "workflow/image-processing/fixtures/inputs/neg.residue-halo.png",
+        "profile": "neg.residue-halo",
+        "checks": [
+          {
+            "check_id": "alpha.present",
+            "status": "pass",
+            "evidence": "mode=RGBA",
+            "failure_class": null,
+            "repair_candidate": null,
+            "review_required": false,
+            "hardness": "hard"
+          },
+          {
+            "check_id": "alpha.not_fully_opaque",
+            "status": "pass",
+            "evidence": "alpha_min=0 opaque_ratio=0.4038",
+            "failure_class": null,
+            "repair_candidate": null,
+            "review_required": false,
+            "hardness": "hard"
+          },
+          {
+            "check_id": "residue.rim",
+            "status": "fail",
+            "evidence": "navy_opaque=1512 transparent=5495",
+            "failure_class": "edge_halo",
+            "repair_candidate": "post.decontaminate",
+            "review_required": false,
+            "hardness": "hard"
+          }
+        ],
+        "disposition": "reject_or_abort",
+        "finality": "rejected",
+        "reason": "hard_check_fail",
+        "failed_checks": [
+          "residue.rim"
+        ]
+      }
+    },
+    {
+      "fixture": "neg.interior-damage",
+      "exit_code": 0,
+      "report": {
+        "input": "workflow/image-processing/fixtures/inputs/neg.interior-damage.png",
+        "profile": "neg.interior-damage",
+        "checks": [
+          {
+            "check_id": "alpha.present",
+            "status": "pass",
+            "evidence": "mode=RGBA",
+            "failure_class": null,
+            "repair_candidate": null,
+            "review_required": false,
+            "hardness": "hard"
+          },
+          {
+            "check_id": "alpha.not_fully_opaque",
+            "status": "pass",
+            "evidence": "alpha_min=0 opaque_ratio=0.2880",
+            "failure_class": null,
+            "repair_candidate": null,
+            "review_required": false,
+            "hardness": "hard"
+          },
+          {
+            "check_id": "fidelity.interior",
+            "status": "fail",
+            "evidence": "punched=255 protected=255",
+            "failure_class": "interior_damage",
+            "repair_candidate": "protect_interior",
+            "review_required": false,
+            "hardness": "hard"
+          }
+        ],
+        "disposition": "reject_or_abort",
+        "finality": "rejected",
+        "reason": "hard_check_fail",
+        "failed_checks": [
+          "fidelity.interior"
+        ]
+      }
+    },
+    {
+      "fixture": "neg.over-erode",
+      "exit_code": 0,
+      "report": {
+        "input": "workflow/image-processing/fixtures/inputs/neg.over-erode.png",
+        "profile": "neg.over-erode",
+        "checks": [
+          {
+            "check_id": "alpha.present",
+            "status": "pass",
+            "evidence": "mode=RGBA",
+            "failure_class": null,
+            "repair_candidate": null,
+            "review_required": false,
+            "hardness": "hard"
+          },
+          {
+            "check_id": "alpha.not_fully_opaque",
+            "status": "pass",
+            "evidence": "alpha_min=0 opaque_ratio=0.0531",
+            "failure_class": null,
+            "repair_candidate": null,
+            "review_required": false,
+            "hardness": "hard"
+          },
+          {
+            "check_id": "subject.area_vs_ref",
+            "status": "fail",
+            "evidence": "out_opaque=489 ref_opaque=4181 ratio=0.117",
+            "failure_class": "subject_missing",
+            "repair_candidate": "relax_threshold_or_change_seg",
+            "review_required": false,
+            "hardness": "hard"
+          }
+        ],
+        "disposition": "reject_or_abort",
+        "finality": "rejected",
+        "reason": "hard_check_fail",
+        "failed_checks": [
+          "subject.area_vs_ref"
+        ]
+      }
+    },
+    {
+      "fixture": "neg.consumer-layout",
+      "exit_code": 0,
+      "report": {
+        "input": "workflow/image-processing/fixtures/inputs/neg.consumer-layout.png",
+        "profile": "neg.consumer-layout",
+        "checks": [
+          {
+            "check_id": "alpha.present",
+            "status": "pass",
+            "evidence": "mode=RGBA",
+            "failure_class": null,
+            "repair_candidate": null,
+            "review_required": false,
+            "hardness": "hard"
+          },
+          {
+            "check_id": "alpha.not_fully_opaque",
+            "status": "pass",
+            "evidence": "alpha_min=0 opaque_ratio=0.4583",
+            "failure_class": null,
+            "repair_candidate": null,
+            "review_required": false,
+            "hardness": "hard"
+          },
+          {
+            "check_id": "consumer.canvas",
+            "status": "fail",
+            "evidence": "got=[64, 64] want=[328, 328]",
+            "failure_class": "fidelity_violation",
+            "repair_candidate": "post.deterministic",
+            "review_required": false,
+            "hardness": "hard"
+          }
+        ],
+        "disposition": "reject_or_abort",
+        "finality": "rejected",
+        "reason": "hard_check_fail",
+        "failed_checks": [
+          "consumer.canvas"
+        ]
+      }
+    }
+  ],
+  "learning": {
+    "guard_promotion": "forbidden_without_human_review",
+    "note": "Failure patterns stay candidate until human-reviewed"
+  }
+}

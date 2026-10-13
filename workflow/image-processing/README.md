@@ -51,10 +51,11 @@ Input Contract → Analysis → Constraints → Feasible Candidates → Selectio
 | Adapters | [`adapters/README.md`](adapters/README.md)（含 Q5 license checklist） |
 | Verify tools | [`tools/README.md`](tools/README.md) |
 
-## Phase 2 Gate
+## Gates
 
 ```text
 python3 workflow/image-processing/tools/run_phase2_gate.py --repo <AI_SKILL_REPO>
+python3 workflow/image-processing/tools/run_phase3_gate.py --repo <AI_SKILL_REPO>
 ```
 
 ## 明確不做（Phase 1–2）

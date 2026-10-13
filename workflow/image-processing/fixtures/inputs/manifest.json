@@ -1,4 +1,9 @@
 {
   "neg.alpha-opaque": "79064bb70d987ef9f4fe01fb2460499eb4186d8479d4e5a304e3a9e304d1f7c2",
-  "neg.residue-halo": "5c3d55e616ca94d8e4ff3e51da662ed257aab4a2294d403fff1c26373319239c"
+  "neg.residue-halo": "5c3d55e616ca94d8e4ff3e51da662ed257aab4a2294d403fff1c26373319239c",
+  "neg.consumer-layout": "e2cc6a373bacad7c59445b98b71ab8b91b0c560e8e8d23cc1c5ed57ab2bb6aa2",
+  "neg.interior-damage.ref": "18b9ea940a6bd70d39429954bcab1f13dcd40f5d261e5214c60dbce016621f13",
+  "neg.interior-damage": "aee2539573196626384c5a4360191c80027cf9bae554478b97c94caa7ef707a6",
+  "neg.over-erode.ref": "d10d79bfbf786faa166c3fd15669f67ae27bea99b3897c7a830b503591c12d6c",
+  "neg.over-erode": "223a70ddf3f55ef9a647f5315e76d23b710becce9504a733778affb0f502fa0a"
 }

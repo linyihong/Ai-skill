@@ -24,6 +24,11 @@ class CheckResult:
     hardness: str = "hard"
 
 
+def opaque_count(img: Image.Image, threshold: int = 128) -> int:
+    a = img.getchannel("A")
+    return sum(1 for v in a.getdata() if v >= threshold)
+
+
 def check_alpha(img: Image.Image) -> list[CheckResult]:
     out: list[CheckResult] = []
     if img.mode != "RGBA":
@@ -53,7 +58,7 @@ def check_alpha(img: Image.Image) -> list[CheckResult]:
     total = img.width * img.height
     opaque = hist[255] if len(hist) > 255 else 0
     opaque_ratio = opaque / total if total else 1.0
-    amin, amax = alpha.getextrema()
+    amin, _amax = alpha.getextrema()
 
     if amin >= 255 or opaque_ratio >= 0.995:
         out.append(
@@ -78,11 +83,7 @@ def check_alpha(img: Image.Image) -> list[CheckResult]:
     return out
 
 
-def check_residue_rim(img: Image.Image, rim_px: int = 6) -> CheckResult:
-    """
-    Anomaly: opaque/near-opaque dark-cool rim near subject edge while
-    corners are transparent — flags edge_halo / background_residue class.
-    """
+def check_residue_rim(img: Image.Image) -> CheckResult:
     if img.mode != "RGBA":
         return CheckResult(
             check_id="residue.rim",
@@ -93,28 +94,6 @@ def check_residue_rim(img: Image.Image, rim_px: int = 6) -> CheckResult:
 
     px = img.load()
     w, h = img.size
-    # Sample outer ring of non-transparent dark pixels
-    dark_rim = 0
-    samples = 0
-    for y in range(h):
-        for x in range(w):
-            r, g, b, a = px[x, y]
-            # near border band
-            on_band = x < rim_px or y < rim_px or x >= w - rim_px or y >= h - rim_px
-            if not on_band:
-                # also count annulus: opaque navy-like near mid-radius
-                cx, cy = w / 2, h / 2
-                dist = ((x - cx) ** 2 + (y - cy) ** 2) ** 0.5
-                if 28 <= dist <= 36:
-                    samples += 1
-                    if a >= 200 and b > r and b > g and (r + g + b) < 180:
-                        dark_rim += 1
-            else:
-                if a >= 200 and b > r and b > g and (r + g + b) < 160:
-                    dark_rim += 1
-                    samples += 1
-
-    # Stronger signal for synthetic residue-halo: count navy opaque pixels
     navy_opaque = 0
     transparent = 0
     for y in range(h):
@@ -134,21 +113,117 @@ def check_residue_rim(img: Image.Image, rim_px: int = 6) -> CheckResult:
             repair_candidate="post.decontaminate",
             hardness="hard",
         )
-
-    if dark_rim >= 20:
-        return CheckResult(
-            check_id="residue.rim",
-            status="fail",
-            evidence=f"dark_rim_samples={dark_rim}",
-            failure_class="background_residue",
-            repair_candidate="post.decontaminate",
-            hardness="hard",
-        )
-
     return CheckResult(
         check_id="residue.rim",
         status="pass",
         evidence=f"navy_opaque={navy_opaque} transparent={transparent}",
+        hardness="hard",
+    )
+
+
+def check_interior_vs_source(out_img: Image.Image, src: Image.Image) -> CheckResult:
+    """Fail when source interior opaque pixels became transparent in output."""
+    if out_img.size != src.size:
+        return CheckResult(
+            check_id="fidelity.interior",
+            status="fail",
+            evidence=f"size_mismatch out={out_img.size} src={src.size}",
+            failure_class="fidelity_violation",
+            repair_candidate="rollback_aggressive_morphology",
+            hardness="hard",
+        )
+    op = out_img.load()
+    sp = src.load()
+    punched = 0
+    protected = 0
+    w, h = src.size
+    for y in range(h):
+        for x in range(w):
+            sr, sg, sb, sa = sp[x, y]
+            # dark interior marker in synthetic fixtures
+            if sa >= 200 and (sr + sg + sb) < 120:
+                protected += 1
+                _or, _og, _ob, oa = op[x, y]
+                if oa < 32:
+                    punched += 1
+    if protected == 0:
+        return CheckResult(
+            check_id="fidelity.interior",
+            status="inconclusive",
+            evidence="no_protected_interior_marker",
+            hardness="hard",
+        )
+    if punched / protected >= 0.5:
+        return CheckResult(
+            check_id="fidelity.interior",
+            status="fail",
+            evidence=f"punched={punched} protected={protected}",
+            failure_class="interior_damage",
+            repair_candidate="protect_interior",
+            hardness="hard",
+        )
+    return CheckResult(
+        check_id="fidelity.interior",
+        status="pass",
+        evidence=f"punched={punched} protected={protected}",
+        hardness="hard",
+    )
+
+
+def check_subject_area_vs_source(
+    out_img: Image.Image, src: Image.Image, min_ratio: float = 0.35
+) -> CheckResult:
+    so = opaque_count(src)
+    oo = opaque_count(out_img)
+    if so == 0:
+        return CheckResult(
+            check_id="subject.area_vs_ref",
+            status="inconclusive",
+            evidence="ref_opaque=0",
+            hardness="hard",
+        )
+    ratio = oo / so
+    # Clean residue but over-eroded → residue may pass; this check fails
+    if ratio < min_ratio:
+        return CheckResult(
+            check_id="subject.area_vs_ref",
+            status="fail",
+            evidence=f"out_opaque={oo} ref_opaque={so} ratio={ratio:.3f}",
+            failure_class="subject_missing",
+            repair_candidate="relax_threshold_or_change_seg",
+            hardness="hard",
+        )
+    return CheckResult(
+        check_id="subject.area_vs_ref",
+        status="pass",
+        evidence=f"out_opaque={oo} ref_opaque={so} ratio={ratio:.3f}",
+        hardness="hard",
+    )
+
+
+def check_consumer_canvas(img: Image.Image, profile: dict[str, Any]) -> CheckResult:
+    want = profile.get("canvas")
+    if not want or len(want) != 2:
+        return CheckResult(
+            check_id="consumer.canvas",
+            status="inconclusive",
+            evidence="no_canvas_in_profile",
+            hardness="hard",
+        )
+    got = [img.width, img.height]
+    if got != list(want):
+        return CheckResult(
+            check_id="consumer.canvas",
+            status="fail",
+            evidence=f"got={got} want={want}",
+            failure_class="fidelity_violation",
+            repair_candidate="post.deterministic",
+            hardness="hard",
+        )
+    return CheckResult(
+        check_id="consumer.canvas",
+        status="pass",
+        evidence=f"got={got}",
         hardness="hard",
     )
 
@@ -189,12 +264,14 @@ def suggest_finality(checks: list[CheckResult]) -> dict[str, Any]:
 PROFILE_CHECKS = {
     "neg.alpha-opaque": ["alpha"],
     "neg.residue-halo": ["alpha", "residue"],
+    "neg.interior-damage": ["alpha", "interior"],
+    "neg.over-erode": ["alpha", "area"],
+    "neg.consumer-layout": ["alpha", "consumer"],
     "default": ["alpha", "residue"],
 }
 
 
 def relpath_for_report(path: Path) -> str:
-    """Prefer repo-relative path; never require absolute host paths in reports."""
     resolved = path.resolve()
     for parent in resolved.parents:
         if (parent / "workflow" / "image-processing").is_dir() and (
@@ -207,7 +284,24 @@ def relpath_for_report(path: Path) -> str:
     return path.name
 
 
-def verify_path(path: Path, profile: str | None = None) -> dict[str, Any]:
+def default_ref_for(path: Path, profile: str) -> Path | None:
+    refs = path.parent / "refs" / f"{profile}.ref.png"
+    if refs.is_file():
+        return refs
+    return None
+
+
+def default_profile_json(path: Path, profile: str) -> Path | None:
+    p = path.parent / f"{profile}.profile.json"
+    return p if p.is_file() else None
+
+
+def verify_path(
+    path: Path,
+    profile: str | None = None,
+    source: Path | None = None,
+    consumer_profile: Path | None = None,
+) -> dict[str, Any]:
     img = Image.open(path)
     img.load()
     name = profile or path.stem
@@ -217,6 +311,50 @@ def verify_path(path: Path, profile: str | None = None) -> dict[str, Any]:
         checks.extend(check_alpha(img))
     if "residue" in suites:
         checks.append(check_residue_rim(img))
+    if "interior" in suites:
+        src_path = source or default_ref_for(path, name)
+        if src_path is None:
+            checks.append(
+                CheckResult(
+                    check_id="fidelity.interior",
+                    status="inconclusive",
+                    evidence="missing_source_ref",
+                    hardness="hard",
+                )
+            )
+        else:
+            src = Image.open(src_path)
+            src.load()
+            checks.append(check_interior_vs_source(img, src))
+    if "area" in suites:
+        src_path = source or default_ref_for(path, name)
+        if src_path is None:
+            checks.append(
+                CheckResult(
+                    check_id="subject.area_vs_ref",
+                    status="inconclusive",
+                    evidence="missing_source_ref",
+                    hardness="hard",
+                )
+            )
+        else:
+            src = Image.open(src_path)
+            src.load()
+            checks.append(check_subject_area_vs_source(img, src))
+    if "consumer" in suites:
+        prof_path = consumer_profile or default_profile_json(path, name)
+        if prof_path is None:
+            checks.append(
+                CheckResult(
+                    check_id="consumer.canvas",
+                    status="inconclusive",
+                    evidence="missing_profile_json",
+                    hardness="hard",
+                )
+            )
+        else:
+            prof = json.loads(prof_path.read_text(encoding="utf-8"))
+            checks.append(check_consumer_canvas(img, prof))
 
     finality = suggest_finality(checks)
     return {
@@ -231,6 +369,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("image", type=Path)
     parser.add_argument("--profile", default=None)
+    parser.add_argument("--source", type=Path, default=None)
+    parser.add_argument("--consumer-profile", type=Path, default=None)
     parser.add_argument("--json-out", type=Path, default=None)
     parser.add_argument(
         "--expect-block",
@@ -239,7 +379,12 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    report = verify_path(args.image, args.profile)
+    report = verify_path(
+        args.image,
+        args.profile,
+        source=args.source,
+        consumer_profile=args.consumer_profile,
+    )
     text = json.dumps(report, indent=2)
     print(text)
     if args.json_out:

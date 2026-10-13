@@ -1,0 +1,78 @@
+{
+  "contract_ref": {
+    "task_class": "A",
+    "background": "transparent",
+    "fidelity_preset": "strict",
+    "note": "synthetic dogfood; not product art"
+  },
+  "analysis": {
+    "subject_count": "single",
+    "edge_type": "hard",
+    "content_type": "illustration",
+    "risk_flags": [],
+    "confidence": "high"
+  },
+  "feasible": [
+    "seg.generic",
+    "post.deterministic"
+  ],
+  "selected": {
+    "candidate_ids": [
+      "seg.generic"
+    ],
+    "rationale": "Phase 3 baseline_candidate rembg bind"
+  },
+  "rejected": [
+    {
+      "candidate_id": "gen.edit",
+      "reason": "fidelity strict / not in feasible set"
+    }
+  ],
+  "execution": {
+    "adapter": "rembg.remove",
+    "params_summary": "default session",
+    "output_path": "workflow/image-processing/fixtures/dogfood/outputs/dogfood.object-hard.rembg.png",
+    "output_hash": "82454f4b5167fdbe93fb1efb9e9ad902ba28e1644916a739e8f3918bc6f31fc7",
+    "elapsed_sec": 31.969,
+    "source_path": "workflow/image-processing/fixtures/dogfood/sources/dogfood.object-hard.png",
+    "source_hash": "2c2358910935fa63ae55e43ec6fccfd5dc47f822ec1ae56973c1801b7a169a03"
+  },
+  "verification": [
+    {
+      "check_id": "alpha.present",
+      "status": "pass",
+      "evidence": "mode=RGBA",
+      "failure_class": null,
+      "repair_candidate": null,
+      "review_required": false,
+      "hardness": "hard"
+    },
+    {
+      "check_id": "alpha.not_fully_opaque",
+      "status": "pass",
+      "evidence": "alpha_min=0 opaque_ratio=0.0959",
+      "failure_class": null,
+      "repair_candidate": null,
+      "review_required": true,
+      "hardness": "hard"
+    },
+    {
+      "check_id": "residue.rim",
+      "status": "pass",
+      "evidence": "navy_opaque=0 transparent=10781",
+      "failure_class": null,
+      "repair_candidate": null,
+      "review_required": false,
+      "hardness": "hard"
+    }
+  ],
+  "repairs": [],
+  "finality": "accepted_with_review",
+  "disposition": "queue_human_review",
+  "notes": "Guard promotion forbidden without human review. Compare only against other candidates in future runs.",
+  "metrics": {
+    "elapsed_sec": 31.969,
+    "output_bytes": 3512,
+    "cost": "local_cpu_unknown"
+  }
+}

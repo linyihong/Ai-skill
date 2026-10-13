@@ -68,8 +68,8 @@
 | `neg.over-erode` | 邊「乾淨」但主體過度侵蝕 | 主體完整性／邊緣（與 residue **正交**：residue 可 pass） | `subject_missing` 或 `edge_detail_loss` |
 | `neg.consumer-layout` | 去背可接受但 canvas／置中／縮放違規 | consumer profile 規格 check | 契約／profile 違規（可記 `fidelity_violation` 或 profile-specific class） |
 
-Phase 2 Gate：**上表五類皆有可執行 fixture（或明確 deferred + owner）**；至少 `neg.alpha-opaque` 與 `neg.residue-halo` 不得 deferred。
-
+Phase 2 Gate：至少 `neg.alpha-opaque` 與 `neg.residue-halo`。
+Phase 3：上表五類皆可執行（`run_phase3_gate.py`）。
 ## 獨立性要求
 
 | 允許 | 禁止 |
