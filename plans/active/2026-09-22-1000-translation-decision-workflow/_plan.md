@@ -189,3 +189,8 @@ Ai-skill 已有 Loop-first／Governance-first 與 ERA v2（Evidence constrains D
 ## Evidence pointer (2026-10-13)
 
 - Locale projection / Selection scaffolding: `evidence/2026-10-13-locale-projection-and-selection-leak.md`
+
+## Dogfood note (2026-10-14)
+
+- Matrix REVIEW evidence: `evidence/2026-10-14-ass-empty-unresolved-skew-and-semantic-review.md` (cache 1:1 ≠ ASS empty-slot export; Latin honorific soften narrow; semantic／romanization still open).
+- No publish PASS claimed.

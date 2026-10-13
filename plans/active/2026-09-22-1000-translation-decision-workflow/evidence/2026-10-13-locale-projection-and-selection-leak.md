@@ -30,8 +30,10 @@
 
 ## 未完成
 
-- Honorific Latin (`Mr.`／`Miss`) and latin_leftover name forms still drop cues
-  on some locales；1:1 timed slot policy not yet universal.
+- Honorific Latin mixed-sentence drops narrowed by product soften（bare
+  honorific+name still reject）；latin_leftover name forms may still drop.
+- **1:1 timed slots in cache** landed；ASS／burn still omit empty unresolved →
+  see `2026-10-14-ass-empty-unresolved-skew-and-semantic-review.md`.
 - Semantic antonym／filler mistranslation（separate from scaffolding）still needs
   declared assertions／human REVIEW — not closed by these mechanical gates.
 - Publish／burn／layout Finality remain open（content≠timing≠layout）.
