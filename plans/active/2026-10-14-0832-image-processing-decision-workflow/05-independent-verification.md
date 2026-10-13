@@ -87,7 +87,7 @@ Phase 2 Gate：**上表五類皆有可執行 fixture（或明確 deferred + owne
 
 ## Gate（Phase 2）
 
-- [ ] schema 固定（含 `hardness`）
-- [ ] finality／disposition 轉換表可操作
-- [ ] 負向 fixture 矩陣：至少 `neg.alpha-opaque`、`neg.residue-halo` 可重現擋住
-- [ ] 文件寫明：何種情況必須 `inconclusive`
+- [x] schema 固定（含 `hardness`）— [`verification.yaml`](../../../workflow/image-processing/contracts/verification.yaml) + verify tool
+- [x] finality／disposition 轉換表可操作 — [`finality.yaml`](../../../workflow/image-processing/contracts/finality.yaml)
+- [x] 負向 fixture：`neg.alpha-opaque`、`neg.residue-halo` 可重現擋住 — `tools/run_phase2_gate.py`
+- [x] 文件寫明：何種情況必須 `inconclusive`（本檔上節）

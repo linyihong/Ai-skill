@@ -47,7 +47,7 @@ parent: null
 6. **工具選型不在 Phase 0 定死**：rembg 可作基準候選，非唯一真理。
 7. **不先建 Auto Orchestrator／全能圖片 Agent**。
 
-Companions：[`01`](01-problem-baseline-and-scope.md) · [`02`](02-image-task-contract.md) · [`03`](03-decision-model-and-selection.md) · [`04`](04-bg-removal-vertical-slice.md) · [`05`](05-independent-verification.md) · [`06`](06-failure-taxonomy-and-repair.md) · [`07`](07-dogfood-baseline-el-dorado-cutout.md) · [`08`](08-phase-0-freeze-invariants.md) · [`09`](09-static-walkthrough.md) · [`fixtures/`](fixtures/README.md)。
+Companions：[`01`](01-problem-baseline-and-scope.md) · [`02`](02-image-task-contract.md) · [`03`](03-decision-model-and-selection.md) · [`04`](04-bg-removal-vertical-slice.md) · [`05`](05-independent-verification.md) · [`06`](06-failure-taxonomy-and-repair.md) · [`07`](07-dogfood-baseline-el-dorado-cutout.md) · [`08`](08-phase-0-freeze-invariants.md) · [`09`](09-static-walkthrough.md) · [`10`](10-phase2-vertical-slice.md) · [`fixtures/`](fixtures/README.md)。
 
 Primary workflow source（Phase 1+）：[`workflow/image-processing/`](../../../workflow/image-processing/README.md)。
 
@@ -130,14 +130,15 @@ Primary workflow source（Phase 1+）：[`workflow/image-processing/`](../../../
 | 未來接入條件 | ≥1 dogfood IDR 閉環 + Phase 2 負向 fixture 可重現後，另開 phase 評估 discovery signal + registry entry |
 | 本 phase 禁止 | 聲稱已完成 runtime integration |
 
-### Phase 2 — 去背最小垂直切片
+### Phase 2 — 去背最小垂直切片 — **DONE（機械 Gate）**
 
-- [ ] Input validation → analysis → candidate → mask/matte → assemble → verify → repair（有限次）
-- [ ] rembg（或當時基準候選）+ 確定性後處理作 **candidate**，非唯一路徑
-- [ ] Independent verification 產 `check_id`／`status`／`failure_class`／`repair_candidate`
-- [ ] [`05`](05-independent-verification.md) 負向 fixture 矩陣至少跑通 `neg.alpha-opaque`、`neg.residue-halo`
-- [ ] Q5 授權檢查清單已存在
-- **Gate**：代表性案例可追溯驗收；負向 fixture 擋住假成功；失敗不被誤報成功
+- [x] Loop 文件化於 adapter [`bg-removal-vertical-slice.md`](../../../workflow/image-processing/adapters/bg-removal-vertical-slice.md)（validate→…→verify→repair）
+- [x] `seg.generic` 可選綁 rembg；Gate **不**強制 rembg（非唯一路徑；見 registry／license）
+- [x] Independent verification：[`tools/verify_independent.py`](../../../workflow/image-processing/tools/verify_independent.py)
+- [x] 負向 fixture 跑通：`neg.alpha-opaque`、`neg.residue-halo`（[`10`](10-phase2-vertical-slice.md)）
+- [x] Q5 授權檢查清單：[`license-checklist.md`](../../../workflow/image-processing/adapters/license-checklist.md)
+- **Gate**：通過 — `python3 workflow/image-processing/tools/run_phase2_gate.py` exit 0；報告 `fixtures/reports/phase2-gate-latest.json`
+- Deferred（Phase 3）：rembg 真實 dogfood；其餘負向類 `neg.interior-damage`／`over-erode`／`consumer-layout`
 
 ### Phase 3 — Dogfood + failure learning
 

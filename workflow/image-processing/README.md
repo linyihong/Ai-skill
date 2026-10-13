@@ -47,11 +47,20 @@ Input Contract → Analysis → Constraints → Feasible Candidates → Selectio
 | Task classes | [`registry/task-classes.yaml`](registry/task-classes.yaml) |
 | Candidates | [`registry/candidates.yaml`](registry/candidates.yaml) |
 | Failure classes | [`registry/failure-classes.yaml`](registry/failure-classes.yaml) |
-| Fixtures | [`fixtures/README.md`](fixtures/README.md)（staging 仍可在 plan） |
+| Fixtures | [`fixtures/README.md`](fixtures/README.md)（合成負向 inputs + reports） |
+| Adapters | [`adapters/README.md`](adapters/README.md)（含 Q5 license checklist） |
+| Verify tools | [`tools/README.md`](tools/README.md) |
 
-## 明確不做（Phase 1）
+## Phase 2 Gate
+
+```text
+python3 workflow/image-processing/tools/run_phase2_gate.py --repo <AI_SKILL_REPO>
+```
+
+## 明確不做（Phase 1–2）
 
 - 註冊 `route.workflow.*`／runtime 投影
 - 把具體供應商寫進 execution-flow 步驟名
 - 建 Auto Orchestrator／全能圖片 Agent
 - 把業務 Sprite 對齊寫成通用去背必經步驟
+- 以 rembg 安裝與否當作 Phase 2 Gate

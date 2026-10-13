@@ -22,4 +22,10 @@ fixtures/
 
 ## Negative fixtures (Phase 2 Gate)
 
-Must cover at least `neg.alpha-opaque` and `neg.residue-halo` per verification contract.
+| Fixture | Path | Purpose |
+| --- | --- | --- |
+| `neg.alpha-opaque` | [`inputs/neg.alpha-opaque.png`](inputs/neg.alpha-opaque.png) | Alpha present but fully opaque |
+| `neg.residue-halo` | [`inputs/neg.residue-halo.png`](inputs/neg.residue-halo.png) | Navy rim residue |
+
+Generate / re-hash：`python3 workflow/image-processing/tools/generate_negative_fixtures.py`
+Gate：`python3 workflow/image-processing/tools/run_phase2_gate.py` → [`reports/phase2-gate-latest.json`](reports/phase2-gate-latest.json)

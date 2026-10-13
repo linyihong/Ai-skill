@@ -56,15 +56,10 @@ Input Contract
     → IDR / Evidence Closeout
 ```
 
-## License checklist stub（Q5；Phase 2 Gate 前補完）
+## License checklist（Q5）
 
-Phase 0 最低列出（逐項核對後才能用該候選於生產 dogfood）：
-
-- [ ] 分割／matting 權重授權（可下載 ≠ 可商用）
-- [ ] 執行程式庫授權（Pillow／NumPy／scipy／rembg 等）與傳遞義務
-- [ ] 雲端／API（若日後啟用）服務條款與資料出境
-- [ ] Fixture／dogfood 圖來源與去敏（不得把未授權業務原圖進 canonical fixtures）
-
+Phase 2 完整清單：[`workflow/image-processing/adapters/license-checklist.md`](../../../workflow/image-processing/adapters/license-checklist.md)。
+場次打勾仍是使用端責任；清單文件存在即滿足 Phase 2 Gate。
 ## Phase 1 准許／禁止
 
 | 准許 | 禁止 |

@@ -2,7 +2,7 @@
 case_id: neg.residue-halo
 kind: reproducible_case
 status: spec_frozen
-input_hash: PENDING_BINARY
+input_hash: 5c3d55e616ca94d8e4ff3e51da662ed257aab4a2294d403fff1c26373319239c
 ---
 
 # Case: `neg.residue-halo`（負向）
@@ -22,7 +22,7 @@ input_hash: PENDING_BINARY
 
 - 路徑（預定）：`fixtures/inputs/neg.residue-halo.png`（或「錯誤輸出」固定樣本）
 - 特徵：主體外仍有 navy／綠／暗 rim（模擬 rembg 未後處理）
-- `input_hash`：`PENDING_BINARY`
+- `input_hash`：`5c3d55e616ca94d8e4ff3e51da662ed257aab4a2294d403fff1c26373319239c`
 
 ## 期望
 

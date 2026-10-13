@@ -2,7 +2,7 @@
 case_id: neg.alpha-opaque
 kind: reproducible_case
 status: spec_frozen
-input_hash: PENDING_BINARY
+input_hash: 79064bb70d987ef9f4fe01fb2460499eb4186d8479d4e5a304e3a9e304d1f7c2
 ---
 
 # Case: `neg.alpha-opaque`（負向）
@@ -22,7 +22,7 @@ input_hash: PENDING_BINARY
 
 - 路徑（預定）：`fixtures/inputs/neg.alpha-opaque.png`
 - 合成法（二進位可延後）：RGBA 圖、alpha 通道全 255（或不透明主體鋪滿且無透明背景）
-- `input_hash`：`PENDING_BINARY`（合成後填 sha256）
+- `input_hash`：`79064bb70d987ef9f4fe01fb2460499eb4186d8479d4e5a304e3a9e304d1f7c2`（合成後填 sha256）
 
 ## 期望
 
