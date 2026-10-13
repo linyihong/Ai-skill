@@ -1,7 +1,7 @@
 ---
 id: 2026-10-14-0832-image-processing-decision-workflow
 plan_kind: main
-status: draft
+status: in-progress
 owner: workflow
 owner_layer: workflow
 created: 2026-10-14
@@ -10,7 +10,7 @@ parent: null
 
 # Image Processing Decision Workflow（`workflow/image-processing/`）
 
-**Status**: draft — Phase 0 盤點草案；待 stakeholder 確認執行環境與範圍後 freeze。
+**Status**: in-progress — **Phase 0 freeze**（2026-10-14；見 [`08`](08-phase-0-freeze-invariants.md)）。下一階段：Phase 1 doc-only 骨架。
 
 **Glossary Impact**: yes — 候選詞 `image_task_contract`、`image_decision_record`（IDR）、`feasible_candidates`、`selection_policy`、`independent_image_verification`、`failure_class`、`repair_candidate`。Phase 1 前不登記 glossary。
 
@@ -37,7 +37,7 @@ parent: null
 
 新增 **`workflow/image-processing/`**（獨立 main plan；NVP／slots／3D 為 future consumers）。
 
-凍結意圖（草案；Phase 0 freeze 後釘死）：
+凍結意圖（**Phase 0 freeze**；權威細節 [`08`](08-phase-0-freeze-invariants.md)）：
 
 1. **完成標準 = 符合 Image Task Contract**，不是「處理流程跑完」。
 2. **Constraint ≠ Selection**：契約決定可行集；Selection Policy 決定候選；LLM 不得自定驗收標準。
@@ -47,7 +47,7 @@ parent: null
 6. **工具選型不在 Phase 0 定死**：rembg 可作基準候選，非唯一真理。
 7. **不先建 Auto Orchestrator／全能圖片 Agent**。
 
-Companions：[`01`](01-problem-baseline-and-scope.md) · [`02`](02-image-task-contract.md) · [`03`](03-decision-model-and-selection.md) · [`04`](04-bg-removal-vertical-slice.md) · [`05`](05-independent-verification.md) · [`06`](06-failure-taxonomy-and-repair.md) · [`07`](07-dogfood-baseline-el-dorado-cutout.md)。
+Companions：[`01`](01-problem-baseline-and-scope.md) · [`02`](02-image-task-contract.md) · [`03`](03-decision-model-and-selection.md) · [`04`](04-bg-removal-vertical-slice.md) · [`05`](05-independent-verification.md) · [`06`](06-failure-taxonomy-and-repair.md) · [`07`](07-dogfood-baseline-el-dorado-cutout.md) · [`08`](08-phase-0-freeze-invariants.md) · [`fixtures/`](fixtures/README.md)。
 
 ### Domain Boundary
 
@@ -67,7 +67,7 @@ Companions：[`01`](01-problem-baseline-and-scope.md) · [`02`](02-image-task-co
 | A. 只加 rembg Skill／Prompt | **reject** — 無契約／驗收／修復 |
 | B. 併入 NVP execution-flow | **reject** — 圖片能力跨領域 |
 | C. 一開始建大型圖片 Agent／編排器 | **reject** — 違反 Loop-first；過早綁工具 |
-| D. Image Processing Decision Workflow + 去背垂直切片先行 | **accept（草案）** |
+| D. Image Processing Decision Workflow + 去背垂直切片先行 | **accept**（Phase 0 freeze） |
 
 ### Why Not an ADR Yet
 
@@ -81,47 +81,36 @@ Companions：[`01`](01-problem-baseline-and-scope.md) · [`02`](02-image-task-co
 - [ ] 未把單一供應商／模型寫進 canonical 步驟
 - [ ] Open Questions 全解或有 deferred owner
 
-## Draft assumptions（待確認）
+## Assumptions（已接受 — 2026-10-14）
 
-| # | 問題 | 草案假設（可推翻） |
+| # | 問題 | 裁決 |
 | --- | --- | --- |
-| A1 | 主要執行環境 | **混合**：Cursor／agent 決策 + **本機 Python**（Pillow／NumPy／scipy／rembg 等）執行；Ai-skill 持有契約與 workflow。非預設 ComfyUI／雲端 API |
-| A2 | 第一階段範圍 | **A 類去背／透明 PNG 完整閉環**；B 類用困難案例測架構；C／D 契約預留、不在 P0 大擴 |
-| A3 | 與影片工作流關係 | **獨立 capability**；NVP 日後 adapter 消費，不擁有決策契約 |
+| A1 | 主要執行環境 | **接受 — 混合**：agent 決策 + **本機 Python** 執行；Ai-skill 持契約與 workflow。非預設 ComfyUI／雲端 API |
+| A2 | 第一階段範圍 | **接受** — A 類去背閉環；B 壓架構；C／D 預留 |
+| A3 | 與影片工作流關係 | **接受** — 獨立 capability；NVP 等為 consumers |
 
-請 stakeholder 明確接受或改寫 A1–A3 後再 Phase 0 freeze。
-
-## Open Questions（責任矩陣）
+## Open Questions（責任矩陣 — freeze 時點）
 
 | # | 問題 | 狀態 | Freeze？ | 預裁決／延後 |
 | --- | --- | --- | --- | --- |
-| Q1 | 正式執行入口：Ai-skill skill／本機 CLI／agent adapter／混合？ | open（草案 A1） | **blocker**（隨 A1） | Stakeholder 確認 A1；未確認不得 freeze |
-| Q2 | P0 是否把「對齊外部 silhouette／灰階」塞進通用去背核心？ | **pre-decided** | 非 blocker | **Consumer constraint only**；不進通用 A 核心 |
-| Q3 | 驗收視覺層用何 actor？ | **pre-decided（P0）** | 非 blocker | P0 = **機械層 + 人審 gate**；第二模型／合成參考可 Phase 3+ |
-| Q4 | 測試集存放：`workflow/.../fixtures/` vs 專案 private evidence？ | open | 可 deferred | Owner：Phase 0 盤點；預設可重用去敏→workflow，專案證據→consumer |
-| Q5 | 商用授權核對掛哪個 phase？ | open | 可 deferred 至 Phase 0 清單 | **Phase 2 Gate 前**必須有授權檢查清單；缺清單不得宣告 Phase 2 完成 |
+| Q1 | 正式執行入口 | **resolved via A1** | 已解除 | 混合；CLI／skill 名稱 Phase 1 再定 |
+| Q2 | silhouette／灰階進通用核心？ | **pre-decided** | — | Consumer constraint only |
+| Q3 | 驗收視覺層 actor | **pre-decided（P0）** | — | 機械 + 人審 |
+| Q4 | 測試集存放 | **deferred + owner** | 已滿足 freeze 條件 | Staging＝plan `fixtures/`；canonical＝`workflow/image-processing/fixtures/`（Phase 1）；私有＝consumer。Owner：Phase 1 skeleton |
+| Q5 | 授權核對 | **deferred + owner** | 已滿足 freeze 條件 | Stub 在 [`08`](08-phase-0-freeze-invariants.md)；**完整清單 Phase 2 Gate 前必達**。Owner：Phase 2 prep |
 
-實作時禁止把 open 項偷偷當預設假設；僅上表 **pre-decided** 可當 freeze 不變條件。
-
-## Phase 0 Freeze Invariants（草案；確認 A1–A3 後釘死）
-
-1. 完成標準 = 符合 Image Task Contract，不是流程跑完。
-2. Constraint ≠ Selection；Execute ≠ Verify；`inconclusive` 合法。
-3. `fidelity` 以三維展開（[`02`](02-image-task-contract.md)）；禁止 `immutable=strict` 這種混用。
-4. Observed ≠ reproducible；Phase 0 Gate 要求可比較 reproducible 案例（[`01`](01-problem-baseline-and-scope.md)、[`07`](07-dogfood-baseline-el-dorado-cutout.md)）。
-5. Q2／Q3 預裁決如上；Q1 隨 A1；Q4／Q5 必須有 deferred owner 字串才可 freeze。
-6. 不建 Auto Orchestrator；不把 rembg 寫死成唯一真理；slot 對齊不進通用核心。
+權威 freeze 敘述：[`08`](08-phase-0-freeze-invariants.md)。
 
 ## Phases
 
-### Phase 0 — 盤點與問題基線
+### Phase 0 — 盤點與問題基線 — **FREEZE**
 
-- [ ] Stakeholder 確認 A1–A3；處理 Q 責任矩陣中的 freeze_blocker／deferred owner
-- [ ] 盤點現有圖片工具、臨時腳本、Skill、失敗案例（含 [`07`](07-dogfood-baseline-el-dorado-cutout.md)）
-- [ ] 建立最小可比較測試集目錄規劃（尚可不放大量二進位）
-- [ ] 將 ≥3 個測試集列從 candidate 升格為 `reproducible_case`（或註明阻礙）
-- [ ] Freeze invariants → `status: in-progress`
-- **Gate**（與 [`01`](01-problem-baseline-and-scope.md) 同構）：A1–A3 確認；≥5 observed 可歸類；≥3 reproducible 列齊；測試集路徑規劃；freeze invariants 已寫入
+- [x] Stakeholder 確認 A1–A3；Q1 隨 A1 resolved；Q4／Q5 有 deferred owner（[`08`](08-phase-0-freeze-invariants.md)）
+- [x] 盤點現有圖片工具、臨時腳本、Skill、失敗案例（[`01`](01-problem-baseline-and-scope.md)、[`07`](07-dogfood-baseline-el-dorado-cutout.md)）
+- [x] 建立最小可比較測試集目錄規劃（[`fixtures/README.md`](fixtures/README.md)）
+- [x] ≥3 個 `reproducible_case` 規格凍結（`PENDING_BINARY`；見 `fixtures/cases/`）
+- [x] Freeze invariants → `status: in-progress`
+- **Gate**：通過 — 見 [`01`](01-problem-baseline-and-scope.md)／[`08`](08-phase-0-freeze-invariants.md)
 
 ### Phase 1 — Image Task Contract + Decision Model（doc-only）
 

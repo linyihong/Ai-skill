@@ -40,15 +40,15 @@
 - 強制 ComfyUI／特定雲端 API
 - 把「對齊灰階 Sprite／臉軸」寫進通用核心（見 Q2：consumer constraint）
 
-## Phase 0 盤點清單（待填）
+## Phase 0 盤點清單
 
-| 項目 | 現況（草案） | 待補 |
+| 項目 | 現況 | 處置 |
 | --- | --- | --- |
-| 本機工具 | Pillow、NumPy、scipy、rembg（agent 臨時腳本） | 授權／版本／入口 CLI |
-| Ai-skill Skill | 無正式 image-processing skill | 不先建 Skill；先契約 |
+| 本機工具 | Pillow、NumPy、scipy、rembg（agent 臨時腳本；無統一 CLI） | Phase 1 契約不綁版本；授權見 [`08`](08-phase-0-freeze-invariants.md) Q5 stub |
+| Ai-skill Skill | 無正式 image-processing skill | **不先建 Skill**；先 `workflow/image-processing/` |
 | Prompt | 無標準 | 禁止以 Prompt 代替契約 |
-| 失敗案例 | El Dorado cutout（[`07`](07-dogfood-baseline-el-dorado-cutout.md)） | 再收 3–5 張去敏代表圖 |
-| 統一入口 | **無**（混合） | Q1 |
+| 失敗案例 | El Dorado cutout（[`07`](07-dogfood-baseline-el-dorado-cutout.md)）≥5 observed | 抽象 reproducible 規格在 [`fixtures/`](fixtures/README.md) |
+| 統一入口 | 混合（A1 已接受） | Q1 resolved；CLI／skill 名 Phase 1 再定 |
 
 ## 與現有治理的對照
 
@@ -69,12 +69,12 @@
 | `observed_failure` | 歷史真實失敗敘事（如 El Dorado 過程） | 可作問題基線與 taxonomy 種子；**不可**單獨證明後續改善 |
 | `reproducible_case` | 固定輸入 hash、固定契約摘要、期望 `failure_class`／必 fail 的 `check_id`、可重跑步驟 | **可**作比較基準與 Phase 2 負向／正回歸 |
 
-規則：observed 可升級為 reproducible，但兩者不得視為等價。細節與案例表見 [`07`](07-dogfood-baseline-el-dorado-cutout.md)。
+規則：observed 可升級為 reproducible，但兩者不得視為等價。案例規格：[`fixtures/`](fixtures/README.md)；敘事：[`07`](07-dogfood-baseline-el-dorado-cutout.md)。
 
-## Gate（Phase 0）— 與 `_plan.md` 同構
+## Gate（Phase 0）— **通過（2026-10-14 freeze）**
 
-- [ ] A1–A3 被接受或改寫；Q 責任矩陣中 **freeze_blocker** 項已裁決或有 deferred owner（見 `_plan.md`）
-- [ ] ≥5 個失敗可歸到 L1–L4／`failure_class`（可用 observed）
-- [ ] ≥3 個 `reproducible_case` 列齊：輸入 hash（或占位）、契約摘要、期望 fail check、重跑步驟（二進位可延後進目錄）
-- [ ] 測試集目錄規劃就位（路徑 + 案例表）
-- [ ] Freeze invariants 寫入 `_plan.md` → 才可 `status: in-progress`
+- [x] A1–A3 已接受；Q1 resolved；Q4／Q5 deferred + owner（[`08`](08-phase-0-freeze-invariants.md)）
+- [x] ≥5 個失敗可歸到 L1–L4／`failure_class`（[`07`](07-dogfood-baseline-el-dorado-cutout.md) observed 表）
+- [x] ≥3 個 `reproducible_case` 規格凍結（`illust-glow-halo`、`illust-interior-holes`、`neg.alpha-opaque`、另加 `neg.residue-halo`；hash=`PENDING_BINARY`）
+- [x] 測試集目錄規劃就位（[`fixtures/README.md`](fixtures/README.md)）
+- [x] Freeze invariants 寫入 [`08`](08-phase-0-freeze-invariants.md)；`_plan.md` → `status: in-progress`

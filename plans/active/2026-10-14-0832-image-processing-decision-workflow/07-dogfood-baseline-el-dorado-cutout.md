@@ -57,19 +57,21 @@
 5. **用生成式整圖重畫取代去背**
 6. **把業務對齊（臉軸／Sprite）寫死成通用去背步驟**
 
-## 建議納入 Phase 0 測試集（升格為 reproducible 的候選）
+## 測試集狀態（Phase 0 freeze）
 
-每列升級條件：固定去敏輸入 + content hash、契約摘要（含 fidelity 三維）、期望 `failure_class` 或必 fail `check_id`、重跑步驟一行。未填 hash 前仍屬 **候選**，不是可比較基準。
+規格權威：[`fixtures/README.md`](fixtures/README.md)。二進位仍可 `PENDING_BINARY`；**契約／期望／重跑步驟已凍結**者算 `reproducible_case`。
 
-| 案例 id | 特徵 | 期望壓力 | 輸入 hash | 契約摘要 | 必 fail／期望 | 狀態 |
-| --- | --- | --- | --- | --- | --- | --- |
-| `illust-hard-edge` | 插畫硬邊、高飽和 | 基礎 A（可正例） | TBD | TBD | verify 可 `accepted` 或列已知限制 | candidate |
-| `illust-glow-halo` | 自帶光暈底 | `edge_halo` | TBD | TBD | `residue.rim` fail 或對應 class | candidate |
-| `illust-interior-holes` | 牙縫／孔洞應保留 | `interior_damage` | TBD | TBD | interior／fidelity check | candidate |
-| `ui-overlay-text` | 圖上有 UI 線／字 | `text_overlay` | TBD | TBD | residue 或分析漏標 | candidate |
-| `soft-fringe` | 柔邊／半透明 | B 類預告 | TBD | TBD | 常為 `inconclusive` 除非有真值 | candidate |
+| 案例 id | 特徵 | 期望壓力 | 輸入 hash | 狀態 |
+| --- | --- | --- | --- | --- |
+| [`illust-glow-halo`](fixtures/cases/illust-glow-halo.md) | 自帶光暈底 | `edge_halo` | PENDING_BINARY | **reproducible_case**（spec_frozen） |
+| [`illust-interior-holes`](fixtures/cases/illust-interior-holes.md) | 牙縫／孔洞應保留 | `interior_damage` | PENDING_BINARY | **reproducible_case**（spec_frozen） |
+| [`neg.alpha-opaque`](fixtures/cases/neg.alpha-opaque.md) | 假透明 RGBA | `alpha_invalid` | PENDING_BINARY | **reproducible_case**（負向） |
+| [`neg.residue-halo`](fixtures/cases/neg.residue-halo.md) | 輸出仍有 rim | `edge_halo` | PENDING_BINARY | **reproducible_case**（負向） |
+| `illust-hard-edge` | 插畫硬邊 | 基礎 A 正例 | — | candidate（未升格） |
+| `ui-overlay-text` | UI 線／字 | `text_overlay` | — | candidate |
+| `soft-fringe` | 柔邊 | B 預告 | — | candidate |
 
-（實際像素另存；注意去敏與授權。El Dorado 原圖若無法去敏進 repo，保留為 observed，另造抽象 fixture。）
+El Dorado 原圖若無法去敏進 repo，保留為 **observed**（上表「觀察到的失敗」）；回歸用抽象／合成 fixture。
 
 ## 對本 plan 的含義
 
