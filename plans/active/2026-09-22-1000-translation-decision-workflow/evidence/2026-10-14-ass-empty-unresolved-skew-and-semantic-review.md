@@ -32,8 +32,10 @@
 
 ## 未完成
 
-- ASS／burn must emit timed placeholders for unresolved／empty text（or mark
-  exports as non-indexable）.
+- ~~ASS／burn must emit timed placeholders for unresolved／empty text~~ → product
+  landed（empty／unresolved keep timed Dialogue；wrong-script → empty slot not
+  delete）. Re-verify on next matrix／rebuild；REVIEW join still prefer
+  `source_index`／start.
 - Declared semantic assertions／glossary binding for high-churn surnames and
   FIL fillers.
 - Publish／layout Finality still open；no publish PASS from this dogfood.
