@@ -91,25 +91,37 @@ Companions：[`01`](01-problem-baseline-and-scope.md) · [`02`](02-image-task-co
 
 請 stakeholder 明確接受或改寫 A1–A3 後再 Phase 0 freeze。
 
-## Open Questions
+## Open Questions（責任矩陣）
 
-| # | 問題 | 狀態 |
-| --- | --- | --- |
-| Q1 | 正式執行入口：Ai-skill skill／本機 CLI／agent adapter／混合？ | open（草案 A1） |
-| Q2 | P0 是否包含「對齊外部 silhouette／灰階對照」（slot 特有）作為契約擴充？ | open — 建議作 **consumer constraint**，不塞進通用去背核心 |
-| Q3 | 驗收視覺層用何 actor（第二模型／人審／合成參考）？ | open — P0 至少機械層 + 人審 gate |
-| Q4 | 測試集存放：`workflow/image-processing/fixtures/` vs 專案 private evidence？ | open — 可重用去敏圖進 workflow；專案證據留 consumer |
-| Q5 | 商用授權核對流程掛哪個 phase？ | open — Phase 0 盤點列出；Phase 2 gate 前必須有授權檢查清單 |
+| # | 問題 | 狀態 | Freeze？ | 預裁決／延後 |
+| --- | --- | --- | --- | --- |
+| Q1 | 正式執行入口：Ai-skill skill／本機 CLI／agent adapter／混合？ | open（草案 A1） | **blocker**（隨 A1） | Stakeholder 確認 A1；未確認不得 freeze |
+| Q2 | P0 是否把「對齊外部 silhouette／灰階」塞進通用去背核心？ | **pre-decided** | 非 blocker | **Consumer constraint only**；不進通用 A 核心 |
+| Q3 | 驗收視覺層用何 actor？ | **pre-decided（P0）** | 非 blocker | P0 = **機械層 + 人審 gate**；第二模型／合成參考可 Phase 3+ |
+| Q4 | 測試集存放：`workflow/.../fixtures/` vs 專案 private evidence？ | open | 可 deferred | Owner：Phase 0 盤點；預設可重用去敏→workflow，專案證據→consumer |
+| Q5 | 商用授權核對掛哪個 phase？ | open | 可 deferred 至 Phase 0 清單 | **Phase 2 Gate 前**必須有授權檢查清單；缺清單不得宣告 Phase 2 完成 |
+
+實作時禁止把 open 項偷偷當預設假設；僅上表 **pre-decided** 可當 freeze 不變條件。
+
+## Phase 0 Freeze Invariants（草案；確認 A1–A3 後釘死）
+
+1. 完成標準 = 符合 Image Task Contract，不是流程跑完。
+2. Constraint ≠ Selection；Execute ≠ Verify；`inconclusive` 合法。
+3. `fidelity` 以三維展開（[`02`](02-image-task-contract.md)）；禁止 `immutable=strict` 這種混用。
+4. Observed ≠ reproducible；Phase 0 Gate 要求可比較 reproducible 案例（[`01`](01-problem-baseline-and-scope.md)、[`07`](07-dogfood-baseline-el-dorado-cutout.md)）。
+5. Q2／Q3 預裁決如上；Q1 隨 A1；Q4／Q5 必須有 deferred owner 字串才可 freeze。
+6. 不建 Auto Orchestrator；不把 rembg 寫死成唯一真理；slot 對齊不進通用核心。
 
 ## Phases
 
 ### Phase 0 — 盤點與問題基線
 
-- [ ] Stakeholder 確認 A1–A3／Q1–Q5
+- [ ] Stakeholder 確認 A1–A3；處理 Q 責任矩陣中的 freeze_blocker／deferred owner
 - [ ] 盤點現有圖片工具、臨時腳本、Skill、失敗案例（含 [`07`](07-dogfood-baseline-el-dorado-cutout.md)）
 - [ ] 建立最小可比較測試集目錄規劃（尚可不放大量二進位）
+- [ ] 將 ≥3 個測試集列從 candidate 升格為 `reproducible_case`（或註明阻礙）
 - [ ] Freeze invariants → `status: in-progress`
-- **Gate**：能重現主要失敗類，有基準案例與「錯誤層級」分類
+- **Gate**（與 [`01`](01-problem-baseline-and-scope.md) 同構）：A1–A3 確認；≥5 observed 可歸類；≥3 reproducible 列齊；測試集路徑規劃；freeze invariants 已寫入
 
 ### Phase 1 — Image Task Contract + Decision Model（doc-only）
 
@@ -123,7 +135,9 @@ Companions：[`01`](01-problem-baseline-and-scope.md) · [`02`](02-image-task-co
 - [ ] Input validation → analysis → candidate → mask/matte → assemble → verify → repair（有限次）
 - [ ] rembg（或當時基準候選）+ 確定性後處理作 **candidate**，非唯一路徑
 - [ ] Independent verification 產 `check_id`／`status`／`failure_class`／`repair_candidate`
-- **Gate**：代表性案例皆有可追溯驗收；失敗不被誤報成功
+- [ ] [`05`](05-independent-verification.md) 負向 fixture 矩陣至少跑通 `neg.alpha-opaque`、`neg.residue-halo`
+- [ ] Q5 授權檢查清單已存在
+- **Gate**：代表性案例可追溯驗收；負向 fixture 擋住假成功；失敗不被誤報成功
 
 ### Phase 3 — Dogfood + failure learning
 

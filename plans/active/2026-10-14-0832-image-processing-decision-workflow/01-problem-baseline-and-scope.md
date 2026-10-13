@@ -62,8 +62,19 @@
 | Failure learning → guards | 僅經覆核案例可升 registry |
 | Lazy loading | 只載入當前 task class 契約 |
 
-## Gate（Phase 0）
+## Observed vs reproducible（證據分級）
 
-- [ ] A1–A3 假設被接受或改寫
-- [ ] 至少 5 個失敗可歸到 L1–L4／failure_class
-- [ ] 測試集規劃就位（路徑 + 案例表；二進位可延後）
+| 種類 | 含義 | 可否當 Phase 0／回歸基準 |
+| --- | --- | --- |
+| `observed_failure` | 歷史真實失敗敘事（如 El Dorado 過程） | 可作問題基線與 taxonomy 種子；**不可**單獨證明後續改善 |
+| `reproducible_case` | 固定輸入 hash、固定契約摘要、期望 `failure_class`／必 fail 的 `check_id`、可重跑步驟 | **可**作比較基準與 Phase 2 負向／正回歸 |
+
+規則：observed 可升級為 reproducible，但兩者不得視為等價。細節與案例表見 [`07`](07-dogfood-baseline-el-dorado-cutout.md)。
+
+## Gate（Phase 0）— 與 `_plan.md` 同構
+
+- [ ] A1–A3 被接受或改寫；Q 責任矩陣中 **freeze_blocker** 項已裁決或有 deferred owner（見 `_plan.md`）
+- [ ] ≥5 個失敗可歸到 L1–L4／`failure_class`（可用 observed）
+- [ ] ≥3 個 `reproducible_case` 列齊：輸入 hash（或占位）、契約摘要、期望 fail check、重跑步驟（二進位可延後進目錄）
+- [ ] 測試集目錄規劃就位（路徑 + 案例表）
+- [ ] Freeze invariants 寫入 `_plan.md` → 才可 `status: in-progress`

@@ -11,6 +11,8 @@
 
 本檔是 **Phase 0 問題基線**，不是「已通過的去背工作流證據」。
 
+**證據分級**：下方「觀察到的失敗」= `observed_failure`（歷史）。「建議納入測試集」列若補齊 hash／契約／期望 check 後才升為 `reproducible_case`。兩者不可直接等價（見 [`01`](01-problem-baseline-and-scope.md)）。
+
 ## 契約若當時寫清楚，應長怎樣
 
 | 欄位 | 實際需要 |
@@ -19,7 +21,7 @@
 | `background` | transparent |
 | `immutable` | 臉／牙／羽／寶石細節；禁止生成式重畫 |
 | `consumer_profile` | `slot-symbol`：328²、face-axis、可選 Sprite silhouette |
-| `fidelity` | strict（前景） |
+| `fidelity` | preset `strict` → `subject_structure/color=preserve` + `edge_treatment=rim_decontaminate`（見 [`02`](02-image-task-contract.md)） |
 
 當時缺失：沒有獨立 verify；沒有 failure_class；repair 靠同一腳本加參數。
 
@@ -55,17 +57,19 @@
 5. **用生成式整圖重畫取代去背**
 6. **把業務對齊（臉軸／Sprite）寫死成通用去背步驟**
 
-## 建議納入 Phase 0 測試集的抽象案例
+## 建議納入 Phase 0 測試集（升格為 reproducible 的候選）
 
-| 案例 id | 特徵 | 期望壓力 |
-| --- | --- | --- |
-| `illust-hard-edge` | 插畫硬邊、高飽和 | 基礎 A |
-| `illust-glow-halo` | 自帶光暈底 | `edge_halo` |
-| `illust-interior-holes` | 牙縫／孔洞應保留 | `interior_damage` |
-| `ui-overlay-text` | 圖上有 UI 線／字 | `text_overlay` |
-| `soft-fringe` | 柔邊／半透明 | B 類預告 |
+每列升級條件：固定去敏輸入 + content hash、契約摘要（含 fidelity 三維）、期望 `failure_class` 或必 fail `check_id`、重跑步驟一行。未填 hash 前仍屬 **候選**，不是可比較基準。
 
-（實際像素另存；注意去敏與授權。）
+| 案例 id | 特徵 | 期望壓力 | 輸入 hash | 契約摘要 | 必 fail／期望 | 狀態 |
+| --- | --- | --- | --- | --- | --- | --- |
+| `illust-hard-edge` | 插畫硬邊、高飽和 | 基礎 A（可正例） | TBD | TBD | verify 可 `accepted` 或列已知限制 | candidate |
+| `illust-glow-halo` | 自帶光暈底 | `edge_halo` | TBD | TBD | `residue.rim` fail 或對應 class | candidate |
+| `illust-interior-holes` | 牙縫／孔洞應保留 | `interior_damage` | TBD | TBD | interior／fidelity check | candidate |
+| `ui-overlay-text` | 圖上有 UI 線／字 | `text_overlay` | TBD | TBD | residue 或分析漏標 | candidate |
+| `soft-fringe` | 柔邊／半透明 | B 類預告 | TBD | TBD | 常為 `inconclusive` 除非有真值 | candidate |
+
+（實際像素另存；注意去敏與授權。El Dorado 原圖若無法去敏進 repo，保留為 observed，另造抽象 fixture。）
 
 ## 對本 plan 的含義
 
