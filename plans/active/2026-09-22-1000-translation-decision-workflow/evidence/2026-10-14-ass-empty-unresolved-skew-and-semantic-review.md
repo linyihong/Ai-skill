@@ -59,3 +59,9 @@
 - Expand offline pinyin map; registry vocative for reduplicated kinship address;
   surname+总 structured title; projection seeds structured address before unresolved.
 - Long Name+title+predicate cues still need MT (not seeded).
+
+## Follow-up: Name+title+short predicate
+
+- Longest-title split avoids 西奈小+姐 misparse.
+- Short predicate table seeds 你受伤了 / 我敬你一个 after locale address head.
+- Remaining empties without address+table shape still need MT re-projection.
