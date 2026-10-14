@@ -40,3 +40,10 @@
   + acquisition admission.
 - Sibling：`2026-10-14-ass-empty-unresolved-skew-and-semantic-review.md`
 - Product episode tables stay under `<PROJECT_ROOT>` analysis only.
+
+## Follow-up (same day)
+
+- Offline locale reproject: drop orphan numeral locales, pad missing ZH starts
+  as unresolved empties; ASS Dialogue residual vs ZH cleared on dogfood pack.
+- Product helper `align_timed_cues_to_zh_pivot` + matrix rewrite-before-burn.
+- Dirty surname pack: 陆* `Liu`→`Lu` reapplied (table already present).
