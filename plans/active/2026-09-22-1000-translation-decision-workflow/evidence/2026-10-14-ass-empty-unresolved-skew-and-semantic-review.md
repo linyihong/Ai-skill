@@ -38,8 +38,11 @@
   `source_index`／start.
 - ~~Surname romanization consistency（陆→Lu vs Liu）~~ → product mechanical
   repair from ZH name span + pinyin confusion table（Latin-script targets）.
-  Expand table as new confusions appear；FIL filler semantics still open.
-- Declared semantic assertions for FIL fillers（好不好／脏了 polarity）still open.
+  Expand table as new confusions appear.
+- ~~FIL filler／state seed polarity（好不好／脏了／听话）~~ → product
+  `mechanical_fil_phrase_polarity`（fil／tl）；see
+  `2026-10-14-fil-phrase-polarity-mechanical.md`. Table-external／declared
+  assertions and pack rebuild still open.
 - Publish／layout Finality still open；no publish PASS from this dogfood.
 
 ## 連動
