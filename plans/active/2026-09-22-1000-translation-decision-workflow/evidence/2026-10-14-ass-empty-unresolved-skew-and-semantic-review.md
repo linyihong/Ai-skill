@@ -52,3 +52,10 @@
 - Prior evidence：`2026-10-13-locale-projection-and-selection-leak.md`（1:1 cache
   policy；honorific drop still open → partially narrowed by Latin soften）
 - Product episode tables stay under `<PROJECT_ROOT>` analysis only.
+
+## Follow-up: short address empty slots
+
+- Runtime without pypinyin left given names as CJK → locale gate emptied packs.
+- Expand offline pinyin map; registry vocative for reduplicated kinship address;
+  surname+总 structured title; projection seeds structured address before unresolved.
+- Long Name+title+predicate cues still need MT (not seeded).
