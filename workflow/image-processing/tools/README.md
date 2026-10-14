@@ -10,9 +10,10 @@
 | [`run_rembg_candidate.py`](run_rembg_candidate.py) | `seg.generic`←rembg + IDR（可選依賴） |
 | [`run_phase2_gate.py`](run_phase2_gate.py) | 最少負向（opaque／halo） |
 | [`run_phase3_gate.py`](run_phase3_gate.py) | 五類負向 + rembg dogfood |
+| [`run_phase4_gate.py`](run_phase4_gate.py) | B／C／D fragments + D canvas pos／neg |
 
 ```text
-python3 workflow/image-processing/tools/run_phase3_gate.py --repo <AI_SKILL_REPO>
+python3 workflow/image-processing/tools/run_phase4_gate.py --repo <AI_SKILL_REPO>
 ```
 
 依賴：Pillow（必要）；rembg（Phase 3 dogfood）。授權見 [`../adapters/license-checklist.md`](../adapters/license-checklist.md)。

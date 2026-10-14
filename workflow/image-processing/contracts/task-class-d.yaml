@@ -1,0 +1,41 @@
+schema_version: artifact-record/v1
+id: image-processing.task-class-d
+status: draft
+runtime_projection:
+  enabled: false
+  reason: Phase 4 fragment；lazy-load on primary task_class=D；未接 runtime
+
+record: task_class_d_fragment
+extends: image-processing.image-task-contract
+purpose: >
+  Deterministic pixel ops — size, format, color space, canvas place.
+  Often paired with A (cutout then place). Consumer profile constraints attach here.
+
+when:
+  primary_task_class: D
+  or_secondary: true
+
+additional_required_or_from_profile:
+  output.size_policy: { type: text }
+  consumer_profile.canvas: { type: list, example: [328, 328] }
+
+feasible_bias:
+  prefer: [post.deterministic]
+  typically_exclude: [gen.edit, seg.generic]
+  note: When A+D composite, seg.* comes from A primary; D only adds post.deterministic
+
+acceptance:
+  hard:
+    - consumer.canvas  # when profile declares canvas
+    - file_validity
+  optional_hard:
+    - color_space_match
+    - no_unauthorized_rescale  # if allow_rescale=false
+
+fixtures:
+  negative: fixtures/inputs/neg.consumer-layout.png
+  positive: fixtures/inputs/pos.d-canvas-328.png
+
+notes:
+  - Shared lifecycle steps 0–9 unchanged.
+  - Slot face-axis / silhouette remain consumer-only; not D core.

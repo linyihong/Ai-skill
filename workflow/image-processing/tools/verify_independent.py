@@ -267,6 +267,7 @@ PROFILE_CHECKS = {
     "neg.interior-damage": ["alpha", "interior"],
     "neg.over-erode": ["alpha", "area"],
     "neg.consumer-layout": ["alpha", "consumer"],
+    "pos.d-canvas-328": ["alpha", "consumer"],
     "default": ["alpha", "residue"],
 }
 

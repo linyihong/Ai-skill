@@ -23,19 +23,28 @@ classes:
       - hair_and_semitransparent_detail
       - natural_edges
       - no_subject_damage
+    contract_fragment: contracts/task-class-b.yaml
   - id: C
     name: restore_and_content_edit
     priority: P2
     acceptance_focus:
       - edit_region_correct
       - unauthorized_region_fidelity
-    note: not expanded while P0 unstable
+    contract_fragment: contracts/task-class-c.yaml
   - id: D
     name: deterministic_pixel_ops
     priority: P1
     acceptance_focus:
       - size_format_color_space_coords
+    contract_fragment: contracts/task-class-d.yaml
+
+fragment_index:
+  A: null  # core image-task-contract covers A
+  B: contracts/task-class-b.yaml
+  C: contracts/task-class-c.yaml
+  D: contracts/task-class-d.yaml
 
 notes:
   - Multi-label allowed; require primary task_class.
   - Consumer profiles (e.g. slot-symbol) attach as constraints, not new core classes.
+  - Phase 4 fragments lazy-load; execution-flow lifecycle unchanged.

@@ -1,0 +1,47 @@
+schema_version: artifact-record/v1
+id: image-processing.task-class-b
+status: draft
+runtime_projection:
+  enabled: false
+  reason: Phase 4 fragment；lazy-load on primary task_class=B；未接 runtime
+
+record: task_class_b_fragment
+extends: image-processing.image-task-contract
+purpose: >
+  Fine mask and local edge repair (hair / semitransparent / soft fringe).
+  Does not replace the shared decision loop — only adds constraints and checks.
+
+when:
+  primary_task_class: B
+
+additional_required_or_default:
+  fidelity.edge_treatment:
+    preferred: [matte_refine, rim_decontaminate]
+    forbid_default: none
+  risk_flags_expected:
+    - hair
+    - soft_edge
+    - semitransparent
+
+feasible_bias:
+  prefer: [seg.portrait_matting, post.mask_fix, post.decontaminate]
+  still_exclude_unless_authorized: [gen.edit]
+
+acceptance:
+  hard:
+    - alpha.present
+    - alpha.not_fully_opaque
+    - fidelity.interior  # when source ref available
+  soft_or_review:
+    - edge_quality_visual
+    - hair_detail_human_review
+  must_inconclusive_without_gt:
+    - soft_fringe_quality_score_alone
+
+fixtures:
+  positive_proxy: fixtures/dogfood/sources/dogfood.soft-fringe.png
+  negative_related: fixtures/inputs/neg.over-erode.png
+
+notes:
+  - Soft fringe without ground truth → often accepted_with_review, not hard accepted.
+  - Shared lifecycle steps 0–9 unchanged.

@@ -3,9 +3,10 @@
 `workflow/image-processing/` 是 **cross-cutting governed image processing decision** capability：
 Input Contract → Analysis → Constraints → Feasible Candidates → Selection → Execute → Independent Verify → Repair → IDR Closeout。
 
-> **狀態**：Phase 1 doc-only（plan [`2026-10-14-0832`](../../plans/active/2026-10-14-0832-image-processing-decision-workflow/_plan.md)）。
+> **狀態**：Phase 0–4 landed（plan [`2026-10-14-0832`](../../plans/active/2026-10-14-0832-image-processing-decision-workflow/_plan.md)）。
 > **沒有** `route.workflow.image-processing`；YAML `runtime_projection.enabled: false`。
 > 工具名（如 rembg）只出現在 candidate registry／adapter，**不**寫進 canonical lifecycle 步驟。
+> B／C／D：[`contracts/task-class-*.yaml`](contracts/) lazy-load（step `0b`）。
 
 ## 一句話責任邊界
 
@@ -41,7 +42,9 @@ Input Contract → Analysis → Constraints → Feasible Candidates → Selectio
 | --- | --- |
 | Lifecycle | [`execution-flow.md`](execution-flow.md) |
 | Task contract | [`contracts/image-task-contract.yaml`](contracts/image-task-contract.yaml) |
+| Class B／C／D | [`task-class-b.yaml`](contracts/task-class-b.yaml) · [`c`](contracts/task-class-c.yaml) · [`d`](contracts/task-class-d.yaml) |
 | Decision record | [`contracts/image-decision-record.yaml`](contracts/image-decision-record.yaml) |
+
 | Verification | [`contracts/verification.yaml`](contracts/verification.yaml) |
 | Finality | [`contracts/finality.yaml`](contracts/finality.yaml) |
 | Task classes | [`registry/task-classes.yaml`](registry/task-classes.yaml) |
@@ -56,6 +59,7 @@ Input Contract → Analysis → Constraints → Feasible Candidates → Selectio
 ```text
 python3 workflow/image-processing/tools/run_phase2_gate.py --repo <AI_SKILL_REPO>
 python3 workflow/image-processing/tools/run_phase3_gate.py --repo <AI_SKILL_REPO>
+python3 workflow/image-processing/tools/run_phase4_gate.py --repo <AI_SKILL_REPO>
 ```
 
 ## 明確不做（Phase 1–2）

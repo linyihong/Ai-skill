@@ -76,6 +76,16 @@ def make_consumer_layout(size: int = 64) -> Image.Image:
     return img
 
 
+def make_pos_d_canvas(size: int = 328) -> Image.Image:
+    """Deterministic D positive: correct canvas + true transparency."""
+    img = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(img)
+    cx = cy = size // 2
+    r = 90
+    draw.ellipse((cx - r, cy - r, cx + r, cy + r), fill=(210, 170, 70, 255))
+    return img
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--out-dir", type=Path, default=None)
@@ -96,6 +106,7 @@ def main() -> int:
         "neg.alpha-opaque": make_alpha_opaque,
         "neg.residue-halo": make_residue_halo,
         "neg.consumer-layout": make_consumer_layout,
+        "pos.d-canvas-328": make_pos_d_canvas,
     }
     for name, factory in simple.items():
         path = out_dir / f"{name}.png"
@@ -112,18 +123,19 @@ def main() -> int:
     manifest["neg.over-erode"] = write_png(out_dir / "neg.over-erode.png", eroded)
     print(f"wrote over-erode pair sha256={manifest['neg.over-erode']}")
 
-    # Consumer expectation sidecar
-    (out_dir / "neg.consumer-layout.profile.json").write_text(
-        json.dumps(
-            {
-                "consumer_profile": "slot-symbol",
-                "canvas": [328, 328],
-            },
-            indent=2,
+    # Consumer expectation sidecars (neg wrong size; pos correct size)
+    for stem in ("neg.consumer-layout", "pos.d-canvas-328"):
+        (out_dir / f"{stem}.profile.json").write_text(
+            json.dumps(
+                {
+                    "consumer_profile": "slot-symbol",
+                    "canvas": [328, 328],
+                },
+                indent=2,
+            )
+            + "\n",
+            encoding="utf-8",
         )
-        + "\n",
-        encoding="utf-8",
-    )
 
     manifest_path = out_dir / "manifest.json"
     manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")

@@ -1,0 +1,10 @@
+{
+  "gate": "phase4.bcd_fragments",
+  "fragments": [
+    "contracts/task-class-b.yaml",
+    "contracts/task-class-c.yaml",
+    "contracts/task-class-d.yaml"
+  ],
+  "passed": true,
+  "d_pos_finality": "accepted"
+}

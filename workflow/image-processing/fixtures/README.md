@@ -29,6 +29,7 @@ fixtures/
 | `neg.interior-damage` | [`inputs/neg.interior-damage.png`](inputs/neg.interior-damage.png) + [`inputs/refs/`](inputs/refs/) | Interior punched |
 | `neg.over-erode` | [`inputs/neg.over-erode.png`](inputs/neg.over-erode.png) + ref | Subject over-eroded |
 | `neg.consumer-layout` | [`inputs/neg.consumer-layout.png`](inputs/neg.consumer-layout.png) | Wrong canvas vs profile |
+| `pos.d-canvas-328` | [`inputs/pos.d-canvas-328.png`](inputs/pos.d-canvas-328.png) | D positive：328² + true alpha |
 
 ## Dogfood（synthetic proxies）
 

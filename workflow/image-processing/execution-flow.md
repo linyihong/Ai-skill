@@ -6,9 +6,10 @@ Canonical lifecycle。欄位 SoT 在 [`contracts/`](contracts/)。**不要**寫 
 
 ```text
 0. Bind Image Task Contract     → intent + background + fidelity 三維 + immutable
+   0b. Lazy-load task-class fragment (B/C/D) if primary ≠ A-only
 1. Input Validation             → decode、EXIF、content hash；缺背景意圖 → ask
 2. Image Task Analysis          → subject_count / edge_type / risk_flags / confidence
-3. Apply Constraints            → contract + consumer_profile + license → Feasible Candidates
+3. Apply Constraints            → contract + fragment + consumer_profile + license → Feasible Candidates
 4. Selection Policy             → 在可行集內選 candidate 組合；寫入 IDR
 5. Execute (adapter)            → mask/matte/assemble；產出輸出 + 預覽（預覽≠證據）
 6. Independent Verify           → check_id / status / failure_class / hardness
@@ -18,6 +19,8 @@ Canonical lifecycle。欄位 SoT 在 [`contracts/`](contracts/)。**不要**寫 
 ```
 
 分析結果是 **路由依據**，不是不可推翻真相。低信心 → ask／human_review。
+
+**Phase 4**：步驟編號與主鏈不變；B／C／D 只透過 `0b` 載入 [`contracts/task-class-*.yaml`](contracts/) 與 registry `task_class_load`，禁止另開平行 pipeline。
 
 ## 責任分離
 

@@ -10,7 +10,7 @@ parent: null
 
 # Image Processing Decision Workflow（`workflow/image-processing/`）
 
-**Status**: in-progress — **Phase 0 freeze**（2026-10-14；見 [`08`](08-phase-0-freeze-invariants.md)）。下一階段：Phase 1 doc-only 骨架。
+**Status**: in-progress — Phase 0–4 landed（2026-10-14）。Runtime route／ADR 仍 deferred；可選 follow-up：真實照片 dogfood、archive。
 
 **Glossary Impact**: yes — 候選詞 `image_task_contract`、`image_decision_record`（IDR）、`feasible_candidates`、`selection_policy`、`independent_image_verification`、`failure_class`、`repair_candidate`。Phase 1 前不登記 glossary。
 
@@ -47,7 +47,7 @@ parent: null
 6. **工具選型不在 Phase 0 定死**：rembg 可作基準候選，非唯一真理。
 7. **不先建 Auto Orchestrator／全能圖片 Agent**。
 
-Companions：[`01`](01-problem-baseline-and-scope.md) · [`02`](02-image-task-contract.md) · [`03`](03-decision-model-and-selection.md) · [`04`](04-bg-removal-vertical-slice.md) · [`05`](05-independent-verification.md) · [`06`](06-failure-taxonomy-and-repair.md) · [`07`](07-dogfood-baseline-el-dorado-cutout.md) · [`08`](08-phase-0-freeze-invariants.md) · [`09`](09-static-walkthrough.md) · [`10`](10-phase2-vertical-slice.md) · [`11`](11-phase3-dogfood.md) · [`fixtures/`](fixtures/README.md) · [`evidence/`](evidence/README.md)。
+Companions：[`01`](01-problem-baseline-and-scope.md) · [`02`](02-image-task-contract.md) · [`03`](03-decision-model-and-selection.md) · [`04`](04-bg-removal-vertical-slice.md) · [`05`](05-independent-verification.md) · [`06`](06-failure-taxonomy-and-repair.md) · [`07`](07-dogfood-baseline-el-dorado-cutout.md) · [`08`](08-phase-0-freeze-invariants.md) · [`09`](09-static-walkthrough.md) · [`10`](10-phase2-vertical-slice.md) · [`11`](11-phase3-dogfood.md) · [`12`](12-phase4-bcd-fragments.md) · [`fixtures/`](fixtures/README.md) · [`evidence/`](evidence/README.md)。
 
 Primary workflow source（Phase 1+）：[`workflow/image-processing/`](../../../workflow/image-processing/README.md)。
 
@@ -149,10 +149,12 @@ Primary workflow source（Phase 1+）：[`workflow/image-processing/`](../../../
 - **Gate**：通過 — `run_phase3_gate.py`；證據在 `evidence/` + `fixtures/reports/phase3-gate-latest.json`
 - Follow-up（可選）：consumer 真實照片／El Dorado 去敏圖另開 evidence run
 
-### Phase 4 — 擴充 B／C／D（按需）
+### Phase 4 — 擴充 B／C／D（按需）— **DONE**
 
-- [ ] 每個新任務類型：獨立契約片段 + fixtures + 驗收標準
-- **Gate**：共用 decision loop 不需重寫；只加 registry／adapter
+- [x] B／C／D 契約片段 + fixtures／驗收（[`12`](12-phase4-bcd-fragments.md)）
+- [x] registry `fragment_index`／`task_class_load` + adapter notes
+- [x] 共用 loop 僅加 `0b` lazy-load；未開平行 pipeline
+- **Gate**：通過 — `run_phase4_gate.py`；報告 `fixtures/reports/phase4-gate-latest.json`
 
 ## Non-goals（Phase 0–2）
 

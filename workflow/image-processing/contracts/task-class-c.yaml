@@ -1,0 +1,50 @@
+schema_version: artifact-record/v1
+id: image-processing.task-class-c
+status: draft
+runtime_projection:
+  enabled: false
+  reason: Phase 4 fragment；lazy-load on primary task_class=C；未接 runtime
+
+record: task_class_c_fragment
+extends: image-processing.image-task-contract
+purpose: >
+  Restore / content edit in an authorized region only. Unauthorized pixels
+  must remain fidelity-preserving.
+
+when:
+  primary_task_class: C
+
+additional_required:
+  edit_region:
+    type: object
+    fields:
+      kind: { type: enum, values: [bbox, mask_path, polygon] }
+      value: { type: text }
+  fidelity.preset:
+    note: allow_local_edit required for gen.edit; else abort generative path
+
+feasible_bias:
+  prefer: [gen.edit, post.deterministic]
+  require_for_gen_edit:
+    - edit_region_present
+    - fidelity_allow_local_edit_or_explicit_waiver
+
+acceptance:
+  hard:
+    - fidelity.unauthorized_region_unchanged  # vs source outside edit_region
+    - edit_region_touched_or_documented_noop
+  soft_or_review:
+    - edit_semantics_human_review
+
+fixtures:
+  # Spec-only until synthetic edit pair is needed; negative pattern reuses fidelity
+  negative_related: fixtures/inputs/neg.interior-damage.png
+  note: interior punch stands in for unauthorized-region damage pattern
+
+forbidden:
+  - whole_image_regenerate_as_default_cutout
+  - gen.edit_without_edit_region
+
+notes:
+  - Shared lifecycle steps 0–9 unchanged.
+  - C remains opt-in; not required for A-class dogfood.

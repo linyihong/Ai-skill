@@ -6,6 +6,7 @@ Canonical lifecycle stays in [`../execution-flow.md`](../execution-flow.md)；�
 | Adapter | Owns | Does not own |
 | --- | --- | --- |
 | [`bg-removal-vertical-slice.md`](bg-removal-vertical-slice.md) | A 類最小閉環步驟、本機 Python 基準候選綁定 | 通用契約欄位、finality 規則 |
+| [`task-class-fragments.md`](task-class-fragments.md) | B／C／D fragment 載入與候選偏置 | 第二套 lifecycle |
 | [`license-checklist.md`](license-checklist.md) | Q5 商用／開源授權核對 | 法律意見本身 |
 | [`../tools/`](../tools/README.md) | Independent verify + fixture 生成（機械） | Selection 決策、人審語意 |
 

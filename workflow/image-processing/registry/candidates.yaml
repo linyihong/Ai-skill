@@ -35,9 +35,25 @@ candidates:
   - id: gen.edit
     role: generative_local_edit
     default_feasible: false
+    task_classes: [C]
     requires_contract:
       fidelity_preset: allow_local_edit
       or_authorized_edit_region: true
+  - id: post.matte_refine
+    role: soft_edge_refine
+    task_classes: [B]
+    signals: [hair, soft_edge, semitransparent]
+  - id: post.canvas_place
+    role: deterministic_place
+    task_classes: [D]
+    signals: [fixed_canvas, slot-symbol]
+    notes: alias family of post.deterministic for canvas/profile place
+
+task_class_load:
+  A: [seg.generic, seg.interactive, post.decontaminate, post.mask_fix]
+  B: [seg.portrait_matting, post.matte_refine, post.mask_fix, post.decontaminate]
+  C: [gen.edit, post.deterministic]
+  D: [post.deterministic, post.canvas_place]
 
 constraint_examples:
   - fidelity_subject_preserve: exclude gen.edit
