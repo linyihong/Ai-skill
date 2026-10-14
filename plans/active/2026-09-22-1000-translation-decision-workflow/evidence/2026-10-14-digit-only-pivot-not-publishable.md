@@ -20,10 +20,15 @@
   did not，so MT invented number words and ASS length skewed vs locales.
 - Product landed shared `is_digit_only_layout_crumb` + fuse／hardsub gates with
   unit locks for crumb I21 and fuse drop／keep-when-ASR-matches.
+- Force re-acq showed fuse drops numerals，but **resolution_loss re-probe**
+  reintroduced them onto publishable cues → product demote-on-write
+  （OCR-only digit pivots → rejected）verified offline：cues 40→38，digitish empty.
+- Sibling ASS empty-slot rebuild on another episode：locale ASS length matched
+  pivot including one timed empty unresolved slot（43＝43）.
 
 ## 未完成
 
-- Force re-acquire of affected episodes to shrink publishable cue lists.
+- Optional full locale re-projection of demoted episodes.
 - Broader numeral phrases（第三课）stay dialogue when non-numeral CJK present.
 - Publish／layout Finality still open.
 
