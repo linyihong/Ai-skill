@@ -65,3 +65,9 @@
 - Longest-title split avoids 西奈小+姐 misparse.
 - Short predicate table seeds 你受伤了 / 我敬你一个 after locale address head.
 - Remaining empties without address+table shape still need MT re-projection.
+
+## Follow-up: Thai proper-name Latin islands
+
+- TH latin_leftover emptied cues that keep Title-Case names while Thai dominates.
+- Soften: ignore Title-Case name islands in leftover/ratio when Thai script leads.
+- Dogfood empties cleared offline; still REVIEW, not publish Finality.
