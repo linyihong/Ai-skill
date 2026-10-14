@@ -134,10 +134,10 @@ Primary workflow source（Phase 1+）：[`workflow/image-processing/`](../../../
 
 - [x] Loop 文件化於 adapter [`bg-removal-vertical-slice.md`](../../../workflow/image-processing/adapters/bg-removal-vertical-slice.md)（validate→…→verify→repair）
 - [x] `seg.generic` 可選綁 rembg；Gate **不**強制 rembg（非唯一路徑；見 registry／license）
-- [x] Independent verification：[`tools/verify_independent.py`](../../../workflow/image-processing/tools/verify_independent.py)
+- [x] Independent verification：`ai-skill image-processing verify`（見 [`tools/README.md`](../../../workflow/image-processing/tools/README.md)）
 - [x] 負向 fixture 跑通：`neg.alpha-opaque`、`neg.residue-halo`（[`10`](10-phase2-vertical-slice.md)）
 - [x] Q5 授權檢查清單：[`license-checklist.md`](../../../workflow/image-processing/adapters/license-checklist.md)
-- **Gate**：通過 — `python3 workflow/image-processing/tools/run_phase2_gate.py` exit 0；報告 `fixtures/reports/phase2-gate-latest.json`
+- **Gate（歷史）**：通過 — 當時 `run_phase2_gate.py`；報告 `fixtures/reports/phase2-gate-latest.json`。**現行方法**：Go CLI `image-processing verify --expect-block`（Python phase gate 已刪）
 - Deferred 已於 Phase 3 吸收：擴充負向 + rembg 合成 dogfood
 
 ### Phase 3 — Dogfood + failure learning — **DONE（合成代理 + rembg）**
@@ -146,7 +146,7 @@ Primary workflow source（Phase 1+）：[`workflow/image-processing/`](../../../
 - [x] rembg `seg.generic` dogfood + IDR；候選比較見 [`11`](11-phase3-dogfood.md)／[`evidence/2026-10-14-phase3-synthetic-dogfood.md`](evidence/2026-10-14-phase3-synthetic-dogfood.md)
 - [x] 五類負向挡住（含 interior／over-erode／consumer-layout）
 - [x] 人工覆核前 **不**升級 guard（IDR notes + evidence 明示）
-- **Gate**：通過 — `run_phase3_gate.py`；證據在 `evidence/` + `fixtures/reports/phase3-gate-latest.json`
+- **Gate（歷史）**：通過 — 當時 `run_phase3_gate.py`；證據在 `evidence/` + `fixtures/reports/phase3-gate-latest.json`。**現行**：組裝 `image-processing verify` methods
 - Follow-up（可選）：consumer 真實照片／El Dorado 去敏圖另開 evidence run
 
 ### Phase 4 — 擴充 B／C／D（按需）— **DONE**
@@ -154,7 +154,7 @@ Primary workflow source（Phase 1+）：[`workflow/image-processing/`](../../../
 - [x] B／C／D 契約片段 + fixtures／驗收（[`12`](12-phase4-bcd-fragments.md)）
 - [x] registry `fragment_index`／`task_class_load` + adapter notes
 - [x] 共用 loop 僅加 `0b` lazy-load；未開平行 pipeline
-- **Gate**：通過 — `run_phase4_gate.py`；報告 `fixtures/reports/phase4-gate-latest.json`
+- **Gate（歷史）**：通過 — 當時 `run_phase4_gate.py`；報告 `fixtures/reports/phase4-gate-latest.json`。**現行**：Go methods only；不再提交 phase gate 腳本
 
 ## Non-goals（Phase 0–2）
 

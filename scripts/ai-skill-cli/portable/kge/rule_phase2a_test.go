@@ -522,12 +522,20 @@ func TestNoNewShellScriptsRule(t *testing.T) {
 		AddedPaths: []string{"scripts/foo.sh", "scripts/bar.go"},
 		Provided:   map[CapabilityID]bool{CapCommitMsg: true, CapAddedPaths: true},
 	}
-	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "no_new_shell_scripts" {
-		t.Fatalf("want shell block, got %#v", got)
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "no_new_non_go_scripts" {
+		t.Fatalf("want non-go script block, got %#v", got)
 	}
-	ctx.AddedPaths = []string{"scripts/existing.go"}
+	ctx.AddedPaths = []string{"workflow/image-processing/tools/x.py"}
+	if got := eng.Run(ctx); len(got) != 1 || got[0].Code != "no_new_non_go_scripts" {
+		t.Fatalf("want .py block, got %#v", got)
+	}
+	ctx.AddedPaths = []string{"scripts/helper.rb", "tools/a.js"}
+	if got := eng.Run(ctx); len(got) != 1 {
+		t.Fatalf("want multi non-go block, got %#v", got)
+	}
+	ctx.AddedPaths = []string{"scripts/existing.go", "docs/x.md", "runtime/y.yaml"}
 	if got := eng.Run(ctx); len(got) != 0 {
-		t.Fatalf("want no .sh pass, got %#v", got)
+		t.Fatalf("want go/docs/yaml pass, got %#v", got)
 	}
 	ctx.AddedPaths = []string{"scripts/foo.sh"}
 	ctx.CommitMsg = "feat: x\n\n[skip-go-migration]\n"

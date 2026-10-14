@@ -7,9 +7,11 @@
 
 ## Go-first script policy
 
-新增 automation 預設必須進 [`ai-skill-cli/`](ai-skill-cli/README.md) 的 Go CLI；不要再新增長期 `.sh`、`.rb` 或 `.py` 入口。Shell 只允許作為 Git hook adapter 或轉呼叫 repo-local `ai-skill` binary 的 thin bootstrap wrapper。
+新增 automation 預設必須進 [`ai-skill-cli/`](ai-skill-cli/README.md) 的 Go CLI；不要再新增長期 `.sh`、`.rb`、`.py`、`.js` 等腳本入口。Shell 只允許作為 Git hook adapter 或轉呼叫 repo-local `ai-skill` binary 的 thin bootstrap wrapper。
 
-已完成 parity 的 shell 入口必須刪除；新功能先做成 Go command，再補 fixture、文件與 release gate。
+**機械鎖（pre-commit）**：`validateNoNewShellScripts`（KGE `NoNewShellScriptsRule`）擋下 staged **Added** 的非 Go 腳本 extension（`.sh/.bash/.zsh/.py/.rb/.pl/.ps1/.js/.mjs/.cjs/.ts`）。修改既有檔不觸發。短暫過渡可用獨立行 `[skip-go-migration]` + migration plan。見 [`runtime/cli-modification-policy.yaml`](../runtime/cli-modification-policy.yaml) §`gate.cli.no_new_shell_scripts`。
+
+已完成 parity 的腳本入口必須刪除；新功能先做成 Go command，再補 fixture、文件與 release gate。Workflow 只提供方法／流程；不要預先提交 `run_phaseN_gate.*` 產品腳本。
 
 `ai-skill runtime validate` 會檢查 `.sh` bootstrap/helper 是否已做 Go CLI decision：若 shell 不是 thin wrapper、沒有呼叫 repo-local `ai-skill` binary，或沒有寫明 deletion/removal condition，runtime validation 會失敗。
 
@@ -26,6 +28,7 @@
 | deleted `ai-skill-close-loop.sh` | `ai-skill close-loop` | `--dry-run`、`--commit`、`--push` 已由 Go 實作 | 舊 shell 已刪；close-loop 寫入流程只走 Go CLI。 |
 | runtime Ruby helpers | `ai-skill runtime ...` | 已刪除 runtime report/index/query/validation/migration/state/sync Ruby entrypoints；`runtime validate`、`runtime refresh`、`runtime query`、`runtime compile` 的 desktop path 預設都走 Go-native，不依賴 Ruby、Python 或 `sqlite3` CLI。 | 已完成 native 覆蓋或易誤用的 scripts 直接刪除；runtime compiler source 已恢復為 YAML，Go compiler 是唯一 active compile path。 |
 | deleted Roo Python helper | `ai-skill roo set-global-custom-instructions` | 已刪除 `scripts/set-roo-global-custom-instructions.py`；guarded tool adapter 由 Go CLI 實作。 | fake VS Code SQLite DB tests 通過後刪除，避免未來錯誤引用 Python helper。 |
+| deleted image-processing Python tools / phase gates | `ai-skill image-processing verify` / `generate-fixtures` | Go methods 已實作；不再提交 `run_phaseN_gate.py` | 需要 phase gate 時依 `workflow/image-processing/tools/README.md` 組裝 methods。 |
 
 Legacy script closure policy：[`ai-skill-cli/docs/legacy-script-disposition.md`](ai-skill-cli/docs/legacy-script-disposition.md) 是舊 shell / Ruby / Python entrypoints 的最終 disposition source；runtime desktop CLI 已是 primary，已覆蓋的 scripts 已刪除，Git hook shell 只保留最小 adapter。
 

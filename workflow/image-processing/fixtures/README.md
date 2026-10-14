@@ -39,5 +39,6 @@ fixtures/
 | [`dogfood/outputs/`](dogfood/outputs/) | rembg outputs |
 | [`dogfood/reports/`](dogfood/reports/) | IDR + verify JSON |
 
-Generate：`generate_negative_fixtures.py` / `generate_dogfood_sources.py`
-Gates：`run_phase2_gate.py` · `run_phase3_gate.py` → [`reports/`](reports/)
+Generate：`ai-skill image-processing generate-fixtures --repo <AI_SKILL_REPO>`
+Verify：`ai-skill image-processing verify <image> …`（組裝方式見 [`../tools/README.md`](../tools/README.md)）
+Reports：[`reports/`](reports/)（既有證據可保留；不要新增 phase gate 腳本）

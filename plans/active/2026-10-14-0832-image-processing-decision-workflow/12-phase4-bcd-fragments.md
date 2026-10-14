@@ -16,11 +16,14 @@
 
 Adapter：[`task-class-fragments.md`](../../../workflow/image-processing/adapters/task-class-fragments.md)
 
-## Gate
+## 驗收組裝（現行）
 
 ```text
-python3 workflow/image-processing/tools/run_phase4_gate.py --repo <AI_SKILL_REPO>
+ai-skill image-processing verify …/neg.consumer-layout.png --profile neg.consumer-layout --expect-block
+ai-skill image-processing verify …/pos.d-canvas-328.png --profile pos.d-canvas-328
 ```
+
+歷史報告：`fixtures/reports/phase4-gate-latest.json`。方法說明：[`tools/README.md`](../../../workflow/image-processing/tools/README.md)。
 
 ## Acceptance
 

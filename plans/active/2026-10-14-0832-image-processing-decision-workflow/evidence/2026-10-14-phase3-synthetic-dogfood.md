@@ -11,7 +11,7 @@
 
 | 項 | 值 |
 | --- | --- |
-| Gate 指令 | `python3 workflow/image-processing/tools/run_phase3_gate.py --repo <AI_SKILL_REPO>` |
+| Gate 指令（歷史） | 當時 `run_phase3_gate.py`；現行改組裝 `ai-skill image-processing verify --expect-block` |
 | Negatives | `neg.alpha-opaque`, `neg.residue-halo`, `neg.interior-damage`, `neg.over-erode`, `neg.consumer-layout` |
 | Dogfood sources | 5 synthetic category proxies under `workflow/image-processing/fixtures/dogfood/sources/` |
 | rembg subject | `dogfood.object-hard` |

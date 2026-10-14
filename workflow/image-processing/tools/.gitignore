@@ -1,2 +1,4 @@
+# Local adapter caches / generated scratch (never commit interpreters' debris)
 __pycache__/
-*.py[cod]
+*.pyc
+.venv/

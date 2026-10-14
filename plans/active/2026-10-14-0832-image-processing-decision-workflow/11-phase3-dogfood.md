@@ -7,11 +7,15 @@
 在可重現合成資料上跑通：**多類負向挡住 + baseline candidate（rembg）IDR + 量測證據**。
 不把單次 rembg 成功升級為永久 guard。
 
-## 指令
+## 指令（歷史 Python gate 已刪；現行組裝 Go methods）
 
 ```text
-python3 workflow/image-processing/tools/run_phase3_gate.py --repo <AI_SKILL_REPO>
+# 對五類負向各跑：
+ai-skill image-processing verify …/neg.<name>.png --profile neg.<name> --expect-block
+# rembg dogfood 屬 consumer 本機 adapter；證據已落在 fixtures/dogfood/
 ```
+
+見 [`tools/README.md`](../../../workflow/image-processing/tools/README.md)。
 
 ## 產物
 

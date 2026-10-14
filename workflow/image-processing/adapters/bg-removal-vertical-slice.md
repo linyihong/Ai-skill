@@ -14,7 +14,7 @@
       - baseline: seg.generic → optional rembg bind
       - post.decontaminate / post.deterministic as needed
       - assemble RGBA; previews are NOT evidence
-6   Independent Verify → tools/verify_independent.py
+6   Independent Verify → ai-skill image-processing verify
 7-8 Disposition / Repair (max 2; must change candidate)
 9   Finality + IDR
 ```
@@ -23,18 +23,19 @@
 
 | candidate_id | 本機綁定（例） | 備註 |
 | --- | --- | --- |
-| `seg.generic` | rembg 通用模型（可選） | **非**唯一路徑；未安裝時用合成／外部 matte |
-| `post.decontaminate` | Pillow／NumPy rim 統計後處理 | 需契約 `edge_treatment=rim_decontaminate` |
-| `post.deterministic` | Pillow 尺寸／清零透明 RGB | |
-| verify | [`../tools/verify_independent.py`](../tools/verify_independent.py) | 與執行器分離 |
+| `seg.generic` | rembg 通用模型（可選；consumer 本機） | **非**唯一路徑；未安裝時用合成／外部 matte |
+| `post.decontaminate` | 本機後處理（rim 統計） | 需契約 `edge_treatment=rim_decontaminate` |
+| `post.deterministic` | 尺寸／清零透明 RGB | |
+| verify | `ai-skill image-processing verify` | 與執行器分離；見 [`../tools/README.md`](../tools/README.md) |
 
-## Phase 2 Gate 指令
+## 驗收組裝（方法，非預置 phase 腳本）
 
 ```text
-python3 workflow/image-processing/tools/run_phase2_gate.py --repo <AI_SKILL_REPO>
+ai-skill image-processing verify …/neg.alpha-opaque.png --profile neg.alpha-opaque --expect-block
+ai-skill image-processing verify …/neg.residue-halo.png --profile neg.residue-halo --expect-block
 ```
 
-必須：`neg.alpha-opaque`、`neg.residue-halo` 被 verify 擋下（finality ≠ accepted）。
+必須：上述負向被 verify 擋下（finality ≠ accepted）。
 
 ## 禁止
 

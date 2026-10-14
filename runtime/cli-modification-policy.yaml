@@ -94,19 +94,21 @@ cli_specific_gates:
 
   - id: gate.cli.no_new_shell_scripts
     description: |
-      New .sh script files are forbidden. Per cross-platform Go script
-      runtime policy (plans/archived/2026-05-21-0834-cross-platform-go-script-runtime.md),
-      all new script logic MUST be implemented in Go CLI
-      (scripts/ai-skill-cli/internal/app/hooks.go or new subcommand).
+      New non-Go script entrypoints are forbidden (.sh/.bash/.zsh/.py/.rb/.pl/
+      .ps1/.js/.mjs/.cjs/.ts). Per Go-first automation policy
+      (scripts/README.md, plans/archived/2026-05-21-0834-cross-platform-go-script-runtime.md),
+      repository automation MUST be implemented in the Go CLI
+      (scripts/ai-skill-cli/internal/app/…). Documentation (.md) and config
+      (.yaml/.json) are out of scope for this gate.
       ai-skill hooks install writes platform-correct binary path to
       .claude/settings.json.
 
-      Modifying existing .sh files (pending migration) does NOT trigger.
+      Modifying existing forbidden files (pending migration) does NOT trigger.
       Short-lived transition wrappers may opt out with [skip-go-migration]
       as a standalone line in commit message body, but MUST include a
       Go migration plan in the commit message.
     detection_signals:
-      - git diff --cached --diff-filter=A --name-only | grep '\.sh$'
+      - git diff --cached --diff-filter=A --name-only (ext in ForbiddenNonGoScriptExts)
     enforcement_layer: pre_commit_hook
     validator: validateNoNewShellScripts
     severity: block

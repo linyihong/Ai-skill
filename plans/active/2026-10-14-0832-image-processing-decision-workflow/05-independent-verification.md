@@ -68,9 +68,10 @@
 | `neg.over-erode` | 邊「乾淨」但主體過度侵蝕 | 主體完整性／邊緣（與 residue **正交**：residue 可 pass） | `subject_missing` 或 `edge_detail_loss` |
 | `neg.consumer-layout` | 去背可接受但 canvas／置中／縮放違規 | consumer profile 規格 check | 契約／profile 違規（可記 `fidelity_violation` 或 profile-specific class） |
 
-Phase 2 Gate：至少 `neg.alpha-opaque` 與 `neg.residue-halo`。
-Phase 3：上表五類皆可執行（`run_phase3_gate.py`）。
+Phase 2 最小負向：至少 `neg.alpha-opaque` 與 `neg.residue-halo`。
+Phase 3：上表五類皆可執行（組裝 `ai-skill image-processing verify --expect-block`；見 [`tools/README.md`](../../../workflow/image-processing/tools/README.md)）。
 ## 獨立性要求
+
 
 | 允許 | 禁止 |
 | --- | --- |
@@ -89,5 +90,5 @@ Phase 3：上表五類皆可執行（`run_phase3_gate.py`）。
 
 - [x] schema 固定（含 `hardness`）— [`verification.yaml`](../../../workflow/image-processing/contracts/verification.yaml) + verify tool
 - [x] finality／disposition 轉換表可操作 — [`finality.yaml`](../../../workflow/image-processing/contracts/finality.yaml)
-- [x] 負向 fixture：`neg.alpha-opaque`、`neg.residue-halo` 可重現擋住 — `tools/run_phase2_gate.py`
+- [x] 負向 fixture：`neg.alpha-opaque`、`neg.residue-halo` 可重現擋住 — `ai-skill image-processing verify … --expect-block`
 - [x] 文件寫明：何種情況必須 `inconclusive`（本檔上節）

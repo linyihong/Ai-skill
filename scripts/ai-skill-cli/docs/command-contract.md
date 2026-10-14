@@ -60,6 +60,8 @@
 | `ai-skill router proposals {list,record,promote,reject,gc}` | 管理 Workflow Activation Engine 的 route-candidate proposals（`runtime/router/route-candidate-proposals.yaml` data store）。occurrence-tracking + promotion 狀態機（accumulating→ready_for_review→promoted/rejected；stale 過 90d 由 gc 硬清）。promote 只改 status，不自動寫 routing-registry | record/promote/reject/gc 寫檔；list 否 | 否 | workflow-activation-engine Phase 6.1 |
 | `ai-skill roo set-global-custom-instructions` | guarded 寫入 Roo Code 全域 Custom Instructions | 是 | 否 | Tool adapter |
 | `ai-skill copilot start` | 產生 GitHub Copilot 新 session 第一則 bootstrap prompt | 否 | 否 | Tool adapter |
+| `ai-skill image-processing verify` | 獨立驗收 PNG（checks + finality）；支援 `--expect-block` 組裝負向驗收 | 否（`--json-out` 可寫報告） | 否 | image-processing Go methods |
+| `ai-skill image-processing generate-fixtures` | 合成 desensitized `neg.*` / `pos.*` fixtures + sidecars | 是 | 否 | image-processing Go methods |
 
 ## 共通輸出契約
 
@@ -304,7 +306,7 @@
 
 副作用：
 
-- `pre-commit`：先跑 **author email allowlist**（opt-in）：若本機設定了 `ai-skill.allowedAuthorEmail`（`git config --local --add`）或 `.git/info/ai-skill-allowed-author-emails`，則 `GIT_AUTHOR_IDENT` / `GIT_COMMITTER_IDENT` 的 email 必須在白名單內，否則以 `author_email_allowlist_failed` block。未設定白名單時不限制（其他 clone 不受影響；設定永不進 commit）。接著對所有 staged content 執行 Go runner 內的 `git diff --cached --check`；任何 trailing whitespace、space-before-tab 或同類 Git whitespace error 都以 `staged_diff_whitespace_failed` block，沒有 opt-out。當 staged `runtime/runtime.db` 或 knowledge / validation surface 改動時執行 `runtime validate`；不再因 committed runtime YAML mirror 觸發 compile。新增 shell script gate：`validateNoNewShellScripts` 偵測 staged Added（`--diff-filter=A`）`.sh` 檔案，發現新建 `.sh` 時以 `new_shell_script_forbidden` block；修改既有 `.sh` 不觸發。Opt-out：commit message 含獨立一行 `[skip-go-migration]`（僅用於短暫過渡 wrapper，必須在 commit message 說明 Go migration plan）。
+- `pre-commit`：先跑 **author email allowlist**（opt-in）：若本機設定了 `ai-skill.allowedAuthorEmail`（`git config --local --add`）或 `.git/info/ai-skill-allowed-author-emails`，則 `GIT_AUTHOR_IDENT` / `GIT_COMMITTER_IDENT` 的 email 必須在白名單內，否則以 `author_email_allowlist_failed` block。未設定白名單時不限制（其他 clone 不受影響；設定永不進 commit）。接著對所有 staged content 執行 Go runner 內的 `git diff --cached --check`；任何 trailing whitespace、space-before-tab 或同類 Git whitespace error 都以 `staged_diff_whitespace_failed` block，沒有 opt-out。當 staged `runtime/runtime.db` 或 knowledge / validation surface 改動時執行 `runtime validate`；不再因 committed runtime YAML mirror 觸發 compile。Go-first script gate：`validateNoNewShellScripts`（KGE `NoNewShellScriptsRule`）偵測 staged Added（`--diff-filter=A`）非 Go 腳本入口（`.sh/.bash/.zsh/.py/.rb/.pl/.ps1/.js/.mjs/.cjs/.ts`），發現新建時以 `new_non_go_script_forbidden` block；修改既有 forbidden 檔不觸發。Opt-out：commit message 含獨立一行 `[skip-go-migration]`（僅用於短暫過渡 wrapper，必須在 commit message 說明 Go migration plan）。
 - `commit-msg`：讀 commit message file，依 `runtime/cognitive-modes-*.yaml` + `runtime/cognitive-modes-cost-class.yaml` + `runtime/plan-status-sync-enforcement.yaml` + `runtime/cognitive-modes-token-budget.yaml` + `runtime/cognitive-modes-adaptive.yaml` + `runtime/bootstrap-entry-points.yaml` + `runtime/cli-modification-policy.yaml` + `runtime/core-bootstrap.yaml` contracts 執行 15 個 validators（cognitive contract block / executionFloors / governanceConsistency / memorySubdir / cognitiveCost / activationSignals / capabilitySnippet / planStatusSync / tokenBudget / adaptiveTriggers / bootstrapEntryThinness / **cliDocSync** / **runtimeYamlProjects** / **markdownYamlSync** / **glossaryRetroOwn**）。Validator block 時 exit 30。Opt-out trailers：`[skip-cognitive-mode]` / `[skip-plan-status-sync]` / `[skip-token-budget]` / `[skip-adaptive]` / `[skip-bootstrap-thinness]` / `[skip-cli-doc-sync]` / `[skip-runtime-yaml-projection]` / `[skip-markdown-yaml-sync]` / `[skip-glossary-retro-own]`。
 
   **`glossaryRetroOwn` validator**（Phase 6 of context-language-glossary-system）：staged diff 動到 framework cognitive vocabulary surface（`runtime/cognitive-modes*.yaml`、`runtime/economics/**`、`ecosystem/**`）時，`knowledge/glossary/ai-skill.md` 必須同時 stage，避免新 framework term 漂移為 subsystem-local vocabulary。Opt-out `[skip-glossary-retro-own]` 適用於 typo / refactor / comment-only 變更。詳見 [`runtime/cli-modification-policy.yaml`](../../../runtime/cli-modification-policy.yaml) §`gate.glossary.retro_own_required` 與 [`validation/scenarios/failure-derived/glossary-retro-own-missing-v1.yaml`](../../../validation/scenarios/failure-derived/glossary-retro-own-missing-v1.yaml)。
@@ -600,6 +602,32 @@
 - **Opt-out**：`[skip-registry-transition]` trailer 跳過全部 R1/R2/R3 檢查（與 commit-msg validator 行為一致）。
 - **mechanical → deprecated 不算 demotion**：end-of-life 由既有 Phase 3 `deprecated_disposal` lint 處理（要求 `replaced_by` 或 `removal_date`）。
 - 失敗 exit 30；assertion mode 命中 exit 0 未命中 exit 30；非 assertion 模式且零違規 exit 0。
+
+### `ai-skill image-processing verify`
+
+目的：對候選輸出做 **獨立** 驗收（Execute ≠ Verify）。輸出 checks + finality JSON；供 workflow 組裝負向／正向驗收，不預置 phase gate 腳本。
+
+輸入：
+
+- positional `<image>`（PNG）
+- `--profile <name>`（預設 image stem；決定 check suite）
+- `--source <path>`（fidelity 對照）
+- `--consumer-profile <path>`（canvas 契約 JSON）
+- `--json-out <path>`
+- `--expect-block`（負向模式：finality=accepted 時 exit 2；否則 exit 0）
+
+副作用：僅在指定 `--json-out` 時寫報告檔。
+
+### `ai-skill image-processing generate-fixtures`
+
+目的：合成 desensitized 負向／正向 PNG + sha256 + consumer profile sidecars。
+
+輸入：
+
+- `--repo <AI_SKILL_REPO>`（與 `--out-dir` 二選一慣例）
+- `--out-dir <path>`（預設 `<repo>/workflow/image-processing/fixtures/inputs`）
+
+副作用：寫入 fixtures／sidecars／`manifest.json`。
 
 ### `ai-skill glossary validate`
 

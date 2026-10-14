@@ -1,13 +1,9 @@
 {
-  "input": "workflow/image-processing/fixtures/inputs/neg.residue-halo.png",
-  "profile": "neg.residue-halo",
   "checks": [
     {
       "check_id": "alpha.present",
       "status": "pass",
       "evidence": "mode=RGBA",
-      "failure_class": null,
-      "repair_candidate": null,
       "review_required": false,
       "hardness": "hard"
     },
@@ -15,8 +11,6 @@
       "check_id": "alpha.not_fully_opaque",
       "status": "pass",
       "evidence": "alpha_min=0 opaque_ratio=0.4038",
-      "failure_class": null,
-      "repair_candidate": null,
       "review_required": false,
       "hardness": "hard"
     },
@@ -31,9 +25,11 @@
     }
   ],
   "disposition": "reject_or_abort",
-  "finality": "rejected",
-  "reason": "hard_check_fail",
   "failed_checks": [
     "residue.rim"
-  ]
+  ],
+  "finality": "rejected",
+  "input": "workflow/image-processing/fixtures/inputs/neg.residue-halo.png",
+  "profile": "neg.residue-halo",
+  "reason": "hard_check_fail"
 }

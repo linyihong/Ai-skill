@@ -45,6 +45,8 @@ func Run(args []string, stdout io.Writer, stderr io.Writer) int {
 		return runKge(args[1:], stdout, stderr)
 	case "router":
 		return runRouter(args[1:], stdout, stderr)
+	case "image-processing":
+		return runImageProcessing(args[1:], stdout, stderr)
 	case "help", "-h", "--help":
 		printUsage(stdout)
 		return ExitSuccess
@@ -74,6 +76,7 @@ func printUsage(w io.Writer) {
 	_, _ = fmt.Fprintln(w, "  plans    render plan-tree hierarchy (Phase 3 of plan-tree-hierarchy-governance)")
 	_, _ = fmt.Fprintln(w, "  kge    Knowledge Governance Engine: check / validate (D9 presentation)")
 	_, _ = fmt.Fprintln(w, "  router    manage workflow route-candidate proposals (Phase 6.1)")
+	_, _ = fmt.Fprintln(w, "  image-processing    verify images / generate synthetic fixtures (methods only)")
 }
 
 func newFlagSet(name string, stderr io.Writer) *flag.FlagSet {

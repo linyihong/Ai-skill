@@ -54,18 +54,23 @@ Input Contract → Analysis → Constraints → Feasible Candidates → Selectio
 | Adapters | [`adapters/README.md`](adapters/README.md)（含 Q5 license checklist） |
 | Verify tools | [`tools/README.md`](tools/README.md) |
 
-## Gates
+## Methods（Go CLI；無預置 phase gate 腳本）
 
 ```text
-python3 workflow/image-processing/tools/run_phase2_gate.py --repo <AI_SKILL_REPO>
-python3 workflow/image-processing/tools/run_phase3_gate.py --repo <AI_SKILL_REPO>
-python3 workflow/image-processing/tools/run_phase4_gate.py --repo <AI_SKILL_REPO>
+<AI_SKILL_REPO>/scripts/ai-skill-cli/bin/ai-skill-<os>-<arch> \
+  image-processing generate-fixtures --repo <AI_SKILL_REPO>
+
+<AI_SKILL_REPO>/scripts/ai-skill-cli/bin/ai-skill-<os>-<arch> \
+  image-processing verify <image> --profile <name> [--expect-block] [--json-out <path>]
 ```
 
-## 明確不做（Phase 1–2）
+組裝流程與注意事項見 [`tools/README.md`](tools/README.md)。Phase-N gate 只在後續 plan 需要時依該流程寫，不預先提交產品腳本。
+
+## 明確不做
 
 - 註冊 `route.workflow.*`／runtime 投影
 - 把具體供應商寫進 execution-flow 步驟名
 - 建 Auto Orchestrator／全能圖片 Agent
 - 把業務 Sprite 對齊寫成通用去背必經步驟
-- 以 rembg 安裝與否當作 Phase 2 Gate
+- 以 rembg 安裝與否當作驗收條件
+- 新增長期非 Go 腳本入口（`.py`／`.sh`／…；pre-commit 機械鎖）

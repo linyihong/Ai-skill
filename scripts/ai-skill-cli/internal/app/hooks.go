@@ -311,16 +311,16 @@ func runPreCommitHook(result Result, root string) Result {
 		}
 		result.Checks = append(result.Checks, Check{Name: "runtime_validation", Status: "ok", Message: "staged runtime/knowledge/validation changes passed"})
 	}
-	// Gate: new shell scripts must be implemented in Go instead (cross-platform policy).
-	// Detects only newly Added (.sh) files; modifications to existing scripts are allowed
+	// Gate: new non-Go script entrypoints (.sh/.py/.rb/.js/…) must be Go CLI instead.
+	// Detects only newly Added files; modifications to existing scripts are allowed
 	// while they await migration (mark with [skip-go-migration] to suppress).
 	if msg := validateNoNewShellScripts(root, staged); msg != "" {
 		result.Status = "blocked"
 		result.ExitCode = ExitValidationFailed
 		result.Error = &CommandError{
-			Code:        "new_shell_script_forbidden",
+			Code:        "new_non_go_script_forbidden",
 			Message:     msg,
-			Remediation: "Implement the hook/script logic in Go (scripts/ai-skill-cli/internal/app/hooks.go or a new subcommand). See plans/archived/2026-05-21-0834-cross-platform-go-script-runtime.md §platform-governance and enforcement/failure-patterns/shell-script-added-without-go-migration.md. To suppress for a transitional .sh wrapper, add '[skip-go-migration]' as a standalone line in the commit message body.",
+			Remediation: "Implement automation in Go (scripts/ai-skill-cli/internal/app/… subcommand). Do not add long-lived .sh/.py/.rb/.js entrypoints. See scripts/README.md §Go-first, runtime/cli-modification-policy.yaml §gate.cli.no_new_shell_scripts, and enforcement/failure-patterns/shell-script-added-without-go-migration.md. Transitional opt-out: standalone '[skip-go-migration]' line plus a Go migration plan in the commit body.",
 		}
 		return result
 	}
@@ -408,7 +408,8 @@ func validateStagedDiffWhitespace(root string) string {
 }
 
 // validateNoNewShellScripts returns a non-empty error message if any newly Added
-// .sh files appear in the staged set (portable/kge.NoNewShellScriptsRule).
+// non-Go script entrypoints (.sh/.py/.rb/.js/…) appear in the staged set
+// (portable/kge.NoNewShellScriptsRule, Go-first expanded scope).
 // Opt-out: '[skip-go-migration]' standalone line in commit message body.
 func validateNoNewShellScripts(root string, staged []string) string {
 	_ = staged // added paths come from git diff-filter=A in the adapter

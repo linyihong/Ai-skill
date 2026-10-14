@@ -17,13 +17,15 @@
 | 負向輸入 | `workflow/image-processing/fixtures/inputs/neg.*.png` |
 | Gate 報告 | `workflow/image-processing/fixtures/reports/phase2-gate-latest.json` |
 
-## Gate 指令
+## 驗收組裝（現行 Go methods；歷史曾用 Python phase gate）
 
 ```text
-python3 workflow/image-processing/tools/run_phase2_gate.py --repo <AI_SKILL_REPO>
+ai-skill image-processing verify …/neg.alpha-opaque.png --profile neg.alpha-opaque --expect-block
+ai-skill image-processing verify …/neg.residue-halo.png --profile neg.residue-halo --expect-block
 ```
 
 期望：exit 0；`neg.alpha-opaque` → `alpha_invalid`；`neg.residue-halo` → `edge_halo`；`finality` ≠ `accepted`。
+歷史報告：`fixtures/reports/phase2-gate-latest.json`。
 
 ## 已跑通（本輪）
 

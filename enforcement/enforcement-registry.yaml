@@ -970,16 +970,16 @@ rule_classes:
         executor_kind: hook_dispatcher_entry
         hook_phase: pre-commit
         block_or_warn: block
-        notes: "pre-commit dispatcher; invokes validateAuthorEmailAllowlist + validateNoNewShellScripts"
+        notes: "pre-commit dispatcher; invokes validateAuthorEmailAllowlist + validateNoNewShellScripts (Go-first; blocks .sh/.py/.rb/.js/…)"
       - file: scripts/ai-skill-cli/internal/app/hooks.go
         symbol: validateNoNewShellScripts
         executor_kind: hook_dispatcher_entry  # called via runPreCommitHook
         hook_phase: pre-commit
         block_or_warn: block
     rationale: |
-      Prevents introduction of ad-hoc shell scripts that bypass the Go
-      CLI surface. Pre-commit phase blocks the addition before commit
-      forms.
+      Prevents introduction of ad-hoc non-Go script entrypoints (.sh/.py/.rb/.js/…)
+      that bypass the Go CLI surface. Pre-commit phase blocks Added paths before
+      commit forms; modifications to existing files (migration window) are allowed.
     verification_status:
       symbol_exists: ✓
       scenario_exists: pending
