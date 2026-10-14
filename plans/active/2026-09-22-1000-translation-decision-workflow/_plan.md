@@ -194,4 +194,5 @@ Ai-skill 已有 Loop-first／Governance-first 與 ERA v2（Evidence constrains D
 
 - Matrix REVIEW evidence: `evidence/2026-10-14-ass-empty-unresolved-skew-and-semantic-review.md` (cache 1:1 ≠ ASS empty-slot export; Latin honorific soften；ASS empty／陆→Lu mechanical narrowed).
 - FIL／TL phrase polarity: `evidence/2026-10-14-fil-phrase-polarity-mechanical.md` (expression-type Maganda／Nagkasakit／gagaling；script≠polarity；pack rebuild／declared still open).
+- Digit-only pivot: `evidence/2026-10-14-digit-only-pivot-not-publishable.md` (CN／Arabic numeral OCR crumbs ≠ publishable ZH；I21+fuse；force re-acq still open).
 - No publish PASS claimed.

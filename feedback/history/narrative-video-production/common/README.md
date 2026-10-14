@@ -2,6 +2,7 @@
 
 | Date | Lesson | Status |
 | --- | --- | --- |
+| 2026-10-14 | [digit-only-pivot-not-publishable](2026-10-14_134500-digit-only-pivot-not-publishable.md) | candidate |
 | 2026-10-14 | [fil-phrase-polarity-not-script-gate](2026-10-14_123700-fil-phrase-polarity-not-script-gate.md) | candidate |
 | 2026-10-14 | [empty-unresolved-must-survive-ass-export](2026-10-14_084000-empty-unresolved-must-survive-ass-export.md) | candidate |
 | 2026-10-13 | [selection-scaffolding-must-not-become-dst](2026-10-13_133000-selection-scaffolding-must-not-become-dst.md) | candidate |

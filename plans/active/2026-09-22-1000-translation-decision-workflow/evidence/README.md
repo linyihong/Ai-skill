@@ -10,6 +10,7 @@
 
 | Run ID | 檔案 | 狀態 | 摘要 |
 | --- | --- | --- | --- |
+| 2026-10-14-digit-only-pivot-not-publishable | [2026-10-14-digit-only-pivot-not-publishable.md](2026-10-14-digit-only-pivot-not-publishable.md) | scoped adapter; force re-acq open | digit-only／CN numeral OCR ≠ publishable ZH；I21+fuse；REVIEW only |
 | 2026-10-14-fil-phrase-polarity-mechanical | [2026-10-14-fil-phrase-polarity-mechanical.md](2026-10-14-fil-phrase-polarity-mechanical.md) | scoped adapter; pack rebuild／declared open | FIL／TL ZH-keyed Maganda／Nagkasakit／gagaling polarity；script≠polarity；REVIEW only |
 | 2026-10-14-ass-empty-unresolved-skew-and-semantic-review | [2026-10-14-ass-empty-unresolved-skew-and-semantic-review.md](2026-10-14-ass-empty-unresolved-skew-and-semantic-review.md) | scoped dogfood; ASS／romanization narrowed; pack REVIEW | cache 1:1≠ASS；empty unresolved；Latin soften；FIL／陆→Lu mechanical；publish open |
 | 2026-10-13-locale-projection-and-selection-leak | [2026-10-13-locale-projection-and-selection-leak.md](2026-10-13-locale-projection-and-selection-leak.md) | scoped dogfood; honorific／1:1 skew open | mono hardsub≠MT；strip-before-admit；I21 crumbs；Selection scaffolding≠dst |
