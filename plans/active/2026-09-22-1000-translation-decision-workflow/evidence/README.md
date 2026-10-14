@@ -10,6 +10,7 @@
 
 | Run ID | 檔案 | 狀態 | 摘要 |
 | --- | --- | --- | --- |
+| 2026-10-14-latin-letter-space-glue | [2026-10-14-latin-letter-space-glue.md](2026-10-14-latin-letter-space-glue.md) | scoped adapter; whitelist expand open | Latin MT／OCR `a nd`／`A fter`／`to gether` glue；script≠word integrity；REVIEW only |
 | 2026-10-14-digit-only-pivot-not-publishable | [2026-10-14-digit-only-pivot-not-publishable.md](2026-10-14-digit-only-pivot-not-publishable.md) | scoped adapter; force re-acq open | digit-only／CN numeral OCR ≠ publishable ZH；I21+fuse；REVIEW only |
 | 2026-10-14-fil-phrase-polarity-mechanical | [2026-10-14-fil-phrase-polarity-mechanical.md](2026-10-14-fil-phrase-polarity-mechanical.md) | scoped adapter; pack rebuild／declared open | FIL／TL ZH-keyed Maganda／Nagkasakit／gagaling polarity；script≠polarity；REVIEW only |
 | 2026-10-14-ass-empty-unresolved-skew-and-semantic-review | [2026-10-14-ass-empty-unresolved-skew-and-semantic-review.md](2026-10-14-ass-empty-unresolved-skew-and-semantic-review.md) | scoped dogfood; ASS／romanization narrowed; pack REVIEW | cache 1:1≠ASS；empty unresolved；Latin soften；FIL／陆→Lu mechanical；publish open |
