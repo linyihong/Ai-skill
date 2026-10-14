@@ -38,3 +38,9 @@
 - Prior same-day：`2026-10-14-ass-empty-unresolved-skew-and-semantic-review.md`
   （FIL filler semantics marked open → narrowed by this mechanical table）
 - Product episode tables stay under `<PROJECT_ROOT>` analysis only.
+
+## Follow-up: boss title gloss
+
+- ZH surname+总 (workplace address) was MT-read as Pangulo / Hindi siya.
+- Product: mechanical_fil_boss_title_gloss (fil/tl); 总统 untouched via 总(?!统).
+- Dogfood: 不是陆总 → Hindi, Ginoong Lu; 不陆总我现在 drops Pangulo ng Kontinente.
