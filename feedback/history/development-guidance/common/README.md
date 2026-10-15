@@ -2,6 +2,8 @@
 
 | 檔名 | Status | 標題 | 一句話摘要 |
 |------|--------|------|-----------|
+| [2026-10-15_121000-secret-scanner-rejects-credential-literals-in-tests.md](2026-10-15_121000-secret-scanner-rejects-credential-literals-in-tests.md) | candidate | Secret scanners reject credential-looking literals in tests | Generate at runtime, use a builder and neutral names; never whitelist test dirs |
+| [2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md](2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md) | candidate | now() is the transaction start; age gates need clock_timestamp() | An old open transaction back-dates now(); stamp gates with clock_timestamp() and test with a held-open transaction |
 | [2026-10-08_143000-translation-repair-loop-governance-not-actor.md](2026-10-08_143000-translation-repair-loop-governance-not-actor.md) | candidate | Translation Repair Loop：校正屬 Governance | Actor 只 Selection／Repair；Failure Evidence→known local／unknown escalate；telemetry≠成功率 |
 | [2026-10-07_125417-native-model-load-known-case-first.md](2026-10-07_125417-native-model-load-known-case-first.md) | candidate | 原生模型載入先比對既有案例 | 階段／堆疊／版本指紋→最小隔離驗證；讀取、生成、產品驗收分開 |
 | `2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md` | candidate | Pipeline behaviour needs a host-level test, not a component test | A correct middleware can still lose to another layer in the real order; assert host-level logs and status |
