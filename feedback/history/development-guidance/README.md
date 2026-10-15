@@ -11,6 +11,12 @@
 
 所有 lesson 原位於 `skills/app-development-guidance/feedback_history/`，已於 2026-05-13 搬遷至此，舊目錄已刪除。
 
+## Recent (2026-10-15)
+
+| Slug | Category |
+|------|----------|
+| `common/2026-10-15_190000-mutate-the-layer-that-decides-and-reset-the-template` | 突變要打在最後決定行為的那一層；共用範本庫每個突變後重建，否則「存活」或「紅」都可能不是它的結果 |
+
 ## Recent (2026-09-30)
 
 新增原生模型載入診斷候選：[已知案例優先與重驗邊界](common/2026-10-07_125417-native-model-load-known-case-first.md)。
