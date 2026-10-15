@@ -44,3 +44,11 @@
 - ZH surname+总 (workplace address) was MT-read as Pangulo / Hindi siya.
 - Product: mechanical_fil_boss_title_gloss (fil/tl); 总统 untouched via 总(?!统).
 - Dogfood: 不是陆总 → Hindi, Ginoong Lu; 不陆总我现在 drops Pangulo ng Kontinente.
+
+## Follow-up: exact 「好」
+
+- Exact ZH「好」was still MT-glossed as Maganda after the 好不好 rule（exact match
+  does not cover the single-character filler）.
+- Product table: exact「好」+ Maganda → Okay（fil／tl）.
+- Dogfood: two overnight FIL cues rewritten offline；broader Maganda＝beautiful
+  remains out of scope.
