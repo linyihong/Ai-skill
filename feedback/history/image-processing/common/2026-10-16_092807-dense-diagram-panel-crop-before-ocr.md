@@ -32,7 +32,7 @@ Status: candidate
 #### Generalized Lesson
 
 1. **Panel crop-first**：每個分析單元 = 一個標號（或明確的雙標號共用板）+ 其圖板；去掉頁面裝飾與相鄰圖示。
-2. **等分網格只是 fallback**：僅在已證明圖示間距均勻、一格一標號時可用；否則先用標號錨點或人工框。
+2. **等分網格只是 fallback**：僅在已證明圖示間距均勻、一格一標號時可用；否則先用標號錨點或人工框。若版面本身是規則 M×N 長方形陣列，改用 **mid-gutter 矩形格切**（切割線落在內容帶中間、外緣留 pad），見 [`regular-panel-grid-mid-gutter-cuts`](2026-10-16_132758-regular-panel-grid-mid-gutter-cuts.md)——不要為每個標號切細條。
 3. **OCR 角色**：面板內讀標號／輔助對齊，不是整頁 remap 權威。
 4. **Verify ≠ Execute**（IP3）：抽取腳本輸出是 draft；正式寫入前要獨立核對（人審面板裁切，或第二工具對同一面板）。
 5. **雙標號共用板**：契約註明 shared panel；一次裁切、兩次路徑讀取，禁止拆成兩個等面積半格硬猜。

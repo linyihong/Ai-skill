@@ -26,6 +26,8 @@ Canonical lifecycle。欄位 SoT 在 [`contracts/`](contracts/)。**不要**寫 
 
 當輸入是「一頁多個標號小圖／對照表」時，在步驟 1–2 先把分析單元收成 **單一標籤 + 單一圖板**（雙標號共用板要明示），再對面板做 OCR／路徑抽取。等面積 N×M 切格與整頁 OCR 只可當 draft；**不得**用執行器自評直接改寫正式映射（IP3）。見 lesson [`dense-diagram-panel-crop-before-ocr`](../../feedback/history/image-processing/common/2026-10-16_092807-dense-diagram-panel-crop-before-ocr.md)。
 
+若肉眼已是**規則的列×行長方形陣列**，優先用 **mid-gutter 矩形格切**：切割線落在相鄰內容帶正中、外緣留呼吸空間，成功判準＝切割線不碰到灰／彩內容方塊；一格一檔（多標號同框）。見 lesson [`regular-panel-grid-mid-gutter-cuts`](../../feedback/history/image-processing/common/2026-10-16_132758-regular-panel-grid-mid-gutter-cuts.md)。
+
 ## 責任分離
 
 | 階段 | 負責 | 禁止 |
