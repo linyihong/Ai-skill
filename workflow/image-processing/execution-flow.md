@@ -22,6 +22,10 @@ Canonical lifecycle。欄位 SoT 在 [`contracts/`](contracts/)。**不要**寫 
 
 **Phase 4**：步驟編號與主鏈不變；B／C／D 只透過 `0b` 載入 [`contracts/task-class-*.yaml`](contracts/) 與 registry `task_class_load`，禁止另開平行 pipeline。
 
+### Dense multi-diagram pages（panel crop-first）
+
+當輸入是「一頁多個標號小圖／對照表」時，在步驟 1–2 先把分析單元收成 **單一標籤 + 單一圖板**（雙標號共用板要明示），再對面板做 OCR／路徑抽取。等面積 N×M 切格與整頁 OCR 只可當 draft；**不得**用執行器自評直接改寫正式映射（IP3）。見 lesson [`dense-diagram-panel-crop-before-ocr`](../../feedback/history/image-processing/common/2026-10-16_092807-dense-diagram-panel-crop-before-ocr.md)。
+
 ## 責任分離
 
 | 階段 | 負責 | 禁止 |

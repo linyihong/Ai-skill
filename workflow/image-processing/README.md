@@ -66,6 +66,10 @@ Input Contract → Analysis → Constraints → Feasible Candidates → Selectio
 
 組裝流程與注意事項見 [`tools/README.md`](tools/README.md)。Phase-N gate 只在後續 plan 需要時依該流程寫，不預先提交產品腳本。
 
+## Feedback
+
+- Dense multi-diagram／對照表頁：[`panel crop-first before OCR`](../../feedback/history/image-processing/common/2026-10-16_092807-dense-diagram-panel-crop-before-ocr.md)
+
 ## 明確不做
 
 - 註冊 `route.workflow.*`／runtime 投影
