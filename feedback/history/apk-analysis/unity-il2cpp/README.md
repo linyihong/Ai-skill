@@ -4,6 +4,7 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
+| [2026-10-16_173200-il2cpp-paytable-getmain-takes-system-char-not-string.md](2026-10-16_173200-il2cpp-paytable-getmain-takes-system-char-not-string.md) | candidate | GetMainPayoutInfo 可能是 System.Char（U16），勿 string_new；Dictionary&lt;char&gt; 作回退 |
 | [2026-09-24_141900-slot-device-ui-harvest-via-owned-cryptor-lab-gateway.md](2026-09-24_141900-slot-device-ui-harvest-via-owned-cryptor-lab-gateway.md) | candidate | 裝置 UI harvest：自有 AES lab gateway + fixture loop；Frida 只導 game TCP；禁正式 MITM |
 | [2026-09-24_135500-slot-continue-cta-scorer-needs-matte-green-and-left-band.md](2026-09-24_135500-slot-continue-cta-scorer-needs-matte-green-and-left-band.md) | candidate | Continue scorer 用 matte green＋左帶；gold-alone 誤報 Wild；screencap 需 retry |
 | [2026-09-24_132000-slot-classic-chip-fx-is-not-classic-payout-window.md](2026-09-24_132000-slot-classic-chip-fx-is-not-classic-payout-window.md) | candidate | Classic ChipsWin FX ≠ classic payout window；FX 常 Create-on-demand 需 hook Create |
