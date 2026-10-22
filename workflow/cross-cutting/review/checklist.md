@@ -2,7 +2,7 @@
 
 本文件定義開發流程中的審查檢查項目。原承接 ``skills/app-development-guidance/CHECKLIST.md`` 的內容（已刪除），提取為 tool-neutral 的 workflow gates。
 
-> **位置**：`workflow/cross-cutting/review/checklist.md`（consumer）。Stance 契約見 [`governance/cognitive-stance.md`](../../../governance/cognitive-stance.md)；[`review-checklist.md`](../software-delivery/review-checklist.md) 為 inbound 轉址 stub。
+> **位置**：`workflow/cross-cutting/review/checklist.md`（consumer）。Stance 契約見 [`governance/cognitive-stance.md`](../../../governance/cognitive-stance.md)；[`review-checklist.md`](../../software-delivery/review-checklist.md) 為 inbound 轉址 stub。
 
 ## 使用原則
 
@@ -31,8 +31,8 @@
 - 主要的 Product Brief 聲明已驗證或標記：目標、使用者、範圍、non-goals、假設、成功標準、限制、依賴和風險。
 - 影響行為、合約、風險、所有權、測試、時程或發布關卡的未驗證 Product Brief 聲明是阻擋性問題。
 - 變更已分類為新需求、bug 修復、重構 / replacement、強化或僅文件。
-- **Existing Code Modification Path（blocking）**：觸及既有 / legacy 實作時，`modification_path` 已在 change brief 分類；`backfill_required` 須先完成 BDD backfill；`bugfix_regression` 須有預期 vs 實際、受影響 BDD、regression plan 與 `linked_test_refs`（既有測試足夠時可免新測試但須連結）；`behavior_change_full` 須先走 docs-first BDD；`internal_refactor_surgical` 須聲明無行為變更並載入 surgical-changes。見 [`intake.md`](intake.md) §Existing Code Modification Path Gate。
-- **Plan-First Ordering（advisory）**：會導向 code / workflow / governance / runtime / schema / generated artifact / tool adapter 改動的任務，實作前有對應 `plans/active/` plan artifact（inline 小 plan 或 plan-tree）；< 1 session、純文件補強或 surgical 小修補依 [`intake.md`](intake.md) §Plan-First Ordering 的規模分級豁免。缺 plan 時 reviewer 標記為建議項，非 commit-time 硬擋。
+- **Existing Code Modification Path（blocking）**：觸及既有 / legacy 實作時，`modification_path` 已在 change brief 分類；`backfill_required` 須先完成 BDD backfill；`bugfix_regression` 須有預期 vs 實際、受影響 BDD、regression plan 與 `linked_test_refs`（既有測試足夠時可免新測試但須連結）；`behavior_change_full` 須先走 docs-first BDD；`internal_refactor_surgical` 須聲明無行為變更並載入 surgical-changes。見 [`intake.md`](../../software-delivery/intake.md) §Existing Code Modification Path Gate。
+- **Plan-First Ordering（advisory）**：會導向 code / workflow / governance / runtime / schema / generated artifact / tool adapter 改動的任務，實作前有對應 `plans/active/` plan artifact（inline 小 plan 或 plan-tree）；< 1 session、純文件補強或 surgical 小修補依 [`intake.md`](../../software-delivery/intake.md) §Plan-First Ordering 的規模分級豁免。缺 plan 時 reviewer 標記為建議項，非 commit-time 硬擋。
 - 新需求在程式碼開始前更新規劃文件、BDD、受影響的合約、實作切片和測試計劃。
 - Bug 修復記錄預期行為 vs 實際行為、重現/證據、受影響的 BDD scenario 或缺失 scenario、受影響的合約/錯誤和回歸測試計劃。
 - 改變**可觀察**行為的 bug 修復在**同一個工作階段**中更新受影響的合約、BDD/可追溯性和整合或即時測試筆記（不僅在合併後）；延後需要明確的追蹤後續行動，而非無聲漂移。
@@ -60,7 +60,7 @@
 - 變更/新程式碼覆蓋率與總專案覆蓋率分開檢查。
 - 突變測試、基於屬性的測試、不變量測試或負面案例涵蓋規則密集或安全敏感的邏輯。
 - 當狀態重要時，資料庫、儲存庫、遷移或持久化行為使用 fixtures 或整合測試驗證。
-- 當觀察到的成功訊號可能不同於真實狀態時，依 [`state-visibility-gap.md`](../../intelligence/engineering/execution/validation-reasoning/state-visibility-gap.md) 與 [`evidence-chain-validation.md`](../../intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md) 驗證完整 state propagation chain。
+- 當觀察到的成功訊號可能不同於真實狀態時，依 [`state-visibility-gap.md`](../../../intelligence/engineering/execution/validation-reasoning/state-visibility-gap.md) 與 [`evidence-chain-validation.md`](../../../intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md) 驗證完整 state propagation chain。
 - Payment、email、external API、storage、queue、entitlement 或其他 proxy-prone path 不接受 API 200、adapter success、SMTP success 或 queue publish 作為 final proof；critical path 需要 independent observation。
 - Critical journey claim 有 BDD-owned Journey Specification、project-defined criticality reason、side-effect chain、expected outcomes、observable evidence 和 validation result；不要把 API success、screen-level UI pass 或 screenshot-only evidence 當成 journey pass。
 - 效能敏感變更包含適合風險的 load、stress、spike、soak 或 smoke-size 效能證據。
@@ -122,8 +122,8 @@
 
 ## UI Governance Review（UI 治理審查）
 
-- UI compliance claim 已連到 [`ui-governance.md`](ui-governance.md)，且沒有把 visual diff、screenshot 或 AI review 當成 governance domain。
-- Governance domain、render context、collection method、validation mechanism、evidence class、severity 已分開記錄；需要 artifact 時使用 [`templates/ui-governance-evidence-template.md`](templates/ui-governance-evidence-template.md)。
+- UI compliance claim 已連到 [`ui-governance.md`](../../software-delivery/ui-governance.md)，且沒有把 visual diff、screenshot 或 AI review 當成 governance domain。
+- Governance domain、render context、collection method、validation mechanism、evidence class、severity 已分開記錄；需要 artifact 時使用 [`templates/ui-governance-evidence-template.md`](../../software-delivery/templates/ui-governance-evidence-template.md)。
 - Browser Review、screenshot capture、DOM snapshot、accessibility tree 或 human observation 被記錄為 evidence acquisition，不被當成 validator 或 compliance proof。
 - Responsive claim 至少包含 desktop 與 mobile（或同等 wide / narrow render context）evidence；desktop pass 不替代 mobile、safe-area、keyboard、orientation 或 touch target 驗證。
 - Design-system claim 引用 project-local token / primitive / component policy；本 workflow 不要求全域 token scale。
@@ -132,7 +132,7 @@
 
 ## Reusable Guidance Boundary（可重複使用指引邊界）
 
-- 應用 [`reusable-guidance-boundary.md`](../../enforcement/reusable-guidance-boundary.md) 中的全域規則。
+- 應用 [`reusable-guidance-boundary.md`](../../../enforcement/reusable-guidance-boundary.md) 中的全域規則。
 - 可重複使用的技能指引說明通用故障模式、決策規則、擁有者層和驗證方法。
 - 專案名稱、本機路徑、主機、端點字串、負載片段、樣本 ID、類別名稱、即時資料特異性和執行結果保留在專案儲存庫中，而非可重複使用的技能中。
 - 從事件衍生的課程被拆分：技能中的通用方法；專案文件中的具體重現證據和 BDD/test 檔案名稱。
@@ -201,6 +201,11 @@
 - 伺服器端風險評分可以容忍誤報和漏報。
 - 關鍵操作仍然需要後端授權和濫用控制。
 - 應用程式避免儲存成為永久繞過目標的靜態機密。
+
+## 相依元件公告
+
+- CVE 詢問、相依／runtime／映像／部署變更與發布，依 [`相依元件公告查核`](../../software-delivery/dependency-advisory-review.md) 核對官方公告及直接／間接相依；記錄時間、資料源、實際版本、未涵蓋範圍與處置。
+- 套件掃描成功不能取代 shared runtime／OS 查核；修補完成需建置、回歸、重新掃描及部署版本讀回。
 
 ## Release Gate（發布關卡）
 

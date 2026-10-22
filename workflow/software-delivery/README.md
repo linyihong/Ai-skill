@@ -71,6 +71,8 @@ Intent 保存為 brief／plan 時，該記錄是 Asset；checker 檔案也是 As
 15. 交付任務已宣告 `delegation.enabled: true` 進入執行時，載入 [`delegated-execution.md`](delegated-execution.md)（`sd-delegated-execution`，candidate）：角色 × 證據責任矩陣（誰該做什麼）、verification backfill、deliverables 清單、slice 合規關閉；loop 契約 canonical 在 [`plans/README.md`](../../plans/README.md) §Delegation loop SOP
 16. 付費播放、playlist 發放或媒體解鎖契約的設計／審查：載入 [`analysis/security/media-entitlement-control-plane.md`](../../analysis/security/media-entitlement-control-plane.md)，並在 contract 或 implementation 敏感變更時 invoke `security-audit`。**不要**另開 `workflow/security/` domain。
 
+17. 近期 CVE、相依元件／runtime 升級、資安或發布查核：載入 [`dependency-advisory-review.md`](dependency-advisory-review.md)，記錄官方公告時效、間接相依及部署版本證據。
+
 ## Review invoke（ADR-013 — 導航層說明）
 
 **Review 不是 Workflow Phase，也不是 lifecycle slice。** 它是 **capability invoke** — workflow 只決定 *when* 與 *which capability*；stance 需求由 capability registry 宣告；runtime 驗證 invoke envelope。

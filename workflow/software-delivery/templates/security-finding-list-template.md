@@ -44,6 +44,12 @@ audit_execution:
 - **有使用者**：介面在擁有者以外是否被注入、呼叫或掛到 endpoint。
 - 失效條件綁「第一個使用者出現」，不要綁「被註冊」——慣例註冊常常早就存在。
 
+## 相依元件公告查核（符合觸發時必填）
+
+依 [`dependency-advisory-review.md`](../dependency-advisory-review.md) 執行；記錄 `checked_at`、官方來源／公告日期、SDK／runtime／解析套件與部署清單、掃描命令／資料源／退出碼／涵蓋範圍、CVE／GHSA 對照、官方嚴重度、適用性與必要條件、owner／期限／處置及重驗證據。未觸發時寫理由及仍有效的證據引用。
+
+官方嚴重度與下方 finding 的專案 `severity` 分開。查核失敗或缺部署證據是 unknown，不能由空 findings 推定安全。
+
 ## Findings
 
 每個 finding 一個 block。未確認的 finding 不填 `severity`；confirmed 的 finding 不填 `potential_impact`（嚴重度已由 `severity` 表達，未來可能升級的理由寫在註解或 resolution）。
