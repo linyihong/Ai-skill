@@ -2,6 +2,7 @@
 
 | 檔名 | Status | 標題 | 一句話摘要 |
 |------|--------|------|-----------|
+| [2026-10-22_093000-deployment-state-is-readback-not-narrative.md](2026-10-22_093000-deployment-state-is-readback-not-narrative.md) | candidate | Deployed state is a readback, not a narrative | Repo ledger is canonical and tags are a derived index; DoD leaves operator notices; preflight fails on unknown baselines and open notices; record the environment too |
 | [2026-10-15_190000-mutate-the-layer-that-decides-and-reset-the-template.md](2026-10-15_190000-mutate-the-layer-that-decides-and-reset-the-template.md) | candidate | A surviving mutant may be in the wrong layer; rebuild the template after every mutant | Apply the mutant where the last statement decides; identical red sets for unrelated mutants point at the template or harness |
 | [2026-10-20_150000-claim-vs-proof-audit-before-a-protection-wording-switch.md](2026-10-20_150000-claim-vs-proof-audit-before-a-protection-wording-switch.md) | candidate | Audit every protective sentence against a proof before switching security wording | Claim-vs-proof table; test each credential alone; per-class counts; detect-only controls need enforced ordering |
 | [2026-10-15_121000-secret-scanner-rejects-credential-literals-in-tests.md](2026-10-15_121000-secret-scanner-rejects-credential-literals-in-tests.md) | candidate | Secret scanners reject credential-looking literals in tests | Generate at runtime, use a builder and neutral names; never whitelist test dirs |
