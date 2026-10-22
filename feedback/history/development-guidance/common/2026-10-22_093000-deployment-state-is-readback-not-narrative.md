@@ -95,3 +95,16 @@ Status: candidate
 - 已更新 `feedback/history/development-guidance/common/README.md` 與 `feedback/history/development-guidance/README.md` 的索引。
 - 已依 [`reusable-guidance-boundary.md`](../../../../enforcement/reusable-guidance-boundary.md) 檢查：只保留通用方法；客戶名稱、站台、port、commit、數字細節留在專案文件。
 - Promotion target 暫不修改：缺少真實部署證據，理由見 Promotion Record。
+
+#### 修訂 2026-10-22（來源專案 Phase 1 完成後）
+
+Status 仍為 candidate（尚未有真實部署走完流程）。實作與設計的差異：
+
+1. **紀錄要是部署腳本的副產品，不是另一個要記得執行的指令。** 原設計是「preflight」「record」兩支腳本；使用者指出多一個指令就多一個漏掉的點，
+   改為單一部署入口：通過 preflight 時自動開草稿，部署後自動讀回填入，只詢問機器判斷不了的欄位。
+2. **用「未完成的紀錄草稿」當鎖。** 草稿存在或殘留 `TODO` 時，pre-commit 與 pre-push 都失敗；檢查讀檔案系統，所以未追蹤的草稿也會鎖住部署者自己的機器。
+   沒有略過旗標，唯一出口是 `abort` 加理由。已知限制：刪掉未追蹤草稿就能解鎖，需要第二道痕跡或規則補強。
+3. **衍生紀錄的一致性檢查不能依賴可變的鄰居。** 帳本 entry 由紀錄檔推導；若檢查器用「現在的前一筆」重算未部署站台的沿用值，之後合法回填舊 entry 會讓檢查器紅且無出口。
+   修正：推導時把沿用值凍結進紀錄檔，檢查器只用紀錄本身重建。這條在任何「由 A 推導 B、並檢查 B」的閘都適用。
+4. **機器讀的檔案配合執行端格式。** 部署端是 Windows／PowerShell 時，JSON（內建解析）比 YAML（需模組）適合；通知用扁平 frontmatter，兩種 shell 都能不靠套件解析。
+5. **`owner` 是「要照做的人」，不是撰寫者。** 以 git author 推導會錯；由使用者指定並給預設值。
