@@ -7,7 +7,7 @@
 | [`common/`](common/) | 68 | 跨分類或通用 lesson（工具選擇、流程、UI、分析策略等） |
 | [`flutter-dart-aot/`](flutter-dart-aot/) | 23 | Flutter/Dart AOT 相關 hook 與分析 |
 | [`http-api/`](http-api/) | 34 | HTTP API 分析、文件化、UI 操作流程 |
-| [`local-proxy/`](local-proxy/) | 11 | Local proxy 設定、診斷、hook |
+| [`local-proxy/`](local-proxy/) | 12 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
 | [`unity-il2cpp/`](unity-il2cpp/) | 50 | Unity IL2CPP、AssetBundle、UnityCache |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
@@ -16,6 +16,7 @@
 
 | Slug | Category |
 |------|----------|
+| `local-proxy/2026-10-23_134500-wire-result-glass-must-match-processresult-strip` | Wire RESULT GLASS 須對齊 ProcessResult strip；thin visible-only 常卡停輪 |
 | `unity-il2cpp/2026-10-23_102500-slot-iface-analysis-seated-unitypy-batch-and-commit-cadence` | 已進桌 §3e：UnityPy 一批＋splash stub＋分段 commit |
 | `unity-il2cpp/2026-10-23_101000-unity-particle-restore-needs-unitypy-or-assetripper-not-il2cppdumper` | 粒子還原：UnityPy／AssetRipper；Il2CppDumper／AssetStudio 非主路徑 |
 
