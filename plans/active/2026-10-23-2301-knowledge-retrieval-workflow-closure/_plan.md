@@ -10,7 +10,7 @@ owner_layer: knowledge
 
 # 既有知識檢索與 Workflow 採用閉環強化
 
-**Status**: `draft`。本輪只建立計畫；implementation、benchmark、runtime integration 均未執行。
+**Status**: `draft`（五點審閱意見已納入，下一步為 Phase 0）。implementation、benchmark、runtime integration 均未執行。
 
 目標：讓既有 intelligence、決策與失敗經驗更穩定地被找到，經來源與適用性確認後支援 workflow。先改善現有能力，再用漏找證據決定是否加入向量搜尋與 reranking。
 
@@ -32,7 +32,7 @@ owner_layer: knowledge
 
 ### Decision
 
-共用檢索能力、分開消費入口：Discovery Bridge 查候選 route；workflow 已啟動後查相關 intelligence、決策與經驗。先盤點與量測，再補全文覆蓋、查詢處理、metadata 過濾和有界關聯展開；向量與 reranking 以獨立增益實驗決定。
+重用既有檢索能力、分開消費入口：Discovery Bridge 查候選 route；workflow 已啟動後查相關 intelligence、決策與經驗。只有盤點確認重複實作或可量測收益時，才調整 Bridge 呼叫接點；workflow lookup 的交付不以 Bridge 重構為前提。先盤點與量測，再補全文覆蓋、查詢處理、metadata 過濾和有界關聯展開；向量與 reranking 以獨立增益實驗決定。
 
 固定邊界：
 
@@ -68,8 +68,8 @@ Runtime owner 為現有 CLI `internal/app`；knowledge 層管理查找來源與�
 
 | 入口事件 | Query / detector → 載入 → 動作 → 證據 |
 | --- | --- |
-| 任務無確定 route | 現有 detector miss → Bridge 使用共用檢索候選與現有 ranking → advisory 提供 route / primary source → 記錄候選、版本、耗時；不 activation |
-| Workflow 已啟動且需要相關經驗 | workflow 明確查找步驟 → `runtime query` 共用檢索與 context filters → 讀 canonical source、適用性檢查 → 採用或拒絕並記理由與來源版本 |
+| 任務無確定 route | 現有 detector miss → 保留 Bridge 現有 ranking / advisory → 提供 route / primary source；只有符合 Phase 3 接入條件才改用共用查詢，並記錄比較證據；不 activation |
+| Workflow 已啟動且需要相關經驗 | workflow 明確查找步驟 → `runtime query` 共用檢索與 context filters → 讀 canonical source、核對回讀版本與適用性 → 採用或拒絕並記理由與實際採用版本 |
 | 來源新增、修改、刪除 | 現有 refresh / validate → 重建或更新索引、檢查 checksum → 清除舊候選與失效 source 指向 → freshness / rebuild evidence |
 | 索引不存在、過期或查詢逾時 | 顯式 unavailable / stale → 回退 source lookup 與 required reads → 不使用靜默舊結果支持結論 → 記錄 fallback |
 
@@ -78,7 +78,7 @@ Runtime owner 為現有 CLI `internal/app`；knowledge 層管理查找來源與�
 | Generated surface key | Named consumer(s) | Consumer 類型 |
 | --- | --- | --- |
 | 既有 `runtime.discovery.config`（不新增） | `discovery.go` | Bridge config lookup |
-| 既有 `runtime-index.sqlite` 中 atoms / fts / sources | `runtime query`、後續共用檢索介面 | CLI / Bridge lookup；Bridge 新接點待 Phase 3 驗證 |
+| 既有 `runtime-index.sqlite` 中 atoms / fts / sources | `runtime query`、後續共用檢索介面 | CLI / workflow lookup；Bridge 新接點為條件式範圍，若啟用需 Phase 3 驗證 |
 
 ## Open Questions
 
@@ -88,7 +88,7 @@ Runtime owner 為現有 CLI `internal/app`；knowledge 層管理查找來源與�
 | Q2 | 中文、混合術語、精確識別字與長句的查詢行為如何？先實測 tokenizer 與 query literal handling | still-open；Phase 1 |
 | Q3 | domain、project、supersession、證據版本哪些已有 canonical 欄位？避免另造 metadata；缺值預設 unknown | still-open；Phase 0，阻擋 metadata schema 實作 |
 | Q4 | 首批 consumer workflow 選哪個？先選有歷史漏找、可重跑的既有流程 | still-open；Phase 0，阻擋 Phase 3 |
-| Q5 | Bridge 如何共享查詢而不突破既有 Light budget？採 bounded lookup、dedup、timeout；量測後定值 | still-open；Phase 0/1，接入前凍結 |
+| Q5 | 是否存在 Bridge 重複實作或可量測接入收益？若需調整，如何維持 Light budget？採 bounded lookup、dedup、timeout | still-open；Phase 0 判定必要性；不調整時記錄理由，調整時於接入前凍結 budget |
 | Q6 | 向量與 reranking 是否值得？剩餘語意漏找才啟動；供應商、模型、持久化方案不預選 | deferred；Phase 4，無漏找證據則記錄不啟用 |
 
 ## Phase 0 — Pre-Build Interrogation / Architecture Compatibility Preflight
@@ -105,19 +105,26 @@ Runtime owner 為現有 CLI `internal/app`；knowledge 層管理查找來源與�
 - [ ] 記錄 trigger、checked sources、conflicts、interrogation、Q1–Q6 處置、execution decision 與 validation；未完成不得開始 implementation。
 - [ ] 盤點 generator、query、graph lookup、refresh / validation、Bridge hook、metadata 與 memory retrieval 邊界；列可重用能力、來源覆蓋和 duplication risk。
 - [ ] 核對 current DB schema / generated surfaces 與 canonical config 類型；不可把舊 YAML pointer 當唯一 source，也不可另建 runtime mirror。
-- [ ] 選定首批 workflow、實際查找觸發點、結果消費者與 baseline 命令；凍結成本與安全驗收範圍。
+- [ ] 選定首批 workflow、實際查找 / 重查 / 略過條件、結果消費者與 baseline 命令；分開凍結 Phase 2 檢索及 Phase 3 採用驗收範圍與成本。
 
 Candidate files（只代表調查與可能修改，不承諾全改）：`internal/app/runtime.go`、`discovery.go`、`hooks.go` 與對應 tests；`knowledge/runtime/sqlite/README.md`；`metadata/schema.md`；`governance/workflow-activation-engine.md`；Phase 0 選定 workflow 的 README / execution-flow；必要的 routing / summaries / graphs / scenarios。實作前讀各層 README、適用契約與 linked updates。Gate：Q1/Q3/Q4 已解，無未處理 source ownership 衝突。
 
 ## Phase 1 — 建立可重跑的漏找基準
 
-- [ ] 收集約 20 題有來源的真實問題，標 `case_id`、問題、task context、應找到的 source IDs / paths、相關程度與適用理由；無答案案例標空集合，不虛構真實案例。
+- [ ] 收集約 20 題有來源的真實問題，標 `case_id`、問題、query intent（如歷史追溯 / 當前採用）、task context、應找到的 source IDs / paths、相關程度與適用理由；無答案案例標空集合，不虛構真實案例。
 - [ ] 包含精確名稱、中文 / 英文 / 混合詞、不同措辭、workflow 已命中、過期 / 取代 / 不適用、無答案案例；分布與樣本數需公開。
 - [ ] 分開量測 route 推薦與知識查找；每個漏找分類為未索引、查詢處理、排序、語意落差、filter、觸發 / consumer 缺失。
 - [ ] 凍結 corpus revision、查詢、工具版本、metadata、成本與結果；約 70% 診斷、30% holdout，相關改寫不得跨組，holdout 不用於調參。
-- [ ] 定義 Recall@5（應命中來源的找回比例）、MRR@5、無答案誤推率、不可採用候選比例、錯誤採用數、p95 latency、context tokens；小樣本同報分子 / 分母，不宣稱統計顯著。
+- [ ] 依下表分開定義檢索與採用指標；候選是否相關須依 query intent 判斷，歷史追溯可合理命中已取代版本，不得為降低不可採用候選比例而隱藏歷史。小樣本同報分子 / 分母，不宣稱統計顯著。
 
-Gate：每題有可覆核標記；重跑可重現；Phase 2 前凍結數值 acceptance 與 baseline。預設方向：核心真實漏找修復、holdout Recall@5 / MRR@5 不退步、required-read bypass / 自動 activation / 已知失效證據被採用均為 0；延遲與 tokens 不超核准 budget。無增益仍可交付診斷，不能聲稱搜尋強化完成。
+| 驗收層 | 指標 | 驗收階段 |
+| --- | --- | --- |
+| 檢索 | Recall@5、MRR@5、依 intent 定義的無答案誤推率、候選適用性分布、p95 latency、context tokens | Phase 2 |
+| 採用 | 來源回讀、適用性判定、錯誤採用數、required-read / activation / blocker 保持、採用時版本核對 | Phase 3 |
+
+未接線或未量測的指標一律標 `not evaluated`，不可填 0 或當成通過；分布至少區分適用、不適用、已取代與 unknown，分布本身不等於檢索錯誤率。
+
+Gate：每題有可覆核標記；重跑可重現；Phase 2 前凍結檢索層數值 acceptance 與 baseline，Phase 3 前凍結採用層 acceptance。預設方向：核心真實漏找修復、holdout Recall@5 / MRR@5 不退步，延遲與 tokens 不超核准 budget；採用層另驗 required-read bypass / 自動 activation / 已知失效證據被採用均為 0。無增益仍可交付診斷，不能聲稱搜尋強化完成。
 
 ## Phase 2 — 補既有全文搜尋、metadata 與關聯查找
 
@@ -128,30 +135,32 @@ Gate：每題有可覆核標記；重跑可重現；Phase 2 前凍結數值 acce
 - [ ] 回傳來源、命中理由、版本 / freshness、適用性待查事項與回讀入口；相關性分數和可信 / 適用性欄位分開。
 - [ ] 驗證建立、refresh、修改、刪除、搬移、stale、缺 metadata、缺索引、rebuild 與 deterministic ordering；用 Phase 1 固定資料比較。
 
-Gate：通過凍結 acceptance；cache 可從 canonical source 重建；不得修改 canonical 結論來讓 benchmark 通過。
+Gate：通過凍結的檢索層 acceptance；採用層保持 `not evaluated`，留待 Phase 3；cache 可從 canonical source 重建；不得修改 canonical 結論來讓 benchmark 通過。
 
-## Phase 3 — 接到 Discovery Bridge 與 Workflow 採用流程
+## Phase 3 — 接入 Workflow 採用流程與條件式 Bridge 調整
 
-- [ ] 抽取可共用檢索介面；Bridge 保留 miss-path 與 advisory 邊界，workflow lookup 不依賴 detector miss。
-- [ ] 在首批 workflow 明訂查找事件、context filters、讀回來源與採用檢查；不把每次工具呼叫都變成完整全文查詢。
+- [ ] 優先重用既有檢索能力。只有 Phase 0 確認重複實作，或比較實驗證明可量測收益，才抽共用介面並調整 Bridge 呼叫接點；記錄啟用 / 不調整的證據。Bridge 保留 miss-path 與 advisory 邊界，workflow lookup 不依賴 detector miss，也不以 Bridge 重構為交付前提。
+- [ ] 在首批 workflow 寫明「事件 → 查找動作 → 證據」：初次查找事件（如形成方案前、失敗診斷時）、重查條件（如關鍵前提、來源或任務範圍改變）、可略過條件及可覆核理由；同時定義 context filters、讀回與採用檢查。用觸發、重查、合理略過與不當略過案例驗證，不新增通用 trigger framework。
 - [ ] 採用前檢查 domain / project / 前提、證據版本與失效判定、supersession、候選 / 已驗證 / 契約身分；checksum 變動只表示需重驗，不單獨判斷結論失效。
-- [ ] 記錄 query、候選、來源版本、採用 / 拒絕 / unknown 理由與本次 workflow 用途；只存必要去敏資料，設定 retention 與 token cap，不建立全量對話庫。
-- [ ] 建立正負 scenarios：miss advisory、route hit 後找經驗、低排名 required_read 仍載入、相似但不適用、已取代、stale / unavailable fallback、無答案與 timeout。
+- [ ] 採用時核對實際回讀來源的 revision / checksum；與搜尋候選版本不一致時，重新驗證適用性並記錄實際採用版本。驗證期間再次變動則重驗或停止採用，不能沿用舊判定。
+- [ ] 記錄 query、查找 / 重查 / 略過理由、候選版本、回讀與實際採用版本、採用 / 拒絕 / unknown 理由與本次 workflow 用途；只存必要去敏資料，設定 retention 與 token cap，不建立全量對話庫。
+- [ ] 建立正負 scenarios：miss advisory、route hit 後找經驗、低排名 required_read 仍載入、相似但不適用、已取代的歷史追溯與當前採用差異、查詢版本 A 到採用版本 B 的重驗、查找 / 重查 / 略過、stale / unavailable fallback、無答案與 timeout。
 - [ ] 執行真實 consumer dogfood；報告找到 → 讀回 → 適用 → 採用各階段結果；關閉 feature 後能回到既有 lookup，既有 activation gate 行為一致。
 
-Gate：至少兩個獨立真實任務的完整採用 / 拒絕鏈，加上負面回放；只測 helper 或 mock 不算 runtime integration。完成 compile / refresh / validate（按受影響來源）及 consumer 行為證據。
+Gate：通過採用層 acceptance；未實際評估項目不得填 0。至少兩個獨立真實任務的完整採用 / 拒絕鏈，加上負面回放；只測 helper 或 mock 不算 runtime integration。完成 compile / refresh / validate（按受影響來源）及 consumer 行為證據。
 
 ## Phase 4 — 條件式語意搜尋 / Reranking 實驗與收尾
 
 - [ ] 若仍有具體語意漏找，才比較 BM25、BM25 + vector、必要時再加 reranking；先分別量測增益，不一次疊加歸因。
-- [ ] 實驗開始前凍結模型 / 版本、資料邊界、reindex 成本、holdout、最小有效改善題數與 latency / tokens budget；無此凍結不啟動。
+- [ ] Phase 4 啟動時先確認仍有獨立留出資料；若原 holdout 已參與 Phase 2 後的診斷、方法選擇或調參，須另建未參與這些活動的留出集，相關改寫不得跨組。記錄各集使用歷史，不將已看過的測試資料重新宣稱為獨立 holdout。
+- [ ] 實驗開始前凍結模型 / 版本、資料邊界、reindex 成本、獨立 holdout、最小有效改善題數與 latency / tokens budget；無此凍結不啟動。
 - [ ] 新增方法須改善預先標記語意漏找，holdout 不退步、安全錯誤為 0、成本在 budget 內才採用；不達標則保留 BM25 並記錄拒絕原因。holdout 看過後再調參需新留出集。
 - [ ] 若無剩餘語意缺口，記錄 skip 的證據；可完成核心計畫，不因未導入 vector 阻擋。
 - [ ] 彙整結果、已知限制與 deferred owner / restart 條件；同步 README / 契約 / generated consumers，執行 Plan Completion Closure。
 
 ## Stakeholder 同意項目
 
-使用者本輪已授權「撰寫 plan」，未授權開始 implementation。執行啟動時需確認首批 workflow、基準資料與成本 budget；涉及外部模型傳送資料或付費服務時另行確認具體方案。Phase 4 是條件式選項，不是預先採購或導入承諾。
+使用者已要求撰寫計畫並提供五點審閱補強，方向為修訂後進入 Phase 0；本次修訂未開始盤點或 implementation。執行啟動時需確認首批 workflow、基準資料與成本 budget；涉及外部模型傳送資料或付費服務時另行確認具體方案。Phase 4 是條件式選項，不是預先採購或導入承諾。
 
 ## 完成條件
 
@@ -163,6 +172,6 @@ Gate：至少兩個獨立真實任務的完整採用 / 拒絕鏈，加上負面�
 
 ## 與其他 plans 的關係
 
-延續 [Discovery Bridge](../2026-06-06-1700-workflow-activation-discovery-bridge.md) 的 advisory 能力，不把它未完成的 Deep Discovery / empirical work 默認為完成；Phase 0 需劃清重疊 work item 的 owner 與證據歸屬。與 [Feedback Execution Closure](../2026-07-10-0955-final-form-feedback-execution-closure.md) 互補：該計畫處理經驗沉澱，本計畫處理沉澱後的查找與使用，不接管其 roadmap。
+Bridge 呼叫接點的變更為條件式範圍；不調整時記錄理由並保留現有行為，不阻擋 workflow lookup 交付。延續 [Discovery Bridge](../2026-06-06-1700-workflow-activation-discovery-bridge.md) 的 advisory 能力，不把它未完成的 Deep Discovery / empirical work 默認為完成；Phase 0 需劃清重疊 work item 的 owner 與證據歸屬。與 [Feedback Execution Closure](../2026-07-10-0955-final-form-feedback-execution-closure.md) 互補：該計畫處理經驗沉澱，本計畫處理沉澱後的查找與使用，不接管其 roadmap。
 
 後續多次量測的完整記錄依 [plan evidence 規則](../../../governance/lifecycle/plan-evidence.md) 放本資料夾 `evidence/` 並建 README Run 索引；目前沒有量測，因此不建立空 evidence 或填入虛構通過結果。
