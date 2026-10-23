@@ -443,7 +443,7 @@ func TestRetrievalReplayStaleAndHistoricalControls(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(historical) != 1 || historical[0].Status != "deprecated" {
+	if len(historical) == 0 || historical[0].ID != "test.summary" || historical[0].Status != "deprecated" {
 		t.Fatal("history hidden", historical)
 	}
 	current, err := runRuntimeIndexQuery(index, "Test summary text", runtimeOptions{limit: 5, statusFilter: "validated"})
