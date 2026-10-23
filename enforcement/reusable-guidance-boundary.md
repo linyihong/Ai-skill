@@ -32,6 +32,10 @@
 
 任一答案顯示內容仍綁定專案，就不要寫進 reusable skill；改寫成 generalized rule，並把具體證據移到專案文件。
 
+### Feedback lesson 強制閘
+
+寫入 `feedback/history/**` 時，上述五問不足——必須跑完 [`../feedback/feedback-lessons.md`](../feedback/feedback-lessons.md) **§Abstraction Gate**，並在 lesson 內留下 `#### Abstraction Check`（`Swap-project test: PASS`）。機械檢查由 KGE `feedback-lesson-closure` 執行；反覆漏做見 [`failure-patterns/feedback-lesson-without-abstraction-gate.md`](failure-patterns/feedback-lesson-without-abstraction-gate.md)。
+
 ## 與其他規則的關係
 
 - 去敏與 placeholder 依 [`sanitization.md`](sanitization.md)。

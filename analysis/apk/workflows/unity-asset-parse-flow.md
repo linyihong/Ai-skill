@@ -37,6 +37,7 @@ Lesson：[`../../feedback/history/apk-analysis/unity-il2cpp/2026-10-23_102500-sl
 ## Unity 分析 vs 業務 HTML 報告腳本（邊界）
 
 **本檔／Ai-skill 只沉澱 Unity 分析技巧**（UnityPy 盤點、ParticleSystem 參數、成熟度標籤、seated vs splash、Frida SpriteName 策略）。
+
 **業務 repo 的 HTML／atlas CLI**（例如 `generate_interface_analysis.py`、`export_sprite_atlas_manifest.py`）留在該專案 `scripts/`，**不要**把專案腳本路徑或產出檔名當成 Ai-skill 通用義務。
 
 Agent 行為（跨專案可重用）：

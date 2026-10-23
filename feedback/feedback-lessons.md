@@ -11,6 +11,22 @@
 - **每輪回饋檢查：** 每個有實質進展的工作回合結束前、切回長時間專案工作前、提交 project-only evidence 前、或使用者說「繼續」展開下一輪前，agent 必須明確自問：本輪是否新增可重用技巧、validation rule、replay knob、hook/runner guard、錯誤模式、或閉環缺口？若是，先開啟 canonical `<AI_SKILL_REPO>` writeback transaction；若否，最終回覆可簡短說明本輪沒有新增泛化 lesson，或只留下 project-specific evidence。
 - 只寫**通用方法**，不寫特定 App / project incident 的私有結論或具體證據；必須依 [reusable-guidance-boundary.md](../enforcement/reusable-guidance-boundary.md) 先抽象化原因、規則與驗證，再依 [sanitization.md](../enforcement/sanitization.md) 去敏；若 lesson 來自 agent 失誤或閉環不完整，另依 [failure-learning-system.md](../enforcement/failure-learning-system.md) 分類失效模式並判斷是否需要 `enforcement/failure-patterns/`；不要只新增 skill-local feedback lesson 就宣稱已吸收 agent 錯誤，需先判斷是否也需要 cross-skill failure pattern；發現 skill/rule/template/lesson 更新時依 [dependency-reading.md](../enforcement/dependency-reading.md) 讀取依賴；標題、slug、摘要與正文必須依 [neutral-language.md](../enforcement/neutral-language.md) 使用中性低爭議用語；每個重要結論必須依 [goal-action-validation.md](../enforcement/goal-action-validation.md) 說明目標、執行、驗證或參考來源；必須說明證據與適用／不適用條件；不確定標 `experimental`。
 - **去敏檢查：** 寫入任何 lesson 前，必須依 [`sanitization.md`](../enforcement/sanitization.md) 逐項檢查：不得包含本機絕對路徑（改用 `<AI_SKILL_REPO>`、`<PROJECT_ROOT>`、`<WORKSPACE>` 占位符）、使用者名稱、私有工作目錄、clone 位置、secrets、raw tokens、私人 host、個資或 project-specific evidence。寫入完成後在 `git diff` 中再次確認去敏項目已處理。
+- **Abstraction Gate（寫入前必跑）：** 見下方專節。忘記抽象化、或把專案特例寫進 `feedback/history/`，屬 `scope-drift`；prevention 見 [`enforcement/failure-patterns/feedback-lesson-without-abstraction-gate.md`](../enforcement/failure-patterns/feedback-lesson-without-abstraction-gate.md)。Commit-time KGE `rule.feedback_lesson_closure` 會機械檢查 `#### Abstraction Check`。
+
+## Abstraction Gate（其他 agent 必過）
+
+在建立或大幅改寫任何 `feedback/history/**` lesson **之前**，agent 必須依序完成。不可「先寫再說」。
+
+| Step | 問題 | PASS 才可寫入 Ai-skill | FAIL 時 |
+| --- | --- | --- | --- |
+| 1 | 拿掉產品／柜机／sample／host／class 專名後，技巧是否仍成立？ | 用中性詞重述 One-line Summary + Generalized Lesson | 只更新 `<PROJECT_ROOT>` 專案文件；**不要**開 feedback lesson |
+| 2 | Evidence 是否只留可公開摘要＋`<PROJECT_ROOT>/…` 指標？ | 具體 live 數字、裝置、包名、路徑留專案 | 刪除 raw evidence 後再寫 |
+| 3 | Generalized Lesson 是否可被另一個無關專案的 agent 直接套用？ | 寫清 Trigger／Applies／Does Not Apply | 降級為 project runbook，或再抽象一輪 |
+| 4 | 本條是 technique lesson 還是 agent failure pattern？ | technique → `feedback/history/`；agent 反覆失誤 → 另評 `enforcement/failure-patterns/`（可兩者都要） | 不要用 technique lesson 冒充 failure prevention |
+
+寫入後，lesson 正文**必須**含 `#### Abstraction Check`（模板見下），且 `Swap-project test:` 必須是 **PASS**。若自評 **FAIL**，KGE 會擋 commit——這是刻意設計，避免專案特例混進共用庫。
+
+機械檢查／opt-out：`ai-skill` commit-msg／push 的 `feedback-lesson-closure`；整條 closure 的 trailer 仍是 `[skip-feedback-lesson-closure]`（僅回顧例外，須在 commit body 說明原因）。
 
 ## 條目放哪裡
 
@@ -181,7 +197,15 @@ Status: candidate | validated | deprecated | promoted | experimental
 - 依 [`linked-updates.md`](../enforcement/linked-updates.md) 列出必須同步更新或已檢查的相關文件；若無需連動更新，寫明原因。
 - 若 lesson 來自 project incident，列出已依 [`reusable-guidance-boundary.md`](../enforcement/reusable-guidance-boundary.md) 檢查：skill 只保留 generalized lesson，具體證據留 project docs。
 - 具體寫出已更新的 category／domain index、promotion target，或「not applicable」及理由；不可留空。
+
+#### Abstraction Check
+
+- Swap-project test: PASS — <一句話：拿掉本專案專名後規則仍成立>
+- Project evidence kept in: `<PROJECT_ROOT>/…` | `not applicable — technique-only`
+- Product/cabinet/sample IDs absent from Generalized Lesson: PASS
 ```
+
+> **機械強制：** 缺 `Abstraction Check`、缺上述三類資訊、或 `Swap-project test: FAIL` → commit 被 `feedback-lesson-closure` 擋下。
 
 ## 同步與索引
 

@@ -55,6 +55,9 @@ func (FeedbackLessonClosureRule) Validate(ctx Context) []Finding {
 		if sectionIsEmpty(body, "Required Linked Updates") {
 			out = append(out, feedbackClosureFinding(path, "Required Linked Updates must state completed updates or an explicit not-applicable reason"))
 		}
+		if detail := abstractionCheckViolation(body); detail != "" {
+			out = append(out, feedbackClosureFinding(path, detail))
+		}
 		if (status == "validated" || status == "promoted") && sectionIsEmpty(body, "Reuse Evidence") {
 			out = append(out, feedbackClosureFinding(path, "Status "+status+" requires Reuse Evidence; otherwise keep the lesson candidate"))
 		}
@@ -82,7 +85,7 @@ func IsFeedbackLessonPath(path string) bool {
 }
 
 func missingLessonSections(body string) []string {
-	required := []string{"One-line Summary", "Evidence", "Generalized Lesson", "Agent Action", "Goal / Action / Validation", "Applies / Does Not Apply", "Validation", "Promotion Target", "Required Linked Updates"}
+	required := []string{"One-line Summary", "Evidence", "Generalized Lesson", "Agent Action", "Goal / Action / Validation", "Applies / Does Not Apply", "Validation", "Promotion Target", "Required Linked Updates", "Abstraction Check"}
 	var missing []string
 	for _, heading := range required {
 		if !hasHeading(body, heading) {
@@ -90,6 +93,59 @@ func missingLessonSections(body string) []string {
 		}
 	}
 	return missing
+}
+
+// abstractionCheckViolation enforces the pre-write Abstraction Gate for
+// feedback lessons. Agents must record a swap-project test and where project
+// evidence lives; FAIL means the lesson must stay in project docs, not here.
+//
+// Opt-out for the whole closure rule remains [skip-feedback-lesson-closure].
+func abstractionCheckViolation(body string) string {
+	if !hasHeading(body, "Abstraction Check") {
+		return ""
+	}
+	section := sectionBody(body, "Abstraction Check")
+	if strings.TrimSpace(section) == "" {
+		return "Abstraction Check must answer Swap-project test, Project evidence location, and product-name absence (see feedback/feedback-lessons.md §Abstraction Gate)"
+	}
+	lower := strings.ToLower(section)
+	if !strings.Contains(lower, "swap-project test:") {
+		return "Abstraction Check must include a 'Swap-project test: PASS|FAIL — …' line"
+	}
+	if !strings.Contains(lower, "project evidence") {
+		return "Abstraction Check must include where project-specific evidence is kept ('Project evidence kept in: …' or not applicable)"
+	}
+	if !strings.Contains(lower, "product") && !strings.Contains(lower, "cabinet") && !strings.Contains(lower, "sample") && !strings.Contains(lower, "project-specific") {
+		return "Abstraction Check must confirm Generalized Lesson has no product/cabinet/sample IDs (or explicitly mark residual risk)"
+	}
+	// FAIL = agent concluded the technique is not reusable → block landing in feedback/history.
+	for _, line := range strings.Split(section, "\n") {
+		l := strings.ToLower(strings.TrimSpace(line))
+		if strings.Contains(l, "swap-project test:") && strings.Contains(l, "fail") {
+			return "Swap-project test: FAIL — keep this writeup in project docs only; do not commit a project-specific lesson to feedback/history"
+		}
+	}
+	if !strings.Contains(lower, "pass") && !strings.Contains(lower, "fail") {
+		return "Abstraction Check Swap-project test must be PASS or FAIL"
+	}
+	return ""
+}
+
+func sectionBody(body, heading string) string {
+	idx, needleLen := -1, 0
+	for _, prefix := range []string{"#### ", "### ", "## "} {
+		if pos := strings.Index(body, prefix+heading); pos >= 0 && (idx < 0 || pos < idx) {
+			idx, needleLen = pos, len(prefix)+len(heading)
+		}
+	}
+	if idx < 0 {
+		return ""
+	}
+	rest := body[idx+needleLen:]
+	if next := strings.Index(rest, "\n#"); next >= 0 {
+		rest = rest[:next]
+	}
+	return rest
 }
 
 func lessonStatus(body string) string {

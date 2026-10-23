@@ -85,3 +85,9 @@ Status: candidate
 
 - 專案 session-proxy 文件註明：strip 柜 visibleGrid 必須 pad 或帶 `symbols[]`
 - 新柜注册 rewrite builder 時核對 `returnedRowRange`
+
+#### Abstraction Check
+
+- Swap-project test: PASS — any Unity ProcessResult strip cabinet with session-proxy-style RESULT rewrite needs GLASS cell count to match returnedRowRange; visible-only emission is a hard error regardless of product name
+- Project evidence kept in: `<PROJECT_ROOT>/docs/lab/` stop-reel / continuous-BET notes（project-local A/B tables）
+- Product/cabinet/sample IDs absent from Generalized Lesson: PASS

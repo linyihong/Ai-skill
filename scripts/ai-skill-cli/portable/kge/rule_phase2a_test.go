@@ -82,6 +82,12 @@ review
 #### Required Linked Updates
 
 - Updated category index.
+
+#### Abstraction Check
+
+- Swap-project test: PASS — technique holds without the originating product name
+- Project evidence kept in: not applicable — technique-only
+- Product/cabinet/sample IDs absent from Generalized Lesson: PASS
 `
 	ctx := Context{
 		CommitMsg:    "feedback: add lesson",
@@ -94,6 +100,17 @@ review
 	if got := eng.Run(ctx); len(got) != 0 {
 		t.Fatalf("want complete candidate lesson to pass, got %#v", got)
 	}
+
+	noAbs := strings.Replace(valid, "#### Abstraction Check\n\n- Swap-project test: PASS — technique holds without the originating product name\n- Project evidence kept in: not applicable — technique-only\n- Product/cabinet/sample IDs absent from Generalized Lesson: PASS\n", "", 1)
+	ctx.FileContents[path] = noAbs
+	if got := eng.Run(ctx); len(got) != 1 || !strings.Contains(got[0].Message, "Abstraction Check") {
+		t.Fatalf("want missing Abstraction Check violation, got %#v", got)
+	}
+	ctx.FileContents[path] = strings.Replace(valid, "Swap-project test: PASS — technique holds without the originating product name", "Swap-project test: FAIL — only true for one cabinet", 1)
+	if got := eng.Run(ctx); len(got) != 1 || !strings.Contains(got[0].Message, "FAIL") {
+		t.Fatalf("want Swap-project FAIL to block feedback/history landing, got %#v", got)
+	}
+	ctx.FileContents[path] = valid
 
 	ctx.FileContents[path] = strings.Replace(valid, "#### Applies / Does Not Apply\n\n- Applies: demo", "#### Applies When\n\n- Applies: demo\n\n#### Does Not Apply When\n\n- Does not apply: unrelated work", 1)
 	if got := eng.Run(ctx); len(got) != 0 {
