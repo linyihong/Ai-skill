@@ -34,6 +34,26 @@
 
 Lesson：[`../../feedback/history/apk-analysis/unity-il2cpp/2026-10-23_102500-slot-iface-analysis-seated-unitypy-batch-and-commit-cadence.md`](../../feedback/history/apk-analysis/unity-il2cpp/2026-10-23_102500-slot-iface-analysis-seated-unitypy-batch-and-commit-cadence.md)。
 
+## §3e companion scripts（無一鍵 HTML 生成器）
+
+業務 repo 的 slot onboarding §3e **沒有**「`generate_interface_analysis.py`」這類整包生產器（對比 §3d 的 `generate_symbol_map.py`）。HTML 對齊參考包手寫；**素材身分還原**必須跑專案 `scripts/slots/` 配套：
+
+| 順序 | 腳本（業務 repo） | 產出 |
+| --- | --- | --- |
+| 1 | `export_sprite_atlas_manifest.py` | `<cabinet>-atlas-manifest.json` |
+| 2 | `resolve_ui_sprites.py` | `sprite-resolution-report.json`（需 splash 仍開時的 Frida SpriteName 捕獲） |
+| 3 | `merge_sprite_resolution.py` | 合併進 `splash-sprite-bindings.json` |
+| 4 | `build_sprite_display_thumbs.py` | entrance HTML 用 display thumbs |
+
+Agent 行為：
+
+1. 開 §3e 前先讀業務 `scripts/slots/README.md`「UI asset restoration」與 `ui-asset-restoration.md`。
+2. 已有 feature pack → **至少**跑 atlas manifest；splash 線 deferred 時在 resource-map／README **寫明**缺 resolve／merge／thumbs。
+3. Entrance map **必須**有 `inheritsShared` + `sharedChrome` 指向 **`.json`**（可另加 doc 指針）；勿只連 `.md`。
+4. **禁止**把 `generate_symbol_map.py` 當成 §3e 生成器。
+
+Lesson：[`../../feedback/history/apk-analysis/unity-il2cpp/2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md`](../../feedback/history/apk-analysis/unity-il2cpp/2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md)。
+
 ## 步驟
 
 ### 1. 取得 `__data`
