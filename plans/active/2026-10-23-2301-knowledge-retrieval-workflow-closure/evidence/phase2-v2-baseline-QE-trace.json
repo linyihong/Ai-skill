@@ -1,0 +1,858 @@
+{
+  "diagnostic_kind": "same committed source candidate call; final fields checked against pinned CLI replay",
+  "index_path": "/tmp/retrieval-controlled-v1/new-extraction-v1.sqlite",
+  "observations": [
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 16,
+      "expected_atom_ranks_before_bound": {
+        "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md": 1
+      },
+      "final_hits": 1,
+      "final_payload_runes": 724,
+      "final_rr": 1,
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md"
+      ],
+      "id": "R01",
+      "pre_bound_top5": [
+        {
+          "rank": -16.69460867361264,
+          "source": "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 275
+        },
+        {
+          "rank": -9.884579995017727,
+          "source": "knowledge/summaries/knowledge-navigation.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 151
+        },
+        {
+          "rank": -8.487909510097554,
+          "source": "runtime/cognitive-modes.yaml",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 455
+        },
+        {
+          "rank": -7.2240845940502885,
+          "source": "feedback/history/apk-analysis/http-api/2026-06-22_130000-in-session-api-host-differs-from-cold-start-primary.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 183
+        },
+        {
+          "rank": -6.962395594057464,
+          "source": "feedback/history/apk-analysis/common/2026-09-09_100200-wellknown-http-ports-may-not-fail-named-host-resolve.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 108
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 0,
+      "pre_bound_top5_hits": 1,
+      "pre_bound_top5_rr": 1,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 64,
+      "expected_atom_ranks_before_bound": {
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md": 1
+      },
+      "final_hits": 1,
+      "final_payload_runes": 599,
+      "final_rr": 1,
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md"
+      ],
+      "id": "R02",
+      "pre_bound_top5": [
+        {
+          "rank": -12.490264874450476,
+          "source": "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 155
+        },
+        {
+          "rank": -5.5304318669051735,
+          "source": "feedback/history/apk-analysis/http-api/2026-05-01_171650-ui-architecture-map-from-screenshots.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 88
+        },
+        {
+          "rank": -5.502637841060568,
+          "source": "analysis/web/README.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 99
+        },
+        {
+          "rank": -5.497777898154696,
+          "source": "feedback/history/apk-analysis/http-api/2026-05-11_135000-redacted-sample-targeting-classifier.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 93
+        },
+        {
+          "rank": -5.4573237468360345,
+          "source": "feedback/history/apk-analysis/http-api/2026-05-11_113200-read-only-argument-override-preserve-app-path.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 87
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 0,
+      "pre_bound_top5_hits": 1,
+      "pre_bound_top5_rr": 1,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 5,
+      "expected_atom_ranks_before_bound": {
+        "feedback/history/development-guidance/common/2026-09-04_101800-derived-state-before-blaming-shared-baseline.md": 4
+      },
+      "final_hits": 0,
+      "final_payload_runes": 840,
+      "final_rr": 0,
+      "final_sources": [
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-24_114500-slot-base-line-wins-may-bypass-payout-window-show.md"
+      ],
+      "id": "R03",
+      "pre_bound_top5": [
+        {
+          "rank": -9.54715348700178,
+          "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-24_114500-slot-base-line-wins-may-bypass-payout-window-show.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 384
+        },
+        {
+          "rank": -8.356581792217142,
+          "source": "feedback/history/3d-character-production/common/2026-09-01_084600-separate-asset-evidence-from-stage-pass.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 101
+        },
+        {
+          "rank": -3.5699536107717664,
+          "source": "feedback/history/apk-analysis/common/2026-05-06_154500-domain-runtime-baseline-finish-gate.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 43
+        },
+        {
+          "rank": -3.4100495497115375,
+          "source": "feedback/history/development-guidance/common/2026-09-04_101800-derived-state-before-blaming-shared-baseline.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 70
+        },
+        {
+          "rank": -2.939773594555594,
+          "source": "feedback/history/apk-analysis/common/2026-05-06_105026-state-reset-baseline-feature-capture.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 160
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 0,
+      "pre_bound_top5_hits": 1,
+      "pre_bound_top5_rr": 0.25,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 1,
+      "expected_atom_ranks_before_bound": {
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md": 1
+      },
+      "final_hits": 1,
+      "final_payload_runes": 689,
+      "final_rr": 1,
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md"
+      ],
+      "id": "R04",
+      "pre_bound_top5": [
+        {
+          "rank": -10.93356535932358,
+          "source": "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md",
+          "stage": "exact phrase; applicability unverified",
+          "summary_runes": 244
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 0,
+      "pre_bound_top5_hits": 1,
+      "pre_bound_top5_rr": 1,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 5,
+      "expected_atom_ranks_before_bound": {
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md": 1
+      },
+      "final_hits": 1,
+      "final_payload_runes": 570,
+      "final_rr": 1,
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md"
+      ],
+      "id": "R05",
+      "pre_bound_top5": [
+        {
+          "rank": -29.456916236673287,
+          "source": "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 130
+        },
+        {
+          "rank": -10.730048999567215,
+          "source": "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 93
+        },
+        {
+          "rank": -9.346308512572199,
+          "source": "governance/ai-runtime-governance/five-step-ai-governance.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 173
+        },
+        {
+          "rank": -9.133157541842293,
+          "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_165800-slot-spin-fixtures-pair-json-manifest-and-reel-crop.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 121
+        },
+        {
+          "rank": -9.077949328985284,
+          "source": "feedback/history/apk-analysis/flutter-dart-aot/2026-05-01_140900-unflutter-aot-offset-hook-after-blutter-crash.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 142
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 0,
+      "pre_bound_top5_hits": 1,
+      "pre_bound_top5_rr": 1,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 28,
+      "expected_atom_ranks_before_bound": {
+        "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md": 1
+      },
+      "final_hits": 1,
+      "final_payload_runes": 561,
+      "final_rr": 1,
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md"
+      ],
+      "id": "R06",
+      "pre_bound_top5": [
+        {
+          "rank": -32.84901794536084,
+          "source": "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 132
+        },
+        {
+          "rank": -14.732685702428988,
+          "source": "feedback/history/apk-analysis/media-hls/2026-04-30_120007-媒體播放鏈要分控制面-金鑰與資料面.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 53
+        },
+        {
+          "rank": -13.243584519332607,
+          "source": "feedback/history/apk-analysis/http-api/2026-06-22_142700-opaque-api-blob-native-decrypt-secondary-compression-json.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 223
+        },
+        {
+          "rank": -9.835799523645125,
+          "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_165800-slot-spin-fixtures-pair-json-manifest-and-reel-crop.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 121
+        },
+        {
+          "rank": -9.816707875739716,
+          "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-14_082500-unity-atlas-manifest-after-frida-sprite-name.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 201
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 0,
+      "pre_bound_top5_hits": 1,
+      "pre_bound_top5_rr": 1,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 1,
+      "expected_atom_ranks_before_bound": {
+        "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md": 1
+      },
+      "final_hits": 1,
+      "final_payload_runes": 529,
+      "final_rr": 1,
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md"
+      ],
+      "id": "R07",
+      "pre_bound_top5": [
+        {
+          "rank": -11.311572169606965,
+          "source": "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md",
+          "stage": "exact phrase; applicability unverified",
+          "summary_runes": 93
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 0,
+      "pre_bound_top5_hits": 1,
+      "pre_bound_top5_rr": 1,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 64,
+      "expected_atom_ranks_before_bound": {
+        "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md": 2
+      },
+      "final_hits": 0,
+      "final_payload_runes": 722,
+      "final_rr": 0,
+      "final_sources": [
+        "governance/lifecycle/executable-contract-boundary.yaml"
+      ],
+      "id": "R08",
+      "pre_bound_top5": [
+        {
+          "rank": -35.88128950344852,
+          "source": "governance/lifecycle/executable-contract-boundary.yaml",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 244
+        },
+        {
+          "rank": -35.02528149021359,
+          "source": "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 136
+        },
+        {
+          "rank": -34.65952912941994,
+          "source": "knowledge/summaries/executable-contract-boundary.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 301
+        },
+        {
+          "rank": -15.470613985004388,
+          "source": "runtime/capability-context.yaml",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 259
+        },
+        {
+          "rank": -15.433986118069317,
+          "source": "governance/lifecycle/decision-promotion-pipeline.yaml",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 355
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 0,
+      "pre_bound_top5_hits": 1,
+      "pre_bound_top5_rr": 0.5,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 64,
+      "expected_atom_ranks_before_bound": {
+        "feedback/history/development-guidance/common/2026-05-22_092400-test-first-framework-upgrade.md": 1
+      },
+      "final_hits": 1,
+      "final_payload_runes": 552,
+      "final_rr": 1,
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-05-22_092400-test-first-framework-upgrade.md"
+      ],
+      "id": "R09",
+      "pre_bound_top5": [
+        {
+          "rank": -24.222339536445716,
+          "source": "feedback/history/development-guidance/common/2026-05-22_092400-test-first-framework-upgrade.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 126
+        },
+        {
+          "rank": -23.999133985402093,
+          "source": "knowledge/summaries/test-first-framework-upgrade.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 322
+        },
+        {
+          "rank": -23.77631882563118,
+          "source": "governance/lifecycle/system-upgrade-governance.yaml",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 274
+        },
+        {
+          "rank": -12.294245971489124,
+          "source": "validation/README.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 130
+        },
+        {
+          "rank": -11.029240683205092,
+          "source": "knowledge/glossary/ai-skill.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 288
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 0,
+      "pre_bound_top5_hits": 1,
+      "pre_bound_top5_rr": 1,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 32,
+      "expected_atom_ranks_before_bound": {
+        "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md": 1
+      },
+      "final_hits": 1,
+      "final_payload_runes": 559,
+      "final_rr": 1,
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md"
+      ],
+      "id": "R10",
+      "pre_bound_top5": [
+        {
+          "rank": -20.080493674185192,
+          "source": "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 113
+        },
+        {
+          "rank": -8.881377815122862,
+          "source": "feedback/history/apk-analysis/unity-il2cpp/2026-10-23_101000-unity-particle-restore-needs-unitypy-or-assetripper-not-il2cppdumper.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 141
+        },
+        {
+          "rank": -8.710593740919842,
+          "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-14_141200-restore-unity-preview-composite-via-main-thread-or-cdn.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 248
+        },
+        {
+          "rank": -8.437444113533548,
+          "source": "feedback/history/apk-analysis/common/2026-05-07_143800-stateful-setting-probe-restore.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 148
+        },
+        {
+          "rank": -6.94877759722681,
+          "source": "feedback/history/development-guidance/common/2026-05-22_104646-module-count-discipline.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 172
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 0,
+      "pre_bound_top5_hits": 1,
+      "pre_bound_top5_rr": 1,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 1,
+      "expected_atom_ranks_before_bound": {
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md": 1
+      },
+      "final_hits": 1,
+      "final_payload_runes": 481,
+      "final_rr": 1,
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md"
+      ],
+      "id": "R11",
+      "pre_bound_top5": [
+        {
+          "rank": -11.369484062802982,
+          "source": "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md",
+          "stage": "exact phrase; applicability unverified",
+          "summary_runes": 47
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 0,
+      "pre_bound_top5_hits": 1,
+      "pre_bound_top5_rr": 1,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 12,
+      "expected_atom_ranks_before_bound": {
+        "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md": 1
+      },
+      "final_hits": 1,
+      "final_payload_runes": 710,
+      "final_rr": 1,
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md"
+      ],
+      "id": "R12",
+      "pre_bound_top5": [
+        {
+          "rank": -27.433406205525685,
+          "source": "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 256
+        },
+        {
+          "rank": -10.106357679349617,
+          "source": "feedback/history/apk-analysis/common/2026-04-30_120006-登入限流要避免-tight-loop-優先-session-reuse.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 55
+        },
+        {
+          "rank": -10.056743022330602,
+          "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_130800-same-thread-dt-window-after-decrypt-not-global-live.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 135
+        },
+        {
+          "rank": -9.84856859765097,
+          "source": "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 155
+        },
+        {
+          "rank": -8.275157471314584,
+          "source": "feedback/history/apk-analysis/common/2026-06-22_142200-frida-enumerate-loaded-classes-causes-script-load-timeout.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 207
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 0,
+      "pre_bound_top5_hits": 1,
+      "pre_bound_top5_rr": 1,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 4,
+      "expected_atom_ranks_before_bound": {
+        "feedback/history/development-guidance/common/2026-07-23_071200-injectable-wall-clock-for-day-boundary-logic.md": 1
+      },
+      "final_hits": 1,
+      "final_payload_runes": 663,
+      "final_rr": 1,
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-07-23_071200-injectable-wall-clock-for-day-boundary-logic.md"
+      ],
+      "id": "R13",
+      "pre_bound_top5": [
+        {
+          "rank": -19.371976445293264,
+          "source": "feedback/history/development-guidance/common/2026-07-23_071200-injectable-wall-clock-for-day-boundary-logic.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 205
+        },
+        {
+          "rank": -10.379834954336859,
+          "source": "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 242
+        },
+        {
+          "rank": -10.045605907466186,
+          "source": "architecture/README.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 56
+        },
+        {
+          "rank": -8.96629241471902,
+          "source": "README.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 176
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 0,
+      "pre_bound_top5_hits": 1,
+      "pre_bound_top5_rr": 1,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 35,
+      "expected_atom_ranks_before_bound": {
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md": 1
+      },
+      "final_hits": 1,
+      "final_payload_runes": 617,
+      "final_rr": 1,
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md"
+      ],
+      "id": "R14",
+      "pre_bound_top5": [
+        {
+          "rank": -53.54670655906227,
+          "source": "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 164
+        },
+        {
+          "rank": -15.562319654690027,
+          "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_144000-nested-element-attribute-may-not-share-load-tree-xattribute.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 126
+        },
+        {
+          "rank": -15.387256232368912,
+          "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_142800-parse-xcontainer-element-retval-may-be-nested-ctor-not-load-tree.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 159
+        },
+        {
+          "rank": -8.247511592565086,
+          "source": "feedback/history/apk-analysis/flutter-dart-aot/2026-05-15_094700-dart-aot-pool-constant-pp-peep-hardcoded-key.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 132
+        },
+        {
+          "rank": -7.793747369007171,
+          "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_152200-nested-dto-ctors-may-sit-before-after-parse-not-apply.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 113
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 0,
+      "pre_bound_top5_hits": 1,
+      "pre_bound_top5_rr": 1,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 10,
+      "expected_atom_ranks_before_bound": {
+        "feedback/history/development-guidance/common/2026-10-22_093000-deployment-state-is-readback-not-narrative.md": 1
+      },
+      "final_hits": 1,
+      "final_payload_runes": 565,
+      "final_rr": 1,
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-10-22_093000-deployment-state-is-readback-not-narrative.md"
+      ],
+      "id": "R15",
+      "pre_bound_top5": [
+        {
+          "rank": -15.837142019811449,
+          "source": "feedback/history/development-guidance/common/2026-10-22_093000-deployment-state-is-readback-not-narrative.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 111
+        },
+        {
+          "rank": -8.466457330871293,
+          "source": "feedback/history/apk-analysis/http-api/2026-06-22_120200-static-ktor-strings-not-dynamic-business-api-client.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 168
+        },
+        {
+          "rank": -8.328429109215683,
+          "source": "feedback/history/apk-analysis/flutter-dart-aot/2026-05-14_081500-iv-f5447c-trivial-field-accessor-not-iv-getter.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 243
+        },
+        {
+          "rank": -7.83334356207355,
+          "source": "feedback/history/development-guidance/common/2026-10-05_103000-hook-env-leaks-into-fixture-repos.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 164
+        },
+        {
+          "rank": -7.30240083741821,
+          "source": "feedback/history/apk-analysis/common/2026-05-08_135700-agent-goals-before-transcripts.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 84
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 0,
+      "pre_bound_top5_hits": 1,
+      "pre_bound_top5_rr": 1,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 45,
+      "expected_atom_ranks_before_bound": {
+        "feedback/history/development-guidance/common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md": 1
+      },
+      "final_hits": 1,
+      "final_payload_runes": 541,
+      "final_rr": 1,
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md"
+      ],
+      "id": "R16",
+      "pre_bound_top5": [
+        {
+          "rank": -4.583022687667936,
+          "source": "feedback/history/development-guidance/common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 78
+        },
+        {
+          "rank": -4.582531448147157,
+          "source": "governance/ai-runtime-governance/validation-scenario-governance.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 172
+        },
+        {
+          "rank": -4.567972360751321,
+          "source": "feedback/history/apk-analysis/common/2026-05-20_130500-runtime-h5-external-replay-gate.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 118
+        },
+        {
+          "rank": -4.55898951855223,
+          "source": "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 113
+        },
+        {
+          "rank": -4.548298995464091,
+          "source": "runtime/runtime.db",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 286
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 0,
+      "pre_bound_top5_hits": 1,
+      "pre_bound_top5_rr": 1,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 9,
+      "expected_atom_ranks_before_bound": {
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md": 1
+      },
+      "final_hits": 1,
+      "final_payload_runes": 646,
+      "final_rr": 1,
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "id": "R17",
+      "pre_bound_top5": [
+        {
+          "rank": -36.39247510935722,
+          "source": "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 199
+        },
+        {
+          "rank": -18.504012874267225,
+          "source": "runtime/README.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 439
+        },
+        {
+          "rank": -9.9355271604312,
+          "source": "feedback/history/apk-analysis/unity-il2cpp/2026-10-23_102500-slot-iface-analysis-seated-unitypy-batch-and-commit-cadence.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 150
+        },
+        {
+          "rank": -9.247950700063436,
+          "source": "enforcement/conversation-goal-ledger.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 71
+        },
+        {
+          "rank": -8.40082304263707,
+          "source": "feedback/promotion/README.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 119
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 0,
+      "pre_bound_top5_hits": 1,
+      "pre_bound_top5_rr": 1,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 59,
+      "expected_atom_ranks_before_bound": {
+        "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md": 1
+      },
+      "final_hits": 1,
+      "final_payload_runes": 728,
+      "final_rr": 1,
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md"
+      ],
+      "id": "R18",
+      "pre_bound_top5": [
+        {
+          "rank": -47.807510696770706,
+          "source": "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 242
+        },
+        {
+          "rank": -9.866873912726174,
+          "source": "runtime/runtime.db",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 195
+        },
+        {
+          "rank": -9.77212686780327,
+          "source": "feedback/history/roo-code/2026-05-14_013400-commit-before-step10-validation-skip.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 217
+        },
+        {
+          "rank": -9.015580901625446,
+          "source": "runtime/README.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 439
+        },
+        {
+          "rank": -8.734111497571464,
+          "source": "feedback/history/apk-analysis/common/2026-07-14_171000-pairip-application-licenseactivity-cold-start-play-gate.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 121
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 0,
+      "pre_bound_top5_hits": 1,
+      "pre_bound_top5_rr": 1,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 0,
+      "expected_atom_ranks_before_bound": {},
+      "final_hits": 0,
+      "final_payload_runes": 4,
+      "final_rr": 0,
+      "final_sources": [],
+      "id": "R19",
+      "pre_bound_top5": [],
+      "pre_bound_top5_confuser_hits": 0,
+      "pre_bound_top5_hits": 0,
+      "pre_bound_top5_rr": 0,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 0,
+      "expected_atom_ranks_before_bound": {},
+      "final_hits": 0,
+      "final_payload_runes": 4,
+      "final_rr": 0,
+      "final_sources": [],
+      "id": "R20",
+      "pre_bound_top5": [],
+      "pre_bound_top5_confuser_hits": 0,
+      "pre_bound_top5_hits": 0,
+      "pre_bound_top5_rr": 0,
+      "summary_truncated": false
+    }
+  ]
+}

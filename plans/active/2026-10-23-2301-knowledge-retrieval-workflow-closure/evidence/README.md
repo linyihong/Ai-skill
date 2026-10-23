@@ -15,3 +15,4 @@
 | prephase2-control | [phase2-execution-contract.md](phase2-execution-contract.md) | controls verified / experiments pending | Binary pin、index manifest、四組配對與候選審閱；B0 重播一致，未執行 Q/E/QE |
 | phase2-v1-ablation | [phase2-v1-ablation.md](phase2-v1-ablation.md) | measured / candidate rejected | 八份 replay、兩次 matrix 通過；QE 14/14 但 confuser 6/6、preview 超額；queue 未結清，production 未採用 |
 | phase2-v2-protocol | [phase2-v2-protocol.md](phase2-v2-protocol.md) | frozen before replay | 代表案例欄位命中、phrase 優先、固定權重、top1 / 2000 runes；只評最終輸出 |
+| phase2-v2-ablation | [phase2-v2-ablation.md](phase2-v2-ablation.md) | measured / candidate rejected | 精確優先、加權、top1 與預算後重評；QE 12/14、overlap 3/5 / confuser 3/6；輸出 ≤841 runes，但品質未通過 |

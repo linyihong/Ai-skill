@@ -1,0 +1,304 @@
+{
+  "diagnostic_kind": "same committed source candidate call; final fields checked against pinned CLI replay",
+  "index_path": "/tmp/retrieval-controlled-v1/new-extraction-v1.sqlite",
+  "observations": [
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 64,
+      "expected_atom_ranks_before_bound": {
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md": 1
+      },
+      "final_hits": 1,
+      "final_payload_runes": 693,
+      "final_rr": 1,
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md"
+      ],
+      "id": "O01",
+      "pre_bound_top5": [
+        {
+          "rank": -29.06435827533536,
+          "source": "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 244
+        },
+        {
+          "rank": -16.69460867361264,
+          "source": "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 275
+        },
+        {
+          "rank": -12.742967310752558,
+          "source": "feedback/history/apk-analysis/http-api/2026-06-22_142700-opaque-api-blob-native-decrypt-secondary-compression-json.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 223
+        },
+        {
+          "rank": -12.482518410581715,
+          "source": "feedback/history/apk-analysis/common/2026-07-15_132500-frida-e2e-compact-send-and-off-main-thread-http.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 139
+        },
+        {
+          "rank": -11.17946134648524,
+          "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_162200-symbol-dto-id-may-be-one-char-strip-not-resource-name.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 131
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 1,
+      "pre_bound_top5_hits": 1,
+      "pre_bound_top5_rr": 1,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 64,
+      "expected_atom_ranks_before_bound": {
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md": 2
+      },
+      "final_hits": 0,
+      "final_payload_runes": 599,
+      "final_rr": 0,
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md"
+      ],
+      "id": "O02",
+      "pre_bound_top5": [
+        {
+          "rank": -12.490264874450476,
+          "source": "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 155
+        },
+        {
+          "rank": -10.438811172217438,
+          "source": "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 130
+        },
+        {
+          "rank": -9.346308512572199,
+          "source": "governance/ai-runtime-governance/five-step-ai-governance.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 173
+        },
+        {
+          "rank": -9.133157541842293,
+          "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_165800-slot-spin-fixtures-pair-json-manifest-and-reel-crop.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 121
+        },
+        {
+          "rank": -2.7825635126494928,
+          "source": "feedback/history/apk-analysis/http-api/2026-05-15_173000-category-api-returns-numeric-id-not-display-name.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 144
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 1,
+      "pre_bound_top5_hits": 1,
+      "pre_bound_top5_rr": 0.5,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 49,
+      "expected_atom_ranks_before_bound": {
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md": 33
+      },
+      "final_hits": 0,
+      "final_payload_runes": 562,
+      "final_rr": 0,
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md"
+      ],
+      "id": "O03",
+      "pre_bound_top5": [
+        {
+          "rank": -22.869818089043015,
+          "source": "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 132
+        },
+        {
+          "rank": -14.596380720380985,
+          "source": "feedback/history/apk-analysis/media-hls/2026-05-06_121650-hls-playlist-key-may-be-wrapped.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 112
+        },
+        {
+          "rank": -13.939887567210661,
+          "source": "feedback/history/development-guidance/common/2026-07-17_171500-mpegurl-maybe-managed-mediasource-prefer-hlsjs.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 182
+        },
+        {
+          "rank": -13.255222395274235,
+          "source": "feedback/history/apk-analysis/media-hls/2026-04-30_120007-媒體播放鏈要分控制面-金鑰與資料面.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 53
+        },
+        {
+          "rank": -12.445104689551723,
+          "source": "feedback/history/apk-analysis/http-api/2026-06-22_143300-native-decrypt-mode-may-reuse-encrypt-mode-key-material.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 132
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 1,
+      "pre_bound_top5_hits": 0,
+      "pre_bound_top5_rr": 0,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 64,
+      "expected_atom_ranks_before_bound": {
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md": 1
+      },
+      "final_hits": 1,
+      "final_payload_runes": 616,
+      "final_rr": 1,
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md"
+      ],
+      "id": "O04",
+      "pre_bound_top5": [
+        {
+          "rank": -39.5266468618354,
+          "source": "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 164
+        },
+        {
+          "rank": -21.104641949053303,
+          "source": "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 242
+        },
+        {
+          "rank": -15.562319654690027,
+          "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_144000-nested-element-attribute-may-not-share-load-tree-xattribute.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 126
+        },
+        {
+          "rank": -15.387256232368912,
+          "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_142800-parse-xcontainer-element-retval-may-be-nested-ctor-not-load-tree.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 159
+        },
+        {
+          "rank": -10.46046679289178,
+          "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-24_141900-slot-device-ui-harvest-via-owned-cryptor-lab-gateway.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 166
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 1,
+      "pre_bound_top5_hits": 1,
+      "pre_bound_top5_rr": 1,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 64,
+      "expected_atom_ranks_before_bound": {
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md": 1
+      },
+      "final_hits": 1,
+      "final_payload_runes": 647,
+      "final_rr": 1,
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "id": "O05",
+      "pre_bound_top5": [
+        {
+          "rank": -29.831613766624166,
+          "source": "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 199
+        },
+        {
+          "rank": -13.223661000763585,
+          "source": "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 113
+        },
+        {
+          "rank": -10.232037240787935,
+          "source": "feedback/history/development-guidance/common/2026-05-18_160000-registry-first-workflow-activation.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 177
+        },
+        {
+          "rank": -9.744597577398991,
+          "source": "governance/lifecycle/knowledge-update-flow.yaml",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 504
+        },
+        {
+          "rank": -8.881377815122862,
+          "source": "feedback/history/apk-analysis/unity-il2cpp/2026-10-23_101000-unity-particle-restore-needs-unitypy-or-assetripper-not-il2cppdumper.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 141
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 1,
+      "pre_bound_top5_hits": 1,
+      "pre_bound_top5_rr": 1,
+      "summary_truncated": false
+    },
+    {
+      "binary_source_final_fields_equal": true,
+      "candidate_atoms": 23,
+      "expected_atom_ranks_before_bound": {},
+      "final_hits": 0,
+      "final_payload_runes": 647,
+      "final_rr": 0,
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "id": "O06",
+      "pre_bound_top5": [
+        {
+          "rank": -29.831613766624166,
+          "source": "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 199
+        },
+        {
+          "rank": -13.282269086029604,
+          "source": "runtime/cognitive-modes.yaml",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 455
+        },
+        {
+          "rank": -8.345351550602299,
+          "source": "feedback/history/development-guidance/common/2026-10-01_152600-ocr-probe-is-discovery-not-exclusion.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 187
+        },
+        {
+          "rank": -7.404691808911226,
+          "source": "feedback/history/development-guidance/common/2026-05-18_160000-registry-first-workflow-activation.md",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 177
+        },
+        {
+          "rank": -7.051942850136266,
+          "source": "governance/lifecycle/knowledge-update-flow.yaml",
+          "stage": "lexical fallback; applicability unverified",
+          "summary_runes": 504
+        }
+      ],
+      "pre_bound_top5_confuser_hits": 1,
+      "pre_bound_top5_hits": 0,
+      "pre_bound_top5_rr": 0,
+      "summary_truncated": false
+    }
+  ]
+}

@@ -10,7 +10,7 @@ owner_layer: knowledge
 
 # 既有知識檢索與 Workflow 採用閉環強化
 
-**Status**: `in-progress`。Phase 0 盤點完成，證據見 [phase0-inventory.md](evidence/phase0-inventory.md)；Phase 1 已按「歷史 lesson 檢索基準」縮限核對通過；原完整範圍的剩餘責任見下表。Phase 2 前執行控制見 [phase2-execution-contract.md](evidence/phase2-execution-contract.md)；Q / E / QE v1 對照已完成，候選因 confuser 與成本 gate 失敗，見 [實驗報告](evidence/phase2-v1-ablation.md)；未採用到 production。Production 搜尋與採用鏈尚未實作。
+**Status**: `in-progress`。Phase 0 盤點完成，證據見 [phase0-inventory.md](evidence/phase0-inventory.md)；Phase 1 已按「歷史 lesson 檢索基準」縮限核對通過；原完整範圍的剩餘責任見下表。Phase 2 前執行控制見 [phase2-execution-contract.md](evidence/phase2-execution-contract.md)；Q / E / QE v1 及 v2 對照已完成，候選品質均未通過；v2 成本受控但 confuser 仍 3/6，見 [v2 實驗報告](evidence/phase2-v2-ablation.md)；未採用到 production。Production 搜尋與採用鏈尚未實作。
 
 目標：讓既有 intelligence、決策與失敗經驗更穩定地被找到，經來源與適用性確認後支援 workflow。先改善現有能力，再用漏找證據決定是否加入向量搜尋與 reranking。
 
@@ -144,7 +144,7 @@ Phase 1 審核補充（2026-10-24）：[phase1-audit.md](evidence/phase1-audit.m
 
 ## Phase 2 — 補既有全文搜尋、metadata 與關聯查找
 
-v1 結果：B0 / Q / E / QE 診斷命中 1 / 13 / 3 / 14（各 /14）；Q / QE overlap confuser 均 6/6、preview 超額，故候選未採用且 Phase 2 gate 未通過。逐題產物與審閱待辦見 [phase2-v1-ablation.md](evidence/phase2-v1-ablation.md)。v2 協議已固定，見 [phase2-v2-protocol.md](evidence/phase2-v2-protocol.md)：精確優先、欄位權重、去重與有界輸出，最終 results 重新評分。v1 已拒收，不再為結清而要求完整審完其 191 rows；準備採用的版本仍須完成審閱。保留 v1 證據與原門檻，不導入 vector。
+v1 結果：B0 / Q / E / QE 診斷命中 1 / 13 / 3 / 14（各 /14）；Q / QE overlap confuser 均 6/6、preview 超額，故候選未採用且 Phase 2 gate 未通過。逐題產物與審閱待辦見 [phase2-v1-ablation.md](evidence/phase2-v1-ablation.md)。v2 已按 [phase2-v2-protocol.md](evidence/phase2-v2-protocol.md) 完成最終輸出重評：QE diagnostic 12/14、overlap 正向 3/5 / confuser 3/6，成本通過但品質仍失敗，見 [phase2-v2-ablation.md](evidence/phase2-v2-ablation.md)。下一輪處理問題焦點與已排除前提，保留排序退步及 shortlist 損失。v1 已拒收，不再為結清而要求完整審完其 191 rows；準備採用的版本仍須完成審閱。保留 v1 證據與原門檻，不導入 vector。
 
 - [x] 依 [執行控制契約](evidence/phase2-execution-contract.md) 先跑固定 corpus 的 B0 / query-only / extraction-only / combined 對照：顯式 query binary 路徑 / SHA、index manifest、generator revision / source SHA、index inputs / corpus SHA；四組配對 validator 必須通過，逐題記錄增益與成本；新增正文另組實驗，不混入 extraction-only。對照組與資料獨立性規則見 Phase 1 審核包。
 - [ ] 以另版 [overlap-controls-v1.json](evidence/overlap-controls-v1.json) 約束查詢放寬：已標 confuser 命中 0；Q / E / QE 相對 B0 的新增診斷候選與未標註 overlap 候選逐筆覆核，未審閱 / unknown 未結清不得通過，不以 8/14 單獨證明有用。

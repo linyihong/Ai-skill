@@ -1,0 +1,171 @@
+{
+  "adoption_metrics": "not evaluated",
+  "applicability_distribution": "not evaluated: source qualification not wired",
+  "binary_sha256": "fde3d631ddbbee662ba1e63e8807dbfa9fcb53387a8d2d2ca89732dfb24f006f",
+  "cases": 6,
+  "corpus_revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+  "dataset_sha256": "7ea029eb5bfa761a41f3ef3ba145d45330818726306069546423fdf4c35e5ec4",
+  "environment": "darwin/arm64",
+  "experiment_group": "E",
+  "first_invocation": "per-case first CLI invocation; OS cache not controlled, not cold-start proof",
+  "generator_inputs_sha256": "775a5c9ed5bf949727db69b1f5bad0cc3d4cf7b13aabbbf9176e9499b385fffa",
+  "go_version": "go1.26.2",
+  "index_identity": {
+    "schema_version": 1,
+    "corpus_revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+    "generator_revision": "fd5f520d577367579055996375ce6be2a115ecde",
+    "generator_module_source_sha256": "3010862cd9509c5b526eb902d207caa81b20f3d1d3bec45a517c83c73435c3d2",
+    "corpus_sources_sha256": "14b9b6c3a2b557b3a1d4e1b12cae02ce9c235fd0764a1a81e202bc7496a4b129",
+    "generator_inputs_sha256": "775a5c9ed5bf949727db69b1f5bad0cc3d4cf7b13aabbbf9176e9499b385fffa",
+    "index_sha256": "1221f2402084ec4454e506f05c77404d7773bc683737010cf890bb556af24cfc"
+  },
+  "max_preview_token_estimate": 4,
+  "miss_classification": "source-row presence plus actual binary results only; no host-side FTS/query reimplementation",
+  "observations": [
+    {
+      "id": "O01",
+      "split": "diagnostic",
+      "sources": [],
+      "expected": 1,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md": "indexed_source_not_returned_cause_not_attributed"
+      },
+      "first_invocation_ms": 9.559,
+      "warm_cli_p95_ms": 9.977,
+      "preview_token_estimate": 4,
+      "review_required": true
+    },
+    {
+      "id": "O02",
+      "split": "diagnostic",
+      "sources": [],
+      "expected": 1,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md": "indexed_source_not_returned_cause_not_attributed"
+      },
+      "first_invocation_ms": 9.532,
+      "warm_cli_p95_ms": 10.783,
+      "preview_token_estimate": 4,
+      "review_required": true
+    },
+    {
+      "id": "O03",
+      "split": "diagnostic",
+      "sources": [],
+      "expected": 1,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md": "indexed_source_not_returned_cause_not_attributed"
+      },
+      "first_invocation_ms": 9.866,
+      "warm_cli_p95_ms": 9.662,
+      "preview_token_estimate": 4,
+      "review_required": true
+    },
+    {
+      "id": "O04",
+      "split": "diagnostic",
+      "sources": [],
+      "expected": 1,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md": "indexed_source_not_returned_cause_not_attributed"
+      },
+      "first_invocation_ms": 9.656,
+      "warm_cli_p95_ms": 9.79,
+      "preview_token_estimate": 4,
+      "review_required": true
+    },
+    {
+      "id": "O05",
+      "split": "diagnostic",
+      "sources": [],
+      "expected": 1,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md": "indexed_source_not_returned_cause_not_attributed"
+      },
+      "first_invocation_ms": 9.125,
+      "warm_cli_p95_ms": 9.895,
+      "preview_token_estimate": 4,
+      "review_required": true
+    },
+    {
+      "id": "O06",
+      "split": "diagnostic",
+      "sources": [],
+      "expected": 0,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {},
+      "first_invocation_ms": 9.242,
+      "warm_cli_p95_ms": 9.865,
+      "preview_token_estimate": 4,
+      "review_required": true
+    }
+  ],
+  "preview_token_method": "UTF-8 rune count of result JSON; estimate only, not model tokens or cap enforcement",
+  "query_binary_path": "../../.codex/worktrees/retrieval-frozen-corpus/Ai-skill/scripts/ai-skill-cli/bin/ai-skill-darwin-arm64",
+  "query_build_info": {
+    "command": "version",
+    "mode": "info",
+    "status": "success",
+    "exit_code": 0,
+    "checks": [
+      {
+        "name": "version",
+        "status": "ok",
+        "message": "repo-b7d8b88a"
+      },
+      {
+        "name": "commit",
+        "status": "ok",
+        "message": "b7d8b88aabfc844461452bc8f0e3169c62bd323b"
+      },
+      {
+        "name": "date",
+        "status": "ok",
+        "message": "2026-10-23T04:53:31Z"
+      }
+    ],
+    "planned_actions": [],
+    "mutations": []
+  },
+  "route_discovery": "not evaluated: Bridge unchanged; workflow knowledge lookup only",
+  "schema_version": 2,
+  "summary": {
+    "diagnostic": {
+      "positive_cases": 5,
+      "expected_sources": 5,
+      "hit_sources": 0,
+      "recall_at_5": 0,
+      "mrr_at_5": 0,
+      "negative_cases": 0,
+      "negative_false_suggestions": 0,
+      "review_cases": 6,
+      "unjudged_candidates": 0,
+      "known_confuser_hits": 0
+    },
+    "holdout": {
+      "positive_cases": 0,
+      "expected_sources": 0,
+      "hit_sources": 0,
+      "recall_at_5": 0,
+      "mrr_at_5": 0,
+      "negative_cases": 0,
+      "negative_false_suggestions": 0,
+      "review_cases": 0,
+      "unjudged_candidates": 0,
+      "known_confuser_hits": 0
+    }
+  },
+  "warm_cli_p95_ms": 9.963,
+  "warm_runs_per_case": 20
+}
