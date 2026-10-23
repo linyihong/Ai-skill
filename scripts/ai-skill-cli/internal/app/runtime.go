@@ -1432,7 +1432,7 @@ func runRuntimeIndexQuery(dbPath string, keyword string, opts runtimeOptions) ([
 FROM fts
 JOIN atoms ON atoms.id = fts.id
 WHERE fts MATCH ?`
-	args := []any{runtimeFTSMatchLiteral(keyword)}
+	args := []any{runtimeFTSLexicalQuery(keyword)}
 	if opts.layer != "" {
 		sqlText += " AND atoms.layer = ?"
 		args = append(args, opts.layer)
