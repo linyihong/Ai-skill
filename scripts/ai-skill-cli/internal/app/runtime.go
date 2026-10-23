@@ -1321,15 +1321,14 @@ func runtimeIndexFeedbackRecords(repo string) ([]runtimeIndexAtom, error) {
 		if statusValue == "promoted" || statusValue == "validated" {
 			confidence = "high"
 		}
-		title := firstRuntimeLineWithPrefix(content, "### ")
-		title = strings.TrimSpace(strings.TrimPrefix(title, "### "))
+		title, summary := runtimeFeedbackHeadingFields(content)
 		if title == "" {
 			title = strings.TrimSuffix(filepath.Base(relative), ".md")
 		}
 		records = append(records, runtimeIndexAtom{
 			ID: "feedback." + domain + "." + strings.TrimSuffix(filepath.Base(relative), ".md"), SourcePath: relative, Layer: runtimeLayerFor(relative), Type: "feedback-pattern",
 			Status: statusValue, Priority: "P2", Confidence: confidence, ContextCost: "medium", Tags: strings.Join(nonEmptyStrings(domain, "feedback", category), ","),
-			Domains: domain, Title: title, Summary: firstRuntimeHeadingAfter(content, "#### One-line Summary"),
+			Domains: domain, Title: title, Summary: summary,
 			WhenToRead: "Feedback lesson lookup for " + domain + ".", ValidationSignal: "Open canonical feedback lesson at " + relative + ".",
 		})
 	}
