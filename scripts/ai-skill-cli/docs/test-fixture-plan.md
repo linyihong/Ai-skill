@@ -1,6 +1,6 @@
 # 測試 fixture 計畫：Ai-skill CLI Runtime
 
-> **上游計畫**：[`2026-05-21-0834-cross-platform-go-script-runtime.md`](../../../plans/active/2026-05-21-0834-cross-platform-go-script-runtime.md)
+> **上游計畫**：[`2026-05-21-0834-cross-platform-go-script-runtime.md`](../../../plans/archived/2026-05-21-0834-cross-platform-go-script-runtime.md)
 
 ## Fixture 建置策略
 
@@ -159,3 +159,9 @@ Phase 1 Go 實作前：
 - [x] 舊腳本 parity fixture 已連到舊腳本盤點。
 - [x] Windows path fixture 不要求 POSIX shell。
 - [x] Fake home fixture 可防止寫入真實本機設定。
+
+## 知識檢索 Baseline Replay
+
+`internal/app/retrieval_baseline_test.go` 的 replay 以 `AI_SKILL_RETRIEVAL_CASES` / `AI_SKILL_RETRIEVAL_REPORT` 明確啟用；預設 CI skip live-corpus 實驗，但正常執行來源去重、MRR、p95、FTS phrase / CJK 與 stale / historical fixture controls。
+
+資料來源、固定 corpus 重跑方式、人工控制限制與未評估採用指標見 [Phase 1 協議](../../../plans/active/2026-10-23-2301-knowledge-retrieval-workflow-closure/evidence/phase1-protocol.md)。這是 test-only 量測，不新增 CLI 命令、不改 production retrieval。
