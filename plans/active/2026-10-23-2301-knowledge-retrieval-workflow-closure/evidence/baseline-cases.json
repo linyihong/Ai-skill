@@ -1,0 +1,373 @@
+{
+  "schema_version": 1,
+  "description": "18 個去敏歷史 lesson 重播問題 + 2 個人工負面控制；不是20個原始真實提問。",
+  "limit": 5,
+  "repeats": 20,
+  "acceptance": {
+    "min_diagnostic_hits": 8,
+    "holdout_recall_non_regression": true,
+    "holdout_mrr_non_regression": true,
+    "negative_false_suggestions": 0,
+    "warm_cli_p95_ms": 500,
+    "preview_token_estimate_cap": 2000,
+    "adoption": "not evaluated"
+  },
+  "cases": [
+    {
+      "id": "R01",
+      "group": "host-pipeline",
+      "split": "diagnostic",
+      "provenance_kind": "historical-lesson-replay",
+      "provenance": "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md",
+      "provenance_sha256": "7b8b5f569fabffb67b12a78d3241e7a8eec5c9bb0b518ed7b16515dc4d90834d",
+      "query": "middleware 單元測試通過，但真實 host 仍記錄 500，驗證漏在哪裡？",
+      "intent": "當前採用",
+      "task_context": "已啟動 sd-validation；component PASS 與 host 行為不一致",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md"
+      ],
+      "relevance_reason": "來源記錄的 Trigger / Evidence / Generalized Lesson 對應本題重播情境；不是原始提問逐字紀錄。",
+      "expected_applicability": "requires-source-read",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "R02",
+      "group": "counter-projection",
+      "split": "diagnostic",
+      "provenance_kind": "historical-lesson-replay",
+      "provenance": "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md",
+      "provenance_sha256": "09e2f8fe9f1fd704da89840a4731789e89c5173f42125e0a0fce207dfa51ab49",
+      "query": "SQL 與 API 的播放量正確，使用者頁面卻顯示舊數字，還要驗哪一層？",
+      "intent": "當前採用",
+      "task_context": "同一實體的 DB / API / DOM 結果不同",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md"
+      ],
+      "relevance_reason": "來源記錄的 Trigger / Evidence / Generalized Lesson 對應本題重播情境；不是原始提問逐字紀錄。",
+      "expected_applicability": "requires-source-read",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "R03",
+      "group": "derived-state",
+      "split": "diagnostic",
+      "provenance_kind": "historical-lesson-replay",
+      "provenance": "feedback/history/development-guidance/common/2026-09-04_101800-derived-state-before-blaming-shared-baseline.md",
+      "provenance_sha256": "e87666d84ad471d9d31c0d343e244462ee3b4368cc58492bc51e4ffac5de1e12",
+      "query": "原始碼相同而且穩定重現，是否足以認定共用 baseline 壞掉？",
+      "intent": "當前採用",
+      "task_context": "比較共用原始碼與本機衍生狀態",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-09-04_101800-derived-state-before-blaming-shared-baseline.md"
+      ],
+      "relevance_reason": "來源記錄的 Trigger / Evidence / Generalized Lesson 對應本題重播情境；不是原始提問逐字紀錄。",
+      "expected_applicability": "requires-source-read",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "R04",
+      "group": "json-numeric",
+      "split": "diagnostic",
+      "provenance_kind": "historical-lesson-replay",
+      "provenance": "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md",
+      "provenance_sha256": "7f3816beba873f059a62c763ab4caae98b611bf5c6c64fa4906158436308ab3a",
+      "query": "JSON Substring Matching Trap",
+      "intent": "精確名稱",
+      "task_context": "code:1002 被 contains code:1 判成成功",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md"
+      ],
+      "relevance_reason": "來源記錄的 Trigger / Evidence / Generalized Lesson 對應本題重播情境；不是原始提問逐字紀錄。",
+      "expected_applicability": "requires-source-read",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "R05",
+      "group": "layout-overflow",
+      "split": "diagnostic",
+      "provenance_kind": "historical-lesson-replay",
+      "provenance": "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md",
+      "provenance_sha256": "a09fa794d5295d8e1da98282e0ab79dcca1eedb3ede6f07a7d5bdacdea349483",
+      "query": "CSS marker 和 snapshot 都通過，手機版仍橫向溢出，應補什麼證據？",
+      "intent": "當前採用",
+      "task_context": "RWD computed layout 與瀏覽器 viewport 驗證",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md"
+      ],
+      "relevance_reason": "來源記錄的 Trigger / Evidence / Generalized Lesson 對應本題重播情境；不是原始提問逐字紀錄。",
+      "expected_applicability": "requires-source-read",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "R06",
+      "group": "manifest-uri",
+      "split": "diagnostic",
+      "provenance_kind": "historical-lesson-replay",
+      "provenance": "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md",
+      "provenance_sha256": "b4970701edf1094b1d9dcc74127a3696d07382fe811d6f7bd1aaf1a1bd1210c0",
+      "query": "blob: manifest 裡的相對 segment URL 為什麼失效？",
+      "intent": "當前採用",
+      "task_context": "HLS manifest 改用 blob URL 後再次請求資源",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md"
+      ],
+      "relevance_reason": "來源記錄的 Trigger / Evidence / Generalized Lesson 對應本題重播情境；不是原始提問逐字紀錄。",
+      "expected_applicability": "requires-source-read",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "R07",
+      "group": "component-marker",
+      "split": "diagnostic",
+      "provenance_kind": "historical-lesson-replay",
+      "provenance": "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md",
+      "provenance_sha256": "7fb6d123bb353c7d26921c4c8b0a514a38b553713af0fd3b3b21a37ebcbd2809",
+      "query": "Component Traceability Marker Depth",
+      "intent": "精確名稱",
+      "task_context": "UI component 只有檔案存在與名稱斷言，不足以支持完成",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md"
+      ],
+      "relevance_reason": "來源記錄的 Trigger / Evidence / Generalized Lesson 對應本題重播情境；不是原始提問逐字紀錄。",
+      "expected_applicability": "requires-source-read",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "R08",
+      "group": "contract-owner",
+      "split": "diagnostic",
+      "provenance_kind": "historical-lesson-replay",
+      "provenance": "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md",
+      "provenance_sha256": "70116d481224f37159e018b7cfa31fcddd8ee33074bdc2d78b95bdb0793340cb",
+      "query": "以前為什麼把 executable contract 放在 owner layer 並投影 runtime.db？",
+      "intent": "歷史追溯",
+      "task_context": "回查既有決策理由，不把歷史 lesson 當當前最高權威",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md"
+      ],
+      "relevance_reason": "來源記錄的 Trigger / Evidence / Generalized Lesson 對應本題重播情境；不是原始提問逐字紀錄。",
+      "expected_applicability": "requires-source-read",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "R09",
+      "group": "test-first",
+      "split": "diagnostic",
+      "provenance_kind": "historical-lesson-replay",
+      "provenance": "feedback/history/development-guidance/common/2026-05-22_092400-test-first-framework-upgrade.md",
+      "provenance_sha256": "b782672e384a4cf5ff31d2dc92340ed53d974d9594eed51abf8cfa94abed31ef",
+      "query": "framework 升級先寫 runtime，再補 validation scenarios 可以嗎？",
+      "intent": "當前採用",
+      "task_context": "framework / runtime 變更的 test-first ordering",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-05-22_092400-test-first-framework-upgrade.md"
+      ],
+      "relevance_reason": "來源記錄的 Trigger / Evidence / Generalized Lesson 對應本題重播情境；不是原始提問逐字紀錄。",
+      "expected_applicability": "requires-source-read",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "R10",
+      "group": "restore-graph",
+      "split": "diagnostic",
+      "provenance_kind": "historical-lesson-replay",
+      "provenance": "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md",
+      "provenance_sha256": "ce4075515535611b3cb4942089831e3746033b9c2aaa15880a011a57944b8374",
+      "query": "build --no-restore 都過了，為什麼換一台機器相依圖不同？",
+      "intent": "當前採用",
+      "task_context": "驗證 restore lockfile 與舊衍生圖",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md"
+      ],
+      "relevance_reason": "來源記錄的 Trigger / Evidence / Generalized Lesson 對應本題重播情境；不是原始提問逐字紀錄。",
+      "expected_applicability": "requires-source-read",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "R11",
+      "group": "native-model",
+      "split": "diagnostic",
+      "provenance_kind": "historical-lesson-replay",
+      "provenance": "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md",
+      "provenance_sha256": "e1b47877a9a40cac887d64a89f4de49eb73fb2a7c78fa8f8ce3fdf79e02a401f",
+      "query": "原生模型載入失敗先比對既有案例",
+      "intent": "精確名稱",
+      "task_context": "候選 lesson 尚無獨立重用證據；僅找回，不升格可信度",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md"
+      ],
+      "relevance_reason": "來源記錄的 Trigger / Evidence / Generalized Lesson 對應本題重播情境；不是原始提問逐字紀錄。",
+      "expected_applicability": "requires-source-read",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "R12",
+      "group": "chosen-statement",
+      "split": "diagnostic",
+      "provenance_kind": "historical-lesson-replay",
+      "provenance": "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md",
+      "provenance_sha256": "5014c7293052be3498310f7a691fee739152567f484b9f22294e4e25b7014528",
+      "query": "要證明 cancellation safety，如何讓 timeout 確實落在目標 SQL？",
+      "intent": "當前採用",
+      "task_context": "不能用隨機取消冒充精確語句 cancellation 證據",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md"
+      ],
+      "relevance_reason": "來源記錄的 Trigger / Evidence / Generalized Lesson 對應本題重播情境；不是原始提問逐字紀錄。",
+      "expected_applicability": "requires-source-read",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "R13",
+      "group": "time-source",
+      "split": "holdout",
+      "provenance_kind": "historical-lesson-replay",
+      "provenance": "feedback/history/development-guidance/common/2026-07-23_071200-injectable-wall-clock-for-day-boundary-logic.md",
+      "provenance_sha256": "d54c6fd5d2497e318e3d783877ce9cf1b1552c55f847301c36f5ad6364cbb81d",
+      "query": "測試跨午夜額度邏輯，要改 OS 時間還是注入 clock？",
+      "intent": "當前採用",
+      "task_context": "day-boundary clock 與測試可重現性",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-07-23_071200-injectable-wall-clock-for-day-boundary-logic.md"
+      ],
+      "relevance_reason": "來源記錄的 Trigger / Evidence / Generalized Lesson 對應本題重播情境；不是原始提問逐字紀錄。",
+      "expected_applicability": "requires-source-read",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "R14",
+      "group": "pool-nesting",
+      "split": "holdout",
+      "provenance_kind": "historical-lesson-replay",
+      "provenance": "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md",
+      "provenance_sha256": "20c468ba699237af96ef682a1ca9c27412117cd5de784d9d2165072b56b5df47",
+      "query": "DB pool 滿載時 nested checkout 卡死，soft reconcile 也救不回來？",
+      "intent": "當前採用",
+      "task_context": "持有 client 時 await 另一個相同 pool checkout",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md"
+      ],
+      "relevance_reason": "來源記錄的 Trigger / Evidence / Generalized Lesson 對應本題重播情境；不是原始提問逐字紀錄。",
+      "expected_applicability": "requires-source-read",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "R15",
+      "group": "deploy-readback",
+      "split": "diagnostic",
+      "provenance_kind": "historical-lesson-replay",
+      "provenance": "feedback/history/development-guidance/common/2026-10-22_093000-deployment-state-is-readback-not-narrative.md",
+      "provenance_sha256": "f92f76e9b3fbbc8ca98ea4b0b0b4f75877aaaf5714d3eda899e2c5e8ac3b3d31",
+      "query": "正式機跑哪個版本可以只看 git tag 或口頭說明嗎？",
+      "intent": "當前採用",
+      "task_context": "部署狀態要從正式環境讀回並落帳",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-10-22_093000-deployment-state-is-readback-not-narrative.md"
+      ],
+      "relevance_reason": "來源記錄的 Trigger / Evidence / Generalized Lesson 對應本題重播情境；不是原始提問逐字紀錄。",
+      "expected_applicability": "requires-source-read",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "R16",
+      "group": "link-gate",
+      "split": "holdout",
+      "provenance_kind": "historical-lesson-replay",
+      "provenance": "feedback/history/development-guidance/common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md",
+      "provenance_sha256": "9e914e629372256b822efdd5ca5bf3e792c6679783a8be52980dfb5dd18e853d",
+      "query": "索引連結可解析卻被 gate 擋下，要如何驗證路徑契約？",
+      "intent": "當前採用",
+      "task_context": "repo-root 字串比對與真正 Markdown 相對連結不同",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md"
+      ],
+      "relevance_reason": "來源記錄的 Trigger / Evidence / Generalized Lesson 對應本題重播情境；不是原始提問逐字紀錄。",
+      "expected_applicability": "requires-source-read",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "R17",
+      "group": "peer-refresh",
+      "split": "diagnostic",
+      "provenance_kind": "historical-lesson-replay",
+      "provenance": "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md",
+      "provenance_sha256": "61dae885ae1784db74c2af177af2ebc66f40dcaa602d34c23ae362dcfff88fc6",
+      "query": "ECONNREFUSED 後應直接把 durable job 標 failed 嗎？",
+      "intent": "當前採用",
+      "task_context": "long-lived peer endpoint stale，應回 discovery 更新",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "relevance_reason": "來源記錄的 Trigger / Evidence / Generalized Lesson 對應本題重播情境；不是原始提問逐字紀錄。",
+      "expected_applicability": "requires-source-read",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "R18",
+      "group": "time-source",
+      "split": "holdout",
+      "provenance_kind": "historical-lesson-replay",
+      "provenance": "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md",
+      "provenance_sha256": "850cfb4c661866ce7f1204c06861dd1976a0a11d48cacafd52e76bfdd9f02389",
+      "query": "PostgreSQL now() 固定在 transaction start，age gate 如何取真正現在？",
+      "intent": "當前採用",
+      "task_context": "長交易可讓最小年齡判斷被回溯時間影響",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md"
+      ],
+      "relevance_reason": "來源記錄的 Trigger / Evidence / Generalized Lesson 對應本題重播情境；不是原始提問逐字紀錄。",
+      "expected_applicability": "requires-source-read",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "R19",
+      "group": "negative-19",
+      "split": "holdout",
+      "provenance_kind": "synthetic-negative-control",
+      "provenance": "",
+      "provenance_sha256": "",
+      "query": "RAG_NEGATIVE_CONTROL_7f0b991e",
+      "intent": "無答案控制",
+      "task_context": "唯一 nonce 無 corpus 答案；只驗無命中，不代表自然語意無答案能力。",
+      "expected_sources": [],
+      "relevance_reason": "唯一 nonce 無 corpus 答案；只驗無命中，不代表自然語意無答案能力。",
+      "expected_applicability": "not-applicable",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "R20",
+      "group": "negative-20",
+      "split": "holdout",
+      "provenance_kind": "synthetic-negative-control",
+      "provenance": "",
+      "provenance_sha256": "",
+      "query": "evidence",
+      "intent": "無答案控制",
+      "task_context": "人工不存在 status，驗 filter 空集合；不是歷史真實任務。",
+      "expected_sources": [],
+      "relevance_reason": "人工不存在 status，驗 filter 空集合；不是歷史真實任務。",
+      "expected_applicability": "not-applicable",
+      "layer": "intelligence",
+      "status": "nonexistent-status-control-19c0"
+    }
+  ]
+}

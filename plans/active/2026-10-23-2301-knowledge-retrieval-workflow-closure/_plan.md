@@ -10,7 +10,7 @@ owner_layer: knowledge
 
 # 既有知識檢索與 Workflow 採用閉環強化
 
-**Status**: `in-progress`。Phase 0 盤點完成，證據見 [phase0-inventory.md](evidence/phase0-inventory.md)；下一步 Phase 1。搜尋 implementation、benchmark 與採用鏈尚未完成。
+**Status**: `in-progress`。Phase 0 盤點完成，證據見 [phase0-inventory.md](evidence/phase0-inventory.md)；Phase 1 基準版完成，見 [phase1-baseline.md](evidence/phase1-baseline.md)；下一步 Phase 2。Production 搜尋與採用鏈尚未實作。
 
 目標：讓既有 intelligence、決策與失敗經驗更穩定地被找到，經來源與適用性確認後支援 workflow。先改善現有能力，再用漏找證據決定是否加入向量搜尋與 reranking。
 
@@ -85,7 +85,7 @@ Runtime owner 為現有 CLI `internal/app`；knowledge 層管理查找來源與�
 | ID | 問題與預設方向 | 狀態 / 解決期限 |
 | --- | --- | --- |
 | Q1 | 哪些 intelligence / 決策未進索引？正文覆蓋需要整篇還是 section chunk？先盤點 sources / atoms / fts 與 generator | resolved；見 evidence/phase0-inventory.md §來源覆蓋 |
-| Q2 | 中文、混合術語、精確識別字與長句的查詢行為如何？先實測 tokenizer 與 query literal handling | still-open；Phase 1 |
+| Q2 | 中文、混合術語、精確識別字與長句的查詢行為如何？先實測 tokenizer 與 query literal handling | resolved（初版）；整句 phrase / CJK / legacy 欄位限制見 Phase 1；不聲稱已評估一般語意搜尋 |
 | Q3 | domain、project、supersession、證據版本哪些已有 canonical 欄位？避免另造 metadata；缺值預設 unknown | resolved；重用 domains / replaces / checksum，缺值 unknown；見 Phase 0 證據 |
 | Q4 | 首批 consumer workflow 選哪個？先選有歷史漏找、可重跑的既有流程 | resolved；首批 sd-validation，觸發 / 重查 / 略過見 Phase 0 證據 |
 | Q5 | 是否存在 Bridge 重複實作或可量測接入收益？若需調整，如何維持 Light budget？採 bounded lookup、dedup、timeout | resolved；本輪保留 Bridge，不改呼叫點；重開條件與 budget 見 Phase 0 證據 |
@@ -111,11 +111,11 @@ Candidate files（只代表調查與可能修改，不承諾全改）：`interna
 
 ## Phase 1 — 建立可重跑的漏找基準
 
-- [ ] 收集約 20 題有來源的真實問題，標 `case_id`、問題、query intent（如歷史追溯 / 當前採用）、task context、應找到的 source IDs / paths、相關程度與適用理由；無答案案例標空集合，不虛構真實案例。
-- [ ] 包含精確名稱、中文 / 英文 / 混合詞、不同措辭、workflow 已命中、過期 / 取代 / 不適用、無答案案例；分布與樣本數需公開。
-- [ ] 分開量測 route 推薦與知識查找；每個漏找分類為未索引、查詢處理、排序、語意落差、filter、觸發 / consumer 缺失。
-- [ ] 凍結 corpus revision、查詢、工具版本、metadata、成本與結果；約 70% 診斷、30% holdout，相關改寫不得跨組，holdout 不用於調參。
-- [ ] 依下表分開定義檢索與採用指標；候選是否相關須依 query intent 判斷，歷史追溯可合理命中已取代版本，不得為降低不可採用候選比例而隱藏歷史。小樣本同報分子 / 分母，不宣稱統計顯著。
+- [x] 建立 20 題初版基準（18 題有歷史 lesson 來源的重播、2 題明確標註人工控制；非 20 個獨立原始提問），標 `case_id`、問題、query intent（如歷史追溯 / 當前採用）、task context、應找到的 source IDs / paths、相關程度與適用理由；無答案案例標空集合，不虛構真實案例。
+- [x] 包含精確名稱、中文 / 英文 / 混合詞、不同措辭、workflow 已命中情境與無答案控制；過期 / 退休狀態 / 不適用 filter 以另列人工 fixture 探測，真實 supersession / 採用情境仍待 Phase 3。完整分布與缺口見 Phase 1 報告。
+- [x] 分開報告 route 推薦與知識查找；本輪只量 workflow knowledge lookup，Bridge unchanged，因此 route discovery 標 `not evaluated`，不混用結果；每個漏找分類為未索引、查詢處理、排序、語意落差、filter、觸發 / consumer 缺失。
+- [x] 凍結 corpus revision、查詢、工具版本、metadata、成本與結果；約 70% 診斷、30% holdout，相關改寫不得跨組，holdout 不用於調參。
+- [x] 依下表分開定義檢索與採用指標；候選是否相關須依 query intent 判斷，歷史追溯可合理命中已取代版本，不得為降低不可採用候選比例而隱藏歷史。小樣本同報分子 / 分母，不宣稱統計顯著。
 
 | 驗收層 | 指標 | 驗收階段 |
 | --- | --- | --- |
@@ -160,7 +160,7 @@ Gate：通過採用層 acceptance；未實際評估項目不得填 0。至少兩
 
 ## Stakeholder 同意項目
 
-使用者已要求撰寫計畫並提供五點審閱補強，方向為修訂後進入 Phase 0；已依後續分段執行要求完成 Phase 0 盤點；搜尋 implementation 尚未開始。執行啟動時需確認首批 workflow、基準資料與成本 budget；涉及外部模型傳送資料或付費服務時另行確認具體方案。Phase 4 是條件式選項，不是預先採購或導入承諾。
+使用者已要求撰寫計畫並提供五點審閱補強，方向為修訂後進入 Phase 0；已依後續分段執行要求完成 Phase 0 盤點；已建立 Phase 1 基準版；production 搜尋 implementation 尚未開始。執行啟動時需確認首批 workflow、基準資料與成本 budget；涉及外部模型傳送資料或付費服務時另行確認具體方案。Phase 4 是條件式選項，不是預先採購或導入承諾。
 
 ## 完成條件
 
@@ -174,4 +174,4 @@ Gate：通過採用層 acceptance；未實際評估項目不得填 0。至少兩
 
 Bridge 呼叫接點的變更為條件式範圍；不調整時記錄理由並保留現有行為，不阻擋 workflow lookup 交付。延續 [Discovery Bridge](../2026-06-06-1700-workflow-activation-discovery-bridge.md) 的 advisory 能力，不把它未完成的 Deep Discovery / empirical work 默認為完成；Phase 0 需劃清重疊 work item 的 owner 與證據歸屬。與 [Feedback Execution Closure](../2026-07-10-0955-final-form-feedback-execution-closure.md) 互補：該計畫處理經驗沉澱，本計畫處理沉澱後的查找與使用，不接管其 roadmap。
 
-後續多次量測的完整記錄依 [plan evidence 規則](../../../governance/lifecycle/plan-evidence.md) 放本資料夾 `evidence/` 並建 README Run 索引；Phase 0 盤點已存 [evidence/phase0-inventory.md](evidence/phase0-inventory.md)，完整索引見 [evidence/README.md](evidence/README.md)；尚無 benchmark 或採用層通過結果。
+後續多次量測的完整記錄依 [plan evidence 規則](../../../governance/lifecycle/plan-evidence.md) 放本資料夾 `evidence/` 並建 README Run 索引；Phase 0 盤點已存 [evidence/phase0-inventory.md](evidence/phase0-inventory.md)，完整索引見 [evidence/README.md](evidence/README.md)；Phase 1 baseline 見 [evidence/phase1-baseline.md](evidence/phase1-baseline.md)；本輪僅量測既有能力，不代表 Phase 2 搜尋強化或 Phase 3 採用層已通過。

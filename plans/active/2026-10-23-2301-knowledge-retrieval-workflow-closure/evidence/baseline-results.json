@@ -1,0 +1,316 @@
+{
+  "adoption_metrics": "not evaluated",
+  "applicability_distribution": "not evaluated: source qualification not wired",
+  "binary_sha256": "fde3d631ddbbee662ba1e63e8807dbfa9fcb53387a8d2d2ca89732dfb24f006f",
+  "cases": 20,
+  "corpus_revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+  "dataset_sha256": "6505adc590f9254285581c0715b91ae61dda5e329a72b0e8bb094f180888b538",
+  "environment": "darwin/arm64",
+  "first_invocation": "per-case first CLI invocation; OS cache not controlled, not cold-start proof",
+  "generator_inputs_sha256": "1d90cdd1c8b8c8b6b25908d1fadc8c3f42b5beb94e89725fcada69cdd99d3390",
+  "go_version": "go1.26.2",
+  "max_preview_token_estimate": 545,
+  "observations": [
+    {
+      "id": "R01",
+      "split": "diagnostic",
+      "sources": [],
+      "expected": 1,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {
+        "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md": "query_processing_or_indexed_fields"
+      },
+      "first_invocation_ms": 14.251,
+      "warm_cli_p95_ms": 9.995,
+      "preview_token_estimate": 4
+    },
+    {
+      "id": "R02",
+      "split": "diagnostic",
+      "sources": [],
+      "expected": 1,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md": "query_processing_or_indexed_fields"
+      },
+      "first_invocation_ms": 8.885,
+      "warm_cli_p95_ms": 11.491,
+      "preview_token_estimate": 4
+    },
+    {
+      "id": "R03",
+      "split": "diagnostic",
+      "sources": [],
+      "expected": 1,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {
+        "feedback/history/development-guidance/common/2026-09-04_101800-derived-state-before-blaming-shared-baseline.md": "query_processing_or_indexed_fields"
+      },
+      "first_invocation_ms": 9.721,
+      "warm_cli_p95_ms": 50.303,
+      "preview_token_estimate": 4
+    },
+    {
+      "id": "R04",
+      "split": "diagnostic",
+      "sources": [],
+      "expected": 1,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md": "query_processing_or_indexed_fields"
+      },
+      "first_invocation_ms": 10.304,
+      "warm_cli_p95_ms": 10.274,
+      "preview_token_estimate": 4
+    },
+    {
+      "id": "R05",
+      "split": "diagnostic",
+      "sources": [],
+      "expected": 1,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md": "query_processing_or_indexed_fields"
+      },
+      "first_invocation_ms": 10.404,
+      "warm_cli_p95_ms": 11.802,
+      "preview_token_estimate": 4
+    },
+    {
+      "id": "R06",
+      "split": "diagnostic",
+      "sources": [],
+      "expected": 1,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {
+        "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md": "query_processing_or_indexed_fields"
+      },
+      "first_invocation_ms": 9.633,
+      "warm_cli_p95_ms": 10.322,
+      "preview_token_estimate": 4
+    },
+    {
+      "id": "R07",
+      "split": "diagnostic",
+      "sources": [
+        "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md"
+      ],
+      "expected": 1,
+      "hits": 1,
+      "reciprocal_rank": 1,
+      "miss_reasons": {},
+      "first_invocation_ms": 9.735,
+      "warm_cli_p95_ms": 10.719,
+      "preview_token_estimate": 545
+    },
+    {
+      "id": "R08",
+      "split": "diagnostic",
+      "sources": [],
+      "expected": 1,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {
+        "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md": "query_processing_or_indexed_fields"
+      },
+      "first_invocation_ms": 9.278,
+      "warm_cli_p95_ms": 10.042,
+      "preview_token_estimate": 4
+    },
+    {
+      "id": "R09",
+      "split": "diagnostic",
+      "sources": [],
+      "expected": 1,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {
+        "feedback/history/development-guidance/common/2026-05-22_092400-test-first-framework-upgrade.md": "query_processing_or_indexed_fields"
+      },
+      "first_invocation_ms": 9.051,
+      "warm_cli_p95_ms": 9.784,
+      "preview_token_estimate": 4
+    },
+    {
+      "id": "R10",
+      "split": "diagnostic",
+      "sources": [],
+      "expected": 1,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {
+        "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md": "query_processing_or_indexed_fields"
+      },
+      "first_invocation_ms": 9.626,
+      "warm_cli_p95_ms": 11.953,
+      "preview_token_estimate": 4
+    },
+    {
+      "id": "R11",
+      "split": "diagnostic",
+      "sources": [],
+      "expected": 1,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md": "query_processing_or_indexed_fields"
+      },
+      "first_invocation_ms": 9.174,
+      "warm_cli_p95_ms": 10.241,
+      "preview_token_estimate": 4
+    },
+    {
+      "id": "R12",
+      "split": "diagnostic",
+      "sources": [],
+      "expected": 1,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {
+        "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md": "query_processing_or_indexed_fields"
+      },
+      "first_invocation_ms": 9.909,
+      "warm_cli_p95_ms": 11.698,
+      "preview_token_estimate": 4
+    },
+    {
+      "id": "R13",
+      "split": "holdout",
+      "sources": [],
+      "expected": 1,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {
+        "feedback/history/development-guidance/common/2026-07-23_071200-injectable-wall-clock-for-day-boundary-logic.md": "query_processing_or_indexed_fields"
+      },
+      "first_invocation_ms": 10.067,
+      "warm_cli_p95_ms": 11.957,
+      "preview_token_estimate": 4
+    },
+    {
+      "id": "R14",
+      "split": "holdout",
+      "sources": [],
+      "expected": 1,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md": "query_processing_or_indexed_fields"
+      },
+      "first_invocation_ms": 14.436,
+      "warm_cli_p95_ms": 10.246,
+      "preview_token_estimate": 4
+    },
+    {
+      "id": "R15",
+      "split": "diagnostic",
+      "sources": [],
+      "expected": 1,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {
+        "feedback/history/development-guidance/common/2026-10-22_093000-deployment-state-is-readback-not-narrative.md": "query_processing_or_indexed_fields"
+      },
+      "first_invocation_ms": 9.849,
+      "warm_cli_p95_ms": 10.183,
+      "preview_token_estimate": 4
+    },
+    {
+      "id": "R16",
+      "split": "holdout",
+      "sources": [],
+      "expected": 1,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {
+        "feedback/history/development-guidance/common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md": "query_processing_or_indexed_fields"
+      },
+      "first_invocation_ms": 9.954,
+      "warm_cli_p95_ms": 10.511,
+      "preview_token_estimate": 4
+    },
+    {
+      "id": "R17",
+      "split": "diagnostic",
+      "sources": [],
+      "expected": 1,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md": "query_processing_or_indexed_fields"
+      },
+      "first_invocation_ms": 8.685,
+      "warm_cli_p95_ms": 10.356,
+      "preview_token_estimate": 4
+    },
+    {
+      "id": "R18",
+      "split": "holdout",
+      "sources": [],
+      "expected": 1,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {
+        "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md": "query_processing_or_indexed_fields"
+      },
+      "first_invocation_ms": 10.094,
+      "warm_cli_p95_ms": 11.601,
+      "preview_token_estimate": 4
+    },
+    {
+      "id": "R19",
+      "split": "holdout",
+      "sources": [],
+      "expected": 0,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {},
+      "first_invocation_ms": 8.942,
+      "warm_cli_p95_ms": 10.61,
+      "preview_token_estimate": 4
+    },
+    {
+      "id": "R20",
+      "split": "holdout",
+      "sources": [],
+      "expected": 0,
+      "hits": 0,
+      "reciprocal_rank": 0,
+      "miss_reasons": {},
+      "first_invocation_ms": 10.274,
+      "warm_cli_p95_ms": 10.415,
+      "preview_token_estimate": 4
+    }
+  ],
+  "preview_token_method": "UTF-8 rune count of result JSON; estimate only, not model tokens or cap enforcement",
+  "route_discovery": "not evaluated: Bridge unchanged; workflow knowledge lookup only",
+  "schema_version": 1,
+  "summary": {
+    "diagnostic": {
+      "positive_cases": 14,
+      "expected_sources": 14,
+      "hit_sources": 1,
+      "recall_at_5": 0.07142857142857142,
+      "mrr_at_5": 0.07142857142857142,
+      "negative_cases": 0,
+      "negative_false_suggestions": 0
+    },
+    "holdout": {
+      "positive_cases": 4,
+      "expected_sources": 4,
+      "hit_sources": 0,
+      "recall_at_5": 0,
+      "mrr_at_5": 0,
+      "negative_cases": 2,
+      "negative_false_suggestions": 0
+    }
+  },
+  "warm_cli_p95_ms": 11.953,
+  "warm_runs_per_case": 20
+}
