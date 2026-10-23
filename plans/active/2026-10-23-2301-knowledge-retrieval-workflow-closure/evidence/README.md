@@ -14,3 +14,4 @@
 | phase1-audit | [phase1-audit.md](phase1-audit.md) | gate pending verification | 公開固定版本、雙指標分母、粗原因分類、分離對照與預留資料曝光紀錄 |
 | prephase2-control | [phase2-execution-contract.md](phase2-execution-contract.md) | controls verified / experiments pending | Binary pin、index manifest、四組配對與候選審閱；B0 重播一致，未執行 Q/E/QE |
 | phase2-v1-ablation | [phase2-v1-ablation.md](phase2-v1-ablation.md) | measured / candidate rejected | 八份 replay、兩次 matrix 通過；QE 14/14 但 confuser 6/6、preview 超額；queue 未結清，production 未採用 |
+| phase2-v2-protocol | [phase2-v2-protocol.md](phase2-v2-protocol.md) | frozen before replay | 代表案例欄位命中、phrase 優先、固定權重、top1 / 2000 runes；只評最終輸出 |

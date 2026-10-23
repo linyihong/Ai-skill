@@ -1,0 +1,951 @@
+[
+  {
+    "case_id": "R01",
+    "query": "middleware 單元測試通過，但真實 host 仍記錄 500，驗證漏在哪裡？",
+    "source": "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md",
+    "label": "positive",
+    "matched_fields": {
+      "id": [
+        "host"
+      ],
+      "source_path": [
+        "host"
+      ],
+      "title": [
+        "host"
+      ],
+      "summary": [
+        "middleware",
+        "host"
+      ],
+      "validation_signal": [
+        "host"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.development-guidance.2026-10-06_090000-pipeline-behaviour-needs-host-level-test",
+        "title": "2026-10-06 - Pipeline behaviour needs a host-level test, not a component test"
+      }
+    ]
+  },
+  {
+    "case_id": "R01",
+    "query": "middleware 單元測試通過，但真實 host 仍記錄 500，驗證漏在哪裡？",
+    "source": "feedback/history/apk-analysis/http-api/2026-06-22_130000-in-session-api-host-differs-from-cold-start-primary.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "id": [
+        "host"
+      ],
+      "source_path": [
+        "host"
+      ],
+      "title": [
+        "host"
+      ],
+      "summary": [
+        "host"
+      ],
+      "validation_signal": [
+        "host"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.apk-analysis.2026-06-22_130000-in-session-api-host-differs-from-cold-start-primary",
+        "title": "2026-06-22 - In-session API host may differ from cold-start primary host"
+      }
+    ]
+  },
+  {
+    "case_id": "R01",
+    "query": "middleware 單元測試通過，但真實 host 仍記錄 500，驗證漏在哪裡？",
+    "source": "knowledge/summaries/knowledge-navigation.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "summary": [
+        "500"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "knowledge.navigation",
+        "title": "knowledge.navigation"
+      }
+    ]
+  },
+  {
+    "case_id": "R01",
+    "query": "middleware 單元測試通過，但真實 host 仍記錄 500，驗證漏在哪裡？",
+    "source": "feedback/history/apk-analysis/common/2026-09-09_100200-wellknown-http-ports-may-not-fail-named-host-resolve.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "id": [
+        "host"
+      ],
+      "source_path": [
+        "host"
+      ],
+      "title": [
+        "host"
+      ],
+      "summary": [
+        "host"
+      ],
+      "validation_signal": [
+        "host"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.apk-analysis.2026-09-09_100200-wellknown-http-ports-may-not-fail-named-host-resolve",
+        "title": "2026-09-09 - Well-known HTTP(S) ports may not fail named host resolve"
+      }
+    ]
+  },
+  {
+    "case_id": "R01",
+    "query": "middleware 單元測試通過，但真實 host 仍記錄 500，驗證漏在哪裡？",
+    "source": "feedback/history/apk-analysis/common/2026-07-15_132500-frida-e2e-compact-send-and-off-main-thread-http.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "summary": [
+        "host"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.apk-analysis.2026-07-15_132500-frida-e2e-compact-send-and-off-main-thread-http",
+        "title": "2026-07-15 - Frida device E2E: compact send payloads and off-main-thread in-app HTTP"
+      }
+    ]
+  },
+  {
+    "case_id": "R03",
+    "query": "原始碼相同而且穩定重現，是否足以認定共用 baseline 壞掉？",
+    "source": "feedback/history/apk-analysis/common/2026-05-06_154500-domain-runtime-baseline-finish-gate.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "id": [
+        "baseline"
+      ],
+      "source_path": [
+        "baseline"
+      ],
+      "validation_signal": [
+        "baseline"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.apk-analysis.2026-05-06_154500-domain-runtime-baseline-finish-gate",
+        "title": "Domain／執行環境基線 — 取數門檻"
+      }
+    ]
+  },
+  {
+    "case_id": "R03",
+    "query": "原始碼相同而且穩定重現，是否足以認定共用 baseline 壞掉？",
+    "source": "feedback/history/development-guidance/common/2026-09-04_101800-derived-state-before-blaming-shared-baseline.md",
+    "label": "positive",
+    "matched_fields": {
+      "id": [
+        "baseline"
+      ],
+      "source_path": [
+        "baseline"
+      ],
+      "validation_signal": [
+        "baseline"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.development-guidance.2026-09-04_101800-derived-state-before-blaming-shared-baseline",
+        "title": "2026-09-04 - 歸因給共用基線之前，先排除本地衍生狀態"
+      }
+    ]
+  },
+  {
+    "case_id": "R03",
+    "query": "原始碼相同而且穩定重現，是否足以認定共用 baseline 壞掉？",
+    "source": "feedback/history/apk-analysis/common/2026-05-06_105026-state-reset-baseline-feature-capture.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "id": [
+        "baseline"
+      ],
+      "source_path": [
+        "baseline"
+      ],
+      "validation_signal": [
+        "baseline"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.apk-analysis.2026-05-06_105026-state-reset-baseline-feature-capture",
+        "title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md)"
+      }
+    ]
+  },
+  {
+    "case_id": "R03",
+    "query": "原始碼相同而且穩定重現，是否足以認定共用 baseline 壞掉？",
+    "source": "feedback/history/3d-character-production/common/2026-09-01_084600-separate-asset-evidence-from-stage-pass.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "summary": [
+        "baseline"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.3d-character-production.2026-09-01_084600-separate-asset-evidence-from-stage-pass",
+        "title": "2026-09-01 - 分離資產證據與 stage PASS"
+      }
+    ]
+  },
+  {
+    "case_id": "R03",
+    "query": "原始碼相同而且穩定重現，是否足以認定共用 baseline 壞掉？",
+    "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-24_114500-slot-base-line-wins-may-bypass-payout-window-show.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "summary": [
+        "壞掉"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.apk-analysis.2026-09-24_114500-slot-base-line-wins-may-bypass-payout-window-show",
+        "title": "2026-09-24 - Base line wins may bypass payout window Show entirely"
+      }
+    ]
+  },
+  {
+    "case_id": "R04",
+    "query": "JSON Substring Matching Trap",
+    "source": "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md",
+    "label": "positive",
+    "matched_fields": {
+      "id": [
+        "JSON",
+        "Substring",
+        "Matching",
+        "Trap"
+      ],
+      "source_path": [
+        "JSON",
+        "Substring",
+        "Matching",
+        "Trap"
+      ],
+      "title": [
+        "JSON",
+        "Substring",
+        "Matching",
+        "Trap"
+      ],
+      "summary": [
+        "JSON",
+        "Substring",
+        "Matching"
+      ],
+      "validation_signal": [
+        "JSON",
+        "Substring",
+        "Matching",
+        "Trap"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.development-guidance.2026-05-18_141900-json-substring-matching-numeric-trap",
+        "title": "JSON Substring Matching Trap in API Response Validation"
+      }
+    ]
+  },
+  {
+    "case_id": "R04",
+    "query": "JSON Substring Matching Trap",
+    "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_135800-xname-get-substring-this-may-not-be-xmlreader-name.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "id": [
+        "Substring"
+      ],
+      "source_path": [
+        "Substring"
+      ],
+      "title": [
+        "Substring"
+      ],
+      "summary": [
+        "Substring"
+      ],
+      "validation_signal": [
+        "Substring"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.apk-analysis.2026-09-08_135800-xname-get-substring-this-may-not-be-xmlreader-name",
+        "title": "2026-09-08 - XName.Get Substring.this may not be XmlReader/XName getters"
+      }
+    ]
+  },
+  {
+    "case_id": "R04",
+    "query": "JSON Substring Matching Trap",
+    "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_135200-xname-get-string-may-be-substring-not-getstring.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "id": [
+        "Substring"
+      ],
+      "source_path": [
+        "Substring"
+      ],
+      "title": [
+        "Substring"
+      ],
+      "summary": [
+        "Substring"
+      ],
+      "validation_signal": [
+        "Substring"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.apk-analysis.2026-09-08_135200-xname-get-string-may-be-substring-not-getstring",
+        "title": "2026-09-08 - XName.Get string may be String.Substring, not Decrypt GetString"
+      }
+    ]
+  },
+  {
+    "case_id": "R04",
+    "query": "JSON Substring Matching Trap",
+    "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_135500-xname-get-substring-this-may-not-be-decrypt-getstring.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "id": [
+        "Substring"
+      ],
+      "source_path": [
+        "Substring"
+      ],
+      "title": [
+        "Substring"
+      ],
+      "summary": [
+        "Substring"
+      ],
+      "validation_signal": [
+        "Substring"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.apk-analysis.2026-09-08_135500-xname-get-substring-this-may-not-be-decrypt-getstring",
+        "title": "2026-09-08 - XName.Get Substring.this may not be Decrypt GetString"
+      }
+    ]
+  },
+  {
+    "case_id": "R04",
+    "query": "JSON Substring Matching Trap",
+    "source": "feedback/history/apk-analysis/flutter-dart-aot/2026-05-14_073700-dart-aot-padright-null-bytes-substring-noop.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "id": [
+        "Substring"
+      ],
+      "source_path": [
+        "Substring"
+      ],
+      "title": [
+        "Substring"
+      ],
+      "summary": [
+        "Substring"
+      ],
+      "validation_signal": [
+        "Substring"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.apk-analysis.2026-05-14_073700-dart-aot-padright-null-bytes-substring-noop",
+        "title": "2026-05-14 - Dart AOT 逆向：`padRight` 使用 null bytes、`substring` 越界不 crash、dispatch hooking 技巧"
+      }
+    ]
+  },
+  {
+    "case_id": "R11",
+    "query": "原生模型載入失敗先比對既有案例",
+    "source": "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md",
+    "label": "positive",
+    "matched_fields": {
+      "title": [
+        "原生模型載入失敗先比對既有案例"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.development-guidance.2026-10-07_125417-native-model-load-known-case-first",
+        "title": "原生模型載入失敗先比對既有案例"
+      }
+    ]
+  },
+  {
+    "case_id": "O01",
+    "query": "host middleware 裡的純函式把 JSON code:1002 認成 code:1，該怎麼驗這個比較？",
+    "source": "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md",
+    "label": "positive",
+    "matched_fields": {
+      "id": [
+        "JSON"
+      ],
+      "source_path": [
+        "JSON"
+      ],
+      "title": [
+        "JSON"
+      ],
+      "summary": [
+        "JSON",
+        "code",
+        "1002",
+        "1"
+      ],
+      "validation_signal": [
+        "JSON"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.development-guidance.2026-05-18_141900-json-substring-matching-numeric-trap",
+        "title": "JSON Substring Matching Trap in API Response Validation"
+      }
+    ]
+  },
+  {
+    "case_id": "O01",
+    "query": "host middleware 裡的純函式把 JSON code:1002 認成 code:1，該怎麼驗這個比較？",
+    "source": "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md",
+    "label": "confuser",
+    "matched_fields": {
+      "id": [
+        "host"
+      ],
+      "source_path": [
+        "host"
+      ],
+      "title": [
+        "host"
+      ],
+      "summary": [
+        "host",
+        "middleware"
+      ],
+      "validation_signal": [
+        "host"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.development-guidance.2026-10-06_090000-pipeline-behaviour-needs-host-level-test",
+        "title": "2026-10-06 - Pipeline behaviour needs a host-level test, not a component test"
+      }
+    ]
+  },
+  {
+    "case_id": "O01",
+    "query": "host middleware 裡的純函式把 JSON code:1002 認成 code:1，該怎麼驗這個比較？",
+    "source": "feedback/history/apk-analysis/http-api/2026-06-22_142700-opaque-api-blob-native-decrypt-secondary-compression-json.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "id": [
+        "JSON"
+      ],
+      "source_path": [
+        "JSON"
+      ],
+      "title": [
+        "JSON"
+      ],
+      "summary": [
+        "host",
+        "JSON"
+      ],
+      "validation_signal": [
+        "JSON"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.apk-analysis.2026-06-22_142700-opaque-api-blob-native-decrypt-secondary-compression-json",
+        "title": "2026-06-22 - API opaque blob field may be native decrypt + secondary compression before JSON"
+      }
+    ]
+  },
+  {
+    "case_id": "O01",
+    "query": "host middleware 裡的純函式把 JSON code:1002 認成 code:1，該怎麼驗這個比較？",
+    "source": "feedback/history/apk-analysis/common/2026-07-15_132500-frida-e2e-compact-send-and-off-main-thread-http.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "summary": [
+        "host",
+        "JSON"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.apk-analysis.2026-07-15_132500-frida-e2e-compact-send-and-off-main-thread-http",
+        "title": "2026-07-15 - Frida device E2E: compact send payloads and off-main-thread in-app HTTP"
+      }
+    ]
+  },
+  {
+    "case_id": "O01",
+    "query": "host middleware 裡的純函式把 JSON code:1002 認成 code:1，該怎麼驗這個比較？",
+    "source": "feedback/history/apk-analysis/http-api/2026-06-22_130000-in-session-api-host-differs-from-cold-start-primary.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "id": [
+        "host"
+      ],
+      "source_path": [
+        "host"
+      ],
+      "title": [
+        "host"
+      ],
+      "summary": [
+        "host"
+      ],
+      "validation_signal": [
+        "host"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.apk-analysis.2026-06-22_130000-in-session-api-host-differs-from-cold-start-primary",
+        "title": "2026-06-22 - In-session API host may differ from cold-start primary host"
+      }
+    ]
+  },
+  {
+    "case_id": "O02",
+    "query": "API 和 SQL 數字正確，但手機版 scrollWidth 大於 clientWidth，要如何驗 viewport 的橫向溢出？",
+    "source": "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md",
+    "label": "confuser",
+    "matched_fields": {
+      "id": [
+        "SQL"
+      ],
+      "source_path": [
+        "SQL"
+      ],
+      "title": [
+        "API",
+        "SQL"
+      ],
+      "summary": [
+        "API",
+        "SQL"
+      ],
+      "validation_signal": [
+        "SQL"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.development-guidance.2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate",
+        "title": "2026-06-18 - Play-view KPI: SQL/API pass, DOM still wrong"
+      }
+    ]
+  },
+  {
+    "case_id": "O02",
+    "query": "API 和 SQL 數字正確，但手機版 scrollWidth 大於 clientWidth，要如何驗 viewport 的橫向溢出？",
+    "source": "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md",
+    "label": "positive",
+    "matched_fields": {
+      "summary": [
+        "viewport"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.development-guidance.2026-06-08_141200-browser-layout-overflow-integration",
+        "title": "2026-06-08 - Browser layout overflow integration"
+      }
+    ]
+  },
+  {
+    "case_id": "O02",
+    "query": "API 和 SQL 數字正確，但手機版 scrollWidth 大於 clientWidth，要如何驗 viewport 的橫向溢出？",
+    "source": "governance/ai-runtime-governance/five-step-ai-governance.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "summary": [
+        "和"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "route.governance.ai-runtime-five-step",
+        "title": "新增或擴張 skill、workflow、rule、memory、context、automation 或 runtime surface 前，套用 five-step AI runtime governance"
+      }
+    ]
+  },
+  {
+    "case_id": "O02",
+    "query": "API 和 SQL 數字正確，但手機版 scrollWidth 大於 clientWidth，要如何驗 viewport 的橫向溢出？",
+    "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_165800-slot-spin-fixtures-pair-json-manifest-and-reel-crop.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "summary": [
+        "和"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.apk-analysis.2026-09-08_165800-slot-spin-fixtures-pair-json-manifest-and-reel-crop",
+        "title": "2026-09-08 - Slot spin fixtures should pair JSON, manifest, and reel crop"
+      }
+    ]
+  },
+  {
+    "case_id": "O02",
+    "query": "API 和 SQL 數字正確，但手機版 scrollWidth 大於 clientWidth，要如何驗 viewport 的橫向溢出？",
+    "source": "knowledge/summaries/migration-seeder-anti-patterns.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "validation_signal": [
+        "SQL"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "intelligence.migration-seeder-anti-patterns",
+        "title": "intelligence.migration-seeder-anti-patterns"
+      }
+    ]
+  },
+  {
+    "case_id": "O04",
+    "query": "DB pool 用 now() 寫描述性日誌，工作卡在 nested checkout；應先查 client 持有還是 age gate？",
+    "source": "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md",
+    "label": "positive",
+    "matched_fields": {
+      "id": [
+        "pool",
+        "nested",
+        "checkout",
+        "client"
+      ],
+      "source_path": [
+        "pool",
+        "nested",
+        "checkout",
+        "client"
+      ],
+      "title": [
+        "pool",
+        "nested",
+        "checkout",
+        "client"
+      ],
+      "summary": [
+        "DB",
+        "pool",
+        "client"
+      ],
+      "validation_signal": [
+        "pool",
+        "nested",
+        "checkout",
+        "client"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.development-guidance.2026-09-30_155700-release-pool-client-before-nested-checkout",
+        "title": "2026-09-30 - Release pool client before nested same-pool checkout"
+      }
+    ]
+  },
+  {
+    "case_id": "O04",
+    "query": "DB pool 用 now() 寫描述性日誌，工作卡在 nested checkout；應先查 client 持有還是 age gate？",
+    "source": "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md",
+    "label": "confuser",
+    "matched_fields": {
+      "id": [
+        "now",
+        "age"
+      ],
+      "source_path": [
+        "now",
+        "age"
+      ],
+      "title": [
+        "now",
+        "age"
+      ],
+      "summary": [
+        "now",
+        "age"
+      ],
+      "validation_signal": [
+        "now",
+        "age"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.development-guidance.2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates",
+        "title": "2026-10-15 - now() is the transaction start; age and window gates need clock_timestamp()"
+      }
+    ]
+  },
+  {
+    "case_id": "O04",
+    "query": "DB pool 用 now() 寫描述性日誌，工作卡在 nested checkout；應先查 client 持有還是 age gate？",
+    "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_144000-nested-element-attribute-may-not-share-load-tree-xattribute.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "id": [
+        "nested"
+      ],
+      "source_path": [
+        "nested"
+      ],
+      "title": [
+        "nested"
+      ],
+      "summary": [
+        "pool"
+      ],
+      "validation_signal": [
+        "nested"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.apk-analysis.2026-09-08_144000-nested-element-attribute-may-not-share-load-tree-xattribute",
+        "title": "2026-09-08 - Nested Element Attribute may not share Load-tree XAttribute"
+      }
+    ]
+  },
+  {
+    "case_id": "O04",
+    "query": "DB pool 用 now() 寫描述性日誌，工作卡在 nested checkout；應先查 client 持有還是 age gate？",
+    "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_142800-parse-xcontainer-element-retval-may-be-nested-ctor-not-load-tree.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "id": [
+        "nested"
+      ],
+      "source_path": [
+        "nested"
+      ],
+      "title": [
+        "nested"
+      ],
+      "summary": [
+        "pool"
+      ],
+      "validation_signal": [
+        "nested"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.apk-analysis.2026-09-08_142800-parse-xcontainer-element-retval-may-be-nested-ctor-not-load-tree",
+        "title": "2026-09-08 - Parse XContainer.Element retval may be nested ctor, not Load tree"
+      }
+    ]
+  },
+  {
+    "case_id": "O04",
+    "query": "DB pool 用 now() 寫描述性日誌，工作卡在 nested checkout；應先查 client 持有還是 age gate？",
+    "source": "feedback/history/apk-analysis/flutter-dart-aot/2026-05-15_094700-dart-aot-pool-constant-pp-peep-hardcoded-key.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "id": [
+        "pool"
+      ],
+      "source_path": [
+        "pool"
+      ],
+      "summary": [
+        "pool"
+      ],
+      "validation_signal": [
+        "pool"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.apk-analysis.2026-05-15_094700-dart-aot-pool-constant-pp-peep-hardcoded-key",
+        "title": "2026-05-15 - Dart AOT `string_refs.jsonl` PP_peep 可直接揭露硬編碼 AES 金鑰"
+      }
+    ]
+  },
+  {
+    "case_id": "O06",
+    "query": "已排除 ECONNREFUSED，官方 peer 可連線但 token 被撤銷；要找重新授權流程，還應一直刷新 discovery 嗎？",
+    "source": "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md",
+    "label": "confuser",
+    "matched_fields": {
+      "id": [
+        "peer"
+      ],
+      "source_path": [
+        "peer"
+      ],
+      "title": [
+        "peer",
+        "discovery"
+      ],
+      "summary": [
+        "ECONNREFUSED",
+        "peer",
+        "discovery"
+      ],
+      "validation_signal": [
+        "peer"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.development-guidance.2026-09-15_012600-stale-peer-refused-refresh-not-fail-job",
+        "title": "2026-09-15 - Stale peer refused → refresh discovery; do not fail the job"
+      }
+    ]
+  },
+  {
+    "case_id": "O06",
+    "query": "已排除 ECONNREFUSED，官方 peer 可連線但 token 被撤銷；要找重新授權流程，還應一直刷新 discovery 嗎？",
+    "source": "runtime/cognitive-modes.yaml",
+    "label": "unreviewed",
+    "matched_fields": {
+      "title": [
+        "discovery"
+      ],
+      "summary": [
+        "token",
+        "discovery"
+      ],
+      "when_to_read": [
+        "discovery"
+      ],
+      "validation_signal": [
+        "discovery"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "route.runtime.cognitive-modes",
+        "title": "載入 cognitive mode 定義、discovery signal 規則、subsystem integration contracts；任務開始前解析 4 維 mode（execution/context/governance/memory）"
+      }
+    ]
+  },
+  {
+    "case_id": "O06",
+    "query": "已排除 ECONNREFUSED，官方 peer 可連線但 token 被撤銷；要找重新授權流程，還應一直刷新 discovery 嗎？",
+    "source": "feedback/history/development-guidance/common/2026-10-01_152600-ocr-probe-is-discovery-not-exclusion.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "id": [
+        "discovery"
+      ],
+      "source_path": [
+        "discovery"
+      ],
+      "title": [
+        "discovery"
+      ],
+      "summary": [
+        "discovery"
+      ],
+      "validation_signal": [
+        "discovery"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.development-guidance.2026-10-01_152600-ocr-probe-is-discovery-not-exclusion",
+        "title": "2026-10-01 - OCR Probe is discovery, not exclusion"
+      }
+    ]
+  },
+  {
+    "case_id": "O06",
+    "query": "已排除 ECONNREFUSED，官方 peer 可連線但 token 被撤銷；要找重新授權流程，還應一直刷新 discovery 嗎？",
+    "source": "knowledge/summaries/dual-token-audit.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "id": [
+        "token"
+      ],
+      "source_path": [
+        "token"
+      ],
+      "title": [
+        "token"
+      ],
+      "summary": [
+        "token"
+      ],
+      "when_to_read": [
+        "token"
+      ],
+      "validation_signal": [
+        "token"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "analysis.dual-token-audit",
+        "title": "analysis.dual-token-audit"
+      }
+    ]
+  },
+  {
+    "case_id": "O06",
+    "query": "已排除 ECONNREFUSED，官方 peer 可連線但 token 被撤銷；要找重新授權流程，還應一直刷新 discovery 嗎？",
+    "source": "feedback/history/development-guidance/common/2026-05-21_172704-dual-token-security-audit.md",
+    "label": "unreviewed",
+    "matched_fields": {
+      "id": [
+        "token"
+      ],
+      "source_path": [
+        "token"
+      ],
+      "title": [
+        "token"
+      ],
+      "summary": [
+        "token"
+      ],
+      "validation_signal": [
+        "token"
+      ]
+    },
+    "atoms": [
+      {
+        "id": "feedback.development-guidance.2026-05-21_172704-dual-token-security-audit",
+        "title": "2026-05-21 — Dual-Token Security Audit（雙簽章/雙加密 token 並存的審計方法）"
+      }
+    ]
+  }
+]
