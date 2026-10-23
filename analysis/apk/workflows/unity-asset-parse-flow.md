@@ -24,7 +24,7 @@
 
 ## Seated §3e batch（裝置已進桌時）
 
-當使用者要補 interface／疊層分析、且手機**已經 seated**时：
+當使用者要補 interface／疊層分析、且手機**已經 seated**時：
 
 1. **先進桌線**：screencap → 遮罩金額 → pull `__data` → UnityPy inventory + ParticleSystem dump → L0–Ln resource map + layer HTML。
 2. **入場線可 stub**：標 `not-captured-this-session`；只連 shared choose-category chrome + lobby tile；**不要**把進桌背景當 splash hero。
