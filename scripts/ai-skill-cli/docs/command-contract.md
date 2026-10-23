@@ -421,6 +421,7 @@
 - Query 命令不得修改 SQLite DB 或 generated reports。
 - 查不到資料時回傳 success 並提供空 results，除非 requested table / DB schema 不存在。
 - `--json` results 必須包含 source path、rank / priority（若有）、match reason 與 validation signal（若有）。
+- 本實驗分支 v2：完整 phrase 優先，無命中才 lexical OR；FTS 欄位權重 id/path 0.25、title 8、summary 5，其餘 0。最多讀取 64 atoms，按 source 去重後輸出最多一筆（且遵守 --limit）；results compact JSON ≤ 2000 runes，summary 可截短，身分無法容納則略過。此為候選實驗，非 main production 合約；相關性與適用性尚待覆核。
 - Native query 覆蓋舊 runtime index query：keyword / positional query、`--db`、`--layer`、`--type`、`--status`、`--limit`、empty result 與 missing DB。
 - `--graph` native query 覆蓋舊 knowledge graph query：`--source`、`--target`、`--type`、`--keyword` / positional query、`--limit`、empty result 與 missing filter。
 

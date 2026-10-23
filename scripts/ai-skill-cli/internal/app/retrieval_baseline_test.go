@@ -53,6 +53,7 @@ type retrievalReplayObservation struct {
 	PreviewEstimate  int               `json:"preview_token_estimate"`
 	ReviewRequired   bool              `json:"review_required"`
 	CandidateReviews map[string]string `json:"candidate_reviews,omitempty"`
+	ConsumerResults  []QueryResult     `json:"consumer_results,omitempty"`
 }
 type retrievalReplaySummary struct {
 	PositiveCases      int     `json:"positive_cases"`
@@ -349,7 +350,11 @@ func TestRetrievalBaselineReplay(t *testing.T) {
 			s.Hits += hits
 			s.MRR += rr
 		}
-		observations = append(observations, retrievalReplayObservation{c.ID, c.Split, actual, len(c.Expected), hits, rr, miss, firstMS, retrievalReplayP95(warm), estimate, needsReview, reviews})
+		var consumerResults []QueryResult
+		if os.Getenv("AI_SKILL_RETRIEVAL_CAPTURE_RESULTS") == "1" {
+			consumerResults = first.Results
+		}
+		observations = append(observations, retrievalReplayObservation{c.ID, c.Split, actual, len(c.Expected), hits, rr, miss, firstMS, retrievalReplayP95(warm), estimate, needsReview, reviews, consumerResults})
 	}
 	for _, s := range summaries {
 		if s.Expected > 0 {

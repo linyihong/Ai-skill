@@ -1411,14 +1411,14 @@ func runtimeQueryDBPath(repo string, dbPath string) string {
 	return filepath.Join(repo, dbPath)
 }
 
-func runRuntimeIndexQuery(dbPath string, keyword string, opts runtimeOptions) ([]QueryResult, error) {
+func runRuntimeIndexMatches(dbPath, keyword, expression string, opts runtimeOptions) ([]QueryResult, error) {
 	db, err := sql.Open("sqlite", dbPath)
 	if err != nil {
 		return nil, err
 	}
 	defer db.Close()
 
-	sqlText := `SELECT bm25(fts) AS rank,
+	sqlText := `SELECT bm25(fts, 0.25, 0.25, 8, 5, 0, 0, 0) AS rank,
        atoms.id,
        atoms.source_path,
        atoms.layer,
@@ -1431,7 +1431,7 @@ func runRuntimeIndexQuery(dbPath string, keyword string, opts runtimeOptions) ([
 FROM fts
 JOIN atoms ON atoms.id = fts.id
 WHERE fts MATCH ?`
-	args := []any{runtimeFTSLexicalQuery(keyword)}
+	args := []any{expression}
 	if opts.layer != "" {
 		sqlText += " AND atoms.layer = ?"
 		args = append(args, opts.layer)
