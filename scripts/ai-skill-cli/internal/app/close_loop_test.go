@@ -223,6 +223,9 @@ func initTempGitRepo(t *testing.T) string {
 	writeFile(t, filepath.Join(repo, "README.md"), "# Fixture\n")
 	runGit(t, repo, "add", "README.md")
 	runGit(t, repo, "commit", "-m", "initial")
+	// Apple Git / init.defaultBranch=main already lands on main; other gits may
+	// still use master. Normalize so callers can assume branch main exists.
+	runGit(t, repo, "branch", "-M", "main")
 	return repo
 }
 

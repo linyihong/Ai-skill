@@ -19,7 +19,6 @@ func TestPushGovernanceReplayBlocksSanitizationBypass(t *testing.T) {
 			SuggestedPlaceholder: "<SECRET_PROJECT>",
 		},
 	})
-	runGit(t, repo, "checkout", "-b", "main")
 	rel := "plans/active/leak.md"
 	writeFile(t, filepath.Join(repo, rel), "# leak\n\nSecretProject detail\n")
 	runGit(t, repo, "add", rel)
@@ -37,7 +36,6 @@ func TestPushGovernanceReplayBlocksSanitizationBypass(t *testing.T) {
 func TestPushGovernanceReplayBlocksMissingCognitiveMode(t *testing.T) {
 	repo := initTempGitRepo(t)
 	seedSanitizationRuntimeDB(t, repo, map[string]bool{"plans/": true}, nil)
-	runGit(t, repo, "checkout", "-b", "main")
 	rel := "plans/active/ok.md"
 	writeFile(t, filepath.Join(repo, rel), "# ok\n\ngeneric lesson\n")
 	runGit(t, repo, "add", rel)
@@ -52,7 +50,6 @@ func TestPushGovernanceReplayBlocksMissingCognitiveMode(t *testing.T) {
 func TestPushGovernanceReplayPassesValidCommit(t *testing.T) {
 	repo := initTempGitRepo(t)
 	seedSanitizationRuntimeDB(t, repo, map[string]bool{"plans/": true}, nil)
-	runGit(t, repo, "checkout", "-b", "main")
 	rel := "plans/active/ok.md"
 	writeFile(t, filepath.Join(repo, rel), "# ok\n\ngeneric lesson\n")
 	runGit(t, repo, "add", rel)

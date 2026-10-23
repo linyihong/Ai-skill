@@ -115,7 +115,13 @@ func latestCLISourceCommit(t *testing.T, moduleRoot string) string {
 	t.Helper()
 	// portable/ is shipped CLI source (KGE, shared packages); omitting it lets
 	// BUILDINFO drift when only portable/ changes while cmd/internal stay still.
-	output, err := exec.Command("git", "-C", moduleRoot, "log", "-1", "--format=%H", "--", "cmd", "internal", "portable", "go.mod", "go.sum").Output()
+	// Exclude *_test.go — test-only edits must not force a release rebuild.
+	output, err := exec.Command(
+		"git", "-C", moduleRoot, "log", "-1", "--format=%H",
+		"--",
+		"cmd", "internal", "portable", "go.mod", "go.sum",
+		":(exclude)*_test.go",
+	).Output()
 	if err != nil {
 		t.Fatal(err)
 	}
