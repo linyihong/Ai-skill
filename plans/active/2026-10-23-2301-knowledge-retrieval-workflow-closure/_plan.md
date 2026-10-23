@@ -10,7 +10,7 @@ owner_layer: knowledge
 
 # 既有知識檢索與 Workflow 採用閉環強化
 
-**Status**: `in-progress`。Phase 0 盤點完成，證據見 [phase0-inventory.md](evidence/phase0-inventory.md)；Phase 1 基準版已建立，見 [phase1-baseline.md](evidence/phase1-baseline.md)；gate 完整通過待核驗，見 [phase1-audit.md](evidence/phase1-audit.md)。Phase 2 僅先做分離對照驗證，不預先宣告通過。Production 搜尋與採用鏈尚未實作。
+**Status**: `in-progress`。Phase 0 盤點完成，證據見 [phase0-inventory.md](evidence/phase0-inventory.md)；Phase 1 已按「歷史 lesson 檢索基準」縮限核對通過；原完整範圍的剩餘責任見下表。Phase 2 前執行控制見 [phase2-execution-contract.md](evidence/phase2-execution-contract.md)；Q / E / QE 增益實驗尚未開始。Production 搜尋與採用鏈尚未實作。
 
 目標：讓既有 intelligence、決策與失敗經驗更穩定地被找到，經來源與適用性確認後支援 workflow。先改善現有能力，再用漏找證據決定是否加入向量搜尋與 reranking。
 
@@ -109,7 +109,7 @@ Runtime owner 為現有 CLI `internal/app`；knowledge 層管理查找來源與�
 
 Candidate files（只代表調查與可能修改，不承諾全改）：`internal/app/runtime.go`、`discovery.go`、`hooks.go` 與對應 tests；`knowledge/runtime/sqlite/README.md`；`metadata/schema.md`；`governance/workflow-activation-engine.md`；Phase 0 選定 workflow 的 README / execution-flow；必要的 routing / summaries / graphs / scenarios。實作前讀各層 README、適用契約與 linked updates。Gate：Q1/Q3/Q4 已解，無未處理 source ownership 衝突。
 
-## Phase 1 — 建立可重跑的漏找基準
+## Phase 1 — 歷史 Lesson 檢索基準（縮限驗收）
 
 - [x] 建立 20 題初版基準（18 題有歷史 lesson 來源的重播、2 題明確標註人工控制；非 20 個獨立原始提問），標 `case_id`、問題、query intent（如歷史追溯 / 當前採用）、task context、應找到的 source IDs / paths、相關程度與適用理由；無答案案例標空集合，不虛構真實案例。
 - [x] 包含精確名稱、中文 / 英文 / 混合詞、不同措辭、workflow 已命中情境與無答案控制；過期 / 退休狀態 / 不適用 filter 以另列人工 fixture 探測，真實 supersession / 採用情境仍待 Phase 3。完整分布與缺口見 Phase 1 報告。
@@ -124,15 +124,28 @@ Candidate files（只代表調查與可能修改，不承諾全改）：`interna
 
 未接線或未量測的指標一律標 `not evaluated`，不可填 0 或當成通過；分布至少區分適用、不適用、已取代與 unknown，分布本身不等於檢索錯誤率。
 
-Gate：每題有可覆核標記；重跑可重現；Phase 2 前凍結檢索層數值 acceptance 與 baseline，Phase 3 前凍結採用層 acceptance。預設方向：核心真實漏找修復、固定預留 comparison set Recall@5 / MRR@5 不退步（不等同獨立泛化驗證），延遲與 tokens 不超核准 budget；採用層另驗 required-read bypass / 自動 activation / 已知失效證據被採用均為 0。無增益仍可交付診斷，不能聲稱搜尋強化完成。
+Gate（本輪縮限）：歷史重播來源、dataset SHA、expected labels、split 與評分協議可覆核；B0 在固定 corpus、顯式 binary / index 身分下重現 baseline。此範圍已核對通過。檢索增益與副作用依 Phase 2 驗收，採用與實際 tokens 依 Phase 3 驗收；剩餘責任不能由縮限 gate 代替。沒有增益時只交付診斷，不聲稱搜尋強化完成。
 
 Phase 1 審核補充（2026-10-24）：[phase1-audit.md](evidence/phase1-audit.md) 分開核對 case hit 與 source Recall，13 題目前只支持 `query_processing_or_indexed_fields` 粗分類，未逐題證實因果。現有預留組保守作固定 comparison / regression set，不主張嚴格獨立 holdout；獨立泛化驗證須另收資料。
 
-- [ ] 核對初版案例覆蓋與 token 代理量尺是否滿足交付 acceptance；不得將基準建立完成等同 Phase 1 gate 完整通過。
+- [x] 依使用者 2026-10-24 審核處置縮限 Phase 1：只驗收 18 題歷史 lesson 重播 + 2 題人工控制的來源、資料一致性、評分與固定比較基礎；使用者已核對資料與 harness，本輪以顯式 binary / index 重播 B0 再確認分數。這不表示原完整範圍或 Phase 2 品質已通過。
+
+本輪不驗收全庫 intelligence recall、獨立 holdout、一般自然語意誤推率、真實 supersession 採用、實際模型 token 上限或採用安全。這些責任未取消：
+
+| 剩餘項目 | 階段與交付 | 責任 |
+| --- | --- | --- |
+| Query / extraction 增益與擴大查詢副作用 | Phase 2：產物綁定的四組對照、另版 overlap controls、全部新增診斷候選審閱；未審閱不通過 | 本計畫 query / extraction 執行者整理，larrylin 或指定 reviewer 覆核 |
+| Intelligence 本文覆蓋與 relevance | Phase 2：另版 source-level intelligence 比較資料；未量測不得由 lesson 結果宣稱 intelligence 改善 | 本計畫索引執行者與首批 workflow owner |
+| 自然語意無答案、真實 supersession、來源變更與採用安全 | Phase 3：有範圍與標註的 consumer replay，source-read / applicability / required-read / blocker 證據；人工控制不替代真實案例 | 首批 sd-validation maintainer 與 consumer 任務 owner |
+| 實際模型 token budget | Phase 3：接入 consumer 前固定 tokenizer / version、計入的 context 範圍與 ≤ 2000 實際 tokens；未量測維持 not evaluated | Consumer / context 組裝執行者；Phase 2 僅驗 ≤ 2000 runes 工程代理值 |
+| 獨立泛化驗證 | Phase 2 若要宣稱泛化，或 Phase 4 語意實驗前，另收未參與診斷 / 方法選擇的資料；現有組只作 comparison / regression | 該階段實驗 owner 整理，larrylin 或指定 reviewer 核對資料使用歷程 |
+
+縮限 Phase 1 gate 通過只允許進入有控制的 Phase 2 實驗，不代表搜尋功能已改善或整個計畫可完成。
 
 ## Phase 2 — 補既有全文搜尋、metadata 與關聯查找
 
-- [ ] 先跑固定 corpus 的 B0 / query-only / extraction-only / combined 對照，逐題記錄增益與成本；新增正文另組實驗，不混入 extraction-only。對照組與資料獨立性規則見 Phase 1 審核包。
+- [ ] 依 [執行控制契約](evidence/phase2-execution-contract.md) 先跑固定 corpus 的 B0 / query-only / extraction-only / combined 對照：顯式 query binary 路徑 / SHA、index manifest、generator revision / source SHA、index inputs / corpus SHA；四組配對 validator 必須通過，逐題記錄增益與成本；新增正文另組實驗，不混入 extraction-only。對照組與資料獨立性規則見 Phase 1 審核包。
+- [ ] 以另版 [overlap-controls-v1.json](evidence/overlap-controls-v1.json) 約束查詢放寬：已標 confuser 命中 0；Q / E / QE 相對 B0 的新增診斷候選與未標註 overlap 候選逐筆覆核，未審閱 / unknown 未結清不得通過，不以 8/14 單獨證明有用。
 - [ ] 依 Phase 1 原因補索引覆蓋與查詢處理，保留精確識別字搜尋；正文擴充只涵蓋選定 workflow、intelligence、決策與整理後知識，不預設索引所有 raw evidence。
 - [ ] 若需 chunk，保留 stable source identity、section anchor、source revision / checksum；重複命中按來源合併，避免一篇文件占滿 top-k。
 - [ ] 重用 canonical domain / scope / status / supersession 欄位；硬限制只用明確適用條件，缺欄位顯示 unknown，避免過濾造成靜默漏找。
@@ -140,7 +153,7 @@ Phase 1 審核補充（2026-10-24）：[phase1-audit.md](evidence/phase1-audit.m
 - [ ] 回傳來源、命中理由、版本 / freshness、適用性待查事項與回讀入口；相關性分數和可信 / 適用性欄位分開。
 - [ ] 驗證建立、refresh、修改、刪除、搬移、stale、缺 metadata、缺索引、rebuild 與 deterministic ordering；用 Phase 1 固定資料比較。
 
-Gate：通過凍結的檢索層 acceptance；採用層保持 `not evaluated`，留待 Phase 3；cache 可從 canonical source 重建；不得修改 canonical 結論來讓 benchmark 通過。
+Gate：通過縮限後凍結的檢索層 acceptance、產物矩陣核對與候選審閱 gate；Phase 2 成本上限明確是 ≤ 2000 runes 代理值，不宣稱實際 tokens 已驗收。採用層保持 `not evaluated`，留待 Phase 3；cache 可從 canonical source 重建；不得修改 canonical 結論來讓 benchmark 通過。
 
 ## Phase 3 — 接入 Workflow 採用流程與條件式 Bridge 調整
 

@@ -30,6 +30,8 @@ Runner 用現有 `buildNativeRuntimeSQLiteIndex` 建 temporary index，再用 co
 
 ## 重跑方式
 
+下列是原始基準的資料 / 報告參數；新版 harness 另強制要求顯式 query binary 路徑與預期 SHA、clean corpus。B0 / Q / E / QE 必須再提供預建 index / manifest / reference，完整環境與 snapshot 步驟見 [phase2-execution-contract.md](phase2-execution-contract.md)，不能只設定兩個變數就執行新版實驗。
+
 從 repo root 設定兩個環境變數為絕對路徑（需 export 或單次命令環境傳入），再於 `scripts/ai-skill-cli` 執行：
 
 ```text

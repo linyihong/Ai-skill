@@ -1,0 +1,146 @@
+{
+  "schema_version": 2,
+  "suite_kind": "overlap-negative-v1",
+  "limit": 5,
+  "repeats": 20,
+  "description": "6 個人工自然語言 scope / 詞彙重疊控制；5 個正向錨點、6 個已標註不相關 distractor、1 個未完整標註的授權問題。不是實際使用者查詢或獨立 holdout。",
+  "acceptance": {
+    "known_confuser_hits": 0,
+    "unjudged_candidates_before_approval": 0,
+    "review_all_new_diagnostic_candidates": true,
+    "natural_language_false_positive_rate": "not estimated; incomplete corpus labels",
+    "baseline_suite": "unchanged"
+  },
+  "cases": [
+    {
+      "id": "O01",
+      "group": "json-scope",
+      "split": "diagnostic",
+      "provenance_kind": "synthetic-overlap-control",
+      "provenance": "",
+      "provenance_sha256": "",
+      "query": "host middleware 裡的純函式把 JSON code:1002 認成 code:1，該怎麼驗這個比較？",
+      "intent": "依主要問題查找經驗並排除詞彙相近但範圍不合的來源",
+      "task_context": "本題只問自足的數字比較，不驗 composed host 行為；host pipeline lesson 明列純函式不適用。",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md"
+      ],
+      "excluded_sources": [
+        "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md"
+      ],
+      "exclusion_reason": "本題只問自足的數字比較，不驗 composed host 行為；host pipeline lesson 明列純函式不適用。",
+      "review_required": true,
+      "label_status": "author-labelled-not-independent-gold",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "O02",
+      "group": "layout-scope",
+      "split": "diagnostic",
+      "provenance_kind": "synthetic-overlap-control",
+      "provenance": "",
+      "provenance_sha256": "",
+      "query": "API 和 SQL 數字正確，但手機版 scrollWidth 大於 clientWidth，要如何驗 viewport 的橫向溢出？",
+      "intent": "依主要問題查找經驗並排除詞彙相近但範圍不合的來源",
+      "task_context": "問題為幾何 overflow，不是顯示計數器數值過期；API/SQL 詞彙重疊不能把 KPI cache 案例當主解。",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md"
+      ],
+      "excluded_sources": [
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md"
+      ],
+      "exclusion_reason": "問題為幾何 overflow，不是顯示計數器數值過期；API/SQL 詞彙重疊不能把 KPI cache 案例當主解。",
+      "review_required": true,
+      "label_status": "author-labelled-not-independent-gold",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "O03",
+      "group": "model-vs-media",
+      "split": "diagnostic",
+      "provenance_kind": "synthetic-overlap-control",
+      "provenance": "",
+      "provenance_sha256": "",
+      "query": "播放器的 HLS manifest/key 請求都正常；另一段 native model 權重載入直接崩潰，先怎麼比對失敗案例？",
+      "intent": "依主要問題查找經驗並排除詞彙相近但範圍不合的來源",
+      "task_context": "已明示媒體 URI 沒有問題，目標是 native 權重載入；blob URI rewrite 不是載入崩潰的證據。",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md"
+      ],
+      "excluded_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md"
+      ],
+      "exclusion_reason": "已明示媒體 URI 沒有問題，目標是 native 權重載入；blob URI rewrite 不是載入崩潰的證據。",
+      "review_required": true,
+      "label_status": "author-labelled-not-independent-gold",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "O04",
+      "group": "pool-vs-clock",
+      "split": "diagnostic",
+      "provenance_kind": "synthetic-overlap-control",
+      "provenance": "",
+      "provenance_sha256": "",
+      "query": "DB pool 用 now() 寫描述性日誌，工作卡在 nested checkout；應先查 client 持有還是 age gate？",
+      "intent": "依主要問題查找經驗並排除詞彙相近但範圍不合的來源",
+      "task_context": "時間戳無決策使用且沒有 age gate，clock lesson 明列描述性時間不適用；核心是巢狀 checkout。",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md"
+      ],
+      "excluded_sources": [
+        "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md"
+      ],
+      "exclusion_reason": "時間戳無決策使用且沒有 age gate，clock lesson 明列描述性時間不適用；核心是巢狀 checkout。",
+      "review_required": true,
+      "label_status": "author-labelled-not-independent-gold",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "O05",
+      "group": "peer-vs-build",
+      "split": "diagnostic",
+      "provenance_kind": "synthetic-overlap-control",
+      "provenance": "",
+      "provenance_sha256": "",
+      "query": "已乾淨 restore/build，卻遇到舊 peer 的 ECONNREFUSED，官方 discovery 指向新位址，工作應怎麼處置？",
+      "intent": "依主要問題查找經驗並排除詞彙相近但範圍不合的來源",
+      "task_context": "已驗 restore 完成，失敗在 long-lived peer 位址；不能用 build restore 的舊相依圖案例解釋連線拒絕。",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "excluded_sources": [
+        "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md"
+      ],
+      "exclusion_reason": "已驗 restore 完成，失敗在 long-lived peer 位址；不能用 build restore 的舊相依圖案例解釋連線拒絕。",
+      "review_required": true,
+      "label_status": "author-labelled-not-independent-gold",
+      "layer": "",
+      "status": ""
+    },
+    {
+      "id": "O06",
+      "group": "peer-vs-auth",
+      "split": "diagnostic",
+      "provenance_kind": "synthetic-overlap-control",
+      "provenance": "",
+      "provenance_sha256": "",
+      "query": "已排除 ECONNREFUSED，官方 peer 可連線但 token 被撤銷；要找重新授權流程，還應一直刷新 discovery 嗎？",
+      "intent": "依主要問題查找經驗並排除詞彙相近但範圍不合的來源",
+      "task_context": "原 peer lesson 明列 auth/token invalidation 不適用；尚無完整 gold answer 標註，其他新來源需逐筆審閱，不預設全部錯誤。",
+      "expected_sources": [],
+      "excluded_sources": [
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "exclusion_reason": "原 peer lesson 明列 auth/token invalidation 不適用；尚無完整 gold answer 標註，其他新來源需逐筆審閱，不預設全部錯誤。",
+      "review_required": true,
+      "label_status": "author-labelled-not-independent-gold",
+      "layer": "",
+      "status": ""
+    }
+  ]
+}

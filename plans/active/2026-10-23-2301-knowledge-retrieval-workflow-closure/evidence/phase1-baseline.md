@@ -1,6 +1,6 @@
 # Phase 1 — Workflow 知識查找 Baseline
 
-日期：2026-10-24。Corpus revision：`5f12fc3906051e40228959e9e6bfaed714e0658e`。本輪只建立量測與證據，production retrieval、workflow、Bridge 均未變更。**基準已建立不等於 Phase 1 gate 已完整通過**；指標重算、未證實原因與資料曝光紀錄見 [phase1-audit.md](phase1-audit.md)。
+日期：2026-10-24。Corpus revision：`5f12fc3906051e40228959e9e6bfaed714e0658e`。本輪只建立量測與證據，production retrieval、workflow、Bridge 均未變更。**原完整範圍並未全部通過**；依後續使用者審核，主 plan 已將 Phase 1 正式縮限為歷史 lesson 基準並列剩餘責任。指標重算與未證實原因見 [phase1-audit.md](phase1-audit.md)，執行控制補強見 [phase2-execution-contract.md](phase2-execution-contract.md)。
 
 ## 產物與資料範圍
 

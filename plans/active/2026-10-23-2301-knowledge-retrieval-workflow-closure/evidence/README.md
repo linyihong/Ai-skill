@@ -12,3 +12,4 @@
 | phase1-protocol | [phase1-protocol.md](phase1-protocol.md) | frozen protocol | 18 歷史重播 + 2 人工控制、評分、切分與成本門檻 |
 | phase1-baseline | [phase1-baseline.md](phase1-baseline.md) | measured baseline | Diagnostic 1/14、holdout 0/4、人工負面 0/2；採用層 not evaluated |
 | phase1-audit | [phase1-audit.md](phase1-audit.md) | gate pending verification | 公開固定版本、雙指標分母、粗原因分類、分離對照與預留資料曝光紀錄 |
+| prephase2-control | [phase2-execution-contract.md](phase2-execution-contract.md) | controls verified / experiments pending | Binary pin、index manifest、四組配對與候選審閱；B0 重播一致，未執行 Q/E/QE |
