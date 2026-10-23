@@ -113,7 +113,9 @@ func readBuildInfo(t *testing.T, path string) map[string]string {
 
 func latestCLISourceCommit(t *testing.T, moduleRoot string) string {
 	t.Helper()
-	output, err := exec.Command("git", "-C", moduleRoot, "log", "-1", "--format=%H", "--", "cmd", "internal", "go.mod", "go.sum").Output()
+	// portable/ is shipped CLI source (KGE, shared packages); omitting it lets
+	// BUILDINFO drift when only portable/ changes while cmd/internal stay still.
+	output, err := exec.Command("git", "-C", moduleRoot, "log", "-1", "--format=%H", "--", "cmd", "internal", "portable", "go.mod", "go.sum").Output()
 	if err != nil {
 		t.Fatal(err)
 	}
