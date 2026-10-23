@@ -949,19 +949,30 @@ func createNativeRuntimeDBFixture(t *testing.T) string {
 	}
 	defer db.Close()
 
+	// Populate the disposable fixture atomically: one disk sync per row makes
+	// the complete suite unnecessarily slow on Windows hosted runners.
+	tx, err := db.Begin()
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer tx.Rollback()
+
 	for _, table := range nativeRuntimeRequiredTables {
-		if _, err := db.Exec(nativeRuntimeCreateTableSQL(table)); err != nil {
+		if _, err := tx.Exec(nativeRuntimeCreateTableSQL(table)); err != nil {
 			t.Fatalf("create %s: %v", table, err)
 		}
 	}
 	for table, minimum := range nativeRuntimeMinimumRows {
 		for i := 0; i < minimum; i++ {
-			if _, err := db.Exec(nativeRuntimeInsertSQL(table, i)); err != nil {
+			if _, err := tx.Exec(nativeRuntimeInsertSQL(table, i)); err != nil {
 				t.Fatalf("insert %s: %v", table, err)
 			}
 		}
 	}
-	if _, err := db.Exec("INSERT OR REPLACE INTO compiler_metadata (key, value) VALUES ('compiler_version', 'test'), ('compiled_at', '2026-05-21T00:00:00Z')"); err != nil {
+	if _, err := tx.Exec("INSERT OR REPLACE INTO compiler_metadata (key, value) VALUES ('compiler_version', 'test'), ('compiled_at', '2026-05-21T00:00:00Z')"); err != nil {
+		t.Fatal(err)
+	}
+	if err := tx.Commit(); err != nil {
 		t.Fatal(err)
 	}
 	return path

@@ -49,7 +49,7 @@ go run ./cmd/releasebuild --stable-names --version "repo-$(git rev-parse --short
 
 Release artifacts：`go run ./cmd/releasebuild` 會輸出 Windows amd64、macOS amd64/arm64、Linux amd64/arm64 binaries 與 `SHA256SUMS`。`ai-skill version` 支援 `-ldflags` 注入 version / commit / date。
 
-GitHub Actions：`.github/workflows/ai-skill-cli.yml` 會在 Windows、macOS、Linux 執行 `go test ./...` 與 `doctor` smoke checks。修改 `scripts/ai-skill-cli/**`、`scripts/git-hooks/**` 或 workflow 行為時，必須同步檢查 `.github/workflows/ai-skill-cli.yml` 的 trigger、matrix、test command 與 artifact build steps。
+GitHub Actions：`.github/workflows/ai-skill-cli.yml` 會在 Windows、macOS、Linux 執行 `go test ./...` 與 `doctor` smoke checks。CI 明訂 Go package 測試上限 30 分鐘、test job 上限 45 分鐘；file-backed SQLite fixtures 的批次建置使用 transaction，減少 Windows runner 的逐筆同步成本。修改 `scripts/ai-skill-cli/**`、`scripts/git-hooks/**` 或 workflow 行為時，必須同步檢查 `.github/workflows/ai-skill-cli.yml` 的 trigger、matrix、test command 與 artifact build steps。
 
 Push 前可手動執行與 hook 相同的 CI preflight：
 

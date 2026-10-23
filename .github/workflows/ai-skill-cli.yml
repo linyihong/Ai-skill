@@ -16,6 +16,7 @@ jobs:
   test:
     name: Go tests (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
     strategy:
       fail-fast: false
       matrix:
@@ -41,7 +42,9 @@ jobs:
           cache-dependency-path: scripts/ai-skill-cli/go.sum
 
       - name: Run tests and repo-local binary parity
-        run: go test ./...
+        # The timeout applies to the entire package, including file-backed
+        # SQLite fixtures; Windows disk flushes are slower than other runners.
+        run: go test -timeout 30m ./...
 
       - name: Smoke version JSON
         run: go run ./cmd/ai-skill version --json
