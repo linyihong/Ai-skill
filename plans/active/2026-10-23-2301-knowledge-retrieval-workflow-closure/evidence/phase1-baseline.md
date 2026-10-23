@@ -1,6 +1,6 @@
 # Phase 1 — Workflow 知識查找 Baseline
 
-日期：2026-10-24。Corpus revision：`5f12fc3906051e40228959e9e6bfaed714e0658e`。本輪只建立量測與證據，production retrieval、workflow、Bridge 均未變更。
+日期：2026-10-24。Corpus revision：`5f12fc3906051e40228959e9e6bfaed714e0658e`。本輪只建立量測與證據，production retrieval、workflow、Bridge 均未變更。**基準已建立不等於 Phase 1 gate 已完整通過**；指標重算、未證實原因與資料曝光紀錄見 [phase1-audit.md](phase1-audit.md)。
 
 ## 產物與資料範圍
 
@@ -49,9 +49,9 @@
 
 ## 下一階段決策
 
-Phase 2 先處理 diagnostic 已證實的 query / indexed-field 缺口，再量測較小的 source-level 正文覆蓋；不因這次 1/14 就導入向量。先前凍結門檻：diagnostic ≥ 8/14、holdout Recall / MRR 不退步、人工負面誤推 0/2、warm p95 ≤ 500ms、preview estimate ≤ 2000。沒有新 reranker、vector provider 或 Bridge 接線承諾。
+Phase 2 先對 diagnostic 的 query / indexed-field 候選原因做分離與合併對照，再決定修正與較小的 source-level 正文覆蓋；尚未有逐題原因歸屬的 ablation 證據。不因這次 1/14 就導入向量。先前凍結門檻：diagnostic ≥ 8/14、holdout Recall / MRR 不退步、人工負面誤推 0/2、warm p95 ≤ 500ms、preview estimate ≤ 2000。沒有新 reranker、vector provider 或 Bridge 接線承諾。
 
-Holdout 本輪只讀 aggregate；建立資料者已見題目，所以不是密封盲測。Phase 2 若用它的個案錯誤做方法選擇，須記為已消耗；Phase 4 另收獨立資料。
+初始診斷未用預留個案結果設計修法，但資料標記與本次 artifact 重算已曝光題目 / 原始結果；保守視為固定 comparison / regression set，不主張嚴格獨立 holdout。需要獨立泛化驗證時另收資料，Phase 4 也重新核對。
 
 ## Validation
 

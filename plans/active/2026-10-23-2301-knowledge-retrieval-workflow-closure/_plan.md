@@ -10,7 +10,7 @@ owner_layer: knowledge
 
 # 既有知識檢索與 Workflow 採用閉環強化
 
-**Status**: `in-progress`。Phase 0 盤點完成，證據見 [phase0-inventory.md](evidence/phase0-inventory.md)；Phase 1 基準版完成，見 [phase1-baseline.md](evidence/phase1-baseline.md)；下一步 Phase 2。Production 搜尋與採用鏈尚未實作。
+**Status**: `in-progress`。Phase 0 盤點完成，證據見 [phase0-inventory.md](evidence/phase0-inventory.md)；Phase 1 基準版已建立，見 [phase1-baseline.md](evidence/phase1-baseline.md)；gate 完整通過待核驗，見 [phase1-audit.md](evidence/phase1-audit.md)。Phase 2 僅先做分離對照驗證，不預先宣告通過。Production 搜尋與採用鏈尚未實作。
 
 目標：讓既有 intelligence、決策與失敗經驗更穩定地被找到，經來源與適用性確認後支援 workflow。先改善現有能力，再用漏找證據決定是否加入向量搜尋與 reranking。
 
@@ -124,10 +124,15 @@ Candidate files（只代表調查與可能修改，不承諾全改）：`interna
 
 未接線或未量測的指標一律標 `not evaluated`，不可填 0 或當成通過；分布至少區分適用、不適用、已取代與 unknown，分布本身不等於檢索錯誤率。
 
-Gate：每題有可覆核標記；重跑可重現；Phase 2 前凍結檢索層數值 acceptance 與 baseline，Phase 3 前凍結採用層 acceptance。預設方向：核心真實漏找修復、holdout Recall@5 / MRR@5 不退步，延遲與 tokens 不超核准 budget；採用層另驗 required-read bypass / 自動 activation / 已知失效證據被採用均為 0。無增益仍可交付診斷，不能聲稱搜尋強化完成。
+Gate：每題有可覆核標記；重跑可重現；Phase 2 前凍結檢索層數值 acceptance 與 baseline，Phase 3 前凍結採用層 acceptance。預設方向：核心真實漏找修復、固定預留 comparison set Recall@5 / MRR@5 不退步（不等同獨立泛化驗證），延遲與 tokens 不超核准 budget；採用層另驗 required-read bypass / 自動 activation / 已知失效證據被採用均為 0。無增益仍可交付診斷，不能聲稱搜尋強化完成。
+
+Phase 1 審核補充（2026-10-24）：[phase1-audit.md](evidence/phase1-audit.md) 分開核對 case hit 與 source Recall，13 題目前只支持 `query_processing_or_indexed_fields` 粗分類，未逐題證實因果。現有預留組保守作固定 comparison / regression set，不主張嚴格獨立 holdout；獨立泛化驗證須另收資料。
+
+- [ ] 核對初版案例覆蓋與 token 代理量尺是否滿足交付 acceptance；不得將基準建立完成等同 Phase 1 gate 完整通過。
 
 ## Phase 2 — 補既有全文搜尋、metadata 與關聯查找
 
+- [ ] 先跑固定 corpus 的 B0 / query-only / extraction-only / combined 對照，逐題記錄增益與成本；新增正文另組實驗，不混入 extraction-only。對照組與資料獨立性規則見 Phase 1 審核包。
 - [ ] 依 Phase 1 原因補索引覆蓋與查詢處理，保留精確識別字搜尋；正文擴充只涵蓋選定 workflow、intelligence、決策與整理後知識，不預設索引所有 raw evidence。
 - [ ] 若需 chunk，保留 stable source identity、section anchor、source revision / checksum；重複命中按來源合併，避免一篇文件占滿 top-k。
 - [ ] 重用 canonical domain / scope / status / supersession 欄位；硬限制只用明確適用條件，缺欄位顯示 unknown，避免過濾造成靜默漏找。
