@@ -1,73 +1,80 @@
 > 遵守 [共用規則索引](../../../enforcement/README.md)、[dependency-reading](../../../enforcement/dependency-reading.md)、[neutral-language](../../../enforcement/neutral-language.md)、[goal-action-validation](../../../enforcement/goal-action-validation.md) 與 [feedback-lessons](../../feedback-lessons.md)；本檔只寫本條 lesson，不重複貼上共用政策全文。
 
-### 2026-10-23 - Slot interface-analysis: no one-shot generator; use companion scripts
+### 2026-10-23 - Unity iface analysis techniques stay in Ai-skill; HTML report scripts stay in the business repo
 
 Status: validated
 
 #### Reuse Evidence
 
-同一日 seated §3e 交件後，使用者指出包「不太一樣」並問 onboarding 是否有生產器。對照業務 onboarding §3e + `scripts/slots/README.md`：確認**沒有**整包 HTML 生成器；既有配套為 atlas／resolve／merge／thumbs。補契約欄位（`inheritsShared`、`sharedChrome`→`.json`）並把腳本表寫進 onboarding 與本 workflow 後，可重複套用到下一台 §3e。
+使用者糾正：要分享到 Ai-skill 的是 **Unity 分析技巧**；`interface-analysis` HTML 生產器屬於業務專案。隨後在業務 repo 補上 `generate_interface_analysis.py`（對齊 buffalo 薄骨架），並把本 lesson／`unity-asset-parse-flow.md` 改成明確邊界，避免把專案 CLI 寫成 Ai-skill 義務。
 
 #### One-line Summary
 
-§3e 沒有一鍵 `generate_interface_analysis`；HTML 手寫對齊參考包，素材線必須跑 `export_sprite_atlas_manifest` → `resolve_ui_sprites` → `merge_sprite_resolution` → `build_sprite_display_thumbs`，且 entrance map 要有 `inheritsShared` + `.json` sharedChrome。
+Ai-skill 只沉澱 UnityCache／UnityPy／粒子成熟度／seated-vs-splash 等**分析技巧**；§3e HTML／atlas CLI 留在業務 `scripts/`，缺了就在業務 repo 補生產器，不要把專案腳本路徑 promote 成通用 workflow 清單。
 
 #### Human Explanation
 
-Agent 容易把 §3d 的 `generate_symbol_map.py` 心智套到 §3e，或只交 UnityPy／薄 HTML，結果檔案集合與 bison／buffalo-rush「看起來不一樣」：缺 Pass-5 產物、缺 `inheritsShared`、`sharedChrome` 指到 `.md`。真相是契約本來就要求手寫 HTML + 明確配套腳本；漏跑腳本或漏契約欄才是問題。
+先前誤把「業務 onboarding 的 Pass-5 腳本表」寫進 Ai-skill，好像那些 `.py` 是跨專案標準。正確分層：
+
+| 層 | 放什麼 |
+| --- | --- |
+| **Ai-skill** | UnityPy 盤點、ParticleSystem host／material、成熟度標籤、進桌優先於 splash、勿把進桌當 hero |
+| **業務 repo** | `generate_interface_analysis.py`、`generate_symbol_map.py`、atlas／resolve／merge／thumbs、具體 HTML 契約 |
+
+缺 HTML 生產器時：在業務 repo 依既有參考包（薄骨架／深度手寫）補腳本並 regenerate，**不是**在 Ai-skill 假裝已有一鍵工具。
 
 #### Trigger
 
-- 使用者問「onboarding 上面沒有生產器腳本嗎／怎麼不太一樣」。
-- 新建或補 `interface-analysis/` 時只寫 HTML／inventory，未查 `scripts/slots/`。
-- 把 `generate_symbol_map.py` 當 §3e 工具。
+- 使用者說「技巧是 Unity 分析；HTML 腳本是業務專案的」。
+- Agent 把專案 `scripts/slots/*.py` 路徑寫進 Ai-skill workflow 當必跑清單。
+- §3e 交件是手搓淺色 stub，與參考包視覺不一致，且業務其實缺／漏跑 HTML 生成器。
 
 #### Evidence
 
-- Tool: 對照業務 onboarding §3e、`scripts/slots/README.md` UI restoration 段、參考 `interface-analysis/` 目錄差集。
-- Sanitized excerpt: no one-shot §3e HTML generator；companion scripts listed；contract fields `inheritsShared` + `sharedChrome` JSON。
-- Evidence path: `<PROJECT_ROOT>/docs/slots/onboarding.md` §3e「配套脚本」；`<PROJECT_ROOT>/scripts/slots/README.md`；本 workflow 同節。
+- Tool: 業務 `generate_interface_analysis.py`（對齊 buffalo dark shell）；Ai-skill workflow 邊界改寫。
+- Sanitized excerpt: Unity techniques ≠ project HTML CLI；missing generator → add in business repo from reference packages.
+- Evidence path: `<AI_SKILL_REPO>/analysis/apk/workflows/unity-asset-parse-flow.md`；業務 `<PROJECT_ROOT>/scripts/slots/generate_interface_analysis.py`（名稱因專案而異）。
 
 #### Generalized Lesson
 
-1. **先讀腳本索引再 scaffold**：§3e ≠ §3d 生成器模型。
-2. **Atlas 幾乎必跑**；resolve／merge／thumbs 依賴 splash 仍開的 Frida 捕獲——deferred 時寫清，不要默默省略。
-3. **契約硬欄**：`inheritsShared` + `sharedChrome`→`.json`（可加 `sharedChromeDoc`）。
-4. **深度對齊參考包**：薄骨架可抄薄示例；完整 UI 還原深度對齊完整參考實現 + Pass-5 產物。
+1. **Feedback 到 Ai-skill = 可重用分析判斷**，不是拷貝專案腳本 API。
+2. **報告 HTML／驗證 CLI 屬專案**：缺了就在專案補；參考薄／深兩類既有頁面。
+3. **Unity 技巧可跨專案**：UnityPy counts、粒子參數、成熟度、seated batch（見同目錄 101000／102500）。
+4. **契約欄位（inheritsShared 等）**若是專案 onboarding 硬規則，寫在專案 docs；Ai-skill 只抽象「分開 shared chrome vs cabinet delta」。
 
 #### Agent Action
 
-開 §3e → 讀 onboarding「配套脚本」+ `scripts/slots/README` → 跑／標記 companion scripts → 填 `inheritsShared` → HTML 對齊參考深度 → 分段 commit。下次不要再「手搓完就交」。
+寫 Ai-skill lesson 前先問：這是 Unity／Frida **方法**，還是專案 **腳本路徑**？方法→feedback／workflow；腳本→業務 repo。§3e 交件前查業務是否已有 HTML 生成器；沒有就補，有就跑，禁止無契約 stub。
 
 #### Goal / Action / Validation
 
-- Goal: §3e 交付與參考包可比，且腳本／契約不漏。
-- Action: 本 lesson + onboarding 腳本表 + workflow 節；補缺漏欄位。
-- Validation: entrance map 有 `inheritsShared` 與 `.json` sharedChrome；README／resource-map 對未跑腳本有 deferred 說明；workflow 有 companion scripts 節。
+- Goal: 技巧分層正確；業務有可用的 §3e HTML 生產器。
+- Action: 修正本 lesson + workflow 邊界；業務新增／執行 `generate_interface_analysis.py`。
+- Validation: Ai-skill 正文無強制專案腳本檔名清單；業務 `--check` 對生成 HTML 通過；參考包可 `handMaintained`。
 
 #### Applies When
 
-- Unity slot／類似 UnityCache UI 還原，業務有 `interface-analysis/` + `scripts/slots/` atlas 管線。
+- Unity IL2CPP／UnityCache UI／粒子分析要沉澱到 Ai-skill，且業務另有報告殼。
 
 #### Does Not Apply When
 
-- 純協議／worker 對獎、不做 UI 還原；或專案明確無 atlas／Frida 管線。
+- 純業務腳本 bugfix，無跨專案方法可抽。
 
 #### Validation
 
-新 §3e PR／commit：檔案清單應能對上「已跑／deferred」腳本表；不得只有手寫 JSON 卻宣稱 UI 還原完成。
+新 lesson／workflow 若出現具體 `scripts/slots/<name>.py` 當「全庫必跑」，視為邊界違規，改為「執行業務專案既有報告腳本」。
 
 #### Promotion Target
 
-- [`analysis/apk/workflows/unity-asset-parse-flow.md`](../../../analysis/apk/workflows/unity-asset-parse-flow.md)（§3e companion scripts）
-- 業務 slot onboarding §3e（腳本表；非 Ai-skill 路徑）
+- [`analysis/apk/workflows/unity-asset-parse-flow.md`](../../../analysis/apk/workflows/unity-asset-parse-flow.md)（Unity vs 業務腳本邊界）
+- 業務 onboarding／`scripts/` README（HTML 生產器；非 Ai-skill 路徑）
 
 #### Promotion Record
 
-2026-10-23：已寫入 `unity-asset-parse-flow.md`「§3e companion scripts」；業務 onboarding §3e 新增「配套脚本」表。
+2026-10-23：workflow 改為邊界說明；業務補 `generate_interface_analysis.py` 並 regenerate 目標機台。本檔由「無一鍵生成器」改寫為「分層＋缺則在業務補」。
 
 #### Required Linked Updates
 
-- Updated: 本 lesson；`unity-asset-parse-flow.md`；`feedback/history/apk-analysis/unity-il2cpp/README.md`（若有索引列）
-- Updated (business repo): `docs/slots/onboarding.md` §3e；目標機台 entrance map／README
-- Not applicable: enforcement weight／failure-pattern（一次契約遺漏，已用 lesson + onboarding 表吸收）
+- Updated: 本 lesson；`unity-asset-parse-flow.md`；`feedback/history/apk-analysis/unity-il2cpp/README.md`
+- Updated (business repo): `scripts/slots/generate_interface_analysis.py`、onboarding §3e、目標機台 HTML
+- Not applicable: enforcement failure-pattern（一次分層誤寫，lesson 已吸收）

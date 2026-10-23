@@ -34,25 +34,19 @@
 
 Lesson：[`../../feedback/history/apk-analysis/unity-il2cpp/2026-10-23_102500-slot-iface-analysis-seated-unitypy-batch-and-commit-cadence.md`](../../feedback/history/apk-analysis/unity-il2cpp/2026-10-23_102500-slot-iface-analysis-seated-unitypy-batch-and-commit-cadence.md)。
 
-## §3e companion scripts（無一鍵 HTML 生成器）
+## Unity 分析 vs 業務 HTML 報告腳本（邊界）
 
-業務 repo 的 slot onboarding §3e **沒有**「`generate_interface_analysis.py`」這類整包生產器（對比 §3d 的 `generate_symbol_map.py`）。HTML 對齊參考包手寫；**素材身分還原**必須跑專案 `scripts/slots/` 配套：
+**本檔／Ai-skill 只沉澱 Unity 分析技巧**（UnityPy 盤點、ParticleSystem 參數、成熟度標籤、seated vs splash、Frida SpriteName 策略）。
+**業務 repo 的 HTML／atlas CLI**（例如 `generate_interface_analysis.py`、`export_sprite_atlas_manifest.py`）留在該專案 `scripts/`，**不要**把專案腳本路徑或產出檔名當成 Ai-skill 通用義務。
 
-| 順序 | 腳本（業務 repo） | 產出 |
-| --- | --- | --- |
-| 1 | `export_sprite_atlas_manifest.py` | `<cabinet>-atlas-manifest.json` |
-| 2 | `resolve_ui_sprites.py` | `sprite-resolution-report.json`（需 splash 仍開時的 Frida SpriteName 捕獲） |
-| 3 | `merge_sprite_resolution.py` | 合併進 `splash-sprite-bindings.json` |
-| 4 | `build_sprite_display_thumbs.py` | entrance HTML 用 display thumbs |
+Agent 行為（跨專案可重用）：
 
-Agent 行為：
+1. UnityCache `__data` → UnityPy counts + ParticleSystem host／material（本 workflow 步驟）。
+2. 進桌／入場平面分開標記；splash deferred 時勿把進桌背景當 hero。
+3. 成熟度：`params-from-bundle` ≠ `live-matched`。
+4. 若業務專案**另有** interface HTML 生產器／Pass-5 atlas 管線：在該專案 onboarding／`scripts/` README 執行；Ai-skill 只要求「用專案既有報告殼，勿手搓無契約 stub」。
 
-1. 開 §3e 前先讀業務 `scripts/slots/README.md`「UI asset restoration」與 `ui-asset-restoration.md`。
-2. 已有 feature pack → **至少**跑 atlas manifest；splash 線 deferred 時在 resource-map／README **寫明**缺 resolve／merge／thumbs。
-3. Entrance map **必須**有 `inheritsShared` + `sharedChrome` 指向 **`.json`**（可另加 doc 指針）；勿只連 `.md`。
-4. **禁止**把 `generate_symbol_map.py` 當成 §3e 生成器。
-
-Lesson：[`../../feedback/history/apk-analysis/unity-il2cpp/2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md`](../../feedback/history/apk-analysis/unity-il2cpp/2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md)。
+Lesson（邊界修正）：[`../../feedback/history/apk-analysis/unity-il2cpp/2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md`](../../feedback/history/apk-analysis/unity-il2cpp/2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md)。
 
 ## 步驟
 

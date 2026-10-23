@@ -4,7 +4,7 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
-| [2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md](2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md) | validated | §3e 無一鍵 HTML 生成器；必須用 atlas／resolve／merge／thumbs 配套＋inheritsShared |
+| [2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md](2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md) | validated | Unity 分析技巧→Ai-skill；§3e HTML／atlas CLI→業務 repo（缺則在專案補生產器） |
 | [2026-10-23_102500-slot-iface-analysis-seated-unitypy-batch-and-commit-cadence.md](2026-10-23_102500-slot-iface-analysis-seated-unitypy-batch-and-commit-cadence.md) | candidate | 已進桌 §3e：UnityPy 一批＋splash stub＋分段 commit |
 | [2026-10-23_101000-unity-particle-restore-needs-unitypy-or-assetripper-not-il2cppdumper.md](2026-10-23_101000-unity-particle-restore-needs-unitypy-or-assetripper-not-il2cppdumper.md) | candidate | 粒子還原：UnityPy／AssetRipper；Il2CppDumper／AssetStudio 非主路徑 |
 | [2026-10-16_173200-il2cpp-paytable-getmain-takes-system-char-not-string.md](2026-10-16_173200-il2cpp-paytable-getmain-takes-system-char-not-string.md) | candidate | GetMainPayoutInfo 可能是 System.Char（U16），勿 string_new；Dictionary&lt;char&gt; 作回退 |
