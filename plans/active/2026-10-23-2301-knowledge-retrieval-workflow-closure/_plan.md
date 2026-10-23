@@ -1,0 +1,168 @@
+---
+id: 2026-10-23-2301-knowledge-retrieval-workflow-closure
+plan_kind: main
+status: draft
+owner: larrylin/codex-session
+created: 2026-10-23T23:01:00+09:00
+parent: null
+owner_layer: knowledge
+---
+
+# 既有知識檢索與 Workflow 採用閉環強化
+
+**Status**: `draft`。本輪只建立計畫；implementation、benchmark、runtime integration 均未執行。
+
+目標：讓既有 intelligence、決策與失敗經驗更穩定地被找到，經來源與適用性確認後支援 workflow。先改善現有能力，再用漏找證據決定是否加入向量搜尋與 reranking。
+
+## Decision Rationale
+
+### Problem & Why Now
+
+知識能累積不等於執行時能找回。現有 Discovery Bridge 推薦 route，與 workflow 執行中的經驗查找責任不同；只補 detector miss path，無法覆蓋「workflow 已命中但 intelligence 沒找到」。目前尚無本計畫的實測基準，不能宣稱已有顯著漏找或預估改善幅度。
+
+撰寫時已核對的現況（不是 benchmark 結果）：
+
+| 現有能力 | 來源與限制 |
+| --- | --- |
+| FTS5 / BM25 與 layer、type、status 過濾 | [runtime.go](../../../scripts/ai-skill-cli/internal/app/runtime.go) 的 `runRuntimeIndexQuery` 已存在；不另建同功能引擎 |
+| FTS 欄位 | 同檔 schema 包含 title、summary、tags、when_to_read、validation_signal 等；不能當成全庫正文均已索引 |
+| Discovery Bridge | [discovery.go](../../../scripts/ai-skill-cli/internal/app/discovery.go) 與 [hooks.go](../../../scripts/ai-skill-cli/internal/app/hooks.go)：確定性路由未鎖定時給候選建議 |
+| 索引與來源邊界 | [SQLite lookup cache](../../../knowledge/runtime/sqlite/README.md)：可重建；候選需要讀回 canonical source |
+| Runtime source 分類 | [runtime/README.md](../../../runtime/README.md)：internal config 與 executable contract 分開治理，不把所有 DB 都當可刪除 cache |
+
+### Decision
+
+共用檢索能力、分開消費入口：Discovery Bridge 查候選 route；workflow 已啟動後查相關 intelligence、決策與經驗。先盤點與量測，再補全文覆蓋、查詢處理、metadata 過濾和有界關聯展開；向量與 reranking 以獨立增益實驗決定。
+
+固定邊界：
+
+- `required_read`、primary source 與規則依賴確定性載入，不受 top-k、搜尋失敗或排名影響。
+- Discovery 維持 advisory，不滿足 activation triggers、不自動鎖 route、不修改 routing registry。
+- 相似度只表達相關性；不作可信度、規則權重或 lifecycle promotion 判定。
+- 索引只衍生自有身分與版本的來源；不把檢索摘要寫成第二份 canonical knowledge。
+- 搜尋失敗可回退直接讀取與明確路由，但不得繞過既有 blocker。
+- 本計畫不建 hosted vector service、通用 agent framework、自動知識升格或自主改規則系統。
+
+### Alternatives Considered
+
+| 方案 | 處置與原因 |
+| --- | --- |
+| 直接導入向量 DB + reranker | 暫不採用；無基準，無法辨識覆蓋缺口或評估新增成本 |
+| 只增加 routing keywords | 可修精確路由個案，但不解決 workflow 內部找經驗 |
+| 全部塞進 Discovery Bridge hook | 不採用；擴張 miss-path 責任並增加每次工具呼叫成本 |
+| 重用 SQLite / BM25 後分階段接入 | 採用；既有來源、驗證、CLI 與 cache 邊界可延續 |
+
+### Why Not an ADR Yet / ADR Promotion Criteria
+
+本案是待驗證提案。僅在跨 session、跨專案的採用證據顯示形成難以逆轉的基礎決策、能說明 why 且無更輕承載位置時，才依 decision promotion 流程評估 accepted ADR；plan 文件完成不構成升格條件。
+
+### Consequences
+
+預期改善來源可發現性與採用可追溯性；代價是索引體積、refresh、metadata 維護與查詢成本增加。正文 chunking 可能丟上下文，過度過濾可能排除適用知識；用整份來源回讀、unknown 狀態與負面案例控制。對應 [Gen 4 Watch-Out List](../../../architecture/ai-native-cognitive-ecosystem-system.md#watch-out-listgen-4-路上會撞到的牆) 的 wall 1、2、4、6：不混淆 discovery / activation、不膨脹 workflow、不無界記錄 telemetry、不建自主 optimizer。
+
+**Glossary Impact: no** — no new framework vocabulary introduced；BM25、Recall@5、MRR、embedding 為既有技術術語。本計畫不註冊新 framework 名詞。
+
+## Runtime Execution Path
+
+Runtime owner 為現有 CLI `internal/app`；knowledge 層管理查找來源與關聯，workflow 管理何時使用經驗，governance / enforcement 保有適用性與規則權重。以下為待實作路徑，不能當作已接線證據。
+
+| 入口事件 | Query / detector → 載入 → 動作 → 證據 |
+| --- | --- |
+| 任務無確定 route | 現有 detector miss → Bridge 使用共用檢索候選與現有 ranking → advisory 提供 route / primary source → 記錄候選、版本、耗時；不 activation |
+| Workflow 已啟動且需要相關經驗 | workflow 明確查找步驟 → `runtime query` 共用檢索與 context filters → 讀 canonical source、適用性檢查 → 採用或拒絕並記理由與來源版本 |
+| 來源新增、修改、刪除 | 現有 refresh / validate → 重建或更新索引、檢查 checksum → 清除舊候選與失效 source 指向 → freshness / rebuild evidence |
+| 索引不存在、過期或查詢逾時 | 顯式 unavailable / stale → 回退 source lookup 與 required reads → 不使用靜默舊結果支持結論 → 記錄 fallback |
+
+不預先新增 `route.*`、validator 或 `runtime_projection.target_key`。Phase 0 若確認必要，先更新 plan 的 per-surface consumer 表，列 named consumer 與 wiring；任何新 contract 必須先定 owner/source 類型並驗證 compile 後的真實 consumer。
+
+| Generated surface key | Named consumer(s) | Consumer 類型 |
+| --- | --- | --- |
+| 既有 `runtime.discovery.config`（不新增） | `discovery.go` | Bridge config lookup |
+| 既有 `runtime-index.sqlite` 中 atoms / fts / sources | `runtime query`、後續共用檢索介面 | CLI / Bridge lookup；Bridge 新接點待 Phase 3 驗證 |
+
+## Open Questions
+
+| ID | 問題與預設方向 | 狀態 / 解決期限 |
+| --- | --- | --- |
+| Q1 | 哪些 intelligence / 決策未進索引？正文覆蓋需要整篇還是 section chunk？先盤點 sources / atoms / fts 與 generator | still-open；Phase 0 |
+| Q2 | 中文、混合術語、精確識別字與長句的查詢行為如何？先實測 tokenizer 與 query literal handling | still-open；Phase 1 |
+| Q3 | domain、project、supersession、證據版本哪些已有 canonical 欄位？避免另造 metadata；缺值預設 unknown | still-open；Phase 0，阻擋 metadata schema 實作 |
+| Q4 | 首批 consumer workflow 選哪個？先選有歷史漏找、可重跑的既有流程 | still-open；Phase 0，阻擋 Phase 3 |
+| Q5 | Bridge 如何共享查詢而不突破既有 Light budget？採 bounded lookup、dedup、timeout；量測後定值 | still-open；Phase 0/1，接入前凍結 |
+| Q6 | 向量與 reranking 是否值得？剩餘語意漏找才啟動；供應商、模型、持久化方案不預選 | deferred；Phase 4，無漏找證據則記錄不啟用 |
+
+## Phase 0 — Pre-Build Interrogation / Architecture Compatibility Preflight
+
+### Phase 0.0 — Open Questions 核對（公版，必填）
+
+逐條核對本 plan §Open Questions，標記處置並回寫：
+
+- [ ] 已讀本 plan §Open Questions 全部條目
+- [ ] 對每條標記 `resolved`（附 Phase 0 證據）/ `still-open` / `deferred`（附原因）
+- [ ] `resolved` 的條目已同步勾選 / 附註於 §Open Questions
+- [ ] 若盤點新發現問題，已加入 §Open Questions
+
+- [ ] 記錄 trigger、checked sources、conflicts、interrogation、Q1–Q6 處置、execution decision 與 validation；未完成不得開始 implementation。
+- [ ] 盤點 generator、query、graph lookup、refresh / validation、Bridge hook、metadata 與 memory retrieval 邊界；列可重用能力、來源覆蓋和 duplication risk。
+- [ ] 核對 current DB schema / generated surfaces 與 canonical config 類型；不可把舊 YAML pointer 當唯一 source，也不可另建 runtime mirror。
+- [ ] 選定首批 workflow、實際查找觸發點、結果消費者與 baseline 命令；凍結成本與安全驗收範圍。
+
+Candidate files（只代表調查與可能修改，不承諾全改）：`internal/app/runtime.go`、`discovery.go`、`hooks.go` 與對應 tests；`knowledge/runtime/sqlite/README.md`；`metadata/schema.md`；`governance/workflow-activation-engine.md`；Phase 0 選定 workflow 的 README / execution-flow；必要的 routing / summaries / graphs / scenarios。實作前讀各層 README、適用契約與 linked updates。Gate：Q1/Q3/Q4 已解，無未處理 source ownership 衝突。
+
+## Phase 1 — 建立可重跑的漏找基準
+
+- [ ] 收集約 20 題有來源的真實問題，標 `case_id`、問題、task context、應找到的 source IDs / paths、相關程度與適用理由；無答案案例標空集合，不虛構真實案例。
+- [ ] 包含精確名稱、中文 / 英文 / 混合詞、不同措辭、workflow 已命中、過期 / 取代 / 不適用、無答案案例；分布與樣本數需公開。
+- [ ] 分開量測 route 推薦與知識查找；每個漏找分類為未索引、查詢處理、排序、語意落差、filter、觸發 / consumer 缺失。
+- [ ] 凍結 corpus revision、查詢、工具版本、metadata、成本與結果；約 70% 診斷、30% holdout，相關改寫不得跨組，holdout 不用於調參。
+- [ ] 定義 Recall@5（應命中來源的找回比例）、MRR@5、無答案誤推率、不可採用候選比例、錯誤採用數、p95 latency、context tokens；小樣本同報分子 / 分母，不宣稱統計顯著。
+
+Gate：每題有可覆核標記；重跑可重現；Phase 2 前凍結數值 acceptance 與 baseline。預設方向：核心真實漏找修復、holdout Recall@5 / MRR@5 不退步、required-read bypass / 自動 activation / 已知失效證據被採用均為 0；延遲與 tokens 不超核准 budget。無增益仍可交付診斷，不能聲稱搜尋強化完成。
+
+## Phase 2 — 補既有全文搜尋、metadata 與關聯查找
+
+- [ ] 依 Phase 1 原因補索引覆蓋與查詢處理，保留精確識別字搜尋；正文擴充只涵蓋選定 workflow、intelligence、決策與整理後知識，不預設索引所有 raw evidence。
+- [ ] 若需 chunk，保留 stable source identity、section anchor、source revision / checksum；重複命中按來源合併，避免一篇文件占滿 top-k。
+- [ ] 重用 canonical domain / scope / status / supersession 欄位；硬限制只用明確適用條件，缺欄位顯示 unknown，避免過濾造成靜默漏找。
+- [ ] 重用既有 graph lookup，有界展開來源、依賴與相關決策；記錄 edge 類型與深度，不推定 relation 等於支持或授權。
+- [ ] 回傳來源、命中理由、版本 / freshness、適用性待查事項與回讀入口；相關性分數和可信 / 適用性欄位分開。
+- [ ] 驗證建立、refresh、修改、刪除、搬移、stale、缺 metadata、缺索引、rebuild 與 deterministic ordering；用 Phase 1 固定資料比較。
+
+Gate：通過凍結 acceptance；cache 可從 canonical source 重建；不得修改 canonical 結論來讓 benchmark 通過。
+
+## Phase 3 — 接到 Discovery Bridge 與 Workflow 採用流程
+
+- [ ] 抽取可共用檢索介面；Bridge 保留 miss-path 與 advisory 邊界，workflow lookup 不依賴 detector miss。
+- [ ] 在首批 workflow 明訂查找事件、context filters、讀回來源與採用檢查；不把每次工具呼叫都變成完整全文查詢。
+- [ ] 採用前檢查 domain / project / 前提、證據版本與失效判定、supersession、候選 / 已驗證 / 契約身分；checksum 變動只表示需重驗，不單獨判斷結論失效。
+- [ ] 記錄 query、候選、來源版本、採用 / 拒絕 / unknown 理由與本次 workflow 用途；只存必要去敏資料，設定 retention 與 token cap，不建立全量對話庫。
+- [ ] 建立正負 scenarios：miss advisory、route hit 後找經驗、低排名 required_read 仍載入、相似但不適用、已取代、stale / unavailable fallback、無答案與 timeout。
+- [ ] 執行真實 consumer dogfood；報告找到 → 讀回 → 適用 → 採用各階段結果；關閉 feature 後能回到既有 lookup，既有 activation gate 行為一致。
+
+Gate：至少兩個獨立真實任務的完整採用 / 拒絕鏈，加上負面回放；只測 helper 或 mock 不算 runtime integration。完成 compile / refresh / validate（按受影響來源）及 consumer 行為證據。
+
+## Phase 4 — 條件式語意搜尋 / Reranking 實驗與收尾
+
+- [ ] 若仍有具體語意漏找，才比較 BM25、BM25 + vector、必要時再加 reranking；先分別量測增益，不一次疊加歸因。
+- [ ] 實驗開始前凍結模型 / 版本、資料邊界、reindex 成本、holdout、最小有效改善題數與 latency / tokens budget；無此凍結不啟動。
+- [ ] 新增方法須改善預先標記語意漏找，holdout 不退步、安全錯誤為 0、成本在 budget 內才採用；不達標則保留 BM25 並記錄拒絕原因。holdout 看過後再調參需新留出集。
+- [ ] 若無剩餘語意缺口，記錄 skip 的證據；可完成核心計畫，不因未導入 vector 阻擋。
+- [ ] 彙整結果、已知限制與 deferred owner / restart 條件；同步 README / 契約 / generated consumers，執行 Plan Completion Closure。
+
+## Stakeholder 同意項目
+
+使用者本輪已授權「撰寫 plan」，未授權開始 implementation。執行啟動時需確認首批 workflow、基準資料與成本 budget；涉及外部模型傳送資料或付費服務時另行確認具體方案。Phase 4 是條件式選項，不是預先採購或導入承諾。
+
+## 完成條件
+
+- [ ] Phase 0–3 gates 全通過，Phase 4 為有證據的採用 / 拒絕 / skip 決策。
+- [ ] 真實問題 baseline、保留集比較與消費者採用鏈可重跑；未達標項不得以文件完成替代。
+- [ ] required_read、activation、source authority、freshness 與適用性負面案例通過。
+- [ ] 每個新增 surface 都有 named consumer 與 runtime evidence，無 orphan config / index。
+- [ ] 驗證連結、linked updates、diff 與適用 tests / validators；完成歸檔、狀態索引、commit / push / readback。
+
+## 與其他 plans 的關係
+
+延續 [Discovery Bridge](../2026-06-06-1700-workflow-activation-discovery-bridge.md) 的 advisory 能力，不把它未完成的 Deep Discovery / empirical work 默認為完成；Phase 0 需劃清重疊 work item 的 owner 與證據歸屬。與 [Feedback Execution Closure](../2026-07-10-0955-final-form-feedback-execution-closure.md) 互補：該計畫處理經驗沉澱，本計畫處理沉澱後的查找與使用，不接管其 roadmap。
+
+後續多次量測的完整記錄依 [plan evidence 規則](../../../governance/lifecycle/plan-evidence.md) 放本資料夾 `evidence/` 並建 README Run 索引；目前沒有量測，因此不建立空 evidence 或填入虛構通過結果。
