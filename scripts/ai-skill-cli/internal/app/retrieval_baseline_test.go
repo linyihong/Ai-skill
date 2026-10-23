@@ -237,13 +237,17 @@ func TestRetrievalBaselineReplay(t *testing.T) {
 	if err := nativeRuntimeIndexChecksumsCheck(repo, db); err != nil {
 		t.Fatal(err)
 	}
-	versionPayload, err := exec.Command(binary, "version", "--json").Output()
+	versionContext, cancelVersion := context.WithTimeout(context.Background(), 10*time.Second)
+	versionPayload, err := exec.CommandContext(versionContext, binary, "version", "--json").Output()
+	cancelVersion()
 	if err != nil || !json.Valid(versionPayload) {
 		t.Fatalf("query binary version identity unavailable: %v", err)
 	}
 	binaryPath, err := filepath.Rel(generatorRepo, binary)
 	if err != nil {
-		t.Fatal(err)
+		// A Windows artifact may be on another volume; display paths must
+		// not prevent execution of a correctly pinned binary.
+		binaryPath = binary
 	}
 	summaries := map[string]*retrievalReplaySummary{"diagnostic": {}, "holdout": {}}
 	observations := []retrievalReplayObservation{}
@@ -274,7 +278,7 @@ func TestRetrievalBaselineReplay(t *testing.T) {
 			if e = json.Unmarshal(payload, &result); e != nil {
 				t.Fatal(e)
 			}
-			if result.ExitCode != 0 {
+			if result.ExitCode != 0 || result.Command != "runtime query" || result.Status != "success" {
 				t.Fatalf("query status %s: %#v", c.ID, result.Error)
 			}
 			if n == 0 {
