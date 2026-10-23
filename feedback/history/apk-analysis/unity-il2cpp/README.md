@@ -4,6 +4,7 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
+| [2026-10-23_141500-apply-shim-visiblegrid-must-pad-processresult-strip.md](2026-10-23_141500-apply-shim-visiblegrid-must-pad-processresult-strip.md) | candidate | apply-shim visibleGrid 须 pad ProcessResult strip＋补缺格，避免灰空被误判 cascade |
 | [2026-10-23_140500-apply-shim-onleave-ui-must-cover-all-processresult-owners.md](2026-10-23_140500-apply-shim-onleave-ui-must-cover-all-processresult-owners.md) | candidate | 多柜 ProcessResult apply-shim：onLeave UI 须覆盖全部 owner，勿只闸第一柜 |
 | [2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md](2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md) | validated | Unity 分析技巧→Ai-skill；§3e HTML／atlas CLI→業務 repo（缺則在專案補生產器） |
 | [2026-10-23_102500-slot-iface-analysis-seated-unitypy-batch-and-commit-cadence.md](2026-10-23_102500-slot-iface-analysis-seated-unitypy-batch-and-commit-cadence.md) | candidate | 已進桌 §3e：UnityPy 一批＋splash stub＋分段 commit |
