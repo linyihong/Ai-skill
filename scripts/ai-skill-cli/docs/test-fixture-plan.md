@@ -165,3 +165,5 @@ Phase 1 Go 實作前：
 `internal/app/retrieval_baseline_test.go` 的 replay 以 `AI_SKILL_RETRIEVAL_CASES` / `AI_SKILL_RETRIEVAL_REPORT` 明確啟用；預設 CI skip live-corpus 實驗，但正常執行來源去重、MRR、p95、FTS phrase / CJK 與 stale / historical fixture controls。
 
 資料來源、固定 corpus 重跑方式、人工控制限制與未評估採用指標見 [Phase 1 協議](../../../plans/active/2026-10-23-2301-knowledge-retrieval-workflow-closure/evidence/phase1-protocol.md)。這是 test-only 量測，不新增 CLI 命令、不改 production retrieval。
+
+Phase 2 實驗前置控制見 [執行控制契約](../../../plans/active/2026-10-23-2301-knowledge-retrieval-workflow-closure/evidence/phase2-execution-contract.md)：query binary 必須明確指定並 pin SHA；預建索引附 generator / corpus / inputs / SQLite SHA manifest。`retrieval_experiment_test.go` 驗證錯置拒跑及四組產物配對，overlap 補充候選需逐筆審閱，不自動當作正確或誤推。

@@ -30,33 +30,41 @@ type retrievalReplayCase struct {
 	Expected       []string `json:"expected_sources"`
 	Layer          string   `json:"layer"`
 	Status         string   `json:"status"`
+	ReviewRequired bool     `json:"review_required"`
+	Excluded       []string `json:"excluded_sources"`
 }
 type retrievalReplaySet struct {
-	Schema  int                   `json:"schema_version"`
-	Limit   int                   `json:"limit"`
-	Repeats int                   `json:"repeats"`
-	Cases   []retrievalReplayCase `json:"cases"`
+	Schema    int                   `json:"schema_version"`
+	SuiteKind string                `json:"suite_kind"`
+	Limit     int                   `json:"limit"`
+	Repeats   int                   `json:"repeats"`
+	Cases     []retrievalReplayCase `json:"cases"`
 }
 type retrievalReplayObservation struct {
-	ID              string            `json:"id"`
-	Split           string            `json:"split"`
-	Sources         []string          `json:"sources"`
-	Expected        int               `json:"expected"`
-	Hits            int               `json:"hits"`
-	RR              float64           `json:"reciprocal_rank"`
-	MissReasons     map[string]string `json:"miss_reasons"`
-	FirstMS         float64           `json:"first_invocation_ms"`
-	WarmP95MS       float64           `json:"warm_cli_p95_ms"`
-	PreviewEstimate int               `json:"preview_token_estimate"`
+	ID               string            `json:"id"`
+	Split            string            `json:"split"`
+	Sources          []string          `json:"sources"`
+	Expected         int               `json:"expected"`
+	Hits             int               `json:"hits"`
+	RR               float64           `json:"reciprocal_rank"`
+	MissReasons      map[string]string `json:"miss_reasons"`
+	FirstMS          float64           `json:"first_invocation_ms"`
+	WarmP95MS        float64           `json:"warm_cli_p95_ms"`
+	PreviewEstimate  int               `json:"preview_token_estimate"`
+	ReviewRequired   bool              `json:"review_required"`
+	CandidateReviews map[string]string `json:"candidate_reviews,omitempty"`
 }
 type retrievalReplaySummary struct {
-	PositiveCases    int     `json:"positive_cases"`
-	Expected         int     `json:"expected_sources"`
-	Hits             int     `json:"hit_sources"`
-	Recall           float64 `json:"recall_at_5"`
-	MRR              float64 `json:"mrr_at_5"`
-	NegativeCases    int     `json:"negative_cases"`
-	FalseSuggestions int     `json:"negative_false_suggestions"`
+	PositiveCases      int     `json:"positive_cases"`
+	Expected           int     `json:"expected_sources"`
+	Hits               int     `json:"hit_sources"`
+	Recall             float64 `json:"recall_at_5"`
+	MRR                float64 `json:"mrr_at_5"`
+	NegativeCases      int     `json:"negative_cases"`
+	FalseSuggestions   int     `json:"negative_false_suggestions"`
+	ReviewCases        int     `json:"review_cases"`
+	UnjudgedCandidates int     `json:"unjudged_candidates"`
+	KnownConfuserHits  int     `json:"known_confuser_hits"`
 }
 
 // Score sources rather than duplicate summary/route atoms.
@@ -121,12 +129,21 @@ func TestRetrievalBaselineReplay(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	repo := strings.TrimSpace(string(out))
+	generatorRepo := strings.TrimSpace(string(out))
+	repo := generatorRepo
 	if corpus := os.Getenv("AI_SKILL_RETRIEVAL_CORPUS"); corpus != "" {
 		repo, err = filepath.Abs(corpus)
 		if err != nil {
 			t.Fatal(err)
 		}
+	}
+	binary, err := retrievalPinnedBinary(os.Getenv("AI_SKILL_RETRIEVAL_QUERY_BINARY"), os.Getenv("AI_SKILL_RETRIEVAL_QUERY_SHA256"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	querySHA, err := retrievalFileSHA(binary)
+	if err != nil {
+		t.Fatal(err)
 	}
 	data, err := os.ReadFile(datasetPath)
 	if err != nil {
@@ -136,7 +153,8 @@ func TestRetrievalBaselineReplay(t *testing.T) {
 	if err = json.Unmarshal(data, &set); err != nil {
 		t.Fatal(err)
 	}
-	if set.Schema != 1 || set.Limit != 5 || set.Repeats < 20 || len(set.Cases) < 18 {
+	validSuite := set.Schema == 1 && len(set.Cases) >= 18 || set.Schema == 2 && set.SuiteKind == "overlap-negative-v1" && len(set.Cases) >= 4
+	if !validSuite || set.Limit != 5 || set.Repeats < 20 {
 		t.Fatal("invalid replay contract")
 	}
 	groups, ids := map[string]string{}, map[string]bool{}
@@ -145,6 +163,21 @@ func TestRetrievalBaselineReplay(t *testing.T) {
 			t.Fatal("invalid id/group/split", c.ID)
 		}
 		ids[c.ID] = true
+		if set.SuiteKind == "overlap-negative-v1" && (c.ProvenanceKind != "synthetic-overlap-control" || !c.ReviewRequired || len(c.Excluded) == 0) {
+			t.Fatal("overlap suite requires review and prelabelled confusers", c.ID)
+		}
+		gold := map[string]bool{}
+		for _, source := range c.Expected {
+			if gold[source] {
+				t.Fatal("duplicate expected source", c.ID)
+			}
+			gold[source] = true
+		}
+		for _, source := range c.Excluded {
+			if gold[source] {
+				t.Fatal("contradictory relevance labels", c.ID)
+			}
+		}
 		if old := groups[c.Group]; old != "" && old != c.Split {
 			t.Fatal("group leak", c.Group)
 		}
@@ -160,33 +193,40 @@ func TestRetrievalBaselineReplay(t *testing.T) {
 			if len(c.Expected) == 0 {
 				t.Fatal("missing expected source", c.ID)
 			}
-		} else if c.ProvenanceKind != "synthetic-negative-control" || len(c.Expected) != 0 {
+		} else if c.ProvenanceKind == "synthetic-overlap-control" && set.SuiteKind == "overlap-negative-v1" && c.ReviewRequired && len(c.Excluded) > 0 {
+			// Overlap controls require candidate-level review; presence alone is not an automatic false-positive verdict.
+		} else if c.ProvenanceKind != "synthetic-negative-control" || c.ReviewRequired || len(c.Expected) != 0 {
 			t.Fatal("unknown provenance", c.ID)
 		}
-		for _, p := range c.Expected {
+		for _, p := range append(append([]string{}, c.Expected...), c.Excluded...) {
 			if _, e := os.Stat(filepath.Join(repo, p)); e != nil {
 				t.Fatal(e)
 			}
 		}
 	}
-	records, err := runtimeIndexRecords(repo)
+	if err := retrievalRequireCleanCorpus(repo); err != nil {
+		t.Fatal(err)
+	}
+	revision, err := retrievalGitRevision(repo)
 	if err != nil {
 		t.Fatal(err)
 	}
-	edges, err := runtimeIndexEdges(repo)
-	if err != nil {
-		t.Fatal(err)
+	index := os.Getenv("AI_SKILL_RETRIEVAL_INDEX")
+	group := os.Getenv("AI_SKILL_RETRIEVAL_GROUP")
+	var identity retrievalIndexIdentity
+	if index != "" {
+		identity, err = retrievalReadIndex(index, os.Getenv("AI_SKILL_RETRIEVAL_INDEX_MANIFEST"), revision)
+		if err == nil {
+			err = retrievalValidateGroup(group, querySHA, identity, os.Getenv("AI_SKILL_RETRIEVAL_REFERENCE"))
+		}
+	} else {
+		if group != "" {
+			t.Fatal("an experiment group requires a prebuilt index, manifest and reference; implicit rebuild forbidden")
+		}
+		index = filepath.Join(t.TempDir(), "replay.sqlite")
+		identity, err = retrievalBuildIndex(generatorRepo, repo, index)
 	}
-	sources, err := runtimeIndexSources(repo, records)
 	if err != nil {
-		t.Fatal(err)
-	}
-	fingerprintInput, err := json.Marshal([]any{records, edges, sources})
-	if err != nil {
-		t.Fatal(err)
-	}
-	index := filepath.Join(t.TempDir(), "replay.sqlite")
-	if err := buildNativeRuntimeSQLiteIndex(repo, index); err != nil {
 		t.Fatal(err)
 	}
 	db, err := sql.Open("sqlite", index)
@@ -197,16 +237,11 @@ func TestRetrievalBaselineReplay(t *testing.T) {
 	if err := nativeRuntimeIndexChecksumsCheck(repo, db); err != nil {
 		t.Fatal(err)
 	}
-	binaryName := "ai-skill-" + runtime.GOOS + "-" + runtime.GOARCH
-	if runtime.GOOS == "windows" {
-		binaryName += ".exe"
+	versionPayload, err := exec.Command(binary, "version", "--json").Output()
+	if err != nil || !json.Valid(versionPayload) {
+		t.Fatalf("query binary version identity unavailable: %v", err)
 	}
-	binary := filepath.Join(repo, "scripts", "ai-skill-cli", "bin", binaryName)
-	binaryBytes, err := os.ReadFile(binary)
-	if err != nil {
-		t.Fatal(err)
-	}
-	revision, err := exec.Command("git", "-C", repo, "rev-parse", "HEAD").Output()
+	binaryPath, err := filepath.Rel(generatorRepo, binary)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -278,34 +313,39 @@ func TestRetrievalBaselineReplay(t *testing.T) {
 			if e := db.QueryRow("SELECT COUNT(*) FROM sources WHERE source_path=?", p).Scan(&count); e != nil {
 				t.Fatal(e)
 			}
-			reason := "query_processing_or_indexed_fields"
+			reason := "indexed_source_not_returned_cause_not_attributed"
 			if count == 0 {
 				reason = "source_not_indexed"
-			} else {
-				var matching int
-				e := db.QueryRow("SELECT COUNT(*) FROM fts WHERE source_path=? AND fts MATCH ?", p, runtimeFTSMatchLiteral(c.Query)).Scan(&matching)
-				if e != nil {
-					t.Fatal(e)
-				}
-				if matching > 0 {
-					reason = "ranking_or_filter"
-				}
 			}
 			miss[p] = reason
 		}
 		s := summaries[c.Split]
-		if len(c.Expected) == 0 {
+		reviews := map[string]string{}
+		needsReview := c.ReviewRequired || os.Getenv("AI_SKILL_RETRIEVAL_REVIEW_ALL") == "1" && c.Split == "diagnostic" && len(c.Expected) > 0
+		if needsReview {
+			s.ReviewCases++
+			reviews = retrievalCandidateReviews(c.Expected, c.Excluded, actual)
+			for _, verdict := range reviews {
+				if verdict == "unreviewed" {
+					s.UnjudgedCandidates++
+				}
+				if verdict == "prelabelled-confuser" {
+					s.KnownConfuserHits++
+				}
+			}
+		}
+		if len(c.Expected) == 0 && !c.ReviewRequired {
 			s.NegativeCases++
 			if len(actual) > 0 {
 				s.FalseSuggestions++
 			}
-		} else {
+		} else if len(c.Expected) > 0 {
 			s.PositiveCases++
 			s.Expected += len(c.Expected)
 			s.Hits += hits
 			s.MRR += rr
 		}
-		observations = append(observations, retrievalReplayObservation{c.ID, c.Split, actual, len(c.Expected), hits, rr, miss, firstMS, retrievalReplayP95(warm), estimate})
+		observations = append(observations, retrievalReplayObservation{c.ID, c.Split, actual, len(c.Expected), hits, rr, miss, firstMS, retrievalReplayP95(warm), estimate, needsReview, reviews})
 	}
 	for _, s := range summaries {
 		if s.Expected > 0 {
@@ -318,10 +358,21 @@ func TestRetrievalBaselineReplay(t *testing.T) {
 	if err := nativeRuntimeIndexChecksumsCheck(repo, db); err != nil {
 		t.Fatal(err)
 	}
+	if err := retrievalRequireCleanCorpus(repo); err != nil {
+		t.Fatal(err)
+	}
+	if sha, e := retrievalFileSHA(binary); e != nil || sha != querySHA {
+		t.Fatal("query binary changed during replay", e)
+	}
+	if sha, e := retrievalFileSHA(index); e != nil || sha != identity.IndexSHA {
+		t.Fatal("index artifact changed during replay", e)
+	}
 	report := map[string]any{
-		"schema_version": 1, "corpus_revision": strings.TrimSpace(string(revision)), "dataset_sha256": fmt.Sprintf("%x", sha256.Sum256(data)),
-		"generator_inputs_sha256": fmt.Sprintf("%x", sha256.Sum256(fingerprintInput)), "binary_sha256": fmt.Sprintf("%x", sha256.Sum256(binaryBytes)),
-		"environment": runtime.GOOS + "/" + runtime.GOARCH, "go_version": runtime.Version(), "cases": len(set.Cases), "warm_runs_per_case": set.Repeats,
+		"schema_version": 2, "corpus_revision": revision, "dataset_sha256": fmt.Sprintf("%x", sha256.Sum256(data)),
+		"generator_inputs_sha256": identity.InputsSHA, "binary_sha256": querySHA,
+		"index_identity": identity, "query_binary_path": filepath.ToSlash(binaryPath), "query_build_info": json.RawMessage(versionPayload), "experiment_group": group,
+		"miss_classification": "source-row presence plus actual binary results only; no host-side FTS/query reimplementation",
+		"environment":         runtime.GOOS + "/" + runtime.GOARCH, "go_version": runtime.Version(), "cases": len(set.Cases), "warm_runs_per_case": set.Repeats,
 		"first_invocation":     "per-case first CLI invocation; OS cache not controlled, not cold-start proof",
 		"preview_token_method": "UTF-8 rune count of result JSON; estimate only, not model tokens or cap enforcement",
 		"warm_cli_p95_ms":      retrievalReplayP95(allWarm), "max_preview_token_estimate": maxPreview,
