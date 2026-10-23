@@ -69,6 +69,16 @@ func TestRetrievalSelectionTrace(t *testing.T) {
 			rawTop = rawTop[:5]
 		}
 		hits, rr := retrievalReplayScore(c.Expected, rawTop)
+		confusers, _ := retrievalReplayScore(c.Excluded, rawTop)
+		expectedRanks := map[string]int{}
+		for _, expected := range c.Expected {
+			for rank, source := range rawSources {
+				if source == expected {
+					expectedRanks[expected] = rank + 1
+					break
+				}
+			}
+		}
 		truncated := false
 		for _, r := range bounded {
 			for _, original := range raw {
@@ -77,7 +87,7 @@ func TestRetrievalSelectionTrace(t *testing.T) {
 				}
 			}
 		}
-		trace = append(trace, map[string]any{"id": c.ID, "candidate_atoms": len(raw), "pre_bound_top5": rawDetails, "pre_bound_top5_hits": hits, "pre_bound_top5_rr": rr, "final_sources": observed.Sources, "final_hits": observed.Hits, "final_rr": observed.RR, "final_payload_runes": observed.PreviewEstimate, "summary_truncated": truncated, "binary_source_final_fields_equal": true})
+		trace = append(trace, map[string]any{"id": c.ID, "candidate_atoms": len(raw), "pre_bound_top5": rawDetails, "pre_bound_top5_hits": hits, "pre_bound_top5_rr": rr, "pre_bound_top5_confuser_hits": confusers, "expected_atom_ranks_before_bound": expectedRanks, "final_sources": observed.Sources, "final_hits": observed.Hits, "final_rr": observed.RR, "final_payload_runes": observed.PreviewEstimate, "summary_truncated": truncated, "binary_source_final_fields_equal": true})
 	}
 	payload, err := json.MarshalIndent(map[string]any{"diagnostic_kind": "same committed source candidate call; final fields checked against pinned CLI replay", "index_path": index, "observations": trace}, "", "  ")
 	if err != nil {
