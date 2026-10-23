@@ -1,7 +1,7 @@
 ---
 id: 2026-10-23-2301-knowledge-retrieval-workflow-closure
 plan_kind: main
-status: draft
+status: in-progress
 owner: larrylin/codex-session
 created: 2026-10-23T23:01:00+09:00
 parent: null
@@ -10,7 +10,7 @@ owner_layer: knowledge
 
 # 既有知識檢索與 Workflow 採用閉環強化
 
-**Status**: `draft`（五點審閱意見已納入，下一步為 Phase 0）。implementation、benchmark、runtime integration 均未執行。
+**Status**: `in-progress`。Phase 0 盤點完成，證據見 [phase0-inventory.md](evidence/phase0-inventory.md)；下一步 Phase 1。搜尋 implementation、benchmark 與採用鏈尚未完成。
 
 目標：讓既有 intelligence、決策與失敗經驗更穩定地被找到，經來源與適用性確認後支援 workflow。先改善現有能力，再用漏找證據決定是否加入向量搜尋與 reranking。
 
@@ -84,11 +84,11 @@ Runtime owner 為現有 CLI `internal/app`；knowledge 層管理查找來源與�
 
 | ID | 問題與預設方向 | 狀態 / 解決期限 |
 | --- | --- | --- |
-| Q1 | 哪些 intelligence / 決策未進索引？正文覆蓋需要整篇還是 section chunk？先盤點 sources / atoms / fts 與 generator | still-open；Phase 0 |
+| Q1 | 哪些 intelligence / 決策未進索引？正文覆蓋需要整篇還是 section chunk？先盤點 sources / atoms / fts 與 generator | resolved；見 evidence/phase0-inventory.md §來源覆蓋 |
 | Q2 | 中文、混合術語、精確識別字與長句的查詢行為如何？先實測 tokenizer 與 query literal handling | still-open；Phase 1 |
-| Q3 | domain、project、supersession、證據版本哪些已有 canonical 欄位？避免另造 metadata；缺值預設 unknown | still-open；Phase 0，阻擋 metadata schema 實作 |
-| Q4 | 首批 consumer workflow 選哪個？先選有歷史漏找、可重跑的既有流程 | still-open；Phase 0，阻擋 Phase 3 |
-| Q5 | 是否存在 Bridge 重複實作或可量測接入收益？若需調整，如何維持 Light budget？採 bounded lookup、dedup、timeout | still-open；Phase 0 判定必要性；不調整時記錄理由，調整時於接入前凍結 budget |
+| Q3 | domain、project、supersession、證據版本哪些已有 canonical 欄位？避免另造 metadata；缺值預設 unknown | resolved；重用 domains / replaces / checksum，缺值 unknown；見 Phase 0 證據 |
+| Q4 | 首批 consumer workflow 選哪個？先選有歷史漏找、可重跑的既有流程 | resolved；首批 sd-validation，觸發 / 重查 / 略過見 Phase 0 證據 |
+| Q5 | 是否存在 Bridge 重複實作或可量測接入收益？若需調整，如何維持 Light budget？採 bounded lookup、dedup、timeout | resolved；本輪保留 Bridge，不改呼叫點；重開條件與 budget 見 Phase 0 證據 |
 | Q6 | 向量與 reranking 是否值得？剩餘語意漏找才啟動；供應商、模型、持久化方案不預選 | deferred；Phase 4，無漏找證據則記錄不啟用 |
 
 ## Phase 0 — Pre-Build Interrogation / Architecture Compatibility Preflight
@@ -97,15 +97,15 @@ Runtime owner 為現有 CLI `internal/app`；knowledge 層管理查找來源與�
 
 逐條核對本 plan §Open Questions，標記處置並回寫：
 
-- [ ] 已讀本 plan §Open Questions 全部條目
-- [ ] 對每條標記 `resolved`（附 Phase 0 證據）/ `still-open` / `deferred`（附原因）
-- [ ] `resolved` 的條目已同步勾選 / 附註於 §Open Questions
-- [ ] 若盤點新發現問題，已加入 §Open Questions
+- [x] 已讀本 plan §Open Questions 全部條目
+- [x] 對每條標記 `resolved`（附 Phase 0 證據）/ `still-open` / `deferred`（附原因）
+- [x] `resolved` 的條目已同步勾選 / 附註於 §Open Questions
+- [x] 若盤點新發現問題，已加入 §Open Questions
 
-- [ ] 記錄 trigger、checked sources、conflicts、interrogation、Q1–Q6 處置、execution decision 與 validation；未完成不得開始 implementation。
-- [ ] 盤點 generator、query、graph lookup、refresh / validation、Bridge hook、metadata 與 memory retrieval 邊界；列可重用能力、來源覆蓋和 duplication risk。
-- [ ] 核對 current DB schema / generated surfaces 與 canonical config 類型；不可把舊 YAML pointer 當唯一 source，也不可另建 runtime mirror。
-- [ ] 選定首批 workflow、實際查找 / 重查 / 略過條件、結果消費者與 baseline 命令；分開凍結 Phase 2 檢索及 Phase 3 採用驗收範圍與成本。
+- [x] 記錄 trigger、checked sources、conflicts、interrogation、Q1–Q6 處置、execution decision 與 validation；未完成不得開始 implementation。
+- [x] 盤點 generator、query、graph lookup、refresh / validation、Bridge hook、metadata 與 memory retrieval 邊界；列可重用能力、來源覆蓋和 duplication risk。
+- [x] 核對 current DB schema / generated surfaces 與 canonical config 類型；不可把舊 YAML pointer 當唯一 source，也不可另建 runtime mirror。
+- [x] 選定首批 workflow、實際查找 / 重查 / 略過條件、結果消費者與 baseline 命令；分開凍結 Phase 2 檢索及 Phase 3 採用驗收範圍與成本。
 
 Candidate files（只代表調查與可能修改，不承諾全改）：`internal/app/runtime.go`、`discovery.go`、`hooks.go` 與對應 tests；`knowledge/runtime/sqlite/README.md`；`metadata/schema.md`；`governance/workflow-activation-engine.md`；Phase 0 選定 workflow 的 README / execution-flow；必要的 routing / summaries / graphs / scenarios。實作前讀各層 README、適用契約與 linked updates。Gate：Q1/Q3/Q4 已解，無未處理 source ownership 衝突。
 
@@ -160,7 +160,7 @@ Gate：通過採用層 acceptance；未實際評估項目不得填 0。至少兩
 
 ## Stakeholder 同意項目
 
-使用者已要求撰寫計畫並提供五點審閱補強，方向為修訂後進入 Phase 0；本次修訂未開始盤點或 implementation。執行啟動時需確認首批 workflow、基準資料與成本 budget；涉及外部模型傳送資料或付費服務時另行確認具體方案。Phase 4 是條件式選項，不是預先採購或導入承諾。
+使用者已要求撰寫計畫並提供五點審閱補強，方向為修訂後進入 Phase 0；已依後續分段執行要求完成 Phase 0 盤點；搜尋 implementation 尚未開始。執行啟動時需確認首批 workflow、基準資料與成本 budget；涉及外部模型傳送資料或付費服務時另行確認具體方案。Phase 4 是條件式選項，不是預先採購或導入承諾。
 
 ## 完成條件
 
@@ -174,4 +174,4 @@ Gate：通過採用層 acceptance；未實際評估項目不得填 0。至少兩
 
 Bridge 呼叫接點的變更為條件式範圍；不調整時記錄理由並保留現有行為，不阻擋 workflow lookup 交付。延續 [Discovery Bridge](../2026-06-06-1700-workflow-activation-discovery-bridge.md) 的 advisory 能力，不把它未完成的 Deep Discovery / empirical work 默認為完成；Phase 0 需劃清重疊 work item 的 owner 與證據歸屬。與 [Feedback Execution Closure](../2026-07-10-0955-final-form-feedback-execution-closure.md) 互補：該計畫處理經驗沉澱，本計畫處理沉澱後的查找與使用，不接管其 roadmap。
 
-後續多次量測的完整記錄依 [plan evidence 規則](../../../governance/lifecycle/plan-evidence.md) 放本資料夾 `evidence/` 並建 README Run 索引；目前沒有量測，因此不建立空 evidence 或填入虛構通過結果。
+後續多次量測的完整記錄依 [plan evidence 規則](../../../governance/lifecycle/plan-evidence.md) 放本資料夾 `evidence/` 並建 README Run 索引；Phase 0 盤點已存 [evidence/phase0-inventory.md](evidence/phase0-inventory.md)，完整索引見 [evidence/README.md](evidence/README.md)；尚無 benchmark 或採用層通過結果。
