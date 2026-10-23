@@ -1,4 +1,4 @@
-version=repo-fd5f520d
-source_commit=fd5f520d
-built_at=2026-10-23T22:14:38Z
+version=repo-58b8b5bf
+source_commit=58b8b5bf65f9b1fc3e650833feece037155788a4
+built_at=2026-10-23T22:27:38Z
 targets=windows/amd64,darwin/amd64,darwin/arm64,linux/amd64,linux/arm64
