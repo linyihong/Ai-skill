@@ -1,0 +1,1317 @@
+{
+  "atom_count": 476,
+  "changed_atoms": 131,
+  "changes": [
+    {
+      "id": "feedback..2026-05-26-gemini-cli-implementation-gap",
+      "source": "feedback/history/2026-05-26-gemini-cli-implementation-gap.md",
+      "old_title": "2026-05-26-gemini-cli-implementation-gap",
+      "new_title": "Feedback Lesson: 2026-05-26 Gemini CLI Implementation Gap",
+      "old_summary_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "old_summary_runes": 0,
+      "new_summary_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "new_summary_runes": 0
+    },
+    {
+      "id": "feedback..2026-07-14-workflow-primary-source-read-cursor-evidence",
+      "source": "feedback/history/2026-07-14-workflow-primary-source-read-cursor-evidence.md",
+      "old_title": "2026-07-14-workflow-primary-source-read-cursor-evidence",
+      "new_title": "Observation — workflow primary_source gate may miss Cursor Read evidence",
+      "old_summary_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "old_summary_runes": 0,
+      "new_summary_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "new_summary_runes": 0
+    },
+    {
+      "id": "feedback.analytical-reasoning.2026-05-15_125200-horizontal-classification-dimension-thinking",
+      "source": "feedback/history/analytical-reasoning/common/2026-05-15_125200-horizontal-classification-dimension-thinking.md",
+      "old_title": "2026-05-15_125200-horizontal-classification-dimension-thinking",
+      "new_title": "Horizontal Classification Dimension Thinking",
+      "old_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "old_summary_runes": 43,
+      "new_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "new_summary_runes": 43
+    },
+    {
+      "id": "feedback.apk-analysis.2026-04-30_120000-proxy-failure-要先拆成導流與-tls-兩層",
+      "source": "feedback/history/apk-analysis/common/2026-04-30_120000-proxy-failure-要先拆成導流與-tls-兩層.md",
+      "old_title": "2026-04-30 - Proxy failure 要先拆成導流與 TLS 兩層",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md) (Section 1: 開始前確認, MITM/proxy triage)",
+      "old_summary_sha256": "b7301d0668da48dc0bd6a4fb5a4c1ec986141bc56175d99d7cd106f72ac505de",
+      "old_summary_runes": 35,
+      "new_summary_sha256": "b7301d0668da48dc0bd6a4fb5a4c1ec986141bc56175d99d7cd106f72ac505de",
+      "new_summary_runes": 35
+    },
+    {
+      "id": "feedback.apk-analysis.2026-04-30_120001-冷啟動比-attach-更適合抓初始化與代理設定",
+      "source": "feedback/history/apk-analysis/common/2026-04-30_120001-冷啟動比-attach-更適合抓初始化與代理設定.md",
+      "old_title": "2026-04-30 - 冷啟動比 attach 更適合抓初始化與代理設定",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md) (Section 1: 開始前確認, cold-start spawn)",
+      "old_summary_sha256": "e293e307f5b1711f70dd4b1605d42aa331b23b5d47c390955be5d476cf88e54a",
+      "old_summary_runes": 60,
+      "new_summary_sha256": "e293e307f5b1711f70dd4b1605d42aa331b23b5d47c390955be5d476cf88e54a",
+      "new_summary_runes": 60
+    },
+    {
+      "id": "feedback.apk-analysis.2026-04-30_120002-高語意-hook-優先於-socket-bytes",
+      "source": "feedback/history/apk-analysis/common/2026-04-30_120002-高語意-hook-優先於-socket-bytes.md",
+      "old_title": "2026-04-30 - 高語意 hook 優先於 socket bytes",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md) (Section 2: Quick Start, step 6) and [`intelligence/engineering/analytical-reasoning/heuristics/hook-selection.md`](../../../../intelligence/engineering/analytical-reasoning/heuristics/hook-selection.md)",
+      "old_summary_sha256": "e30664ebaed57636ae8258262a16278e9b8cec144236ae020fea53614b5350e5",
+      "old_summary_runes": 50,
+      "new_summary_sha256": "e30664ebaed57636ae8258262a16278e9b8cec144236ae020fea53614b5350e5",
+      "new_summary_runes": 50
+    },
+    {
+      "id": "feedback.apk-analysis.2026-04-30_120003-動態-hook-結果要離線化",
+      "source": "feedback/history/apk-analysis/common/2026-04-30_120003-動態-hook-結果要離線化.md",
+      "old_title": "2026-04-30 - 動態 hook 結果要離線化",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md) (Section 2: Quick Start, step 7)",
+      "old_summary_sha256": "802d2c176ecb16c573b8be8ce1d1c8de55723e7955639f2377da7f61e708b136",
+      "old_summary_runes": 27,
+      "new_summary_sha256": "802d2c176ecb16c573b8be8ce1d1c8de55723e7955639f2377da7f61e708b136",
+      "new_summary_runes": 27
+    },
+    {
+      "id": "feedback.apk-analysis.2026-04-30_120004-frida-只有-banner-時先做最小-hook-健康檢查",
+      "source": "feedback/history/apk-analysis/common/2026-04-30_120004-frida-只有-banner-時先做最小-hook-健康檢查.md",
+      "old_title": "2026-04-30 - Frida 只有 banner 時先做最小 hook 健康檢查",
+      "new_title": "Extracted — See [`analysis/apk/tools-and-failures.md`](../../../../analysis/apk/tools-and-failures.md) (Frida 健康檢查) and [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md)",
+      "old_summary_sha256": "e8bfce41495b824dcb84329f4849ffe8ee3cbe36ef839481031b5fccf6f98b01",
+      "old_summary_runes": 65,
+      "new_summary_sha256": "e8bfce41495b824dcb84329f4849ffe8ee3cbe36ef839481031b5fccf6f98b01",
+      "new_summary_runes": 65
+    },
+    {
+      "id": "feedback.apk-analysis.2026-04-30_120005-session-refresh-要還原-app-的真實登入-裝置流程",
+      "source": "feedback/history/apk-analysis/common/2026-04-30_120005-session-refresh-要還原-app-的真實登入-裝置流程.md",
+      "old_title": "2026-04-30 - Session refresh 要還原 App 的真實登入/裝置流程",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md) (Section 1: 開始前確認, session recovery)",
+      "old_summary_sha256": "3bf497ba492684e90eddd8d0fc4f5ab7a363fb0a199bdd1e735557a5d83bf3da",
+      "old_summary_runes": 51,
+      "new_summary_sha256": "3bf497ba492684e90eddd8d0fc4f5ab7a363fb0a199bdd1e735557a5d83bf3da",
+      "new_summary_runes": 51
+    },
+    {
+      "id": "feedback.apk-analysis.2026-04-30_120006-登入限流要避免-tight-loop-優先-session-reuse",
+      "source": "feedback/history/apk-analysis/common/2026-04-30_120006-登入限流要避免-tight-loop-優先-session-reuse.md",
+      "old_title": "2026-04-30 - 登入限流要避免 tight-loop，優先 session reuse",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md) (Section 1: Safety and Sanitization)",
+      "old_summary_sha256": "e629c3998c8c8a24e15e5ca689d7194adb97bff226d4b95f627c6a028b2cd76e",
+      "old_summary_runes": 55,
+      "new_summary_sha256": "e629c3998c8c8a24e15e5ca689d7194adb97bff226d4b95f627c6a028b2cd76e",
+      "new_summary_runes": 55
+    },
+    {
+      "id": "feedback.apk-analysis.2026-04-30_120008-aapt-sdk-build-tools-resolve-activity",
+      "source": "feedback/history/apk-analysis/common/2026-04-30_120008-aapt-sdk-build-tools-resolve-activity.md",
+      "old_title": "2026-04-30 - APK metadata：`aapt` 不在 PATH 時走 SDK build-tools；launcher 用 `resolve-activity`",
+      "new_title": "Extracted — See [`analysis/apk/tools-and-failures.md`](../../../../analysis/apk/tools-and-failures.md) (基礎工具)",
+      "old_summary_sha256": "1fc21f88cc2defc06bfb9d76bbf1f0269b8c67dc60207ca1da67f762abe73ef6",
+      "old_summary_runes": 170,
+      "new_summary_sha256": "1fc21f88cc2defc06bfb9d76bbf1f0269b8c67dc60207ca1da67f762abe73ef6",
+      "new_summary_runes": 170
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-01_101500-doh-dns-query-param-side-channel-from-okhttp-log",
+      "source": "feedback/history/apk-analysis/common/2026-05-01_101500-doh-dns-query-param-side-channel-from-okhttp-log.md",
+      "old_title": "2026-05-01 - DoH 的 `dns=` 參數可作為「MITM 業務 host 空白」時的側信道",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md) (Section 1: MITM/proxy triage) and [`intelligence/engineering/analytical-reasoning/signals/`](../../../../intelligence/engineering/analytical-reasoning/signals/)",
+      "old_summary_sha256": "a1bd517198ad9419606bc43372c57c17a970f6caf5ed9d7d662edfdb97f4401d",
+      "old_summary_runes": 154,
+      "new_summary_sha256": "a1bd517198ad9419606bc43372c57c17a970f6caf5ed9d7d662edfdb97f4401d",
+      "new_summary_runes": 154
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-01_112900-proxy-config-vs-business-route",
+      "source": "feedback/history/apk-analysis/common/2026-05-01_112900-proxy-config-vs-business-route.md",
+      "old_title": "2026-05-01 - Proxy Config Is Not Business Route Proof",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md) (Section 1: 開始前確認, proxy triage)",
+      "old_summary_sha256": "53f1f397ce5e4299236cc6d2994d34a69f1e9149be7c011cd51a55c8cb13f96e",
+      "old_summary_runes": 54,
+      "new_summary_sha256": "53f1f397ce5e4299236cc6d2994d34a69f1e9149be7c011cd51a55c8cb13f96e",
+      "new_summary_runes": 54
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-01_114300-local-proxy-handler-uri-hook",
+      "source": "feedback/history/apk-analysis/local-proxy/2026-05-01_114300-local-proxy-handler-uri-hook.md",
+      "old_title": "2026-05-01 - Hook Local Proxy Handler URI, Not Just OkHttp",
+      "new_title": "Extracted — See [`analysis/apk/workflows/local-proxy-hook-flow.md`](../../../../analysis/apk/workflows/local-proxy-hook-flow.md)",
+      "old_summary_sha256": "1af750dfa5f7a9f48d4880a89448f24c92bb1abf7568157987cc3fc909af4248",
+      "old_summary_runes": 123,
+      "new_summary_sha256": "1af750dfa5f7a9f48d4880a89448f24c92bb1abf7568157987cc3fc909af4248",
+      "new_summary_runes": 123
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-01_131000-cast-netty-request-for-handler-route",
+      "source": "feedback/history/apk-analysis/local-proxy/2026-05-01_131000-cast-netty-request-for-handler-route.md",
+      "old_title": "2026-05-01 - Cast Netty Request Interfaces For Handler Routes",
+      "new_title": "Extracted — See [`analysis/apk/tools-and-failures.md`](../../../../analysis/apk/tools-and-failures.md)",
+      "old_summary_sha256": "197baa1040d70f835a1830546f6658d89dd1f37647b5d8afde5e95c5af649ed8",
+      "old_summary_runes": 143,
+      "new_summary_sha256": "197baa1040d70f835a1830546f6658d89dd1f37647b5d8afde5e95c5af649ed8",
+      "new_summary_runes": 143
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-01_132400-netty-aggregated-request-tostring-headers",
+      "source": "feedback/history/apk-analysis/local-proxy/2026-05-01_132400-netty-aggregated-request-tostring-headers.md",
+      "old_title": "2026-05-01 - Netty Aggregated Request toString Can Expose Headers",
+      "new_title": "Extracted — See [`analysis/apk/tools-and-failures.md`](../../../../analysis/apk/tools-and-failures.md)",
+      "old_summary_sha256": "19be5c441d3cf3b2fec64725a2e097d80a39a736cb6ece527c2959c9ce526772",
+      "old_summary_runes": 140,
+      "new_summary_sha256": "19be5c441d3cf3b2fec64725a2e097d80a39a736cb6ece527c2959c9ce526772",
+      "new_summary_runes": 140
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-01_133900-dart-aot-interceptor-strings-after-java-helper-miss",
+      "source": "feedback/history/apk-analysis/flutter-dart-aot/2026-05-01_133900-dart-aot-interceptor-strings-after-java-helper-miss.md",
+      "old_title": "2026-05-01 - Dart AOT Interceptor Strings After Java Helper Miss",
+      "new_title": "Extracted — See [`analysis/apk/workflows/frida-hook-flow.md`](../../../../analysis/apk/workflows/frida-hook-flow.md)",
+      "old_summary_sha256": "057aa4320931f2cd120f701ef8e424341007ddc8cc9c16a92e7bf9a1fb48c9bb",
+      "old_summary_runes": 115,
+      "new_summary_sha256": "057aa4320931f2cd120f701ef8e424341007ddc8cc9c16a92e7bf9a1fb48c9bb",
+      "new_summary_runes": 115
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-01_140900-unflutter-aot-offset-hook-after-blutter-crash",
+      "source": "feedback/history/apk-analysis/flutter-dart-aot/2026-05-01_140900-unflutter-aot-offset-hook-after-blutter-crash.md",
+      "old_title": "2026-05-01 - Unflutter AOT offset hook after blutter crash",
+      "new_title": "Extracted — See [`analysis/apk/workflows/frida-hook-flow.md`](../../../../analysis/apk/workflows/frida-hook-flow.md)",
+      "old_summary_sha256": "690fec7877a5a5d14401078e3771d86625fdb59a2f425316f8c3c16fecf392e4",
+      "old_summary_runes": 142,
+      "new_summary_sha256": "690fec7877a5a5d14401078e3771d86625fdb59a2f425316f8c3c16fecf392e4",
+      "new_summary_runes": 142
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-01_142000-exhaustive-java-okhttp-hooks-may-still-miss-flutter-business-http",
+      "source": "feedback/history/apk-analysis/flutter-dart-aot/2026-05-01_142000-exhaustive-java-okhttp-hooks-may-still-miss-flutter-business-http.md",
+      "old_title": "2026-05-01 - 對 `OkHttpClient.newCall`／`Request$Builder.url`／`enqueue` 廣覆蓋仍無業務 host 時",
+      "new_title": "Extracted — See [`analysis/apk/workflows/frida-hook-flow.md`](../../../../analysis/apk/workflows/frida-hook-flow.md)",
+      "old_summary_sha256": "c23520e81b7efeb7a0182cb1db5ca47170a13769a5c11b8ca1cd2d3785c8e12b",
+      "old_summary_runes": 157,
+      "new_summary_sha256": "c23520e81b7efeb7a0182cb1db5ca47170a13769a5c11b8ca1cd2d3785c8e12b",
+      "new_summary_runes": 157
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-01_145948-dart-aot-callsite-hooks-are-not-function-hooks",
+      "source": "feedback/history/apk-analysis/flutter-dart-aot/2026-05-01_145948-dart-aot-callsite-hooks-are-not-function-hooks.md",
+      "old_title": "2026-05-01 - Dart AOT Callsite Hooks Are Not Function Hooks",
+      "new_title": "Extracted — See [`analysis/apk/workflows/frida-hook-flow.md`](../../../../analysis/apk/workflows/frida-hook-flow.md)",
+      "old_summary_sha256": "e36cf55343132c6854d23adb614fb70ae427f1f98c04dd03726bcf60e438cc23",
+      "old_summary_runes": 138,
+      "new_summary_sha256": "e36cf55343132c6854d23adb614fb70ae427f1f98c04dd03726bcf60e438cc23",
+      "new_summary_runes": 138
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-01_151551-schema-only-jsondecode-hook",
+      "source": "feedback/history/apk-analysis/flutter-dart-aot/2026-05-01_151551-schema-only-jsondecode-hook.md",
+      "old_title": "2026-05-01 - Schema-only jsonDecode Hook",
+      "new_title": "Extracted — See [`analysis/apk/workflows/frida-hook-flow.md`](../../../../analysis/apk/workflows/frida-hook-flow.md)",
+      "old_summary_sha256": "b086b036c8e6b85955baedd3c0114d166a10cc9f2aca4d9f6e24f5a2db9ca470",
+      "old_summary_runes": 120,
+      "new_summary_sha256": "b086b036c8e6b85955baedd3c0114d166a10cc9f2aca4d9f6e24f5a2db9ca470",
+      "new_summary_runes": 120
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-01_153437-sequence-jsondecode-before-api-response",
+      "source": "feedback/history/apk-analysis/flutter-dart-aot/2026-05-01_153437-sequence-jsondecode-before-api-response.md",
+      "old_title": "2026-05-01 - Sequence jsonDecode Before Calling It API Response",
+      "new_title": "Extracted — See [`analysis/apk/workflows/frida-hook-flow.md`](../../../../analysis/apk/workflows/frida-hook-flow.md)",
+      "old_summary_sha256": "34809046a75eef892ad3142f0e763698e7d3f143a57d20b0e62a518301b5fa44",
+      "old_summary_runes": 98,
+      "new_summary_sha256": "34809046a75eef892ad3142f0e763698e7d3f143a57d20b0e62a518301b5fa44",
+      "new_summary_runes": 98
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-01_155200-dart-compressed-response-fields",
+      "source": "feedback/history/apk-analysis/flutter-dart-aot/2026-05-01_155200-dart-compressed-response-fields.md",
+      "old_title": "2026-05-01 - Dart AOT Compressed Response Fields",
+      "new_title": "Extracted — See [`analysis/apk/workflows/frida-hook-flow.md`](../../../../analysis/apk/workflows/frida-hook-flow.md)",
+      "old_summary_sha256": "fb1fbe9e46f836c64c47c93a5834d054e1fa6ab775a571f2a102df3b229658cd",
+      "old_summary_runes": 146,
+      "new_summary_sha256": "fb1fbe9e46f836c64c47c93a5834d054e1fa6ab775a571f2a102df3b229658cd",
+      "new_summary_runes": 146
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-01_164741-dart-inline-onebyte-string-smi-length",
+      "source": "feedback/history/apk-analysis/flutter-dart-aot/2026-05-01_164741-dart-inline-onebyte-string-smi-length.md",
+      "old_title": "2026-05-01 - Dart inline one-byte string Smi length",
+      "new_title": "Extracted — See [`analysis/apk/workflows/frida-hook-flow.md`](../../../../analysis/apk/workflows/frida-hook-flow.md)",
+      "old_summary_sha256": "a71b9c8288befc3de4b37449709fd7996168b7dd057807e3803660e9cdc25c9c",
+      "old_summary_runes": 156,
+      "new_summary_sha256": "a71b9c8288befc3de4b37449709fd7996168b7dd057807e3803660e9cdc25c9c",
+      "new_summary_runes": 156
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-01_171500-json-shape-before-query-shape",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-01_171500-json-shape-before-query-shape.md",
+      "old_title": "2026-05-01 - JSON Shape Before Query Shape",
+      "new_title": "Extracted — See [`analysis/apk/workflows/http-api-documentation-flow.md`](../../../../analysis/apk/workflows/http-api-documentation-flow.md)",
+      "old_summary_sha256": "1ba0f9f67011fe0aebcfd45113312c1cb694e8cc9b8fcd8128cbc2cef8fd41bd",
+      "old_summary_runes": 169,
+      "new_summary_sha256": "1ba0f9f67011fe0aebcfd45113312c1cb694e8cc9b8fcd8128cbc2cef8fd41bd",
+      "new_summary_runes": 169
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-01_171650-ui-architecture-map-from-screenshots",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-01_171650-ui-architecture-map-from-screenshots.md",
+      "old_title": "2026-05-01 - UI architecture map from screenshots",
+      "new_title": "Extracted — See [`analysis/apk/workflows/http-api-documentation-flow.md`](../../../../analysis/apk/workflows/http-api-documentation-flow.md)",
+      "old_summary_sha256": "d8a3a54ab345b6485d0dc9693cdbffdfe03f49fd43c8bdf2d294fcd52a2608ec",
+      "old_summary_runes": 88,
+      "new_summary_sha256": "d8a3a54ab345b6485d0dc9693cdbffdfe03f49fd43c8bdf2d294fcd52a2608ec",
+      "new_summary_runes": 88
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-01_173800-api-field-documentation-after-analysis",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-01_173800-api-field-documentation-after-analysis.md",
+      "old_title": "2026-05-01 - API field documentation after analysis",
+      "new_title": "Extracted — See [`analysis/apk/workflows/http-api-documentation-flow.md`](../../../../analysis/apk/workflows/http-api-documentation-flow.md)",
+      "old_summary_sha256": "b3b5a0da5114b9b0ed6c6372963a19eb32e12d65d47c0fc145250b86f04c37df",
+      "old_summary_runes": 96,
+      "new_summary_sha256": "b3b5a0da5114b9b0ed6c6372963a19eb32e12d65d47c0fc145250b86f04c37df",
+      "new_summary_runes": 96
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-01_174100-technique-category-routing",
+      "source": "feedback/history/apk-analysis/common/2026-05-01_174100-technique-category-routing.md",
+      "old_title": "2026-05-01 - Technique category routing",
+      "new_title": "Extracted — See [`enforcement/cross-skill-references.md`](../../../../enforcement/cross-skill-references.md)",
+      "old_summary_sha256": "46cfd531c6c940b3024a403fbb0fa5ecd3a247428bea4a86a876a535f70286d8",
+      "old_summary_runes": 122,
+      "new_summary_sha256": "46cfd531c6c940b3024a403fbb0fa5ecd3a247428bea4a86a876a535f70286d8",
+      "new_summary_runes": 122
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-01_175500-workflow-as-routing-not-technique-dump",
+      "source": "feedback/history/apk-analysis/common/2026-05-01_175500-workflow-as-routing-not-technique-dump.md",
+      "old_title": "2026-05-01 - Workflow as routing, not technique dump",
+      "new_title": "Extracted — See [`enforcement/cross-skill-references.md`](../../../../enforcement/cross-skill-references.md)",
+      "old_summary_sha256": "35a711c2d51b4e786f65e2e08308d5b5970da7dc130a760f73cf2ed740716e40",
+      "old_summary_runes": 116,
+      "new_summary_sha256": "35a711c2d51b4e786f65e2e08308d5b5970da7dc130a760f73cf2ed740716e40",
+      "new_summary_runes": 116
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-05_183400-ui-automation-operation-scripts-for-api-capture",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-05_183400-ui-automation-operation-scripts-for-api-capture.md",
+      "old_title": "2026-05-05 - UI automation operation scripts for API capture",
+      "new_title": "Extracted — See [`analysis/apk/workflows/http-api-documentation-flow.md`](../../../../analysis/apk/workflows/http-api-documentation-flow.md)",
+      "old_summary_sha256": "bcbafe3a4d8870e0303f0321e46065f95438802a5faab25be84090d125da1718",
+      "old_summary_runes": 63,
+      "new_summary_sha256": "bcbafe3a4d8870e0303f0321e46065f95438802a5faab25be84090d125da1718",
+      "new_summary_runes": 63
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-05_183700-scrollable-clickable-screen-mapping",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-05_183700-scrollable-clickable-screen-mapping.md",
+      "old_title": "2026-05-05 - Scrollable and clickable screen mapping",
+      "new_title": "Extracted — See [`analysis/apk/workflows/http-api-documentation-flow.md`](../../../../analysis/apk/workflows/http-api-documentation-flow.md)",
+      "old_summary_sha256": "cb933ff10fcc2ed723a5c62d0bac8f98be94d207a779d2851d35b19884dd2de7",
+      "old_summary_runes": 128,
+      "new_summary_sha256": "cb933ff10fcc2ed723a5c62d0bac8f98be94d207a779d2851d35b19884dd2de7",
+      "new_summary_runes": 128
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-05_184218-playable-list-item-still-needs-detail-api",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-05_184218-playable-list-item-still-needs-detail-api.md",
+      "old_title": "2026-05-05 - Playable List Item Still Needs Detail API",
+      "new_title": "Extracted — See [`analysis/apk/workflows/http-api-documentation-flow.md`](../../../../analysis/apk/workflows/http-api-documentation-flow.md)",
+      "old_summary_sha256": "22c0a11ee8bb077bae5e2432676f0982bb3553fe3850a4a6958ba907e89f2642",
+      "old_summary_runes": 59,
+      "new_summary_sha256": "22c0a11ee8bb077bae5e2432676f0982bb3553fe3850a4a6958ba907e89f2642",
+      "new_summary_runes": 59
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-05_184700-screen-reachability-operation-recipes",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-05_184700-screen-reachability-operation-recipes.md",
+      "old_title": "2026-05-05 - Screen reachability operation recipes",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md)",
+      "old_summary_sha256": "0629b48fce2af9aa706e9a52661a16b372cb3411e43410a91c22df886cbfe59c",
+      "old_summary_runes": 106,
+      "new_summary_sha256": "0629b48fce2af9aa706e9a52661a16b372cb3411e43410a91c22df886cbfe59c",
+      "new_summary_runes": 106
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-05_184900-in-app-route-map-external-transitions",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-05_184900-in-app-route-map-external-transitions.md",
+      "old_title": "2026-05-05 - In-app route map external transitions",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md)",
+      "old_summary_sha256": "6a2e5615511e7e56cc647387da8696b2cca58d492f79b7f91254f87834137c3e",
+      "old_summary_runes": 131,
+      "new_summary_sha256": "6a2e5615511e7e56cc647387da8696b2cca58d492f79b7f91254f87834137c3e",
+      "new_summary_runes": 131
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-05_185921-scroll-depth-before-api-conclusion",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-05_185921-scroll-depth-before-api-conclusion.md",
+      "old_title": "2026-05-05 - Scroll Depth Before API Conclusion",
+      "new_title": "Extracted — See [`analysis/apk/workflows/http-api-documentation-flow.md`](../../../../analysis/apk/workflows/http-api-documentation-flow.md)",
+      "old_summary_sha256": "77a8faca01cfdf1ee2932f49cfa17055ab15a1d68e7a422f4d0b08da6cbca84b",
+      "old_summary_runes": 54,
+      "new_summary_sha256": "77a8faca01cfdf1ee2932f49cfa17055ab15a1d68e7a422f4d0b08da6cbca84b",
+      "new_summary_runes": 54
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-05_190838-richtext-html-images-are-api-resources",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-05_190838-richtext-html-images-are-api-resources.md",
+      "old_title": "2026-05-05 - RichText HTML Images Are API Resources",
+      "new_title": "Extracted — See [`workflow/apk-analysis/artifact-gates.md`](../../../../workflow/apk-analysis/artifact-gates.md)",
+      "old_summary_sha256": "5c441cea7c787d63a30df4efd84e122e6244dc8d2c4aa596235f38bb0528da2b",
+      "old_summary_runes": 71,
+      "new_summary_sha256": "5c441cea7c787d63a30df4efd84e122e6244dc8d2c4aa596235f38bb0528da2b",
+      "new_summary_runes": 71
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-05_192012-infinite-scroll-needs-pagination-proof",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-05_192012-infinite-scroll-needs-pagination-proof.md",
+      "old_title": "2026-05-05 - Infinite Scroll Needs Pagination Proof",
+      "new_title": "Extracted — See [`analysis/apk/workflows/http-api-documentation-flow.md`](../../../../analysis/apk/workflows/http-api-documentation-flow.md)",
+      "old_summary_sha256": "0306157f9322410bcf441975fd8dff1e71f462d5b94cffd4ab2e4053ee7d1e3c",
+      "old_summary_runes": 46,
+      "new_summary_sha256": "0306157f9322410bcf441975fd8dff1e71f462d5b94cffd4ab2e4053ee7d1e3c",
+      "new_summary_runes": 46
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-05_195200-feature-reconstruction-handoff",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-05_195200-feature-reconstruction-handoff.md",
+      "old_title": "2026-05-05 - Feature reconstruction handoff",
+      "new_title": "Extracted — See [`workflow/apk-analysis/artifact-gates.md`](../../../../workflow/apk-analysis/artifact-gates.md)",
+      "old_summary_sha256": "98e21f2b73073180f9aa24022c5975d03174499aa8a607121595a413c48de0cf",
+      "old_summary_runes": 181,
+      "new_summary_sha256": "98e21f2b73073180f9aa24022c5975d03174499aa8a607121595a413c48de0cf",
+      "new_summary_runes": 181
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-05_202400-page-analysis-requires-ui-map-artifact",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-05_202400-page-analysis-requires-ui-map-artifact.md",
+      "old_title": "2026-05-05 - Page analysis requires a UI map artifact",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md)",
+      "old_summary_sha256": "0b388fef4cd4de895be5734550f123a17165b6021eb1c5208c353a4dbabeacb1",
+      "old_summary_runes": 89,
+      "new_summary_sha256": "0b388fef4cd4de895be5734550f123a17165b6021eb1c5208c353a4dbabeacb1",
+      "new_summary_runes": 89
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-05_205500-ui-behavior-backfill-finish-gate",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-05_205500-ui-behavior-backfill-finish-gate.md",
+      "old_title": "2026-05-05 - UI Behavior backfill as finish gate",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md)",
+      "old_summary_sha256": "2ff268b55d065c63589dce088a1626ff0ffac6aad0337cff45bebcec7dbaedf5",
+      "old_summary_runes": 113,
+      "new_summary_sha256": "2ff268b55d065c63589dce088a1626ff0ffac6aad0337cff45bebcec7dbaedf5",
+      "new_summary_runes": 113
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-06_081400-auto-app-guidance-for-sdk-tools",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-06_081400-auto-app-guidance-for-sdk-tools.md",
+      "old_title": "2026-05-06 - Auto app-development-guidance for SDK/tool outputs",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md)",
+      "old_summary_sha256": "8676ea9455039596ad9d11a6be8d2c70841089096e10ca9b0e5dd7ae80e240d2",
+      "old_summary_runes": 167,
+      "new_summary_sha256": "8676ea9455039596ad9d11a6be8d2c70841089096e10ca9b0e5dd7ae80e240d2",
+      "new_summary_runes": 167
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-06_090100-frida-17-jailed-android-gadget-gate",
+      "source": "feedback/history/apk-analysis/common/2026-05-06_090100-frida-17-jailed-android-gadget-gate.md",
+      "old_title": "2026-05-06 - Frida 17 / jailed Android Gadget gate",
+      "new_title": "Extracted — See [`analysis/apk/tools-and-failures.md`](../../../../analysis/apk/tools-and-failures.md) (Frida 健康檢查) and [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md)",
+      "old_summary_sha256": "1b4c49b42ff1fe6191934b26e08bd05a83fb7529a275832ca14fc24f5c7dbbab",
+      "old_summary_runes": 164,
+      "new_summary_sha256": "1b4c49b42ff1fe6191934b26e08bd05a83fb7529a275832ca14fc24f5c7dbbab",
+      "new_summary_runes": 164
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-06_092200-frida-server-version-alignment",
+      "source": "feedback/history/apk-analysis/common/2026-05-06_092200-frida-server-version-alignment.md",
+      "old_title": "2026-05-06 - Frida server version alignment before attach debugging",
+      "new_title": "Extracted — See [`analysis/apk/tools-and-failures.md`](../../../../analysis/apk/tools-and-failures.md) (Frida 健康檢查)",
+      "old_summary_sha256": "2c28ed9046c95c7165efc62f4109e6b9370094c1a3251ff563f1657be8c58ce2",
+      "old_summary_runes": 193,
+      "new_summary_sha256": "2c28ed9046c95c7165efc62f4109e6b9370094c1a3251ff563f1657be8c58ce2",
+      "new_summary_runes": 193
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-06_094200-frida-heavy-window-ui-control-comparison",
+      "source": "feedback/history/apk-analysis/common/2026-05-06_094200-frida-heavy-window-ui-control-comparison.md",
+      "old_title": "2026-05-06 - Frida-heavy window UI control comparison",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md) (Section 1: Capture Window 詳細規則)",
+      "old_summary_sha256": "42539ebf7d68f4ee9a777482bea16b6e64bc1622ac656b0dca3bedc78d0b20b3",
+      "old_summary_runes": 195,
+      "new_summary_sha256": "42539ebf7d68f4ee9a777482bea16b6e64bc1622ac656b0dca3bedc78d0b20b3",
+      "new_summary_runes": 195
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-06_101000-in-app-search-suggestion-before-ime-submit",
+      "source": "feedback/history/apk-analysis/common/2026-05-06_101000-in-app-search-suggestion-before-ime-submit.md",
+      "old_title": "2026-05-06 - In-app search suggestions before IME submit",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md) (Section 1: Capture Window 詳細規則)",
+      "old_summary_sha256": "08c5481e2175f054f46e0df5f15219ed44240aee66536dc4de99d2015ade8fa6",
+      "old_summary_runes": 166,
+      "new_summary_sha256": "08c5481e2175f054f46e0df5f15219ed44240aee66536dc4de99d2015ade8fa6",
+      "new_summary_runes": 166
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-06_102100-feature-handoff-finish-gate",
+      "source": "feedback/history/apk-analysis/common/2026-05-06_102100-feature-handoff-finish-gate.md",
+      "old_title": "2026-05-06 - Feature handoff finish gate",
+      "new_title": "Extracted — See [`workflow/apk-analysis/artifact-gates.md`](../../../../workflow/apk-analysis/artifact-gates.md) (Feature Reconstruction Handoff) and [`analysis/apk/workflows/http-api-documentation-flow.md`](../../../../analysis/apk/workflows/http-api-documentation-flow.md)",
+      "old_summary_sha256": "0194b8cf3d4e7de8a7ecf6ffe2462a6cc810c9e1dfe51b85087f9054b0f96289",
+      "old_summary_runes": 173,
+      "new_summary_sha256": "0194b8cf3d4e7de8a7ecf6ffe2462a6cc810c9e1dfe51b85087f9054b0f96289",
+      "new_summary_runes": 173
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-06_102800-ui-hierarchy-content-desc-redaction",
+      "source": "feedback/history/apk-analysis/common/2026-05-06_102800-ui-hierarchy-content-desc-redaction.md",
+      "old_title": "2026-05-06 - UI hierarchy content-desc redaction",
+      "new_title": "Extracted — See [`analysis/apk/tools-and-failures.md`](../../../../analysis/apk/tools-and-failures.md) (去敏規則)",
+      "old_summary_sha256": "e0b32587c48524064791a91d720de55368c4a871f2227d12b0fd52583aaab011",
+      "old_summary_runes": 132,
+      "new_summary_sha256": "e0b32587c48524064791a91d720de55368c4a871f2227d12b0fd52583aaab011",
+      "new_summary_runes": 132
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-06_104000-detailed-api-list-finish-gate",
+      "source": "feedback/history/apk-analysis/common/2026-05-06_104000-detailed-api-list-finish-gate.md",
+      "old_title": "2026-05-06 - Detailed API list finish gate",
+      "new_title": "Extracted — See [`workflow/apk-analysis/artifact-gates.md`](../../../../workflow/apk-analysis/artifact-gates.md) (API Catalog completion gate)",
+      "old_summary_sha256": "f3f8a96e7b4765f085480a0d33cddd29a2ab400eb9c45889f6034b33355a73fb",
+      "old_summary_runes": 122,
+      "new_summary_sha256": "f3f8a96e7b4765f085480a0d33cddd29a2ab400eb9c45889f6034b33355a73fb",
+      "new_summary_runes": 122
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-06_104300-api-catalog-finish-gate",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-06_104300-api-catalog-finish-gate.md",
+      "old_title": "2026-05-06 - API Catalog finish gate",
+      "new_title": "Extracted — See [`workflow/apk-analysis/artifact-gates.md`](../../../../workflow/apk-analysis/artifact-gates.md)",
+      "old_summary_sha256": "0810545e55401503b4f505ed4a7a603d0cc7e62959213d3ea646c33b364b6830",
+      "old_summary_runes": 210,
+      "new_summary_sha256": "0810545e55401503b4f505ed4a7a603d0cc7e62959213d3ea646c33b364b6830",
+      "new_summary_runes": 210
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-06_105026-state-reset-baseline-feature-capture",
+      "source": "feedback/history/apk-analysis/common/2026-05-06_105026-state-reset-baseline-feature-capture.md",
+      "old_title": "2026-05-06 - State reset baseline before feature capture",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md)",
+      "old_summary_sha256": "4db81c013dff3f76176a2aceca20bb5a3a69d6e97bb771e4f455f9e4143102dd",
+      "old_summary_runes": 160,
+      "new_summary_sha256": "4db81c013dff3f76176a2aceca20bb5a3a69d6e97bb771e4f455f9e4143102dd",
+      "new_summary_runes": 160
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-06_110749-scrollable-tab-strip-coverage",
+      "source": "feedback/history/apk-analysis/common/2026-05-06_110749-scrollable-tab-strip-coverage.md",
+      "old_title": "2026-05-06 - Scrollable Tab Strip Coverage",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md)",
+      "old_summary_sha256": "c284f62902a71023e4d4f945f41f16727cde836c1d6235e20c4eebc4d5fa2b22",
+      "old_summary_runes": 64,
+      "new_summary_sha256": "c284f62902a71023e4d4f945f41f16727cde836c1d6235e20c4eebc4d5fa2b22",
+      "new_summary_runes": 64
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-06_111558-foreground-package-validation",
+      "source": "feedback/history/apk-analysis/common/2026-05-06_111558-foreground-package-validation.md",
+      "old_title": "2026-05-06 - Foreground Package Validation",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md)",
+      "old_summary_sha256": "1810194dde209378c0b4fa91d755a9f0e7ef79a985eb9ff1414acc862dce6afe",
+      "old_summary_runes": 51,
+      "new_summary_sha256": "1810194dde209378c0b4fa91d755a9f0e7ef79a985eb9ff1414acc862dce6afe",
+      "new_summary_runes": 51
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-06_113302-dart-aot-offset-from-asm-address",
+      "source": "feedback/history/apk-analysis/common/2026-05-06_113302-dart-aot-offset-from-asm-address.md",
+      "old_title": "2026-05-06 - Dart AOT Offset From ASM Address",
+      "new_title": "Extracted — See [`analysis/apk/workflows/frida-hook-flow.md`](../../../../analysis/apk/workflows/frida-hook-flow.md)",
+      "old_summary_sha256": "12e94ff4f918689c0d3b86f549966cade9510a1d5d4e45cdc91bfdf2ff767230",
+      "old_summary_runes": 69,
+      "new_summary_sha256": "12e94ff4f918689c0d3b86f549966cade9510a1d5d4e45cdc91bfdf2ff767230",
+      "new_summary_runes": 69
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-06_121650-hls-playlist-key-may-be-wrapped",
+      "source": "feedback/history/apk-analysis/media-hls/2026-05-06_121650-hls-playlist-key-may-be-wrapped.md",
+      "old_title": "2026-05-06 - HLS Playlist Key May Be Wrapped",
+      "new_title": "Extracted — See [`analysis/apk/workflows/media-hls-analysis-flow.md`](../../../../analysis/apk/workflows/media-hls-analysis-flow.md)",
+      "old_summary_sha256": "f6b0795dee113fc88754499a55ccf7e1ab2e5c933cee64613eb29367758602d2",
+      "old_summary_runes": 112,
+      "new_summary_sha256": "f6b0795dee113fc88754499a55ccf7e1ab2e5c933cee64613eb29367758602d2",
+      "new_summary_runes": 112
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-06_122900-checkpoint-replay-runner",
+      "source": "feedback/history/apk-analysis/common/2026-05-06_122900-checkpoint-replay-runner.md",
+      "old_title": "2026-05-06 - Checkpoint Replay Runner",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md)",
+      "old_summary_sha256": "d1b654aff94c01012ed991292bdb70848162876fb2bebdb8415c3068b4927de1",
+      "old_summary_runes": 88,
+      "new_summary_sha256": "d1b654aff94c01012ed991292bdb70848162876fb2bebdb8415c3068b4927de1",
+      "new_summary_runes": 88
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-06_130300-feature-context-validation",
+      "source": "feedback/history/apk-analysis/common/2026-05-06_130300-feature-context-validation.md",
+      "old_title": "2026-05-06 - Feature Context Validation",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md)",
+      "old_summary_sha256": "55829333ddece95c5af50a657e1e83c1b14f829d6cfb2de040af4e847af70ea9",
+      "old_summary_runes": 88,
+      "new_summary_sha256": "55829333ddece95c5af50a657e1e83c1b14f829d6cfb2de040af4e847af70ea9",
+      "new_summary_runes": 88
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-06_133600-post-reset-window-split",
+      "source": "feedback/history/apk-analysis/common/2026-05-06_133600-post-reset-window-split.md",
+      "old_title": "2026-05-06 - Post-reset Window Split",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md)",
+      "old_summary_sha256": "6bead0baa1630dc009164a724772fce73f3d5213d8b1d96f9dd4ea00d10da481",
+      "old_summary_runes": 159,
+      "new_summary_sha256": "6bead0baa1630dc009164a724772fce73f3d5213d8b1d96f9dd4ea00d10da481",
+      "new_summary_runes": 159
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-06_154500-domain-runtime-baseline-finish-gate",
+      "source": "feedback/history/apk-analysis/common/2026-05-06_154500-domain-runtime-baseline-finish-gate.md",
+      "old_title": "2026-05-06_154500-domain-runtime-baseline-finish-gate",
+      "new_title": "Domain／執行環境基線 — 取數門檻",
+      "old_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "old_summary_runes": 43,
+      "new_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "new_summary_runes": 43
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-07_124100-ui-fast-path-bounded-scroll",
+      "source": "feedback/history/apk-analysis/common/2026-05-07_124100-ui-fast-path-bounded-scroll.md",
+      "old_title": "2026-05-07 - UI Fast Path And Bounded Scroll",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md)",
+      "old_summary_sha256": "d5f697e390331be459fdde667f5e0865aa61692979797e223bc7598b5a195862",
+      "old_summary_runes": 167,
+      "new_summary_sha256": "d5f697e390331be459fdde667f5e0865aa61692979797e223bc7598b5a195862",
+      "new_summary_runes": 167
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-07_125600-api-first-pagination-replay",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-07_125600-api-first-pagination-replay.md",
+      "old_title": "2026-05-07 - API-First Pagination Replay",
+      "new_title": "Extracted — See [`analysis/apk/workflows/http-api-documentation-flow.md`](../../../../analysis/apk/workflows/http-api-documentation-flow.md)",
+      "old_summary_sha256": "d964e6bf58107cc79c421a1c63f3dd8ad02998d2add6c55e2324383b7f254fe7",
+      "old_summary_runes": 170,
+      "new_summary_sha256": "d964e6bf58107cc79c421a1c63f3dd8ad02998d2add6c55e2324383b7f254fe7",
+      "new_summary_runes": 170
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-07_131000-highest-leverage-analysis-path",
+      "source": "feedback/history/apk-analysis/common/2026-05-07_131000-highest-leverage-analysis-path.md",
+      "old_title": "2026-05-07 - Highest Leverage Analysis Path",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md)",
+      "old_summary_sha256": "b18f1db8cf5b47873382990393eb70a30ddd473218de73a9a2d812cc996e79e0",
+      "old_summary_runes": 131,
+      "new_summary_sha256": "b18f1db8cf5b47873382990393eb70a30ddd473218de73a9a2d812cc996e79e0",
+      "new_summary_runes": 131
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-07_135100-entry-boundary-before-unstable-aot-hooks",
+      "source": "feedback/history/apk-analysis/flutter-dart-aot/2026-05-07_135100-entry-boundary-before-unstable-aot-hooks.md",
+      "old_title": "2026-05-07 - Entry Boundary Before Unstable AOT Hooks",
+      "new_title": "Extracted — See [`analysis/apk/workflows/frida-hook-flow.md`](../../../../analysis/apk/workflows/frida-hook-flow.md)",
+      "old_summary_sha256": "a7f46ed1b951dd4d0723cd2df02b861b70d5624b1d86fa3dd253f632f43feae3",
+      "old_summary_runes": 195,
+      "new_summary_sha256": "a7f46ed1b951dd4d0723cd2df02b861b70d5624b1d86fa3dd253f632f43feae3",
+      "new_summary_runes": 195
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-07_135900-dio-requestoptions-uri-keyset-probe",
+      "source": "feedback/history/apk-analysis/flutter-dart-aot/2026-05-07_135900-dio-requestoptions-uri-keyset-probe.md",
+      "old_title": "2026-05-07 - Dio RequestOptions URI Keyset Probe",
+      "new_title": "Extracted — See [`analysis/apk/workflows/frida-hook-flow.md`](../../../../analysis/apk/workflows/frida-hook-flow.md)",
+      "old_summary_sha256": "eb732f902c16e5a247d6a25d8066f86235339d71206b2c24640231597351c401",
+      "old_summary_runes": 171,
+      "new_summary_sha256": "eb732f902c16e5a247d6a25d8066f86235339d71206b2c24640231597351c401",
+      "new_summary_runes": 171
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-07_141200-dart-aot-lazy-static-slot-trace",
+      "source": "feedback/history/apk-analysis/flutter-dart-aot/2026-05-07_141200-dart-aot-lazy-static-slot-trace.md",
+      "old_title": "2026-05-07 - Dart AOT Lazy Static Slot Trace",
+      "new_title": "Extracted — See [`analysis/apk/workflows/frida-hook-flow.md`](../../../../analysis/apk/workflows/frida-hook-flow.md)",
+      "old_summary_sha256": "df646c8ff0157077f979a06c1167bb1a038710c449737e29fc58885bfef8b57e",
+      "old_summary_runes": 202,
+      "new_summary_sha256": "df646c8ff0157077f979a06c1167bb1a038710c449737e29fc58885bfef8b57e",
+      "new_summary_runes": 202
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-07_142600-dart-aot-async-provider-return-shape",
+      "source": "feedback/history/apk-analysis/flutter-dart-aot/2026-05-07_142600-dart-aot-async-provider-return-shape.md",
+      "old_title": "2026-05-07 - Dart AOT Async Provider Return Shape",
+      "new_title": "Extracted — See [`analysis/apk/workflows/frida-hook-flow.md`](../../../../analysis/apk/workflows/frida-hook-flow.md)",
+      "old_summary_sha256": "a4e5cad4bf946927006649656f60fd21609f947d01d7754afb79a22e0873f119",
+      "old_summary_runes": 181,
+      "new_summary_sha256": "a4e5cad4bf946927006649656f60fd21609f947d01d7754afb79a22e0873f119",
+      "new_summary_runes": 181
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-07_143800-stateful-setting-probe-restore",
+      "source": "feedback/history/apk-analysis/common/2026-05-07_143800-stateful-setting-probe-restore.md",
+      "old_title": "2026-05-07 - Stateful Setting Probe Restore",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md)",
+      "old_summary_sha256": "100e9d22562bdda7a8af854bf0ec65941ff614f1ea3571210c3dfa53a78c2fe2",
+      "old_summary_runes": 148,
+      "new_summary_sha256": "100e9d22562bdda7a8af854bf0ec65941ff614f1ea3571210c3dfa53a78c2fe2",
+      "new_summary_runes": 148
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-07_144300-ui-route-backfill-after-runtime-probe",
+      "source": "feedback/history/apk-analysis/common/2026-05-07_144300-ui-route-backfill-after-runtime-probe.md",
+      "old_title": "2026-05-07 - UI Route Backfill After Runtime Probe",
+      "new_title": "Extracted — See [`workflow/apk-analysis/artifact-gates.md`](../../../../workflow/apk-analysis/artifact-gates.md)",
+      "old_summary_sha256": "326fbdb14af66270980ab8f2e9d6805037583ee05ab8b908bf7f01d824ad2dd0",
+      "old_summary_runes": 156,
+      "new_summary_sha256": "326fbdb14af66270980ab8f2e9d6805037583ee05ab8b908bf7f01d824ad2dd0",
+      "new_summary_runes": 156
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-07_145500-sensitive-provider-fingerprint-diagnostic",
+      "source": "feedback/history/apk-analysis/common/2026-05-07_145500-sensitive-provider-fingerprint-diagnostic.md",
+      "old_title": "2026-05-07 - Sensitive Provider Fingerprint Diagnostic",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md)",
+      "old_summary_sha256": "5c620929228b9106f8589ed480992650b8662573b286559bacd145bc51fd88a6",
+      "old_summary_runes": 161,
+      "new_summary_sha256": "5c620929228b9106f8589ed480992650b8662573b286559bacd145bc51fd88a6",
+      "new_summary_runes": 161
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-07_151200-aot-hook-crash-static-boundary-fallback",
+      "source": "feedback/history/apk-analysis/flutter-dart-aot/2026-05-07_151200-aot-hook-crash-static-boundary-fallback.md",
+      "old_title": "2026-05-07 - AOT Hook Crash Static Boundary Fallback",
+      "new_title": "Extracted — See [`analysis/apk/workflows/frida-hook-flow.md`](../../../../analysis/apk/workflows/frida-hook-flow.md)",
+      "old_summary_sha256": "5b4203f74851b2619e842643d28b88a946eb1cc9ae994b38d8424ed8126dca68",
+      "old_summary_runes": 222,
+      "new_summary_sha256": "5b4203f74851b2619e842643d28b88a946eb1cc9ae994b38d8424ed8126dca68",
+      "new_summary_runes": 222
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-07_161400-sdk-live-self-generation-audit",
+      "source": "feedback/history/apk-analysis/common/2026-05-07_161400-sdk-live-self-generation-audit.md",
+      "old_title": "2026-05-07_161400-sdk-live-self-generation-audit",
+      "new_title": "SDK live self-generation audit",
+      "old_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "old_summary_runes": 43,
+      "new_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "new_summary_runes": 43
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-07_171900-provider-read-negative-matrix",
+      "source": "feedback/history/apk-analysis/common/2026-05-07_171900-provider-read-negative-matrix.md",
+      "old_title": "2026-05-07 - Provider Read Negative Matrix",
+      "new_title": "Extracted — See [`analysis/apk/tools-and-failures.md`](../../../../analysis/apk/tools-and-failures.md)",
+      "old_summary_sha256": "1ed795ee5153aee2cb73ce7afa8ae5b0abd0b5c9d7d067e1e7538a595770bbb2",
+      "old_summary_runes": 154,
+      "new_summary_sha256": "1ed795ee5153aee2cb73ce7afa8ae5b0abd0b5c9d7d067e1e7538a595770bbb2",
+      "new_summary_runes": 154
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-08_135700-agent-goals-before-transcripts",
+      "source": "feedback/history/apk-analysis/common/2026-05-08_135700-agent-goals-before-transcripts.md",
+      "old_title": "2026-05-08 - Agent goals before transcripts when resuming",
+      "new_title": "Extracted — See [`enforcement/dependency-reading.md`](../../../../enforcement/dependency-reading.md)",
+      "old_summary_sha256": "dad3cb66bdcd1a3b5b91110906d13a106b06f116d17e9e4dc8fe55a4ebc55258",
+      "old_summary_runes": 84,
+      "new_summary_sha256": "dad3cb66bdcd1a3b5b91110906d13a106b06f116d17e9e4dc8fe55a4ebc55258",
+      "new_summary_runes": 84
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-08_141430-identity-material-self-generation-audit",
+      "source": "feedback/history/apk-analysis/common/2026-05-08_141430-identity-material-self-generation-audit.md",
+      "old_title": "2026-05-08 - Identity material self-generation audit",
+      "new_title": "Extracted — See [`workflow/apk-analysis/execution-flow.md`](../../../../workflow/apk-analysis/execution-flow.md)",
+      "old_summary_sha256": "c42ba920d42e03a92a3feb2d26ab59e1bacff21a7b7209080f2a2df727fb1e2b",
+      "old_summary_runes": 164,
+      "new_summary_sha256": "c42ba920d42e03a92a3feb2d26ab59e1bacff21a7b7209080f2a2df727fb1e2b",
+      "new_summary_runes": 164
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-11_093300-media-prefix-matrix-cdn-stale",
+      "source": "feedback/history/apk-analysis/media-hls/2026-05-11_093300-media-prefix-matrix-cdn-stale.md",
+      "old_title": "2026-05-11 - Media prefix matrix and stale CDN classification",
+      "new_title": "Extracted — See [`analysis/apk/workflows/media-hls-analysis-flow.md`](../../../../analysis/apk/workflows/media-hls-analysis-flow.md)",
+      "old_summary_sha256": "300b8aed5578ed47d557c4735943ecd3ef89b23d8ea1577975cd716ecbbfc2bc",
+      "old_summary_runes": 127,
+      "new_summary_sha256": "300b8aed5578ed47d557c4735943ecd3ef89b23d8ea1577975cd716ecbbfc2bc",
+      "new_summary_runes": 127
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-11_095600-ui-api-top-items-parity",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-11_095600-ui-api-top-items-parity.md",
+      "old_title": "2026-05-11 - UI/API top items parity before API blame",
+      "new_title": "Extracted — See [`analysis/apk/workflows/http-api-documentation-flow.md`](../../../../analysis/apk/workflows/http-api-documentation-flow.md)",
+      "old_summary_sha256": "ca1e3a43f8e601754f6a385edd661e28999d99f6f8822c91fd4505da9018f87c",
+      "old_summary_runes": 155,
+      "new_summary_sha256": "ca1e3a43f8e601754f6a385edd661e28999d99f6f8822c91fd4505da9018f87c",
+      "new_summary_runes": 155
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-11_113100-post-selection-gesture-for-lazy-api",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-11_113100-post-selection-gesture-for-lazy-api.md",
+      "old_title": "2026-05-11 - Post-Selection Gesture for Lazy API",
+      "new_title": "Extracted — See [`analysis/apk/workflows/http-api-documentation-flow.md`](../../../../analysis/apk/workflows/http-api-documentation-flow.md)",
+      "old_summary_sha256": "f51b0b3aa995847886039e84f7b03b136728c7b26fdba293ca14623f648b6925",
+      "old_summary_runes": 81,
+      "new_summary_sha256": "f51b0b3aa995847886039e84f7b03b136728c7b26fdba293ca14623f648b6925",
+      "new_summary_runes": 81
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-11_113200-read-only-argument-override-preserve-app-path",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-11_113200-read-only-argument-override-preserve-app-path.md",
+      "old_title": "2026-05-11 - Read-Only Argument Override Preserve App Path",
+      "new_title": "Extracted — See [`analysis/apk/workflows/http-api-documentation-flow.md`](../../../../analysis/apk/workflows/http-api-documentation-flow.md)",
+      "old_summary_sha256": "49450dd71cea4f25baf429e0b625cb0a774152a8906f81bf325312341d7635c7",
+      "old_summary_runes": 87,
+      "new_summary_sha256": "49450dd71cea4f25baf429e0b625cb0a774152a8906f81bf325312341d7635c7",
+      "new_summary_runes": 87
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-11_125615-per-round-feedback-checkpoint",
+      "source": "feedback/history/apk-analysis/common/2026-05-11_125615-per-round-feedback-checkpoint.md",
+      "old_title": "2026-05-11 - Per-Round Feedback Checkpoint",
+      "new_title": "Extracted — See [`enforcement/feedback-lessons.md`](../../../../enforcement/feedback-lessons.md)",
+      "old_summary_sha256": "6b7be6170d4f3915123f32df97d6c7213f244bce1b799ea11ac3d25ad0029c20",
+      "old_summary_runes": 53,
+      "new_summary_sha256": "6b7be6170d4f3915123f32df97d6c7213f244bce1b799ea11ac3d25ad0029c20",
+      "new_summary_runes": 53
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-11_135000-redacted-sample-targeting-classifier",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-11_135000-redacted-sample-targeting-classifier.md",
+      "old_title": "2026-05-11 - Redacted Sample Targeting Classifier",
+      "new_title": "Extracted — See [`analysis/apk/workflows/http-api-documentation-flow.md`](../../../../analysis/apk/workflows/http-api-documentation-flow.md)",
+      "old_summary_sha256": "c2b539be3e571c4004b9d07ff02a05fe0b1d492e7ff59ce097b83369b0f830a9",
+      "old_summary_runes": 93,
+      "new_summary_sha256": "c2b539be3e571c4004b9d07ff02a05fe0b1d492e7ff59ce097b83369b0f830a9",
+      "new_summary_runes": 93
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-11_135700-articles-first-live-adapter-smoke",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-11_135700-articles-first-live-adapter-smoke.md",
+      "old_title": "2026-05-11 - Articles-First Live Adapter Smoke",
+      "new_title": "Extracted — See [`analysis/apk/workflows/http-api-documentation-flow.md`](../../../../analysis/apk/workflows/http-api-documentation-flow.md)",
+      "old_summary_sha256": "12fdeb698911fb97e1fa2fcf275bde2a8ac948dad2945f456be659ba77c7f0fb",
+      "old_summary_runes": 95,
+      "new_summary_sha256": "12fdeb698911fb97e1fa2fcf275bde2a8ac948dad2945f456be659ba77c7f0fb",
+      "new_summary_runes": 95
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-18_142100-sha256-hash-verify-python-not-shell",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-18_142100-sha256-hash-verify-python-not-shell.md",
+      "old_title": "2026-05-18_142100-sha256-hash-verify-python-not-shell",
+      "new_title": "SHA256 Hash Verification: Use Python Instead of Shell to Avoid Quoting Issues",
+      "old_summary_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "old_summary_runes": 0,
+      "new_summary_sha256": "ce9d4d08a084a69665c3d7c5a4cef07976a7a24b2a28917a72a73d775614bb3a",
+      "new_summary_runes": 205
+    },
+    {
+      "id": "feedback.apk-analysis.2026-05-19_162800-wire-path-vs-signing-canonical-path",
+      "source": "feedback/history/apk-analysis/http-api/2026-05-19_162800-wire-path-vs-signing-canonical-path.md",
+      "old_title": "2026-05-19_162800-wire-path-vs-signing-canonical-path",
+      "new_title": "Wire Path vs Signing Canonical Path",
+      "old_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "old_summary_runes": 43,
+      "new_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "new_summary_runes": 43
+    },
+    {
+      "id": "feedback.apk-analysis.2026-09-09_161500-il2cpp-c2s-protocol-may-be-cli-command-templates-in-metadata",
+      "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-09_161500-il2cpp-c2s-protocol-may-be-cli-command-templates-in-metadata.md",
+      "old_title": "2026-09-09_161500-il2cpp-c2s-protocol-may-be-cli-command-templates-in-metadata",
+      "new_title": "IL2CPP C2S 協定可能是 metadata 字串表裡的 CLI 命令模板",
+      "old_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "old_summary_runes": 43,
+      "new_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "new_summary_runes": 43
+    },
+    {
+      "id": "feedback.apk-analysis.2026-09-09_170600-frida-socket-send-may-be-tls-not-encrypt-data",
+      "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-09_170600-frida-socket-send-may-be-tls-not-encrypt-data.md",
+      "old_title": "2026-09-09_170600-frida-socket-send-may-be-tls-not-encrypt-data",
+      "new_title": "Frida socket `send` 捕獲可能是 TLS record，不是 EncryptData 明文/密文",
+      "old_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "old_summary_runes": 43,
+      "new_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "new_summary_runes": 43
+    },
+    {
+      "id": "feedback.apk-analysis.2026-09-09_172000-c2s-socket-write-may-length-prefix-encrypt-data",
+      "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-09_172000-c2s-socket-write-may-length-prefix-encrypt-data.md",
+      "old_title": "2026-09-09_172000-c2s-socket-write-may-length-prefix-encrypt-data",
+      "new_title": "C2S socket write may length-prefix EncryptData ciphertext",
+      "old_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "old_summary_runes": 43,
+      "new_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "new_summary_runes": 43
+    },
+    {
+      "id": "feedback.apk-analysis.2026-09-10_042103-payline-geometry-spot-verify",
+      "source": "feedback/history/apk-analysis/common/2026-09-10_042103-payline-geometry-spot-verify.md",
+      "old_title": "2026-09-10_042103-payline-geometry-spot-verify",
+      "new_title": "Lesson: Payline geometry — verify paths, do not invent full maps",
+      "old_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "old_summary_runes": 43,
+      "new_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "new_summary_runes": 43
+    },
+    {
+      "id": "feedback.apk-analysis.2026-09-10_084100-session-scoped-c2s-command-synthesis-vs-wire-replay",
+      "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-10_084100-session-scoped-c2s-command-synthesis-vs-wire-replay.md",
+      "old_title": "2026-09-10_084100-session-scoped-c2s-command-synthesis-vs-wire-replay",
+      "new_title": "Session-scoped C2S command synthesis vs wire replay",
+      "old_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "old_summary_runes": 43,
+      "new_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "new_summary_runes": 43
+    },
+    {
+      "id": "feedback.apk-analysis.2026-09-10_141507-bison-lineset-frida-dump",
+      "source": "feedback/history/apk-analysis/common/2026-09-10_141507-bison-lineset-frida-dump.md",
+      "old_title": "2026-09-10_141507-bison-lineset-frida-dump",
+      "new_title": "Bison Bash payline geometry — live GetLineSet dump",
+      "old_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "old_summary_runes": 43,
+      "new_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "new_summary_runes": 43
+    },
+    {
+      "id": "feedback.apk-analysis.2026-09-10_142327-bison-round-jackpot-no-symbols",
+      "source": "feedback/history/apk-analysis/common/2026-09-10_142327-bison-round-jackpot-no-symbols.md",
+      "old_title": "2026-09-10_142327-bison-round-jackpot-no-symbols",
+      "new_title": "Bison Bash ROUND RESULT may be jackpot-only (no Symbols)",
+      "old_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "old_summary_runes": 43,
+      "new_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "new_summary_runes": 43
+    },
+    {
+      "id": "feedback.apk-analysis.2026-09-10_143500-slot-dual-wild-sum-and-desk-round",
+      "source": "feedback/history/apk-analysis/common/2026-09-10_143500-slot-dual-wild-sum-and-desk-round.md",
+      "old_title": "2026-09-10_143500-slot-dual-wild-sum-and-desk-round",
+      "new_title": "Lesson: dual mult-wild sum + desk ROUND without symbols",
+      "old_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "old_summary_runes": 43,
+      "new_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "new_summary_runes": 43
+    },
+    {
+      "id": "feedback.apk-analysis.2026-09-14_101121-compact-xml-attribute-may-have-sibling-overrides",
+      "source": "feedback/history/apk-analysis/unity-il2cpp/2026-09-14_101121-compact-xml-attribute-may-have-sibling-overrides.md",
+      "old_title": "2026-09-14 - Compact XML attribute may have sibling entries",
+      "new_title": "2026-09-14 - Compact XML attribute may have sibling entries",
+      "old_summary_sha256": "527a59f6b812fff59698d594594fe3bab6e5e900014a192c87651091f5808a0c",
+      "old_summary_runes": 53,
+      "new_summary_sha256": "2992cf03c1fdde762926579f70f85d668fa36f8c185a8f273f1b39edde117ba2",
+      "new_summary_runes": 102
+    },
+    {
+      "id": "feedback.development-guidance.2026-05-01_142100-client-encrypted-header-not-boundary",
+      "source": "feedback/history/development-guidance/controls/2026-05-01_142100-client-encrypted-header-not-boundary.md",
+      "old_title": "2026-05-01 - Client Encrypted Header Is Not A Security Boundary",
+      "new_title": "Extracted — See [`analysis/development-guidance/controls-catalog.md`](../../../../analysis/development-guidance/controls-catalog.md)",
+      "old_summary_sha256": "6ab78aed2f563a9f39011c2d160669fdfbdbeeae4be91e06b46e010ed82403b7",
+      "old_summary_runes": 243,
+      "new_summary_sha256": "6ab78aed2f563a9f39011c2d160669fdfbdbeeae4be91e06b46e010ed82403b7",
+      "new_summary_runes": 243
+    },
+    {
+      "id": "feedback.development-guidance.2026-05-05_194400-contract-first-development-flow",
+      "source": "feedback/history/development-guidance/common/2026-05-05_194400-contract-first-development-flow.md",
+      "old_title": "2026-05-05 - Contract-first development flow",
+      "new_title": "Extracted — See [`workflow/software-delivery/development-process.md`](../../../../workflow/software-delivery/development-process.md)",
+      "old_summary_sha256": "13f6c9e323ffad7a1eea5cb55e0494f8285ac8a60fb0157be268ce830f1ff22a",
+      "old_summary_runes": 215,
+      "new_summary_sha256": "13f6c9e323ffad7a1eea5cb55e0494f8285ac8a60fb0157be268ce830f1ff22a",
+      "new_summary_runes": 215
+    },
+    {
+      "id": "feedback.development-guidance.2026-05-05_200500-existing-project-doc-backfill-bdd-required",
+      "source": "feedback/history/development-guidance/common/2026-05-05_200500-existing-project-doc-backfill-bdd-required.md",
+      "old_title": "2026-05-05 - Existing project doc backfill requires complete BDD",
+      "new_title": "Extracted — See [`workflow/software-delivery/development-process.md`](../../../../workflow/software-delivery/development-process.md)",
+      "old_summary_sha256": "5627f186d5b365ea5ef60305a0519bb4e911d52b2466ad85e040e6bceb5f8e1c",
+      "old_summary_runes": 233,
+      "new_summary_sha256": "5627f186d5b365ea5ef60305a0519bb4e911d52b2466ad85e040e6bceb5f8e1c",
+      "new_summary_runes": 233
+    },
+    {
+      "id": "feedback.development-guidance.2026-05-05_201000-missing-requirements-block-development",
+      "source": "feedback/history/development-guidance/common/2026-05-05_201000-missing-requirements-block-development.md",
+      "old_title": "2026-05-05 - Missing requirements block development",
+      "new_title": "Extracted — See [`workflow/software-delivery/development-process.md`](../../../../workflow/software-delivery/development-process.md)",
+      "old_summary_sha256": "9e951e2b297ff31312e9a30764144c1392d155dd283cfcb02452ea2a4b30bb51",
+      "old_summary_runes": 165,
+      "new_summary_sha256": "9e951e2b297ff31312e9a30764144c1392d155dd283cfcb02452ea2a4b30bb51",
+      "new_summary_runes": 165
+    },
+    {
+      "id": "feedback.development-guidance.2026-05-06_081600-change-intake-before-code",
+      "source": "feedback/history/development-guidance/common/2026-05-06_081600-change-intake-before-code.md",
+      "old_title": "2026-05-06 - Change intake before code",
+      "new_title": "Extracted — See [`workflow/software-delivery/development-process.md`](../../../../workflow/software-delivery/development-process.md)",
+      "old_summary_sha256": "f723c1eae75386a73f2d8a6045f2473a67f9e0dea37fac2d34bbd95b4088af7f",
+      "old_summary_runes": 201,
+      "new_summary_sha256": "f723c1eae75386a73f2d8a6045f2473a67f9e0dea37fac2d34bbd95b4088af7f",
+      "new_summary_runes": 201
+    },
+    {
+      "id": "feedback.development-guidance.2026-05-06_082000-separate-regression-from-new-code-validation",
+      "source": "feedback/history/development-guidance/common/2026-05-06_082000-separate-regression-from-new-code-validation.md",
+      "old_title": "2026-05-06 - Separate regression from new code validation",
+      "new_title": "Extracted — See [`workflow/software-delivery/development-process.md`](../../../../workflow/software-delivery/development-process.md)",
+      "old_summary_sha256": "5095b110c10014d05bf258cb3d54a97d1cf220b5edab6066168fb6ba94715e39",
+      "old_summary_runes": 157,
+      "new_summary_sha256": "5095b110c10014d05bf258cb3d54a97d1cf220b5edab6066168fb6ba94715e39",
+      "new_summary_runes": 157
+    },
+    {
+      "id": "feedback.development-guidance.2026-05-06_083000-embedded-hardware-product-flow",
+      "source": "feedback/history/development-guidance/common/2026-05-06_083000-embedded-hardware-product-flow.md",
+      "old_title": "2026-05-06_083000-embedded-hardware-product-flow",
+      "new_title": "Embedded hardware product flow belongs in app development guidance",
+      "old_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "old_summary_runes": 43,
+      "new_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "new_summary_runes": 43
+    },
+    {
+      "id": "feedback.development-guidance.2026-05-06_083200-implemented-first-contract-governance",
+      "source": "feedback/history/development-guidance/common/2026-05-06_083200-implemented-first-contract-governance.md",
+      "old_title": "2026-05-06_083200-implemented-first-contract-governance",
+      "new_title": "Implemented-first projects need contract governance and BDD closure",
+      "old_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "old_summary_runes": 43,
+      "new_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "new_summary_runes": 43
+    },
+    {
+      "id": "feedback.development-guidance.2026-05-06_103200-product-brief-validation-gate",
+      "source": "feedback/history/development-guidance/common/2026-05-06_103200-product-brief-validation-gate.md",
+      "old_title": "2026-05-06 - Product Brief validation gate",
+      "new_title": "Extracted — See [`workflow/software-delivery/development-process.md`](../../../../workflow/software-delivery/development-process.md)",
+      "old_summary_sha256": "4f334c703d554a1cf2a2e69965d816ad0a74ecf7231532c35c53f466de4bc627",
+      "old_summary_runes": 177,
+      "new_summary_sha256": "4f334c703d554a1cf2a2e69965d816ad0a74ecf7231532c35c53f466de4bc627",
+      "new_summary_runes": 177
+    },
+    {
+      "id": "feedback.development-guidance.2026-05-06_150000-same-session-doc-sync-after-code-fix",
+      "source": "feedback/history/development-guidance/common/2026-05-06_150000-same-session-doc-sync-after-code-fix.md",
+      "old_title": "2026-05-06_150000-same-session-doc-sync-after-code-fix",
+      "new_title": "Same-session doc/BDD sync after code fixes",
+      "old_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "old_summary_runes": 43,
+      "new_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "new_summary_runes": 43
+    },
+    {
+      "id": "feedback.development-guidance.2026-05-07_081800-keep-project-incidents-out-of-skills",
+      "source": "feedback/history/development-guidance/common/2026-05-07_081800-keep-project-incidents-out-of-skills.md",
+      "old_title": "2026-05-07 - Keep Project Incidents Out Of Skills",
+      "new_title": "Extracted — See [`enforcement/reusable-guidance-boundary.md`](../../../../enforcement/reusable-guidance-boundary.md)",
+      "old_summary_sha256": "7ba077705bd053b3f7026c9930e7e48f9a7168843c132917e746809e86abe9e4",
+      "old_summary_runes": 147,
+      "new_summary_sha256": "7ba077705bd053b3f7026c9930e7e48f9a7168843c132917e746809e86abe9e4",
+      "new_summary_runes": 147
+    },
+    {
+      "id": "feedback.development-guidance.2026-05-07_122800-performance-test-release-gate",
+      "source": "feedback/history/development-guidance/common/2026-05-07_122800-performance-test-release-gate.md",
+      "old_title": "2026-05-07 - Performance Test Release Gate",
+      "new_title": "Extracted — See [`workflow/software-delivery/execution-flow.md`](../../../../workflow/software-delivery/execution-flow.md)",
+      "old_summary_sha256": "d84e8867851a7a8410caf61a33f80ab0690f9af01cd2d909608c4b51e4959b14",
+      "old_summary_runes": 39,
+      "new_summary_sha256": "d84e8867851a7a8410caf61a33f80ab0690f9af01cd2d909608c4b51e4959b14",
+      "new_summary_runes": 39
+    },
+    {
+      "id": "feedback.development-guidance.2026-05-07_152100-private-live-adapter-smoke-gate",
+      "source": "feedback/history/development-guidance/common/2026-05-07_152100-private-live-adapter-smoke-gate.md",
+      "old_title": "2026-05-07 - Private Live Adapter Smoke Gate",
+      "new_title": "Extracted — See [`workflow/software-delivery/execution-flow.md`](../../../../workflow/software-delivery/execution-flow.md)",
+      "old_summary_sha256": "91ee4e568162f9934ec477f621cd97637c1f81bf0fadc1e4cf8c91633b7e174f",
+      "old_summary_runes": 197,
+      "new_summary_sha256": "91ee4e568162f9934ec477f621cd97637c1f81bf0fadc1e4cf8c91633b7e174f",
+      "new_summary_runes": 197
+    },
+    {
+      "id": "feedback.development-guidance.2026-05-07_153600-schema-derived-synthetic-fixtures",
+      "source": "feedback/history/development-guidance/common/2026-05-07_153600-schema-derived-synthetic-fixtures.md",
+      "old_title": "2026-05-07 - Schema-Derived Synthetic Fixtures",
+      "new_title": "Extracted — See [`workflow/software-delivery/execution-flow.md`](../../../../workflow/software-delivery/execution-flow.md)",
+      "old_summary_sha256": "0da1ed03823af4397ffb6cafb1de9b11f4aa352a04e85dc3dd21260f24d0bc11",
+      "old_summary_runes": 174,
+      "new_summary_sha256": "0da1ed03823af4397ffb6cafb1de9b11f4aa352a04e85dc3dd21260f24d0bc11",
+      "new_summary_runes": 174
+    },
+    {
+      "id": "feedback.development-guidance.2026-05-07_154400-analysis-sdk-contract-drift-gate",
+      "source": "feedback/history/development-guidance/common/2026-05-07_154400-analysis-sdk-contract-drift-gate.md",
+      "old_title": "2026-05-07 - Analysis-To-SDK Contract Drift Gate",
+      "new_title": "Extracted — See [`workflow/software-delivery/execution-flow.md`](../../../../workflow/software-delivery/execution-flow.md)",
+      "old_summary_sha256": "4692c86c446d082272a8d2984df2d990a8af0245752a1977509c4a329f7a3871",
+      "old_summary_runes": 189,
+      "new_summary_sha256": "4692c86c446d082272a8d2984df2d990a8af0245752a1977509c4a329f7a3871",
+      "new_summary_runes": 189
+    },
+    {
+      "id": "feedback.development-guidance.2026-05-07_160200-media-metadata-private-decrypt-boundary",
+      "source": "feedback/history/development-guidance/common/2026-05-07_160200-media-metadata-private-decrypt-boundary.md",
+      "old_title": "2026-05-07 - Media Metadata Private Decrypt Boundary",
+      "new_title": "Extracted — See [`workflow/software-delivery/execution-flow.md`](../../../../workflow/software-delivery/execution-flow.md)",
+      "old_summary_sha256": "66be53f770474efe01ab3143bb383b1a2da495f8b742a149d9223771d4ea7654",
+      "old_summary_runes": 222,
+      "new_summary_sha256": "66be53f770474efe01ab3143bb383b1a2da495f8b742a149d9223771d4ea7654",
+      "new_summary_runes": 222
+    },
+    {
+      "id": "feedback.development-guidance.2026-05-11_093100-public-mirror-drift-gate",
+      "source": "feedback/history/development-guidance/common/2026-05-11_093100-public-mirror-drift-gate.md",
+      "old_title": "2026-05-11 - Public mirror drift gate",
+      "new_title": "Extracted — See [`workflow/software-delivery/execution-flow.md`](../../../../workflow/software-delivery/execution-flow.md)",
+      "old_summary_sha256": "d1d4613087afee727e2b3624121c432e67c4b4fd5ddf58eb16c10a4542415dcf",
+      "old_summary_runes": 154,
+      "new_summary_sha256": "d1d4613087afee727e2b3624121c432e67c4b4fd5ddf58eb16c10a4542415dcf",
+      "new_summary_runes": 154
+    },
+    {
+      "id": "feedback.development-guidance.2026-05-11_093200-session-login-concurrency-matrix",
+      "source": "feedback/history/development-guidance/common/2026-05-11_093200-session-login-concurrency-matrix.md",
+      "old_title": "2026-05-11 - Session login concurrency matrix",
+      "new_title": "Extracted — See [`workflow/software-delivery/execution-flow.md`](../../../../workflow/software-delivery/execution-flow.md)",
+      "old_summary_sha256": "29b360707a5546e3823df0481caad6e6d4c3290b9e6ac9138fb1bbab9cf955c6",
+      "old_summary_runes": 142,
+      "new_summary_sha256": "29b360707a5546e3823df0481caad6e6d4c3290b9e6ac9138fb1bbab9cf955c6",
+      "new_summary_runes": 142
+    },
+    {
+      "id": "feedback.development-guidance.2026-05-12_013400-private-adapter-inside-test-module",
+      "source": "feedback/history/development-guidance/common/2026-05-12_013400-private-adapter-inside-test-module.md",
+      "old_title": "2026-05-12 - Private Adapter Inside Test Module",
+      "new_title": "Extracted — See [`workflow/software-delivery/execution-flow.md`](../../../../workflow/software-delivery/execution-flow.md)",
+      "old_summary_sha256": "de86521a28b0da3d906008a57e32fe22dc32a1bb0b6e4f337cf59faccbeb1d41",
+      "old_summary_runes": 128,
+      "new_summary_sha256": "de86521a28b0da3d906008a57e32fe22dc32a1bb0b6e4f337cf59faccbeb1d41",
+      "new_summary_runes": 128
+    },
+    {
+      "id": "feedback.development-guidance.2026-05-12_043500-dart-io-httpclient-bypasses-java-frida-hooks",
+      "source": "feedback/history/development-guidance/common/2026-05-12_043500-dart-io-httpclient-bypasses-java-frida-hooks.md",
+      "old_title": "2026-05-12 - Dart `dart:io` HttpClient Bypasses Java-Level Frida Hooks",
+      "new_title": "Extracted — See [`workflow/software-delivery/execution-flow.md`](../../../../workflow/software-delivery/execution-flow.md)",
+      "old_summary_sha256": "26f31dc6832b576ab9c133e84bd9dd2058b28d1dace330891bba8a52b84fa000",
+      "old_summary_runes": 232,
+      "new_summary_sha256": "26f31dc6832b576ab9c133e84bd9dd2058b28d1dace330891bba8a52b84fa000",
+      "new_summary_runes": 232
+    },
+    {
+      "id": "feedback.development-guidance.2026-05-18_141900-json-substring-matching-numeric-trap",
+      "source": "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md",
+      "old_title": "2026-05-18_141900-json-substring-matching-numeric-trap",
+      "new_title": "JSON Substring Matching Trap in API Response Validation",
+      "old_summary_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "old_summary_runes": 0,
+      "new_summary_sha256": "47119dc0a65a221aa870a2418c18950cffef02e2f6d0f816c931ecd552ea9957",
+      "new_summary_runes": 244
+    },
+    {
+      "id": "feedback.development-guidance.2026-05-27_154500-ai-codegen-validation-rate-parity",
+      "source": "feedback/history/development-guidance/common/2026-05-27_154500-ai-codegen-validation-rate-parity.md",
+      "old_title": "2026-05-27_154500-ai-codegen-validation-rate-parity",
+      "new_title": "AI Codegen Validation Rate Parity（外部素材沉澱：AI 寫程式爆量但 Perf Test 跟不上）",
+      "old_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "old_summary_runes": 43,
+      "new_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "new_summary_runes": 43
+    },
+    {
+      "id": "feedback.development-guidance.2026-09-15_110000-multi-seat-s2c-must-not-assume-fixed-row-glass",
+      "source": "feedback/history/development-guidance/common/2026-09-15_110000-multi-seat-s2c-must-not-assume-fixed-row-glass.md",
+      "old_title": "2026-09-15_110000-multi-seat-s2c-must-not-assume-fixed-row-glass",
+      "new_title": "Multi-seat S2C must not assume fixed-row glass",
+      "old_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "old_summary_runes": 43,
+      "new_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "new_summary_runes": 43
+    },
+    {
+      "id": "feedback.development-guidance.2026-09-15_112000-wire-rewards-parse-collapse-richest-block",
+      "source": "feedback/history/development-guidance/common/2026-09-15_112000-wire-rewards-parse-collapse-richest-block.md",
+      "old_title": "2026-09-15_112000-wire-rewards-parse-collapse-richest-block",
+      "new_title": "Wire REWARDS: parse Collapse from richest block only",
+      "old_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "old_summary_runes": 43,
+      "new_summary_sha256": "19e801c38bf79dd05e53055524f0906714545294ceece5e5e02465610076aadd",
+      "new_summary_runes": 43
+    },
+    {
+      "id": "feedback.development-guidance.2026-10-07_125417-native-model-load-known-case-first",
+      "source": "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md",
+      "old_title": "Applies When",
+      "new_title": "原生模型載入失敗先比對既有案例",
+      "old_summary_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "old_summary_runes": 0,
+      "new_summary_sha256": "8c38e509d737445df558d61831d9b7dc9555be625f7e2270b3bd65792c685f1a",
+      "new_summary_runes": 47
+    },
+    {
+      "id": "feedback.narrative-video-production.2026-10-08_113000-honorific-surface-not-established-name",
+      "source": "feedback/history/narrative-video-production/common/2026-10-08_113000-honorific-surface-not-established-name.md",
+      "old_title": "2026-10-08 - Honorific address surface is not an established person name",
+      "new_title": "2026-10-08 - Honorific address surface is not an established person name",
+      "old_summary_sha256": "58a8c2d10a849db75559097ed0e97768a861ca4cc491994b7de738cac9ae8029",
+      "old_summary_runes": 41,
+      "new_summary_sha256": "31136e2d0ec2a400d4f0483e0305d17bd60397826463136ca274856c020bd9c0",
+      "new_summary_runes": 80
+    },
+    {
+      "id": "feedback.narrative-video-production.2026-10-08_113100-mt-name-candidates-need-independent-accept",
+      "source": "feedback/history/narrative-video-production/common/2026-10-08_113100-mt-name-candidates-need-independent-accept.md",
+      "old_title": "2026-10-08 - MT name forms are candidates until independent accept",
+      "new_title": "2026-10-08 - MT name forms are candidates until independent accept",
+      "old_summary_sha256": "5929f1c81278a712c0d66dcc29a4aef37e60e7d93149cffd734c1bae0eda3724",
+      "old_summary_runes": 45,
+      "new_summary_sha256": "4678fa15153098c6d4175ab2c9714fc5bb6820202e61038ba0f358841c48b433",
+      "new_summary_runes": 93
+    },
+    {
+      "id": "feedback.narrative-video-production.2026-10-08_133500-near-name-not-honorific-identity",
+      "source": "feedback/history/narrative-video-production/common/2026-10-08_133500-near-name-not-honorific-identity.md",
+      "old_title": "2026-10-08 - Nearby personal-name tokens do not close honorific identity",
+      "new_title": "2026-10-08 - Nearby personal-name tokens do not close honorific identity",
+      "old_summary_sha256": "5b89df681bd2a925ac41b87c5ec4187576de0e2f472106fc9b6ec247eb7876f0",
+      "old_summary_runes": 37,
+      "new_summary_sha256": "a9c1c0ef871a97e0f2a840275257d030d6b8a3bfbcbf1061b06d72c6fa5aa63b",
+      "new_summary_runes": 64
+    },
+    {
+      "id": "feedback.narrative-video-production.2026-10-08_140500-divorce-marry-polarity-invert",
+      "source": "feedback/history/narrative-video-production/common/2026-10-08_140500-divorce-marry-polarity-invert.md",
+      "old_title": "2026-10-08 - Divorce/marry polarity can invert under locale MT",
+      "new_title": "2026-10-08 - Divorce/marry polarity can invert under locale MT",
+      "old_summary_sha256": "8c6f72e01de120d1e855220d45cbf00083ad4989445dbe1ab8bfbe582a15b2f8",
+      "old_summary_runes": 39,
+      "new_summary_sha256": "01e22c7a86aa7f7ea27d3ca348829337fa37d26c926a9897a6e30d313452fb01",
+      "new_summary_runes": 82
+    },
+    {
+      "id": "feedback.narrative-video-production.2026-10-13_133000-selection-scaffolding-must-not-become-dst",
+      "source": "feedback/history/narrative-video-production/common/2026-10-13_133000-selection-scaffolding-must-not-become-dst.md",
+      "old_title": "2026-10-13 - Selection scaffolding must not become destination text",
+      "new_title": "2026-10-13 - Selection scaffolding must not become destination text",
+      "old_summary_sha256": "cd46113bf024dddbbb16baf2ed39e070006b8dc4c07a65da8f3cdfae743b0103",
+      "old_summary_runes": 51,
+      "new_summary_sha256": "151d6280d65fa7b9e9ac3d33b6572090e73384d68821997c2c85f93f57d3549a",
+      "new_summary_runes": 86
+    },
+    {
+      "id": "feedback.narrative-video-production.2026-10-13_133100-residue-admit-order-and-projection-alignment",
+      "source": "feedback/history/narrative-video-production/common/2026-10-13_133100-residue-admit-order-and-projection-alignment.md",
+      "old_title": "2026-10-13 - Residue admit order and projection alignment",
+      "new_title": "2026-10-13 - Residue admit order and projection alignment",
+      "old_summary_sha256": "ca680111c2e64ce75c8bdff3511356ca7b81d73d200ec01013946edd33d227b9",
+      "old_summary_runes": 44,
+      "new_summary_sha256": "88cbf158d3a0b6722ed7767861b1bdb4e38b47fa9bcda73accf3cce8eff0dc39",
+      "new_summary_runes": 88
+    },
+    {
+      "id": "feedback.narrative-video-production.2026-10-14_084000-empty-unresolved-must-survive-ass-export",
+      "source": "feedback/history/narrative-video-production/common/2026-10-14_084000-empty-unresolved-must-survive-ass-export.md",
+      "old_title": "2026-10-14 - Empty unresolved must survive ASS export",
+      "new_title": "2026-10-14 - Empty unresolved must survive ASS export",
+      "old_summary_sha256": "a57e957c590d5196bee10acfb5fe61e6d125179ed9f0af25beb475e400722ae3",
+      "old_summary_runes": 52,
+      "new_summary_sha256": "054a011dd50c56660bb77ddc4f29ed3b83b5591b96910b3a747785e41be245c8",
+      "new_summary_runes": 95
+    },
+    {
+      "id": "feedback.narrative-video-production.2026-10-14_123700-fil-phrase-polarity-not-script-gate",
+      "source": "feedback/history/narrative-video-production/common/2026-10-14_123700-fil-phrase-polarity-not-script-gate.md",
+      "old_title": "2026-10-14 - FIL filler／state polarity is not a script gate",
+      "new_title": "2026-10-14 - FIL filler／state polarity is not a script gate",
+      "old_summary_sha256": "267c2f4ce46eeec19918b20a5267e95a6d61b753e4e487514c8409968a5b70a9",
+      "old_summary_runes": 64,
+      "new_summary_sha256": "ffcca422330fd60995a99264fdf198d1f1876984f7df92086b10551f933ce34b",
+      "new_summary_runes": 130
+    },
+    {
+      "id": "feedback.roo-code.2026-05-13_054300-language-preference-author-habit-drift",
+      "source": "feedback/history/roo-code/2026-05-13_054300-language-preference-author-habit-drift.md",
+      "old_title": "2026-05-13_054300-language-preference-author-habit-drift",
+      "new_title": "語言偏好漂移（作者習慣型）",
+      "old_summary_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "old_summary_runes": 0,
+      "new_summary_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "new_summary_runes": 0
+    },
+    {
+      "id": "feedback.roo-code.2026-05-13_054400-framework-dependency-bias-ide-classification",
+      "source": "feedback/history/roo-code/2026-05-13_054400-framework-dependency-bias-ide-classification.md",
+      "old_title": "為什麼會犯這個錯",
+      "new_title": "框架依賴偏誤：ide/ 錯誤放在 engineering/ 下",
+      "old_summary_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "old_summary_runes": 0,
+      "new_summary_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "new_summary_runes": 0
+    },
+    {
+      "id": "feedback.roo-code.2026-05-13_124800-language-preference-drift",
+      "source": "feedback/history/roo-code/2026-05-13_124800-language-preference-drift.md",
+      "old_title": "2026-05-13_124800-language-preference-drift",
+      "new_title": "Language Preference Drift（語言偏好漂移）",
+      "old_summary_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "old_summary_runes": 0,
+      "new_summary_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "new_summary_runes": 0
+    },
+    {
+      "id": "feedback.roo-code.2026-05-14_013400-commit-before-step10-validation-skip",
+      "source": "feedback/history/roo-code/2026-05-14_013400-commit-before-step10-validation-skip.md",
+      "old_title": "2026-05-14_013400-commit-before-step10-validation-skip",
+      "new_title": "Commit/Push Before Writeback Transaction Close（commit/push 前跳過 Ai-skill Writeback Transaction 關閉）",
+      "old_summary_sha256": "847826c9a0f4988701368eb565757fe4f5536f9829df5b107084a84f0e7b5440",
+      "old_summary_runes": 217,
+      "new_summary_sha256": "847826c9a0f4988701368eb565757fe4f5536f9829df5b107084a84f0e7b5440",
+      "new_summary_runes": 217
+    },
+    {
+      "id": "feedback.roo-code.2026-05-25_145500-bootstrap-bypass-on-resume",
+      "source": "feedback/history/roo-code/2026-05-25_145500-bootstrap-bypass-on-resume.md",
+      "old_title": "2026-05-25_145500-bootstrap-bypass-on-resume",
+      "new_title": "Bootstrap Bypass on Resume（Resume session 跳過 runtime/governance bootstrap）",
+      "old_summary_sha256": "58bd47538dee02b8df9b4ccc8f16e4273fcc26a91c7df65831248d30ed57fbd2",
+      "old_summary_runes": 305,
+      "new_summary_sha256": "58bd47538dee02b8df9b4ccc8f16e4273fcc26a91c7df65831248d30ed57fbd2",
+      "new_summary_runes": 305
+    },
+    {
+      "id": "feedback.travel-planning.2026-05-19_hotel-availability-check-workflow",
+      "source": "feedback/history/travel-planning/common/2026-05-19_hotel-availability-check-workflow.md",
+      "old_title": "2026-05-19 - 查詢飯店空房的工具優先順序與限制",
+      "new_title": "Hotel Availability Check Workflow",
+      "old_summary_sha256": "880aa5054ef5d548171b8b972214a160cbef7427b3cd6d52150743993dabd477",
+      "old_summary_runes": 77,
+      "new_summary_sha256": "880aa5054ef5d548171b8b972214a160cbef7427b3cd6d52150743993dabd477",
+      "new_summary_runes": 77
+    },
+    {
+      "id": "feedback.travel-planning.2026-05-21_mapcode-granularity-and-lookup-workflow",
+      "source": "feedback/history/travel-planning/common/2026-05-21_mapcode-granularity-and-lookup-workflow.md",
+      "old_title": "2026-05-21 - 日本自駕行程 mapcode 粒度規則與查詢工具鏈",
+      "new_title": "Mapcode Granularity and Lookup Workflow",
+      "old_summary_sha256": "49d031304519534560947ef3fd58446b42ce88de121821e2518d6c1c2af6c07f",
+      "old_summary_runes": 109,
+      "new_summary_sha256": "49d031304519534560947ef3fd58446b42ce88de121821e2518d6c1c2af6c07f",
+      "new_summary_runes": 109
+    }
+  ],
+  "summary_representation": "SHA-256 and rune lengths; read canonical source at fixed corpus for summary text, avoiding a duplicate knowledge body."
+}

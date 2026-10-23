@@ -10,7 +10,7 @@ owner_layer: knowledge
 
 # 既有知識檢索與 Workflow 採用閉環強化
 
-**Status**: `in-progress`。Phase 0 盤點完成，證據見 [phase0-inventory.md](evidence/phase0-inventory.md)；Phase 1 已按「歷史 lesson 檢索基準」縮限核對通過；原完整範圍的剩餘責任見下表。Phase 2 前執行控制見 [phase2-execution-contract.md](evidence/phase2-execution-contract.md)；Q / E / QE 增益實驗尚未開始。Production 搜尋與採用鏈尚未實作。
+**Status**: `in-progress`。Phase 0 盤點完成，證據見 [phase0-inventory.md](evidence/phase0-inventory.md)；Phase 1 已按「歷史 lesson 檢索基準」縮限核對通過；原完整範圍的剩餘責任見下表。Phase 2 前執行控制見 [phase2-execution-contract.md](evidence/phase2-execution-contract.md)；Q / E / QE v1 對照已完成，候選因 confuser 與成本 gate 失敗，見 [實驗報告](evidence/phase2-v1-ablation.md)；未採用到 production。Production 搜尋與採用鏈尚未實作。
 
 目標：讓既有 intelligence、決策與失敗經驗更穩定地被找到，經來源與適用性確認後支援 workflow。先改善現有能力，再用漏找證據決定是否加入向量搜尋與 reranking。
 
@@ -18,7 +18,7 @@ owner_layer: knowledge
 
 ### Problem & Why Now
 
-知識能累積不等於執行時能找回。現有 Discovery Bridge 推薦 route，與 workflow 執行中的經驗查找責任不同；只補 detector miss path，無法覆蓋「workflow 已命中但 intelligence 沒找到」。目前尚無本計畫的實測基準，不能宣稱已有顯著漏找或預估改善幅度。
+知識能累積不等於執行時能找回。現有 Discovery Bridge 推薦 route，與 workflow 執行中的經驗查找責任不同；只補 detector miss path，無法覆蓋「workflow 已命中但 intelligence 沒找到」。固定歷史 lesson 重播基準已建立：診斷命中 1/14、固定比較正例 0/4；這只界定已量測案例的漏找，尚不能外推一般檢索品質或預估改善幅度。
 
 撰寫時已核對的現況（不是 benchmark 結果）：
 
@@ -144,7 +144,9 @@ Phase 1 審核補充（2026-10-24）：[phase1-audit.md](evidence/phase1-audit.m
 
 ## Phase 2 — 補既有全文搜尋、metadata 與關聯查找
 
-- [ ] 依 [執行控制契約](evidence/phase2-execution-contract.md) 先跑固定 corpus 的 B0 / query-only / extraction-only / combined 對照：顯式 query binary 路徑 / SHA、index manifest、generator revision / source SHA、index inputs / corpus SHA；四組配對 validator 必須通過，逐題記錄增益與成本；新增正文另組實驗，不混入 extraction-only。對照組與資料獨立性規則見 Phase 1 審核包。
+v1 結果：B0 / Q / E / QE 診斷命中 1 / 13 / 3 / 14（各 /14）；Q / QE overlap confuser 均 6/6、preview 超額，故候選未採用且 Phase 2 gate 未通過。逐題產物與審閱待辦見 [phase2-v1-ablation.md](evidence/phase2-v1-ablation.md)。下一步先設計有界 query / context 候選，保留 v1 證據與原門檻，不導入 vector。
+
+- [x] 依 [執行控制契約](evidence/phase2-execution-contract.md) 先跑固定 corpus 的 B0 / query-only / extraction-only / combined 對照：顯式 query binary 路徑 / SHA、index manifest、generator revision / source SHA、index inputs / corpus SHA；四組配對 validator 必須通過，逐題記錄增益與成本；新增正文另組實驗，不混入 extraction-only。對照組與資料獨立性規則見 Phase 1 審核包。
 - [ ] 以另版 [overlap-controls-v1.json](evidence/overlap-controls-v1.json) 約束查詢放寬：已標 confuser 命中 0；Q / E / QE 相對 B0 的新增診斷候選與未標註 overlap 候選逐筆覆核，未審閱 / unknown 未結清不得通過，不以 8/14 單獨證明有用。
 - [ ] 依 Phase 1 原因補索引覆蓋與查詢處理，保留精確識別字搜尋；正文擴充只涵蓋選定 workflow、intelligence、決策與整理後知識，不預設索引所有 raw evidence。
 - [ ] 若需 chunk，保留 stable source identity、section anchor、source revision / checksum；重複命中按來源合併，避免一篇文件占滿 top-k。

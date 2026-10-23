@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "corpus_revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+  "generator_revision": "830f58fc66336652d62707adcb44267cca2414bd",
+  "generator_module_source_sha256": "b9b69602bd6391b01dfcb8b11b2a7d1033bc086dcba445578dd4889baaf70ae2",
+  "corpus_sources_sha256": "14b9b6c3a2b557b3a1d4e1b12cae02ce9c235fd0764a1a81e202bc7496a4b129",
+  "generator_inputs_sha256": "1d90cdd1c8b8c8b6b25908d1fadc8c3f42b5beb94e89725fcada69cdd99d3390",
+  "index_sha256": "b4c2e248e004522fbcf549a505f5986dde98772b00ee81f4451722bef1d473da"
+}
