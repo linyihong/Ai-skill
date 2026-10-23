@@ -1,4 +1,4 @@
-version=repo-5ba63733
-source_commit=5ba63733
-built_at=2026-10-14T00:21:32Z
+version=repo-b7d8b88a
+source_commit=b7d8b88aabfc844461452bc8f0e3169c62bd323b
+built_at=2026-10-23T04:53:31Z
 targets=windows/amd64,darwin/amd64,darwin/arm64,linux/amd64,linux/arm64
