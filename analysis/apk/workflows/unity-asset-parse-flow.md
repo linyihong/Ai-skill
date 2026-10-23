@@ -22,6 +22,18 @@
 
 **預設不要**為了「看粒子」先開 AssetStudio。先 UnityPy 確認 bundle 內有 `ParticleSystem` + material／texture 名；若要進 Editor 重播再跑 AssetRipper。
 
+## Seated §3e batch（裝置已進桌時）
+
+當使用者要補 interface／疊層分析、且手機**已經 seated**时：
+
+1. **先進桌線**：screencap → 遮罩金額 → pull `__data` → UnityPy inventory + ParticleSystem dump → L0–Ln resource map + layer HTML。
+2. **入場線可 stub**：標 `not-captured-this-session`；只連 shared choose-category chrome + lobby tile；**不要**把進桌背景當 splash hero。
+3. **線獎 material**：先讀 feature pack 的 `*_line_payout*`／`coins_fx` materials；可能是 cabinet-prefixed，勿假設只有 shared common 貼圖名。
+4. **成熟度**：停輪只有參數 → `params-from-bundle`；未見播映勿標 `live-matched`。
+5. **分段 commit／push**：業務 docs 一段；可重用技巧另 commit 到 feedback／本 workflow。
+
+Lesson：[`../../feedback/history/apk-analysis/unity-il2cpp/2026-10-23_102500-slot-iface-analysis-seated-unitypy-batch-and-commit-cadence.md`](../../feedback/history/apk-analysis/unity-il2cpp/2026-10-23_102500-slot-iface-analysis-seated-unitypy-batch-and-commit-cadence.md)。
+
 ## 步驟
 
 ### 1. 取得 `__data`
