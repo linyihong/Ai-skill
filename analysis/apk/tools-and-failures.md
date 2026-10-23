@@ -39,8 +39,14 @@
 
 功能頁已打開、目標是 2D 美術落地時，優先 cache dump，不要只掃安裝 APK。Lesson：[`unity-feature-art-lives-in-unitycache-not-apk`](../../feedback/history/apk-analysis/unity-il2cpp/2026-09-07_143800-unity-feature-art-lives-in-unitycache-not-apk.md)。
 
+**粒子／Prefab 解析步驟：** [`workflows/unity-asset-parse-flow.md`](workflows/unity-asset-parse-flow.md)（UnityPy 預設 → AssetRipper 進 Editor → AssetStudio 瀏覽貼圖 → Il2CppDumper 只助 Frida）。
+
 | 工具 / 路徑 | 用途 | 注意 |
 | --- | --- | --- |
+| **UnityPy**（預設） | `__data`／`.unity3d`：Texture2D／Sprite PNG；**可讀 `ParticleSystem` 各 Module** + `ParticleSystemRenderer` materials；object counts。 | 分析與參數表首選。Component 常無 `m_Name`——經 `m_GameObject` 取 host。不產出可直接開 Unity 的 Prefab YAML。 |
+| **AssetRipper** | 把 bundle 拆成可匯入的 Prefab／Material／ParticleSystem／Texture。 | **要 Editor 重播粒子時用**；Unity 版本與腳本 stub 可能需對齊。可重播 ≠ 已接 spin／線獎狀態機。 |
+| **AssetStudio** | 快速瀏覽／匯出 Texture、Mesh、Audio。 | **弱於粒子模組保真**；勿當 ParticleSystem source of truth。 |
+| **Il2CppDumper** | `dump.cs`／方法與型別名，供 Frida。 | **不匯出** ParticleSystem 或貼圖；宣稱「Dumper 還原粒子」是錯工具。 |
 | APK 內 `.unity3d` + UnityPy | core chrome、localization、engine 資源。 | 常沒有單一「功能總包」；物件名過濾 ≠ 畫面上每一張圖。 |
 | `Android/data/<pkg>/files/UnityCache/Shared/<bundle>/<hash>/__data` | 執行期下載的 AssetBundle 本體。 | `__info` 很小；`__data` 通常可直接 `UnityPy.load`。目錄名對 UI 標題；缺的標題標 `not-yet-cached`。完整 dump 放 gitignored 目錄。 |
 | 精選 `docs/assets/<topic>/` + 相對路徑 HTML | clone 後仍看得到的符號／美術對照圖。 | **只**複製 HTML 真正引用的檔；禁止 `file://` 指到 gitignored dump。全文 dump 仍 gitignore。 |
@@ -75,6 +81,7 @@
 | Handle 有 PixelSize／Name，但 runtime atlas 匯出 empty 或整頁 | `valid=false`、Pointer null、UV unit rect 的半載入狀態；或誤把 Icons-font 同義 glyph／imgcache MSE 當 source。 | Export gate 未過就停；標 `screen-isolated`；字形要做 cmap／glyph 比對。見 `uiatlasrect-valid-false-…` lesson。 |
 | Splash 中央插畫拆成多個 O-id 卻全是假陽性 PNG | `preview_texture` 是合成預覽；視覺層沒有獨立 SpriteName。 | Plane 分類 + rejectedFalsePositives；screen band 只做 visibility。見 `choose-category-preview-texture-…` lesson。 |
 | 用 lobby／splash 圖「還原」進桌 reel，或把 layer-stack 色塊當可匯出分層 PNG | 三平面混用；進桌是 ID→prefab 動畫棧。 | 分 lobby／splash／in-cabinet；進桌列 Spine／Animator／Particle。見 `slot-three-visual-planes-…` lesson。 |
+| 想還原線獎／飛幣粒子，卻先開 Il2CppDumper 或只匯 AssetStudio 貼圖 | 錯工具／停在 `texture-only`。 | UnityCache `__data` → UnityPy 讀 ParticleSystem modules + materials；要 Editor 重播再 AssetRipper；Il2CppDumper 只找 FX 類名寫 Frida。見 [`workflows/unity-asset-parse-flow.md`](workflows/unity-asset-parse-flow.md)。 |
 | 抓到 API 但不知道是哪個操作觸發 | 沒有建立 UI 操作時間窗，或 startup/preload/background sync 混在一起。 | 先補 screenshot/UI hierarchy 與 operation id；每次只操作一個 screen/action。 |
 | 截圖看起來是某個 tab，但 API timing 對不上 | tab 預載、快取、背景同步、或同 endpoint 被多個 screen 共用。 | 標成 trigger confidence low/medium；用冷啟動、清 cache、單步操作或 hook sequence 重新驗證。 |
 | Proxyman 沒有核心 API | client 不走系統代理、attach 太晚、流程沒觸發。 | pcap 確認 host；用 cold-start injection 或高語意 hook。 |

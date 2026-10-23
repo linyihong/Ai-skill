@@ -38,6 +38,7 @@
 | [`media-hls-analysis-flow.md`](media-hls-analysis-flow.md) | Media/HLS 分析操作流程 — 7 步驟（分離控制面/資料面 → Playlist → Key → Segments → 合併 → 容器驗證） | `skills/apk-analysis/techniques/media-hls/`（已刪除，見 `media-hls-analysis-flow.md`） |
 | [`cold-start-play-focus-ab.md`](cold-start-play-focus-ab.md) | 冷啟動 Play 搶焦 A/B — focus 時間序列；允許 Play vs 抑止 vending（非 license crack） | `feedback/history/apk-analysis/common/2026-07-14_171000-pairip-application-licenseactivity-cold-start-play-gate.md` |
 | [`headless-sdk-device-executor-flow.md`](headless-sdk-device-executor-flow.md) | Private SDK 裝置執行器 — sign 已對齊但主機 403 時，冷啟 bootstrap → session → rewards E2E | `feedback/history/.../2026-07-15_140*` + `132500` |
+| [`unity-asset-parse-flow.md`](unity-asset-parse-flow.md) | UnityCache／AssetBundle 解析 — UnityPy 預設；AssetRipper 進 Editor；AssetStudio 瀏覽；Il2CppDumper 只助 Frida；粒子成熟度標籤 | Unity IL2CPP feedback + tools-and-failures §Unity |
 
 ## Generated Surface
 
