@@ -179,7 +179,9 @@ Gate：通過縮限後凍結的檢索層 acceptance、產物矩陣核對與候�
 
 ## Phase 3 — 接入 Workflow 採用流程與條件式 Bridge 調整
 
-- [ ] 優先重用既有檢索能力。只有 Phase 0 確認重複實作，或比較實驗證明可量測收益，才抽共用介面並調整 Bridge 呼叫接點；記錄啟用 / 不調整的證據。Bridge 保留 miss-path 與 advisory 邊界，workflow lookup 不依賴 detector miss，也不以 Bridge 重構為交付前提。
+使用者已接受 Phase 2 縮限完成。首批 sd-validation 的操作接線與 source-informed 受控讀回見 [phase3-consumer](evidence/phase3-consumer.md)。沒有新 gate；tokenizer／R11/O03 專案證據與雙真實任務、負面 consumer 重播未驗收，Phase 3 維持未完成。
+
+- [x] 優先重用既有檢索能力。只有 Phase 0 確認重複實作，或比較實驗證明可量測收益，才抽共用介面並調整 Bridge 呼叫接點；記錄啟用 / 不調整的證據。Bridge 保留 miss-path 與 advisory 邊界，workflow lookup 不依賴 detector miss，也不以 Bridge 重構為交付前提。
 - [ ] 在首批 workflow 寫明「事件 → 查找動作 → 證據」：初次查找事件（如形成方案前、失敗診斷時）、重查條件（如關鍵前提、來源或任務範圍改變）、可略過條件及可覆核理由；同時定義 context filters、讀回與採用檢查。用觸發、重查、合理略過與不當略過案例驗證，不新增通用 trigger framework。
 - [ ] 採用前檢查 domain / project / 前提、證據版本與失效判定、supersession、候選 / 已驗證 / 契約身分；checksum 變動只表示需重驗，不單獨判斷結論失效。
 - [ ] 採用時核對實際回讀來源的 revision / checksum；與搜尋候選版本不一致時，重新驗證適用性並記錄實際採用版本。驗證期間再次變動則重驗或停止採用，不能沿用舊判定。

@@ -8,6 +8,7 @@
 
 | Run ID | 檔案 | 狀態 | 摘要 |
 | --- | --- | --- | --- |
+| phase3-consumer | [phase3-consumer.md](phase3-consumer.md)、[protocol](phase3-consumer-protocol.md) | first wiring / controlled readback; Phase 3 incomplete | sd-validation 觸發、回讀、決策與既有 gate；原始專案證據、實際 tokenizer 與真實雙任務驗收尚待補齊 |
 | phase2-production-wiring | [phase2-production-wiring.md](phase2-production-wiring.md) | frozen diagnostic acceptance passed | 實際新 pool → 26 fresh attempts → watcher → complete：23/23、MRR .971014、final confuser 0/6、≤1622 runes；28 輸出讀回與失敗控制，兩次 CI 四項全綠，採用留 Phase 3 |
 | phase2-production-protocol | [phase2-production-protocol.md](phase2-production-protocol.md) | frozen before implementation | 固定原 selector 方法、實際 production pool、26 fresh attempts 與完整 payload／failure 驗收 |
 | phase2-engineering | [phase2-engineering.md](phase2-engineering.md) | release replay / cross-platform CI passed | 正式 binary 7/7、MRR 1、warm p95 124ms；Intelligence body probes、canonical metadata、bounded graph、freshness lifecycle、formal watcher 與實際 timeout→interrupt handoff；Phase 2 未完成 |

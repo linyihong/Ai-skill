@@ -4,6 +4,7 @@ Use these templates as focused artifact shapes. Load only the template that matc
 
 | Template | Use when |
 | --- | --- |
+| [`retrieval-decision-template.md`](retrieval-decision-template.md) | Recording sd-validation lookup/requery/skip, source versions, applicability and adoption decisions. |
 | [`change-brief-template.md`](change-brief-template.md) | Capturing intake, scope, assumptions, acceptance, and validation target before implementation. |
 | [`contract-template.md`](contract-template.md) | Defining domain/API/UI/consumer contracts and traceability before parallel implementation. |
 | [`bdd-scenario-template.md`](bdd-scenario-template.md) | Writing behavior scenarios and acceptance examples. |

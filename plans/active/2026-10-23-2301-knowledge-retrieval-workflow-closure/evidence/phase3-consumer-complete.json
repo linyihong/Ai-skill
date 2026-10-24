@@ -1,0 +1,49 @@
+{
+  "lookup": {
+    "phase": "completed-unverified-applicability",
+    "bundle_sha256": "09910b18e5c2776638594b7ee886857c05a2e18a7a432579f06a56c3a691978b",
+    "request_sha256": "14be40410b0065d5be3faf9380c3c549a6f9f85dc68a6f6648b4a0b13a9af332",
+    "response_sha256": "176cb8a0af87ce201bd89f3b5070feb4e9447ecb671d0582d2cc4e3a7fccea73",
+    "payload": {
+      "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+      "state": "direct-pending-verification",
+      "pool": 11,
+      "unassessed": 8,
+      "unknown": 8,
+      "deferred": 0,
+      "trace": "lookup/14be40410b0065d5",
+      "results": [
+        {
+          "source": "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md",
+          "kind": "intelligence",
+          "status": "candidate-intelligence",
+          "summary": "Evidence chain validation 是一種 validation reasoning pattern：驗證必須沿著狀態傳播鏈一路追到最終可觀察結果，並在每個重要 state transition 上附上足夠證據。",
+          "need_to_read": "核對 claim 到 readback 的 evidence chain 步驟與每段證據邊界。"
+        },
+        {
+          "source": "intelligence/engineering/execution/validation-reasoning/evidence-model.md",
+          "kind": "intelligence",
+          "status": "candidate-intelligence",
+          "summary": "Evidence model 定義不同證據類型的可信度、覆蓋範圍與適用邊界。它不是測試清單，而是幫 agent 判斷「這個證據到底證明了哪一段」。",
+          "need_to_read": "讀取 evidence scope 與 proxy success 限制，避免用文件完成代替採用成效。"
+        }
+      ]
+    },
+    "source_checks": [
+      "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md",
+      "intelligence/engineering/execution/validation-reasoning/evidence-model.md"
+    ],
+    "usage": {
+      "availability": "unavailable",
+      "input_tokens": null,
+      "output_tokens": null
+    }
+  },
+  "command": "runtime lookup complete",
+  "mode": "native",
+  "status": "success",
+  "exit_code": 0,
+  "checks": [],
+  "planned_actions": [],
+  "mutations": []
+}

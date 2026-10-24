@@ -57,6 +57,10 @@ CI/CD 可以從小的 smoke 級別效能檢查開始。較大的負載、壓力�
 
 驗證應區分「舊行為仍受保護」與「新程式碼已證明」。優先使用 BDD/TDD 加上變更程式碼測試；當範例單獨無法證明規則時，添加突變、基於屬性、合約、資料庫支援、生成的客戶端、fixture 支援、主機端 fixture 或硬體在迴路中的測試。
 
+### 經驗查找與採用
+
+形成驗證方案前或證據鏈失敗診斷時，依 [`validation-retrieval.md`](validation-retrieval.md) 查找既有經驗、讀回來源、核對適用前提與版本，再留下採用／拒絕／unknown 理由。required_read 與 blocker 仍由原契約控制；查找、重查、略過及失敗 fallback 均留下可覆核紀錄。
+
 ### Evidence Acquisition Execution
 
 Evidence acquisition answers how evidence is obtained before a mechanism evaluates it. `sd-validation` executes acquisition and evaluation; `sd-ui-governance` classifies UI compliance taxonomy for Phase 1.

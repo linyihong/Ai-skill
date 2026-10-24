@@ -1,0 +1,110 @@
+{
+  "kind": "current-agent source-informed controlled consumer readback trial; not gold-blind and not formal token admission",
+  "task": "為本次 sd-validation workflow 接線文件選擇最低足夠驗證，避免文件或 CLI 成功冒充採用效果",
+  "trigger": "形成驗證方案前；已選 sd-validation consumer，不依賴 detector miss",
+  "required_reads": [
+    "CORE_BOOTSTRAP.md",
+    "runtime/core-bootstrap.yaml",
+    "workflow/software-delivery/validation.md",
+    "workflow/software-delivery/README.md"
+  ],
+  "blockers_before": [
+    "runner-specific tokenizer/model mapping unavailable",
+    "R11/O03 project evidence unavailable",
+    "two independent real tasks not completed"
+  ],
+  "blockers_after": [
+    "runner-specific tokenizer/model mapping unavailable",
+    "R11/O03 project evidence unavailable",
+    "two independent real tasks not completed"
+  ],
+  "query": "evidence chain validation independent observation persisted final state proof",
+  "filter": {
+    "layer": "intelligence",
+    "status": ""
+  },
+  "bundle_sha256": "09910b18e5c2776638594b7ee886857c05a2e18a7a432579f06a56c3a691978b",
+  "request_sha256": "14be40410b0065d5be3faf9380c3c549a6f9f85dc68a6f6648b4a0b13a9af332",
+  "response_sha256": "176cb8a0af87ce201bd89f3b5070feb4e9447ecb671d0582d2cc4e3a7fccea73",
+  "trace": "lookup/14be40410b0065d5",
+  "coverage": {
+    "pool": 11,
+    "unassessed": 8,
+    "unknown": 8,
+    "deferred": 0
+  },
+  "sources": [
+    {
+      "source": "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md",
+      "candidate_checksum": "3433d6d1a66c9f47bdda84f245a0567d1cba2b3180c8b553b46567c19e1a2b3b",
+      "readback_checksum": "3433d6d1a66c9f47bdda84f245a0567d1cba2b3180c8b553b46567c19e1a2b3b",
+      "pre_adoption_checksum": "3433d6d1a66c9f47bdda84f245a0567d1cba2b3180c8b553b46567c19e1a2b3b",
+      "readback_sections": [
+        "定義",
+        "操作步驟 / 使用方式",
+        "判斷規則 / Evidence Characteristics"
+      ],
+      "domain": "validation reasoning; 本次 claim 為 workflow 是否留下可覆核的來源到決策證據",
+      "project_scope": "來源未宣告專案限制；正文為通用 evidence pattern，本次不推測外部產品事實",
+      "premises": "CLI success 與文件存在只證明局部訊號；需沿實際 readback/decision/verification 鏈評估",
+      "supersession": "metadata replaces unknown；正文沒有取代宣告，未推論不存在外部取代關係",
+      "evidence_validity": "本文提供方法參考，非外部事件或專案結果證據",
+      "lifecycle": "candidate-intelligence；未升格",
+      "decision": "adopt",
+      "use": "採用為本次驗證方法參考：分開來源讀回、版本核對與決策用途，將 token/model/外部專案缺口保留為未驗收",
+      "outcome": "本輪 report 明列 source-level 版本與方法用途；只支持 consumer 文件及受控 trial，不支持 Phase 3 完整採用 gate"
+    },
+    {
+      "source": "intelligence/engineering/execution/validation-reasoning/evidence-model.md",
+      "candidate_checksum": "23c346190ae23acb41323f27a780d35b48334b347e8d806ad5792062865aa364",
+      "readback_checksum": "23c346190ae23acb41323f27a780d35b48334b347e8d806ad5792062865aa364",
+      "pre_adoption_checksum": "23c346190ae23acb41323f27a780d35b48334b347e8d806ad5792062865aa364",
+      "readback_sections": [
+        "定義",
+        "操作步驟 / 使用方式",
+        "判斷規則 / Evidence Characteristics"
+      ],
+      "domain": "validation reasoning; 本次 claim 為 workflow 是否留下可覆核的來源到決策證據",
+      "project_scope": "來源未宣告專案限制；正文為通用 evidence pattern，本次不推測外部產品事實",
+      "premises": "CLI success 與文件存在只證明局部訊號；需沿實際 readback/decision/verification 鏈評估",
+      "supersession": "metadata replaces unknown；正文沒有取代宣告，未推論不存在外部取代關係",
+      "evidence_validity": "本文提供方法參考，非外部事件或專案結果證據",
+      "lifecycle": "candidate-intelligence；未升格",
+      "decision": "adopt",
+      "use": "採用為本次驗證方法參考：分開來源讀回、版本核對與決策用途，將 token/model/外部專案缺口保留為未驗收",
+      "outcome": "本輪 report 明列 source-level 版本與方法用途；只支持 consumer 文件及受控 trial，不支持 Phase 3 完整採用 gate"
+    }
+  ],
+  "nonselected_assessment": {
+    "id": "4a1e9397767d3446",
+    "relation": "not-applicable",
+    "reason": "本次是 repo workflow 文件與決策鏈驗證，未涉及身份狀態與外部 side effect。",
+    "need_to_read": "若後續任務涉及身份與 side effect，再讀其適用前提；本次不選用。"
+  },
+  "token_gate": {
+    "state": "not evaluated",
+    "model": "unavailable",
+    "tokenizer": "unavailable",
+    "tokens": null,
+    "runes_not_substituted": true,
+    "admission": "controlled trial only; ordinary direct-source path remains available",
+    "source_readback_context": "full selected source bodies read; cost unavailable, not hidden inside a retrieval-only token claim"
+  },
+  "version_fixture": {
+    "kind": "isolated synthetic copy; canonical source unchanged",
+    "A_sha256": "3433d6d1a66c9f47bdda84f245a0567d1cba2b3180c8b553b46567c19e1a2b3b",
+    "B_sha256": "cc93db1e27ec0ad3e71b11847b4ff8c0bf458ea412416ae9a98a506a2f467001",
+    "difference": "added non-executable formatting comment",
+    "decision": "A decision cannot be reused without revalidation; body comparison shows no premise change, revalidate B and retain method use only",
+    "real_source_version_change_adoption": "not evaluated"
+  },
+  "retention": {
+    "raw": "local tmp, maximum7days",
+    "decision_record": "sanitized plan evidence, repository lifetime"
+  },
+  "validation": {
+    "runtime_refresh": "success",
+    "runtime_validate": "success; existing runtime DB age warning retained",
+    "claim_limit": "one source-informed readback trial; not one of two fully accepted independent real-task outcomes"
+  }
+}

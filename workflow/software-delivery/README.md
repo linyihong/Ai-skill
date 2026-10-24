@@ -195,6 +195,10 @@ Checklist bodies：[`cross-cutting/review/checklist.md`](../cross-cutting/review
 6. **Surgical Changes（外科手術式修改）**：只改解決問題所需的行。匹配既有 code style，不要順便 refactor 不相關的 code。參見 [`surgical-changes.md`](surgical-changes.md)（`sd-surgical-caveats` slice）和 [`examples/EXAMPLES.md`](examples/EXAMPLES.md) §3。
 7. **Parity Before Replacement（替換前先對照）**：重構、遷移或 replacement 若會替代既有行為、入口、腳本、API、資料流程或操作能力，先盤點舊能力到新能力的對照與驗證證據，再開始實作。
 
+## 驗證時查找既有經驗
+
+`sd-validation` 在形成方案或診斷證據缺口時，使用 [`validation-retrieval.md`](validation-retrieval.md)；來源回讀與適用性決策使用 [`查找決策紀錄`](templates/retrieval-decision-template.md)。搜尋命中不取代 required_read、blocker 或來源權威。
+
 ## 與既有層的關係
 
 - `workflow/software-delivery/` 是 App 開發指引執行流程的主要入口。所有 agent 應優先參考本目錄的內容。
