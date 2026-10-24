@@ -144,6 +144,8 @@ Phase 1 審核補充（2026-10-24）：[phase1-audit.md](evidence/phase1-audit.m
 
 ## Phase 2 — 補既有全文搜尋、metadata 與關聯查找
 
+v3 先按 [固定候選協議](evidence/phase2-v3-protocol.md) 分離 pool、選擇與 packer，再準備 [6 題語意排序 pilot 成本契約](evidence/phase2-v3-semantic-contract.md)。本次已存在焦點／否定／排序失敗證據，可測 reranking，不以向量搜尋或 Phase 2 通過為前提；只作曝光資料診斷。外部執行端／模型／成本尚未確認，不宣稱已執行。
+
 v1 結果：B0 / Q / E / QE 診斷命中 1 / 13 / 3 / 14（各 /14）；Q / QE overlap confuser 均 6/6、preview 超額，故候選未採用且 Phase 2 gate 未通過。逐題產物與審閱待辦見 [phase2-v1-ablation.md](evidence/phase2-v1-ablation.md)。v2 已按 [phase2-v2-protocol.md](evidence/phase2-v2-protocol.md) 完成最終輸出重評：QE diagnostic 12/14、overlap 正向 3/5 / confuser 3/6，成本通過但品質仍失敗，見 [phase2-v2-ablation.md](evidence/phase2-v2-ablation.md)。下一輪處理問題焦點與已排除前提，保留排序退步及 shortlist 損失。v1 已拒收，不再為結清而要求完整審完其 191 rows；準備採用的版本仍須完成審閱。保留 v1 證據與原門檻，不導入 vector。
 
 - [x] 依 [執行控制契約](evidence/phase2-execution-contract.md) 先跑固定 corpus 的 B0 / query-only / extraction-only / combined 對照：顯式 query binary 路徑 / SHA、index manifest、generator revision / source SHA、index inputs / corpus SHA；四組配對 validator 必須通過，逐題記錄增益與成本；新增正文另組實驗，不混入 extraction-only。對照組與資料獨立性規則見 Phase 1 審核包。
@@ -171,7 +173,7 @@ Gate：通過採用層 acceptance；未實際評估項目不得填 0。至少兩
 
 ## Phase 4 — 條件式語意搜尋 / Reranking 實驗與收尾
 
-- [ ] 若仍有具體語意漏找，才比較 BM25、BM25 + vector、必要時再加 reranking；先分別量測增益，不一次疊加歸因。
+- [ ] 依缺口分開決定 candidate generation 與 reranking：候選漏找才評估 vector；已入池但焦點／否定／排序失敗，可獨立測語意重排序，不要求先加向量。Phase 2 v3 只先做小範圍診斷 pilot；本階段泛化／採用仍需下列獨立資料與成本 gate，不能用 pilot 代替。
 - [ ] Phase 4 啟動時先確認仍有獨立留出資料；若原 holdout 已參與 Phase 2 後的診斷、方法選擇或調參，須另建未參與這些活動的留出集，相關改寫不得跨組。記錄各集使用歷史，不將已看過的測試資料重新宣稱為獨立 holdout。
 - [ ] 實驗開始前凍結模型 / 版本、資料邊界、reindex 成本、獨立 holdout、最小有效改善題數與 latency / tokens budget；無此凍結不啟動。
 - [ ] 新增方法須改善預先標記語意漏找，holdout 不退步、安全錯誤為 0、成本在 budget 內才採用；不達標則保留 BM25 並記錄拒絕原因。holdout 看過後再調參需新留出集。
