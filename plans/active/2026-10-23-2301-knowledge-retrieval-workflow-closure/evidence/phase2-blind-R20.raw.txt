@@ -1,0 +1,1 @@
+{"selected":[],"assessments":[],"unknown_action":"The candidate pool is empty and the query 'evidence' does not establish a topic or task. Relevance remains unknown; obtain the intended topic and candidate sources before selecting knowledge."}

@@ -1,0 +1,1 @@
+{"selected":["d24669f09afe0501"],"assessments":[{"id":"d24669f09afe0501","relation":"direct","reason":"直接對應 SQL 與 API 播放量正確但使用者頁面仍顯示舊數字的情境，指出需補同一 video_id、同一路徑的 browser DOM 對照。","need_to_read":"讀取該來源的 DOM 對照方法，確認如何在相同 video_id 與頁面路徑下辨識部署問題或 keep-alive / sessionStorage 的陳舊 view model。"}],"unknown_action":"下一步驗證瀏覽器 DOM 與頁面 view model；目前尚無同一 video_id、同一路徑的 DOM 證據，不能確定是部署或快取狀態問題。"}

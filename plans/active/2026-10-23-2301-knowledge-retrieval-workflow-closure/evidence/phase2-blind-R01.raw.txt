@@ -1,0 +1,1 @@
+{"selected":["362d4057cf6e3c8a"],"assessments":[{"id":"362d4057cf6e3c8a","relation":"direct","reason":"問題聚焦 middleware 單元測試與真實 host 記錄 500 的落差；此來源直接指出需驗證真實組合 pipeline，隔離元件測試可能漏掉其他層與順序的影響。","need_to_read":"讀取來源中 host-level 測試的驗證範圍，確認如何涵蓋實際 middleware 順序、最終狀態碼與日誌輸出。"}],"unknown_action":"尚未提供實際 pipeline 順序、日誌來源與測試案例；讀取所選來源後，檢查真實 host 的整合測試是否涵蓋產生該 500 日誌的完整請求路徑，暫不判定是哪一層造成。"}

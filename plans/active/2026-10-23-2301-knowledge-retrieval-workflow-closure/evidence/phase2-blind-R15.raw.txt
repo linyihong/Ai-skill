@@ -1,0 +1,1 @@
+{"selected":["a753a5ac56ad6ef4"],"assessments":[{"id":"a753a5ac56ad6ef4","relation":"direct","reason":"直接討論正式機版本的證據來源，明確區分部署讀回帳本、git tag 與敘述。","need_to_read":"讀取來源以確認部署狀態讀回、repo 帳本及 git tag 衍生索引的具體要求與適用範圍。"}],"unknown_action":"先讀取所選來源確認要求；目前未提供實際正式機讀回或帳本，無法判定正在運行的版本。"}

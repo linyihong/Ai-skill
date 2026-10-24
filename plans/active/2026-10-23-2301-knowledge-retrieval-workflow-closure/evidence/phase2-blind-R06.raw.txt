@@ -1,0 +1,1 @@
+{"selected":["da6c7d95469874b8"],"assessments":[{"id":"da6c7d95469874b8","relation":"direct","reason":"直接涵蓋 manifest 轉成 blob: 後，相對 segment URI 需要改寫為可解析的絕對 URL，與問題焦點一致。","need_to_read":"讀取來源中 blob manifest 的 URI 解析原因、原始 manifest base URL 的使用方式與 segment URI rewrite 範例，確認適用於目前 manifest。"}],"unknown_action":"先讀取所選來源；目前未提供原始 manifest URL、內容與播放器錯誤，尚無法確認個案是否由相對 URI 的解析基準造成。"}

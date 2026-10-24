@@ -1,0 +1,1 @@
+{"selected":["b36c865e44bd683f"],"assessments":[{"id":"b36c865e44bd683f","relation":"direct","reason":"直接對應索引中的可解析相對連結被根相對字串 gate 拒絕的路徑契約問題。","need_to_read":"讀取此來源以確認 gate 的解析基準、合法相對路徑形式與驗證方式，並比對目前索引位置和 gate 實作是否符合其前提。"}],"unknown_action":"尚未提供索引位置、實際連結與 gate 實作；先讀取所選來源，再確認契約以索引所在目錄解析連結還是以 repo root 比對字串，不能僅憑摘要判定目前 gate 的修正方式。"}

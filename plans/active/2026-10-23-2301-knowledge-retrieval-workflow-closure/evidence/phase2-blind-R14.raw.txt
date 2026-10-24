@@ -1,0 +1,1 @@
+{"selected":["024acd31a9953544"],"assessments":[{"id":"024acd31a9953544","relation":"direct","reason":"直接對應同一 DB pool 的 nested checkout 在滿載時卡死，且 soft reconcile 無法清除的情境。","need_to_read":"讀取來源確認 client 持有跨越 await 與同 pool 再次 checkout 的具體條件，以及釋放 client 的適用方式。"}],"unknown_action":"先讀取選定來源，再確認實際程式是否跨 await 持有同一 pool 的 client 並進行 nested checkout；目前未提供程式碼與 pool 實作，不能斷定本案根因。"}

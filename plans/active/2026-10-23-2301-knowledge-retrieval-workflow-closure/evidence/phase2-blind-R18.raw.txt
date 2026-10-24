@@ -1,0 +1,1 @@
+{"selected":["eb83e04e4f8219b3"],"assessments":[{"id":"eb83e04e4f8219b3","relation":"direct","reason":"直接說明 PostgreSQL now()/current_timestamp 固定於 transaction start，以及 age/window gate 應以 clock_timestamp() 取得實際現在。","need_to_read":"讀取此來源對 clock_timestamp() 在 age gate 寫入時間戳與比較時的使用說明及適用條件。"}],"unknown_action":"已找到直接相關來源；讀回其具體用法後，再依實際 age gate SQL 確認應替換的時間戳位置。"}

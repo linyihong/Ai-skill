@@ -1,0 +1,1 @@
+{"selected":[],"assessments":[],"unknown_action":"Unknown: the query provides no interpretable task or applicability premises, and the candidate pool is empty. No knowledge can be selected; obtain a substantive query and candidate sources before assessing relevance."}

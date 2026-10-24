@@ -1,0 +1,474 @@
+{
+  "kind": "outer post-run source-read handoff audit; no raw selection repaired",
+  "results_sha256": "1a02e56ffdb2a2c86c5f5db8ddca5f5f92d95ea0f42a25898ec66042e75db681",
+  "source_scope_evidence_sha256": "4175d99e8ec8d8eda85ad227553cc6cc396788a2706f78d6841b86cee4bb3237",
+  "cases": [
+    {
+      "id": "R01",
+      "handoff_status": "supported-next-read",
+      "source_reviews": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "7b8b5f569fabffb67b12a78d3241e7a8eec5c9bb0b518ed7b16515dc4d90834d",
+          "need_to_read": "讀取來源中 host-level 測試的驗證範圍，確認如何涵蓋實際 middleware 順序、最終狀態碼與日誌輸出。",
+          "body_scope_finding": "需真實 composed host 與 log sinks；尚未執行本題 host。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        }
+      ],
+      "unknown_action": "尚未提供實際 pipeline 順序、日誌來源與測試案例；讀取所選來源後，檢查真實 host 的整合測試是否涵蓋產生該 500 日誌的完整請求路徑，暫不判定是哪一層造成。",
+      "remaining_boundary": "來源可支持下一個查證動作；本題真實前提／實測與採用未驗證。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "R02",
+      "handoff_status": "supported-next-read",
+      "source_reviews": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "09e2f8fe9f1fd704da89840a4731789e89c5173f42125e0a0fce207dfa51ab49",
+          "need_to_read": "讀取該來源的 DOM 對照方法，確認如何在相同 video_id 與頁面路徑下辨識部署問題或 keep-alive / sessionStorage 的陳舊 view model。",
+          "body_scope_finding": "需同 entity/path 的 DOM 和 API/DB，仍需排除 server／SSR-only 情形。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        }
+      ],
+      "unknown_action": "下一步驗證瀏覽器 DOM 與頁面 view model；目前尚無同一 video_id、同一路徑的 DOM 證據，不能確定是部署或快取狀態問題。",
+      "remaining_boundary": "來源可支持下一個查證動作；本題真實前提／實測與採用未驗證。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "R03",
+      "handoff_status": "supported-next-read",
+      "source_reviews": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-09-04_101800-derived-state-before-blaming-shared-baseline.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "e87666d84ad471d9d31c0d343e244462ee3b4368cc58492bc51e4ffac5de1e12",
+          "need_to_read": "讀取此來源中排除本地衍生狀態的檢查方式與歸因共用基線所需的證據。",
+          "body_scope_finding": "適用工具讀取 unversioned derived state；clean CI 反例需排除。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        }
+      ],
+      "unknown_action": "目前不足以認定共用 baseline 壞掉；先讀取所選來源並查證本地衍生狀態是否已排除，再依實際環境證據判斷歸因。",
+      "remaining_boundary": "來源可支持下一個查證動作；本題真實前提／實測與採用未驗證。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "R04",
+      "handoff_status": "supported-next-read",
+      "source_reviews": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "7f3816beba873f059a62c763ab4caae98b611bf5c6c64fa4906158436308ab3a",
+          "need_to_read": "Read the source for the substring collision example and guidance on comparing the parsed numeric field.",
+          "body_scope_finding": "numeric substring 反例直接相關；實作須真正 JSON numeric parse，跨專案仍重驗。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        }
+      ],
+      "unknown_action": "Read the selected source; the query supplies no implementation or JSON parser context for a specific code change.",
+      "remaining_boundary": "來源可支持下一個查證動作；本題真實前提／實測與採用未驗證。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "R05",
+      "handoff_status": "supported-next-read",
+      "source_reviews": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "a09fa794d5295d8e1da98282e0ab79dcca1eedb3ede6f07a7d5bdacdea349483",
+          "need_to_read": "讀取來源中實際 viewport 設定、document/body/app shell/固定導覽/scroll content 的 computed layout 量測與溢出判定方式。",
+          "body_scope_finding": "需真 browser/route/viewport，區分預期內部橫向 scroll；目前只有索引摘要，未量測。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        }
+      ],
+      "unknown_action": "目前尚無實際頁面的 viewport 與量測結果；讀取此來源後，補取手機 viewport 下各層 computed layout 證據，再定位造成橫向溢出的元素。",
+      "remaining_boundary": "來源可支持下一個查證動作；本題真實前提／實測與採用未驗證。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "R06",
+      "handoff_status": "supported-next-read",
+      "source_reviews": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "b4970701edf1094b1d9dcc74127a3696d07382fe811d6f7bd1aaf1a1bd1210c0",
+          "need_to_read": "讀取來源中 blob manifest 的 URI 解析原因、原始 manifest base URL 的使用方式與 segment URI rewrite 範例，確認適用於目前 manifest。",
+          "body_scope_finding": "需確認播放器確實使用 rewritten blob；原網路 manifest 直載不適用。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        }
+      ],
+      "unknown_action": "先讀取所選來源；目前未提供原始 manifest URL、內容與播放器錯誤，尚無法確認個案是否由相對 URI 的解析基準造成。",
+      "remaining_boundary": "來源可支持下一個查證動作；本題真實前提／實測與採用未驗證。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "R07",
+      "handoff_status": "supported-next-read",
+      "source_reviews": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "7fb6d123bb353c7d26921c4c8b0a514a38b553713af0fd3b3b21a37ebcbd2809",
+          "need_to_read": "Read the source for the precise marker-depth requirements and applicability when adding or promoting a shared UI component.",
+          "body_scope_finding": "限共用或提升 component 的 traceability；不宣稱 marker 能證明所有運行行為。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        }
+      ],
+      "unknown_action": "Read the selected source to establish its detailed guidance; the query does not identify a component or change, so applicability to a concrete implementation remains unknown.",
+      "remaining_boundary": "來源可支持下一個查證動作；本題真實前提／實測與採用未驗證。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "R08",
+      "handoff_status": "supported-next-read",
+      "source_reviews": [
+        {
+          "source": "knowledge/summaries/executable-contract-boundary.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "14e8a1f212bd5d5e1c6bb0a3c9e5a36e1e0a8811ff9cb072092240187b0bc22f",
+          "need_to_read": "讀取原文中 owner layer 保留來源、YAML 與 Markdown 分工，以及 opt-in 投影的設計理由。",
+          "body_scope_finding": "candidate summary 導航，不取代 canonical YAML。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        },
+        {
+          "source": "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "70116d481224f37159e018b7cfa31fcddd8ee33074bdc2d78b95bdb0793340cb",
+          "need_to_read": "查閱這項 lesson 的失敗背景與為何文件不足以承載 execution obligations。",
+          "body_scope_finding": "歷史 lesson 供理由，非最高現行權威；正文說 prose 跳步及 owner 邊界。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        },
+        {
+          "source": "governance/lifecycle/executable-contract-boundary.yaml",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "ad125e15c2a2e25cb450fc845c6028e58a11487990e0fb5af2a34c9a57ccf928",
+          "need_to_read": "查閱何種 contract 必須投影及 owner source 與 generated_surfaces 的邊界，核對歷史理由與現行規範。",
+          "body_scope_finding": "active canonical placement/projection contract；相關性不代替規則優先序。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        }
+      ],
+      "unknown_action": "依序讀取所選來源以確認歷史決策理由；目前摘要可定位原則，但不足以斷言具體事件、替代方案或完整取捨。",
+      "remaining_boundary": "來源可支持下一個查證動作；本題真實前提／實測與採用未驗證。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "R09",
+      "handoff_status": "supported-next-read",
+      "source_reviews": [
+        {
+          "source": "knowledge/summaries/test-first-framework-upgrade.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "fce0630179a08a617dfddc3e2bb2bb7cecee2118ce89a63e9d6a34a852f47c78",
+          "need_to_read": "讀取 test-first 順序要求、適用的 framework 升級類型及豁免條件。",
+          "body_scope_finding": "candidate summary 包含順序及豁免，採用前讀其 canonical intelligence。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        },
+        {
+          "source": "feedback/history/development-guidance/common/2026-05-22_092400-test-first-framework-upgrade.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "b782672e384a4cf5ff31d2dc92340ed53d974d9594eed51abf8cfa94abed31ef",
+          "need_to_read": "讀取原始 lesson 的順序原則與適用條件，確認其與本次升級的關聯。",
+          "body_scope_finding": "歷史 lesson 佐證 test-first，當前契約優先；doc-only／bug-fix 豁免不能任意泛化。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        }
+      ],
+      "unknown_action": "依選定來源查明升級範圍及豁免條件；目前摘要支持應先寫 validation scenarios，再實作 runtime，尚未建立此次變更符合任何豁免。",
+      "remaining_boundary": "來源可支持下一個查證動作；本題真實前提／實測與採用未驗證。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "R10",
+      "handoff_status": "supported-next-read",
+      "source_reviews": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "ce4075515535611b3cb4942089831e3746033b9c2aaa15880a011a57944b8374",
+          "need_to_read": "讀取此來源以確認相依圖由 restore 產生的鎖定檔決定之適用前提，以及應檢查的 restore 狀態與跨機器差異。",
+          "body_scope_finding": "需 restore/compile 分離且 graph 可過期；clean/versioned-lockfile 需另判。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        }
+      ],
+      "unknown_action": "尚未確認實際 build system、restore 產物及兩台機器的還原狀態；先讀取所選來源並核對這些前提，再判定相依圖差異原因。",
+      "remaining_boundary": "來源可支持下一個查證動作；本題真實前提／實測與採用未驗證。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "R11",
+      "handoff_status": "additional-project-evidence-required",
+      "source_reviews": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "e1b47877a9a40cac887d64a89f4de49eb73fb2a7c78fa8f8ce3fdf79e02a401f",
+          "need_to_read": "讀取來源中的既有失敗指紋、版本範圍與最小隔離驗證方式，並確認是否適用於實際模型載入環境。",
+          "body_scope_finding": "無獨立 reuse 證據；indexed summary 不含具體失敗指紋／版本及隔離步驟，足以路由但不足完整比對。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        }
+      ],
+      "unknown_action": "查詢未提供實際平台、模型、版本或失敗指紋；先讀取此來源，再依實際環境確認適用性，不能據此判定具體原因。",
+      "remaining_boundary": "正文列出比對欄位與隔離方法，具體版本／堆疊／指紋值留在來源專案；不能假定此泛用正文包含那些值。可先讀此入口，再向 owner 取得該專案 case 與本次環境證據。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "R12",
+      "handoff_status": "supported-next-read",
+      "source_reviews": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "5014c7293052be3498310f7a691fee739152567f484b9f22294e4e25b7014528",
+          "need_to_read": "讀取目標 statement 的鎖定方式、COMMIT deferred trigger 範例，以及如何確認 timeout 取消確實命中該 statement。",
+          "body_scope_finding": "需實際寫入／retry/idempotency contract；摘要缺 server 端停止及 readback/retry 細節。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        }
+      ],
+      "unknown_action": "讀取所選來源確認實作步驟；查詢未提供資料庫種類、client driver 與目標 SQL，套用前須確認其取消與 transaction 行為適用。",
+      "remaining_boundary": "正文支持鎖／deferred COMMIT／命中確認，也有 server stopped、DB readback 與同 key retry；runner 未逐一點名後兩項，完整 cancellation-safety 驗收仍需 workflow 展開，不能只做 timeout。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "R13",
+      "handoff_status": "supported-next-read",
+      "source_reviews": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-07-23_071200-injectable-wall-clock-for-day-boundary-logic.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "d54c6fd5d2497e318e3d783877ce9cf1b1552c55f847301c36f5ad6364cbb81d",
+          "need_to_read": "讀取此來源確認 injectable clock 或明確時間參數的使用方式，以及凍結 clock 測試跨午夜額度邏輯的適用細節。",
+          "body_scope_finding": "quota/day branch 要讀 injected clock；描述性 timestamp 不適用。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        }
+      ],
+      "unknown_action": "優先讀取所選來源；實作前仍需確認專案使用的時間型別、時區與額度重置邊界，不能由摘要推定具體實作。",
+      "remaining_boundary": "來源可支持下一個查證動作；本題真實前提／實測與採用未驗證。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "R14",
+      "handoff_status": "supported-next-read",
+      "source_reviews": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "20c468ba699237af96ef682a1ca9c27412117cd5de784d9d2165072b56b5df47",
+          "need_to_read": "讀取來源確認 client 持有跨越 await 與同 pool 再次 checkout 的具體條件，以及釋放 client 的適用方式。",
+          "body_scope_finding": "需同一共享 pool nested checkout，若重用同 client 則不適用。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        }
+      ],
+      "unknown_action": "先讀取選定來源，再確認實際程式是否跨 await 持有同一 pool 的 client 並進行 nested checkout；目前未提供程式碼與 pool 實作，不能斷定本案根因。",
+      "remaining_boundary": "來源可支持下一個查證動作；本題真實前提／實測與採用未驗證。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "R15",
+      "handoff_status": "supported-next-read",
+      "source_reviews": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-10-22_093000-deployment-state-is-readback-not-narrative.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "f92f76e9b3fbbc8ca98ea4b0b0b4f75877aaaf5714d3eda899e2c5e8ac3b3d31",
+          "need_to_read": "讀取來源以確認部署狀態讀回、repo 帳本及 git tag 衍生索引的具體要求與適用範圍。",
+          "body_scope_finding": "candidate 且尚無完整真部署；readback 原則相關，不能把設計方法當已驗部署流程。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        }
+      ],
+      "unknown_action": "先讀取所選來源確認要求；目前未提供實際正式機讀回或帳本，無法判定正在運行的版本。",
+      "remaining_boundary": "來源可支持下一個查證動作；本題真實前提／實測與採用未驗證。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "R16",
+      "handoff_status": "supported-next-read",
+      "source_reviews": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "9e914e629372256b822efdd5ca5bf3e792c6679783a8be52980dfb5dd18e853d",
+          "need_to_read": "讀取此來源以確認 gate 的解析基準、合法相對路徑形式與驗證方式，並比對目前索引位置和 gate 實作是否符合其前提。",
+          "body_scope_finding": "索引目錄與 repo-root 基準需實際查明；需正／負連結測試。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        }
+      ],
+      "unknown_action": "尚未提供索引位置、實際連結與 gate 實作；先讀取所選來源，再確認契約以索引所在目錄解析連結還是以 repo root 比對字串，不能僅憑摘要判定目前 gate 的修正方式。",
+      "remaining_boundary": "來源可支持下一個查證動作；本題真實前提／實測與採用未驗證。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "R17",
+      "handoff_status": "supported-next-read",
+      "source_reviews": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "61dae885ae1784db74c2af177af2ebc66f40dcaa602d34c23ae362dcfff88fc6",
+          "need_to_read": "讀取來源確認長連線 peer、官方 discovery 與 endpoint 過期的適用條件，以及保持 running 的具體判準。",
+          "body_scope_finding": "僅 cached unreachable peer + official discovery，auth/token invalidation 明確排除。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        }
+      ],
+      "unknown_action": "目前未提供連線類型、endpoint 是否過期、discovery 是否可更新及 job 的失敗契約；先讀取直接來源核對前提，不能把特定 stale-peer 恢復策略泛化為所有 ECONNREFUSED 的處置。",
+      "remaining_boundary": "來源可支持下一個查證動作；本題真實前提／實測與採用未驗證。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "R18",
+      "handoff_status": "supported-next-read",
+      "source_reviews": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "850cfb4c661866ce7f1204c06861dd1976a0a11d48cacafd52e76bfdd9f02389",
+          "need_to_read": "讀取此來源對 clock_timestamp() 在 age gate 寫入時間戳與比較時的使用說明及適用條件。",
+          "body_scope_finding": "僅 age/window 決策時間，排除描述日誌；本題長交易仍需實測。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        }
+      ],
+      "unknown_action": "已找到直接相關來源；讀回其具體用法後，再依實際 age gate SQL 確認應替換的時間戳位置。",
+      "remaining_boundary": "來源可支持下一個查證動作；本題真實前提／實測與採用未驗證。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "R19",
+      "handoff_status": "synthetic-empty-pool",
+      "source_reviews": [],
+      "unknown_action": "Unknown: the query provides no interpretable task or applicability premises, and the candidate pool is empty. No knowledge can be selected; obtain a substantive query and candidate sources before assessing relevance.",
+      "remaining_boundary": "正確留空，僅人工 pool 控制，不支持自然 no-answer 推論。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "R20",
+      "handoff_status": "synthetic-empty-pool",
+      "source_reviews": [],
+      "unknown_action": "The candidate pool is empty and the query 'evidence' does not establish a topic or task. Relevance remains unknown; obtain the intended topic and candidate sources before selecting knowledge.",
+      "remaining_boundary": "正確留空，僅人工 pool 控制，不支持自然 no-answer 推論。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "O01",
+      "handoff_status": "supported-next-read",
+      "source_reviews": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "7f3816beba873f059a62c763ab4caae98b611bf5c6c64fa4906158436308ab3a",
+          "need_to_read": "讀回此來源的 JSON 數值解析與比較驗證方法，確認如何覆蓋 1002 與 1 的區別。",
+          "body_scope_finding": "numeric substring 反例直接相關；實作須真正 JSON numeric parse，跨專案仍重驗。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        }
+      ],
+      "unknown_action": "先讀回 JSON substring 比較陷阱來源；目前未提供純函式實作與測試框架，具體測試程式仍未知。驗證應區分解析後的 code=1 與 code=1002；若驗收範圍延伸到 host 實際行為，再確認 pipeline 測試需求。",
+      "remaining_boundary": "來源可支持下一個查證動作；本題真實前提／實測與採用未驗證。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "O02",
+      "handoff_status": "supported-next-read",
+      "source_reviews": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "a09fa794d5295d8e1da98282e0ab79dcca1eedb3ede6f07a7d5bdacdea349483",
+          "need_to_read": "讀取來源中的真實 viewport 測量方式與各層 computed layout 檢查步驟，確認如何定位 scrollWidth 大於 clientWidth 的元素。",
+          "body_scope_finding": "需真 browser/route/viewport，區分預期內部橫向 scroll；目前只有索引摘要，未量測。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        }
+      ],
+      "unknown_action": "先讀取所選來源的瀏覽器 layout 驗證指引；目前缺少實際 viewport 尺寸、DOM 與 computed layout，尚不能判定造成橫向溢出的元素或具體修正。",
+      "remaining_boundary": "來源可支持下一個查證動作；本題真實前提／實測與採用未驗證。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "O03",
+      "handoff_status": "additional-project-evidence-required",
+      "source_reviews": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "e1b47877a9a40cac887d64a89f4de49eb73fb2a7c78fa8f8ce3fdf79e02a401f",
+          "need_to_read": "讀取既有失敗案例的指紋欄位、適用版本範圍與最小隔離驗證步驟，確認是否適用目前模型載入崩潰。",
+          "body_scope_finding": "無獨立 reuse 證據；indexed summary 不含具體失敗指紋／版本及隔離步驟，足以路由但不足完整比對。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        }
+      ],
+      "unknown_action": "先讀取選定的原生模型載入失敗案例來源，再取得本次崩潰指紋、模型與 runtime 版本及載入環境進行比對；目前未提供這些資訊，不能判定命中哪個案例或推測根因。",
+      "remaining_boundary": "正文列出比對欄位與隔離方法，具體版本／堆疊／指紋值留在來源專案；不能假定此泛用正文包含那些值。可先讀此入口，再向 owner 取得該專案 case 與本次環境證據。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "O04",
+      "handoff_status": "supported-next-read",
+      "source_reviews": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "20c468ba699237af96ef682a1ca9c27412117cd5de784d9d2165072b56b5df47",
+          "need_to_read": "查閱來源中如何確認外層 client 的持有範圍、nested checkout 是否使用同一 pool，以及釋放 client 的適用條件。",
+          "body_scope_finding": "需同一共享 pool nested checkout，若重用同 client 則不適用。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        }
+      ],
+      "unknown_action": "先查 client 是否跨 await 持有並等待同一 pool 的 nested checkout，以及 pool 是否已飽和；目前未有 age gate 存在的證據，不將描述性日誌的 now() 當作卡死原因。",
+      "remaining_boundary": "來源可支持下一個查證動作；本題真實前提／實測與採用未驗證。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "O05",
+      "handoff_status": "supported-next-read",
+      "source_reviews": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md",
+          "revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+          "checksum": "61dae885ae1784db74c2af177af2ebc66f40dcaa602d34c23ae362dcfff88fc6",
+          "need_to_read": "讀取此來源，確認更新並持久化 discovery endpoint 及讓 durable job 維持 running 的具體處置與適用條件。",
+          "body_scope_finding": "僅 cached unreachable peer + official discovery，auth/token invalidation 明確排除。",
+          "fixed_blob_verified": true,
+          "current_checksum_equal": true
+        }
+      ],
+      "unknown_action": "依直接來源核對工作與 endpoint 的更新方式；若 durable job 或 discovery 的具體介面未提供，保留操作細節未知，不推測命令。",
+      "remaining_boundary": "來源可支持下一個查證動作；本題真實前提／實測與採用未驗證。",
+      "applied_to_real_task": "not evaluated"
+    },
+    {
+      "id": "O06",
+      "handoff_status": "unknown-disposition-complete",
+      "source_reviews": [],
+      "unknown_action": "目前沒有依據因 token 撤銷而一直刷新 discovery；該候選只支持端點不可連線時的處理。需確認 peer 所屬服務、token 類型、撤銷錯誤與官方重新授權入口，再查其撤銷後重新授權流程；現有候選不足以確定該流程。",
+      "remaining_boundary": "不輸出 auth 猜測，下一步需服務／token／provider 前提；重新授權問題仍未解決。具體 unknown_action 在 trace audit，尚無 production trace resolver wiring。",
+      "applied_to_real_task": "not evaluated"
+    }
+  ],
+  "production_trace_resolution": "not evaluated",
+  "adoption": "not evaluated"
+}

@@ -1,0 +1,1 @@
+{"selected":["656d90ae993edca6"],"assessments":[{"id":"656d90ae993edca6","relation":"direct","reason":"直接對應 --no-restore 建置通過但不同機器相依圖不同：此 gate 可能驗證上次 restore 的圖，而非目前工作樹。","need_to_read":"讀取此來源以確認相依圖由 restore 產生的鎖定檔決定之適用前提，以及應檢查的 restore 狀態與跨機器差異。"}],"unknown_action":"尚未確認實際 build system、restore 產物及兩台機器的還原狀態；先讀取所選來源並核對這些前提，再判定相依圖差異原因。"}

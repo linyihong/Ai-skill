@@ -1,0 +1,1 @@
+{"selected":["366f9ddf501bc061"],"assessments":[{"id":"366f9ddf501bc061","relation":"direct","reason":"直接涵蓋跨午夜額度等時間邊界邏輯的測試方式，符合改 OS 時間或注入 clock 的查詢焦點。","need_to_read":"讀取此來源確認 injectable clock 或明確時間參數的使用方式，以及凍結 clock 測試跨午夜額度邏輯的適用細節。"}],"unknown_action":"優先讀取所選來源；實作前仍需確認專案使用的時間型別、時區與額度重置邊界，不能由摘要推定具體實作。"}
