@@ -21,3 +21,4 @@
 | phase2-v3-preflight | [phase2-v3-preflight.md](phase2-v3-preflight.md) | offline measured / semantic pending | 26 固定 pool、156 分離比較；多筆 full 可保留命中但 confuser 6/6；六份 label-free requests 與成本契約待執行 |
 | phase2-v3-agent-runner | [phase2-v3-agent-runner.md](phase2-v3-agent-runner.md) | frozen dispatch protocol | 六個 fork-none subagents、單題 request 隔離；保留原始輸出與不可得 usage，不另購 API |
 | phase2-v3-agent-pilot | [phase2-v3-agent-pilot.md](phase2-v3-agent-pilot.md) | six attempts measured / gate failed | Fresh subagents：5/5 正向、2/4 confuser；原始輸出與 unavailable usage 保留，時間監測未通過；Phase 2 未完成 |
+| phase2-v3-disposition-protocol | [phase2-v3-disposition-protocol.md](phase2-v3-disposition-protocol.md) | frozen before D1 scoring | 只加 disposition admission；retrieved／preview／verified／adopted 分層，原成績不改 |
