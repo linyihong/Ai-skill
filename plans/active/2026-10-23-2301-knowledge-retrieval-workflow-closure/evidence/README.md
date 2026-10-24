@@ -25,3 +25,4 @@
 | phase2-v3-disposition | [phase2-v3-disposition.md](phase2-v3-disposition.md) | selection slice passed / Phase 2 incomplete | 同六題 direct-only preview 5/5、0/4、≤1922 runes；retrieved 仍 4/4；9 份讀回身份一致，適用／採用未驗收 |
 | phase2-readiness-contract | [phase2-readiness-contract.md](phase2-readiness-contract.md) | frozen offline preview contract | unknown coverage 必須可見、P0 預設、分開 envelope 成本；列剩餘 Phase 2 gates 與責任 |
 | phase2-readiness | [phase2-readiness.md](phase2-readiness.md) | coverage measured / Phase 2 incomplete | 全 26 題 770 source occurrences，738 unknown；P0 array 最大 1922，但可見 envelope R08 2208，整體成本未通過 |
+| phase2-final-output-protocol | [phase2-final-output-protocol.md](phase2-final-output-protocol.md) | frozen before 26-case selection | 明確改為輸出來源審閱；全模型 payload ≤2000 runes；current-agent 曝光診斷與逐題充分性 |

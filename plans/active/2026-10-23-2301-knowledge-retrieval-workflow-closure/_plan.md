@@ -134,7 +134,7 @@ Phase 1 審核補充（2026-10-24）：[phase1-audit.md](evidence/phase1-audit.m
 
 | 剩餘項目 | 階段與交付 | 責任 |
 | --- | --- | --- |
-| Query / extraction 增益與擴大查詢副作用 | Phase 2：產物綁定的四組對照、另版 overlap controls、全部新增診斷候選審閱；未審閱不通過 | 本計畫 query / extraction 執行者整理，larrylin 或指定 reviewer 覆核 |
+| Query / extraction 增益與擴大查詢副作用 | Phase 2：產物綁定的四組對照、另版 overlap controls、準備輸出的新增來源逐筆審閱；未選候選保留 coverage／trace，不要求 unknown 清零 | 本計畫 query / extraction 執行者整理，larrylin 或指定 reviewer 覆核 |
 | Intelligence 本文覆蓋與 relevance | Phase 2：另版 source-level intelligence 比較資料；未量測不得由 lesson 結果宣稱 intelligence 改善 | 本計畫索引執行者與首批 workflow owner |
 | 自然語意無答案、真實 supersession、來源變更與採用安全 | Phase 3：有範圍與標註的 consumer replay，source-read / applicability / required-read / blocker 證據；人工控制不替代真實案例 | 首批 sd-validation maintainer 與 consumer 任務 owner |
 | 實際模型 token budget | Phase 3：接入 consumer 前固定 tokenizer / version、計入的 context 範圍與 ≤ 2000 實際 tokens；未量測維持 not evaluated | Consumer / context 組裝執行者；Phase 2 僅驗 ≤ 2000 runes 工程代理值 |
@@ -144,7 +144,9 @@ Phase 1 審核補充（2026-10-24）：[phase1-audit.md](evidence/phase1-audit.m
 
 ## Phase 2 — 補既有全文搜尋、metadata 與關聯查找
 
-後續驗收依 [readiness 契約](evidence/phase2-readiness-contract.md)：unknown 對 consumer 可見並區分 unassessed，空 preview 不表示無知識；優先 P0 完整摘要。全資料處置／資訊充分性／成本時間／索引生命週期 gates 通過前，不安排 Phase 3 接線。[全資料盤點](evidence/phase2-readiness.md) 顯示 26 題 770 source occurrences 中 738 unknown；P0 array 最大 1922，但本版可見 envelope R08 為 2208 runes，完整 context 成本未通過，不能由六題結果推定完成。
+最新範圍以 [final-output 協議](evidence/phase2-final-output-protocol.md) 為準：只要求輸出來源逐筆審閱；未選／unknown 保留處置與追查，取消全池清零 gate。
+
+歷史盤點依 [readiness 契約](evidence/phase2-readiness-contract.md)：unknown 對 consumer 可見並區分 unassessed，空 preview 不表示無知識；優先 P0 完整摘要。全資料處置／資訊充分性／成本時間／索引生命週期 gates 通過前，不安排 Phase 3 接線。[全資料盤點](evidence/phase2-readiness.md) 顯示 26 題 770 source occurrences 中 738 unknown；P0 array 最大 1922，但本版可見 envelope R08 為 2208 runes，完整 context 成本未通過，不能由六題結果推定完成。
 
 本輪按 [disposition 協議](evidence/phase2-v3-disposition-protocol.md) 重用原六份 raw，只新增候選處置；direct 待讀回，background 預設不填主要上下文，not-applicable 本次不選，缺標記／unknown 不當成已確認。分開 retrieved、待讀回、selected preview、verified/adopted，不改前輪分數。 結果見 [disposition 重播](evidence/phase2-v3-disposition.md)：同六題 preview 5/5、0/4、≤1922 runes，retrieved 仍 4/4；9 份 direct 來源身份核對一致，verified/adopted 未驗收，Phase 2 維持未完成。
 
@@ -153,7 +155,7 @@ v3 先按 [固定候選協議](evidence/phase2-v3-protocol.md) 分離 pool、選
 v1 結果：B0 / Q / E / QE 診斷命中 1 / 13 / 3 / 14（各 /14）；Q / QE overlap confuser 均 6/6、preview 超額，故候選未採用且 Phase 2 gate 未通過。逐題產物與審閱待辦見 [phase2-v1-ablation.md](evidence/phase2-v1-ablation.md)。v2 已按 [phase2-v2-protocol.md](evidence/phase2-v2-protocol.md) 完成最終輸出重評：QE diagnostic 12/14、overlap 正向 3/5 / confuser 3/6，成本通過但品質仍失敗，見 [phase2-v2-ablation.md](evidence/phase2-v2-ablation.md)。下一輪處理問題焦點與已排除前提，保留排序退步及 shortlist 損失。v1 已拒收，不再為結清而要求完整審完其 191 rows；準備採用的版本仍須完成審閱。保留 v1 證據與原門檻，不導入 vector。
 
 - [x] 依 [執行控制契約](evidence/phase2-execution-contract.md) 先跑固定 corpus 的 B0 / query-only / extraction-only / combined 對照：顯式 query binary 路徑 / SHA、index manifest、generator revision / source SHA、index inputs / corpus SHA；四組配對 validator 必須通過，逐題記錄增益與成本；新增正文另組實驗，不混入 extraction-only。對照組與資料獨立性規則見 Phase 1 審核包。
-- [ ] 以另版 [overlap-controls-v1.json](evidence/overlap-controls-v1.json) 約束查詢放寬：已標 confuser 命中 0；Q / E / QE 相對 B0 的新增診斷候選與未標註 overlap 候選逐筆覆核，未審閱 / unknown 未結清不得通過，不以 8/14 單獨證明有用。
+- [ ] 以另版 [overlap-controls-v1.json](evidence/overlap-controls-v1.json) 約束查詢放寬：selected-output 已標 confuser 命中 0，retrieved 原值另報；準備輸出來源逐筆覆核，未選候選保留數量與追查入口。依使用者最新審閱明確取代原全池覆核要求：unknown 可為合理終態，須結清處置而非逐筆清零，不以 8/14 單獨證明有用。
 - [ ] 依 Phase 1 原因補索引覆蓋與查詢處理，保留精確識別字搜尋；正文擴充只涵蓋選定 workflow、intelligence、決策與整理後知識，不預設索引所有 raw evidence。
 - [ ] 若需 chunk，保留 stable source identity、section anchor、source revision / checksum；重複命中按來源合併，避免一篇文件占滿 top-k。
 - [ ] 重用 canonical domain / scope / status / supersession 欄位；硬限制只用明確適用條件，缺欄位顯示 unknown，避免過濾造成靜默漏找。
