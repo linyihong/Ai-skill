@@ -1,0 +1,3358 @@
+{
+  "agent_run_sha256": "f1202e0f44b9a77e479c3bd0d8e53f78bc72fca4a8cde126c6d1edf339ffe029",
+  "background_use_overrides": [],
+  "d0_results_sha256": "a5aad00a0010c19341d6eb6a03348f1eed1cd5211352ee2e60c14b63eee85509",
+  "kind": "existing raw response replay; direct\u002donly admission; selected preview pending workflow verification",
+  "model_snapshot": "unavailable",
+  "observations": [
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 0,
+      "consumer_results": [
+        {
+          "rank": -7.676624658815986,
+          "id": "feedback.development\u002dguidance.2026\u002d09\u002d04_101800\u002dderived\u002dstate\u002dbefore\u002dblaming\u002dshared\u002dbaseline",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_101800\u002dderived\u002dstate\u002dbefore\u002dblaming\u002dshared\u002dbaseline.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "「原始碼輸入相同」加上「可穩定重現」不足以證明共用基線壞掉；這兩件事在本地衍生狀態過期時同樣成立，而衍生狀態不會出現在原始碼 diff 裡。",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 1,
+      "id": "R03",
+      "information_sufficiency": "not evaluated",
+      "packer": "P0",
+      "payload_runes": 528,
+      "pool_sha256": "793594411410db9d75e420aca7f596edbdbf2dd9e4cadd985976e36b510ebf68",
+      "rr": 1,
+      "selection": "S3\u002dD1\u002ddirect\u002dpreview",
+      "selection_hits": 1,
+      "selection_rr": 1,
+      "shortened_sources": [],
+      "sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_101800\u002dderived\u002dstate\u002dbefore\u002dblaming\u002dshared\u002dbaseline.md"
+      ]
+    },
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 0,
+      "consumer_results": [
+        {
+          "rank": -7.676624658815986,
+          "id": "feedback.development\u002dguidance.2026\u002d09\u002d04_101800\u002dderived\u002dstate\u002dbefore\u002dblaming\u002dshared\u002dbaseline",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_101800\u002dderived\u002dstate\u002dbefore\u002dblaming\u002dshared\u002dbaseline.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "「原始碼輸入相同」加上「可穩定重現」不足以證明共用基線壞掉；這兩件事在本地衍生狀態過期時同樣成立，而衍生狀態不會出現在原始碼 diff 裡。",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 1,
+      "id": "R03",
+      "information_sufficiency": "not evaluated",
+      "packer": "P1",
+      "payload_runes": 528,
+      "pool_sha256": "793594411410db9d75e420aca7f596edbdbf2dd9e4cadd985976e36b510ebf68",
+      "rr": 1,
+      "selection": "S3\u002dD1\u002ddirect\u002dpreview",
+      "selection_hits": 1,
+      "selection_rr": 1,
+      "shortened_sources": [],
+      "sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_101800\u002dderived\u002dstate\u002dbefore\u002dblaming\u002dshared\u002dbaseline.md"
+      ]
+    },
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 0,
+      "consumer_results": [
+        {
+          "rank": -27.490474025114302,
+          "id": "governance.executable\u002dcontract\u002dboundary",
+          "source_path": "knowledge/summaries/executable\u002dcontract\u002dboundary.md",
+          "layer": "knowledge",
+          "type": "summary",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "low",
+          "summary": "定義 executable YAML contract 邊界：source 留在 owner layer，Markdown 解釋脈絡，YAML 承載 activation / steps / gates / evidence；會影響 execution 的 contract 以 `runtime_projection.enabled: true` opt in 到 `runtime.db generated_surfaces`。Framework contract / projection 改動前必須先做 pre\u002dbuild interrogation，避免雙寫 source\u002dof\u002dtruth。",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -28.872407770568355,
+          "id": "route.governance.executable\u002dcontract\u002dboundary",
+          "source_path": "governance/lifecycle/executable\u002dcontract\u002dboundary.yaml",
+          "layer": "governance",
+          "type": "route",
+          "status": "new\u002dlayer\u002dpromoted",
+          "priority": "P1",
+          "confidence": "medium",
+          "context_cost": "{\"estimated_tokens\"=\u003e500, \"load_strategy\"=\u003e\"lazy\", \"cacheable\"=\u003etrue, \"ttl\"=\u003e{\"session\"=\u003e1}}",
+          "summary": "Executable Contract Boundary 定義 source ownership 留在 owner layer、 executable YAML contract 以 runtime_projection.enabled opt in、 runtime compiler 投影到 runtime.db generated_surfaces，並要求 framework contract / projection 變更先做 pre\u002dbuild interrogation。\n",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -24.761488267032387,
+          "id": "feedback.development\u002dguidance.2026\u002d05\u002d21_231500\u002dexecutable\u002dcontract\u002dboundary",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_231500\u002dexecutable\u002dcontract\u002dboundary.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "流程、gate、activation、blocking condition、required evidence 或 failure action 若會影響 agent 執行，必須提供 owner\u002dlayer YAML contract，並投影到 `runtime.db`。",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 1,
+      "id": "R08",
+      "information_sufficiency": "not evaluated",
+      "packer": "P0",
+      "payload_runes": 1922,
+      "pool_sha256": "e258a2938c29e0b944f324740a6538b9ee1c45a9d4dfdeadab2950d037f7c834",
+      "rr": 0.3333333333333333,
+      "selection": "S3\u002dD1\u002ddirect\u002dpreview",
+      "selection_hits": 1,
+      "selection_rr": 0.3333333333333333,
+      "shortened_sources": [],
+      "sources": [
+        "knowledge/summaries/executable\u002dcontract\u002dboundary.md",
+        "governance/lifecycle/executable\u002dcontract\u002dboundary.yaml",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_231500\u002dexecutable\u002dcontract\u002dboundary.md"
+      ]
+    },
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 0,
+      "consumer_results": [
+        {
+          "rank": -27.490474025114302,
+          "id": "governance.executable\u002dcontract\u002dboundary",
+          "source_path": "knowledge/summaries/executable\u002dcontract\u002dboundary.md",
+          "layer": "knowledge",
+          "type": "summary",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "low",
+          "summary": "定義 executable YAML contract 邊界：source 留在 owner layer，Markdown 解釋脈絡，YAML 承載 activation / steps / gates / evidence；會影響 execution …",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -28.872407770568355,
+          "id": "route.governance.executable\u002dcontract\u002dboundary",
+          "source_path": "governance/lifecycle/executable\u002dcontract\u002dboundary.yaml",
+          "layer": "governance",
+          "type": "route",
+          "status": "new\u002dlayer\u002dpromoted",
+          "priority": "P1",
+          "confidence": "medium",
+          "context_cost": "{\"estimated_tokens\"=\u003e500, \"load_strategy\"=\u003e\"lazy\", \"cacheable\"=\u003etrue, \"ttl\"=\u003e{\"session\"=\u003e1}}",
+          "summary": "Executable Contract Boundary 定義 source ownership 留在 owner layer、 executable YAML contract 以 runtime_projection.enabled opt in、 …",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -24.761488267032387,
+          "id": "feedback.development\u002dguidance.2026\u002d05\u002d21_231500\u002dexecutable\u002dcontract\u002dboundary",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_231500\u002dexecutable\u002dcontract\u002dboundary.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "流程、gate、activation、blocking condition、required evidence 或 failure action 若會影響 agent 執行，必須提供 owner\u002dlayer YAML contract，並投影到 `run…",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 1,
+      "id": "R08",
+      "information_sufficiency": "not evaluated",
+      "packer": "P1",
+      "payload_runes": 1624,
+      "pool_sha256": "e258a2938c29e0b944f324740a6538b9ee1c45a9d4dfdeadab2950d037f7c834",
+      "rr": 0.3333333333333333,
+      "selection": "S3\u002dD1\u002ddirect\u002dpreview",
+      "selection_hits": 1,
+      "selection_rr": 0.3333333333333333,
+      "shortened_sources": [
+        "knowledge/summaries/executable\u002dcontract\u002dboundary.md",
+        "governance/lifecycle/executable\u002dcontract\u002dboundary.yaml",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_231500\u002dexecutable\u002dcontract\u002dboundary.md"
+      ],
+      "sources": [
+        "knowledge/summaries/executable\u002dcontract\u002dboundary.md",
+        "governance/lifecycle/executable\u002dcontract\u002dboundary.yaml",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_231500\u002dexecutable\u002dcontract\u002dboundary.md"
+      ]
+    },
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 0,
+      "consumer_results": [
+        {
+          "rank": -6.125012073234287,
+          "id": "feedback.development\u002dguidance.2026\u002d06\u002d08_141200\u002dbrowser\u002dlayout\u002doverflow\u002dintegration",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d06\u002d08_141200\u002dbrowser\u002dlayout\u002doverflow\u002dintegration.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "RWD 或視覺縮放問題不能只靠 CSS marker、snapshot 或人工感覺驗證；要用真實瀏覽器 viewport 量 `document`、`body`、app shell、固定導覽與 scroll content 的 computed layout。",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 1,
+      "id": "O02",
+      "information_sufficiency": "not evaluated",
+      "packer": "P0",
+      "payload_runes": 570,
+      "pool_sha256": "76cbc61cc5257dae07c807ec271c04ae9224d6553ac285dbb8d3c11330750075",
+      "rr": 1,
+      "selection": "S3\u002dD1\u002ddirect\u002dpreview",
+      "selection_hits": 1,
+      "selection_rr": 1,
+      "shortened_sources": [],
+      "sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d06\u002d08_141200\u002dbrowser\u002dlayout\u002doverflow\u002dintegration.md"
+      ]
+    },
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 0,
+      "consumer_results": [
+        {
+          "rank": -6.125012073234287,
+          "id": "feedback.development\u002dguidance.2026\u002d06\u002d08_141200\u002dbrowser\u002dlayout\u002doverflow\u002dintegration",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d06\u002d08_141200\u002dbrowser\u002dlayout\u002doverflow\u002dintegration.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "RWD 或視覺縮放問題不能只靠 CSS marker、snapshot 或人工感覺驗證；要用真實瀏覽器 viewport 量 `document`、`body`、app shell、固定導覽與 scroll content 的 computed layo…",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 1,
+      "id": "O02",
+      "information_sufficiency": "not evaluated",
+      "packer": "P1",
+      "payload_runes": 568,
+      "pool_sha256": "76cbc61cc5257dae07c807ec271c04ae9224d6553ac285dbb8d3c11330750075",
+      "rr": 1,
+      "selection": "S3\u002dD1\u002ddirect\u002dpreview",
+      "selection_hits": 1,
+      "selection_rr": 1,
+      "shortened_sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d06\u002d08_141200\u002dbrowser\u002dlayout\u002doverflow\u002dintegration.md"
+      ],
+      "sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d06\u002d08_141200\u002dbrowser\u002dlayout\u002doverflow\u002dintegration.md"
+      ]
+    },
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 0,
+      "consumer_results": [
+        {
+          "rank": -12.293871599019557,
+          "id": "feedback.development\u002dguidance.2026\u002d10\u002d07_125417\u002dnative\u002dmodel\u002dload\u002dknown\u002dcase\u002dfirst",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d10\u002d07_125417\u002dnative\u002dmodel\u002dload\u002dknown\u002dcase\u002dfirst.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "模型載入原生崩潰時先比對既有失敗指紋與版本範圍，再做最小隔離驗證，不從完整產品流程重新猜原因。",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 1,
+      "id": "O03",
+      "information_sufficiency": "not evaluated",
+      "packer": "P0",
+      "payload_runes": 486,
+      "pool_sha256": "2a01a734cda4a9fb72d33e8f6d7d30d7d44c9b83982279be4948c20b6aaa8cdf",
+      "rr": 1,
+      "selection": "S3\u002dD1\u002ddirect\u002dpreview",
+      "selection_hits": 1,
+      "selection_rr": 1,
+      "shortened_sources": [],
+      "sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d10\u002d07_125417\u002dnative\u002dmodel\u002dload\u002dknown\u002dcase\u002dfirst.md"
+      ]
+    },
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 0,
+      "consumer_results": [
+        {
+          "rank": -12.293871599019557,
+          "id": "feedback.development\u002dguidance.2026\u002d10\u002d07_125417\u002dnative\u002dmodel\u002dload\u002dknown\u002dcase\u002dfirst",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d10\u002d07_125417\u002dnative\u002dmodel\u002dload\u002dknown\u002dcase\u002dfirst.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "模型載入原生崩潰時先比對既有失敗指紋與版本範圍，再做最小隔離驗證，不從完整產品流程重新猜原因。",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 1,
+      "id": "O03",
+      "information_sufficiency": "not evaluated",
+      "packer": "P1",
+      "payload_runes": 486,
+      "pool_sha256": "2a01a734cda4a9fb72d33e8f6d7d30d7d44c9b83982279be4948c20b6aaa8cdf",
+      "rr": 1,
+      "selection": "S3\u002dD1\u002ddirect\u002dpreview",
+      "selection_hits": 1,
+      "selection_rr": 1,
+      "shortened_sources": [],
+      "sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d10\u002d07_125417\u002dnative\u002dmodel\u002dload\u002dknown\u002dcase\u002dfirst.md"
+      ]
+    },
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 0,
+      "consumer_results": [
+        {
+          "rank": -33.09649694314764,
+          "id": "feedback.development\u002dguidance.2026\u002d09\u002d30_155700\u002drelease\u002dpool\u002dclient\u002dbefore\u002dnested\u002dcheckout",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d09\u002d30_155700\u002drelease\u002dpool\u002dclient\u002dbefore\u002dnested\u002dcheckout.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "Never hold a DB pool client across an await that also checks out from the same pool; saturation turns into an uninterruptible hang that soft reconcile cannot clear.",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 1,
+      "id": "O04",
+      "information_sufficiency": "not evaluated",
+      "packer": "P0",
+      "payload_runes": 618,
+      "pool_sha256": "e442115af6d503bb148ecbe6b38b9858b2607080da293f9aab65ae1106d1316c",
+      "rr": 1,
+      "selection": "S3\u002dD1\u002ddirect\u002dpreview",
+      "selection_hits": 1,
+      "selection_rr": 1,
+      "shortened_sources": [],
+      "sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d30_155700\u002drelease\u002dpool\u002dclient\u002dbefore\u002dnested\u002dcheckout.md"
+      ]
+    },
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 0,
+      "consumer_results": [
+        {
+          "rank": -33.09649694314764,
+          "id": "feedback.development\u002dguidance.2026\u002d09\u002d30_155700\u002drelease\u002dpool\u002dclient\u002dbefore\u002dnested\u002dcheckout",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d09\u002d30_155700\u002drelease\u002dpool\u002dclient\u002dbefore\u002dnested\u002dcheckout.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "Never hold a DB pool client across an await that also checks out from the same pool; saturation turns into an uninterruptible h…",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 1,
+      "id": "O04",
+      "information_sufficiency": "not evaluated",
+      "packer": "P1",
+      "payload_runes": 582,
+      "pool_sha256": "e442115af6d503bb148ecbe6b38b9858b2607080da293f9aab65ae1106d1316c",
+      "rr": 1,
+      "selection": "S3\u002dD1\u002ddirect\u002dpreview",
+      "selection_hits": 1,
+      "selection_rr": 1,
+      "shortened_sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d30_155700\u002drelease\u002dpool\u002dclient\u002dbefore\u002dnested\u002dcheckout.md"
+      ],
+      "sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d30_155700\u002drelease\u002dpool\u002dclient\u002dbefore\u002dnested\u002dcheckout.md"
+      ]
+    },
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 0,
+      "consumer_results": [
+        {
+          "rank": -4.585492795809876,
+          "id": "feedback.apk\u002danalysis.2026\u002d04\u002d30_120005\u002dsession\u002drefresh\u002d要還原\u002dapp\u002d的真實登入\u002d裝置流程",
+          "source_path": "feedback/history/apk\u002danalysis/common/2026\u002d04\u002d30_120005\u002dsession\u002drefresh\u002d要還原\u002dapp\u002d的真實登入\u002d裝置流程.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "Token 過期不一定有 refresh\u002dtoken；要看 App 實際怎麼重新取得 session。",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -5.378234940388146,
+          "id": "feedback.apk\u002danalysis.2026\u002d07\u002d15_140000\u002dcold\u002dstart\u002dtoken\u002dmay\u002dcome\u002dfrom\u002dbootstrap\u002dnot\u002dlogin",
+          "source_path": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d15_140000\u002dcold\u002dstart\u002dtoken\u002dmay\u002dcome\u002dfrom\u002dbootstrap\u002dnot\u002dlogin.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "`pm clear` 冷啟後，遊客 session 可能來自 **專用 bootstrap 端點**（`authLen=0`），而 **`user/login` 可能 0 次**；離線 SDK 勿假設必須走 login POST。",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 0,
+      "id": "O06",
+      "information_sufficiency": "not evaluated",
+      "packer": "P0",
+      "payload_runes": 1043,
+      "pool_sha256": "4a87c7fdc89990f825c094a46d33c8d03af6c80616486fe25a9497b1b5b38f0e",
+      "rr": 0,
+      "selection": "S3\u002dD1\u002ddirect\u002dpreview",
+      "selection_hits": 0,
+      "selection_rr": 0,
+      "shortened_sources": [],
+      "sources": [
+        "feedback/history/apk\u002danalysis/common/2026\u002d04\u002d30_120005\u002dsession\u002drefresh\u002d要還原\u002dapp\u002d的真實登入\u002d裝置流程.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d15_140000\u002dcold\u002dstart\u002dtoken\u002dmay\u002dcome\u002dfrom\u002dbootstrap\u002dnot\u002dlogin.md"
+      ]
+    },
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 0,
+      "consumer_results": [
+        {
+          "rank": -4.585492795809876,
+          "id": "feedback.apk\u002danalysis.2026\u002d04\u002d30_120005\u002dsession\u002drefresh\u002d要還原\u002dapp\u002d的真實登入\u002d裝置流程",
+          "source_path": "feedback/history/apk\u002danalysis/common/2026\u002d04\u002d30_120005\u002dsession\u002drefresh\u002d要還原\u002dapp\u002d的真實登入\u002d裝置流程.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "Token 過期不一定有 refresh\u002dtoken；要看 App 實際怎麼重新取得 session。",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -5.378234940388146,
+          "id": "feedback.apk\u002danalysis.2026\u002d07\u002d15_140000\u002dcold\u002dstart\u002dtoken\u002dmay\u002dcome\u002dfrom\u002dbootstrap\u002dnot\u002dlogin",
+          "source_path": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d15_140000\u002dcold\u002dstart\u002dtoken\u002dmay\u002dcome\u002dfrom\u002dbootstrap\u002dnot\u002dlogin.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "`pm clear` 冷啟後，遊客 session 可能來自 **專用 bootstrap 端點**（`authLen=0`），而 **`user/login` 可能 0 次**；離線 SDK 勿假設必須走 login POST。",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 0,
+      "id": "O06",
+      "information_sufficiency": "not evaluated",
+      "packer": "P1",
+      "payload_runes": 1043,
+      "pool_sha256": "4a87c7fdc89990f825c094a46d33c8d03af6c80616486fe25a9497b1b5b38f0e",
+      "rr": 0,
+      "selection": "S3\u002dD1\u002ddirect\u002dpreview",
+      "selection_hits": 0,
+      "selection_rr": 0,
+      "shortened_sources": [],
+      "sources": [
+        "feedback/history/apk\u002danalysis/common/2026\u002d04\u002d30_120005\u002dsession\u002drefresh\u002d要還原\u002dapp\u002d的真實登入\u002d裝置流程.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d15_140000\u002dcold\u002dstart\u002dtoken\u002dmay\u002dcome\u002dfrom\u002dbootstrap\u002dnot\u002dlogin.md"
+      ]
+    }
+  ],
+  "permutations": [
+    {
+      "decisions": [
+        {
+          "action": "queue\u002dreadback",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "f40eaad2e2fc0010",
+          "reason": "直接回答：原始碼相同且穩定重現仍不足以歸因共用 baseline，須先排除本地衍生狀態。",
+          "relation": "direct",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_101800\u002dderived\u002dstate\u002dbefore\u002dblaming\u002dshared\u002dbaseline.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "optional\u002dbackground\u002donly",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "43d35cbd1871cd3b",
+          "reason": "快取與 session 殘留影響行為，可作為本地狀態的背景例子。",
+          "relation": "background",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_105026\u002dstate\u002dreset\u002dbaseline\u002dfeature\u002dcapture.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "cd8022f01f52fa69",
+          "reason": "標題提及基線，但摘要未提供可判斷此歸因問題的實質內容。",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_154500\u002ddomain\u002druntime\u002dbaseline\u002dfinish\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "exclude\u002dthis\u002dtask",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "476d569ade93f96a",
+          "reason": "討論 3D 資產證據與 PASS 門檻，未涉及原始碼或共用基線歸因。",
+          "relation": "not\u002dapplicable",
+          "source": "feedback/history/3d\u002dcharacter\u002dproduction/common/2026\u002d09\u002d01_084600\u002dseparate\u002dasset\u002devidence\u002dfrom\u002dstage\u002dpass.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "exclude\u002dthis\u002dtask",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "83909260a149f911",
+          "reason": "討論 slot 派彩窗口與 hook 行為，未涉及目前的基線歸因問題。",
+          "relation": "not\u002dapplicable",
+          "source": "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d24_114500\u002dslot\u002dbase\u002dline\u002dwins\u002dmay\u002dbypass\u002dpayout\u002dwindow\u002dshow.md",
+          "verification": "pending workflow verification"
+        }
+      ],
+      "id": "R03",
+      "readback_queue": [
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_101800\u002dderived\u002dstate\u002dbefore\u002dblaming\u002dshared\u002dbaseline.md"
+      ],
+      "retrieved_confuser_hits": 0
+    },
+    {
+      "assessments": [
+        {
+          "id": "f40eaad2e2fc0010",
+          "relation": "direct",
+          "reason": "直接回答：原始碼相同且穩定重現仍不足以歸因共用 baseline，須先排除本地衍生狀態。"
+        },
+        {
+          "id": "43d35cbd1871cd3b",
+          "relation": "background",
+          "reason": "快取與 session 殘留影響行為，可作為本地狀態的背景例子。"
+        },
+        {
+          "id": "cd8022f01f52fa69",
+          "relation": "unknown",
+          "reason": "標題提及基線，但摘要未提供可判斷此歸因問題的實質內容。"
+        },
+        {
+          "id": "476d569ade93f96a",
+          "relation": "not\u002dapplicable",
+          "reason": "討論 3D 資產證據與 PASS 門檻，未涉及原始碼或共用基線歸因。"
+        },
+        {
+          "id": "83909260a149f911",
+          "relation": "not\u002dapplicable",
+          "reason": "討論 slot 派彩窗口與 hook 行為，未涉及目前的基線歸因問題。"
+        }
+      ],
+      "candidate_sources": 5,
+      "confuser_source_ranks": {},
+      "expected_source_ranks": {
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_101800\u002dderived\u002dstate\u002dbefore\u002dblaming\u002dshared\u002dbaseline.md": 1
+      },
+      "id": "R03",
+      "ranked_sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_101800\u002dderived\u002dstate\u002dbefore\u002dblaming\u002dshared\u002dbaseline.md"
+      ],
+      "raw_sha256": "62c82ee628a0be92cbf8c3f3253c261617af55e5f748aa4466b987270ad88f99",
+      "request_sha256": "1399fb329b2e905715cb4e6e078f8546c695881ebf7c9e20bf7c5fee48ef9c95",
+      "valid_complete_permutation": true
+    },
+    {
+      "decisions": [
+        {
+          "action": "queue\u002dreadback",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "1504b2fa11cbc4f3",
+          "reason": "直接說明 owner layer 保留 source、YAML 承載執行規則與 runtime 投影邊界，並提及避免雙寫 source\u002dof\u002dtruth。",
+          "relation": "direct",
+          "source": "knowledge/summaries/executable\u002dcontract\u002dboundary.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "queue\u002dreadback",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "d88e5394b90d00d0",
+          "reason": "直接涵蓋 source ownership、opt\u002din projection 與 compiler 投影契約。",
+          "relation": "direct",
+          "source": "governance/lifecycle/executable\u002dcontract\u002dboundary.yaml",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "queue\u002dreadback",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "7fa87a8c3d6fb1ad",
+          "reason": "指出影響 agent 執行的流程與 gates 必須具有 owner\u002dlayer YAML 並投影 runtime.db。",
+          "relation": "direct",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_231500\u002dexecutable\u002dcontract\u002dboundary.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "optional\u002dbackground\u002donly",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "350fe459d0b15091",
+          "reason": "說明 deterministic compiler 如何將契約寫入 runtime.db，可補充投影機制。",
+          "relation": "background",
+          "source": "runtime/runtime.db",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "optional\u002dbackground\u002donly",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "d9913fb968caf213",
+          "reason": "說明升級治理要避免只留下 Markdown，提供 executable contract 的治理動機。",
+          "relation": "background",
+          "source": "governance/lifecycle/system\u002dupgrade\u002dgovernance.yaml",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "optional\u002dbackground\u002donly",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "d2fb377a8bf12310",
+          "reason": "提供按內容歸屬不同 owner 與 runtime gates 的分類背景。",
+          "relation": "background",
+          "source": "governance/lifecycle/decision\u002dpromotion\u002dpipeline.yaml",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "c6d05e1f60e8db00",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/summaries/runtime\u002doperations.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "41cec228d89168cb",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "governance/lifecycle/knowledge\u002dupdate\u002dflow.yaml",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "8c21ba202a8c4ed7",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "governance/ai\u002druntime\u002dgovernance/five\u002dstep\u002dai\u002dgovernance.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "ca89784964e0f4ee",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/summaries/repo\u002dgovernance.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "9c37db34f721134d",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/glossary/ai\u002dskill.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "cb67079843413c8d",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d05\u002d27_092801\u002dintelligence\u002dlayer\u002dbypass\u002dvia\u002dtool\u002dadapter.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "9244071249dd76bb",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_142300\u002ddocument\u002dmigration\u002dmap\u002dbefore\u002ddeleting\u002dlegacy\u002dsurface.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "526690e20947987d",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/summaries/test\u002dfirst\u002dframework\u002dupgrade.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "a57cb172a6baa35b",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d05\u002d22_092400\u002dtest\u002dfirst\u002dframework\u002dupgrade.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "a2f39f2b1c42748f",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/summaries/context\u002dcost\u002doptimization.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "c5b74437a21a8a05",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/summaries/knowledge\u002dnavigation.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "532895846901f003",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "governance/lifecycle/routing\u002dphilosophy.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "baefad63239664ac",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "runtime/README.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "8e235671b726d552",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "ai\u002dtools/agent\u002donboarding.yaml",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "3ddbbb88467ccb28",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "ai\u002dtools/new\u002dproject\u002donboarding.yaml",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "14bade566d440541",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "runtime/capability\u002dcontext.yaml",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "b1437509f8a99779",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "governance/cognitive\u002dstance.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "9c35c10505d93449",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "runtime/cognitive\u002dmodes.yaml",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "84e4a223e621555c",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_220226\u002dknowledge\u002dupdate\u002dflow\u002dmaster\u002ddoc\u002drequired.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "05107d72980bb540",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/summaries/development\u002dguidance.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "bfb86f7b32e946d5",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "workflow/software\u002ddelivery/execution\u002dflow.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "3f9fca455a0fe6a9",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d05\u002d05_194400\u002dcontract\u002dfirst\u002ddevelopment\u002dflow.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "401685aad065c51f",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d05\u002d06_083200\u002dimplemented\u002dfirst\u002dcontract\u002dgovernance.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "0acead0e2643d289",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/summaries/requirements\u002dcognition.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "2a3759ac9b4548b6",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "intelligence/engineering/requirements/README.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "f89b6832cdcd77d2",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "validation/README.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "f86b7dc2ff8a3825",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "governance/ai\u002druntime\u002dgovernance/cognitive\u002dstate\u002dgovernance.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "fd8e2a6009023232",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "enforcement/conversation\u002dgoal\u002dledger.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "7e64babd83fc9f73",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/summaries/prompt\u002dcache\u002dalignment.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "be0982e2e05f394e",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/roo\u002dcode/2026\u002d05\u002d25_145500\u002dbootstrap\u002dbypass\u002don\u002dresume.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "bd9ce59699ca63db",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "anti\u002dpatterns/README.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "2420eefd5957298b",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/narrative\u002dvideo\u002dproduction/common/2026\u002d10\u002d02_174015\u002devidence\u002dnon\u002ddestructive\u002dresolution\u002dinvariant.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "786c4e65200ecc8c",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/summaries/architectural\u002dfit.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "29895b1899ea2178",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d06\u002d08_103300\u002dcomponent\u002dtraceability\u002dmarker\u002ddepth.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "6cd30bf71ee56c01",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d05\u002d07_154400\u002danalysis\u002dsdk\u002dcontract\u002ddrift\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "841bfa92fb4da369",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d07_144300\u002dui\u002droute\u002dbackfill\u002dafter\u002druntime\u002dprobe.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "9d039032e9e68725",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d09\u002d28_131830\u002druntime\u002dimage\u002dmust\u002dcopy\u002dbaked\u002drepo\u002droot\u002ddata.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "3768d3baf1bc91fb",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d10\u002d15_190000\u002dmutate\u002dthe\u002dlayer\u002dthat\u002ddecides\u002dand\u002dreset\u002dthe\u002dtemplate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "82a2993badf51aad",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d10\u002d05_171500\u002dland\u002dcancellation\u002don\u002da\u002dchosen\u002ddb\u002dstatement.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "269fc1f483fdbf1c",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d20_130500\u002druntime\u002dh5\u002dexternal\u002dreplay\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "4fbab47a262f215b",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d06\u002d18_play\u002dview\u002dkpi\u002dsql\u002dpass\u002ddom\u002dfail\u002dbrowser\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "54baafc50c63f5d9",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/summaries/legal\u002dworkflow.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "d1d66ffba3c76b27",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/summaries/investment\u002dworkflow.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "161c21620657cf9d",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d10\u002d23_140500\u002dapply\u002dshim\u002donleave\u002dui\u002dmust\u002dcover\u002dall\u002dprocessresult\u002downers.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "09d75063b5e5473b",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d06\u002d22_130100\u002dr8\u002dobfuscated\u002dokhttp\u002dresponse\u002dneeds\u002dconverter\u002dhook.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "c260219c74919233",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/local\u002dproxy/2026\u002d05\u002d13_095200\u002dmulti\u002dlayer\u002dproxy\u002darchitecture\u002dcapture\u002dstrategy.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "0d75fb43b299a50f",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d14_134900\u002dchoose\u002dcategory\u002dpreview\u002dtexture\u002dis\u002dcomposite\u002dnot\u002dlayer\u002dsprites.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "6a3a45ffe08bd757",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/legal/common/2026\u002d07\u002d31_064500\u002dsigned\u002dcontract\u002dreview\u002dproduces\u002ddifferent\u002dartifacts.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "950d42621e20e285",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/legal/common/2026\u002d07\u002d30_221637\u002dcounterparty\u002dbusiness\u002dscope\u002ddrives\u002dclause\u002dterms.md",
+          "verification": "pending workflow verification"
+        }
+      ],
+      "id": "R08",
+      "readback_queue": [
+        "knowledge/summaries/executable\u002dcontract\u002dboundary.md",
+        "governance/lifecycle/executable\u002dcontract\u002dboundary.yaml",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_231500\u002dexecutable\u002dcontract\u002dboundary.md"
+      ],
+      "retrieved_confuser_hits": 0
+    },
+    {
+      "assessments": [
+        {
+          "id": "1504b2fa11cbc4f3",
+          "relation": "direct",
+          "reason": "直接說明 owner layer 保留 source、YAML 承載執行規則與 runtime 投影邊界，並提及避免雙寫 source\u002dof\u002dtruth。"
+        },
+        {
+          "id": "d88e5394b90d00d0",
+          "relation": "direct",
+          "reason": "直接涵蓋 source ownership、opt\u002din projection 與 compiler 投影契約。"
+        },
+        {
+          "id": "7fa87a8c3d6fb1ad",
+          "relation": "direct",
+          "reason": "指出影響 agent 執行的流程與 gates 必須具有 owner\u002dlayer YAML 並投影 runtime.db。"
+        },
+        {
+          "id": "350fe459d0b15091",
+          "relation": "background",
+          "reason": "說明 deterministic compiler 如何將契約寫入 runtime.db，可補充投影機制。"
+        },
+        {
+          "id": "d9913fb968caf213",
+          "relation": "background",
+          "reason": "說明升級治理要避免只留下 Markdown，提供 executable contract 的治理動機。"
+        },
+        {
+          "id": "d2fb377a8bf12310",
+          "relation": "background",
+          "reason": "提供按內容歸屬不同 owner 與 runtime gates 的分類背景。"
+        }
+      ],
+      "candidate_sources": 55,
+      "confuser_source_ranks": {},
+      "expected_source_ranks": {
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_231500\u002dexecutable\u002dcontract\u002dboundary.md": 3
+      },
+      "id": "R08",
+      "ranked_sources": [
+        "knowledge/summaries/executable\u002dcontract\u002dboundary.md",
+        "governance/lifecycle/executable\u002dcontract\u002dboundary.yaml",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_231500\u002dexecutable\u002dcontract\u002dboundary.md"
+      ],
+      "raw_sha256": "b146e86c928ff751599dd8248bc7dc7be70d8122c5ea56ba943935b276529a5b",
+      "request_sha256": "dce6c48c32430df314269b12140eb37deeeb59d1e1cff0bf9d29dbfdb7c26fa1",
+      "valid_complete_permutation": true
+    },
+    {
+      "decisions": [
+        {
+          "action": "queue\u002dreadback",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "e2932b9f25e9c2bc",
+          "reason": "直接說明以真實瀏覽器 viewport 量測 document、body、app shell、固定導覽與 scroll content 的 computed layout，對應目前橫向溢出驗證。",
+          "relation": "direct",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d06\u002d08_141200\u002dbrowser\u002dlayout\u002doverflow\u002dintegration.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "optional\u002dbackground\u002donly",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "bc757ad5ed07e8ce",
+          "reason": "API/SQL 正確仍需 browser DOM 對照，但候選聚焦 KPI 陳舊 view model，並非目前 scrollWidth 溢出。",
+          "relation": "background",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d06\u002d18_play\u002dview\u002dkpi\u002dsql\u002dpass\u002ddom\u002dfail\u002dbrowser\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "optional\u002dbackground\u002donly",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "e4727fa29a21503b",
+          "reason": "可協助辨識 scrollable regions，但未提供 viewport 橫向溢出量測方法。",
+          "relation": "background",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_183700\u002dscrollable\u002dclickable\u002dscreen\u002dmapping.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "optional\u002dbackground\u002donly",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "f1c40ff4593786e8",
+          "reason": "涉及頁面滑動抽樣，但目的是辨識 API 來源，不是定位橫向溢出。",
+          "relation": "background",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_185921\u002dscroll\u002ddepth\u002dbefore\u002dapi\u002dconclusion.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "01ec7338167678fe",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d01_171650\u002dui\u002darchitecture\u002dmap\u002dfrom\u002dscreenshots.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "4c087a85bc82cac5",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d11_095600\u002dui\u002dapi\u002dtop\u002ditems\u002dparity.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "4b56a81b0e06eb94",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_202400\u002dpage\u002danalysis\u002drequires\u002dui\u002dmap\u002dartifact.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "18bcf5303d9ec8ea",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_205500\u002dui\u002dbehavior\u002dbackfill\u002dfinish\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "a534d042914f4f8f",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_184700\u002dscreen\u002dreachability\u002doperation\u002drecipes.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "54c8cce177ca87fd",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_184900\u002din\u002dapp\u002droute\u002dmap\u002dexternal\u002dtransitions.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "6545aeeff541b189",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_183400\u002dui\u002dautomation\u002doperation\u002dscripts\u002dfor\u002dapi\u002dcapture.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "458ac726f78e0f78",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_195200\u002dfeature\u002dreconstruction\u002dhandoff.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "72b5cb993c1ed918",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_102100\u002dfeature\u002dhandoff\u002dfinish\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "7535edd1f180c613",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "analysis/web/README.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "161287fa5d4e486e",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d06_104300\u002dapi\u002dcatalog\u002dfinish\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "2b0d3fbbbeb1ef5a",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d06_081400\u002dauto\u002dapp\u002dguidance\u002dfor\u002dsdk\u002dtools.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "3df42560acbad282",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_192012\u002dinfinite\u002dscroll\u002dneeds\u002dpagination\u002dproof.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "efc4ee6d15076ebc",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d11_113100\u002dpost\u002dselection\u002dgesture\u002dfor\u002dlazy\u002dapi.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "609e07eeb1918c87",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_184218\u002dplayable\u002dlist\u002ditem\u002dstill\u002dneeds\u002ddetail\u002dapi.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "65847435dd251c64",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_141600\u002dstatic\u002dwaterfall\u002dpath\u002dzero\u002dhit\u002dcheck\u002dshelf\u002dlayout\u002dgating.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "fb373419b3f3fc2a",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d07_125600\u002dapi\u002dfirst\u002dpagination\u002dreplay.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "59533c35a6d5384a",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d11_113200\u002dread\u002donly\u002dargument\u002doverride\u002dpreserve\u002dapp\u002dpath.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "a3a3e081f388240e",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d11_135000\u002dredacted\u002dsample\u002dtargeting\u002dclassifier.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "5e4a735cd2cfadb8",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d01_173800\u002dapi\u002dfield\u002ddocumentation\u002dafter\u002danalysis.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "f9fdfdf52296c3f1",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_104000\u002ddetailed\u002dapi\u002dlist\u002dfinish\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "2e0969d985966e9d",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "analysis/apk/workflows/README.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "6f86e02ca023b206",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_165800\u002dslot\u002dspin\u002dfixtures\u002dpair\u002djson\u002dmanifest\u002dand\u002dreel\u002dcrop.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "60ed61f5a03737a3",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_190838\u002drichtext\u002dhtml\u002dimages\u002dare\u002dapi\u002dresources.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "c6c7cbea96b4e2ab",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d01_171500\u002djson\u002dshape\u002dbefore\u002dquery\u002dshape.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "b879de06c9b84f91",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/flutter\u002ddart\u002daot/2026\u002d05\u002d01_153437\u002dsequence\u002djsondecode\u002dbefore\u002dapi\u002dresponse.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "cbedbbe87e04aafb",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d15_173000\u002dcategory\u002dapi\u002dreturns\u002dnumeric\u002did\u002dnot\u002ddisplay\u002dname.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "8cb11d4e466e5c7a",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d11_135700\u002darticles\u002dfirst\u002dlive\u002dadapter\u002dsmoke.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "6461408f16151f5b",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_142900\u002dwire\u002djson\u002dfield\u002dnames\u002ddiffer\u002dfrom\u002dgson\u002dbean\u002dpaths.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "d990f8a2eb4b84bc",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_141500\u002dstatic\u002dlist\u002dendpoint\u002dzero\u002dhit\u002dcheck\u002ddetail\u002dembedded\u002dcatalog.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "d0aecfda130bbb9c",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d06\u002d22_131000\u002dretrofit\u002dgson\u002dfromjson\u002dhook\u002dapi\u002dresponse\u002dplaintext.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "ec9b112a6757d096",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d19_161700\u002dallowlisted\u002droute\u002dparam\u002dcapture.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "fa284975bea1acf5",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d15_172600\u002dsame\u002dservice\u002dhash\u002dmulti\u002dapi\u002dtype\u002drouting.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "86b2f59745cca90e",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d15_172519\u002dquery\u002dstring\u002dlength\u002dinfer\u002dunknown\u002dparam.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "3b71aa6ebef4e64f",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/local\u002dproxy/2026\u002d07\u002d14_095210\u002dmixed\u002dmitm\u002dads\u002dok\u002dfirstparty\u002dssl\u002dapi\u002dbypass.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "023458bb592305c9",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/local\u002dproxy/2026\u002d06\u002d22_120100\u002dmitm\u002dcdn\u002dvisible\u002dprimary\u002dapi\u002dinvisible\u002dpinning\u002dtier.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "6f96ece81755e26f",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_130000\u002din\u002dsession\u002dapi\u002dhost\u002ddiffers\u002dfrom\u002dcold\u002dstart\u002dprimary.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "9a10927f06eb4951",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_120200\u002dstatic\u002dktor\u002dstrings\u002dnot\u002ddynamic\u002dbusiness\u002dapi\u002dclient.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "116750d8fc18bef2",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_141700\u002dcustom\u002drequest\u002dsignatures\u002dblock\u002dstandalone\u002dsdk\u002duntil\u002dre\u002dor\u002drelay.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "915c375762c7c8bc",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_142500\u002dpartial\u002doffline\u002dsign\u002dhmac\u002dsolved\u002drequesttime\u002dsession\u002dremain\u002drelay.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "13bca6299d764bf7",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_142700\u002dopaque\u002dapi\u002dblob\u002dnative\u002ddecrypt\u002dsecondary\u002dcompression\u002djson.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "4b0875ed66dcc797",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_143300\u002dnative\u002ddecrypt\u002dmode\u002dmay\u002dreuse\u002dencrypt\u002dmode\u002dkey\u002dmaterial.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "10ab48732bf6824b",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d15_140100\u002ddual\u002dsign\u002dcanonical\u002dh5\u002djson\u002dvs\u002dretrofit\u002dempty\u002dbodystr.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "114b4ae521e64575",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d14_141500\u002drequest\u002dsign\u002dmay\u002dbe\u002dsha256withrsa\u002dpkcs8\u002dheader\u002dconcat.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "16b0d1c0a5aa4162",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d14_141700\u002dcrosscheck\u002drequest\u002dsign\u002doffline\u002dvs\u002dinapp\u002dfingerprint.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "4028b6266bdd330c",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d14_135220\u002drequest\u002dsign\u002dinterceptor\u002dmay\u002doutnumber\u002dsigner\u002dcalls.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "da8446c3dd87da44",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d14_131600\u002drequest\u002dsign\u002dfixed\u002db64\u002dlength\u002dmay\u002dbe\u002drsa\u002dscale.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "7055e668805284d5",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d19_162800\u002dwire\u002dpath\u002dvs\u002dsigning\u002dcanonical\u002dpath.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "621d93cc6a6bbb8e",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_143400\u002dlogin\u002dmay\u002dbootstrap\u002dwith\u002dsentinel\u002duid\u002dsession\u002dheaders.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "866be304bb54e15a",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d15_140000\u002dcold\u002dstart\u002dtoken\u002dmay\u002dcome\u002dfrom\u002dbootstrap\u002dnot\u002dlogin.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "c4d94930f82df683",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d15_140300\u002dbootstrap\u002dbody\u002dmay\u002dcarry\u002danalytics\u002dids\u002dnot\u002ddevice\u002dgaid.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "1afba06c608bd8c6",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_143500\u002dpaywall\u002dentitlement\u002dmay\u002dbind\u002dto\u002daccount\u002dsession\u002dnot\u002dguest\u002dbootstrap.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "c124468baee9fcc7",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d09\u002d01_093500\u002dentitlement\u002dgrant\u002dis\u002dplayable\u002dfield\u002dpresence\u002dnot\u002dclient\u002dflag.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "2a996e9eb8737ed4",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d14_105600\u002dnamed\u002dgetcontentbody\u002ddecrypt\u002dyields\u002dutf8\u002dchapter\u002dplaintext.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "6054f03fcd7a28de",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d14_131500\u002dondisk\u002dencrypted\u002dchapter\u002dblob\u002dlength\u002dmatches\u002ddecrypt\u002dinput.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "d19fe1b4beb5d413",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d14_112000\u002drsa\u002dpublic\u002dunwrap\u002dto\u002dshort\u002dkey\u002dthen\u002dcontent\u002ddecrypt.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "42afe42c799cbe4b",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d18_142100\u002dsha256\u002dhash\u002dverify\u002dpython\u002dnot\u002dshell.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "37ba022dff8d7320",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/summaries/migration\u002dseeder\u002danti\u002dpatterns.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "ca9526486d927713",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/glossary/ai\u002dskill.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "e5d592f993d72c7d",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "governance/ai\u002druntime\u002dgovernance/five\u002dstep\u002dai\u002dgovernance.md",
+          "verification": "pending workflow verification"
+        }
+      ],
+      "id": "O02",
+      "readback_queue": [
+        "feedback/history/development\u002dguidance/common/2026\u002d06\u002d08_141200\u002dbrowser\u002dlayout\u002doverflow\u002dintegration.md"
+      ],
+      "retrieved_confuser_hits": 1
+    },
+    {
+      "assessments": [
+        {
+          "id": "e2932b9f25e9c2bc",
+          "relation": "direct",
+          "reason": "直接說明以真實瀏覽器 viewport 量測 document、body、app shell、固定導覽與 scroll content 的 computed layout，對應目前橫向溢出驗證。"
+        },
+        {
+          "id": "bc757ad5ed07e8ce",
+          "relation": "background",
+          "reason": "API/SQL 正確仍需 browser DOM 對照，但候選聚焦 KPI 陳舊 view model，並非目前 scrollWidth 溢出。"
+        },
+        {
+          "id": "e4727fa29a21503b",
+          "relation": "background",
+          "reason": "可協助辨識 scrollable regions，但未提供 viewport 橫向溢出量測方法。"
+        },
+        {
+          "id": "f1c40ff4593786e8",
+          "relation": "background",
+          "reason": "涉及頁面滑動抽樣，但目的是辨識 API 來源，不是定位橫向溢出。"
+        }
+      ],
+      "candidate_sources": 64,
+      "confuser_source_ranks": {},
+      "expected_source_ranks": {
+        "feedback/history/development\u002dguidance/common/2026\u002d06\u002d08_141200\u002dbrowser\u002dlayout\u002doverflow\u002dintegration.md": 1
+      },
+      "id": "O02",
+      "ranked_sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d06\u002d08_141200\u002dbrowser\u002dlayout\u002doverflow\u002dintegration.md"
+      ],
+      "raw_sha256": "e44a7a93dfc077ec422b6df36f802df129c9d1dfe4eaee33e81841938c11a668",
+      "request_sha256": "c2d0204c2adc0aea6dc7b23f73dc93cb76555b69374e4c20d330f40d6e3f2547",
+      "valid_complete_permutation": true
+    },
+    {
+      "decisions": [
+        {
+          "action": "queue\u002dreadback",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "4b1243d54136b9a8",
+          "reason": "直接回答原生模型權重載入崩潰：先比對既有失敗指紋與版本範圍，再做最小隔離驗證。",
+          "relation": "direct",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d10\u002d07_125417\u002dnative\u002dmodel\u002dload\u002dknown\u002dcase\u002dfirst.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "optional\u002dbackground\u002donly",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "6b7b284394fb2096",
+          "reason": "涵蓋 native、crash 靜態取證，但摘要未提供具體案例比對步驟。",
+          "relation": "background",
+          "source": "analysis/binary/README.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "optional\u002dbackground\u002donly",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "6d6c04aeb9f04529",
+          "reason": "涉及分析工具載入時 SIGSEGV，並非模型權重載入崩潰。",
+          "relation": "background",
+          "source": "feedback/history/apk\u002danalysis/flutter\u002ddart\u002daot/2026\u002d05\u002d01_140900\u002dunflutter\u002daot\u002doffset\u002dhook\u002dafter\u002dblutter\u002dcrash.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "1d6995621769b9c4",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d06\u002d22_142000\u002djni\u002ddynamic\u002dregisternatives\u002dno\u002dstandard\u002djava\u002dcom\u002dexport.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "ec5287b2ac633511",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_094000\u002dinspect\u002dlive\u002dcryptor\u002dobject\u002dbefore\u002dkey\u002drecovery.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "2cb71f3abbe0b467",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_112200\u002dlive\u002dcipher\u002dmode\u002dfrom\u002dbacking\u002denum\u002dnot\u002dstring\u002dtable.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "exclude\u002dthis\u002dtask",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "016fff0c09e8ec69",
+          "reason": "討論 agent 模型路由策略，與 native 權重載入失敗不同。",
+          "relation": "not\u002dapplicable",
+          "source": "knowledge/summaries/model\u002drouting.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "55dc68a9fa3606a9",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "models/README.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "eff765b1baf59ed8",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "analysis/apk/workflows/README.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "1d2731250c9b460c",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_143300\u002dnative\u002ddecrypt\u002dmode\u002dmay\u002dreuse\u002dencrypt\u002dmode\u002dkey\u002dmaterial.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "f2c6670a55229d14",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_143200\u002dcustom\u002df3aes\u002dlabel\u002dmay\u002dstill\u002dbe\u002dstandard\u002daes128\u002dcbc\u002dwith\u002drodata\u002dkey\u002div.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "9132f5b0511693b5",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/flutter\u002ddart\u002daot/2026\u002d05\u002d14_000000\u002ddart\u002dcustom\u002daes\u002d8byte\u002dkey\u002dnot\u002dreproducible.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "50e337e0858a9192",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/flutter\u002ddart\u002daot/2026\u002d05\u002d15_094700\u002ddart\u002daot\u002dpool\u002dconstant\u002dpp\u002dpeep\u002dhardcoded\u002dkey.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "00a9a90f4f8c4dd1",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/flutter\u002ddart\u002daot/2026\u002d05\u002d01_142000\u002dexhaustive\u002djava\u002dokhttp\u002dhooks\u002dmay\u002dstill\u002dmiss\u002dflutter\u002dbusiness\u002dhttp.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "4a9f6b3a08c4b5c2",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_142700\u002dopaque\u002dapi\u002dblob\u002dnative\u002ddecrypt\u002dsecondary\u002dcompression\u002djson.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "3ff03856ae0ed621",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d14_112000\u002drsa\u002dpublic\u002dunwrap\u002dto\u002dshort\u002dkey\u002dthen\u002dcontent\u002ddecrypt.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "76a6cec8ff8e649b",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_143000\u002dencrypt\u002dplaintext\u002dmay\u002dbe\u002dmillis\u002dplus\u002dfingerprint\u002dnot\u002dsurface\u002dseed.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "cf04c92824d0abd7",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d06\u002d22_141900\u002dcrypto\u002dutil\u002dname\u002dsha256\u002ddoes\u002dnot\u002dimply\u002dplain\u002dsha256.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "898a6b99fa518185",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d06\u002d22_142300\u002dhmac\u002dsha256\u002dper\u002dmode\u002dkeys\u002din\u002dnative\u002drodata.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "e70e6da17a9f3cf8",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_141800\u002dokhttp\u002dinterceptor\u002dsorted\u002dmap\u002dcanonical\u002dsign\u002dpattern.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "18b68540f2256ef0",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_142100\u002dencrypted\u002drequest\u002dtime\u002ddouble\u002dnative\u002dcall\u002dsecond\u002dvalue\u002din\u002dsign\u002dmap.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "ee28dd5a6cb4dc6d",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_142800\u002dnative\u002dencrypted\u002dtime\u002dgetter\u002dmay\u002dcache\u002dfirst\u002drotates\u002dconsecutive\u002dsame.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "f043646cca6570db",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_142500\u002dpartial\u002doffline\u002dsign\u002dhmac\u002dsolved\u002drequesttime\u002dsession\u002dremain\u002drelay.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "19fad8f69a3affa2",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d14_141500\u002drequest\u002dsign\u002dmay\u002dbe\u002dsha256withrsa\u002dpkcs8\u002dheader\u002dconcat.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "a63d971bb3e3b0e7",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d14_141700\u002dcrosscheck\u002drequest\u002dsign\u002doffline\u002dvs\u002dinapp\u002dfingerprint.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "4e8bbb9a37111a62",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d07\u002d14_135200\u002dsign\u002dcanonical\u002dstructural\u002dprobe\u002dallowlist\u002dkeys.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "990b19c3406a8a53",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d07\u002d14_135210\u002dprove\u002dwire\u002djson\u002dnames\u002dvia\u002djsonreader\u002dnextname.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "d03338b602614151",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d06\u002d22_131000\u002dretrofit\u002dgson\u002dfromjson\u002dhook\u002dapi\u002dresponse\u002dplaintext.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "f2e078b658030e47",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/flutter\u002ddart\u002daot/2026\u002d05\u002d07_135900\u002ddio\u002drequestoptions\u002duri\u002dkeyset\u002dprobe.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "ad64ce1397051cde",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d15_172519\u002dquery\u002dstring\u002dlength\u002dinfer\u002dunknown\u002dparam.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "9305c44044fa4b46",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d19_101500\u002dhybrid\u002dnative\u002dshell\u002dplus\u002dembedded\u002dh5\u002dfrida\u002drouting.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "27a31a708818c85d",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d09_112800\u002dunity\u002dui\u002didentity\u002dfrom\u002dloaded\u002dobjects\u002dnot\u002dscreenshot.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "e19c255b7f7e7b28",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d14_082500\u002dunity\u002datlas\u002dmanifest\u002dafter\u002dfrida\u002dsprite\u002dname.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "d3db83a10ae63cea",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d09\u002d09_094540\u002dprefs\u002dkey\u002dnames\u002don\u002ddevice\u002dwithout\u002dvalues.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "f678c2906af06809",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_165800\u002dslot\u002dspin\u002dfixtures\u002dpair\u002djson\u002dmanifest\u002dand\u002dreel\u002dcrop.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "61a119735f2975a5",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_172704\u002ddual\u002dtoken\u002dsecurity\u002daudit.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "ae28cead621434d0",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/summaries/dual\u002dtoken\u002daudit.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "8208686d6e68919b",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "README.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "867d9c13260ff88c",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "runtime/runtime.db",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "cbeb3076bd9e2ad6",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "workflow/documentation/README.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "f11396a5b2fc4259",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/summaries/context\u002dcost\u002doptimization.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "8c8000bef76531aa",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d06\u002d18_play\u002dview\u002dkpi\u002dsql\u002dpass\u002ddom\u002dfail\u002dbrowser\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "exclude\u002dthis\u002dtask",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "5f0c5c516ac099ff",
+          "reason": "討論 HLS 播放鏈，非當前 native model 崩潰問題。",
+          "relation": "not\u002dapplicable",
+          "source": "feedback/history/apk\u002danalysis/media\u002dhls/2026\u002d04\u002d30_120007\u002d媒體播放鏈要分控制面\u002d金鑰與資料面.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "exclude\u002dthis\u002dtask",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "23f82858c3d3021d",
+          "reason": "針對 HLS key 解包；查詢已排除 manifest/key 請求異常。",
+          "relation": "not\u002dapplicable",
+          "source": "feedback/history/apk\u002danalysis/media\u002dhls/2026\u002d05\u002d06_121650\u002dhls\u002dplaylist\u002dkey\u002dmay\u002dbe\u002dwrapped.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "55f82deb9a4a2cd5",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/media\u002dhls/2026\u002d05\u002d11_093300\u002dmedia\u002dprefix\u002dmatrix\u002dcdn\u002dstale.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "1b5bf6d26f9978f6",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d06\u002d08_141100\u002dblob\u002dmanifest\u002duri\u002drewrite\u002dtest.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "8cf9342219fad5c4",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d07\u002d17_171500\u002dmpegurl\u002dmaybe\u002dmanaged\u002dmediasource\u002dprefer\u002dhlsjs.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "29457780b4246272",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d09\u002d01_093500\u002dentitlement\u002dgrant\u002dis\u002dplayable\u002dfield\u002dpresence\u002dnot\u002dclient\u002dflag.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "fe096683e13ea808",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/controls/2026\u002d09\u002d01_095200\u002dmedia\u002dentitlement\u002domit\u002dplayable\u002dfields.md",
+          "verification": "pending workflow verification"
+        }
+      ],
+      "id": "O03",
+      "readback_queue": [
+        "feedback/history/development\u002dguidance/common/2026\u002d10\u002d07_125417\u002dnative\u002dmodel\u002dload\u002dknown\u002dcase\u002dfirst.md"
+      ],
+      "retrieved_confuser_hits": 1
+    },
+    {
+      "assessments": [
+        {
+          "id": "4b1243d54136b9a8",
+          "relation": "direct",
+          "reason": "直接回答原生模型權重載入崩潰：先比對既有失敗指紋與版本範圍，再做最小隔離驗證。"
+        },
+        {
+          "id": "6b7b284394fb2096",
+          "relation": "background",
+          "reason": "涵蓋 native、crash 靜態取證，但摘要未提供具體案例比對步驟。"
+        },
+        {
+          "id": "6d6c04aeb9f04529",
+          "relation": "background",
+          "reason": "涉及分析工具載入時 SIGSEGV，並非模型權重載入崩潰。"
+        },
+        {
+          "id": "016fff0c09e8ec69",
+          "relation": "not\u002dapplicable",
+          "reason": "討論 agent 模型路由策略，與 native 權重載入失敗不同。"
+        },
+        {
+          "id": "23f82858c3d3021d",
+          "relation": "not\u002dapplicable",
+          "reason": "針對 HLS key 解包；查詢已排除 manifest/key 請求異常。"
+        },
+        {
+          "id": "5f0c5c516ac099ff",
+          "relation": "not\u002dapplicable",
+          "reason": "討論 HLS 播放鏈，非當前 native model 崩潰問題。"
+        }
+      ],
+      "candidate_sources": 49,
+      "confuser_source_ranks": {},
+      "expected_source_ranks": {
+        "feedback/history/development\u002dguidance/common/2026\u002d10\u002d07_125417\u002dnative\u002dmodel\u002dload\u002dknown\u002dcase\u002dfirst.md": 1
+      },
+      "id": "O03",
+      "ranked_sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d10\u002d07_125417\u002dnative\u002dmodel\u002dload\u002dknown\u002dcase\u002dfirst.md"
+      ],
+      "raw_sha256": "6f65bc25e4bc19bfc8970370acb7d1e73322f46962f8ddb789e40a90776e870e",
+      "request_sha256": "5ce7c98177963fcca004b508f54bc08eb1db6b6bc9c05311acfa880a8a750f4b",
+      "valid_complete_permutation": true
+    },
+    {
+      "decisions": [
+        {
+          "action": "queue\u002dreadback",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "a660bb6cc0cb6ef3",
+          "reason": "Nested same\u002dpool checkout hang directly calls for checking whether a client remains held across the await.",
+          "relation": "direct",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d09\u002d30_155700\u002drelease\u002dpool\u002dclient\u002dbefore\u002dnested\u002dcheckout.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "optional\u002dbackground\u002donly",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "413a535026d93116",
+          "reason": "now() matters for minimum\u002dage or reset\u002dwindow gates; the query describes descriptive logging rather than an age gate.",
+          "relation": "background",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d10\u002d15_120000\u002dnow\u002dis\u002dtransaction\u002dstart\u002duse\u002dclock\u002dtimestamp\u002dfor\u002dage\u002dgates.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "optional\u002dbackground\u002donly",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "d06324835aa32c56",
+          "reason": "Precise cancellation testing concerns database blocking but does not directly diagnose held pool clients.",
+          "relation": "background",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d10\u002d05_171500\u002dland\u002dcancellation\u002don\u002da\u002dchosen\u002ddb\u002dstatement.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "optional\u002dbackground\u002donly",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "42aaeec2d2fe9708",
+          "reason": "Generic recovery guidance is secondary to identifying the nested checkout resource hold.",
+          "relation": "background",
+          "source": "runtime/runtime.db",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "2dcbff19be741ab7",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d10\u002d01_171200\u002dcap\u002drecovery\u002dloops\u002dnever\u002dreset\u002dgate\u002dcounter.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "f01f1e90796e20bb",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_142100\u002done\u002dshot\u002dwatch\u002dmust\u002dterminate\u002don\u002dits\u002down\u002dcondition.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "a29b4414224a88c0",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d05\u002d07_122800\u002dperformance\u002dtest\u002drelease\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "d5a83b9f2256db08",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d06\u002d18_play\u002dview\u002dkpi\u002dsql\u002dpass\u002ddom\u002dfail\u002dbrowser\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "47db0a10a62d4982",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_101559\u002dbuild\u002dgate\u002dmust\u002drestore\u002dnot\u002donly\u002dbuild.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "6107ec182e110ac0",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_135746\u002dgate\u002dthat\u002druns\u002donly\u002dat\u002dcommit\u002dis\u002done\u002dbypass\u002dfrom\u002dgone.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "4fff8e1a44cbc86a",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/summaries/migration\u002dfeature\u002dbundling.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "39c6d4191ed83639",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "governance/ai\u002druntime\u002dgovernance/validation\u002dscenario\u002dgovernance.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "933e8daf000eb20b",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/summaries/test\u002dfirst\u002dframework\u002dupgrade.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "042020ca968766da",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "governance/lifecycle/knowledge\u002dupdate\u002dflow.yaml",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "725171b7b08834ce",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "governance/lifecycle/executable\u002dcontract\u002dboundary.yaml",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "89341070cd25a2ae",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/summaries/executable\u002dcontract\u002dboundary.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "d9f9a42f336e1d7c",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_231500\u002dexecutable\u002dcontract\u002dboundary.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "7121f4bf1e1dc4bd",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/summaries/plan\u002dfirst\u002ddecision\u002dpromotion.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "5129b4aafedde643",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/summaries/prompt\u002dcache\u002dalignment.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "0311c4de2bceff1d",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "ai\u002dtools/agent\u002donboarding.yaml",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "1795939e9a6a9b32",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d05\u002d06_103200\u002dproduct\u002dbrief\u002dvalidation\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "09c1cdbbf3e96d53",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_142000\u002dderived\u002dclosure\u002dmust\u002dnot\u002dexpand\u002dits\u002down\u002dderivation\u002dtable.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "f2c9d8e43e421e8d",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_140100\u002dindex\u002dlink\u002dgate\u002dmust\u002daccept\u002dthe\u002dresolvable\u002dform.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "d45f78a4f1608cc5",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_154500\u002ddomain\u002druntime\u002dbaseline\u002dfinish\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "01497cb06d3716ac",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d08_141430\u002didentity\u002dmaterial\u002dself\u002dgeneration\u002daudit.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "aa2cb01bcf6353c9",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d05\u002d07_152100\u002dprivate\u002dlive\u002dadapter\u002dsmoke\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "0def76ff89c430dd",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d05\u002d07_154400\u002danalysis\u002dsdk\u002dcontract\u002ddrift\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "74a71a2a7a69b091",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d05\u002d11_093100\u002dpublic\u002dmirror\u002ddrift\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "426f161d011dc27d",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d20_130500\u002druntime\u002dh5\u002dexternal\u002dreplay\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "a8593ca5b04f2148",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d19_163600\u002dh5\u002dbundle\u002dparameter\u002dcodec\u002dreadiness\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "480ddd02187a46d6",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d09\u002d01_093500\u002dentitlement\u002dgrant\u002dis\u002dplayable\u002dfield\u002dpresence\u002dnot\u002dclient\u002dflag.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "f7802a3e61e7c27b",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/controls/2026\u002d05\u002d01_142100\u002dclient\u002dencrypted\u002dheader\u002dnot\u002dboundary.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "dada403047c4c0b9",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_120200\u002dstatic\u002dktor\u002dstrings\u002dnot\u002ddynamic\u002dbusiness\u002dapi\u002dclient.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "973b660a8b4f4fba",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d04\u002d30_120001\u002d冷啟動比\u002dattach\u002d更適合抓初始化與代理設定.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "fa74363d3ceea5a7",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_090100\u002dfrida\u002d17\u002djailed\u002dandroid\u002dgadget\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "647e0c2e5b42e81f",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_113302\u002ddart\u002daot\u002doffset\u002dfrom\u002dasm\u002daddress.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "e4943a0042a57342",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d19_160900\u002dwebview\u002dh5\u002dshort\u002dwindow\u002drequest\u002dobserved\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "438ce8b4129d279d",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/flutter\u002ddart\u002daot/2026\u002d05\u002d15_094700\u002ddart\u002daot\u002dpool\u002dconstant\u002dpp\u002dpeep\u002dhardcoded\u002dkey.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "3c6d3e7024c0c038",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d24_141900\u002dslot\u002ddevice\u002dui\u002dharvest\u002dvia\u002downed\u002dcryptor\u002dlab\u002dgateway.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "621531d3aa84538e",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d07\u002d14_171000\u002dpairip\u002dapplication\u002dlicenseactivity\u002dcold\u002dstart\u002dplay\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "75384640bc3b87ff",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d06_104300\u002dapi\u002dcatalog\u002dfinish\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "dd92522c8a0ac4d4",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_104000\u002ddetailed\u002dapi\u002dlist\u002dfinish\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "8427fce11928066a",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_205500\u002dui\u002dbehavior\u002dbackfill\u002dfinish\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "a3807396f378ef66",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_102100\u002dfeature\u002dhandoff\u002dfinish\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "e7978fa2acd50eaa",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_112201\u002dclient\u002dil2cpp\u002dmay\u002dembed\u002dunused\u002dserver\u002dfactory\u002dtypes.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "12e8abfee93ecbbf",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_152200\u002dnested\u002ddto\u002dctors\u002dmay\u002dsit\u002dbefore\u002dafter\u002dparse\u002dnot\u002dapply.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "3378d81dcc2cd639",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_151000\u002dparse\u002dmay\u002dconstruct\u002dwrapper\u002dnot\u002dnested\u002ddtos.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "3646150862932276",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_154000\u002dnested\u002ddto\u002dmay\u002dfill\u002dvia\u002dctor\u002dwithout\u002dparse.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "5f558c8a6d76b634",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_153400\u002dnested\u002ddtos\u002dmay\u002dhave\u002down\u002dparse\u002dbeside\u002dwrapper.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "691b3a4980ec2b8e",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_154800\u002dwrapper\u002dextras\u002dmay\u002dbe\u002dctor\u002dinvoke\u002dclone\u002dnot\u002dparseall.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "52c5c0f73cdd40ac",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_143200\u002delements\u002diterator\u002dcurrent\u002dmay\u002dbe\u002dnested\u002dxelement\u002dctor.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "99a6bbfffed9d2e6",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_142800\u002dparse\u002dxcontainer\u002delement\u002dretval\u002dmay\u002dbe\u002dnested\u002dctor\u002dnot\u002dload\u002dtree.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "5a1a97049132d6c8",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_144000\u002dnested\u002delement\u002dattribute\u002dmay\u002dnot\u002dshare\u002dload\u002dtree\u002dxattribute.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "858acbbaee6d2541",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d14_163000\u002dslot\u002dcollapse\u002doften\u002dsingle\u002dresult.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "2bfe11bb23cbcd6a",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d09\u002d30_154100\u002dcaption\u002dtemporal\u002dintegrity\u002dmechanical\u002dtiming\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "acd19176158fb80b",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/narrative\u002dvideo\u002dproduction/common/2026\u002d10\u002d14_123700\u002dfil\u002dphrase\u002dpolarity\u002dnot\u002dscript\u002dgate.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "48804f29bb6ebd5e",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/image\u002dprocessing/common/2026\u002d10\u002d16_132758\u002dregular\u002dpanel\u002dgrid\u002dmid\u002dgutter\u002dcuts.md",
+          "verification": "pending workflow verification"
+        }
+      ],
+      "id": "O04",
+      "readback_queue": [
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d30_155700\u002drelease\u002dpool\u002dclient\u002dbefore\u002dnested\u002dcheckout.md"
+      ],
+      "retrieved_confuser_hits": 1
+    },
+    {
+      "assessments": [
+        {
+          "id": "a660bb6cc0cb6ef3",
+          "relation": "direct",
+          "reason": "Nested same\u002dpool checkout hang directly calls for checking whether a client remains held across the await."
+        },
+        {
+          "id": "413a535026d93116",
+          "relation": "background",
+          "reason": "now() matters for minimum\u002dage or reset\u002dwindow gates; the query describes descriptive logging rather than an age gate."
+        },
+        {
+          "id": "d06324835aa32c56",
+          "relation": "background",
+          "reason": "Precise cancellation testing concerns database blocking but does not directly diagnose held pool clients."
+        },
+        {
+          "id": "42aaeec2d2fe9708",
+          "relation": "background",
+          "reason": "Generic recovery guidance is secondary to identifying the nested checkout resource hold."
+        }
+      ],
+      "candidate_sources": 57,
+      "confuser_source_ranks": {},
+      "expected_source_ranks": {
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d30_155700\u002drelease\u002dpool\u002dclient\u002dbefore\u002dnested\u002dcheckout.md": 1
+      },
+      "id": "O04",
+      "ranked_sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d30_155700\u002drelease\u002dpool\u002dclient\u002dbefore\u002dnested\u002dcheckout.md"
+      ],
+      "raw_sha256": "e65a6eb0e483d29cc455264221a3d7c1565c9174dc07ec703bac4e2250c41065",
+      "request_sha256": "56114f143601e9a3075691d9d8e6153cfac71a0e493045e9421c1760d73f9785",
+      "valid_complete_permutation": true
+    },
+    {
+      "decisions": [
+        {
+          "action": "queue\u002dreadback",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "6b0c109f2f0e7cbe",
+          "reason": "Addresses finding the application's actual session reacquisition flow without assuming refresh\u002dtoken support.",
+          "relation": "direct",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d04\u002d30_120005\u002dsession\u002drefresh\u002d要還原\u002dapp\u002d的真實登入\u002d裝置流程.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "queue\u002dreadback",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "2d91264442a43a7a",
+          "reason": "Identifies a possible session bootstrap path distinct from a login POST.",
+          "relation": "direct",
+          "source": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d15_140000\u002dcold\u002dstart\u002dtoken\u002dmay\u002dcome\u002dfrom\u002dbootstrap\u002dnot\u002dlogin.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "optional\u002dbackground\u002donly",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "6335e850336a08eb",
+          "reason": "Reset conditions can alter the authentication packet flow being observed.",
+          "relation": "background",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d09\u002d09_094550\u002dreset\u002dlevel\u002dmay\u002dchange\u002dlogin\u002dpacket\u002dclass.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "optional\u002dbackground\u002donly",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "3dc87e3d78b28b3b",
+          "reason": "Offers token\u002dsetting observation hooks useful for tracing session reacquisition.",
+          "relation": "background",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d07\u002d15_140400\u002dhttpglobal\u002dheader\u002dsetter\u002dhook\u002dfor\u002dtoken\u002dwhen\u002dokhttp\u002dintrospect\u002dfails.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "exclude\u002dthis\u002dtask",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "86e98c8bb6c7e642",
+          "reason": "Discovery refresh advice is conditional on refused or unreachable peers, which the query explicitly excludes.",
+          "relation": "not\u002dapplicable",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d09\u002d15_012600\u002dstale\u002dpeer\u002drefused\u002drefresh\u002dnot\u002dfail\u002djob.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "optional\u002dbackground\u002donly",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "b6aed532113f75c4",
+          "reason": "Token\u002dflow auditing can contextualize authentication mechanisms but supplies no reauthorization procedure.",
+          "relation": "background",
+          "source": "knowledge/summaries/dual\u002dtoken\u002daudit.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "a872453d3b0c7582",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_172704\u002ddual\u002dtoken\u002dsecurity\u002daudit.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "bf714eca52087e9c",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d18_172200\u002dflutter\u002djava\u002dhybrid\u002dsecurity\u002darchitecture\u002doverview.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "c364f9647e5217a7",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/common/2026\u002d09\u002d09_094540\u002dprefs\u002dkey\u002dnames\u002don\u002ddevice\u002dwithout\u002dvalues.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "exclude\u002dthis\u002dtask",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "f46e60fb6a83c90c",
+          "reason": "Ciphertext prefix variation does not address revoked authorization recovery.",
+          "relation": "not\u002dapplicable",
+          "source": "feedback/history/apk\u002danalysis/flutter\u002ddart\u002daot/2026\u002d05\u002d14_081500\u002dprefix\u002dsession\u002dspecific\u002dnot\u002ddevice\u002dspecific.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "8fc514c11b8ec503",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/apk\u002danalysis/flutter\u002ddart\u002daot/2026\u002d05\u002d14_081500\u002dprefix\u002dvaries\u002dwithin\u002dsession.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "025663c5d0f71a81",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/summaries/requirements\u002dcognition.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "exclude\u002dthis\u002dtask",
+          "adoption": "not evaluated",
+          "explicit_assessment": true,
+          "opaque_id": "068d72f991050c9e",
+          "reason": "Concerns OCR discovery rather than authentication or peer discovery.",
+          "relation": "not\u002dapplicable",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d10\u002d01_152600\u002docr\u002dprobe\u002dis\u002ddiscovery\u002dnot\u002dexclusion.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "c60d91e20df4b687",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/runtime/routing\u002dregistry.yaml",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "2fd12a9f13b1e241",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/summaries/knowledge\u002dnavigation.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "4559dc9b07819553",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d05\u002d18_160000\u002dregistry\u002dfirst\u002dworkflow\u002dactivation.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "39f53c071406ec4c",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "runtime/cognitive\u002dmodes.yaml",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "f976da6374912162",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "governance/lifecycle/knowledge\u002dupdate\u002dflow.yaml",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "c121613b517401e2",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "governance/ai\u002druntime\u002dgovernance/context\u002dattention\u002dgovernance.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "4ac5a1bf5a57c53d",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/summaries/prompt\u002dcache\u002dalignment.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "d8391a2ecd124da4",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "knowledge/summaries/context\u002dcost\u002doptimization.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "e28ca378ac17102a",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "workflow/documentation/README.md",
+          "verification": "pending workflow verification"
+        },
+        {
+          "action": "pending\u002dconfirmation",
+          "adoption": "not evaluated",
+          "explicit_assessment": false,
+          "opaque_id": "1e3caca9e1a6b7e0",
+          "reason": "not assessed",
+          "relation": "unknown",
+          "source": "feedback/history/development\u002dguidance/common/2026\u002d10\u002d01_090000\u002docr\u002djoin\u002dtoken\u002dseam\u002dnot\u002dcumulative\u002dscript.md",
+          "verification": "pending workflow verification"
+        }
+      ],
+      "id": "O06",
+      "readback_queue": [
+        "feedback/history/apk\u002danalysis/common/2026\u002d04\u002d30_120005\u002dsession\u002drefresh\u002d要還原\u002dapp\u002d的真實登入\u002d裝置流程.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d15_140000\u002dcold\u002dstart\u002dtoken\u002dmay\u002dcome\u002dfrom\u002dbootstrap\u002dnot\u002dlogin.md"
+      ],
+      "retrieved_confuser_hits": 1
+    },
+    {
+      "assessments": [
+        {
+          "id": "6b0c109f2f0e7cbe",
+          "relation": "direct",
+          "reason": "Addresses finding the application's actual session reacquisition flow without assuming refresh\u002dtoken support."
+        },
+        {
+          "id": "2d91264442a43a7a",
+          "relation": "direct",
+          "reason": "Identifies a possible session bootstrap path distinct from a login POST."
+        },
+        {
+          "id": "6335e850336a08eb",
+          "relation": "background",
+          "reason": "Reset conditions can alter the authentication packet flow being observed."
+        },
+        {
+          "id": "3dc87e3d78b28b3b",
+          "relation": "background",
+          "reason": "Offers token\u002dsetting observation hooks useful for tracing session reacquisition."
+        },
+        {
+          "id": "86e98c8bb6c7e642",
+          "relation": "not\u002dapplicable",
+          "reason": "Discovery refresh advice is conditional on refused or unreachable peers, which the query explicitly excludes."
+        },
+        {
+          "id": "b6aed532113f75c4",
+          "relation": "background",
+          "reason": "Token\u002dflow auditing can contextualize authentication mechanisms but supplies no reauthorization procedure."
+        },
+        {
+          "id": "f46e60fb6a83c90c",
+          "relation": "not\u002dapplicable",
+          "reason": "Ciphertext prefix variation does not address revoked authorization recovery."
+        },
+        {
+          "id": "068d72f991050c9e",
+          "relation": "not\u002dapplicable",
+          "reason": "Concerns OCR discovery rather than authentication or peer discovery."
+        }
+      ],
+      "candidate_sources": 23,
+      "confuser_source_ranks": {},
+      "expected_source_ranks": {},
+      "id": "O06",
+      "ranked_sources": [
+        "feedback/history/apk\u002danalysis/common/2026\u002d04\u002d30_120005\u002dsession\u002drefresh\u002d要還原\u002dapp\u002d的真實登入\u002d裝置流程.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d15_140000\u002dcold\u002dstart\u002dtoken\u002dmay\u002dcome\u002dfrom\u002dbootstrap\u002dnot\u002dlogin.md"
+      ],
+      "raw_sha256": "d11d59e8f373d5cb556c9979d0b96946cca857ffe93714663e10148d44174b2b",
+      "request_sha256": "fdc9fe34db89b95666637ceede6d06006511f1308232bba26090e6d386673262",
+      "valid_complete_permutation": true
+    }
+  ],
+  "pool_file_sha256": "d8051af3b5c9be38e891fdd899e13176511f714dfc71457fb6cd104d7d49a801",
+  "protocol_sha256": "45a37ab5acc416df55c00d5313e90baa63dfe112136b63dc31aa5c69e8444250",
+  "rank_field": "original v1 bm25 score retained; array order is semantic ranking, no semantic score invented",
+  "schema_version": 1,
+  "scorer_revision": "fd8a8cc8df653304f3b08df7c5d30f47d4861505",
+  "scorer_source_sha256": "e63b4cad5e8c61917842708cd141c44fb07b59f21e527d8a87faf23671a6163b",
+  "semantic_manifest_sha256": "d7ef1f03eab75af022092cb722ac20731e789edcf317f82835e54f2316fa6c66",
+  "timing_gate": "not passed: continuation gap in outer observations; inference latency unavailable",
+  "token_usage": "unavailable",
+  "verified_context": "not evaluated"
+}

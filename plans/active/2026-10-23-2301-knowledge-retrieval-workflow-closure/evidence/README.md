@@ -22,3 +22,4 @@
 | phase2-v3-agent-runner | [phase2-v3-agent-runner.md](phase2-v3-agent-runner.md) | frozen dispatch protocol | 六個 fork-none subagents、單題 request 隔離；保留原始輸出與不可得 usage，不另購 API |
 | phase2-v3-agent-pilot | [phase2-v3-agent-pilot.md](phase2-v3-agent-pilot.md) | six attempts measured / gate failed | Fresh subagents：5/5 正向、2/4 confuser；原始輸出與 unavailable usage 保留，時間監測未通過；Phase 2 未完成 |
 | phase2-v3-disposition-protocol | [phase2-v3-disposition-protocol.md](phase2-v3-disposition-protocol.md) | frozen before D1 scoring | 只加 disposition admission；retrieved／preview／verified／adopted 分層，原成績不改 |
+| phase2-v3-disposition | [phase2-v3-disposition.md](phase2-v3-disposition.md) | selection slice passed / Phase 2 incomplete | 同六題 direct-only preview 5/5、0/4、≤1922 runes；retrieved 仍 4/4；9 份讀回身份一致，適用／採用未驗收 |

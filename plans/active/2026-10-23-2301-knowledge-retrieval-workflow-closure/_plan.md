@@ -144,7 +144,7 @@ Phase 1 審核補充（2026-10-24）：[phase1-audit.md](evidence/phase1-audit.m
 
 ## Phase 2 — 補既有全文搜尋、metadata 與關聯查找
 
-本輪按 [disposition 協議](evidence/phase2-v3-disposition-protocol.md) 重用原六份 raw，只新增候選處置；direct 待讀回，background 預設不填主要上下文，not-applicable 本次不選，缺標記／unknown 不當成已確認。分開 retrieved、待讀回、selected preview、verified/adopted，不改前輪分數。
+本輪按 [disposition 協議](evidence/phase2-v3-disposition-protocol.md) 重用原六份 raw，只新增候選處置；direct 待讀回，background 預設不填主要上下文，not-applicable 本次不選，缺標記／unknown 不當成已確認。分開 retrieved、待讀回、selected preview、verified/adopted，不改前輪分數。 結果見 [disposition 重播](evidence/phase2-v3-disposition.md)：同六題 preview 5/5、0/4、≤1922 runes，retrieved 仍 4/4；9 份 direct 來源身份核對一致，verified/adopted 未驗收，Phase 2 維持未完成。
 
 v3 先按 [固定候選協議](evidence/phase2-v3-protocol.md) 分離 pool、選擇與 packer，再準備 [6 題語意排序 pilot 成本契約](evidence/phase2-v3-semantic-contract.md)。已完成 26 題固定池與 156 組離線比較，見 [v3 preflight](evidence/phase2-v3-preflight.md)：S0 + full 多筆為 14/14、≤1982 runes，但 confuser 仍 6/6。焦點／否定／排序失敗已有證據，可測 reranking，不以向量搜尋或 Phase 2 通過為前提；只作曝光資料診斷。六份語意 requests 已備；使用者已選現有 agent／subagent runner，按 [agent runner 協議](evidence/phase2-v3-agent-runner.md) 完成六個 fresh context 診斷，見 [agent pilot](evidence/phase2-v3-agent-pilot.md)：5/5 指定正向、2/4 confuser，ranking-only 品質仍失敗，時間監測未證明受控；不可得 usage 明列。額外 API 非必要且本輪不選；模型／usage 不可得欄位明列，不以美元方案阻擋此 runner。
 
