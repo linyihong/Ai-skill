@@ -1,0 +1,61 @@
+{
+  "scope": "two controlled source-informed current-agent consumer intents grounded in an actual repository ownership migration",
+  "cases": [
+    {
+      "intent": "current",
+      "selected_source": "workflow/cross-cutting/review/checklist.md",
+      "candidate_sha256": "50941c746418d4caf5d4f35bc7bee67666a02bd5e5884219b21cf44d7dd367f0",
+      "readback_sha256": "50941c746418d4caf5d4f35bc7bee67666a02bd5e5884219b21cf44d7dd367f0",
+      "pre_adoption_sha256": "50941c746418d4caf5d4f35bc7bee67666a02bd5e5884219b21cf44d7dd367f0",
+      "canonical_status": "unknown",
+      "scope": "unknown",
+      "replaces": "unknown",
+      "consumer_readback": {
+        "migration_stub_sha256": "d9a8b91e4774b3f86c554ef05ccb322606a75002f9d111f6d32469cfaa26da54",
+        "current_owner_sha256": "50941c746418d4caf5d4f35bc7bee67666a02bd5e5884219b21cf44d7dd367f0",
+        "historical_revision": "4a68b432^",
+        "historical_blob_sha256": "4dec4aae4968854fe9b72169fccc2d45cb0db6bf549ee79e33a63f53687e815b"
+      },
+      "decision": "adopt current canonical checklist for evidence review; reject the old path as current body",
+      "actual_use": "review existing dogfood claim boundaries using current Contract Governance and Reusable Guidance Boundary",
+      "budget": "full summary/need_to_read preserved; no background fill or deferral",
+      "unknown_metadata": "explicit migration in source body governs this case; unknown metadata is not invented or promoted",
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      }
+    },
+    {
+      "intent": "history",
+      "selected_source": "workflow/software-delivery/review-checklist.md",
+      "candidate_sha256": "d9a8b91e4774b3f86c554ef05ccb322606a75002f9d111f6d32469cfaa26da54",
+      "readback_sha256": "d9a8b91e4774b3f86c554ef05ccb322606a75002f9d111f6d32469cfaa26da54",
+      "pre_adoption_sha256": "d9a8b91e4774b3f86c554ef05ccb322606a75002f9d111f6d32469cfaa26da54",
+      "canonical_status": "unknown",
+      "scope": "unknown",
+      "replaces": "unknown",
+      "consumer_readback": {
+        "migration_stub_sha256": "d9a8b91e4774b3f86c554ef05ccb322606a75002f9d111f6d32469cfaa26da54",
+        "current_owner_sha256": "50941c746418d4caf5d4f35bc7bee67666a02bd5e5884219b21cf44d7dd367f0",
+        "historical_revision": "4a68b432^",
+        "historical_blob_sha256": "4dec4aae4968854fe9b72169fccc2d45cb0db6bf549ee79e33a63f53687e815b"
+      },
+      "decision": "adopt old blob only for historical tracing; reject historical canonical wording as current authority",
+      "actual_use": "confirm prior old-path ownership and current migration from Git/body, without rewriting history",
+      "budget": "full summary/need_to_read preserved; no background fill or deferral",
+      "unknown_metadata": "explicit migration in source body governs this case; unknown metadata is not invented or promoted",
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      }
+    }
+  ],
+  "does_not_prove": [
+    "production coverage for these two fixture-exposed sources",
+    "autonomous selector generalization",
+    "all supersession forms or metadata replaces directions"
+  ],
+  "Windows": "deferred-by-user; no network attempted"
+}

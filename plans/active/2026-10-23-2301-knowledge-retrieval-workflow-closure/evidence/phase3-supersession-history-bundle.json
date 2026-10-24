@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "repo": "<SUPERSESSION-CONTROL>/corpus",
+  "index": "<SUPERSESSION-CONTROL>/index.sqlite",
+  "index_sha256": "5db1c92ed4bc6f2fc0414787e591a6bec256c8bf92655c5caadf4b0f25069503",
+  "binary_sha256": "62034e14687d363c958b29c5cc89ab111b7a5cf5f95438f27e32ab4bb43abbba",
+  "query": "checklistsupersession9c71：追溯歷史",
+  "layer": "workflow",
+  "status": "",
+  "request_sha256": "5f77a46d54cb71ec32da3054d59fa5442a65cfbc5e990841a1de7b08265ad0b0",
+  "candidates": [
+    {
+      "id": "da48ca20d52a8fd8",
+      "title": "fixture.supersession.1",
+      "result": {
+        "source": {
+          "checksum": "50941c746418d4caf5d4f35bc7bee67666a02bd5e5884219b21cf44d7dd367f0",
+          "canonical_status": "unknown",
+          "domains": [],
+          "scope": "unknown",
+          "replaces": "unknown",
+          "freshness": "current",
+          "applicability": "unverified; read canonical source and check conditions",
+          "readback": "workflow/cross-cutting/review/checklist.md"
+        },
+        "rank": -7.277213416140827,
+        "id": "fixture.supersession.1",
+        "source_path": "workflow/cross-cutting/review/checklist.md",
+        "layer": "workflow",
+        "type": "summary",
+        "status": "unknown",
+        "priority": "P2",
+        "confidence": "medium",
+        "context_cost": "low",
+        "summary": "checklistsupersession9c71 Cross-cutting review checklist canonical body for workflow capability consumers.",
+        "match_reason": "bounded lexical OR candidate; semantic selection required"
+      }
+    },
+    {
+      "id": "decde1a45c0c1f2c",
+      "title": "fixture.supersession.0",
+      "result": {
+        "source": {
+          "checksum": "d9a8b91e4774b3f86c554ef05ccb322606a75002f9d111f6d32469cfaa26da54",
+          "canonical_status": "unknown",
+          "domains": [],
+          "scope": "unknown",
+          "replaces": "unknown",
+          "freshness": "current",
+          "applicability": "unverified; read canonical source and check conditions",
+          "readback": "workflow/software-delivery/review-checklist.md"
+        },
+        "rank": -7.192198785661772,
+        "id": "fixture.supersession.0",
+        "source_path": "workflow/software-delivery/review-checklist.md",
+        "layer": "workflow",
+        "type": "summary",
+        "status": "unknown",
+        "priority": "P2",
+        "confidence": "medium",
+        "context_cost": "low",
+        "summary": "checklistsupersession9c71 Stable inbound review-checklist path with explicit migration to cross-cutting owner.",
+        "match_reason": "bounded lexical OR candidate; semantic selection required"
+      }
+    }
+  ]
+}

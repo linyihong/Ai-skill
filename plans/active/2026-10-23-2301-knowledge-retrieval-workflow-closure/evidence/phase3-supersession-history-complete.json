@@ -1,0 +1,41 @@
+{
+  "lookup": {
+    "phase": "completed-unverified-applicability",
+    "bundle_sha256": "86ca586797d370233ff6e81a30ddbbabaf5dd67657f278187b1160012b6feff2",
+    "request_sha256": "5f77a46d54cb71ec32da3054d59fa5442a65cfbc5e990841a1de7b08265ad0b0",
+    "response_sha256": "d3447e1408843d51d248efbacb23460ed82a76571c0191f6977b4340181bf11d",
+    "payload": {
+      "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+      "state": "direct-pending-verification",
+      "pool": 2,
+      "unassessed": 0,
+      "unknown": 0,
+      "deferred": 0,
+      "trace": "lookup/5f77a46d54cb71ec",
+      "results": [
+        {
+          "source": "workflow/software-delivery/review-checklist.md",
+          "kind": "summary",
+          "status": "unknown",
+          "summary": "checklistsupersession9c71 Stable inbound review-checklist path with explicit migration to cross-cutting owner.",
+          "need_to_read": "讀回舊路徑遷移宣告，再查其遷移前 Git blob與當前 owner；歷史 canonical 字樣只作歷史證據。"
+        }
+      ]
+    },
+    "source_checks": [
+      "workflow/software-delivery/review-checklist.md"
+    ],
+    "usage": {
+      "availability": "unavailable",
+      "input_tokens": null,
+      "output_tokens": null
+    }
+  },
+  "command": "runtime lookup complete",
+  "mode": "native",
+  "status": "success",
+  "exit_code": 0,
+  "checks": [],
+  "planned_actions": [],
+  "mutations": []
+}

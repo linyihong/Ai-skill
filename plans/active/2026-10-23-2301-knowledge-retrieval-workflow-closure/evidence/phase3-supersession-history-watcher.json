@@ -1,0 +1,43 @@
+{
+  "selection_watch": {
+    "state": "response_ready",
+    "runner_handle": "current-agent-supersession-history",
+    "request_sha256": "5f77a46d54cb71ec32da3054d59fa5442a65cfbc5e990841a1de7b08265ad0b0",
+    "response_sha256": "d3447e1408843d51d248efbacb23460ed82a76571c0191f6977b4340181bf11d",
+    "elapsed_ms": 11518,
+    "interrupt_required": false,
+    "interrupt_confirmed": false,
+    "usage": {
+      "availability": "unavailable",
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "selection": {
+      "selected": [
+        "decde1a45c0c1f2c"
+      ],
+      "assessments": [
+        {
+          "id": "decde1a45c0c1f2c",
+          "relation": "direct",
+          "reason": "本次目的為追溯 checklist 原先 owner，舊 stable inbound path 能提供 migration 入口。",
+          "need_to_read": "讀回舊路徑遷移宣告，再查其遷移前 Git blob與當前 owner；歷史 canonical 字樣只作歷史證據。"
+        },
+        {
+          "id": "da48ca20d52a8fd8",
+          "relation": "background",
+          "reason": "目前 owner 是對照現況的背景；不能取代舊路徑的歷史讀回。",
+          "need_to_read": "需要比較現行規範時再讀 current owner；不把新 owner 寫成一直都是歷史 owner。"
+        }
+      ],
+      "unknown_action": "允許歷史來源因追溯用途進入待讀回，但不可將歷史正文復活為現行規則；版本、目的與 authority 角色分開記錄。"
+    }
+  },
+  "command": "runtime selection-watch",
+  "mode": "native",
+  "status": "success",
+  "exit_code": 0,
+  "checks": [],
+  "planned_actions": [],
+  "mutations": []
+}

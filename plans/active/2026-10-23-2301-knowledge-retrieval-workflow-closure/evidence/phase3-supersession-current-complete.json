@@ -1,0 +1,41 @@
+{
+  "lookup": {
+    "phase": "completed-unverified-applicability",
+    "bundle_sha256": "e476954f1dccd6f6a28d6224570278400fb6a03fe1977016d373ab027b356eb2",
+    "request_sha256": "720113bcd9bb30392c89017866e01dd968ba845fc01aad7383131e7dddef5cfc",
+    "response_sha256": "e2243a7d14ef03f184cc2e031260f7ddba47b5785711f03552c6b676eb710fbe",
+    "payload": {
+      "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+      "state": "direct-pending-verification",
+      "pool": 2,
+      "unassessed": 0,
+      "unknown": 0,
+      "deferred": 0,
+      "trace": "lookup/720113bcd9bb3039",
+      "results": [
+        {
+          "source": "workflow/cross-cutting/review/checklist.md",
+          "kind": "summary",
+          "status": "unknown",
+          "summary": "checklistsupersession9c71 Cross-cutting review checklist canonical body for workflow capability consumers.",
+          "need_to_read": "核對 current canonical owner、適用的 Contract Governance／Reusable Guidance Boundary，避免把舊入口當現行正文。"
+        }
+      ]
+    },
+    "source_checks": [
+      "workflow/cross-cutting/review/checklist.md"
+    ],
+    "usage": {
+      "availability": "unavailable",
+      "input_tokens": null,
+      "output_tokens": null
+    }
+  },
+  "command": "runtime lookup complete",
+  "mode": "native",
+  "status": "success",
+  "exit_code": 0,
+  "checks": [],
+  "planned_actions": [],
+  "mutations": []
+}

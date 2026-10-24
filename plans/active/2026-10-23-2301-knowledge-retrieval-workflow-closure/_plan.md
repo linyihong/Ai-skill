@@ -10,7 +10,7 @@ owner_layer: knowledge
 
 # 既有知識檢索與 Workflow 採用閉環強化
 
-**Status**: `in-progress`。Phase 0 盤點完成，證據見 [phase0-inventory.md](evidence/phase0-inventory.md)；Phase 1 已按「歷史 lesson 檢索基準」縮限核對通過；原完整範圍的剩餘責任見下表。Phase 2 前執行控制見 [phase2-execution-contract.md](evidence/phase2-execution-contract.md)；Q / E / QE v1 及 v2 對照已完成，候選品質均未通過；v2 成本受控但 confuser 仍 3/6，見 [v2 實驗報告](evidence/phase2-v2-ablation.md)；未採用到 production。Phase 2 已通過縮限凍結診斷與工程驗收，見 [production E2E](evidence/phase2-production-wiring.md)：實際 production pool 的 26 次 fresh attempts，23/23、MRR .971014、final confuser 0/6、完整 payload ≤1622 runes；Phase 3 consumer 已接入並開始真實 dogfood，見 [採用紀錄](evidence/phase3-dogfood.md)；當前環境與完整採用 gate 尚未通過。
+**Status**: `in-progress`。Phase 0 盤點完成，證據見 [phase0-inventory.md](evidence/phase0-inventory.md)；Phase 1 已按「歷史 lesson 檢索基準」縮限核對通過；原完整範圍的剩餘責任見下表。Phase 2 前執行控制見 [phase2-execution-contract.md](evidence/phase2-execution-contract.md)；Q / E / QE v1 及 v2 對照已完成，候選品質均未通過；v2 成本受控但 confuser 仍 3/6，見 [v2 實驗報告](evidence/phase2-v2-ablation.md)；未採用到 production。Phase 2 已通過縮限凍結診斷與工程驗收，見 [production E2E](evidence/phase2-production-wiring.md)：實際 production pool 的 26 次 fresh attempts，23/23、MRR .971014、final confuser 0/6、完整 payload ≤1622 runes；Phase 3 consumer 已接入並開始真實 dogfood，見 [採用紀錄](evidence/phase3-dogfood.md)；Phase 3 既定 current-agent 範圍已結清，見 [補證](evidence/phase3-supersession-consumer.md)；Phase 4 條件式決策與整體收尾待完成。
 
 目標：讓既有 intelligence、決策與失敗經驗更穩定地被找到，經來源與適用性確認後支援 workflow。先改善現有能力，再用漏找證據決定是否加入向量搜尋與 reranking。
 
@@ -179,15 +179,15 @@ Gate：通過縮限後凍結的檢索層 acceptance、產物矩陣核對與候�
 
 ## Phase 3 — 接入 Workflow 採用流程與條件式 Bridge 調整
 
-使用者已接受 Phase 2 縮限完成。首批 sd-validation 的操作接線與 source-informed 受控讀回見 [phase3-consumer](evidence/phase3-consumer.md)。沒有新 gate；token 計數依使用者 2026-10-25 指示暫緩，不再阻擋目前 agent 執行。R11/O03 原始專案文件已讀回；兩項有範圍的真實調查與負面 consumer 證據見 [dogfood](evidence/phase3-dogfood.md)。遠端 SSH 不可達，當前 tuple／repair 仍 unknown；source-level supersession 重播亦未驗收，Phase 3 維持未完成。
+使用者已接受 Phase 2 縮限完成。首批 sd-validation 的操作接線與 source-informed 受控讀回見 [phase3-consumer](evidence/phase3-consumer.md)。沒有新 gate；token 計數依使用者 2026-10-25 指示暫緩，不再阻擋目前 agent 執行。R11/O03 原始專案文件已讀回；兩項有範圍的真實調查與負面 consumer 證據見 [dogfood](evidence/phase3-dogfood.md)。使用者已明確暫緩 Windows，不再探測；當前 tuple／repair 仍 unknown、不宣稱修復成功。真實 ownership 遷移的現行／歷史兩個受控 consumer intents 已補齊，見 [supersession 補證與 gate 判定](evidence/phase3-supersession-consumer.md)。Phase 3 既定 current-agent 範圍完成；不外推為通用自動化、泛化、實際 tokens 或產品修正 PASS。
 
 - [x] 優先重用既有檢索能力。只有 Phase 0 確認重複實作，或比較實驗證明可量測收益，才抽共用介面並調整 Bridge 呼叫接點；記錄啟用 / 不調整的證據。Bridge 保留 miss-path 與 advisory 邊界，workflow lookup 不依賴 detector miss，也不以 Bridge 重構為交付前提。
 - [x] 在首批 workflow 寫明「事件 → 查找動作 → 證據」：初次查找事件（如形成方案前、失敗診斷時）、重查條件（如關鍵前提、來源或任務範圍改變）、可略過條件及可覆核理由；同時定義 context filters、讀回與採用檢查。用觸發、重查、合理略過與不當略過案例驗證，不新增通用 trigger framework。
-- [ ] 採用前檢查 domain / project / 前提、證據版本與失效判定、supersession、候選 / 已驗證 / 契約身分；checksum 變動只表示需重驗，不單獨判斷結論失效。
+- [x] 採用前檢查 domain / project / 前提、證據版本與失效判定、supersession、候選 / 已驗證 / 契約身分；checksum 變動只表示需重驗，不單獨判斷結論失效。
 - [x] 採用時核對實際回讀來源的 revision / checksum；與搜尋候選版本不一致時，重新驗證適用性並記錄實際採用版本。驗證期間再次變動則重驗或停止採用，不能沿用舊判定。
 - [x] 記錄 query、查找 / 重查 / 略過理由、候選版本、回讀與實際採用版本、採用 / 拒絕 / unknown 理由與本次 workflow 用途；只存必要去敏資料，設定 retention 與 token cap，不建立全量對話庫。
-- [ ] 建立正負 scenarios：miss advisory、route hit 後找經驗、低排名 required_read 仍載入、相似但不適用、已取代的歷史追溯與當前採用差異、查詢版本 A 到採用版本 B 的重驗、查找 / 重查 / 略過、stale / unavailable fallback、無答案與 timeout。
-- [ ] 執行真實 consumer dogfood；報告找到 → 讀回 → 適用 → 採用各階段結果；關閉 feature 後能回到既有 lookup，既有 activation gate 行為一致。
+- [x] 建立正負 scenarios：miss advisory、route hit 後找經驗、低排名 required_read 仍載入、相似但不適用、已取代的歷史追溯與當前採用差異、查詢版本 A 到採用版本 B 的重驗、查找 / 重查 / 略過、stale / unavailable fallback、無答案與 timeout。
+- [x] 執行真實 consumer dogfood；報告找到 → 讀回 → 適用 → 採用各階段結果；關閉 feature 後能回到既有 lookup，既有 activation gate 行為一致。
 
 Gate：通過採用層 acceptance；未實際評估項目不得填 0。至少兩個獨立真實任務的完整採用 / 拒絕鏈，加上負面回放；只測 helper 或 mock 不算 runtime integration。完成 compile / refresh / validate（按受影響來源）及 consumer 行為證據。
 

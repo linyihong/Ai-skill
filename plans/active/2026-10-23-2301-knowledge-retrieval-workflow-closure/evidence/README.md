@@ -8,6 +8,7 @@
 
 | Run ID | 檔案 | 狀態 | 摘要 |
 | --- | --- | --- | --- |
+| phase3-supersession-consumer | [phase3-supersession-consumer.md](phase3-supersession-consumer.md) | bounded Phase 3 acceptance complete | 真實 ownership 遷移的兩個受控 consumer intents；Windows deferred-by-user；前輪真實任務與負面回放合併結清既定範圍，非泛化／原生修正 PASS |
 | phase3-dogfood | [phase3-dogfood.md](phase3-dogfood.md) | two bounded real investigations + consumer negatives / Phase 3 incomplete | 年齡 warning 方法採用／拒絕無據重編譯；原生案例讀回及 SSH timeout 後拒絕未核對修法；重查、skip、A→B→C、fallback 實際處置 |
 | phase3-token-counter | [phase3-token-counter.md](phase3-token-counter.md) | installed / reference count measured | tiktoken 0.14.0、o200k_base；26份完整 payload 最大449參考 tokens，非 agent 實際 usage |
 | phase3-token-disposition | [phase3-token-disposition.md](phase3-token-disposition.md) | deferred-by-user / execution proceeds | 使用者允許目前 agent 繼續，token 計數不阻擋；不冒稱實際用量已驗收 |
