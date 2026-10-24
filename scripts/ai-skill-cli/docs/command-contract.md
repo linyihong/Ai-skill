@@ -763,3 +763,7 @@ ignores evidence paths of a fully removed active folder only when the changed
 paths include both its old and archived `_plan.md`, and the archived main exists.
 The archived evidence still requires its README and index; a partially retained
 active folder still receives the usual checks. This does not exempt archival audit.
+
+### Plan archival link integrity hook
+
+既有 `hooks run commit-msg` 的 `plan_archival_link_integrity` 檢查只解析 `.md` 文件的 Markdown links 與文字引用。隨 plan 搬移的 JSON／JSONL／TXT／B64 等 evidence 可保留其原始內容；其中的 Markdown-shaped 字串是資料，不以 evidence 檔案目錄重解讀。所有搬移路徑仍保留在 rename map，因此 Markdown 文件指向已搬移 JSON 或其他 evidence 的 inbound links 仍須更新，不能因資料檔不被掃描而免驗。真正 Markdown 的 broken outbound/inbound links 仍阻擋。

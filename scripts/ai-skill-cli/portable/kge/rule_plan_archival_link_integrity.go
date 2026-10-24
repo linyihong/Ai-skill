@@ -46,6 +46,11 @@ func (PlanArchivalLinkIntegrityRule) Validate(ctx Context) []Finding {
 	var findings []Finding
 	paths := make([]string, 0, len(ctx.FileContents))
 	for mdPath := range ctx.FileContents {
+		// Renamed evidence may contain Markdown-shaped strings as frozen data.
+		// Scan documents only; retain all renames above for inbound resolution.
+		if !strings.EqualFold(path.Ext(mdPath), ".md") {
+			continue
+		}
 		paths = append(paths, mdPath)
 	}
 	sort.Strings(paths)

@@ -330,3 +330,32 @@ func TestValidatePlanArchivalLinkIntegrity_NoArchiveNoOp(t *testing.T) {
 		t.Errorf("non-archive commit should be no-op; got: %s", got)
 	}
 }
+
+func TestValidatePlanArchivalLinkIntegrity_RawEvidenceIsNotMarkdown(t *testing.T) {
+	root := setupArchivalRepo(t)
+	oldBase, newBase := "plans/active/raw-evidence/", "plans/archived/raw-evidence/"
+	writeRepoFile(t, root, oldBase+"_plan.md", "# Plan\n")
+	// Frozen data is relative to its original source, not the evidence container.
+	files := []string{"request.json", "events.jsonl", "response.txt", "request.json.b64"}
+	for _, name := range files {
+		writeRepoFile(t, root, oldBase+"evidence/"+name,
+			`{"summary":"[source](../../original-source-only.md)"}`+"\n")
+	}
+	runGitFixture(t, root, "add", ".")
+	runGitFixture(t, root, "commit", "-qm", "seed raw evidence", "--no-verify")
+	archivePlan(t, root, oldBase+"_plan.md", newBase+"_plan.md")
+	for _, name := range files {
+		archivePlan(t, root, oldBase+"evidence/"+name, newBase+"evidence/"+name)
+	}
+	if got := validatePlanArchivalLinkIntegrity("", nil, root); got != "" {
+		t.Fatalf("raw evidence must remain byte-preserved, not parsed as Markdown: %s", got)
+	}
+
+	// Keep raw rename targets resolvable for actual Markdown inbound links.
+	writeRepoFile(t, root, "docs/index.md",
+		"[evidence](../plans/active/raw-evidence/evidence/request.json)\n")
+	runGitFixture(t, root, "add", "docs/index.md")
+	if got := validatePlanArchivalLinkIntegrity("", nil, root); !strings.Contains(got, "broken_inbound_link") {
+		t.Fatalf("Markdown inbound link to moved JSON must still block: %s", got)
+	}
+}
