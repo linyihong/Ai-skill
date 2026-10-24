@@ -37,6 +37,7 @@ type runtimeOptions struct {
 	statusFilter   string
 	source         string
 	target         string
+	candidateTerms bool
 	sourceLevel    bool
 	graphQuery     bool
 	limit          int
@@ -157,8 +158,11 @@ type runtimeIndexEdge struct {
 
 func runRuntime(args []string, stdout io.Writer, stderr io.Writer) int {
 	if len(args) == 0 {
-		_, _ = fmt.Fprintln(stderr, "usage: ai-skill runtime <validate|refresh|compile|query|obligations|receipt|workflow-context|audit|capability-invoke> [flags]")
+		_, _ = fmt.Fprintln(stderr, "usage: ai-skill runtime <validate|refresh|compile|query|lookup|selection-watch|obligations|receipt|workflow-context|audit|capability-invoke> [flags]")
 		return ExitInvalidUsage
+	}
+	if args[0] == "lookup" {
+		return runLookup(args[1:], stdout, stderr)
 	}
 	if args[0] == "selection-watch" {
 		return runSelectionWatch(args[1:], stdout, stderr)
@@ -1401,15 +1405,14 @@ func runtimeIndexFeedbackRecords(repo string) ([]runtimeIndexAtom, error) {
 		if statusValue == "promoted" || statusValue == "validated" {
 			confidence = "high"
 		}
-		title := firstRuntimeLineWithPrefix(content, "### ")
-		title = strings.TrimSpace(strings.TrimPrefix(title, "### "))
+		title, summary := runtimeFeedbackHeadingFields(content)
 		if title == "" {
 			title = strings.TrimSuffix(filepath.Base(relative), ".md")
 		}
 		records = append(records, runtimeIndexAtom{
 			ID: "feedback." + domain + "." + strings.TrimSuffix(filepath.Base(relative), ".md"), SourcePath: relative, Layer: runtimeLayerFor(relative), Type: "feedback-pattern",
 			Status: statusValue, Priority: "P2", Confidence: confidence, ContextCost: "medium", Tags: strings.Join(nonEmptyStrings(domain, "feedback", category), ","),
-			Domains: domain, Title: title, Summary: firstRuntimeHeadingAfter(content, "#### One-line Summary"),
+			Domains: domain, Title: title, Summary: summary,
 			WhenToRead: "Feedback lesson lookup for " + domain + ".", ValidationSignal: "Open canonical feedback lesson at " + relative + ".",
 		})
 	}
@@ -1512,7 +1515,11 @@ func runRuntimeIndexQuery(dbPath string, keyword string, opts runtimeOptions) ([
 FROM fts
 JOIN atoms ON atoms.id = fts.id
 WHERE fts MATCH ?`
-	args := []any{runtimeFTSMatchLiteral(keyword)}
+	expression := runtimeFTSMatchLiteral(keyword)
+	if opts.candidateTerms {
+		expression = runtimeCandidateExpression(keyword)
+	}
+	args := []any{expression}
 	if opts.layer != "" {
 		sqlText += " AND atoms.layer = ?"
 		args = append(args, opts.layer)
@@ -1554,6 +1561,9 @@ WHERE fts MATCH ?`
 			return nil, err
 		}
 		item.MatchReason = "fts keyword match: " + keyword
+		if opts.candidateTerms {
+			item.MatchReason = "bounded lexical OR candidate; semantic selection required"
+		}
 		if opts.sourceLevel {
 			if seenSources[item.SourcePath] {
 				continue

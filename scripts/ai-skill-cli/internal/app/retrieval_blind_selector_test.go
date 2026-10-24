@@ -11,45 +11,6 @@ import (
 	"testing"
 )
 
-type retrievalBlindModelResult struct {
-	Source  string `json:"source"`
-	Kind    string `json:"kind"`
-	Status  string `json:"status"`
-	Summary string `json:"summary"`
-	Need    string `json:"need_to_read"`
-}
-type retrievalBlindPayload struct {
-	Guard      string                      `json:"guard"`
-	State      string                      `json:"state"`
-	Pool       int                         `json:"pool"`
-	Unassessed int                         `json:"unassessed"`
-	Unknown    int                         `json:"unknown"`
-	Deferred   int                         `json:"deferred"`
-	Trace      string                      `json:"trace"`
-	Results    []retrievalBlindModelResult `json:"results"`
-}
-
-func retrievalBlindPack(caseID string, coverage retrievalCoverage, ranked []retrievalBlindModelResult, budget int) (retrievalBlindPayload, []string, error) {
-	p := retrievalBlindPayload{Guard: "Candidates only; read sources and verify applicability; empty does not establish absence.", State: coverage.State, Pool: coverage.Candidates, Unassessed: coverage.Unassessed, Unknown: coverage.Unknown, Trace: "blind-selector/" + caseID, Results: append([]retrievalBlindModelResult{}, ranked...)}
-	keep := len(ranked)
-	for {
-		p.Deferred = len(ranked) - keep
-		p.Results = p.Results[:keep]
-		if retrievalV3PayloadRunes(p) <= budget {
-			break
-		}
-		if keep == 0 {
-			return p, nil, fmt.Errorf("required state over budget")
-		}
-		keep--
-	}
-	deferred := []string{}
-	for _, r := range ranked[keep:] {
-		deferred = append(deferred, r.Source)
-	}
-	return p, deferred, nil
-}
-
 func TestRetrievalBlindSelectionControls(t *testing.T) {
 	for _, tc := range []struct {
 		raw   string

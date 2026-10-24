@@ -8,6 +8,8 @@
 
 | Run ID | 檔案 | 狀態 | 摘要 |
 | --- | --- | --- | --- |
+| phase2-production-wiring | [phase2-production-wiring.md](phase2-production-wiring.md) | wiring implemented / release replay pending | Production candidate → neutral request → watcher → source validation → P0 payload；26 題將重跑，不沿用 fixed pool 成績 |
+| phase2-production-protocol | [phase2-production-protocol.md](phase2-production-protocol.md) | frozen before implementation | 固定原 selector 方法、實際 production pool、26 fresh attempts 與完整 payload／failure 驗收 |
 | phase2-engineering | [phase2-engineering.md](phase2-engineering.md) | release replay / cross-platform CI passed | 正式 binary 7/7、MRR 1、warm p95 124ms；Intelligence body probes、canonical metadata、bounded graph、freshness lifecycle、formal watcher 與實際 timeout→interrupt handoff；Phase 2 未完成 |
 | phase2-engineering-protocol | [phase2-engineering-protocol.md](phase2-engineering-protocol.md) | frozen before implementation | 七份 intelligence source-level 比較、lifecycle 與 runner failure 範圍；停止重跑 selector 方法探索 |
 | phase0-2026-10-23 | [phase0-inventory.md](phase0-inventory.md) | verified inventory | 來源覆蓋、metadata、consumer、Bridge 決策與 baseline 入口；非檢索品質驗收 |

@@ -10,18 +10,6 @@ import (
 )
 
 // Offline consumer-preview prototype only. No workflow calls this helper.
-type retrievalCoverage struct {
-	Candidates      int    `json:"candidates"`
-	Assessed        int    `json:"assessed"`
-	Unassessed      int    `json:"unassessed"`
-	ExplicitUnknown int    `json:"explicit_unknown"`
-	Unknown         int    `json:"unknown"`
-	Direct          int    `json:"direct"`
-	Background      int    `json:"background"`
-	NotApplicable   int    `json:"not_applicable"`
-	State           string `json:"state"`
-}
-
 func retrievalCoverageFor(response retrievalAgentResponse) retrievalCoverage {
 	c := retrievalCoverage{Candidates: len(response.Ranking), Assessed: len(response.Assessments)}
 	c.Unassessed = c.Candidates - c.Assessed

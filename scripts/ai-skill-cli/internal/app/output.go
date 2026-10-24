@@ -20,6 +20,7 @@ type CommandError struct {
 }
 
 type Result struct {
+	Lookup         *LookupReceipt         `json:"lookup,omitempty"`
 	SelectionWatch *SelectionWatchReceipt `json:"selection_watch,omitempty"`
 	Command        string                 `json:"command"`
 	Mode           string                 `json:"mode"`

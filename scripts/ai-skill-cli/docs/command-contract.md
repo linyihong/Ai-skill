@@ -36,6 +36,7 @@
 | `ai-skill runtime refresh` | 重建 knowledge runtime reports / SQLite index | 是 | 否 | Phase 3 |
 | `ai-skill runtime compile` | 編譯 `runtime/runtime.db` | 是 | 否 | Phase 3 |
 | `ai-skill runtime validate` | 驗證 runtime.db、knowledge runtime、SQLite assertions | 否 | 否 | Phase 3 |
+| `ai-skill runtime lookup` | Production index／prepare／complete：有界候選 → neutral request → watcher receipt → source readback／完整 payload | 是（cache、bundle／request） | 否 | Retrieval Phase 2 E2E |
 | `ai-skill runtime selection-watch` | 觀測單次 agent 檔案回應、嚴格驗證、deadline 與 interrupt-required handoff；不宣稱已停止 child | 是（短暫 readiness marker） | 否 | Retrieval Phase 2 |
 | `ai-skill runtime query` | 查詢 runtime index / generated surfaces | 否 | 否 | Phase 3 |
 | `ai-skill runtime obligations` | 列出目前 active bootstrap obligations（per_session / per_turn / per_commit）並附 Bootstrap Receipt line，從 `generated_surfaces[runtime.core_bootstrap.contract]` 與 runtime phase/gate tables 讀取 | 否 | 否 | bootstrap-yaml-migration Phase 3 |
@@ -429,6 +430,14 @@
 - `--json` results 必須包含 source path、rank / priority（若有）、match reason 與 validation signal（若有）。
 - Native query 覆蓋舊 runtime index query：keyword / positional query、`--db`、`--layer`、`--type`、`--status`、`--limit`、empty result 與 missing DB。
 - `--graph` native query 覆蓋舊 knowledge graph query：`--source`、`--target`、`--type`、`--keyword` / positional query、`--limit`、empty result 與 missing filter。
+
+### `ai-skill runtime lookup`
+
+- `index --repo <root> --db <cache>`：只建立 derived SQLite cache，不修改 canonical 文件或 generated reports。
+- `prepare --repo <root> --db <cache> --keyword <query> --out <new-directory> [--layer <name>] [--status <name>]`：source-level 去重／freshness；明確使用至多64個 Unicode 字詞 OR 產生至多64個來源，僅為候選。保存 bundle.json、request.json；request 採固定 selector prompt、opaque ID 排序、title／完整 indexed summary，缺摘要明列 unavailable。回傳 bundle／request SHA。普通 runtime query 仍是精確片語。
+- `complete --bundle <bundle.json> --bundle-sha <prepare-returned-sha> --response <raw.json> --receipt <watcher.json>`：必須有相符的成功 watcher receipt，核對 executable／index／request／raw／source 身分及 freshness，保留 selector 順序，僅 direct 進入 P0 完整摘要 payload。整個 payload 含 guard／state／pool／unassessed／unknown／deferred／trace 及每筆 need_to_read，≤2000 runes；超額從尾端 defer，不截摘要、不填 background。Trace／未選理由與 hashes 保存在外層 bundle／receipt。
+
+各 mode 支援 `--json`。失敗不輸出成功 payload、不重試、不回退舊 fixed pool；checksum 變化代表需重新驗證，不代表原結論已被推翻。回應有效與來源版本核對不表示適用或採用。模型／usage 欄位以 watcher 能取得的事實為準。
 
 ### `ai-skill runtime selection-watch`
 
