@@ -1,0 +1,34 @@
+{
+  "scope": "Actual macOS SIGINT to release-binary watcher; child interruption tested separately",
+  "source_commit": "f9570120",
+  "query_binary_sha256": "8d7a84e49f22f7ae353b2354a58df6ddde5b9f9c0b6655fd63158a2551ff5171",
+  "exit_code": 30,
+  "receipt": {
+    "selection_watch": {
+      "state": "canceled",
+      "runner_handle": "controlled-cancel-test",
+      "request_sha256": "6d7123150299f3725f1db26b616a94b184727f4f090640635d16dbea8ebff58d",
+      "elapsed_ms": 4,
+      "interrupt_required": true,
+      "interrupt_confirmed": false,
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      }
+    },
+    "command": "runtime selection-watch",
+    "mode": "native",
+    "status": "blocked",
+    "exit_code": 30,
+    "checks": [],
+    "planned_actions": [],
+    "mutations": [],
+    "error": {
+      "code": "canceled",
+      "message": "context canceled",
+      "remediation": "Interrupt the adapter-owned child, confirm termination, preserve this receipt; do not retry or use fallback silently."
+    }
+  },
+  "stderr": ""
+}

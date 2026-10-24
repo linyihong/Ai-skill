@@ -144,9 +144,9 @@ Phase 1 審核補充（2026-10-24）：[phase1-audit.md](evidence/phase1-audit.m
 
 ## Phase 2 — 補既有全文搜尋、metadata 與關聯查找
 
-依最新審閱結束曝光資料上的 selector 方法探索。新增 [engineering](evidence/phase2-engineering.md)：七份 intelligence 正文覆蓋、canonical metadata、source-level freshness／dedup、bounded graph 與正式 file-response watcher。Timeout→host interrupt 已實測；release-binary replay／CI 尚待本批收尾。這些工程驗證不代替完整候選品質或 consumer 採用 gate。
+依最新審閱結束曝光資料上的 selector 方法探索。新增 [engineering](evidence/phase2-engineering.md)：七份 intelligence 正文覆蓋、canonical metadata、source-level freshness／dedup、bounded graph 與正式 file-response watcher。Timeout→host interrupt 已實測；正式 binary intelligence replay 為 7/7、MRR 1、21 次 warm p95 約124ms；full Go／targeted race／binary parity 已通過，CI 待 push 後核對。這些工程驗證不代替完整候選品質或 consumer 採用 gate。
 
-- [x] 選定 intelligence body 的 source-level 索引能力與 fixture coverage；七份 source-specific probes 已凍結，release replay 另記。
+- [x] 選定 intelligence body 的 source-level 索引能力與 fixture coverage；七份 source-specific probes 已凍結，release replay 7/7、MRR 1，見 engineering 產物。
 - [x] Source-level build／refresh／edit／add／delete／move／stale／missing metadata/index／deterministic rebuild／failed-build preservation fixtures 通過；舊 atom 查詢不冒稱 freshness 保證。
 - [x] 正式 file-response watcher 的 deadline／invalid response／request mutation／usage unavailable 與零值邊界已測；實際非回應 child 的 timeout→host interrupt readback 留存。Production orchestrator 接線仍未驗收。
 

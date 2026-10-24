@@ -1,0 +1,605 @@
+{
+  "cases": [
+    {
+      "query": "state_sources",
+      "expected_source": "intelligence/engineering/execution/validation-reasoning/state-visibility-gap.md",
+      "sources_at_5": [
+        "intelligence/engineering/execution/validation-reasoning/state-visibility-gap.md",
+        "intelligence/engineering/execution/validation-reasoning/identity-coupled-side-effect-validation.md"
+      ],
+      "expected_rank": 1,
+      "raw_result": {
+        "command": "runtime query",
+        "mode": "native",
+        "status": "success",
+        "exit_code": 0,
+        "checks": [
+          {
+            "name": "repo",
+            "status": "ok",
+            "message": "\u003cAI_SKILL_REPO\u003e"
+          },
+          {
+            "name": "runtime_index",
+            "status": "ok",
+            "message": "\u003cINDEX_PATH\u003e"
+          },
+          {
+            "name": "runtime_query",
+            "status": "ok",
+            "message": "2 result(s)"
+          }
+        ],
+        "planned_actions": [
+          "query native runtime index: \u003cINDEX_PATH\u003e"
+        ],
+        "mutations": [],
+        "results": [
+          {
+            "source": {
+              "checksum": "03b91e350798e5ce20b832e3605a618e9bb6c61aeb13f36f414169184bc386f6",
+              "canonical_status": "candidate-intelligence",
+              "domains": [],
+              "scope": "unknown",
+              "replaces": "unknown",
+              "freshness": "current",
+              "applicability": "unverified; read canonical source and check conditions",
+              "readback": "intelligence/engineering/execution/validation-reasoning/state-visibility-gap.md"
+            },
+            "rank": -5.461563424980806,
+            "id": "source:intelligence/engineering/execution/validation-reasoning/state-visibility-gap.md",
+            "source_path": "intelligence/engineering/execution/validation-reasoning/state-visibility-gap.md",
+            "layer": "intelligence",
+            "type": "intelligence",
+            "status": "candidate-intelligence",
+            "priority": "P2",
+            "confidence": "unknown",
+            "context_cost": "unknown",
+            "summary": "State visibility gap 是一種 validation failure pattern：測試或產品表面觀察到的狀態，與系統真實狀態不一致。",
+            "match_reason": "fts keyword match: state_sources"
+          },
+          {
+            "source": {
+              "checksum": "9647cd931d4510c962595f997cc9d5276dc878b5acf91218a9552f974fbe99f7",
+              "canonical_status": "candidate-intelligence",
+              "domains": [],
+              "scope": "unknown",
+              "replaces": "unknown",
+              "freshness": "current",
+              "applicability": "unverified; read canonical source and check conditions",
+              "readback": "intelligence/engineering/execution/validation-reasoning/identity-coupled-side-effect-validation.md"
+            },
+            "rank": -3.1886459671832297,
+            "id": "source:intelligence/engineering/execution/validation-reasoning/identity-coupled-side-effect-validation.md",
+            "source_path": "intelligence/engineering/execution/validation-reasoning/identity-coupled-side-effect-validation.md",
+            "layer": "intelligence",
+            "type": "intelligence",
+            "status": "candidate-intelligence",
+            "priority": "P2",
+            "confidence": "unknown",
+            "context_cost": "unknown",
+            "summary": "Identity-coupled side effect validation 是 [`evidence-chain-validation.md`](evidence-chain-validation.md) 的特化案例：產品行為同時依賴呼叫者身份狀態，並產生可觀察 side effect。",
+            "match_reason": "fts keyword match: state_sources"
+          }
+        ]
+      }
+    },
+    {
+      "query": "independent_external_confirmation",
+      "expected_source": "intelligence/engineering/execution/validation-reasoning/evidence-model.md",
+      "sources_at_5": [
+        "intelligence/engineering/execution/validation-reasoning/evidence-model.md"
+      ],
+      "expected_rank": 1,
+      "raw_result": {
+        "command": "runtime query",
+        "mode": "native",
+        "status": "success",
+        "exit_code": 0,
+        "checks": [
+          {
+            "name": "repo",
+            "status": "ok",
+            "message": "\u003cAI_SKILL_REPO\u003e"
+          },
+          {
+            "name": "runtime_index",
+            "status": "ok",
+            "message": "\u003cINDEX_PATH\u003e"
+          },
+          {
+            "name": "runtime_query",
+            "status": "ok",
+            "message": "1 result(s)"
+          }
+        ],
+        "planned_actions": [
+          "query native runtime index: \u003cINDEX_PATH\u003e"
+        ],
+        "mutations": [],
+        "results": [
+          {
+            "source": {
+              "checksum": "23c346190ae23acb41323f27a780d35b48334b347e8d806ad5792062865aa364",
+              "canonical_status": "candidate-intelligence",
+              "domains": [],
+              "scope": "unknown",
+              "replaces": "unknown",
+              "freshness": "current",
+              "applicability": "unverified; read canonical source and check conditions",
+              "readback": "intelligence/engineering/execution/validation-reasoning/evidence-model.md"
+            },
+            "rank": -3.0784524057711606,
+            "id": "source:intelligence/engineering/execution/validation-reasoning/evidence-model.md",
+            "source_path": "intelligence/engineering/execution/validation-reasoning/evidence-model.md",
+            "layer": "intelligence",
+            "type": "intelligence",
+            "status": "candidate-intelligence",
+            "priority": "P2",
+            "confidence": "unknown",
+            "context_cost": "unknown",
+            "summary": "Evidence model 定義不同證據類型的可信度、覆蓋範圍與適用邊界。它不是測試清單，而是幫 agent 判斷「這個證據到底證明了哪一段」。",
+            "match_reason": "fts keyword match: independent_external_confirmation"
+          }
+        ]
+      }
+    },
+    {
+      "query": "independent_observation",
+      "expected_source": "intelligence/engineering/execution/validation-reasoning/evidence-depth.md",
+      "sources_at_5": [
+        "intelligence/engineering/execution/validation-reasoning/evidence-depth.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md",
+        "intelligence/engineering/execution/validation-reasoning/identity-coupled-side-effect-validation.md"
+      ],
+      "expected_rank": 1,
+      "raw_result": {
+        "command": "runtime query",
+        "mode": "native",
+        "status": "success",
+        "exit_code": 0,
+        "checks": [
+          {
+            "name": "repo",
+            "status": "ok",
+            "message": "\u003cAI_SKILL_REPO\u003e"
+          },
+          {
+            "name": "runtime_index",
+            "status": "ok",
+            "message": "\u003cINDEX_PATH\u003e"
+          },
+          {
+            "name": "runtime_query",
+            "status": "ok",
+            "message": "3 result(s)"
+          }
+        ],
+        "planned_actions": [
+          "query native runtime index: \u003cINDEX_PATH\u003e"
+        ],
+        "mutations": [],
+        "results": [
+          {
+            "source": {
+              "checksum": "75c351dbf860e79223b7944d1b1a46c2a922db4ca3a10521631d7d1415afa184",
+              "canonical_status": "candidate-intelligence",
+              "domains": [],
+              "scope": "unknown",
+              "replaces": "unknown",
+              "freshness": "current",
+              "applicability": "unverified; read canonical source and check conditions",
+              "readback": "intelligence/engineering/execution/validation-reasoning/evidence-depth.md"
+            },
+            "rank": -6.737250056880237,
+            "id": "source:intelligence/engineering/execution/validation-reasoning/evidence-depth.md",
+            "source_path": "intelligence/engineering/execution/validation-reasoning/evidence-depth.md",
+            "layer": "intelligence",
+            "type": "intelligence",
+            "status": "candidate-intelligence",
+            "priority": "P2",
+            "confidence": "unknown",
+            "context_cost": "unknown",
+            "summary": "Evidence depth 是依風險選擇最低證據層級的決策規則。它不只處理測試，也包含 production inspection、log analysis、metric validation、replay validation 與外部確認。",
+            "match_reason": "fts keyword match: independent_observation"
+          },
+          {
+            "source": {
+              "checksum": "3433d6d1a66c9f47bdda84f245a0567d1cba2b3180c8b553b46567c19e1a2b3b",
+              "canonical_status": "candidate-intelligence",
+              "domains": [],
+              "scope": "unknown",
+              "replaces": "unknown",
+              "freshness": "current",
+              "applicability": "unverified; read canonical source and check conditions",
+              "readback": "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md"
+            },
+            "rank": -4.431271247725116,
+            "id": "source:intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md",
+            "source_path": "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md",
+            "layer": "intelligence",
+            "type": "intelligence",
+            "status": "candidate-intelligence",
+            "priority": "P2",
+            "confidence": "unknown",
+            "context_cost": "unknown",
+            "summary": "Evidence chain validation 是一種 validation reasoning pattern：驗證必須沿著狀態傳播鏈一路追到最終可觀察結果，並在每個重要 state transition 上附上足夠證據。",
+            "match_reason": "fts keyword match: independent_observation"
+          },
+          {
+            "source": {
+              "checksum": "9647cd931d4510c962595f997cc9d5276dc878b5acf91218a9552f974fbe99f7",
+              "canonical_status": "candidate-intelligence",
+              "domains": [],
+              "scope": "unknown",
+              "replaces": "unknown",
+              "freshness": "current",
+              "applicability": "unverified; read canonical source and check conditions",
+              "readback": "intelligence/engineering/execution/validation-reasoning/identity-coupled-side-effect-validation.md"
+            },
+            "rank": -2.983438032012033,
+            "id": "source:intelligence/engineering/execution/validation-reasoning/identity-coupled-side-effect-validation.md",
+            "source_path": "intelligence/engineering/execution/validation-reasoning/identity-coupled-side-effect-validation.md",
+            "layer": "intelligence",
+            "type": "intelligence",
+            "status": "candidate-intelligence",
+            "priority": "P2",
+            "confidence": "unknown",
+            "context_cost": "unknown",
+            "summary": "Identity-coupled side effect validation 是 [`evidence-chain-validation.md`](evidence-chain-validation.md) 的特化案例：產品行為同時依賴呼叫者身份狀態，並產生可觀察 side effect。",
+            "match_reason": "fts keyword match: independent_observation"
+          }
+        ]
+      }
+    },
+    {
+      "query": "propagation path",
+      "expected_source": "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md",
+      "sources_at_5": [
+        "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md"
+      ],
+      "expected_rank": 1,
+      "raw_result": {
+        "command": "runtime query",
+        "mode": "native",
+        "status": "success",
+        "exit_code": 0,
+        "checks": [
+          {
+            "name": "repo",
+            "status": "ok",
+            "message": "\u003cAI_SKILL_REPO\u003e"
+          },
+          {
+            "name": "runtime_index",
+            "status": "ok",
+            "message": "\u003cINDEX_PATH\u003e"
+          },
+          {
+            "name": "runtime_query",
+            "status": "ok",
+            "message": "1 result(s)"
+          }
+        ],
+        "planned_actions": [
+          "query native runtime index: \u003cINDEX_PATH\u003e"
+        ],
+        "mutations": [],
+        "results": [
+          {
+            "source": {
+              "checksum": "3433d6d1a66c9f47bdda84f245a0567d1cba2b3180c8b553b46567c19e1a2b3b",
+              "canonical_status": "candidate-intelligence",
+              "domains": [],
+              "scope": "unknown",
+              "replaces": "unknown",
+              "freshness": "current",
+              "applicability": "unverified; read canonical source and check conditions",
+              "readback": "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md"
+            },
+            "rank": -3.2674705731650735,
+            "id": "source:intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md",
+            "source_path": "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md",
+            "layer": "intelligence",
+            "type": "intelligence",
+            "status": "candidate-intelligence",
+            "priority": "P2",
+            "confidence": "unknown",
+            "context_cost": "unknown",
+            "summary": "Evidence chain validation 是一種 validation reasoning pattern：驗證必須沿著狀態傳播鏈一路追到最終可觀察結果，並在每個重要 state transition 上附上足夠證據。",
+            "match_reason": "fts keyword match: propagation path"
+          }
+        ]
+      }
+    },
+    {
+      "query": "collapse point",
+      "expected_source": "intelligence/engineering/execution/validation-reasoning/evidence-collapse-point.md",
+      "sources_at_5": [
+        "intelligence/engineering/execution/validation-reasoning/evidence-collapse-point.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md"
+      ],
+      "expected_rank": 1,
+      "raw_result": {
+        "command": "runtime query",
+        "mode": "native",
+        "status": "success",
+        "exit_code": 0,
+        "checks": [
+          {
+            "name": "repo",
+            "status": "ok",
+            "message": "\u003cAI_SKILL_REPO\u003e"
+          },
+          {
+            "name": "runtime_index",
+            "status": "ok",
+            "message": "\u003cINDEX_PATH\u003e"
+          },
+          {
+            "name": "runtime_query",
+            "status": "ok",
+            "message": "2 result(s)"
+          }
+        ],
+        "planned_actions": [
+          "query native runtime index: \u003cINDEX_PATH\u003e"
+        ],
+        "mutations": [],
+        "results": [
+          {
+            "source": {
+              "checksum": "ef1ad624fd6f9df683bbb0fa30b6edd2694cba8cc440465d1e90bcaf287850db",
+              "canonical_status": "candidate-intelligence",
+              "domains": [],
+              "scope": "unknown",
+              "replaces": "unknown",
+              "freshness": "current",
+              "applicability": "unverified; read canonical source and check conditions",
+              "readback": "intelligence/engineering/execution/validation-reasoning/evidence-collapse-point.md"
+            },
+            "rank": -9.730081594451693,
+            "id": "source:intelligence/engineering/execution/validation-reasoning/evidence-collapse-point.md",
+            "source_path": "intelligence/engineering/execution/validation-reasoning/evidence-collapse-point.md",
+            "layer": "intelligence",
+            "type": "intelligence",
+            "status": "candidate-intelligence",
+            "priority": "P2",
+            "confidence": "unknown",
+            "context_cost": "unknown",
+            "summary": "Evidence collapse point 是診斷推理模式：在 evidence chain 中，第一個失去證據一致性的節點。",
+            "match_reason": "fts keyword match: collapse point"
+          },
+          {
+            "source": {
+              "checksum": "3433d6d1a66c9f47bdda84f245a0567d1cba2b3180c8b553b46567c19e1a2b3b",
+              "canonical_status": "candidate-intelligence",
+              "domains": [],
+              "scope": "unknown",
+              "replaces": "unknown",
+              "freshness": "current",
+              "applicability": "unverified; read canonical source and check conditions",
+              "readback": "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md"
+            },
+            "rank": -4.736064581178704,
+            "id": "source:intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md",
+            "source_path": "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md",
+            "layer": "intelligence",
+            "type": "intelligence",
+            "status": "candidate-intelligence",
+            "priority": "P2",
+            "confidence": "unknown",
+            "context_cost": "unknown",
+            "summary": "Evidence chain validation 是一種 validation reasoning pattern：驗證必須沿著狀態傳播鏈一路追到最終可觀察結果，並在每個重要 state transition 上附上足夠證據。",
+            "match_reason": "fts keyword match: collapse point"
+          }
+        ]
+      }
+    },
+    {
+      "query": "authenticated without entitlement",
+      "expected_source": "intelligence/engineering/execution/validation-reasoning/identity-coupled-side-effect-validation.md",
+      "sources_at_5": [
+        "intelligence/engineering/execution/validation-reasoning/identity-coupled-side-effect-validation.md"
+      ],
+      "expected_rank": 1,
+      "raw_result": {
+        "command": "runtime query",
+        "mode": "native",
+        "status": "success",
+        "exit_code": 0,
+        "checks": [
+          {
+            "name": "repo",
+            "status": "ok",
+            "message": "\u003cAI_SKILL_REPO\u003e"
+          },
+          {
+            "name": "runtime_index",
+            "status": "ok",
+            "message": "\u003cINDEX_PATH\u003e"
+          },
+          {
+            "name": "runtime_query",
+            "status": "ok",
+            "message": "1 result(s)"
+          }
+        ],
+        "planned_actions": [
+          "query native runtime index: \u003cINDEX_PATH\u003e"
+        ],
+        "mutations": [],
+        "results": [
+          {
+            "source": {
+              "checksum": "9647cd931d4510c962595f997cc9d5276dc878b5acf91218a9552f974fbe99f7",
+              "canonical_status": "candidate-intelligence",
+              "domains": [],
+              "scope": "unknown",
+              "replaces": "unknown",
+              "freshness": "current",
+              "applicability": "unverified; read canonical source and check conditions",
+              "readback": "intelligence/engineering/execution/validation-reasoning/identity-coupled-side-effect-validation.md"
+            },
+            "rank": -3.499533070753263,
+            "id": "source:intelligence/engineering/execution/validation-reasoning/identity-coupled-side-effect-validation.md",
+            "source_path": "intelligence/engineering/execution/validation-reasoning/identity-coupled-side-effect-validation.md",
+            "layer": "intelligence",
+            "type": "intelligence",
+            "status": "candidate-intelligence",
+            "priority": "P2",
+            "confidence": "unknown",
+            "context_cost": "unknown",
+            "summary": "Identity-coupled side effect validation 是 [`evidence-chain-validation.md`](evidence-chain-validation.md) 的特化案例：產品行為同時依賴呼叫者身份狀態，並產生可觀察 side effect。",
+            "match_reason": "fts keyword match: authenticated without entitlement"
+          }
+        ]
+      }
+    },
+    {
+      "query": "route_restore",
+      "expected_source": "intelligence/engineering/execution/validation-reasoning/state-transition-validation.md",
+      "sources_at_5": [
+        "intelligence/engineering/execution/validation-reasoning/state-transition-validation.md"
+      ],
+      "expected_rank": 1,
+      "raw_result": {
+        "command": "runtime query",
+        "mode": "native",
+        "status": "success",
+        "exit_code": 0,
+        "checks": [
+          {
+            "name": "repo",
+            "status": "ok",
+            "message": "\u003cAI_SKILL_REPO\u003e"
+          },
+          {
+            "name": "runtime_index",
+            "status": "ok",
+            "message": "\u003cINDEX_PATH\u003e"
+          },
+          {
+            "name": "runtime_query",
+            "status": "ok",
+            "message": "1 result(s)"
+          }
+        ],
+        "planned_actions": [
+          "query native runtime index: \u003cINDEX_PATH\u003e"
+        ],
+        "mutations": [],
+        "results": [
+          {
+            "source": {
+              "checksum": "bc56e99595a947603773a2d2db85c88dba4c19e0fbacbe4f1f90c9e947138e8a",
+              "canonical_status": "unknown",
+              "domains": [],
+              "scope": "unknown",
+              "replaces": "unknown",
+              "freshness": "current",
+              "applicability": "unverified; read canonical source and check conditions",
+              "readback": "intelligence/engineering/execution/validation-reasoning/state-transition-validation.md"
+            },
+            "rank": -2.799867378863302,
+            "id": "source:intelligence/engineering/execution/validation-reasoning/state-transition-validation.md",
+            "source_path": "intelligence/engineering/execution/validation-reasoning/state-transition-validation.md",
+            "layer": "intelligence",
+            "type": "intelligence",
+            "status": "unknown",
+            "priority": "P2",
+            "confidence": "unknown",
+            "context_cost": "unknown",
+            "summary": "Principle: many correctness failures occur during transitions, not in a steady state.",
+            "match_reason": "fts keyword match: route_restore"
+          }
+        ]
+      }
+    }
+  ],
+  "dataset_sha256": "71ee976d924e157e70abe81614cd916793ad221c5956635de9155c8f73436ce3",
+  "denominator": 7,
+  "generator_source_files": {
+    "app.go": "b4b35c5f6832250f528765b4434d4f7fbd48ff006cec52d036b8f1f715a0d882",
+    "author_email_allowlist.go": "95c16c2eb161f6a522af4d37335aba59d1b520f21e088df40a233a6adf63e9f3",
+    "canonical_ownership_drift.go": "22b091ae728ecd334e04dcfd9abc1ba0d14baf87a9381971b138596e1400f824",
+    "capability_context.go": "403d51e94625b46cb0e55d3657a9c909d19ed58b59de6757655e8c292e40c3c0",
+    "close_loop.go": "3d2762f81cc4a3d51e6fc16f35e942fa94fb67e4df2575d4ba2aa11b323bca87",
+    "copilot.go": "8084335c48d5fe22c42a67f6ac5f2d4813608e3b6fb927367e008d844b701be5",
+    "detector.go": "fc01e94a24947e1e4ec1de2a33bcae8c172d01f02b145830fd0556a9eceba222",
+    "discovery.go": "3393c943b41b513eaeccc6669fda158d92b295d3f60fc0672274687f47ea6a16",
+    "doctor.go": "1cbfef370a989873158d69ae61f683eb4f0f72ab399748a7ebf1431c2a8ee13b",
+    "documentation_drift.go": "72e668b7ff48e382d8e1eaf6fb9e4a6ee7921cbc47260ccd49bd5de4c6a008ee",
+    "enforcement.go": "ccc7f122ad1ba085c794770ea5b8ff55455c0187f50181ae4ed0fe95e6d6a9ad",
+    "enforcement_registry_lint.go": "9f7439e0765736cc3b1f50a52a88083825789fe0dfdeea1ff978d4cff1a66b5d",
+    "enforcement_transition.go": "197cfed4200b020b1e3a5743a472117b81cc046029205bb9ee325cc2bdda90e6",
+    "exitcode.go": "1e08f53fa13a925aed974b17a47cec56c5cfcb3fd7e9be5e690d61ca48c9280e",
+    "failure_authority.go": "b32384d9cd9f407a382ef7d844e19af09da2be1169252dd80f8c56d3887b3a61",
+    "glossary.go": "67b71c12416e2f6f172edab5233be05fea1eb69e0d20fd421e64dc9b9b7943f0",
+    "goals.go": "b730130544d90cbf1a05e0dc4bf9c377ba410329b7af7e0f55074656ee6c58de",
+    "hooks.go": "5cf5180378ec30dd58c7dd11775b238769974144756e0c07912121e4dfd34879",
+    "image_processing.go": "e52389724041201378b3aaf800f37e01486dd178bda57b58824ad8df81092671",
+    "init_project.go": "4980f54ce7d9defd8b016799784dcea225844f79a5d7c7110aa3dc33e4d69230",
+    "kge_adapter.go": "d5f72ef30dc1132861958eba91a23caa955b450ad73c24003f01daf7f225ef9a",
+    "kge_cmd.go": "916f6ec93c41aefd19a5f293f87a3677724604c6271119035788d2dafe79b0f0",
+    "markdown_links.go": "61d8c1fe0c1bef7539299f8bcac2dd56ac803cf5156acb3cc65d58d57e768500",
+    "observation.go": "59be6f8b56bf615782a4fe437de30a03d9abc8e1c74fe88ab4c5204beab134c5",
+    "output.go": "8ca9fbd0334efa66b9a2416ca7776107c1fe861c4958448dd88a48aef290cb0c",
+    "plan_archival_link_integrity.go": "721fc6ab1aecedb7a99c8adacb1646a2c2463fd935765575166640cc1ee69bea",
+    "plan_evidence.go": "9f6a851070b1520c65c598f5329ee62a96b68eea5dbed4217b65222301ff2c2a",
+    "plan_flat_cluster.go": "6362ba2954efdcc5b780cd8bcf5a438cad0ac555e0a93b89961129d3814a89e0",
+    "plan_folderize.go": "b3cb2b7764920d0d03f94dd403bc667de90f703b3ba6a1adced00e65e883777d",
+    "plan_tree.go": "1449a011e741effe5e776c4b75e55da217b43a54068d3aaaeea92dcac658acb4",
+    "plans.go": "3a64b84a9a4aae8542be2d44fa3ca335f60359e5d1303f62038c0af116514966",
+    "planvalidate_shadow.go": "625f8fecd3b092e3898845044d9bf1509beaf714f0c5b98e5250b9ac27e60052",
+    "project_metadata.go": "bb886d1b4096549aae07836cc04ca4802286e2896312c04ed53f4ae080faffb7",
+    "project_metadata_compile.go": "2613f929f2af7f4150310ba89d56964862b8aa54646a0e407bbe5f5c33f2c0cf",
+    "push_governance_scan.go": "05c7180ea48b05829198ef8aa2f936153e4ce0df53e55b32036482f45c1bf6c1",
+    "repository_topology.go": "1c9838a3de3160d34bf37716f7af2456b5a274a63f45d904bb340cca2d59a106",
+    "repository_topology_compile.go": "e78527b92cfc7d447d9a5b2cd9d196c02fc9349a5f119a8a5a244c982e0ce9f3",
+    "roo.go": "7615b54e88f4e3ed0d4219628ced5b10dfdbb2403aa7668ebe8a89af2d02717b",
+    "router_proposals.go": "ef85f06227a8480b2d115996714a0ceee40af043cf2a44bd0e07ad0113966d5d",
+    "runtime.go": "2ca0b6d9dac9945e82f1952bd1f41860e8dff6967d92e63c99c106a5c67e8afe",
+    "runtime_audit.go": "6a7f8f465c84bfa76a8aa189da7170a385be7850eab4034de7f3b4a3e716c977",
+    "runtime_compiler.go": "8b8214da7fd4ca2e778dbf9d2316b2429559be91a237120d6160e025c48fe90e",
+    "runtime_context.go": "fd648964e128c1342fe67e6cea2ec12a2091901205ad700ee1f8fc850b818c8e",
+    "runtime_index_freshness.go": "00bec584f64e02e4ac7742ad3069d470627967d3e140e4660f91321f33758bbf",
+    "runtime_sources.go": "704fb6e72441cd4b6c77a9ad46c98134d72b0b97309a6a265709d10d4b9d44d6",
+    "sanitization_scan.go": "bdb9b5dabdbc459cfda0d73262dea57b29a10b28c27e16eb25f8be391ed22b9a",
+    "scan_checkboxes.go": "23e6acd61f87fbd33ca6e8be3abc23ddc0642c327ae9b6c72450e0c35c849ccd",
+    "scenario_lint.go": "f1d891ff1f2c2b268242919e7cb1d56f100cbfffc158ff629595c4b00bb2770e",
+    "selection_response.go": "bb40b6d26428484604730e1b87a8ab6bedf23e554dfb9b98923ce0dc91fe8eaa",
+    "selection_watch.go": "8ee91df3e5ab214939447278765bffe7f1d818bf662fb91edf280e7f887d6d72",
+    "sync_cursor_bundle.go": "af4ac6f38e72b215434f976b69e0007d2453b39c526744dc2fe73b1b73762692",
+    "version.go": "2d4bc2ba687db7a9d42275601bc5719585ab56111f452dad16eb81dc76ae4788"
+  },
+  "hits": 7,
+  "index_sha256": "afd19f5f190b785f700d74a2431c7965ab94bddf4e395106c40acf1b2cb1d90b",
+  "mrr": 1,
+  "query_binary_sha256": "8d7a84e49f22f7ae353b2354a58df6ddde5b9f9c0b6655fd63158a2551ff5171",
+  "source_level": true,
+  "warm_cli_p95_ms": 123.763,
+  "warm_cli_samples_ms": [
+    85.944,
+    87.659,
+    87.711,
+    87.811,
+    87.929,
+    88.66,
+    88.731,
+    89.322,
+    89.368,
+    89.877,
+    90.164,
+    90.703,
+    91.021,
+    91.357,
+    91.637,
+    95.403,
+    98.184,
+    103.619,
+    105.682,
+    123.763,
+    183.013
+  ]
+}
