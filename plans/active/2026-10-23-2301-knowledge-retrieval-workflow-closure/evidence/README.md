@@ -8,6 +8,7 @@
 
 | Run ID | 檔案 | 狀態 | 摘要 |
 | --- | --- | --- | --- |
+| phase3-token-counter | [phase3-token-counter.md](phase3-token-counter.md) | installed / reference count measured | tiktoken 0.14.0、o200k_base；26份完整 payload 最大449參考 tokens，非 agent 實際 usage |
 | phase3-token-disposition | [phase3-token-disposition.md](phase3-token-disposition.md) | deferred-by-user / execution proceeds | 使用者允許目前 agent 繼續，token 計數不阻擋；不冒稱實際用量已驗收 |
 | phase3-consumer | [phase3-consumer.md](phase3-consumer.md)、[protocol](phase3-consumer-protocol.md) | first wiring / controlled readback; Phase 3 incomplete | sd-validation 觸發、回讀、決策與既有 gate；原始專案證據、實際 tokenizer 與真實雙任務驗收尚待補齊 |
 | phase2-production-wiring | [phase2-production-wiring.md](phase2-production-wiring.md) | frozen diagnostic acceptance passed | 實際新 pool → 26 fresh attempts → watcher → complete：23/23、MRR .971014、final confuser 0/6、≤1622 runes；28 輸出讀回與失敗控制，兩次 CI 四項全綠，採用留 Phase 3 |

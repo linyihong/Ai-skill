@@ -1,0 +1,201 @@
+{
+  "kind": "reference tokenizer counts; not actual agent usage or new acceptance gate",
+  "authorization": "2026-10-25 user allowed deferring token counts and authorized installing a useful counter",
+  "tool": "tiktoken",
+  "tool_version": "0.14.0",
+  "python_version": "3.12.3",
+  "encoding": "o200k_base",
+  "model_mapping": "unknown; no claim that this agent uses o200k_base",
+  "scope": "Exact UTF-8 text of 26 frozen compact Go-JSON retrieval payload files; no source-body readback, hidden system messages, tool wrappers, selection input/output or total conversation usage",
+  "source_commit": "222dd528",
+  "summary": {
+    "artifacts": 26,
+    "maximum_reference_tokens": 449,
+    "maximum_case": "R09",
+    "all_encode_decode_roundtrips": true
+  },
+  "rows": [
+    {
+      "case": "O01",
+      "artifact": "phase2-prod-O01.payload.json",
+      "sha256": "9ab464483b6cefa79a350c6f3c9d06d6f891241e4c6db8a811d8b69c876f02c1",
+      "runes": 727,
+      "reference_tokens": 200
+    },
+    {
+      "case": "O02",
+      "artifact": "phase2-prod-O02.payload.json",
+      "sha256": "9ed65491add62be3b9ff57637dccc06efce03d1fcbf51e416e2eaf0281a4e5bc",
+      "runes": 646,
+      "reference_tokens": 193
+    },
+    {
+      "case": "O03",
+      "artifact": "phase2-prod-O03.payload.json",
+      "sha256": "4c3782126159b5519f5af5c357e1592cf65c8f0c067d87456f63032912ac3e4f",
+      "runes": 732,
+      "reference_tokens": 261
+    },
+    {
+      "case": "O04",
+      "artifact": "phase2-prod-O04.payload.json",
+      "sha256": "d11484656d954d1873fbd277d1e4e1951973ad38827888915472c61547c04f26",
+      "runes": 665,
+      "reference_tokens": 173
+    },
+    {
+      "case": "O05",
+      "artifact": "phase2-prod-O05.payload.json",
+      "sha256": "df457b3104ae358665b4deb2c37958d602a1ea90e8c21cec1e6cbf39a7103e6a",
+      "runes": 708,
+      "reference_tokens": 193
+    },
+    {
+      "case": "O06",
+      "artifact": "phase2-prod-O06.payload.json",
+      "sha256": "4d70a866b846979008779380125444a53731f05bf2f06a8fb823314cf0d69415",
+      "runes": 229,
+      "reference_tokens": 59
+    },
+    {
+      "case": "R01",
+      "artifact": "phase2-prod-R01.payload.json",
+      "sha256": "e5958f08b10d1d722cb1732f0afec2fb35083eaecee261ab598855140a8d3720",
+      "runes": 782,
+      "reference_tokens": 213
+    },
+    {
+      "case": "R02",
+      "artifact": "phase2-prod-R02.payload.json",
+      "sha256": "ebf9b118eefd4dd8dcb67c55b360a495a9bb34ab3b4bcb82b893b4f859d38e5a",
+      "runes": 667,
+      "reference_tokens": 217
+    },
+    {
+      "case": "R03",
+      "artifact": "phase2-prod-R03.payload.json",
+      "sha256": "45fa2a2612c04be7d458d89b91451db3077f59f5a5cac9f9ba6cee46fd41cc87",
+      "runes": 545,
+      "reference_tokens": 222
+    },
+    {
+      "case": "R04",
+      "artifact": "phase2-prod-R04.payload.json",
+      "sha256": "7bebb628852079d059e923f0c4b8e76ce21eded47296e741fbe1479184ace0cb",
+      "runes": 808,
+      "reference_tokens": 185
+    },
+    {
+      "case": "R05",
+      "artifact": "phase2-prod-R05.payload.json",
+      "sha256": "29fb6362a1a612ffca2326b64170bc5bd74c609c2ae0a566f8696b2e494a48f0",
+      "runes": 654,
+      "reference_tokens": 209
+    },
+    {
+      "case": "R06",
+      "artifact": "phase2-prod-R06.payload.json",
+      "sha256": "4a583722141532770b12914fda8138488129c4fd2463aa737dd45f4e020a9607",
+      "runes": 635,
+      "reference_tokens": 204
+    },
+    {
+      "case": "R07",
+      "artifact": "phase2-prod-R07.payload.json",
+      "sha256": "731ee184d1215a0d3fd7ca0d60822d59ae4f1e18b35440462cb58b36938e515b",
+      "runes": 659,
+      "reference_tokens": 169
+    },
+    {
+      "case": "R08",
+      "artifact": "phase2-prod-R08.payload.json",
+      "sha256": "93c3ce2c1f73f87a8b0464778c56a111f05492b1f446d54cb15bf715c69a68d7",
+      "runes": 1407,
+      "reference_tokens": 392
+    },
+    {
+      "case": "R09",
+      "artifact": "phase2-prod-R09.payload.json",
+      "sha256": "0f5f681ddb2c97678e8c85f75df2088f2c464b08195dd72ba189c13bff823b4e",
+      "runes": 1622,
+      "reference_tokens": 449
+    },
+    {
+      "case": "R10",
+      "artifact": "phase2-prod-R10.payload.json",
+      "sha256": "294c97ddee3d1cc485e1c7850dd406b5d45c6d9a51263db849ffa753980a23e2",
+      "runes": 591,
+      "reference_tokens": 215
+    },
+    {
+      "case": "R11",
+      "artifact": "phase2-prod-R11.payload.json",
+      "sha256": "52eb6cf73b8a211caf95d3ff15a48e08453fafa4a8079d1bd3c2746ebb136dd8",
+      "runes": 513,
+      "reference_tokens": 188
+    },
+    {
+      "case": "R12",
+      "artifact": "phase2-prod-R12.payload.json",
+      "sha256": "18acf5def612b09ab75654ae0c476548d283eb08e002ef2b9895325373d98390",
+      "runes": 775,
+      "reference_tokens": 204
+    },
+    {
+      "case": "R13",
+      "artifact": "phase2-prod-R13.payload.json",
+      "sha256": "0b102d5fd6dab8f685cdd185ccd993c0edcd8a8ac1f43988fda659f6bcfc2c56",
+      "runes": 701,
+      "reference_tokens": 192
+    },
+    {
+      "case": "R14",
+      "artifact": "phase2-prod-R14.payload.json",
+      "sha256": "97c354f6d9928562d7eef151197201f5e8c821dafcceec4b5617412b62b3322d",
+      "runes": 677,
+      "reference_tokens": 180
+    },
+    {
+      "case": "R15",
+      "artifact": "phase2-prod-R15.payload.json",
+      "sha256": "eb284c529cc32d438139a1566812b260e83f7abcb8b528276243969836598f31",
+      "runes": 589,
+      "reference_tokens": 227
+    },
+    {
+      "case": "R16",
+      "artifact": "phase2-prod-R16.payload.json",
+      "sha256": "474628ff02266666777cc696dcb0f78c0b6dcdf3ed304f6de7c0835b2c475349",
+      "runes": 572,
+      "reference_tokens": 213
+    },
+    {
+      "case": "R17",
+      "artifact": "phase2-prod-R17.payload.json",
+      "sha256": "68b4d1594694558b03595a52f54efb116b9886990175cc5fbbdf9679d0fff19d",
+      "runes": 701,
+      "reference_tokens": 181
+    },
+    {
+      "case": "R18",
+      "artifact": "phase2-prod-R18.payload.json",
+      "sha256": "36cf6b229934e69924b2e8cfa930b146149028948706dc738876e4fc008dfb94",
+      "runes": 770,
+      "reference_tokens": 194
+    },
+    {
+      "case": "R19",
+      "artifact": "phase2-prod-R19.payload.json",
+      "sha256": "4d0a8cb0328a674fc528dd75ef3999581f04dfb6c5fdb5aee845b4cb907ad931",
+      "runes": 231,
+      "reference_tokens": 62
+    },
+    {
+      "case": "R20",
+      "artifact": "phase2-prod-R20.payload.json",
+      "sha256": "e09d58e53d686662322166d048b5e93b0a18c87876f63b025bc047a3462fed0c",
+      "runes": 226,
+      "reference_tokens": 61
+    }
+  ]
+}
