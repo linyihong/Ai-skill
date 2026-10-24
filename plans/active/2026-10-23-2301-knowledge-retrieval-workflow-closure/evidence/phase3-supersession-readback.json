@@ -1,0 +1,38 @@
+{
+  "kind": "actual direct-reference ownership migration readback during review of this dogfood evidence; not a model-selection benchmark or metadata replaces test",
+  "historical": {
+    "source": "workflow/software-delivery/review-checklist.md",
+    "revision": "4a68b432^",
+    "sha256": "4dec4aae4968854fe9b72169fccc2d45cb0db6bf549ee79e33a63f53687e815b",
+    "use": "historical trace only; do not revive old canonical claim"
+  },
+  "current_inbound": {
+    "source": "workflow/software-delivery/review-checklist.md",
+    "sha256": "d9a8b91e4774b3f86c554ef05ccb322606a75002f9d111f6d32469cfaa26da54",
+    "declaration": "explicit migration; stable inbound link only"
+  },
+  "current_owner": {
+    "source": "workflow/cross-cutting/review/checklist.md",
+    "sha256": "50941c746418d4caf5d4f35bc7bee67666a02bd5e5884219b21cf44d7dd367f0",
+    "sections_read": [
+      "Contract Governance",
+      "Reusable Guidance Boundary"
+    ],
+    "pre_adoption_sha256": "50941c746418d4caf5d4f35bc7bee67666a02bd5e5884219b21cf44d7dd367f0"
+  },
+  "consumer_decision": "follow current explicit migration; adopt current checklist for evidence scope and sanitized project boundaries, reject treating historical old-path body as current canonical owner",
+  "findings": [
+    {
+      "severity": "advisory",
+      "finding": "Windows current tuple/repair was not observed; preserve unknown instead of claiming native fix/product PASS",
+      "resolution": "bounded refusal and limitation recorded; no fix applied"
+    },
+    {
+      "severity": "advisory",
+      "finding": "Synthetic CLI failure producers and direct-reference migration do not prove autonomous semantic supersession handling",
+      "resolution": "separate controlled transport and current-agent governance evidence; Phase 3 full acceptance remains pending"
+    }
+  ],
+  "metadata_replaces": "not exercised; do not infer from a missing field",
+  "production_write": "none"
+}

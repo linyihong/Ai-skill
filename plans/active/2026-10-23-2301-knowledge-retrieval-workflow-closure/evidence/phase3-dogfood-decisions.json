@@ -1,0 +1,192 @@
+{
+  "scope": "two independent bounded real investigations and one actual follow-up requery; not new selector evaluation; manual agent decisions plus actual CLI tools",
+  "retention": "raw attempt transport maximum7days; sanitized repo decisions durable",
+  "tasks": [
+    {
+      "task": "runtime",
+      "query": "runtime.db age warning evidence scope current validation checksum",
+      "selection": "current agent, source-informed; no blind/generalization claim",
+      "original_binary_sha256": "62034e14687d363c958b29c5cc89ab111b7a5cf5f95438f27e32ab4bb43abbba",
+      "index_sha256": "34623a557af7c25abb975f4c5c5e4ee87bec4c1e8b518dfbef92523f3a424946",
+      "bundle_sha256": "914918f219fe57264d2c65155ef59e245222794bf968c52860857c3a773d539f",
+      "request_sha256": "8f54bb7effaf9b73eff1526726982cd5294f6ff9eba11f1fa51ac314b3b2499a",
+      "request_storage": "base64 of exact UTF-8 bytes; decode before hash, no input mutation",
+      "raw_sha256": "621e9453242d08d1e9aa71413831f996ac60332ba6b36761277219dfe15f9aab",
+      "original_watcher_sha256": "1057296ba584a3fc922e1a4c9b9cd625d352bee25dbe56efa1631a405ce8f355",
+      "original_complete_sha256": "2553487281b6d9d709756c42b299fce8b2a938890b70772ae3242a79acb75050",
+      "coverage": {
+        "pool": 11,
+        "unknown": 9,
+        "unassessed": 9,
+        "deferred": 0
+      },
+      "selected_sources": [
+        {
+          "source": "intelligence/engineering/execution/validation-reasoning/evidence-model.md",
+          "candidate_sha256": "23c346190ae23acb41323f27a780d35b48334b347e8d806ad5792062865aa364",
+          "readback_sha256": "23c346190ae23acb41323f27a780d35b48334b347e8d806ad5792062865aa364",
+          "pre_adoption_sha256": "23c346190ae23acb41323f27a780d35b48334b347e8d806ad5792062865aa364",
+          "status": "candidate-intelligence",
+          "scope": "unknown",
+          "replaces": "unknown",
+          "decision": "adopt method reference only",
+          "authority": "candidate status unchanged; required contracts retain priority"
+        }
+      ],
+      "assessments": [
+        {
+          "id": "59aa4fa7f4a1e955",
+          "relation": "direct",
+          "reason": "需分開編譯時間觀測、內容正確性及來源新鮮度，避免把 age warning 當內容已失效。",
+          "need_to_read": "確認 evidence scope 規則，並回到 compiler_metadata validator 與實際內容檢查判斷 warning 的意義。"
+        },
+        {
+          "id": "f6ddf1bb1a201730",
+          "relation": "not-applicable",
+          "reason": "此任務沒有身份與外部 side effect，不能因 validation 詞彙相似採用身份特化。",
+          "need_to_read": "僅在後續 claim 涉及身份與 side effect 時重查；本次不採用。"
+        }
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "blockers_preserved": true,
+      "actual_validation": {
+        "claim": "Does runtime.db age warning alone establish content invalidity or require a repair?",
+        "observed": "runtime validate success with compiler-age warning",
+        "canonical_control": "nativeCompilerMetadataCheck returns a warning with nil error after age>24h",
+        "tests": "missing-table and invalid-JSON blocks pass; old compiler metadata warns without failing",
+        "decision": "adopt evidence-scope method; reject automatic invalidation/recompile from age alone",
+        "outcome": "no source/DB repair warranted by this warning; full DB semantic currency is not established by age or structural PASS alone"
+      }
+    },
+    {
+      "task": "native",
+      "query": "native-model-load-known-case-first",
+      "selection": "current agent, source-informed; no blind/generalization claim",
+      "original_binary_sha256": "62034e14687d363c958b29c5cc89ab111b7a5cf5f95438f27e32ab4bb43abbba",
+      "index_sha256": "34623a557af7c25abb975f4c5c5e4ee87bec4c1e8b518dfbef92523f3a424946",
+      "bundle_sha256": "34c2ecd5f6bc00abd385847c649583ad46ad8208b3cc04104abd6d52f1efb538",
+      "request_sha256": "b4a39d5462edd5056655c822302e3b47912ff894d4efda6fb61ab13f0c0780a9",
+      "request_storage": "base64 of exact UTF-8 bytes; decode before hash, no input mutation",
+      "raw_sha256": "c497eb452fa44161df03ec2f81a93f470d3000d049e603e9a01732f39fade699",
+      "original_watcher_sha256": "5190bdbbfb978a15b81524da9f4aa91d8fe495665fb43b2495b4bea906e091e6",
+      "original_complete_sha256": "c08b32d3576ca07279d4a561e15e9cf84944006d2d8d982bc924ea993365f7fe",
+      "coverage": {
+        "pool": 64,
+        "unknown": 63,
+        "unassessed": 63,
+        "deferred": 0
+      },
+      "selected_sources": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md",
+          "candidate_sha256": "e1b47877a9a40cac887d64a89f4de49eb73fb2a7c78fa8f8ce3fdf79e02a401f",
+          "readback_sha256": "e1b47877a9a40cac887d64a89f4de49eb73fb2a7c78fa8f8ce3fdf79e02a401f",
+          "pre_adoption_sha256": "e1b47877a9a40cac887d64a89f4de49eb73fb2a7c78fa8f8ce3fdf79e02a401f",
+          "status": "candidate",
+          "scope": "unknown",
+          "replaces": "unknown",
+          "decision": "adopt method reference only",
+          "authority": "candidate status unchanged; required contracts retain priority"
+        }
+      ],
+      "assessments": [
+        {
+          "id": "3fd302fe3927772c",
+          "relation": "direct",
+          "reason": "本次核對原生載入已知案例是否可重用，需要讀回原專案的指紋、平台、套件版本與既有修正。",
+          "need_to_read": "讀取 lesson 指向的原始診斷及 bounded repair 測試；比對當前 tuple 與限制，避免把局部載入成功當完整產品驗收。"
+        }
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "blockers_preserved": true,
+      "actual_validation": {
+        "claim": "Can the recorded native-load workaround be adopted for the current environment without checking its fingerprint?",
+        "original_project_record": {
+          "pointer": "existing native-load lesson Evidence path resolves in the local project",
+          "sha256": "01d25b17480745d0d0514e73f469b5dbd9c73d677e8f86240e472d409fb73841",
+          "render_report_sha256": "ace11d2ae5f69dfa74c5d8de4ab151ef4565f3bc939ddf001a774c8a2c66a5aa",
+          "adapter_test_source_sha256": "b24f7c9b2a39abe7d7f96f0b195a6e4c3f36048294f4bcbabcf8acaba0a32b40"
+        },
+        "readback": "record provides bounded platform/package tuple, native load-stage fingerprint, isolated comparison and scoped repair limits; linked product report retains review boundaries",
+        "current_host_verification": "one bounded read-only SSH attempt; exit255 connection timeout before remote command ran",
+        "current_tuple": null,
+        "current_repair_presence": null,
+        "focused_tests_rerun": false,
+        "decision": "adopt known-case-first investigation method; reject applying old workaround as current fix; current applicability unknown",
+        "outcome": "no service restart, model load, remote write, configuration change or cloud fallback; no current repair/translation/product PASS"
+      }
+    },
+    {
+      "task": "requery",
+      "query": "SSH timed out peer discovery readback host",
+      "selection": "current agent, source-informed; no blind/generalization claim",
+      "original_binary_sha256": "62034e14687d363c958b29c5cc89ab111b7a5cf5f95438f27e32ab4bb43abbba",
+      "index_sha256": "34623a557af7c25abb975f4c5c5e4ee87bec4c1e8b518dfbef92523f3a424946",
+      "bundle_sha256": "3e16cf9e83be98f458198975fab9b3333e0de6990345fabed36bbdc81fc76df3",
+      "request_sha256": "6b57c4afa3f7c9330022158fe07de308da6269b4517cc2184ff2f3e5f4e55bde",
+      "request_storage": "base64 of exact UTF-8 bytes; decode before hash, no input mutation",
+      "raw_sha256": "76c209b0b8e2b078655f5f2dbacd370d17373eefad78ed2c4d03a4af37a355df",
+      "original_watcher_sha256": "6edad19d5e6e5f778fda11332a0535637d81147798b06097dbc435a92eb87d4f",
+      "original_complete_sha256": "365ee4433d452461d197ea614f926a3f9fe55e2bdddc46b116fafec79f600a9e",
+      "coverage": {
+        "pool": 39,
+        "unknown": 37,
+        "unassessed": 37,
+        "deferred": 0
+      },
+      "selected_sources": [
+        {
+          "source": "intelligence/engineering/execution/validation-reasoning/evidence-collapse-point.md",
+          "candidate_sha256": "ef1ad624fd6f9df683bbb0fa30b6edd2694cba8cc440465d1e90bcaf287850db",
+          "readback_sha256": "ef1ad624fd6f9df683bbb0fa30b6edd2694cba8cc440465d1e90bcaf287850db",
+          "pre_adoption_sha256": "ef1ad624fd6f9df683bbb0fa30b6edd2694cba8cc440465d1e90bcaf287850db",
+          "status": "candidate-intelligence",
+          "scope": "unknown",
+          "replaces": "unknown",
+          "decision": "adopt method reference only",
+          "authority": "candidate status unchanged; required contracts retain priority"
+        }
+      ],
+      "assessments": [
+        {
+          "id": "2db37efd332748eb",
+          "relation": "direct",
+          "reason": "任務前提由 native repair 證據核對變成遠端 readback 不可達，應定位第一個缺證節點而非猜模型失敗。",
+          "need_to_read": "讀取 collapse point 與 root cause 的分界，用實際 SSH 結果標記 chain，不把下游版本／修正狀態當已觀測。"
+        },
+        {
+          "id": "059fdfc1baa66c19",
+          "relation": "not-applicable",
+          "reason": "該來源要求 cached TCP peer、官方 discovery 及 durable job；目前是明確指定 Windows SSH 主機逾時，沒有這些前提。",
+          "need_to_read": "核對 Applies When 與 Trigger；本次拒絕 discovery refresh／job running 處置，不虛構 peer。"
+        }
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "blockers_preserved": true,
+      "actual_validation": {
+        "trigger": "observed failure changed from model evidence review to unreachable remote readback",
+        "chain": {
+          "historical_record": "confirmed",
+          "SSH_readback": "missing; transport timed out",
+          "current_tuple": "not-observed",
+          "current_repair": "not-observed",
+          "current_model_load": "not-observed"
+        },
+        "decision": "adopt collapse-point method; reject stale-peer/discovery/job policy because its premises are absent",
+        "outcome": "connection readback is first missing evidence segment, not proof of a model root cause"
+      }
+    }
+  ]
+}

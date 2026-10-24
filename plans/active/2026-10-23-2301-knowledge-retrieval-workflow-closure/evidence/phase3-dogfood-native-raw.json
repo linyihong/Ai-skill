@@ -1,0 +1,14 @@
+{
+  "selected": [
+    "3fd302fe3927772c"
+  ],
+  "assessments": [
+    {
+      "id": "3fd302fe3927772c",
+      "relation": "direct",
+      "reason": "本次核對原生載入已知案例是否可重用，需要讀回原專案的指紋、平台、套件版本與既有修正。",
+      "need_to_read": "讀取 lesson 指向的原始診斷及 bounded repair 測試；比對當前 tuple 與限制，避免把局部載入成功當完整產品驗收。"
+    }
+  ],
+  "unknown_action": "先讀原始專案證據和當前修正；沒有相符的新故障堆疊不能宣稱套用舊 backend 就能修復。拒絕未核對前提的修法，不重跑已知崩潰 baseline。"
+}

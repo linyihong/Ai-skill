@@ -1,0 +1,16 @@
+{
+  "kind": "controlled feature-off consumer event, not a second selector attempt",
+  "action": "direct canonical-source read only; prepare/watch/complete not called for this event",
+  "sources": [
+    {
+      "source": "workflow/software-delivery/validation.md",
+      "sha256": "9d2c328e994958abb2163c492747e74e8776f40f781f918301a164e4cf112d18"
+    },
+    {
+      "source": "workflow/software-delivery/validation-retrieval.md",
+      "sha256": "db67bc70f65120869bcec098285640b38f09591d165234d25bfc516493306362"
+    }
+  ],
+  "decision": "retain required reads and current unknown blockers; no old payload admission",
+  "activation": "no activation state changed by this event"
+}

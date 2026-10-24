@@ -1,0 +1,304 @@
+{
+  "missing_index": {
+    "exit": 30,
+    "result": {
+      "command": "runtime lookup prepare",
+      "mode": "native",
+      "status": "blocked",
+      "exit_code": 30,
+      "checks": [],
+      "planned_actions": [],
+      "mutations": [],
+      "error": {
+        "code": "lookup_prepare_failed",
+        "message": "candidate query: <NEGATIVE>/absent.sqlite",
+        "remediation": "Preserve the failed attempt; resolve input/freshness/runner failure explicitly. No fallback or silent retry."
+      }
+    }
+  },
+  "empty": {
+    "prepare": {
+      "exit": 0,
+      "result": {
+        "lookup": {
+          "phase": "prepared",
+          "bundle_path": "<NEGATIVE>/empty/bundle.json",
+          "bundle_sha256": "afb14a6441683507260f900dc8ecad2ed145c0ddbc9eaae107438235461c378a",
+          "request_path": "<NEGATIVE>/empty/request.json",
+          "request_sha256": "6a73200d884b53e137d86913f9e1a7a69fb54dab75d6d5e7015462630807ae51"
+        },
+        "command": "runtime lookup prepare",
+        "mode": "native",
+        "status": "success",
+        "exit_code": 0,
+        "checks": [],
+        "planned_actions": [],
+        "mutations": []
+      }
+    },
+    "watcher": {
+      "exit": 0,
+      "result": {
+        "selection_watch": {
+          "state": "response_ready",
+          "runner_handle": "empty",
+          "request_sha256": "6a73200d884b53e137d86913f9e1a7a69fb54dab75d6d5e7015462630807ae51",
+          "response_sha256": "ec5078a9e8cb190f06033dafa0c29987a74791dd21418d8d598a05ce9a454fa6",
+          "elapsed_ms": 11,
+          "interrupt_required": false,
+          "interrupt_confirmed": false,
+          "usage": {
+            "availability": "unavailable",
+            "input_tokens": null,
+            "output_tokens": null
+          },
+          "selection": {
+            "selected": [],
+            "assessments": [],
+            "unknown_action": "控制 nonce 查詢沒有候選；不推論知識不存在，保留原 required_read 與人工來源查找。"
+          }
+        },
+        "command": "runtime selection-watch",
+        "mode": "native",
+        "status": "success",
+        "exit_code": 0,
+        "checks": [],
+        "planned_actions": [],
+        "mutations": []
+      }
+    },
+    "complete": {
+      "exit": 0,
+      "result": {
+        "lookup": {
+          "phase": "completed-unverified-applicability",
+          "bundle_sha256": "afb14a6441683507260f900dc8ecad2ed145c0ddbc9eaae107438235461c378a",
+          "request_sha256": "6a73200d884b53e137d86913f9e1a7a69fb54dab75d6d5e7015462630807ae51",
+          "response_sha256": "ec5078a9e8cb190f06033dafa0c29987a74791dd21418d8d598a05ce9a454fa6",
+          "payload": {
+            "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+            "state": "no-candidates-retrieved",
+            "pool": 0,
+            "unassessed": 0,
+            "unknown": 0,
+            "deferred": 0,
+            "trace": "lookup/6a73200d884b53e1",
+            "results": []
+          },
+          "usage": {
+            "availability": "unavailable",
+            "input_tokens": null,
+            "output_tokens": null
+          }
+        },
+        "command": "runtime lookup complete",
+        "mode": "native",
+        "status": "success",
+        "exit_code": 0,
+        "checks": [],
+        "planned_actions": [],
+        "mutations": []
+      }
+    }
+  },
+  "timeout": {
+    "prepare": {
+      "exit": 0,
+      "result": {
+        "lookup": {
+          "phase": "prepared",
+          "bundle_path": "<NEGATIVE>/timeout/bundle.json",
+          "bundle_sha256": "afb14a6441683507260f900dc8ecad2ed145c0ddbc9eaae107438235461c378a",
+          "request_path": "<NEGATIVE>/timeout/request.json",
+          "request_sha256": "6a73200d884b53e137d86913f9e1a7a69fb54dab75d6d5e7015462630807ae51"
+        },
+        "command": "runtime lookup prepare",
+        "mode": "native",
+        "status": "success",
+        "exit_code": 0,
+        "checks": [],
+        "planned_actions": [],
+        "mutations": []
+      }
+    },
+    "watcher": {
+      "exit": 30,
+      "result": {
+        "selection_watch": {
+          "state": "timeout",
+          "runner_handle": "timeout",
+          "request_sha256": "6a73200d884b53e137d86913f9e1a7a69fb54dab75d6d5e7015462630807ae51",
+          "elapsed_ms": 101,
+          "interrupt_required": true,
+          "interrupt_confirmed": false,
+          "usage": {
+            "availability": "unavailable",
+            "input_tokens": null,
+            "output_tokens": null
+          }
+        },
+        "command": "runtime selection-watch",
+        "mode": "native",
+        "status": "blocked",
+        "exit_code": 30,
+        "checks": [],
+        "planned_actions": [],
+        "mutations": [],
+        "error": {
+          "code": "timeout",
+          "message": "response deadline exceeded; child termination is not confirmed",
+          "remediation": "Interrupt the adapter-owned child, confirm termination, preserve this receipt; do not retry or use fallback silently."
+        }
+      }
+    },
+    "late_complete": {
+      "exit": 30,
+      "result": {
+        "command": "runtime lookup complete",
+        "mode": "native",
+        "status": "blocked",
+        "exit_code": 30,
+        "checks": [],
+        "planned_actions": [],
+        "mutations": [],
+        "error": {
+          "code": "lookup_complete_failed",
+          "message": "missing or mismatched successful watcher receipt",
+          "remediation": "Preserve the failed attempt; resolve input/freshness/runner failure explicitly. No fallback or silent retry."
+        }
+      }
+    }
+  },
+  "source_change": {
+    "fixture": "isolated frozen-corpus copy, canonical source unchanged",
+    "source": "intelligence/engineering/execution/validation-reasoning/evidence-model.md",
+    "A_sha256": "23c346190ae23acb41323f27a780d35b48334b347e8d806ad5792062865aa364",
+    "B_sha256": "65792b665d1acad9a079d37a7635d0530b0d674902df79ed0c76063198a85971",
+    "before_change": {
+      "exit": 0,
+      "result": {
+        "lookup": {
+          "phase": "completed-unverified-applicability",
+          "bundle_sha256": "d89983a68a4b672fa99a2998de1ffec8ac1ed97e53bd4c061a55101f47abcfb3",
+          "request_sha256": "98f48703686130ee1159fa3945cbfaa7bc4452d56ed76dd0358a56587202bb36",
+          "response_sha256": "14121b3c794e8eeb74fbade3e9cbc88a39a8b9eaac794ecc9845e023062a7cfe",
+          "payload": {
+            "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+            "state": "direct-pending-verification",
+            "pool": 10,
+            "unassessed": 9,
+            "unknown": 9,
+            "deferred": 0,
+            "trace": "lookup/98f48703686130ee",
+            "results": [
+              {
+                "source": "intelligence/engineering/execution/validation-reasoning/evidence-model.md",
+                "kind": "intelligence",
+                "status": "candidate-intelligence",
+                "summary": "Evidence model 定義不同證據類型的可信度、覆蓋範圍與適用邊界。它不是測試清單，而是幫 agent 判斷「這個證據到底證明了哪一段」。",
+                "need_to_read": "回讀 source，確認版本差異沒有改變本次方法前提。"
+              }
+            ]
+          },
+          "source_checks": [
+            "intelligence/engineering/execution/validation-reasoning/evidence-model.md"
+          ],
+          "usage": {
+            "availability": "unavailable",
+            "input_tokens": null,
+            "output_tokens": null
+          }
+        },
+        "command": "runtime lookup complete",
+        "mode": "native",
+        "status": "success",
+        "exit_code": 0,
+        "checks": [],
+        "planned_actions": [],
+        "mutations": []
+      }
+    },
+    "stale_complete": {
+      "exit": 30,
+      "result": {
+        "command": "runtime lookup complete",
+        "mode": "native",
+        "status": "blocked",
+        "exit_code": 30,
+        "checks": [],
+        "planned_actions": [],
+        "mutations": [],
+        "error": {
+          "code": "lookup_complete_failed",
+          "message": "stale index input: source:intelligence/engineering/execution/validation-reasoning/evidence-model.md",
+          "remediation": "Preserve the failed attempt; resolve input/freshness/runner failure explicitly. No fallback or silent retry."
+        }
+      }
+    },
+    "fresh_B_complete": {
+      "exit": 0,
+      "result": {
+        "lookup": {
+          "phase": "completed-unverified-applicability",
+          "bundle_sha256": "c93c7446b91fac08c0e6306c6ba3c1b0e4ae462787cb036242e1135d564aef84",
+          "request_sha256": "98f48703686130ee1159fa3945cbfaa7bc4452d56ed76dd0358a56587202bb36",
+          "response_sha256": "14121b3c794e8eeb74fbade3e9cbc88a39a8b9eaac794ecc9845e023062a7cfe",
+          "payload": {
+            "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+            "state": "direct-pending-verification",
+            "pool": 10,
+            "unassessed": 9,
+            "unknown": 9,
+            "deferred": 0,
+            "trace": "lookup/98f48703686130ee",
+            "results": [
+              {
+                "source": "intelligence/engineering/execution/validation-reasoning/evidence-model.md",
+                "kind": "intelligence",
+                "status": "candidate-intelligence",
+                "summary": "Evidence model 定義不同證據類型的可信度、覆蓋範圍與適用邊界。它不是測試清單，而是幫 agent 判斷「這個證據到底證明了哪一段」。",
+                "need_to_read": "回讀 source，確認版本差異沒有改變本次方法前提。"
+              }
+            ]
+          },
+          "source_checks": [
+            "intelligence/engineering/execution/validation-reasoning/evidence-model.md"
+          ],
+          "usage": {
+            "availability": "unavailable",
+            "input_tokens": null,
+            "output_tokens": null
+          }
+        },
+        "command": "runtime lookup complete",
+        "mode": "native",
+        "status": "success",
+        "exit_code": 0,
+        "checks": [],
+        "planned_actions": [],
+        "mutations": []
+      }
+    },
+    "body_difference": "appended formatting-only comment; existing body byte prefix unchanged",
+    "consumer_decision": "A decision retired for revalidation; B re-read, same method premises, adopt method reference at B; source change does not itself invalidate the conclusion",
+    "second_change_policy": "exercised: after successful B readback another revision C appeared before reuse; old B completion rejected, consumer stops pending C revalidation",
+    "C_sha256": "c01da23e1ff49ad007d1d655cfa3fbae17273c0d5100c0c5eed57e1b6051c5eb",
+    "second_change_complete": {
+      "exit": 30,
+      "result": {
+        "command": "runtime lookup complete",
+        "mode": "native",
+        "status": "blocked",
+        "exit_code": 30,
+        "checks": [],
+        "planned_actions": [],
+        "mutations": [],
+        "error": {
+          "code": "lookup_complete_failed",
+          "message": "stale index input: source:intelligence/engineering/execution/validation-reasoning/evidence-model.md",
+          "remediation": "Preserve the failed attempt; resolve input/freshness/runner failure explicitly. No fallback or silent retry."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "repeat_runtime_check": {
+    "action": "skip duplicate query",
+    "query_executed_again": false,
+    "prior_trace": "lookup/8f54bb7effaf9b73",
+    "premises": "same warning claim and task; selected source checksum unchanged",
+    "rechecked_sources": [
+      {
+        "source": "intelligence/engineering/execution/validation-reasoning/evidence-model.md",
+        "checksum": "23c346190ae23acb41323f27a780d35b48334b347e8d806ad5792062865aa364"
+      }
+    ],
+    "required_reads": "retained independently of skip"
+  },
+  "invalid_skip_control": {
+    "kind": "controlled proposal, not a third real task",
+    "proposal": "reuse native repair because the historical lesson was already found",
+    "decision": "reject skip; remote readback and version tuple missing; failed transport is a changed premise",
+    "followup": "actual requery /tmp/phase3-dogfood-requery performed; discovery repair rejected"
+  },
+  "supersession_readback": {
+    "kind": "actual governing workflow change, not a source-level supersession benchmark",
+    "A_commit": "efe1e100",
+    "A_sha256": "460fddb46e1b34a7b661bf14cb342642cd6804f7ab0091e951d6f7bc3e18c14a",
+    "B_commit": "d0050d5b",
+    "B_sha256": "db67bc70f65120869bcec098285640b38f09591d165234d25bfc516493306362",
+    "decision": "read old token restriction only for history; apply current user-approved deferral; token unknown does not block current agent",
+    "source_level_replaces_consumer_replay": "not evaluated"
+  }
+}

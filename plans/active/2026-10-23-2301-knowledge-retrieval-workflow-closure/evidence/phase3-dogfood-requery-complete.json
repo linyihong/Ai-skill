@@ -1,0 +1,41 @@
+{
+  "lookup": {
+    "phase": "completed-unverified-applicability",
+    "bundle_sha256": "3e16cf9e83be98f458198975fab9b3333e0de6990345fabed36bbdc81fc76df3",
+    "request_sha256": "6b57c4afa3f7c9330022158fe07de308da6269b4517cc2184ff2f3e5f4e55bde",
+    "response_sha256": "76c209b0b8e2b078655f5f2dbacd370d17373eefad78ed2c4d03a4af37a355df",
+    "payload": {
+      "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+      "state": "direct-pending-verification",
+      "pool": 39,
+      "unassessed": 37,
+      "unknown": 37,
+      "deferred": 0,
+      "trace": "lookup/6b57c4afa3f7c933",
+      "results": [
+        {
+          "source": "intelligence/engineering/execution/validation-reasoning/evidence-collapse-point.md",
+          "kind": "intelligence",
+          "status": "candidate-intelligence",
+          "summary": "Evidence collapse point 是診斷推理模式：在 evidence chain 中，第一個失去證據一致性的節點。",
+          "need_to_read": "讀取 collapse point 與 root cause 的分界，用實際 SSH 結果標記 chain，不把下游版本／修正狀態當已觀測。"
+        }
+      ]
+    },
+    "source_checks": [
+      "intelligence/engineering/execution/validation-reasoning/evidence-collapse-point.md"
+    ],
+    "usage": {
+      "availability": "unavailable",
+      "input_tokens": null,
+      "output_tokens": null
+    }
+  },
+  "command": "runtime lookup complete",
+  "mode": "native",
+  "status": "success",
+  "exit_code": 0,
+  "checks": [],
+  "planned_actions": [],
+  "mutations": []
+}

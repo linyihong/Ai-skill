@@ -1,0 +1,198 @@
+{
+  "kind": "controlled actual workflow-context CLI probes; not a model evaluation and not an activation claim about the live chat",
+  "controls": [
+    {
+      "input": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "zqx_nonce_34918"
+        }
+      },
+      "result": {
+        "command": "runtime workflow-context",
+        "mode": "native",
+        "status": "success",
+        "exit_code": 0,
+        "checks": [
+          {
+            "name": "repo_root",
+            "status": "ok",
+            "message": "<AI_SKILL_REPO>"
+          },
+          {
+            "name": "transcript",
+            "status": "ok",
+            "message": "1 turns from <CONTEXT-CONTROLS>/miss.jsonl"
+          },
+          {
+            "name": "status",
+            "status": "ok",
+            "message": "no-match"
+          },
+          {
+            "name": "active_route",
+            "status": "ok",
+            "message": "(none)"
+          },
+          {
+            "name": "effective_mode",
+            "status": "ok",
+            "message": "(none)"
+          },
+          {
+            "name": "conflict",
+            "status": "ok",
+            "message": "false"
+          },
+          {
+            "name": "substantive",
+            "status": "ok",
+            "message": "false"
+          },
+          {
+            "name": "detected_routes",
+            "status": "ok",
+            "message": "(none)"
+          },
+          {
+            "name": "candidate_routes",
+            "status": "ok",
+            "message": "(none)"
+          }
+        ],
+        "planned_actions": [],
+        "mutations": []
+      }
+    },
+    {
+      "input": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "implement"
+        }
+      },
+      "result": {
+        "command": "runtime workflow-context",
+        "mode": "native",
+        "status": "success",
+        "exit_code": 0,
+        "checks": [
+          {
+            "name": "repo_root",
+            "status": "ok",
+            "message": "<AI_SKILL_REPO>"
+          },
+          {
+            "name": "transcript",
+            "status": "ok",
+            "message": "1 turns from <CONTEXT-CONTROLS>/hit.jsonl"
+          },
+          {
+            "name": "status",
+            "status": "ok",
+            "message": "no-match"
+          },
+          {
+            "name": "active_route",
+            "status": "ok",
+            "message": "(none)"
+          },
+          {
+            "name": "effective_mode",
+            "status": "ok",
+            "message": "(none)"
+          },
+          {
+            "name": "conflict",
+            "status": "ok",
+            "message": "false"
+          },
+          {
+            "name": "substantive",
+            "status": "ok",
+            "message": "true"
+          },
+          {
+            "name": "detected_routes",
+            "status": "ok",
+            "message": "(none)"
+          },
+          {
+            "name": "candidate_routes",
+            "status": "ok",
+            "message": "(none)"
+          }
+        ],
+        "planned_actions": [],
+        "mutations": []
+      }
+    },
+    {
+      "input": {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": "SDK"
+        }
+      },
+      "result": {
+        "command": "runtime workflow-context",
+        "mode": "native",
+        "status": "success",
+        "exit_code": 0,
+        "checks": [
+          {
+            "name": "repo_root",
+            "status": "ok",
+            "message": "<AI_SKILL_REPO>"
+          },
+          {
+            "name": "transcript",
+            "status": "ok",
+            "message": "1 turns from <CONTEXT-CONTROLS>/sdk-signal.jsonl"
+          },
+          {
+            "name": "status",
+            "status": "ok",
+            "message": "detected"
+          },
+          {
+            "name": "active_route",
+            "status": "ok",
+            "message": "route.workflow.software-delivery"
+          },
+          {
+            "name": "effective_mode",
+            "status": "ok",
+            "message": "auto-detect"
+          },
+          {
+            "name": "conflict",
+            "status": "ok",
+            "message": "false"
+          },
+          {
+            "name": "substantive",
+            "status": "ok",
+            "message": "true"
+          },
+          {
+            "name": "detected_routes",
+            "status": "ok",
+            "message": "route.workflow.software-delivery"
+          },
+          {
+            "name": "candidate_routes",
+            "status": "ok",
+            "message": "route.workflow.software-delivery"
+          }
+        ],
+        "planned_actions": [],
+        "mutations": []
+      }
+    }
+  ],
+  "interpretation": "nonce and literal implement were no-match; canonical user signal SDK detected software-delivery without conflict. No routing configuration was changed."
+}

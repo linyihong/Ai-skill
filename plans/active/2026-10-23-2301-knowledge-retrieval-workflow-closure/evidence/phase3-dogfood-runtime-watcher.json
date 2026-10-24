@@ -1,0 +1,43 @@
+{
+  "selection_watch": {
+    "state": "response_ready",
+    "runner_handle": "current-agent-dogfood-runtime",
+    "request_sha256": "8f54bb7effaf9b73eff1526726982cd5294f6ff9eba11f1fa51ac314b3b2499a",
+    "response_sha256": "621e9453242d08d1e9aa71413831f996ac60332ba6b36761277219dfe15f9aab",
+    "elapsed_ms": 12729,
+    "interrupt_required": false,
+    "interrupt_confirmed": false,
+    "usage": {
+      "availability": "unavailable",
+      "input_tokens": null,
+      "output_tokens": null
+    },
+    "selection": {
+      "selected": [
+        "59aa4fa7f4a1e955"
+      ],
+      "assessments": [
+        {
+          "id": "59aa4fa7f4a1e955",
+          "relation": "direct",
+          "reason": "需分開編譯時間觀測、內容正確性及來源新鮮度，避免把 age warning 當內容已失效。",
+          "need_to_read": "確認 evidence scope 規則，並回到 compiler_metadata validator 與實際內容檢查判斷 warning 的意義。"
+        },
+        {
+          "id": "f6ddf1bb1a201730",
+          "relation": "not-applicable",
+          "reason": "此任務沒有身份與外部 side effect，不能因 validation 詞彙相似採用身份特化。",
+          "need_to_read": "僅在後續 claim 涉及身份與 side effect 時重查；本次不採用。"
+        }
+      ],
+      "unknown_action": "來源方法可用，但 runtime.db 是否有未反映的內容變化須看 canonical source、validator 與版本；不以單一 age warning 判定或自動重新編譯。"
+    }
+  },
+  "command": "runtime selection-watch",
+  "mode": "native",
+  "status": "success",
+  "exit_code": 0,
+  "checks": [],
+  "planned_actions": [],
+  "mutations": []
+}

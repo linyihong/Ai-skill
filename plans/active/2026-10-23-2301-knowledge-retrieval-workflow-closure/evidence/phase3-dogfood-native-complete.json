@@ -1,0 +1,41 @@
+{
+  "lookup": {
+    "phase": "completed-unverified-applicability",
+    "bundle_sha256": "34c2ecd5f6bc00abd385847c649583ad46ad8208b3cc04104abd6d52f1efb538",
+    "request_sha256": "b4a39d5462edd5056655c822302e3b47912ff894d4efda6fb61ab13f0c0780a9",
+    "response_sha256": "c497eb452fa44161df03ec2f81a93f470d3000d049e603e9a01732f39fade699",
+    "payload": {
+      "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+      "state": "direct-pending-verification",
+      "pool": 64,
+      "unassessed": 63,
+      "unknown": 63,
+      "deferred": 0,
+      "trace": "lookup/b4a39d5462edd505",
+      "results": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md",
+          "kind": "feedback-pattern",
+          "status": "candidate",
+          "summary": "模型載入原生崩潰時先比對既有失敗指紋與版本範圍，再做最小隔離驗證，不從完整產品流程重新猜原因。",
+          "need_to_read": "讀取 lesson 指向的原始診斷及 bounded repair 測試；比對當前 tuple 與限制，避免把局部載入成功當完整產品驗收。"
+        }
+      ]
+    },
+    "source_checks": [
+      "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md"
+    ],
+    "usage": {
+      "availability": "unavailable",
+      "input_tokens": null,
+      "output_tokens": null
+    }
+  },
+  "command": "runtime lookup complete",
+  "mode": "native",
+  "status": "success",
+  "exit_code": 0,
+  "checks": [],
+  "planned_actions": [],
+  "mutations": []
+}

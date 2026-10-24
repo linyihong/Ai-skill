@@ -1,0 +1,22 @@
+=== RUN   TestRunDiscoveryBridge_ManualLockBypass
+--- PASS: TestRunDiscoveryBridge_ManualLockBypass (0.00s)
+=== RUN   TestClassifyFailureAuthority_DiscoveryProviderNeverBlocks
+--- PASS: TestClassifyFailureAuthority_DiscoveryProviderNeverBlocks (0.00s)
+=== RUN   TestAdvisoryNeverLocksActiveRoute
+--- PASS: TestAdvisoryNeverLocksActiveRoute (0.00s)
+=== RUN   TestWorkflowGate_LockedAndUnread_Blocks
+--- PASS: TestWorkflowGate_LockedAndUnread_Blocks (0.00s)
+=== RUN   TestWorkflowGate_LockedAndRead_Allows
+--- PASS: TestWorkflowGate_LockedAndRead_Allows (0.00s)
+=== RUN   TestWorkflowGate_Conflict_Allows
+--- PASS: TestWorkflowGate_Conflict_Allows (0.00s)
+=== RUN   TestWorkflowGate_Miss_Allows
+--- PASS: TestWorkflowGate_Miss_Allows (0.00s)
+=== RUN   TestWorkflowGate_FailOpen_NoRepo
+--- PASS: TestWorkflowGate_FailOpen_NoRepo (0.00s)
+=== RUN   TestWorkflowGate_NoTranscript_Allows
+--- PASS: TestWorkflowGate_NoTranscript_Allows (0.00s)
+=== RUN   TestWorkflowGate_SideChannelClearsFlushRace
+--- PASS: TestWorkflowGate_SideChannelClearsFlushRace (0.00s)
+PASS
+ok  	github.com/linyihong/Ai-skill/scripts/ai-skill-cli/internal/app	0.343s

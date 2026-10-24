@@ -1,0 +1,75 @@
+{
+  "command": "runtime validate",
+  "mode": "native",
+  "status": "success",
+  "exit_code": 0,
+  "checks": [
+    {
+      "name": "repo",
+      "status": "ok",
+      "message": "<AI_SKILL_REPO>"
+    },
+    {
+      "name": "runtime_db_native",
+      "status": "ok",
+      "message": "Go native runtime.db integrity, schema, row count, JSON, and compiler metadata checks passed; warning: runtime.db is 261.8 hours old (compiled at 2026-10-14T00:19:30Z)"
+    },
+    {
+      "name": "executable_contracts",
+      "status": "ok",
+      "message": "owner-layer executable YAML contracts are projected and contain execution-bearing data"
+    },
+    {
+      "name": "runtime_index_native",
+      "status": "ok",
+      "message": "SQLite runtime index checks passed: atoms=483 sources=469 edges=350 fts=483"
+    },
+    {
+      "name": "runtime_index_feedback_provenance",
+      "status": "ok",
+      "message": "feedback lesson provenance ok: 383 atom(s) under \"feedback/history/\""
+    },
+    {
+      "name": "knowledge_runtime_native",
+      "status": "ok",
+      "message": "Knowledge runtime checks passed: registry_records=65 summaries=28 graphs=35"
+    },
+    {
+      "name": "capability_registry",
+      "status": "ok",
+      "message": "capability registry ok: capabilities=9 active=3 requires_context.stance=9 standardized_stances=[fault_finding]"
+    },
+    {
+      "name": "review_architecture_doc_drift",
+      "status": "ok",
+      "message": "navigation canon ok: 4 files scanned for review phase/workflow/slice drift"
+    },
+    {
+      "name": "canonical_ownership_drift",
+      "status": "ok",
+      "message": "debt payoff canon ok: 64 files scanned (ownership/path/semantic/artifact drift)"
+    },
+    {
+      "name": "tool_bootstrap_shell_cli_decision",
+      "status": "ok",
+      "message": "no shell bootstrap wrappers found"
+    },
+    {
+      "name": "runtime_audit_warning",
+      "status": "ok",
+      "message": "orphan_total=364 (routes=43, surfaces=82, scenarios=239); see `ai-skill runtime audit` for details"
+    }
+  ],
+  "planned_actions": [
+    "run native runtime DB validation",
+    "validate owner-layer executable YAML contract projections",
+    "validate SQLite canonical runtime documents",
+    "run native runtime SQLite index validation",
+    "validate routing registry activation and source-of-truth gates",
+    "validate capability registry requires_context.stance",
+    "run native knowledge runtime validation",
+    "validate shell bootstrap wrappers declare a Go CLI decision",
+    "summarise runtime audit orphans as a warning"
+  ],
+  "mutations": []
+}

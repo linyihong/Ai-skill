@@ -1,0 +1,20 @@
+{
+  "selected": [
+    "2db37efd332748eb"
+  ],
+  "assessments": [
+    {
+      "id": "2db37efd332748eb",
+      "relation": "direct",
+      "reason": "任務前提由 native repair 證據核對變成遠端 readback 不可達，應定位第一個缺證節點而非猜模型失敗。",
+      "need_to_read": "讀取 collapse point 與 root cause 的分界，用實際 SSH 結果標記 chain，不把下游版本／修正狀態當已觀測。"
+    },
+    {
+      "id": "059fdfc1baa66c19",
+      "relation": "not-applicable",
+      "reason": "該來源要求 cached TCP peer、官方 discovery 及 durable job；目前是明確指定 Windows SSH 主機逾時，沒有這些前提。",
+      "need_to_read": "核對 Applies When 與 Trigger；本次拒絕 discovery refresh／job running 處置，不虛構 peer。"
+    }
+  ],
+  "unknown_action": "SSH readback 不可達是第一個缺證節點，不是已證明模型故障；保留當前套件與修正 unknown，等待主機可達，不重啟服務或更改遠端配置。"
+}
