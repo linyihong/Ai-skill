@@ -1,4 +1,4 @@
-version=repo-62bf1ae2
-source_commit=62bf1ae2
-built_at=2026-10-24T14:24:17Z
+version=repo-818a185d
+source_commit=818a185d
+built_at=2026-10-24T23:05:55Z
 targets=windows/amd64,darwin/amd64,darwin/arm64,linux/amd64,linux/arm64
