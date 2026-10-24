@@ -99,7 +99,7 @@ func TestRetrievalAgentPilotScore(t *testing.T) {
 		t.Fatal(err)
 	}
 	root := string(bytes.TrimSpace(rootBytes))
-	evidence := filepath.Join(root, "plans", "active", "2026-10-23-2301-knowledge-retrieval-workflow-closure", "evidence")
+	evidence := filepath.Join(root, "plans", "archived", "2026-10-23-2301-knowledge-retrieval-workflow-closure", "evidence")
 	read := func(name string, v any) []byte {
 		data, err := os.ReadFile(filepath.Join(evidence, name))
 		if err != nil {

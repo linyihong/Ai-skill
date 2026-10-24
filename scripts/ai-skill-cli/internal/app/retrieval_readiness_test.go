@@ -78,7 +78,7 @@ func TestRetrievalPhase2ReadinessExport(t *testing.T) {
 		t.Fatal(err)
 	}
 	root := strings.TrimSpace(string(b))
-	evidence := filepath.Join(root, "plans", "active", "2026-10-23-2301-knowledge-retrieval-workflow-closure", "evidence")
+	evidence := filepath.Join(root, "plans", "archived", "2026-10-23-2301-knowledge-retrieval-workflow-closure", "evidence")
 	inputs := map[string]string{}
 	read := func(name string, v any) {
 		data, err := os.ReadFile(filepath.Join(evidence, name))

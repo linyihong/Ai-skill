@@ -205,7 +205,7 @@ func TestRetrievalEngineeringSourceComparison(t *testing.T) {
 		t.Fatal("binary, index and output all required")
 	}
 	root := repoRootForTest(t)
-	e := filepath.Join(root, "plans/active/2026-10-23-2301-knowledge-retrieval-workflow-closure/evidence")
+	e := filepath.Join(root, "plans/archived/2026-10-23-2301-knowledge-retrieval-workflow-closure/evidence")
 	raw, err := os.ReadFile(filepath.Join(e, "phase2-intelligence-cases.json"))
 	if err != nil {
 		t.Fatal(err)

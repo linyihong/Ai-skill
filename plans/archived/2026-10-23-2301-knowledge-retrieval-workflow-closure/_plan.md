@@ -1,7 +1,7 @@
 ---
 id: 2026-10-23-2301-knowledge-retrieval-workflow-closure
 plan_kind: main
-status: in-progress
+status: completed
 owner: larrylin/codex-session
 created: 2026-10-23T23:01:00+09:00
 parent: null
@@ -10,7 +10,7 @@ owner_layer: knowledge
 
 # 既有知識檢索與 Workflow 採用閉環強化
 
-**Status**: `in-progress`。Phase 0 盤點完成，證據見 [phase0-inventory.md](evidence/phase0-inventory.md)；Phase 1 已按「歷史 lesson 檢索基準」縮限核對通過；原完整範圍的剩餘責任見下表。Phase 2 前執行控制見 [phase2-execution-contract.md](evidence/phase2-execution-contract.md)；Q / E / QE v1 及 v2 對照已完成，候選品質均未通過；v2 成本受控但 confuser 仍 3/6，見 [v2 實驗報告](evidence/phase2-v2-ablation.md)；未採用到 production。Phase 2 已通過縮限凍結診斷與工程驗收，見 [production E2E](evidence/phase2-production-wiring.md)：實際 production pool 的 26 次 fresh attempts，23/23、MRR .971014、final confuser 0/6、完整 payload ≤1622 runes；Phase 3 consumer 已接入並開始真實 dogfood，見 [採用紀錄](evidence/phase3-dogfood.md)；Phase 3 既定 current-agent 範圍已結清，見 [補證](evidence/phase3-supersession-consumer.md)；Phase 4 條件式決策與整體收尾待完成。
+**Status**: `completed`（既定縮限／current-agent 範圍）。Phase 0 盤點完成，證據見 [phase0-inventory.md](evidence/phase0-inventory.md)；Phase 1 已按「歷史 lesson 檢索基準」縮限核對通過；原完整範圍的剩餘責任見下表。Phase 2 前執行控制見 [phase2-execution-contract.md](evidence/phase2-execution-contract.md)；Q / E / QE v1 及 v2 對照已完成，候選品質均未通過；v2 成本受控但 confuser 仍 3/6，見 [v2 實驗報告](evidence/phase2-v2-ablation.md)；未採用到 production。Phase 2 已通過縮限凍結診斷與工程驗收，見 [production E2E](evidence/phase2-production-wiring.md)：實際 production pool 的 26 次 fresh attempts，23/23、MRR .971014、final confuser 0/6、完整 payload ≤1622 runes；Phase 3 consumer 已接入並開始真實 dogfood，見 [採用紀錄](evidence/phase3-dogfood.md)；Phase 3 既定 current-agent 範圍已結清，見 [補證](evidence/phase3-supersession-consumer.md)；Phase 4 已決定本輪不新增 vector／額外 reranker／模型服務；[deferred 交接](evidence/phase4-decision-and-handoff.md) 與 [完成閉環](evidence/final-closure.md) 已記錄。
 
 目標：讓既有 intelligence、決策與失敗經驗更穩定地被找到，經來源與適用性確認後支援 workflow。先改善現有能力，再用漏找證據決定是否加入向量搜尋與 reranking。
 
@@ -191,29 +191,31 @@ Gate：通過縮限後凍結的檢索層 acceptance、產物矩陣核對與候�
 
 Gate：通過採用層 acceptance；未實際評估項目不得填 0。至少兩個獨立真實任務的完整採用 / 拒絕鏈，加上負面回放；只測 helper 或 mock 不算 runtime integration。完成 compile / refresh / validate（按受影響來源）及 consumer 行為證據。
 
-## Phase 4 — 條件式語意搜尋 / Reranking 實驗與收尾
+## Phase 4 — 條件式方法決策與收尾
 
-- [ ] 依缺口分開決定 candidate generation 與 reranking：候選漏找才評估 vector；已入池但焦點／否定／排序失敗，可獨立測語意重排序，不要求先加向量。Phase 2 v3 只先做小範圍診斷 pilot；本階段泛化／採用仍需下列獨立資料與成本 gate，不能用 pilot 代替。
-- [ ] Phase 4 啟動時先確認仍有獨立留出資料；若原 holdout 已參與 Phase 2 後的診斷、方法選擇或調參，須另建未參與這些活動的留出集，相關改寫不得跨組。記錄各集使用歷史，不將已看過的測試資料重新宣稱為獨立 holdout。
-- [ ] 實驗開始前凍結模型 / 版本、資料邊界、reindex 成本、獨立 holdout、最小有效改善題數與 latency / tokens budget；無此凍結不啟動。
-- [ ] 新增方法須改善預先標記語意漏找，holdout 不退步、安全錯誤為 0、成本在 budget 內才採用；不達標則保留 BM25 並記錄拒絕原因。holdout 看過後再調參需新留出集。
-- [ ] 若無剩餘語意缺口，記錄 skip 的證據；可完成核心計畫，不因未導入 vector 阻擋。
-- [ ] 彙整結果、已知限制與 deferred owner / restart 條件；同步 README / 契約 / generated consumers，執行 Plan Completion Closure。
+本輪依使用者接受 Phase 3 後的指示，直接做方法決策，不新增實驗；完整 [決策與 deferred owner／重啟條件](evidence/phase4-decision-and-handoff.md)。
+
+- [x] Candidate generation 與選擇分開：vector 本輪不啟用，現有 agent 語意選擇已納入並引用 Phase 2／3 證據，額外 reranker／模型服務不新增。
+- [x] 原資料已曝光，不宣稱獨立 holdout。本輪無新方法實驗，獨立留出集準備不適用；未來重啟須另凍結未曝光資料與使用歷程。
+- [x] 本輪未啟動新增方法，故未凍結新模型／成本實驗；不把不適用寫成模型／token／泛化 gate 通過。未來重啟前仍須凍結版本、邊界與 budget。
+- [x] 保留原新增方法比較規則作重啟前提：品質改善、安全負例、成本及獨立比較；本輪沒有新增方法採用或新比較分數。
+- [x] Skip 理由是「目前沒有足夠證據要求增加檢索基礎設施」，不是「沒有任何語意缺口」；不因未導入 vector 阻擋核心結清。
+- [x] 已彙整範圍、限制、deferred owner／restart 條件，完成 Plan Completion Closure，見 [final closure](evidence/final-closure.md)。
 
 ## Stakeholder 同意項目
 
-使用者已要求撰寫計畫並提供五點審閱補強，方向為修訂後進入 Phase 0；已依後續分段執行要求完成 Phase 0 盤點；已建立 Phase 1 基準版；production 搜尋 implementation 與縮限 Phase 2 驗收已完成，下一階段為 Phase 3 consumer／適用性與採用。執行啟動時需確認首批 workflow、基準資料與成本 budget；涉及外部模型傳送資料或付費服務時另行確認具體方案。Phase 4 是條件式選項，不是預先採購或導入承諾。
+使用者已要求撰寫計畫並提供五點審閱補強，方向為修訂後進入 Phase 0；已依後續分段執行要求完成 Phase 0 盤點；已建立 Phase 1 基準版；production 搜尋、縮限 Phase 2 及既定 current-agent Phase 3 已完成並獲使用者接受；Phase 4 依使用者指示做不新增方法決策。執行啟動時需確認首批 workflow、基準資料與成本 budget；涉及外部模型傳送資料或付費服務時另行確認具體方案。Windows 與實際 tokens 依使用者指示暫緩，owner／重啟條件見 Phase 4 handoff。Phase 4 是條件式選項，不是預先採購或導入承諾。
 
 ## 完成條件
 
-- [ ] Phase 0–3 gates 全通過，Phase 4 為有證據的採用 / 拒絕 / skip 決策。
-- [ ] 真實問題 baseline、保留集比較與消費者採用鏈可重跑；未達標項不得以文件完成替代。
-- [ ] required_read、activation、source authority、freshness 與適用性負面案例通過。
-- [ ] 每個新增 surface 都有 named consumer 與 runtime evidence，無 orphan config / index。
-- [ ] 驗證連結、linked updates、diff 與適用 tests / validators；完成歸檔、狀態索引、commit / push / readback。
+- [x] Phase 0–3 gates 在已接受的縮限／current-agent 範圍通過，Phase 4 為有證據的採用 / 拒絕 / skip 決策。
+- [x] 已存固定 baseline／比較集與消費者鏈的重跑入口及版本；曝光組不冒稱獨立 holdout，Windows／tokens 等未驗項按使用者核定 deferred 交接，不填零或以文件替代 PASS。
+- [x] required_read、activation、source authority、freshness 與適用性負面案例通過。
+- [x] 每個新增 surface 都有 named consumer 與 runtime evidence，無 orphan config / index。
+- [x] 驗證連結、linked updates、diff 與適用 tests / validators；完成歸檔、狀態索引、commit / push / readback。
 
 ## 與其他 plans 的關係
 
-Bridge 呼叫接點的變更為條件式範圍；不調整時記錄理由並保留現有行為，不阻擋 workflow lookup 交付。延續 [Discovery Bridge](../2026-06-06-1700-workflow-activation-discovery-bridge.md) 的 advisory 能力，不把它未完成的 Deep Discovery / empirical work 默認為完成；Phase 0 需劃清重疊 work item 的 owner 與證據歸屬。與 [Feedback Execution Closure](../2026-07-10-0955-final-form-feedback-execution-closure.md) 互補：該計畫處理經驗沉澱，本計畫處理沉澱後的查找與使用，不接管其 roadmap。
+Bridge 呼叫接點的變更為條件式範圍；不調整時記錄理由並保留現有行為，不阻擋 workflow lookup 交付。延續 [Discovery Bridge](../../active/2026-06-06-1700-workflow-activation-discovery-bridge.md) 的 advisory 能力，不把它未完成的 Deep Discovery / empirical work 默認為完成；Phase 0 需劃清重疊 work item 的 owner 與證據歸屬。與 [Feedback Execution Closure](../../active/2026-07-10-0955-final-form-feedback-execution-closure.md) 互補：該計畫處理經驗沉澱，本計畫處理沉澱後的查找與使用，不接管其 roadmap。
 
-後續多次量測的完整記錄依 [plan evidence 規則](../../../governance/lifecycle/plan-evidence.md) 放本資料夾 `evidence/` 並建 README Run 索引；Phase 0 盤點已存 [evidence/phase0-inventory.md](evidence/phase0-inventory.md)，完整索引見 [evidence/README.md](evidence/README.md)；Phase 1 baseline 見 [evidence/phase1-baseline.md](evidence/phase1-baseline.md)；本輪僅量測既有能力，不代表 Phase 2 搜尋強化或 Phase 3 採用層已通過。
+後續多次量測的完整記錄依 [plan evidence 規則](../../../governance/lifecycle/plan-evidence.md) 放本資料夾 `evidence/` 並建 README Run 索引；Phase 0 盤點已存 [evidence/phase0-inventory.md](evidence/phase0-inventory.md)，完整索引見 [evidence/README.md](evidence/README.md)；Phase 1 baseline 見 [evidence/phase1-baseline.md](evidence/phase1-baseline.md)；歷史各 Run 保留當時成績與限制；最終完成範圍及 deferred 以 [closure](evidence/final-closure.md) 為準。

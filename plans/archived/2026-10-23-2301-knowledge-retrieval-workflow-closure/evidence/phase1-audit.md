@@ -1,3 +1,6 @@
+<!-- archival-provenance -->
+<!-- Fixed-version historical URLs and corpus paths below retain their original active location. -->
+
 # Phase 1 審核包與 Gate 狀態
 
 日期：2026-10-24。Baseline 已建立；**Phase 1 gate 完整通過尚待核驗**。本次不執行 Phase 2、不修改 baseline 題目、labels、split、acceptance 或量測結果。此段保留當時原範圍 gate 狀態；後續使用者接受 baseline 後，主 plan 已縮限 Phase 1，剩餘責任與執行控制見 [phase2-execution-contract.md](phase2-execution-contract.md)，不回溯宣稱原完整 gate 通過。

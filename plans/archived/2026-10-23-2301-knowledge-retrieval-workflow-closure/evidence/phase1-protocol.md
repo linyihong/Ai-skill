@@ -1,3 +1,6 @@
+<!-- archival-provenance -->
+<!-- Fixed-version historical URLs and corpus paths below retain their original active location. -->
+
 # Phase 1 基準協議
 
 ## 資料與適用範圍

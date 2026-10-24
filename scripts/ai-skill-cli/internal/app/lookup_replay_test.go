@@ -42,7 +42,7 @@ func lookupReplayRoot(t *testing.T) (string, string, string) {
 		t.Skip("explicit production replay required")
 	}
 	root := repoRootForTest(t)
-	return dir, root, filepath.Join(root, "plans/active/2026-10-23-2301-knowledge-retrieval-workflow-closure/evidence")
+	return dir, root, filepath.Join(root, "plans/archived/2026-10-23-2301-knowledge-retrieval-workflow-closure/evidence")
 }
 func lookupReplayWrite(t *testing.T, p string, v any) {
 	t.Helper()

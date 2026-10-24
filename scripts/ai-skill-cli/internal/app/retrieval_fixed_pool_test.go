@@ -188,7 +188,7 @@ func TestRetrievalV3FixedPool(t *testing.T) {
 		t.Fatal(err)
 	}
 	root := strings.TrimSpace(string(rootBytes))
-	evidence := filepath.Join(root, "plans", "active", "2026-10-23-2301-knowledge-retrieval-workflow-closure", "evidence")
+	evidence := filepath.Join(root, "plans", "archived", "2026-10-23-2301-knowledge-retrieval-workflow-closure", "evidence")
 	corpus := os.Getenv("AI_SKILL_RETRIEVAL_CORPUS")
 	if err = retrievalRequireCleanCorpus(corpus); err != nil {
 		t.Fatal(err)

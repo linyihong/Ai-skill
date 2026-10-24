@@ -1,0 +1,201 @@
+{
+  "kind": "archive closure validation; no new retrieval/model experiment",
+  "phase4_decision": "no vector or extra reranker/model service; retain existing agent semantic selection; insufficient evidence to require more infrastructure, not absence of semantic gaps",
+  "archive": {
+    "immutable_files_unchanged": 245,
+    "changed_test_and_doc_paths": [
+      "scripts/ai-skill-cli/docs/test-fixture-plan.md",
+      "scripts/ai-skill-cli/internal/app/lookup_test.go",
+      "scripts/ai-skill-cli/internal/app/retrieval_readiness_test.go",
+      "scripts/ai-skill-cli/internal/app/retrieval_engineering_test.go",
+      "scripts/ai-skill-cli/internal/app/retrieval_final_output_test.go",
+      "scripts/ai-skill-cli/internal/app/lookup_replay_test.go",
+      "scripts/ai-skill-cli/internal/app/retrieval_blind_selector_test.go",
+      "scripts/ai-skill-cli/internal/app/retrieval_disposition_test.go",
+      "scripts/ai-skill-cli/internal/app/retrieval_fixed_pool_test.go",
+      "scripts/ai-skill-cli/internal/app/retrieval_blind_request_test.go",
+      "scripts/ai-skill-cli/internal/app/retrieval_semantic_agent_test.go"
+    ],
+    "preexisting_unresolved_markdown_links": []
+  },
+  "main_plan": {
+    "status": "completed",
+    "unchecked": 0,
+    "scope": "accepted narrowed Phase 0–3/current-agent plus Phase 4 decision",
+    "windows": "deferred-by-user",
+    "actual_token_usage": "unknown; deferred-by-user"
+  },
+  "refresh": {
+    "command": "runtime refresh",
+    "mode": "native_refresh",
+    "status": "success",
+    "exit_code": 0,
+    "checks": [
+      {
+        "name": "repo",
+        "status": "ok",
+        "message": "<AI_SKILL_REPO>"
+      },
+      {
+        "name": "knowledge_runtime_report",
+        "status": "ok",
+        "message": "<AI_SKILL_REPO>/knowledge/runtime/runtime-report.md"
+      },
+      {
+        "name": "model_context_report",
+        "status": "ok",
+        "message": "<AI_SKILL_REPO>/knowledge/runtime/model-context-report.md"
+      },
+      {
+        "name": "model_checklists",
+        "status": "ok",
+        "message": "<AI_SKILL_REPO>/knowledge/runtime/model-checklists.md"
+      },
+      {
+        "name": "runtime_sqlite_index",
+        "status": "ok",
+        "message": "<AI_SKILL_REPO>/knowledge/runtime/sqlite/runtime-index.sqlite"
+      },
+      {
+        "name": "runtime_index_native",
+        "status": "ok",
+        "message": "SQLite runtime index checks passed: atoms=483 sources=469 edges=350 fts=483"
+      },
+      {
+        "name": "knowledge_runtime_native",
+        "status": "ok",
+        "message": "Knowledge runtime checks passed: registry_records=65 summaries=28 graphs=35"
+      },
+      {
+        "name": "runtime_index_feedback_provenance",
+        "status": "ok",
+        "message": "feedback lesson provenance ok: 383 atom(s) under \"feedback/history/\""
+      }
+    ],
+    "planned_actions": [
+      "write native refresh report: <AI_SKILL_REPO>/knowledge/runtime/runtime-report.md",
+      "write native refresh report: <AI_SKILL_REPO>/knowledge/runtime/model-context-report.md",
+      "write native refresh report: <AI_SKILL_REPO>/knowledge/runtime/model-checklists.md",
+      "write native runtime SQLite index: <AI_SKILL_REPO>/knowledge/runtime/sqlite/runtime-index.sqlite",
+      "run native runtime SQLite index validation",
+      "run native knowledge runtime validation"
+    ],
+    "mutations": [
+      "<AI_SKILL_REPO>/knowledge/runtime/runtime-report.md",
+      "<AI_SKILL_REPO>/knowledge/runtime/model-context-report.md",
+      "<AI_SKILL_REPO>/knowledge/runtime/model-checklists.md",
+      "<AI_SKILL_REPO>/knowledge/runtime/sqlite/runtime-index.sqlite"
+    ]
+  },
+  "runtime_validate": {
+    "command": "runtime validate",
+    "mode": "native",
+    "status": "success",
+    "exit_code": 0,
+    "checks": [
+      {
+        "name": "repo",
+        "status": "ok",
+        "message": "<AI_SKILL_REPO>"
+      },
+      {
+        "name": "runtime_db_native",
+        "status": "ok",
+        "message": "Go native runtime.db integrity, schema, row count, JSON, and compiler metadata checks passed; warning: runtime.db is 262.8 hours old (compiled at 2026-10-14T00:19:30Z)"
+      },
+      {
+        "name": "executable_contracts",
+        "status": "ok",
+        "message": "owner-layer executable YAML contracts are projected and contain execution-bearing data"
+      },
+      {
+        "name": "runtime_index_native",
+        "status": "ok",
+        "message": "SQLite runtime index checks passed: atoms=483 sources=469 edges=350 fts=483"
+      },
+      {
+        "name": "runtime_index_feedback_provenance",
+        "status": "ok",
+        "message": "feedback lesson provenance ok: 383 atom(s) under \"feedback/history/\""
+      },
+      {
+        "name": "knowledge_runtime_native",
+        "status": "ok",
+        "message": "Knowledge runtime checks passed: registry_records=65 summaries=28 graphs=35"
+      },
+      {
+        "name": "capability_registry",
+        "status": "ok",
+        "message": "capability registry ok: capabilities=9 active=3 requires_context.stance=9 standardized_stances=[fault_finding]"
+      },
+      {
+        "name": "review_architecture_doc_drift",
+        "status": "ok",
+        "message": "navigation canon ok: 4 files scanned for review phase/workflow/slice drift"
+      },
+      {
+        "name": "canonical_ownership_drift",
+        "status": "ok",
+        "message": "debt payoff canon ok: 64 files scanned (ownership/path/semantic/artifact drift)"
+      },
+      {
+        "name": "tool_bootstrap_shell_cli_decision",
+        "status": "ok",
+        "message": "no shell bootstrap wrappers found"
+      },
+      {
+        "name": "runtime_audit_warning",
+        "status": "ok",
+        "message": "orphan_total=364 (routes=43, surfaces=82, scenarios=239); see `ai-skill runtime audit` for details"
+      }
+    ],
+    "planned_actions": [
+      "run native runtime DB validation",
+      "validate owner-layer executable YAML contract projections",
+      "validate SQLite canonical runtime documents",
+      "run native runtime SQLite index validation",
+      "validate routing registry activation and source-of-truth gates",
+      "validate capability registry requires_context.stance",
+      "run native knowledge runtime validation",
+      "validate shell bootstrap wrappers declare a Go CLI decision",
+      "summarise runtime audit orphans as a warning"
+    ],
+    "mutations": []
+  },
+  "plans_validate": {
+    "root": ".",
+    "plans": 60,
+    "blocking": 0,
+    "findings": []
+  },
+  "links": {
+    "all_archived_markdown_outbound_resolve": true,
+    "preexisting_unresolved": 0
+  },
+  "diff_check": "passed",
+  "CI": "test-only source commit CI recorded separately after push",
+  "go_test_before_validator_fix": {
+    "command": "go test ./...",
+    "scope": "scripts/ai-skill-cli after archival path changes",
+    "exit": 0,
+    "all_packages_passed": true,
+    "app_package_observed_seconds": 43.442,
+    "new_experiments": false,
+    "note": "Before governance scanner fix; archived retrieval paths only."
+  },
+  "archival_validator_fix": {
+    "source_commit": "818a185d",
+    "binary_commit": "9f6c4625",
+    "regression": "observed red before fix; green after fix; Markdown inbound link to moved JSON remains blocked",
+    "scope": "scan Markdown only; preserve all rename targets; no opt-out",
+    "five_release_binaries_rebuilt": true
+  },
+  "go_test": {
+    "command": "go test ./...",
+    "scope": "after archival validator source 818a185d and binary commit 9f6c4625",
+    "exit": 0,
+    "all_packages_passed": true,
+    "app_package_observed_seconds": 12.998,
+    "new_retrieval_experiments": false
+  }
+}

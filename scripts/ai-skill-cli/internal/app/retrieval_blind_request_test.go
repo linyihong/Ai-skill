@@ -23,7 +23,7 @@ func TestRetrievalBlindRequestsExport(t *testing.T) {
 		t.Fatal(err)
 	}
 	root := strings.TrimSpace(string(b))
-	e := filepath.Join(root, "plans", "active", "2026-10-23-2301-knowledge-retrieval-workflow-closure", "evidence")
+	e := filepath.Join(root, "plans", "archived", "2026-10-23-2301-knowledge-retrieval-workflow-closure", "evidence")
 	read := func(name string, v any) []byte {
 		b, err := os.ReadFile(filepath.Join(e, name))
 		if err != nil {

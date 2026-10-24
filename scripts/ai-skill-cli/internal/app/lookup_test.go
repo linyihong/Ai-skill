@@ -131,7 +131,7 @@ func TestLookupEndToEndAndFailureDispositions(t *testing.T) {
 
 func TestLookupPromptAndPackerPolicyUnchanged(t *testing.T) {
 	root := repoRootForTest(t)
-	b, err := os.ReadFile(filepath.Join(root, "plans/active/2026-10-23-2301-knowledge-retrieval-workflow-closure/evidence/phase2-blind-selector-prompt.txt"))
+	b, err := os.ReadFile(filepath.Join(root, "plans/archived/2026-10-23-2301-knowledge-retrieval-workflow-closure/evidence/phase2-blind-selector-prompt.txt"))
 	if err != nil || string(b) != lookupSelectorPrompt {
 		t.Fatal("selector prompt drift", err)
 	}
