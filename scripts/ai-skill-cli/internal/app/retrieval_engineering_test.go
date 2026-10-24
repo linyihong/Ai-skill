@@ -350,3 +350,41 @@ func TestRuntimeSourceStatusRetainsUnknown(t *testing.T) {
 		t.Fatalf("unknown silently filtered: %+v", r)
 	}
 }
+
+func TestRuntimeFailedIndexPopulationPreservesCache(t *testing.T) {
+	repo := t.TempDir()
+	writeFeedbackHistoryRouteFixture(t, repo)
+	db := filepath.Join(t.TempDir(), "index.sqlite")
+	if err := buildNativeRuntimeSQLiteIndex(repo, db); err != nil {
+		t.Fatal(err)
+	}
+	before, err := os.ReadFile(db)
+	if err != nil {
+		t.Fatal(err)
+	}
+	// Identical duplicate IDs pass source reads but fail the second SQL INSERT,
+	// after temporary DB population has begun. This exercises atomic replacement,
+	// unlike a parse error that is discovered before any DB is opened.
+	writeFile(t, filepath.Join(repo, "knowledge/runtime/routing-registry.yaml"), `records:
+  - id: route.duplicate
+    primary_source: docs/source.md
+    task_intent: duplicate
+  - id: route.duplicate
+    primary_source: docs/source.md
+    task_intent: duplicate
+`)
+	if err := buildNativeRuntimeSQLiteIndex(repo, db); err == nil {
+		t.Fatal("duplicate SQL primary key accepted")
+	}
+	after, err := os.ReadFile(db)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(before, after) {
+		t.Fatal("failed SQL population replaced existing cache")
+	}
+	leftovers, err := filepath.Glob(filepath.Join(filepath.Dir(db), ".runtime-index-*.sqlite"))
+	if err != nil || len(leftovers) != 0 {
+		t.Fatalf("partial cache leaked: %v %v", leftovers, err)
+	}
+}
