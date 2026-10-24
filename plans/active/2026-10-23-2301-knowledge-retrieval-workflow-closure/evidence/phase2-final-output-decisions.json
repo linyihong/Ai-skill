@@ -1,0 +1,466 @@
+{
+  "method": "current-agent known-gold exposed diagnostic; all fixed cards inspected, only explicit decisions classified",
+  "protocol_revision": "e2d68c63",
+  "cases": [
+    {
+      "id": "R01",
+      "selected_order": [
+        "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md"
+      ],
+      "assessments": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md",
+          "relation": "direct",
+          "reason": "隔離 middleware 無法證明 composed host 的 status／logging；需真實 pipeline。"
+        }
+      ],
+      "information_needed": "驗證真實 host composition、log/status 與註冊順序。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "R02",
+      "selected_order": [
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md"
+      ],
+      "assessments": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md",
+          "relation": "direct",
+          "reason": "SQL/API 一致而 DOM 陳舊正是跨層投影／cache 驗證。"
+        },
+        {
+          "source": "feedback/history/apk-analysis/http-api/2026-05-11_095600-ui-api-top-items-parity.md",
+          "relation": "background",
+          "reason": "UI/API item parity 談列表項次，未提供 KPI cache 的核心判斷。"
+        }
+      ],
+      "information_needed": "同一實體與路徑比對 DB/API/DOM，區分 client cache。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "R03",
+      "selected_order": [
+        "feedback/history/development-guidance/common/2026-09-04_101800-derived-state-before-blaming-shared-baseline.md"
+      ],
+      "assessments": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-09-04_101800-derived-state-before-blaming-shared-baseline.md",
+          "relation": "direct",
+          "reason": "同 source 與穩定重現無法排除未版本化 derived state。"
+        },
+        {
+          "source": "feedback/history/apk-analysis/common/2026-05-06_105026-state-reset-baseline-feature-capture.md",
+          "relation": "background",
+          "reason": "App clean-state capture 是背景類比，不是本題工具鏈歸因。"
+        }
+      ],
+      "information_needed": "指出基線歸因不足與需要排除的本機 derived state。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "R04",
+      "selected_order": [
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md"
+      ],
+      "assessments": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md",
+          "relation": "direct",
+          "reason": "摘要直接解釋 1002 被 substring 1 誤判，要求 numeric parse。"
+        }
+      ],
+      "information_needed": "以真正 JSON numeric 值比較，包含 1002/10/1 邊界。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "R05",
+      "selected_order": [
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md"
+      ],
+      "assessments": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md",
+          "relation": "direct",
+          "reason": "RWD 靜態 marker/snapshot 無法證明實際 viewport computed layout。"
+        },
+        {
+          "source": "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md",
+          "relation": "background",
+          "reason": "component semantic marker 仍是靜態 traceability，不能代替 browser 量測。"
+        }
+      ],
+      "information_needed": "真實 mobile viewport 及 document/body/shell/content 寬度量測。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "R06",
+      "selected_order": [
+        "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md"
+      ],
+      "assessments": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md",
+          "relation": "direct",
+          "reason": "blob 改變 manifest base；需把 segment/key URI 絕對化並測 rewrite。"
+        },
+        {
+          "source": "feedback/history/apk-analysis/media-hls/2026-04-30_120007-媒體播放鏈要分控制面-金鑰與資料面.md",
+          "relation": "background",
+          "reason": "控制／金鑰／資料面拆分不直接說明相對 URI 失效。"
+        }
+      ],
+      "information_needed": "解釋 blob base 與原 manifest URL，檢查重寫後的絕對 URI。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "R07",
+      "selected_order": [
+        "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md"
+      ],
+      "assessments": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md",
+          "relation": "direct",
+          "reason": "component 名稱／檔案存在不足，應加 feature refs 與實作語意 marker。"
+        },
+        {
+          "source": "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md",
+          "relation": "background",
+          "reason": "browser layout 談幾何驗證，本題主張是 component traceability。"
+        }
+      ],
+      "information_needed": "feature/code refs、component index 與核心實作語意斷言。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "R08",
+      "selected_order": [
+        "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md",
+        "governance/lifecycle/executable-contract-boundary.yaml",
+        "knowledge/summaries/executable-contract-boundary.md"
+      ],
+      "assessments": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md",
+          "relation": "direct",
+          "reason": "歷史 lesson 說明 prose 跳步與 owner/projection 分離。"
+        },
+        {
+          "source": "governance/lifecycle/executable-contract-boundary.yaml",
+          "relation": "direct",
+          "reason": "canonical contract 提供 owner source／opt-in projection 邊界。"
+        },
+        {
+          "source": "knowledge/summaries/executable-contract-boundary.md",
+          "relation": "direct",
+          "reason": "summary 導航與防雙寫條件，保留其 candidate 身分。"
+        }
+      ],
+      "information_needed": "歷史理由與當前 owner/projection 邊界分開，不以 lesson 壓過契約。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "R09",
+      "selected_order": [
+        "knowledge/summaries/test-first-framework-upgrade.md",
+        "feedback/history/development-guidance/common/2026-05-22_092400-test-first-framework-upgrade.md"
+      ],
+      "assessments": [
+        {
+          "source": "knowledge/summaries/test-first-framework-upgrade.md",
+          "relation": "direct",
+          "reason": "含 test-first 順序、fail-first 與豁免範圍。"
+        },
+        {
+          "source": "feedback/history/development-guidance/common/2026-05-22_092400-test-first-framework-upgrade.md",
+          "relation": "direct",
+          "reason": "歷史 lesson 與 scenario-before-implementation 的來源經驗。"
+        },
+        {
+          "source": "governance/lifecycle/system-upgrade-governance.yaml",
+          "relation": "background",
+          "reason": "大型 upgrade 契約範圍較廣，本輪不需填入主要上下文。"
+        }
+      ],
+      "information_needed": "validation scenarios 必須先於 runtime 實作，列 fail-first 與例外。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "R10",
+      "selected_order": [
+        "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md"
+      ],
+      "assessments": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md",
+          "relation": "direct",
+          "reason": "no-restore 只證明上次解析圖，checkout 間衍生狀態可不同。"
+        }
+      ],
+      "information_needed": "判斷 restore-derived graph 是否新鮮，不能只接受 build PASS。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "R11",
+      "selected_order": [
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md"
+      ],
+      "assessments": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md",
+          "relation": "direct",
+          "reason": "原生載入候選要求比對版本／指紋及最小隔離。"
+        }
+      ],
+      "information_needed": "可核對的失敗階段、堆疊、平台／版本／模型與隔離方法。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "R12",
+      "selected_order": [
+        "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md"
+      ],
+      "assessments": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md",
+          "relation": "direct",
+          "reason": "在指定 SQL 上持鎖或延遲 COMMIT，再用較短 timeout 命中。"
+        }
+      ],
+      "information_needed": "確定性阻塞目標語句，取消後讀回與同 key retry。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "R13",
+      "selected_order": [
+        "feedback/history/development-guidance/common/2026-07-23_071200-injectable-wall-clock-for-day-boundary-logic.md"
+      ],
+      "assessments": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-07-23_071200-injectable-wall-clock-for-day-boundary-logic.md",
+          "relation": "direct",
+          "reason": "跨午夜 quota 需 injectable clock，測試 freeze 而非改 OS。"
+        }
+      ],
+      "information_needed": "注入 clock 或顯式時間，測試近午夜與一般時間。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "R14",
+      "selected_order": [
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md"
+      ],
+      "assessments": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md",
+          "relation": "direct",
+          "reason": "同 pool 持有 client 再 nested checkout 造成飽和等待；soft flag 不解鎖。"
+        }
+      ],
+      "information_needed": "辨識同 pool 持有／等待循環，先釋放或傳遞既有 client。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "R15",
+      "selected_order": [
+        "feedback/history/development-guidance/common/2026-10-22_093000-deployment-state-is-readback-not-narrative.md"
+      ],
+      "assessments": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-10-22_093000-deployment-state-is-readback-not-narrative.md",
+          "relation": "direct",
+          "reason": "正式狀態需 readback ledger，tag 與敘述都不能代替。"
+        }
+      ],
+      "information_needed": "版本以正式環境讀回落帳，未知合法，不憑 tag。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "R16",
+      "selected_order": [
+        "feedback/history/development-guidance/common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md"
+      ],
+      "assessments": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md",
+          "relation": "direct",
+          "reason": "索引相對連結與 repo-root 字串基準不同，需真正解析。"
+        }
+      ],
+      "information_needed": "以索引目錄解析連結，正確連結通過而移除後仍 fail。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "R17",
+      "selected_order": [
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "assessments": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md",
+          "relation": "direct",
+          "reason": "stale peer refused 應 refresh discovery／persist endpoint，durable job 不直接 failed。"
+        }
+      ],
+      "information_needed": "區分 peer unreachable 與 auth，更新 discovery/endpoint 及 non-fatal job policy。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "R18",
+      "selected_order": [
+        "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md"
+      ],
+      "assessments": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md",
+          "relation": "direct",
+          "reason": "now 凍在 transaction start，age gate 要 clock_timestamp 與 held-open test。"
+        }
+      ],
+      "information_needed": "辨識 transaction-time 與 wall-clock stamp、長交易反例。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "R19",
+      "selected_order": [],
+      "assessments": [],
+      "information_needed": "nonce 控制僅驗固定池空結果，不代表自然語意無答案。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "R20",
+      "selected_order": [],
+      "assessments": [],
+      "information_needed": "不存在 status 的人工 filter 控制僅驗空集合。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "O01",
+      "selected_order": [
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md"
+      ],
+      "assessments": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md",
+          "relation": "direct",
+          "reason": "本題純 JSON 數字比較，parse numeric 可解 substring 誤判。"
+        },
+        {
+          "source": "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md",
+          "relation": "not-applicable",
+          "reason": "來源全文明確排除 self-contained pure function；本題不驗 host composition。"
+        }
+      ],
+      "information_needed": "JSON exact numeric comparison，拒絕無關 host 驗證。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "O02",
+      "selected_order": [
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md"
+      ],
+      "assessments": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md",
+          "relation": "direct",
+          "reason": "scrollWidth/clientWidth 是 geometry 問題，應 browser computed layout。"
+        },
+        {
+          "source": "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md",
+          "relation": "background",
+          "reason": "KPI stale 數值與本題 overflow 不同，API/SQL 重疊不足以選用。"
+        }
+      ],
+      "information_needed": "驗 viewport 橫向溢出，不重查正確 KPI。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "O03",
+      "selected_order": [
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md"
+      ],
+      "assessments": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md",
+          "relation": "direct",
+          "reason": "目標為 native 權重載入，需版本／指紋隔離。"
+        },
+        {
+          "source": "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md",
+          "relation": "not-applicable",
+          "reason": "query 已說媒體 URI 正常，不應拿 blob URI rewrite 作 native 因果。"
+        }
+      ],
+      "information_needed": "比對 native 載入指紋與範圍，保留未證原因與候選限制。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "O04",
+      "selected_order": [
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md"
+      ],
+      "assessments": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md",
+          "relation": "direct",
+          "reason": "核心 nested checkout 卡住，要查持有 client 與同 pool。"
+        },
+        {
+          "source": "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md",
+          "relation": "not-applicable",
+          "reason": "來源明確排除純描述 timestamp；query 沒有 age/window 決策。"
+        }
+      ],
+      "information_needed": "查 client lifetime／nested same-pool checkout，不改描述性日誌時間。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "O05",
+      "selected_order": [
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "assessments": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md",
+          "relation": "direct",
+          "reason": "官方 discovery 新位址與舊 peer refused 直接對應可恢復 failover。"
+        },
+        {
+          "source": "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md",
+          "relation": "not-applicable",
+          "reason": "已乾淨 restore/build，不能把 network peer stale 歸因舊相依圖。"
+        }
+      ],
+      "information_needed": "用官方 discovery 更新連線／持久 endpoint，保留 durable job。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "id": "O06",
+      "selected_order": [],
+      "assessments": [
+        {
+          "source": "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md",
+          "relation": "not-applicable",
+          "reason": "全文排除 auth/token invalidation，持續 refresh discovery 不解撤銷。"
+        },
+        {
+          "source": "feedback/history/apk-analysis/common/2026-04-30_120005-session-refresh-要還原-app-的真實登入-裝置流程.md",
+          "relation": "unknown",
+          "reason": "App session recovery 是線索，但未確認本題為此 App／裝置流程；本次不輸出。"
+        },
+        {
+          "source": "feedback/history/apk-analysis/http-api/2026-07-15_140000-cold-start-token-may-come-from-bootstrap-not-login.md",
+          "relation": "unknown",
+          "reason": "guest bootstrap 的前提未提供，不能當撤銷 token 的已知重新授權解法；本次不輸出。"
+        },
+        {
+          "source": "feedback/history/development-guidance/common/2026-05-21_172704-dual-token-security-audit.md",
+          "relation": "background",
+          "reason": "多 token 安全審計並非具體重新授權流程。"
+        }
+      ],
+      "information_needed": "需所屬服務／auth provider 的正式重新授權流程；候選不足時明示未知而不套用 App bootstrap。",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    }
+  ]
+}
