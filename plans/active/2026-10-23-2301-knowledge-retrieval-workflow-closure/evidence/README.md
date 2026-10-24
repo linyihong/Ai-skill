@@ -18,3 +18,4 @@
 | phase2-v2-ablation | [phase2-v2-ablation.md](phase2-v2-ablation.md) | measured / candidate rejected | 精確優先、加權、top1 與預算後重評；QE 12/14、overlap 3/5 / confuser 3/6；輸出 ≤841 runes，但品質未通過 |
 | phase2-v3-protocol | [phase2-v3-protocol.md](phase2-v3-protocol.md) | frozen offline design | 固定 broad-64 pool；排序與兩種 packer 分開比較，不預設 top1 |
 | phase2-v3-semantic-contract | [phase2-v3-semantic-contract.md](phase2-v3-semantic-contract.md) | prepared / execution pending | 6 題語意排序 pilot，模型／tokenizer／價格與傳送方案待確認；尚無外呼 |
+| phase2-v3-preflight | [phase2-v3-preflight.md](phase2-v3-preflight.md) | offline measured / semantic pending | 26 固定 pool、156 分離比較；多筆 full 可保留命中但 confuser 6/6；六份 label-free requests 與成本契約待執行 |
