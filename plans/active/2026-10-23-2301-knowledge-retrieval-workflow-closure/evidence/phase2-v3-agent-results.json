@@ -1,0 +1,1264 @@
+{
+  "agent_run_sha256": "f1202e0f44b9a77e479c3bd0d8e53f78bc72fca4a8cde126c6d1edf339ffe029",
+  "kind": "fresh\u002dsubagent exposed\u002ddiagnostic pilot; ranking only, no admission filter",
+  "model_snapshot": "unavailable",
+  "observations": [
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 0,
+      "consumer_results": [
+        {
+          "rank": -7.676624658815986,
+          "id": "feedback.development\u002dguidance.2026\u002d09\u002d04_101800\u002dderived\u002dstate\u002dbefore\u002dblaming\u002dshared\u002dbaseline",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_101800\u002dderived\u002dstate\u002dbefore\u002dblaming\u002dshared\u002dbaseline.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "「原始碼輸入相同」加上「可穩定重現」不足以證明共用基線壞掉；這兩件事在本地衍生狀態過期時同樣成立，而衍生狀態不會出現在原始碼 diff 裡。",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -7.241960899387387,
+          "id": "feedback.apk\u002danalysis.2026\u002d05\u002d06_105026\u002dstate\u002dreset\u002dbaseline\u002dfeature\u002dcapture",
+          "source_path": "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_105026\u002dstate\u002dreset\u002dbaseline\u002dfeature\u002dcapture.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "Feature\u002dlevel APK API analysis should record whether the run starts from a clean app state, because cache/session leftovers can hide startup and first\u002duse APIs.",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -7.80784048512621,
+          "id": "feedback.apk\u002danalysis.2026\u002d05\u002d06_154500\u002ddomain\u002druntime\u002dbaseline\u002dfinish\u002dgate",
+          "source_path": "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_154500\u002ddomain\u002druntime\u002dbaseline\u002dfinish\u002dgate.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "既有 lesson 的結論維持於本檔原始內容；此 closure 補記不新增專案事實。",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 1,
+      "id": "R03",
+      "information_sufficiency": "not evaluated",
+      "packer": "P0",
+      "payload_runes": 1578,
+      "pool_sha256": "793594411410db9d75e420aca7f596edbdbf2dd9e4cadd985976e36b510ebf68",
+      "rr": 1,
+      "selection": "S3\u002dagent",
+      "selection_hits": 1,
+      "selection_rr": 1,
+      "shortened_sources": [],
+      "sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_101800\u002dderived\u002dstate\u002dbefore\u002dblaming\u002dshared\u002dbaseline.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_105026\u002dstate\u002dreset\u002dbaseline\u002dfeature\u002dcapture.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_154500\u002ddomain\u002druntime\u002dbaseline\u002dfinish\u002dgate.md"
+      ]
+    },
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 0,
+      "consumer_results": [
+        {
+          "rank": -7.676624658815986,
+          "id": "feedback.development\u002dguidance.2026\u002d09\u002d04_101800\u002dderived\u002dstate\u002dbefore\u002dblaming\u002dshared\u002dbaseline",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_101800\u002dderived\u002dstate\u002dbefore\u002dblaming\u002dshared\u002dbaseline.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "「原始碼輸入相同」加上「可穩定重現」不足以證明共用基線壞掉；這兩件事在本地衍生狀態過期時同樣成立，而衍生狀態不會出現在原始碼 diff 裡。",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -7.241960899387387,
+          "id": "feedback.apk\u002danalysis.2026\u002d05\u002d06_105026\u002dstate\u002dreset\u002dbaseline\u002dfeature\u002dcapture",
+          "source_path": "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_105026\u002dstate\u002dreset\u002dbaseline\u002dfeature\u002dcapture.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "Feature\u002dlevel APK API analysis should record whether the run starts from a clean app state, because cache/session leftovers can…",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -7.80784048512621,
+          "id": "feedback.apk\u002danalysis.2026\u002d05\u002d06_154500\u002ddomain\u002druntime\u002dbaseline\u002dfinish\u002dgate",
+          "source_path": "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_154500\u002ddomain\u002druntime\u002dbaseline\u002dfinish\u002dgate.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "既有 lesson 的結論維持於本檔原始內容；此 closure 補記不新增專案事實。",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 1,
+      "id": "R03",
+      "information_sufficiency": "not evaluated",
+      "packer": "P1",
+      "payload_runes": 1546,
+      "pool_sha256": "793594411410db9d75e420aca7f596edbdbf2dd9e4cadd985976e36b510ebf68",
+      "rr": 1,
+      "selection": "S3\u002dagent",
+      "selection_hits": 1,
+      "selection_rr": 1,
+      "shortened_sources": [
+        "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_105026\u002dstate\u002dreset\u002dbaseline\u002dfeature\u002dcapture.md"
+      ],
+      "sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_101800\u002dderived\u002dstate\u002dbefore\u002dblaming\u002dshared\u002dbaseline.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_105026\u002dstate\u002dreset\u002dbaseline\u002dfeature\u002dcapture.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_154500\u002ddomain\u002druntime\u002dbaseline\u002dfinish\u002dgate.md"
+      ]
+    },
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 0,
+      "consumer_results": [
+        {
+          "rank": -27.490474025114302,
+          "id": "governance.executable\u002dcontract\u002dboundary",
+          "source_path": "knowledge/summaries/executable\u002dcontract\u002dboundary.md",
+          "layer": "knowledge",
+          "type": "summary",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "low",
+          "summary": "定義 executable YAML contract 邊界：source 留在 owner layer，Markdown 解釋脈絡，YAML 承載 activation / steps / gates / evidence；會影響 execution 的 contract 以 `runtime_projection.enabled: true` opt in 到 `runtime.db generated_surfaces`。Framework contract / projection 改動前必須先做 pre\u002dbuild interrogation，避免雙寫 source\u002dof\u002dtruth。",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -28.872407770568355,
+          "id": "route.governance.executable\u002dcontract\u002dboundary",
+          "source_path": "governance/lifecycle/executable\u002dcontract\u002dboundary.yaml",
+          "layer": "governance",
+          "type": "route",
+          "status": "new\u002dlayer\u002dpromoted",
+          "priority": "P1",
+          "confidence": "medium",
+          "context_cost": "{\"estimated_tokens\"=\u003e500, \"load_strategy\"=\u003e\"lazy\", \"cacheable\"=\u003etrue, \"ttl\"=\u003e{\"session\"=\u003e1}}",
+          "summary": "Executable Contract Boundary 定義 source ownership 留在 owner layer、 executable YAML contract 以 runtime_projection.enabled opt in、 runtime compiler 投影到 runtime.db generated_surfaces，並要求 framework contract / projection 變更先做 pre\u002dbuild interrogation。\n",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -24.761488267032387,
+          "id": "feedback.development\u002dguidance.2026\u002d05\u002d21_231500\u002dexecutable\u002dcontract\u002dboundary",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_231500\u002dexecutable\u002dcontract\u002dboundary.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "流程、gate、activation、blocking condition、required evidence 或 failure action 若會影響 agent 執行，必須提供 owner\u002dlayer YAML contract，並投影到 `runtime.db`。",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 1,
+      "id": "R08",
+      "information_sufficiency": "not evaluated",
+      "packer": "P0",
+      "payload_runes": 1922,
+      "pool_sha256": "e258a2938c29e0b944f324740a6538b9ee1c45a9d4dfdeadab2950d037f7c834",
+      "rr": 0.3333333333333333,
+      "selection": "S3\u002dagent",
+      "selection_hits": 1,
+      "selection_rr": 0.3333333333333333,
+      "shortened_sources": [],
+      "sources": [
+        "knowledge/summaries/executable\u002dcontract\u002dboundary.md",
+        "governance/lifecycle/executable\u002dcontract\u002dboundary.yaml",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_231500\u002dexecutable\u002dcontract\u002dboundary.md"
+      ]
+    },
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 0,
+      "consumer_results": [
+        {
+          "rank": -27.490474025114302,
+          "id": "governance.executable\u002dcontract\u002dboundary",
+          "source_path": "knowledge/summaries/executable\u002dcontract\u002dboundary.md",
+          "layer": "knowledge",
+          "type": "summary",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "low",
+          "summary": "定義 executable YAML contract 邊界：source 留在 owner layer，Markdown 解釋脈絡，YAML 承載 activation / steps / gates / evidence；會影響 execution …",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -28.872407770568355,
+          "id": "route.governance.executable\u002dcontract\u002dboundary",
+          "source_path": "governance/lifecycle/executable\u002dcontract\u002dboundary.yaml",
+          "layer": "governance",
+          "type": "route",
+          "status": "new\u002dlayer\u002dpromoted",
+          "priority": "P1",
+          "confidence": "medium",
+          "context_cost": "{\"estimated_tokens\"=\u003e500, \"load_strategy\"=\u003e\"lazy\", \"cacheable\"=\u003etrue, \"ttl\"=\u003e{\"session\"=\u003e1}}",
+          "summary": "Executable Contract Boundary 定義 source ownership 留在 owner layer、 executable YAML contract 以 runtime_projection.enabled opt in、 …",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -24.761488267032387,
+          "id": "feedback.development\u002dguidance.2026\u002d05\u002d21_231500\u002dexecutable\u002dcontract\u002dboundary",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_231500\u002dexecutable\u002dcontract\u002dboundary.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "流程、gate、activation、blocking condition、required evidence 或 failure action 若會影響 agent 執行，必須提供 owner\u002dlayer YAML contract，並投影到 `run…",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 1,
+      "id": "R08",
+      "information_sufficiency": "not evaluated",
+      "packer": "P1",
+      "payload_runes": 1624,
+      "pool_sha256": "e258a2938c29e0b944f324740a6538b9ee1c45a9d4dfdeadab2950d037f7c834",
+      "rr": 0.3333333333333333,
+      "selection": "S3\u002dagent",
+      "selection_hits": 1,
+      "selection_rr": 0.3333333333333333,
+      "shortened_sources": [
+        "knowledge/summaries/executable\u002dcontract\u002dboundary.md",
+        "governance/lifecycle/executable\u002dcontract\u002dboundary.yaml",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_231500\u002dexecutable\u002dcontract\u002dboundary.md"
+      ],
+      "sources": [
+        "knowledge/summaries/executable\u002dcontract\u002dboundary.md",
+        "governance/lifecycle/executable\u002dcontract\u002dboundary.yaml",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_231500\u002dexecutable\u002dcontract\u002dboundary.md"
+      ]
+    },
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 1,
+      "consumer_results": [
+        {
+          "rank": -6.125012073234287,
+          "id": "feedback.development\u002dguidance.2026\u002d06\u002d08_141200\u002dbrowser\u002dlayout\u002doverflow\u002dintegration",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d06\u002d08_141200\u002dbrowser\u002dlayout\u002doverflow\u002dintegration.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "RWD 或視覺縮放問題不能只靠 CSS marker、snapshot 或人工感覺驗證；要用真實瀏覽器 viewport 量 `document`、`body`、app shell、固定導覽與 scroll content 的 computed layout。",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -10.331271450302538,
+          "id": "feedback.development\u002dguidance.2026\u002d06\u002d18_play\u002dview\u002dkpi\u002dsql\u002dpass\u002ddom\u002dfail\u002dbrowser\u002dgate",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d06\u002d18_play\u002dview\u002dkpi\u002dsql\u002dpass\u002ddom\u002dfail\u002dbrowser\u002dgate.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "用户可见的播放量 / KPI 标签争议时，**API 或 listing SQL 与 DB 一致不足以结案**；须在同一 `video_id`、同一路径上增加 **browser DOM 对照**，才能区分 DB/部署问题与 keep\u002dalive / sessionStorage 陈旧 view model。",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -2.420389856103496,
+          "id": "feedback.apk\u002danalysis.2026\u002d05\u002d05_183700\u002dscrollable\u002dclickable\u002dscreen\u002dmapping",
+          "source_path": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_183700\u002dscrollable\u002dclickable\u002dscreen\u002dmapping.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "UI\u002dto\u002dAPI mapping should classify each screen's scrollable regions and clickable entry points before writing automation scripts.",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 1,
+      "id": "O02",
+      "information_sufficiency": "not evaluated",
+      "packer": "P0",
+      "payload_runes": 1722,
+      "pool_sha256": "76cbc61cc5257dae07c807ec271c04ae9224d6553ac285dbb8d3c11330750075",
+      "rr": 1,
+      "selection": "S3\u002dagent",
+      "selection_hits": 1,
+      "selection_rr": 1,
+      "shortened_sources": [],
+      "sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d06\u002d08_141200\u002dbrowser\u002dlayout\u002doverflow\u002dintegration.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d06\u002d18_play\u002dview\u002dkpi\u002dsql\u002dpass\u002ddom\u002dfail\u002dbrowser\u002dgate.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_183700\u002dscrollable\u002dclickable\u002dscreen\u002dmapping.md"
+      ]
+    },
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 1,
+      "consumer_results": [
+        {
+          "rank": -6.125012073234287,
+          "id": "feedback.development\u002dguidance.2026\u002d06\u002d08_141200\u002dbrowser\u002dlayout\u002doverflow\u002dintegration",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d06\u002d08_141200\u002dbrowser\u002dlayout\u002doverflow\u002dintegration.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "RWD 或視覺縮放問題不能只靠 CSS marker、snapshot 或人工感覺驗證；要用真實瀏覽器 viewport 量 `document`、`body`、app shell、固定導覽與 scroll content 的 computed layo…",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -10.331271450302538,
+          "id": "feedback.development\u002dguidance.2026\u002d06\u002d18_play\u002dview\u002dkpi\u002dsql\u002dpass\u002ddom\u002dfail\u002dbrowser\u002dgate",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d06\u002d18_play\u002dview\u002dkpi\u002dsql\u002dpass\u002ddom\u002dfail\u002dbrowser\u002dgate.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "用户可见的播放量 / KPI 标签争议时，**API 或 listing SQL 与 DB 一致不足以结案**；须在同一 `video_id`、同一路径上增加 **browser DOM 对照**，才能区分 DB/部署问题与 keep\u002dalive / s…",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -2.420389856103496,
+          "id": "feedback.apk\u002danalysis.2026\u002d05\u002d05_183700\u002dscrollable\u002dclickable\u002dscreen\u002dmapping",
+          "source_path": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_183700\u002dscrollable\u002dclickable\u002dscreen\u002dmapping.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "UI\u002dto\u002dAPI mapping should classify each screen's scrollable regions and clickable entry points before writing automation scripts.",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 1,
+      "id": "O02",
+      "information_sufficiency": "not evaluated",
+      "packer": "P1",
+      "payload_runes": 1693,
+      "pool_sha256": "76cbc61cc5257dae07c807ec271c04ae9224d6553ac285dbb8d3c11330750075",
+      "rr": 1,
+      "selection": "S3\u002dagent",
+      "selection_hits": 1,
+      "selection_rr": 1,
+      "shortened_sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d06\u002d08_141200\u002dbrowser\u002dlayout\u002doverflow\u002dintegration.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d06\u002d18_play\u002dview\u002dkpi\u002dsql\u002dpass\u002ddom\u002dfail\u002dbrowser\u002dgate.md"
+      ],
+      "sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d06\u002d08_141200\u002dbrowser\u002dlayout\u002doverflow\u002dintegration.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d06\u002d18_play\u002dview\u002dkpi\u002dsql\u002dpass\u002ddom\u002dfail\u002dbrowser\u002dgate.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_183700\u002dscrollable\u002dclickable\u002dscreen\u002dmapping.md"
+      ]
+    },
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 0,
+      "consumer_results": [
+        {
+          "rank": -12.293871599019557,
+          "id": "feedback.development\u002dguidance.2026\u002d10\u002d07_125417\u002dnative\u002dmodel\u002dload\u002dknown\u002dcase\u002dfirst",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d10\u002d07_125417\u002dnative\u002dmodel\u002dload\u002dknown\u002dcase\u002dfirst.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "模型載入原生崩潰時先比對既有失敗指紋與版本範圍，再做最小隔離驗證，不從完整產品流程重新猜原因。",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -5.637846261861228,
+          "id": "route.analysis.binary",
+          "source_path": "analysis/binary/README.md",
+          "layer": "analysis",
+          "type": "route",
+          "status": "new\u002dlayer\u002dpromoted",
+          "priority": "P2",
+          "confidence": "high",
+          "context_cost": "{\"estimated_tokens\"=\u003e2500, \"load_strategy\"=\u003e\"lazy\", \"cacheable\"=\u003etrue, \"ttl\"=\u003e{\"task\"=\u003e1}}",
+          "summary": "Native/managed methods distinct from APK dynamic and web scraping.",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -2.9455749578235406,
+          "id": "feedback.apk\u002danalysis.2026\u002d05\u002d01_140900\u002dunflutter\u002daot\u002doffset\u002dhook\u002dafter\u002dblutter\u002dcrash",
+          "source_path": "feedback/history/apk\u002danalysis/flutter\u002ddart\u002daot/2026\u002d05\u002d01_140900\u002dunflutter\u002daot\u002doffset\u002dhook\u002dafter\u002dblutter\u002dcrash.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "`blutter` 能識別 Dart snapshot 但在載入／分析時 SIGSEGV 時，可改用 `unflutter` 取得 Dart AOT function PC，再用 Frida native offset hook 驗證 request/sign/decrypt 流程。",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 1,
+      "id": "O03",
+      "information_sufficiency": "not evaluated",
+      "packer": "P0",
+      "payload_runes": 1566,
+      "pool_sha256": "2a01a734cda4a9fb72d33e8f6d7d30d7d44c9b83982279be4948c20b6aaa8cdf",
+      "rr": 1,
+      "selection": "S3\u002dagent",
+      "selection_hits": 1,
+      "selection_rr": 1,
+      "shortened_sources": [],
+      "sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d10\u002d07_125417\u002dnative\u002dmodel\u002dload\u002dknown\u002dcase\u002dfirst.md",
+        "analysis/binary/README.md",
+        "feedback/history/apk\u002danalysis/flutter\u002ddart\u002daot/2026\u002d05\u002d01_140900\u002dunflutter\u002daot\u002doffset\u002dhook\u002dafter\u002dblutter\u002dcrash.md"
+      ]
+    },
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 0,
+      "consumer_results": [
+        {
+          "rank": -12.293871599019557,
+          "id": "feedback.development\u002dguidance.2026\u002d10\u002d07_125417\u002dnative\u002dmodel\u002dload\u002dknown\u002dcase\u002dfirst",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d10\u002d07_125417\u002dnative\u002dmodel\u002dload\u002dknown\u002dcase\u002dfirst.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "模型載入原生崩潰時先比對既有失敗指紋與版本範圍，再做最小隔離驗證，不從完整產品流程重新猜原因。",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -5.637846261861228,
+          "id": "route.analysis.binary",
+          "source_path": "analysis/binary/README.md",
+          "layer": "analysis",
+          "type": "route",
+          "status": "new\u002dlayer\u002dpromoted",
+          "priority": "P2",
+          "confidence": "high",
+          "context_cost": "{\"estimated_tokens\"=\u003e2500, \"load_strategy\"=\u003e\"lazy\", \"cacheable\"=\u003etrue, \"ttl\"=\u003e{\"task\"=\u003e1}}",
+          "summary": "Native/managed methods distinct from APK dynamic and web scraping.",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -2.9455749578235406,
+          "id": "feedback.apk\u002danalysis.2026\u002d05\u002d01_140900\u002dunflutter\u002daot\u002doffset\u002dhook\u002dafter\u002dblutter\u002dcrash",
+          "source_path": "feedback/history/apk\u002danalysis/flutter\u002ddart\u002daot/2026\u002d05\u002d01_140900\u002dunflutter\u002daot\u002doffset\u002dhook\u002dafter\u002dblutter\u002dcrash.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "`blutter` 能識別 Dart snapshot 但在載入／分析時 SIGSEGV 時，可改用 `unflutter` 取得 Dart AOT function PC，再用 Frida native offset hook 驗證 request/s…",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 1,
+      "id": "O03",
+      "information_sufficiency": "not evaluated",
+      "packer": "P1",
+      "payload_runes": 1552,
+      "pool_sha256": "2a01a734cda4a9fb72d33e8f6d7d30d7d44c9b83982279be4948c20b6aaa8cdf",
+      "rr": 1,
+      "selection": "S3\u002dagent",
+      "selection_hits": 1,
+      "selection_rr": 1,
+      "shortened_sources": [
+        "feedback/history/apk\u002danalysis/flutter\u002ddart\u002daot/2026\u002d05\u002d01_140900\u002dunflutter\u002daot\u002doffset\u002dhook\u002dafter\u002dblutter\u002dcrash.md"
+      ],
+      "sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d10\u002d07_125417\u002dnative\u002dmodel\u002dload\u002dknown\u002dcase\u002dfirst.md",
+        "analysis/binary/README.md",
+        "feedback/history/apk\u002danalysis/flutter\u002ddart\u002daot/2026\u002d05\u002d01_140900\u002dunflutter\u002daot\u002doffset\u002dhook\u002dafter\u002dblutter\u002dcrash.md"
+      ]
+    },
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 1,
+      "consumer_results": [
+        {
+          "rank": -33.09649694314764,
+          "id": "feedback.development\u002dguidance.2026\u002d09\u002d30_155700\u002drelease\u002dpool\u002dclient\u002dbefore\u002dnested\u002dcheckout",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d09\u002d30_155700\u002drelease\u002dpool\u002dclient\u002dbefore\u002dnested\u002dcheckout.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "Never hold a DB pool client across an await that also checks out from the same pool; saturation turns into an uninterruptible hang that soft reconcile cannot clear.",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -18.021848076867705,
+          "id": "feedback.development\u002dguidance.2026\u002d10\u002d15_120000\u002dnow\u002dis\u002dtransaction\u002dstart\u002duse\u002dclock\u002dtimestamp\u002dfor\u002dage\u002dgates",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d10\u002d15_120000\u002dnow\u002dis\u002dtransaction\u002dstart\u002duse\u002dclock\u002dtimestamp\u002dfor\u002dage\u002dgates.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "In PostgreSQL `now()` / `current_timestamp` is frozen at transaction start; a holder of an old open transaction can back\u002ddate any timestamp the routine writes with it, so minimum\u002dage and reset\u002dwindow gates must stamp with `clock_timestamp()`.",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 1,
+      "id": "O04",
+      "information_sufficiency": "not evaluated",
+      "packer": "P0",
+      "payload_runes": 1346,
+      "pool_sha256": "e442115af6d503bb148ecbe6b38b9858b2607080da293f9aab65ae1106d1316c",
+      "rr": 1,
+      "selection": "S3\u002dagent",
+      "selection_hits": 1,
+      "selection_rr": 1,
+      "shortened_sources": [],
+      "sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d30_155700\u002drelease\u002dpool\u002dclient\u002dbefore\u002dnested\u002dcheckout.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d10\u002d15_120000\u002dnow\u002dis\u002dtransaction\u002dstart\u002duse\u002dclock\u002dtimestamp\u002dfor\u002dage\u002dgates.md"
+      ]
+    },
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 1,
+      "consumer_results": [
+        {
+          "rank": -33.09649694314764,
+          "id": "feedback.development\u002dguidance.2026\u002d09\u002d30_155700\u002drelease\u002dpool\u002dclient\u002dbefore\u002dnested\u002dcheckout",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d09\u002d30_155700\u002drelease\u002dpool\u002dclient\u002dbefore\u002dnested\u002dcheckout.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "Never hold a DB pool client across an await that also checks out from the same pool; saturation turns into an uninterruptible h…",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -18.021848076867705,
+          "id": "feedback.development\u002dguidance.2026\u002d10\u002d15_120000\u002dnow\u002dis\u002dtransaction\u002dstart\u002duse\u002dclock\u002dtimestamp\u002dfor\u002dage\u002dgates",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d10\u002d15_120000\u002dnow\u002dis\u002dtransaction\u002dstart\u002duse\u002dclock\u002dtimestamp\u002dfor\u002dage\u002dgates.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "In PostgreSQL `now()` / `current_timestamp` is frozen at transaction start; a holder of an old open transaction can back\u002ddate a…",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -6.982866097577281,
+          "id": "feedback.development\u002dguidance.2026\u002d10\u002d05_171500\u002dland\u002dcancellation\u002don\u002da\u002dchosen\u002ddb\u002dstatement",
+          "source_path": "feedback/history/development\u002dguidance/common/2026\u002d10\u002d05_171500\u002dland\u002dcancellation\u002don\u002da\u002dchosen\u002ddb\u002dstatement.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "To prove a cancellation\u002dsafety or idempotency claim, make the request block on the exact statement you care about (lock it, or …",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 1,
+      "id": "O04",
+      "information_sufficiency": "not evaluated",
+      "packer": "P1",
+      "payload_runes": 1777,
+      "pool_sha256": "e442115af6d503bb148ecbe6b38b9858b2607080da293f9aab65ae1106d1316c",
+      "rr": 1,
+      "selection": "S3\u002dagent",
+      "selection_hits": 1,
+      "selection_rr": 1,
+      "shortened_sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d30_155700\u002drelease\u002dpool\u002dclient\u002dbefore\u002dnested\u002dcheckout.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d10\u002d15_120000\u002dnow\u002dis\u002dtransaction\u002dstart\u002duse\u002dclock\u002dtimestamp\u002dfor\u002dage\u002dgates.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d10\u002d05_171500\u002dland\u002dcancellation\u002don\u002da\u002dchosen\u002ddb\u002dstatement.md"
+      ],
+      "sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d30_155700\u002drelease\u002dpool\u002dclient\u002dbefore\u002dnested\u002dcheckout.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d10\u002d15_120000\u002dnow\u002dis\u002dtransaction\u002dstart\u002duse\u002dclock\u002dtimestamp\u002dfor\u002dage\u002dgates.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d10\u002d05_171500\u002dland\u002dcancellation\u002don\u002da\u002dchosen\u002ddb\u002dstatement.md"
+      ]
+    },
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 0,
+      "consumer_results": [
+        {
+          "rank": -4.585492795809876,
+          "id": "feedback.apk\u002danalysis.2026\u002d04\u002d30_120005\u002dsession\u002drefresh\u002d要還原\u002dapp\u002d的真實登入\u002d裝置流程",
+          "source_path": "feedback/history/apk\u002danalysis/common/2026\u002d04\u002d30_120005\u002dsession\u002drefresh\u002d要還原\u002dapp\u002d的真實登入\u002d裝置流程.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "Token 過期不一定有 refresh\u002dtoken；要看 App 實際怎麼重新取得 session。",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -5.378234940388146,
+          "id": "feedback.apk\u002danalysis.2026\u002d07\u002d15_140000\u002dcold\u002dstart\u002dtoken\u002dmay\u002dcome\u002dfrom\u002dbootstrap\u002dnot\u002dlogin",
+          "source_path": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d15_140000\u002dcold\u002dstart\u002dtoken\u002dmay\u002dcome\u002dfrom\u002dbootstrap\u002dnot\u002dlogin.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "`pm clear` 冷啟後，遊客 session 可能來自 **專用 bootstrap 端點**（`authLen=0`），而 **`user/login` 可能 0 次**；離線 SDK 勿假設必須走 login POST。",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -3.2635073823776533,
+          "id": "feedback.apk\u002danalysis.2026\u002d09\u002d09_094550\u002dreset\u002dlevel\u002dmay\u002dchange\u002dlogin\u002dpacket\u002dclass",
+          "source_path": "feedback/history/apk\u002danalysis/common/2026\u002d09\u002d09_094550\u002dreset\u002dlevel\u002dmay\u002dchange\u002dlogin\u002dpacket\u002dclass.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "`force\u002dstop only` 與 `clear app data` 的自動登入，可能走上不同的 login **packet class**（例如 token 恢復 vs 建帳）。一個窗口不能代表兩種 reset。",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 0,
+      "id": "O06",
+      "information_sufficiency": "not evaluated",
+      "packer": "P0",
+      "payload_runes": 1589,
+      "pool_sha256": "4a87c7fdc89990f825c094a46d33c8d03af6c80616486fe25a9497b1b5b38f0e",
+      "rr": 0,
+      "selection": "S3\u002dagent",
+      "selection_hits": 0,
+      "selection_rr": 0,
+      "shortened_sources": [],
+      "sources": [
+        "feedback/history/apk\u002danalysis/common/2026\u002d04\u002d30_120005\u002dsession\u002drefresh\u002d要還原\u002dapp\u002d的真實登入\u002d裝置流程.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d15_140000\u002dcold\u002dstart\u002dtoken\u002dmay\u002dcome\u002dfrom\u002dbootstrap\u002dnot\u002dlogin.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d09\u002d09_094550\u002dreset\u002dlevel\u002dmay\u002dchange\u002dlogin\u002dpacket\u002dclass.md"
+      ]
+    },
+    {
+      "adoption": "not evaluated",
+      "confuser_hits": 0,
+      "consumer_results": [
+        {
+          "rank": -4.585492795809876,
+          "id": "feedback.apk\u002danalysis.2026\u002d04\u002d30_120005\u002dsession\u002drefresh\u002d要還原\u002dapp\u002d的真實登入\u002d裝置流程",
+          "source_path": "feedback/history/apk\u002danalysis/common/2026\u002d04\u002d30_120005\u002dsession\u002drefresh\u002d要還原\u002dapp\u002d的真實登入\u002d裝置流程.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "Token 過期不一定有 refresh\u002dtoken；要看 App 實際怎麼重新取得 session。",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -5.378234940388146,
+          "id": "feedback.apk\u002danalysis.2026\u002d07\u002d15_140000\u002dcold\u002dstart\u002dtoken\u002dmay\u002dcome\u002dfrom\u002dbootstrap\u002dnot\u002dlogin",
+          "source_path": "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d15_140000\u002dcold\u002dstart\u002dtoken\u002dmay\u002dcome\u002dfrom\u002dbootstrap\u002dnot\u002dlogin.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "`pm clear` 冷啟後，遊客 session 可能來自 **專用 bootstrap 端點**（`authLen=0`），而 **`user/login` 可能 0 次**；離線 SDK 勿假設必須走 login POST。",
+          "match_reason": "lexical candidate; applicability unverified"
+        },
+        {
+          "rank": -3.2635073823776533,
+          "id": "feedback.apk\u002danalysis.2026\u002d09\u002d09_094550\u002dreset\u002dlevel\u002dmay\u002dchange\u002dlogin\u002dpacket\u002dclass",
+          "source_path": "feedback/history/apk\u002danalysis/common/2026\u002d09\u002d09_094550\u002dreset\u002dlevel\u002dmay\u002dchange\u002dlogin\u002dpacket\u002dclass.md",
+          "layer": "feedback",
+          "type": "feedback\u002dpattern",
+          "status": "candidate",
+          "priority": "P2",
+          "confidence": "medium",
+          "context_cost": "medium",
+          "summary": "`force\u002dstop only` 與 `clear app data` 的自動登入，可能走上不同的 login **packet class**（例如 token 恢復 vs 建帳）。一個窗口不能代表兩種 reset。",
+          "match_reason": "lexical candidate; applicability unverified"
+        }
+      ],
+      "hits": 0,
+      "id": "O06",
+      "information_sufficiency": "not evaluated",
+      "packer": "P1",
+      "payload_runes": 1589,
+      "pool_sha256": "4a87c7fdc89990f825c094a46d33c8d03af6c80616486fe25a9497b1b5b38f0e",
+      "rr": 0,
+      "selection": "S3\u002dagent",
+      "selection_hits": 0,
+      "selection_rr": 0,
+      "shortened_sources": [],
+      "sources": [
+        "feedback/history/apk\u002danalysis/common/2026\u002d04\u002d30_120005\u002dsession\u002drefresh\u002d要還原\u002dapp\u002d的真實登入\u002d裝置流程.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d15_140000\u002dcold\u002dstart\u002dtoken\u002dmay\u002dcome\u002dfrom\u002dbootstrap\u002dnot\u002dlogin.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d09\u002d09_094550\u002dreset\u002dlevel\u002dmay\u002dchange\u002dlogin\u002dpacket\u002dclass.md"
+      ]
+    }
+  ],
+  "permutations": [
+    {
+      "assessments": [
+        {
+          "id": "f40eaad2e2fc0010",
+          "relation": "direct",
+          "reason": "直接回答：原始碼相同且穩定重現仍不足以歸因共用 baseline，須先排除本地衍生狀態。"
+        },
+        {
+          "id": "43d35cbd1871cd3b",
+          "relation": "background",
+          "reason": "快取與 session 殘留影響行為，可作為本地狀態的背景例子。"
+        },
+        {
+          "id": "cd8022f01f52fa69",
+          "relation": "unknown",
+          "reason": "標題提及基線，但摘要未提供可判斷此歸因問題的實質內容。"
+        },
+        {
+          "id": "476d569ade93f96a",
+          "relation": "not\u002dapplicable",
+          "reason": "討論 3D 資產證據與 PASS 門檻，未涉及原始碼或共用基線歸因。"
+        },
+        {
+          "id": "83909260a149f911",
+          "relation": "not\u002dapplicable",
+          "reason": "討論 slot 派彩窗口與 hook 行為，未涉及目前的基線歸因問題。"
+        }
+      ],
+      "candidate_sources": 5,
+      "confuser_source_ranks": {},
+      "expected_source_ranks": {
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_101800\u002dderived\u002dstate\u002dbefore\u002dblaming\u002dshared\u002dbaseline.md": 1
+      },
+      "id": "R03",
+      "ranked_sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_101800\u002dderived\u002dstate\u002dbefore\u002dblaming\u002dshared\u002dbaseline.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_105026\u002dstate\u002dreset\u002dbaseline\u002dfeature\u002dcapture.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_154500\u002ddomain\u002druntime\u002dbaseline\u002dfinish\u002dgate.md",
+        "feedback/history/3d\u002dcharacter\u002dproduction/common/2026\u002d09\u002d01_084600\u002dseparate\u002dasset\u002devidence\u002dfrom\u002dstage\u002dpass.md",
+        "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d24_114500\u002dslot\u002dbase\u002dline\u002dwins\u002dmay\u002dbypass\u002dpayout\u002dwindow\u002dshow.md"
+      ],
+      "raw_sha256": "62c82ee628a0be92cbf8c3f3253c261617af55e5f748aa4466b987270ad88f99",
+      "request_sha256": "1399fb329b2e905715cb4e6e078f8546c695881ebf7c9e20bf7c5fee48ef9c95",
+      "valid_complete_permutation": true
+    },
+    {
+      "assessments": [
+        {
+          "id": "1504b2fa11cbc4f3",
+          "relation": "direct",
+          "reason": "直接說明 owner layer 保留 source、YAML 承載執行規則與 runtime 投影邊界，並提及避免雙寫 source\u002dof\u002dtruth。"
+        },
+        {
+          "id": "d88e5394b90d00d0",
+          "relation": "direct",
+          "reason": "直接涵蓋 source ownership、opt\u002din projection 與 compiler 投影契約。"
+        },
+        {
+          "id": "7fa87a8c3d6fb1ad",
+          "relation": "direct",
+          "reason": "指出影響 agent 執行的流程與 gates 必須具有 owner\u002dlayer YAML 並投影 runtime.db。"
+        },
+        {
+          "id": "350fe459d0b15091",
+          "relation": "background",
+          "reason": "說明 deterministic compiler 如何將契約寫入 runtime.db，可補充投影機制。"
+        },
+        {
+          "id": "d9913fb968caf213",
+          "relation": "background",
+          "reason": "說明升級治理要避免只留下 Markdown，提供 executable contract 的治理動機。"
+        },
+        {
+          "id": "d2fb377a8bf12310",
+          "relation": "background",
+          "reason": "提供按內容歸屬不同 owner 與 runtime gates 的分類背景。"
+        }
+      ],
+      "candidate_sources": 55,
+      "confuser_source_ranks": {},
+      "expected_source_ranks": {
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_231500\u002dexecutable\u002dcontract\u002dboundary.md": 3
+      },
+      "id": "R08",
+      "ranked_sources": [
+        "knowledge/summaries/executable\u002dcontract\u002dboundary.md",
+        "governance/lifecycle/executable\u002dcontract\u002dboundary.yaml",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_231500\u002dexecutable\u002dcontract\u002dboundary.md",
+        "runtime/runtime.db",
+        "governance/lifecycle/system\u002dupgrade\u002dgovernance.yaml",
+        "governance/lifecycle/decision\u002dpromotion\u002dpipeline.yaml",
+        "knowledge/summaries/runtime\u002doperations.md",
+        "governance/lifecycle/knowledge\u002dupdate\u002dflow.yaml",
+        "governance/ai\u002druntime\u002dgovernance/five\u002dstep\u002dai\u002dgovernance.md",
+        "knowledge/summaries/repo\u002dgovernance.md",
+        "knowledge/glossary/ai\u002dskill.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d27_092801\u002dintelligence\u002dlayer\u002dbypass\u002dvia\u002dtool\u002dadapter.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_142300\u002ddocument\u002dmigration\u002dmap\u002dbefore\u002ddeleting\u002dlegacy\u002dsurface.md",
+        "knowledge/summaries/test\u002dfirst\u002dframework\u002dupgrade.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d22_092400\u002dtest\u002dfirst\u002dframework\u002dupgrade.md",
+        "knowledge/summaries/context\u002dcost\u002doptimization.md",
+        "knowledge/summaries/knowledge\u002dnavigation.md",
+        "governance/lifecycle/routing\u002dphilosophy.md",
+        "runtime/README.md",
+        "ai\u002dtools/agent\u002donboarding.yaml",
+        "ai\u002dtools/new\u002dproject\u002donboarding.yaml",
+        "runtime/capability\u002dcontext.yaml",
+        "governance/cognitive\u002dstance.md",
+        "runtime/cognitive\u002dmodes.yaml",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_220226\u002dknowledge\u002dupdate\u002dflow\u002dmaster\u002ddoc\u002drequired.md",
+        "knowledge/summaries/development\u002dguidance.md",
+        "workflow/software\u002ddelivery/execution\u002dflow.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d05_194400\u002dcontract\u002dfirst\u002ddevelopment\u002dflow.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d06_083200\u002dimplemented\u002dfirst\u002dcontract\u002dgovernance.md",
+        "knowledge/summaries/requirements\u002dcognition.md",
+        "intelligence/engineering/requirements/README.md",
+        "validation/README.md",
+        "governance/ai\u002druntime\u002dgovernance/cognitive\u002dstate\u002dgovernance.md",
+        "enforcement/conversation\u002dgoal\u002dledger.md",
+        "knowledge/summaries/prompt\u002dcache\u002dalignment.md",
+        "feedback/history/roo\u002dcode/2026\u002d05\u002d25_145500\u002dbootstrap\u002dbypass\u002don\u002dresume.md",
+        "anti\u002dpatterns/README.md",
+        "feedback/history/narrative\u002dvideo\u002dproduction/common/2026\u002d10\u002d02_174015\u002devidence\u002dnon\u002ddestructive\u002dresolution\u002dinvariant.md",
+        "knowledge/summaries/architectural\u002dfit.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d06\u002d08_103300\u002dcomponent\u002dtraceability\u002dmarker\u002ddepth.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d07_154400\u002danalysis\u002dsdk\u002dcontract\u002ddrift\u002dgate.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d07_144300\u002dui\u002droute\u002dbackfill\u002dafter\u002druntime\u002dprobe.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d28_131830\u002druntime\u002dimage\u002dmust\u002dcopy\u002dbaked\u002drepo\u002droot\u002ddata.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d10\u002d15_190000\u002dmutate\u002dthe\u002dlayer\u002dthat\u002ddecides\u002dand\u002dreset\u002dthe\u002dtemplate.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d10\u002d05_171500\u002dland\u002dcancellation\u002don\u002da\u002dchosen\u002ddb\u002dstatement.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d20_130500\u002druntime\u002dh5\u002dexternal\u002dreplay\u002dgate.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d06\u002d18_play\u002dview\u002dkpi\u002dsql\u002dpass\u002ddom\u002dfail\u002dbrowser\u002dgate.md",
+        "knowledge/summaries/legal\u002dworkflow.md",
+        "knowledge/summaries/investment\u002dworkflow.md",
+        "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d10\u002d23_140500\u002dapply\u002dshim\u002donleave\u002dui\u002dmust\u002dcover\u002dall\u002dprocessresult\u002downers.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d06\u002d22_130100\u002dr8\u002dobfuscated\u002dokhttp\u002dresponse\u002dneeds\u002dconverter\u002dhook.md",
+        "feedback/history/apk\u002danalysis/local\u002dproxy/2026\u002d05\u002d13_095200\u002dmulti\u002dlayer\u002dproxy\u002darchitecture\u002dcapture\u002dstrategy.md",
+        "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d14_134900\u002dchoose\u002dcategory\u002dpreview\u002dtexture\u002dis\u002dcomposite\u002dnot\u002dlayer\u002dsprites.md",
+        "feedback/history/legal/common/2026\u002d07\u002d31_064500\u002dsigned\u002dcontract\u002dreview\u002dproduces\u002ddifferent\u002dartifacts.md",
+        "feedback/history/legal/common/2026\u002d07\u002d30_221637\u002dcounterparty\u002dbusiness\u002dscope\u002ddrives\u002dclause\u002dterms.md"
+      ],
+      "raw_sha256": "b146e86c928ff751599dd8248bc7dc7be70d8122c5ea56ba943935b276529a5b",
+      "request_sha256": "dce6c48c32430df314269b12140eb37deeeb59d1e1cff0bf9d29dbfdb7c26fa1",
+      "valid_complete_permutation": true
+    },
+    {
+      "assessments": [
+        {
+          "id": "e2932b9f25e9c2bc",
+          "relation": "direct",
+          "reason": "直接說明以真實瀏覽器 viewport 量測 document、body、app shell、固定導覽與 scroll content 的 computed layout，對應目前橫向溢出驗證。"
+        },
+        {
+          "id": "bc757ad5ed07e8ce",
+          "relation": "background",
+          "reason": "API/SQL 正確仍需 browser DOM 對照，但候選聚焦 KPI 陳舊 view model，並非目前 scrollWidth 溢出。"
+        },
+        {
+          "id": "e4727fa29a21503b",
+          "relation": "background",
+          "reason": "可協助辨識 scrollable regions，但未提供 viewport 橫向溢出量測方法。"
+        },
+        {
+          "id": "f1c40ff4593786e8",
+          "relation": "background",
+          "reason": "涉及頁面滑動抽樣，但目的是辨識 API 來源，不是定位橫向溢出。"
+        }
+      ],
+      "candidate_sources": 64,
+      "confuser_source_ranks": {
+        "feedback/history/development\u002dguidance/common/2026\u002d06\u002d18_play\u002dview\u002dkpi\u002dsql\u002dpass\u002ddom\u002dfail\u002dbrowser\u002dgate.md": 2
+      },
+      "expected_source_ranks": {
+        "feedback/history/development\u002dguidance/common/2026\u002d06\u002d08_141200\u002dbrowser\u002dlayout\u002doverflow\u002dintegration.md": 1
+      },
+      "id": "O02",
+      "ranked_sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d06\u002d08_141200\u002dbrowser\u002dlayout\u002doverflow\u002dintegration.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d06\u002d18_play\u002dview\u002dkpi\u002dsql\u002dpass\u002ddom\u002dfail\u002dbrowser\u002dgate.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_183700\u002dscrollable\u002dclickable\u002dscreen\u002dmapping.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_185921\u002dscroll\u002ddepth\u002dbefore\u002dapi\u002dconclusion.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d01_171650\u002dui\u002darchitecture\u002dmap\u002dfrom\u002dscreenshots.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d11_095600\u002dui\u002dapi\u002dtop\u002ditems\u002dparity.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_202400\u002dpage\u002danalysis\u002drequires\u002dui\u002dmap\u002dartifact.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_205500\u002dui\u002dbehavior\u002dbackfill\u002dfinish\u002dgate.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_184700\u002dscreen\u002dreachability\u002doperation\u002drecipes.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_184900\u002din\u002dapp\u002droute\u002dmap\u002dexternal\u002dtransitions.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_183400\u002dui\u002dautomation\u002doperation\u002dscripts\u002dfor\u002dapi\u002dcapture.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_195200\u002dfeature\u002dreconstruction\u002dhandoff.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_102100\u002dfeature\u002dhandoff\u002dfinish\u002dgate.md",
+        "analysis/web/README.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d06_104300\u002dapi\u002dcatalog\u002dfinish\u002dgate.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d06_081400\u002dauto\u002dapp\u002dguidance\u002dfor\u002dsdk\u002dtools.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_192012\u002dinfinite\u002dscroll\u002dneeds\u002dpagination\u002dproof.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d11_113100\u002dpost\u002dselection\u002dgesture\u002dfor\u002dlazy\u002dapi.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_184218\u002dplayable\u002dlist\u002ditem\u002dstill\u002dneeds\u002ddetail\u002dapi.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_141600\u002dstatic\u002dwaterfall\u002dpath\u002dzero\u002dhit\u002dcheck\u002dshelf\u002dlayout\u002dgating.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d07_125600\u002dapi\u002dfirst\u002dpagination\u002dreplay.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d11_113200\u002dread\u002donly\u002dargument\u002doverride\u002dpreserve\u002dapp\u002dpath.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d11_135000\u002dredacted\u002dsample\u002dtargeting\u002dclassifier.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d01_173800\u002dapi\u002dfield\u002ddocumentation\u002dafter\u002danalysis.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_104000\u002ddetailed\u002dapi\u002dlist\u002dfinish\u002dgate.md",
+        "analysis/apk/workflows/README.md",
+        "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_165800\u002dslot\u002dspin\u002dfixtures\u002dpair\u002djson\u002dmanifest\u002dand\u002dreel\u002dcrop.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_190838\u002drichtext\u002dhtml\u002dimages\u002dare\u002dapi\u002dresources.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d01_171500\u002djson\u002dshape\u002dbefore\u002dquery\u002dshape.md",
+        "feedback/history/apk\u002danalysis/flutter\u002ddart\u002daot/2026\u002d05\u002d01_153437\u002dsequence\u002djsondecode\u002dbefore\u002dapi\u002dresponse.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d15_173000\u002dcategory\u002dapi\u002dreturns\u002dnumeric\u002did\u002dnot\u002ddisplay\u002dname.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d11_135700\u002darticles\u002dfirst\u002dlive\u002dadapter\u002dsmoke.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_142900\u002dwire\u002djson\u002dfield\u002dnames\u002ddiffer\u002dfrom\u002dgson\u002dbean\u002dpaths.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_141500\u002dstatic\u002dlist\u002dendpoint\u002dzero\u002dhit\u002dcheck\u002ddetail\u002dembedded\u002dcatalog.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d06\u002d22_131000\u002dretrofit\u002dgson\u002dfromjson\u002dhook\u002dapi\u002dresponse\u002dplaintext.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d19_161700\u002dallowlisted\u002droute\u002dparam\u002dcapture.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d15_172600\u002dsame\u002dservice\u002dhash\u002dmulti\u002dapi\u002dtype\u002drouting.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d15_172519\u002dquery\u002dstring\u002dlength\u002dinfer\u002dunknown\u002dparam.md",
+        "feedback/history/apk\u002danalysis/local\u002dproxy/2026\u002d07\u002d14_095210\u002dmixed\u002dmitm\u002dads\u002dok\u002dfirstparty\u002dssl\u002dapi\u002dbypass.md",
+        "feedback/history/apk\u002danalysis/local\u002dproxy/2026\u002d06\u002d22_120100\u002dmitm\u002dcdn\u002dvisible\u002dprimary\u002dapi\u002dinvisible\u002dpinning\u002dtier.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_130000\u002din\u002dsession\u002dapi\u002dhost\u002ddiffers\u002dfrom\u002dcold\u002dstart\u002dprimary.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_120200\u002dstatic\u002dktor\u002dstrings\u002dnot\u002ddynamic\u002dbusiness\u002dapi\u002dclient.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_141700\u002dcustom\u002drequest\u002dsignatures\u002dblock\u002dstandalone\u002dsdk\u002duntil\u002dre\u002dor\u002drelay.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_142500\u002dpartial\u002doffline\u002dsign\u002dhmac\u002dsolved\u002drequesttime\u002dsession\u002dremain\u002drelay.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_142700\u002dopaque\u002dapi\u002dblob\u002dnative\u002ddecrypt\u002dsecondary\u002dcompression\u002djson.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_143300\u002dnative\u002ddecrypt\u002dmode\u002dmay\u002dreuse\u002dencrypt\u002dmode\u002dkey\u002dmaterial.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d15_140100\u002ddual\u002dsign\u002dcanonical\u002dh5\u002djson\u002dvs\u002dretrofit\u002dempty\u002dbodystr.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d14_141500\u002drequest\u002dsign\u002dmay\u002dbe\u002dsha256withrsa\u002dpkcs8\u002dheader\u002dconcat.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d14_141700\u002dcrosscheck\u002drequest\u002dsign\u002doffline\u002dvs\u002dinapp\u002dfingerprint.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d14_135220\u002drequest\u002dsign\u002dinterceptor\u002dmay\u002doutnumber\u002dsigner\u002dcalls.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d14_131600\u002drequest\u002dsign\u002dfixed\u002db64\u002dlength\u002dmay\u002dbe\u002drsa\u002dscale.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d19_162800\u002dwire\u002dpath\u002dvs\u002dsigning\u002dcanonical\u002dpath.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_143400\u002dlogin\u002dmay\u002dbootstrap\u002dwith\u002dsentinel\u002duid\u002dsession\u002dheaders.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d15_140000\u002dcold\u002dstart\u002dtoken\u002dmay\u002dcome\u002dfrom\u002dbootstrap\u002dnot\u002dlogin.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d15_140300\u002dbootstrap\u002dbody\u002dmay\u002dcarry\u002danalytics\u002dids\u002dnot\u002ddevice\u002dgaid.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_143500\u002dpaywall\u002dentitlement\u002dmay\u002dbind\u002dto\u002daccount\u002dsession\u002dnot\u002dguest\u002dbootstrap.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d09\u002d01_093500\u002dentitlement\u002dgrant\u002dis\u002dplayable\u002dfield\u002dpresence\u002dnot\u002dclient\u002dflag.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d14_105600\u002dnamed\u002dgetcontentbody\u002ddecrypt\u002dyields\u002dutf8\u002dchapter\u002dplaintext.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d14_131500\u002dondisk\u002dencrypted\u002dchapter\u002dblob\u002dlength\u002dmatches\u002ddecrypt\u002dinput.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d14_112000\u002drsa\u002dpublic\u002dunwrap\u002dto\u002dshort\u002dkey\u002dthen\u002dcontent\u002ddecrypt.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d18_142100\u002dsha256\u002dhash\u002dverify\u002dpython\u002dnot\u002dshell.md",
+        "knowledge/summaries/migration\u002dseeder\u002danti\u002dpatterns.md",
+        "knowledge/glossary/ai\u002dskill.md",
+        "governance/ai\u002druntime\u002dgovernance/five\u002dstep\u002dai\u002dgovernance.md"
+      ],
+      "raw_sha256": "e44a7a93dfc077ec422b6df36f802df129c9d1dfe4eaee33e81841938c11a668",
+      "request_sha256": "c2d0204c2adc0aea6dc7b23f73dc93cb76555b69374e4c20d330f40d6e3f2547",
+      "valid_complete_permutation": true
+    },
+    {
+      "assessments": [
+        {
+          "id": "4b1243d54136b9a8",
+          "relation": "direct",
+          "reason": "直接回答原生模型權重載入崩潰：先比對既有失敗指紋與版本範圍，再做最小隔離驗證。"
+        },
+        {
+          "id": "6b7b284394fb2096",
+          "relation": "background",
+          "reason": "涵蓋 native、crash 靜態取證，但摘要未提供具體案例比對步驟。"
+        },
+        {
+          "id": "6d6c04aeb9f04529",
+          "relation": "background",
+          "reason": "涉及分析工具載入時 SIGSEGV，並非模型權重載入崩潰。"
+        },
+        {
+          "id": "016fff0c09e8ec69",
+          "relation": "not\u002dapplicable",
+          "reason": "討論 agent 模型路由策略，與 native 權重載入失敗不同。"
+        },
+        {
+          "id": "23f82858c3d3021d",
+          "relation": "not\u002dapplicable",
+          "reason": "針對 HLS key 解包；查詢已排除 manifest/key 請求異常。"
+        },
+        {
+          "id": "5f0c5c516ac099ff",
+          "relation": "not\u002dapplicable",
+          "reason": "討論 HLS 播放鏈，非當前 native model 崩潰問題。"
+        }
+      ],
+      "candidate_sources": 49,
+      "confuser_source_ranks": {
+        "feedback/history/development\u002dguidance/common/2026\u002d06\u002d08_141100\u002dblob\u002dmanifest\u002duri\u002drewrite\u002dtest.md": 46
+      },
+      "expected_source_ranks": {
+        "feedback/history/development\u002dguidance/common/2026\u002d10\u002d07_125417\u002dnative\u002dmodel\u002dload\u002dknown\u002dcase\u002dfirst.md": 1
+      },
+      "id": "O03",
+      "ranked_sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d10\u002d07_125417\u002dnative\u002dmodel\u002dload\u002dknown\u002dcase\u002dfirst.md",
+        "analysis/binary/README.md",
+        "feedback/history/apk\u002danalysis/flutter\u002ddart\u002daot/2026\u002d05\u002d01_140900\u002dunflutter\u002daot\u002doffset\u002dhook\u002dafter\u002dblutter\u002dcrash.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d06\u002d22_142000\u002djni\u002ddynamic\u002dregisternatives\u002dno\u002dstandard\u002djava\u002dcom\u002dexport.md",
+        "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_094000\u002dinspect\u002dlive\u002dcryptor\u002dobject\u002dbefore\u002dkey\u002drecovery.md",
+        "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_112200\u002dlive\u002dcipher\u002dmode\u002dfrom\u002dbacking\u002denum\u002dnot\u002dstring\u002dtable.md",
+        "knowledge/summaries/model\u002drouting.md",
+        "models/README.md",
+        "analysis/apk/workflows/README.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_143300\u002dnative\u002ddecrypt\u002dmode\u002dmay\u002dreuse\u002dencrypt\u002dmode\u002dkey\u002dmaterial.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_143200\u002dcustom\u002df3aes\u002dlabel\u002dmay\u002dstill\u002dbe\u002dstandard\u002daes128\u002dcbc\u002dwith\u002drodata\u002dkey\u002div.md",
+        "feedback/history/apk\u002danalysis/flutter\u002ddart\u002daot/2026\u002d05\u002d14_000000\u002ddart\u002dcustom\u002daes\u002d8byte\u002dkey\u002dnot\u002dreproducible.md",
+        "feedback/history/apk\u002danalysis/flutter\u002ddart\u002daot/2026\u002d05\u002d15_094700\u002ddart\u002daot\u002dpool\u002dconstant\u002dpp\u002dpeep\u002dhardcoded\u002dkey.md",
+        "feedback/history/apk\u002danalysis/flutter\u002ddart\u002daot/2026\u002d05\u002d01_142000\u002dexhaustive\u002djava\u002dokhttp\u002dhooks\u002dmay\u002dstill\u002dmiss\u002dflutter\u002dbusiness\u002dhttp.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_142700\u002dopaque\u002dapi\u002dblob\u002dnative\u002ddecrypt\u002dsecondary\u002dcompression\u002djson.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d14_112000\u002drsa\u002dpublic\u002dunwrap\u002dto\u002dshort\u002dkey\u002dthen\u002dcontent\u002ddecrypt.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_143000\u002dencrypt\u002dplaintext\u002dmay\u002dbe\u002dmillis\u002dplus\u002dfingerprint\u002dnot\u002dsurface\u002dseed.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d06\u002d22_141900\u002dcrypto\u002dutil\u002dname\u002dsha256\u002ddoes\u002dnot\u002dimply\u002dplain\u002dsha256.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d06\u002d22_142300\u002dhmac\u002dsha256\u002dper\u002dmode\u002dkeys\u002din\u002dnative\u002drodata.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_141800\u002dokhttp\u002dinterceptor\u002dsorted\u002dmap\u002dcanonical\u002dsign\u002dpattern.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_142100\u002dencrypted\u002drequest\u002dtime\u002ddouble\u002dnative\u002dcall\u002dsecond\u002dvalue\u002din\u002dsign\u002dmap.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_142800\u002dnative\u002dencrypted\u002dtime\u002dgetter\u002dmay\u002dcache\u002dfirst\u002drotates\u002dconsecutive\u002dsame.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_142500\u002dpartial\u002doffline\u002dsign\u002dhmac\u002dsolved\u002drequesttime\u002dsession\u002dremain\u002drelay.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d14_141500\u002drequest\u002dsign\u002dmay\u002dbe\u002dsha256withrsa\u002dpkcs8\u002dheader\u002dconcat.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d14_141700\u002dcrosscheck\u002drequest\u002dsign\u002doffline\u002dvs\u002dinapp\u002dfingerprint.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d07\u002d14_135200\u002dsign\u002dcanonical\u002dstructural\u002dprobe\u002dallowlist\u002dkeys.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d07\u002d14_135210\u002dprove\u002dwire\u002djson\u002dnames\u002dvia\u002djsonreader\u002dnextname.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d06\u002d22_131000\u002dretrofit\u002dgson\u002dfromjson\u002dhook\u002dapi\u002dresponse\u002dplaintext.md",
+        "feedback/history/apk\u002danalysis/flutter\u002ddart\u002daot/2026\u002d05\u002d07_135900\u002ddio\u002drequestoptions\u002duri\u002dkeyset\u002dprobe.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d15_172519\u002dquery\u002dstring\u002dlength\u002dinfer\u002dunknown\u002dparam.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d19_101500\u002dhybrid\u002dnative\u002dshell\u002dplus\u002dembedded\u002dh5\u002dfrida\u002drouting.md",
+        "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d09_112800\u002dunity\u002dui\u002didentity\u002dfrom\u002dloaded\u002dobjects\u002dnot\u002dscreenshot.md",
+        "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d14_082500\u002dunity\u002datlas\u002dmanifest\u002dafter\u002dfrida\u002dsprite\u002dname.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d09\u002d09_094540\u002dprefs\u002dkey\u002dnames\u002don\u002ddevice\u002dwithout\u002dvalues.md",
+        "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_165800\u002dslot\u002dspin\u002dfixtures\u002dpair\u002djson\u002dmanifest\u002dand\u002dreel\u002dcrop.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_172704\u002ddual\u002dtoken\u002dsecurity\u002daudit.md",
+        "knowledge/summaries/dual\u002dtoken\u002daudit.md",
+        "README.md",
+        "runtime/runtime.db",
+        "workflow/documentation/README.md",
+        "knowledge/summaries/context\u002dcost\u002doptimization.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d06\u002d18_play\u002dview\u002dkpi\u002dsql\u002dpass\u002ddom\u002dfail\u002dbrowser\u002dgate.md",
+        "feedback/history/apk\u002danalysis/media\u002dhls/2026\u002d04\u002d30_120007\u002d媒體播放鏈要分控制面\u002d金鑰與資料面.md",
+        "feedback/history/apk\u002danalysis/media\u002dhls/2026\u002d05\u002d06_121650\u002dhls\u002dplaylist\u002dkey\u002dmay\u002dbe\u002dwrapped.md",
+        "feedback/history/apk\u002danalysis/media\u002dhls/2026\u002d05\u002d11_093300\u002dmedia\u002dprefix\u002dmatrix\u002dcdn\u002dstale.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d06\u002d08_141100\u002dblob\u002dmanifest\u002duri\u002drewrite\u002dtest.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d07\u002d17_171500\u002dmpegurl\u002dmaybe\u002dmanaged\u002dmediasource\u002dprefer\u002dhlsjs.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d09\u002d01_093500\u002dentitlement\u002dgrant\u002dis\u002dplayable\u002dfield\u002dpresence\u002dnot\u002dclient\u002dflag.md",
+        "feedback/history/development\u002dguidance/controls/2026\u002d09\u002d01_095200\u002dmedia\u002dentitlement\u002domit\u002dplayable\u002dfields.md"
+      ],
+      "raw_sha256": "6f65bc25e4bc19bfc8970370acb7d1e73322f46962f8ddb789e40a90776e870e",
+      "request_sha256": "5ce7c98177963fcca004b508f54bc08eb1db6b6bc9c05311acfa880a8a750f4b",
+      "valid_complete_permutation": true
+    },
+    {
+      "assessments": [
+        {
+          "id": "a660bb6cc0cb6ef3",
+          "relation": "direct",
+          "reason": "Nested same\u002dpool checkout hang directly calls for checking whether a client remains held across the await."
+        },
+        {
+          "id": "413a535026d93116",
+          "relation": "background",
+          "reason": "now() matters for minimum\u002dage or reset\u002dwindow gates; the query describes descriptive logging rather than an age gate."
+        },
+        {
+          "id": "d06324835aa32c56",
+          "relation": "background",
+          "reason": "Precise cancellation testing concerns database blocking but does not directly diagnose held pool clients."
+        },
+        {
+          "id": "42aaeec2d2fe9708",
+          "relation": "background",
+          "reason": "Generic recovery guidance is secondary to identifying the nested checkout resource hold."
+        }
+      ],
+      "candidate_sources": 57,
+      "confuser_source_ranks": {
+        "feedback/history/development\u002dguidance/common/2026\u002d10\u002d15_120000\u002dnow\u002dis\u002dtransaction\u002dstart\u002duse\u002dclock\u002dtimestamp\u002dfor\u002dage\u002dgates.md": 2
+      },
+      "expected_source_ranks": {
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d30_155700\u002drelease\u002dpool\u002dclient\u002dbefore\u002dnested\u002dcheckout.md": 1
+      },
+      "id": "O04",
+      "ranked_sources": [
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d30_155700\u002drelease\u002dpool\u002dclient\u002dbefore\u002dnested\u002dcheckout.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d10\u002d15_120000\u002dnow\u002dis\u002dtransaction\u002dstart\u002duse\u002dclock\u002dtimestamp\u002dfor\u002dage\u002dgates.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d10\u002d05_171500\u002dland\u002dcancellation\u002don\u002da\u002dchosen\u002ddb\u002dstatement.md",
+        "runtime/runtime.db",
+        "feedback/history/development\u002dguidance/common/2026\u002d10\u002d01_171200\u002dcap\u002drecovery\u002dloops\u002dnever\u002dreset\u002dgate\u002dcounter.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_142100\u002done\u002dshot\u002dwatch\u002dmust\u002dterminate\u002don\u002dits\u002down\u002dcondition.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d07_122800\u002dperformance\u002dtest\u002drelease\u002dgate.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d06\u002d18_play\u002dview\u002dkpi\u002dsql\u002dpass\u002ddom\u002dfail\u002dbrowser\u002dgate.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_101559\u002dbuild\u002dgate\u002dmust\u002drestore\u002dnot\u002donly\u002dbuild.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_135746\u002dgate\u002dthat\u002druns\u002donly\u002dat\u002dcommit\u002dis\u002done\u002dbypass\u002dfrom\u002dgone.md",
+        "knowledge/summaries/migration\u002dfeature\u002dbundling.md",
+        "governance/ai\u002druntime\u002dgovernance/validation\u002dscenario\u002dgovernance.md",
+        "knowledge/summaries/test\u002dfirst\u002dframework\u002dupgrade.md",
+        "governance/lifecycle/knowledge\u002dupdate\u002dflow.yaml",
+        "governance/lifecycle/executable\u002dcontract\u002dboundary.yaml",
+        "knowledge/summaries/executable\u002dcontract\u002dboundary.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_231500\u002dexecutable\u002dcontract\u002dboundary.md",
+        "knowledge/summaries/plan\u002dfirst\u002ddecision\u002dpromotion.md",
+        "knowledge/summaries/prompt\u002dcache\u002dalignment.md",
+        "ai\u002dtools/agent\u002donboarding.yaml",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d06_103200\u002dproduct\u002dbrief\u002dvalidation\u002dgate.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_142000\u002dderived\u002dclosure\u002dmust\u002dnot\u002dexpand\u002dits\u002down\u002dderivation\u002dtable.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d04_140100\u002dindex\u002dlink\u002dgate\u002dmust\u002daccept\u002dthe\u002dresolvable\u002dform.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_154500\u002ddomain\u002druntime\u002dbaseline\u002dfinish\u002dgate.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d08_141430\u002didentity\u002dmaterial\u002dself\u002dgeneration\u002daudit.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d07_152100\u002dprivate\u002dlive\u002dadapter\u002dsmoke\u002dgate.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d07_154400\u002danalysis\u002dsdk\u002dcontract\u002ddrift\u002dgate.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d11_093100\u002dpublic\u002dmirror\u002ddrift\u002dgate.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d20_130500\u002druntime\u002dh5\u002dexternal\u002dreplay\u002dgate.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d19_163600\u002dh5\u002dbundle\u002dparameter\u002dcodec\u002dreadiness\u002dgate.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d09\u002d01_093500\u002dentitlement\u002dgrant\u002dis\u002dplayable\u002dfield\u002dpresence\u002dnot\u002dclient\u002dflag.md",
+        "feedback/history/development\u002dguidance/controls/2026\u002d05\u002d01_142100\u002dclient\u002dencrypted\u002dheader\u002dnot\u002dboundary.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d06\u002d22_120200\u002dstatic\u002dktor\u002dstrings\u002dnot\u002ddynamic\u002dbusiness\u002dapi\u002dclient.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d04\u002d30_120001\u002d冷啟動比\u002dattach\u002d更適合抓初始化與代理設定.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_090100\u002dfrida\u002d17\u002djailed\u002dandroid\u002dgadget\u002dgate.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_113302\u002ddart\u002daot\u002doffset\u002dfrom\u002dasm\u002daddress.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d19_160900\u002dwebview\u002dh5\u002dshort\u002dwindow\u002drequest\u002dobserved\u002dgate.md",
+        "feedback/history/apk\u002danalysis/flutter\u002ddart\u002daot/2026\u002d05\u002d15_094700\u002ddart\u002daot\u002dpool\u002dconstant\u002dpp\u002dpeep\u002dhardcoded\u002dkey.md",
+        "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d24_141900\u002dslot\u002ddevice\u002dui\u002dharvest\u002dvia\u002downed\u002dcryptor\u002dlab\u002dgateway.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d07\u002d14_171000\u002dpairip\u002dapplication\u002dlicenseactivity\u002dcold\u002dstart\u002dplay\u002dgate.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d06_104300\u002dapi\u002dcatalog\u002dfinish\u002dgate.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_104000\u002ddetailed\u002dapi\u002dlist\u002dfinish\u002dgate.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d05\u002d05_205500\u002dui\u002dbehavior\u002dbackfill\u002dfinish\u002dgate.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d06_102100\u002dfeature\u002dhandoff\u002dfinish\u002dgate.md",
+        "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_112201\u002dclient\u002dil2cpp\u002dmay\u002dembed\u002dunused\u002dserver\u002dfactory\u002dtypes.md",
+        "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_152200\u002dnested\u002ddto\u002dctors\u002dmay\u002dsit\u002dbefore\u002dafter\u002dparse\u002dnot\u002dapply.md",
+        "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_151000\u002dparse\u002dmay\u002dconstruct\u002dwrapper\u002dnot\u002dnested\u002ddtos.md",
+        "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_154000\u002dnested\u002ddto\u002dmay\u002dfill\u002dvia\u002dctor\u002dwithout\u002dparse.md",
+        "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_153400\u002dnested\u002ddtos\u002dmay\u002dhave\u002down\u002dparse\u002dbeside\u002dwrapper.md",
+        "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_154800\u002dwrapper\u002dextras\u002dmay\u002dbe\u002dctor\u002dinvoke\u002dclone\u002dnot\u002dparseall.md",
+        "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_143200\u002delements\u002diterator\u002dcurrent\u002dmay\u002dbe\u002dnested\u002dxelement\u002dctor.md",
+        "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_142800\u002dparse\u002dxcontainer\u002delement\u002dretval\u002dmay\u002dbe\u002dnested\u002dctor\u002dnot\u002dload\u002dtree.md",
+        "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d08_144000\u002dnested\u002delement\u002dattribute\u002dmay\u002dnot\u002dshare\u002dload\u002dtree\u002dxattribute.md",
+        "feedback/history/apk\u002danalysis/unity\u002dil2cpp/2026\u002d09\u002d14_163000\u002dslot\u002dcollapse\u002doften\u002dsingle\u002dresult.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d30_154100\u002dcaption\u002dtemporal\u002dintegrity\u002dmechanical\u002dtiming\u002dgate.md",
+        "feedback/history/narrative\u002dvideo\u002dproduction/common/2026\u002d10\u002d14_123700\u002dfil\u002dphrase\u002dpolarity\u002dnot\u002dscript\u002dgate.md",
+        "feedback/history/image\u002dprocessing/common/2026\u002d10\u002d16_132758\u002dregular\u002dpanel\u002dgrid\u002dmid\u002dgutter\u002dcuts.md"
+      ],
+      "raw_sha256": "e65a6eb0e483d29cc455264221a3d7c1565c9174dc07ec703bac4e2250c41065",
+      "request_sha256": "56114f143601e9a3075691d9d8e6153cfac71a0e493045e9421c1760d73f9785",
+      "valid_complete_permutation": true
+    },
+    {
+      "assessments": [
+        {
+          "id": "6b0c109f2f0e7cbe",
+          "relation": "direct",
+          "reason": "Addresses finding the application's actual session reacquisition flow without assuming refresh\u002dtoken support."
+        },
+        {
+          "id": "2d91264442a43a7a",
+          "relation": "direct",
+          "reason": "Identifies a possible session bootstrap path distinct from a login POST."
+        },
+        {
+          "id": "6335e850336a08eb",
+          "relation": "background",
+          "reason": "Reset conditions can alter the authentication packet flow being observed."
+        },
+        {
+          "id": "3dc87e3d78b28b3b",
+          "relation": "background",
+          "reason": "Offers token\u002dsetting observation hooks useful for tracing session reacquisition."
+        },
+        {
+          "id": "86e98c8bb6c7e642",
+          "relation": "not\u002dapplicable",
+          "reason": "Discovery refresh advice is conditional on refused or unreachable peers, which the query explicitly excludes."
+        },
+        {
+          "id": "b6aed532113f75c4",
+          "relation": "background",
+          "reason": "Token\u002dflow auditing can contextualize authentication mechanisms but supplies no reauthorization procedure."
+        },
+        {
+          "id": "f46e60fb6a83c90c",
+          "relation": "not\u002dapplicable",
+          "reason": "Ciphertext prefix variation does not address revoked authorization recovery."
+        },
+        {
+          "id": "068d72f991050c9e",
+          "relation": "not\u002dapplicable",
+          "reason": "Concerns OCR discovery rather than authentication or peer discovery."
+        }
+      ],
+      "candidate_sources": 23,
+      "confuser_source_ranks": {
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d15_012600\u002dstale\u002dpeer\u002drefused\u002drefresh\u002dnot\u002dfail\u002djob.md": 5
+      },
+      "expected_source_ranks": {},
+      "id": "O06",
+      "ranked_sources": [
+        "feedback/history/apk\u002danalysis/common/2026\u002d04\u002d30_120005\u002dsession\u002drefresh\u002d要還原\u002dapp\u002d的真實登入\u002d裝置流程.md",
+        "feedback/history/apk\u002danalysis/http\u002dapi/2026\u002d07\u002d15_140000\u002dcold\u002dstart\u002dtoken\u002dmay\u002dcome\u002dfrom\u002dbootstrap\u002dnot\u002dlogin.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d09\u002d09_094550\u002dreset\u002dlevel\u002dmay\u002dchange\u002dlogin\u002dpacket\u002dclass.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d07\u002d15_140400\u002dhttpglobal\u002dheader\u002dsetter\u002dhook\u002dfor\u002dtoken\u002dwhen\u002dokhttp\u002dintrospect\u002dfails.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d09\u002d15_012600\u002dstale\u002dpeer\u002drefused\u002drefresh\u002dnot\u002dfail\u002djob.md",
+        "knowledge/summaries/dual\u002dtoken\u002daudit.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d21_172704\u002ddual\u002dtoken\u002dsecurity\u002daudit.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d05\u002d18_172200\u002dflutter\u002djava\u002dhybrid\u002dsecurity\u002darchitecture\u002doverview.md",
+        "feedback/history/apk\u002danalysis/common/2026\u002d09\u002d09_094540\u002dprefs\u002dkey\u002dnames\u002don\u002ddevice\u002dwithout\u002dvalues.md",
+        "feedback/history/apk\u002danalysis/flutter\u002ddart\u002daot/2026\u002d05\u002d14_081500\u002dprefix\u002dsession\u002dspecific\u002dnot\u002ddevice\u002dspecific.md",
+        "feedback/history/apk\u002danalysis/flutter\u002ddart\u002daot/2026\u002d05\u002d14_081500\u002dprefix\u002dvaries\u002dwithin\u002dsession.md",
+        "knowledge/summaries/requirements\u002dcognition.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d10\u002d01_152600\u002docr\u002dprobe\u002dis\u002ddiscovery\u002dnot\u002dexclusion.md",
+        "knowledge/runtime/routing\u002dregistry.yaml",
+        "knowledge/summaries/knowledge\u002dnavigation.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d05\u002d18_160000\u002dregistry\u002dfirst\u002dworkflow\u002dactivation.md",
+        "runtime/cognitive\u002dmodes.yaml",
+        "governance/lifecycle/knowledge\u002dupdate\u002dflow.yaml",
+        "governance/ai\u002druntime\u002dgovernance/context\u002dattention\u002dgovernance.md",
+        "knowledge/summaries/prompt\u002dcache\u002dalignment.md",
+        "knowledge/summaries/context\u002dcost\u002doptimization.md",
+        "workflow/documentation/README.md",
+        "feedback/history/development\u002dguidance/common/2026\u002d10\u002d01_090000\u002docr\u002djoin\u002dtoken\u002dseam\u002dnot\u002dcumulative\u002dscript.md"
+      ],
+      "raw_sha256": "d11d59e8f373d5cb556c9979d0b96946cca857ffe93714663e10148d44174b2b",
+      "request_sha256": "fdc9fe34db89b95666637ceede6d06006511f1308232bba26090e6d386673262",
+      "valid_complete_permutation": true
+    }
+  ],
+  "pool_file_sha256": "d8051af3b5c9be38e891fdd899e13176511f714dfc71457fb6cd104d7d49a801",
+  "rank_field": "original v1 bm25 score retained; array order is semantic ranking, no semantic score invented",
+  "schema_version": 1,
+  "scorer_revision": "bcb730451a89e6f533623761124dfaec075ddadc",
+  "scorer_source_sha256": "1c54d3bc0b80da0a33aa4214b46329d665454c2460e55129c1fb03049aa544d6",
+  "semantic_manifest_sha256": "d7ef1f03eab75af022092cb722ac20731e789edcf317f82835e54f2316fa6c66",
+  "timing_gate": "not passed: continuation gap in outer observations; inference latency unavailable",
+  "token_usage": "unavailable"
+}

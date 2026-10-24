@@ -144,7 +144,7 @@ Phase 1 審核補充（2026-10-24）：[phase1-audit.md](evidence/phase1-audit.m
 
 ## Phase 2 — 補既有全文搜尋、metadata 與關聯查找
 
-v3 先按 [固定候選協議](evidence/phase2-v3-protocol.md) 分離 pool、選擇與 packer，再準備 [6 題語意排序 pilot 成本契約](evidence/phase2-v3-semantic-contract.md)。已完成 26 題固定池與 156 組離線比較，見 [v3 preflight](evidence/phase2-v3-preflight.md)：S0 + full 多筆為 14/14、≤1982 runes，但 confuser 仍 6/6。焦點／否定／排序失敗已有證據，可測 reranking，不以向量搜尋或 Phase 2 通過為前提；只作曝光資料診斷。六份語意 requests 已備；使用者已選現有 agent／subagent runner，按 [agent runner 協議](evidence/phase2-v3-agent-runner.md) 準備六個 fresh context 診斷。額外 API 非必要且本輪不選；模型／usage 不可得欄位明列，不以美元方案阻擋此 runner。
+v3 先按 [固定候選協議](evidence/phase2-v3-protocol.md) 分離 pool、選擇與 packer，再準備 [6 題語意排序 pilot 成本契約](evidence/phase2-v3-semantic-contract.md)。已完成 26 題固定池與 156 組離線比較，見 [v3 preflight](evidence/phase2-v3-preflight.md)：S0 + full 多筆為 14/14、≤1982 runes，但 confuser 仍 6/6。焦點／否定／排序失敗已有證據，可測 reranking，不以向量搜尋或 Phase 2 通過為前提；只作曝光資料診斷。六份語意 requests 已備；使用者已選現有 agent／subagent runner，按 [agent runner 協議](evidence/phase2-v3-agent-runner.md) 完成六個 fresh context 診斷，見 [agent pilot](evidence/phase2-v3-agent-pilot.md)：5/5 指定正向、2/4 confuser，ranking-only 品質仍失敗，時間監測未證明受控；不可得 usage 明列。額外 API 非必要且本輪不選；模型／usage 不可得欄位明列，不以美元方案阻擋此 runner。
 
 v1 結果：B0 / Q / E / QE 診斷命中 1 / 13 / 3 / 14（各 /14）；Q / QE overlap confuser 均 6/6、preview 超額，故候選未採用且 Phase 2 gate 未通過。逐題產物與審閱待辦見 [phase2-v1-ablation.md](evidence/phase2-v1-ablation.md)。v2 已按 [phase2-v2-protocol.md](evidence/phase2-v2-protocol.md) 完成最終輸出重評：QE diagnostic 12/14、overlap 正向 3/5 / confuser 3/6，成本通過但品質仍失敗，見 [phase2-v2-ablation.md](evidence/phase2-v2-ablation.md)。下一輪處理問題焦點與已排除前提，保留排序退步及 shortlist 損失。v1 已拒收，不再為結清而要求完整審完其 191 rows；準備採用的版本仍須完成審閱。保留 v1 證據與原門檻，不導入 vector。
 

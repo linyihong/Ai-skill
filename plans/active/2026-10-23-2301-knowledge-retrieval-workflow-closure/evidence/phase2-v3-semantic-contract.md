@@ -1,6 +1,6 @@
 # v3 小範圍語意重排序 — 執行與成本契約
 
-狀態：**existing-agent runner authorized / pilot pending**。使用者本輪已授權現有 agent／subagent 執行語意選擇，無須另購 API。優先採不繼承本對話的新 subagent；原額外 API 方案保留為選項，不是 RAG 必要成本。本契約不批准採購、帳號或向量 DB。
+狀態：**existing-agent pilot executed / quality and timing gates not passed**。使用者本輪已授權現有 agent／subagent 執行語意選擇，無須另購 API。優先採不繼承本對話的新 subagent；原額外 API 方案保留為選項，不是 RAG 必要成本。本契約不批准採購、帳號或向量 DB。執行結果見 [agent pilot](phase2-v3-agent-pilot.md)，既定界線不因結果而放寬。
 
 ## 問題與輸入邊界
 
