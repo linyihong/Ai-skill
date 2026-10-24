@@ -19,3 +19,4 @@
 | phase2-v3-protocol | [phase2-v3-protocol.md](phase2-v3-protocol.md) | frozen offline design | 固定 broad-64 pool；排序與兩種 packer 分開比較，不預設 top1 |
 | phase2-v3-semantic-contract | [phase2-v3-semantic-contract.md](phase2-v3-semantic-contract.md) | prepared / execution pending | 6 題語意排序 pilot，模型／tokenizer／價格與傳送方案待確認；尚無外呼 |
 | phase2-v3-preflight | [phase2-v3-preflight.md](phase2-v3-preflight.md) | offline measured / semantic pending | 26 固定 pool、156 分離比較；多筆 full 可保留命中但 confuser 6/6；六份 label-free requests 與成本契約待執行 |
+| phase2-v3-agent-runner | [phase2-v3-agent-runner.md](phase2-v3-agent-runner.md) | authorized / before dispatch | 六個 fork-none subagents、單題 request 隔離；保留原始輸出與不可得 usage，不另購 API |
