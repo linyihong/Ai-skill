@@ -1,4 +1,4 @@
-version=repo-f9570120
-source_commit=f9570120
-built_at=2026-10-24T13:00:14Z
+version=repo-62bf1ae2
+source_commit=62bf1ae2
+built_at=2026-10-24T14:24:17Z
 targets=windows/amd64,darwin/amd64,darwin/arm64,linux/amd64,linux/arm64
