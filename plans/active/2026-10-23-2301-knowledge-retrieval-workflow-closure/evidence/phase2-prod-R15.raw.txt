@@ -1,0 +1,1 @@
+{"selected":["1e577a2833c6ea8d"],"assessments":[{"id":"1e577a2833c6ea8d","relation":"direct","reason":"直接回答正式機版本能否只憑 git tag 或口頭說明判定，指出應以部署狀態讀回及 repo 帳本為依據。","need_to_read":"讀取該來源對部署狀態讀回、repo 帳本與 git tag 關係的規定，以及適用範圍。"}],"unknown_action":"讀回所選來源確認判定原則；目前未提供特定正式機、部署帳本或實際讀回證據，因此不能判定正式機正在執行的具體版本。"}

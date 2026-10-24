@@ -1,0 +1,1 @@
+{"selected":["617079c1a98e3815"],"assessments":[{"id":"617079c1a98e3815","relation":"direct","reason":"直接處理 manifest 轉成 blob: URL 後相對 segment URI 的解析與絕對 URL rewrite，符合問題焦點。","need_to_read":"讀取原始 manifest URL 如何作為解析基準、哪些 URI 需要 rewrite，以及 helper 測試涵蓋的相對 segment URL 情境。"}],"unknown_action":"優先讀取此來源；尚缺實際 manifest、原始下載 URL、播放器與失敗請求，不能僅憑摘要確認個案根因或具體修正位置。"}

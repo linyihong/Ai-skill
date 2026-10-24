@@ -1,0 +1,1 @@
+{"selected":["f6fb957cf968e76c"],"assessments":[{"id":"f6fb957cf968e76c","relation":"direct","reason":"直接涵蓋持有 DB pool client 時 await 同一 pool 的 nested checkout，滿載後卡死且 soft reconcile 無法清除的情境。","need_to_read":"讀取此來源的 client 釋放順序與 nested checkout 呼叫路徑，核對目前程式是否跨 await 持有同一 pool 的 client。"}],"unknown_action":"優先讀取所選來源並核對實際 pool 與呼叫路徑；目前尚無程式碼或執行證據，不能確定此案例確由同一 pool 的巢狀 checkout 造成。"}

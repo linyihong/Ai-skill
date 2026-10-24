@@ -1,0 +1,129 @@
+{
+  "scope": "separate controlled failures, excluded from 26 quality attempts",
+  "binary_sha256": "62034e14687d363c958b29c5cc89ab111b7a5cf5f95438f27e32ab4bb43abbba",
+  "timeout": {
+    "watcher": {
+      "selection_watch": {
+        "state": "timeout",
+        "runner_handle": "/root/select_f24e76f6bc79f2c3",
+        "request_sha256": "6babd4ba13ba29bfb0ac5bfa461ad61a6fafb1793cfceda093d1addd3a50230e",
+        "elapsed_ms": 501,
+        "interrupt_required": true,
+        "interrupt_confirmed": false,
+        "usage": {
+          "availability": "unavailable",
+          "input_tokens": null,
+          "output_tokens": null
+        }
+      },
+      "command": "runtime selection-watch",
+      "mode": "native",
+      "status": "blocked",
+      "exit_code": 30,
+      "checks": [],
+      "planned_actions": [],
+      "mutations": [],
+      "error": {
+        "code": "timeout",
+        "message": "response deadline exceeded; child termination is not confirmed",
+        "remediation": "Interrupt the adapter-owned child, confirm termination, preserve this receipt; do not retry or use fallback silently."
+      }
+    },
+    "no_response_before_late_fixture": true,
+    "late_valid_json_is_synthetic": true,
+    "interrupt_tool": {
+      "target": "/root/select_f24e76f6bc79f2c3",
+      "result": {
+        "previous_status": "running"
+      }
+    },
+    "interrupt_readback": {
+      "agent_name": "/root/select_f24e76f6bc79f2c3",
+      "agent_status": "interrupted"
+    },
+    "complete_exit": 30,
+    "complete": {
+      "command": "runtime lookup complete",
+      "mode": "native",
+      "status": "blocked",
+      "exit_code": 30,
+      "checks": [],
+      "planned_actions": [],
+      "mutations": [],
+      "error": {
+        "code": "lookup_complete_failed",
+        "message": "missing or mismatched successful watcher receipt",
+        "remediation": "Preserve the failed attempt; resolve input/freshness/runner failure explicitly. No fallback or silent retry."
+      }
+    }
+  },
+  "invalid_output": {
+    "synthetic": true,
+    "watcher": {
+      "selection_watch": {
+        "state": "invalid_output",
+        "runner_handle": "controlled-fixture-producer",
+        "request_sha256": "affc3bc7f5b598b37b5894a02d193c25c887889fa760d915261602ca611259af",
+        "response_sha256": "03e72d6801b3d5b7270fc87e411d5c3699a1feba77067fd2f5ab660ced8047d9",
+        "elapsed_ms": 6,
+        "interrupt_required": true,
+        "interrupt_confirmed": false,
+        "usage": {
+          "availability": "unavailable",
+          "input_tokens": null,
+          "output_tokens": null
+        }
+      },
+      "command": "runtime selection-watch",
+      "mode": "native",
+      "status": "blocked",
+      "exit_code": 30,
+      "checks": [],
+      "planned_actions": [],
+      "mutations": [],
+      "error": {
+        "code": "invalid_output",
+        "message": "missing fields or too many assessments",
+        "remediation": "Interrupt the adapter-owned child, confirm termination, preserve this receipt; do not retry or use fallback silently."
+      }
+    },
+    "complete_exit": 30,
+    "complete": {
+      "command": "runtime lookup complete",
+      "mode": "native",
+      "status": "blocked",
+      "exit_code": 30,
+      "checks": [],
+      "planned_actions": [],
+      "mutations": [],
+      "error": {
+        "code": "lookup_complete_failed",
+        "message": "missing or mismatched successful watcher receipt",
+        "remediation": "Preserve the failed attempt; resolve input/freshness/runner failure explicitly. No fallback or silent retry."
+      }
+    },
+    "producer_finished": true
+  },
+  "source_change": {
+    "scope": "isolated corpus copy; reused valid quality response solely as a controlled fixture, not a fresh quality attempt",
+    "source": "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md",
+    "source_before_sha256": "7b8b5f569fabffb67b12a78d3241e7a8eec5c9bb0b518ed7b16515dc4d90834d",
+    "source_after_sha256": "2a8d22602c9275766b7590cef03589fac4970bb2aac636a7c857c61b5ff75d9a",
+    "prefix_complete_succeeded": true,
+    "complete_exit": 30,
+    "complete": {
+      "command": "runtime lookup complete",
+      "mode": "native",
+      "status": "blocked",
+      "exit_code": 30,
+      "checks": [],
+      "planned_actions": [],
+      "mutations": [],
+      "error": {
+        "code": "lookup_complete_failed",
+        "message": "stale index input: source:feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md",
+        "remediation": "Preserve the failed attempt; resolve input/freshness/runner failure explicitly. No fallback or silent retry."
+      }
+    }
+  }
+}

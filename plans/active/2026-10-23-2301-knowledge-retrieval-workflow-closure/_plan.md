@@ -10,7 +10,7 @@ owner_layer: knowledge
 
 # 既有知識檢索與 Workflow 採用閉環強化
 
-**Status**: `in-progress`。Phase 0 盤點完成，證據見 [phase0-inventory.md](evidence/phase0-inventory.md)；Phase 1 已按「歷史 lesson 檢索基準」縮限核對通過；原完整範圍的剩餘責任見下表。Phase 2 前執行控制見 [phase2-execution-contract.md](evidence/phase2-execution-contract.md)；Q / E / QE v1 及 v2 對照已完成，候選品質均未通過；v2 成本受控但 confuser 仍 3/6，見 [v2 實驗報告](evidence/phase2-v2-ablation.md)；未採用到 production。Production source-level 本文／metadata／freshness 與 watcher 工程已實作，見 [engineering](evidence/phase2-engineering.md)；歷史 lesson candidate-to-selection 與採用 consumer 尚未接入。
+**Status**: `in-progress`。Phase 0 盤點完成，證據見 [phase0-inventory.md](evidence/phase0-inventory.md)；Phase 1 已按「歷史 lesson 檢索基準」縮限核對通過；原完整範圍的剩餘責任見下表。Phase 2 前執行控制見 [phase2-execution-contract.md](evidence/phase2-execution-contract.md)；Q / E / QE v1 及 v2 對照已完成，候選品質均未通過；v2 成本受控但 confuser 仍 3/6，見 [v2 實驗報告](evidence/phase2-v2-ablation.md)；未採用到 production。Phase 2 已通過縮限凍結診斷與工程驗收，見 [production E2E](evidence/phase2-production-wiring.md)：實際 production pool 的 26 次 fresh attempts，23/23、MRR .971014、final confuser 0/6、完整 payload ≤1622 runes；Phase 3 適用性與 workflow 採用 consumer 仍未接入。
 
 目標：讓既有 intelligence、決策與失敗經驗更穩定地被找到，經來源與適用性確認後支援 workflow。先改善現有能力，再用漏找證據決定是否加入向量搜尋與 reranking。
 
@@ -144,13 +144,13 @@ Phase 1 審核補充（2026-10-24）：[phase1-audit.md](evidence/phase1-audit.m
 
 ## Phase 2 — 補既有全文搜尋、metadata 與關聯查找
 
-- [x] Production `lookup index/prepare/complete` 已接上既有 watcher／selector schema／P0 packer；本機 failure／identity 邊界測試通過。新的實際候選集合與完整凍結驗收仍待 [production E2E](evidence/phase2-production-wiring.md) release replay，不能沿用 fixed pool 成績。
+- [x] Production `lookup index/prepare/complete` 已接上既有 watcher／selector schema／P0 packer；本機 failure／identity 邊界測試通過。新的實際候選集合已由 [production E2E](evidence/phase2-production-wiring.md) release replay 通過凍結驗收；沒有沿用 fixed pool 成績。
 
 依最新審閱結束曝光資料上的 selector 方法探索。新增 [engineering](evidence/phase2-engineering.md)：七份 intelligence 正文覆蓋、canonical metadata、source-level freshness／dedup、bounded graph 與正式 file-response watcher。Timeout→host interrupt 已實測；正式 binary intelligence replay 為 7/7、MRR 1、21 次 warm p95 約124ms；full Go／targeted race／binary parity 已通過，[兩次 CI](evidence/phase2-engineering-ci.json) 的 Linux／macOS／Windows／artifact build 均通過。這些工程驗證不代替完整候選品質或 consumer 採用 gate。
 
 - [x] 選定 intelligence body 的 source-level 索引能力與 fixture coverage；七份 source-specific probes 已凍結，release replay 7/7、MRR 1，見 engineering 產物。
 - [x] Source-level build／refresh／edit／add／delete／move／stale／missing metadata/index／deterministic rebuild／failed-build preservation fixtures 通過；舊 atom 查詢不冒稱 freshness 保證。
-- [x] 正式 file-response watcher 的 deadline／invalid response／request mutation／usage unavailable 與零值邊界已測；實際非回應 child 的 timeout→host interrupt readback 留存。Production orchestrator 接線仍未驗收。
+- [x] 正式 file-response watcher 的 deadline／invalid response／request mutation／usage unavailable 與零值邊界已測；實際非回應 child 的 timeout→host interrupt readback 留存。Production prepare→fresh agent→watcher→complete 已重播；實際 timeout→parent interrupt→state readback 與 late-response 拒絕另有受控證據。
 
 已依 [blind selector 協議](evidence/phase2-blind-selector-protocol.md) 完成 [26 個 fresh gold-blind attempts](evidence/phase2-blind-selector.md)：23/23 指定來源、MRR .956522、selected confuser 0/6（retrieved 6/6）、含 need_to_read 的完整 message ≤1558 runes；沒有 retry／摘要截短。O06 正確保留 unknown；21 題補讀目的可由正文支持，R11／O03 仍需來源專案證據。連續觀測無缺口，但推論 latency／usage、timeout interrupt 負例、production selector／consumer 未驗收；Phase 2 未完成。
 
@@ -165,15 +165,17 @@ v3 先按 [固定候選協議](evidence/phase2-v3-protocol.md) 分離 pool、選
 v1 結果：B0 / Q / E / QE 診斷命中 1 / 13 / 3 / 14（各 /14）；Q / QE overlap confuser 均 6/6、preview 超額，故候選未採用且 Phase 2 gate 未通過。逐題產物與審閱待辦見 [phase2-v1-ablation.md](evidence/phase2-v1-ablation.md)。v2 已按 [phase2-v2-protocol.md](evidence/phase2-v2-protocol.md) 完成最終輸出重評：QE diagnostic 12/14、overlap 正向 3/5 / confuser 3/6，成本通過但品質仍失敗，見 [phase2-v2-ablation.md](evidence/phase2-v2-ablation.md)。下一輪處理問題焦點與已排除前提，保留排序退步及 shortlist 損失。v1 已拒收，不再為結清而要求完整審完其 191 rows；準備採用的版本仍須完成審閱。保留 v1 證據與原門檻，不導入 vector。
 
 - [x] 依 [執行控制契約](evidence/phase2-execution-contract.md) 先跑固定 corpus 的 B0 / query-only / extraction-only / combined 對照：顯式 query binary 路徑 / SHA、index manifest、generator revision / source SHA、index inputs / corpus SHA；四組配對 validator 必須通過，逐題記錄增益與成本；新增正文另組實驗，不混入 extraction-only。對照組與資料獨立性規則見 Phase 1 審核包。
-- [ ] 以另版 [overlap-controls-v1.json](evidence/overlap-controls-v1.json) 約束查詢放寬：selected-output 已標 confuser 命中 0，retrieved 原值另報；準備輸出來源逐筆覆核，未選候選保留數量與追查入口。依使用者最新審閱明確取代原全池覆核要求：unknown 可為合理終態，須結清處置而非逐筆清零，不以 8/14 單獨證明有用。
-- [ ] 依 Phase 1 原因補索引覆蓋與查詢處理，保留精確識別字搜尋；正文擴充只涵蓋選定 workflow、intelligence、決策與整理後知識，不預設索引所有 raw evidence。
-- [ ] 若需 chunk，保留 stable source identity、section anchor、source revision / checksum；重複命中按來源合併，避免一篇文件占滿 top-k。
+- [x] 以另版 [overlap-controls-v1.json](evidence/overlap-controls-v1.json) 約束查詢放寬：selected-output 已標 confuser 命中 0，retrieved 原值另報；準備輸出來源逐筆覆核，未選候選保留數量與追查入口。依使用者最新審閱明確取代原全池覆核要求：unknown 可為合理終態，須結清處置而非逐筆清零，不以 8/14 單獨證明有用。
+- [x] 依 Phase 1 原因補索引覆蓋與查詢處理，保留精確識別字搜尋；正文擴充只涵蓋選定 workflow、intelligence、決策與整理後知識，不預設索引所有 raw evidence。
+- [x] 本輪無需新增 chunk；保留 stable source path / checksum，source-level 去重；若後續加 chunk，須另保留 section anchor 與版本，不讓單篇占滿 top-k。
 - [x] 重用 canonical domain / scope / status / supersession 欄位；硬限制只用明確適用條件，缺欄位顯示 unknown，避免過濾造成靜默漏找。
 - [x] 重用既有 graph lookup，有界展開來源、依賴與相關決策；記錄 edge 類型與深度，不推定 relation 等於支持或授權。
 - [x] 回傳來源、命中理由、版本 / freshness、適用性待查事項與回讀入口；相關性分數和可信 / 適用性欄位分開。
-- [ ] 驗證建立、refresh、修改、刪除、搬移、stale、缺 metadata、缺索引、rebuild 與 deterministic ordering；用 Phase 1 固定資料比較。
+- [x] 驗證建立、refresh、修改、刪除、搬移、stale、缺 metadata、缺索引、rebuild 與 deterministic ordering；用 Phase 1 固定資料比較。
 
 Gate：通過縮限後凍結的檢索層 acceptance、產物矩陣核對與候選審閱 gate；Phase 2 成本上限明確是 ≤ 2000 runes 代理值，不宣稱實際 tokens 已驗收。採用層保持 `not evaluated`，留待 Phase 3；cache 可從 canonical source 重建；不得修改 canonical 結論來讓 benchmark 通過。
+
+最新結論：上述歷史失敗／fixed-pool 結果原樣保留；本輪以新 production 候選完成完整凍結驗收（23/23、0/6、≤1622 runes、28 份輸出逐筆讀回、usage unavailable 明列、timeout／invalid／來源變動 fail closed）。Phase 2 縮限 gate 完成，非獨立泛化、實際 tokens 或採用通過。見 [production 報告](evidence/phase2-production-wiring.md)。
 
 ## Phase 3 — 接入 Workflow 採用流程與條件式 Bridge 調整
 
@@ -198,7 +200,7 @@ Gate：通過採用層 acceptance；未實際評估項目不得填 0。至少兩
 
 ## Stakeholder 同意項目
 
-使用者已要求撰寫計畫並提供五點審閱補強，方向為修訂後進入 Phase 0；已依後續分段執行要求完成 Phase 0 盤點；已建立 Phase 1 基準版；production 搜尋 implementation 尚未開始。執行啟動時需確認首批 workflow、基準資料與成本 budget；涉及外部模型傳送資料或付費服務時另行確認具體方案。Phase 4 是條件式選項，不是預先採購或導入承諾。
+使用者已要求撰寫計畫並提供五點審閱補強，方向為修訂後進入 Phase 0；已依後續分段執行要求完成 Phase 0 盤點；已建立 Phase 1 基準版；production 搜尋 implementation 與縮限 Phase 2 驗收已完成，下一階段為 Phase 3 consumer／適用性與採用。執行啟動時需確認首批 workflow、基準資料與成本 budget；涉及外部模型傳送資料或付費服務時另行確認具體方案。Phase 4 是條件式選項，不是預先採購或導入承諾。
 
 ## 完成條件
 

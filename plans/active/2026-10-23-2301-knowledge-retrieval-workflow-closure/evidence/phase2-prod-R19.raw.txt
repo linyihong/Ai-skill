@@ -1,0 +1,1 @@
+{"selected":[],"assessments":[],"unknown_action":"The candidate pool is empty and the query provides no interpretable task context; obtain the intended task and relevant candidate sources before selecting knowledge."}

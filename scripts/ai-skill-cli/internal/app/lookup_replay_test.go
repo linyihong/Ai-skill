@@ -308,3 +308,43 @@ func TestLookupReplayComplete(t *testing.T) {
 		t.Fatal("binary changed")
 	}
 }
+
+// Export exactly the compact Go JSON object counted by the production packer,
+// excluding the tool-only receipt envelope. This is the model message artifact.
+func TestLookupReplayExportPayloads(t *testing.T) {
+	dir, _, _ := lookupReplayRoot(t)
+	b, err := os.ReadFile(filepath.Join(dir, "manifest.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var m lookupReplayManifest
+	if err = json.Unmarshal(b, &m); err != nil {
+		t.Fatal(err)
+	}
+	for _, a := range m.Attempts {
+		raw, err := os.ReadFile(filepath.Join(a.Dir, "complete.json"))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var r Result
+		if err = json.Unmarshal(raw, &r); err != nil || r.Lookup == nil || r.Lookup.Payload == nil {
+			t.Fatal("no successful payload", a.ID, err)
+		}
+		payload, err := json.Marshal(r.Lookup.Payload)
+		if err != nil {
+			t.Fatal(err)
+		}
+		f, err := os.OpenFile(filepath.Join(a.Dir, "payload.json"), os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0600)
+		if err != nil {
+			t.Fatal(err)
+		}
+		_, err = f.Write(payload)
+		f.Close()
+		if err != nil {
+			t.Fatal(err)
+		}
+		if lookupPayloadRunes(r.Lookup.Payload) > 2000 {
+			t.Fatal("message over budget", a.ID)
+		}
+	}
+}

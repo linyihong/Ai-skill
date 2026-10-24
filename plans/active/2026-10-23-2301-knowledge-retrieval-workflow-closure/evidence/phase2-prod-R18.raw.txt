@@ -1,0 +1,1 @@
+{"selected":["3e02b8371bd2121d"],"assessments":[{"id":"3e02b8371bd2121d","relation":"direct","reason":"直接涵蓋 PostgreSQL now() 固定於 transaction start，以及 age gate 需要實際當下時間的問題。","need_to_read":"讀回該來源中 clock_timestamp() 在 minimum-age 與 reset-window gate 的使用位置及時間戳寫入注意事項。"}],"unknown_action":"選取來源可供直接讀回；具體 age gate SQL、時間戳欄位與交易流程尚未提供，實作套用前需確認這些資訊。"}

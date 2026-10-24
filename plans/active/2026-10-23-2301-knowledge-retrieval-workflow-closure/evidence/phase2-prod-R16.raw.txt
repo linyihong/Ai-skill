@@ -1,0 +1,1 @@
+{"selected":["977ce187bb67d4dd"],"assessments":[{"id":"977ce187bb67d4dd","relation":"direct","reason":"直接涵蓋索引相對連結可解析，卻因 gate 比對 repo 根相對路徑而被拒絕的路徑契約問題。","need_to_read":"讀取此來源，確認索引所在目錄與 gate 的路徑基準、可解析連結的驗證方式，以及應接受與拒絕的路徑案例。"}],"unknown_action":"優先讀取所選來源；目前缺少實際索引位置、連結目標與 gate 比對實作，尚不能判定個案應修改的契約或程式碼。"}

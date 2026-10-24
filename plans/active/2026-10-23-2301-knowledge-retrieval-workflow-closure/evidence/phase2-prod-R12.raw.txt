@@ -1,0 +1,1 @@
+{"selected":["87ca0027868debc0"],"assessments":[{"id":"87ca0027868debc0","relation":"direct","reason":"直接針對 cancellation safety 的驗證，說明先讓請求阻塞在指定 SQL，再以短 client timeout 觸發取消，包含 COMMIT 的情境。","need_to_read":"讀取如何對目標 statement 設鎖、或以 deferred trigger 延遲 COMMIT，以及確認取消確實落在該 statement 的操作與適用條件。"}],"unknown_action":"先讀取此來源；資料庫種類、client／driver 取消機制與目標 SQL 尚未提供，實作方式與取消後的驗證需依這些前提確認。"}

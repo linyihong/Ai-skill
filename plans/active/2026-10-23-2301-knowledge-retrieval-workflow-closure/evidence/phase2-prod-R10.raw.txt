@@ -1,0 +1,1 @@
+{"selected":["94d00c06207c8fe9"],"assessments":[{"id":"94d00c06207c8fe9","relation":"direct","reason":"直接討論 --no-restore 建置通過但不同機器相依圖不同的情況，指出 gate 可能只驗證各機器上次 restore 的圖。","need_to_read":"讀取原文確認 restore 產物決定相依圖的適用前提，以及應比較哪些還原產物與驗證步驟。"}],"unknown_action":"先讀取所選來源；目前尚未提供建置工具、restore 產物及兩台機器的還原輸入，不能確定實際差異原因，需比較相關證據後判定。"}

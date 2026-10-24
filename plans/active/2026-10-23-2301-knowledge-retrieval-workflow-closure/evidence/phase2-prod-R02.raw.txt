@@ -1,0 +1,1 @@
+{"selected":["e8ea492eaceb2d2a"],"assessments":[{"id":"e8ea492eaceb2d2a","relation":"direct","reason":"直接對應 SQL/API 播放量正確、使用者頁面仍顯示舊數字的情境，指出需驗證 browser DOM 與前端狀態。","need_to_read":"讀取同一 video_id、同一路徑的 DOM 對照方式，以及如何檢查 keep-alive 或 sessionStorage 中的陳舊 view model。"}],"unknown_action":"先讀取所選來源並補同一 video_id、同一路徑的瀏覽器 DOM 證據；目前尚無頁面實測與前端狀態證據，不能斷定是 keep-alive、sessionStorage 或部署問題。"}

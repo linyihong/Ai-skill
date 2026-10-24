@@ -1,0 +1,2581 @@
+{
+  "kind": "actual production lookup prepare -> fresh existing agent -> watcher -> complete; exposed diagnostic, not generalization",
+  "binary_sha256": "62034e14687d363c958b29c5cc89ab111b7a5cf5f95438f27e32ab4bb43abbba",
+  "source_commit": "62bf1ae2",
+  "corpus_revision": "5f12fc3906051e40228959e9e6bfaed714e0658e",
+  "corpus_archive_sha256": "e2e8b5b158dfe007afaca977310dbc17e3b8f39f3e2ed7b963ca441d4f57921b",
+  "index_sha256": "b27745fe87d1d93c9ba1cfd39276e834538ab9ad0becd5dd0f7afb516cfc8a64",
+  "dataset_sha256": {
+    "baseline-cases.json": "6505adc590f9254285581c0715b91ae61dda5e329a72b0e8bb094f180888b538",
+    "overlap-controls-v1.json": "7ea029eb5bfa761a41f3ef3ba145d45330818726306069546423fdf4c35e5ec4"
+  },
+  "summary": {
+    "positive_hits": 23,
+    "positive_denominator": 23,
+    "mrr": 0.9710144927536232,
+    "negative_false_suggestions": 0,
+    "negative_denominator": 2,
+    "retrieved_confuser_cases": 6,
+    "direct_confuser_cases": 0,
+    "final_confuser_cases": 0,
+    "confuser_denominator": 6,
+    "max_payload_runes": 1622,
+    "pool_source_occurrences": 835,
+    "unassessed": 797,
+    "explicit_unknown": 3,
+    "direct_occurrences": 28,
+    "final_occurrences": 28,
+    "deferred": 0,
+    "warm_prepare_p95_ms": 158.4,
+    "max_observation_gap_seconds": 1.2386949999999999,
+    "batch_observed_ms": 586684,
+    "max_watch_elapsed_ms": 46763,
+    "attempts": 26,
+    "retries": 0,
+    "usage_unavailable": 26
+  },
+  "observations": [
+    {
+      "id": "R01",
+      "query": "middleware 單元測試通過，但真實 host 仍記錄 500，驗證漏在哪裡？",
+      "split": "diagnostic",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md"
+      ],
+      "retrieved_sources": [
+        "feedback/history/apk-analysis/local-proxy/2026-04-30_120009-內建-sing-box-tun-類通道可能繞過-wi-fi-系統代理.md",
+        "feedback/history/apk-analysis/common/2026-09-09_100200-wellknown-http-ports-may-not-fail-named-host-resolve.md",
+        "feedback/history/apk-analysis/local-proxy/2026-04-30_120010-本機-loopback-proxyserver-轉發會讓-wi-fi-http-mitm-看不到業務-connect.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_142500-partial-offline-sign-hmac-solved-requesttime-session-remain-relay.md",
+        "feedback/history/apk-analysis/common/2026-07-15_132500-frida-e2e-compact-send-and-off-main-thread-http.md",
+        "feedback/history/apk-analysis/local-proxy/2026-05-01_114300-local-proxy-handler-uri-hook.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_142700-opaque-api-blob-native-decrypt-secondary-compression-json.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_130000-in-session-api-host-differs-from-cold-start-primary.md",
+        "runtime/cognitive-modes.yaml",
+        "feedback/history/apk-analysis/local-proxy/2026-07-14_095210-mixed-mitm-ads-ok-firstparty-ssl-api-bypass.md",
+        "feedback/history/development-guidance/common/2026-05-07_152100-private-live-adapter-smoke-gate.md",
+        "knowledge/summaries/knowledge-navigation.md",
+        "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md",
+        "feedback/history/apk-analysis/local-proxy/2026-06-22_120100-mitm-cdn-visible-primary-api-invisible-pinning-tier.md",
+        "feedback/history/apk-analysis/common/2026-05-20_092500-webview-mitm-after-direct-load.md",
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "retrieved_expected": [
+        "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md"
+      ],
+      "direct_sources": [
+        "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md"
+      ],
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md"
+      ],
+      "hits": 1,
+      "expected_rank": 1,
+      "reciprocal_rank": 1.0,
+      "retrieved_confusers": [],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 16,
+      "relations": {
+        "direct": 1
+      },
+      "payload_runes": 782,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 16,
+        "unassessed": 15,
+        "unknown": 15,
+        "deferred": 0,
+        "trace": "lookup/9f0151b7b6d100fe",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "When the claim is about what the running host does (status logged, log level, response for an aborted request), test it through the real composed pipeline; a middleware tested in isolation can be correct while another layer in the real order still produces the old behaviour.",
+            "need_to_read": "讀取 host-level 測試的具體驗證方式，確認真實 middleware 組合順序、其他層的狀態與日誌處理，以及實際請求情境如何納入測試。"
+          }
+        ]
+      },
+      "unknown_action": "優先讀取此來源並補上經由真實組合 pipeline 的 host-level 驗證；目前未提供框架、pipeline 順序、失敗請求及日誌證據，無法判定是哪一層仍產生或記錄 500。",
+      "source_checks": [
+        "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md"
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 24692,
+      "request_sha256": "9f0151b7b6d100fefdd4ca0524f0a380e44fb9693b083d55a3f469796d344785",
+      "raw_sha256": "9b3a39f56edff9615e20327afaf85cd59fdec2efe97b71a7ae8a6782d4c74ff4",
+      "bundle_sha256": "634cd31441fc872e88de6ed473b4d3321173d95b6d59e273f9b74ed9af2ebd94",
+      "watcher_sha256": "462ba415afa294f308168dbf542ac31aad7d408fa5514b99e27a5479cc8f835e",
+      "complete_sha256": "651e2496abd1e5ea07de9f1af71cde9d84937282a8f36883bd5b38a8ac4e52ff",
+      "raw_file": "phase2-prod-R01.raw.txt",
+      "request_file": "phase2-prod-request-9f0151b7b6d100fe.json"
+    },
+    {
+      "id": "R02",
+      "query": "SQL 與 API 的播放量正確，使用者頁面卻顯示舊數字，還要驗哪一層？",
+      "split": "diagnostic",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md"
+      ],
+      "retrieved_sources": [
+        "feedback/history/apk-analysis/http-api/2026-06-22_130000-in-session-api-host-differs-from-cold-start-primary.md",
+        "knowledge/summaries/architectural-fit.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_142500-partial-offline-sign-hmac-solved-requesttime-session-remain-relay.md",
+        "intelligence/engineering/analytical-reasoning/highest-leverage-analysis-path.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_142700-opaque-api-blob-native-decrypt-secondary-compression-json.md",
+        "feedback/history/apk-analysis/http-api/2026-05-01_173800-api-field-documentation-after-analysis.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_192012-infinite-scroll-needs-pagination-proof.md",
+        "feedback/history/apk-analysis/common/2026-05-19_163600-h5-bundle-parameter-codec-readiness-gate.md",
+        "feedback/history/apk-analysis/http-api/2026-05-11_113100-post-selection-gesture-for-lazy-api.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_185921-scroll-depth-before-api-conclusion.md",
+        "knowledge/glossary/ai-skill.md",
+        "governance/lifecycle/system-upgrade-governance.yaml",
+        "feedback/history/apk-analysis/common/2026-06-22_131000-retrofit-gson-fromjson-hook-api-response-plaintext.md",
+        "knowledge/summaries/development-guidance.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_141800-okhttp-interceptor-sorted-map-canonical-sign-pattern.md",
+        "feedback/history/apk-analysis/http-api/2026-05-15_172600-same-service-hash-multi-api-type-routing.md",
+        "feedback/history/apk-analysis/common/2026-05-06_133600-post-reset-window-split.md",
+        "enforcement/conversation-goal-ledger.md",
+        "knowledge/summaries/prompt-cache-alignment.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_120200-static-ktor-strings-not-dynamic-business-api-client.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_141600-static-waterfall-path-zero-hit-check-shelf-layout-gating.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_183700-scrollable-clickable-screen-mapping.md",
+        "governance/ai-runtime-governance/context-attention-governance.md",
+        "feedback/history/apk-analysis/http-api/2026-07-15_140300-bootstrap-body-may-carry-analytics-ids-not-device-gaid.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_190838-richtext-html-images-are-api-resources.md",
+        "governance/ai-runtime-governance/cognitive-state-governance.md",
+        "knowledge/summaries/runtime-operations.md",
+        "feedback/history/apk-analysis/http-api/2026-05-11_095600-ui-api-top-items-parity.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_183400-ui-automation-operation-scripts-for-api-capture.md",
+        "intelligence/engineering/execution/validation-reasoning/identity-coupled-side-effect-validation.md",
+        "feedback/history/apk-analysis/http-api/2026-05-06_104300-api-catalog-finish-gate.md",
+        "feedback/history/apk-analysis/http-api/2026-05-11_135000-redacted-sample-targeting-classifier.md",
+        "models/README.md",
+        "feedback/history/apk-analysis/local-proxy/2026-07-14_095210-mixed-mitm-ads-ok-firstparty-ssl-api-bypass.md",
+        "governance/ai-runtime-governance/routing-signal-governance.md",
+        "intelligence/engineering/architecture/architectural-fit/README.md",
+        "memory/README.md",
+        "feedback/history/apk-analysis/http-api/2026-05-01_171650-ui-architecture-map-from-screenshots.md",
+        "feedback/history/apk-analysis/http-api/2026-05-01_171500-json-shape-before-query-shape.md",
+        "feedback/history/apk-analysis/http-api/2026-05-11_135700-articles-first-live-adapter-smoke.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_143500-paywall-entitlement-may-bind-to-account-session-not-guest-bootstrap.md",
+        "feedback/history/apk-analysis/common/2026-05-06_104000-detailed-api-list-finish-gate.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_195200-feature-reconstruction-handoff.md",
+        "knowledge/summaries/memory-operations.md",
+        "feedback/history/apk-analysis/http-api/2026-05-07_125600-api-first-pagination-replay.md",
+        "feedback/history/apk-analysis/local-proxy/2026-06-22_120100-mitm-cdn-visible-primary-api-invisible-pinning-tier.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_202400-page-analysis-requires-ui-map-artifact.md",
+        "workflow/apk-analysis/execution-flow.md",
+        "governance/lifecycle/routing-philosophy.md",
+        "runtime/runtime.db",
+        "README.md",
+        "knowledge/runtime/routing-registry.yaml",
+        "feedback/history/apk-analysis/flutter-dart-aot/2026-05-01_153437-sequence-jsondecode-before-api-response.md",
+        "plans/archived/2026-05-11-1129-apk-analysis-pilot-migration.md",
+        "feedback/history/apk-analysis/http-api/2026-05-11_113200-read-only-argument-override-preserve-app-path.md",
+        "feedback/history/apk-analysis/http-api/2026-05-15_173000-category-api-returns-numeric-id-not-display-name.md",
+        "analysis/web/README.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_184218-playable-list-item-still-needs-detail-api.md",
+        "governance/ai-runtime-governance/validation-scenario-governance.md",
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md",
+        "feedback/history/apk-analysis/common/2026-05-19_101500-hybrid-native-shell-plus-embedded-h5-frida-routing.md",
+        "workflow/software-delivery/execution-flow.md",
+        "knowledge/summaries/migration-seeder-anti-patterns.md",
+        "governance/lifecycle/context-ttl-philosophy.md"
+      ],
+      "retrieved_expected": [
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md"
+      ],
+      "direct_sources": [
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md"
+      ],
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md"
+      ],
+      "hits": 1,
+      "expected_rank": 1,
+      "reciprocal_rank": 1.0,
+      "retrieved_confusers": [],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 64,
+      "relations": {
+        "direct": 1
+      },
+      "payload_runes": 667,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 64,
+        "unassessed": 63,
+        "unknown": 63,
+        "deferred": 0,
+        "trace": "lookup/1b6bd71ba106c2fa",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "用户可见的播放量 / KPI 标签争议时，**API 或 listing SQL 与 DB 一致不足以结案**；须在同一 `video_id`、同一路径上增加 **browser DOM 对照**，才能区分 DB/部署问题与 keep-alive / sessionStorage 陈旧 view model。",
+            "need_to_read": "讀取同一 video_id、同一路徑的 DOM 對照方式，以及如何檢查 keep-alive 或 sessionStorage 中的陳舊 view model。"
+          }
+        ]
+      },
+      "unknown_action": "先讀取所選來源並補同一 video_id、同一路徑的瀏覽器 DOM 證據；目前尚無頁面實測與前端狀態證據，不能斷定是 keep-alive、sessionStorage 或部署問題。",
+      "source_checks": [
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md"
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 26538,
+      "request_sha256": "1b6bd71ba106c2fa4ed22e5d82a0a9e1b69b50495767aa6dbbc80f950c664af9",
+      "raw_sha256": "b006c47ca68343a65886b73cf91c27e38f4b7f3842a1ed147524360ec87480e8",
+      "bundle_sha256": "8c9f9b531b45e7b85bb0ae75ab13a507fa08bc8ff4f89b36eb349447d1409e89",
+      "watcher_sha256": "aaff936377c071081164468efdbfee4b4138daf640a02f688bd1933866058f5c",
+      "complete_sha256": "9ec55ab04078e86fbb89bda4a6917f6b407ff54ed04771ec7db90a43f8c258dc",
+      "raw_file": "phase2-prod-R02.raw.txt",
+      "request_file": "phase2-prod-request-1b6bd71ba106c2fa.json"
+    },
+    {
+      "id": "R03",
+      "query": "原始碼相同而且穩定重現，是否足以認定共用 baseline 壞掉？",
+      "split": "diagnostic",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-09-04_101800-derived-state-before-blaming-shared-baseline.md"
+      ],
+      "retrieved_sources": [
+        "feedback/history/development-guidance/common/2026-09-04_101800-derived-state-before-blaming-shared-baseline.md",
+        "feedback/history/apk-analysis/common/2026-05-06_105026-state-reset-baseline-feature-capture.md",
+        "feedback/history/3d-character-production/common/2026-09-01_084600-separate-asset-evidence-from-stage-pass.md",
+        "feedback/history/apk-analysis/common/2026-05-06_154500-domain-runtime-baseline-finish-gate.md",
+        "intelligence/engineering/execution/validation-reasoning/state-transition-validation.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-24_114500-slot-base-line-wins-may-bypass-payout-window-show.md"
+      ],
+      "retrieved_expected": [
+        "feedback/history/development-guidance/common/2026-09-04_101800-derived-state-before-blaming-shared-baseline.md"
+      ],
+      "direct_sources": [
+        "feedback/history/development-guidance/common/2026-09-04_101800-derived-state-before-blaming-shared-baseline.md"
+      ],
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-09-04_101800-derived-state-before-blaming-shared-baseline.md"
+      ],
+      "hits": 1,
+      "expected_rank": 1,
+      "reciprocal_rank": 1.0,
+      "retrieved_confusers": [],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 6,
+      "relations": {
+        "direct": 1
+      },
+      "payload_runes": 545,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 6,
+        "unassessed": 5,
+        "unknown": 5,
+        "deferred": 0,
+        "trace": "lookup/3285a48f1c85e9ec",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-09-04_101800-derived-state-before-blaming-shared-baseline.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "「原始碼輸入相同」加上「可穩定重現」不足以證明共用基線壞掉；這兩件事在本地衍生狀態過期時同樣成立，而衍生狀態不會出現在原始碼 diff 裡。",
+            "need_to_read": "讀取來源中排除本地衍生狀態的具體檢查與歸因共用基線所需證據，並核對其適用前提。"
+          }
+        ]
+      },
+      "unknown_action": "目前兩項條件不足以認定共用 baseline 壞掉；先讀取所選來源以確認本地衍生狀態排除方法。查詢未提供環境、衍生狀態與跨環境驗證證據，因此實際故障歸因仍為未知。",
+      "source_checks": [
+        "feedback/history/development-guidance/common/2026-09-04_101800-derived-state-before-blaming-shared-baseline.md"
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 34046,
+      "request_sha256": "3285a48f1c85e9ec773d3856b44d492bd9f39927a3c94dc3d34f145e7af34b93",
+      "raw_sha256": "19928a551f86c1d246bac3164ee2c99edf9dbe6d4525c5de1af9b6b6495917a9",
+      "bundle_sha256": "dde5174a77dc06da3cbe3edcbbafbbf84e2947daaa5a642f7760382e6d1ab1d3",
+      "watcher_sha256": "c8c616428af4a6f8d89c9f4d27918df9f6083d95cf0b30732a951fee6204b170",
+      "complete_sha256": "a39b1386e848e39c3ec07d4c676986ea5265256597060c3ec8d20f04b5e0523e",
+      "raw_file": "phase2-prod-R03.raw.txt",
+      "request_file": "phase2-prod-request-3285a48f1c85e9ec.json"
+    },
+    {
+      "id": "R04",
+      "query": "JSON Substring Matching Trap",
+      "split": "diagnostic",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md"
+      ],
+      "retrieved_sources": [
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_135200-xname-get-string-may-be-substring-not-getstring.md",
+        "feedback/history/apk-analysis/common/2026-07-14_135210-prove-wire-json-names-via-jsonreader-nextname.md",
+        "feedback/history/apk-analysis/http-api/2026-07-15_140600-invalid-sign-json-200-may-mean-missing-initheaders-not-bad-rsa.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_165800-slot-spin-fixtures-pair-json-manifest-and-reel-crop.md",
+        "intelligence/engineering/execution/validation-reasoning/identity-coupled-side-effect-validation.md",
+        "feedback/history/apk-analysis/common/2026-05-20_113100-webview-devtools-json-no-js-fallback.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_141500-static-list-endpoint-zero-hit-check-detail-embedded-catalog.md",
+        "feedback/history/apk-analysis/http-api/2026-07-15_140500-bootstrap-retrofit-sign-may-include-wire-json-in-bodystr.md",
+        "feedback/history/development-guidance/common/2026-10-01_110500-source-publish-timebase-separation.md",
+        "feedback/history/apk-analysis/http-api/2026-07-15_140100-dual-sign-canonical-h5-json-vs-retrofit-empty-bodystr.md",
+        "feedback/history/apk-analysis/flutter-dart-aot/2026-05-01_151551-schema-only-jsondecode-hook.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-09_112800-unity-ui-identity-from-loaded-objects-not-screenshot.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_190838-richtext-html-images-are-api-resources.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_135800-xname-get-substring-this-may-not-be-xmlreader-name.md",
+        "feedback/history/apk-analysis/common/2026-06-22_142600-frida-python-attach-java-bridge-use-cli-subprocess-for-rpc.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_135500-xname-get-substring-this-may-not-be-decrypt-getstring.md",
+        "feedback/history/apk-analysis/flutter-dart-aot/2026-05-14_073700-dart-aot-padright-null-bytes-substring-noop.md",
+        "intelligence/engineering/execution/validation-reasoning/state-visibility-gap.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_142700-opaque-api-blob-native-decrypt-secondary-compression-json.md",
+        "feedback/history/apk-analysis/common/2026-07-15_132500-frida-e2e-compact-send-and-off-main-thread-http.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-model.md",
+        "feedback/history/apk-analysis/http-api/2026-05-01_171500-json-shape-before-query-shape.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_142900-wire-json-field-names-differ-from-gson-bean-paths.md",
+        "feedback/history/apk-analysis/common/2026-06-22_131000-retrofit-gson-fromjson-hook-api-response-plaintext.md"
+      ],
+      "retrieved_expected": [
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md"
+      ],
+      "direct_sources": [
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md"
+      ],
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md"
+      ],
+      "hits": 1,
+      "expected_rank": 1,
+      "reciprocal_rank": 1.0,
+      "retrieved_confusers": [],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 25,
+      "relations": {
+        "direct": 1
+      },
+      "payload_runes": 808,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 25,
+        "unassessed": 24,
+        "unknown": 24,
+        "deferred": 0,
+        "trace": "lookup/37d18d226a31aa62",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "When validating JSON API responses with substring matching (e.g., `json.contains(\"\u005c\"code\u005c\":1\")`), numeric values like `1002` will falsely match because they contain the substring `\"code\":1`. Always parse the actual numeric value for comparison.",
+            "need_to_read": "Read the source for the substring collision example and the guidance for parsing and comparing the actual JSON numeric value."
+          }
+        ]
+      },
+      "unknown_action": "Read the selected source; the query supplies no implementation language, response schema, or code, so any implementation-specific fix remains unknown.",
+      "source_checks": [
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md"
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 26149,
+      "request_sha256": "37d18d226a31aa62c1094d15669bf261ea141d565f521ec7fe745c8aa5c897b1",
+      "raw_sha256": "175763fbc10fcda3b4a4eb5ed085f12bb3e3d65046f834f2351cc1309dbe35c6",
+      "bundle_sha256": "9771ad71d6bcdb0c21ad349f7a94fa66d7020c07d0c354517feb4a208b9d7f71",
+      "watcher_sha256": "d109fa31abe66e2dfa7242577fac719e1ee03890943fefbc35a35837e0a0d2c1",
+      "complete_sha256": "282ac32cabe353ad752872fe3ad6aaccb5bf7a7639e90db1d72402cc9cc12963",
+      "raw_file": "phase2-prod-R04.raw.txt",
+      "request_file": "phase2-prod-request-37d18d226a31aa62.json.b64",
+      "request_encoding": "base64; decoded bytes match request_sha256"
+    },
+    {
+      "id": "R05",
+      "query": "CSS marker 和 snapshot 都通過，手機版仍橫向溢出，應補什麼證據？",
+      "split": "diagnostic",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md"
+      ],
+      "retrieved_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md",
+        "feedback/history/apk-analysis/flutter-dart-aot/2026-05-01_140900-unflutter-aot-offset-hook-after-blutter-crash.md",
+        "governance/ai-runtime-governance/five-step-ai-governance.md",
+        "intelligence/engineering/execution/validation-reasoning/state-transition-validation.md",
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_165800-slot-spin-fixtures-pair-json-manifest-and-reel-crop.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md"
+      ],
+      "retrieved_expected": [
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md"
+      ],
+      "direct_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md"
+      ],
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md"
+      ],
+      "hits": 1,
+      "expected_rank": 1,
+      "reciprocal_rank": 1.0,
+      "retrieved_confusers": [],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 7,
+      "relations": {
+        "direct": 1,
+        "background": 1
+      },
+      "payload_runes": 654,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 7,
+        "unassessed": 5,
+        "unknown": 5,
+        "deferred": 0,
+        "trace": "lookup/d580a318101b5aca",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "RWD 或視覺縮放問題不能只靠 CSS marker、snapshot 或人工感覺驗證；要用真實瀏覽器 viewport 量 `document`、`body`、app shell、固定導覽與 scroll content 的 computed layout。",
+            "need_to_read": "讀取此來源的瀏覽器量測方法與判定條件，確認 document、body、app shell、固定導覽及 scroll content 在出問題手機 viewport 下需要記錄的尺寸與溢出證據。"
+          }
+        ]
+      },
+      "unknown_action": "先讀取直接來源並補出問題手機 viewport 的真實瀏覽器 layout 量測；目前未提供頁面、viewport 尺寸及實測資料，不能判定造成溢出的元素或修正方案。",
+      "source_checks": [
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md"
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 34898,
+      "request_sha256": "d580a318101b5aca40b5be220259e50c9b2aa2ff0d2585c268dd99dbd660f620",
+      "raw_sha256": "c1af3580a6b497e685a69ead149611fc88f7cf36edf6ccf019795295dfbeaa84",
+      "bundle_sha256": "848327f3c4f0c2c7dd0c6d68eb42e4a0086ff1f1a746f61f16e1c6035dfe0809",
+      "watcher_sha256": "c9f3dde46fde19cc81ba0a561cc4e4325629d63f030c33c5dce0ad6f8005e10a",
+      "complete_sha256": "1a00c6f84958a795c2ac53a263819b530116f0712230a02124f51a647c98650b",
+      "raw_file": "phase2-prod-R05.raw.txt",
+      "request_file": "phase2-prod-request-d580a318101b5aca.json"
+    },
+    {
+      "id": "R06",
+      "query": "blob: manifest 裡的相對 segment URL 為什麼失效？",
+      "split": "diagnostic",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md"
+      ],
+      "retrieved_sources": [
+        "feedback/history/apk-analysis/flutter-dart-aot/2026-05-19_101500-embedded-h5-entry-url-minimal-frida-hooks.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-depth.md",
+        "feedback/history/apk-analysis/media-hls/2026-04-30_120007-媒體播放鏈要分控制面-金鑰與資料面.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_142100-encrypted-request-time-double-native-call-second-value-in-sign-map.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-model.md",
+        "feedback/history/apk-analysis/media-hls/2026-05-06_121650-hls-playlist-key-may-be-wrapped.md",
+        "feedback/history/web-scraping/common/2026-07-24_093318-session-first-stealth-auth-high-antibot-spa.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_142700-opaque-api-blob-native-decrypt-secondary-compression-json.md",
+        "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md",
+        "feedback/history/apk-analysis/media-hls/2026-05-11_093300-media-prefix-matrix-cdn-stale.md",
+        "feedback/history/apk-analysis/common/2026-05-01_101500-doh-dns-query-param-side-channel-from-okhttp-log.md",
+        "feedback/history/apk-analysis/http-api/2026-07-14_131600-request-sign-fixed-b64-length-may-be-rsa-scale.md",
+        "feedback/history/web-scraping/common/2026-07-24_095600-live-probe-login-shell-before-literature-selectors.md",
+        "feedback/history/apk-analysis/flutter-dart-aot/2026-05-01_142000-exhaustive-java-okhttp-hooks-may-still-miss-flutter-business-http.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_143300-native-decrypt-mode-may-reuse-encrypt-mode-key-material.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_165800-slot-spin-fixtures-pair-json-manifest-and-reel-crop.md",
+        "knowledge/summaries/media-entitlement-control-plane.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_184218-playable-list-item-still-needs-detail-api.md",
+        "feedback/history/apk-analysis/common/2026-06-22_130100-r8-obfuscated-okhttp-response-needs-converter-hook.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-10-23_102500-slot-iface-analysis-seated-unitypy-batch-and-commit-cadence.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_143200-custom-f3aes-label-may-still-be-standard-aes128-cbc-with-rodata-key-iv.md",
+        "feedback/history/development-guidance/common/2026-05-12_043500-dart-io-httpclient-bypasses-java-frida-hooks.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-14_141200-restore-unity-preview-composite-via-main-thread-or-cdn.md",
+        "feedback/history/apk-analysis/http-api/2026-07-14_131500-ondisk\u002dencrypted-chapter-blob-length-matches-decrypt-input.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_142800-native-encrypted-time-getter-may-cache-first-rotates-consecutive-same.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_141700-custom-request-signatures-block-standalone-sdk-until-re-or-relay.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-14_082500-unity-atlas-manifest-after-frida-sprite-name.md",
+        "feedback/history/apk-analysis/common/2026-06-22_131000-retrofit-gson-fromjson-hook-api-response-plaintext.md",
+        "feedback/history/apk-analysis/common/2026-07-15_140400-httpglobal-header-setter-hook-for-token-when-okhttp-introspect-fails.md",
+        "feedback/history/development-guidance/common/2026-07-17_171500-mpegurl-maybe-managed-mediasource-prefer-hlsjs.md"
+      ],
+      "retrieved_expected": [
+        "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md"
+      ],
+      "direct_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md"
+      ],
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md"
+      ],
+      "hits": 1,
+      "expected_rank": 1,
+      "reciprocal_rank": 1.0,
+      "retrieved_confusers": [],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 31,
+      "relations": {
+        "direct": 1
+      },
+      "payload_runes": 635,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 31,
+        "unassessed": 30,
+        "unknown": 30,
+        "deferred": 0,
+        "trace": "lookup/a5ae4c5dc42e55e1",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "把 HLS / manifest 內容轉成 `blob:` URL 前，必須先把 manifest 內會被播放器再次請求的 key、segment 或 asset URI 改成可解析的絕對 URL，並用 helper unit test 覆蓋這個 rewrite。",
+            "need_to_read": "讀取原始 manifest URL 如何作為解析基準、哪些 URI 需要 rewrite，以及 helper 測試涵蓋的相對 segment URL 情境。"
+          }
+        ]
+      },
+      "unknown_action": "優先讀取此來源；尚缺實際 manifest、原始下載 URL、播放器與失敗請求，不能僅憑摘要確認個案根因或具體修正位置。",
+      "source_checks": [
+        "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md"
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 39178,
+      "request_sha256": "a5ae4c5dc42e55e1a38491a410c5503627401b83aaeab5b307100808d8e83575",
+      "raw_sha256": "b1138d5523292ec685aa5df536d70a88826c505f907b2165bfd4e870d239c5b7",
+      "bundle_sha256": "eb1f0a84f36ca15afbab0557badc5e47c33e82b47be2973afc0a2115e6cc7f8a",
+      "watcher_sha256": "962c975f895ba640222fa0fbfa21e2ecba9ba7dee0b836967d5faf925c0d0f22",
+      "complete_sha256": "962a0c6bbebce3894fe92ec166c2f43f4f23f216e73cb857e41a093ce3a976ec",
+      "raw_file": "phase2-prod-R06.raw.txt",
+      "request_file": "phase2-prod-request-a5ae4c5dc42e55e1.json"
+    },
+    {
+      "id": "R07",
+      "query": "Component Traceability Marker Depth",
+      "split": "diagnostic",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md"
+      ],
+      "retrieved_sources": [
+        "intelligence/engineering/execution/validation-reasoning/evidence-model.md",
+        "knowledge/summaries/development-guidance.md",
+        "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md",
+        "knowledge/summaries/requirements-cognition.md",
+        "intelligence/engineering/requirements/README.md",
+        "governance/ai-runtime-governance/validation-scenario-governance.md",
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md",
+        "intelligence/engineering/execution/validation-reasoning/state-visibility-gap.md",
+        "feedback/history/apk-analysis/common/2026-04-30_120008-aapt-sdk-build-tools-resolve-activity.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-depth.md",
+        "intelligence/engineering/execution/validation-reasoning/identity-coupled-side-effect-validation.md",
+        "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_185921-scroll-depth-before-api-conclusion.md"
+      ],
+      "retrieved_expected": [
+        "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md"
+      ],
+      "direct_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md"
+      ],
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md"
+      ],
+      "hits": 1,
+      "expected_rank": 1,
+      "reciprocal_rank": 1.0,
+      "retrieved_confusers": [],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 14,
+      "relations": {
+        "direct": 1
+      },
+      "payload_runes": 659,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 14,
+        "unassessed": 13,
+        "unknown": 13,
+        "deferred": 0,
+        "trace": "lookup/0cd72697ecd99b57",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "新增或提升共用 UI component 時，BDD / contract 不應只驗 component 名稱或檔案存在，還要驗 feature refs 與最小實作語意 marker。",
+            "need_to_read": "Read the source for the required marker depth, feature-reference checks, and applicability to shared UI component additions or upgrades."
+          }
+        ]
+      },
+      "unknown_action": "Read the selected source to establish the precise marker requirements; the query does not specify a component or implementation context, so do not infer project-specific applicability.",
+      "source_checks": [
+        "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md"
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 31849,
+      "request_sha256": "0cd72697ecd99b57c7e5afaaba1b60294903f18ce7663375addf8422170e2891",
+      "raw_sha256": "e56d94ae3165ee2da810e291668b83387a2ef46d1b9a714383fd95102e3c8b61",
+      "bundle_sha256": "aefeb044e1adbbb9d514816f852baae533d98d5a91abb629acaf84a1a1e1ac4d",
+      "watcher_sha256": "2314613f6bef2b8ce0e1356a6b4a5fff1ce893a676c0c25a07dc8edecafc1548",
+      "complete_sha256": "80965734e3969207260973a2a0528258ab152191930869f8430e125cc339c11a",
+      "raw_file": "phase2-prod-R07.raw.txt",
+      "request_file": "phase2-prod-request-0cd72697ecd99b57.json"
+    },
+    {
+      "id": "R08",
+      "query": "以前為什麼把 executable contract 放在 owner layer 並投影 runtime.db？",
+      "split": "diagnostic",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md"
+      ],
+      "retrieved_sources": [
+        "feedback/history/development-guidance/common/2026-05-27_092801-intelligence-layer-bypass-via-tool-adapter.md",
+        "feedback/history/development-guidance/common/2026-10-15_190000-mutate-the-layer-that-decides-and-reset-the-template.md",
+        "runtime/README.md",
+        "knowledge/summaries/runtime-operations.md",
+        "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md",
+        "knowledge/summaries/development-guidance.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-10-23_140500-apply-shim-onleave-ui-must-cover-all-processresult-owners.md",
+        "runtime/capability-context.yaml",
+        "feedback/history/development-guidance/common/2026-05-05_194400-contract-first-development-flow.md",
+        "feedback/history/roo-code/2026-05-25_145500-bootstrap-bypass-on-resume.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md",
+        "enforcement/conversation-goal-ledger.md",
+        "runtime/runtime.db",
+        "feedback/history/apk-analysis/common/2026-06-22_130100-r8-obfuscated-okhttp-response-needs-converter-hook.md",
+        "feedback/history/apk-analysis/local-proxy/2026-05-13_095200-multi-layer-proxy-architecture-capture-strategy.md",
+        "knowledge/summaries/executable-contract-boundary.md",
+        "feedback/history/development-guidance/common/2026-05-21_220226-knowledge-update-flow-master-doc-required.md",
+        "ai-tools/agent-onboarding.yaml",
+        "intelligence/engineering/execution/validation-reasoning/evidence-depth.md",
+        "governance/cognitive-stance.md",
+        "validation/README.md",
+        "knowledge/glossary/ai-skill.md",
+        "governance/lifecycle/context-ttl-philosophy.md",
+        "governance/lifecycle/routing-philosophy.md",
+        "governance/lifecycle/executable-contract-boundary.yaml",
+        "feedback/history/development-guidance/common/2026-05-06_083200-implemented-first-contract-governance.md",
+        "feedback/history/development-guidance/common/2026-09-28_131830-runtime-image-must-copy-baked-repo-root-data.md",
+        "knowledge/summaries/requirements-cognition.md",
+        "feedback/history/apk-analysis/common/2026-05-20_130500-runtime-h5-external-replay-gate.md",
+        "knowledge/summaries/legal-workflow.md",
+        "ai-tools/new-project-onboarding.yaml",
+        "anti-patterns/README.md",
+        "governance/ai-runtime-governance/five-step-ai-governance.md",
+        "feedback/history/narrative-video-production/common/2026-10-02_174015-evidence-non-destructive-resolution-invariant.md",
+        "knowledge/summaries/plan-first-decision-promotion.md",
+        "governance/lifecycle/system-upgrade-governance.yaml",
+        "feedback/history/apk-analysis/common/2026-05-07_144300-ui-route-backfill-after-runtime-probe.md",
+        "governance/ai-runtime-governance/cognitive-state-governance.md",
+        "intelligence/engineering/requirements/README.md",
+        "knowledge/summaries/prompt-cache-alignment.md",
+        "feedback/history/apk-analysis/common/2026-05-06_154500-domain-runtime-baseline-finish-gate.md",
+        "governance/lifecycle/knowledge-update-flow.yaml",
+        "intelligence/engineering/execution/validation-reasoning/evidence-model.md",
+        "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md",
+        "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md",
+        "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md",
+        "feedback/history/legal/common/2026-07-31_064500-signed-contract-review-produces-different-artifacts.md",
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md",
+        "knowledge/summaries/context-cost-optimization.md",
+        "feedback/history/development-guidance/common/2026-05-07_154400-analysis-sdk-contract-drift-gate.md",
+        "feedback/history/development-guidance/common/2026-05-22_092400-test-first-framework-upgrade.md",
+        "feedback/history/development-guidance/common/2026-05-21_142300-document-migration-map-before-deleting-legacy-surface.md",
+        "knowledge/summaries/knowledge-navigation.md",
+        "knowledge/summaries/repo-governance.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-collapse-point.md",
+        "runtime/onboarding/apk-analysis-setup.md",
+        "knowledge/summaries/architectural-fit.md",
+        "runtime/cognitive-modes.yaml",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-14_134900-choose-category-preview-texture-is-composite-not-layer-sprites.md",
+        "knowledge/summaries/test-first-framework-upgrade.md",
+        "feedback/history/legal/common/2026-07-30_221637-counterparty-business-scope-drives-clause-terms.md",
+        "workflow/software-delivery/execution-flow.md",
+        "knowledge/summaries/investment-workflow.md",
+        "governance/lifecycle/decision-promotion-pipeline.yaml"
+      ],
+      "retrieved_expected": [
+        "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md"
+      ],
+      "direct_sources": [
+        "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md",
+        "governance/lifecycle/executable-contract-boundary.yaml",
+        "runtime/runtime.db"
+      ],
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md",
+        "governance/lifecycle/executable-contract-boundary.yaml",
+        "runtime/runtime.db"
+      ],
+      "hits": 1,
+      "expected_rank": 1,
+      "reciprocal_rank": 1.0,
+      "retrieved_confusers": [],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 64,
+      "relations": {
+        "direct": 3
+      },
+      "payload_runes": 1407,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 64,
+        "unassessed": 61,
+        "unknown": 61,
+        "deferred": 0,
+        "trace": "lookup/cf061a9d64e867ec",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "流程、gate、activation、blocking condition、required evidence 或 failure action 若會影響 agent 執行，必須提供 owner-layer YAML contract，並投影到 `runtime.db`。",
+            "need_to_read": "讀取原始 lesson 的問題背景、失敗模式與決策理由，確認當時為何需要此邊界。"
+          },
+          {
+            "source": "governance/lifecycle/executable-contract-boundary.yaml",
+            "kind": "route",
+            "status": "active",
+            "summary": "Executable Contract Boundary 定義 source ownership 留在 owner layer、 executable YAML contract 以 runtime_projection.enabled opt in、 runtime compiler 投影到 runtime.db generated_surfaces，並要求 framework contract / projection 變更先做 pre-build interrogation。\n",
+            "need_to_read": "讀取 ownership、Markdown/YAML 分工、projection opt-in 與避免雙寫 source-of-truth 的理由，並區分現行規範與歷史原因。"
+          },
+          {
+            "source": "runtime/runtime.db",
+            "kind": "route",
+            "status": "unknown",
+            "summary": "Runtime Compiler 定義 deterministic-only 編譯範圍、source-target mappings 與編譯規則。Go-native `ai-skill runtime compile` 將 runtime YAML 與 deterministic prose surfaces 寫入 runtime.db。",
+            "need_to_read": "檢查 deterministic-only 範圍及 source-target mappings，確認 runtime.db 是何種生成投影及其消費方式。"
+          }
+        ]
+      },
+      "unknown_action": "先讀回歷史 lesson，再以 boundary 與 compiler 核對 ownership 和 projection 的設計理由；目前摘要不足以證實完整歷史動機，若來源未記錄當時 alternatives 或因果，應明示未知，不把現行規範推論成歷史事實。",
+      "source_checks": [
+        "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md",
+        "governance/lifecycle/executable-contract-boundary.yaml",
+        "runtime/runtime.db"
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 42073,
+      "request_sha256": "cf061a9d64e867ec4984554c9b14969723c8b4d15333ce3a9b0a5b75c4438824",
+      "raw_sha256": "f46518b992eea260edfa9557fb53635cfa9f7c6505f32ea053d238032b9d3f92",
+      "bundle_sha256": "5cb37e2cc7415fd0dde4b62fc939e5213e93032ec027ba2bf602d4fae6f6ab85",
+      "watcher_sha256": "bc194e54ef79fad26e6143d00ff970a4f3d1be72f58906997a940e2b167a2e2a",
+      "complete_sha256": "e4af284808f5c6d2eaa74f13ca5eb50983cac37d2196ed87056d19673302496a",
+      "raw_file": "phase2-prod-R08.raw.txt",
+      "request_file": "phase2-prod-request-cf061a9d64e867ec.json"
+    },
+    {
+      "id": "R09",
+      "query": "framework 升級先寫 runtime，再補 validation scenarios 可以嗎？",
+      "split": "diagnostic",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-05-22_092400-test-first-framework-upgrade.md"
+      ],
+      "retrieved_sources": [
+        "knowledge/summaries/dual-token-audit.md",
+        "feedback/promotion/README.md",
+        "knowledge/summaries/memory-operations.md",
+        "feedback/history/development-guidance/common/2026-05-22_092400-test-first-framework-upgrade.md",
+        "intelligence/engineering/agent-architecture/README.md",
+        "governance/lifecycle/executable-contract-boundary.yaml",
+        "feedback/history/roo-code/2026-05-13_054400-framework-dependency-bias-ide-classification.md",
+        "knowledge/summaries/prompt-cache-alignment.md",
+        "intelligence/engineering/execution/validation-reasoning/identity-coupled-side-effect-validation.md",
+        "governance/ai-runtime-governance/context-attention-governance.md",
+        "governance/lifecycle/context-ttl-philosophy.md",
+        "feedback/history/apk-analysis/common/2026-05-20_130500-runtime-h5-external-replay-gate.md",
+        "feedback/history/development-guidance/common/2026-05-06_082000-separate-regression-from-new-code-validation.md",
+        "governance/ai-runtime-governance/cognitive-state-governance.md",
+        "feedback/history/development-guidance/common/2026-05-27_154500-ai-codegen-validation-rate-parity.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md",
+        "feedback/history/apk-analysis/common/2026-05-06_111558-foreground-package-validation.md",
+        "knowledge/summaries/knowledge-navigation.md",
+        "evaluations/README.md",
+        "metadata/schema.md",
+        "ai-tools/new-project-onboarding.yaml",
+        "intelligence/engineering/execution/validation-reasoning/state-transition-validation.md",
+        "feedback/history/apk-analysis/common/2026-05-06_130300-feature-context-validation.md",
+        "runtime/README.md",
+        "knowledge/glossary/ai-skill.md",
+        "governance/lifecycle/routing-philosophy.md",
+        "models/README.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-model.md",
+        "feedback/history/apk-analysis/common/2026-05-07_144300-ui-route-backfill-after-runtime-probe.md",
+        "governance/lifecycle/system-upgrade-governance.yaml",
+        "validation/README.md",
+        "runtime/capability-context.yaml",
+        "runtime/context/prompt-cache-playbook.md",
+        "feedback/history/apk-analysis/common/2026-05-06_154500-domain-runtime-baseline-finish-gate.md",
+        "knowledge/summaries/test-first-framework-upgrade.md",
+        "feedback/history/roo-code/2026-05-14_013400-commit-before-step10-validation-skip.md",
+        "runtime/cognitive-modes.yaml",
+        "anti-patterns/README.md",
+        "analysis/desktop/README.md",
+        "knowledge/summaries/repo-governance.md",
+        "runtime/onboarding/apk-analysis-setup.md",
+        "feedback/history/roo-code/2026-05-25_145500-bootstrap-bypass-on-resume.md",
+        "feedback/history/apk-analysis/common/2026-05-15_085500-server-field-validation-probe-before-reverse-engineering.md",
+        "feedback/history/development-guidance/common/2026-05-06_103200-product-brief-validation-gate.md",
+        "knowledge/summaries/executable-contract-boundary.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-collapse-point.md",
+        "feedback/history/development-guidance/common/2026-05-07_081800-keep-project-incidents-out-of-skills.md",
+        "knowledge/summaries/investment-workflow.md",
+        "workflow/software-delivery/execution-flow.md",
+        "ai-tools/agent-onboarding.yaml",
+        "governance/ai-runtime-governance/routing-signal-governance.md",
+        "runtime/runtime.db",
+        "governance/lifecycle/decision-promotion-pipeline.yaml",
+        "feedback/history/development-guidance/common/2026-09-28_131830-runtime-image-must-copy-baked-repo-root-data.md",
+        "knowledge/summaries/requirements-cognition.md",
+        "knowledge/summaries/development-guidance.md",
+        "governance/ai-runtime-governance/five-step-ai-governance.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-depth.md",
+        "intelligence/engineering/requirements/README.md",
+        "governance/ai-runtime-governance/validation-scenario-governance.md",
+        "knowledge/summaries/model-routing.md",
+        "knowledge/summaries/runtime-operations.md",
+        "intelligence/engineering/analytical-reasoning/highest-leverage-analysis-path.md",
+        "intelligence/engineering/execution/validation-reasoning/state-visibility-gap.md"
+      ],
+      "retrieved_expected": [
+        "feedback/history/development-guidance/common/2026-05-22_092400-test-first-framework-upgrade.md"
+      ],
+      "direct_sources": [
+        "knowledge/summaries/test-first-framework-upgrade.md",
+        "governance/lifecycle/system-upgrade-governance.yaml",
+        "feedback/history/development-guidance/common/2026-05-22_092400-test-first-framework-upgrade.md"
+      ],
+      "final_sources": [
+        "knowledge/summaries/test-first-framework-upgrade.md",
+        "governance/lifecycle/system-upgrade-governance.yaml",
+        "feedback/history/development-guidance/common/2026-05-22_092400-test-first-framework-upgrade.md"
+      ],
+      "hits": 1,
+      "expected_rank": 3,
+      "reciprocal_rank": 0.3333333333333333,
+      "retrieved_confusers": [],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 64,
+      "relations": {
+        "direct": 3
+      },
+      "payload_runes": 1622,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 64,
+        "unassessed": 61,
+        "unknown": 61,
+        "deferred": 0,
+        "trace": "lookup/5fe681e8efb5d828",
+        "results": [
+          {
+            "source": "knowledge/summaries/test-first-framework-upgrade.md",
+            "kind": "summary",
+            "status": "unknown",
+            "summary": "Framework / runtime / governance 升級時 validation scenarios 必須寫在 runtime 實作之前，scenarios 是 acceptance contract 不是事後 verification。流程：列期望可觀察行為 → 寫 YAML scenarios → 驗證目前 fail → 開始實作 → 完成 = scenarios pass。與通用 TDD heuristic 互補（設計回饋 vs 順序原則）。Doc-only trial / typo / spike 可豁免；runtime.db schema / enforcement rule / compiler 改動不可豁免。",
+            "need_to_read": "讀取 test-first 順序原則、scenarios acceptance contract，以及 doc-only trial、typo、spike 豁免的適用條件。"
+          },
+          {
+            "source": "governance/lifecycle/system-upgrade-governance.yaml",
+            "kind": "route",
+            "status": "active",
+            "summary": "System Upgrade Governance 是大型 framework/runtime/governance/workflow/validation/compiler/generated artifact 升級的 blocking contract；它要求 pre-build interrogation、runtime trigger flow、test-first scenarios、 linked updates、runtime validation 與 close-loop readback，防止升級只留下 Markdown。\n",
+            "need_to_read": "核對此升級的 activation 範圍、test-first gate，以及 runtime validation 和 close-loop readback 要求。"
+          },
+          {
+            "source": "feedback/history/development-guidance/common/2026-05-22_092400-test-first-framework-upgrade.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "Framework / runtime / governance 升級時 validation scenarios 必須寫在 runtime 實作之前；scenarios 是 acceptance contract 不是事後 verification。",
+            "need_to_read": "讀取原始 lesson 的適用背景與先定 acceptance contract 的理由。"
+          }
+        ]
+      },
+      "unknown_action": "依候選摘要可定位先 scenarios、後 runtime 的直接來源；仍需讀回上述來源並確認實際變更範圍，才能判斷是否符合明列豁免，不能自行假設可事後補 scenarios。",
+      "source_checks": [
+        "knowledge/summaries/test-first-framework-upgrade.md",
+        "governance/lifecycle/system-upgrade-governance.yaml",
+        "feedback/history/development-guidance/common/2026-05-22_092400-test-first-framework-upgrade.md"
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 46763,
+      "request_sha256": "5fe681e8efb5d828fcc10f15ecbc56dcdcdaf5520fc0c39e30db4acf0b4868d6",
+      "raw_sha256": "0587904cf2f1e49ccd54bd42eebb45f1e31b5e67823027ec67dddc48e98c14cd",
+      "bundle_sha256": "576652dbee1e515795a102a1486a07d0dce17a94d4b8be9031b18083d459dfd6",
+      "watcher_sha256": "656936689f083e6c0708b01b63ab5eddf15edf9370676efb70095b24fc4f8722",
+      "complete_sha256": "21d607f4c1ca6e786351161bad09ad125416c7add05e4c6c7158782ff7b795e5",
+      "raw_file": "phase2-prod-R09.raw.txt",
+      "request_file": "phase2-prod-request-5fe681e8efb5d828.json"
+    },
+    {
+      "id": "R10",
+      "query": "build --no-restore 都過了，為什麼換一台機器相依圖不同？",
+      "split": "diagnostic",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md"
+      ],
+      "retrieved_sources": [
+        "governance/lifecycle/system-upgrade-governance.yaml",
+        "governance/ai-runtime-governance/validation-scenario-governance.md",
+        "feedback/history/apk-analysis/common/2026-05-06_094200-frida-heavy-window-ui-control-comparison.md",
+        "knowledge/summaries/executable-contract-boundary.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md",
+        "workflow/software-delivery/execution-flow.md",
+        "feedback/history/apk-analysis/common/2026-09-10_142327-bison-round-jackpot-no-symbols.md",
+        "knowledge/summaries/requirements-cognition.md",
+        "feedback/history/apk-analysis/local-proxy/2026-07-14_105100-column-c-bypass-may-be-okhttp-no-proxy-not-cronet.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-14_141200-restore-unity-preview-composite-via-main-thread-or-cdn.md",
+        "intelligence/engineering/requirements/README.md",
+        "knowledge/summaries/vendor-integration-architecture.md",
+        "feedback/history/apk-analysis/common/2026-04-30_120008-aapt-sdk-build-tools-resolve-activity.md",
+        "feedback/history/development-guidance/common/2026-10-15_190000-mutate-the-layer-that-decides-and-reset-the-template.md",
+        "feedback/history/development-guidance/common/2026-05-22_104646-module-count-discipline.md",
+        "feedback/history/apk-analysis/common/2026-06-22_142000-jni-dynamic-registernatives-no-standard-java-com-export.md",
+        "feedback/history/apk-analysis/http-api/2026-05-06_081400-auto-app-guidance-for-sdk-tools.md",
+        "intelligence/engineering/execution/validation-reasoning/state-transition-validation.md",
+        "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-14_082500-unity-atlas-manifest-after-frida-sprite-name.md",
+        "governance/lifecycle/executable-contract-boundary.yaml",
+        "feedback/history/apk-analysis/common/2026-05-07_171900-provider-read-negative-matrix.md",
+        "feedback/history/development-guidance/common/2026-09-28_131830-runtime-image-must-copy-baked-repo-root-data.md",
+        "feedback/history/apk-analysis/common/2026-05-14_073700-frida-spawn-vs-attach-init-timing-no-buffer.md",
+        "feedback/history/apk-analysis/local-proxy/2026-07-14_095210-mixed-mitm-ads-ok-firstparty-ssl-api-bypass.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-10-23_101000-unity-particle-restore-needs-unitypy-or-assetripper-not-il2cppdumper.md",
+        "knowledge/summaries/module-count-discipline.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_154000-nested-dto-may-fill-via-ctor-without-parse.md",
+        "feedback/history/development-guidance/common/2026-10-15_121000-secret-scanner-rejects-credential-literals-in-tests.md",
+        "feedback/history/apk-analysis/common/2026-05-20_113100-webview-devtools-json-no-js-fallback.md",
+        "knowledge/summaries/development-guidance.md",
+        "feedback/history/apk-analysis/common/2026-05-06_090100-frida-17-jailed-android-gadget-gate.md",
+        "feedback/history/apk-analysis/common/2026-05-07_143800-stateful-setting-probe-restore.md"
+      ],
+      "retrieved_expected": [
+        "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md"
+      ],
+      "direct_sources": [
+        "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md"
+      ],
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md"
+      ],
+      "hits": 1,
+      "expected_rank": 1,
+      "reciprocal_rank": 1.0,
+      "retrieved_confusers": [],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 33,
+      "relations": {
+        "direct": 1
+      },
+      "payload_runes": 591,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 33,
+        "unassessed": 32,
+        "unknown": 32,
+        "deferred": 0,
+        "trace": "lookup/92265fc427b511c0",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "當套件／專案的相依關係來自 restore 產生的鎖定檔而非組件 metadata 時，用 `--no-restore` 建置的 gate 驗證的是「上次 restore 時的相依圖」，同一棵樹在不同人的機器上會得到不同結果。",
+            "need_to_read": "讀取原文確認 restore 產物決定相依圖的適用前提，以及應比較哪些還原產物與驗證步驟。"
+          }
+        ]
+      },
+      "unknown_action": "先讀取所選來源；目前尚未提供建置工具、restore 產物及兩台機器的還原輸入，不能確定實際差異原因，需比較相關證據後判定。",
+      "source_checks": [
+        "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md"
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 28859,
+      "request_sha256": "92265fc427b511c0da4d891c1bd923a4c4526e29905dd729e65de3db83280d47",
+      "raw_sha256": "c17d182565911a8dfec26f9cc9daa900332b1320e9b2e981e97c03fc3b8e8e9e",
+      "bundle_sha256": "1dc1e3cee1450cbdc299c727299ee6930bfdb627b7c34e3d3f4eb8f35d5249d5",
+      "watcher_sha256": "9eff53d6ff7287031d47a3c387a13ba16c93995753b59248915dbde5303ae5fc",
+      "complete_sha256": "7531fa2d12bf24c1fbc5179410db77f92016fd0572f48906d6715ea736af7270",
+      "raw_file": "phase2-prod-R10.raw.txt",
+      "request_file": "phase2-prod-request-92265fc427b511c0.json"
+    },
+    {
+      "id": "R11",
+      "query": "原生模型載入失敗先比對既有案例",
+      "split": "diagnostic",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md"
+      ],
+      "retrieved_sources": [
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md"
+      ],
+      "retrieved_expected": [
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md"
+      ],
+      "direct_sources": [
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md"
+      ],
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md"
+      ],
+      "hits": 1,
+      "expected_rank": 1,
+      "reciprocal_rank": 1.0,
+      "retrieved_confusers": [],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 1,
+      "relations": {
+        "direct": 1
+      },
+      "payload_runes": 513,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 1,
+        "unassessed": 0,
+        "unknown": 0,
+        "deferred": 0,
+        "trace": "lookup/2bd5079c8cc05186",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "模型載入原生崩潰時先比對既有失敗指紋與版本範圍，再做最小隔離驗證，不從完整產品流程重新猜原因。",
+            "need_to_read": "讀取既有失敗指紋、適用版本範圍及最小隔離驗證方法，確認是否適用於目前的載入失敗。"
+          }
+        ]
+      },
+      "unknown_action": "目前尚無具體錯誤指紋、模型與執行環境版本；先讀取此來源，再取得這些資訊比對適用性，不預設既有案例就是本次原因。",
+      "source_checks": [
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md"
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 32703,
+      "request_sha256": "2bd5079c8cc05186672b692efa60266f87cf6d547f1b19d23d662ad8e15a8e13",
+      "raw_sha256": "17cbe6e3edea1af35482ec0c23e0fec39fc27db7898e06726fe435cc3682d7e2",
+      "bundle_sha256": "338862b683082b8b554989c324aaa3318f3e202224d4abf491855d1bf23017a0",
+      "watcher_sha256": "39e76c0bd8c5e4e368c1b37c28c914a3e26350768ba3d05c45079c14d50760dc",
+      "complete_sha256": "cb967b2ee3df7e95b9edef5f38b3b4b26964a1ab7a053dc491cfe9cd03450bd2",
+      "raw_file": "phase2-prod-R11.raw.txt",
+      "request_file": "phase2-prod-request-2bd5079c8cc05186.json"
+    },
+    {
+      "id": "R12",
+      "query": "要證明 cancellation safety，如何讓 timeout 確實落在目標 SQL？",
+      "split": "diagnostic",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md"
+      ],
+      "retrieved_sources": [
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md",
+        "feedback/history/apk-analysis/common/2026-09-09_094500-frida-quiet-mode-needs-timeout.md",
+        "knowledge/glossary/ai-skill.md",
+        "feedback/history/apk-analysis/common/2026-04-30_120006-登入限流要避免-tight-loop-優先-session-reuse.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-14_170500-frida-chain-harness-nonblocking-stdout.md",
+        "feedback/history/apk-analysis/common/2026-05-06_094200-frida-heavy-window-ui-control-comparison.md",
+        "knowledge/summaries/migration-seeder-anti-patterns.md",
+        "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_130800-same-thread-dt-window-after-decrypt-not-global-live.md",
+        "runtime/README.md",
+        "feedback/history/apk-analysis/common/2026-09-09_100200-wellknown-http-ports-may-not-fail-named-host-resolve.md",
+        "feedback/history/apk-analysis/common/2026-06-22_142200-frida-enumerate-loaded-classes-causes-script-load-timeout.md"
+      ],
+      "retrieved_expected": [
+        "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md"
+      ],
+      "direct_sources": [
+        "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md"
+      ],
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md"
+      ],
+      "hits": 1,
+      "expected_rank": 1,
+      "reciprocal_rank": 1.0,
+      "retrieved_confusers": [],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 12,
+      "relations": {
+        "direct": 1
+      },
+      "payload_runes": 775,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 12,
+        "unassessed": 11,
+        "unknown": 11,
+        "deferred": 0,
+        "trace": "lookup/b404b8f5b1a80342",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "To prove a cancellation-safety or idempotency claim, make the request block on the exact statement you care about (lock it, or delay COMMIT with a deferred trigger), then let a short client timeout cancel it — instead of hoping a random cancel lands there.",
+            "need_to_read": "讀取如何對目標 statement 設鎖、或以 deferred trigger 延遲 COMMIT，以及確認取消確實落在該 statement 的操作與適用條件。"
+          }
+        ]
+      },
+      "unknown_action": "先讀取此來源；資料庫種類、client／driver 取消機制與目標 SQL 尚未提供，實作方式與取消後的驗證需依這些前提確認。",
+      "source_checks": [
+        "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md"
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 39813,
+      "request_sha256": "b404b8f5b1a803421f6047d8607fead56b68ed6f5e59ca3e5b4d26ca9f45e4c3",
+      "raw_sha256": "5a5a03032d7bab6a7f18f06e5648b735ea03f0a96346e8248d0153f0c260e4d0",
+      "bundle_sha256": "0ca13c3487b2166ad5cf9e25e13f7693fe195a83aaa15470f27dd6214890e57b",
+      "watcher_sha256": "d7df16fd149717b85034a2116b0855af38c57a5eeb2d1093376def0ce13a6257",
+      "complete_sha256": "3e5cc9d7c8639ba3ac42d5cbbfab352aba53e60db51a54300f753093f1039457",
+      "raw_file": "phase2-prod-R12.raw.txt",
+      "request_file": "phase2-prod-request-b404b8f5b1a80342.json"
+    },
+    {
+      "id": "R13",
+      "query": "測試跨午夜額度邏輯，要改 OS 時間還是注入 clock？",
+      "split": "holdout",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-07-23_071200-injectable-wall-clock-for-day-boundary-logic.md"
+      ],
+      "retrieved_sources": [
+        "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md",
+        "feedback/history/development-guidance/common/2026-07-23_071200-injectable-wall-clock-for-day-boundary-logic.md",
+        "README.md",
+        "architecture/README.md"
+      ],
+      "retrieved_expected": [
+        "feedback/history/development-guidance/common/2026-07-23_071200-injectable-wall-clock-for-day-boundary-logic.md"
+      ],
+      "direct_sources": [
+        "feedback/history/development-guidance/common/2026-07-23_071200-injectable-wall-clock-for-day-boundary-logic.md"
+      ],
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-07-23_071200-injectable-wall-clock-for-day-boundary-logic.md"
+      ],
+      "hits": 1,
+      "expected_rank": 1,
+      "reciprocal_rank": 1.0,
+      "retrieved_confusers": [],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 4,
+      "relations": {
+        "direct": 1,
+        "unknown": 1
+      },
+      "payload_runes": 701,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 4,
+        "unassessed": 2,
+        "unknown": 3,
+        "deferred": 0,
+        "trace": "lookup/cd8bc51e6526ee77",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-07-23_071200-injectable-wall-clock-for-day-boundary-logic.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "Time-dependent business logic (local day, near-midnight windows, quotas) must take an injectable clock or explicit `Instant`/`LocalDate` parameters; tests freeze that clock instead of changing the OS date.",
+            "need_to_read": "讀取 injectable wall clock 的實作與測試指引，確認本任務所需的本地日界線、時區及額度重置測試方式。"
+          }
+        ]
+      },
+      "unknown_action": "優先讀取注入 clock 的直接來源；實際程式的時區、重置規則與時間來源尚未提供，不能據此假定 PostgreSQL 的時間函式問題適用。",
+      "source_checks": [
+        "feedback/history/development-guidance/common/2026-07-23_071200-injectable-wall-clock-for-day-boundary-logic.md"
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 24864,
+      "request_sha256": "cd8bc51e6526ee77b8cb4c9332fae0d9090c8ebce3748f9a02322848866630ad",
+      "raw_sha256": "b0074cbe535bd8a54cd08fe53fed75cb3cef9867a72ea1bb9960200e95edafb2",
+      "bundle_sha256": "b689d6c492721965ea0eb9cadbc53e43af804d61705f88477cf96fddd8ff837e",
+      "watcher_sha256": "6736b708dc1a45303920c88ba09de78942d7ca2f1e72ab52850933b1be5c79c6",
+      "complete_sha256": "60f160ab9e7b789a0558e6b2797e272e58ee6a715fd5dfa44edbcca9d7bcc748",
+      "raw_file": "phase2-prod-R13.raw.txt",
+      "request_file": "phase2-prod-request-cd8bc51e6526ee77.json"
+    },
+    {
+      "id": "R14",
+      "query": "DB pool 滿載時 nested checkout 卡死，soft reconcile 也救不回來？",
+      "split": "holdout",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md"
+      ],
+      "retrieved_sources": [
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_151000-parse-may-construct-wrapper-not-nested-dtos.md",
+        "feedback/history/development-guidance/common/2026-05-21_220226-knowledge-update-flow-master-doc-required.md",
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md",
+        "governance/lifecycle/knowledge-update-flow.yaml",
+        "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md",
+        "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md",
+        "feedback/history/roo-code/2026-05-25_145500-bootstrap-bypass-on-resume.md",
+        "knowledge/summaries/investment-workflow.md",
+        "ai-tools/new-project-onboarding.yaml",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_153400-nested-dtos-may-have-own-parse-beside-wrapper.md",
+        "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md",
+        "knowledge/summaries/legal-workflow.md",
+        "feedback/history/apk-analysis/flutter-dart-aot/2026-05-15_094700-dart-aot-pool-constant-pp-peep-hardcoded-key.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_154000-nested-dto-may-fill-via-ctor-without-parse.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_142800-parse-xcontainer-element-retval-may-be-nested-ctor-not-load-tree.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-model.md",
+        "knowledge/summaries/executable-contract-boundary.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-collapse-point.md",
+        "ai-tools/agent-onboarding.yaml",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_144000-nested-element-attribute-may-not-share-load-tree-xattribute.md",
+        "runtime/runtime.db",
+        "knowledge/summaries/test-first-framework-upgrade.md",
+        "governance/lifecycle/system-upgrade-governance.yaml",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_154800-wrapper-extras-may-be-ctor-invoke-clone-not-parseall.md",
+        "knowledge/summaries/prompt-cache-alignment.md",
+        "governance/lifecycle/decision-promotion-pipeline.yaml",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_152200-nested-dto-ctors-may-sit-before-after-parse-not-apply.md",
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_143200-elements-iterator-current-may-be-nested-xelement-ctor.md",
+        "governance/lifecycle/executable-contract-boundary.yaml"
+      ],
+      "retrieved_expected": [
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md"
+      ],
+      "direct_sources": [
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md"
+      ],
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md"
+      ],
+      "hits": 1,
+      "expected_rank": 1,
+      "reciprocal_rank": 1.0,
+      "retrieved_confusers": [],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 30,
+      "relations": {
+        "direct": 1
+      },
+      "payload_runes": 677,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 30,
+        "unassessed": 29,
+        "unknown": 29,
+        "deferred": 0,
+        "trace": "lookup/cb0f2490c6df7419",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "Never hold a DB pool client across an await that also checks out from the same pool; saturation turns into an uninterruptible hang that soft reconcile cannot clear.",
+            "need_to_read": "讀取此來源的 client 釋放順序與 nested checkout 呼叫路徑，核對目前程式是否跨 await 持有同一 pool 的 client。"
+          }
+        ]
+      },
+      "unknown_action": "優先讀取所選來源並核對實際 pool 與呼叫路徑；目前尚無程式碼或執行證據，不能確定此案例確由同一 pool 的巢狀 checkout 造成。",
+      "source_checks": [
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md"
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 26233,
+      "request_sha256": "cb0f2490c6df741975e6cdf4ca3cfbc57eed876cf7373d36b7643ba02166fc49",
+      "raw_sha256": "6b0a896dfb8aa08352e5a43d565ac71c8023706333a46f1cc758eb4ac85fd933",
+      "bundle_sha256": "56cd12ba4662d7320824867b27bda315fdfd046ad8aa6d3b65e0fe6ea179ecde",
+      "watcher_sha256": "a23346bd1a2a419f7818bc9127c4b7f671b45965d2b9f47c25560d80696721cd",
+      "complete_sha256": "211d08ca60048ca1a4efeb1b055cc61968122b52a30d50e096356a6f660ebcd2",
+      "raw_file": "phase2-prod-R14.raw.txt",
+      "request_file": "phase2-prod-request-cb0f2490c6df7419.json"
+    },
+    {
+      "id": "R15",
+      "query": "正式機跑哪個版本可以只看 git tag 或口頭說明嗎？",
+      "split": "diagnostic",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-10-22_093000-deployment-state-is-readback-not-narrative.md"
+      ],
+      "retrieved_sources": [
+        "feedback/history/development-guidance/common/2026-10-22_093000-deployment-state-is-readback-not-narrative.md",
+        "runtime/cognitive-modes.yaml",
+        "knowledge/summaries/test-first-framework-upgrade.md",
+        "CORE_BOOTSTRAP.md",
+        "feedback/history/development-guidance/common/2026-10-05_103000-hook-env-leaks-into-fixture-repos.md",
+        "feedback/history/apk-analysis/flutter-dart-aot/2026-05-14_081500-iv-f5447c-trivial-field-accessor-not-iv-getter.md",
+        "README.md",
+        "feedback/history/apk-analysis/common/2026-05-08_135700-agent-goals-before-transcripts.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_120200-static-ktor-strings-not-dynamic-business-api-client.md",
+        "knowledge/glossary/ai-skill.md"
+      ],
+      "retrieved_expected": [
+        "feedback/history/development-guidance/common/2026-10-22_093000-deployment-state-is-readback-not-narrative.md"
+      ],
+      "direct_sources": [
+        "feedback/history/development-guidance/common/2026-10-22_093000-deployment-state-is-readback-not-narrative.md"
+      ],
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-10-22_093000-deployment-state-is-readback-not-narrative.md"
+      ],
+      "hits": 1,
+      "expected_rank": 1,
+      "reciprocal_rank": 1.0,
+      "retrieved_confusers": [],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 10,
+      "relations": {
+        "direct": 1
+      },
+      "payload_runes": 589,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 10,
+        "unassessed": 9,
+        "unknown": 9,
+        "deferred": 0,
+        "trace": "lookup/7eb87d8450560eef",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-10-22_093000-deployment-state-is-readback-not-narrative.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "「正式機上跑的是什麼」必須來自讀回並寫進 repo 內的帳本，git tag 只是從帳本衍生出來的索引；遺漏多半發生在寫程式的一端，所以完成定義（DoD）要求留下給部署者的通知，部署前由會失敗的 preflight 彙整。",
+            "need_to_read": "讀取該來源對部署狀態讀回、repo 帳本與 git tag 關係的規定，以及適用範圍。"
+          }
+        ]
+      },
+      "unknown_action": "讀回所選來源確認判定原則；目前未提供特定正式機、部署帳本或實際讀回證據，因此不能判定正式機正在執行的具體版本。",
+      "source_checks": [
+        "feedback/history/development-guidance/common/2026-10-22_093000-deployment-state-is-readback-not-narrative.md"
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 33888,
+      "request_sha256": "7eb87d8450560eef943a8309dd338cc0b9a5de9ccc950b408ccea6b32d53d1a4",
+      "raw_sha256": "1c378a6a5cb8e8c47cfac6a87997aa64d81d5cd5354c8b4929c5a1030cbaddb8",
+      "bundle_sha256": "d47269f34ddccde5d5ae521413e70e31e87ba571b48e58fe0ae2e69354fe3279",
+      "watcher_sha256": "c81ae0f07b008a4b6545bb80e015c45b70268e2fbd8cc93c635dc5f0ac212927",
+      "complete_sha256": "e0fb8a29b199d41d12c410c07a2958de670abf65814d61a133c7400c007e58c4",
+      "raw_file": "phase2-prod-R15.raw.txt",
+      "request_file": "phase2-prod-request-7eb87d8450560eef.json"
+    },
+    {
+      "id": "R16",
+      "query": "索引連結可解析卻被 gate 擋下，要如何驗證路徑契約？",
+      "split": "holdout",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md"
+      ],
+      "retrieved_sources": [
+        "governance/ai-runtime-governance/validation-scenario-governance.md",
+        "feedback/history/development-guidance/common/2026-05-07_154400-analysis-sdk-contract-drift-gate.md",
+        "knowledge/summaries/migration-feature-bundling.md",
+        "governance/ai-runtime-governance/five-step-ai-governance.md",
+        "governance/ai-runtime-governance/context-attention-governance.md",
+        "feedback/history/development-guidance/common/2026-10-01_171200-cap-recovery-loops-never-reset-gate-counter.md",
+        "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md",
+        "feedback/history/apk-analysis/common/2026-05-06_154500-domain-runtime-baseline-finish-gate.md",
+        "feedback/promotion/README.md",
+        "feedback/history/apk-analysis/common/2026-05-20_130500-runtime-h5-external-replay-gate.md",
+        "governance/lifecycle/routing-philosophy.md",
+        "feedback/history/apk-analysis/common/2026-05-06_104000-detailed-api-list-finish-gate.md",
+        "workflow/documentation/README.md",
+        "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md",
+        "feedback/history/development-guidance/common/2026-05-06_103200-product-brief-validation-gate.md",
+        "feedback/history/development-guidance/common/2026-10-05_103000-hook-env-leaks-into-fixture-repos.md",
+        "feedback/history/apk-analysis/common/2026-05-19_160900-webview-h5-short-window-request-observed-gate.md",
+        "feedback/history/development-guidance/common/2026-09-30_154100-caption-temporal-integrity-mechanical-timing-gate.md",
+        "feedback/history/apk-analysis/http-api/2026-05-06_104300-api-catalog-finish-gate.md",
+        "feedback/history/apk-analysis/common/2026-05-19_163600-h5-bundle-parameter-codec-readiness-gate.md",
+        "runtime/runtime.db",
+        "enforcement/conversation-goal-ledger.md",
+        "governance/lifecycle/knowledge-update-flow.yaml",
+        "feedback/history/3d-character-production/common/2026-09-01_084600-separate-asset-evidence-from-stage-pass.md",
+        "feedback/history/apk-analysis/common/2026-05-06_090100-frida-17-jailed-android-gadget-gate.md",
+        "governance/ai-runtime-governance/routing-signal-governance.md",
+        "feedback/history/development-guidance/common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md",
+        "feedback/history/development-guidance/common/2026-05-11_093100-public-mirror-drift-gate.md",
+        "feedback/history/development-guidance/common/2026-07-30_135800-run-new-ban-against-existing-tree.md",
+        "feedback/history/apk-analysis/http-api/2026-05-19_161700-allowlisted-route-param-capture.md",
+        "feedback/history/narrative-video-production/common/2026-10-14_123700-fil-phrase-polarity-not-script-gate.md",
+        "workflow/software-delivery/execution-flow.md",
+        "knowledge/summaries/development-guidance.md",
+        "feedback/history/development-guidance/common/2026-05-07_152100-private-live-adapter-smoke-gate.md",
+        "feedback/history/development-guidance/common/2026-07-30_135700-unreachable-test-surface-delete-over-repair.md",
+        "feedback/history/apk-analysis/common/2026-05-06_102100-feature-handoff-finish-gate.md",
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md",
+        "feedback/history/2026-07-14-workflow-primary-source-read-cursor-evidence.md",
+        "feedback/history/narrative-video-production/common/2026-10-08_140500-divorce-marry-polarity-invert.md",
+        "feedback/history/development-guidance/common/2026-09-04_135746-gate-that-runs-only-at-commit-is-one-bypass-from-gone.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_205500-ui-behavior-backfill-finish-gate.md",
+        "feedback/history/apk-analysis/common/2026-07-14_171000-pairip-application-licenseactivity-cold-start-play-gate.md",
+        "runtime/cognitive-modes.yaml",
+        "feedback/history/development-guidance/common/2026-05-07_122800-performance-test-release-gate.md",
+        "feedback/history/development-guidance/common/2026-10-15_121000-secret-scanner-rejects-credential-literals-in-tests.md"
+      ],
+      "retrieved_expected": [
+        "feedback/history/development-guidance/common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md"
+      ],
+      "direct_sources": [
+        "feedback/history/development-guidance/common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md"
+      ],
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md"
+      ],
+      "hits": 1,
+      "expected_rank": 1,
+      "reciprocal_rank": 1.0,
+      "retrieved_confusers": [],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 45,
+      "relations": {
+        "direct": 1
+      },
+      "payload_runes": 572,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 45,
+        "unassessed": 44,
+        "unknown": 44,
+        "deferred": 0,
+        "trace": "lookup/0df791e973116dad",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "要求某個路徑字串出現在一份 Markdown 索引裡的 gate，若比對的是 repo 根相對路徑，就會拒絕唯一正確的相對連結，並接受寫上去會壞掉的那幾種。",
+            "need_to_read": "讀取此來源，確認索引所在目錄與 gate 的路徑基準、可解析連結的驗證方式，以及應接受與拒絕的路徑案例。"
+          }
+        ]
+      },
+      "unknown_action": "優先讀取所選來源；目前缺少實際索引位置、連結目標與 gate 比對實作，尚不能判定個案應修改的契約或程式碼。",
+      "source_checks": [
+        "feedback/history/development-guidance/common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md"
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 24629,
+      "request_sha256": "0df791e973116dade905925b46e14edcf4975bfe2fb026dd8286c328eea71a5f",
+      "raw_sha256": "62bdc2cc40e6008177688414c51180353a678169aa6b00d23469c01f77fc6bdd",
+      "bundle_sha256": "735dcdd5469d27dd8ef34d0b24dd13ff2cbbe29798e79a7e1a19809bad6bdcf4",
+      "watcher_sha256": "86af17371f34186222c194c599297e2277f79c0141e0b31811a7d7ec43b29f44",
+      "complete_sha256": "00574235e18a09eb686d50a67260f134d026dc8be6311233f26393e106059ce8",
+      "raw_file": "phase2-prod-R16.raw.txt",
+      "request_file": "phase2-prod-request-0df791e973116dad.json"
+    },
+    {
+      "id": "R17",
+      "query": "ECONNREFUSED 後應直接把 durable job 標 failed 嗎？",
+      "split": "diagnostic",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "retrieved_sources": [
+        "feedback/promotion/README.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md",
+        "intelligence/engineering/execution/validation-reasoning/identity-coupled-side-effect-validation.md",
+        "enforcement/conversation-goal-ledger.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-10-23_102500-slot-iface-analysis-seated-unitypy-batch-and-commit-cadence.md",
+        "feedback/history/development-guidance/common/2026-10-01_171200-cap-recovery-loops-never-reset-gate-counter.md",
+        "feedback/history/apk-analysis/common/2026-09-09_100200-wellknown-http-ports-may-not-fail-named-host-resolve.md",
+        "runtime/README.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-model.md",
+        "governance/ai-runtime-governance/five-step-ai-governance.md",
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "retrieved_expected": [
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "direct_sources": [
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "hits": 1,
+      "expected_rank": 1,
+      "reciprocal_rank": 1.0,
+      "retrieved_confusers": [],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 11,
+      "relations": {
+        "direct": 1,
+        "unknown": 1
+      },
+      "payload_runes": 701,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 11,
+        "unassessed": 9,
+        "unknown": 10,
+        "deferred": 0,
+        "trace": "lookup/4216045ab5ba7690",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "When a long-lived TCP peer returns `ECONNREFUSED` / host-unreachable, refresh the official discovery source, persist the new endpoint, and keep the durable job `running` instead of marking it failed.",
+            "need_to_read": "讀取原文確認 stale peer 的判定條件、official discovery refresh 與維持 running 的適用邊界。"
+          }
+        ]
+      },
+      "unknown_action": "先讀直接來源核對適用條件；目前尚缺連線對象、endpoint 是否過期、錯誤是否暫時性與 job retry/terminal-state 契約，不能僅憑 ECONNREFUSED 決定立即 failed，也不能無條件維持 running。",
+      "source_checks": [
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 37608,
+      "request_sha256": "4216045ab5ba7690cfb3ab80993c6f75913c8dd4ff2cfeb8f4b601481b09a0e7",
+      "raw_sha256": "4407558ecc604b6b3c83485230de0a051b41cc3285096201395e49931afa771a",
+      "bundle_sha256": "02dfe2cdbab775ee4bdca086a879d48dd2eae08988f9721045984f4cefa8133e",
+      "watcher_sha256": "237ce8b06ddd8a7dd6760dde2e2b81dd0a4673787e14d084aa0e650e0168a0fa",
+      "complete_sha256": "57c79a1299a8ac98f6ff93a21b5b7199d57698e631d6d71031d7be7221d4da88",
+      "raw_file": "phase2-prod-R17.raw.txt",
+      "request_file": "phase2-prod-request-4216045ab5ba7690.json"
+    },
+    {
+      "id": "R18",
+      "query": "PostgreSQL now() 固定在 transaction start，age gate 如何取真正現在？",
+      "split": "holdout",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md"
+      ],
+      "retrieved_sources": [
+        "feedback/history/development-guidance/common/2026-05-07_153600-schema-derived-synthetic-fixtures.md",
+        "feedback/history/development-guidance/common/2026-05-07_152100-private-live-adapter-smoke-gate.md",
+        "governance/ai-runtime-governance/routing-signal-governance.md",
+        "workflow/documentation/README.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_130000-in-session-api-host-differs-from-cold-start-primary.md",
+        "feedback/history/development-guidance/common/2026-05-11_093100-public-mirror-drift-gate.md",
+        "governance/lifecycle/knowledge-update-flow.yaml",
+        "feedback/history/development-guidance/common/2026-09-30_154100-caption-temporal-integrity-mechanical-timing-gate.md",
+        "feedback/history/apk-analysis/http-api/2026-07-15_140000-cold-start-token-may-come-from-bootstrap-not-login.md",
+        "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md",
+        "feedback/history/apk-analysis/common/2026-04-30_120002-高語意-hook-優先於-socket-bytes.md",
+        "feedback/history/3d-character-production/common/2026-09-01_084600-separate-asset-evidence-from-stage-pass.md",
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md",
+        "feedback/history/apk-analysis/common/2026-05-20_130500-runtime-h5-external-replay-gate.md",
+        "governance/ai-runtime-governance/five-step-ai-governance.md",
+        "feedback/history/apk-analysis/http-api/2026-05-06_104300-api-catalog-finish-gate.md",
+        "feedback/history/apk-analysis/common/2026-04-30_120008-aapt-sdk-build-tools-resolve-activity.md",
+        "feedback/history/apk-analysis/common/2026-05-06_102100-feature-handoff-finish-gate.md",
+        "feedback/history/apk-analysis/common/2026-05-19_160900-webview-h5-short-window-request-observed-gate.md",
+        "feedback/promotion/README.md",
+        "governance/lifecycle/routing-philosophy.md",
+        "knowledge/summaries/development-guidance.md",
+        "feedback/history/development-guidance/common/2026-05-06_103200-product-brief-validation-gate.md",
+        "feedback/history/apk-analysis/common/2026-05-06_104000-detailed-api-list-finish-gate.md",
+        "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md",
+        "governance/ai-runtime-governance/context-attention-governance.md",
+        "workflow/software-delivery/execution-flow.md",
+        "runtime/cognitive-modes.yaml",
+        "feedback/history/development-guidance/common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md",
+        "runtime/runtime.db",
+        "feedback/history/2026-07-14-workflow-primary-source-read-cursor-evidence.md",
+        "feedback/history/development-guidance/common/2026-07-30_135700-unreachable-test-surface-delete-over-repair.md",
+        "governance/ai-runtime-governance/validation-scenario-governance.md",
+        "feedback/history/apk-analysis/common/2026-05-19_163600-h5-bundle-parameter-codec-readiness-gate.md",
+        "feedback/history/development-guidance/common/2026-05-07_122800-performance-test-release-gate.md",
+        "knowledge/summaries/test-first-framework-upgrade.md",
+        "feedback/history/development-guidance/common/2026-07-30_135800-run-new-ban-against-existing-tree.md",
+        "feedback/history/narrative-video-production/common/2026-10-08_140500-divorce-marry-polarity-invert.md",
+        "enforcement/conversation-goal-ledger.md",
+        "feedback/history/development-guidance/common/2026-05-07_154400-analysis-sdk-contract-drift-gate.md",
+        "feedback/history/apk-analysis/common/2026-05-06_090100-frida-17-jailed-android-gadget-gate.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_205500-ui-behavior-backfill-finish-gate.md",
+        "feedback/history/development-guidance/common/2026-05-05_194400-contract-first-development-flow.md",
+        "feedback/history/apk-analysis/common/2026-05-06_154500-domain-runtime-baseline-finish-gate.md",
+        "feedback/history/roo-code/2026-05-14_013400-commit-before-step10-validation-skip.md",
+        "runtime/README.md",
+        "feedback/history/development-guidance/common/2026-10-01_171200-cap-recovery-loops-never-reset-gate-counter.md",
+        "feedback/history/narrative-video-production/common/2026-10-14_123700-fil-phrase-polarity-not-script-gate.md",
+        "feedback/history/development-guidance/common/2026-09-04_135746-gate-that-runs-only-at-commit-is-one-bypass-from-gone.md",
+        "feedback/history/apk-analysis/common/2026-04-30_120001-冷啟動比-attach-更適合抓初始化與代理設定.md",
+        "feedback/history/development-guidance/common/2026-10-05_103000-hook-env-leaks-into-fixture-repos.md",
+        "knowledge/summaries/migration-feature-bundling.md",
+        "knowledge/summaries/plan-first-decision-promotion.md",
+        "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md",
+        "feedback/history/apk-analysis/http-api/2026-05-19_161700-allowlisted-route-param-capture.md",
+        "feedback/history/development-guidance/common/2026-10-15_121000-secret-scanner-rejects-credential-literals-in-tests.md",
+        "feedback/history/apk-analysis/common/2026-04-30_120003-動態-hook-結果要離線化.md",
+        "feedback/history/apk-analysis/common/2026-07-14_171000-pairip-application-licenseactivity-cold-start-play-gate.md"
+      ],
+      "retrieved_expected": [
+        "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md"
+      ],
+      "direct_sources": [
+        "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md"
+      ],
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md"
+      ],
+      "hits": 1,
+      "expected_rank": 1,
+      "reciprocal_rank": 1.0,
+      "retrieved_confusers": [],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 58,
+      "relations": {
+        "direct": 1
+      },
+      "payload_runes": 770,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 58,
+        "unassessed": 57,
+        "unknown": 57,
+        "deferred": 0,
+        "trace": "lookup/9091f7301a7ebcf5",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "In PostgreSQL `now()` / `current_timestamp` is frozen at transaction start; a holder of an old open transaction can back-date any timestamp the routine writes with it, so minimum-age and reset-window gates must stamp with `clock_timestamp()`.",
+            "need_to_read": "讀回該來源中 clock_timestamp() 在 minimum-age 與 reset-window gate 的使用位置及時間戳寫入注意事項。"
+          }
+        ]
+      },
+      "unknown_action": "選取來源可供直接讀回；具體 age gate SQL、時間戳欄位與交易流程尚未提供，實作套用前需確認這些資訊。",
+      "source_checks": [
+        "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md"
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 31163,
+      "request_sha256": "9091f7301a7ebcf59a25f9fb8d139ef2b0ea4ef54d9945dbf75186875863b55d",
+      "raw_sha256": "612ca907d2780e1e154fcdc797623e31ec55cebcfe875e59e3da02010e00bc28",
+      "bundle_sha256": "8ca06eb8f765fa94d73348e647554bcf07bbc841ef129b5c977ca5592851e83a",
+      "watcher_sha256": "6301484673098565618859a4a169b41cf401d6001e16e05b28c2eef6b73255b1",
+      "complete_sha256": "2a63894a660285a23093730a8b1e9e0eca07c77e8edb1bc8e770d1f59dec197d",
+      "raw_file": "phase2-prod-R18.raw.txt",
+      "request_file": "phase2-prod-request-9091f7301a7ebcf5.json"
+    },
+    {
+      "id": "R19",
+      "query": "RAG_NEGATIVE_CONTROL_7f0b991e",
+      "split": "holdout",
+      "expected_sources": [],
+      "retrieved_sources": [],
+      "retrieved_expected": [],
+      "direct_sources": [],
+      "final_sources": [],
+      "hits": 0,
+      "expected_rank": null,
+      "reciprocal_rank": 0,
+      "retrieved_confusers": [],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 0,
+      "relations": {},
+      "payload_runes": 231,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "no-candidates-retrieved",
+        "pool": 0,
+        "unassessed": 0,
+        "unknown": 0,
+        "deferred": 0,
+        "trace": "lookup/a19435d1f9173393",
+        "results": []
+      },
+      "unknown_action": "The candidate pool is empty and the query provides no interpretable task context; obtain the intended task and relevant candidate sources before selecting knowledge.",
+      "source_checks": [],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 17570,
+      "request_sha256": "a19435d1f9173393fa2f8a41cad8f20b0e96637802340fe0138c9d6424757a44",
+      "raw_sha256": "35c8a38438ac81b51721e9ca85555ac2f0e972866cdb1baee8cccf9ad991c59e",
+      "bundle_sha256": "4810c17c1c8269cc1d444fc7039367cd5d0fa5612dd293b94e784e32e3060909",
+      "watcher_sha256": "49ff26f012e8be1b609919b433887fbf1625f1cdd928d4ebc3e61c489862e8b9",
+      "complete_sha256": "6aa5728db001306a0bf4e1a34e1b013f6619161b1c471353dbfff55bcfb6f99e",
+      "raw_file": "phase2-prod-R19.raw.txt",
+      "request_file": "phase2-prod-request-a19435d1f9173393.json"
+    },
+    {
+      "id": "R20",
+      "query": "evidence",
+      "split": "holdout",
+      "expected_sources": [],
+      "retrieved_sources": [
+        "intelligence/engineering/analytical-reasoning/highest-leverage-analysis-path.md",
+        "intelligence/engineering/requirements/README.md",
+        "intelligence/engineering/execution/validation-reasoning/state-transition-validation.md",
+        "intelligence/engineering/architecture/architectural-fit/README.md"
+      ],
+      "retrieved_expected": [],
+      "direct_sources": [],
+      "final_sources": [],
+      "hits": 0,
+      "expected_rank": null,
+      "reciprocal_rank": 0,
+      "retrieved_confusers": [],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 4,
+      "relations": {},
+      "payload_runes": 226,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "pending-assessment",
+        "pool": 4,
+        "unassessed": 4,
+        "unknown": 4,
+        "deferred": 0,
+        "trace": "lookup/f31c73a1da806d5b",
+        "results": []
+      },
+      "unknown_action": "The query 'evidence' does not establish a subject, task, domain, or evidence standard, so direct applicability of these candidates is unknown. Clarify what claim or decision needs evidence before selecting sources; the empty selection does not establish that relevant knowledge is absent.",
+      "source_checks": [],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 26014,
+      "request_sha256": "f31c73a1da806d5b20d948113b6dc69b185a7b4ff7c507b72fcc226541fb9204",
+      "raw_sha256": "112b9e0cb88fafbf0085b370c6f12f299471da4d08356f82086b24e75e0f0e01",
+      "bundle_sha256": "2756980702b2b694e850a7bb7e09b8440da38d70535102bcc994031fa39c96d3",
+      "watcher_sha256": "ab0955b534c7e86c4805dd29e44aa85fc03e7236626965418659220569037d27",
+      "complete_sha256": "7237e444a1c1a8c87ce6b285b23902696fa3ddcf5f1ece1b1cef4e6c7eadbe6c",
+      "raw_file": "phase2-prod-R20.raw.txt",
+      "request_file": "phase2-prod-request-f31c73a1da806d5b.json"
+    },
+    {
+      "id": "O01",
+      "query": "host middleware 裡的純函式把 JSON code:1002 認成 code:1，該怎麼驗這個比較？",
+      "split": "diagnostic",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md"
+      ],
+      "retrieved_sources": [
+        "feedback/history/apk-analysis/common/2026-06-22_142600-frida-python-attach-java-bridge-use-cli-subprocess-for-rpc.md",
+        "feedback/history/roo-code/2026-05-14_010400-bash-regex-bracket-inside-eqtilde.md",
+        "feedback/history/development-guidance/common/2026-10-22_093000-deployment-state-is-readback-not-narrative.md",
+        "feedback/history/apk-analysis/common/2026-05-01_112900-proxy-config-vs-business-route.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_190838-richtext-html-images-are-api-resources.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_162200-symbol-dto-id-may-be-one-char-strip-not-resource-name.md",
+        "feedback/history/apk-analysis/common/2026-05-20_113100-webview-devtools-json-no-js-fallback.md",
+        "feedback/history/apk-analysis/common/2026-09-09_100200-wellknown-http-ports-may-not-fail-named-host-resolve.md",
+        "runtime/runtime.db",
+        "feedback/history/apk-analysis/common/2026-07-15_132500-frida-e2e-compact-send-and-off-main-thread-http.md",
+        "workflow/investment/execution-flow.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_142900-wire-json-field-names-differ-from-gson-bean-paths.md",
+        "feedback/history/apk-analysis/flutter-dart-aot/2026-05-01_151551-schema-only-jsondecode-hook.md",
+        "feedback/history/apk-analysis/http-api/2026-07-14_135220-request-sign-interceptor-may-outnumber-signer-calls.md",
+        "feedback/history/apk-analysis/common/2026-07-14_135210-prove-wire-json-names-via-jsonreader-nextname.md",
+        "feedback/history/apk-analysis/flutter-dart-aot/2026-05-15_093300-dart-aot-onleave-retval-readutf8string.md",
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md",
+        "feedback/history/apk-analysis/common/2026-05-20_092500-webview-mitm-after-direct-load.md",
+        "feedback/history/apk-analysis/http-api/2026-07-15_140600-invalid-sign-json-200-may-mean-missing-initheaders-not-bad-rsa.md",
+        "feedback/history/roo-code/2026-05-14_013400-commit-before-step10-validation-skip.md",
+        "knowledge/summaries/context-cost-optimization.md",
+        "feedback/history/development-guidance/common/2026-05-06_150000-same-session-doc-sync-after-code-fix.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_142700-opaque-api-blob-native-decrypt-secondary-compression-json.md",
+        "runtime/capability-context.yaml",
+        "feedback/history/apk-analysis/common/2026-09-09_094500-frida-quiet-mode-needs-timeout.md",
+        "feedback/history/apk-analysis/flutter-dart-aot/2026-05-14_081500-prefix-varies-within-session.md",
+        "feedback/history/apk-analysis/local-proxy/2026-04-30_120009-內建-sing-box-tun-類通道可能繞過-wi-fi-系統代理.md",
+        "knowledge/summaries/migration-feature-bundling.md",
+        "feedback/history/development-guidance/common/2026-05-07_152100-private-live-adapter-smoke-gate.md",
+        "feedback/history/development-guidance/common/2026-09-28_133500-payline-chips-mirrors-vs-scaled-tags.md",
+        "feedback/history/roo-code/2026-05-13_124800-language-preference-drift.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_143500-paywall-entitlement-may-bind-to-account-session-not-guest-bootstrap.md",
+        "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-14_164000-slot-multi-level-collapse-one-result.md",
+        "feedback/history/apk-analysis/local-proxy/2026-05-01_114300-local-proxy-handler-uri-hook.md",
+        "feedback/history/apk-analysis/local-proxy/2026-06-22_120100-mitm-cdn-visible-primary-api-invisible-pinning-tier.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_130000-in-session-api-host-differs-from-cold-start-primary.md",
+        "feedback/history/apk-analysis/common/2026-05-06_094200-frida-heavy-window-ui-control-comparison.md",
+        "knowledge/summaries/investment-workflow.md",
+        "feedback/history/apk-analysis/http-api/2026-07-15_140100-dual-sign-canonical-h5-json-vs-retrofit-empty-bodystr.md",
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md",
+        "feedback/history/roo-code/2026-05-13_054400-framework-dependency-bias-ide-classification.md",
+        "feedback/history/development-guidance/common/2026-10-15_121000-secret-scanner-rejects-credential-literals-in-tests.md",
+        "feedback/history/development-guidance/common/2026-05-06_081600-change-intake-before-code.md",
+        "feedback/history/apk-analysis/local-proxy/2026-04-30_120010-本機-loopback-proxyserver-轉發會讓-wi-fi-http-mitm-看不到業務-connect.md",
+        "feedback/history/apk-analysis/common/2026-04-30_120006-登入限流要避免-tight-loop-優先-session-reuse.md",
+        "feedback/history/apk-analysis/http-api/2026-07-15_140500-bootstrap-retrofit-sign-may-include-wire-json-in-bodystr.md",
+        "feedback/history/apk-analysis/local-proxy/2026-07-14_095210-mixed-mitm-ads-ok-firstparty-ssl-api-bypass.md",
+        "knowledge/summaries/module-count-discipline.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_141500-static-list-endpoint-zero-hit-check-detail-embedded-catalog.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_165800-slot-spin-fixtures-pair-json-manifest-and-reel-crop.md",
+        "feedback/history/apk-analysis/common/2026-04-30_120005-session-refresh-要還原-app-的真實登入-裝置流程.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-model.md",
+        "feedback/history/development-guidance/common/2026-10-20_150000-claim-vs-proof-audit-before-a-protection-wording-switch.md",
+        "feedback/history/apk-analysis/common/2026-05-06_101000-in-app-search-suggestion-before-ime-submit.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_142500-partial-offline-sign-hmac-solved-requesttime-session-remain-relay.md",
+        "feedback/history/apk-analysis/common/2026-04-30_120001-冷啟動比-attach-更適合抓初始化與代理設定.md",
+        "feedback/history/apk-analysis/common/2026-04-30_120000-proxy-failure-要先拆成導流與-tls-兩層.md",
+        "knowledge/summaries/media-entitlement-control-plane.md",
+        "feedback/history/roo-code/2026-05-13_054300-language-preference-author-habit-drift.md",
+        "feedback/history/development-guidance/common/2026-05-06_082000-separate-regression-from-new-code-validation.md",
+        "feedback/history/apk-analysis/common/2026-06-22_131000-retrofit-gson-fromjson-hook-api-response-plaintext.md",
+        "feedback/history/apk-analysis/http-api/2026-05-01_171500-json-shape-before-query-shape.md",
+        "feedback/history/roo-code/2026-05-25_145500-bootstrap-bypass-on-resume.md"
+      ],
+      "retrieved_expected": [
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md"
+      ],
+      "direct_sources": [
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md"
+      ],
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md"
+      ],
+      "hits": 1,
+      "expected_rank": 1,
+      "reciprocal_rank": 1.0,
+      "retrieved_confusers": [
+        "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md"
+      ],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 64,
+      "relations": {
+        "direct": 1,
+        "background": 1
+      },
+      "payload_runes": 727,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 64,
+        "unassessed": 62,
+        "unknown": 62,
+        "deferred": 0,
+        "trace": "lookup/8ee8e3121d9ece2b",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "When validating JSON API responses with substring matching (e.g., `json.contains(\"\u005c\"code\u005c\":1\")`), numeric values like `1002` will falsely match because they contain the substring `\"code\":1`. Always parse the actual numeric value for comparison.",
+            "need_to_read": "讀回來源中解析 JSON 數值後比較的做法與適用條件，以確認此函式的比較及回歸驗證方式。"
+          }
+        ]
+      },
+      "unknown_action": "優先讀回所選 JSON 比較來源；尚缺函式實作、使用語言及 code 欄位型別契約，不能據此指定具體測試 API 或斷言字串 code 的處理方式。",
+      "source_checks": [
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md"
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 40116,
+      "request_sha256": "8ee8e3121d9ece2b20cefbe805001042847c6275f6b8e3f40736568cfc10b596",
+      "raw_sha256": "4a192be6a819c4d0a23e7c5cafae1fd41b0b93a5f6a2f1ca2ea87a07fded088d",
+      "bundle_sha256": "b3e8b5be28dbd1b191c9c2145aee6621c1ff0b4c0ad749b285a0072395a88160",
+      "watcher_sha256": "f49068786b98c4aa015125dc62cf256ca00762f043c1ddbece7ce5fc6c40f6ed",
+      "complete_sha256": "7761f61dd91b8bc48aa5812d497dbae2a8e2a124a41a93548d1ac5114f712f70",
+      "raw_file": "phase2-prod-O01.raw.txt",
+      "request_file": "phase2-prod-request-8ee8e3121d9ece2b.json.b64",
+      "request_encoding": "base64; decoded bytes match request_sha256"
+    },
+    {
+      "id": "O02",
+      "query": "API 和 SQL 數字正確，但手機版 scrollWidth 大於 clientWidth，要如何驗 viewport 的橫向溢出？",
+      "split": "diagnostic",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md"
+      ],
+      "retrieved_sources": [
+        "feedback/history/apk-analysis/http-api/2026-06-22_141700-custom-request-signatures-block-standalone-sdk-until-re-or-relay.md",
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md",
+        "feedback/history/apk-analysis/http-api/2026-05-15_173000-category-api-returns-numeric-id-not-display-name.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_184700-screen-reachability-operation-recipes.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_143500-paywall-entitlement-may-bind-to-account-session-not-guest-bootstrap.md",
+        "feedback/history/apk-analysis/http-api/2026-07-14_141500-request-sign-may-be-sha256withrsa-pkcs8-header-concat.md",
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md",
+        "feedback/history/apk-analysis/http-api/2026-07-15_140300-bootstrap-body-may-carry-analytics-ids-not-device-gaid.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_142700-opaque-api-blob-native-decrypt-secondary-compression-json.md",
+        "feedback/history/apk-analysis/http-api/2026-07-14_135220-request-sign-interceptor-may-outnumber-signer-calls.md",
+        "governance/ai-runtime-governance/five-step-ai-governance.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_141600-static-waterfall-path-zero-hit-check-shelf-layout-gating.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_202400-page-analysis-requires-ui-map-artifact.md",
+        "knowledge/summaries/migration-seeder-anti-patterns.md",
+        "feedback/history/apk-analysis/flutter-dart-aot/2026-05-01_153437-sequence-jsondecode-before-api-response.md",
+        "feedback/history/apk-analysis/http-api/2026-05-01_173800-api-field-documentation-after-analysis.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_130000-in-session-api-host-differs-from-cold-start-primary.md",
+        "feedback/history/apk-analysis/http-api/2026-07-14_112000-rsa-public-unwrap-to-short-key-then-content-decrypt.md",
+        "feedback/history/apk-analysis/http-api/2026-05-01_171650-ui-architecture-map-from-screenshots.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_185921-scroll-depth-before-api-conclusion.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_120200-static-ktor-strings-not-dynamic-business-api-client.md",
+        "intelligence/engineering/execution/validation-reasoning/state-transition-validation.md",
+        "feedback/history/apk-analysis/http-api/2026-05-06_104300-api-catalog-finish-gate.md",
+        "feedback/history/apk-analysis/http-api/2026-05-01_171500-json-shape-before-query-shape.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_165800-slot-spin-fixtures-pair-json-manifest-and-reel-crop.md",
+        "feedback/history/apk-analysis/common/2026-05-06_104000-detailed-api-list-finish-gate.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_142500-partial-offline-sign-hmac-solved-requesttime-session-remain-relay.md",
+        "feedback/history/apk-analysis/http-api/2026-05-11_135700-articles-first-live-adapter-smoke.md",
+        "feedback/history/apk-analysis/http-api/2026-05-11_095600-ui-api-top-items-parity.md",
+        "feedback/history/apk-analysis/http-api/2026-07-14_105600-named-getcontentbody-decrypt-yields-utf8-chapter-plaintext.md",
+        "knowledge/glossary/ai-skill.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_184218-playable-list-item-still-needs-detail-api.md",
+        "feedback/history/apk-analysis/http-api/2026-07-14_141700-crosscheck-request-sign-offline-vs-inapp-fingerprint.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_192012-infinite-scroll-needs-pagination-proof.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_205500-ui-behavior-backfill-finish-gate.md",
+        "feedback/history/apk-analysis/http-api/2026-05-11_113200-read-only-argument-override-preserve-app-path.md",
+        "feedback/history/apk-analysis/http-api/2026-07-15_140100-dual-sign-canonical-h5-json-vs-retrofit-empty-bodystr.md",
+        "feedback/history/apk-analysis/http-api/2026-05-07_125600-api-first-pagination-replay.md",
+        "feedback/history/apk-analysis/http-api/2026-09-01_093500-entitlement-grant-is-playable-field-presence-not-client-flag.md",
+        "feedback/history/apk-analysis/local-proxy/2026-07-14_095210-mixed-mitm-ads-ok-firstparty-ssl-api-bypass.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_184900-in-app-route-map-external-transitions.md",
+        "feedback/history/apk-analysis/http-api/2026-05-11_135000-redacted-sample-targeting-classifier.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_143400-login-may-bootstrap-with-sentinel-uid-session-headers.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-depth.md",
+        "feedback/history/apk-analysis/http-api/2026-05-15_172600-same-service-hash-multi-api-type-routing.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_143300-native-decrypt-mode-may-reuse-encrypt-mode-key-material.md",
+        "feedback/history/apk-analysis/http-api/2026-07-15_140000-cold-start-token-may-come-from-bootstrap-not-login.md",
+        "analysis/apk/workflows/README.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_183700-scrollable-clickable-screen-mapping.md",
+        "intelligence/engineering/execution/validation-reasoning/identity-coupled-side-effect-validation.md",
+        "feedback/history/apk-analysis/http-api/2026-05-15_172519-query-string-length-infer-unknown-param.md",
+        "feedback/history/apk-analysis/http-api/2026-05-18_142100-sha256-hash-verify-python-not-shell.md",
+        "feedback/history/apk-analysis/http-api/2026-05-06_081400-auto-app-guidance-for-sdk-tools.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_183400-ui-automation-operation-scripts-for-api-capture.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_190838-richtext-html-images-are-api-resources.md",
+        "feedback/history/apk-analysis/http-api/2026-05-11_113100-post-selection-gesture-for-lazy-api.md",
+        "feedback/history/apk-analysis/http-api/2026-05-19_162800-wire-path-vs-signing-canonical-path.md",
+        "feedback/history/apk-analysis/common/2026-06-22_131000-retrofit-gson-fromjson-hook-api-response-plaintext.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_195200-feature-reconstruction-handoff.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_141500-static-list-endpoint-zero-hit-check-detail-embedded-catalog.md",
+        "feedback/history/apk-analysis/http-api/2026-07-14_131500-ondisk\u002dencrypted-chapter-blob-length-matches-decrypt-input.md",
+        "feedback/history/apk-analysis/http-api/2026-05-19_161700-allowlisted-route-param-capture.md",
+        "feedback/history/apk-analysis/local-proxy/2026-06-22_120100-mitm-cdn-visible-primary-api-invisible-pinning-tier.md"
+      ],
+      "retrieved_expected": [
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md"
+      ],
+      "direct_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md"
+      ],
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md"
+      ],
+      "hits": 1,
+      "expected_rank": 1,
+      "reciprocal_rank": 1.0,
+      "retrieved_confusers": [
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md"
+      ],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 64,
+      "relations": {
+        "direct": 1,
+        "background": 1
+      },
+      "payload_runes": 646,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 64,
+        "unassessed": 62,
+        "unknown": 62,
+        "deferred": 0,
+        "trace": "lookup/3cfa49ed0aa4440c",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "RWD 或視覺縮放問題不能只靠 CSS marker、snapshot 或人工感覺驗證；要用真實瀏覽器 viewport 量 `document`、`body`、app shell、固定導覽與 scroll content 的 computed layout。",
+            "need_to_read": "讀取 document、body、app shell、固定導覽及 scroll content 的 computed layout 量測方法與 viewport 驗收條件。"
+          }
+        ]
+      },
+      "unknown_action": "先讀取所選 layout 驗證來源；目前缺少實際頁面、手機 viewport 尺寸及各容器量測資料，無法判定溢出元素或修正方式，應保留根因未知並取得瀏覽器量測證據。",
+      "source_checks": [
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md"
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 26283,
+      "request_sha256": "3cfa49ed0aa4440c90820d8838e2fd5991e00d5f711253747e2ba68bafad4f8e",
+      "raw_sha256": "9f4611827a4454a80f4990492b00d158c8fbd0f5263e5d9d9fff1971125cdc5c",
+      "bundle_sha256": "c3f56e3c8e2fa00de44887fd658abff3390bff36551bc323ed4bd8c4fb956d23",
+      "watcher_sha256": "e7f89b16493361f81f5a8825a627e724d493bcd7d042c41b254029a4e007b496",
+      "complete_sha256": "9fa3c4b6ff4a5e3d431ce52249719b06ff3f88cd4d982292e87f3a3237a2f3ea",
+      "raw_file": "phase2-prod-O02.raw.txt",
+      "request_file": "phase2-prod-request-3cfa49ed0aa4440c.json"
+    },
+    {
+      "id": "O03",
+      "query": "播放器的 HLS manifest/key 請求都正常；另一段 native model 權重載入直接崩潰，先怎麼比對失敗案例？",
+      "split": "diagnostic",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md"
+      ],
+      "retrieved_sources": [
+        "feedback/history/apk-analysis/http-api/2026-06-22_143300-native-decrypt-mode-may-reuse-encrypt-mode-key-material.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-09_112800-unity-ui-identity-from-loaded-objects-not-screenshot.md",
+        "knowledge/summaries/dual-token-audit.md",
+        "feedback/history/development-guidance/common/2026-07-17_171500-mpegurl-maybe-managed-mediasource-prefer-hlsjs.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_143200-custom-f3aes-label-may-still-be-standard-aes128-cbc-with-rodata-key-iv.md",
+        "feedback/history/development-guidance/common/2026-05-21_172704-dual-token-security-audit.md",
+        "feedback/history/apk-analysis/http-api/2026-05-15_172519-query-string-length-infer-unknown-param.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_143000-encrypt-plaintext-may-be-millis-plus-fingerprint-not-surface-seed.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-collapse-point.md",
+        "feedback/history/apk-analysis/http-api/2026-07-14_141700-crosscheck-request-sign-offline-vs-inapp-fingerprint.md",
+        "feedback/history/apk-analysis/media-hls/2026-05-06_121650-hls-playlist-key-may-be-wrapped.md",
+        "feedback/history/apk-analysis/http-api/2026-07-14_141500-request-sign-may-be-sha256withrsa-pkcs8-header-concat.md",
+        "feedback/history/apk-analysis/flutter-dart-aot/2026-05-07_135900-dio-requestoptions-uri-keyset-probe.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-depth.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_142700-opaque-api-blob-native-decrypt-secondary-compression-json.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_142800-native-encrypted-time-getter-may-cache-first-rotates-consecutive-same.md",
+        "feedback/history/apk-analysis/http-api/2026-09-01_093500-entitlement-grant-is-playable-field-presence-not-client-flag.md",
+        "knowledge/summaries/context-cost-optimization.md",
+        "feedback/history/apk-analysis/flutter-dart-aot/2026-05-14_000000-dart-custom-aes-8byte-key-not-reproducible.md",
+        "analysis/apk/workflows/README.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_142500-partial-offline-sign-hmac-solved-requesttime-session-remain-relay.md",
+        "feedback/history/development-guidance/controls/2026-09-01_095200-media-entitlement-omit-playable-fields.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-14_082500-unity-atlas-manifest-after-frida-sprite-name.md",
+        "intelligence/engineering/execution/validation-reasoning/state-visibility-gap.md",
+        "feedback/history/apk-analysis/common/2026-06-22_141900-crypto-util-name-sha256-does-not-imply-plain-sha256.md",
+        "feedback/history/apk-analysis/flutter-dart-aot/2026-05-15_094700-dart-aot-pool-constant-pp-peep-hardcoded-key.md",
+        "feedback/history/apk-analysis/media-hls/2026-05-11_093300-media-prefix-matrix-cdn-stale.md",
+        "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md",
+        "feedback/history/apk-analysis/common/2026-06-22_142000-jni-dynamic-registernatives-no-standard-java-com-export.md",
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md",
+        "README.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_142100-encrypted-request-time-double-native-call-second-value-in-sign-map.md",
+        "intelligence/engineering/execution/validation-reasoning/identity-coupled-side-effect-validation.md",
+        "feedback/history/apk-analysis/media-hls/2026-04-30_120007-媒體播放鏈要分控制面-金鑰與資料面.md",
+        "workflow/documentation/README.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_141800-okhttp-interceptor-sorted-map-canonical-sign-pattern.md",
+        "feedback/history/apk-analysis/common/2026-05-19_101500-hybrid-native-shell-plus-embedded-h5-frida-routing.md",
+        "feedback/history/apk-analysis/common/2026-06-22_142300-hmac-sha256-per-mode-keys-in-native-rodata.md",
+        "knowledge/summaries/model-routing.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_165800-slot-spin-fixtures-pair-json-manifest-and-reel-crop.md",
+        "runtime/runtime.db",
+        "feedback/history/apk-analysis/common/2026-07-14_135200-sign-canonical-structural-probe-allowlist-keys.md",
+        "feedback/history/apk-analysis/common/2026-06-22_131000-retrofit-gson-fromjson-hook-api-response-plaintext.md",
+        "feedback/history/apk-analysis/common/2026-09-09_094540-prefs-key-names-on-device-without-values.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-model.md",
+        "feedback/history/apk-analysis/common/2026-07-14_135210-prove-wire-json-names-via-jsonreader-nextname.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_094000-inspect-live-cryptor-object-before-key-recovery.md",
+        "feedback/history/apk-analysis/flutter-dart-aot/2026-05-01_140900-unflutter-aot-offset-hook-after-blutter-crash.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md",
+        "feedback/history/apk-analysis/http-api/2026-07-14_112000-rsa-public-unwrap-to-short-key-then-content-decrypt.md",
+        "intelligence/engineering/execution/validation-reasoning/state-transition-validation.md",
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md",
+        "analysis/binary/README.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_112200-live-cipher-mode-from-backing-enum-not-string-table.md",
+        "models/README.md",
+        "feedback/history/apk-analysis/flutter-dart-aot/2026-05-01_142000-exhaustive-java-okhttp-hooks-may-still-miss-flutter-business-http.md"
+      ],
+      "retrieved_expected": [
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md"
+      ],
+      "direct_sources": [
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md",
+        "analysis/binary/README.md"
+      ],
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md",
+        "analysis/binary/README.md"
+      ],
+      "hits": 1,
+      "expected_rank": 1,
+      "reciprocal_rank": 1.0,
+      "retrieved_confusers": [
+        "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md"
+      ],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 56,
+      "relations": {
+        "direct": 2,
+        "not-applicable": 2
+      },
+      "payload_runes": 732,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 56,
+        "unassessed": 52,
+        "unknown": 52,
+        "deferred": 0,
+        "trace": "lookup/95e01fb5fb1e5389",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "模型載入原生崩潰時先比對既有失敗指紋與版本範圍，再做最小隔離驗證，不從完整產品流程重新猜原因。",
+            "need_to_read": "讀取既有案例的失敗指紋、適用版本範圍與最小隔離驗證方式，確認與本次崩潰是否匹配。"
+          },
+          {
+            "source": "analysis/binary/README.md",
+            "kind": "route",
+            "status": "unknown",
+            "summary": "Native/managed methods distinct from APK dynamic and web scraping.",
+            "need_to_read": "查看如何取得與比對 native 崩潰堆疊、ELF 與版本資訊，以及本次環境適用的取證方法。"
+          }
+        ]
+      },
+      "unknown_action": "先讀選定的模型載入失敗案例與 native crash 取證入口；目前尚缺實際崩潰指紋／堆疊、模型格式與載入器、runtime／原生庫版本、平台及架構，不能判定既有案例適用或猜測根因。補齊後對照版本範圍與首個失敗位置，再做最小權重載入重現；HLS 請求正常不能作為模型載入鏈正常的證據。",
+      "source_checks": [
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md",
+        "analysis/binary/README.md"
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 37298,
+      "request_sha256": "95e01fb5fb1e5389b0171ca09d288eff8ae2ae7b47ad1076833f0f1f324786c6",
+      "raw_sha256": "0754aee318264dff204e238bbc727e8880a88a005014c358ac9ee1a3f18c0440",
+      "bundle_sha256": "56735acbff3a2633d5425c124a103c9f4cc5ad0a731a706b43c0c93dcfb480d4",
+      "watcher_sha256": "0241d64c259fcd1ff2f645c76cadf6960f103e3f95bac91b65dcca091d9d5cae",
+      "complete_sha256": "a7d8f5f6ce49afbb2768e864becb54443e271af87d8d8808034f043a2d540271",
+      "raw_file": "phase2-prod-O03.raw.txt",
+      "request_file": "phase2-prod-request-95e01fb5fb1e5389.json"
+    },
+    {
+      "id": "O04",
+      "query": "DB pool 用 now() 寫描述性日誌，工作卡在 nested checkout；應先查 client 持有還是 age gate？",
+      "split": "diagnostic",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md"
+      ],
+      "retrieved_sources": [
+        "feedback/history/apk-analysis/common/2026-05-19_163600-h5-bundle-parameter-codec-readiness-gate.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_112201-client-il2cpp-may-embed-unused-server-factory-types.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md",
+        "feedback/history/apk-analysis/common/2026-05-06_154500-domain-runtime-baseline-finish-gate.md",
+        "feedback/history/development-guidance/common/2026-05-07_152100-private-live-adapter-smoke-gate.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_171200-slot-play-rules-compare-cabinets-without-rng.md",
+        "feedback/history/apk-analysis/flutter-dart-aot/2026-05-15_094700-dart-aot-pool-constant-pp-peep-hardcoded-key.md",
+        "runtime/runtime.db",
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md",
+        "feedback/history/apk-analysis/http-api/2026-05-05_205500-ui-behavior-backfill-finish-gate.md",
+        "feedback/history/development-guidance/common/2026-05-11_093100-public-mirror-drift-gate.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_120200-static-ktor-strings-not-dynamic-business-api-client.md",
+        "governance/lifecycle/knowledge-update-flow.yaml",
+        "feedback/history/apk-analysis/common/2026-05-08_141430-identity-material-self-generation-audit.md",
+        "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_154800-wrapper-extras-may-be-ctor-invoke-clone-not-parseall.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_152200-nested-dto-ctors-may-sit-before-after-parse-not-apply.md",
+        "feedback/history/development-guidance/common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md",
+        "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-24_141900-slot-device-ui-harvest-via-owned-cryptor-lab-gateway.md",
+        "feedback/history/apk-analysis/common/2026-05-06_104000-detailed-api-list-finish-gate.md",
+        "feedback/history/apk-analysis/http-api/2026-09-01_093500-entitlement-grant-is-playable-field-presence-not-client-flag.md",
+        "feedback/history/development-guidance/common/2026-10-05_103000-hook-env-leaks-into-fixture-repos.md",
+        "governance/ai-runtime-governance/validation-scenario-governance.md",
+        "governance/lifecycle/executable-contract-boundary.yaml",
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md",
+        "feedback/history/apk-analysis/common/2026-05-06_102100-feature-handoff-finish-gate.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_143200-elements-iterator-current-may-be-nested-xelement-ctor.md",
+        "feedback/history/apk-analysis/common/2026-05-20_130500-runtime-h5-external-replay-gate.md",
+        "feedback/history/apk-analysis/common/2026-05-06_113302-dart-aot-offset-from-asm-address.md",
+        "feedback/history/apk-analysis/common/2026-04-30_120001-冷啟動比-attach-更適合抓初始化與代理設定.md",
+        "feedback/history/apk-analysis/common/2026-04-30_120004-frida-只有-banner-時先做最小-hook-健康檢查.md",
+        "feedback/history/apk-analysis/common/2026-05-06_090100-frida-17-jailed-android-gadget-gate.md",
+        "knowledge/summaries/executable-contract-boundary.md",
+        "feedback/history/apk-analysis/common/2026-09-07_173500-frida-attach-android-process-label-not-package.md",
+        "feedback/history/development-guidance/common/2026-10-01_171200-cap-recovery-loops-never-reset-gate-counter.md",
+        "knowledge/summaries/prompt-cache-alignment.md",
+        "feedback/history/apk-analysis/common/2026-07-14_135200-sign-canonical-structural-probe-allowlist-keys.md",
+        "feedback/history/development-guidance/common/2026-09-04_142100-one-shot-watch-must-terminate-on-its-own-condition.md",
+        "feedback/history/development-guidance/common/2026-05-07_154400-analysis-sdk-contract-drift-gate.md",
+        "feedback/history/image-processing/common/2026-10-16_132758-regular-panel-grid-mid-gutter-cuts.md",
+        "feedback/history/development-guidance/common/2026-05-06_103200-product-brief-validation-gate.md",
+        "feedback/history/apk-analysis/common/2026-05-19_160900-webview-h5-short-window-request-observed-gate.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_153400-nested-dtos-may-have-own-parse-beside-wrapper.md",
+        "feedback/history/development-guidance/common/2026-09-30_154100-caption-temporal-integrity-mechanical-timing-gate.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-14_163000-slot-collapse-often-single-result.md",
+        "feedback/history/apk-analysis/common/2026-07-14_171000-pairip-application-licenseactivity-cold-start-play-gate.md",
+        "feedback/history/development-guidance/common/2026-05-07_122800-performance-test-release-gate.md",
+        "feedback/history/apk-analysis/http-api/2026-05-06_104300-api-catalog-finish-gate.md",
+        "knowledge/summaries/migration-feature-bundling.md",
+        "feedback/history/narrative-video-production/common/2026-10-14_123700-fil-phrase-polarity-not-script-gate.md",
+        "knowledge/summaries/test-first-framework-upgrade.md",
+        "ai-tools/agent-onboarding.yaml",
+        "feedback/history/development-guidance/common/2026-09-04_135746-gate-that-runs-only-at-commit-is-one-bypass-from-gone.md",
+        "knowledge/summaries/plan-first-decision-promotion.md",
+        "feedback/history/development-guidance/controls/2026-05-01_142100-client-encrypted-header-not-boundary.md",
+        "feedback/history/development-guidance/common/2026-09-04_142000-derived-closure-must-not-expand-its-own-derivation-table.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_154000-nested-dto-may-fill-via-ctor-without-parse.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_142800-parse-xcontainer-element-retval-may-be-nested-ctor-not-load-tree.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_144000-nested-element-attribute-may-not-share-load-tree-xattribute.md",
+        "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md",
+        "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md",
+        "intelligence/engineering/execution/validation-reasoning/evidence-collapse-point.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_151000-parse-may-construct-wrapper-not-nested-dtos.md"
+      ],
+      "retrieved_expected": [
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md"
+      ],
+      "direct_sources": [
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md"
+      ],
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md"
+      ],
+      "hits": 1,
+      "expected_rank": 1,
+      "reciprocal_rank": 1.0,
+      "retrieved_confusers": [
+        "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md"
+      ],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 64,
+      "relations": {
+        "direct": 1,
+        "not-applicable": 1
+      },
+      "payload_runes": 665,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 64,
+        "unassessed": 62,
+        "unknown": 62,
+        "deferred": 0,
+        "trace": "lookup/a4ee25d2aa2435a5",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "Never hold a DB pool client across an await that also checks out from the same pool; saturation turns into an uninterruptible hang that soft reconcile cannot clear.",
+            "need_to_read": "讀取同池巢狀 checkout 的診斷與 client release 邊界，核對目前 await 前是否仍持有 client。"
+          }
+        ]
+      },
+      "unknown_action": "先讀同池 client 持有與釋放來源，再核對 checkout 等待位置、pool 容量與持有中的 client；目前尚無執行證據可確定根因，也無 age gate 前提，不因 now() 日誌而推定需修改 gate。",
+      "source_checks": [
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md"
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 36913,
+      "request_sha256": "a4ee25d2aa2435a5b08e920996f1eba619d7ce0e37a809d4bbddb5bf622d75a4",
+      "raw_sha256": "1e8fd001e708a6e3e1b74d67d539fab952c85be0400328780990236a2f09265b",
+      "bundle_sha256": "ec3e86637bce0577b7933bef8beae0839ede874c4226d517bf7f1d3f60049110",
+      "watcher_sha256": "f820ea328cbada5413aea1b3d1858421038ab352810390b76e6194b1886ef768",
+      "complete_sha256": "e1bddab0db6da6b1dd214f32625960f67331a907c23b6154240018027779d70e",
+      "raw_file": "phase2-prod-O04.raw.txt",
+      "request_file": "phase2-prod-request-a4ee25d2aa2435a5.json"
+    },
+    {
+      "id": "O05",
+      "query": "已乾淨 restore/build，卻遇到舊 peer 的 ECONNREFUSED，官方 discovery 指向新位址，工作應怎麼處置？",
+      "split": "diagnostic",
+      "expected_sources": [
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "retrieved_sources": [
+        "feedback/promotion/README.md",
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md",
+        "feedback/history/development-guidance/common/2026-09-28_131830-runtime-image-must-copy-baked-repo-root-data.md",
+        "knowledge/summaries/development-guidance.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-07_170500-parseresult-arg-class-can-be-xdocument-when-c2s-is-not-xml.md",
+        "workflow/software-delivery/execution-flow.md",
+        "feedback/history/apk-analysis/local-proxy/2026-05-01_114300-local-proxy-handler-uri-hook.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-10-23_101000-unity-particle-restore-needs-unitypy-or-assetripper-not-il2cppdumper.md",
+        "knowledge/summaries/requirements-cognition.md",
+        "intelligence/engineering/analytical-reasoning/highest-leverage-analysis-path.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-14_113500-pua-icon-glyph-may-live-in-separate-icons-font.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-07_172200-slot-s2c-may-apply-via-processspin-gameaction-not-parseresult.md",
+        "feedback/history/apk-analysis/flutter-dart-aot/2026-05-15_093300-dart-aot-onleave-retval-readutf8string.md",
+        "workflow/greenfield/execution-flow.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_135200-xname-get-string-may-be-substring-not-getstring.md",
+        "anti-patterns/README.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-07_163400-il2cpp-sendpacket-arg-class-is-the-opcode.md",
+        "feedback/history/apk-analysis/http-api/2026-06-22_142500-partial-offline-sign-hmac-solved-requesttime-session-remain-relay.md",
+        "feedback/history/development-guidance/common/2026-10-01_152600-ocr-probe-is-discovery-not-exclusion.md",
+        "knowledge/summaries/prompt-cache-alignment.md",
+        "feedback/history/apk-analysis/common/2026-09-09_094540-prefs-key-names-on-device-without-values.md",
+        "feedback/history/development-guidance/common/2026-05-18_160000-registry-first-workflow-activation.md",
+        "feedback/history/roo-code/2026-05-25_145500-bootstrap-bypass-on-resume.md",
+        "knowledge/summaries/module-count-discipline.md",
+        "feedback/history/apk-analysis/media-hls/2026-05-06_121650-hls-playlist-key-may-be-wrapped.md",
+        "feedback/history/apk-analysis/common/2026-05-19_165900-webview-cdp-origin-policy-and-js-probe-fallback.md",
+        "feedback/history/apk-analysis/common/2026-09-09_094500-frida-quiet-mode-needs-timeout.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-14_150000-slot-variable-lines-ways-desk-match.md",
+        "runtime/capability-context.yaml",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_151000-parse-may-construct-wrapper-not-nested-dtos.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_130800-same-thread-dt-window-after-decrypt-not-global-live.md",
+        "feedback/history/apk-analysis/common/2026-04-30_120008-aapt-sdk-build-tools-resolve-activity.md",
+        "feedback/history/apk-analysis/common/2026-05-14_073700-frida-spawn-vs-attach-init-timing-no-buffer.md",
+        "governance/lifecycle/knowledge-update-flow.yaml",
+        "feedback/history/apk-analysis/common/2026-05-13_095500-incremental-frida-hook-versioning-for-complex-capture.md",
+        "feedback/history/apk-analysis/http-api/2026-05-06_081400-auto-app-guidance-for-sdk-tools.md",
+        "knowledge/runtime/routing-registry.yaml",
+        "feedback/history/development-guidance/common/2026-10-15_121000-secret-scanner-rejects-credential-literals-in-tests.md",
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md",
+        "governance/lifecycle/executable-contract-boundary.yaml",
+        "feedback/history/apk-analysis/local-proxy/2026-10-23_134500-wire-result-glass-must-match-processresult-strip.md",
+        "runtime/cognitive-modes.yaml",
+        "feedback/history/legal/common/2026-07-30_221637-counterparty-business-scope-drives-clause-terms.md",
+        "knowledge/summaries/executable-contract-boundary.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-14_141200-restore-unity-preview-composite-via-main-thread-or-cdn.md",
+        "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md",
+        "feedback/history/development-guidance/common/2026-09-30_150000-dialogue-cue-projection-must-not-flatten-subtitle-group.md",
+        "workflow/legal/execution-flow.md",
+        "feedback/history/apk-analysis/flutter-dart-aot/2026-05-14_073700-dart-aot-padright-null-bytes-substring-noop.md",
+        "validation/README.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-08_112201-client-il2cpp-may-embed-unused-server-factory-types.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-14_162000-slot-rewards-chips-per-way-and-collapse.md",
+        "feedback/history/apk-analysis/common/2026-05-06_122900-checkpoint-replay-runner.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-14_082500-unity-atlas-manifest-after-frida-sprite-name.md",
+        "feedback/history/apk-analysis/common/2026-05-07_143800-stateful-setting-probe-restore.md",
+        "knowledge/summaries/vendor-integration-architecture.md",
+        "feedback/history/narrative-video-production/common/2026-10-13_133000-selection-scaffolding-must-not-become-dst.md",
+        "governance/lifecycle/system-upgrade-governance.yaml",
+        "runtime/runtime.db",
+        "feedback/history/development-guidance/common/2026-05-22_104646-module-count-discipline.md",
+        "feedback/history/apk-analysis/unity-il2cpp/2026-09-15_091500-slot-collapse-level-concurrent-pays.md",
+        "feedback/history/apk-analysis/common/2026-05-19_160900-webview-h5-short-window-request-observed-gate.md",
+        "feedback/history/apk-analysis/common/2026-06-22_120000-okhttp-r8-obfuscated-request-realinterceptorchain-proceed.md",
+        "intelligence/engineering/execution/validation-reasoning/state-transition-validation.md"
+      ],
+      "retrieved_expected": [
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "direct_sources": [
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "final_sources": [
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "hits": 1,
+      "expected_rank": 1,
+      "reciprocal_rank": 1.0,
+      "retrieved_confusers": [
+        "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md"
+      ],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 64,
+      "relations": {
+        "direct": 1
+      },
+      "payload_runes": 708,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 64,
+        "unassessed": 63,
+        "unknown": 63,
+        "deferred": 0,
+        "trace": "lookup/39f396b3c70eda0b",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "When a long-lived TCP peer returns `ECONNREFUSED` / host-unreachable, refresh the official discovery source, persist the new endpoint, and keep the durable job `running` instead of marking it failed.",
+            "need_to_read": "讀取此來源中官方 discovery 更新、持久化新 endpoint 與維持工作 running 的處置細節，確認適用的 peer 與工作生命週期。"
+          }
+        ]
+      },
+      "unknown_action": "目前未提供實際工作系統、端點儲存位置與重連機制；先讀回所選來源確認具體套用方式，不猜測實作命令，也不因已完成 restore/build 就把連線拒絕歸為建置問題。",
+      "source_checks": [
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 45068,
+      "request_sha256": "39f396b3c70eda0bb301538820fbb51e0a740a53c20d68a16c00933d5a9ac143",
+      "raw_sha256": "2bacae9881c0cda76f457d7d4f5a05103a44a8ae6530c7530254bdd3811dccb1",
+      "bundle_sha256": "d3f64ea2695adcc95944ff1ab7ec3047dc8b1d3ffab4226951951fc8d7aff06f",
+      "watcher_sha256": "5a029a995012b88640a426535d9a8d7f0139d8a78ef732755b3a76055dd552e8",
+      "complete_sha256": "e1db400e676351d09a90896bc0450609b7c545e57869a7adb0bb05d319d12eac",
+      "raw_file": "phase2-prod-O05.raw.txt",
+      "request_file": "phase2-prod-request-39f396b3c70eda0b.json"
+    },
+    {
+      "id": "O06",
+      "query": "已排除 ECONNREFUSED，官方 peer 可連線但 token 被撤銷；要找重新授權流程，還應一直刷新 discovery 嗎？",
+      "split": "diagnostic",
+      "expected_sources": [],
+      "retrieved_sources": [
+        "feedback/history/apk-analysis/flutter-dart-aot/2026-05-14_081500-prefix-session-specific-not-device-specific.md",
+        "feedback/history/apk-analysis/http-api/2026-07-15_140000-cold-start-token-may-come-from-bootstrap-not-login.md",
+        "knowledge/summaries/knowledge-navigation.md",
+        "feedback/history/apk-analysis/common/2026-09-09_094550-reset-level-may-change-login-packet-class.md",
+        "knowledge/summaries/dual-token-audit.md",
+        "feedback/history/apk-analysis/common/2026-04-30_120005-session-refresh-要還原-app-的真實登入-裝置流程.md",
+        "intelligence/engineering/execution/validation-reasoning/identity-coupled-side-effect-validation.md",
+        "feedback/history/apk-analysis/common/2026-05-18_172200-flutter-java-hybrid-security-architecture-overview.md",
+        "feedback/history/development-guidance/common/2026-05-18_160000-registry-first-workflow-activation.md",
+        "knowledge/runtime/routing-registry.yaml",
+        "governance/ai-runtime-governance/context-attention-governance.md",
+        "knowledge/summaries/prompt-cache-alignment.md",
+        "runtime/cognitive-modes.yaml",
+        "knowledge/summaries/context-cost-optimization.md",
+        "feedback/history/development-guidance/common/2026-10-01_090000-ocr-join-token-seam-not-cumulative-script.md",
+        "feedback/history/development-guidance/common/2026-10-01_152600-ocr-probe-is-discovery-not-exclusion.md",
+        "feedback/history/development-guidance/common/2026-05-21_172704-dual-token-security-audit.md",
+        "feedback/history/apk-analysis/common/2026-09-09_094540-prefs-key-names-on-device-without-values.md",
+        "knowledge/summaries/requirements-cognition.md",
+        "governance/lifecycle/knowledge-update-flow.yaml",
+        "workflow/documentation/README.md",
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md",
+        "feedback/history/apk-analysis/flutter-dart-aot/2026-05-14_081500-prefix-varies-within-session.md",
+        "feedback/history/apk-analysis/common/2026-07-15_140400-httpglobal-header-setter-hook-for-token-when-okhttp-introspect-fails.md"
+      ],
+      "retrieved_expected": [],
+      "direct_sources": [],
+      "final_sources": [],
+      "hits": 0,
+      "expected_rank": null,
+      "reciprocal_rank": 0,
+      "retrieved_confusers": [
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "direct_confusers": [],
+      "final_confusers": [],
+      "pool": 24,
+      "relations": {
+        "not-applicable": 1,
+        "unknown": 1
+      },
+      "payload_runes": 229,
+      "payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "pending-assessment",
+        "pool": 24,
+        "unassessed": 22,
+        "unknown": 23,
+        "deferred": 0,
+        "trace": "lookup/848a0303ba78c749",
+        "results": []
+      },
+      "unknown_action": "不要因 token 撤銷而一直刷新 discovery；目前候選未確立適用的重新授權流程，也不能據空選取判定知識不存在。先確認服務或產品名稱、授權方式及撤銷錯誤，再查該服務官方的重新授權與憑證替換流程。",
+      "source_checks": [],
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      },
+      "watch_elapsed_ms": 33439,
+      "request_sha256": "848a0303ba78c749a7fec99be735a031301bb728ea8df1ae7e97746d3657a04a",
+      "raw_sha256": "c6151f9612ab4fa5e8594d40e12b678330c66e6d46c35ff9d12cb807b29bee83",
+      "bundle_sha256": "c457b178cce43ea2ae54cb892cdfdb74754fdb773f4ae3ce67facf731f12c9f1",
+      "watcher_sha256": "70e17a5be8e02d8d2098f717a4e415da3fd1198334acff32ce7589a805dfae57",
+      "complete_sha256": "b2c36a69406c51933d6c555206711de9956c20d31cc67b79df7da6942e71c9a7",
+      "raw_file": "phase2-prod-O06.raw.txt",
+      "request_file": "phase2-prod-request-848a0303ba78c749.json"
+    }
+  ],
+  "applicability": "not evaluated; handoff only",
+  "adoption": "not evaluated",
+  "actual_tokens": "unavailable",
+  "model_snapshot": "unavailable"
+}

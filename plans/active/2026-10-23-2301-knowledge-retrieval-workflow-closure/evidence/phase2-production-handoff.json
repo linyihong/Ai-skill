@@ -1,0 +1,244 @@
+{
+  "scope": "Root source-readback review after raw responses frozen; no new selector/reviewer attempt. Read selected source bodies from fixed corpus only. No applicability or adoption conclusion.",
+  "summary": {
+    "positive_cases": 23,
+    "supported_next_readback_cases": 21,
+    "conditional_project_evidence_cases": [
+      "R11",
+      "O03"
+    ],
+    "selected_source_occurrences": 28,
+    "unique_source_paths": 23
+  },
+  "selected_source_review": [
+    {
+      "case": "R01",
+      "source": "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Generalized Lesson / Agent Action: real composed host pipeline, status/logger levels and registration order; isolated middleware tests are insufficient.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "R02",
+      "source": "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Generalized Lesson / Agent Action: same video ID does not establish synchronized DOM/API/cache state.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "R03",
+      "source": "feedback/history/development-guidance/common/2026-09-04_101800-derived-state-before-blaming-shared-baseline.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Generalized Lesson / Agent Action: compare baseline and derived-state behavior before attributing a regression.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "R04",
+      "source": "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Generalized Lesson / Agent Action: parse JSON and inspect structural keys/types rather than substring matches.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "R05",
+      "source": "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Generalized Lesson / Agent Action: measure browser viewport/layout metrics before changing responsive thresholds.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "R06",
+      "source": "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Generalized Lesson / Agent Action: blob rewrite uses original URL and actual window origin.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "R07",
+      "source": "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Generalized Lesson / Agent Action: feature/index/BDD/implementation traceability and component identifiers.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "R08",
+      "source": "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Historical lesson gives ownership rationale; executable-contract-boundary.yaml boundary_rules gives Markdown/YAML ownership and opt-in runtime projection. runtime.db compiler_rules and generated_surfaces provide derived compilation/projection evidence, not independent historical authority.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "R08",
+      "source": "governance/lifecycle/executable-contract-boundary.yaml",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Historical lesson gives ownership rationale; executable-contract-boundary.yaml boundary_rules gives Markdown/YAML ownership and opt-in runtime projection. runtime.db compiler_rules and generated_surfaces provide derived compilation/projection evidence, not independent historical authority.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "R08",
+      "source": "runtime/runtime.db",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Historical lesson gives ownership rationale; executable-contract-boundary.yaml boundary_rules gives Markdown/YAML ownership and opt-in runtime projection. runtime.db compiler_rules and generated_surfaces provide derived compilation/projection evidence, not independent historical authority.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "R09",
+      "source": "knowledge/summaries/test-first-framework-upgrade.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Historical lesson and test-first-framework-upgrade summary support scenario-first / fail-by-absence navigation. system-upgrade-governance.yaml write_test_first_scenarios and test_first_scenarios_ready specify implementation gate and exemptions. Keep all three sources and original rank.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "R09",
+      "source": "governance/lifecycle/system-upgrade-governance.yaml",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Historical lesson and test-first-framework-upgrade summary support scenario-first / fail-by-absence navigation. system-upgrade-governance.yaml write_test_first_scenarios and test_first_scenarios_ready specify implementation gate and exemptions. Keep all three sources and original rank.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "R09",
+      "source": "feedback/history/development-guidance/common/2026-05-22_092400-test-first-framework-upgrade.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Historical lesson and test-first-framework-upgrade summary support scenario-first / fail-by-absence navigation. system-upgrade-governance.yaml write_test_first_scenarios and test_first_scenarios_ready specify implementation gate and exemptions. Keep all three sources and original rank.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "R10",
+      "source": "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Generalized Lesson / Agent Action: restore derived graphs from canonical inputs, then validate consumers.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "R11",
+      "source": "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "conditional-project-evidence",
+      "body_review": "Generic lesson supports known-case-first investigation but concrete model/package versions, native stack, fingerprint and validation outcome require its project evidence path. Conditional handoff; no generic summary can establish project applicability.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "R12",
+      "source": "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Generalized Lesson / Agent Action: exact SQL cancellation, lock state and deferred commit behavior need transaction evidence.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "R13",
+      "source": "feedback/history/development-guidance/common/2026-07-23_071200-injectable-wall-clock-for-day-boundary-logic.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Generalized Lesson / Agent Action: inject wall-clock time and test boundary behavior.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "R14",
+      "source": "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Generalized Lesson / Agent Action: release nested pool/checkout ownership at the matching scope.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "R15",
+      "source": "feedback/history/development-guidance/common/2026-10-22_093000-deployment-state-is-readback-not-narrative.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Generalized Lesson / Agent Action: deploy readback ledger establishes actual state; tags alone do not.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "R16",
+      "source": "feedback/history/development-guidance/common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Generalized Lesson / Agent Action: resolve paths against the index root and parse the actual artifact.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "R17",
+      "source": "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Generalized Lesson / Agent Action: stale/unreachable peer discovery differs from authentication or token revocation.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "R18",
+      "source": "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Generalized Lesson / Agent Action: transaction-start now() differs from clock_timestamp().",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "O01",
+      "source": "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Same structural JSON lesson as R04; readback supports parser-based diagnosis.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "O02",
+      "source": "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Same viewport-measurement lesson as R05; KPI aging is excluded from final context.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "O03",
+      "source": "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "conditional-project-evidence",
+      "body_review": "Known-case-first lesson requires source-project evidence as R11. analysis/binary/README.md is conditional navigation to native/managed/offline-crash tools; it does not establish platform/ELF applicability. unknown_action explicitly asks platform, architecture, model/package version and stack.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "O03",
+      "source": "analysis/binary/README.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "conditional-project-evidence",
+      "body_review": "Known-case-first lesson requires source-project evidence as R11. analysis/binary/README.md is conditional navigation to native/managed/offline-crash tools; it does not establish platform/ELF applicability. unknown_action explicitly asks platform, architecture, model/package version and stack.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "O04",
+      "source": "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Same nested checkout lesson as R14; descriptive-log aging is excluded.",
+      "applicability": "not evaluated; Phase 3"
+    },
+    {
+      "case": "O05",
+      "source": "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md",
+      "source_identity": "production complete checksum/freshness checks passed",
+      "handoff": "supported-next-readback",
+      "body_review": "Same stale-peer lesson as R17; official discovery refresh / persisted endpoint / running-state boundaries require source readback.",
+      "applicability": "not evaluated; Phase 3"
+    }
+  ],
+  "empty_output_dispositions": {
+    "R19": "empty candidate pool; no inference of general knowledge absence",
+    "R20": "nonempty pool retained unknown-status sources; ambiguous artificial evidence query caused abstention, not empty-result precision",
+    "O06": "peer refusal excluded; auth session recovery explicitly unknown without product/platform/revocation context; no guessed solution"
+  }
+}

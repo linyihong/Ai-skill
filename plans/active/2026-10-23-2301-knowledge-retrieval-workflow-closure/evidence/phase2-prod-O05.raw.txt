@@ -1,0 +1,1 @@
+{"selected":["8a31244964662220"],"assessments":[{"id":"8a31244964662220","relation":"direct","reason":"問題明確包含舊 peer 的 ECONNREFUSED，且官方 discovery 已指向新位址，直接符合此來源的端點更新與 durable job 狀態處置。","need_to_read":"讀取此來源中官方 discovery 更新、持久化新 endpoint 與維持工作 running 的處置細節，確認適用的 peer 與工作生命週期。"}],"unknown_action":"目前未提供實際工作系統、端點儲存位置與重連機制；先讀回所選來源確認具體套用方式，不猜測實作命令，也不因已完成 restore/build 就把連線拒絕歸為建置問題。"}

@@ -1,0 +1,1 @@
+{"selected":[],"assessments":[],"unknown_action":"The query 'evidence' does not establish a subject, task, domain, or evidence standard, so direct applicability of these candidates is unknown. Clarify what claim or decision needs evidence before selecting sources; the empty selection does not establish that relevant knowledge is absent."}
