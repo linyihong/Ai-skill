@@ -108,3 +108,11 @@ knowledge/runtime/sqlite/runtime-index.sqlite
 - Query result 只作候選，不跳過 source-of-truth gate。
 - Validator 能重算 source checksum，偵測 SQLite index 是否 stale。
 - Runtime reports、routing registry、summary / graph counts 與 SQLite counts 可交叉檢查。
+
+## Native source-level lookup（Phase 2）
+
+`runtime refresh --native-index` 現在另外收錄 Phase 0 選定的 `intelligence/engineering/execution/validation-reasoning/*.md`（README 除外）正文；一來源一 atom，body 只供搜尋，preview 保留來源第一段。它不代表全庫正文已覆蓋。
+
+`runtime query --source-level --keyword <phrase>` 保留精確片語，top-k 前按來源去重、回傳 canonical metadata／checksum／補讀入口；limit 上限 64。Canonical status 與 route compatibility status 分開，缺 scope／domain／replaces 不推定適用；完整使用契約見 [CLI command contract](../../../scripts/ai-skill-cli/docs/command-contract.md#ai-skill-runtime-query)。
+
+新表 `source_metadata` 保存 derived provenance，`index_inputs` 保存 generator／canonical 內容與 membership 指紋。Source-level query 在查詢前後驗 freshness；修改、新增、刪除、搬移或舊 schema 均要求重建。Rebuild 先寫同目錄暫存 DB、比對開始／結束 inputs，成功才替換；失敗保留舊 cache。舊 atom 查詢保持 legacy DB 相容，沒有這項 freshness 保證。

@@ -36,6 +36,7 @@
 | `ai-skill runtime refresh` | 重建 knowledge runtime reports / SQLite index | 是 | 否 | Phase 3 |
 | `ai-skill runtime compile` | 編譯 `runtime/runtime.db` | 是 | 否 | Phase 3 |
 | `ai-skill runtime validate` | 驗證 runtime.db、knowledge runtime、SQLite assertions | 否 | 否 | Phase 3 |
+| `ai-skill runtime selection-watch` | 觀測單次 agent 檔案回應、嚴格驗證、deadline 與 interrupt-required handoff；不宣稱已停止 child | 是（短暫 readiness marker） | 否 | Retrieval Phase 2 |
 | `ai-skill runtime query` | 查詢 runtime index / generated surfaces | 否 | 否 | Phase 3 |
 | `ai-skill runtime obligations` | 列出目前 active bootstrap obligations（per_session / per_turn / per_commit）並附 Bootstrap Receipt line，從 `generated_surfaces[runtime.core_bootstrap.contract]` 與 runtime phase/gate tables 讀取 | 否 | 否 | bootstrap-yaml-migration Phase 3 |
 | `ai-skill runtime receipt` | 輸出 canonical Bootstrap Receipt 與 active per-turn obligation IDs，供 hooks / stop repair 使用；避免 agent 臨時拼 SQLite 查詢 | 否 | 否 | bootstrap receipt repair hardening |
@@ -404,6 +405,7 @@
 
 - `<query>` positional term 或 `--keyword <term>`
 - `--graph`
+- `--source-level`（canonical source 去重、freshness 檢查，limit ≤64）
 - `--db <path>`
 - `--layer <name>`
 - `--source <path>`
@@ -419,10 +421,24 @@
 必要行為：
 
 - Query 命令不得修改 SQLite DB 或 generated reports。
+- Native index 另收錄選定 validation-reasoning Markdown 正文（一來源一 atom）；FTS body 與顯示摘要分開。預設保留精確片語，未默默啟用 OR。
+- `--source-level` 在 top-k 前按 canonical source 去重；`--status` 比對 canonical status，排除明確不符者但保留 unknown 待讀回；與 route compatibility status 分開。回傳 checksum、canonical status、domains、scope、replaces、readback 與 applicability=unverified；缺 metadata 明列 unknown（domains 空陣列表示未建立限制），不能推定權威或適用。
+- Source-level query 比對 generator inputs／來源內容及 membership，舊 schema／edit／add／delete／move 均需 refresh；檢查不等於語意結論已失效。Build 使用同目錄暫存 DB，成功才 replace；失敗保留舊 cache。舊 atom query 保持 legacy DB 相容，不提供這項 freshness 保證。
+- Graph 仍為 YAML 單跳 lookup，回傳 depth=1、edge type；套 filter 後受 limit 限制、保持檔案與 edge 順序，relation 不等於支持或授權。
 - 查不到資料時回傳 success 並提供空 results，除非 requested table / DB schema 不存在。
 - `--json` results 必須包含 source path、rank / priority（若有）、match reason 與 validation signal（若有）。
 - Native query 覆蓋舊 runtime index query：keyword / positional query、`--db`、`--layer`、`--type`、`--status`、`--limit`、empty result 與 missing DB。
 - `--graph` native query 覆蓋舊 knowledge graph query：`--source`、`--target`、`--type`、`--keyword` / positional query、`--limit`、empty result 與 missing filter。
+
+### `ai-skill runtime selection-watch`
+
+輸入：`--request <json>`、`--response <new-path>`、`--runner-handle <adapter-child-id>`、`--timeout <duration>`（0 < timeout ≤10m，預設 2m）、可選 `--usage-file <json>` 與 `--json`。這是既有 agent 的 file-output transport，不會自行呼叫模型或購買 API。
+
+Consumer 順序：先啟動 watcher → producer 等 `<response>.ready`（內容為 request SHA）→ producer 在同一目錄寫暫存檔再 rename 發布 response。每次使用新 response path；既有 response／ready 直接失敗，不重用舊產物。Caller 持續觀察 watcher；失敗／逾時／取消時依 receipt 的 runner_handle 呼叫 host adapter interrupt，另存實際 termination evidence，再結束該 attempt。Watcher 自己無權呼叫 host tool，`interrupt_confirmed` 永遠為 false，不能把這個 CLI alone 當成已驗證 child 停止。
+
+Request 僅含 system、query、candidates（id、title、summary），最多 256 cards；單檔上限 1 MiB。固定 request 不得在執行中改變。Response 沿用 gold-blind schema：selected 必須恰等於 assessments 中的 direct，最多 8 assessments、理由／補讀目的／unknown_action 必填，foreign／duplicate／額外欄位／尾隨內容一律失敗。完整 raw 留在 caller 指定檔案；receipt 記錄 request／response SHA、觀測耗時與處置，不做 silent repair／retry／background fallback。
+
+Usage 未提供時 `availability=unavailable`、tokens=null；提供時必須有明確非負 input_tokens 與 output_tokens，實際 0 保留為 available。不可得模型 snapshot、推論耗時與美元支出不從外層觀測時間推算。`response_ready` 只表示回應通過結構驗證，不表示來源適用、child 結束或 workflow 採用。
 
 ### `ai-skill runtime obligations`
 

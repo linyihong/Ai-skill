@@ -1,0 +1,62 @@
+{
+  "scope": "Controlled nonresponsive existing child; no selector quality evaluation",
+  "observed_at": "2026-10-24T12:52:16.242795+00:00",
+  "request": {
+    "system": "Controlled timeout validation; do not select knowledge.",
+    "query": "Do not publish a response before interruption.",
+    "candidates": []
+  },
+  "watcher": {
+    "selection_watch": {
+      "state": "timeout",
+      "runner_handle": "/root/blind_26",
+      "request_sha256": "baab530bde06662c65d1ad09894ae5f83e86731d5fd51ef2d6de2656b15199aa",
+      "elapsed_ms": 501,
+      "interrupt_required": true,
+      "interrupt_confirmed": false,
+      "usage": {
+        "availability": "unavailable",
+        "input_tokens": null,
+        "output_tokens": null
+      }
+    },
+    "command": "runtime selection-watch",
+    "mode": "native",
+    "status": "blocked",
+    "exit_code": 30,
+    "checks": [],
+    "planned_actions": [],
+    "mutations": [],
+    "error": {
+      "code": "timeout",
+      "message": "response deadline exceeded; child termination is not confirmed",
+      "remediation": "Interrupt the adapter-owned child, confirm termination, preserve this receipt; do not retry or use fallback silently."
+    }
+  },
+  "query_binary_sha256": "eecaebffbd1a6c212616a6da9466f0267b278e7369d9df19000e664964d561ee",
+  "adapter_interrupt": {
+    "tool": "collaboration.interrupt_agent",
+    "target": "/root/blind_26",
+    "result": {
+      "previous_status": "running"
+    }
+  },
+  "adapter_readback": {
+    "tool": "collaboration.list_agents",
+    "path_prefix": "/root/blind_26",
+    "result": {
+      "agents": [
+        {
+          "agent_name": "/root/blind_26",
+          "agent_status": "interrupted"
+        }
+      ]
+    }
+  },
+  "response_exists": false,
+  "limitations": [
+    "Controlled nonresponse proves timeout and agent adapter interrupt handoff, not production workflow wiring or inference latency",
+    "Child interrupted state observed; watcher cannot itself call the host tool",
+    "Model snapshot and usage remain unavailable"
+  ]
+}

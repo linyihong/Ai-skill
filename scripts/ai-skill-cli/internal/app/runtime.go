@@ -37,6 +37,7 @@ type runtimeOptions struct {
 	statusFilter   string
 	source         string
 	target         string
+	sourceLevel    bool
 	graphQuery     bool
 	limit          int
 	jsonOutput     bool
@@ -142,6 +143,7 @@ type runtimeIndexAtom struct {
 	Summary          string
 	WhenToRead       string
 	ValidationSignal string
+	Body             string
 }
 
 type runtimeIndexEdge struct {
@@ -157,6 +159,9 @@ func runRuntime(args []string, stdout io.Writer, stderr io.Writer) int {
 	if len(args) == 0 {
 		_, _ = fmt.Fprintln(stderr, "usage: ai-skill runtime <validate|refresh|compile|query|obligations|receipt|workflow-context|audit|capability-invoke> [flags]")
 		return ExitInvalidUsage
+	}
+	if args[0] == "selection-watch" {
+		return runSelectionWatch(args[1:], stdout, stderr)
 	}
 	opts := runtimeOptions{command: args[0], limit: 8}
 	if opts.command != "validate" && opts.command != "refresh" && opts.command != "compile" && opts.command != "query" && opts.command != "obligations" && opts.command != "receipt" && opts.command != "workflow-context" && opts.command != "audit" && opts.command != "capability-invoke" {
@@ -180,6 +185,7 @@ func runRuntime(args []string, stdout io.Writer, stderr io.Writer) int {
 	fs.StringVar(&opts.statusFilter, "status", "", "filter runtime query results by status")
 	fs.StringVar(&opts.source, "source", "", "filter runtime graph query results by source")
 	fs.StringVar(&opts.target, "target", "", "filter runtime graph query results by target")
+	fs.BoolVar(&opts.sourceLevel, "source-level", false, "deduplicate canonical sources and require fresh index inputs")
 	fs.BoolVar(&opts.graphQuery, "graph", false, "query knowledge graph YAML edges instead of the SQLite runtime index")
 	fs.IntVar(&opts.limit, "limit", 8, "maximum runtime query results")
 	fs.BoolVar(&opts.jsonOutput, "json", false, "write machine-readable JSON output")
@@ -927,10 +933,10 @@ func buildRuntimeQueryResult(opts runtimeOptions) Result {
 		return result
 	}
 
-	if opts.limit < 1 {
+	if opts.limit < 1 || (opts.sourceLevel && opts.limit > 64) {
 		result.Status = "blocked"
 		result.ExitCode = ExitInvalidUsage
-		result.Error = &CommandError{Code: "invalid_limit", Message: "--limit must be greater than zero.", Remediation: "Pass --limit with a positive integer."}
+		result.Error = &CommandError{Code: "invalid_limit", Message: "--limit must be positive; --source-level allows at most 64.", Remediation: "Pass --limit with a positive integer."}
 		return result
 	}
 	if opts.graphQuery {
@@ -963,6 +969,14 @@ func buildRuntimeQueryResult(opts runtimeOptions) Result {
 		return result
 	}
 
+	if opts.sourceLevel {
+		if err := runtimeIndexFreshness(repo, dbPath); err != nil {
+			result.Status = "blocked"
+			result.ExitCode = ExitValidationFailed
+			result.Error = &CommandError{Code: "stale_runtime_index", Message: err.Error(), Remediation: "Rebuild the derived index with runtime refresh --native-index."}
+			return result
+		}
+	}
 	queryResults, err := runRuntimeIndexQuery(dbPath, keyword, opts)
 	if err != nil {
 		result.Status = "blocked"
@@ -970,6 +984,17 @@ func buildRuntimeQueryResult(opts runtimeOptions) Result {
 		result.Error = &CommandError{Code: "runtime_query_failed", Message: err.Error(), Remediation: "Regenerate and validate the runtime SQLite index."}
 		result.Checks = append(result.Checks, Check{Name: "runtime_query", Status: "failed", Message: err.Error()})
 		return result
+	}
+	if opts.sourceLevel {
+		if err := runtimeIndexFreshness(repo, dbPath); err != nil {
+			result.Status = "blocked"
+			result.ExitCode = ExitValidationFailed
+			result.Error = &CommandError{Code: "stale_runtime_index", Message: err.Error(), Remediation: "Refresh and retry."}
+			return result
+		}
+	}
+	if opts.sourceLevel && opts.statusFilter != "" {
+		result.Checks = append(result.Checks, Check{Name: "canonical_status_filter", Status: "ok", Message: "Exclude declared mismatches; retain unknown canonical status for source readback."})
 	}
 	result.Results = queryResults
 	result.Checks = append(result.Checks, Check{Name: "runtime_query", Status: "ok", Message: fmt.Sprintf("%d result(s)", len(queryResults))})
@@ -1010,6 +1035,10 @@ func writeNativeRuntimeSQLiteIndex(repo string, path string) Check {
 }
 
 func buildNativeRuntimeSQLiteIndex(repo string, path string) error {
+	initialInputs, err := runtimeIndexInputSnapshot(repo)
+	if err != nil {
+		return err
+	}
 	records, err := runtimeIndexRecords(repo)
 	if err != nil {
 		return err
@@ -1021,10 +1050,14 @@ func buildNativeRuntimeSQLiteIndex(repo string, path string) error {
 	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
 		return err
 	}
-	if err := os.Remove(path); err != nil && !os.IsNotExist(err) {
+	temp, err := os.CreateTemp(filepath.Dir(path), ".runtime-index-*.sqlite")
+	if err != nil {
 		return err
 	}
-	db, err := sql.Open("sqlite", path)
+	tempPath := temp.Name()
+	temp.Close()
+	defer os.Remove(tempPath)
+	db, err := sql.Open("sqlite", tempPath)
 	if err != nil {
 		return err
 	}
@@ -1035,17 +1068,26 @@ PRAGMA synchronous=OFF;
 CREATE TABLE atoms (id TEXT PRIMARY KEY, source_path TEXT, layer TEXT, type TEXT, status TEXT, priority TEXT, confidence TEXT, context_cost TEXT, tags TEXT, domains TEXT, title TEXT, summary TEXT, when_to_read TEXT, validation_signal TEXT);
 CREATE TABLE sources (source_path TEXT PRIMARY KEY, layer TEXT, title TEXT, checksum TEXT, bytes INTEGER);
 CREATE TABLE edges (graph_id TEXT, source_path TEXT, edge_type TEXT, target_path TEXT, reason TEXT, validation TEXT);
-CREATE VIRTUAL TABLE fts USING fts5(id, source_path, title, summary, tags, when_to_read, validation_signal);
+CREATE VIRTUAL TABLE fts USING fts5(id, source_path, title, summary, tags, when_to_read, validation_signal, body);
+CREATE TABLE index_inputs (source_path TEXT PRIMARY KEY, checksum TEXT);
+CREATE TABLE source_metadata (source_path TEXT PRIMARY KEY, metadata TEXT);
 `); err != nil {
 		return err
 	}
 	for _, record := range records {
+		encoded, err := json.Marshal(record)
+		if err != nil {
+			return err
+		}
+		if initialInputs["atom:"+record.ID] != fmt.Sprintf("%x", sha256.Sum256(encoded)) {
+			return fmt.Errorf("generator input changed while reading %s", record.ID)
+		}
 		if _, err := db.Exec(`INSERT INTO atoms VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
 			record.ID, record.SourcePath, record.Layer, record.Type, record.Status, record.Priority, record.Confidence, record.ContextCost, record.Tags, record.Domains, record.Title, record.Summary, record.WhenToRead, record.ValidationSignal); err != nil {
 			return err
 		}
-		if _, err := db.Exec(`INSERT INTO fts VALUES (?, ?, ?, ?, ?, ?, ?)`,
-			record.ID, record.SourcePath, record.Title, record.Summary, record.Tags, record.WhenToRead, record.ValidationSignal); err != nil {
+		if _, err := db.Exec(`INSERT INTO fts VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+			record.ID, record.SourcePath, record.Title, record.Summary, record.Tags, record.WhenToRead, record.ValidationSignal, record.Body); err != nil {
 			return err
 		}
 	}
@@ -1054,6 +1096,22 @@ CREATE VIRTUAL TABLE fts USING fts5(id, source_path, title, summary, tags, when_
 		return err
 	}
 	for _, source := range sources {
+		var detail RuntimeSourceDetail
+		if source.checksum == "" {
+			detail = RuntimeSourceDetail{CanonicalStatus: "unknown", Domains: []string{}, Scope: "unknown", Supersession: "unknown", Freshness: "directory", Applicability: "unverified", Readback: source.sourcePath}
+		} else {
+			detail, err = runtimeCanonicalDetail(filepath.Join(repo, filepath.FromSlash(source.sourcePath)), source.sourcePath)
+			if err != nil {
+				return err
+			}
+		}
+		raw, err := json.Marshal(detail)
+		if err != nil {
+			return err
+		}
+		if _, err = db.Exec("INSERT INTO source_metadata VALUES (?,?)", source.sourcePath, string(raw)); err != nil {
+			return err
+		}
 		if _, err := db.Exec(`INSERT INTO sources VALUES (?, ?, ?, ?, ?)`, source.sourcePath, source.layer, source.title, source.checksum, source.bytes); err != nil {
 			return err
 		}
@@ -1066,7 +1124,24 @@ CREATE VIRTUAL TABLE fts USING fts5(id, source_path, title, summary, tags, when_
 	if err := populateGlossaryProjection(db, repo); err != nil {
 		return err
 	}
-	return nil
+	inputs, err := runtimeIndexInputSnapshot(repo)
+	if err != nil {
+		return err
+	}
+	initialRaw, _ := json.Marshal(initialInputs)
+	finalRaw, _ := json.Marshal(inputs)
+	if string(initialRaw) != string(finalRaw) {
+		return fmt.Errorf("canonical inputs changed during index build; retry")
+	}
+	for path, sum := range inputs {
+		if _, err = db.Exec("INSERT INTO index_inputs VALUES (?, ?)", path, sum); err != nil {
+			return err
+		}
+	}
+	if err = db.Close(); err != nil {
+		return err
+	}
+	return os.Rename(tempPath, path)
 }
 
 // populateGlossaryProjection projects knowledge/glossary/*.md entries into
@@ -1195,6 +1270,11 @@ func runtimeIndexRecords(repo string) ([]runtimeIndexAtom, error) {
 	records := append([]runtimeIndexAtom{}, summaries...)
 	records = append(records, routes...)
 	records = append(records, feedback...)
+	intelligence, err := runtimeIntelligenceRecords(repo)
+	if err != nil {
+		return nil, err
+	}
+	records = append(records, intelligence...)
 	return records, nil
 }
 
@@ -1442,7 +1522,11 @@ WHERE fts MATCH ?`
 		args = append(args, opts.queryType)
 	}
 	if opts.statusFilter != "" {
-		sqlText += " AND atoms.status = ?"
+		if opts.sourceLevel {
+			sqlText += " AND (COALESCE(json_extract((SELECT metadata FROM source_metadata WHERE source_path=atoms.source_path), '$.canonical_status'), 'unknown') IN (?, 'unknown'))"
+		} else {
+			sqlText += " AND atoms.status = ?"
+		}
 		args = append(args, opts.statusFilter)
 	}
 	sqlText += ` ORDER BY rank,
@@ -1450,8 +1534,11 @@ WHERE fts MATCH ?`
        CASE atoms.confidence WHEN 'high' THEN 0 WHEN 'medium' THEN 1 ELSE 2 END,
        CASE atoms.context_cost WHEN 'low' THEN 0 WHEN 'medium' THEN 1 ELSE 2 END,
        atoms.id
-LIMIT ?`
-	args = append(args, opts.limit)
+`
+	if !opts.sourceLevel {
+		sqlText += " LIMIT ?"
+		args = append(args, opts.limit)
+	}
 
 	rows, err := db.Query(sqlText, args...)
 	if err != nil {
@@ -1460,16 +1547,38 @@ LIMIT ?`
 	defer rows.Close()
 
 	results := []QueryResult{}
+	seenSources := map[string]bool{}
 	for rows.Next() {
 		var item QueryResult
 		if err := rows.Scan(&item.Rank, &item.ID, &item.SourcePath, &item.Layer, &item.Type, &item.Status, &item.Priority, &item.Confidence, &item.ContextCost, &item.Summary); err != nil {
 			return nil, err
 		}
 		item.MatchReason = "fts keyword match: " + keyword
+		if opts.sourceLevel {
+			if seenSources[item.SourcePath] {
+				continue
+			}
+			seenSources[item.SourcePath] = true
+		}
 		results = append(results, item)
+		if opts.sourceLevel && len(results) >= opts.limit {
+			break
+		}
 	}
 	if err := rows.Err(); err != nil {
 		return nil, err
+	}
+	if opts.sourceLevel {
+		if err := rows.Close(); err != nil {
+			return nil, err
+		}
+		for i := range results {
+			detail, err := runtimeSourceDetail(db, results[i].SourcePath)
+			if err != nil {
+				return nil, err
+			}
+			results[i].Source = detail
+		}
 	}
 	return results, nil
 }
@@ -1558,6 +1667,7 @@ func runKnowledgeGraphQuery(repo string, graphDir string, keyword string, opts r
 				Reason:      edge.Reason,
 				Validation:  edge.Validation,
 				GraphFile:   filepath.ToSlash(graphFile),
+				Depth:       1,
 				MatchReason: "knowledge graph filter match",
 			}
 			if !knowledgeGraphResultMatches(item, keyword, opts) {

@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "intent": "body-indexing diagnostic; exposed source-specific probes, not generalization",
+  "cases": [
+    {
+      "query": "state_sources",
+      "expected_source": "intelligence/engineering/execution/validation-reasoning/state-visibility-gap.md",
+      "source_sha256": "03b91e350798e5ce20b832e3605a618e9bb6c61aeb13f36f414169184bc386f6"
+    },
+    {
+      "query": "independent_external_confirmation",
+      "expected_source": "intelligence/engineering/execution/validation-reasoning/evidence-model.md",
+      "source_sha256": "23c346190ae23acb41323f27a780d35b48334b347e8d806ad5792062865aa364"
+    },
+    {
+      "query": "independent_observation",
+      "expected_source": "intelligence/engineering/execution/validation-reasoning/evidence-depth.md",
+      "source_sha256": "75c351dbf860e79223b7944d1b1a46c2a922db4ca3a10521631d7d1415afa184"
+    },
+    {
+      "query": "propagation path",
+      "expected_source": "intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md",
+      "source_sha256": "3433d6d1a66c9f47bdda84f245a0567d1cba2b3180c8b553b46567c19e1a2b3b"
+    },
+    {
+      "query": "collapse point",
+      "expected_source": "intelligence/engineering/execution/validation-reasoning/evidence-collapse-point.md",
+      "source_sha256": "ef1ad624fd6f9df683bbb0fa30b6edd2694cba8cc440465d1e90bcaf287850db"
+    },
+    {
+      "query": "authenticated without entitlement",
+      "expected_source": "intelligence/engineering/execution/validation-reasoning/identity-coupled-side-effect-validation.md",
+      "source_sha256": "9647cd931d4510c962595f997cc9d5276dc878b5acf91218a9552f974fbe99f7"
+    },
+    {
+      "query": "route_restore",
+      "expected_source": "intelligence/engineering/execution/validation-reasoning/state-transition-validation.md",
+      "source_sha256": "bc56e99595a947603773a2d2db85c88dba4c19e0fbacbe4f1f90c9e947138e8a"
+    }
+  ]
+}

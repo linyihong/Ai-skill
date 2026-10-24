@@ -20,36 +20,39 @@ type CommandError struct {
 }
 
 type Result struct {
-	Command        string        `json:"command"`
-	Mode           string        `json:"mode"`
-	Status         string        `json:"status"`
-	ExitCode       int           `json:"exit_code"`
-	Checks         []Check       `json:"checks"`
-	PlannedActions []string      `json:"planned_actions"`
-	Mutations      []string      `json:"mutations"`
-	Error          *CommandError `json:"error,omitempty"`
-	Results        []QueryResult `json:"results,omitempty"`
+	SelectionWatch *SelectionWatchReceipt `json:"selection_watch,omitempty"`
+	Command        string                 `json:"command"`
+	Mode           string                 `json:"mode"`
+	Status         string                 `json:"status"`
+	ExitCode       int                    `json:"exit_code"`
+	Checks         []Check                `json:"checks"`
+	PlannedActions []string               `json:"planned_actions"`
+	Mutations      []string               `json:"mutations"`
+	Error          *CommandError          `json:"error,omitempty"`
+	Results        []QueryResult          `json:"results,omitempty"`
 }
 
 type QueryResult struct {
-	Rank        float64 `json:"rank"`
-	ID          string  `json:"id"`
-	SourcePath  string  `json:"source_path"`
-	Layer       string  `json:"layer"`
-	Type        string  `json:"type"`
-	Status      string  `json:"status"`
-	Priority    string  `json:"priority"`
-	Confidence  string  `json:"confidence"`
-	ContextCost string  `json:"context_cost"`
-	Summary     string  `json:"summary"`
-	MatchReason string  `json:"match_reason"`
-	GraphID     string  `json:"graph_id,omitempty"`
-	GraphSource string  `json:"graph_source,omitempty"`
-	EdgeType    string  `json:"edge_type,omitempty"`
-	Target      string  `json:"target,omitempty"`
-	Reason      string  `json:"reason,omitempty"`
-	Validation  string  `json:"validation,omitempty"`
-	GraphFile   string  `json:"graph_file,omitempty"`
+	Source      *RuntimeSourceDetail `json:"source,omitempty"`
+	Depth       int                  `json:"depth,omitempty"`
+	Rank        float64              `json:"rank"`
+	ID          string               `json:"id"`
+	SourcePath  string               `json:"source_path"`
+	Layer       string               `json:"layer"`
+	Type        string               `json:"type"`
+	Status      string               `json:"status"`
+	Priority    string               `json:"priority"`
+	Confidence  string               `json:"confidence"`
+	ContextCost string               `json:"context_cost"`
+	Summary     string               `json:"summary"`
+	MatchReason string               `json:"match_reason"`
+	GraphID     string               `json:"graph_id,omitempty"`
+	GraphSource string               `json:"graph_source,omitempty"`
+	EdgeType    string               `json:"edge_type,omitempty"`
+	Target      string               `json:"target,omitempty"`
+	Reason      string               `json:"reason,omitempty"`
+	Validation  string               `json:"validation,omitempty"`
+	GraphFile   string               `json:"graph_file,omitempty"`
 }
 
 func writeJSON(w io.Writer, result Result) error {
