@@ -173,7 +173,14 @@
     "preexisting_unresolved": 0
   },
   "diff_check": "passed",
-  "CI": "test-only source commit CI recorded separately after push",
+  "CI": {
+    "head": "cba5daabc3d01daaada73aba45e10562353d7864",
+    "url": "https://github.com/linyihong/Ai-skill/actions/runs/40141580715",
+    "conclusion": "success",
+    "all_four_jobs_passed": true,
+    "readback": "final-ci.json",
+    "docs_only_followup_does_not_rerun_ci": true
+  },
   "go_test_before_validator_fix": {
     "command": "go test ./...",
     "scope": "scripts/ai-skill-cli after archival path changes",

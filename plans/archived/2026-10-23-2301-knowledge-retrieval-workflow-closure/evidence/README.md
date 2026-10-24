@@ -40,3 +40,5 @@
 | phase2-final-output | [phase2-final-output.md](phase2-final-output.md) | 26-case exposed diagnostic / Phase 2 incomplete | 選出來源已審閱；23/23 hit、0/6 selected confuser、整個 retrieval payload ≤1322 runes；17 正例足供下一步、6 partial，O06 未解 |
 | phase2-blind-selector-protocol | [phase2-blind-selector-protocol.md](phase2-blind-selector-protocol.md) | frozen before attempts | 26 fork-none、query/cards only、一次 attempt；selected／unknown／need-to-read，連續觀測及整物件預算 |
 | phase2-blind-selector | [phase2-blind-selector.md](phase2-blind-selector.md) | 26 attempts measured / Phase 2 incomplete | Fresh gold-blind 23/23 hit、MRR .956522、selected confuser 0/6、完整 message ≤1558 runes；21 題補讀支持、2 題需專案證據，O06 unknown |
+
+最終歸檔 CI：[final-ci.json](final-ci.json)，對應 `cba5daab`，三平台與 artifacts 均成功。

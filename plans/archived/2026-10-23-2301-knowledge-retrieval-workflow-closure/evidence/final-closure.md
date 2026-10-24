@@ -16,7 +16,7 @@
 ## 本輪 closure 檢查
 
 - Archive 後跑既有 Go suite，確保 replay harness 讀取歸檔後證據；不是重開模型／corpus 實驗。原本只有 test-only 路徑改動；歸檔 gate 實際攔下凍結 JSON 內的 Markdown-shaped 字串後，另修正 archival validator 僅掃 `.md`，保留所有 rename targets 的 inbound 驗證。該必要 closure 修正已有 red→green regression，依規則重建五平台 binaries；沒有新增檢索方法。
-- 依 closure 規則執行 runtime refresh／validate、plans validate、diff 與連結核對；本輪只調 plan／test fixture 連結，不新增 canonical runtime contract，故不重編譯 runtime.db。
+- 依 closure 規則執行 runtime refresh／validate、plans validate、diff 與連結核對；本輪未改 canonical runtime contract；plan／test fixture 連結與 archival validator 修正，不新增 canonical runtime contract，故不重編譯 runtime.db。
 - 所有不可得／暫緩資料仍按原紀錄處置；原 runtime.db age warning 不為消除 warning 而改 DB。
 - 歸檔目錄／plans 狀態／活躍引用同步；歷史固定 commit URLs 及原實驗 raw 不重寫。
 - 最終檢查見 [final-validation](final-validation.json)；test-only CI readback 存本目錄的 final-ci 產物；依原始 commit 身分辨識各次驗證，後續純文件 readback commit 不宣稱重跑 CI。
@@ -29,3 +29,7 @@
 ## 保留限制
 
 完成的是明訂資料與 current-agent 執行範圍；不支持未曝光任務泛化、全 corpus recall、自然無答案誤推率、任意 metadata 遷移自動辨識、實際總 context/token usage 或 Windows 修正／產品品質 PASS。這些是 [有 owner 的 deferred 項目](phase4-decision-and-handoff.md)，不是隱藏完成項，也不是另建的普遍 blocker。
+
+## 最終 CI 讀回
+
+Implementation／archive commit `cba5daabc3d01daaada73aba45e10562353d7864` 的 [GitHub Actions](https://github.com/linyihong/Ai-skill/actions/runs/40141580715) 四工作均成功：macOS、Windows、Ubuntu Go tests／binary parity／runtime smoke，及 Build artifacts。逐步結果見 [final-ci.json](final-ci.json)。這裡的 Windows 是 hosted CI，不是使用者 deferred 的開發主機；後續純文件 readback commit 不宣稱另外跑過這輪 CI。歷史固定版本路徑的 archival advisory 保留作 provenance，blocking 為零。
