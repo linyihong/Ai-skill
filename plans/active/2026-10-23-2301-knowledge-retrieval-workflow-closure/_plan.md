@@ -144,9 +144,9 @@ Phase 1 審核補充（2026-10-24）：[phase1-audit.md](evidence/phase1-audit.m
 
 ## Phase 2 — 補既有全文搜尋、metadata 與關聯查找
 
-最新範圍以 [final-output 協議](evidence/phase2-final-output-protocol.md) 為準：只要求輸出來源逐筆審閱；未選／unknown 保留處置與追查，取消全池清零 gate。
+最新範圍以 [final-output 協議](evidence/phase2-final-output-protocol.md) 為準：只要求輸出來源逐筆審閱；未選／unknown 保留處置與追查，取消全池清零 gate。 已完成 [26 題知情診斷](evidence/phase2-final-output.md)：23/23 指定來源、selected confuser 0/6（retrieved 仍 6/6），凍結模型 retrieval payload 最大 1322 runes，完整摘要無丟棄。資訊充分性為 17 個正例足供下一步、6 partial；O06 未解。這是 current-agent exposed diagnostic，不是受控 runner／泛化／採用 gate 通過。
 
-歷史盤點依 [readiness 契約](evidence/phase2-readiness-contract.md)：unknown 對 consumer 可見並區分 unassessed，空 preview 不表示無知識；優先 P0 完整摘要。全資料處置／資訊充分性／成本時間／索引生命週期 gates 通過前，不安排 Phase 3 接線。[全資料盤點](evidence/phase2-readiness.md) 顯示 26 題 770 source occurrences 中 738 unknown；P0 array 最大 1922，但本版可見 envelope R08 為 2208 runes，完整 context 成本未通過，不能由六題結果推定完成。
+歷史盤點依 [readiness 契約](evidence/phase2-readiness-contract.md)：unknown 對 consumer 可見並區分 unassessed，空 preview 不表示無知識；優先 P0 完整摘要。依最新範圍完成全資料最終輸出審閱／資訊充分性、成本時間與索引生命週期 gates 前，不安排 Phase 3 接線。[全資料盤點](evidence/phase2-readiness.md) 顯示 26 題 770 source occurrences 中 738 unknown；P0 array 最大 1922，但本版可見 envelope R08 為 2208 runes，完整 context 成本未通過，不能由六題結果推定完成。
 
 本輪按 [disposition 協議](evidence/phase2-v3-disposition-protocol.md) 重用原六份 raw，只新增候選處置；direct 待讀回，background 預設不填主要上下文，not-applicable 本次不選，缺標記／unknown 不當成已確認。分開 retrieved、待讀回、selected preview、verified/adopted，不改前輪分數。 結果見 [disposition 重播](evidence/phase2-v3-disposition.md)：同六題 preview 5/5、0/4、≤1922 runes，retrieved 仍 4/4；9 份 direct 來源身份核對一致，verified/adopted 未驗收，Phase 2 維持未完成。
 

@@ -1,0 +1,1464 @@
+{
+  "actual_model_tokens": "not evaluated",
+  "adoption": "not evaluated",
+  "controlled_inference_time": "not evaluated",
+  "inputs_sha256": {
+    "baseline-cases.json": "6505adc590f9254285581c0715b91ae61dda5e329a72b0e8bb094f180888b538",
+    "overlap-controls-v1.json": "7ea029eb5bfa761a41f3ef3ba145d45330818726306069546423fdf4c35e5ec4",
+    "phase2-final-output-decisions.json": "6ad27548fdb0009c471be8a0b3b07a1c545cf71c504f9c18b0891d791b5a8c2b",
+    "phase2-final-output-readback.json": "4175d99e8ec8d8eda85ad227553cc6cc396788a2706f78d6841b86cee4bb3237",
+    "phase2-v3-fixed-pools.json": "d8051af3b5c9be38e891fdd899e13176511f714dfc71457fb6cd104d7d49a801"
+  },
+  "kind": "current-agent known-gold exposed diagnostic, not controlled inference or production integration",
+  "observations": [
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md",
+          "Relation": "direct",
+          "Reason": "隔離 middleware 無法證明 composed host 的 status／logging；需真實 pipeline。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 16,
+        "assessed": 1,
+        "unassessed": 15,
+        "explicit_unknown": 0,
+        "unknown": 15,
+        "direct": 1,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "direct-pending-verification"
+      },
+      "hits": 1,
+      "id": "R01",
+      "information_needed": "驗證真實 host composition、log/status 與註冊順序。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 16,
+        "unassessed": 15,
+        "unknown": 15,
+        "deferred": 0,
+        "trace": "final-output/R01",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "When the claim is about what the running host does (status logged, log level, response for an aborted request), test it through the real composed pipeline; a middleware tested in isolation can be correct while another layer in the real order still produces the old behaviour."
+          }
+        ]
+      },
+      "model_payload_runes": 685,
+      "query": "middleware 單元測試通過，但真實 host 仍記錄 500，驗證漏在哪裡？",
+      "retrieved_confuser_hits": 0,
+      "rr": 1,
+      "selected_confuser_hits": 0,
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md"
+      ],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/R01",
+      "trace": "final-output/R01",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md",
+          "Relation": "direct",
+          "Reason": "SQL/API 一致而 DOM 陳舊正是跨層投影／cache 驗證。"
+        },
+        {
+          "Source": "feedback/history/apk-analysis/http-api/2026-05-11_095600-ui-api-top-items-parity.md",
+          "Relation": "background",
+          "Reason": "UI/API item parity 談列表項次，未提供 KPI cache 的核心判斷。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 63,
+        "assessed": 2,
+        "unassessed": 61,
+        "explicit_unknown": 0,
+        "unknown": 61,
+        "direct": 1,
+        "background": 1,
+        "not_applicable": 0,
+        "state": "direct-pending-verification"
+      },
+      "hits": 1,
+      "id": "R02",
+      "information_needed": "同一實體與路徑比對 DB/API/DOM，區分 client cache。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 63,
+        "unassessed": 61,
+        "unknown": 61,
+        "deferred": 0,
+        "trace": "final-output/R02",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "用户可见的播放量 / KPI 标签争议时，**API 或 listing SQL 与 DB 一致不足以结案**；须在同一 `video_id`、同一路径上增加 **browser DOM 对照**，才能区分 DB/部署问题与 keep-alive / sessionStorage 陈旧 view model。"
+          }
+        ]
+      },
+      "model_payload_runes": 562,
+      "query": "SQL 與 API 的播放量正確，使用者頁面卻顯示舊數字，還要驗哪一層？",
+      "retrieved_confuser_hits": 0,
+      "rr": 1,
+      "selected_confuser_hits": 0,
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md"
+      ],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/R02",
+      "trace": "final-output/R02",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "feedback/history/development-guidance/common/2026-09-04_101800-derived-state-before-blaming-shared-baseline.md",
+          "Relation": "direct",
+          "Reason": "同 source 與穩定重現無法排除未版本化 derived state。"
+        },
+        {
+          "Source": "feedback/history/apk-analysis/common/2026-05-06_105026-state-reset-baseline-feature-capture.md",
+          "Relation": "background",
+          "Reason": "App clean-state capture 是背景類比，不是本題工具鏈歸因。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 5,
+        "assessed": 2,
+        "unassessed": 3,
+        "explicit_unknown": 0,
+        "unknown": 3,
+        "direct": 1,
+        "background": 1,
+        "not_applicable": 0,
+        "state": "direct-pending-verification"
+      },
+      "hits": 1,
+      "id": "R03",
+      "information_needed": "指出基線歸因不足與需要排除的本機 derived state。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 5,
+        "unassessed": 3,
+        "unknown": 3,
+        "deferred": 0,
+        "trace": "final-output/R03",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-09-04_101800-derived-state-before-blaming-shared-baseline.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "「原始碼輸入相同」加上「可穩定重現」不足以證明共用基線壞掉；這兩件事在本地衍生狀態過期時同樣成立，而衍生狀態不會出現在原始碼 diff 裡。"
+          }
+        ]
+      },
+      "model_payload_runes": 481,
+      "query": "原始碼相同而且穩定重現，是否足以認定共用 baseline 壞掉？",
+      "retrieved_confuser_hits": 0,
+      "rr": 1,
+      "selected_confuser_hits": 0,
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-09-04_101800-derived-state-before-blaming-shared-baseline.md"
+      ],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/R03",
+      "trace": "final-output/R03",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md",
+          "Relation": "direct",
+          "Reason": "摘要直接解釋 1002 被 substring 1 誤判，要求 numeric parse。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 22,
+        "assessed": 1,
+        "unassessed": 21,
+        "explicit_unknown": 0,
+        "unknown": 21,
+        "direct": 1,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "direct-pending-verification"
+      },
+      "hits": 1,
+      "id": "R04",
+      "information_needed": "以真正 JSON numeric 值比較，包含 1002/10/1 邊界。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 22,
+        "unassessed": 21,
+        "unknown": 21,
+        "deferred": 0,
+        "trace": "final-output/R04",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "When validating JSON API responses with substring matching (e.g., `json.contains(\"\u005c\"code\u005c\":1\")`), numeric values like `1002` will falsely match because they contain the substring `\"code\":1`. Always parse the actual numeric value for comparison."
+          }
+        ]
+      },
+      "model_payload_runes": 658,
+      "query": "JSON Substring Matching Trap",
+      "retrieved_confuser_hits": 0,
+      "rr": 1,
+      "selected_confuser_hits": 0,
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md"
+      ],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/R04",
+      "trace": "final-output/R04",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md",
+          "Relation": "direct",
+          "Reason": "RWD 靜態 marker/snapshot 無法證明實際 viewport computed layout。"
+        },
+        {
+          "Source": "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md",
+          "Relation": "background",
+          "Reason": "component semantic marker 仍是靜態 traceability，不能代替 browser 量測。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 5,
+        "assessed": 2,
+        "unassessed": 3,
+        "explicit_unknown": 0,
+        "unknown": 3,
+        "direct": 1,
+        "background": 1,
+        "not_applicable": 0,
+        "state": "direct-pending-verification"
+      },
+      "hits": 1,
+      "id": "R05",
+      "information_needed": "真實 mobile viewport 及 document/body/shell/content 寬度量測。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 5,
+        "unassessed": 3,
+        "unknown": 3,
+        "deferred": 0,
+        "trace": "final-output/R05",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "RWD 或視覺縮放問題不能只靠 CSS marker、snapshot 或人工感覺驗證；要用真實瀏覽器 viewport 量 `document`、`body`、app shell、固定導覽與 scroll content 的 computed layout。"
+          }
+        ]
+      },
+      "model_payload_runes": 532,
+      "query": "CSS marker 和 snapshot 都通過，手機版仍橫向溢出，應補什麼證據？",
+      "retrieved_confuser_hits": 0,
+      "rr": 1,
+      "selected_confuser_hits": 0,
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md"
+      ],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/R05",
+      "trace": "final-output/R05",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md",
+          "Relation": "direct",
+          "Reason": "blob 改變 manifest base；需把 segment/key URI 絕對化並測 rewrite。"
+        },
+        {
+          "Source": "feedback/history/apk-analysis/media-hls/2026-04-30_120007-媒體播放鏈要分控制面-金鑰與資料面.md",
+          "Relation": "background",
+          "Reason": "控制／金鑰／資料面拆分不直接說明相對 URI 失效。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 28,
+        "assessed": 2,
+        "unassessed": 26,
+        "explicit_unknown": 0,
+        "unknown": 26,
+        "direct": 1,
+        "background": 1,
+        "not_applicable": 0,
+        "state": "direct-pending-verification"
+      },
+      "hits": 1,
+      "id": "R06",
+      "information_needed": "解釋 blob base 與原 manifest URL，檢查重寫後的絕對 URI。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 28,
+        "unassessed": 26,
+        "unknown": 26,
+        "deferred": 0,
+        "trace": "final-output/R06",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "把 HLS / manifest 內容轉成 `blob:` URL 前，必須先把 manifest 內會被播放器再次請求的 key、segment 或 asset URI 改成可解析的絕對 URL，並用 helper unit test 覆蓋這個 rewrite。"
+          }
+        ]
+      },
+      "model_payload_runes": 532,
+      "query": "blob: manifest 裡的相對 segment URL 為什麼失效？",
+      "retrieved_confuser_hits": 0,
+      "rr": 1,
+      "selected_confuser_hits": 0,
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md"
+      ],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/R06",
+      "trace": "final-output/R06",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md",
+          "Relation": "direct",
+          "Reason": "component 名稱／檔案存在不足，應加 feature refs 與實作語意 marker。"
+        },
+        {
+          "Source": "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md",
+          "Relation": "background",
+          "Reason": "browser layout 談幾何驗證，本題主張是 component traceability。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 9,
+        "assessed": 2,
+        "unassessed": 7,
+        "explicit_unknown": 0,
+        "unknown": 7,
+        "direct": 1,
+        "background": 1,
+        "not_applicable": 0,
+        "state": "direct-pending-verification"
+      },
+      "hits": 1,
+      "id": "R07",
+      "information_needed": "feature/code refs、component index 與核心實作語意斷言。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 9,
+        "unassessed": 7,
+        "unknown": 7,
+        "deferred": 0,
+        "trace": "final-output/R07",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "新增或提升共用 UI component 時，BDD / contract 不應只驗 component 名稱或檔案存在，還要驗 feature refs 與最小實作語意 marker。"
+          }
+        ]
+      },
+      "model_payload_runes": 495,
+      "query": "Component Traceability Marker Depth",
+      "retrieved_confuser_hits": 0,
+      "rr": 1,
+      "selected_confuser_hits": 0,
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md"
+      ],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/R07",
+      "trace": "final-output/R07",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md",
+          "Relation": "direct",
+          "Reason": "歷史 lesson 說明 prose 跳步與 owner/projection 分離。"
+        },
+        {
+          "Source": "governance/lifecycle/executable-contract-boundary.yaml",
+          "Relation": "direct",
+          "Reason": "canonical contract 提供 owner source／opt-in projection 邊界。"
+        },
+        {
+          "Source": "knowledge/summaries/executable-contract-boundary.md",
+          "Relation": "direct",
+          "Reason": "summary 導航與防雙寫條件，保留其 candidate 身分。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 55,
+        "assessed": 3,
+        "unassessed": 52,
+        "explicit_unknown": 0,
+        "unknown": 52,
+        "direct": 3,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "direct-pending-verification"
+      },
+      "hits": 1,
+      "id": "R08",
+      "information_needed": "歷史理由與當前 owner/projection 邊界分開，不以 lesson 壓過契約。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 55,
+        "unassessed": 52,
+        "unknown": 52,
+        "deferred": 0,
+        "trace": "final-output/R08",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "流程、gate、activation、blocking condition、required evidence 或 failure action 若會影響 agent 執行，必須提供 owner-layer YAML contract，並投影到 `runtime.db`。"
+          },
+          {
+            "source": "governance/lifecycle/executable-contract-boundary.yaml",
+            "kind": "route",
+            "status": "new-layer-promoted",
+            "summary": "Executable Contract Boundary 定義 source ownership 留在 owner layer、 executable YAML contract 以 runtime_projection.enabled opt in、 runtime compiler 投影到 runtime.db generated_surfaces，並要求 framework contract / projection 變更先做 pre-build interrogation。\n"
+          },
+          {
+            "source": "knowledge/summaries/executable-contract-boundary.md",
+            "kind": "summary",
+            "status": "candidate",
+            "summary": "定義 executable YAML contract 邊界：source 留在 owner layer，Markdown 解釋脈絡，YAML 承載 activation / steps / gates / evidence；會影響 execution 的 contract 以 `runtime_projection.enabled: true` opt in 到 `runtime.db generated_surfaces`。Framework contract / projection 改動前必須先做 pre-build interrogation，避免雙寫 source-of-truth。"
+          }
+        ]
+      },
+      "model_payload_runes": 1322,
+      "query": "以前為什麼把 executable contract 放在 owner layer 並投影 runtime.db？",
+      "retrieved_confuser_hits": 0,
+      "rr": 1,
+      "selected_confuser_hits": 0,
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md",
+        "governance/lifecycle/executable-contract-boundary.yaml",
+        "knowledge/summaries/executable-contract-boundary.md"
+      ],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/R08",
+      "trace": "final-output/R08",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "knowledge/summaries/test-first-framework-upgrade.md",
+          "Relation": "direct",
+          "Reason": "含 test-first 順序、fail-first 與豁免範圍。"
+        },
+        {
+          "Source": "feedback/history/development-guidance/common/2026-05-22_092400-test-first-framework-upgrade.md",
+          "Relation": "direct",
+          "Reason": "歷史 lesson 與 scenario-before-implementation 的來源經驗。"
+        },
+        {
+          "Source": "governance/lifecycle/system-upgrade-governance.yaml",
+          "Relation": "background",
+          "Reason": "大型 upgrade 契約範圍較廣，本輪不需填入主要上下文。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 53,
+        "assessed": 3,
+        "unassessed": 50,
+        "explicit_unknown": 0,
+        "unknown": 50,
+        "direct": 2,
+        "background": 1,
+        "not_applicable": 0,
+        "state": "direct-pending-verification"
+      },
+      "hits": 1,
+      "id": "R09",
+      "information_needed": "validation scenarios 必須先於 runtime 實作，列 fail-first 與例外。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 53,
+        "unassessed": 50,
+        "unknown": 50,
+        "deferred": 0,
+        "trace": "final-output/R09",
+        "results": [
+          {
+            "source": "knowledge/summaries/test-first-framework-upgrade.md",
+            "kind": "summary",
+            "status": "candidate",
+            "summary": "Framework / runtime / governance 升級時 validation scenarios 必須寫在 runtime 實作之前，scenarios 是 acceptance contract 不是事後 verification。流程：列期望可觀察行為 → 寫 YAML scenarios → 驗證目前 fail → 開始實作 → 完成 = scenarios pass。與通用 TDD heuristic 互補（設計回饋 vs 順序原則）。Doc-only trial / typo / spike 可豁免；runtime.db schema / enforcement rule / compiler 改動不可豁免。"
+          },
+          {
+            "source": "feedback/history/development-guidance/common/2026-05-22_092400-test-first-framework-upgrade.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "Framework / runtime / governance 升級時 validation scenarios 必須寫在 runtime 實作之前；scenarios 是 acceptance contract 不是事後 verification。"
+          }
+        ]
+      },
+      "model_payload_runes": 962,
+      "query": "framework 升級先寫 runtime，再補 validation scenarios 可以嗎？",
+      "retrieved_confuser_hits": 0,
+      "rr": 0.5,
+      "selected_confuser_hits": 0,
+      "selected_sources": [
+        "knowledge/summaries/test-first-framework-upgrade.md",
+        "feedback/history/development-guidance/common/2026-05-22_092400-test-first-framework-upgrade.md"
+      ],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/R09",
+      "trace": "final-output/R09",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md",
+          "Relation": "direct",
+          "Reason": "no-restore 只證明上次解析圖，checkout 間衍生狀態可不同。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 32,
+        "assessed": 1,
+        "unassessed": 31,
+        "explicit_unknown": 0,
+        "unknown": 31,
+        "direct": 1,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "direct-pending-verification"
+      },
+      "hits": 1,
+      "id": "R10",
+      "information_needed": "判斷 restore-derived graph 是否新鮮，不能只接受 build PASS。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 32,
+        "unassessed": 31,
+        "unknown": 31,
+        "deferred": 0,
+        "trace": "final-output/R10",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "當套件／專案的相依關係來自 restore 產生的鎖定檔而非組件 metadata 時，用 `--no-restore` 建置的 gate 驗證的是「上次 restore 時的相依圖」，同一棵樹在不同人的機器上會得到不同結果。"
+          }
+        ]
+      },
+      "model_payload_runes": 521,
+      "query": "build --no-restore 都過了，為什麼換一台機器相依圖不同？",
+      "retrieved_confuser_hits": 0,
+      "rr": 1,
+      "selected_confuser_hits": 0,
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md"
+      ],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/R10",
+      "trace": "final-output/R10",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md",
+          "Relation": "direct",
+          "Reason": "原生載入候選要求比對版本／指紋及最小隔離。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 1,
+        "assessed": 1,
+        "unassessed": 0,
+        "explicit_unknown": 0,
+        "unknown": 0,
+        "direct": 1,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "direct-pending-verification"
+      },
+      "hits": 1,
+      "id": "R11",
+      "information_needed": "可核對的失敗階段、堆疊、平台／版本／模型與隔離方法。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 1,
+        "unassessed": 0,
+        "unknown": 0,
+        "deferred": 0,
+        "trace": "final-output/R11",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "模型載入原生崩潰時先比對既有失敗指紋與版本範圍，再做最小隔離驗證，不從完整產品流程重新猜原因。"
+          }
+        ]
+      },
+      "model_payload_runes": 448,
+      "query": "原生模型載入失敗先比對既有案例",
+      "retrieved_confuser_hits": 0,
+      "rr": 1,
+      "selected_confuser_hits": 0,
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md"
+      ],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/R11",
+      "trace": "final-output/R11",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md",
+          "Relation": "direct",
+          "Reason": "在指定 SQL 上持鎖或延遲 COMMIT，再用較短 timeout 命中。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 12,
+        "assessed": 1,
+        "unassessed": 11,
+        "explicit_unknown": 0,
+        "unknown": 11,
+        "direct": 1,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "direct-pending-verification"
+      },
+      "hits": 1,
+      "id": "R12",
+      "information_needed": "確定性阻塞目標語句，取消後讀回與同 key retry。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 12,
+        "unassessed": 11,
+        "unknown": 11,
+        "deferred": 0,
+        "trace": "final-output/R12",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "To prove a cancellation-safety or idempotency claim, make the request block on the exact statement you care about (lock it, or delay COMMIT with a deferred trigger), then let a short client timeout cancel it — instead of hoping a random cancel lands there."
+          }
+        ]
+      },
+      "model_payload_runes": 668,
+      "query": "要證明 cancellation safety，如何讓 timeout 確實落在目標 SQL？",
+      "retrieved_confuser_hits": 0,
+      "rr": 1,
+      "selected_confuser_hits": 0,
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md"
+      ],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/R12",
+      "trace": "final-output/R12",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "feedback/history/development-guidance/common/2026-07-23_071200-injectable-wall-clock-for-day-boundary-logic.md",
+          "Relation": "direct",
+          "Reason": "跨午夜 quota 需 injectable clock，測試 freeze 而非改 OS。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 4,
+        "assessed": 1,
+        "unassessed": 3,
+        "explicit_unknown": 0,
+        "unknown": 3,
+        "direct": 1,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "direct-pending-verification"
+      },
+      "hits": 1,
+      "id": "R13",
+      "information_needed": "注入 clock 或顯式時間，測試近午夜與一般時間。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 4,
+        "unassessed": 3,
+        "unknown": 3,
+        "deferred": 0,
+        "trace": "final-output/R13",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-07-23_071200-injectable-wall-clock-for-day-boundary-logic.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "Time-dependent business logic (local day, near-midnight windows, quotas) must take an injectable clock or explicit `Instant`/`LocalDate` parameters; tests freeze that clock instead of changing the OS date."
+          }
+        ]
+      },
+      "model_payload_runes": 616,
+      "query": "測試跨午夜額度邏輯，要改 OS 時間還是注入 clock？",
+      "retrieved_confuser_hits": 0,
+      "rr": 1,
+      "selected_confuser_hits": 0,
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-07-23_071200-injectable-wall-clock-for-day-boundary-logic.md"
+      ],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/R13",
+      "trace": "final-output/R13",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md",
+          "Relation": "direct",
+          "Reason": "同 pool 持有 client 再 nested checkout 造成飽和等待；soft flag 不解鎖。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 27,
+        "assessed": 1,
+        "unassessed": 26,
+        "explicit_unknown": 0,
+        "unknown": 26,
+        "direct": 1,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "direct-pending-verification"
+      },
+      "hits": 1,
+      "id": "R14",
+      "information_needed": "辨識同 pool 持有／等待循環，先釋放或傳遞既有 client。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 27,
+        "unassessed": 26,
+        "unknown": 26,
+        "deferred": 0,
+        "trace": "final-output/R14",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "Never hold a DB pool client across an await that also checks out from the same pool; saturation turns into an uninterruptible hang that soft reconcile cannot clear."
+          }
+        ]
+      },
+      "model_payload_runes": 576,
+      "query": "DB pool 滿載時 nested checkout 卡死，soft reconcile 也救不回來？",
+      "retrieved_confuser_hits": 0,
+      "rr": 1,
+      "selected_confuser_hits": 0,
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md"
+      ],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/R14",
+      "trace": "final-output/R14",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "feedback/history/development-guidance/common/2026-10-22_093000-deployment-state-is-readback-not-narrative.md",
+          "Relation": "direct",
+          "Reason": "正式狀態需 readback ledger，tag 與敘述都不能代替。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 10,
+        "assessed": 1,
+        "unassessed": 9,
+        "explicit_unknown": 0,
+        "unknown": 9,
+        "direct": 1,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "direct-pending-verification"
+      },
+      "hits": 1,
+      "id": "R15",
+      "information_needed": "版本以正式環境讀回落帳，未知合法，不憑 tag。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 10,
+        "unassessed": 9,
+        "unknown": 9,
+        "deferred": 0,
+        "trace": "final-output/R15",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-10-22_093000-deployment-state-is-readback-not-narrative.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "「正式機上跑的是什麼」必須來自讀回並寫進 repo 內的帳本，git tag 只是從帳本衍生出來的索引；遺漏多半發生在寫程式的一端，所以完成定義（DoD）要求留下給部署者的通知，部署前由會失敗的 preflight 彙整。"
+          }
+        ]
+      },
+      "model_payload_runes": 521,
+      "query": "正式機跑哪個版本可以只看 git tag 或口頭說明嗎？",
+      "retrieved_confuser_hits": 0,
+      "rr": 1,
+      "selected_confuser_hits": 0,
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-10-22_093000-deployment-state-is-readback-not-narrative.md"
+      ],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/R15",
+      "trace": "final-output/R15",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "feedback/history/development-guidance/common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md",
+          "Relation": "direct",
+          "Reason": "索引相對連結與 repo-root 字串基準不同，需真正解析。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 45,
+        "assessed": 1,
+        "unassessed": 44,
+        "explicit_unknown": 0,
+        "unknown": 44,
+        "direct": 1,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "direct-pending-verification"
+      },
+      "hits": 1,
+      "id": "R16",
+      "information_needed": "以索引目錄解析連結，正確連結通過而移除後仍 fail。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 45,
+        "unassessed": 44,
+        "unknown": 44,
+        "deferred": 0,
+        "trace": "final-output/R16",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "要求某個路徑字串出現在一份 Markdown 索引裡的 gate，若比對的是 repo 根相對路徑，就會拒絕唯一正確的相對連結，並接受寫上去會壞掉的那幾種。"
+          }
+        ]
+      },
+      "model_payload_runes": 495,
+      "query": "索引連結可解析卻被 gate 擋下，要如何驗證路徑契約？",
+      "retrieved_confuser_hits": 0,
+      "rr": 1,
+      "selected_confuser_hits": 0,
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md"
+      ],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/R16",
+      "trace": "final-output/R16",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md",
+          "Relation": "direct",
+          "Reason": "stale peer refused 應 refresh discovery／persist endpoint，durable job 不直接 failed。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 8,
+        "assessed": 1,
+        "unassessed": 7,
+        "explicit_unknown": 0,
+        "unknown": 7,
+        "direct": 1,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "direct-pending-verification"
+      },
+      "hits": 1,
+      "id": "R17",
+      "information_needed": "區分 peer unreachable 與 auth，更新 discovery/endpoint 及 non-fatal job policy。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 8,
+        "unassessed": 7,
+        "unknown": 7,
+        "deferred": 0,
+        "trace": "final-output/R17",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "When a long-lived TCP peer returns `ECONNREFUSED` / host-unreachable, refresh the official discovery source, persist the new endpoint, and keep the durable job `running` instead of marking it failed."
+          }
+        ]
+      },
+      "model_payload_runes": 605,
+      "query": "ECONNREFUSED 後應直接把 durable job 標 failed 嗎？",
+      "retrieved_confuser_hits": 0,
+      "rr": 1,
+      "selected_confuser_hits": 0,
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/R17",
+      "trace": "final-output/R17",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md",
+          "Relation": "direct",
+          "Reason": "now 凍在 transaction start，age gate 要 clock_timestamp 與 held-open test。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 58,
+        "assessed": 1,
+        "unassessed": 57,
+        "explicit_unknown": 0,
+        "unknown": 57,
+        "direct": 1,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "direct-pending-verification"
+      },
+      "hits": 1,
+      "id": "R18",
+      "information_needed": "辨識 transaction-time 與 wall-clock stamp、長交易反例。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 58,
+        "unassessed": 57,
+        "unknown": 57,
+        "deferred": 0,
+        "trace": "final-output/R18",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "In PostgreSQL `now()` / `current_timestamp` is frozen at transaction start; a holder of an old open transaction can back-date any timestamp the routine writes with it, so minimum-age and reset-window gates must stamp with `clock_timestamp()`."
+          }
+        ]
+      },
+      "model_payload_runes": 670,
+      "query": "PostgreSQL now() 固定在 transaction start，age gate 如何取真正現在？",
+      "retrieved_confuser_hits": 0,
+      "rr": 1,
+      "selected_confuser_hits": 0,
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md"
+      ],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/R18",
+      "trace": "final-output/R18",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 0,
+        "assessed": 0,
+        "unassessed": 0,
+        "explicit_unknown": 0,
+        "unknown": 0,
+        "direct": 0,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "no-candidates-in-fixed-pool"
+      },
+      "hits": 0,
+      "id": "R19",
+      "information_needed": "nonce 控制僅驗固定池空結果，不代表自然語意無答案。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "no-candidates-in-fixed-pool",
+        "pool": 0,
+        "unassessed": 0,
+        "unknown": 0,
+        "deferred": 0,
+        "trace": "final-output/R19",
+        "results": []
+      },
+      "model_payload_runes": 228,
+      "query": "RAG_NEGATIVE_CONTROL_7f0b991e",
+      "retrieved_confuser_hits": 0,
+      "rr": 0,
+      "selected_confuser_hits": 0,
+      "selected_sources": [],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/R19",
+      "trace": "final-output/R19",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 0,
+        "assessed": 0,
+        "unassessed": 0,
+        "explicit_unknown": 0,
+        "unknown": 0,
+        "direct": 0,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "no-candidates-in-fixed-pool"
+      },
+      "hits": 0,
+      "id": "R20",
+      "information_needed": "不存在 status 的人工 filter 控制僅驗空集合。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "no-candidates-in-fixed-pool",
+        "pool": 0,
+        "unassessed": 0,
+        "unknown": 0,
+        "deferred": 0,
+        "trace": "final-output/R20",
+        "results": []
+      },
+      "model_payload_runes": 228,
+      "query": "evidence",
+      "retrieved_confuser_hits": 0,
+      "rr": 0,
+      "selected_confuser_hits": 0,
+      "selected_sources": [],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/R20",
+      "trace": "final-output/R20",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md",
+          "Relation": "direct",
+          "Reason": "本題純 JSON 數字比較，parse numeric 可解 substring 誤判。"
+        },
+        {
+          "Source": "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md",
+          "Relation": "not-applicable",
+          "Reason": "來源全文明確排除 self-contained pure function；本題不驗 host composition。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 64,
+        "assessed": 2,
+        "unassessed": 62,
+        "explicit_unknown": 0,
+        "unknown": 62,
+        "direct": 1,
+        "background": 0,
+        "not_applicable": 1,
+        "state": "direct-pending-verification"
+      },
+      "hits": 1,
+      "id": "O01",
+      "information_needed": "JSON exact numeric comparison，拒絕無關 host 驗證。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 64,
+        "unassessed": 62,
+        "unknown": 62,
+        "deferred": 0,
+        "trace": "final-output/O01",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "When validating JSON API responses with substring matching (e.g., `json.contains(\"\u005c\"code\u005c\":1\")`), numeric values like `1002` will falsely match because they contain the substring `\"code\":1`. Always parse the actual numeric value for comparison."
+          }
+        ]
+      },
+      "model_payload_runes": 658,
+      "query": "host middleware 裡的純函式把 JSON code:1002 認成 code:1，該怎麼驗這個比較？",
+      "retrieved_confuser_hits": 1,
+      "rr": 1,
+      "selected_confuser_hits": 0,
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md"
+      ],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/O01",
+      "trace": "final-output/O01",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md",
+          "Relation": "direct",
+          "Reason": "scrollWidth/clientWidth 是 geometry 問題，應 browser computed layout。"
+        },
+        {
+          "Source": "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md",
+          "Relation": "background",
+          "Reason": "KPI stale 數值與本題 overflow 不同，API/SQL 重疊不足以選用。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 64,
+        "assessed": 2,
+        "unassessed": 62,
+        "explicit_unknown": 0,
+        "unknown": 62,
+        "direct": 1,
+        "background": 1,
+        "not_applicable": 0,
+        "state": "direct-pending-verification"
+      },
+      "hits": 1,
+      "id": "O02",
+      "information_needed": "驗 viewport 橫向溢出，不重查正確 KPI。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 64,
+        "unassessed": 62,
+        "unknown": 62,
+        "deferred": 0,
+        "trace": "final-output/O02",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "RWD 或視覺縮放問題不能只靠 CSS marker、snapshot 或人工感覺驗證；要用真實瀏覽器 viewport 量 `document`、`body`、app shell、固定導覽與 scroll content 的 computed layout。"
+          }
+        ]
+      },
+      "model_payload_runes": 535,
+      "query": "API 和 SQL 數字正確，但手機版 scrollWidth 大於 clientWidth，要如何驗 viewport 的橫向溢出？",
+      "retrieved_confuser_hits": 1,
+      "rr": 1,
+      "selected_confuser_hits": 0,
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md"
+      ],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/O02",
+      "trace": "final-output/O02",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md",
+          "Relation": "direct",
+          "Reason": "目標為 native 權重載入，需版本／指紋隔離。"
+        },
+        {
+          "Source": "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md",
+          "Relation": "not-applicable",
+          "Reason": "query 已說媒體 URI 正常，不應拿 blob URI rewrite 作 native 因果。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 49,
+        "assessed": 2,
+        "unassessed": 47,
+        "explicit_unknown": 0,
+        "unknown": 47,
+        "direct": 1,
+        "background": 0,
+        "not_applicable": 1,
+        "state": "direct-pending-verification"
+      },
+      "hits": 1,
+      "id": "O03",
+      "information_needed": "比對 native 載入指紋與範圍，保留未證原因與候選限制。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 49,
+        "unassessed": 47,
+        "unknown": 47,
+        "deferred": 0,
+        "trace": "final-output/O03",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "模型載入原生崩潰時先比對既有失敗指紋與版本範圍，再做最小隔離驗證，不從完整產品流程重新猜原因。"
+          }
+        ]
+      },
+      "model_payload_runes": 451,
+      "query": "播放器的 HLS manifest/key 請求都正常；另一段 native model 權重載入直接崩潰，先怎麼比對失敗案例？",
+      "retrieved_confuser_hits": 1,
+      "rr": 1,
+      "selected_confuser_hits": 0,
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md"
+      ],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/O03",
+      "trace": "final-output/O03",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md",
+          "Relation": "direct",
+          "Reason": "核心 nested checkout 卡住，要查持有 client 與同 pool。"
+        },
+        {
+          "Source": "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md",
+          "Relation": "not-applicable",
+          "Reason": "來源明確排除純描述 timestamp；query 沒有 age/window 決策。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 57,
+        "assessed": 2,
+        "unassessed": 55,
+        "explicit_unknown": 0,
+        "unknown": 55,
+        "direct": 1,
+        "background": 0,
+        "not_applicable": 1,
+        "state": "direct-pending-verification"
+      },
+      "hits": 1,
+      "id": "O04",
+      "information_needed": "查 client lifetime／nested same-pool checkout，不改描述性日誌時間。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 57,
+        "unassessed": 55,
+        "unknown": 55,
+        "deferred": 0,
+        "trace": "final-output/O04",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "Never hold a DB pool client across an await that also checks out from the same pool; saturation turns into an uninterruptible hang that soft reconcile cannot clear."
+          }
+        ]
+      },
+      "model_payload_runes": 576,
+      "query": "DB pool 用 now() 寫描述性日誌，工作卡在 nested checkout；應先查 client 持有還是 age gate？",
+      "retrieved_confuser_hits": 1,
+      "rr": 1,
+      "selected_confuser_hits": 0,
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md"
+      ],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/O04",
+      "trace": "final-output/O04",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md",
+          "Relation": "direct",
+          "Reason": "官方 discovery 新位址與舊 peer refused 直接對應可恢復 failover。"
+        },
+        {
+          "Source": "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md",
+          "Relation": "not-applicable",
+          "Reason": "已乾淨 restore/build，不能把 network peer stale 歸因舊相依圖。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 60,
+        "assessed": 2,
+        "unassessed": 58,
+        "explicit_unknown": 0,
+        "unknown": 58,
+        "direct": 1,
+        "background": 0,
+        "not_applicable": 1,
+        "state": "direct-pending-verification"
+      },
+      "hits": 1,
+      "id": "O05",
+      "information_needed": "用官方 discovery 更新連線／持久 endpoint，保留 durable job。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "direct-pending-verification",
+        "pool": 60,
+        "unassessed": 58,
+        "unknown": 58,
+        "deferred": 0,
+        "trace": "final-output/O05",
+        "results": [
+          {
+            "source": "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md",
+            "kind": "feedback-pattern",
+            "status": "candidate",
+            "summary": "When a long-lived TCP peer returns `ECONNREFUSED` / host-unreachable, refresh the official discovery source, persist the new endpoint, and keep the durable job `running` instead of marking it failed."
+          }
+        ]
+      },
+      "model_payload_runes": 608,
+      "query": "已乾淨 restore/build，卻遇到舊 peer 的 ECONNREFUSED，官方 discovery 指向新位址，工作應怎麼處置？",
+      "retrieved_confuser_hits": 1,
+      "rr": 1,
+      "selected_confuser_hits": 0,
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/O05",
+      "trace": "final-output/O05",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    },
+    {
+      "adoption": "not evaluated",
+      "assessments": [
+        {
+          "Source": "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md",
+          "Relation": "not-applicable",
+          "Reason": "全文排除 auth/token invalidation，持續 refresh discovery 不解撤銷。"
+        },
+        {
+          "Source": "feedback/history/apk-analysis/common/2026-04-30_120005-session-refresh-要還原-app-的真實登入-裝置流程.md",
+          "Relation": "unknown",
+          "Reason": "App session recovery 是線索，但未確認本題為此 App／裝置流程；本次不輸出。"
+        },
+        {
+          "Source": "feedback/history/apk-analysis/http-api/2026-07-15_140000-cold-start-token-may-come-from-bootstrap-not-login.md",
+          "Relation": "unknown",
+          "Reason": "guest bootstrap 的前提未提供，不能當撤銷 token 的已知重新授權解法；本次不輸出。"
+        },
+        {
+          "Source": "feedback/history/development-guidance/common/2026-05-21_172704-dual-token-security-audit.md",
+          "Relation": "background",
+          "Reason": "多 token 安全審計並非具體重新授權流程。"
+        }
+      ],
+      "budget_deferred_sources": [],
+      "coverage": {
+        "candidates": 23,
+        "assessed": 4,
+        "unassessed": 19,
+        "explicit_unknown": 2,
+        "unknown": 21,
+        "direct": 0,
+        "background": 1,
+        "not_applicable": 1,
+        "state": "pending-assessment"
+      },
+      "hits": 0,
+      "id": "O06",
+      "information_needed": "需所屬服務／auth provider 的正式重新授權流程；候選不足時明示未知而不套用 App bootstrap。",
+      "model_payload": {
+        "guard": "Candidates only; read sources and verify applicability; empty does not establish absence.",
+        "state": "pending-assessment",
+        "pool": 23,
+        "unassessed": 19,
+        "unknown": 21,
+        "deferred": 0,
+        "trace": "final-output/O06",
+        "results": []
+      },
+      "model_payload_runes": 222,
+      "query": "已排除 ECONNREFUSED，官方 peer 可連線但 token 被撤銷；要找重新授權流程，還應一直刷新 discovery 嗎？",
+      "retrieved_confuser_hits": 1,
+      "rr": 0,
+      "selected_confuser_hits": 0,
+      "selected_sources": [],
+      "source_pool_ref": "phase2-v3-fixed-pools.json#pools/O06",
+      "trace": "final-output/O06",
+      "unknown_disposition": "未標記候選不進主要上下文，可由 trace 補查；explicit unknown 本次不輸出，待有任務前提再重查。"
+    }
+  ],
+  "phase2": "incomplete",
+  "protocol_sha256": "720684ed8d8461b158d9e8246aecae3ff7e1662f2fdd8e003f01419c36b6fe11",
+  "scorer_revision": "5f4200950d286e2506c69ff5d0ef5e08168fa8ba",
+  "scorer_sha256": "359361ba15b9fda0ffd6ca6f5624911e83806d9511e8a2616963f6f532132395"
+}

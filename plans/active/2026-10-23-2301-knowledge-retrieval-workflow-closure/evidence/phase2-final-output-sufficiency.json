@@ -1,0 +1,316 @@
+{
+  "kind": "manual current-agent known-gold exposed diagnostic, not independent review",
+  "results_file_sha256": "ec21e1b02588df466f034874a61a7093d9c9ae648c6ef8681fbc27512d2c877c",
+  "definition": "sufficient-for-next-step means actionable next verification direction, not complete answer or adoption; partial means task-specific key detail missing",
+  "cases": {
+    "R01": {
+      "rating": "sufficient-for-next-step",
+      "information_needed": "驗證真實 host composition、log/status 與註冊順序。",
+      "provided_by_actual_payload": "摘要明確要求真實 composed pipeline 而非孤立 middleware，指出多層互動。",
+      "missing_or_next_verification": "仍需在任務 host 讀 composition 順序、擷取真實 log/status；摘要未提供具體 logger 斷言。",
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md"
+      ],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "R02": {
+      "rating": "sufficient-for-next-step",
+      "information_needed": "同一實體與路徑比對 DB/API/DOM，區分 client cache。",
+      "provided_by_actual_payload": "同 video_id／同路徑 DB/API/DOM 對照與 sessionStorage 陳舊投影均明列。",
+      "missing_or_next_verification": "缺任務 browser/DOM 實測，不能直接判 cache 是本次根因。",
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-06-18_play-view-kpi-sql-pass-dom-fail-browser-gate.md"
+      ],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "R03": {
+      "rating": "sufficient-for-next-step",
+      "information_needed": "指出基線歸因不足與需要排除的本機 derived state。",
+      "provided_by_actual_payload": "明確否定僅相同 source＋重現即可歸因，指出未版本化 derived state。",
+      "missing_or_next_verification": "需讀回正文取得衍生檔／時間戳／重建步驟，並排除 clean CI。",
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-09-04_101800-derived-state-before-blaming-shared-baseline.md"
+      ],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "R04": {
+      "rating": "sufficient-for-next-step",
+      "information_needed": "以真正 JSON numeric 值比較，包含 1002/10/1 邊界。",
+      "provided_by_actual_payload": "摘要有 1002 substring 1 的反例及 parse actual numeric 的動作。",
+      "missing_or_next_verification": "還需以真 JSON parser 與本題邊界資料跑斷言。",
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md"
+      ],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "R05": {
+      "rating": "sufficient-for-next-step",
+      "information_needed": "真實 mobile viewport 及 document/body/shell/content 寬度量測。",
+      "provided_by_actual_payload": "真實 viewport 與 document/body/shell/content computed layout 量測對象明列。",
+      "missing_or_next_verification": "需從正文補意圖內部 scroller 排除與真實 route 量測。",
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md"
+      ],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "R06": {
+      "rating": "partial",
+      "information_needed": "解釋 blob base 與原 manifest URL，檢查重寫後的絕對 URI。",
+      "provided_by_actual_payload": "摘要提供 blob 前 URI 絕對化及 rewrite helper test。",
+      "missing_or_next_verification": "沒有明述 blob base 取代原 manifest URL、segment 應以原 URL 解析；需讀回正文，不能只靠摘要回答為什麼。",
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_141100-blob-manifest-uri-rewrite-test.md"
+      ],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "R07": {
+      "rating": "sufficient-for-next-step",
+      "information_needed": "feature/code refs、component index 與核心實作語意斷言。",
+      "provided_by_actual_payload": "feature refs 與最小實作語意 marker 是超越名稱／檔案斷言的具體檢查方向。",
+      "missing_or_next_verification": "實際 component index、責任 marker 與 BDD 尚需任務證據。",
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_103300-component-traceability-marker-depth.md"
+      ],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "R08": {
+      "rating": "partial",
+      "information_needed": "歷史理由與當前 owner/projection 邊界分開，不以 lesson 壓過契約。",
+      "provided_by_actual_payload": "三份摘要顯示 owner source、opt-in projection、pre-build 與防雙寫；保留不同 kind/status。",
+      "missing_or_next_verification": "歷史 lesson 的 prose 跳步原因只在正文，最終摘要未完整解釋為什麼；查歷史理由需讀回而非由規範倒推。",
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md",
+        "governance/lifecycle/executable-contract-boundary.yaml",
+        "knowledge/summaries/executable-contract-boundary.md"
+      ],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "R09": {
+      "rating": "sufficient-for-next-step",
+      "information_needed": "validation scenarios 必須先於 runtime 實作，列 fail-first 與例外。",
+      "provided_by_actual_payload": "完整 summary 列 scenarios→fail-first→implementation→pass 及豁免，lesson 作歷史入口。",
+      "missing_or_next_verification": "需核對當前 canonical contract，不能把 summary/lesson 當最高權威。",
+      "selected_sources": [
+        "knowledge/summaries/test-first-framework-upgrade.md",
+        "feedback/history/development-guidance/common/2026-05-22_092400-test-first-framework-upgrade.md"
+      ],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "R10": {
+      "rating": "sufficient-for-next-step",
+      "information_needed": "判斷 restore-derived graph 是否新鮮，不能只接受 build PASS。",
+      "provided_by_actual_payload": "摘要明述 --no-restore 驗的是舊 restore graph，能引導查解析狀態。",
+      "missing_or_next_verification": "需讀回正文確認本生態相依圖是否受版本控制，並驗 gate restore 行為。",
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-09-04_101559-build-gate-must-restore-not-only-build.md"
+      ],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "R11": {
+      "rating": "partial",
+      "information_needed": "可核對的失敗階段、堆疊、平台／版本／模型與隔離方法。",
+      "provided_by_actual_payload": "提供既有失敗指紋／版本範圍與最小隔離的路由。",
+      "missing_or_next_verification": "未提供具體指紋、stack/platform/model 比對欄位及隔離方法；需讀回正文和 project case，不可直接套原因。",
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md"
+      ],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "R12": {
+      "rating": "partial",
+      "information_needed": "確定性阻塞目標語句，取消後讀回與同 key retry。",
+      "provided_by_actual_payload": "指定語句 blocking、lock/deferred COMMIT 與短 timeout 的手段存在。",
+      "missing_or_next_verification": "最終摘要沒有 server-side stopped/readback/idempotent retry 驗證，尚不足支撐 cancellation-safety claim。",
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-10-05_171500-land-cancellation-on-a-chosen-db-statement.md"
+      ],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "R13": {
+      "rating": "sufficient-for-next-step",
+      "information_needed": "注入 clock 或顯式時間，測試近午夜與一般時間。",
+      "provided_by_actual_payload": "injectable clock／Instant/LocalDate、freeze 而非 OS 日期均明列。",
+      "missing_or_next_verification": "需驗證 quota decision 真正讀 injected clock，補兩側窗口實測。",
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-07-23_071200-injectable-wall-clock-for-day-boundary-logic.md"
+      ],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "R14": {
+      "rating": "sufficient-for-next-step",
+      "information_needed": "辨識同 pool 持有／等待循環，先釋放或傳遞既有 client。",
+      "provided_by_actual_payload": "明確指出同 pool 持有 client 跨 nested checkout 會在飽和時卡住，soft reconcile 不解。",
+      "missing_or_next_verification": "需讀 callback/client lifetime 及壓力重播；不能猜任何 DB hang 都是這個原因。",
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md"
+      ],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "R15": {
+      "rating": "sufficient-for-next-step",
+      "information_needed": "版本以正式環境讀回落帳，未知合法，不憑 tag。",
+      "provided_by_actual_payload": "readback→repo ledger，tag 衍生索引與開發通知／preflight 已列。",
+      "missing_or_next_verification": "來源仍 candidate 且尚無一次完整真部署驗證；本題不能宣稱流程已成熟。",
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-10-22_093000-deployment-state-is-readback-not-narrative.md"
+      ],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "R16": {
+      "rating": "partial",
+      "information_needed": "以索引目錄解析連結，正確連結通過而移除後仍 fail。",
+      "provided_by_actual_payload": "指出 repo-root 字串比對會拒絕正確相對連結。",
+      "missing_or_next_verification": "摘要未明寫以索引目錄解析與移除連結負例；正文才有完整路徑契約驗法。",
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md"
+      ],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "R17": {
+      "rating": "sufficient-for-next-step",
+      "information_needed": "區分 peer unreachable 與 auth，更新 discovery/endpoint 及 non-fatal job policy。",
+      "provided_by_actual_payload": "refused→official discovery→persist endpoint→keep running 的明確動作。",
+      "missing_or_next_verification": "需要確認非 auth failure，讀回來源及任務 failover/status policy。",
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "R18": {
+      "rating": "sufficient-for-next-step",
+      "information_needed": "辨識 transaction-time 與 wall-clock stamp、長交易反例。",
+      "provided_by_actual_payload": "now/current_timestamp 凍在 transaction start 與改用 clock_timestamp 的原因明列。",
+      "missing_or_next_verification": "仍需讀正文補 held-open test，不能把搜尋結果當 SQL gate 已通過。",
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-10-15_120000-now-is-transaction-start-use-clock-timestamp-for-age-gates.md"
+      ],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "R19": {
+      "rating": "sufficient-for-next-step",
+      "information_needed": "nonce 控制僅驗固定池空結果，不代表自然語意無答案。",
+      "provided_by_actual_payload": "固定池為空且 guard 明示 empty 不建立 knowledge absence。",
+      "missing_or_next_verification": "僅 nonce 人工控制，不代表自然語意無答案正確率。",
+      "selected_sources": [],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "R20": {
+      "rating": "sufficient-for-next-step",
+      "information_needed": "不存在 status 的人工 filter 控制僅驗空集合。",
+      "provided_by_actual_payload": "filter 控制的空 pool 狀態保留，未 fallback 任意來源。",
+      "missing_or_next_verification": "僅不存在 status 的人工控制，不代表一般 no-answer。",
+      "selected_sources": [],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "O01": {
+      "rating": "sufficient-for-next-step",
+      "information_needed": "JSON exact numeric comparison，拒絕無關 host 驗證。",
+      "provided_by_actual_payload": "只輸出 numeric parsing 反例，未把 host composition 誤填進來。",
+      "missing_or_next_verification": "需用實際純函式的 exact-number 邊界驗證。",
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-05-18_141900-json-substring-matching-numeric-trap.md"
+      ],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "O02": {
+      "rating": "sufficient-for-next-step",
+      "information_needed": "驗 viewport 橫向溢出，不重查正確 KPI。",
+      "provided_by_actual_payload": "只保留 viewport computed layout，未填 KPI cache 來源。",
+      "missing_or_next_verification": "仍需真 browser 量測，不能從 SQL/API 正確推定幾何修復。",
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md"
+      ],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "O03": {
+      "rating": "partial",
+      "information_needed": "比對 native 載入指紋與範圍，保留未證原因與候選限制。",
+      "provided_by_actual_payload": "保留 native failure 指紋／版本路由，排除 blob URI。",
+      "missing_or_next_verification": "同 R11，完整摘要仍沒有可執行的 fingerprint 比對欄位／版本與隔離方法。",
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md"
+      ],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "O04": {
+      "rating": "sufficient-for-next-step",
+      "information_needed": "查 client lifetime／nested same-pool checkout，不改描述性日誌時間。",
+      "provided_by_actual_payload": "同 pool client lifetime 與 nested checkout 直接命中焦點；不填 age-clock。",
+      "missing_or_next_verification": "任務需證明共享 pool 持有／等待鏈，描述性 now 不自動構成風險。",
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md"
+      ],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "O05": {
+      "rating": "sufficient-for-next-step",
+      "information_needed": "用官方 discovery 更新連線／持久 endpoint，保留 durable job。",
+      "provided_by_actual_payload": "選 discovery failover 與 durable-job nonfatal policy，不填已排除 restore。",
+      "missing_or_next_verification": "需保存官方 endpoint/readback 與重連證據，非已完成採用。",
+      "selected_sources": [
+        "feedback/history/development-guidance/common/2026-09-15_012600-stale-peer-refused-refresh-not-fail-job.md"
+      ],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    },
+    "O06": {
+      "rating": "insufficient",
+      "information_needed": "需所屬服務／auth provider 的正式重新授權流程；候選不足時明示未知而不套用 App bootstrap。",
+      "provided_by_actual_payload": "空 results 保留 pool/unknown/trace，沒有把不明 App auth 線索當解法。",
+      "missing_or_next_verification": "未找到適用的重新授權流程；明示未知，需提供服務／auth provider 前提後查正式流程，本輪處置為不輸出 auth 候選。",
+      "selected_sources": [],
+      "review_scope": "final model_payload only; readback/full source not credited as if already in payload",
+      "applicability": "not verified in real task",
+      "adoption": "not evaluated"
+    }
+  }
+}
