@@ -1,0 +1,1160 @@
+{
+  "cases": [
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 279,
+      "coverage": {
+        "candidates": 16,
+        "assessed": 0,
+        "unassessed": 16,
+        "explicit_unknown": 0,
+        "unknown": 16,
+        "direct": 0,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "pending-assessment"
+      },
+      "decision_trace": "not available: no semantic assessment captured",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "R01",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 16,
+          "assessed": 0,
+          "unassessed": 16,
+          "explicit_unknown": 0,
+          "unknown": 16,
+          "direct": 0,
+          "background": 0,
+          "not_applicable": 0,
+          "state": "pending-assessment"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 2,
+      "semantic_response_available": false
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 279,
+      "coverage": {
+        "candidates": 63,
+        "assessed": 0,
+        "unassessed": 63,
+        "explicit_unknown": 0,
+        "unknown": 63,
+        "direct": 0,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "pending-assessment"
+      },
+      "decision_trace": "not available: no semantic assessment captured",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "R02",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 63,
+          "assessed": 0,
+          "unassessed": 63,
+          "explicit_unknown": 0,
+          "unknown": 63,
+          "direct": 0,
+          "background": 0,
+          "not_applicable": 0,
+          "state": "pending-assessment"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 2,
+      "semantic_response_available": false
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 811,
+      "coverage": {
+        "candidates": 5,
+        "assessed": 5,
+        "unassessed": 0,
+        "explicit_unknown": 1,
+        "unknown": 1,
+        "direct": 1,
+        "background": 1,
+        "not_applicable": 2,
+        "state": "direct-pending-verification"
+      },
+      "decision_trace": "phase2-v3-disposition-results.json#case=R03",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "R03",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 5,
+          "assessed": 5,
+          "unassessed": 0,
+          "explicit_unknown": 1,
+          "unknown": 1,
+          "direct": 1,
+          "background": 1,
+          "not_applicable": 2,
+          "state": "direct-pending-verification"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [
+          {
+            "rank": -7.676624658815986,
+            "id": "feedback.development-guidance.2026-09-04_101800-derived-state-before-blaming-shared-baseline",
+            "source_path": "feedback/history/development-guidance/common/2026-09-04_101800-derived-state-before-blaming-shared-baseline.md",
+            "layer": "feedback",
+            "type": "feedback-pattern",
+            "status": "candidate",
+            "priority": "P2",
+            "confidence": "medium",
+            "context_cost": "medium",
+            "summary": "「原始碼輸入相同」加上「可穩定重現」不足以證明共用基線壞掉；這兩件事在本地衍生狀態過期時同樣成立，而衍生狀態不會出現在原始碼 diff 裡。",
+            "match_reason": "lexical candidate; applicability unverified"
+          }
+        ],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 528,
+      "semantic_response_available": true
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 279,
+      "coverage": {
+        "candidates": 22,
+        "assessed": 0,
+        "unassessed": 22,
+        "explicit_unknown": 0,
+        "unknown": 22,
+        "direct": 0,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "pending-assessment"
+      },
+      "decision_trace": "not available: no semantic assessment captured",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "R04",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 22,
+          "assessed": 0,
+          "unassessed": 22,
+          "explicit_unknown": 0,
+          "unknown": 22,
+          "direct": 0,
+          "background": 0,
+          "not_applicable": 0,
+          "state": "pending-assessment"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 2,
+      "semantic_response_available": false
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 276,
+      "coverage": {
+        "candidates": 5,
+        "assessed": 0,
+        "unassessed": 5,
+        "explicit_unknown": 0,
+        "unknown": 5,
+        "direct": 0,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "pending-assessment"
+      },
+      "decision_trace": "not available: no semantic assessment captured",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "R05",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 5,
+          "assessed": 0,
+          "unassessed": 5,
+          "explicit_unknown": 0,
+          "unknown": 5,
+          "direct": 0,
+          "background": 0,
+          "not_applicable": 0,
+          "state": "pending-assessment"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 2,
+      "semantic_response_available": false
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 279,
+      "coverage": {
+        "candidates": 28,
+        "assessed": 0,
+        "unassessed": 28,
+        "explicit_unknown": 0,
+        "unknown": 28,
+        "direct": 0,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "pending-assessment"
+      },
+      "decision_trace": "not available: no semantic assessment captured",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "R06",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 28,
+          "assessed": 0,
+          "unassessed": 28,
+          "explicit_unknown": 0,
+          "unknown": 28,
+          "direct": 0,
+          "background": 0,
+          "not_applicable": 0,
+          "state": "pending-assessment"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 2,
+      "semantic_response_available": false
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 276,
+      "coverage": {
+        "candidates": 9,
+        "assessed": 0,
+        "unassessed": 9,
+        "explicit_unknown": 0,
+        "unknown": 9,
+        "direct": 0,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "pending-assessment"
+      },
+      "decision_trace": "not available: no semantic assessment captured",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "R07",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 9,
+          "assessed": 0,
+          "unassessed": 9,
+          "explicit_unknown": 0,
+          "unknown": 9,
+          "direct": 0,
+          "background": 0,
+          "not_applicable": 0,
+          "state": "pending-assessment"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 2,
+      "semantic_response_available": false
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 2208,
+      "coverage": {
+        "candidates": 55,
+        "assessed": 6,
+        "unassessed": 49,
+        "explicit_unknown": 0,
+        "unknown": 49,
+        "direct": 3,
+        "background": 3,
+        "not_applicable": 0,
+        "state": "direct-pending-verification"
+      },
+      "decision_trace": "phase2-v3-disposition-results.json#case=R08",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": false,
+      "id": "R08",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 55,
+          "assessed": 6,
+          "unassessed": 49,
+          "explicit_unknown": 0,
+          "unknown": 49,
+          "direct": 3,
+          "background": 3,
+          "not_applicable": 0,
+          "state": "direct-pending-verification"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [
+          {
+            "rank": -27.490474025114302,
+            "id": "governance.executable-contract-boundary",
+            "source_path": "knowledge/summaries/executable-contract-boundary.md",
+            "layer": "knowledge",
+            "type": "summary",
+            "status": "candidate",
+            "priority": "P2",
+            "confidence": "medium",
+            "context_cost": "low",
+            "summary": "定義 executable YAML contract 邊界：source 留在 owner layer，Markdown 解釋脈絡，YAML 承載 activation / steps / gates / evidence；會影響 execution 的 contract 以 `runtime_projection.enabled: true` opt in 到 `runtime.db generated_surfaces`。Framework contract / projection 改動前必須先做 pre-build interrogation，避免雙寫 source-of-truth。",
+            "match_reason": "lexical candidate; applicability unverified"
+          },
+          {
+            "rank": -28.872407770568355,
+            "id": "route.governance.executable-contract-boundary",
+            "source_path": "governance/lifecycle/executable-contract-boundary.yaml",
+            "layer": "governance",
+            "type": "route",
+            "status": "new-layer-promoted",
+            "priority": "P1",
+            "confidence": "medium",
+            "context_cost": "{\"estimated_tokens\"=\u003e500, \"load_strategy\"=\u003e\"lazy\", \"cacheable\"=\u003etrue, \"ttl\"=\u003e{\"session\"=\u003e1}}",
+            "summary": "Executable Contract Boundary 定義 source ownership 留在 owner layer、 executable YAML contract 以 runtime_projection.enabled opt in、 runtime compiler 投影到 runtime.db generated_surfaces，並要求 framework contract / projection 變更先做 pre-build interrogation。\n",
+            "match_reason": "lexical candidate; applicability unverified"
+          },
+          {
+            "rank": -24.761488267032387,
+            "id": "feedback.development-guidance.2026-05-21_231500-executable-contract-boundary",
+            "source_path": "feedback/history/development-guidance/common/2026-05-21_231500-executable-contract-boundary.md",
+            "layer": "feedback",
+            "type": "feedback-pattern",
+            "status": "candidate",
+            "priority": "P2",
+            "confidence": "medium",
+            "context_cost": "medium",
+            "summary": "流程、gate、activation、blocking condition、required evidence 或 failure action 若會影響 agent 執行，必須提供 owner-layer YAML contract，並投影到 `runtime.db`。",
+            "match_reason": "lexical candidate; applicability unverified"
+          }
+        ],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 1922,
+      "semantic_response_available": true
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 279,
+      "coverage": {
+        "candidates": 53,
+        "assessed": 0,
+        "unassessed": 53,
+        "explicit_unknown": 0,
+        "unknown": 53,
+        "direct": 0,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "pending-assessment"
+      },
+      "decision_trace": "not available: no semantic assessment captured",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "R09",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 53,
+          "assessed": 0,
+          "unassessed": 53,
+          "explicit_unknown": 0,
+          "unknown": 53,
+          "direct": 0,
+          "background": 0,
+          "not_applicable": 0,
+          "state": "pending-assessment"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 2,
+      "semantic_response_available": false
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 279,
+      "coverage": {
+        "candidates": 32,
+        "assessed": 0,
+        "unassessed": 32,
+        "explicit_unknown": 0,
+        "unknown": 32,
+        "direct": 0,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "pending-assessment"
+      },
+      "decision_trace": "not available: no semantic assessment captured",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "R10",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 32,
+          "assessed": 0,
+          "unassessed": 32,
+          "explicit_unknown": 0,
+          "unknown": 32,
+          "direct": 0,
+          "background": 0,
+          "not_applicable": 0,
+          "state": "pending-assessment"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 2,
+      "semantic_response_available": false
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 276,
+      "coverage": {
+        "candidates": 1,
+        "assessed": 0,
+        "unassessed": 1,
+        "explicit_unknown": 0,
+        "unknown": 1,
+        "direct": 0,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "pending-assessment"
+      },
+      "decision_trace": "not available: no semantic assessment captured",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "R11",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 1,
+          "assessed": 0,
+          "unassessed": 1,
+          "explicit_unknown": 0,
+          "unknown": 1,
+          "direct": 0,
+          "background": 0,
+          "not_applicable": 0,
+          "state": "pending-assessment"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 2,
+      "semantic_response_available": false
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 279,
+      "coverage": {
+        "candidates": 12,
+        "assessed": 0,
+        "unassessed": 12,
+        "explicit_unknown": 0,
+        "unknown": 12,
+        "direct": 0,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "pending-assessment"
+      },
+      "decision_trace": "not available: no semantic assessment captured",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "R12",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 12,
+          "assessed": 0,
+          "unassessed": 12,
+          "explicit_unknown": 0,
+          "unknown": 12,
+          "direct": 0,
+          "background": 0,
+          "not_applicable": 0,
+          "state": "pending-assessment"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 2,
+      "semantic_response_available": false
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 276,
+      "coverage": {
+        "candidates": 4,
+        "assessed": 0,
+        "unassessed": 4,
+        "explicit_unknown": 0,
+        "unknown": 4,
+        "direct": 0,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "pending-assessment"
+      },
+      "decision_trace": "not available: no semantic assessment captured",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "R13",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 4,
+          "assessed": 0,
+          "unassessed": 4,
+          "explicit_unknown": 0,
+          "unknown": 4,
+          "direct": 0,
+          "background": 0,
+          "not_applicable": 0,
+          "state": "pending-assessment"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 2,
+      "semantic_response_available": false
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 279,
+      "coverage": {
+        "candidates": 27,
+        "assessed": 0,
+        "unassessed": 27,
+        "explicit_unknown": 0,
+        "unknown": 27,
+        "direct": 0,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "pending-assessment"
+      },
+      "decision_trace": "not available: no semantic assessment captured",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "R14",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 27,
+          "assessed": 0,
+          "unassessed": 27,
+          "explicit_unknown": 0,
+          "unknown": 27,
+          "direct": 0,
+          "background": 0,
+          "not_applicable": 0,
+          "state": "pending-assessment"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 2,
+      "semantic_response_available": false
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 279,
+      "coverage": {
+        "candidates": 10,
+        "assessed": 0,
+        "unassessed": 10,
+        "explicit_unknown": 0,
+        "unknown": 10,
+        "direct": 0,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "pending-assessment"
+      },
+      "decision_trace": "not available: no semantic assessment captured",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "R15",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 10,
+          "assessed": 0,
+          "unassessed": 10,
+          "explicit_unknown": 0,
+          "unknown": 10,
+          "direct": 0,
+          "background": 0,
+          "not_applicable": 0,
+          "state": "pending-assessment"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 2,
+      "semantic_response_available": false
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 279,
+      "coverage": {
+        "candidates": 45,
+        "assessed": 0,
+        "unassessed": 45,
+        "explicit_unknown": 0,
+        "unknown": 45,
+        "direct": 0,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "pending-assessment"
+      },
+      "decision_trace": "not available: no semantic assessment captured",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "R16",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 45,
+          "assessed": 0,
+          "unassessed": 45,
+          "explicit_unknown": 0,
+          "unknown": 45,
+          "direct": 0,
+          "background": 0,
+          "not_applicable": 0,
+          "state": "pending-assessment"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 2,
+      "semantic_response_available": false
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 276,
+      "coverage": {
+        "candidates": 8,
+        "assessed": 0,
+        "unassessed": 8,
+        "explicit_unknown": 0,
+        "unknown": 8,
+        "direct": 0,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "pending-assessment"
+      },
+      "decision_trace": "not available: no semantic assessment captured",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "R17",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 8,
+          "assessed": 0,
+          "unassessed": 8,
+          "explicit_unknown": 0,
+          "unknown": 8,
+          "direct": 0,
+          "background": 0,
+          "not_applicable": 0,
+          "state": "pending-assessment"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 2,
+      "semantic_response_available": false
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 279,
+      "coverage": {
+        "candidates": 58,
+        "assessed": 0,
+        "unassessed": 58,
+        "explicit_unknown": 0,
+        "unknown": 58,
+        "direct": 0,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "pending-assessment"
+      },
+      "decision_trace": "not available: no semantic assessment captured",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "R18",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 58,
+          "assessed": 0,
+          "unassessed": 58,
+          "explicit_unknown": 0,
+          "unknown": 58,
+          "direct": 0,
+          "background": 0,
+          "not_applicable": 0,
+          "state": "pending-assessment"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 2,
+      "semantic_response_available": false
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 285,
+      "coverage": {
+        "candidates": 0,
+        "assessed": 0,
+        "unassessed": 0,
+        "explicit_unknown": 0,
+        "unknown": 0,
+        "direct": 0,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "no-candidates-in-fixed-pool"
+      },
+      "decision_trace": "not available: no semantic assessment captured",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "R19",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 0,
+          "assessed": 0,
+          "unassessed": 0,
+          "explicit_unknown": 0,
+          "unknown": 0,
+          "direct": 0,
+          "background": 0,
+          "not_applicable": 0,
+          "state": "no-candidates-in-fixed-pool"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 2,
+      "semantic_response_available": false
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 285,
+      "coverage": {
+        "candidates": 0,
+        "assessed": 0,
+        "unassessed": 0,
+        "explicit_unknown": 0,
+        "unknown": 0,
+        "direct": 0,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "no-candidates-in-fixed-pool"
+      },
+      "decision_trace": "not available: no semantic assessment captured",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "R20",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 0,
+          "assessed": 0,
+          "unassessed": 0,
+          "explicit_unknown": 0,
+          "unknown": 0,
+          "direct": 0,
+          "background": 0,
+          "not_applicable": 0,
+          "state": "no-candidates-in-fixed-pool"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 2,
+      "semantic_response_available": false
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 279,
+      "coverage": {
+        "candidates": 64,
+        "assessed": 0,
+        "unassessed": 64,
+        "explicit_unknown": 0,
+        "unknown": 64,
+        "direct": 0,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "pending-assessment"
+      },
+      "decision_trace": "not available: no semantic assessment captured",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "O01",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 64,
+          "assessed": 0,
+          "unassessed": 64,
+          "explicit_unknown": 0,
+          "unknown": 64,
+          "direct": 0,
+          "background": 0,
+          "not_applicable": 0,
+          "state": "pending-assessment"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 2,
+      "semantic_response_available": false
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 856,
+      "coverage": {
+        "candidates": 64,
+        "assessed": 4,
+        "unassessed": 60,
+        "explicit_unknown": 0,
+        "unknown": 60,
+        "direct": 1,
+        "background": 3,
+        "not_applicable": 0,
+        "state": "direct-pending-verification"
+      },
+      "decision_trace": "phase2-v3-disposition-results.json#case=O02",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "O02",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 64,
+          "assessed": 4,
+          "unassessed": 60,
+          "explicit_unknown": 0,
+          "unknown": 60,
+          "direct": 1,
+          "background": 3,
+          "not_applicable": 0,
+          "state": "direct-pending-verification"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [
+          {
+            "rank": -6.125012073234287,
+            "id": "feedback.development-guidance.2026-06-08_141200-browser-layout-overflow-integration",
+            "source_path": "feedback/history/development-guidance/common/2026-06-08_141200-browser-layout-overflow-integration.md",
+            "layer": "feedback",
+            "type": "feedback-pattern",
+            "status": "candidate",
+            "priority": "P2",
+            "confidence": "medium",
+            "context_cost": "medium",
+            "summary": "RWD 或視覺縮放問題不能只靠 CSS marker、snapshot 或人工感覺驗證；要用真實瀏覽器 viewport 量 `document`、`body`、app shell、固定導覽與 scroll content 的 computed layout。",
+            "match_reason": "lexical candidate; applicability unverified"
+          }
+        ],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 570,
+      "semantic_response_available": true
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 772,
+      "coverage": {
+        "candidates": 49,
+        "assessed": 6,
+        "unassessed": 43,
+        "explicit_unknown": 0,
+        "unknown": 43,
+        "direct": 1,
+        "background": 2,
+        "not_applicable": 3,
+        "state": "direct-pending-verification"
+      },
+      "decision_trace": "phase2-v3-disposition-results.json#case=O03",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "O03",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 49,
+          "assessed": 6,
+          "unassessed": 43,
+          "explicit_unknown": 0,
+          "unknown": 43,
+          "direct": 1,
+          "background": 2,
+          "not_applicable": 3,
+          "state": "direct-pending-verification"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [
+          {
+            "rank": -12.293871599019557,
+            "id": "feedback.development-guidance.2026-10-07_125417-native-model-load-known-case-first",
+            "source_path": "feedback/history/development-guidance/common/2026-10-07_125417-native-model-load-known-case-first.md",
+            "layer": "feedback",
+            "type": "feedback-pattern",
+            "status": "candidate",
+            "priority": "P2",
+            "confidence": "medium",
+            "context_cost": "medium",
+            "summary": "模型載入原生崩潰時先比對既有失敗指紋與版本範圍，再做最小隔離驗證，不從完整產品流程重新猜原因。",
+            "match_reason": "lexical candidate; applicability unverified"
+          }
+        ],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 486,
+      "semantic_response_available": true
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 904,
+      "coverage": {
+        "candidates": 57,
+        "assessed": 4,
+        "unassessed": 53,
+        "explicit_unknown": 0,
+        "unknown": 53,
+        "direct": 1,
+        "background": 3,
+        "not_applicable": 0,
+        "state": "direct-pending-verification"
+      },
+      "decision_trace": "phase2-v3-disposition-results.json#case=O04",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "O04",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 57,
+          "assessed": 4,
+          "unassessed": 53,
+          "explicit_unknown": 0,
+          "unknown": 53,
+          "direct": 1,
+          "background": 3,
+          "not_applicable": 0,
+          "state": "direct-pending-verification"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [
+          {
+            "rank": -33.09649694314764,
+            "id": "feedback.development-guidance.2026-09-30_155700-release-pool-client-before-nested-checkout",
+            "source_path": "feedback/history/development-guidance/common/2026-09-30_155700-release-pool-client-before-nested-checkout.md",
+            "layer": "feedback",
+            "type": "feedback-pattern",
+            "status": "candidate",
+            "priority": "P2",
+            "confidence": "medium",
+            "context_cost": "medium",
+            "summary": "Never hold a DB pool client across an await that also checks out from the same pool; saturation turns into an uninterruptible hang that soft reconcile cannot clear.",
+            "match_reason": "lexical candidate; applicability unverified"
+          }
+        ],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 618,
+      "semantic_response_available": true
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 279,
+      "coverage": {
+        "candidates": 60,
+        "assessed": 0,
+        "unassessed": 60,
+        "explicit_unknown": 0,
+        "unknown": 60,
+        "direct": 0,
+        "background": 0,
+        "not_applicable": 0,
+        "state": "pending-assessment"
+      },
+      "decision_trace": "not available: no semantic assessment captured",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "O05",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 60,
+          "assessed": 0,
+          "unassessed": 60,
+          "explicit_unknown": 0,
+          "unknown": 60,
+          "direct": 0,
+          "background": 0,
+          "not_applicable": 0,
+          "state": "pending-assessment"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 2,
+      "semantic_response_available": false
+    },
+    {
+      "adoption": "not evaluated",
+      "consumer_envelope_runes": 1329,
+      "coverage": {
+        "candidates": 23,
+        "assessed": 8,
+        "unassessed": 15,
+        "explicit_unknown": 0,
+        "unknown": 15,
+        "direct": 2,
+        "background": 3,
+        "not_applicable": 3,
+        "state": "direct-pending-verification"
+      },
+      "decision_trace": "phase2-v3-disposition-results.json#case=O06",
+      "default_packer": "P0",
+      "envelope_within_2000_runes": true,
+      "id": "O06",
+      "information_sufficiency": "not evaluated",
+      "preview": {
+        "coverage": {
+          "candidates": 23,
+          "assessed": 8,
+          "unassessed": 15,
+          "explicit_unknown": 0,
+          "unknown": 15,
+          "direct": 2,
+          "background": 3,
+          "not_applicable": 3,
+          "state": "direct-pending-verification"
+        },
+        "knowledge_absence": "not established",
+        "packer": "P0",
+        "results": [
+          {
+            "rank": -4.585492795809876,
+            "id": "feedback.apk-analysis.2026-04-30_120005-session-refresh-要還原-app-的真實登入-裝置流程",
+            "source_path": "feedback/history/apk-analysis/common/2026-04-30_120005-session-refresh-要還原-app-的真實登入-裝置流程.md",
+            "layer": "feedback",
+            "type": "feedback-pattern",
+            "status": "candidate",
+            "priority": "P2",
+            "confidence": "medium",
+            "context_cost": "medium",
+            "summary": "Token 過期不一定有 refresh-token；要看 App 實際怎麼重新取得 session。",
+            "match_reason": "lexical candidate; applicability unverified"
+          },
+          {
+            "rank": -5.378234940388146,
+            "id": "feedback.apk-analysis.2026-07-15_140000-cold-start-token-may-come-from-bootstrap-not-login",
+            "source_path": "feedback/history/apk-analysis/http-api/2026-07-15_140000-cold-start-token-may-come-from-bootstrap-not-login.md",
+            "layer": "feedback",
+            "type": "feedback-pattern",
+            "status": "candidate",
+            "priority": "P2",
+            "confidence": "medium",
+            "context_cost": "medium",
+            "summary": "`pm clear` 冷啟後，遊客 session 可能來自 **專用 bootstrap 端點**（`authLen=0`），而 **`user/login` 可能 0 次**；離線 SDK 勿假設必須走 login POST。",
+            "match_reason": "lexical candidate; applicability unverified"
+          }
+        ],
+        "verification": "pending workflow verification"
+      },
+      "results_array_runes": 1043,
+      "semantic_response_available": true
+    }
+  ],
+  "inputs_sha256": {
+    "baseline-cases.json": "6505adc590f9254285581c0715b91ae61dda5e329a72b0e8bb094f180888b538",
+    "overlap-controls-v1.json": "7ea029eb5bfa761a41f3ef3ba145d45330818726306069546423fdf4c35e5ec4",
+    "phase2-v3-agent-O02.raw.txt": "e44a7a93dfc077ec422b6df36f802df129c9d1dfe4eaee33e81841938c11a668",
+    "phase2-v3-agent-O03.raw.txt": "6f65bc25e4bc19bfc8970370acb7d1e73322f46962f8ddb789e40a90776e870e",
+    "phase2-v3-agent-O04.raw.txt": "e65a6eb0e483d29cc455264221a3d7c1565c9174dc07ec703bac4e2250c41065",
+    "phase2-v3-agent-O06.raw.txt": "d11d59e8f373d5cb556c9979d0b96946cca857ffe93714663e10148d44174b2b",
+    "phase2-v3-agent-R03.raw.txt": "62c82ee628a0be92cbf8c3f3253c261617af55e5f748aa4466b987270ad88f99",
+    "phase2-v3-agent-R08.raw.txt": "b146e86c928ff751599dd8248bc7dc7be70d8122c5ea56ba943935b276529a5b",
+    "phase2-v3-agent-run.json": "f1202e0f44b9a77e479c3bd0d8e53f78bc72fca4a8cde126c6d1edf339ffe029",
+    "phase2-v3-disposition-results.json": "69ac0d348b5f9871c7833900c09b1c7eceb9ae9a7a83eeaf6870545f7477b3ef",
+    "phase2-v3-fixed-pools.json": "d8051af3b5c9be38e891fdd899e13176511f714dfc71457fb6cd104d7d49a801",
+    "phase2-v3-semantic-manifest.json": "d7ef1f03eab75af022092cb722ac20731e789edcf317f82835e54f2316fa6c66"
+  },
+  "kind": "offline coverage prototype; no workflow consumer integration",
+  "phase2": "incomplete",
+  "scorer_revision": "ac79c829cd752234d83f69ec4f42b00e131ebe35",
+  "scorer_sha256": "d1d951694a67177985a37784cae9b9b17dc4aefbe11fbdf875523a218609cbc6",
+  "verified_context": "not evaluated"
+}
