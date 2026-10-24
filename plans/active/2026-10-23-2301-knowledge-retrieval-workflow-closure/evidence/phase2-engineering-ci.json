@@ -1,0 +1,927 @@
+{
+  "observed_at": "2026-10-24T13:21:22.413955+00:00",
+  "runs": [
+    {
+      "conclusion": "success",
+      "databaseId": 40096563638,
+      "headSha": "f5a0fa33f01c9bc4754f15b1b0409a707202cca4",
+      "jobs": [
+        {
+          "completedAt": "2026-10-24T13:11:36Z",
+          "conclusion": "success",
+          "databaseId": 120879947824,
+          "name": "Go tests (windows-latest)",
+          "startedAt": "2026-10-24T13:04:20Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-24T13:04:22Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-24T13:04:21Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:06:00Z",
+              "conclusion": "success",
+              "name": "Checkout",
+              "number": 2,
+              "startedAt": "2026-10-24T13:04:22Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:06:32Z",
+              "conclusion": "success",
+              "name": "Set up Go",
+              "number": 3,
+              "startedAt": "2026-10-24T13:06:00Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:22Z",
+              "conclusion": "success",
+              "name": "Run tests and repo-local binary parity",
+              "number": 4,
+              "startedAt": "2026-10-24T13:06:32Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:23Z",
+              "conclusion": "success",
+              "name": "Smoke version JSON",
+              "number": 5,
+              "startedAt": "2026-10-24T13:11:22Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:24Z",
+              "conclusion": "success",
+              "name": "Smoke doctor JSON",
+              "number": 6,
+              "startedAt": "2026-10-24T13:11:23Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:25Z",
+              "conclusion": "success",
+              "name": "Smoke runtime diagnostics",
+              "number": 7,
+              "startedAt": "2026-10-24T13:11:24Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:26Z",
+              "conclusion": "success",
+              "name": "Generate native runtime artifacts",
+              "number": 8,
+              "startedAt": "2026-10-24T13:11:25Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:28Z",
+              "conclusion": "success",
+              "name": "Smoke native runtime validate",
+              "number": 9,
+              "startedAt": "2026-10-24T13:11:26Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:29Z",
+              "conclusion": "success",
+              "name": "Smoke native runtime compile",
+              "number": 10,
+              "startedAt": "2026-10-24T13:11:28Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:32Z",
+              "conclusion": "success",
+              "name": "KGE validate with full advisory report",
+              "number": 11,
+              "startedAt": "2026-10-24T13:11:29Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:32Z",
+              "conclusion": "success",
+              "name": "Post Set up Go",
+              "number": 21,
+              "startedAt": "2026-10-24T13:11:32Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:34Z",
+              "conclusion": "success",
+              "name": "Post Checkout",
+              "number": 22,
+              "startedAt": "2026-10-24T13:11:32Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:34Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 23,
+              "startedAt": "2026-10-24T13:11:34Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/linyihong/Ai-skill/actions/runs/40096563638/job/120879947824"
+        },
+        {
+          "completedAt": "2026-10-24T13:07:17Z",
+          "conclusion": "success",
+          "databaseId": 120879947955,
+          "name": "Go tests (macos-latest)",
+          "startedAt": "2026-10-24T13:04:20Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-24T13:04:22Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-24T13:04:21Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:06:17Z",
+              "conclusion": "success",
+              "name": "Checkout",
+              "number": 2,
+              "startedAt": "2026-10-24T13:04:22Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:06:42Z",
+              "conclusion": "success",
+              "name": "Set up Go",
+              "number": 3,
+              "startedAt": "2026-10-24T13:06:17Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:07:07Z",
+              "conclusion": "success",
+              "name": "Run tests and repo-local binary parity",
+              "number": 4,
+              "startedAt": "2026-10-24T13:06:42Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:07:07Z",
+              "conclusion": "success",
+              "name": "Smoke version JSON",
+              "number": 5,
+              "startedAt": "2026-10-24T13:07:07Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:07:08Z",
+              "conclusion": "success",
+              "name": "Smoke doctor JSON",
+              "number": 6,
+              "startedAt": "2026-10-24T13:07:07Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:07:08Z",
+              "conclusion": "success",
+              "name": "Smoke runtime diagnostics",
+              "number": 7,
+              "startedAt": "2026-10-24T13:07:08Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:07:09Z",
+              "conclusion": "success",
+              "name": "Generate native runtime artifacts",
+              "number": 8,
+              "startedAt": "2026-10-24T13:07:08Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:07:10Z",
+              "conclusion": "success",
+              "name": "Smoke native runtime validate",
+              "number": 9,
+              "startedAt": "2026-10-24T13:07:09Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:07:11Z",
+              "conclusion": "success",
+              "name": "Smoke native runtime compile",
+              "number": 10,
+              "startedAt": "2026-10-24T13:07:10Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:07:12Z",
+              "conclusion": "success",
+              "name": "KGE validate with full advisory report",
+              "number": 11,
+              "startedAt": "2026-10-24T13:07:11Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:07:12Z",
+              "conclusion": "success",
+              "name": "Post Set up Go",
+              "number": 21,
+              "startedAt": "2026-10-24T13:07:12Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:07:13Z",
+              "conclusion": "success",
+              "name": "Post Checkout",
+              "number": 22,
+              "startedAt": "2026-10-24T13:07:12Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:07:14Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 23,
+              "startedAt": "2026-10-24T13:07:13Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/linyihong/Ai-skill/actions/runs/40096563638/job/120879947955"
+        },
+        {
+          "completedAt": "2026-10-24T13:06:07Z",
+          "conclusion": "success",
+          "databaseId": 120879948056,
+          "name": "Go tests (ubuntu-latest)",
+          "startedAt": "2026-10-24T13:04:20Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-24T13:04:21Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-24T13:04:20Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:05:36Z",
+              "conclusion": "success",
+              "name": "Checkout",
+              "number": 2,
+              "startedAt": "2026-10-24T13:04:21Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:05:45Z",
+              "conclusion": "success",
+              "name": "Set up Go",
+              "number": 3,
+              "startedAt": "2026-10-24T13:05:36Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:06:02Z",
+              "conclusion": "success",
+              "name": "Run tests and repo-local binary parity",
+              "number": 4,
+              "startedAt": "2026-10-24T13:05:45Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:06:03Z",
+              "conclusion": "success",
+              "name": "Smoke version JSON",
+              "number": 5,
+              "startedAt": "2026-10-24T13:06:02Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:06:03Z",
+              "conclusion": "success",
+              "name": "Smoke doctor JSON",
+              "number": 6,
+              "startedAt": "2026-10-24T13:06:03Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:06:03Z",
+              "conclusion": "success",
+              "name": "Smoke runtime diagnostics",
+              "number": 7,
+              "startedAt": "2026-10-24T13:06:03Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:06:03Z",
+              "conclusion": "success",
+              "name": "Generate native runtime artifacts",
+              "number": 8,
+              "startedAt": "2026-10-24T13:06:03Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:06:04Z",
+              "conclusion": "success",
+              "name": "Smoke native runtime validate",
+              "number": 9,
+              "startedAt": "2026-10-24T13:06:03Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:06:05Z",
+              "conclusion": "success",
+              "name": "Smoke native runtime compile",
+              "number": 10,
+              "startedAt": "2026-10-24T13:06:04Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:06:05Z",
+              "conclusion": "success",
+              "name": "KGE validate with full advisory report",
+              "number": 11,
+              "startedAt": "2026-10-24T13:06:05Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:06:06Z",
+              "conclusion": "success",
+              "name": "Post Set up Go",
+              "number": 21,
+              "startedAt": "2026-10-24T13:06:05Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:06:06Z",
+              "conclusion": "success",
+              "name": "Post Checkout",
+              "number": 22,
+              "startedAt": "2026-10-24T13:06:06Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:06:06Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 23,
+              "startedAt": "2026-10-24T13:06:06Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/linyihong/Ai-skill/actions/runs/40096563638/job/120879948056"
+        },
+        {
+          "completedAt": "2026-10-24T13:14:31Z",
+          "conclusion": "success",
+          "databaseId": 120881462550,
+          "name": "Build artifacts",
+          "startedAt": "2026-10-24T13:11:39Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-24T13:11:41Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-24T13:11:40Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:13:05Z",
+              "conclusion": "success",
+              "name": "Checkout",
+              "number": 2,
+              "startedAt": "2026-10-24T13:11:41Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:13:14Z",
+              "conclusion": "success",
+              "name": "Set up Go",
+              "number": 3,
+              "startedAt": "2026-10-24T13:13:05Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:14:25Z",
+              "conclusion": "success",
+              "name": "Build release artifacts",
+              "number": 4,
+              "startedAt": "2026-10-24T13:13:14Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:14:25Z",
+              "conclusion": "success",
+              "name": "Verify checksums file",
+              "number": 5,
+              "startedAt": "2026-10-24T13:14:25Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:14:28Z",
+              "conclusion": "success",
+              "name": "Upload artifacts",
+              "number": 6,
+              "startedAt": "2026-10-24T13:14:25Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:14:28Z",
+              "conclusion": "success",
+              "name": "Post Set up Go",
+              "number": 11,
+              "startedAt": "2026-10-24T13:14:28Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:14:28Z",
+              "conclusion": "success",
+              "name": "Post Checkout",
+              "number": 12,
+              "startedAt": "2026-10-24T13:14:28Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:14:29Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 13,
+              "startedAt": "2026-10-24T13:14:29Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/linyihong/Ai-skill/actions/runs/40096563638/job/120881462550"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/linyihong/Ai-skill/actions/runs/40096563638"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 40096900353,
+      "headSha": "e75e90e127f15481b85a319992755318579aa044",
+      "jobs": [
+        {
+          "completedAt": "2026-10-24T13:11:20Z",
+          "conclusion": "success",
+          "databaseId": 120880947402,
+          "name": "Go tests (ubuntu-latest)",
+          "startedAt": "2026-10-24T13:09:11Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-24T13:09:13Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-24T13:09:12Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:10:43Z",
+              "conclusion": "success",
+              "name": "Checkout",
+              "number": 2,
+              "startedAt": "2026-10-24T13:09:13Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:10:55Z",
+              "conclusion": "success",
+              "name": "Set up Go",
+              "number": 3,
+              "startedAt": "2026-10-24T13:10:43Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:12Z",
+              "conclusion": "success",
+              "name": "Run tests and repo-local binary parity",
+              "number": 4,
+              "startedAt": "2026-10-24T13:10:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:12Z",
+              "conclusion": "success",
+              "name": "Smoke version JSON",
+              "number": 5,
+              "startedAt": "2026-10-24T13:11:12Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:13Z",
+              "conclusion": "success",
+              "name": "Smoke doctor JSON",
+              "number": 6,
+              "startedAt": "2026-10-24T13:11:12Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:13Z",
+              "conclusion": "success",
+              "name": "Smoke runtime diagnostics",
+              "number": 7,
+              "startedAt": "2026-10-24T13:11:13Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:13Z",
+              "conclusion": "success",
+              "name": "Generate native runtime artifacts",
+              "number": 8,
+              "startedAt": "2026-10-24T13:11:13Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:14Z",
+              "conclusion": "success",
+              "name": "Smoke native runtime validate",
+              "number": 9,
+              "startedAt": "2026-10-24T13:11:13Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:15Z",
+              "conclusion": "success",
+              "name": "Smoke native runtime compile",
+              "number": 10,
+              "startedAt": "2026-10-24T13:11:14Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:16Z",
+              "conclusion": "success",
+              "name": "KGE validate with full advisory report",
+              "number": 11,
+              "startedAt": "2026-10-24T13:11:15Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:16Z",
+              "conclusion": "success",
+              "name": "Post Set up Go",
+              "number": 21,
+              "startedAt": "2026-10-24T13:11:16Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:16Z",
+              "conclusion": "success",
+              "name": "Post Checkout",
+              "number": 22,
+              "startedAt": "2026-10-24T13:11:16Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:16Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 23,
+              "startedAt": "2026-10-24T13:11:16Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/linyihong/Ai-skill/actions/runs/40096900353/job/120880947402"
+        },
+        {
+          "completedAt": "2026-10-24T13:12:34Z",
+          "conclusion": "success",
+          "databaseId": 120880947583,
+          "name": "Go tests (macos-latest)",
+          "startedAt": "2026-10-24T13:09:12Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-24T13:09:14Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-24T13:09:13Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:31Z",
+              "conclusion": "success",
+              "name": "Checkout",
+              "number": 2,
+              "startedAt": "2026-10-24T13:09:14Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:11:54Z",
+              "conclusion": "success",
+              "name": "Set up Go",
+              "number": 3,
+              "startedAt": "2026-10-24T13:11:31Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:12:18Z",
+              "conclusion": "success",
+              "name": "Run tests and repo-local binary parity",
+              "number": 4,
+              "startedAt": "2026-10-24T13:11:54Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:12:19Z",
+              "conclusion": "success",
+              "name": "Smoke version JSON",
+              "number": 5,
+              "startedAt": "2026-10-24T13:12:18Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:12:20Z",
+              "conclusion": "success",
+              "name": "Smoke doctor JSON",
+              "number": 6,
+              "startedAt": "2026-10-24T13:12:19Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:12:20Z",
+              "conclusion": "success",
+              "name": "Smoke runtime diagnostics",
+              "number": 7,
+              "startedAt": "2026-10-24T13:12:20Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:12:21Z",
+              "conclusion": "success",
+              "name": "Generate native runtime artifacts",
+              "number": 8,
+              "startedAt": "2026-10-24T13:12:20Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:12:23Z",
+              "conclusion": "success",
+              "name": "Smoke native runtime validate",
+              "number": 9,
+              "startedAt": "2026-10-24T13:12:21Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:12:24Z",
+              "conclusion": "success",
+              "name": "Smoke native runtime compile",
+              "number": 10,
+              "startedAt": "2026-10-24T13:12:23Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:12:24Z",
+              "conclusion": "success",
+              "name": "KGE validate with full advisory report",
+              "number": 11,
+              "startedAt": "2026-10-24T13:12:24Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:12:25Z",
+              "conclusion": "success",
+              "name": "Post Set up Go",
+              "number": 21,
+              "startedAt": "2026-10-24T13:12:24Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:12:26Z",
+              "conclusion": "success",
+              "name": "Post Checkout",
+              "number": 22,
+              "startedAt": "2026-10-24T13:12:25Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:12:29Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 23,
+              "startedAt": "2026-10-24T13:12:26Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/linyihong/Ai-skill/actions/runs/40096900353/job/120880947583"
+        },
+        {
+          "completedAt": "2026-10-24T13:16:57Z",
+          "conclusion": "success",
+          "databaseId": 120880947633,
+          "name": "Go tests (windows-latest)",
+          "startedAt": "2026-10-24T13:09:13Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-24T13:09:16Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-24T13:09:15Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:12:16Z",
+              "conclusion": "success",
+              "name": "Checkout",
+              "number": 2,
+              "startedAt": "2026-10-24T13:09:16Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:12:49Z",
+              "conclusion": "success",
+              "name": "Set up Go",
+              "number": 3,
+              "startedAt": "2026-10-24T13:12:16Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:16:42Z",
+              "conclusion": "success",
+              "name": "Run tests and repo-local binary parity",
+              "number": 4,
+              "startedAt": "2026-10-24T13:12:49Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:16:43Z",
+              "conclusion": "success",
+              "name": "Smoke version JSON",
+              "number": 5,
+              "startedAt": "2026-10-24T13:16:42Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:16:44Z",
+              "conclusion": "success",
+              "name": "Smoke doctor JSON",
+              "number": 6,
+              "startedAt": "2026-10-24T13:16:43Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:16:45Z",
+              "conclusion": "success",
+              "name": "Smoke runtime diagnostics",
+              "number": 7,
+              "startedAt": "2026-10-24T13:16:44Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:16:47Z",
+              "conclusion": "success",
+              "name": "Generate native runtime artifacts",
+              "number": 8,
+              "startedAt": "2026-10-24T13:16:45Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:16:48Z",
+              "conclusion": "success",
+              "name": "Smoke native runtime validate",
+              "number": 9,
+              "startedAt": "2026-10-24T13:16:47Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:16:51Z",
+              "conclusion": "success",
+              "name": "Smoke native runtime compile",
+              "number": 10,
+              "startedAt": "2026-10-24T13:16:48Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:16:52Z",
+              "conclusion": "success",
+              "name": "KGE validate with full advisory report",
+              "number": 11,
+              "startedAt": "2026-10-24T13:16:51Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:16:52Z",
+              "conclusion": "success",
+              "name": "Post Set up Go",
+              "number": 21,
+              "startedAt": "2026-10-24T13:16:52Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:16:55Z",
+              "conclusion": "success",
+              "name": "Post Checkout",
+              "number": 22,
+              "startedAt": "2026-10-24T13:16:52Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:16:55Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 23,
+              "startedAt": "2026-10-24T13:16:55Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/linyihong/Ai-skill/actions/runs/40096900353/job/120880947633"
+        },
+        {
+          "completedAt": "2026-10-24T13:20:09Z",
+          "conclusion": "success",
+          "databaseId": 120882592878,
+          "name": "Build artifacts",
+          "startedAt": "2026-10-24T13:17:00Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-24T13:17:01Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-24T13:17:01Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:18:10Z",
+              "conclusion": "success",
+              "name": "Checkout",
+              "number": 2,
+              "startedAt": "2026-10-24T13:17:01Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:18:20Z",
+              "conclusion": "success",
+              "name": "Set up Go",
+              "number": 3,
+              "startedAt": "2026-10-24T13:18:10Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:20:02Z",
+              "conclusion": "success",
+              "name": "Build release artifacts",
+              "number": 4,
+              "startedAt": "2026-10-24T13:18:20Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:20:02Z",
+              "conclusion": "success",
+              "name": "Verify checksums file",
+              "number": 5,
+              "startedAt": "2026-10-24T13:20:02Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:20:06Z",
+              "conclusion": "success",
+              "name": "Upload artifacts",
+              "number": 6,
+              "startedAt": "2026-10-24T13:20:02Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:20:06Z",
+              "conclusion": "success",
+              "name": "Post Set up Go",
+              "number": 11,
+              "startedAt": "2026-10-24T13:20:06Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:20:06Z",
+              "conclusion": "success",
+              "name": "Post Checkout",
+              "number": 12,
+              "startedAt": "2026-10-24T13:20:06Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-24T13:20:06Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 13,
+              "startedAt": "2026-10-24T13:20:06Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/linyihong/Ai-skill/actions/runs/40096900353/job/120882592878"
+        }
+      ],
+      "status": "completed",
+      "url": "https://github.com/linyihong/Ai-skill/actions/runs/40096900353"
+    }
+  ]
+}

@@ -144,7 +144,7 @@ Phase 1 審核補充（2026-10-24）：[phase1-audit.md](evidence/phase1-audit.m
 
 ## Phase 2 — 補既有全文搜尋、metadata 與關聯查找
 
-依最新審閱結束曝光資料上的 selector 方法探索。新增 [engineering](evidence/phase2-engineering.md)：七份 intelligence 正文覆蓋、canonical metadata、source-level freshness／dedup、bounded graph 與正式 file-response watcher。Timeout→host interrupt 已實測；正式 binary intelligence replay 為 7/7、MRR 1、21 次 warm p95 約124ms；full Go／targeted race／binary parity 已通過，CI 待 push 後核對。這些工程驗證不代替完整候選品質或 consumer 採用 gate。
+依最新審閱結束曝光資料上的 selector 方法探索。新增 [engineering](evidence/phase2-engineering.md)：七份 intelligence 正文覆蓋、canonical metadata、source-level freshness／dedup、bounded graph 與正式 file-response watcher。Timeout→host interrupt 已實測；正式 binary intelligence replay 為 7/7、MRR 1、21 次 warm p95 約124ms；full Go／targeted race／binary parity 已通過，[兩次 CI](evidence/phase2-engineering-ci.json) 的 Linux／macOS／Windows／artifact build 均通過。這些工程驗證不代替完整候選品質或 consumer 採用 gate。
 
 - [x] 選定 intelligence body 的 source-level 索引能力與 fixture coverage；七份 source-specific probes 已凍結，release replay 7/7、MRR 1，見 engineering 產物。
 - [x] Source-level build／refresh／edit／add／delete／move／stale／missing metadata/index／deterministic rebuild／failed-build preservation fixtures 通過；舊 atom 查詢不冒稱 freshness 保證。
