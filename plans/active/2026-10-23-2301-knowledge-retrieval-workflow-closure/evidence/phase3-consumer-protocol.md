@@ -1,5 +1,7 @@
 # Phase 3：sd-validation consumer 執行範圍
 
+> 2026-10-25 更新：token 執行前提已由使用者明確暫緩，見 [最新處置](phase3-token-disposition.md)；以下保留事前範圍歷程，不再以缺 tokenizer 阻擋目前 agent。
+
 ## 啟動與相容性
 
 使用者已接受 `f173083a` 的縮限 Phase 2，允許進入 Phase 3，沒有新增驗收項目。本輪沿用主計畫 Phase 3 gate，不開第二輪 selector 探索。

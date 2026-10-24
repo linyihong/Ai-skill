@@ -137,7 +137,7 @@ Phase 1 審核補充（2026-10-24）：[phase1-audit.md](evidence/phase1-audit.m
 | Query / extraction 增益與擴大查詢副作用 | Phase 2：產物綁定的四組對照、另版 overlap controls、準備輸出的新增來源逐筆審閱；未選候選保留 coverage／trace，不要求 unknown 清零 | 本計畫 query / extraction 執行者整理，larrylin 或指定 reviewer 覆核 |
 | Intelligence 本文覆蓋與 relevance | Phase 2：另版 source-level intelligence 比較資料；未量測不得由 lesson 結果宣稱 intelligence 改善 | 本計畫索引執行者與首批 workflow owner |
 | 自然語意無答案、真實 supersession、來源變更與採用安全 | Phase 3：有範圍與標註的 consumer replay，source-read / applicability / required-read / blocker 證據；人工控制不替代真實案例 | 首批 sd-validation maintainer 與 consumer 任務 owner |
-| 實際模型 token budget | Phase 3：接入 consumer 前固定 tokenizer / version、計入的 context 範圍與 ≤ 2000 實際 tokens；未量測維持 not evaluated | Consumer / context 組裝執行者；Phase 2 僅驗 ≤ 2000 runes 工程代理值 |
+| 實際模型 token budget | 2026-10-25 使用者明確允許先不記 token、直接用目前 agent：deferred-by-user，不阻擋 Phase 3；保留完整 payload ≤2000 runes。未來有對應 tokenizer 時另記實際 tokens，不宣稱本輪已通過實際 token 上限 | Consumer / context 組裝執行者；參考 encoding 計數與實際用量分開 |
 | 獨立泛化驗證 | Phase 2 若要宣稱泛化，或 Phase 4 語意實驗前，另收未參與診斷 / 方法選擇的資料；現有組只作 comparison / regression | 該階段實驗 owner 整理，larrylin 或指定 reviewer 核對資料使用歷程 |
 
 縮限 Phase 1 gate 通過只允許進入有控制的 Phase 2 實驗，不代表搜尋功能已改善或整個計畫可完成。
@@ -179,7 +179,7 @@ Gate：通過縮限後凍結的檢索層 acceptance、產物矩陣核對與候�
 
 ## Phase 3 — 接入 Workflow 採用流程與條件式 Bridge 調整
 
-使用者已接受 Phase 2 縮限完成。首批 sd-validation 的操作接線與 source-informed 受控讀回見 [phase3-consumer](evidence/phase3-consumer.md)。沒有新 gate；tokenizer／R11/O03 專案證據與雙真實任務、負面 consumer 重播未驗收，Phase 3 維持未完成。
+使用者已接受 Phase 2 縮限完成。首批 sd-validation 的操作接線與 source-informed 受控讀回見 [phase3-consumer](evidence/phase3-consumer.md)。沒有新 gate；token 計數依使用者 2026-10-25 指示暫緩，不再阻擋目前 agent 執行。R11/O03 專案證據與雙真實任務、負面 consumer 重播未驗收，Phase 3 維持未完成。
 
 - [x] 優先重用既有檢索能力。只有 Phase 0 確認重複實作，或比較實驗證明可量測收益，才抽共用介面並調整 Bridge 呼叫接點；記錄啟用 / 不調整的證據。Bridge 保留 miss-path 與 advisory 邊界，workflow lookup 不依賴 detector miss，也不以 Bridge 重構為交付前提。
 - [ ] 在首批 workflow 寫明「事件 → 查找動作 → 證據」：初次查找事件（如形成方案前、失敗診斷時）、重查條件（如關鍵前提、來源或任務範圍改變）、可略過條件及可覆核理由；同時定義 context filters、讀回與採用檢查。用觸發、重查、合理略過與不當略過案例驗證，不新增通用 trigger framework。

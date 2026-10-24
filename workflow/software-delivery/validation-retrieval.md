@@ -37,6 +37,6 @@
 
 使用 [查找決策紀錄](templates/retrieval-decision-template.md)，放專案文件／驗證紀錄，僅保存必要去敏事實。raw request/response 預設最多保留7日；可覆核的去敏決策紀錄依專案 retention 保存，不建立對話資料庫。
 
-正式 retrieval message admission 須記 model／tokenizer／version、完整實際送入的 message 範圍與 ≤2000 tokens 的計數。無對應 tokenizer 時標 `not evaluated`，不得用2000 runes 宣稱 token gate 通過；維持直接來源路徑或明確標示受控 trial。必要狀態不能藏在未計價外層。全文補讀與任務其餘 context 另列，不能冒稱整個任務只用了 retrieval message 的 tokens。
+依任務核定的成本契約記錄完整實際送入的 message 範圍。可取得對應 model／tokenizer／version 時記錄實際計數；若使用者明確允許暫緩 token 量測，記 `deferred-by-user`、授權引用與仍適用的預算，照常使用既有 agent 執行，不以缺計數阻擋。這不表示 token 上限已通過，也不免除其他採用檢查。固定 encoding 的參考計數、runes 與實際模型用量分開標示，不相互代替。全文補讀與任務其餘 context 另列，不能冒稱整個任務只用了 retrieval message 的 tokens。
 
 本流程由 workflow 與現有 agent 執行，不新增 activation、authority、全域 trigger 或通用自動採用引擎。

@@ -32,7 +32,7 @@ Consumer：[`sd-validation`](../validation-retrieval.md)。本紀錄存專案驗
 
 - 實際 message artifact／SHA／納入範圍：
 - model／tokenizer／version／tokens／上限2000：
-- 無法取得的欄位與 admission 處置：
+- 無法取得的欄位與處置；若使用者允許暫緩，記 deferred-by-user、授權引用與其餘預算：
 - 正文補讀成本與其他任務 context（另報）：
 - required_read／activation／blocker 原 gate 是否保持及證據：
 - 未解事項、下一個取證動作與 owner：
