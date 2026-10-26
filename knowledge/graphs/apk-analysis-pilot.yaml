@@ -74,6 +74,14 @@ edges:
     target: knowledge/summaries/apk-workflows.md
     reason: 操作方法的低成本發現入口。
     validation: summary 可反查 analysis 方法與適用邊界。
+  - type: related_to
+    target: intelligence/engineering/analytical-reasoning/heuristics/runtime-evidence-boundaries.md
+    reason: 近期回饋的判斷智慧由候選 atom 承接，操作方法保留 analysis。
+    validation: source backlink、父索引、路由與 summary 可解析，狀態維持 candidate。
+  - type: related_to
+    target: intelligence/engineering/analytical-reasoning/heuristics/representation-contract-parity.md
+    reason: 近期回饋的判斷智慧由候選 atom 承接，操作方法保留 analysis。
+    validation: source backlink、父索引、路由與 summary 可解析，狀態維持 candidate。
 metadata:
   priority: P2
   confidence: medium

@@ -16,7 +16,7 @@ func (FeedbackLessonClosureRule) ID() string { return "rule.feedback_lesson_clos
 func (FeedbackLessonClosureRule) Kind() Kind { return KindValidation }
 
 func (FeedbackLessonClosureRule) RequiredCapabilities() []CapabilityID {
-	return []CapabilityID{CapCommitMsg, CapStagedPaths, CapStagedContent, CapAddedPaths}
+	return []CapabilityID{CapCommitMsg, CapStagedPaths, CapStagedContent, CapAddedPaths, CapRepoFS}
 }
 
 func (FeedbackLessonClosureRule) Validate(ctx Context) []Finding {
@@ -64,10 +64,15 @@ func (FeedbackLessonClosureRule) Validate(ctx Context) []Finding {
 		if status == "promoted" && sectionIsEmpty(body, "Promotion Record") {
 			out = append(out, feedbackClosureFinding(path, "Status promoted requires Promotion Record with target path and validation/commit reference"))
 		}
+		for _, detail := range feedbackReviewViolations(ctx, path, body) {
+			out = append(out, feedbackClosureFinding(path, detail))
+		}
 		if added[path] {
 			index := filepath.ToSlash(filepath.Join(filepath.Dir(path), "README.md"))
 			if !staged[index] {
 				out = append(out, feedbackClosureFinding(path, "new lesson requires its category README index in the same commit: "+index))
+			} else if !markdownRefersTo(index, ctx.FileContents[index], path) {
+				out = append(out, feedbackClosureFinding(path, "new lesson category README must link to the lesson: "+index))
 			}
 		}
 	}

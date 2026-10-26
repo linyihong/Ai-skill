@@ -61,3 +61,5 @@ cd scripts/ai-skill-cli && go test ./portable/kge/ -count=1
 - 不是「再包一層 Ai-skill CLI 才能用」
 - 不是把 enforcement Markdown 一併複製
 - 不是單一巨大 `.go` 檔（刻意多檔：contracts / engine / rules，方便抽換規則）
+
+`FeedbackLessonClosureRule` 需要 adapter 提供 index 版本的 lesson／target／README／evidence／Discovery summary，以及 `FeedbackRoutedTargets`（從 index registry records 解析，不能由註解推斷）。核心仍不呼叫 Git 或檔案系統；missing review／reference 會回 validation findings。

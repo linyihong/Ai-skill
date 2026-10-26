@@ -59,3 +59,12 @@ Canonical lifecycle。欄位 SoT 在 [`contracts/`](contracts/)。**不要**寫 
 ## Fixtures / dogfood
 
 案例規格與負向矩陣：plan [`fixtures/`](../../plans/active/2026-10-14-0832-image-processing-decision-workflow/fixtures/README.md)；本目錄 [`fixtures/`](fixtures/README.md) 為 Phase 1+ canonical 目標位置。
+
+## 候選回饋承接
+
+下列裁切候選保留於方法層，因其增量主要是取證操作；若形成新的跨情境策略取捨，再重審 intelligence。
+
+### 來源回饋
+
+- [2026-10-16_092807-dense-diagram-panel-crop-before-ocr.md](../../feedback/history/image-processing/common/2026-10-16_092807-dense-diagram-panel-crop-before-ocr.md)
+- [2026-10-16_132758-regular-panel-grid-mid-gutter-cuts.md](../../feedback/history/image-processing/common/2026-10-16_132758-regular-panel-grid-mid-gutter-cuts.md)

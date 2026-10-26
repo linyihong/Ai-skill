@@ -84,3 +84,5 @@ Summaries 用來協助 agent：
 Unity 動畫／特效視覺缺口：讀 [Unity FX 摘要](unity-fx.md)，再按需載入 canonical 追蹤流程。
 
 [APK 操作方法摘要](apk-workflows.md) 包含 IL2CPP ABI、hook 生命週期與 fixture／runtime 資料契約的候選方法入口。
+
+近期 candidate intelligence：[局部執行證據](runtime-evidence-boundaries.md)、[表示契約對齊](representation-contract-parity.md)，各自保留來源與反例，不因入索引而提升成熟度。

@@ -80,3 +80,18 @@ Status: candidate
 #### 修訂 2026-10-26
 
 依近期回饋審查，把原先依賴專案術語或操作細節的敘述改為輸入、機制、決策與驗證；修訂前內容可由 Git 歷史追溯。Status 保守維持 candidate。
+
+#### Transfer Contract
+
+- Inputs: Unity 資產、runtime 身分與重播證據需求
+- Mechanism: 程式骨架與貼圖不足以證明粒子或觸發鏈
+- Decision: 按所需證據選資產、程式或 runtime 工具
+- Verification: 參數、身分匹配與重播各有證據
+- Counterexample: 只要求靜態貼圖時不強制完整粒子還原
+- Transfer case: 非遊戲 Unity 粒子展示
+
+#### Intelligence Review
+
+- Decision: method-only
+- Reason: 目前增量是資產證據取得與工具操作分工，已有方法承接，無需複製成新 atom。
+- Target: analysis/apk/workflows/unity-asset-parse-flow.md

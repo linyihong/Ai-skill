@@ -341,19 +341,22 @@ func runKGEFeedbackLessonClosure(text string, staged []string, root string) stri
 			continue
 		}
 		hasLesson = true
-		body, err := os.ReadFile(filepath.Join(root, filepath.FromSlash(p)))
-		if err == nil {
-			contents[p] = string(body)
+		body, err := feedbackIndexContent(root, p)
+		if err != nil {
+			return "feedback-lesson-closure: unable to read staged lesson " + p + ": " + err.Error()
 		}
+		contents[p] = body
 	}
 	if !hasLesson {
 		return ""
 	}
 	added, err := gitLines(root, "diff", "--cached", "--diff-filter=A", "--name-only")
 	if err != nil {
-		return ""
+		return "feedback-lesson-closure: unable to inspect added paths: " + err.Error()
 	}
-	ctx := kge.Context{CommitMsg: text, StagedPaths: paths, AddedPaths: added, FileContents: contents, Provided: map[kge.CapabilityID]bool{kge.CapCommitMsg: true, kge.CapStagedPaths: true, kge.CapStagedContent: true, kge.CapAddedPaths: true}}
+	existing := map[string]bool{}
+	loadFeedbackReviewReferences(root, contents, existing)
+	ctx := kge.Context{CommitMsg: text, StagedPaths: paths, AddedPaths: added, FileContents: contents, ExistingPaths: existing, FeedbackRoutedTargets: feedbackRoutedTargets(root), Provided: map[kge.CapabilityID]bool{kge.CapCommitMsg: true, kge.CapStagedPaths: true, kge.CapStagedContent: true, kge.CapAddedPaths: true, kge.CapRepoFS: true}}
 	return kgeFindingsMessage(kge.NewEngine(kge.FeedbackLessonClosureRule{}).Run(ctx))
 }
 

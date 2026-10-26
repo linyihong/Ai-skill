@@ -353,3 +353,5 @@ baseline 必須含 `baseline_owner` + 每筆 entry 的 `baseline_review_summary`
 ← [Back to enforcement index](README.md)
 
 Unity FX 的領域接線鎖納入既有 `workflow_activation` class：`validateUnityFXDiscovery` 驗證 route／summary／detector／bridge，`validateUnityFXRetrieval` 驗證 canonical source 的 FTS 查回；執行於 runtime refresh／validate 與 pre-commit 路徑。此範圍不將 `capability_discovery` 升格，也不宣稱裝置分析步驟已機械執行。
+
+`feedback_lesson_closure` 亦檢查 Transfer Contract、Intelligence Review、index snapshot 的目標／反向來源／父索引、抽取的 registry／summary，以及 lifecycle 所需的證據 reference。抽象化語意與獨立性真實程度仍須人工／agent 正文審查，不能由欄位綠燈推定。

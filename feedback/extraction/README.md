@@ -97,3 +97,5 @@
 - `governance/lifecycle/`：Intelligence atom 的 lifecycle state 由此管理。
 - `governance/validation/`：Extraction 結果需通過 validation gates。
 - `knowledge/indexes/README.md`：Extraction 完成後需更新 index 讓 agent 可路由到此 atom。
+
+每次 lesson 寫入均先走 [抽象化與 intelligence 承接審查](lesson-review.md)；extract／existing／method-only／deferred 決定與目標接線由既有 closure gate 檢查，抽取 candidate 不等於升級證據成熟度。

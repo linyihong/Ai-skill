@@ -11,7 +11,7 @@
 | Model context report | [`model-context-report.md`](model-context-report.md) | generated view |
 | Model checklists | [`model-checklists.md`](model-checklists.md) | generated view |
 | SQLite runtime index | [`sqlite/`](sqlite/) | generated lookup cache prototype |
-| Summaries | [`../summaries/`](../summaries/) | 30 files |
+| Summaries | [`../summaries/`](../summaries/) | 32 files |
 | Graph records | [`../graphs/`](../graphs/) | 35 files |
 
 ## Routing Records
@@ -112,8 +112,10 @@
 | `intelligence.plan-first-decision-promotion` | `candidate` | [`plan-first-decision-promotion.md`](../summaries/plan-first-decision-promotion.md) | 架構決策的提案、討論、alternatives 評估在 `plans/active/<plan>.md` §Decision Rationale 完成；只有 plan completed 且通過 ADR Promotion Criteria 後才升級為 accepted ADR 寫入 constitution。憲法層只放已驗證決策，不放 proposed/draft。避免「廢棄憲法」累積、狀態爆炸、平行維護成本。Plan 模板強制 §Decision Rationale 6 子章節（Problem & Why Now / Decision / Alternatives Considered / Why Not an ADR Yet / ADR Promotion Criteria / Consequences）。 |
 | `runtime.prompt-cache-alignment` | `candidate` | [`prompt-cache-alignment.md`](../summaries/prompt-cache-alignment.md) | Provider prompt cache 對齊規範。定義 stable prefix、semi-stable middle、volatile suffix 的 context layout，並說明 `cacheable` 與 `provider_cache_candidate` 的邊界。 |
 | `governance.repo-maintenance` | `validated` | [`repo-governance.md`](../summaries/repo-governance.md) | 本系統的維護、升級、遷移與治理。涵蓋 lifecycle management、validation、cleanup、splitting rules、dependency maintenance。 |
+| `intelligence.analysis.representation-contract-parity` | `candidate` | [`representation-contract-parity.md`](../summaries/representation-contract-parity.md) | representation contract parity：fixture 展示子集與完整 runtime 結構依契約轉換，合法 sparse 不補滿，未知缺值拒絕寫入。 |
 | `intelligence.requirements-cognition` | `candidate` | [`requirements-cognition.md`](../summaries/requirements-cognition.md) | Requirements cognition 先用 pre-build interrogation 釐清 goal、scope、non-goals、acceptance、framework source-of-truth 與 duplication risk，再用 Impact Map × Customer Journey Map 對齊 product impact，並用 BDD-lite 處理 ambiguity、actor intent、behavior boundary、traceability、validation target 與 test effectiveness，而不是 Gherkin everywhere。 |
 | `root.bootstrap.ai-skill` | `validated` | [`root-bootstrap.md`](../summaries/root-bootstrap.md) | Ai-skill 工作的 bootstrap 入口。Root README 定義 OS layout 與 cost-aware 啟動流程；CORE_BOOTSTRAP.md 定義 3 條核心規則（~800 tokens）；enforcement README 定義 Runtime Activation Model 與 lazy-load rules。 |
+| `intelligence.analysis.runtime-evidence-boundaries` | `candidate` | [`runtime-evidence-boundaries.md`](../summaries/runtime-evidence-boundaries.md) | runtime evidence boundary：hook 命中或空回傳只覆蓋局部邊界，先找首個未驗證契約再判定 driver 或資料缺失。 |
 | `runtime.operations` | `validated` | [`runtime-operations.md`](../summaries/runtime-operations.md) | Runtime 層負責 context routing、contract projection、context pruning、agent coordination 與 orchestration。包含 router（contract-backed activation、cost budget）、context（TTL policy、prune strategy、prompt cache layout）。 |
 | `intelligence.test-first-framework-upgrade` | `candidate` | [`test-first-framework-upgrade.md`](../summaries/test-first-framework-upgrade.md) | Framework / runtime / governance 升級時 validation scenarios 必須寫在 runtime 實作之前，scenarios 是 acceptance contract 不是事後 verification。流程：列期望可觀察行為 → 寫 YAML scenarios → 驗證目前 fail → 開始實作 → 完成 = scenarios pass。與通用 TDD heuristic 互補（設計回饋 vs 順序原則）。Doc-only trial / typo / spike 可豁免；runtime.db schema / enforcement rule / compiler 改動不可豁免。 |
 | `workflow.travel-planning` | `candidate` | [`travel-planning.md`](../summaries/travel-planning.md) | 依目的地、日期、交通與玩法規劃行程，包含營業時間查證、交通比較、住宿與備案。支援 itinerary 結構化輸出與可行性檢查。日本自駕含 Mapcode 粒度規則（沿線景點 2km+ 需各停車點獨立一行）與查詢工具鏈。 |
@@ -126,7 +128,7 @@
 | --- | --- | --- | --- | --- |
 | `graph.analysis-layers` | `analysis/README.md` | `candidate` | 22 | [`analysis-layers.yaml`](../graphs/analysis-layers.yaml) |
 | `graph.analysis-repo-methods` | `analysis/repo/README.md` | `candidate` | 6 | [`analysis-repo-methods.yaml`](../graphs/analysis-repo-methods.yaml) |
-| `graph.apk-analysis-pilot` | `plans/archived/2026-05-11-1129-apk-analysis-pilot-migration.md` | `new-layer-promoted` | 17 | [`apk-analysis-pilot.yaml`](../graphs/apk-analysis-pilot.yaml) |
+| `graph.apk-analysis-pilot` | `plans/archived/2026-05-11-1129-apk-analysis-pilot-migration.md` | `new-layer-promoted` | 19 | [`apk-analysis-pilot.yaml`](../graphs/apk-analysis-pilot.yaml) |
 | `graph.apk-highest-leverage-analysis` | `intelligence/engineering/analytical-reasoning/highest-leverage-analysis-path.md` | `candidate` | 4 | [`apk-highest-leverage-analysis.yaml`](../graphs/apk-highest-leverage-analysis.yaml) |
 | `graph.capability-context` | `governance/cognitive-stance.md` | `candidate` | 8 | [`capability-context.yaml`](../graphs/capability-context.yaml) |
 | `graph.cognitive-modes` | `runtime/cognitive-modes.yaml` | `active` | 13 | [`cognitive-modes.yaml`](../graphs/cognitive-modes.yaml) |
@@ -137,7 +139,7 @@
 | `graph.governance-layers` | `governance/README.md` | `candidate` | 22 | [`governance-layers.yaml`](../graphs/governance-layers.yaml) |
 | `graph.intelligence-agent-architecture` | `intelligence/engineering/agent-architecture/README.md` | `candidate` | 20 | [`intelligence-agent-architecture.yaml`](../graphs/intelligence-agent-architecture.yaml) |
 | `graph.intelligence-anti-patterns` | `intelligence/engineering/anti-patterns/generic-repository-overuse.md` | `candidate` | 9 | [`intelligence-anti-patterns.yaml`](../graphs/intelligence-anti-patterns.yaml) |
-| `graph.intelligence-apk-analysis-atoms` | `intelligence/engineering/apk-analysis/README.md` | `candidate` | 20 | [`intelligence-apk-analysis-atoms.yaml`](../graphs/intelligence-apk-analysis-atoms.yaml) |
+| `graph.intelligence-apk-analysis-atoms` | `intelligence/engineering/apk-analysis/README.md` | `candidate` | 22 | [`intelligence-apk-analysis-atoms.yaml`](../graphs/intelligence-apk-analysis-atoms.yaml) |
 | `graph.intelligence-architecture` | `intelligence/engineering/architecture/modular-monolith-vs-microservices.md` | `candidate` | 7 | [`intelligence-architecture.yaml`](../graphs/intelligence-architecture.yaml) |
 | `graph.intelligence-business` | `intelligence/business/saas-pricing-heuristics.md` | `candidate` | 3 | [`intelligence-business.yaml`](../graphs/intelligence-business.yaml) |
 | `graph.intelligence-app-development-guidance` | `intelligence/engineering/development/README.md` | `candidate` | 8 | [`intelligence-development-guidance.yaml`](../graphs/intelligence-development-guidance.yaml) |

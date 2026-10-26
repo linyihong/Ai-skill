@@ -60,3 +60,5 @@
 - [回放 adapter](../../../feedback/history/apk-analysis/local-proxy/2026-10-23_134500-wire-result-glass-must-match-processresult-strip.md)
 
 本方法由 analysis README、既有 APK analysis route 與 summary 發現；候選來源仍保留原狀態，文件抽象化與合成反例不等於獨立專案重用。
+
+判斷來源：[局部證據歸因](../../../intelligence/engineering/analytical-reasoning/heuristics/runtime-evidence-boundaries.md)、[表示契約對齊](../../../intelligence/engineering/analytical-reasoning/heuristics/representation-contract-parity.md)；兩者均為 candidate，依邊界使用。

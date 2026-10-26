@@ -38,3 +38,7 @@
 | [`frida-spawn-vs-attach-init-timing.md`](frida-spawn-vs-attach-init-timing.md) | Frida spawn vs attach 初始化時機 — 初始化函數必須用 spawn 模式；Frida JS 無 Buffer API | `feedback/history/apk-analysis/common/2026-05-14_073700-frida-spawn-vs-attach-init-timing-no-buffer.md` + `feedback/history/apk-analysis/flutter-dart-aot/2026-05-14_081500-initialize-hook-does-fire-in-spawn.md` | — |
 | [`dart-aot-pool-constant-pp-peep.md`](dart-aot-pool-constant-pp-peep.md) | Dart AOT pool constant (PP_peep) 啟發式 — `string_refs.jsonl` 中 `kind:"PP_peep"` 的條目可直接揭露硬編碼字串常數（如 AES key、secret），無需反組譯 | `feedback/history/apk-analysis/flutter-dart-aot/2026-05-15_094700-dart-aot-pool-constant-pp-peep-hardcoded-key.md` | — |
 | [`play-focus-steal-vs-hard-kill.md`](play-focus-steal-vs-hard-kill.md) | 冷啟動 Play 搶焦 vs 硬殺 — 無帳號時 Unauthenticated 常為搶焦；A/B 抑止 vending 驗證業務 UI 可達（非 license crack） | `feedback/history/apk-analysis/common/2026-07-14_171000-pairip-application-licenseactivity-cold-start-play-gate.md` | — |
+
+- [runtime-evidence-boundaries](runtime-evidence-boundaries.md)：近期回饋抽出的 candidate 判斷智慧，保留來源與反例。
+
+- [representation-contract-parity](representation-contract-parity.md)：近期回饋抽出的 candidate 判斷智慧，保留來源與反例。

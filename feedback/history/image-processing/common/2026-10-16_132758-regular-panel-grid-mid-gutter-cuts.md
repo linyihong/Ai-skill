@@ -87,3 +87,18 @@ Status: candidate
 #### 修訂 2026-10-26
 
 補齊抽象化檢查。文中的矩陣數量、顏色、標號與零交集示例均不是通用常數；抗鋸齒、雜訊與圖例侵入時，需依影像契約定容差或人工核對，不能只靠固定閾值自證通過。仍維持 candidate。
+
+#### Transfer Contract
+
+- Inputs: 規則圖板矩陣與內容帶間隙
+- Mechanism: 逐標籤切條可能破壞共用面板
+- Decision: 確認規則矩陣後按內容間隙切完整格
+- Verification: overlay 與獨立核對確認切線符合容差
+- Counterexample: 間距不規則時不得套固定矩陣
+- Transfer case: 不同文件的規則圖示對照表
+
+#### Intelligence Review
+
+- Decision: method-only
+- Reason: 本條是規則圖板的條件式裁切規程，先留在現有方法入口。
+- Target: workflow/image-processing/execution-flow.md

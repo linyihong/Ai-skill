@@ -79,3 +79,19 @@ IL2CPP 呼叫結果異常時，先對照 managed 簽名、值型別表示與呼�
 #### 修訂 2026-10-26
 
 依近期回饋審查，把原先依賴專案術語或操作細節的敘述改為輸入、機制、決策與驗證；修訂前內容可由 Git 歷史追溯。Status 保守維持 candidate。
+
+#### Transfer Contract
+
+- Inputs: 當前方法簽名、已知有效輸入與空回傳觀測
+- Mechanism: 型別與表示不一致會掩蓋有效資料
+- Decision: 先核對呼叫契約再判定資料缺失
+- Verification: 已知有效輸入與離線拒絕錯型別的對照
+- Counterexample: 簽名與資料已完整驗證時不需再改參數
+- Transfer case: 不同 IL2CPP UI 字元設定查詢
+
+#### Intelligence Review
+
+- Decision: extract
+- Reason: 這會改變空回傳時的診斷選路，適合候選判斷智慧。
+- Target: intelligence/engineering/analytical-reasoning/heuristics/runtime-evidence-boundaries.md
+- Discovery: knowledge/summaries/runtime-evidence-boundaries.md

@@ -80,3 +80,19 @@ Status: candidate
 #### 修訂 2026-10-26
 
 依近期回饋審查，把原先依賴專案術語或操作細節的敘述改為輸入、機制、決策與驗證；修訂前內容可由 Git 歷史追溯。Status 保守維持 candidate。
+
+#### Transfer Contract
+
+- Inputs: fixture 展示窗口與消費端完整結構契約
+- Mechanism: 可見子集可能省略必要狀態或合法佔位
+- Decision: 只在契約定義且值有來源時展開，否則拒絕
+- Verification: 完整、子集、合法 sparse、非法缺值對照
+- Counterexample: 契約只需展示窗口時不得擴大或補值
+- Transfer case: 分塊影像 replay adapter
+
+#### Intelligence Review
+
+- Decision: extract
+- Reason: 展示模型與執行模型的取捨可跨 adapter 與專案重用。
+- Target: intelligence/engineering/analytical-reasoning/heuristics/representation-contract-parity.md
+- Discovery: knowledge/summaries/representation-contract-parity.md

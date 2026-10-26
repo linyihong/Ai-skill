@@ -80,3 +80,18 @@ Status: candidate
 #### 修訂 2026-10-26
 
 依近期回饋審查，把原先依賴專案術語或操作細節的敘述改為輸入、機制、決策與驗證；修訂前內容可由 Git 歷史追溯。Status 保守維持 candidate。
+
+#### Transfer Contract
+
+- Inputs: 元件版本、部署陳述、讀回來源與驗證時間
+- Mechanism: 交接或 tag 不一定反映各元件現況
+- Decision: 採用既有現況權威，分開事實與 unknown
+- Verification: 局部部署與讀回不一致時仍可如實描述
+- Counterexample: 已有完整 CD 現況時不另建競爭帳本
+- Transfer case: 多服務 CD 平台的 artifact 與 runtime 讀回
+
+#### Intelligence Review
+
+- Decision: existing
+- Reason: 部署敘述與讀回範圍屬既有 evidence model 的特化，沿用可避免重複。
+- Target: intelligence/engineering/execution/validation-reasoning/evidence-model.md

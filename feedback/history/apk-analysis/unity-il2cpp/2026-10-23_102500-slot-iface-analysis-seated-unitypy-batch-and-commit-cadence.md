@@ -79,3 +79,18 @@ Status: candidate
 #### 修訂 2026-10-26
 
 依近期回饋審查，把原先依賴專案術語或操作細節的敘述改為輸入、機制、決策與驗證；修訂前內容可由 Git 歷史追溯。Status 保守維持 candidate。
+
+#### Transfer Contract
+
+- Inputs: 已驗證的當前 checkpoint 與未捕獲窗口
+- Mechanism: 回頭重建先前場景可能失去可用取證窗口
+- Decision: 先取得當前證據並明列未捕獲範圍
+- Verification: 當前物件可對照，未捕獲項未被錯報為完成
+- Counterexample: 完整入場是驗收必要條件時仍需補拍
+- Transfer case: 互動展示已在內容頁但尚缺入場觀測
+
+#### Intelligence Review
+
+- Decision: existing
+- Reason: 當前可用觀測優先與 fallback 取捨已由最高槓桿分析路徑承接。
+- Target: intelligence/engineering/analytical-reasoning/highest-leverage-analysis-path.md

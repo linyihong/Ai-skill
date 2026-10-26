@@ -1092,6 +1092,7 @@ rule_classes:
     coverage: mechanical
     source_files:
       - feedback/feedback-lessons.md
+      - feedback/extraction/lesson-review.md
       - enforcement/feedback-lessons.yaml
       - runtime/core-bootstrap.yaml#per_commit_obligations[obligation.commit.feedback_lesson_closure]
     executors:
@@ -1099,6 +1100,10 @@ rule_classes:
         symbol: validateFeedbackLessonClosure
         executor_kind: commit_msg_validator
         block_or_warn: block
+    coverage_evidence:
+      coverage_target_pct: 90
+      validation_scenarios:
+        - validation/scenarios/failure-derived/feedback-extraction-review-v1.yaml
     rationale: |
       Feedback lessons must retain an auditable lifecycle state, evidence,
       linked-update disposition, and category index. New entries are blocked
@@ -1108,7 +1113,7 @@ rule_classes:
       closure metadata needed to revisit that judgment.
     verification_status:
       symbol_exists: ✓
-      scenario_exists: pending
+      scenario_exists: ✓
       regression_exists: ✓
       runtime_observed: pending
 

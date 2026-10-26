@@ -69,3 +69,13 @@ Agent 在宣稱完成時應說明：
 - [`evidence-model.md`](evidence-model.md)
 - [`evidence-chain-validation.md`](evidence-chain-validation.md)
 - [`state-visibility-gap.md`](state-visibility-gap.md)
+
+## 抽取與驗證成熟度分開
+
+方法已接入 analysis／routing 只證明可發現；文字可攜性推演與同專案修正不能自動加總成獨立重用實測。可先建立 candidate-intelligence 承接判斷，不必等待 validated；提升信心仍依獨立證據。
+
+反例：純專案腳本操作或已在方法層的步驟，不因建立更多 atom 而變得更可重用。
+
+### 來源回饋
+
+- [2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md](../../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md)

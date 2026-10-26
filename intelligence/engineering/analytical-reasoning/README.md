@@ -85,3 +85,5 @@ A lesson can be promoted here when:
 - Do not delete or rewrite existing feedback lessons during the pilot.
 - Use this directory to point agents toward reusable judgment; use `feedback/history/apk-analysis/` for historical lesson records.
 - If an insight becomes a cross-skill or all-repo prevention gate, promote it to `enforcement/` or `enforcement/failure-patterns/` instead of keeping it only here.
+
+近期候選：[局部證據歸因](heuristics/runtime-evidence-boundaries.md)、[表示契約對齊](heuristics/representation-contract-parity.md)。它們承接判斷；操作方法仍在 analysis，未宣稱獨立重用驗證。

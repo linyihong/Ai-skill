@@ -80,3 +80,19 @@ Status: candidate
 #### 修訂 2026-10-26
 
 依近期回饋審查，把原先依賴專案術語或操作細節的敘述改為輸入、機制、決策與驗證；修訂前內容可由 Git 歷史追溯。Status 保守維持 candidate。
+
+#### Transfer Contract
+
+- Inputs: 記憶體 adapter 的索引範圍與 fixture 缺值語意
+- Mechanism: 寫入可見區不代表完整狀態，補滿也可能破壞 sentinel
+- Decision: 先對齊結構契約，再定位是否存在後續覆寫
+- Verification: 資料形狀反例與下一次操作仍成立
+- Counterexample: 合法 sparse 或跨格佔位不應填滿
+- Transfer case: 虛擬列表緩衝窗口的記憶體更新
+
+#### Intelligence Review
+
+- Decision: extract
+- Reason: 補值與保留 sparse 的選擇是判斷規則，而非固定操作。
+- Target: intelligence/engineering/analytical-reasoning/heuristics/representation-contract-parity.md
+- Discovery: knowledge/summaries/representation-contract-parity.md

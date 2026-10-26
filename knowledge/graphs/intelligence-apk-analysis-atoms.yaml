@@ -95,6 +95,14 @@ edges:
     target: knowledge/runtime/routing-registry.yaml
     reason: Registry 應提供 route.intelligence.apk-analysis-atoms record。
     validation: registry record 的 primary_source 指向 apk-analysis intelligence README。
+  - type: related_to
+    target: intelligence/engineering/analytical-reasoning/heuristics/runtime-evidence-boundaries.md
+    reason: 近期回饋的局部證據歸因判斷。
+    validation: candidate atom 保留來源、反例、索引與 summary。
+  - type: related_to
+    target: intelligence/engineering/analytical-reasoning/heuristics/representation-contract-parity.md
+    reason: 展示模型與完整 runtime 表示的選路取捨。
+    validation: 不將補值或延遲重寫作通用規則。
 metadata:
   priority: P1
   confidence: medium

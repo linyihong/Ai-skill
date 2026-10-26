@@ -1034,6 +1034,9 @@ records:
       - governance/lifecycle/README.md
       - governance/validation/README.md
     candidate_sources:
+      - feedback/extraction/lesson-review.md
+      - feedback/extraction/recent-review-map.md
+      - enforcement/feedback-lessons.yaml
       - knowledge/summaries/feedback-promotion-pipeline.md
       - knowledge/graphs/feedback-promotion-pipeline.yaml
       - feedback/README.md
@@ -1311,6 +1314,8 @@ records:
       - intelligence/engineering/requirements/README.md
       - intelligence/engineering/development/docs-first-bdd-closure.md
     candidate_sources:
+      - intelligence/engineering/execution/validation-reasoning/evidence-model.md
+      - intelligence/engineering/execution/validation-reasoning/evidence-depth.md
       - workflow/software-delivery/development-process.md
       - workflow/software-delivery/requirements/README.md
       - workflow/software-delivery/requirements/pre-build-interrogation.md
@@ -2229,6 +2234,8 @@ records:
       - workflow/apk-analysis/execution-flow.md
       - analysis/apk/README.md
     candidate_sources:
+      - intelligence/engineering/analytical-reasoning/heuristics/runtime-evidence-boundaries.md
+      - intelligence/engineering/analytical-reasoning/heuristics/representation-contract-parity.md
       - intelligence/engineering/apk-analysis/heuristics/README.md
       - intelligence/engineering/apk-analysis/heuristics/flutter-java-hybrid-security-layer-mapping.md
       - intelligence/engineering/analytical-reasoning/heuristics/README.md

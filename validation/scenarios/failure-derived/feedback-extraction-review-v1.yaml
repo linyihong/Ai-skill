@@ -1,0 +1,33 @@
+id: feedback-extraction-review-v1
+domain: feedback
+type: regression
+priority: P1
+given:
+  task: review_and_extract_feedback
+  artifacts:
+    - feedback/feedback-lessons.md
+    - enforcement/feedback-lessons.yaml
+    - feedback/extraction/lesson-review.md
+    - scripts/ai-skill-cli/portable/kge/feedback_review.go
+    - scripts/ai-skill-cli/internal/app/feedback_review_adapter.go
+    - enforcement/failure-patterns/feedback-lesson-without-abstraction-gate.md
+when:
+  action: commit_or_push_a_touched_lesson
+then:
+  expected_route:
+    primary: feedback/extraction/lesson-review.md
+  required:
+    - concrete transfer fields and intelligence disposition are present
+    - extracted or existing intelligence resolves to a routed indexed target with source backlink and parent index
+    - extract additionally resolves metadata and canonical Discovery summary
+    - method-only and justified deferred decisions pass without creating duplicate atoms
+    - candidate extraction does not raise atom confidence
+    - validated or promoted reuse evidence includes independent context, result and separate indexed reference
+  forbidden_routes:
+    - accept_bare_swap_project_pass_as_complete_review
+    - accept_unstaged_or_untracked_target_repair
+    - promote_all_candidate_lessons_automatically
+    - create_duplicate_intelligence_when_existing_atom_applies
+validation:
+  detection_command: cd scripts/ai-skill-cli && go test ./portable/kge ./internal/app -run 'TestFeedback' -count=1
+  expected_result: positive paths pass and each missing field, reference or staged-state mutation blocks

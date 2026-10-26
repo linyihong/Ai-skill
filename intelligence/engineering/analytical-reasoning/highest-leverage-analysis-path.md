@@ -58,3 +58,11 @@
 - 不可用本文件跳過授權、去敏、source-of-truth 或 skill dependency reads。
 - 不可把 faster route 當成允許猜測 secrets、繞過 scope 或執行未授權寫入。
 - 不可把本文件當作完整 APK workflow；實作分析仍從 `workflow/apk-analysis/execution-flow.md` 進入，並依證據載入 `analysis/apk/` 與相關 intelligence atoms。
+
+## 當前 checkpoint 的取證價值
+
+當穩定 checkpoint 已有可取證窗口時，先保存當前證據，再明列未捕獲的入場／過場與補證條件；不要為重建先前畫面而無條件丟失當前窗口。若完整入場本來就是驗收前置條件，仍須補拍，不能用較快路線縮小已承諾範圍。
+
+### 來源回饋
+
+- [2026-10-23_102500-slot-iface-analysis-seated-unitypy-batch-and-commit-cadence.md](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-23_102500-slot-iface-analysis-seated-unitypy-batch-and-commit-cadence.md)

@@ -88,13 +88,29 @@ review
 - Swap-project test: PASS — technique holds without the originating product name
 - Project evidence kept in: not applicable — technique-only
 - Product/cabinet/sample IDs absent from Generalized Lesson: PASS
+
+#### Transfer Contract
+
+- Inputs: typed request
+- Mechanism: adapter loses type information
+- Decision: inspect signature first
+- Verification: compare known input
+- Counterexample: validated input needs no conversion
+- Transfer case: unrelated typed settings reader
+
+#### Intelligence Review
+
+- Decision: deferred
+- Reason: independent domain evidence still needed
+- Target: none
+- Revisit: when a second independently owned consumer needs this decision
 `
 	ctx := Context{
 		CommitMsg:    "feedback: add lesson",
 		StagedPaths:  []string{path, "feedback/history/demo/common/README.md"},
 		AddedPaths:   []string{path},
-		FileContents: map[string]string{path: valid},
-		Provided:     map[CapabilityID]bool{CapCommitMsg: true, CapStagedPaths: true, CapStagedContent: true, CapAddedPaths: true},
+		FileContents: map[string]string{path: valid, "feedback/history/demo/common/README.md": "[Source](2026-09-25_010101-example.md)"},
+		Provided:     map[CapabilityID]bool{CapCommitMsg: true, CapStagedPaths: true, CapStagedContent: true, CapAddedPaths: true, CapRepoFS: true},
 	}
 	eng := NewEngine(FeedbackLessonClosureRule{})
 	if got := eng.Run(ctx); len(got) != 0 {
@@ -130,10 +146,12 @@ review
 	}
 
 	ctx.FileContents[path] = strings.Replace(valid, "Status: candidate", "Status: validated", 1)
-	if got := eng.Run(ctx); len(got) != 1 || !strings.Contains(got[0].Message, "Reuse Evidence") {
+	if got := eng.Run(ctx); len(got) == 0 || !strings.Contains(got[0].Message, "Reuse Evidence") {
 		t.Fatalf("want validated reuse-evidence violation, got %#v", got)
 	}
-	ctx.FileContents[path] += "\n#### Reuse Evidence\n\n- Reused in an independent fixture with the same validation result.\n"
+	ctx.FileContents[path] += "\n#### Reuse Evidence\n\n- Independent context: separate owned test consumer\n- Result: same decision observed in the second consumer\n- Reference: notes/reuse.md\n"
+	ctx.FileContents["notes/reuse.md"] = "Independent consumer evidence"
+	ctx.ExistingPaths = map[string]bool{"notes/reuse.md": true}
 	if got := eng.Run(ctx); len(got) != 0 {
 		t.Fatalf("want validated lesson with reuse evidence to pass, got %#v", got)
 	}

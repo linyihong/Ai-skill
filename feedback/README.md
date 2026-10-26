@@ -48,3 +48,7 @@
 - `plans/archived/2026-05-11-1112-next-stage-upgrade-plan.md` 的 Intelligence Feedback Loop
 
 近期實際覆核：[2026-10-26 回饋抽象化審查](refinement/2026-10-26-recent-feedback-abstraction-audit.md)，範圍為 10/16–10/26 共 12 條，逐條記錄問題、方法承接與驗證限制。
+
+增量回饋的可執行承接：[lesson review](extraction/lesson-review.md)；每條新增／修改回饋都要留下 intelligence disposition，來源與目標由 closure gate 檢查。
+
+[2026-10-26 回饋機械補強](refinement/2026-10-26-feedback-extraction-enforcement.md)：補上前次覆核未實作的 transfer／intelligence disposition 與 index snapshot 阻擋。

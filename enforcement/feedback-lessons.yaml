@@ -1,8 +1,8 @@
 schema_version: executable-contract/v1
 id: enforcement.feedback-lessons.contract
-title: "Feedback lessons redirect executable contract"
+title: "Feedback lesson review and closure contract"
 owner_layer: enforcement
-source_markdown: enforcement/feedback-lessons.md
+source_markdown: feedback/feedback-lessons.md
 status: active
 contract_type: policy_gate
 blocking_level: commit_time
@@ -11,18 +11,21 @@ runtime_projection:
   enabled: true
   target_key: enforcement.feedback_lessons.contract
   surface_type: executable_yaml_contract
-  execution_scope: feedback_rule_redirect
+  execution_scope: feedback_lesson_review
 
 activation:
   priority: P2
   triggers:
     - {"matches":["write-feedback","create-lesson","promote-lesson","review-feedback"],"type":"task_intent"}
+    - {"pattern":"**/feedback/history/**","type":"file_change"}
     - {"pattern":"**/feedback_history/**","type":"file_change"}
   required_when:
-    - "A task writes, promotes, reviews, or indexes feedback lessons through the old enforcement path."
+    - "A task creates, edits, reviews, or extracts a feedback/history lesson; existing records are repaired on touch."
 
 required_sources:
   - enforcement/feedback-lessons.md
+  - feedback/feedback-lessons.md
+  - feedback/extraction/lesson-review.md
   - enforcement/dependency-reading.md
 
 steps:
@@ -36,6 +39,19 @@ steps:
     order: 3
     action: "修改引用時改指向 feedback/feedback-lessons.md。"
 
+review_schema:
+  transfer_heading: Transfer Contract
+  required_transfer_fields: [inputs, mechanism, decision, verification, counterexample, transfer case]
+  intelligence_heading: Intelligence Review
+  decision_values: [extract, existing, method-only, deferred]
+  required_review_fields: [decision, reason, target]
+  extract_required_fields: [discovery]
+  deferred_required_fields: [revisit]
+  validated_reuse_fields: [independent context, result, reference]
+  reference_snapshot: git_index
+  legacy_policy: enforce_on_touch_or_explicit_all_feedback_audit
+  semantic_limit: Structured review and reference integrity do not prove semantic correctness or actual independence.
+
 gates:
   - id: gate.feedback_lessons.redirect_followed
     rule: "已讀 feedback/feedback-lessons.md 作為唯一正文。"
@@ -43,6 +59,17 @@ gates:
     rule: "沒有在 enforcement redirect 裡新增規則正文。"
   - id: gate.feedback_lessons.closure_complete
     rule: "新增或修改 feedback/history lesson 時，必須有 required sections、linked-update disposition；validated/promoted 必須有 reuse evidence；promoted 必須有 promotion record。"
+
+  - id: gate.feedback_lessons.transfer_contract
+    rule: Transfer Contract must record concrete inputs, mechanism, decision, verification, counterexample and transfer case; bare PASS or placeholders do not satisfy the review.
+  - id: gate.feedback_lessons.intelligence_disposition
+    rule: Every touched lesson must choose extract, existing, method-only or deferred, with reason and target; deferred requires an actionable revisit condition, and project-only findings remain in project docs.
+  - id: gate.feedback_lessons.target_integrity
+    rule: Extraction/method targets and parent README links must resolve in the index and targets must link back to the lesson. New extracted intelligence requires metadata, a canonical Discovery summary, registry membership and cannot raise candidate source confidence.
+  - id: gate.feedback_lessons.independent_reuse
+    rule: validated/promoted requires independent context, result and a separate indexed evidence reference; explicit absence of independent reuse contradicts the status.
+  - id: gate.feedback_lessons.index_snapshot
+    rule: Commit-time lesson and target/evidence checks consume git index blobs; unstaged or untracked repairs cannot satisfy the gate.
 
 required_evidence:
   - activation trigger matched or task context explains why this contract is required

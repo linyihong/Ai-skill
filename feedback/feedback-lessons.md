@@ -40,6 +40,10 @@
 
 定期審查需說明日期範圍與檔案數，逐條核對正文；不得只以全量 closure audit 的綠燈宣稱「已抽象化」。
 
+### 抽取判斷機械鎖
+
+新增／修改 lesson 同時填寫 `Transfer Contract` 與 `Intelligence Review`。流程、範例與四種決定見 [回饋審查流程](extraction/lesson-review.md)，canonical 欄位／gate 見 [執行契約](../enforcement/feedback-lessons.yaml)。缺判斷、空欄、無實際承接、目標無反向來源／父索引、candidate 抽取卻升高信心，或 validated 缺獨立證據 reference，會阻擋 commit。只讀工作目錄的修正不算通過 git index 驗證。
+
 ## 條目放哪裡
 
 | 內容 | 位置 |
@@ -147,7 +151,7 @@ Status: candidate | validated | deprecated | promoted | experimental
 
 #### Reuse Evidence
 
-`validated` 或 `promoted` 時必填：記錄至少一次可重複使用的獨立情境、驗證結果與參考來源。只有單一專案／單一環境觀察時，維持 `candidate`；若沒有可公開的重用證據，明確寫「尚未有獨立重用證據，維持 candidate」。
+`validated` 或 `promoted` 時必填 `Independent context`、`Result`、`Reference`（另一本已追蹤 Markdown 證據紀錄）。記錄至少一次可重複使用的獨立情境、驗證結果與參考來源。只有單一專案／單一環境觀察時，維持 `candidate`；若沒有可公開的重用證據，明確寫「尚未有獨立重用證據，維持 candidate」。
 
 #### One-line Summary
 
@@ -209,6 +213,23 @@ Status: candidate | validated | deprecated | promoted | experimental
 - 依 [`linked-updates.md`](../enforcement/linked-updates.md) 列出必須同步更新或已檢查的相關文件；若無需連動更新，寫明原因。
 - 若 lesson 來自 project incident，列出已依 [`reusable-guidance-boundary.md`](../enforcement/reusable-guidance-boundary.md) 檢查：skill 只保留 generalized lesson，具體證據留 project docs。
 - 具體寫出已更新的 category／domain index、promotion target，或「not applicable」及理由；不可留空。
+
+#### Transfer Contract
+
+- Inputs: <輸入與前置條件>
+- Mechanism: <原因機制>
+- Decision: <條件式決策>
+- Verification: <可推翻的驗證>
+- Counterexample: <不適用情境>
+- Transfer case: <另一個可攜情境，不冒充獨立實測>
+
+#### Intelligence Review
+
+- Decision: <extract|existing|method-only|deferred>
+- Reason: <判斷依據>
+- Target: <repository-relative.md；deferred 為 none>
+- Revisit: <deferred 時的具體觸發條件>
+- Discovery: <extract 時的 knowledge/summaries/*.md>
 
 #### Abstraction Check
 

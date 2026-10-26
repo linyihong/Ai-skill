@@ -88,3 +88,18 @@ Status: candidate
 #### 修訂 2026-10-26
 
 補齊抽象化檢查。文中的矩陣數量、顏色、標號與零交集示例均不是通用常數；抗鋸齒、雜訊與圖例侵入時，需依影像契約定容差或人工核對，不能只靠固定閾值自證通過。仍維持 candidate。
+
+#### Transfer Contract
+
+- Inputs: 密佈圖板、標籤與保留幾何的契約
+- Mechanism: 全頁混讀或錯切會污染單元身分
+- Decision: 依內容邊界裁切後分板抽取，再獨立核對
+- Verification: 裁切單元與正式映射的對照
+- Counterexample: 已有機器可讀幾何權威時不以 OCR 取代
+- Transfer case: 技術圖紙中的多標籤面板
+
+#### Intelligence Review
+
+- Decision: method-only
+- Reason: 本條主要是圖板裁切與 OCR 取證順序，已在 image workflow，不強制建立重複智慧。
+- Target: workflow/image-processing/execution-flow.md

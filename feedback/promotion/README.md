@@ -49,3 +49,5 @@
 ai-skill runtime refresh
 ai-skill runtime validate
 ```
+
+每次 lesson 寫入均先走 [抽象化與 intelligence 承接審查](../extraction/lesson-review.md)；extract／existing／method-only／deferred 決定與目標接線由既有 closure gate 檢查，抽取 candidate 不等於升級證據成熟度。

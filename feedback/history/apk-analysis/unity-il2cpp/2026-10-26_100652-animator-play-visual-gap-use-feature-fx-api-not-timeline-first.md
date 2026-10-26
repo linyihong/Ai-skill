@@ -90,3 +90,19 @@ Timeline／PlayableDirector、硬體斷點、AssetRipper 仍有價值，但成�
 #### 修訂 2026-10-26
 
 補上實際方法入口與證據狀態；不再把 history 自身當作提升目標。
+
+#### Transfer Contract
+
+- Inputs: 已命中的 Animator 與仍缺失的視覺結果
+- Mechanism: 局部 hook 成功不覆蓋完整驅動鏈
+- Decision: 先檢查有證據支持的 feature API，再按缺口升級
+- Verification: 同 fixture 的事件、物件與視覺結果對齊
+- Counterexample: 已有 Timeline 或 Native 直接驅動證據時可直接走該分支
+- Transfer case: 非遊戲 Unity 導覽特效的局部成功問題
+
+#### Intelligence Review
+
+- Decision: extract
+- Reason: 高層 API 與低層 Native 追蹤的選路需要可重用判斷。
+- Target: intelligence/engineering/analytical-reasoning/heuristics/runtime-evidence-boundaries.md
+- Discovery: knowledge/summaries/runtime-evidence-boundaries.md

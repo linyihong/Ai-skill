@@ -78,3 +78,18 @@ Status: candidate
 #### 修訂 2026-10-26
 
 依近期回饋審查，把原先依賴專案術語或操作細節的敘述改為輸入、機制、決策與驗證；修訂前內容可由 Git 歷史追溯。Status 保守維持 candidate。
+
+#### Transfer Contract
+
+- Inputs: 方法、報告實作、可攜性推演與獨立重用證據
+- Mechanism: 一次修正成功或路由已接線不會增加實測覆蓋深度
+- Decision: 方法與實作分層，狀態依獨立證據決定
+- Verification: 拿掉原腳本仍能解釋方法，且不冒充第二次實測
+- Counterexample: 純專案工具手冊無需提成通用方法
+- Transfer case: 使用不同報告工具的 Unity 專案
+
+#### Intelligence Review
+
+- Decision: existing
+- Reason: 方法接線與證據成熟度不相同，可由既有 evidence depth 補足判斷。
+- Target: intelligence/engineering/execution/validation-reasoning/evidence-depth.md

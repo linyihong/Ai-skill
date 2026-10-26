@@ -78,3 +78,19 @@ Status: candidate
 #### 修訂 2026-10-26
 
 依近期回饋審查，把原先依賴專案術語或操作細節的敘述改為輸入、機制、決策與驗證；修訂前內容可由 Git 歷史追溯。Status 保守維持 candidate。
+
+#### Transfer Contract
+
+- Inputs: 多目標 hook 的階段事件與能力範圍
+- Mechanism: 入口分派與後續分派可能覆蓋不同集合
+- Decision: 用目標與階段矩陣找首個缺失邊界
+- Verification: 需要後續動作與刻意排除的情境均有可解釋結果
+- Counterexample: 契約刻意排除 UI 後處理時不能強迫所有目標同做
+- Transfer case: 不同 UI components 共用 callback
+
+#### Intelligence Review
+
+- Decision: extract
+- Reason: 這是如何解讀局部成功與定位首個缺失階段的判斷。
+- Target: intelligence/engineering/analytical-reasoning/heuristics/runtime-evidence-boundaries.md
+- Discovery: knowledge/summaries/runtime-evidence-boundaries.md

@@ -78,3 +78,18 @@ Status: candidate
 #### 修訂 2026-10-26
 
 依近期回饋審查，把原先依賴專案術語或操作細節的敘述改為輸入、機制、決策與驗證；修訂前內容可由 Git 歷史追溯。Status 保守維持 candidate。
+
+#### Transfer Contract
+
+- Inputs: 準備發布的保護性宣稱、控制與角色能力
+- Mechanism: 低層或部分角色測試不能支持更廣的保證
+- Decision: 逐句限制宣稱到已覆蓋的操作與角色
+- Verification: 宣稱對應證據，且未測範圍被明示
+- Counterexample: 僅描述待驗證設計意圖時不宣稱實證保護
+- Transfer case: 不同資料保存或權限系統的對外保證
+
+#### Intelligence Review
+
+- Decision: existing
+- Reason: 既有 evidence model 已處理 claim 與證據範圍，補充角色反例而不另建重複 atom。
+- Target: intelligence/engineering/execution/validation-reasoning/evidence-model.md

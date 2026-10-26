@@ -109,3 +109,11 @@
 - Agent orchestration：[`../../workflow/apk-analysis/execution-flow.md`](../../../workflow/apk-analysis/execution-flow.md)
 
 動畫已播放但視覺仍缺失時，改讀 [Unity 驅動追蹤](unity-fx-driver-trace.md)，從 feature FX API 查到資料／Playables／Native；資產參數本身不證明觸發鏈。
+
+## 候選回饋承接
+
+粒子資產回饋主要增加證據取得程序；不因有來源回饋就必須另建 intelligence atom。
+
+### 來源回饋
+
+- [2026-10-23_101000-unity-particle-restore-needs-unitypy-or-assetripper-not-il2cppdumper.md](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-23_101000-unity-particle-restore-needs-unitypy-or-assetripper-not-il2cppdumper.md)

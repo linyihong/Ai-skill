@@ -64,3 +64,9 @@ Agent 跳過 Abstraction Gate，直接把柜机名、產品名、sample id、裝
 ## 審查邊界
 
 格式 gate 只驗證結構，不能證明語意抽象化。對已存在的條目也須讀正文、核對狀態與方法承接位置；結果應分開報告「格式通過」「可攜性推演」「獨立實測」，不把其中一項代替其他項。
+
+## 2026-10-26 機械修補
+
+原鎖只驗欄位與非空 Reuse Evidence，且 adapter 讀工作目錄，會漏掉 intelligence 判斷與 staged 真實狀態。現要求 Transfer Contract、Intelligence Review、index 中可解析的雙向承接／父索引；extract 另驗 metadata、registry 與 Discovery summary。validated/promoted 需另有獨立情境、結果與可解析證據 reference。新規則對新增／修改條目生效，全庫歷史由 `--all-feedback` 另行盤點。
+
+回歸： [feedback-extraction-review-v1](../../validation/scenarios/failure-derived/feedback-extraction-review-v1.yaml)。

@@ -112,6 +112,8 @@ func buildKGEWorkspaceContext(root string, allFeedback bool) (kge.Context, error
 			staged = unstaged
 		}
 	}
+	indexPaths, _ := gitLines(root, "diff", "--cached", "--name-only", "--diff-filter=ACMR")
+	useIndexForFeedback := len(indexPaths) > 0
 	added, _ := gitLines(root, "diff", "--cached", "--diff-filter=A", "--name-only")
 	if len(added) == 0 {
 		added, _ = gitLines(root, "diff", "--name-only", "--diff-filter=A")
@@ -131,6 +133,14 @@ func buildKGEWorkspaceContext(root string, allFeedback bool) (kge.Context, error
 		load := strings.HasSuffix(lower, ".md") || strings.HasSuffix(lower, ".markdown") ||
 			(strings.HasPrefix(p, "runtime/") && strings.HasSuffix(lower, ".yaml"))
 		if !load {
+			continue
+		}
+		if useIndexForFeedback && kge.IsFeedbackLessonPath(p) {
+			indexed, err := feedbackIndexContent(root, p)
+			if err != nil {
+				return kge.Context{}, err
+			}
+			contents[filepath.ToSlash(p)] = indexed
 			continue
 		}
 		full := filepath.Join(root, filepath.FromSlash(p))
@@ -170,6 +180,8 @@ func buildKGEWorkspaceContext(root string, allFeedback bool) (kge.Context, error
 		}
 	}
 
+	loadFeedbackReviewReferences(root, contents, existing)
+
 	diff := stagedDiffCached(root, "scripts/ai-skill-cli/internal/app/")
 	provided := map[kge.CapabilityID]bool{
 		kge.CapStagedPaths: true,
@@ -182,14 +194,15 @@ func buildKGEWorkspaceContext(root string, allFeedback bool) (kge.Context, error
 		provided[kge.CapStagedContent] = true
 	}
 	return kge.Context{
-		RepoRoot:      root,
-		CommitMsg:     "",
-		StagedPaths:   staged,
-		AddedPaths:    added,
-		StagedDiff:    diff,
-		FileContents:  contents,
-		ExistingPaths: existing,
-		Provided:      provided,
+		RepoRoot:              root,
+		FeedbackRoutedTargets: feedbackRoutedTargets(root),
+		CommitMsg:             "",
+		StagedPaths:           staged,
+		AddedPaths:            added,
+		StagedDiff:            diff,
+		FileContents:          contents,
+		ExistingPaths:         existing,
+		Provided:              provided,
 	}, nil
 }
 

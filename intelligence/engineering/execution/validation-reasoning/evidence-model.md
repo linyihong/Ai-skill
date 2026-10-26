@@ -60,10 +60,21 @@ evidence_types:
 2. 將現有證據映射到 `evidence_types`。
 3. 標出每個證據的 `scope`。
 4. 若 claim 跨越多個 boundary，使用 [`evidence-chain-validation.md`](evidence-chain-validation.md) 補證據鏈。
-5. 若只剩 proxy signal，視為 [`../../../anti-patterns/validation-proxy-trap.md`](../../../anti-patterns/validation-proxy-trap.md)。
+5. 若只剩 proxy signal，視為 [`../../../anti-patterns/validation-proxy-trap.md`](../../anti-patterns/validation-proxy-trap.md)。
 
 ## 相關知識
 
 - [`state-visibility-gap.md`](state-visibility-gap.md)
 - [`evidence-depth.md`](evidence-depth.md)
 - [`evidence-chain-validation.md`](evidence-chain-validation.md)
+
+## 宣稱、角色與部署讀回的候選補充
+
+- 保護性語句須對應操作與角色範圍；多個局部證據不能支持更廣的「無法／防止」保證。只有偵測能力時，不能當成已阻擋。
+- 操作者陳述、tag 與健康端點各證明不同事實。部署現況採既有權威來源，按元件保留來源與 unknown；不因單一端點成功推定整個環境一致。
+- 反例：已有完整 CD 現況平台時，另建帳本不會自然增加證據可信度；應讀原平台。
+
+### 來源回饋
+
+- [2026-10-20_150000-claim-vs-proof-audit-before-a-protection-wording-switch.md](../../../../feedback/history/development-guidance/common/2026-10-20_150000-claim-vs-proof-audit-before-a-protection-wording-switch.md)
+- [2026-10-22_093000-deployment-state-is-readback-not-narrative.md](../../../../feedback/history/development-guidance/common/2026-10-22_093000-deployment-state-is-readback-not-narrative.md)

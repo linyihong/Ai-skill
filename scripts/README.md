@@ -217,3 +217,5 @@ scripts/ai-skill-cli/bin/ai-skill-darwin-arm64 hooks run pre-push --repo . --jso
 不要用「幾分鐘內」作為主要條件。GitHub Actions 排隊與 Windows runner 時間不穩，時間窗會造成假安全感。正確條件是：本次 push 是否修改會觸發 script CI 的 path；若有，查最近一次已完成的同 workflow run 作為 context，然後用本機可重現檢查決定是否放行。
 
 Unity FX 接線鎖：`runtime refresh`／`runtime validate` 會檢查 `route.analysis.unity-fx`、workflow 入口、summary、detector 與 Discovery Bridge 提名；SQLite RAG 必須能由 `m_Payloads`／`PlayableDirector` 查回 canonical 流程。缺失時驗證失敗。實作與負向測試在 `scripts/ai-skill-cli/internal/app/unity_fx_discovery.go`／`unity_fx_discovery_test.go`；此鎖檢查接線，不代替裝置實測。
+
+Feedback closure gate 現在要求 Transfer Contract 與 Intelligence Review；`extract` 驗 metadata、registry、Discovery summary、來源反向連結與父索引，`existing`／`method-only`／`deferred` 各有條件。Commit／push／KGE 使用 git index 內容，未 staged 修正不能充數。見 [承接流程](../feedback/extraction/lesson-review.md)。

@@ -506,3 +506,7 @@ grep -rn "intelligence/<domain>/" enforcement/ --include="*.md"
 - [`knowledge/indexes/README.md`](../../knowledge/indexes/README.md) — 任務路由索引，extraction 完成後需更新
 - [`knowledge/runtime/routing-registry.yaml`](../../knowledge/runtime/routing-registry.yaml) — Machine-readable routing registry，extraction 完成後需更新
 - [`plans/archived/2026-05-11-1112-next-stage-upgrade-plan.md`](../../plans/archived/2026-05-11-1112-next-stage-upgrade-plan.md) — 整體升級規劃，本 pipeline 是 Phase 31 的核心產出
+
+## 增量 lesson 審查入口
+
+新增或修改 history 時，先執行 [承接審查](../../feedback/extraction/lesson-review.md)，明確記錄 intelligence disposition。可抽取 candidate 或沿用既有 atom，不把「尚未 validated」誤當成不能抽取判斷；是否提高成熟度仍由獨立證據決定。
