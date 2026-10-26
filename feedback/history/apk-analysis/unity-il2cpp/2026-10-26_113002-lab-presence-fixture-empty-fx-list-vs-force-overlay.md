@@ -42,7 +42,7 @@ Follow-up settle 還可能只打到 `EventSink_SlotsRound`／`ProcessSpin`（Sym
 5. **下一最小步驟**：生產 settle 自然命中、或 IL／dump 找列表填充來源再注入等價狀態——不要只加大 force 符號表假裝閉環。
 6. **空列表診斷快照**（建議掛在列表 API `onLeave`）：記錄 action 上的 SpinInfo 符號數／洞數、Rewards 是否 null、StateInfo group／series。常見空因：`holeCount=0` 且 group 仍是 base（如 `main`），或 Rewards 字典尚未就緒——比只看 `n=0` 更能導向下一步。
 7. **洞 ≠ 列表填充**：把 fixture 洞格真正寫進 SpinInfo（`holeCount>0`）後列表仍可能 `n=0`——證明該 API 不（只）由洞推導；下一步應查 Rewards／group／Start 填充源，勿假設「有洞就有掉落列表」。Lab 預設 `?`＝跳過 patch；要真洞需顯式 stamp 旗標（專案 shim 語意）。
-8. **空列表且 filter 謂詞 0 次呼叫**：若列表 API 的 Where／predicate hook **從未進入**，代表候選集合在進 filter 前已空（常見：Start 缺 feature reward／狀態源），不是「全被濾掉」。應先補 Start 填充條件（如 Spins／group reward），再看 predicate `keep`。
+8. **空列表且 filter 謂詞 0 次呼叫**：若列表 API 的 Where／predicate hook **從未進入**，代表候選集合在進 filter 前已空（常見：Start 缺 feature reward／狀態源），不是「全被濾掉」。應先補 Start 填充條件（如 Spins／group reward），再看 predicate `keep`。**延伸（同日）**：優先查 StateInfo Paid／SpinsCount 早退閘，見 [2026-10-26_160018…](2026-10-26_160018-fx-list-api-may-early-out-on-stateinfo-paid-spinscount.md)；通過閘後列表源可能是 Spin↔State reel-set 差分，見 [2026-10-26_160100…](2026-10-26_160100-fx-list-may-diff-spin-vs-state-reelsets-not-desk-holes.md)。
 
 #### Agent Action
 

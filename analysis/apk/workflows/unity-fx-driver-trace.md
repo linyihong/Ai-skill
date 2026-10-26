@@ -29,9 +29,16 @@
 4. 下一最小步驟：生產自然 settle 的非空列表，或 IL／dump 找列表填充來源再注入等價狀態——不要只加大 force 符號表假裝閉環。
 5. 列表 API `onLeave` 建議附帶診斷快照：SpinInfo 洞數、Rewards null？、StateInfo group／series。空列表常見伴隨「無洞 + group 仍是 base」或 Rewards 未就緒。
 6. **洞 ≠ 列表**：即使把洞格寫進 SpinInfo（`holeCount>0`），列表仍可能空——勿假設洞推導掉落集合；改查 Rewards／group／Start 填充。Lab 預設 `?` 常是 skip-patch，真洞需顯式 stamp。
-7. **Predicate 0 呼叫**：列表 Where hook 從未進入 ⇒ 候選在 filter 前已空；先補 Start／feature reward，再看 `keep`。
+7. **Predicate 0 呼叫**：列表 Where hook 從未進入 ⇒ 候選在 filter 前已空；先查 **StateInfo（或等價）Paid／剩餘 spins 早退閘**，再補 Start／feature reward，最後看 `keep`。診斷事件建議標 `paid_true`／`spinsCount_zero`／`pass_early`。
+8. **Lab force 閘門 ≠ 生產 unpaid**：覆寫 Paid＝false＋SpinsCount≠0 只證明通過閘後列表鏈可用；普通付費轉仍可能呼叫列表 API 但恒早退——下一刀改獵未付 feature 中段。
+9. **列表源可能是 Spin↔State reel-set 差分**：`GetReelSymbols(BySpin|ByState)` → `GetGroup.GetReelSet`；桌上洞不是充分條件。`GetGroup(feature)` 成功仍可能 **ChildGroups→reel-set 無映射** → state 側空 strip。
+10. **勿 attach 稍後要 NativeFunction／runtime_invoke 的同一方法**（Frida breakpoint 重入）；force Show 只 invoke，觀察改 hook 下游事件／Setup。
 
-候選 lesson：[lab presence fixture 空列表 vs force overlay](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-26_113002-lab-presence-fixture-empty-fx-list-vs-force-overlay.md)。
+候選 lesson：
+- [lab presence fixture 空列表 vs force overlay](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-26_113002-lab-presence-fixture-empty-fx-list-vs-force-overlay.md)
+- [Paid／SpinsCount 早退](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-26_160018-fx-list-api-may-early-out-on-stateinfo-paid-spinscount.md)
+- [Spin↔State reel-set 差分](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-26_160100-fx-list-may-diff-spin-vs-state-reelsets-not-desk-holes.md)
+- [勿 attach 將 invoke 的方法](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-26_160200-frida-do-not-attach-method-invoked-via-nativefunction.md)。
 
 ## 3. 依證據選分支
 

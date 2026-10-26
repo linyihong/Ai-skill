@@ -4,6 +4,9 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
+| [2026-10-26_160200-frida-do-not-attach-method-invoked-via-nativefunction.md](2026-10-26_160200-frida-do-not-attach-method-invoked-via-nativefunction.md) | candidate | 勿 Interceptor.attach 稍後 NativeFunction／runtime_invoke 的同一方法（breakpoint 重入） |
+| [2026-10-26_160100-fx-list-may-diff-spin-vs-state-reelsets-not-desk-holes.md](2026-10-26_160100-fx-list-may-diff-spin-vs-state-reelsets-not-desk-holes.md) | candidate | 掉落列表常為 Spin↔State reel-set 差分；Group 有≠有 reel-set；滿盤可非空 |
+| [2026-10-26_160018-fx-list-api-may-early-out-on-stateinfo-paid-spinscount.md](2026-10-26_160018-fx-list-api-may-early-out-on-stateinfo-paid-spinscount.md) | candidate | 列表 API 可能 Paid／SpinsCount 早退；filter 0 次≠Where 濾光；普通付費轉可恒早退 |
 | [2026-10-26_113002-lab-presence-fixture-empty-fx-list-vs-force-overlay.md](2026-10-26_113002-lab-presence-fixture-empty-fx-list-vs-force-overlay.md) | candidate | Presence fixture 下列表 API 可空；force overlay ≠ 自然列表閉環；對齊 RESULT vs SPIN apply |
 | [2026-10-26_100652-animator-play-visual-gap-use-feature-fx-api-not-timeline-first.md](2026-10-26_100652-animator-play-visual-gap-use-feature-fx-api-not-timeline-first.md) | candidate | Animator.Play 視覺缺口：先 dump 找 feature FX／GameAction API，勿先 Timeline／IDA |
 | [2026-10-23_141500-apply-shim-visiblegrid-must-pad-processresult-strip.md](2026-10-23_141500-apply-shim-visiblegrid-must-pad-processresult-strip.md) | candidate | apply-shim visibleGrid 须 pad ProcessResult strip＋补缺格，避免灰空被误判 cascade |
