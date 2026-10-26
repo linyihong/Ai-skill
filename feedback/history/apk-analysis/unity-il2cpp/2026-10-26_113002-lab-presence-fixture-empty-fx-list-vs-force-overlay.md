@@ -40,6 +40,7 @@ Follow-up settle 還可能只打到 `EventSink_SlotsRound`／`ProcessSpin`（Sym
 3. **Force overlay 標為 lab-matched**：文件寫「驅動已鎖；自然列表仍開放」，勿升格為 live-matched natural。
 4. **對齊 apply 相位**：記錄每次 `LAB_APPLIED`／等同事件的 `tag`（`ProcessResult` vs `EventSink`/`SPIN`）與 fixtureId；列表 API 可能只在其中一相。
 5. **下一最小步驟**：生產 settle 自然命中、或 IL／dump 找列表填充來源再注入等價狀態——不要只加大 force 符號表假裝閉環。
+6. **空列表診斷快照**（建議掛在列表 API `onLeave`）：記錄 action 上的 SpinInfo 符號數／洞數、Rewards 是否 null、StateInfo group／series。常見空因：`holeCount=0` 且 group 仍是 base（如 `main`），或 Rewards 字典尚未就緒——比只看 `n=0` 更能導向下一步。
 
 #### Agent Action
 
