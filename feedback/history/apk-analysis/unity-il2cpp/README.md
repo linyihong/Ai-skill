@@ -4,6 +4,7 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
+| [2026-10-26_100652-animator-play-visual-gap-use-feature-fx-api-not-timeline-first.md](2026-10-26_100652-animator-play-visual-gap-use-feature-fx-api-not-timeline-first.md) | candidate | Animator.Play 視覺缺口：先 dump 找 feature FX／GameAction API，勿先 Timeline／IDA |
 | [2026-10-23_141500-apply-shim-visiblegrid-must-pad-processresult-strip.md](2026-10-23_141500-apply-shim-visiblegrid-must-pad-processresult-strip.md) | candidate | apply-shim visibleGrid 须 pad ProcessResult strip＋补缺格，避免灰空被误判 cascade |
 | [2026-10-23_140500-apply-shim-onleave-ui-must-cover-all-processresult-owners.md](2026-10-23_140500-apply-shim-onleave-ui-must-cover-all-processresult-owners.md) | candidate | 多柜 ProcessResult apply-shim：onLeave UI 须覆盖全部 owner，勿只闸第一柜 |
 | [2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md](2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md) | validated | Unity 分析技巧→Ai-skill；§3e HTML／atlas CLI→業務 repo（缺則在專案補生產器） |
