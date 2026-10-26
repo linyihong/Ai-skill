@@ -41,6 +41,7 @@ Follow-up settle 還可能只打到 `EventSink_SlotsRound`／`ProcessSpin`（Sym
 4. **對齊 apply 相位**：記錄每次 `LAB_APPLIED`／等同事件的 `tag`（`ProcessResult` vs `EventSink`/`SPIN`）與 fixtureId；列表 API 可能只在其中一相。
 5. **下一最小步驟**：生產 settle 自然命中、或 IL／dump 找列表填充來源再注入等價狀態——不要只加大 force 符號表假裝閉環。
 6. **空列表診斷快照**（建議掛在列表 API `onLeave`）：記錄 action 上的 SpinInfo 符號數／洞數、Rewards 是否 null、StateInfo group／series。常見空因：`holeCount=0` 且 group 仍是 base（如 `main`），或 Rewards 字典尚未就緒——比只看 `n=0` 更能導向下一步。
+7. **洞 ≠ 列表填充**：把 fixture 洞格真正寫進 SpinInfo（`holeCount>0`）後列表仍可能 `n=0`——證明該 API 不（只）由洞推導；下一步應查 Rewards／group／Start 填充源，勿假設「有洞就有掉落列表」。Lab 預設 `?`＝跳過 patch；要真洞需顯式 stamp 旗標（專案 shim 語意）。
 
 #### Agent Action
 

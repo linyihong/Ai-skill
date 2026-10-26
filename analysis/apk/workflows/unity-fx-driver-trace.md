@@ -28,6 +28,7 @@
 3. **Apply 相位**：follow-up settle 可能只打到 `EventSink`／`ProcessSpin`（Symbols 晚到），而列表 API 只在某一 `ProcessResult` 窗口出現。應用 hook 事件的 apply tag／fixtureId 對齊，勿假設第二手一定再呼叫列表 API。
 4. 下一最小步驟：生產自然 settle 的非空列表，或 IL／dump 找列表填充來源再注入等價狀態——不要只加大 force 符號表假裝閉環。
 5. 列表 API `onLeave` 建議附帶診斷快照：SpinInfo 洞數、Rewards null？、StateInfo group／series。空列表常見伴隨「無洞 + group 仍是 base」或 Rewards 未就緒。
+6. **洞 ≠ 列表**：即使把洞格寫進 SpinInfo（`holeCount>0`），列表仍可能空——勿假設洞推導掉落集合；改查 Rewards／group／Start 填充。Lab 預設 `?` 常是 skip-patch，真洞需顯式 stamp。
 
 候選 lesson：[lab presence fixture 空列表 vs force overlay](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-26_113002-lab-presence-fixture-empty-fx-list-vs-force-overlay.md)。
 
