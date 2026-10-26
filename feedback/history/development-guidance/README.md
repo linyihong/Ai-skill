@@ -77,3 +77,5 @@
 | `common/2026-07-23_071200-injectable-wall-clock-for-day-boundary-logic` | Inject wall clock / Instant params; freeze time in tests, never change OS date |
 | `common/2026-07-17_171500-mpegurl-maybe-managed-mediasource-prefer-hlsjs` | mpegurl `"maybe"` + ManagedMediaSource → prefer hls.js; Simulator ≠ paint |
 | `common/2026-07-15_140200-correct-sign-length-still-403-means-anti-bot-not-sign` | Sign parity OK but 403 = anti-bot, not formula |
+
+2026-10-26：已覆核 10/16–10/26 的本分類條目，補齊抽象化邊界與來源指標；candidate 狀態不因文字整理或入口接線而提升。

@@ -26,7 +26,7 @@ Status: candidate
 #### Evidence
 
 - Tool: panel crops + per-panel vision／OCR vs equal-area page tessellation + whole-page OCR
-- Sanitized excerpt: equal-area 5×5 把相鄰橫線圖示切進同一格、漏切雙標籤格；面板裁切後 L1–L12 標號與路徑可穩定對齊，雙標籤格需一次讀兩條路徑
+- Sanitized excerpt: 未對齊內容的等分裁切混入鄰格並漏切共用標籤；內容對齊的面板保留其標籤與幾何關係
 - Evidence path: project capture notes under `<PROJECT_ROOT>` slot paytable docs（細節不進本檔）
 
 #### Generalized Lesson
@@ -78,3 +78,13 @@ Status: candidate
 - [x] `feedback/history/image-processing/README.md` + `common/README.md`
 - [x] `workflow/image-processing/execution-flow.md` 短指引
 - [ ] 獨立第二專案重跑後再標 `validated`
+
+#### Abstraction Check
+
+- Swap-project test: PASS — 技術圖表、表單圖示或流程面板都可用內容對齊裁切與獨立驗證，不需沿用原頁標號或幾何。
+- Project evidence kept in: `<PROJECT_ROOT>/` 的原圖、裁切與獨立核對紀錄。
+- Product/cabinet/sample IDs absent from Generalized Lesson: PASS
+
+#### 修訂 2026-10-26
+
+補齊抽象化檢查。文中的矩陣數量、顏色、標號與零交集示例均不是通用常數；抗鋸齒、雜訊與圖例侵入時，需依影像契約定容差或人工核對，不能只靠固定閾值自證通過。仍維持 candidate。

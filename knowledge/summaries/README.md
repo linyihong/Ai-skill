@@ -82,3 +82,5 @@ Summaries 用來協助 agent：
 - Source、metadata、registry 或 graph 改動時，依 [`../runtime/refresh-policy.yaml`](../runtime/refresh-policy.yaml) 判斷是否 refresh、revalidate 或 downgrade。
 
 Unity 動畫／特效視覺缺口：讀 [Unity FX 摘要](unity-fx.md)，再按需載入 canonical 追蹤流程。
+
+[APK 操作方法摘要](apk-workflows.md) 包含 IL2CPP ABI、hook 生命週期與 fixture／runtime 資料契約的候選方法入口。

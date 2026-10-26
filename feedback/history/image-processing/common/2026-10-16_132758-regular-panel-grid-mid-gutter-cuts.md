@@ -26,7 +26,7 @@ Status: candidate
 #### Evidence
 
 - Tool: content-band detection (grey idle + neon stroke) → mid-gutter edges → overlay eye-check
-- Sanitized excerpt: per-label thin strips split a shared top cell and lost row context; regular 5×4 mid-gutter grid kept multi-label cells intact; divider content fraction on cut lines = 0
+- Sanitized excerpt: per-label thin strips split a shared top cell and lost row context; 依內容帶推導的規則矩陣保留共用標籤；分割線未穿過已核對的內容帶
 - Evidence path: project paytable capture / panel-grid audit under `<PROJECT_ROOT>`（細節不進本檔）
 
 #### Generalized Lesson
@@ -77,3 +77,13 @@ Status: candidate
 - [x] `workflow/image-processing/execution-flow.md` 短指引
 - [x] 交叉連結 dense-diagram panel-crop lesson
 - [ ] 獨立第二專案重跑後再標 `validated`
+
+#### Abstraction Check
+
+- Swap-project test: PASS — 不同文件的規則圖示矩陣均可按內容間隙裁切；格數、顏色與閾值依輸入推導。
+- Project evidence kept in: `<PROJECT_ROOT>/` 的原圖、裁切與獨立核對紀錄。
+- Product/cabinet/sample IDs absent from Generalized Lesson: PASS
+
+#### 修訂 2026-10-26
+
+補齊抽象化檢查。文中的矩陣數量、顏色、標號與零交集示例均不是通用常數；抗鋸齒、雜訊與圖例侵入時，需依影像契約定容差或人工核對，不能只靠固定閾值自證通過。仍維持 candidate。

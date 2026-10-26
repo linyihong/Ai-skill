@@ -7,8 +7,8 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 | [2026-10-26_100652-animator-play-visual-gap-use-feature-fx-api-not-timeline-first.md](2026-10-26_100652-animator-play-visual-gap-use-feature-fx-api-not-timeline-first.md) | candidate | Animator.Play 視覺缺口：先 dump 找 feature FX／GameAction API，勿先 Timeline／IDA |
 | [2026-10-23_141500-apply-shim-visiblegrid-must-pad-processresult-strip.md](2026-10-23_141500-apply-shim-visiblegrid-must-pad-processresult-strip.md) | candidate | apply-shim visibleGrid 须 pad ProcessResult strip＋补缺格，避免灰空被误判 cascade |
 | [2026-10-23_140500-apply-shim-onleave-ui-must-cover-all-processresult-owners.md](2026-10-23_140500-apply-shim-onleave-ui-must-cover-all-processresult-owners.md) | candidate | 多柜 ProcessResult apply-shim：onLeave UI 须覆盖全部 owner，勿只闸第一柜 |
-| [2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md](2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md) | validated | Unity 分析技巧→Ai-skill；§3e HTML／atlas CLI→業務 repo（缺則在專案補生產器） |
-| [2026-10-23_102500-slot-iface-analysis-seated-unitypy-batch-and-commit-cadence.md](2026-10-23_102500-slot-iface-analysis-seated-unitypy-batch-and-commit-cadence.md) | candidate | 已進桌 §3e：UnityPy 一批＋splash stub＋分段 commit |
+| [2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md](2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md) | candidate | 分析方法與專案報告實作分離；未有獨立重用證據，維持 candidate |
+| [2026-10-23_102500-slot-iface-analysis-seated-unitypy-batch-and-commit-cadence.md](2026-10-23_102500-slot-iface-analysis-seated-unitypy-batch-and-commit-cadence.md) | candidate | 從當前 checkpoint 取證，未捕獲窗口另列；報告格式與提交粒度由專案決定 |
 | [2026-10-23_101000-unity-particle-restore-needs-unitypy-or-assetripper-not-il2cppdumper.md](2026-10-23_101000-unity-particle-restore-needs-unitypy-or-assetripper-not-il2cppdumper.md) | candidate | 粒子還原：UnityPy／AssetRipper；Il2CppDumper／AssetStudio 非主路徑 |
 | [2026-10-16_173200-il2cpp-paytable-getmain-takes-system-char-not-string.md](2026-10-16_173200-il2cpp-paytable-getmain-takes-system-char-not-string.md) | candidate | GetMainPayoutInfo 可能是 System.Char（U16），勿 string_new；Dictionary&lt;char&gt; 作回退 |
 | [2026-09-24_141900-slot-device-ui-harvest-via-owned-cryptor-lab-gateway.md](2026-09-24_141900-slot-device-ui-harvest-via-owned-cryptor-lab-gateway.md) | candidate | 裝置 UI harvest：自有 AES lab gateway + fixture loop；Frida 只導 game TCP；禁正式 MITM |
@@ -82,3 +82,5 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 | [2026-09-08_134200-skipnotify-child-xelement-may-be-another-ctor-not-clonenode.md](2026-09-08_134200-skipnotify-child-xelement-may-be-another-ctor-not-clonenode.md) | validated | SkipNotify 子 XElement 可能是另一個 ctor，不是 CloneNode/Load |
 | [2026-09-08_134000-xelement-xname-fill-may-use-skipnotify-not-public-add.md](2026-09-08_134000-xelement-xname-fill-may-use-skipnotify-not-public-add.md) | validated | XElement(XName) 填充可能走 SkipNotify，不是 public Add |
 | [2026-09-08_133000-parse-xelement-args-may-be-ctor-copies-not-load-tree.md](2026-09-08_133000-parse-xelement-args-may-be-ctor-copies-not-load-tree.md) | validated | Parse 的 XElement 可能是 ctor 複本，不是 Load 樹節點 |
+
+2026-10-26 抽象化覆核：近期候選改以參數／生命週期／資料契約方法表述；報告工具邊界條目因缺獨立重用證據改回 candidate。檔名保留相容，方法見 [IL2CPP 契約驗證](../../../../analysis/apk/workflows/il2cpp-runtime-contract-validation.md)。

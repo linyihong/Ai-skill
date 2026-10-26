@@ -121,3 +121,5 @@ handler hook:
 - 不要將缺少 Wi-Fi MITM traffic 直接視為 pinning，先確認 routing
 - 區分 local client-to-loopback requests 與 loopback-to-upstream requests
 - Hook high-semantic handler objects 優先於 raw sockets
+
+授權 replay／序列化資料若與 runtime 消費端形狀不同，另讀 [IL2CPP 契約驗證](il2cpp-runtime-contract-validation.md)；本流程的 loopback 導流證據不證明 fixture 格式正確。

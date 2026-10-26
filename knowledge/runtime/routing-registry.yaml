@@ -1832,6 +1832,9 @@ records:
       - analysis/apk/README.md
       - workflow/apk-analysis/execution-flow.md
     candidate_sources:
+      - analysis/apk/workflows/il2cpp-runtime-contract-validation.md
+      - analysis/apk/workflows/unity-asset-parse-flow.md
+      - knowledge/summaries/apk-workflows.md
       - analysis/apk/workflows/frida-hook-flow.md
       - analysis/apk/workflows/http-api-documentation-flow.md
       - analysis/apk/workflows/local-proxy-hook-flow.md
@@ -1880,6 +1883,7 @@ records:
       - workflow/apk-analysis/execution-flow.md
       - workflow/apk-analysis/execution-flow.yaml
     candidate_sources:
+      - analysis/apk/workflows/il2cpp-runtime-contract-validation.md
       - analysis/apk/workflows/unity-asset-parse-flow.md
       - knowledge/summaries/unity-fx.md
     source_of_truth_gate: new-layer-promoted

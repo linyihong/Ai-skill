@@ -14,3 +14,5 @@
 | `2026-05-01_114300-local-proxy-handler-uri-hook.md` | candidate | Local proxy handler URI hook | 本機 proxy handler URI hook 要點 |
 | `2026-04-30_120010-本機-loopback-proxyserver-轉發會讓-wi-fi-http-mitm-看不到業務-connect.md` | candidate | Loopback ProxyServer hides Wi-Fi MITM CONNECT | loopback 轉發會讓 Wi-Fi HTTP MITM 看不到業務 CONNECT |
 | `2026-04-30_120009-內建-sing-box-tun-類通道可能繞過-wi-fi-系統代理.md` | candidate | Built-in TUN may bypass Wi-Fi system proxy | TUN 類通道可能繞過系統代理 |
+
+2026-10-26：已覆核 10/16–10/26 的本分類條目，補齊抽象化邊界與來源指標；candidate 狀態不因文字整理或入口接線而提升。

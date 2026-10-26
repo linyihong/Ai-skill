@@ -85,3 +85,5 @@
 | `2026-10-01_090000-ocr-join-token-seam-not-cumulative-script.md` | candidate | OCR join must use token seam not cumulative script | parts 已切、derived 黏：Latin\|Latin 必空格；禁止 cumulative mixed 否決；parts 不可被 text 覆蓋 |
 
 Total: 70
+
+2026-10-26：已覆核 10/16–10/26 的本分類條目，補齊抽象化邊界與來源指標；candidate 狀態不因文字整理或入口接線而提升。

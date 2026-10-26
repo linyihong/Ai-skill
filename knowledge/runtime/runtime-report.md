@@ -11,7 +11,7 @@
 | Model context report | [`model-context-report.md`](model-context-report.md) | generated view |
 | Model checklists | [`model-checklists.md`](model-checklists.md) | generated view |
 | SQLite runtime index | [`sqlite/`](sqlite/) | generated lookup cache prototype |
-| Summaries | [`../summaries/`](../summaries/) | 29 files |
+| Summaries | [`../summaries/`](../summaries/) | 30 files |
 | Graph records | [`../graphs/`](../graphs/) | 35 files |
 
 ## Routing Records
@@ -91,6 +91,7 @@
 | --- | --- | --- | --- |
 | `architecture.apk-analysis-pilot` | `new-layer-promoted` | [`apk-analysis-pilot.md`](../summaries/apk-analysis-pilot.md) | `apk-analysis` 作為第一個 Workflow / Analysis / Intelligence 分離 pilot 的 migration map。新分層已 promoted：`workflow/apk-analysis/` 是端到端執行入口，`analysis/apk/` 保存可重用觀察、拆解與證據取得方法，`intelligence/engineering/analytical-reasoning/` 保存 reusable decision intelligence。 |
 | `intelligence.apk-highest-leverage-analysis` | `candidate` | [`apk-highest-leverage-analysis.md`](../summaries/apk-highest-leverage-analysis.md) | APK 分析 checkpoint 應先界定未知，再依 time-to-evidence、語意距離、安全性與 validation clarity 選擇最高收益路線。 |
+| `apk.workflows` | `candidate` | [`apk-workflows.md`](../summaries/apk-workflows.md) | APK 分析依證據選 Frida、proxy 或資產方法。IL2CPP 空回傳先核對 ABI／參數型別；共用 hook 建立目標×階段矩陣；fixture 的展示窗口與完整 runtime 形狀分開，合法 sparse 不任意補值。 |
 | `intelligence.architectural-fit` | `candidate` | [`architectural-fit.md`](../summaries/architectural-fit.md) | Architecture selection 先評估 business complexity、invariant density、integration pressure、lifecycle 與 team boundary，再選 CRUD、DDD Lite、Full DDD、event-driven 或 microservices。DDD 是 selectable architecture strategy，不是 runtime invariant。 |
 | `architecture.context-cost-optimization` | `validated` | [`context-cost-optimization.md`](../summaries/context-cost-optimization.md) | Token 成本優化規劃。Phase 1（立即省錢）：Bootstrap 極小化（~800 tokens）、README 拆分、Rule lazy-load、Summary layer。Phase 2（架構升級）：Runtime Context Router、Context Cost Metadata、Skill Index、Context TTL。Phase 2.5（規範層已實作）：Provider Prompt Cache Alignment，定義 stable prefix / volatile suffix 與 provider cache metadata。Phase 3（長期）：Semantic Retrieval、Episodic Memory、Multi-model Routing。 |
 | `workflow.software-delivery` | `validated` | [`development-guidance.md`](../summaries/development-guidance.md) | 將授權 App/API/Embedded/Firmware 觀察轉成開發 guidance、實作模式、控制項、檢查清單。software-delivery 入口已切成 focused loading surfaces：`intake.md`（需求/變更/parity/backfill）、`contracts.md`（contract governance/traceability）、`test-strategy.md`（BDD/test strategy）、`validation.md`（validation/performance gate）、`closure.md`（DoR/DoD/lesson feedback）、`surgical-changes.md`（diff purity）。原 `skills/app-development-guidance/` 已刪除，所有內容已遷移至新分層。提供 5 個標準化輸出模板（change-brief / contract / bdd-scenario / implementation-plan / review-report），位於 `workflow/software-delivery/templates/`。另提供 Greenfield 標準化流程（`workflow/greenfield/`）與 Slash Command 模式（`ai-tools/slash-commands.md`）。 |
@@ -125,7 +126,7 @@
 | --- | --- | --- | --- | --- |
 | `graph.analysis-layers` | `analysis/README.md` | `candidate` | 22 | [`analysis-layers.yaml`](../graphs/analysis-layers.yaml) |
 | `graph.analysis-repo-methods` | `analysis/repo/README.md` | `candidate` | 6 | [`analysis-repo-methods.yaml`](../graphs/analysis-repo-methods.yaml) |
-| `graph.apk-analysis-pilot` | `plans/archived/2026-05-11-1129-apk-analysis-pilot-migration.md` | `new-layer-promoted` | 15 | [`apk-analysis-pilot.yaml`](../graphs/apk-analysis-pilot.yaml) |
+| `graph.apk-analysis-pilot` | `plans/archived/2026-05-11-1129-apk-analysis-pilot-migration.md` | `new-layer-promoted` | 17 | [`apk-analysis-pilot.yaml`](../graphs/apk-analysis-pilot.yaml) |
 | `graph.apk-highest-leverage-analysis` | `intelligence/engineering/analytical-reasoning/highest-leverage-analysis-path.md` | `candidate` | 4 | [`apk-highest-leverage-analysis.yaml`](../graphs/apk-highest-leverage-analysis.yaml) |
 | `graph.capability-context` | `governance/cognitive-stance.md` | `candidate` | 8 | [`capability-context.yaml`](../graphs/capability-context.yaml) |
 | `graph.cognitive-modes` | `runtime/cognitive-modes.yaml` | `active` | 13 | [`cognitive-modes.yaml`](../graphs/cognitive-modes.yaml) |

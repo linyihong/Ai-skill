@@ -110,3 +110,5 @@ Workflow 的 refinement 使用以下方式追蹤變更：
 - `governance/validation/`：Refinement 完成後需通過 validation gates。
 - `knowledge/indexes/README.md`：Refinement 可能影響 routing，需更新 index。
 - `knowledge/runtime/routing-registry.yaml`：Refinement 可能影響 registry 記錄。
+
+近期實際覆核：[2026-10-26 回饋抽象化審查](2026-10-26-recent-feedback-abstraction-audit.md)，範圍為 10/16–10/26 共 12 條，逐條記錄問題、方法承接與驗證限制。

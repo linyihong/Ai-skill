@@ -16,7 +16,9 @@ Agent 跳過 Abstraction Gate，直接把柜机名、產品名、sample id、裝
 1. **未抽象化** — Generalized Lesson 仍綁定單一產品／柜机／樣本。
 2. **假去敏** — 刪了絕對路徑，但仍用可識別專案專名當規則主詞。
 3. **錯層** — 把只適用於一個 target 的 runbook 當成 technique lesson 推進 `feedback/history/`。
-4. **漏檢查** — 沒填 `#### Abstraction Check`，或自評 FAIL 仍試圖 commit。
+4. **形式 PASS** — 寫了 Swap-project PASS，但正文仍依賴專案腳本、章節號、固定資料形狀或無條件修法。
+5. **證據混淆** — 同專案修正成功或方法已接入口，卻冒充獨立重用驗證。
+6. **漏檢查** — 沒填 `#### Abstraction Check`，或自評 FAIL 仍試圖 commit。
 
 ## Risk
 
@@ -31,7 +33,8 @@ Agent 跳過 Abstraction Gate，直接把柜机名、產品名、sample id、裝
 3. 跑四步 Abstraction Gate；`Swap-project test: FAIL` → 只更新專案文件，不開／不改共用 lesson。
 4. `PASS` 時重寫 One-line Summary／Generalized Lesson／Applies 邊界為中性詞，Evidence 只留摘要＋`<PROJECT_ROOT>/…`。
 5. 填完整 `#### Abstraction Check` 三行；提交時讓 KGE `feedback-lesson-closure` 通過。
-6. 若問題是「agent 反覆忘記抽象化」而不只是單次內容錯誤，更新本 pattern 或相關 checklist，勿只改那一條 lesson。
+6. 依 feedback-lessons 的「自評 PASS 的實質檢查」，重建輸入、機制、決策與反例；不把一次修法當跨專案必要步驟。
+7. 若問題是「agent 反覆忘記抽象化」而不只是單次內容錯誤，更新本 pattern 或相關 checklist，勿只改那一條 lesson。
 
 ## Prevention Gate
 
@@ -57,3 +60,7 @@ Agent 跳過 Abstraction Gate，直接把柜机名、產品名、sample id、裝
 - [`sanitization.md`](../sanitization.md) / [`sanitization-mechanical.md`](../sanitization-mechanical.md)
 - [`skill-local-feedback-bypass.md`](skill-local-feedback-bypass.md)（漏做 failure-learning 的 complementary pattern）
 - KGE：`scripts/ai-skill-cli/portable/kge/rule_feedback_lesson_closure.go`（Abstraction Check）
+
+## 審查邊界
+
+格式 gate 只驗證結構，不能證明語意抽象化。對已存在的條目也須讀正文、核對狀態與方法承接位置；結果應分開報告「格式通過」「可攜性推演」「獨立實測」，不把其中一項代替其他項。

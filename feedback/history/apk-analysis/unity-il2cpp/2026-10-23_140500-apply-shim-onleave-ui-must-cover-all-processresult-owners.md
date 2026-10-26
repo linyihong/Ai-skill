@@ -1,85 +1,80 @@
-> 遵守 [共用規則索引](../../../enforcement/README.md)、[dependency-reading](../../../enforcement/dependency-reading.md)、[neutral-language](../../../enforcement/neutral-language.md)、[goal-action-validation](../../../enforcement/goal-action-validation.md) 與 [feedback-lessons](../../../feedback-lessons.md)；本檔只寫本條 lesson，不重複貼上共用政策全文。
+> 遵守 [共用規則索引](../../../../enforcement/README.md) 與 [回饋規則](../../../feedback-lessons.md)；專案原始證據留在來源專案。
 
-### 2026-10-23 - Apply-shim onLeave UI must cover all ProcessResult owners
+### 2026-10-23 - 共用 hook 的前後階段需明確覆蓋各目標
 
 Status: candidate
 
 #### Reuse Evidence
 
-尚未有獨立重用證據，維持 candidate。來源為多柜共用 Frida apply-shim；具體柜名留專案 lab。
+尚未有獨立重用證據，維持 candidate。本次文字整理與離線檢查不構成第二個專案的實測。
 
 #### One-line Summary
 
-多柜共用的 Frida `ProcessResult` Interceptor 若只在某一 owner 的 `onLeave` 跑 line-chip／celebration UI，其他柜會出現 `LAB_APPLIED`（Symbols／Payout 已 patch）卻永遠沒有 `LAB_LINE_CHIP_FX`／forcePaint。
+多目標共用 hook 必須分別驗證進入、返回與後續處理的適用範圍，避免只有資料更新、沒有預期後續行為。
 
 #### Human Explanation
 
-Apply-shim 常在 `onEnter` 對所有柜的 `ProcessResult` 寫 Symbols／Rewards／Payout，但 stampede／FS／line-chip 等「結果後 UI」習慣放在 `onLeave`。若 `onLeave` 用 `owner === OneCabinet` 閘住，第二、三柜只拿到盤面 patch，線獎／芯片 FX 路徑從不啟動——易被誤判成「Rewards 注入失敗」或「該柜沒有 LinePayoutModule」。
-
-先確認：`LAB_APPLIED` 是否出現、`onLeave` 是否對該 owner 呼叫 `tryLabUi`／等價函式、再查 Rewards dict 與 `FindLinePayoutModule`。
+擴充共用 hook 時，入口分派可能已涵蓋新目標，但返回後的 UI 或清理路徑仍只允許舊目標。這是生命週期分派缺口，不能只依入口命中或資料寫入成功判斷完成。
 
 #### Trigger
 
-- 柜 A 的 apply-shim 已能 `LAB_LINE_CHIP_FX`，柜 B 只有 `LAB_APPLIED`
-- `openLineChipFx`／forcePaint fixture 旗標已開，仍無 line-chip 事件
-- 程式碼搜尋 `onLeave` 只比對單一 `owner` 字串
+- 新目標有入口／寫入事件，卻沒有預期的返回後事件。
+- 共用 hook 的不同階段分別使用硬編碼 owner 條件。
 
 #### Evidence
 
-- Tool: Frida apply-shim Interceptor on `ProcessResult` enter/leave
-- Sanitized excerpt: enter 對多 owner hook；leave 僅 `OneCabinet` → 他柜缺 `LAB_LINE_CHIP_FX`
-- Evidence path: `<PROJECT_ROOT>/docs/lab/` apply-shim 笔记；柜机 lab README
+- Tool: 來源專案既有分析／驗證紀錄；本輪未重跑其執行環境。
+- Sanitized excerpt: 多個 UI component 或非遊戲資料處理器共用 interceptor 時，也能以目標×階段矩陣找出分派缺口。
+- Evidence path: `<PROJECT_ROOT>/` 的受控分析與驗證紀錄；不複製原始物件、樣本或部署紀錄。
 
 #### Generalized Lesson
 
-1. **Apply 與 UI 分閘**：`onEnter` patch 與 `onLeave` celebration 的 owner 集合必須一致（或 leave 用「任一已 hook 的 ProcessResult」）。
-2. **新柜注册 hook 时**：同时检查 leave UI 闸，不要只加 enter 的 `maybeApply`。
-3. **排障顺序**：`LAB_APPLIED` → leave 事件／`LAB_LINE_CHIP_FX` → Rewards dict → LinePayoutModule 查找。
-4. **Rewards null ≠ 无 FX 路径**：forcePaint／ShowPreview 可在 leave 补救；前提是 leave 有跑。
+1. 建立目標×階段矩陣：resolved、enter、leave、後續行為、清理。
+2. 各階段以 capability／契約分派，明示哪些目標應執行、哪些刻意排除。
+3. 集合不必永遠相等；但每個差異須有理由，不能因複製舊目標條件而靜默漏掉。
+4. 先定位首個缺失階段，再追資料或 renderer；不要把缺失 callback 誤判成資料模型錯誤。
 
 #### Agent Action
 
-- 扩展共用 shim 时：对所有 `ProcessResult` owners 跑 leave UI，或抽 `isResultApplyOwner(h)`。
-- 复测：第二柜 fixture `openLineChipFx=true` 必须出现 line-chip 事件（或明确模块查找失败，而不是静默）。
-- 不要把单一柜的 stampede-only leave 闸当成全库默认。
+先辨識輸入契約與前置條件，再依本條決策；不照搬來源專案的函式名、腳本路徑、固定數字或狀態碼。記錄採用／不適用的理由。
 
 #### Goal / Action / Validation
 
-- Goal: 多柜 apply-shim 在 Symbols patch 后也能进入线奖 FX 路径
-- Action: leave UI 覆盖所有 ProcessResult owners
-- Validation or reference source: 第二柜 log 含 `LAB_LINE_CHIP_FX` 或等价步骤表
+- Goal: 多目標共用 hook 必須分別驗證進入、返回與後續處理的適用範圍，避免只有資料更新、沒有預期後續行為。
+- Action: 依 Generalized Lesson 記錄輸入、決策與反例。
+- Validation or reference source: 至少對兩種契約情境驗證完整階段與明確排除；有失敗時要回報缺失階段，而非只有總命中數。
 
 #### Applies When
 
-- 共用 Frida apply-shim / lab host 挂多个 `Slots*.ProcessResult`
-- 线奖／chip／celebration 依赖 ProcessResult leave
+- 多個型別／物件共享 hook，後續動作依目標能力有所不同。
 
 #### Does Not Apply When
 
-- 仅单柜专用 script，无多 owner 共享 Interceptor
-- FX 完全由原生 Rewards 驱动且不走 leave forcePaint
+- 單一專用目標，或經契約確認某目標不需要返回後動作。
 
 #### Validation
 
-- 至少两个 owner：enter 都有 `LAB_APPLIED`，leave 都有 UI 事件或明确失败步骤
-- Code review：`onLeave` 无单一柜硬编码闸（除非注释说明 stampede-only）
+至少對兩種契約情境驗證完整階段與明確排除；有失敗時要回報缺失階段，而非只有總命中數。
 
 #### Promotion Target
 
-- `feedback/history/apk-analysis/unity-il2cpp/`（本条）
-- 专案 apply-shim 注释／lab README（已／应同步）
+[analysis/apk/workflows/il2cpp-runtime-contract-validation.md](../../../../analysis/apk/workflows/il2cpp-runtime-contract-validation.md)。
 
 #### Promotion Record
 
-尚未 promotion；保留为 candidate history。
+2026-10-26：抽象化整理並接到上述方法／入口；這是候選指引的連結，不宣告 validated／promoted，也不新增獨立重用證據。
 
 #### Required Linked Updates
 
-- 专案 apply-shim：leave 覆盖多 ProcessResult owner（本轮已改）
-- category README 索引追加本条
+- 本分類 README 與上述方法／入口已檢查並同步。
+- 索引與 RAG 經 runtime refresh 重建；原始專案證據不搬入共用庫。
 
 #### Abstraction Check
 
-- Swap-project test: PASS — any multi-cabinet Frida ProcessResult apply-shim must run leave UI for every hooked owner, not only the first cabinet that needed stampede
-- Project evidence kept in: `<PROJECT_ROOT>/docs/` cabinet lab notes（apply-shim A/B）
+- Swap-project test: PASS — 多個 UI component 或非遊戲資料處理器共用 interceptor 時，也能以目標×階段矩陣找出分派缺口。
+- Project evidence kept in: `<PROJECT_ROOT>/` 的受控驗證紀錄。
 - Product/cabinet/sample IDs absent from Generalized Lesson: PASS
+
+#### 修訂 2026-10-26
+
+依近期回饋審查，把原先依賴專案術語或操作細節的敘述改為輸入、機制、決策與驗證；修訂前內容可由 Git 歷史追溯。Status 保守維持 candidate。

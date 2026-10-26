@@ -1,80 +1,80 @@
-> 遵守 [共用規則索引](../../../enforcement/README.md)、[dependency-reading](../../../enforcement/dependency-reading.md)、[neutral-language](../../../enforcement/neutral-language.md)、[goal-action-validation](../../../enforcement/goal-action-validation.md) 與 [feedback-lessons](../../feedback-lessons.md)；本檔只寫本條 lesson，不重複貼上共用政策全文。
+> 遵守 [共用規則索引](../../../../enforcement/README.md) 與 [回饋規則](../../../feedback-lessons.md)；專案原始證據留在來源專案。
 
-### 2026-10-23 - Unity iface analysis techniques stay in Ai-skill; HTML report scripts stay in the business repo
+### 2026-10-23 - 分析方法與專案報告實作分開維護
 
-Status: validated
+Status: candidate
 
 #### Reuse Evidence
 
-使用者糾正：要分享到 Ai-skill 的是 **Unity 分析技巧**；`interface-analysis` HTML 生產器屬於業務專案。隨後在業務 repo 補上 `generate_interface_analysis.py`（對齊 buffalo 薄骨架），並把本 lesson／`unity-asset-parse-flow.md` 改成明確邊界，避免把專案 CLI 寫成 Ai-skill 義務。
+尚未有獨立重用證據，維持 candidate。本次文字整理與離線檢查不構成第二個專案的實測。
 
 #### One-line Summary
 
-Ai-skill 只沉澱 UnityCache／UnityPy／粒子成熟度／seated-vs-splash 等**分析技巧**；§3e HTML／atlas CLI 留在業務 `scripts/`，缺了就在業務 repo 補生產器，不要把專案腳本路徑 promote 成通用 workflow 清單。
+共用庫保存證據取得與驗證方法；專案的報告生成器、版型、manifest 與命令契約留在專案。
 
 #### Human Explanation
 
-先前誤把「業務 onboarding 的 Pass-5 腳本表」寫進 Ai-skill，好像那些 `.py` 是跨專案標準。正確分層：
-
-| 層 | 放什麼 |
-| --- | --- |
-| **Ai-skill** | UnityPy 盤點、ParticleSystem host／material、成熟度標籤、進桌優先於 splash、勿把進桌當 hero |
-| **業務 repo** | `generate_interface_analysis.py`、`generate_symbol_map.py`、atlas／resolve／merge／thumbs、具體 HTML 契約 |
-
-缺 HTML 生產器時：在業務 repo 依既有參考包（薄骨架／深度手寫）補腳本並 regenerate，**不是**在 Ai-skill 假裝已有一鍵工具。
+把某個報告生成器的名稱、外觀或章節號寫成跨專案必跑規則，會讓沒有該工具的專案無法套用方法。工具存在與否也不應改變證據品質要求。
 
 #### Trigger
 
-- 使用者說「技巧是 Unity 分析；HTML 腳本是業務專案的」。
-- Agent 把專案 `scripts/slots/*.py` 路徑寫進 Ai-skill workflow 當必跑清單。
-- §3e 交件是手搓淺色 stub，與參考包視覺不一致，且業務其實缺／漏跑 HTML 生成器。
+- 回饋正文要求執行某專案的固定腳本或固定報告版型。
+- 只有一個專案的修正成功，卻被標成跨專案 validated。
 
 #### Evidence
 
-- Tool: 業務 `generate_interface_analysis.py`（對齊 buffalo dark shell）；Ai-skill workflow 邊界改寫。
-- Sanitized excerpt: Unity techniques ≠ project HTML CLI；missing generator → add in business repo from reference packages.
-- Evidence path: `<AI_SKILL_REPO>/analysis/apk/workflows/unity-asset-parse-flow.md`；業務 `<PROJECT_ROOT>/scripts/slots/generate_interface_analysis.py`（名稱因專案而異）。
+- Tool: 來源專案既有分析／驗證紀錄；本輪未重跑其執行環境。
+- Sanitized excerpt: 另一個使用不同報告格式或沒有生成器的 Unity 專案，仍能依相同證據門檻工作。
+- Evidence path: `<PROJECT_ROOT>/` 的受控分析與驗證紀錄；不複製原始物件、樣本或部署紀錄。
 
 #### Generalized Lesson
 
-1. **Feedback 到 Ai-skill = 可重用分析判斷**，不是拷貝專案腳本 API。
-2. **報告 HTML／驗證 CLI 屬專案**：缺了就在專案補；參考薄／深兩類既有頁面。
-3. **Unity 技巧可跨專案**：UnityPy counts、粒子參數、成熟度、seated batch（見同目錄 101000／102500）。
-4. **契約欄位（inheritsShared 等）**若是專案 onboarding 硬規則，寫在專案 docs；Ai-skill 只抽象「分開 shared chrome vs cabinet delta」。
+1. 先寫方法的輸入、輸出、證據來源與品質門檻。
+2. 在來源專案選擇或實作符合當地契約的報告工具；不把具體腳本 API 複製成共用義務。
+3. 只有需要跨專案相容性的欄位才另建通用 schema；不能因來源專案存在 manifest 就推定全庫必填。
+4. 分開記錄「已抽象／已接入口」與「已獨立重用驗證」，前者不自動提升 lifecycle。
 
 #### Agent Action
 
-寫 Ai-skill lesson 前先問：這是 Unity／Frida **方法**，還是專案 **腳本路徑**？方法→feedback／workflow；腳本→業務 repo。§3e 交件前查業務是否已有 HTML 生成器；沒有就補，有就跑，禁止無契約 stub。
+先辨識輸入契約與前置條件，再依本條決策；不照搬來源專案的函式名、腳本路徑、固定數字或狀態碼。記錄採用／不適用的理由。
 
 #### Goal / Action / Validation
 
-- Goal: 技巧分層正確；業務有可用的 §3e HTML 生產器。
-- Action: 修正本 lesson + workflow 邊界；業務新增／執行 `generate_interface_analysis.py`。
-- Validation: Ai-skill 正文無強制專案腳本檔名清單；業務 `--check` 對生成 HTML 通過；參考包可 `handMaintained`。
+- Goal: 共用庫保存證據取得與驗證方法；專案的報告生成器、版型、manifest 與命令契約留在專案。
+- Action: 依 Generalized Lesson 記錄輸入、決策與反例。
+- Validation or reference source: 拿掉所有專案腳本名、章節號與版型描述後，另一個專案仍能說明如何取得與驗證同類證據。
 
 #### Applies When
 
-- Unity IL2CPP／UnityCache UI／粒子分析要沉澱到 Ai-skill，且業務另有報告殼。
+- 從專案分析／報告工具提取共用方法。
 
 #### Does Not Apply When
 
-- 純業務腳本 bugfix，無跨專案方法可抽。
+- 純專案工具操作手冊；此時直接留在專案文件。
 
 #### Validation
 
-新 lesson／workflow 若出現具體 `scripts/slots/<name>.py` 當「全庫必跑」，視為邊界違規，改為「執行業務專案既有報告腳本」。
+拿掉所有專案腳本名、章節號與版型描述後，另一個專案仍能說明如何取得與驗證同類證據。
 
 #### Promotion Target
 
-- [`analysis/apk/workflows/unity-asset-parse-flow.md`](../../../analysis/apk/workflows/unity-asset-parse-flow.md)（Unity vs 業務腳本邊界）
-- 業務 onboarding／`scripts/` README（HTML 生產器；非 Ai-skill 路徑）
+[analysis/apk/workflows/unity-asset-parse-flow.md](../../../../analysis/apk/workflows/unity-asset-parse-flow.md)。
 
 #### Promotion Record
 
-2026-10-23：workflow 改為邊界說明；業務補 `generate_interface_analysis.py` 並 regenerate 目標機台。本檔由「無一鍵生成器」改寫為「分層＋缺則在業務補」。
+2026-10-26：抽象化整理並接到上述方法／入口；這是候選指引的連結，不宣告 validated／promoted，也不新增獨立重用證據。
 
 #### Required Linked Updates
 
-- Updated: 本 lesson；`unity-asset-parse-flow.md`；`feedback/history/apk-analysis/unity-il2cpp/README.md`
-- Updated (business repo): `scripts/slots/generate_interface_analysis.py`、onboarding §3e、目標機台 HTML
-- Not applicable: enforcement failure-pattern（一次分層誤寫，lesson 已吸收）
+- 本分類 README 與上述方法／入口已檢查並同步。
+- 索引與 RAG 經 runtime refresh 重建；原始專案證據不搬入共用庫。
+
+#### Abstraction Check
+
+- Swap-project test: PASS — 另一個使用不同報告格式或沒有生成器的 Unity 專案，仍能依相同證據門檻工作。
+- Project evidence kept in: `<PROJECT_ROOT>/` 的受控驗證紀錄。
+- Product/cabinet/sample IDs absent from Generalized Lesson: PASS
+
+#### 修訂 2026-10-26
+
+依近期回饋審查，把原先依賴專案術語或操作細節的敘述改為輸入、機制、決策與驗證；修訂前內容可由 Git 歷史追溯。Status 保守維持 candidate。

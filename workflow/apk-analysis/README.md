@@ -57,3 +57,5 @@
 - `skills/apk-analysis/` 是原始 skill 目錄，內容已全部遷移至本層，舊目錄已刪除。
 
 Unity 動畫／特效有視覺缺口時，載入 [驅動追蹤](../../analysis/apk/workflows/unity-fx-driver-trace.md)。先檢查 feature FX 與資料，再按證據升級；同 fixture 的事件與工作幀才支撐 driver 結論。
+
+IL2CPP 空回傳、共用 hook 階段缺失與展示 fixture／完整 runtime 結構不一致時，載入 [契約驗證](../../analysis/apk/workflows/il2cpp-runtime-contract-validation.md)；具體欄位、座標與填值政策留在專案。

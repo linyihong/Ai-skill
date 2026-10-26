@@ -71,3 +71,5 @@ Discovery Bridge 仍是 advisory，不因此自動啟用或略過授權／來源
 - [Il2CppDumper 產物與匯入腳本](https://github.com/Perfare/Il2CppDumper)
 - [PlayableDirector.Evaluate](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Playables.PlayableDirector.Evaluate.html)
 - [既有 feature FX candidate lesson](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-26_100652-animator-play-visual-gap-use-feature-fx-api-not-timeline-first.md)；其 promotion 狀態維持 candidate，本流程加入方法與驗證要求，並不新增獨立實測證據。
+
+呼叫結果或 fixture 結構未對齊時，先讀 [IL2CPP 執行契約驗證](il2cpp-runtime-contract-validation.md)，再把視覺缺口歸因到 driver；適用範圍不同的目標不強制共用所有 UI 後處理。

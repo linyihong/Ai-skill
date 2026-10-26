@@ -42,7 +42,7 @@
 
 ## Generated Surface
 
-本目錄的 4 個操作流程已由 [`scripts/ai-skill-cli/internal/app/runtime_compiler.go`](../../scripts/ai-skill-cli/internal/app/runtime_compiler.go) 編譯為 [`generated-phases.yaml`](generated-phases.yaml)，包含：
+本目錄的 4 個操作流程已由 [`scripts/ai-skill-cli/internal/app/runtime_compiler.go`](../../../scripts/ai-skill-cli/internal/app/runtime_compiler.go) 編譯為 [`generated-phases.yaml`](generated-phases.yaml)，包含：
 
 - 各 workflow 的步驟定義（step title + source line）
 - 前置準備項目（prerequisites）
@@ -55,10 +55,14 @@
 領域層的 generated surface 跟隨 source 目錄。
 
 相關連結：
-- [`workflow/apk-analysis/execution-flow.md`](../../workflow/apk-analysis/execution-flow.md) — 端到端 agent 執行流程
-- [`runtime/runtime.db`](../../runtime/runtime.db) — 系統層 generated surface（SQLite，取代 `runtime/generated/`）
-- [`runtime/routing/`](../../runtime/routing/) — Runtime routing 流程
+- [`workflow/apk-analysis/execution-flow.md`](../../../workflow/apk-analysis/execution-flow.md) — 端到端 agent 執行流程
+- [`runtime/runtime.db`](../../../runtime/runtime.db) — 系統層 generated surface（SQLite，取代 `runtime/generated/`）
+- [`runtime/`](../../../runtime/README.md) — Runtime routing 流程
 
 ## Unity 動畫／特效缺口
 
 `Animator.Play` 命中但目標視覺缺失時，讀 [驅動追蹤](unity-fx-driver-trace.md)：先 feature FX／payload，再依證據查 Playables、粒子、Transform 或 Native。
+
+## IL2CPP 契約與生命週期
+
+空回傳、多目標 hook 後續行為缺失、fixture 寫入不完整時，讀 [IL2CPP 契約驗證](il2cpp-runtime-contract-validation.md)。方法不固定 owner 類名、補值窗口或延遲重寫策略。

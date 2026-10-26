@@ -46,3 +46,5 @@
 - `./feedback-lessons.md`
 - ✅ `skills/*/feedback_history/`（已於 2026-05-13 全部搬遷至 `feedback/history/`，舊目錄已刪除）
 - `plans/archived/2026-05-11-1112-next-stage-upgrade-plan.md` 的 Intelligence Feedback Loop
+
+近期實際覆核：[2026-10-26 回饋抽象化審查](refinement/2026-10-26-recent-feedback-abstraction-audit.md)，範圍為 10/16–10/26 共 12 條，逐條記錄問題、方法承接與驗證限制。

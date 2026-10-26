@@ -11,7 +11,7 @@
 - 目標含：Sprite／Texture2D、Spine TextAsset、**ParticleSystem**、Animator、Prefab hierarchy。
 - 使用者問「能不能用 Il2CppDumper／AssetRipper／AssetStudio 還原粒子／特效」。
 
-## 工具分工（固定優先序）
+## 工具分工（依證據目標與版本支援選擇）
 
 | 優先 | 工具 | 產出 | 粒子／特效 |
 | --- | --- | --- | --- |
@@ -22,42 +22,25 @@
 
 **預設不要**為了「看粒子」先開 AssetStudio。先 UnityPy 確認 bundle 內有 `ParticleSystem` + material／texture 名；若要進 Editor 重播再跑 AssetRipper。
 
-## Seated §3e batch（裝置已進桌時）
+## 已到達 checkpoint 的取證順序
 
-當使用者要補 interface／疊層分析、且手機**已經 seated**時：
+1. 驗證目前功能／場景與物件身分，先取得當前可觀測窗口的畫面、資產 inventory、component／material／texture 關係。
+2. 未捕獲的入場／過場獨立標 `not-captured-this-session`；不可借用當前背景宣稱另一窗口已還原。若完整入場是驗收條件，仍須補拍。
+3. 以實際引用定位功能包與共用包；名稱前綴與包位置只提供搜尋線索，不是固定規則。
+4. 報告檔名、層數、manifest、HTML 版型及生成腳本由專案契約決定；共用方法只要求身分可追溯、證據與宣稱一致。
+5. 原始證據、報告實作與可重用方法分層維護；提交頻率遵守各 repo 的交付規則。
 
-1. **先進桌線**：screencap → 遮罩金額 → pull `__data` → UnityPy inventory + ParticleSystem dump → L0–Ln resource map + layer HTML。
-2. **入場線可 stub**：標 `not-captured-this-session`；只連 shared choose-category chrome + lobby tile；**不要**把進桌背景當 splash hero。
-3. **線獎 material**：先讀 feature pack 的 `*_line_payout*`／`coins_fx` materials；可能是 cabinet-prefixed，勿假設只有 shared common 貼圖名。
-4. **成熟度**：停輪只有參數 → `params-from-bundle`；未見播映勿標 `live-matched`。
-5. **分段 commit／push**：業務 docs 一段；可重用技巧另 commit 到 feedback／本 workflow。
-
-Lesson：[`../../feedback/history/apk-analysis/unity-il2cpp/2026-10-23_102500-slot-iface-analysis-seated-unitypy-batch-and-commit-cadence.md`](../../feedback/history/apk-analysis/unity-il2cpp/2026-10-23_102500-slot-iface-analysis-seated-unitypy-batch-and-commit-cadence.md)。
-
-## Unity 分析 vs 業務 HTML 報告腳本（邊界）
-
-**本檔／Ai-skill 只沉澱 Unity 分析技巧**（UnityPy 盤點、ParticleSystem 參數、成熟度標籤、seated vs splash、Frida SpriteName 策略）。
-
-**業務 repo 的 HTML／atlas CLI**（例如 `generate_interface_analysis.py`、`export_sprite_atlas_manifest.py`）留在該專案 `scripts/`，**不要**把專案腳本路徑或產出檔名當成 Ai-skill 通用義務。
-
-Agent 行為（跨專案可重用）：
-
-1. UnityCache `__data` → UnityPy counts + ParticleSystem host／material（本 workflow 步驟）。
-2. 進桌／入場平面分開標記；splash deferred 時勿把進桌背景當 hero。
-3. 成熟度：`params-from-bundle` ≠ `live-matched`。
-4. 若業務專案**另有** interface HTML 生產器／Pass-5 atlas 管線：在該專案 onboarding／`scripts/` README 執行；Ai-skill 只要求「用專案既有報告殼，勿手搓無契約 stub」。
-
-Lesson（邊界修正）：[`../../feedback/history/apk-analysis/unity-il2cpp/2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md`](../../feedback/history/apk-analysis/unity-il2cpp/2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md)。
+來源候選：[checkpoint 取證](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-23_102500-slot-iface-analysis-seated-unitypy-batch-and-commit-cadence.md)、[方法與報告邊界](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-23_103000-slot-iface-no-oneshot-generator-use-companion-scripts.md)。
 
 ## 步驟
 
 ### 1. 取得 `__data`
 
 1. 裝置已進入目標功能（機台／頁面），確認 `UnityCache/Shared/<bundle>/<hash>/` 存在。
-2. `adb pull` 該 hash 的 `__data` 到專案 gitignored 目錄（例 `slot/from-cache/`）。
+2. `adb pull` 該 hash 的 `__data` 到專案 gitignored 目錄（名稱由專案決定）。
 3. 記錄 `bundle` slug 與 hash；不要把全文 dump commit。
 
-### 2. UnityPy 盤點（必做）
+### 2. 序列化資產盤點（預設使用 UnityPy）
 
 1. `UnityPy.load(__data)`，統計 `ParticleSystem`／`ParticleSystemRenderer`／`Texture2D`／`Sprite`／`AnimationClip`／`TextAsset` 等 counts。
 2. 匯出粒子相關 Texture／Sprite PNG（名稱常含 `particle`、`coins`、`firework`、`payout`）。
@@ -70,7 +53,7 @@ Lesson（邊界修正）：[`../../feedback/history/apk-analysis/unity-il2cpp/20
 ### 3. Live 對照（特效正在播時）
 
 1. `adb screencap`（金額可裁切／遮罩後再進 docs）。
-2. Frida：優先 `GameObject.Find`／已知 path（`coins_fx`、`sparks*`、`arc_fx*`、`particles`）；避免無界 `FindObjectsOfTypeAll` 卡住主執行緒。
+2. Frida：優先 `GameObject.Find`／已知 path（由盤點結果選取）；避免無界 `FindObjectsOfTypeAll` 卡住主執行緒。
 3. 記錄 `isPlaying`／active 的 GO 名，對上步驟 2 的 host 名。
 4. 截圖只證明 visibility；身分以 GO／material／texture 名為準。
 
@@ -102,7 +85,7 @@ Lesson（邊界修正）：[`../../feedback/history/apk-analysis/unity-il2cpp/20
 | `editor-replayable` | AssetRipper 匯入後可在 Editor 目視重播 |
 | `game-wired` | 另接上 spin／線獎觸發（超出本流程） |
 
-線獎飛幣／火花常見停在 `params-from-bundle` + `live-matched`；`editor-replayable` 需 AssetRipper；`game-wired` 屬 lab／worker，不是 dump 工具責任。
+上述是各自需證據的狀態，不是固定線性階梯；Editor 重播不自動證明 runtime 匹配，runtime 匹配也不自動證明可重播。`game-wired` 另需業務觸發鏈證據。
 
 ## 失敗判讀
 
@@ -112,7 +95,7 @@ Lesson（邊界修正）：[`../../feedback/history/apk-analysis/unity-il2cpp/20
 | 只有貼圖、以為「粒子還原完了」 | 缺 Emission／Shape／Renderer material | 補讀模組；必要時 AssetRipper |
 | AssetStudio 看不到粒子曲線 | 工具偏貼圖瀏覽 | 改 UnityPy／AssetRipper |
 | Il2CppDumper 後仍無 FX 圖 | 錯工具 | 回 UnityCache `__data` |
-| Live 有光效但 bundle 無同名 texture | 共用 pack（例 `slots.common`）或 runtime atlas | 另拉 common／Frida material 名 |
+| Live 有光效但 bundle 無同名 texture | 共用 pack或 runtime atlas | 另拉 common／Frida material 名 |
 
 ## 產出格式
 
@@ -123,6 +106,6 @@ Lesson（邊界修正）：[`../../feedback/history/apk-analysis/unity-il2cpp/20
 
 - [`../tools-and-failures.md`](../tools-and-failures.md)
 - Feedback：`slot-three-visual-planes-and-in-cabinet-anim-stack`、`unity-feature-art-lives-in-unitycache-not-apk`
-- Agent orchestration：[`../../workflow/apk-analysis/execution-flow.md`](../../workflow/apk-analysis/execution-flow.md)
+- Agent orchestration：[`../../workflow/apk-analysis/execution-flow.md`](../../../workflow/apk-analysis/execution-flow.md)
 
 動畫已播放但視覺仍缺失時，改讀 [Unity 驅動追蹤](unity-fx-driver-trace.md)，從 feature FX API 查到資料／Playables／Native；資產參數本身不證明觸發鏈。

@@ -28,6 +28,18 @@
 
 機械檢查／opt-out：`ai-skill` commit-msg／push 的 `feedback-lesson-closure`；整條 closure 的 trailer 仍是 `[skip-feedback-lesson-closure]`（僅回顧例外，須在 commit body 說明原因）。
 
+### 自評 PASS 的實質檢查
+
+`Swap-project test: PASS` 是作者陳述，KGE 對欄位存在與格式的檢查不能證明語意可重用。審查正文時仍須核對：
+
+1. 能否寫出不含專案專名的「輸入／前置條件 → 原因機制 → 決策 → 可推翻的驗證」。只換名詞或刪路徑不算方法。
+2. 能否提出另一種不依賴原腳本、章節號、固定數字或範本的適用情境；這是可攜性推演，**不是**獨立重用實測證據。
+3. 原修法是否只是契約允許的一個選項。補值、延遲重寫、固定層數、部署 tag／帳本等不能直接升格為通用必要步驟；必須保留合法 sparse、刻意排除與已有平台等反例。
+4. `Promotion Target` 是否指向承接方法的 analysis／workflow／intelligence 或 enforcement，而非只指回自己的 history。可先連結 candidate 方法，但狀態與尚缺證據必須明示。
+5. 文件已接入口、同專案多樣本、使用者糾正或離線測試通過，均不自動滿足獨立重用證據；不符合既有 lifecycle gate 的 validated／promoted 須附修訂降級。
+
+定期審查需說明日期範圍與檔案數，逐條核對正文；不得只以全量 closure audit 的綠燈宣稱「已抽象化」。
+
 ## 條目放哪裡
 
 | 內容 | 位置 |
@@ -127,7 +139,7 @@
 注意：以下引用路徑以檔案位於 `feedback/history/<domain>/<category>/` 內為準；若檔案在 `feedback/history/<domain>/common/`，共用規則連結路徑相同。
 
 ```markdown
-> 遵守 [共用規則索引](../../../enforcement/README.md)、[dependency-reading](../../../enforcement/dependency-reading.md)、[neutral-language](../../../enforcement/neutral-language.md)、[goal-action-validation](../../../enforcement/goal-action-validation.md) 與 [feedback-lessons](../../feedback-lessons.md)；本檔只寫本條 lesson，不重複貼上共用政策全文。
+> 遵守 [共用規則索引](../../../../enforcement/README.md)、[dependency-reading](../../../../enforcement/dependency-reading.md)、[neutral-language](../../../../enforcement/neutral-language.md)、[goal-action-validation](../../../../enforcement/goal-action-validation.md) 與 [feedback-lessons](../../../feedback-lessons.md)；本檔只寫本條 lesson，不重複貼上共用政策全文。
 
 ### YYYY-MM-DD - [short title]
 

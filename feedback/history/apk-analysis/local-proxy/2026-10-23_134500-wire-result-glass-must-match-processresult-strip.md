@@ -1,93 +1,82 @@
-> 遵守 [共用規則索引](../../../enforcement/README.md)、[dependency-reading](../../../enforcement/dependency-reading.md)、[neutral-language](../../../enforcement/neutral-language.md)、[goal-action-validation](../../../enforcement/goal-action-validation.md) 與 [feedback-lessons](../../../feedback-lessons.md)；本檔只寫本條 lesson，不重複貼上共用政策全文。
+> 遵守 [共用規則索引](../../../../enforcement/README.md) 與 [回饋規則](../../../feedback-lessons.md)；專案原始證據留在來源專案。
 
-### 2026-10-23 - Wire RESULT GLASS must match ProcessResult strip window
+### 2026-10-23 - 回放資料必須符合消費端的完整結構契約
 
 Status: candidate
 
 #### Reuse Evidence
 
-尚未有獨立重用證據，維持 candidate。來源為同一類「AES game-TCP session-proxy rewrite + Unity ProcessResult strip」lab；具體柜机／样本留在專案 lab 筆記。
+尚未有獨立重用證據，維持 candidate。本次文字整理與離線檢查不構成第二個專案的實測。
 
 #### One-line Summary
 
-用 session-proxy／replay 強制 RESULT 時，GLASS 符號數必須對齊該柜 `ProcessResult` 的 `returnedRowRange`；只發可見窗（例如 5×3＝15）常會讓客戶端卡在停輪態，後續 BET 發不出。
+展示用 fixture 不一定是完整執行資料；寫入前必須對齊消費端的形狀、座標、缺值語意與生命週期。
 
 #### Human Explanation
 
-許多柜机的 live RESULT 不是「可見 5×3」而是帶上下緩衝列的 strip（常見 Row −2..4 → 35 cells）。Lab fixture 常只存 `visibleGrid` 方便 desk-match／對獎，若 builder 原樣編成 GLASS，wire 形狀就與 runtime `ProcessResult` 契約不一致。
-
-症狀容易被誤判成「缺 NOTIFY」「packet-id stamp 失敗」「presence-only PAYOUT=0 不夠」。先比對：live／capture 的 strip cell 數、fixture 實際發出的 `SYMBOLS V=` cell 數、以及 `plainLen`。
-
-即便 strip 對齊，部分柜（巨像／特殊 Spine 路徑）wire rewrite 仍可能卡轉——動畫猎取應改 apply-shim。但 **thin GLASS 是可先排除的硬錯誤**。
+同一份可見資料可能分別交給序列化／回放入口與另一個 adapter。消費端若還需要隱藏緩衝列或其他狀態，直接拷貝可見區會產生不完整更新；反過來任意補值，也可能破壞合法 sparse 或佔位編碼。
 
 #### Trigger
 
-- session-proxy `--rewrite-bets` 後第一手 `fixture_result` 成功，但 CTA 卡「停止」／不再發 `SLOTS_BET`
-- Lab fixture 宣告 `returnedRowRange` 為全高 strip，卻只有 `visibleGrid`
-- 同柜 apply-shim（記憶體內寫 Symbols）能 settle，wire RESULT 不能
+- fixture 只描述可見區，但消費端接受較大範圍。
+- 回放後狀態停滯、部分格位空白，或不同 adapter 行為不一致。
 
 #### Evidence
 
-- Tool: session-proxy wire log（`plainLen`／`fixtureId`）、fixture RESULT builder、ProcessResult strip capture
-- Sanitized excerpt: visible-only GLASS ≈15 cells／較短 plainLen；live strip ≈35 cells（Row −2..4）時 plainLen 明顯更長
-- Evidence path: `<PROJECT_ROOT>/docs/lab/session-proxy.md`；柜机 lab 停轮 A/B 筆記（project-local）
+- Tool: 來源專案既有分析／驗證紀錄；本輪未重跑其執行環境。
+- Sanitized excerpt: 非遊戲的虛擬列表、分塊影像或串流緩衝區，也有展示窗口與完整執行結構不同的契約問題。
+- Evidence path: `<PROJECT_ROOT>/` 的受控分析與驗證紀錄；不複製原始物件、樣本或部署紀錄。
 
 #### Generalized Lesson
 
-1. **先讀柜机 strip 契約**：`capture-config`／`ProcessResult` dump 的 `returnedRowRange` 與 symbol count。
-2. **Builder 規則**：`symbols[]` 優先；僅有 `visibleGrid` 時，若契約是全高 strip，必須 pad／展開到同一 Row 窗，或拒絕發出 thin RESULT。
-3. **不要用錯柜的 pad 策略**：可見窗就是 `[0,2]` 的柜（例：部分 giant／sparse GLASS）禁止套用 −2..4 pad。
-4. **验收不只看第一手 rewrite**：連續 BET 的 `betCount≥2` 且 CTA 回到可再旋轉，才算 wire settle 成功。
-5. **NOTIFY 與 stamp 分開排障**：`NOTIFY="desk"` 可能跳過 C2S `-xN`→S2C `ID=` stamp；先對齊 strip，再 A/B NOTIFY。
-6. **Wire 仍卡轉 → apply-shim**：上游真 RESULT 停輪後再 patch Symbols／Rewards，專攻動畫帧。
+1. 從正常觀測或權威 schema 取得維度、座標、排序、有效範圍與 sentinel 語意；不能由畫面推測。
+2. 對照 fixture 與各 adapter 的輸入／輸出，列出缺失位置與型別。
+3. 只在契約明訂時展開／補值／調整容量；合法 sparse 與佔位保持原義。缺失值無合法來源時拒絕寫入或標 blocked，不能 edge-clone 猜值。
+4. 更新後追完整狀態轉換與下一次操作；單次寫入成功或一張完整畫面不足以證明一致。
+5. 僅在事件證實後續覆寫、且重寫符合生命週期契約時修正排序或重寫；不把固定延遲 re-patch 當通用解。
 
 #### Agent Action
 
-- 做 rewrite lab 前：比對 fixture GLASS cell 數與柜机 `returnedRowRange`。
-- 發現卡「停止」：先查 `plainLen`／cell 數是否 thin，再查 NOTIFY／stamp。
-- 更新 builder 後：離線 assert cell 數 + 裝置上驗 `betCount` 連續遞增。
-- 不把單一柜的 pad 窗寫成全庫預設。
+先辨識輸入契約與前置條件，再依本條決策；不照搬來源專案的函式名、腳本路徑、固定數字或狀態碼。記錄採用／不適用的理由。
 
 #### Goal / Action / Validation
 
-- Goal: wire 強制盤面時客戶端能停輪並連續下注
-- Action: GLASS 對齊 ProcessResult strip；必要時 pad visible→strip
-- Validation or reference source: wire `fixture_result` 的 cell 數／plainLen；`betCount` 隨 spin 增加；CTA 非永久「停止」
+- Goal: 展示用 fixture 不一定是完整執行資料；寫入前必須對齊消費端的形狀、座標、缺值語意與生命週期。
+- Action: 依 Generalized Lesson 記錄輸入、決策與反例。
+- Validation or reference source: 離線覆蓋完整資料、可見子集、合法 sparse 與非法缺值；動態驗證狀態可完成並接受下一次授權操作。這是待驗證標準，不宣稱本輪已重跑裝置。
 
 #### Applies When
 
-- AES／自研 game-TCP 上對 `SLOTS_BET`（或同類）回放 RESULT
-- Unity／il2cpp 柜机以 ProcessResult strip 套符號
+- 授權 fixture replay 或 runtime apply，展示模型與執行模型可能不同。
 
 #### Does Not Apply When
 
-- 柜机契約本來就是可見窗 only（無 off-window rows）
-- 僅用 Frida apply-shim、不走 wire RESULT
-- 需要 sparse／巨像空洞編碼的特殊 GLASS（pad 會破壞 Spine）
+- 契約確認兩者完全一致。
+- 合法 sparse／佔位資料；不能為了填滿畫面而消除它。
 
 #### Validation
 
-- 同一 fixture：pad 前後 GLASS cell 數與 live strip 一致
-- 連續兩次 spin：`betCount` +2 且第二次仍為 `fixture_result`
-- 對照柜若禁止 pad，builder 測試必須覆蓋「不可誤 pad」
+離線覆蓋完整資料、可見子集、合法 sparse 與非法缺值；動態驗證狀態可完成並接受下一次授權操作。這是待驗證標準，不宣稱本輪已重跑裝置。
 
 #### Promotion Target
 
-- `feedback/history/apk-analysis/local-proxy/`（本條）
-- 專案 `docs/lab/session-proxy.md` 櫃机差異表（已／應同步）
-- 若多柜复现：可升到 analysis／workflow 的 replay-lab checklist
+[analysis/apk/workflows/il2cpp-runtime-contract-validation.md](../../../../analysis/apk/workflows/il2cpp-runtime-contract-validation.md)。
 
 #### Promotion Record
 
-尚未 promotion；保留為 candidate history。
+2026-10-26：抽象化整理並接到上述方法／入口；這是候選指引的連結，不宣告 validated／promoted，也不新增獨立重用證據。
 
 #### Required Linked Updates
 
-- 專案 session-proxy 文件註明：strip 柜 visibleGrid 必須 pad 或帶 `symbols[]`
-- 新柜注册 rewrite builder 時核對 `returnedRowRange`
+- 本分類 README 與上述方法／入口已檢查並同步。
+- 索引與 RAG 經 runtime refresh 重建；原始專案證據不搬入共用庫。
 
 #### Abstraction Check
 
-- Swap-project test: PASS — any Unity ProcessResult strip cabinet with session-proxy-style RESULT rewrite needs GLASS cell count to match returnedRowRange; visible-only emission is a hard error regardless of product name
-- Project evidence kept in: `<PROJECT_ROOT>/docs/lab/` stop-reel / continuous-BET notes（project-local A/B tables）
+- Swap-project test: PASS — 非遊戲的虛擬列表、分塊影像或串流緩衝區，也有展示窗口與完整執行結構不同的契約問題。
+- Project evidence kept in: `<PROJECT_ROOT>/` 的受控驗證紀錄。
 - Product/cabinet/sample IDs absent from Generalized Lesson: PASS
+
+#### 修訂 2026-10-26
+
+依近期回饋審查，把原先依賴專案術語或操作細節的敘述改為輸入、機制、決策與驗證；修訂前內容可由 Git 歷史追溯。Status 保守維持 candidate。

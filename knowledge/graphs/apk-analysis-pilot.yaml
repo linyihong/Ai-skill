@@ -66,6 +66,14 @@ edges:
     target: knowledge/summaries/unity-fx.md
     reason: Unity 驅動追蹤的低成本發現入口。
     validation: summary 指回 canonical 流程，不宣稱裝置視覺已驗證。
+  - type: related_to
+    target: analysis/apk/workflows/il2cpp-runtime-contract-validation.md
+    reason: 從專案回饋抽出參數、hook 階段與展示／執行資料契約驗證。
+    validation: 原始 lessons 維持 candidate，方法不要求固定座標、owner 或腳本名。
+  - type: related_to
+    target: knowledge/summaries/apk-workflows.md
+    reason: 操作方法的低成本發現入口。
+    validation: summary 可反查 analysis 方法與適用邊界。
 metadata:
   priority: P2
   confidence: medium

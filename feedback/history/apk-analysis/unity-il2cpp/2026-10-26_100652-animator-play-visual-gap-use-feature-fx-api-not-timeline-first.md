@@ -1,4 +1,4 @@
-> 遵守 [共用規則索引](../../../enforcement/README.md)、[dependency-reading](../../../enforcement/dependency-reading.md)、[neutral-language](../../../enforcement/neutral-language.md)、[goal-action-validation](../../../enforcement/goal-action-validation.md) 與 [feedback-lessons](../../../feedback-lessons.md)；本檔只寫本條 lesson，不重複貼上共用政策全文。
+> 遵守 [共用規則索引](../../../../enforcement/README.md)、[dependency-reading](../../../../enforcement/dependency-reading.md)、[neutral-language](../../../../enforcement/neutral-language.md)、[goal-action-validation](../../../../enforcement/goal-action-validation.md) 與 [feedback-lessons](../../../feedback-lessons.md)；本檔只寫本條 lesson，不重複貼上共用政策全文。
 
 ### 2026-10-26 - Animator.Play visual gap → feature FX API before Timeline/IDA
 
@@ -69,12 +69,11 @@ Timeline／PlayableDirector、硬體斷點、AssetRipper 仍有價值，但成�
 
 #### Promotion Target
 
-- `feedback/history/apk-analysis/unity-il2cpp/`（本條）
-- 可選 promote 至 slots／unity lab workflow（若日後有獨立 execution-flow）
+- [Unity 驅動追蹤](../../../../analysis/apk/workflows/unity-fx-driver-trace.md)。
 
 #### Promotion Record
 
-尚未 promotion；保留為 candidate history。
+2026-10-26：方法已接入上述 analysis 流程與 APK workflow；仍維持 candidate，入口接線與本輪文件驗證不算獨立重用證據。
 
 #### Required Linked Updates
 
@@ -87,3 +86,7 @@ Timeline／PlayableDirector、硬體斷點、AssetRipper 仍有價值，但成�
 - Swap-project test: PASS — 任何 Unity IL2CPP 功能視覺在 Animator.Play 成功仍缺口時，均可改找 feature FX／GameAction API
 - Project evidence kept in: `<PROJECT_ROOT>/docs/slots/*/lab/` 與 `assets/`
 - Product/cabinet/sample IDs absent from Generalized Lesson: PASS
+
+#### 修訂 2026-10-26
+
+補上實際方法入口與證據狀態；不再把 history 自身當作提升目標。

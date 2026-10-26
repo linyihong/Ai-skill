@@ -227,3 +227,5 @@ Use placeholders：
 ## Unity 動畫／特效驅動分支
 
 `Animator.Play` 命中但文字、位移、粒子或掉落不同步時，必讀 [Unity 驅動追蹤](../../analysis/apk/workflows/unity-fx-driver-trace.md)。先 feature FX／Setup／payload，再依證據查 Playables、粒子、顯隱、Transform 或 Native。完成前保留同 fixture 的事件與工作幀、候選排除範圍及 unknown；沒有命中不等於沒有 driver。機械接線鎖由 runtime refresh／validate 驗證 discovery、bridge 與 RAG，不能取代實際裝置驗證。
+
+IL2CPP 呼叫／fixture apply 出現空回傳或狀態不完整時，先依 [執行契約驗證](../../analysis/apk/workflows/il2cpp-runtime-contract-validation.md) 核對 ABI、目標×階段與資料形狀；不得直接複製另一個目標的 padding 或延遲重寫。
