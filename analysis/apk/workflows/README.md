@@ -58,3 +58,7 @@
 - [`workflow/apk-analysis/execution-flow.md`](../../workflow/apk-analysis/execution-flow.md) — 端到端 agent 執行流程
 - [`runtime/runtime.db`](../../runtime/runtime.db) — 系統層 generated surface（SQLite，取代 `runtime/generated/`）
 - [`runtime/routing/`](../../runtime/routing/) — Runtime routing 流程
+
+## Unity 動畫／特效缺口
+
+`Animator.Play` 命中但目標視覺缺失時，讀 [驅動追蹤](unity-fx-driver-trace.md)：先 feature FX／payload，再依證據查 Playables、粒子、Transform 或 Native。

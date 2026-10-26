@@ -55,3 +55,5 @@
 - `intelligence/engineering/analytical-reasoning/` 提供從 APK 分析中萃取的工程智慧（啟發式、反模式、失敗模式），被本 workflow 引用。
 - `feedback/history/apk-analysis/` 儲存 APK 分析的具體課程記錄，可被提升至 intelligence 層。
 - `skills/apk-analysis/` 是原始 skill 目錄，內容已全部遷移至本層，舊目錄已刪除。
+
+Unity 動畫／特效有視覺缺口時，載入 [驅動追蹤](../../analysis/apk/workflows/unity-fx-driver-trace.md)。先檢查 feature FX 與資料，再按證據升級；同 fixture 的事件與工作幀才支撐 driver 結論。

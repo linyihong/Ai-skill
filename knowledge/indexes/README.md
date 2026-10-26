@@ -70,3 +70,5 @@
 - `Target layer` 可以指向未來遷移層，但不得暗示內容已完成搬移。
 - 若新增或改動路由會影響 root dashboard、roadmap、metadata schema 或 skill entry，依 `enforcement/linked-updates.md` 同步更新。
 - 本索引只是 navigation layer；可執行政策仍以 `enforcement/` 為準。
+
+Unity 動畫／特效視覺缺口、`m_Payloads`／PlayableDirector／Native writer：先讀 [摘要](../summaries/unity-fx.md)，再走 [Unity 驅動追蹤](../../analysis/apk/workflows/unity-fx-driver-trace.md)。

@@ -124,3 +124,5 @@ Lesson（邊界修正）：[`../../feedback/history/apk-analysis/unity-il2cpp/20
 - [`../tools-and-failures.md`](../tools-and-failures.md)
 - Feedback：`slot-three-visual-planes-and-in-cabinet-anim-stack`、`unity-feature-art-lives-in-unitycache-not-apk`
 - Agent orchestration：[`../../workflow/apk-analysis/execution-flow.md`](../../workflow/apk-analysis/execution-flow.md)
+
+動畫已播放但視覺仍缺失時，改讀 [Unity 驅動追蹤](unity-fx-driver-trace.md)，從 feature FX API 查到資料／Playables／Native；資產參數本身不證明觸發鏈。

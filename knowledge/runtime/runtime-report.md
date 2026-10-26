@@ -6,12 +6,12 @@
 
 | Surface | Path | Count / Status |
 | --- | --- | --- |
-| Routing registry | [`routing-registry.yaml`](routing-registry.yaml) | 65 records |
+| Routing registry | [`routing-registry.yaml`](routing-registry.yaml) | 66 records |
 | Refresh policy | [`refresh-policy.yaml`](refresh-policy.yaml) | candidate |
 | Model context report | [`model-context-report.md`](model-context-report.md) | generated view |
 | Model checklists | [`model-checklists.md`](model-checklists.md) | generated view |
 | SQLite runtime index | [`sqlite/`](sqlite/) | generated lookup cache prototype |
-| Summaries | [`../summaries/`](../summaries/) | 28 files |
+| Summaries | [`../summaries/`](../summaries/) | 29 files |
 | Graph records | [`../graphs/`](../graphs/) | 35 files |
 
 ## Routing Records
@@ -53,6 +53,7 @@
 | `route.workflow.investment` | `workflow/investment/execution-flow.md` | `specialized` | `source-backed` | Task type / risk tier / DVA 狀態已明說；evidence-ledger 可覆核；recommendation strength ≤ authority；uncertainty framing；配置含策略／資產／費用或 provisional；Red 無交易指令。  |
 | `route.runtime.onboarding` | `runtime/onboarding/apk-analysis-setup.md` | `specialized` | `summary-first` | 各 quickstart 的步驟可依序執行，且與對應 workflow 的內容一致。 |
 | `route.analysis.apk.workflows` | `analysis/apk/workflows/README.md` | `specialized` | `summary-first` | 各 workflow 有明確步驟與產出格式，可依序執行。 |
+| `route.analysis.unity-fx` | `analysis/apk/workflows/unity-fx-driver-trace.md` | `specialized` | `summary-first` | 同 fixture 工作幀與事件支撐 driver 結論；discovery、bridge、RAG 接線檢查通過。 |
 | `route.analysis.reverse-engineering` | `analysis/reverse-engineering/investigation-process.md` | `specialized` | `summary-first` | Target family selected; findings separated into observation/inference/unknown; authorization recorded.  |
 | `route.analysis.binary` | `analysis/binary/README.md` | `specialized` | `summary-first` | Digest or digest_unknown recorded; provider limits kept as unknowns.  |
 | `route.analysis.desktop` | `analysis/desktop/README.md` | `specialized` | `summary-first` | Boundary vs web scrape stated; credentials not written into reusable docs.  |
@@ -115,6 +116,7 @@
 | `runtime.operations` | `validated` | [`runtime-operations.md`](../summaries/runtime-operations.md) | Runtime 層負責 context routing、contract projection、context pruning、agent coordination 與 orchestration。包含 router（contract-backed activation、cost budget）、context（TTL policy、prune strategy、prompt cache layout）。 |
 | `intelligence.test-first-framework-upgrade` | `candidate` | [`test-first-framework-upgrade.md`](../summaries/test-first-framework-upgrade.md) | Framework / runtime / governance 升級時 validation scenarios 必須寫在 runtime 實作之前，scenarios 是 acceptance contract 不是事後 verification。流程：列期望可觀察行為 → 寫 YAML scenarios → 驗證目前 fail → 開始實作 → 完成 = scenarios pass。與通用 TDD heuristic 互補（設計回饋 vs 順序原則）。Doc-only trial / typo / spike 可豁免；runtime.db schema / enforcement rule / compiler 改動不可豁免。 |
 | `workflow.travel-planning` | `candidate` | [`travel-planning.md`](../summaries/travel-planning.md) | 依目的地、日期、交通與玩法規劃行程，包含營業時間查證、交通比較、住宿與備案。支援 itinerary 結構化輸出與可行性檢查。日本自駕含 Mapcode 粒度規則（沿線景點 2km+ 需各停車點獨立一行）與查詢工具鏈。 |
+| `unity-fx` | `candidate` | [`unity-fx.md`](../summaries/unity-fx.md) | Unity FX Animator.Play 視覺缺口先追 feature FX Setup／Play 與 m_Payloads writer；再依證據追 PlayableDirector／PlayableGraph、ParticleSystem、SetActive、Transform、Native backtrace 與 hardware watchpoint。 |
 | `intelligence.vendor-integration-architecture` | `candidate` | [`vendor-integration-architecture.md`](../summaries/vendor-integration-architecture.md) | 整合超過 3 個外部廠商（支付聚合、社群登入、IM、博弈聚合、廣告聯播等）時的整合策略選型。五種策略：A. Adapter/Strategy（單模組多實作）/ B. Compile-time submodule per vendor / C. Plugin SPI（runtime 載入）/ D. Out-of-process service / E. Hybrid 分層。N ≥ 10 必須跳出 compile-time module per vendor 模式，否則編譯時間、IDE、升級成本爆炸。 |
 
 ## Graph Records
@@ -123,7 +125,7 @@
 | --- | --- | --- | --- | --- |
 | `graph.analysis-layers` | `analysis/README.md` | `candidate` | 22 | [`analysis-layers.yaml`](../graphs/analysis-layers.yaml) |
 | `graph.analysis-repo-methods` | `analysis/repo/README.md` | `candidate` | 6 | [`analysis-repo-methods.yaml`](../graphs/analysis-repo-methods.yaml) |
-| `graph.apk-analysis-pilot` | `plans/archived/2026-05-11-1129-apk-analysis-pilot-migration.md` | `new-layer-promoted` | 13 | [`apk-analysis-pilot.yaml`](../graphs/apk-analysis-pilot.yaml) |
+| `graph.apk-analysis-pilot` | `plans/archived/2026-05-11-1129-apk-analysis-pilot-migration.md` | `new-layer-promoted` | 15 | [`apk-analysis-pilot.yaml`](../graphs/apk-analysis-pilot.yaml) |
 | `graph.apk-highest-leverage-analysis` | `intelligence/engineering/analytical-reasoning/highest-leverage-analysis-path.md` | `candidate` | 4 | [`apk-highest-leverage-analysis.yaml`](../graphs/apk-highest-leverage-analysis.yaml) |
 | `graph.capability-context` | `governance/cognitive-stance.md` | `candidate` | 8 | [`capability-context.yaml`](../graphs/capability-context.yaml) |
 | `graph.cognitive-modes` | `runtime/cognitive-modes.yaml` | `active` | 13 | [`cognitive-modes.yaml`](../graphs/cognitive-modes.yaml) |

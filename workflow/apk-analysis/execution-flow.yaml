@@ -92,16 +92,31 @@ steps:
       startup, navigation, feature-triggered, cache, or ambiguous traffic.
       Frida 17 quiet CLI needs -t with -q. After pm clear, delay IL2CPP
       thread_attach even if the domain pointer is already visible.
-  - id: build_durable_assets
+  - id: trace_unity_fx_driver
     order: 7
+    action: >
+      Unity Animator.Play visual gaps require analysis/apk/workflows/unity-fx-driver-trace.md.
+      Inspect feature FX Setup/Play and payload writers first, then evidence-backed
+      Playables, particles, visibility, Transform or native tracing. Record same-fixture
+      frames/events, resolved hooks, coverage limits and unknowns before driver claims.
+    gates:
+      - gate.apk_analysis.unity_fx_driver_evidence
+  - id: build_durable_assets
+    order: 8
     action: Produce UI map, operation/API matrix, redacted API docs, domain/runtime baseline, feature handoff, fixtures, or contract tests.
     gates:
       - gate.apk_analysis.durable_assets_ready
   - id: close_with_feedback
-    order: 8
+    order: 9
     action: Add reusable feedback lesson in the same round when a generalized technique or failure mode is discovered.
 
 gates:
+  - id: gate.apk_analysis.unity_fx_driver_evidence
+    blocks: unity_fx_driver_completion_claim
+    pass_when:
+      - feature FX and payload paths are checked before speculative Timeline or native escalation
+      - same-fixture event/frame evidence supports driver claims and scope limits remain explicit
+      - unresolved hooks and untested plugins are unknown rather than ruled out
   - id: gate.apk_analysis.authorization_confirmed
     blocks: capture_or_publication
     pass_when:

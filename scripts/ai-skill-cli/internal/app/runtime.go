@@ -1759,6 +1759,9 @@ func nativeRuntimeIndexValidation(repo string, path string) Check {
 	if err := nativeRuntimeIndexFTSCheck(db); err != nil {
 		return Check{Name: "runtime_index_native", Status: "failed", Message: err.Error()}
 	}
+	if err := validateUnityFXRetrieval(repo, db); err != nil {
+		return Check{Name: "runtime_index_native", Status: "failed", Message: err.Error()}
+	}
 	return Check{Name: "runtime_index_native", Status: "ok", Message: fmt.Sprintf("SQLite runtime index checks passed: atoms=%d sources=%d edges=%d fts=%d", counts["atoms"], counts["sources"], counts["edges"], counts["fts"])}
 }
 
@@ -1771,6 +1774,9 @@ func nativeKnowledgeRuntimeValidation(repo string) Check {
 		return Check{Name: "knowledge_runtime_native", Status: "failed", Message: "routing registry has no records"}
 	}
 	if err := nativeRoutingRegistryValidation(repo, registry); err != nil {
+		return Check{Name: "knowledge_runtime_native", Status: "failed", Message: err.Error()}
+	}
+	if err := validateUnityFXDiscovery(repo, registry, LoadDiscoverySummaries(repo)); err != nil {
 		return Check{Name: "knowledge_runtime_native", Status: "failed", Message: err.Error()}
 	}
 	summaries, err := runtimeSummaryRecords(repo)

@@ -1197,11 +1197,24 @@ rule_classes:
         hook_phase: PreToolUse
         block_or_warn: block
         notes: "host-aware (Claude + Cursor) via renderPreToolUseDecision(host, ...); deny rendered as Claude `permissionDecision:deny` or Cursor `{permission:deny}` — both exit 0 (plan 2026-06-05-0200 Phase 1-3)"
+      - file: scripts/ai-skill-cli/internal/app/unity_fx_discovery.go
+        symbol: validateUnityFXDiscovery
+        executor_kind: hook_dispatcher_entry
+        hook_phase: runtime refresh/validate (pre-commit)
+        block_or_warn: block
+        notes: Unity FX route, dependency, summary, detector and bridge proposal wiring invariant
+      - file: scripts/ai-skill-cli/internal/app/unity_fx_discovery.go
+        symbol: validateUnityFXRetrieval
+        executor_kind: hook_dispatcher_entry
+        hook_phase: runtime refresh/validate (pre-commit)
+        block_or_warn: block
+        notes: Unity FX canonical-source FTS retrieval invariant; does not enforce device execution
     coverage_evidence:
       expected_instance_count: 57
       expected_instance_count_query: |
         grep -c '^  - id: route\.' knowledge/runtime/routing-registry.yaml
       validation_scenarios:
+        - validation/scenarios/runtime/unity-fx-discovery-wiring-v1.yaml
         - validation/scenarios/runtime/workflow-detector-deterministic-match-v1.yaml
         - validation/scenarios/runtime/workflow-detector-conflict-resolution-v1.yaml
         - validation/scenarios/runtime/workflow-session-topic-shift-v1.yaml

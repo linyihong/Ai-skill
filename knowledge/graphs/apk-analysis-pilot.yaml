@@ -58,6 +58,14 @@ edges:
     target: workflow/apk-analysis/artifact-gates/documentation-discipline.md
     reason: Developer guidance + feedback writing tips + backfill rules slice (Scheme B probe override).
     validation: routing-registry loading_surfaces workflow.apk-analysis.documentation-discipline declares load_when.
+  - type: related_to
+    target: analysis/apk/workflows/unity-fx-driver-trace.md
+    reason: Unity 動畫／特效缺口從 feature FX 與資料追到 Playables／Native。
+    validation: route.analysis.unity-fx 與 summary、detector、bridge、RAG 接線檢查通過。
+  - type: related_to
+    target: knowledge/summaries/unity-fx.md
+    reason: Unity 驅動追蹤的低成本發現入口。
+    validation: summary 指回 canonical 流程，不宣稱裝置視覺已驗證。
 metadata:
   priority: P2
   confidence: medium

@@ -1856,6 +1856,50 @@ records:
       compression_level: summary-first
       reason: 需要執行對應操作流程時才讀取完整 workflow。
 
+  - id: route.analysis.unity-fx
+    route_type: analysis
+    activation_mode: auto-detect
+    task_intent: Unity FX 動畫特效驅動追蹤 Animator.Play m_Payloads PlayableDirector Native watchpoint
+    activation_triggers:
+      activation_any_of:
+        user_signals:
+          - Animator.Play
+          - m_Payloads
+          - PlayableDirector
+          - Unity FX
+          - Unity 特效
+          - Unity 動畫
+        context_signals:
+          - "**/unity-fx-driver-trace.md"
+      task_intents:
+        - unity-fx-driver-trace
+    primary_source: analysis/apk/workflows/unity-fx-driver-trace.md
+    required_dependencies:
+      - analysis/apk/README.md
+      - analysis/apk/workflows/README.md
+      - workflow/apk-analysis/execution-flow.md
+      - workflow/apk-analysis/execution-flow.yaml
+    candidate_sources:
+      - analysis/apk/workflows/unity-asset-parse-flow.md
+      - knowledge/summaries/unity-fx.md
+    source_of_truth_gate: new-layer-promoted
+    ranking_reason: 先檢查 feature FX 與資料，按證據選 Playables、粒子、Transform 或 Native 路徑。
+    validation_signal: 同 fixture 工作幀與事件支撐 driver 結論；discovery、bridge、RAG 接線檢查通過。
+    metadata:
+      priority: P2
+      confidence: medium
+      context_cost:
+        estimated_tokens: 2600
+        load_strategy: lazy
+        cacheable: true
+        ttl:
+          task: 1
+      compatibility_state: new-layer-promoted
+    model:
+      profile: specialized
+      compression_level: summary-first
+      reason: 僅 Unity 動畫特效驅動缺口載入，原始證據仍留專案。
+
   - id: route.analysis.reverse-engineering
     manual_activation:
       reason: workflow_discovery

@@ -80,3 +80,5 @@ Summaries 用來協助 agent：
 - Summary 不可把 candidate path 升格成 replacement path。
 - Source 有實質變更時，必須 revalidate 或 downgrade summary confidence。
 - Source、metadata、registry 或 graph 改動時，依 [`../runtime/refresh-policy.yaml`](../runtime/refresh-policy.yaml) 判斷是否 refresh、revalidate 或 downgrade。
+
+Unity 動畫／特效視覺缺口：讀 [Unity FX 摘要](unity-fx.md)，再按需載入 canonical 追蹤流程。

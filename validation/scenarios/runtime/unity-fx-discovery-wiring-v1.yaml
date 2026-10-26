@@ -1,0 +1,29 @@
+id: unity-fx-discovery-wiring-v1
+domain: runtime
+type: regression
+priority: P1
+given:
+  task: unity_fx_driver_trace_discovery
+  artifacts:
+    - analysis/apk/workflows/unity-fx-driver-trace.md
+    - knowledge/runtime/routing-registry.yaml
+    - knowledge/summaries/unity-fx.md
+    - scripts/ai-skill-cli/internal/app/unity_fx_discovery.go
+  constraints:
+    - Discovery Bridge remains advisory and must not activate a route.
+when:
+  action: runtime_refresh_or_validate
+then:
+  expected_route:
+    primary: route.analysis.unity-fx
+  required:
+    - Detector recognizes Animator.Play, m_Payloads, PlayableDirector and Unity 特效.
+    - Detector-miss style artifact review produces a Unity FX bridge candidate.
+    - FTS queries retrieve the canonical Unity FX source rather than unrelated hits.
+    - Missing route, trigger, dependency, summary identity or canonical FTS records blocks validation.
+  forbidden_routes:
+    - claim_device_visual_parity_from_wiring_checks
+    - automatically_activate_from_discovery_advisory
+validation:
+  detection_command: cd scripts/ai-skill-cli && go test ./internal/app -run TestUnityFX -count=1
+  expected_result: Both positive wiring and negative mutation cases pass.

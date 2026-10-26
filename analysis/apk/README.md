@@ -63,3 +63,7 @@ analysis/apk/
 - 舊 `skills/apk-analysis/` 已全部遷移至新分層，本目錄為 canonical source。
 - 當 technique 被萃取時，使用 `../../metadata/schema.md` 建立 metadata，並更新 `../../knowledge/indexes/README.md`。
 - `workflows/` 是 HOW TO DO 執行知識的目錄。
+
+## Unity 驅動追蹤
+
+動畫／特效視覺缺口、`m_Payloads` writer 或 PlayableDirector 分析，走 [Unity 驅動追蹤](workflows/unity-fx-driver-trace.md)；資產還原仍走 Unity 資產解析流程。

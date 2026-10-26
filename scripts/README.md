@@ -215,3 +215,5 @@ scripts/ai-skill-cli/bin/ai-skill-darwin-arm64 hooks run pre-push --repo . --jso
 這會在本分支相對 upstream 修改 CLI、git hooks 或 CLI workflow 時，先執行 `cd scripts/ai-skill-cli && go test ./...`，用來在 push 前攔截 GitHub Actions 會報的 stale binary / checksum / workflow regression。
 
 不要用「幾分鐘內」作為主要條件。GitHub Actions 排隊與 Windows runner 時間不穩，時間窗會造成假安全感。正確條件是：本次 push 是否修改會觸發 script CI 的 path；若有，查最近一次已完成的同 workflow run 作為 context，然後用本機可重現檢查決定是否放行。
+
+Unity FX 接線鎖：`runtime refresh`／`runtime validate` 會檢查 `route.analysis.unity-fx`、workflow 入口、summary、detector 與 Discovery Bridge 提名；SQLite RAG 必須能由 `m_Payloads`／`PlayableDirector` 查回 canonical 流程。缺失時驗證失敗。實作與負向測試在 `scripts/ai-skill-cli/internal/app/unity_fx_discovery.go`／`unity_fx_discovery_test.go`；此鎖檢查接線，不代替裝置實測。
