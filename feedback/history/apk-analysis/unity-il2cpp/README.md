@@ -4,6 +4,7 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
+| [2026-10-26_113002-lab-presence-fixture-empty-fx-list-vs-force-overlay.md](2026-10-26_113002-lab-presence-fixture-empty-fx-list-vs-force-overlay.md) | candidate | Presence fixture 下列表 API 可空；force overlay ≠ 自然列表閉環；對齊 RESULT vs SPIN apply |
 | [2026-10-26_100652-animator-play-visual-gap-use-feature-fx-api-not-timeline-first.md](2026-10-26_100652-animator-play-visual-gap-use-feature-fx-api-not-timeline-first.md) | candidate | Animator.Play 視覺缺口：先 dump 找 feature FX／GameAction API，勿先 Timeline／IDA |
 | [2026-10-23_141500-apply-shim-visiblegrid-must-pad-processresult-strip.md](2026-10-23_141500-apply-shim-visiblegrid-must-pad-processresult-strip.md) | candidate | apply-shim visibleGrid 须 pad ProcessResult strip＋补缺格，避免灰空被误判 cascade |
 | [2026-10-23_140500-apply-shim-onleave-ui-must-cover-all-processresult-owners.md](2026-10-23_140500-apply-shim-onleave-ui-must-cover-all-processresult-owners.md) | candidate | 多柜 ProcessResult apply-shim：onLeave UI 须覆盖全部 owner，勿只闸第一柜 |

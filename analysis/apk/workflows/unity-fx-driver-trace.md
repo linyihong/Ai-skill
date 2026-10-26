@@ -19,6 +19,17 @@
 
 同 fixture 比較 Animator-only 與 feature API 路徑；高層路徑已解釋缺口即可收斂，未解釋部分再升級。
 
+### 2.1 Presence lab 與列表驅動 FX
+
+當 feature 先呼叫 `Get*Symbols`／`GetDrop*`（或等價列表 API）再 `Setup(list)+Show`：
+
+1. **Presence-only fixture**（只補可見格／必要標籤、無「消失／掉落集合」元資料）時，列表 API **可能已進入但回傳空**——這是常態，不是 hook 失敗。
+2. **Force `Setup(假列表)+Show`** 只能把成熟度標成 lab overlay／驅動已鎖；**不能**把「自然列表路徑」標成完成。分層：① API 被呼叫 → ② 列表非空 → ③ 視覺可見。
+3. **Apply 相位**：follow-up settle 可能只打到 `EventSink`／`ProcessSpin`（Symbols 晚到），而列表 API 只在某一 `ProcessResult` 窗口出現。應用 hook 事件的 apply tag／fixtureId 對齊，勿假設第二手一定再呼叫列表 API。
+4. 下一最小步驟：生產自然 settle 的非空列表，或 IL／dump 找列表填充來源再注入等價狀態——不要只加大 force 符號表假裝閉環。
+
+候選 lesson：[lab presence fixture 空列表 vs force overlay](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-26_113002-lab-presence-fixture-empty-fx-list-vs-force-overlay.md)。
+
 ## 3. 依證據選分支
 
 | 分支 | 啟動證據 | 追蹤點與限制 |
@@ -71,6 +82,7 @@ Discovery Bridge 仍是 advisory，不因此自動啟用或略過授權／來源
 - [Il2CppDumper 產物與匯入腳本](https://github.com/Perfare/Il2CppDumper)
 - [PlayableDirector.Evaluate](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Playables.PlayableDirector.Evaluate.html)
 - [既有 feature FX candidate lesson](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-26_100652-animator-play-visual-gap-use-feature-fx-api-not-timeline-first.md)；其 promotion 狀態維持 candidate，本流程加入方法與驗證要求，並不新增獨立實測證據。
+- [Presence fixture 空列表 vs force overlay](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-26_113002-lab-presence-fixture-empty-fx-list-vs-force-overlay.md)（§2.1）。
 
 呼叫結果或 fixture 結構未對齊時，先讀 [IL2CPP 執行契約驗證](il2cpp-runtime-contract-validation.md)，再把視覺缺口歸因到 driver；適用範圍不同的目標不強制共用所有 UI 後處理。
 
