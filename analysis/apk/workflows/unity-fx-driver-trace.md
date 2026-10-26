@@ -29,6 +29,7 @@
 4. 下一最小步驟：生產自然 settle 的非空列表，或 IL／dump 找列表填充來源再注入等價狀態——不要只加大 force 符號表假裝閉環。
 5. 列表 API `onLeave` 建議附帶診斷快照：SpinInfo 洞數、Rewards null？、StateInfo group／series。空列表常見伴隨「無洞 + group 仍是 base」或 Rewards 未就緒。
 6. **洞 ≠ 列表**：即使把洞格寫進 SpinInfo（`holeCount>0`），列表仍可能空——勿假設洞推導掉落集合；改查 Rewards／group／Start 填充。Lab 預設 `?` 常是 skip-patch，真洞需顯式 stamp。
+7. **Predicate 0 呼叫**：列表 Where hook 從未進入 ⇒ 候選在 filter 前已空；先補 Start／feature reward，再看 `keep`。
 
 候選 lesson：[lab presence fixture 空列表 vs force overlay](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-26_113002-lab-presence-fixture-empty-fx-list-vs-force-overlay.md)。
 
