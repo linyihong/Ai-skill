@@ -120,6 +120,11 @@ edges:
     reason: Registry 提供 route.workflow.software-delivery record 與同一 hierarchical route 下的 focused loading surfaces。
     validation: registry record 的 primary_source 指向 workflow/software-delivery/execution-flow.md；loading_surfaces 指向 focused software-delivery surfaces，未新增 flat leaf routes。
 
+  - type: related_to
+    target: intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md
+    reason: 依宣稱範圍選組合、有效狀態與發佈階段的證據入口。
+    validation: 候選補充可追溯三條來源，未宣稱獨立重用。
+
 metadata:
   priority: P2
   confidence: medium

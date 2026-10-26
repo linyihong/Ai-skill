@@ -91,3 +91,28 @@ Status: candidate
 - 與 [`2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form`](2026-09-04_140100-index-link-gate-must-accept-the-resolvable-form.md) 同源事件。
 - 依 [`reusable-guidance-boundary.md`](../../../../enforcement/reusable-guidance-boundary.md) 檢查：專案、分支、人員與 commit 證據留在 project docs。
 - 已更新 [`feedback/history/development-guidance/README.md`](../README.md) 的 Recent 索引。
+
+#### Transfer Contract
+
+- Inputs: 分階段驗證與可跳過的本機 hook，宣稱分支狀態符合不變式
+- Mechanism: 只檢查單次 staged 變更的 gate，無法覆蓋已進入分支的違規
+- Decision: 依不變式涵蓋範圍選擇發佈必經關卡，清點既存違規並明確處置後再啟用阻擋
+- Verification: 將違規帶入分支後只觸發無關變更，確認發佈階段仍會攔截
+- Counterexample: 提交訊息格式屬單次提交契約；已有不可繞過全量伺服器驗證時不必重複本機全掃
+- Transfer case: 映像簽章政策應在部署准入驗當次 artifact，而不只在開發者建置時驗
+
+#### Intelligence Review
+
+- Decision: existing
+- Reason: 增量是宣稱範圍與證據鏈覆蓋的判斷，沿用既有 atom，避免按事件建立重複智慧。
+- Target: intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md
+
+#### Abstraction Check
+
+- Swap-project test: PASS — 映像簽章政策應在部署准入驗當次 artifact，而不只在開發者建置時驗；為可攜推演，未宣稱獨立實測。
+- Project evidence kept in: `<PROJECT_ROOT>/` 的受控驗證紀錄。
+- Product/cabinet/sample IDs absent from Generalized Lesson: PASS
+
+#### 承接修訂 2026-10-26
+
+已與 [evidence-chain 候選判斷](../../../../intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md) 雙向接線；分類／domain 索引與 RAG 已同步檢查，維持 candidate，不把抽取當 promotion。

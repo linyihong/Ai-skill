@@ -1315,6 +1315,7 @@ records:
       - intelligence/engineering/development/docs-first-bdd-closure.md
     candidate_sources:
       - intelligence/engineering/execution/validation-reasoning/evidence-model.md
+      - intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md
       - intelligence/engineering/execution/validation-reasoning/evidence-depth.md
       - workflow/software-delivery/development-process.md
       - workflow/software-delivery/requirements/README.md

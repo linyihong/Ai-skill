@@ -11,7 +11,7 @@
 | Model context report | [`model-context-report.md`](model-context-report.md) | generated view |
 | Model checklists | [`model-checklists.md`](model-checklists.md) | generated view |
 | SQLite runtime index | [`sqlite/`](sqlite/) | generated lookup cache prototype |
-| Summaries | [`../summaries/`](../summaries/) | 32 files |
+| Summaries | [`../summaries/`](../summaries/) | 33 files |
 | Graph records | [`../graphs/`](../graphs/) | 35 files |
 
 ## Routing Records
@@ -96,6 +96,7 @@
 | `architecture.context-cost-optimization` | `validated` | [`context-cost-optimization.md`](../summaries/context-cost-optimization.md) | Token 成本優化規劃。Phase 1（立即省錢）：Bootstrap 極小化（~800 tokens）、README 拆分、Rule lazy-load、Summary layer。Phase 2（架構升級）：Runtime Context Router、Context Cost Metadata、Skill Index、Context TTL。Phase 2.5（規範層已實作）：Provider Prompt Cache Alignment，定義 stable prefix / volatile suffix 與 provider cache metadata。Phase 3（長期）：Semantic Retrieval、Episodic Memory、Multi-model Routing。 |
 | `workflow.software-delivery` | `validated` | [`development-guidance.md`](../summaries/development-guidance.md) | 將授權 App/API/Embedded/Firmware 觀察轉成開發 guidance、實作模式、控制項、檢查清單。software-delivery 入口已切成 focused loading surfaces：`intake.md`（需求/變更/parity/backfill）、`contracts.md`（contract governance/traceability）、`test-strategy.md`（BDD/test strategy）、`validation.md`（validation/performance gate）、`closure.md`（DoR/DoD/lesson feedback）、`surgical-changes.md`（diff purity）。原 `skills/app-development-guidance/` 已刪除，所有內容已遷移至新分層。提供 5 個標準化輸出模板（change-brief / contract / bdd-scenario / implementation-plan / review-report），位於 `workflow/software-delivery/templates/`。另提供 Greenfield 標準化流程（`workflow/greenfield/`）與 Slash Command 模式（`ai-tools/slash-commands.md`）。 |
 | `analysis.dual-token-audit` | `candidate` | [`dual-token-audit.md`](../summaries/dual-token-audit.md) | 系統內同時存在兩套以上 token 機制（JWT + JWE、HMAC + 對稱加密、平台 token + 廠商回調 token）時的審計方法。觀察點：代碼結構、key 管理、algorithm 宣告、token 流向、validation 一致性、replay 防護、log 外洩、error 訊息。Audit 五步：列 token universe → 畫 flow → key/alg matrix → 接縫盤點 → failure mode 對照。 |
+| `` | `` | [`evidence-chain-validation.md`](../summaries/evidence-chain-validation.md) | 宣稱範圍決定證據入口：host composition、mutation effective layer／template isolation、branch invariant release gate 均須驗到最後決定結果的層與時間點。 |
 | `governance.executable-contract-boundary` | `candidate` | [`executable-contract-boundary.md`](../summaries/executable-contract-boundary.md) | 定義 executable YAML contract 邊界：source 留在 owner layer，Markdown 解釋脈絡，YAML 承載 activation / steps / gates / evidence；會影響 execution 的 contract 以 `runtime_projection.enabled: true` opt in 到 `runtime.db generated_surfaces`。Framework contract / projection 改動前必須先做 pre-build interrogation，避免雙寫 source-of-truth。 |
 | `feedback.promotion.pipeline` | `candidate` | [`feedback-promotion-pipeline.md`](../summaries/feedback-promotion-pipeline.md) | 定義 feedback lesson 從 skill-local history 推進到 workflow、intelligence、enforcement、memory 或 runtime surfaces 的 promotion / downgrade gate。 |
 | `governance.goal-ledger-boundary` | `validated` | [`goal-ledger-boundary.md`](../summaries/goal-ledger-boundary.md) | `.agent-goals/` 只保存 active conversation goals；長期 roadmap、phase、migration、promotion、deprecation 與治理狀態必須落到 durable planning 文件。 |
@@ -159,7 +160,7 @@
 | `graph.source-boundary` | `governance/lifecycle/README.md` | `candidate` | 6 | [`source-boundary.yaml`](../graphs/source-boundary.yaml) |
 | `graph.workflow-layers` | `workflow/README.md` | `candidate` | 20 | [`workflow-layers.yaml`](../graphs/workflow-layers.yaml) |
 | `graph.workflow-software-delivery-architecture` | `workflow/software-delivery/architecture/README.md` | `candidate` | 7 | [`workflow-software-delivery-architecture.yaml`](../graphs/workflow-software-delivery-architecture.yaml) |
-| `graph.workflow-app-development-guidance` | `workflow/software-delivery/README.md` | `candidate` | 23 | [`workflow-software-delivery.yaml`](../graphs/workflow-software-delivery.yaml) |
+| `graph.workflow-app-development-guidance` | `workflow/software-delivery/README.md` | `candidate` | 24 | [`workflow-software-delivery.yaml`](../graphs/workflow-software-delivery.yaml) |
 | `graph.workflow-travel-planning` | `workflow/travel-planning/README.md` | `candidate` | 6 | [`workflow-travel-planning.yaml`](../graphs/workflow-travel-planning.yaml) |
 
 ## Refresh Decisions

@@ -87,3 +87,5 @@
 Total: 70
 
 2026-10-26：已覆核 10/16–10/26 的本分類條目，補齊抽象化邊界與來源指標；candidate 狀態不因文字整理或入口接線而提升。
+
+2026-10-26 intelligence 承接覆核：[mutate-the-layer-that-decides-and-reset-the-template](2026-10-15_190000-mutate-the-layer-that-decides-and-reset-the-template.md)、[pipeline-behaviour-needs-host-level-test](2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md)、[gate-that-runs-only-at-commit-is-one-bypass-from-gone](2026-09-04_135746-gate-that-runs-only-at-commit-is-one-bypass-from-gone.md)；候選判斷已雙向承接，未提升成熟度。

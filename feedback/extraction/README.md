@@ -99,3 +99,5 @@
 - `knowledge/indexes/README.md`：Extraction 完成後需更新 index 讓 agent 可路由到此 atom。
 
 每次 lesson 寫入均先走 [抽象化與 intelligence 承接審查](lesson-review.md)；extract／existing／method-only／deferred 決定與目標接線由既有 closure gate 檢查，抽取 candidate 不等於升級證據成熟度。
+
+歷史盤點：[2026-10-26 全量接線審查](history-intelligence-audit-2026-10-26.md)，區分缺審查、已有直接連結與已記錄決定；不以自動掃描取代語意抽取。

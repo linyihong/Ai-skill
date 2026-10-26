@@ -76,3 +76,5 @@ Unity 動畫／特效視覺缺口、`m_Payloads`／PlayableDirector／Native wri
 IL2CPP 空回傳、hook 前後階段覆蓋、fixture 與完整 runtime 結構不一致：先讀 [APK 方法摘要](../summaries/apk-workflows.md)，再依 [執行契約驗證](../../analysis/apk/workflows/il2cpp-runtime-contract-validation.md) 記錄差異與反例。
 
 回饋寫入／抽取：先走 [intelligence 承接審查](../../feedback/extraction/lesson-review.md)；局部 runtime 成功的歸因見 [候選判斷](../../intelligence/engineering/analytical-reasoning/heuristics/runtime-evidence-boundaries.md)，展示與完整資料表示差異見 [契約對齊](../../intelligence/engineering/analytical-reasoning/heuristics/representation-contract-parity.md)。
+
+驗證宣稱是否涵蓋實際組合、突變生效層與發佈階段，讀 [evidence-chain 候選判斷](../../intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md)。

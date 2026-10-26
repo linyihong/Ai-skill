@@ -1,4 +1,4 @@
-> 遵守 [共用規則索引](../../../enforcement/README.md)、[dependency-reading](../../../enforcement/dependency-reading.md)、[neutral-language](../../../enforcement/neutral-language.md)、[goal-action-validation](../../../enforcement/goal-action-validation.md) 與 [feedback-lessons](../../feedback-lessons.md)；本檔只寫本條 lesson，不重複貼上共用政策全文。
+> 遵守 [共用規則索引](../../../../enforcement/README.md)、[dependency-reading](../../../../enforcement/dependency-reading.md)、[neutral-language](../../../../enforcement/neutral-language.md)、[goal-action-validation](../../../../enforcement/goal-action-validation.md) 與 [feedback-lessons](../../../feedback-lessons.md)；本檔只寫本條 lesson，不重複貼上共用政策全文。
 
 ### 2026-10-06 - Pipeline behaviour needs a host-level test, not a component test
 
@@ -59,4 +59,29 @@ A host-level test exists for the acceptance, captures every logger, and fails on
 #### Required Linked Updates
 
 - Indexed in `feedback/history/development-guidance/common/README.md`.
-- No workflow or enforcement change yet; candidate stays local until repeated.
+- 已承接為既有 evidence-chain 的候選補充；尚無獨立重用證據，維持 candidate。
+
+#### Transfer Contract
+
+- Inputs: 驗收描述最終 host 行為，多個元件會處理同一事件
+- Mechanism: 元件順序與共同副作用可能使局部正確仍產生錯誤最終結果
+- Decision: 跨元件的宣稱採實際組合入口驗證，觀測所有受影響的輸出與副作用
+- Verification: 在舊組合與修正組合執行同一案例，核對最終狀態與所有相關紀錄
+- Counterexample: 自足純函式的局部契約不需一律提升為 host 測試
+- Transfer case: 訊息處理器的重試與去重順序共同決定最終通知次數
+
+#### Intelligence Review
+
+- Decision: existing
+- Reason: 增量是宣稱範圍與證據鏈覆蓋的判斷，沿用既有 atom，避免按事件建立重複智慧。
+- Target: intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md
+
+#### Abstraction Check
+
+- Swap-project test: PASS — 訊息處理器的重試與去重順序共同決定最終通知次數；為可攜推演，未宣稱獨立實測。
+- Project evidence kept in: `<PROJECT_ROOT>/` 的受控驗證紀錄。
+- Product/cabinet/sample IDs absent from Generalized Lesson: PASS
+
+#### 承接修訂 2026-10-26
+
+已與 [evidence-chain 候選判斷](../../../../intelligence/engineering/execution/validation-reasoning/evidence-chain-validation.md) 雙向接線；分類／domain 索引與 RAG 已同步檢查，維持 candidate，不把抽取當 promotion。

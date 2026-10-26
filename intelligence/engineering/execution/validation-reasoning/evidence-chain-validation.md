@@ -63,3 +63,24 @@ Evidence Chain Validation
 - [`evidence-model.md`](evidence-model.md)
 - [`evidence-depth.md`](evidence-depth.md)
 - [`evidence-collapse-point.md`](evidence-collapse-point.md)
+
+
+## 組合、因果與發佈範圍的候選補充
+
+選證據入口時，先問哪一層、哪個時間點最後決定宣稱的結果。局部成功或測試變紅，只有在當次輸入確實到達該層、且其他條件受控時，才能支持因果判斷。
+
+| 宣稱範圍 | 判斷 | 可推翻的檢查 |
+| --- | --- | --- |
+| 多個元件組合後的 host 行為 | 採實際組合入口，包含順序造成的副作用 | 舊組合必須重現錯誤；只測單一元件不足 |
+| 某守衛被突變後測試會失敗 | 先讀回最後有效層，隔離每次衍生狀態 | 突變被後續覆寫或結果來自舊範本時，測試不能證明守衛 |
+| 發佈時整個分支符合不變式 | 在發佈必經入口驗當次狀態 | 帶入違規後只改無關檔案，仍應被攔截 |
+
+適用於跨層覆寫、共享範本或多階段驗證。自足純函式、單次提交契約，或已有不可繞過全量驗證的入口，不必機械增加 host／本機全掃。啟用新發佈阻擋前，先盤點既存違規並修復或明確隔離，避免把未分類歷史直接當作本次變更新增錯誤。
+
+此補充維持 candidate；來源事件與可攜推演不等於獨立重用實測。具體測試操作仍由專案 test strategy 決定。
+
+### 來源回饋
+
+- [2026-10-15_190000-mutate-the-layer-that-decides-and-reset-the-template.md](../../../../feedback/history/development-guidance/common/2026-10-15_190000-mutate-the-layer-that-decides-and-reset-the-template.md)
+- [2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md](../../../../feedback/history/development-guidance/common/2026-10-06_090000-pipeline-behaviour-needs-host-level-test.md)
+- [2026-09-04_135746-gate-that-runs-only-at-commit-is-one-bypass-from-gone.md](../../../../feedback/history/development-guidance/common/2026-09-04_135746-gate-that-runs-only-at-commit-is-one-bypass-from-gone.md)
