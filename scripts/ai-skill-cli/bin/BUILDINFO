@@ -1,4 +1,4 @@
-version=repo-818a185d
-source_commit=818a185d
-built_at=2026-10-24T23:05:55Z
+version=repo-6d3c4663
+source_commit=6d3c4663
+built_at=2026-10-26T01:25:43Z
 targets=windows/amd64,darwin/amd64,darwin/arm64,linux/amd64,linux/arm64
