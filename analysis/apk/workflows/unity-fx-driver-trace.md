@@ -33,8 +33,12 @@
 8. **Lab force 閘門 ≠ 生產 unpaid**：覆寫 Paid＝false＋SpinsCount≠0 只證明通過閘後列表鏈可用；普通付費轉仍可能呼叫列表 API 但恒早退——下一刀改獵未付 feature 中段。
 9. **列表源可能是 Spin↔State reel-set 差分**：`GetReelSymbols(BySpin|ByState)` → `GetGroup.GetReelSet`；桌上洞不是充分條件。`GetGroup(feature)` 成功仍可能 **ChildGroups→reel-set 無映射** → state 側空 strip。
 10. **勿 attach 稍後要 NativeFunction／runtime_invoke 的同一方法**（Frida breakpoint 重入）；force Show 只 invoke，觀察改 hook 下游事件／Setup。
+11. **Soft／mode 旗標 ≠ 視覺進場**：Animator `SetBonusMode` 或 soft boolean 只是 gate；需 Present／Show **Action.Start**（避免同步 Present + null Finished hang），符號常要 `*Creator.CreateContent+Show`，單靠 SetupItemSymbol／寫格 ID 不夠。Fixture wire 鍵與 IL 屬性別名要雙認，否則 Move／Show 靜默 skipped。格內像棋子的 glyph ≠ 軌道 piece GO。
+12. **SetActive**：只用 `NativeFunction(void,[GO*,uint8])` 打**目標** GO；禁止 `runtime_invoke` 布林裝箱與 parent-walk。Breakpoint→NativeFunction fallback 必須依 `method_get_param_count` 傳齊參數（勿 1-arg 啟發式），否則多參 CreateContent 易 AV。
 
 候選 lesson：
+- [lab soft gate ≠ 視覺進場；Action＋Creator](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-27_100500-lab-soft-gate-not-visual-enter-action-queue-and-creators.md)
+- [SetActive uint8＋invoke NF full-arity](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-27_100600-frida-il2cpp-setactive-uint8-and-invoke-nativefunction-full-arity.md)
 - [lab presence fixture 空列表 vs force overlay](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-26_113002-lab-presence-fixture-empty-fx-list-vs-force-overlay.md)
 - [Paid／SpinsCount 早退](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-26_160018-fx-list-api-may-early-out-on-stateinfo-paid-spinscount.md)
 - [Spin↔State reel-set 差分](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-26_160100-fx-list-may-diff-spin-vs-state-reelsets-not-desk-holes.md)
