@@ -35,8 +35,10 @@
 10. **勿 attach 稍後要 NativeFunction／runtime_invoke 的同一方法**（Frida breakpoint 重入）；force Show 只 invoke，觀察改 hook 下游事件／Setup。
 11. **Soft／mode 旗標 ≠ 視覺進場**：Animator `SetBonusMode` 或 soft boolean 只是 gate；需 Present／Show **Action.Start**（避免同步 Present + null Finished hang），符號常要 `*Creator.CreateContent+Show`，單靠 SetupItemSymbol／寫格 ID 不夠。Fixture wire 鍵與 IL 屬性別名要雙認，否則 Move／Show 靜默 skipped。格內像棋子的 glyph ≠ 軌道 piece GO。
 12. **SetActive**：只用 `NativeFunction(void,[GO*,uint8])` 打**目標** GO；禁止 `runtime_invoke` 布林裝箱與 parent-walk。Breakpoint→NativeFunction fallback 必須依 `method_get_param_count` 傳齊參數（勿 1-arg 啟發式），否則多參 CreateContent 易 AV。
+13. **Soft paint API ok 但 GetContent null／畫面彈回**：不要只換 layer 字串或加大 force 表。改走 [soft 視覺還原](unity-soft-visual-restore.md)——先對齊資料／進場 Action 圖，再短窗口停 Update 或 Kill 目標 Tween／Director，最後才 paint；以 getter 讀回為閉環。
 
 候選 lesson：
+- [soft 視覺還原：資料→停驅動→paint](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-27_110000-slot-soft-visual-restore-data-drive-then-kill-then-paint.md)
 - [lab soft gate ≠ 視覺進場；Action＋Creator](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-27_100500-lab-soft-gate-not-visual-enter-action-queue-and-creators.md)
 - [SetActive uint8＋invoke NF full-arity](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-27_100600-frida-il2cpp-setactive-uint8-and-invoke-nativefunction-full-arity.md)
 - [lab presence fixture 空列表 vs force overlay](../../../feedback/history/apk-analysis/unity-il2cpp/2026-10-26_113002-lab-presence-fixture-empty-fx-list-vs-force-overlay.md)

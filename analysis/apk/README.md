@@ -68,4 +68,6 @@ analysis/apk/
 
 動畫／特效視覺缺口、`m_Payloads` writer 或 PlayableDirector 分析，走 [Unity 驅動追蹤](workflows/unity-fx-driver-trace.md)；資產還原仍走 Unity 資產解析流程。
 
+Soft 進場／填格 **API ok 但讀回 null 或畫面彈回**（資料模型、Update／Tween、Timeline），走 [soft 視覺還原](workflows/unity-soft-visual-restore.md)：資料與進場圖 → 停驅動 → 再 paint。
+
 IL2CPP 方法參數、hook 前後階段或 fixture 形狀異常，走 [執行契約驗證](workflows/il2cpp-runtime-contract-validation.md)，先找契約差異，再決定 adapter 修正。

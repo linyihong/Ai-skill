@@ -39,6 +39,9 @@
 | [`cold-start-play-focus-ab.md`](cold-start-play-focus-ab.md) | 冷啟動 Play 搶焦 A/B — focus 時間序列；允許 Play vs 抑止 vending（非 license crack） | `feedback/history/apk-analysis/common/2026-07-14_171000-pairip-application-licenseactivity-cold-start-play-gate.md` |
 | [`headless-sdk-device-executor-flow.md`](headless-sdk-device-executor-flow.md) | Private SDK 裝置執行器 — sign 已對齊但主機 403 時，冷啟 bootstrap → session → rewards E2E | `feedback/history/.../2026-07-15_140*` + `132500` |
 | [`unity-asset-parse-flow.md`](unity-asset-parse-flow.md) | UnityCache／AssetBundle 解析 — UnityPy 預設；AssetRipper 進 Editor；AssetStudio 瀏覽；Il2CppDumper 只助 Frida；粒子成熟度標籤 | Unity IL2CPP feedback + tools-and-failures §Unity |
+| [`unity-fx-driver-trace.md`](unity-fx-driver-trace.md) | 動畫／特效視覺缺口 — feature API → Timeline／粒子／Update／第三方節點；`m_Payloads` 監看 | Unity IL2CPP feedback |
+| [`unity-soft-visual-restore.md`](unity-soft-visual-restore.md) | Soft 視覺還原 — 資料／進場圖 → 停 Update／Tween／Director → paint；invoke≠GetContent | Unity IL2CPP feedback 2026-10-27 |
+| [`il2cpp-runtime-contract-validation.md`](il2cpp-runtime-contract-validation.md) | IL2CPP 參數／hook 階段／fixture 形狀契約差異 | Unity IL2CPP feedback |
 
 ## Generated Surface
 

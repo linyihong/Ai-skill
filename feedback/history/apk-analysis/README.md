@@ -9,8 +9,16 @@
 | [`http-api/`](http-api/) | 34 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 12 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
-| [`unity-il2cpp/`](unity-il2cpp/) | 50 | Unity IL2CPP、AssetBundle、UnityCache |
+| [`unity-il2cpp/`](unity-il2cpp/) | 86 | Unity IL2CPP、AssetBundle、UnityCache |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
+
+## Recent (2026-10-27)
+
+| Slug | Category |
+|------|----------|
+| `unity-il2cpp/2026-10-27_110000-slot-soft-visual-restore-data-drive-then-kill-then-paint` | Soft 還原：資料／進場圖 → 停 Update／Tween → paint；invoke≠GetContent |
+| `unity-il2cpp/2026-10-27_100500-lab-soft-gate-not-visual-enter-action-queue-and-creators` | Soft gate ≠ 視覺進場；Action 佇列＋Creator |
+| `unity-il2cpp/2026-10-27_100600-frida-il2cpp-setactive-uint8-and-invoke-nativefunction-full-arity` | SetActive uint8；NativeFunction 全參數 |
 
 ## Recent (2026-10-23)
 
