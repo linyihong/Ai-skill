@@ -28,6 +28,10 @@ Canonical lifecycle。欄位 SoT 在 [`contracts/`](contracts/)。**不要**寫 
 
 若肉眼已是**規則的列×行長方形陣列**，優先用 **mid-gutter 矩形格切**：切割線落在相鄰內容帶正中、外緣留呼吸空間，成功判準＝切割線不碰到灰／彩內容方塊；一格一檔（多標號同框）。見 lesson [`regular-panel-grid-mid-gutter-cuts`](../../feedback/history/image-processing/common/2026-10-16_132758-regular-panel-grid-mid-gutter-cuts.md)。
 
+### Raw texture dumps（channel order before shader blame）
+
+從影像快取／`Texture2D` raw bytes 解出的四通道圖若出現綠膚、洋紅天空、紅藍對調，在步驟 1 先掃 **ARGB／BGRA／RGBA × 可選 Y-flip**，並用 live 截圖**中段**（遮掉 UI chrome）目視裁判；不要先歸因缺 Material／shader 或「防盜演算法」。真·通道遮罩貼圖或未解壓 GPU 壓縮格式不適用。見 lesson [`raw-texture-argb-yflip-before-shader-blame`](../../feedback/history/image-processing/common/2026-10-28_165929-raw-texture-argb-yflip-before-shader-blame.md)。
+
 ## 責任分離
 
 | 階段 | 負責 | 禁止 |
@@ -68,3 +72,4 @@ Canonical lifecycle。欄位 SoT 在 [`contracts/`](contracts/)。**不要**寫 
 
 - [2026-10-16_092807-dense-diagram-panel-crop-before-ocr.md](../../feedback/history/image-processing/common/2026-10-16_092807-dense-diagram-panel-crop-before-ocr.md)
 - [2026-10-16_132758-regular-panel-grid-mid-gutter-cuts.md](../../feedback/history/image-processing/common/2026-10-16_132758-regular-panel-grid-mid-gutter-cuts.md)
+- [2026-10-28_165929-raw-texture-argb-yflip-before-shader-blame.md](../../feedback/history/image-processing/common/2026-10-28_165929-raw-texture-argb-yflip-before-shader-blame.md)
