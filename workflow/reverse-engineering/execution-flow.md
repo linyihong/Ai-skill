@@ -26,6 +26,12 @@
 
 定 seed → 靜態先、動態後 → 分 observation／inference／unknown。域內方法見 apk／binary／desktop。缺某一工具時換同等權威，標 `engine_unavailable` 若完全無法取證。可選 MCP 橋接僅附錄：[`../../ai-tools/rea-mcp.md`](../../ai-tools/rea-mcp.md)。
 
+開始 runtime／瞬態／資源採集或審查已保存抓包前，載入：
+
+- [`../../analysis/reverse-engineering/collection/collection-discipline.md`](../../analysis/reverse-engineering/collection/collection-discipline.md)
+- 已有 HAR／pcap／inventory 時另載 [`../../analysis/reverse-engineering/collection/capture-review.md`](../../analysis/reverse-engineering/collection/capture-review.md)
+- 卡住時查 [`../../analysis/reverse-engineering/collection/collection-pitfalls.md`](../../analysis/reverse-engineering/collection/collection-pitfalls.md)
+
 ## 4. 產出與關閉
 
 通過 [`artifact-gates.md`](artifact-gates.md)。Raw evidence 留業務專案；可重用 lesson 去敏後進 `feedback/history/`。

@@ -27,6 +27,7 @@
 - `analysis/apk/tools-and-failures.md` 提供工具選擇與命令模板，本目錄提供完整操作流程
 - `intelligence/engineering/analytical-reasoning/heuristics/` 提供「何時該用哪個流程」的判斷
 - `workflow/apk-analysis/` 提供端到端 agent 執行流程，本目錄提供單一技術的深度操作
+- 瞬態全量、同平台、交付映射、實作重試轉採集等**跨目標**紀律見 [`../../reverse-engineering/collection/`](../../reverse-engineering/collection/README.md)；本目錄不重複那些泛用規則
 
 ## 目前 workflows
 

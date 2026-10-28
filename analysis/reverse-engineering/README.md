@@ -9,6 +9,7 @@
 - **調查節奏**（授權→分流→seed→取證→分主張→升級／關閉）——主文件 [`investigation-process.md`](investigation-process.md)。
 - 觀察／推論／殘餘未知紀律；artifact 身分。
 - 目標分流：先選分析族，再進域內方法。
+- **跨目標採集紀律**與 Capture review（HAR／pcap／inventory）——[`collection/`](collection/README.md)。
 - 工具一律可替換；外部 MCP 僅可選、非必要。
 
 ## 不放什麼
@@ -25,6 +26,7 @@
 | [`investigation-process.md`](investigation-process.md) | **主流程**：工具中立調查節奏 |
 | [`evidence-contract.md`](evidence-contract.md) | Evidence 品質契約 |
 | [`target-routing.md`](target-routing.md) | 目標族分流決策表 |
+| [`collection/`](collection/README.md) | 採集紀律、Capture review、踩雷速查 |
 
 ## 與其他層
 

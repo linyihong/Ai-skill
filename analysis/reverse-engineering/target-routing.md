@@ -13,7 +13,7 @@
 | .NET／managed／NativeAOT | **Managed** | `analysis/binary/managed-code.md`（落地中） | native 橋接用 binary 方法 |
 | ASAR／Electron／打包 JS 樹：模組、IPC、source map | **Desktop JS** | [`../desktop/`](../desktop/README.md)（落地中） | 需要頁面行為 → passive runtime 或 web 工具 |
 | 網站爬取／anti-bot／selector | **Web scrape** | [`../web/`](../web/README.md) | **不是** desktop reverse |
-| HAR／已保存抓包 | **Capture review** | desktop／apk traffic 交叉；通用 HAR 方法落地中 | 不把 capture 當 live 授權擴大 |
+| HAR／已保存抓包 | **Capture review** | [`collection/capture-review.md`](collection/capture-review.md)；desktop／apk traffic 交叉 | 不把 capture 當 live 授權擴大 |
 | Firmware 映像 | **Firmware** | [`../firmware/`](../firmware/README.md)（stub） | 抽出後可能 handoff Native |
 | EVM bytecode（離線 hex／raw） | **EVM** | [`../evm/`](../evm/README.md)（stub） | 不做鏈上查詢除非另授權 |
 | 完整原始碼 repo 架構 | **Repo analysis** | [`../repo/`](../repo/README.md) | **跳過** reverse-engineering 入口 |

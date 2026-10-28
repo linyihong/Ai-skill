@@ -53,6 +53,14 @@
 4. 靜態 refs／callers（標明非 runtime）
 5. 僅在 unknown **blocking** 且已授權時：pcap／hook／passive observe／有界 process
 
+**採集紀律**（跨族共用；開始 runtime／瞬態／資源採集前讀）：[`collection/collection-discipline.md`](collection/collection-discipline.md)
+
+- Probe-before-attach；平台一致；瞬態先落盤再分析
+- 靜態＋runtime 雙源；交付**映射關係**才算 ready
+- 同症狀實作有上限 → 超限轉採集缺口
+
+已保存 HAR／pcap／inventory → [`collection/capture-review.md`](collection/capture-review.md)。卡住時查 [`collection/collection-pitfalls.md`](collection/collection-pitfalls.md)。
+
 工具表見各域 `tools-and-failures`；換工具不換步驟順序。
 
 ### 5. Separate claims

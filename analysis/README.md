@@ -6,7 +6,7 @@
 
 ## 目前入口
 
-- [`reverse-engineering/`](reverse-engineering/README.md)：跨目標 shipped-artifact Evidence 契約與目標分流（靜態／動態／native／desktop 等）。計劃落地中：[`plans/active/2026-10-10-1328-rea-analysis-capability-hardening/_plan.md`](../plans/active/2026-10-10-1328-rea-analysis-capability-hardening/_plan.md)。
+- [`reverse-engineering/`](reverse-engineering/README.md)：跨目標 shipped-artifact Evidence 契約、目標分流與 [`collection/`](reverse-engineering/collection/README.md) 採集紀律／Capture review。計劃：[`plans/active/2026-10-10-1328-rea-analysis-capability-hardening/_plan.md`](../plans/active/2026-10-10-1328-rea-analysis-capability-hardening/_plan.md)。
 - [`apk/`](apk/README.md)：APK 分析的可重用分析方法。已從舊 `skills/apk-analysis/` 遷移至本層。
 - [`binary/`](binary/README.md)：Native／ELF／crash／managed 分析方法（落地中）。
 - [`desktop/`](desktop/README.md)：JS／Electron 發行物與 passive runtime 分析方法（落地中；≠ web scraping）。

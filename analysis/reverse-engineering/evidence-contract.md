@@ -46,6 +46,10 @@
 | `supporting_ids` | 相關 observation 代號（專案內） |
 | `status` | `open` / `resolved` / `accepted_gap` |
 
+## Capture inventory 主張
+
+對 HAR／pcap／sanitized inventory 的每一條主張，仍須標本契約三類陳述。傳輸外觀（SNI／時序）不得跳層寫成 API path／body。審查步驟見 [`collection/capture-review.md`](collection/capture-review.md)；本契約只管「主張可否覆核」，不管捕捉操作順序。
+
 ## 與 APK evidence-chain 的接縫
 
 | 情境 | 用哪份 |
@@ -53,6 +57,7 @@
 | 寫 APK 單次分析筆記、pcap→hook→decrypt 層次 | apk `evidence-chain` slice |
 | 跨 APK／native／Electron 共用「主張可否覆核」 | **本契約** |
 | 靜態 JADX 結束要升級動態 | 本契約保留 unknowns → [`../apk/traffic-triage.md`](../apk/traffic-triage.md)／Frida workflows |
+| 已保存抓包／inventory 審查 | [`collection/capture-review.md`](collection/capture-review.md) + 本契約 |
 
 ## 可選引擎
 

@@ -1939,8 +1939,12 @@ records:
       - analysis/reverse-engineering/README.md
       - analysis/reverse-engineering/evidence-contract.md
       - analysis/reverse-engineering/target-routing.md
+      - analysis/reverse-engineering/collection/README.md
       - enforcement/authorization-scope.md
     candidate_sources:
+      - analysis/reverse-engineering/collection/collection-discipline.md
+      - analysis/reverse-engineering/collection/capture-review.md
+      - analysis/reverse-engineering/collection/collection-pitfalls.md
       - analysis/apk/static-jadx-path.md
       - analysis/binary/README.md
       - analysis/desktop/README.md
@@ -1950,7 +1954,7 @@ records:
       Does not replace route.workflow.apk-analysis for Frida/traffic APK work.
     validation_signal: >
       Target family selected; findings separated into observation/inference/unknown;
-      authorization recorded.
+      authorization recorded; collection discipline loaded when capturing or reviewing captures.
     metadata:
       priority: P1
       confidence: high
@@ -2058,12 +2062,14 @@ records:
     candidate_sources:
       - analysis/desktop/javascript-electron-static.md
       - analysis/desktop/passive-runtime-and-captures.md
+      - analysis/reverse-engineering/collection/capture-review.md
       - ai-tools/rea-mcp.md
     source_of_truth_gate: new-layer-promoted
     ranking_reason: >
       Shipped JS/Electron reverse is distinct from analysis/web scraping.
     validation_signal: >
-      Boundary vs web scrape stated; credentials not written into reusable docs.
+      Boundary vs web scrape stated; credentials not written into reusable docs;
+      HAR/capture review uses capture-review when applicable.
     metadata:
       priority: P2
       confidence: high
@@ -2106,9 +2112,13 @@ records:
       - analysis/reverse-engineering/investigation-process.md
       - analysis/reverse-engineering/target-routing.md
       - analysis/reverse-engineering/evidence-contract.md
+      - analysis/reverse-engineering/collection/README.md
       - enforcement/authorization-scope.md
       - enforcement/README.md
     candidate_sources:
+      - analysis/reverse-engineering/collection/collection-discipline.md
+      - analysis/reverse-engineering/collection/capture-review.md
+      - analysis/reverse-engineering/collection/collection-pitfalls.md
       - workflow/apk-analysis/execution-flow.md
       - analysis/apk/static-jadx-path.md
       - analysis/binary/README.md
@@ -2118,7 +2128,8 @@ records:
     ranking_reason: >
       Process-first orchestration; REA MCP optional; APK Frida/traffic stays apk-analysis.
     validation_signal: >
-      Authorization first; family selected; artifact gates checked before completion claim.
+      Authorization first; family selected; collection discipline when capturing;
+      artifact gates checked before completion claim.
     metadata:
       priority: P1
       confidence: high

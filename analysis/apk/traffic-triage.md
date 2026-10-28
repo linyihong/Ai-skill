@@ -2,6 +2,8 @@
 
 本文件定義如何判斷 APK 的網路流量走哪一層。這是**動態／流量** APK 分析的第一步，在選擇具體工具或 hook 策略之前。若 goal 僅需靜態 class／method／manifest，先走 [`static-jadx-path.md`](static-jadx-path.md)；出現 runtime unknown 再回到本分流。
 
+**跨域採集紀律**（瞬態全量、同平台、fail-closed、sanitized inventory、交付映射）：見 [`../reverse-engineering/collection/`](../reverse-engineering/collection/README.md)。已保存 HAR／pcap 審查走 [`../reverse-engineering/collection/capture-review.md`](../reverse-engineering/collection/capture-review.md)；本檔專注 APK 即時路徑分流。
+
 ## 核心原則
 
 不要一開始就假設是 certificate pinning。先回答這些問題：
