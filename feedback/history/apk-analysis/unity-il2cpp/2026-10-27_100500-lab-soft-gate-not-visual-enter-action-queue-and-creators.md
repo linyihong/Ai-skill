@@ -69,7 +69,7 @@ Unity 機台常把「邏輯已在 bonus」與「chrome／reels／棋子已上屏
 
 #### Promotion Target
 
-- analysis/apk/workflows/unity-fx-driver-trace.md
+- analysis/unity/workflows/unity-fx-driver-trace.md
 
 #### Promotion Record
 
@@ -94,7 +94,7 @@ Unity 機台常把「邏輯已在 bonus」與「chrome／reels／棋子已上屏
 
 - Decision: method-only
 - Reason: 操作邊界與既有 FX／presence lab 流程增量，併入 unity-fx-driver-trace
-- Target: analysis/apk/workflows/unity-fx-driver-trace.md
+- Target: analysis/unity/workflows/unity-fx-driver-trace.md
 - Revisit: none
 - Discovery: not applicable — method-only
 

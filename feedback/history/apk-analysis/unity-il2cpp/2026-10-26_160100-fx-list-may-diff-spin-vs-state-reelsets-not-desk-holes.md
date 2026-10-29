@@ -65,7 +65,7 @@ Status: candidate
 
 #### Promotion Target
 
-- [Unity 動畫／特效驅動追蹤](../../../../analysis/apk/workflows/unity-fx-driver-trace.md) §2.1
+- [Unity 動畫／特效驅動追蹤](../../../../analysis/unity/workflows/unity-fx-driver-trace.md) §2.1
 
 #### Promotion Record
 
@@ -91,7 +91,7 @@ Status: candidate
 
 - Decision: method-only
 - Reason: 補強列表填充來源診斷
-- Target: analysis/apk/workflows/unity-fx-driver-trace.md
+- Target: analysis/unity/workflows/unity-fx-driver-trace.md
 - Revisit: none
 - Discovery: not applicable — method-only
 

@@ -61,7 +61,7 @@ Frida 在已 patch 的入口上再從腳本同步呼叫同一地址，會撞上�
 
 #### Promotion Target
 
-- [Frida hook flow](../../../../analysis/apk/workflows/frida-hook-flow.md)（若有 lab invoke 節）；否則 [unity-fx-driver-trace.md](../../../../analysis/apk/workflows/unity-fx-driver-trace.md) §2
+- [Frida hook flow](../../../../analysis/apk/workflows/frida-hook-flow.md)（若有 lab invoke 節）；否則 [unity-fx-driver-trace.md](../../../../analysis/unity/workflows/unity-fx-driver-trace.md) §2
 
 #### Promotion Record
 
@@ -86,7 +86,7 @@ Frida 在已 patch 的入口上再從腳本同步呼叫同一地址，會撞上�
 
 - Decision: method-only
 - Reason: Frida／lab 操作邊界，併入 FX／hook 流程說明
-- Target: analysis/apk/workflows/unity-fx-driver-trace.md
+- Target: analysis/unity/workflows/unity-fx-driver-trace.md
 - Revisit: none
 - Discovery: not applicable — method-only
 

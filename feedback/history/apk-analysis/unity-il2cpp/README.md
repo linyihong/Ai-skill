@@ -90,4 +90,4 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 | [2026-09-08_134000-xelement-xname-fill-may-use-skipnotify-not-public-add.md](2026-09-08_134000-xelement-xname-fill-may-use-skipnotify-not-public-add.md) | validated | XElement(XName) 填充可能走 SkipNotify，不是 public Add |
 | [2026-09-08_133000-parse-xelement-args-may-be-ctor-copies-not-load-tree.md](2026-09-08_133000-parse-xelement-args-may-be-ctor-copies-not-load-tree.md) | validated | Parse 的 XElement 可能是 ctor 複本，不是 Load 樹節點 |
 
-2026-10-26 抽象化覆核：近期候選改以參數／生命週期／資料契約方法表述；報告工具邊界條目因缺獨立重用證據改回 candidate。檔名保留相容，方法見 [IL2CPP 契約驗證](../../../../analysis/apk/workflows/il2cpp-runtime-contract-validation.md)。
+2026-10-26 抽象化覆核：近期候選改以參數／生命週期／資料契約方法表述；報告工具邊界條目因缺獨立重用證據改回 candidate。檔名保留相容，方法見 [IL2CPP 契約驗證](../../../../analysis/unity/workflows/il2cpp-runtime-contract-validation.md)。

@@ -65,7 +65,7 @@ IL2CPP＋Frida 啟用物件時，**不要**用 `runtime_invoke` 亂塞 bool、�
 #### Promotion Target
 
 - analysis/apk/workflows/frida-hook-flow.md
-- analysis/apk/workflows/unity-fx-driver-trace.md
+- analysis/unity/workflows/unity-fx-driver-trace.md
 
 #### Promotion Record
 
@@ -91,7 +91,7 @@ IL2CPP＋Frida 啟用物件時，**不要**用 `runtime_invoke` 亂塞 bool、�
 
 - Decision: method-only
 - Reason: Frida／IL2CPP 呼叫慣例增量；承接既有 hook／FX 流程
-- Target: analysis/apk/workflows/unity-fx-driver-trace.md
+- Target: analysis/unity/workflows/unity-fx-driver-trace.md
 - Revisit: none
 - Discovery: not applicable — method-only
 

@@ -73,7 +73,7 @@ Follow-up settle 還可能只打到 `EventSink_SlotsRound`／`ProcessSpin`（Sym
 
 #### Promotion Target
 
-- [Unity 動畫／特效驅動追蹤](../../../../analysis/apk/workflows/unity-fx-driver-trace.md)（§ presence／相位）
+- [Unity 動畫／特效驅動追蹤](../../../../analysis/unity/workflows/unity-fx-driver-trace.md)（§ presence／相位）
 
 #### Promotion Record
 
@@ -82,7 +82,7 @@ Follow-up settle 還可能只打到 `EventSink_SlotsRound`／`ProcessSpin`（Sym
 #### Required Linked Updates
 
 - category README 追加本條
-- `analysis/apk/workflows/unity-fx-driver-trace.md` 補 presence／RESULT–SPIN 相位注意
+- `analysis/unity/workflows/unity-fx-driver-trace.md` 補 presence／RESULT–SPIN 相位注意
 - 專案 evidence 留 `<PROJECT_ROOT>/docs/slots/*/lab/`（已寫 natural-hunt note）
 
 #### Abstraction Check
@@ -104,6 +104,6 @@ Follow-up settle 還可能只打到 `EventSink_SlotsRound`／`ProcessSpin`（Sym
 
 - Decision: method-only
 - Reason: 補強既有 FX 驅動追蹤流程的 lab／相位邊界，不另抽新 heuristic 檔
-- Target: analysis/apk/workflows/unity-fx-driver-trace.md
+- Target: analysis/unity/workflows/unity-fx-driver-trace.md
 - Revisit: none
 - Discovery: not applicable — method-only

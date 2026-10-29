@@ -1,10 +1,10 @@
 ---
 id: 2026-10-29-1055-unity-analysis-decision-domain
 plan_kind: main
-status: draft
+status: in-progress
 owner: larrylin/cursor-session
 created: 2026-10-29T10:55:00+09:00
-updated: 2026-10-29T11:30:00+09:00
+updated: 2026-10-29T11:35:00+09:00
 parent: null
 owner_layer: analysis
 ---
@@ -35,12 +35,12 @@ owner_layer: analysis
 
 現有程序夠用，但缺共同決策層：
 
-| 現況檔 | 角色 |
+| 現況檔（已遷入 `analysis/unity/workflows/`；apk 僅 stub） | 角色 |
 | --- | --- |
-| [`analysis/apk/workflows/unity-asset-parse-flow.md`](../../../analysis/apk/workflows/unity-asset-parse-flow.md) | 資產／粒子解析 |
-| [`analysis/apk/workflows/unity-fx-driver-trace.md`](../../../analysis/apk/workflows/unity-fx-driver-trace.md) | 動畫／特效驅動追蹤 |
-| [`analysis/apk/workflows/unity-soft-visual-restore.md`](../../../analysis/apk/workflows/unity-soft-visual-restore.md) | soft 視覺還原順序 |
-| [`analysis/apk/workflows/il2cpp-runtime-contract-validation.md`](../../../analysis/apk/workflows/il2cpp-runtime-contract-validation.md) | IL2CPP 契約 |
+| [`unity-asset-parse-flow.md`](../../../analysis/unity/workflows/unity-asset-parse-flow.md) | 資產／粒子解析 |
+| [`unity-fx-driver-trace.md`](../../../analysis/unity/workflows/unity-fx-driver-trace.md) | 動畫／特效驅動追蹤 |
+| [`unity-soft-visual-restore.md`](../../../analysis/unity/workflows/unity-soft-visual-restore.md) | soft 視覺還原順序 |
+| [`il2cpp-runtime-contract-validation.md`](../../../analysis/unity/workflows/il2cpp-runtime-contract-validation.md) | IL2CPP 契約 |
 
 缺口：觀測≠因果、假設≠根因、實驗未設計成區分原因、局部成功（invoke）與整體完成混用。
 
@@ -230,7 +230,7 @@ Phase 0 **必須先讀** [`evidence-contract.md`](../../../analysis/reverse-engi
 | --- | --- |
 | **Decision** | **proceed** |
 | Checked sources | RE evidence-contract；四份 Unity／IL2CPP procedure；routing-registry `route.analysis.unity-fx`／`apk.workflows`；`unity_fx_discovery.go`；validation scenario；workflow/apk-analysis 連結 |
-| Conflicts | **無**架構衝突；il2cpp 可遷入 unity 域；feedback history 大量舊路徑 → Phase 1 **不**批次改（plan 既有決定），舊入口靠 stub |
+| Conflicts | **無**架構衝突；il2cpp 可遷入 unity 域；feedback history 舊路徑 → Phase 1 後補批次改寫至 `analysis/unity/workflows/…`（stub 仍保留給未更新引用） |
 | Interrogation | Goal／non-goals／acceptance 已凍結於本 plan；duplication risk = apk 全文副本 → 以 stub-only 消除 |
 | Open Questions | Q1–Q4 已裁決；無 still-open blocker |
 | Validation | `go test … TestUnityFX` PASS；`runtime validate --assert-source analysis/apk/workflows/unity-fx-driver-trace.md` PASS；產物見 evidence |
@@ -238,27 +238,27 @@ Phase 0 **必須先讀** [`evidence-contract.md`](../../../analysis/reverse-engi
 
 ### Phase 1 — 落地決策域與遷移
 
-**結構性驗收**（與 Phase 2 案例驗證分開；**不可省略**）：
+**結構性驗收**（與 Phase 2 案例驗證分開；**不可省略**）— **6/6 PASS**（見 [`evidence/phase1-structural-acceptance.md`](evidence/phase1-structural-acceptance.md)）：
 
-| 驗收 | 標準 |
-| --- | --- |
-| 無雙 SoT | apk 舊路徑僅 stub；全文只在 `analysis/unity/` |
-| 舊入口導向 | 舊 Markdown／已知硬編碼消費者能到達新 canonical |
-| 相對連結 | 四份 procedure + 新 README／decision 內部連結有效 |
-| Routing 正向 | Unity 專屬任務命中新 canonical（`decision-workflow`／unity-fx） |
-| Routing 負向 | 一般 APK／泛用 Frida 不誤導向 Unity |
-| Compile／refresh | 通過；與 Phase 0 基線比較無意外退化 |
-| Discovery／RAG | 查回新位置；既有 unity-fx 檢查通過 |
+| 驗收 | 標準 | Status |
+| --- | --- | --- |
+| SoT 唯一 | apk 舊路徑僅 stub；全文只在 `analysis/unity/` | **PASS** |
+| 舊入口仍有效 | Markdown／YAML／Go／腳本／測試／生成規則＋feedback history 必要更新 | **PASS** |
+| 連結有效 | 四份 procedure + README／decision 相對連結有效 | **PASS** |
+| Routing 正向 | Unity 專屬任務命中 `decision-workflow`／unity-fx | **PASS**（`TestUnityDecisionRoutePositive…`） |
+| Routing 負向 | 一般 APK／泛用 Frida 不誤導向 Unity | **PASS**（同 test negative cases） |
+| 工具與 Discovery | compile／refresh／Unity discovery／RAG；對照 Phase 0 無意外退化 | **PASS** |
 
 工作項：
 
 - [x] 寫 `analysis/unity/README.md`、`decision-workflow.md`、`case-ledger-template.md`、`workflows/README.md`（依上節契約）
 - [x] `git mv` 四份 procedure（含 il2cpp）；舊路徑 stub
-- [x] 依舊路徑盤點更新硬編碼消費者（feedback history 除外）
+- [x] 依舊路徑盤點更新硬編碼消費者
 - [x] Registry：`route.analysis.unity`；改 `route.analysis.unity-fx`；trim apk.workflows；apk-analysis candidate 加 unity README
 - [x] summary／discovery scenario／`unity_fx_discovery.go`／intelligence Related；重建 `ai-skill-darwin-arm64`
 - [x] compile + refresh + 結構性驗收表勾選（見 evidence）
-- [x] **不**批次改 feedback history 全文（維持 stub）
+- [x] feedback history／extraction 舊 Unity／IL2CPP 路徑改寫至 `analysis/unity/workflows/…`
+- [x] 正向＋負向 routing handoff Go test（`unity_route_handoff_test.go`）
 
 ### Phase 2 — 5×2 soft-enter 試跑（專案側；不阻塞 Phase 1 merge）
 
@@ -319,12 +319,12 @@ Phase 2 單案通過 ≠ 跨案例／跨專案架構成立。維持 analysis 域
 
 ## Acceptance（整份 plan）
 
-- [ ] `analysis/unity/` 為決策＋procedure SoT；apk 僅 stub／指引
-- [ ] 決策模型含共通前置／分支、RE 引用、oracle、獨立驗收
-- [ ] Phase 1 結構性驗收表全過（含 routing 負向與遷移前後比較）
-- [ ] Phase 3 未提前實作
-- [ ] ADR 未僅因單案 Phase 2 而強制升級
-- [ ] Plan Completion Closure
+- [x] `analysis/unity/` 為決策＋procedure SoT；apk 僅 stub／指引
+- [x] 決策模型含共通前置／分支、RE 引用、oracle、獨立驗收
+- [x] Phase 1 結構性驗收表全過（含 routing 負向與遷移前後比較）
+- [x] Phase 3 未提前實作
+- [ ] ADR 未僅因單案 Phase 2 而強制升級（Phase 2 尚未跑）
+- [ ] Plan Completion Closure（待 Phase 2 決策後）
 
 ## Weekly review（非 gate）
 

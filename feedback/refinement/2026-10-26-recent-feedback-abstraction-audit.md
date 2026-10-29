@@ -30,9 +30,9 @@
 
 ## 方法承接與發現
 
-- [IL2CPP 執行契約驗證](../../analysis/apk/workflows/il2cpp-runtime-contract-validation.md)：參數／ABI、目標×階段矩陣、展示與完整 runtime 資料結構。
-- [Unity 資產解析](../../analysis/apk/workflows/unity-asset-parse-flow.md)：checkpoint 與窗口分離；報告格式屬專案。
-- [Unity 驅動追蹤](../../analysis/apk/workflows/unity-fx-driver-trace.md)：feature FX 與證據分支；不靠單一 hook 命中宣稱完整因果鏈。
+- [IL2CPP 執行契約驗證](../../analysis/unity/workflows/il2cpp-runtime-contract-validation.md)：參數／ABI、目標×階段矩陣、展示與完整 runtime 資料結構。
+- [Unity 資產解析](../../analysis/unity/workflows/unity-asset-parse-flow.md)：checkpoint 與窗口分離；報告格式屬專案。
+- [Unity 驅動追蹤](../../analysis/unity/workflows/unity-fx-driver-trace.md)：feature FX 與證據分支；不靠單一 hook 命中宣稱完整因果鏈。
 - 原 image-processing 方法已從 execution-flow 連回兩條候選；維持原入口，沒有另建重複方法。
 - release 入口增加兩條候選指標；未把部署設計強制升為全庫規則。
 - APK analysis route、Unity FX candidate sources、summary、graph、README 與索引同步；RAG 查回方法來源。

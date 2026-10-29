@@ -59,7 +59,7 @@ Status: candidate
 
 #### Promotion Target
 
-[analysis/apk/workflows/unity-asset-parse-flow.md](../../../../analysis/apk/workflows/unity-asset-parse-flow.md)。
+[analysis/unity/workflows/unity-asset-parse-flow.md](../../../../analysis/unity/workflows/unity-asset-parse-flow.md)。
 
 #### Promotion Record
 

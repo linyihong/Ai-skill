@@ -59,7 +59,7 @@ IL2CPP 呼叫結果異常時，先對照 managed 簽名、值型別表示與呼�
 
 #### Promotion Target
 
-[analysis/apk/workflows/il2cpp-runtime-contract-validation.md](../../../../analysis/apk/workflows/il2cpp-runtime-contract-validation.md)。
+[analysis/unity/workflows/il2cpp-runtime-contract-validation.md](../../../../analysis/unity/workflows/il2cpp-runtime-contract-validation.md)。
 
 #### Promotion Record
 

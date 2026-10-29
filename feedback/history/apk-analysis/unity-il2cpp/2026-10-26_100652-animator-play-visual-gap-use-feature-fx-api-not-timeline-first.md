@@ -69,7 +69,7 @@ Timeline／PlayableDirector、硬體斷點、AssetRipper 仍有價值，但成�
 
 #### Promotion Target
 
-- [Unity 驅動追蹤](../../../../analysis/apk/workflows/unity-fx-driver-trace.md)。
+- [Unity 驅動追蹤](../../../../analysis/unity/workflows/unity-fx-driver-trace.md)。
 
 #### Promotion Record
 

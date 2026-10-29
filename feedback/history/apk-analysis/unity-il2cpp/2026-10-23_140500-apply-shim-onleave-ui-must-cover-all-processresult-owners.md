@@ -58,7 +58,7 @@ Status: candidate
 
 #### Promotion Target
 
-[analysis/apk/workflows/il2cpp-runtime-contract-validation.md](../../../../analysis/apk/workflows/il2cpp-runtime-contract-validation.md)。
+[analysis/unity/workflows/il2cpp-runtime-contract-validation.md](../../../../analysis/unity/workflows/il2cpp-runtime-contract-validation.md)。
 
 #### Promotion Record
 

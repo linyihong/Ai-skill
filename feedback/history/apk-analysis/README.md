@@ -205,4 +205,4 @@
 
 所有 lesson 原位於 `skills/apk-analysis/feedback_history/`，已於 2026-05-13 搬遷至此，舊目錄已刪除。
 
-2026-10-26 抽象化覆核：近期候選改以參數／生命週期／資料契約方法表述；報告工具邊界條目因缺獨立重用證據改回 candidate。檔名保留相容，方法見 [IL2CPP 契約驗證](../../../analysis/apk/workflows/il2cpp-runtime-contract-validation.md)。
+2026-10-26 抽象化覆核：近期候選改以參數／生命週期／資料契約方法表述；報告工具邊界條目因缺獨立重用證據改回 candidate。檔名保留相容，方法見 [IL2CPP 契約驗證](../../../analysis/unity/workflows/il2cpp-runtime-contract-validation.md)。

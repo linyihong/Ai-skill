@@ -60,7 +60,7 @@ Status: candidate
 
 #### Promotion Target
 
-[analysis/apk/workflows/unity-asset-parse-flow.md](../../../../analysis/apk/workflows/unity-asset-parse-flow.md)。
+[analysis/unity/workflows/unity-asset-parse-flow.md](../../../../analysis/unity/workflows/unity-asset-parse-flow.md)。
 
 #### Promotion Record
 
@@ -94,4 +94,4 @@ Status: candidate
 
 - Decision: method-only
 - Reason: 目前增量是資產證據取得與工具操作分工，已有方法承接，無需複製成新 atom。
-- Target: analysis/apk/workflows/unity-asset-parse-flow.md
+- Target: analysis/unity/workflows/unity-asset-parse-flow.md

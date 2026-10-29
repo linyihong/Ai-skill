@@ -66,7 +66,7 @@ Status: candidate
 
 #### Promotion Target
 
-- [Unity 動畫／特效驅動追蹤](../../../../analysis/apk/workflows/unity-fx-driver-trace.md) §2.1
+- [Unity 動畫／特效驅動追蹤](../../../../analysis/unity/workflows/unity-fx-driver-trace.md) §2.1
 
 #### Promotion Record
 
@@ -75,7 +75,7 @@ Status: candidate
 #### Required Linked Updates
 
 - category README 追加本條
-- `analysis/apk/workflows/unity-fx-driver-trace.md` §2.1 補 Paid／SpinsCount 早退與 pass_early 診斷
+- `analysis/unity/workflows/unity-fx-driver-trace.md` §2.1 補 Paid／SpinsCount 早退與 pass_early 診斷
 - 與 [2026-10-26_113002…](2026-10-26_113002-lab-presence-fixture-empty-fx-list-vs-force-overlay.md) 交叉引用（不重複全文）
 - 專案 evidence：`<PROJECT_ROOT>/docs/slots/*/lab/`
 
@@ -92,7 +92,7 @@ Status: candidate
 
 - Decision: method-only
 - Reason: 補強 FX 驅動追蹤的閘門診斷，不另抽 heuristic 檔
-- Target: analysis/apk/workflows/unity-fx-driver-trace.md
+- Target: analysis/unity/workflows/unity-fx-driver-trace.md
 - Revisit: none
 - Discovery: not applicable — method-only
 

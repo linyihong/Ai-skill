@@ -41,7 +41,7 @@ Status: candidate
 
 #### Agent Action
 
-- Soft 半成功時載入 [unity-soft-visual-restore.md](../../../../analysis/apk/workflows/unity-soft-visual-restore.md)，勿只換 layer 字串或加大 force 表。
+- Soft 半成功時載入 [unity-soft-visual-restore.md](../../../../analysis/unity/workflows/unity-soft-visual-restore.md)，勿只換 layer 字串或加大 force 表。
 - 探測清單：assembly 有無 tween 庫；Update hit；Director isPlaying；mode／spinning 旗標；SetContent 後立即 GetContent。
 - 專案 viewer：未還原成功前不要把失敗 soft 截圖當 matched 證據（若專案有此政策）。
 
@@ -70,8 +70,8 @@ Status: candidate
 
 #### Promotion Target
 
-- [analysis/apk/workflows/unity-soft-visual-restore.md](../../../../analysis/apk/workflows/unity-soft-visual-restore.md)
-- 交叉：[unity-fx-driver-trace.md](../../../../analysis/apk/workflows/unity-fx-driver-trace.md)
+- [analysis/unity/workflows/unity-soft-visual-restore.md](../../../../analysis/unity/workflows/unity-soft-visual-restore.md)
+- 交叉：[unity-fx-driver-trace.md](../../../../analysis/unity/workflows/unity-fx-driver-trace.md)
 
 #### Promotion Record
 
@@ -82,7 +82,7 @@ Status: candidate
 - `feedback/history/apk-analysis/README.md` Recent
 - `feedback/history/apk-analysis/unity-il2cpp/` 本條
 - `analysis/apk/README.md` Unity 入口
-- `analysis/apk/workflows/unity-fx-driver-trace.md` 交叉連結
+- `analysis/unity/workflows/unity-fx-driver-trace.md` 交叉連結
 - 專案 evidence 留 `<PROJECT_ROOT>/docs/slots/*/lab/`；本 lesson 不含柜机／sample 專名
 
 #### Abstraction Check
@@ -104,4 +104,4 @@ Status: candidate
 
 - Decision: method-only
 - Reason: 本條主要沉澱 soft 還原操作順序 procedure；局部證據歸因仍用既有 heuristics。
-- Target: analysis/apk/workflows/unity-soft-visual-restore.md
+- Target: analysis/unity/workflows/unity-soft-visual-restore.md
