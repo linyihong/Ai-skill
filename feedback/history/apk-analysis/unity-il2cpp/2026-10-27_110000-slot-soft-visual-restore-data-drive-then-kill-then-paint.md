@@ -35,7 +35,7 @@ Status: candidate
 2. **Invoke ≠ map：** SetContent／MoveContent true 只表示呼叫成功；以 GetContent（或契約 getter）+ 授權 screencap 當 paint oracle。
 3. **每幀覆寫：** 找 reel／board controller 的 Update／LateUpdate；lab 可短窗口 early-return，必須可解除。
 4. **Tween／Coroutine：** 先證實組件／命名空間存在，再對**目標範圍** Kill；避免 blind KillAll 打壞共用 HUD。
-5. **Timeline／payloads：** Director 仍在 Play 時改單元件無效；依 unity-fx-driver-trace 處置。
+5. **Timeline／payloads：** Director 仍在 Play 時改單元件無效；依 analysis/unity/workflows/unity-fx-driver-trace.md 處置。
 6. **順序鎖定：** 資料／進場圖 → 停驅動 → Kill tween／Director → paint API；不要顛倒。
 7. **分支記錄：** data／Update／Tween／Timeline／ABI 分開標 observed／ruled-out／not-tested。
 

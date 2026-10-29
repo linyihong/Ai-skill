@@ -4,19 +4,20 @@ plan_kind: main
 status: in-progress
 owner: larrylin/cursor-session
 created: 2026-10-29T10:55:00+09:00
-updated: 2026-10-29T11:35:00+09:00
+updated: 2026-10-29T13:25:00+09:00
 parent: null
 owner_layer: analysis
 ---
 
 # Unity 分析決策域落地（`analysis/unity`）
 
-**Status**: `in-progress`（Phase 0 **proceed**；Phase 1 結構性驗收 **PASS**；Phase 2 待專案 dogfood）
+**Status**: `in-progress`（Phase 0 **proceed**；Phase 1 **PASS**；Phase 2 **open** — 專案側 5×2 dogfood；**不**改 `analysis/unity` 架構；**不做** Phase 3）
 
 **Review incorporation（2026-10-29）**：採納 stakeholder 審查——修正分層／完成門檻／證據契約／Phase 0 出口／Phase 1 遷移驗收／case ledger 精簡／ADR 與 Phase 2 分離；不推翻 Goal、Non-goals、Layer map、Target tree、Phase 3 暫緩。
 
 **Phase 0 decision（2026-10-29）**: **proceed** — 詳 [`evidence/phase0-preflight-baseline.md`](evidence/phase0-preflight-baseline.md)。
-**Phase 1（2026-10-29）**: **PASS** — 詳 [`evidence/phase1-structural-acceptance.md`](evidence/phase1-structural-acceptance.md)。
+**Phase 1（2026-10-29）**: **PASS** — 詳 [`evidence/phase1-structural-acceptance.md`](evidence/phase1-structural-acceptance.md)；stakeholder 架構判讀同意進入 Phase 2。
+**Phase 2 kickoff（2026-10-29）**: 詳 [`evidence/phase2-dogfood-kickoff.md`](evidence/phase2-dogfood-kickoff.md)（含 GitHub reviewer pack）。
 
 ## Goal
 
@@ -260,12 +261,15 @@ Phase 0 **必須先讀** [`evidence-contract.md`](../../../analysis/reverse-engi
 - [x] feedback history／extraction 舊 Unity／IL2CPP 路徑改寫至 `analysis/unity/workflows/…`
 - [x] 正向＋負向 routing handoff Go test（`unity_route_handoff_test.go`）
 
-### Phase 2 — 5×2 soft-enter 試跑（專案側；不阻塞 Phase 1 merge）
+### Phase 2 — 5×2 soft-enter 試跑（專案側；**已開啟**）
 
-- [ ] 精簡 case ledger：自然 vs soft 同類型對照
+Kickoff／reviewer links：[`evidence/phase2-dogfood-kickoff.md`](evidence/phase2-dogfood-kickoff.md)。決策入口：[`analysis/unity/decision-workflow.md`](../../../analysis/unity/decision-workflow.md)；帳本：[`case-ledger-template.md`](../../../analysis/unity/case-ledger-template.md)。
+
+- [x] Phase 1 通過後開啟 Phase 2（不調整 `analysis/unity` 架構）
+- [ ] 精簡 case ledger：自然 vs soft 同類型對照（專案 evidence）
 - [ ] 找出第一個必要差異，或寫清證據不足／`blocked`
 - [ ] `_Symbol`／atlas 維持假設不升格；Soft49 缺對照標 `blocked`
-- [ ] **通過含義**：決策域**值得繼續使用**（單一案例有效）——**不**自動等於 ADR 成立
+- [ ] **通過含義**：決策域**值得繼續使用**（單一案例有效）——**不**自動等於 ADR 成立；**不**觸發 Phase 3
 
 ### Phase 3 — 機械化（暫緩）
 

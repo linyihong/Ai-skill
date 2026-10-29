@@ -78,7 +78,7 @@ Unity 機台常把「邏輯已在 bonus」與「chrome／reels／棋子已上屏
 #### Required Linked Updates
 
 - category README 追加本條
-- `unity-fx-driver-trace.md` §2.1 補 soft-gate／Creator／attrs 別名要點與本條連結
+- `analysis/unity/workflows/unity-fx-driver-trace.md` §2.1 補 soft-gate／Creator／attrs 別名要點與本條連結
 - 專案 evidence 留 `<PROJECT_ROOT>/docs/slots/*/lab/`；本 lesson 不含柜机／sample 專名
 
 #### Transfer Contract
@@ -93,7 +93,7 @@ Unity 機台常把「邏輯已在 bonus」與「chrome／reels／棋子已上屏
 #### Intelligence Review
 
 - Decision: method-only
-- Reason: 操作邊界與既有 FX／presence lab 流程增量，併入 unity-fx-driver-trace
+- Reason: 操作邊界與既有 FX／presence lab 流程增量，併入 analysis/unity/workflows/unity-fx-driver-trace.md
 - Target: analysis/unity/workflows/unity-fx-driver-trace.md
 - Revisit: none
 - Discovery: not applicable — method-only

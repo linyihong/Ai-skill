@@ -74,7 +74,7 @@ Status: candidate
 #### Required Linked Updates
 
 - category README 追加本條
-- `unity-fx-driver-trace.md` §2.1 補 Spin↔State reel-set 差分
+- `analysis/unity/workflows/unity-fx-driver-trace.md` §2.1 補 Spin↔State reel-set 差分
 - 交叉 [2026-10-26_160018…](2026-10-26_160018-fx-list-api-may-early-out-on-stateinfo-paid-spinscount.md)
 - 專案 evidence：`<PROJECT_ROOT>/docs/slots/*/lab/`
 

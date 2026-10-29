@@ -70,7 +70,7 @@ Frida 在已 patch 的入口上再從腳本同步呼叫同一地址，會撞上�
 #### Required Linked Updates
 
 - category README 追加本條
-- `unity-fx-driver-trace.md` §2 補「勿 attach 將 invoke 的方法」一句
+- `analysis/unity/workflows/unity-fx-driver-trace.md` §2 補「勿 attach 將 invoke 的方法」一句
 - 專案 evidence：`<PROJECT_ROOT>/docs/slots/*/lab/`
 
 #### Transfer Contract

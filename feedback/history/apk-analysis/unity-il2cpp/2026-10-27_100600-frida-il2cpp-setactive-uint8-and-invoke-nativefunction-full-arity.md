@@ -74,7 +74,7 @@ IL2CPP＋Frida 啟用物件時，**不要**用 `runtime_invoke` 亂塞 bool、�
 #### Required Linked Updates
 
 - category README 追加本條
-- `unity-fx-driver-trace.md` §2.1／§3 補 SetActive uint8 與 full-arity fallback 一句＋連結
+- `analysis/unity/workflows/unity-fx-driver-trace.md` §2.1／§3 補 SetActive uint8 與 full-arity fallback 一句＋連結
 - `frida-hook-flow.md` 若有 invoke helper 節則補連結；否則本輪以 fx-driver 為主承接
 - 專案 evidence：`<PROJECT_ROOT>/docs/slots/*/lab/`
 
