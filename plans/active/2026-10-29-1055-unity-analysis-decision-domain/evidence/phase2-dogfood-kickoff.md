@@ -50,6 +50,8 @@
 | Phase 2 | **open** — Soft49 ledger v1 started in business project |
 | Project path | `<PROJECT_ROOT>` = `Programs/unwrapping/pojiepokerist`（cabinet `docs/slots/el-dorado-dices`） |
 | Soft49 ledger | `<PROJECT_ROOT>/docs/slots/el-dorado-dices/lab/phase2-soft49-case-ledger-v1.md` |
-| First difference / blocked | Create/5 ABI **ruled-out**；Rect origin vs per-reel **observed**；Creator／物件身分／`_Symbol` **not-tested**；新自然進盤受 Guest＜參賽費 **blocked**（口述） |
-| Decision-domain worth keeping | _pending_（ledger 已能標 blocked／not-tested；尚未跑完最小區分實驗） |
+| First difference / blocked | Create/5 ABI **ruled-out**；Rect origin vs per-reel **observed≠causal**；Creator／物件身分／`_Symbol` **not-tested**；新自然進盤 **blocked**（口述） |
+| Soft50 | **A** 被動觀測 → **B** 單變因 → **C** 獨立讀回；同輪可記多項觀測、**不可**同輪改多項行為；A 契約失敗不進 B |
+| Decision-domain worth keeping | _pending_ |
 | ADR / Phase 3 | **out of scope** this phase |
+| Review pack（專案側 zip；非 Ai-skill） | `<PROJECT_ROOT>/docs/slots/el-dorado-dices/lab/phase2-soft49-review-pack-20261029.zip` |
