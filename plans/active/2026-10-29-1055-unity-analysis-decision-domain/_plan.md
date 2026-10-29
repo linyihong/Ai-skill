@@ -266,9 +266,9 @@ Phase 0 **必須先讀** [`evidence-contract.md`](../../../analysis/reverse-engi
 Kickoff／reviewer links：[`evidence/phase2-dogfood-kickoff.md`](evidence/phase2-dogfood-kickoff.md)。決策入口：[`analysis/unity/decision-workflow.md`](../../../analysis/unity/decision-workflow.md)；帳本：[`case-ledger-template.md`](../../../analysis/unity/case-ledger-template.md)。
 
 - [x] Phase 1 通過後開啟 Phase 2（不調整 `analysis/unity` 架構）
-- [ ] 精簡 case ledger：自然 vs soft 同類型對照（專案 evidence）
-- [ ] 找出第一個必要差異，或寫清證據不足／`blocked`
-- [ ] `_Symbol`／atlas 維持假設不升格；Soft49 缺對照標 `blocked`
+- [x] 精簡 case ledger v1：自然 vs soft 對照材料已索引（專案 `lab/phase2-soft49-case-ledger-v1.md`）
+- [ ] 找出第一個必要差異，或寫清證據不足／`blocked`（v1：ABI 已排除；Rect 差分已見但未證因果；Guest 阻斷標 `blocked`）
+- [ ] `_Symbol`／atlas 維持假設不升格；Soft49 新自然進盤缺可比 session → `blocked`／not-tested
 - [ ] **通過含義**：決策域**值得繼續使用**（單一案例有效）——**不**自動等於 ADR 成立；**不**觸發 Phase 3
 
 ### Phase 3 — 機械化（暫緩）

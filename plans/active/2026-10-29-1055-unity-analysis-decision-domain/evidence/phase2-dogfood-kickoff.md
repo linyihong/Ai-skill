@@ -47,7 +47,9 @@
 
 | Field | Value |
 | --- | --- |
-| Phase 2 | **open** — awaiting project-side dogfood run |
-| First difference / blocked | _pending_ |
-| Decision-domain worth keeping | _pending_ |
+| Phase 2 | **open** — Soft49 ledger v1 started in business project |
+| Project path | `<PROJECT_ROOT>` = `Programs/unwrapping/pojiepokerist`（cabinet `docs/slots/el-dorado-dices`） |
+| Soft49 ledger | `<PROJECT_ROOT>/docs/slots/el-dorado-dices/lab/phase2-soft49-case-ledger-v1.md` |
+| First difference / blocked | Create/5 ABI **ruled-out**；Rect origin vs per-reel **observed**；Creator／物件身分／`_Symbol` **not-tested**；新自然進盤受 Guest＜參賽費 **blocked**（口述） |
+| Decision-domain worth keeping | _pending_（ledger 已能標 blocked／not-tested；尚未跑完最小區分實驗） |
 | ADR / Phase 3 | **out of scope** this phase |
