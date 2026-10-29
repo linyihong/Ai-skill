@@ -50,8 +50,8 @@
 | Phase 2 | **open** — Soft49 ledger v1 started in business project |
 | Project path | `<PROJECT_ROOT>` = `Programs/unwrapping/pojiepokerist`（cabinet `docs/slots/el-dorado-dices`） |
 | Soft49 ledger | `<PROJECT_ROOT>/docs/slots/el-dorado-dices/lab/phase2-soft49-case-ledger-v1.md` |
-| First difference / blocked | Create/5 ABI **ruled-out**；Rect **observed≠causal**；物件身分＝CreateContent.retPtr **supported**、GetPath／Create5 thisPtr **ruled-out-in-scope**；soft-enter retPtr 鏈 **not-tested**；`_Symbol` 仍非根因 |
-| Soft50 | **A／B／C＝observed**（非畫面通過）：A CreateContent 鏈；B 單變因＝身分通道（retPtr **supported**，GetPath／Create5 thisPtr **ruled-out-in-scope**）；C layout 獨立讀回。Soft-enter retPtr 鏈仍 **not-tested**（可選 Soft50-B2） |
+| First difference / blocked | Create/5 ABI **ruled-out**；Rect **observed≠causal**；Soft50-A＝執行期 Create 關聯證據（非根因）；空石殼根因／畫面修復 **未確定／未驗收** |
+| Soft50 | **A＝observed**（stamp 134702；32/43 指標共現、17/43 強時序；11 unknown；events 為緩衝子集）。**B／C＝deferred** 至 A 契約接受；先前過早 B／C observed 已撤回。不擴架構／不改 decision domain |
 | Decision-domain worth keeping | _pending_ |
 | ADR / Phase 3 | **out of scope** this phase |
 | Review pack（專案側 zip；非 Ai-skill） | `<PROJECT_ROOT>/docs/slots/el-dorado-dices/lab/phase2-soft49-review-pack-20261029.zip` |
