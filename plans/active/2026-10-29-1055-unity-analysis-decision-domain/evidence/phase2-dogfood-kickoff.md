@@ -51,7 +51,7 @@
 | Project path | `<PROJECT_ROOT>` = `Programs/unwrapping/pojiepokerist`（cabinet `docs/slots/el-dorado-dices`） |
 | Soft49 ledger | `<PROJECT_ROOT>/docs/slots/el-dorado-dices/lab/phase2-soft49-case-ledger-v1.md` |
 | First difference / blocked | Create/5 ABI **ruled-out**；Rect origin vs per-reel **observed≠causal**；Creator／物件身分／`_Symbol` **not-tested**；新自然進盤 **blocked**（口述） |
-| Soft50 | **A** 被動觀測 → **B** 單變因 → **C** 獨立讀回；同輪可記多項觀測、**不可**同輪改多項行為；A 契約失敗不進 B |
+| Soft50 | **A→B→C** 維持；H2 拆 observed／necessary／causal；`symbol:null`≠無 Symbol；A live **blocked** until El Dorado seated（instrument+fixture ready） |
 | Decision-domain worth keeping | _pending_ |
 | ADR / Phase 3 | **out of scope** this phase |
 | Review pack（專案側 zip；非 Ai-skill） | `<PROJECT_ROOT>/docs/slots/el-dorado-dices/lab/phase2-soft49-review-pack-20261029.zip` |
