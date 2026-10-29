@@ -6,7 +6,7 @@
 
 | Surface | Path | Count / Status |
 | --- | --- | --- |
-| Routing registry | [`routing-registry.yaml`](routing-registry.yaml) | 66 records |
+| Routing registry | [`routing-registry.yaml`](routing-registry.yaml) | 67 records |
 | Refresh policy | [`refresh-policy.yaml`](refresh-policy.yaml) | candidate |
 | Model context report | [`model-context-report.md`](model-context-report.md) | generated view |
 | Model checklists | [`model-checklists.md`](model-checklists.md) | generated view |
@@ -53,7 +53,8 @@
 | `route.workflow.investment` | `workflow/investment/execution-flow.md` | `specialized` | `source-backed` | Task type / risk tier / DVA 狀態已明說；evidence-ledger 可覆核；recommendation strength ≤ authority；uncertainty framing；配置含策略／資產／費用或 provisional；Red 無交易指令。  |
 | `route.runtime.onboarding` | `runtime/onboarding/apk-analysis-setup.md` | `specialized` | `summary-first` | 各 quickstart 的步驟可依序執行，且與對應 workflow 的內容一致。 |
 | `route.analysis.apk.workflows` | `analysis/apk/workflows/README.md` | `specialized` | `summary-first` | 各 workflow 有明確步驟與產出格式，可依序執行。 |
-| `route.analysis.unity-fx` | `analysis/apk/workflows/unity-fx-driver-trace.md` | `specialized` | `summary-first` | 同 fixture 工作幀與事件支撐 driver 結論；discovery、bridge、RAG 接線檢查通過。 |
+| `route.analysis.unity` | `analysis/unity/decision-workflow.md` | `specialized` | `summary-first` | 案例有 acceptance_oracle；自然／force 隔離；invoke 不單獨當完成。 |
+| `route.analysis.unity-fx` | `analysis/unity/workflows/unity-fx-driver-trace.md` | `specialized` | `summary-first` | 同 fixture 工作幀與事件支撐 driver 結論；discovery、bridge、RAG 接線檢查通過。 |
 | `route.analysis.reverse-engineering` | `analysis/reverse-engineering/investigation-process.md` | `specialized` | `summary-first` | Target family selected; findings separated into observation/inference/unknown; authorization recorded; collection discipline loaded when capturing or reviewing captures.  |
 | `route.analysis.binary` | `analysis/binary/README.md` | `specialized` | `summary-first` | Digest or digest_unknown recorded; provider limits kept as unknowns.  |
 | `route.analysis.desktop` | `analysis/desktop/README.md` | `specialized` | `summary-first` | Boundary vs web scrape stated; credentials not written into reusable docs; HAR/capture review uses capture-review when applicable.  |

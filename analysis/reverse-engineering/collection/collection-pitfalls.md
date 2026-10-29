@@ -61,9 +61,9 @@
 
 | 主題 | 入口 |
 | --- | --- |
-| Frida／hook 安全與參數契約 | `analysis/apk/workflows/frida-hook-flow.md`、`il2cpp-runtime-contract-validation.md` |
+| Frida／hook 安全與參數契約 | `analysis/apk/workflows/frida-hook-flow.md`、`analysis/unity/workflows/il2cpp-runtime-contract-validation.md` |
 | Local proxy／MITM 導流 | `analysis/apk/workflows/local-proxy-hook-flow.md`、`traffic-triage.md` |
-| Unity 資產／特效 | `unity-asset-parse-flow.md`、`unity-fx-driver-trace.md`、`unity-soft-visual-restore.md` |
+| Unity 資產／特效 | `analysis/unity/`（decision-workflow + asset／fx／soft procedures） |
 | 歷史案例 | `feedback/history/apk-analysis/` |
 
 ← [collection/](README.md)

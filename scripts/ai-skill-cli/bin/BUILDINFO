@@ -1,4 +1,4 @@
-version=repo-cf4a5b0c
-source_commit=cf4a5b0c
-built_at=2026-10-26T02:05:15Z
+version=repo-c0879ebb
+source_commit=c0879ebb5fe4604a07579391096d766ab105a16f
+built_at=2026-10-29T02:23:25Z
 targets=windows/amd64,darwin/amd64,darwin/arm64,linux/amd64,linux/arm64

@@ -61,6 +61,6 @@ Push 前可手動執行與 hook 相同的 CI preflight：
 
 上游計畫：[`plans/active/2026-05-21-0834-cross-platform-go-script-runtime.md`](../../plans/archived/2026-05-21-0834-cross-platform-go-script-runtime.md)
 
-Unity FX discovery wiring is checked by `runtime refresh` / `runtime validate`, including canonical-source FTS retrieval. See [the procedure](../../analysis/apk/workflows/unity-fx-driver-trace.md) and `internal/app/unity_fx_discovery_test.go` for positive and negative regression cases.
+Unity FX discovery wiring is checked by `runtime refresh` / `runtime validate`, including canonical-source FTS retrieval. See [the procedure](../../analysis/unity/workflows/unity-fx-driver-trace.md) and `internal/app/unity_fx_discovery_test.go` for positive and negative regression cases.
 
 Feedback lesson closure validates structured transfer contracts and intelligence dispositions from index snapshots, including routed extraction targets and Discovery summaries. Run `go test ./portable/kge ./internal/app -run TestFeedback -count=1`; see [the review flow](../../feedback/extraction/lesson-review.md).

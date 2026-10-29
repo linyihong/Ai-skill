@@ -9,12 +9,12 @@ import (
 )
 
 const unityFXRoute = "route.analysis.unity-fx"
-const unityFXSource = "analysis/apk/workflows/unity-fx-driver-trace.md"
+const unityFXSource = "analysis/unity/workflows/unity-fx-driver-trace.md"
 
 // Domain wiring invariant, reached by runtime refresh/validate and their hooks.
-// Small fixture repos without the APK domain are outside this invariant.
+// Small fixture repos without the Unity analysis domain are outside this invariant.
 func unityFXDomainPresent(repo string) bool {
-	_, err := os.Stat(filepath.Join(repo, "analysis/apk/README.md"))
+	_, err := os.Stat(filepath.Join(repo, "analysis/unity/README.md"))
 	return err == nil
 }
 
@@ -32,7 +32,7 @@ func validateUnityFXDiscovery(repo string, registry runtimeRoutingRegistry, summ
 	if route == nil || route.PrimarySource != unityFXSource || route.ActivationMode != "auto-detect" {
 		return fmt.Errorf("Unity FX discovery: missing active canonical route %s", unityFXRoute)
 	}
-	for _, dep := range []string{"analysis/apk/README.md", "analysis/apk/workflows/README.md", "workflow/apk-analysis/execution-flow.md", "workflow/apk-analysis/execution-flow.yaml"} {
+	for _, dep := range []string{"analysis/unity/README.md", "analysis/unity/workflows/README.md", "workflow/apk-analysis/execution-flow.md", "workflow/apk-analysis/execution-flow.yaml"} {
 		found := false
 		for _, got := range route.RequiredDependencies {
 			if got == dep {
@@ -44,8 +44,9 @@ func validateUnityFXDiscovery(repo string, registry runtimeRoutingRegistry, summ
 		}
 	}
 	for path, anchor := range map[string]string{
-		"analysis/apk/README.md":                    "unity-fx-driver-trace.md",
-		"analysis/apk/workflows/README.md":          "unity-fx-driver-trace.md",
+		"analysis/unity/README.md":                  "unity-fx-driver-trace.md",
+		"analysis/unity/workflows/README.md":        "unity-fx-driver-trace.md",
+		"analysis/apk/README.md":                    "analysis/unity",
 		"workflow/apk-analysis/README.md":           "unity-fx-driver-trace.md",
 		"workflow/apk-analysis/execution-flow.md":   "unity-fx-driver-trace.md",
 		"workflow/apk-analysis/execution-flow.yaml": "gate.apk_analysis.unity_fx_driver_evidence",

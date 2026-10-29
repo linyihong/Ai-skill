@@ -71,9 +71,9 @@
 - 若新增或改動路由會影響 root dashboard、roadmap、metadata schema 或 skill entry，依 `enforcement/linked-updates.md` 同步更新。
 - 本索引只是 navigation layer；可執行政策仍以 `enforcement/` 為準。
 
-Unity 動畫／特效視覺缺口、`m_Payloads`／PlayableDirector／Native writer：先讀 [摘要](../summaries/unity-fx.md)，再走 [Unity 驅動追蹤](../../analysis/apk/workflows/unity-fx-driver-trace.md)。
+Unity／IL2CPP：先讀 [決策入口](../../analysis/unity/decision-workflow.md)。動畫／特效視覺缺口、`m_Payloads`／PlayableDirector／Native writer：再讀 [摘要](../summaries/unity-fx.md) 與 [Unity 驅動追蹤](../../analysis/unity/workflows/unity-fx-driver-trace.md)。
 
-IL2CPP 空回傳、hook 前後階段覆蓋、fixture 與完整 runtime 結構不一致：先讀 [APK 方法摘要](../summaries/apk-workflows.md)，再依 [執行契約驗證](../../analysis/apk/workflows/il2cpp-runtime-contract-validation.md) 記錄差異與反例。
+IL2CPP 空回傳、hook 前後階段覆蓋、fixture 與完整 runtime 結構不一致：先讀 [APK 方法摘要](../summaries/apk-workflows.md)，再依 [執行契約驗證](../../analysis/unity/workflows/il2cpp-runtime-contract-validation.md) 記錄差異與反例。
 
 回饋寫入／抽取：先走 [intelligence 承接審查](../../feedback/extraction/lesson-review.md)；局部 runtime 成功的歸因見 [候選判斷](../../intelligence/engineering/analytical-reasoning/heuristics/runtime-evidence-boundaries.md)，展示與完整資料表示差異見 [契約對齊](../../intelligence/engineering/analytical-reasoning/heuristics/representation-contract-parity.md)。
 

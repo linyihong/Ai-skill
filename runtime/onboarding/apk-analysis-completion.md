@@ -36,4 +36,4 @@
 - `workflow/apk-analysis/artifact-gates.md` 提供產出規範與品質門檻。
 - `skills/apk-analysis/RUNBOOK.md` 是原始來源，已刪除。內容已遷移至本文件與 `workflow/apk-analysis/`。
 
-Unity 特效驅動分析須依 [追蹤流程](../../analysis/apk/workflows/unity-fx-driver-trace.md) 保留事件／工作幀與 driver 證據；工具缺失、hook 未解析或覆蓋不足標 unknown，不能僅以 Animator invoke 成功宣稱視覺完整。
+Unity 特效驅動分析須先 [決策入口](../../analysis/unity/decision-workflow.md)，再依 [追蹤流程](../../analysis/unity/workflows/unity-fx-driver-trace.md) 保留事件／工作幀與 driver 證據；工具缺失、hook 未解析或覆蓋不足標 unknown，不能僅以 Animator invoke 成功宣稱視覺完整。

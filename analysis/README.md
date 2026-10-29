@@ -8,6 +8,7 @@
 
 - [`reverse-engineering/`](reverse-engineering/README.md)：跨目標 shipped-artifact Evidence 契約、目標分流與 [`collection/`](reverse-engineering/collection/README.md) 採集紀律／Capture review。計劃：[`plans/active/2026-10-10-1328-rea-analysis-capability-hardening/_plan.md`](../plans/active/2026-10-10-1328-rea-analysis-capability-hardening/_plan.md)。
 - [`apk/`](apk/README.md)：APK 分析的可重用分析方法。已從舊 `skills/apk-analysis/` 遷移至本層。
+- [`unity/`](unity/README.md)：Unity／IL2CPP 決策入口與取證程序（資產、FX、soft 還原、契約）；apk 舊 Unity 路徑為 stub。
 - [`binary/`](binary/README.md)：Native／ELF／crash／managed 分析方法（落地中）。
 - [`desktop/`](desktop/README.md)：JS／Electron 發行物與 passive runtime 分析方法（落地中；≠ web scraping）。
 - [`firmware/`](firmware/README.md)：Firmware 取證 stub（落地中）。
@@ -57,6 +58,8 @@
 - [`route.workflow.travel-planning`](../knowledge/runtime/routing-registry.yaml) — candidate_sources 引用 `analysis/travel/README.md`
 - [`route.intelligence.apk-analysis.atoms`](../knowledge/runtime/routing-registry.yaml) — required_dependencies 引用 `analysis/apk/README.md`
 - [`route.analysis.apk.workflows`](../knowledge/runtime/routing-registry.yaml) — required_dependencies 引用 `analysis/apk/README.md`
+- [`route.analysis.unity`](../knowledge/runtime/routing-registry.yaml) — primary `analysis/unity/decision-workflow.md`
+- [`route.analysis.unity-fx`](../knowledge/runtime/routing-registry.yaml) — primary `analysis/unity/workflows/unity-fx-driver-trace.md`
 - Investment methods：[`investment/README.md`](investment/README.md) — paired with [`route.workflow.investment`](../knowledge/runtime/routing-registry.yaml)
 
 ## 與既有層的關係

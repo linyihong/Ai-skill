@@ -39,10 +39,7 @@
 | [`media-hls-analysis-flow.md`](media-hls-analysis-flow.md) | Media/HLS 分析操作流程 — 7 步驟（分離控制面/資料面 → Playlist → Key → Segments → 合併 → 容器驗證） | `skills/apk-analysis/techniques/media-hls/`（已刪除，見 `media-hls-analysis-flow.md`） |
 | [`cold-start-play-focus-ab.md`](cold-start-play-focus-ab.md) | 冷啟動 Play 搶焦 A/B — focus 時間序列；允許 Play vs 抑止 vending（非 license crack） | `feedback/history/apk-analysis/common/2026-07-14_171000-pairip-application-licenseactivity-cold-start-play-gate.md` |
 | [`headless-sdk-device-executor-flow.md`](headless-sdk-device-executor-flow.md) | Private SDK 裝置執行器 — sign 已對齊但主機 403 時，冷啟 bootstrap → session → rewards E2E | `feedback/history/.../2026-07-15_140*` + `132500` |
-| [`unity-asset-parse-flow.md`](unity-asset-parse-flow.md) | UnityCache／AssetBundle 解析 — UnityPy 預設；AssetRipper 進 Editor；AssetStudio 瀏覽；Il2CppDumper 只助 Frida；粒子成熟度標籤 | Unity IL2CPP feedback + tools-and-failures §Unity |
-| [`unity-fx-driver-trace.md`](unity-fx-driver-trace.md) | 動畫／特效視覺缺口 — feature API → Timeline／粒子／Update／第三方節點；`m_Payloads` 監看 | Unity IL2CPP feedback |
-| [`unity-soft-visual-restore.md`](unity-soft-visual-restore.md) | Soft 視覺還原 — 資料／進場圖 → 停 Update／Tween／Director → paint；invoke≠GetContent | Unity IL2CPP feedback 2026-10-27 |
-| [`il2cpp-runtime-contract-validation.md`](il2cpp-runtime-contract-validation.md) | IL2CPP 參數／hook 階段／fixture 形狀契約差異 | Unity IL2CPP feedback |
+| Unity／IL2CPP（已遷出） | 見 [`../../unity/`](../../unity/README.md)；本目錄 `unity-*`／`il2cpp-runtime-contract-validation.md` 僅 stub | — |
 
 ## Generated Surface
 
@@ -63,10 +60,6 @@
 - [`runtime/runtime.db`](../../../runtime/runtime.db) — 系統層 generated surface（SQLite，取代 `runtime/generated/`）
 - [`runtime/`](../../../runtime/README.md) — Runtime routing 流程
 
-## Unity 動畫／特效缺口
+## Unity／IL2CPP
 
-`Animator.Play` 命中但目標視覺缺失時，讀 [驅動追蹤](unity-fx-driver-trace.md)：先 feature FX／payload，再依證據查 Playables、粒子、Transform 或 Native。
-
-## IL2CPP 契約與生命週期
-
-空回傳、多目標 hook 後續行為缺失、fixture 寫入不完整時，讀 [IL2CPP 契約驗證](il2cpp-runtime-contract-validation.md)。方法不固定 owner 類名、補值窗口或延遲重寫策略。
+Canonical：[`../../unity/decision-workflow.md`](../../unity/decision-workflow.md) 與 [`../../unity/workflows/`](../../unity/workflows/README.md)。舊檔名 stub 仍指向新位置。

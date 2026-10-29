@@ -5,7 +5,7 @@ priority: P1
 given:
   task: unity_fx_driver_trace_discovery
   artifacts:
-    - analysis/apk/workflows/unity-fx-driver-trace.md
+    - analysis/unity/workflows/unity-fx-driver-trace.md
     - knowledge/runtime/routing-registry.yaml
     - knowledge/summaries/unity-fx.md
     - scripts/ai-skill-cli/internal/app/unity_fx_discovery.go

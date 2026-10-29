@@ -96,9 +96,10 @@ steps:
     order: 7
     action: >
       For empty IL2CPP results or incomplete fixture application, first consult
-      analysis/apk/workflows/il2cpp-runtime-contract-validation.md for ABI,
+      analysis/unity/workflows/il2cpp-runtime-contract-validation.md for ABI,
       per-target hook lifecycle and display/runtime shape differences.
-      Unity Animator.Play visual gaps require analysis/apk/workflows/unity-fx-driver-trace.md.
+      Unity Animator.Play visual gaps require analysis/unity/decision-workflow.md
+      then analysis/unity/workflows/unity-fx-driver-trace.md.
       Inspect feature FX Setup/Play and payload writers first, then evidence-backed
       Playables, particles, visibility, Transform or native tracing. Record same-fixture
       frames/events, resolved hooks, coverage limits and unknowns before driver claims.

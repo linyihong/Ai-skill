@@ -894,6 +894,7 @@ records:
       - analysis/apk/traffic-triage.md
       - analysis/apk/tools-and-failures.md
       - analysis/apk/workflows/README.md
+      - analysis/unity/README.md
       - intelligence/engineering/analytical-reasoning/README.md
       - knowledge/summaries/apk-analysis-pilot.md
       - knowledge/graphs/apk-analysis-pilot.yaml
@@ -1838,8 +1839,7 @@ records:
       - analysis/apk/README.md
       - workflow/apk-analysis/execution-flow.md
     candidate_sources:
-      - analysis/apk/workflows/il2cpp-runtime-contract-validation.md
-      - analysis/apk/workflows/unity-asset-parse-flow.md
+      - analysis/unity/README.md
       - knowledge/summaries/apk-workflows.md
       - analysis/apk/workflows/frida-hook-flow.md
       - analysis/apk/workflows/http-api-documentation-flow.md
@@ -1865,6 +1865,57 @@ records:
       compression_level: summary-first
       reason: 需要執行對應操作流程時才讀取完整 workflow。
 
+  - id: route.analysis.unity
+    route_type: analysis
+    activation_mode: auto-detect
+    task_intent: Unity／IL2CPP 分析決策入口 假設裁決 證據收斂 soft-enter GetContent UnityPy AssetBundle
+    activation_triggers:
+      activation_any_of:
+        user_signals:
+          - Unity soft
+          - soft-enter
+          - GetContent
+          - UnityPy
+          - AssetBundle
+          - UnityCache
+          - IL2CPP contract
+          - Unity 決策
+          - acceptance_oracle
+        context_signals:
+          - "**/analysis/unity/**"
+          - "**/decision-workflow.md"
+      task_intents:
+        - unity-analysis-decision
+    primary_source: analysis/unity/decision-workflow.md
+    required_dependencies:
+      - analysis/unity/README.md
+      - analysis/reverse-engineering/evidence-contract.md
+      - workflow/apk-analysis/execution-flow.md
+    candidate_sources:
+      - analysis/unity/workflows/README.md
+      - analysis/unity/case-ledger-template.md
+      - analysis/unity/workflows/unity-soft-visual-restore.md
+      - analysis/unity/workflows/il2cpp-runtime-contract-validation.md
+      - analysis/unity/workflows/unity-asset-parse-flow.md
+      - knowledge/summaries/unity-fx.md
+    source_of_truth_gate: new-layer-promoted
+    ranking_reason: Unity 決策入口；依證據選 procedure，不搶泛用 Frida／APK 訊號。
+    validation_signal: 案例有 acceptance_oracle；自然／force 隔離；invoke 不單獨當完成。
+    metadata:
+      priority: P2
+      confidence: medium
+      context_cost:
+        estimated_tokens: 2200
+        load_strategy: lazy
+        cacheable: true
+        ttl:
+          task: 1
+      compatibility_state: new-layer-promoted
+    model:
+      profile: specialized
+      compression_level: summary-first
+      reason: 先決策再進單一 Unity procedure；原始證據仍留專案。
+
   - id: route.analysis.unity-fx
     route_type: analysis
     activation_mode: auto-detect
@@ -1880,17 +1931,19 @@ records:
           - Unity 動畫
         context_signals:
           - "**/unity-fx-driver-trace.md"
+          - "**/analysis/unity/**"
       task_intents:
         - unity-fx-driver-trace
-    primary_source: analysis/apk/workflows/unity-fx-driver-trace.md
+    primary_source: analysis/unity/workflows/unity-fx-driver-trace.md
     required_dependencies:
-      - analysis/apk/README.md
-      - analysis/apk/workflows/README.md
+      - analysis/unity/README.md
+      - analysis/unity/workflows/README.md
       - workflow/apk-analysis/execution-flow.md
       - workflow/apk-analysis/execution-flow.yaml
     candidate_sources:
-      - analysis/apk/workflows/il2cpp-runtime-contract-validation.md
-      - analysis/apk/workflows/unity-asset-parse-flow.md
+      - analysis/unity/decision-workflow.md
+      - analysis/unity/workflows/il2cpp-runtime-contract-validation.md
+      - analysis/unity/workflows/unity-asset-parse-flow.md
       - knowledge/summaries/unity-fx.md
     source_of_truth_gate: new-layer-promoted
     ranking_reason: 先檢查 feature FX 與資料，按證據選 Playables、粒子、Transform 或 Native 路徑。
