@@ -51,7 +51,7 @@
 | Project path | `<PROJECT_ROOT>` = `Programs/unwrapping/pojiepokerist`（cabinet `docs/slots/el-dorado-dices`） |
 | Soft49 ledger | `<PROJECT_ROOT>/docs/slots/el-dorado-dices/lab/phase2-soft49-case-ledger-v1.md` |
 | First difference / blocked | Create/5 ABI **ruled-out**；Rect **observed≠causal**；Soft50-A＝執行期 Create 關聯證據（非根因）；空石殼根因／畫面修復 **未確定／未驗收** |
-| Soft50 | **A＝observed＋已接受**（134702／43）。**B＝deferred**（H2b 未驗證；Rect 配對 `data_insufficient`；**禁改 Rect**）。唯一下一步＝同 session 被動身分＋CreateContent Rect 觀測（四項契約）。錨點 **`e048ee7b`**。不擴架構／不改 decision domain |
+| Soft50 | **A＝observed＋已接受**（134702）。**B＝deferred**。Observe natural **140256**：身分＋CreateContent `rectFp` 40/40；soft arm 未捕 → soft/natural 仍 `data_insufficient`。**禁改 Rect**。錨點 **`e048ee7b`**。不擴架構／不改 decision domain |
 | Decision-domain worth keeping | _pending_ |
 | ADR / Phase 3 | **out of scope** this phase |
 | Review pack（專案側 zip；非 Ai-skill） | `<PROJECT_ROOT>/docs/slots/el-dorado-dices/lab/phase2-soft49-review-pack-20261029.zip` |
