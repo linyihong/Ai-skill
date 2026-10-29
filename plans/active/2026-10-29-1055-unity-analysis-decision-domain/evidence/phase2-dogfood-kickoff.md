@@ -51,7 +51,7 @@
 | Project path | `<PROJECT_ROOT>` = `Programs/unwrapping/pojiepokerist`（cabinet `docs/slots/el-dorado-dices`） |
 | Soft49 ledger | `<PROJECT_ROOT>/docs/slots/el-dorado-dices/lab/phase2-soft49-case-ledger-v1.md` |
 | First difference / blocked | Create/5 ABI **ruled-out**；Rect **observed≠causal**；Soft50-A＝執行期 Create 關聯證據（非根因）；空石殼根因／畫面修復 **未確定／未驗收** |
-| Soft50 | **A＝observed（維持）**。**160639**：`cellId`/`charSymbol`＝Rect 獨立識別**候選**（11/11）；reel/row＝0/11 partial（Create 當下未入 `m_Cells`）。**不**宣稱邏輯格定位完成；`cellId` 跨 phase／重建穩定性仍待驗。下一步＝**AddCells 後依 cellId 延遲 locate**（`boardgame-paint-soft50a-deferred-locate-contract-20261029.md`）；再測 natural↔soft `cellId` 關聯。**B Rect write／C＝deferred**；H2b 身分級比較未完成。專案證據錨 **pojie `413a8a5`**（非本庫 commit）。不擴架構／不改 decision domain |
+| Soft50 | **A＝observed（維持）**。**164752**：deferred locate **成立** — `Soft50A.LogicalLocate`×43，皆 `via=deferred-model-list-by-cellId`；Create partial→AddCells/Create-leave 後 reel/row 可解；本座 11 cellId 覆蓋 reel 0–4（多為 row 1–2）。hang-safe soft-arm（bg enter + paint auto-send + dump-after-enter + leave）已落地。`cellId` **跨 enter 不穩定**（164611:22..29 vs 164752:51..65）— 不宣稱跨 phase 身分。下一步＝same-session natural↔soft 以 locate 後 reel/row 或同窗 `cellId` 配對（仍 observe-first）。**B Rect write／C＝deferred**；H2b 身分級比較未完成。專案證據錨 **pojie `af42381`**（verdict `boardgame-paint-soft50a-deferred-locate-verdict-164752.json`）。不擴架構／不改 decision domain |
 | Decision-domain worth keeping | _pending_ |
 | ADR / Phase 3 | **out of scope** this phase |
 | Review pack（專案側 zip；非 Ai-skill） | `<PROJECT_ROOT>/docs/slots/el-dorado-dices/lab/phase2-soft49-review-pack-20261029.zip` |
