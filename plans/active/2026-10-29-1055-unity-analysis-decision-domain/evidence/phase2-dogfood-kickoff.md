@@ -51,7 +51,7 @@
 | Project path | `<PROJECT_ROOT>` = `Programs/unwrapping/pojiepokerist`（cabinet `docs/slots/el-dorado-dices`） |
 | Soft49 ledger | `<PROJECT_ROOT>/docs/slots/el-dorado-dices/lab/phase2-soft49-case-ledger-v1.md` |
 | First difference / blocked | Create/5 ABI **ruled-out**；Rect **observed≠causal**；Soft50-A＝執行期 Create 關聯證據（非根因）；空石殼根因／畫面修復 **未確定／未驗收** |
-| Soft50 | **A＝observed（維持）**。**164752 使用者鎖定**：deferred locate **窗內成立**；43×LogicalLocate＝事件數≠獨立格；30×logicalCell 與 locate **不同母體**；reel 0–4、row 多為 1–2（非全盤）；`cellId`＝**單次觀測關聯鍵候選**，**不可**跨 enter 當全域 id。**B Rect write／C＝deferred**（維持）。下一步＝same-session natural→soft **observe-only 配對**（優先 locate reel/row＋lifecycle；配對後才比 Rect；缺新鮮 Create／locate 失敗／只能靠跨 enter cellId → `data_insufficient`）。核心題＝能否以獨立於 Rect 的證據確認對應邏輯格；**不是** soft 是否仍堆在 `(-400,-80)`。不擴架構／不開其他變因。錨點 pojie `af42381`＋dogfood `6f41002d`；契約 `boardgame-paint-soft50b-same-session-contract-20261029.md` §164752-accepted |
+| Soft50 | **A＝observed（維持）**。**164752 鎖定**：deferred locate 窗內成立；`cellId` 非跨 enter id。**165913**：same-session 配對座 → **`data_insufficient`**（480s natural：residual `naturalLikely` 但 Create/GetPath＝0；依約 **未** soft arm）。**B／Rect write／C＝deferred**。重試＝先掛 hook 再進 Bonus 觸發新鮮 Create。不擴架構。錨點 pojie `5c164dc`＋verdict `…-165913.json`；dogfood 本列 |
 | Decision-domain worth keeping | _pending_ |
 | ADR / Phase 3 | **out of scope** this phase |
 | Review pack（專案側 zip；非 Ai-skill） | `<PROJECT_ROOT>/docs/slots/el-dorado-dices/lab/phase2-soft49-review-pack-20261029.zip` |
