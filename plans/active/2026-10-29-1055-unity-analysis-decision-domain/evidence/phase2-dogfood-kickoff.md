@@ -51,7 +51,7 @@
 | Project path | `<PROJECT_ROOT>` = `Programs/unwrapping/pojiepokerist`（cabinet `docs/slots/el-dorado-dices`） |
 | Soft49 ledger | `<PROJECT_ROOT>/docs/slots/el-dorado-dices/lab/phase2-soft49-case-ledger-v1.md` |
 | First difference / blocked | Create/5 ABI **ruled-out**；Rect **observed≠causal**；Soft50-A＝執行期 Create 關聯證據（非根因）；空石殼根因／畫面修復 **未確定／未驗收** |
-| Soft50 | **A＝observed（維持）**。**164752 鎖定**：deferred locate 窗內成立；`cellId` 非跨 enter id。**165913**：same-session 配對座 → **`data_insufficient`**（480s natural：residual `naturalLikely` 但 Create/GetPath＝0；依約 **未** soft arm）。**B／Rect write／C＝deferred**。重試＝先掛 hook 再進 Bonus 觸發新鮮 Create。不擴架構。錨點 pojie `5c164dc`＋verdict `…-165913.json`；dogfood 本列 |
+| Soft50 | **A＝observed**。**164752**：deferred locate 窗內成立；`cellId`≠跨 enter id。Same-session 配對 **未完成**：165913／170809＝`data_insufficient`（無新鮮 Create）；172646＝操作者收工中止。**B／Rect write／C＝deferred**；H2b 身分級配對未立。下輪＝hook 後進 Bonus 取 natural Create→soft observe-only。收工筆記 pojie `boardgame-paint-soft50-session-closeout-20261029-1730.md`。不擴架構 |
 | Decision-domain worth keeping | _pending_ |
 | ADR / Phase 3 | **out of scope** this phase |
 | Review pack（專案側 zip；非 Ai-skill） | `<PROJECT_ROOT>/docs/slots/el-dorado-dices/lab/phase2-soft49-review-pack-20261029.zip` |
