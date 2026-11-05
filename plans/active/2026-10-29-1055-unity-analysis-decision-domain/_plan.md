@@ -263,6 +263,8 @@ Phase 0 **必須先讀** [`evidence-contract.md`](../../../analysis/reverse-engi
 
 ### Phase 2 — 5×2 soft-enter 試跑（專案側；**已開啟**）
 
+IDA 靜態證據接入見 [導入方案](01-ida-static-analysis-adapter.md)。首案用 Soft50 格位定位驗證方法索引與可重跑匯出。
+
 Kickoff／reviewer links：[`evidence/phase2-dogfood-kickoff.md`](evidence/phase2-dogfood-kickoff.md)。決策入口：[`analysis/unity/decision-workflow.md`](../../../analysis/unity/decision-workflow.md)；帳本：[`case-ledger-template.md`](../../../analysis/unity/case-ledger-template.md)。
 
 - [x] Phase 1 通過後開啟 Phase 2（不調整 `analysis/unity` 架構）
