@@ -31,6 +31,7 @@ required_sources:
   - runtime/onboarding/apk-analysis-completion.md
   - analysis/apk/traffic-triage.md
   - analysis/apk/static-jadx-path.md
+  - analysis/apk/workflows/first-registration-pre-send-control.md
   - analysis/reverse-engineering/evidence-contract.md
   - enforcement/authorization-scope.md
   - enforcement/sanitization.md

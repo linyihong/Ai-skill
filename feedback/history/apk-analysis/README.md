@@ -6,11 +6,15 @@
 |------|------|------|
 | [`common/`](common/) | 68 | 跨分類或通用 lesson（工具選擇、流程、UI、分析策略等） |
 | [`flutter-dart-aot/`](flutter-dart-aot/) | 23 | Flutter/Dart AOT 相關 hook 與分析 |
-| [`http-api/`](http-api/) | 34 | HTTP API 分析、文件化、UI 操作流程 |
+| [`http-api/`](http-api/) | 35 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 12 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
 | [`unity-il2cpp/`](unity-il2cpp/) | 86 | Unity IL2CPP、AssetBundle、UnityCache |
 | [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
+
+## Recent (2026-11-05)
+
+- [首次裝置建帳的送出前對照](http-api/2026-11-05_110000-first-registration-pre-send-control.md)
 
 ## Recent (2026-10-27)
 

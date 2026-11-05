@@ -35,6 +35,8 @@
 
 冷啟動後若畫面立刻變成 Play 未登入／Unauthenticated 頁：先依 [`analysis/apk/workflows/cold-start-play-focus-ab.md`](../../analysis/apk/workflows/cold-start-play-focus-ab.md) 做 focus A/B（允許 Play vs 抑止 vending 搶焦），判斷啟發式見 [`intelligence/engineering/analytical-reasoning/heuristics/play-focus-steal-vs-hard-kill.md`](../../intelligence/engineering/analytical-reasoning/heuristics/play-focus-steal-vs-hard-kill.md)。**不要**把靜態 Pairip／CHECK_LICENSE 單獨當成已證實 runtime 鏈路。
 
+需要證明獨立 SDK 能首次建帳時，使用[首次裝置建帳的送出前對照](../../analysis/apk/workflows/first-registration-pre-send-control.md)，並分開驗收獨立傳輸與身分初始化。
+
 每個 reset-to-feature capture 應拆成可反查的 window：
 
 1. Reset / state preparation：`force-stop`、可選 data/cache clear、權限、proxy、Frida/MITM/pcap 狀態。
