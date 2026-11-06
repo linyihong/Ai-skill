@@ -10,7 +10,7 @@ Status: candidate
 
 #### One-line Summary
 
-以同版布局與物件複製關係建立觀測契約，再由獨立 view 位置驗證邏輯格位。
+以同版布局、物件複製與 view 快取建立觀測契約，再由獨立位置驗證格位和座標單位。
 
 #### Human Explanation
 
@@ -29,6 +29,10 @@ Runtime 顯示正常，但回放查不到 model、layer 或內容；Create 回�
 #### Generalized Lesson
 
 先對齊 binary／metadata fingerprint、方法 RVA 和執行期型別。以欄位名稱搜尋目前 class 與繼承鏈，cache key 包含 class 身分，欄位缺失須顯示失敗。配對 copied objects 時同時記來源與結果的 ID、指標及生命週期；ID 的適用窗口也要驗證。先找已存在 model 的 ID 關聯，再查後續寫入。用 controller→model→cell ID→view 的關係與獨立 view 位置建立格位，最後才比較待檢驗的 Rect。
+
+view 的內容集合與已處理 ID 快取須分開讀回。內容清空後，快取仍保留 ID 時，更新流程可能跳過重建。以單一格的 ID 失效作最小實驗，並驗證其他格保持原狀。涉及 Unity 物件建立的操作應在引擎主執行緒回呼中驗證；RPC 執行緒上的失敗先記為執行契約問題。
+
+模型 Rect 的單位與 creator/view 的 pixel Rect 分別記錄。active、shown 或內容數量不足以證明可見；應同時核對 Renderer 與 world position。若位置偏差符合尺寸再次縮放的數值關係，可提出單位混用假說，仍須獨立的換算／畫面驗證。
 
 #### Agent Action
 
