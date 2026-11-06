@@ -59,3 +59,9 @@
 ## 2026-11-06 自然格位證據更新
 
 專案被動觀測已建立十個 controller/model 的 cell ID 與 view 世界座標關聯，固定樣本中 757 次成功內容註冊全部可關聯同一 view/model。自然側格位換算已有獨立位置讀回支持。原始 trace、指標和換算保存在專案側 soft50-20261106/full/。接下來依既有契約取得同場 soft 對照並裁決第一個差異。Phase 2 維持 open，Soft50-B／Rect 寫入／C 的裁決待對照證據。
+
+## 同場回放後的契約修復
+
+同場 soft seating 暴露舊 build 的 hardcoded slots field offsets。改為按執行期欄位名稱與繼承鏈解析後，唯讀 layer/model/board probes 與後續 soft model 存取恢復。來源窗口標記仍需區分持續自然 callback 與 soft 操作。可重用方法為先核對欄位布局與型別，再裁決渲染差異。專案已保存修復前後 trace、回傳診斷和截圖。
+
+剩餘程式缺口為 legacy 五軸雙列重建與自然十軸單列拓撲不符。soft glyph oracle 尚未通過，下一步修復 model/view 格位換算並逐格核對 fixture。Phase 2 維持 open。
