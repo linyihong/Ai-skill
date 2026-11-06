@@ -34,6 +34,10 @@ view 的內容集合與已處理 ID 快取須分開讀回。內容清空後，�
 
 模型 Rect 的單位與 creator/view 的 pixel Rect 分別記錄。active、shown 或內容數量不足以證明可見；應同時核對 Renderer 與 world position。若位置偏差符合尺寸再次縮放的數值關係，可提出單位混用假說，仍須獨立的換算／畫面驗證。
 
+world 座標軸的排序須經 camera 投影或可見單格標記校準，才能轉為 top-first／left-first 格位。僅依 world Y 大小推定上下排可能顛倒。以保留備份的單格實驗校準，並同步修正程式、regression 預期與舊分析 summary 的有效性。
+
+單格座標單位修復與全格畫面驗收分別記錄。即使 model Symbol、內容型別及點數都正確，Item 的尺寸／錨點或殘留物件仍可能令畫面不符。手動回放沒有 child hook 事件時，須另驗證觀測契約，不能直接推定 child 方法未執行。
+
 #### Agent Action
 
 進入稀有自然窗口前掛齊必要呼叫點、輸入／輸出及內容註冊，保留整段 phase。phase 切換後可能仍有自然動畫 callback，須以來源關聯判斷。先修復觀測契約，再設計最小介入。

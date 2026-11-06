@@ -65,3 +65,7 @@
 同場 soft seating 暴露舊 build 的 hardcoded slots field offsets。改為按執行期欄位名稱與繼承鏈解析後，唯讀 layer/model/board probes 與後續 soft model 存取恢復。來源窗口標記仍需區分持續自然 callback 與 soft 操作。可重用方法為先核對欄位布局與型別，再裁決渲染差異。專案已保存修復前後 trace、回傳診斷和截圖。
 
 剩餘程式缺口為 legacy 五軸雙列重建與自然十軸單列拓撲不符。soft glyph oracle 尚未通過，下一步修復 model/view 格位換算並逐格核對 fixture。Phase 2 維持 open。
+
+## 單格座標修復與投影校準
+
+專案單格實驗在主執行緒修正 model/view 座標單位後，目標骰子恢復可見。可見標記也推翻先前僅依 world Y 排序的上下排推估，已修正程式與 regression。十格回放的 Symbol／型別讀回通過，整體畫面仍有 Item 尺寸／位置差異，保持未驗收。下一步核對自然 creator/factory 的 Rect 傳遞及相同內容物件的 renderer/transform。Phase 2 仍 open。
