@@ -47,12 +47,12 @@
 
 | Field | Value |
 | --- | --- |
-| Phase 2 | **open** — Soft49 ledger v1 started in business project |
+| Phase 2 | **project-side PASS，framework review pending** — 單案差異裁決與獨立驗收已記錄，尚未關閉整份計畫 |
 | Project path | `<PROJECT_ROOT>` = `Programs/unwrapping/pojiepokerist`（cabinet `docs/slots/el-dorado-dices`） |
 | Soft49 ledger | `<PROJECT_ROOT>/docs/slots/el-dorado-dices/lab/phase2-soft49-case-ledger-v1.md` |
-| First difference / blocked | Create/5 ABI **ruled-out**；Rect **observed≠causal**；Soft50-A＝執行期 Create 關聯證據（非根因）；空石殼根因／畫面修復 **未確定／未驗收** |
-| Soft50 | **A＝observed**。**164752**：deferred locate 窗內成立；`cellId`≠跨 enter id。Same-session 配對 **未完成**：165913／170809＝`data_insufficient`（無新鮮 Create）；172646＝操作者收工中止。**B／Rect write／C＝deferred**；H2b 身分級配對未立。下輪＝hook 後進 Bonus 取 natural Create→soft observe-only。收工筆記 pojie `boardgame-paint-soft50-session-closeout-20261029-1730.md`。不擴架構 |
-| Decision-domain worth keeping | _pending_ |
+| First difference / blocked | 早期 Create ABI 假說排除；同版布局、model/view 拓撲、內容快取、座標單位及實際 pivot 差異已有區分實驗與專案證據。具體修法與結果以專案驗收記錄為準 |
+| Soft50 | **scoped PASS** — 目前版本與固定 fixture 的回放已由 model、獨立內容讀回和畫面三層驗收。其他 fixture／build／重進窗口覆蓋仍開放 |
+| Decision-domain worth keeping | 單案試跑支持繼續使用，跨案例與架構升級仍待審查 |
 | ADR / Phase 3 | **out of scope** this phase |
 | Review pack（專案側 zip；非 Ai-skill） | `<PROJECT_ROOT>/docs/slots/el-dorado-dices/lab/phase2-soft49-review-pack-20261029.zip` |
 
@@ -69,3 +69,9 @@
 ## 單格座標修復與投影校準
 
 專案單格實驗在主執行緒修正 model/view 座標單位後，目標骰子恢復可見。可見標記也推翻先前僅依 world Y 排序的上下排推估，已修正程式與 regression。十格回放的 Symbol／型別讀回通過，整體畫面仍有 Item 尺寸／位置差異，保持未驗收。下一步核對自然 creator/factory 的 Rect 傳遞及相同內容物件的 renderer/transform。Phase 2 仍 open。
+
+## 乾淨場景的範圍驗收
+
+專案已保存乾淨自然窗口、明確回放操作、另一支唯讀探針及延後畫面。驗收記錄為 `<PROJECT_ROOT>/docs/slots/el-dorado-dices/lab/boardgame-paint-soft50-repair-acceptance-20261106.md`，程式與證據提交 `3817d75`。本次具體結果留在專案，不作跨目標有效性宣稱。
+
+前述未驗收描述為歷史階段。現已完成單案差異裁決與限定版本／fixture 的回放驗收。Phase 2 的 framework review、跨案例重用及整份 plan closure 未自動通過，Phase 3 與 ADR 仍未啟動。可重用候選補充設定 pivot 與實際 pivot 分離、探索後前置狀態檢查，以及模型／獨立內容／畫面的分層驗證。
