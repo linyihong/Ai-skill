@@ -11,3 +11,5 @@ Plan: [主計畫](../_plan.md)。
 | Run ID | 檔案 | 狀態 | 摘要 |
 | --- | --- | --- | --- |
 | 2026-11-06-planning | [計畫與 workflow 補強](planning-baseline.md) | docs-ready | A／B oracle 與實測步驟已定義，尚未實測 |
+
+| 2026-11-06-environment | [環境 preflight](environment-preflight-20261106.md) | B tooling blocked | 常見位置未找到 IDA；版本／授權 unknown，材料匹配既有基線；未實測動態流程 |
