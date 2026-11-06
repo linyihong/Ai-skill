@@ -1,0 +1,86 @@
+> 遵守 [feedback-lessons](../../../feedback-lessons.md) 與 [共用規則索引](../../../../enforcement/README.md)。
+
+### 2026-11-06 — 核對 IL2CPP 布局、複製身分與 view 拓撲
+
+Status: candidate
+
+#### Reuse Evidence
+
+尚未有獨立重用證據，維持 candidate。單一目標的版本差異、自然／回放窗口與欄位修復讀回支持方法候選；跨目標驗證待補。
+
+#### One-line Summary
+
+以同版布局與物件複製關係建立觀測契約，再由獨立 view 位置驗證邏輯格位。
+
+#### Human Explanation
+
+欄位偏移沿用舊 build，可能讀到有效但型別不同的物件，造成一連串模型或渲染假故障。顯示層也可能使用保留 ID 的物件副本，令 pointer-only 配對漏失。邏輯 model 數量與畫面欄列數之間需要獨立映射。
+
+#### Trigger
+
+Runtime 顯示正常，但回放查不到 model、layer 或內容；Create 回傳成功仍無法和模型配對；List index 與畫面位置矛盾。
+
+#### Evidence
+
+- Tool: 同版 metadata 匯出、ARM64 指令、Frida 被動 trace、Transform 位置 getter。
+- Sanitized excerpt: 較新版物件布局改變後，按欄位名稱解析可恢復先前失敗的讀回；複製 cell 保留 ID；獨立 view 位置支持邏輯 model 到可見格位的關聯。
+- Evidence path: `<PROJECT_ROOT>/docs/slots/<cabinet>/lab/`。原始 trace、位址、樣本計數與截圖保留於業務專案。
+
+#### Generalized Lesson
+
+先對齊 binary／metadata fingerprint、方法 RVA 和執行期型別。以欄位名稱搜尋目前 class 與繼承鏈，cache key 包含 class 身分，欄位缺失須顯示失敗。配對 copied objects 時同時記來源與結果的 ID、指標及生命週期；ID 的適用窗口也要驗證。先找已存在 model 的 ID 關聯，再查後續寫入。用 controller→model→cell ID→view 的關係與獨立 view 位置建立格位，最後才比較待檢驗的 Rect。
+
+#### Agent Action
+
+進入稀有自然窗口前掛齊必要呼叫點、輸入／輸出及內容註冊，保留整段 phase。phase 切換後可能仍有自然動畫 callback，須以來源關聯判斷。先修復觀測契約，再設計最小介入。
+
+#### Goal / Action / Validation
+
+- Goal: 降低布局錯誤與身分錯配造成的渲染誤判。
+- Action: 以欄位反射修復讀回，追複製 ID，核對 model 和 view 位置。
+- Validation or reference source: 對修復前後的相同 getter 比對；對同版 Create 來源／結果及內容註冊重跑關聯。
+
+#### Applies When
+
+IL2CPP 可取得同版 metadata 或可信 Runtime 欄位反射，且對目標有授權。
+
+#### Does Not Apply When
+
+ID 跨生命週期被重用且無獨立關聯，或 view 的 world 座標處於旋轉／透視／動畫中，尚未驗證格位排列。
+
+#### Validation
+
+核對現版和舊版不同 class layout 的 cache、繼承欄位與缺失欄位失敗。對 copied ID 的模型關聯同時測試時間先後、指標相同與不同情況。對 view 位置使用多個時間點及實際可見格位驗證。
+
+#### Promotion Target
+
+- `analysis/unity/workflows/il2cpp-runtime-contract-validation.md`，先連結 candidate，待獨立目標重用後評估 promotion。
+
+#### Promotion Record
+
+尚未 promotion；保留為 candidate history。
+
+#### Required Linked Updates
+
+已更新 category／domain feedback index，並於 Runtime 契約程序加入 candidate 方法入口。已依 reusable-guidance-boundary 檢查，業務原始證據保留專案。runtime schema、routing 與其他工具入口未變，無需新增治理規則。
+
+#### Transfer Contract
+
+- Inputs: 同版 binary／metadata、Runtime class、Create 和註冊事件、view 位置。
+- Mechanism: 版本位移、保留 ID 的副本、邏輯 model 與畫面拓撲之差。
+- Decision: 契約核對失敗先修資料來源，關聯成立後再比較渲染。
+- Verification: 用獨立 getter 與未參與配對的內容／位置讀回反駁假說。
+- Counterexample: 跨窗口 ID 重用；位置被動畫改寫。
+- Transfer case: 另一個使用 pooled cell 和複製 view 的 Unity inventory grid，尚未實測。
+
+#### Intelligence Review
+
+- Decision: method-only
+- Reason: 現階段是單一目標的方法候選，先由 Unity analysis 承接。
+- Target: analysis/unity/workflows/il2cpp-runtime-contract-validation.md
+
+#### Abstraction Check
+
+- Swap-project test: PASS — 換成其他 Unity 列表或物件格子，仍能用布局、ID 生命週期與獨立位置驗證。
+- Project evidence kept in: `<PROJECT_ROOT>/docs/slots/<cabinet>/lab/`
+- Product/cabinet/sample IDs absent from Generalized Lesson: PASS

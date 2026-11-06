@@ -65,3 +65,7 @@
 本方法由 analysis README、既有 APK analysis route 與 summary 發現；候選來源仍保留原狀態，文件抽象化與合成反例不等於獨立專案重用。
 
 判斷來源：[局部證據歸因](../../../intelligence/engineering/analytical-reasoning/heuristics/runtime-evidence-boundaries.md)、[表示契約對齊](../../../intelligence/engineering/analytical-reasoning/heuristics/representation-contract-parity.md)；兩者均為 candidate，依邊界使用。
+
+## 布局與 copied-view 關聯候選
+
+版本欄位位移、copied cell 的 ID 關聯或 model/view 格位不一致時，參考 [候選方法](../../../feedback/history/apk-analysis/unity-il2cpp/2026-11-06_160000-runtime-layout-copy-identity-and-view-topology.md)。目前為單一目標經驗，獨立重用驗證待補。
