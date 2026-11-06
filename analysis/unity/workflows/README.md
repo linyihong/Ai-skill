@@ -9,5 +9,7 @@
 | [`unity-soft-visual-restore.md`](unity-soft-visual-restore.md) | soft／paint API ok 但 GetContent null 或畫面彈回；資料→停驅動→paint |
 | [`il2cpp-runtime-contract-validation.md`](il2cpp-runtime-contract-validation.md) | IL2CPP 參數／hook 階段／fixture 形狀契約 |
 
+| [`unity-dynamic-flow-validation.md`](unity-dynamic-flow-validation.md) | 移動／事件／完成時間序列、靜態證據接入與獨立動態 oracle；待 dogfood |
+
 編排與完成 gate：[`workflow/apk-analysis/execution-flow.md`](../../../workflow/apk-analysis/execution-flow.md)。
 工具選擇總表（Unity 段）：[`../../apk/tools-and-failures.md`](../../apk/tools-and-failures.md)。

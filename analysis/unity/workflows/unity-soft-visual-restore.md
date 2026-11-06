@@ -90,6 +90,10 @@
 - 還原步驟實際執行順序與解除記錄
 - Paint oracle：getter 讀回 +（授權時）screencap；失敗截圖是否進 viewer 由專案政策決定
 
+## 動態流程邊界
+
+此程序的 paint 閉環支持靜態內容還原。若目標含棋子／物件移動、到站事件或完成回呼，續用 [動態流程驗證](unity-dynamic-flow-validation.md)，保留實際驅動並分別驗收執行中與完成後狀態。
+
 ## 適用／不適用
 
 **適用：** 授權 lab／presence；視覺與模型不一致；soft 進場半成功。

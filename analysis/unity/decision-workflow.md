@@ -85,6 +85,8 @@ flowchart TD
 
 靜態資產盤點不必為湊 `visual-verified` 而跑 live。視覺還原（如 soft-enter）的 oracle 常組合：物件身分 + getter／等價讀回 + settle 畫面 + 範圍限制。
 
+若目標含移動、到站事件或完成順序，使用 [動態流程驗證](workflows/unity-dynamic-flow-validation.md) 宣告時間序列 oracle。靜態內容或終點讀回不得代替過程驗收；靜態工具接入另列 verdict。
+
 ## 4. 最小區分實驗
 
 每次實驗至少具備（見 [`case-ledger-template.md`](case-ledger-template.md)）：
