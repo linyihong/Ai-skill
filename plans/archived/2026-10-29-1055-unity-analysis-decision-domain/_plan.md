@@ -1,23 +1,25 @@
 ---
 id: 2026-10-29-1055-unity-analysis-decision-domain
 plan_kind: main
-status: in-progress
+status: completed
 owner: larrylin/cursor-session
 created: 2026-10-29T10:55:00+09:00
-updated: 2026-10-29T13:25:00+09:00
+updated: 2026-11-06
 parent: null
 owner_layer: analysis
 ---
 
 # Unity 分析決策域落地（`analysis/unity`）
 
-**Status**: `in-progress`（Phase 0 **proceed**；Phase 1 **PASS**；Phase 2 **open** — 專案側 5×2 dogfood；**不**改 `analysis/unity` 架構；**不做** Phase 3）
+**Status**: `completed (auto-detected)`（Phase 0 proceed；Phase 1 PASS；Phase 2 單案 dogfood PASS。依既定驗收範圍結案，Phase 3、ADR 與 IDA 接入維持 deferred。）
 
 **Review incorporation（2026-10-29）**：採納 stakeholder 審查——修正分層／完成門檻／證據契約／Phase 0 出口／Phase 1 遷移驗收／case ledger 精簡／ADR 與 Phase 2 分離；不推翻 Goal、Non-goals、Layer map、Target tree、Phase 3 暫緩。
 
 **Phase 0 decision（2026-10-29）**: **proceed** — 詳 [`evidence/phase0-preflight-baseline.md`](evidence/phase0-preflight-baseline.md)。
 **Phase 1（2026-10-29）**: **PASS** — 詳 [`evidence/phase1-structural-acceptance.md`](evidence/phase1-structural-acceptance.md)；stakeholder 架構判讀同意進入 Phase 2。
 **Phase 2 kickoff（2026-10-29）**: 詳 [`evidence/phase2-dogfood-kickoff.md`](evidence/phase2-dogfood-kickoff.md)（含 GitHub reviewer pack）。
+
+**Phase 2 closeout（2026-11-06）**: **PASS** — 見 [最終裁決與交接](evidence/phase2-final-closeout-20261106.md)。獨立是驗收來源與操作分離，並非第二位 reviewer 或跨目標重用。
 
 ## Goal
 
@@ -261,17 +263,17 @@ Phase 0 **必須先讀** [`evidence-contract.md`](../../../analysis/reverse-engi
 - [x] feedback history／extraction 舊 Unity／IL2CPP 路徑改寫至 `analysis/unity/workflows/…`
 - [x] 正向＋負向 routing handoff Go test（`unity_route_handoff_test.go`）
 
-### Phase 2 — 5×2 soft-enter 試跑（專案側；**已開啟**）
+### Phase 2 — 5×2 soft-enter 試跑（專案側；**PASS**）
 
-IDA 靜態證據接入見 [導入方案](01-ida-static-analysis-adapter.md)。首案用 Soft50 格位定位驗證方法索引與可重跑匯出。
+IDA 靜態證據接入見 [導入方案](01-ida-static-analysis-adapter.md)。此附加接入尚未執行，列為 deferred，非原 Phase 2 決策域 dogfood 的完成條件；負責方與重啟條件見最終裁決。
 
 Kickoff／reviewer links：[`evidence/phase2-dogfood-kickoff.md`](evidence/phase2-dogfood-kickoff.md)。決策入口：[`analysis/unity/decision-workflow.md`](../../../analysis/unity/decision-workflow.md)；帳本：[`case-ledger-template.md`](../../../analysis/unity/case-ledger-template.md)。
 
 - [x] Phase 1 通過後開啟 Phase 2（不調整 `analysis/unity` 架構）
 - [x] 精簡 case ledger v1：自然 vs soft 對照材料已索引（專案 `lab/phase2-soft49-case-ledger-v1.md`）
-- [ ] 找出第一個必要差異，或寫清證據不足／`blocked`（v1：ABI 已排除；Rect 差分已見但未證因果；Guest 阻斷標 `blocked`）
-- [ ] `_Symbol`／atlas 維持假設不升格；Soft49 新自然進盤缺可比 session → `blocked`／not-tested
-- [ ] **通過含義**：決策域**值得繼續使用**（單一案例有效）——**不**自動等於 ADR 成立；**不**觸發 Phase 3
+- [x] 找出可裁決差異並保留證據不足的歷史窗口。布局、拓撲、view 快取、座標與實際 pivot 的區分實驗及範圍驗收見最終裁決。
+- [x] 未將 `_Symbol`／atlas 早期假說升格為根因。缺對照窗口保留 blocked；後續自然窗口、明確回放與另一支唯讀探針取得限定範圍的驗收。
+- [x] **通過含義**：決策域**值得繼續使用**（單一案例有效）——**不**自動等於 ADR 成立；**不**觸發 Phase 3
 
 ### Phase 3 — 機械化（暫緩）
 
@@ -302,7 +304,7 @@ Kickoff／reviewer links：[`evidence/phase2-dogfood-kickoff.md`](evidence/phase
 
 Phase 2 單案通過 ≠ 跨案例／跨專案架構成立。維持 analysis 域文件即可；有足夠跨案例重用證據再評估 ADR。若試跑證明只需輕量入口，**不必為完整性升 ADR**。
 
-### ADR Promotion Criteria
+### ADR Promotion Criteria（deferred，非本次完成條件）
 
 **分開兩層：**
 
@@ -311,7 +313,7 @@ Phase 2 單案通過 ≠ 跨案例／跨專案架構成立。維持 analysis 域
 | Phase 2 | 決策流程在該案找出第一個差異或明確 blocked | 決策域值得繼續用 |
 | ADR 候選 | foundational + cross-session + cross-project + expensive-to-reverse + explains-why；**且**跨案例重用證據充足；Open Questions 已結；無更輕 promotion target | 才評估升 ADR |
 
-- [ ] Phase 2 單案有效（必要但不充分）
+- [x] Phase 2 單案有效（必要但不充分）
 - [ ] 跨案例重用證據
 - [ ] 五項 ADR 性質全中
 - [ ] Open Questions 全解或 deferred
@@ -329,8 +331,8 @@ Phase 2 單案通過 ≠ 跨案例／跨專案架構成立。維持 analysis 域
 - [x] 決策模型含共通前置／分支、RE 引用、oracle、獨立驗收
 - [x] Phase 1 結構性驗收表全過（含 routing 負向與遷移前後比較）
 - [x] Phase 3 未提前實作
-- [ ] ADR 未僅因單案 Phase 2 而強制升級（Phase 2 尚未跑）
-- [ ] Plan Completion Closure（待 Phase 2 決策後）
+- [x] ADR 未僅因單案 Phase 2 而強制升級；單案 PASS，跨案例重用仍未驗證。
+- [x] Plan Completion Closure — 最終裁決、後續責任與重啟條件、索引及歸檔於同次變更完成。
 
 ## Weekly review（非 gate）
 

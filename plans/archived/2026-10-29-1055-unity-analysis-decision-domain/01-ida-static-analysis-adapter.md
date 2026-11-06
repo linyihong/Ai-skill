@@ -1,6 +1,8 @@
 # IDA Static Analysis Adapter 導入方案
 
-狀態為待執行。這是主計畫 Phase 2 的工具接入方案，以下兩個接入階段沿用既有 Unity 決策入口與 Selection Responsibility。
+狀態為 **deferred，未執行／未驗收**。主計畫 dogfood 結案不代表 IDA 接入成功。負責方為 Unity 分析維護者；重啟條件為取得可用且授權的 ARM64 IDA／Hex-Rays 環境，或下一案例確有靜態查詢需求時，另立接入工作並沿用以下驗收條件。
+
+這是主計畫 Phase 2 的工具接入方案，以下兩個接入階段沿用既有 Unity 決策入口與 Selection Responsibility。
 
 | 層 | 責任 |
 | --- | --- |

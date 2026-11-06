@@ -10,4 +10,6 @@ Plan: [`../_plan.md`](../_plan.md)
 | --- | --- | --- | --- |
 | `2026-10-29-phase0-preflight` | [`phase0-preflight-baseline.md`](phase0-preflight-baseline.md) | Phase 0 相容性核對＋遷移前可比較基線 | **proceed** |
 | `2026-10-29-phase1-structural` | [`phase1-structural-acceptance.md`](phase1-structural-acceptance.md) | Phase 1 遷移＋結構性驗收 vs Phase 0 基線 | **PASS** |
-| `2026-10-29-phase2-dogfood-kickoff` | [`phase2-dogfood-kickoff.md`](phase2-dogfood-kickoff.md) | Phase 2 開啟＋GitHub reviewer pack；專案側 5×2 待跑 | **open** |
+| `2026-10-29-phase2-dogfood-kickoff` | [`phase2-dogfood-kickoff.md`](phase2-dogfood-kickoff.md) | Phase 2 開啟＋GitHub reviewer pack；專案側 5×2 試跑歷史 | **closed，見 final closeout** |
+
+| `2026-11-06-phase2-final` | [`phase2-final-closeout-20261106.md`](phase2-final-closeout-20261106.md) | Phase 2 裁決、限定範圍與 deferred 交接 | **PASS／completed** |

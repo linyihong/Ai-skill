@@ -12,9 +12,9 @@
 | Phase 1 closeout commit | https://github.com/linyihong/Ai-skill/commit/68d3108b3b68d3e759dee876a130a1ad71712979 |
 | Domain + IL2CPP migrate | https://github.com/linyihong/Ai-skill/commit/bb927a7e |
 | CLI binary rebuild（discovery path） | https://github.com/linyihong/Ai-skill/commit/4f86bbf4 |
-| Plan | https://github.com/linyihong/Ai-skill/blob/main/plans/active/2026-10-29-1055-unity-analysis-decision-domain/_plan.md |
-| Phase 1 evidence | https://github.com/linyihong/Ai-skill/blob/main/plans/active/2026-10-29-1055-unity-analysis-decision-domain/evidence/phase1-structural-acceptance.md |
-| Phase 0 baseline | https://github.com/linyihong/Ai-skill/blob/main/plans/active/2026-10-29-1055-unity-analysis-decision-domain/evidence/phase0-preflight-baseline.md |
+| Plan | https://github.com/linyihong/Ai-skill/blob/main/plans/archived/2026-10-29-1055-unity-analysis-decision-domain/_plan.md |
+| Phase 1 evidence | https://github.com/linyihong/Ai-skill/blob/main/plans/archived/2026-10-29-1055-unity-analysis-decision-domain/evidence/phase1-structural-acceptance.md |
+| Phase 0 baseline | https://github.com/linyihong/Ai-skill/blob/main/plans/archived/2026-10-29-1055-unity-analysis-decision-domain/evidence/phase0-preflight-baseline.md |
 | Decision SoT | https://github.com/linyihong/Ai-skill/blob/main/analysis/unity/decision-workflow.md |
 | Case ledger template | https://github.com/linyihong/Ai-skill/blob/main/analysis/unity/case-ledger-template.md |
 | Soft procedure | https://github.com/linyihong/Ai-skill/blob/main/analysis/unity/workflows/unity-soft-visual-restore.md |
@@ -47,7 +47,7 @@
 
 | Field | Value |
 | --- | --- |
-| Phase 2 | **project-side PASS，framework review pending** — 單案差異裁決與獨立驗收已記錄，尚未關閉整份計畫 |
+| Phase 2 | **PASS，已依原計畫驗收結案** — 單案差異裁決與獨立驗收已記錄，整份計畫見 final closeout |
 | Project path | `<PROJECT_ROOT>` = `Programs/unwrapping/pojiepokerist`（cabinet `docs/slots/el-dorado-dices`） |
 | Soft49 ledger | `<PROJECT_ROOT>/docs/slots/el-dorado-dices/lab/phase2-soft49-case-ledger-v1.md` |
 | First difference / blocked | 早期 Create ABI 假說排除；同版布局、model/view 拓撲、內容快取、座標單位及實際 pivot 差異已有區分實驗與專案證據。具體修法與結果以專案驗收記錄為準 |
@@ -74,4 +74,4 @@
 
 專案已保存乾淨自然窗口、明確回放操作、另一支唯讀探針及延後畫面。驗收記錄為 `<PROJECT_ROOT>/docs/slots/el-dorado-dices/lab/boardgame-paint-soft50-repair-acceptance-20261106.md`，程式與證據提交 `3817d75`。本次具體結果留在專案，不作跨目標有效性宣稱。
 
-前述未驗收描述為歷史階段。現已完成單案差異裁決與限定版本／fixture 的回放驗收。Phase 2 的 framework review、跨案例重用及整份 plan closure 未自動通過，Phase 3 與 ADR 仍未啟動。可重用候選補充設定 pivot 與實際 pivot 分離、探索後前置狀態檢查，以及模型／獨立內容／畫面的分層驗證。
+前述未驗收描述為歷史階段。現已完成單案差異裁決與限定版本／fixture 的回放驗收。此後已依原驗收完成 [正式結案裁決](phase2-final-closeout-20261106.md)；跨案例重用未驗證，Phase 3 與 ADR 仍未啟動。可重用候選補充設定 pivot 與實際 pivot 分離、探索後前置狀態檢查，以及模型／獨立內容／畫面的分層驗證。
