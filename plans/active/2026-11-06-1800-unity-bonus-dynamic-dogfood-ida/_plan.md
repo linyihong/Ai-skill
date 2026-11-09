@@ -11,7 +11,7 @@ owner_layer: analysis
 
 # Bonus 動態流程 dogfood 與 Ghidra 接入驗證
 
-狀態為 **draft，Ghidra 靜態基線已可重跑，第一個 Runtime 預測獲自然觀測支持，動態回放待驗**。
+狀態為 **draft，Ghidra 靜態基線已可重跑，第一個 Runtime 預測獲自然觀測支持，相鄰格移動回放通過，停止／特殊格與取消待驗**。
 
 ## 已接受審查與階段提升條件
 
@@ -21,7 +21,7 @@ owner_layer: analysis
 
 2026-11-09 決定改用 Ghidra 進行本機 ARM64 靜態分析，搭配 Il2CppDumper、LLVM 與 Frida。計畫路徑沿用原識別碼，兩項驗收仍分開裁決。
 
-2026-11-09 已取得 [自然 Runtime 對照](evidence/natural-runtime-20261109.md)。B 的首案預測驗收通過，A 已取得自然樣本，仍需獨立位置讀回、動態回放及重進／取消。保留 draft，待整體階段審查。
+2026-11-09 已取得 [自然 Runtime 對照](evidence/natural-runtime-20261109.md)。B 的首案預測驗收通過，A 已取得自然樣本，並完成相鄰格回放的獨立位置讀回、重複與同場景重進。停止／特殊格回放及取消仍待驗。保留 draft，待整體階段審查。
 
 ## Goal 與延續關係
 
@@ -79,6 +79,8 @@ Ghidra／GhidraScript 為靜態證據來源，Runtime 為實際執行來源；�
 
 ### Phase 3 — 授權 lab 動態回放
 
+[相鄰格回放證據](evidence/dynamic-replay-20261109.md) 覆蓋同一行程的四次中途移動。到站派發與特殊格不在此回放樣本。
+
 - [ ] 以明確 fixture／輸入啟動原生移動流程，記修改前狀態；Unity 操作採已驗證主執行緒契約。
 - [ ] 用另一個唯讀取證來源與時間序列畫面驗證中途移動、終點、到站事件及恰好一次完成。
 - [ ] 普通路徑與所選特殊／邊界路徑分別通過，特殊格的事件語意以自然證據為準。
@@ -112,4 +114,4 @@ Ghidra／GhidraScript 為靜態證據來源，Runtime 為實際執行來源；�
 
 ## Evidence
 
-[證據索引](evidence/README.md)。靜態工具已通過樣本 smoke、重跑比較及自然 Runtime 預測。動態 dogfood 的回放 oracle 仍待測。
+[證據索引](evidence/README.md)。靜態工具已通過樣本 smoke、重跑比較及自然 Runtime 預測。動態 dogfood 的中途移動回放已通過。到站事件、特殊格與取消的回放 oracle 仍待測。
