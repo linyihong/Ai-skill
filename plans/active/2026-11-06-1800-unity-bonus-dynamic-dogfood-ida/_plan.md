@@ -11,7 +11,7 @@ owner_layer: analysis
 
 # Bonus 動態流程 dogfood 與 Ghidra 接入驗證
 
-狀態為 **draft，Ghidra 靜態基線已可重跑，動態 dogfood 與 Runtime 預測驗證待執行**。
+狀態為 **draft，Ghidra 靜態基線已可重跑，第一個 Runtime 預測獲自然觀測支持，動態回放待驗**。
 
 ## 已接受審查與階段提升條件
 
@@ -20,6 +20,8 @@ owner_layer: analysis
 靜態觀察必須先轉為預測與區分條件，再決定 hook。預測不符時保存差異與原始觀測，不改寫觀測以配合反編譯。環境檢查結果見 [preflight](evidence/environment-preflight-20261106.md)。
 
 2026-11-09 決定改用 Ghidra 進行本機 ARM64 靜態分析，搭配 Il2CppDumper、LLVM 與 Frida。計畫路徑沿用原識別碼，兩項驗收仍分開裁決。
+
+2026-11-09 已取得 [自然 Runtime 對照](evidence/natural-runtime-20261109.md)。B 的首案預測驗收通過，A 已取得自然樣本，仍需獨立位置讀回、動態回放及重進／取消。保留 draft，待整體階段審查。
 
 ## Goal 與延續關係
 
@@ -64,8 +66,8 @@ Ghidra／GhidraScript 為靜態證據來源，Runtime 為實際執行來源；�
 
 ### Phase 1 — 自然動態對照
 
-- [ ] 進入稀有窗口前掛好輸入事件、移動入口、位置更新、到站與完成／取消觀測；保存整段 phase，避免只取單次 hook。
-- [ ] 取得一條普通移動，以及一條特殊格／邊界路徑。記起點、目標／步數、執行中位置、終點、事件與完成順序。
+- [x] 進場前掛好移動、停止、到站與位置收尾觀測，保存自然進盤至結算。取消分支另列待測。
+- [x] 取得普通移動與 +1 特殊格樣本，記錄目標身分、事件順序與獨立畫面。完整逐段座標與步數對齊仍待核對。
 - [ ] 驗證邏輯格與畫面座標映射、物件生命週期、完成次數及獨立讀回。尚未捕獲的分支保持 not-tested。
 
 ### Phase 2 — Ghidra 靜態證據與 Runtime 對照
@@ -73,7 +75,7 @@ Ghidra／GhidraScript 為靜態證據來源，Runtime 為實際執行來源；�
 - [ ] 建立 metadata method → RVA → Ghidra address → Runtime module-relative address 索引，核對 executable segment 與入口。
 - [ ] 對移動入口、到站 dispatch、完成回呼匯出有限 caller／callee 與欄位讀寫；間接呼叫與反編譯失敗顯示 unknown。
 - [ ] 固定 binary／工具／目標清單重跑兩次，正規化後比較；人工抽查一條 XREF 與一處狀態寫入。
-- [ ] 依靜態結果選最小被動 hook，先寫兩假說預測，再用 Runtime 裁決；找不到直接路徑也需保存可反駁結果。
+- [x] 以預先寫下的兩個假說做被動 Runtime 對照，裁決樣本內停止與中途移動的事件差異。
 
 ### Phase 3 — 授權 lab 動態回放
 
@@ -110,4 +112,4 @@ Ghidra／GhidraScript 為靜態證據來源，Runtime 為實際執行來源；�
 
 ## Evidence
 
-[證據索引](evidence/README.md)。靜態工具已通過樣本 smoke 與重跑比較。兩項最終 oracle 仍待 Runtime 證據。
+[證據索引](evidence/README.md)。靜態工具已通過樣本 smoke、重跑比較及自然 Runtime 預測。動態 dogfood 的回放 oracle 仍待測。
