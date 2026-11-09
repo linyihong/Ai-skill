@@ -20,6 +20,7 @@ Plan: [主計畫](../_plan.md)。
 | 2026-11-09-cancel | [重設與取消對照](cancellation-reset-20261109.md) | reset ruled out；recovery PASS | 三次遲到收尾，等待收尾後重進兩次成功 |
 | 2026-11-09-guard | [隔離 lab 中止](guarded-cancellation-20261109.md) | scoped PASS | 驗證完整委派所有權、兩次失效及重進復跑 |
 | 2026-11-09-reuse | [立即重用時間對照](immediate-reuse-20261109.md) | immediate timing FAIL；delayed scoped PASS | 三組對照，終點一致而時間不同 |
+| 2026-11-09-lap | [完整外圈回放](full-lap-replay-20261109.md) | scoped PASS | 升級格起訖，22 段逐格、原速影片與位置序列 |
 
 ## Workflow 技巧對照
 
