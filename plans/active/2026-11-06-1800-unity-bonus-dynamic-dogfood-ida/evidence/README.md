@@ -13,3 +13,4 @@ Plan: [主計畫](../_plan.md)。
 | 2026-11-06-planning | [計畫與 workflow 補強](planning-baseline.md) | docs-ready | A／B oracle 與實測步驟已定義，尚未實測 |
 
 | 2026-11-06-environment | [環境 preflight](environment-preflight-20261106.md) | B tooling blocked | 常見位置未找到 IDA；版本／授權 unknown，材料匹配既有基線；未實測動態流程 |
+| 2026-11-09-ghidra | [Ghidra 靜態基線](ghidra-static-baseline-20261109.md) | static baseline PASS | ARM64 樣本反編譯與兩次一致匯出；Runtime 待驗 |
