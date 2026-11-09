@@ -19,6 +19,7 @@ Plan: [主計畫](../_plan.md)。
 | 2026-11-09-reward | [+1 鏈回放](reward-chain-replay-20261109.md) | scoped PASS | 有／無獎勵資料兩組驗收，重啟重進後重跑通過 |
 | 2026-11-09-cancel | [重設與取消對照](cancellation-reset-20261109.md) | reset ruled out；recovery PASS | 三次遲到收尾，等待收尾後重進兩次成功 |
 | 2026-11-09-guard | [隔離 lab 中止](guarded-cancellation-20261109.md) | scoped PASS | 驗證完整委派所有權、兩次失效及重進復跑 |
+| 2026-11-09-reuse | [立即重用時間對照](immediate-reuse-20261109.md) | immediate timing FAIL；delayed scoped PASS | 三組對照，終點一致而時間不同 |
 
 ## Workflow 技巧對照
 
@@ -27,5 +28,7 @@ Plan: [主計畫](../_plan.md)。
 - [相鄰格回放](dynamic-replay-20261109.md) 保存根物件與渲染子物件的實際位置序列。
 - [到站](stop-replay-20261109.md) 和 [獎勵鏈](reward-chain-replay-20261109.md) 保存分層 oracle 與正負對照。
 - [單純重設](cancellation-reset-20261109.md) 和 [隔離中止](guarded-cancellation-20261109.md) 保存失敗反證、完整委派所有權驗證與復跑。
+
+- [立即重用](immediate-reuse-20261109.md) 保存三組實際收尾時間與基線反例。
 
 各頁的去敏數據與判讀依據隨本計畫保存。相關取證方法見 [Unity 動態流程驗證](../../../../analysis/unity/workflows/unity-dynamic-flow-validation.md)。
