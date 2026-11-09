@@ -18,3 +18,4 @@ Plan: [主計畫](../_plan.md)。
 | 2026-11-09-replay | [相鄰格回放](dynamic-replay-20261109.md) | scoped PASS | 四次中途移動、同一行程重進、獨立渲染位置驗收 |
 | 2026-11-09-stop | [到站回放](stop-replay-20261109.md) | scoped PASS | 普通與特殊格到站各兩次，獎勵鏈待測 |
 | 2026-11-09-reward | [+1 鏈回放](reward-chain-replay-20261109.md) | scoped PASS | 有／無獎勵資料兩組驗收，重啟重進後重跑通過 |
+| 2026-11-09-cancel | [重設與取消對照](cancellation-reset-20261109.md) | reset ruled out；recovery PASS | 三次遲到收尾，等待收尾後重進兩次成功 |
