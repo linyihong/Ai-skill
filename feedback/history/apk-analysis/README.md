@@ -10,7 +10,7 @@
 | [`local-proxy/`](local-proxy/) | 12 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
 | [`unity-il2cpp/`](unity-il2cpp/) | 86 | Unity IL2CPP、AssetBundle、UnityCache |
-| [`dynamic-capture/`](dynamic-capture/) | 2 | 動態捕獲相關 |
+| [`dynamic-capture/`](dynamic-capture/) | 3 | 動態捕獲相關 |
 
 ## Recent (2026-11-05)
 
