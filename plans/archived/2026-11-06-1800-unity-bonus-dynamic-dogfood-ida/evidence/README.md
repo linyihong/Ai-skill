@@ -23,6 +23,7 @@ Plan: [主計畫](../_plan.md)。
 | 2026-11-09-lap | [完整外圈回放](full-lap-replay-20261109.md) | scoped PASS | 升級格起訖，22 段逐格、原速影片與位置序列 |
 | 2026-11-09-result-route | [結果資料驅動整圈](result-driven-route-20261109.md) | scoped PASS | 三輪原生逐格生成、各筆到站與 +1 對照 |
 | 2026-11-10-transition-payout | [過渡到原生結算](transition-to-payout-20261110.md) | scoped PASS | 進場前段原生獎勵、逐手累加與視窗關閉；自動進場待測 |
+| 2026-11-10-final | [結案裁決](final-closeout-20261110.md) | A／B scoped PASS | 同版連續手機回放、絕對盤面驗證與剩餘交接 |
 
 ## Workflow 技巧對照
 
