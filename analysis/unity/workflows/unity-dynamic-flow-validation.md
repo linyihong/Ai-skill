@@ -55,6 +55,8 @@ Unity 物件操作依已驗證的主執行緒契約。不要為了讓畫面停�
 
 多段回放的原生總額有差額時，沿同一活動的事件關聯查前段過渡與起始累計。以中段單獨回放和加入前段的回放作對照，分開核對原生累加與視窗金額。若只依結算補值，將其列為顯示對帳。[候選回饋](../../../feedback/history/apk-analysis/unity-il2cpp/2026-11-10_084400-replay-predecessor-rewards-before-reconciling.md)
 
+轉場回放分開記錄使用者確認、下一畫面就緒與遮罩關閉。若隔離測試需延後原生關閉，明列介入和回復方式。以第一個可見畫格及後續動作驗收，避免終點截圖掩蓋中途錯畫面。[候選回饋](../../../feedback/history/apk-analysis/unity-il2cpp/2026-11-10_090700-validate-first-revealed-frame.md)
+
 ## 結案
 
 分別回報自然路徑、lab 回放、靜態工具接入與未覆蓋分支。缺必要窗口記 partial／blocked。工具安裝、方法命中、靜態畫面成功均不代替動態目標驗收。

@@ -95,3 +95,5 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 | [2026-11-06_160000-runtime-layout-copy-identity-and-view-topology.md](2026-11-06_160000-runtime-layout-copy-identity-and-view-topology.md) | candidate | 同版欄位布局、保留 ID 的副本與獨立 view 格位映射。 |
 
 - [從前段事件找回回放差額](2026-11-10_084400-replay-predecessor-rewards-before-reconciling.md) · candidate
+
+- [在轉場的第一個可見畫格驗收](2026-11-10_090700-validate-first-revealed-frame.md) · candidate
