@@ -97,3 +97,5 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 - [從前段事件找回回放差額](2026-11-10_084400-replay-predecessor-rewards-before-reconciling.md) · candidate
 
 - [在轉場的第一個可見畫格驗收](2026-11-10_090700-validate-first-revealed-frame.md) · candidate
+
+- [依同版指令核對原生控制代碼寬度](2026-11-10_145400-verify-native-handle-width-before-release.md) · candidate

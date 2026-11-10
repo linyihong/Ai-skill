@@ -69,3 +69,5 @@
 ## 布局與 copied-view 關聯候選
 
 版本欄位位移、copied cell 的 ID 關聯或 model/view 格位不一致時，參考 [候選方法](../../../feedback/history/apk-analysis/unity-il2cpp/2026-11-06_160000-runtime-layout-copy-identity-and-view-topology.md)。目前為單一目標經驗，獨立重用驗證待補。
+
+若原生橋接只在資源釋放時失敗，核對同版配置回傳與釋放參數的寬度，並驗證後續一輪配置。[候選回饋](../../../feedback/history/apk-analysis/unity-il2cpp/2026-11-10_145400-verify-native-handle-width-before-release.md)
