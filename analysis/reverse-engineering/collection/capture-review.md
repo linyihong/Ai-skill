@@ -75,6 +75,10 @@ Inventory 是**可分享摘要**，不是 raw capture 入庫。
 
 以來源識別碼把原始起始事件接到摘要，再核對相鄰事件的前後狀態及獨立的序號或剩餘次數。狀態可能在一段動作後回到原位。計數器會補發或重設時，按已知更新規則判讀。去重時同時比較狀態、計數器與動作序列，避免刪除真實的重複動作。將可確認的連續序列與缺段序列分開統計，並用保存的絕對狀態裁決預測。[來源案例](../../../feedback/history/apk-analysis/dynamic-capture/2026-11-10_151000-verify-replay-input-continuity.md)
 
+### 連續操作的封包回放
+
+若本輪完成後操作仍停用，查自然紀錄的後續請求、對應回覆及就緒通知。回覆匹配測試連線的請求 ID，通知保留原順序與對象關聯。逐輪核對完成事件、操作恢復與下一輪實際啟動。[來源案例](../../../feedback/history/apk-analysis/local-proxy/2026-11-11_085500-replay-request-ack-and-ready-event.md)
+
 ## 5. Fail-closed on crypto
 
 若標準捕捉看不到明文（certificate pinning、自訂信任、僅加密位元組）：

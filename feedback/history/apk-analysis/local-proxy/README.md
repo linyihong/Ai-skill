@@ -2,6 +2,7 @@
 
 | 檔名 | Status | 標題 | 一句話摘要 |
 |------|--------|------|-----------|
+| [`2026-11-11_085500-replay-request-ack-and-ready-event.md`](2026-11-11_085500-replay-request-ack-and-ready-event.md) | candidate | 重播請求回覆與就緒通知 | 連續兩手實測 |
 | `2026-10-23_134500-wire-result-glass-must-match-processresult-strip.md` | candidate | Wire RESULT GLASS must match ProcessResult strip | session-proxy rewrite 的 GLASS cell 數須對齊柜机 strip 契約；thin visible-only 常卡停輪 |
 | `2026-07-14_105100-column-c-bypass-may-be-okhttp-no-proxy-not-cronet.md` | candidate | Column-C bypass may be OkHttp no-proxy | 部分「繞過」是 OkHttp 不走系統代理，未必是 Cronet |
 | `2026-07-14_095210-mixed-mitm-ads-ok-firstparty-ssl-api-bypass.md` | candidate | Mixed MITM: ads OK, first-party SSL bypass | 廣告路徑可見但主 API SSL 失敗時分層判斷 |
