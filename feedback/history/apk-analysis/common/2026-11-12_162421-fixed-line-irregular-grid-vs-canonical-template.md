@@ -2,105 +2,91 @@
 
 ### 2026-11-12 - Fixed-line irregular page vs canonical panel-grid template
 
-> **Deprecated 2026-11-12.** This lesson incorrectly blessed printed-line tallies as an irregular panel layout. Successor: [2026-11-12_171754-canonical-grid-fail-recount-cells-not-invent-layout.md](2026-11-12_171754-canonical-grid-fail-recount-cells-not-invent-layout.md). Do not follow the Generalized Lesson below.
-
 Status: deprecated
+
+Successor: [2026-11-12_171754-canonical-grid-fail-recount-cells-not-invent-layout.md](2026-11-12_171754-canonical-grid-fail-recount-cells-not-invent-layout.md)
 
 #### Reuse Evidence
 
-尚未有獨立重用證據，維持 candidate。
+Deprecated. Do not reuse. Superseding lesson records the corrected mid-course path.
 
 #### One-line Summary
 
-When a fixed-line paytable page is an irregular column/row panel layout, do not force the canonical dual-label template for that line count; eye-map bijection can ship under a non-rematch geometry status until tooling accepts an explicit `cells-*` stamp for that count.
+Deprecated: this file wrongly treated printed-line tallies as an irregular panel layout; use the superseding recount-`--cells` lesson instead.
 
 #### Human Explanation
 
-Mechanical rematch gates often bind a popular line count (e.g. 25) to one dual-label grid preset. Some in-game help books instead print one label per board in uneven columns (different row counts per column). Forcing the preset yields high divider-content scores and cannot `apply`. Agents then either invent OCR paths or leave print lineIds dump-ordered. The recoverable path is: keep GetLineSet for geometry authority, eye-read the irregular page into an eye-map with a full dump bijection, publish lock + client formulas, and leave geometry status at client-proven (or equivalent) until check-grid/apply accept an atypical `cells-*` template for that line count.
+Historical writeup encoded a mistaken rematch branch (uneven columns from printed ids). Kept only as a deprecation pointer so agents do not keep following it.
 
 #### Trigger
 
-- Fixed payline count whose canonical rematch template is a dual-label NxM grid
-- Line page clearly has a different panel rectangle count / uneven column row counts
-- `max_divider_content_frac` stays ≫ threshold after offset tuning on the canonical template
-- `apply` / pre-commit refuse atypical `cells-*` because line count expects the canonical stamp
+- N/A (deprecated)
 
 #### Evidence
 
-- Tool: panel-grid extract + eye-map bijection against live GetLineSet dump
-- Sanitized excerpt: 25-line book with irregular 4-column uneven row counts could not pass canonical dual-label extract; column eye-map still achieved 25/25 dump bijection and shipped under client-proven
-- Evidence path: `<PROJECT_ROOT>/pojiepokerist/docs/slots/` cabinet package `assets/paytable-line-audit/` + rematch check-grid docs
+- Correction path: superseding lesson + project payline-coordinates anti-pattern table under `<PROJECT_ROOT>/…/docs/slots/`
 
 #### Generalized Lesson
 
-1. Count **panel rectangles** on the line page first; do not assume lineCount → canonical dual-label template.
-2. If the page is irregular, do **not** force the canonical template to “make apply green.”
-3. Still produce a print lineId ↔ GetLineSet bijection via eye-map; write package lock + client win tables from that map.
-4. Keep rematch-claim geometry status off until check-grid/apply accept an explicit atypical `cells-*` (or per-column edges) for that line count; document the tooling gap in the cabinet next-window.
+1. Do not follow this file.
+2. Follow the superseding lesson: canonical preset miss → re-eye-count rectangular `COLS×ROWS` → `--cells`; do not invent irregular layout modes from printed lineId tallies.
 
 #### Agent Action
 
-- Do: eye-count panels; extract only when gutters pass; otherwise column/board eye-map → bijection → lock/win sync under non-claim status.
-- Don’t: force canonical dual-label cuts, switch to banned OCR-label layout, or claim `paytable-panel-eye` when check-grid cannot pass.
-- Don’t: leave failed high-frac `capture/paytable-line-debug/**/crop-boxes.json` on disk — pre-commit may scan the filesystem and fail even if those files are gitignored.
+- Do: open the superseding lesson.
+- Don’t: implement irregular column-row extract flags based on this file.
 
 #### Goal / Action / Validation
 
-- Goal: Ship correct print lineId + stroke colors without lying about panel-grid success.
-- Action: Irregular-page eye-map + GetLineSet bijection; client-proven (or equivalent) until tooling allows atypical cells for that count.
-- Validation or reference source: eye-map maps every dump index exactly once; package analysis gate accepts lock + non-provisional note; check-grid not claimed.
+- Goal: Prevent continued use of a wrong candidate lesson.
+- Action: Status deprecated + pointer.
+- Validation or reference source: category README marks deprecated; superseding lesson is candidate.
 
 #### Applies When
 
-- Fixed-line cabinets with mechanical rematch gates tied to line-count templates
-- Line art uses single-label boards in uneven columns/rows
+- Never (deprecated)
 
 #### Does Not Apply When
 
-- Page really is the canonical dual-label grid (then use the preset and finish `apply`)
-- Win mode is not fixed paylines
-- Dump geometry set is incomplete or non-bijective with print art
+- Always — use superseding lesson
 
 #### Validation
 
-- Eye-map check reports N/N unique dump coverage
-- Canonical-template extract still shows high divider content (proves irregular)
-- Commit hooks pass without a rematch claim, or with atypical `cells-*` once tooling allows it
+- Category index lists this row as deprecated
+- Superseding file exists and carries Abstraction Check PASS
 
 #### Promotion Target
 
-- Project rematch / panel-grid calibration docs under `<PROJECT_ROOT>/…/docs/slots/`
-- Optional later: rematch check-grid allow-list for 25-line irregular `cells-*` (tooling change)
+- none (deprecated)
 
 #### Promotion Record
 
-尚未 promotion；保留為 candidate history。
+Deprecated 2026-11-12; replaced by `2026-11-12_171754-canonical-grid-fail-recount-cells-not-invent-layout.md`.
 
 #### Required Linked Updates
 
-- Project cabinet docs already record irregular page + client-proven status
-- Ai-skill: this lesson only; no enforcement change until a second cabinet hits the same gate
-- Category index: update `feedback/history/apk-analysis/common/README.md` if present
+- Category README deprecated row
+- Superseding lesson Required Linked Updates
 
 #### Transfer Contract
 
-- Inputs: fixed paylineCount, line-page screenshot, GetLineSet dump, rematch check-grid rules
-- Mechanism: lineCount→template coupling rejects irregular panel geometry; eye-map can still bijection dump shapes to print ids
-- Decision: if panel count ≠ canonical dual-label cells → irregular path (eye-map + non-claim status); else canonical extract→apply
-- Verification: bijection N/N; divider frac on forced canonical template remains high; hooks pass without false rematch claim
-- Counterexample: true dual-label 25-line books that pass regular-5x4 with frac≈0
-- Transfer case: any fixed-line help book with uneven column stacks (e.g. 8+6+6+5) under a lineCount that tooling still maps to a dual-label preset
+- Inputs: this deprecated history file path + superseding lesson path from Status/Successor fields
+- Mechanism: Status=deprecated + Successor pointer replace the old Generalized Lesson so agents cannot treat uneven printed-line tallies as a legal panel layout mode
+- Decision: if Status is deprecated → open Successor only; do not implement irregular column-row extract flags from this file
+- Verification: category README marks deprecated; Successor file exists with Abstraction Check PASS; no active Agent Action remains here beyond redirect
+- Counterexample: following this file’s historical irregular-column wording after deprecation (would reintroduce the mid-course wrong path)
+- Transfer case: any agent that still lands on this filename via old chat/search — must bounce to Successor before rematch tooling changes
 
 #### Intelligence Review
 
 - Decision: deferred
-- Reason: needs a second irregular fixed-line cabinet or an explicit rematch tooling change before promoting into workflow
+- Reason: deprecated stub; no new intelligence extraction
 - Target: none
-- Revisit: when rematch check-grid gains an allow path for atypical `cells-*` at popular line counts, or a second cabinet hits the same refusal
-- Discovery: not applicable (deferred)
+- Revisit: only if Successor is renamed/deleted or Status is mistakenly set back to candidate — then restore Successor link or re-deprecate
+- Discovery: not applicable
 
 #### Abstraction Check
 
-- Swap-project test: PASS — any fixed-line rematch stack that couples lineCount to a dual-label grid preset will block irregular single-label pages the same way
-- Project evidence kept in: `<PROJECT_ROOT>/pojiepokerist/docs/slots/`
+- Swap-project test: PASS — deprecation stub only redirects; no project-bound rule remains active here
+- Project evidence kept in: `<PROJECT_ROOT>/…/docs/slots/`
 - Product/cabinet/sample IDs absent from Generalized Lesson: PASS
