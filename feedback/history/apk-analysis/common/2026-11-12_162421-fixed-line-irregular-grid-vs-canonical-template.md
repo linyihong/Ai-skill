@@ -2,7 +2,9 @@
 
 ### 2026-11-12 - Fixed-line irregular page vs canonical panel-grid template
 
-Status: candidate
+> **Deprecated 2026-11-12.** This lesson incorrectly blessed printed-line tallies as an irregular panel layout. Successor: [2026-11-12_171754-canonical-grid-fail-recount-cells-not-invent-layout.md](2026-11-12_171754-canonical-grid-fail-recount-cells-not-invent-layout.md). Do not follow the Generalized Lesson below.
+
+Status: deprecated
 
 #### Reuse Evidence
 

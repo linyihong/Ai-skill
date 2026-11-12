@@ -4,4 +4,5 @@
 
 | File | Status | Summary |
 | --- | --- | --- |
-| [2026-11-12_162421-fixed-line-irregular-grid-vs-canonical-template.md](2026-11-12_162421-fixed-line-irregular-grid-vs-canonical-template.md) | candidate | 固定線不規則 panel 頁勿硬套 dual-label 模板；eye-map bijection 可先 client-proven |
+| [2026-11-12_171754-canonical-grid-fail-recount-cells-not-invent-layout.md](2026-11-12_171754-canonical-grid-fail-recount-cells-not-invent-layout.md) | candidate | canonical 預設失敗 → 重數矩形 `--cells`；勿用印刷線號發明不規則欄／新 layout |
+| [2026-11-12_162421-fixed-line-irregular-grid-vs-canonical-template.md](2026-11-12_162421-fixed-line-irregular-grid-vs-canonical-template.md) | deprecated | 誤把「不規則欄」當合法路徑；已被上一條取代 |
