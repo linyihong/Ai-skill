@@ -4,13 +4,19 @@
 
 | 分類 | 數量 | 說明 |
 |------|------|------|
-| [`common/`](common/) | 68 | 跨分類或通用 lesson（工具選擇、流程、UI、分析策略等） |
+| [`common/`](common/) | 69 | 跨分類或通用 lesson（工具選擇、流程、UI、分析策略等） |
 | [`flutter-dart-aot/`](flutter-dart-aot/) | 23 | Flutter/Dart AOT 相關 hook 與分析 |
 | [`http-api/`](http-api/) | 35 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 13 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
 | [`unity-il2cpp/`](unity-il2cpp/) | 86 | Unity IL2CPP、AssetBundle、UnityCache |
 | [`dynamic-capture/`](dynamic-capture/) | 3 | 動態捕獲相關 |
+
+## Recent (2026-11-12)
+
+| Slug | Category |
+|------|----------|
+| `common/2026-11-12_162421-fixed-line-irregular-grid-vs-canonical-template` | 固定線不規則 panel 頁勿硬套 dual-label 模板；eye-map bijection 可先 client-proven |
 
 ## Recent (2026-11-05)
 
