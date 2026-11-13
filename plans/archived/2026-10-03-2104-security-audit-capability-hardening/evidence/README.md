@@ -19,4 +19,5 @@ Canonical 規則：[`governance/lifecycle/plan-evidence.md`](../../../../governa
 |---|---|---|---|
 | dogfood-1 | [`2026-10-03-dogfood-1-refresh-family.md`](2026-10-03-dogfood-1-refresh-family.md) | done（`verdict_kind: expected`） | consumer 專案 refresh-token family 內部切片的事後 audit；fresh verifier 抓到 reachability 錯誤與 deferral 冒充 risk acceptance，template / ledger 契約已修 |
 | dogfood-2 | [`2026-10-03-dogfood-2-payment-tenant-deep.md`](2026-10-03-dogfood-2-payment-tenant-deep.md) | done（`verdict_kind: expected`，**block**） | 第二個 consumer 的多租戶支付 API deep audit；12 findings；coverage invalidation 對真實歷史機械回放（正向 10/12 失效、負向 0）；路徑邊界與 not_covered 誠實性寫回契約 |
+| ext-ref-1 | [`2026-11-13-external-reference-gap-observations.md`](2026-11-13-external-reference-gap-observations.md) | `observed`（非 dogfood；不計入 Phase 5 restart trigger） | 外部參考 skill 逐檔對照後的五筆差異觀察 XR-1–XR-5（coverage critic、unit 推導、多報排除、severity 定錨、trace 與去重）；未修改任何契約欄位；附各筆升級為 `verified` 的事件 |
 | dogfood-3 | — | pending | 第一個 consumer 下一切片加入第一個使用者時，於真實開發流程中被動觸發失效（非回放） |
