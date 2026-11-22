@@ -12,11 +12,11 @@ parent: null
 
 **Status**: draft — 待使用者審閱。尚未進入 Phase 0；不改任何 consumer repo。
 
-**Glossary Impact**: yes（候選，Phase 1 前不登記）— `tooling_layer_contract`、`promotion_ladder`、`compensating_lock`、`registry_driven_entry`。
+**Glossary Impact**: yes（候選，Phase 1 前不登記）— `tooling_layer_contract`、`concept_check`、`capability_catalog`、`promotion_ladder`、`compensating_lock`、`registry_driven_entry`。
 
 ## 一句話目標
 
-讓專案的分析／驗證腳本從「每做一次分析就多一支腳本」收斂成 **分層 + 參數化 + 機械鎖** 的可演化工具面：新需求優先「改設定 / 加參數」，其次「擴充共用模組」，最後才「新增腳本」，並用可證偽的升級觸發條件與鎖，防止回流。
+讓專案的分析／驗證腳本從「每做一次分析就多一支腳本」收斂成 **分層 + 參數化 + 機械鎖** 的可演化工具面。**新腳本可以長，但只在確認沒有同概念功能時才長**：同概念 → 加參數，或抽出共用邏輯後在同一功能分類下長一個 sibling；新概念 → 才開新分類、新腳本。並用鎖防止回流。
 
 ## Decision Rationale
 
@@ -70,11 +70,21 @@ B4 與 Consumer A 的 A1 是同一現象：每做一次分析就複製一支，�
 契約四部分：
 
 1. **Layer contract**：L0 entry（只解析參數 + 呼叫）→ L1 domain → L2 shared → L3 parameters/config（strategy enum、per-target config）；例外區（單目標、research）必須有明確 TTL 或升級出口。
-2. **Promotion ladder**（每階可退回，觸發條件可證偽）：
+2. **Concept-first growth rule**（生長規則；以「概念是否相同」判定，不以出現次數判定）：
+
+   新增腳本前必做 **concept check**：查該專案的 capability catalog（每個功能分類的 README 能力表），回答「是否已有同概念的功能？」
+
+   | 判定 | 允許的動作 | 禁止 |
+   | --- | --- | --- |
+   | **同概念、只差數值 / 目標** | 在既有腳本 **加參數** 或加 config / strategy enum 值 | 複製一支新腳本 |
+   | **同概念、流程有差異** | 先把共同邏輯 **抽到該分類的共用模組**，再在 **同一功能分類下** 長一個 sibling（只放差異） | 在別的分類或根目錄另起爐灶；sibling 重寫共用邏輯 |
+   | **新概念**（catalog 無對應） | 開新功能分類 + 新腳本，並登記到 catalog | 不登記 catalog |
+
+   概念判定的最小準則（Phase 0/1 細化，見 Q2）：**輸入對象、產出物、核心流程** 三者中若「產出物 + 核心流程」相同，即視為同概念；只差目標 ID、座標、門檻、站點等，屬參數。
+
+   **Promotion ladder** 作為抽共用時的落點（每階可退回）：
    `research（TTL）→ target/<id>（單目標）→ domain 模組 → shared 模組 → 參數 / 設定`
-   - 同一段邏輯出現在第 2 個 target → 必須抽到 domain。
-   - 第 2 個 domain 使用 → 必須抽到 shared。
-   - 兩個 target 只差數值不差流程 → 必須改成 config / strategy enum，而非新腳本。
+   共用邏輯抽到「涵蓋所有使用者的最低一層」即可，不預先上推到 shared。
 3. **Lock taxonomy**：layout / thin-entry / boundary / lifecycle / completeness / drift / parity。每族一個「填 scope + forbidden pattern + allowlist」的形狀；allowlist 必須附退場條件。
 4. **Compensating-lock test**：新增鎖前先問「這個鎖防的重複，能不能從結構上消除？」能消除就先消除，鎖只守剩下的不變式（B2 是反例）。
 
@@ -136,7 +146,10 @@ B4 與 Consumer A 的 A1 是同一現象：每做一次分析就複製一支，�
 ## Open Questions
 
 - [ ] **Q1 放置位置**：`workflow/cross-cutting/project-tooling/` vs `workflow/software-delivery/` 子能力？（傾向 cross-cutting：Consumer A 不是交付專案）
-- [ ] **Q2 升級門檻**：「第 2 次出現就抽」是否太激進？分析類一次性腳本是否允許 research 區 TTL 內不抽？
+- [x] ~~**Q2 升級門檻**：「第 2 次出現就抽」是否太激進？~~ — **decided (2026-11-23, user)**：改為 concept-first，不以次數判定；新腳本只在無同概念功能時長，同概念走加參數或「抽共用 + 同分類 sibling」。
+- [ ] **Q2a 概念判定準則**：「產出物 + 核心流程相同 = 同概念」是否足夠？邊界案例（同產出物、不同資料來源）怎麼判？Phase 0 用兩個 consumer 的實際腳本逐支試判。
+- [ ] **Q2b Capability catalog 形狀**：每個功能分類 README 的能力表即可，還是需要機器可讀清單（讓 concept check 可被鎖檢查「新檔是否已登記」）？
+- [ ] **Q2c Research 區**：實驗腳本在 TTL 內是否豁免 concept check（只要求到期前登記或刪除）？
 - [ ] **Q3 Compensating-lock test**：寫成規則（新增鎖必答）還是 heuristic（review 提示）？
 - [ ] **Q4 Consumer B wrapper 收斂**：保留 sh/ps1 成對 + parity 鎖，或改為單一 Node 入口 + check registry（Node 已是必要依賴）？屬 B 專案決策，本 plan 只提供分析。
 - [ ] **Q5 Runner 語言**：若 Phase 4 決定做共用 runner，是 Ai-skill Go CLI（Go-first policy）讀 consumer YAML，還是各 consumer 原生語言？
@@ -169,6 +182,8 @@ B4 與 Consumer A 的 A1 是同一現象：每做一次分析就複製一支，�
 
 把 A1–A5、B1–B4 從 `observed` 升為 `verified` 或 `refuted`（verify 對 HEAD）。
 
+**Concept 試判**：對兩個 consumer 的既有腳本逐支套 concept check，產出「概念 → 腳本清單」表；同概念多支者即為 Phase 2/3 收斂候選，並用來回答 Q2a（判不出來的邊界案例記錄下來）。
+
 ### Phase 0.2 — Framework discovery（避免雙份 source-of-truth）
 
 - [ ] 讀 [`workflow/cross-cutting/README.md`](../../workflow/cross-cutting/README.md)、[`traceable-evidence/`](../../workflow/cross-cutting/traceable-evidence/README.md)（pilot contract 形狀參考）
@@ -183,7 +198,7 @@ B4 與 Consumer A 的 A1 是同一現象：每做一次分析就複製一支，�
 
 - [ ] `workflow/cross-cutting/project-tooling/README.md`（索引 + 適用範圍 + 何時載入）
 - [ ] `layer-contract.md`（L0–L3 + 例外區 TTL）
-- [ ] `promotion-ladder.md`（觸發條件 + 可證偽 predicate）
+- [ ] `growth-rule.md`（concept check 決策表 + 概念判定準則 + capability catalog 形狀 + promotion ladder 落點）
 - [ ] `lock-taxonomy.md`（七族鎖形狀 + compensating-lock test）
 - [ ] `workflow/cross-cutting/README.md` 加入連結；linked-updates 檢查
 
@@ -221,7 +236,8 @@ Slice：一次性分析腳本 → 共用 harness（B4）。wrapper 收斂（B1/B
 ## Stakeholder 同意項目
 
 - [ ] 契約放置位置（Q1）
-- [ ] 升級門檻（Q2）
+- [x] 生長規則採 concept-first（Q2，2026-11-23 使用者決定）
+- [ ] 概念判定準則與 capability catalog 形狀（Q2a / Q2b）
 - [ ] Phase 2 / Phase 3 dogfood slice 範圍（各在 consumer repo 動到什麼）
 - [ ] Consumer B wrapper 收斂是否另案處理（Q4）
 
