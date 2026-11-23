@@ -10,6 +10,11 @@
 | **Logic** | 實際執行邏輯 | 寫死應由 Parameters 提供的值（目標 ID、座標、裝置或環境識別、門檻） |
 | **Parameters** | 設定值、策略選擇、per-target 數值 | 大量條件分支、流程描述、可執行邏輯 |
 
+### 判定細則
+
+- **幾何與數值**：點擊座標、以及任何**會隨目標調整**的參數（門檻、ID、裝置識別、等待時間）屬 Parameters。**演算法本身的幾何**（例：OCR 裁切比例、像素判斷區域）可以留在 Logic，但必須具名、集中在一處，不得散落在流程中。
+- **入口編排**：Entry 只是**依序呼叫**多個 Logic 仍屬 Entry；一旦包含**條件決策、快取判斷或範圍選擇**（例：依變更範圍決定跑哪些檢查、命中快取就略過），那段編排就是 Logic，應移到 Logic，Entry 只呼叫它。
+
 ### Placement 不決定 Role
 
 Target、Domain、Shared 的工具都可以有自己的 Entry / Logic / Parameters，但**不要求同時具備三種**。例如一個共用模組可以只有 Logic，由各 Target 的 Entry 呼叫。

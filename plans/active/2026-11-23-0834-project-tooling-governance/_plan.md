@@ -10,7 +10,7 @@ parent: null
 
 # Project Tooling Governance（專案工具治理）
 
-**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；**Phase 2 完成**（契約缺口待 Q12 裁決）；Phase 3 未開始。
+**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；**Phase 2 完成**；Q12 已裁決並寫回契約（2026-11-23）；Phase 3 未開始，待契約一致性審閱後決定是否開放。
 
 **本 plan 是唯一的執行狀態來源。** 契約設計大綱見 [`01-design-contracts.md`](01-design-contracts.md)（不記狀態）。
 
@@ -59,7 +59,7 @@ parent: null
 2. **Discovery contract** — 先找再建；四種合理新增理由；輕量 justification，不是表單。
 3. **Lifecycle contract** — **Placement**（Scratch → Research → Target → Domain → Shared）與 **State**（temporary / experimental / maintained / deprecated）；與 Role 共三個獨立維度（Q10）。
 4. **Growth rule** — concept-first（Selection）+ reuse evidence（Constraint：第 1 次定位置、第 2 次評估、第 3 次明確裁決；計數對象是同一能力 / 責任，不是相似程式碼）+ config-first ≠ config-everything + promotion ladder。
-5. **Lock taxonomy** — 七族鎖形狀；鎖保護架構不變式，不保護檔案數量。
+5. **Lock taxonomy** — 八族工具治理鎖形狀（Q12 加入 safety；產品不變式鎖另歸一類）；鎖保護架構不變式，不保護檔案數量。
 6. **Compensating-lock Review Rule** — 新增鎖前必答「能否從結構上消除？」
 
 **明確不做**：共用 runner（Q5 deferred）、runtime route、自動 orchestrator（是否抽象化屬 Selection Responsibility）。
@@ -128,7 +128,15 @@ parent: null
 - [x] **Q9 Ownership** — **accepted (2026-11-23, user)**（依審閱修訂後通過）：單一記錄點 = catalog `owner` 欄、可為團隊 / 角色、不建 registry（保留）；**刪除「無 owner 視為 experimental 或 deprecated」**——owner 缺失是治理資訊不完整，不改變 state：maintained + 無 owner = ownership violation 須補 owner；experimental + 無 owner 可接受但須 TTL 與目的；deprecated 不要求維護 owner 但須退役處理責任方；改 deprecated 須由 Selection 明確決定。見 [`lifecycle-contract.md`](../../../workflow/cross-cutting/project-tooling/lifecycle-contract.md) §Ownership。
 - [x] **Q10 Layer / Placement 分離** — **decided (2026-11-23, user)**：三個維度正式分離、不得互相取代或混用——(1) **Internal Role**：Entry / Logic / Parameters；(2) **Placement**：Scratch / Research / Target / Domain / Shared；(3) **Lifecycle State**：temporary / experimental / maintained / deprecated。附帶規則：Placement 不決定 Role（任一 placement 都可有三種角色，但不要求同時具備）；Entry 維持薄入口（只解析參數、取得必要設定、呼叫 Logic、傳遞結果與結束狀態）；Parameters 不得成為邏輯藏身處。Phase 1 正式定義違規判定與跨語言適用原則。
 - [ ] **Q11 唯讀評估是否計入三案例門檻**（2026-11-23 範圍修訂後新增）：consumer 只做唯讀評估，證明的是「契約能判斷」，不是「照契約改得動」。Phase 4 裁決它們算不算收斂案例；Ai-skill 自家套用算一個實際套用案例。
-- [ ] **Q12 Phase 2 契約缺口裁決**（2026-11-23 新增）：G1 safety 族、G2 產品不變式鎖的範圍、G3 forbidden 涵蓋常見寫法 + 反向樣本、G4 未引用 Research 可機械刪除、G5 用途 + 決策連結可等效 justification、G6 reuse evidence 適用於鎖；歧義 A-1 操作幾何 vs 分析幾何、A-2 純呼叫 vs 編排邏輯。各附建議修改，見 [`evidence/phase2-readonly-evaluation.md`](evidence/phase2-readonly-evaluation.md) §5。**Phase 3 套用前須裁決並回寫契約。**
+- [x] **Q12 Phase 2 契約缺口裁決** — **decided (2026-11-23, user)**，已寫回契約：
+  - G1 **Accept**：新增 safety 族（[`lock-taxonomy.md`](../../../workflow/cross-cutting/project-tooling/lock-taxonomy.md)）
+  - G2 **Accept**：工具治理鎖與產品不變式鎖分開登記與計數；兩者皆適用 Review Rule
+  - G3 **Accept with clarification**：forbidden 涵蓋常見寫法；反向樣本雙向——違規變體抓得到、合法相似寫法不誤判
+  - G4 **Revise**：「到期 + 未引用 + 未登記」不足以單獨證明可刪；機械清理僅限指定 Research 區域、排除無法可靠確認使用情況者、須先隔離並有可恢復的保留期（[`lifecycle-contract.md`](../../../workflow/cross-cutting/project-tooling/lifecycle-contract.md) §機械清理的邊界）
+  - G5 **Accept with clarification**：文件連結須同時說明新增原因與既有能力為何不適用（[`discovery-contract.md`](../../../workflow/cross-cutting/project-tooling/discovery-contract.md)）
+  - G6 **Accept**：鎖的 reuse evidence 依同一不變式 / 能力計數，不依鎖檔案數量
+  - A-1 **Accept with clarification**：點擊座標與隨目標調整的參數屬 Parameters；演算法幾何可留在具名、集中的 Logic（[`role-contract.md`](../../../workflow/cross-cutting/project-tooling/role-contract.md) §判定細則）
+  - A-2 **Accept with clarification**：單純依序呼叫屬 Entry；含條件決策、快取判斷或範圍選擇屬 Logic
 
 ## Plan Preparation（Phase 0 之前，獨立 commit）
 
@@ -156,7 +164,7 @@ parent: null
 | Q9 | accepted（2026-11-23, user） | owner 缺失不推導 state |
 | Q10（新增） | decided（2026-11-23, user） | 三維度分離，見 §Open Questions |
 | Q11（範圍修訂後新增） | still-open | Phase 4 裁決 |
-| Q12（Phase 2 新增） | still-open | Phase 3 前裁決 |
+| Q12（Phase 2 新增） | decided（2026-11-23, user） | 已寫回契約 |
 
 ### Phase 0.1 — Baseline 量測（可重跑指令記在 project-local dogfood 檔）
 
@@ -191,7 +199,7 @@ parent: null
 - [x] `discovery-contract.md`（behavioral invariant，非填表）
 - [x] `lifecycle-contract.md`（placement × state 雙維度；**含 Q8 scratch 位置與清理責任、Q9 ownership 最小契約**）
 - [x] `growth-rule.md`（concept check、reuse evidence、config-first ≠ config-everything、promotion ladder）
-- [x] `lock-taxonomy.md`（七族鎖形狀、compensating-lock Review Rule、check architecture 概念）
+- [x] `lock-taxonomy.md`（七族鎖形狀，Q12 後為八族、compensating-lock Review Rule、check architecture 概念）
 - [x] `workflow/cross-cutting/README.md` 加入連結；linked-updates 檢查（另同步 `workflow/README.md` cross-cutting 列；不新增 route，故 routing registry / 根 README 不適用）
 
 **完成條件**：6 檔各 ≤150 行；Q8、Q9 resolved；Q10 已裁決並寫入 Role contract（含違規判定與跨語言原則）；Q2a–c resolved 或 deferred（附原因）；無 consumer 識別資訊（sanitization gate 通過）；不新增 route、runner 或 validator。
@@ -215,7 +223,7 @@ parent: null
 
 **Acceptance**：(1) consumer repo 沒有任何由本 phase 造成的變更；(2) 每個被評估的工具群都有可判定的結論，或明確記錄為歧義；(3) 契約缺口逐條列出並附建議修改；(4) 證據去敏後寫入 `evidence/`。
 
-**Phase 2 結果（2026-11-23）**：完成，見 [`evidence/phase2-readonly-evaluation.md`](evidence/phase2-readonly-evaluation.md)。(1) consumer repo 由本 phase 造成的變更為 0；(2) Role / Concept / Placement × State / Ownership 皆可判定，僅 A-1、A-2 兩處歧義；(3) 契約缺口 G1–G6 已列並附建議修改（**未套用**，待 Q12 裁決）；(4) 證據已去敏。無需推翻的 invariant。
+**Phase 2 結果（2026-11-23）**：完成，見 [`evidence/phase2-readonly-evaluation.md`](evidence/phase2-readonly-evaluation.md)。(1) consumer repo 由本 phase 造成的變更為 0；(2) Role / Concept / Placement × State / Ownership 皆可判定，僅 A-1、A-2 兩處歧義；(3) 契約缺口 G1–G6 已列並附建議修改，Q12 裁決後已寫回契約（G4 依裁決修訂）；(4) 證據已去敏。無需推翻的 invariant。
 
 ## Phase 3 — Ai-skill 自家套用
 
@@ -250,6 +258,8 @@ parent: null
 - [x] Ownership 最小契約（Q9 accepted）
 - [x] Phase 1 契約最終 sign-off（2026-11-23）
 - [x] Phase 2/3 改為 consumer 唯讀評估 + Ai-skill 自家套用（2026-11-23）
+- [x] Q12 契約缺口裁決（2026-11-23）
+- [ ] 契約一致性審閱後開放 Phase 3
 - [ ] Phase 3 套用切片範圍（Phase 3.0 盤點後確認）
 
 ## 與其他 plans 的關係

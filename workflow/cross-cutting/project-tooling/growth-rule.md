@@ -49,6 +49,8 @@
 
 「保留重複的理由」寫在 catalog 該能力列的備註，或相關 commit message；一句即可。
 
+同樣的計數方式也適用於機械鎖：依保護的同一不變式計數，不依鎖檔案數量（見 [`lock-taxonomy.md`](lock-taxonomy.md) §同概念的鎖也適用 reuse evidence）。
+
 ## Promotion ladder（抽共用時的落點）
 
 沿 [`lifecycle-contract.md`](lifecycle-contract.md) 的 Placement 上推：`Scratch → Research → Target → Domain → Shared`，數值差異落在 Parameters / Strategy。

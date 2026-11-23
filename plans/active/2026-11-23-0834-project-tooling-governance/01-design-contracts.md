@@ -115,7 +115,7 @@ Phase 1 必須定義的最小責任（不做自動清理工具或 ownership regi
 
 ## 5. Lock taxonomy
 
-layout / thin-entry / boundary / lifecycle / completeness / drift / parity。每族一個「scope + forbidden pattern + allowlist」形狀；allowlist 必須附退場條件。**鎖保護架構不變式，不保護檔案數量**；只擋已明確違反的不變式。
+layout / thin-entry / boundary / lifecycle / completeness / drift / parity / safety（八族，Q12 G1 新增 safety）；只用於工具治理鎖，產品不變式鎖不套族形狀但仍適用 Review Rule（Q12 G2）。每族一個「scope + forbidden pattern + allowlist」形狀；allowlist 必須附退場條件。**鎖保護架構不變式，不保護檔案數量**；只擋已明確違反的不變式。
 
 ### Governance check architecture（概念，不實作）
 
