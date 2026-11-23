@@ -64,14 +64,15 @@ State 轉移的最小規則：
 | State | 存在條件 | 到期 / 退出 |
 | --- | --- | --- |
 | temporary | 只為當前任務 | 任務結束清理 |
-| experimental | 有 TTL、目的、輸入 / 輸出定義 | 到期重新評估：升級 / 延期（附理由）/ 刪除 |
-| maintained | 有 owner | 無使用者 → deprecated |
+| experimental | 有 TTL、目的、輸入 / 輸出定義 | 到期必須重新評估，去向三選一：轉 maintained / 重設 TTL（附理由）/ deprecated；TTL 不是自動刪除指令 |
+| maintained | 有 owner（缺 owner 屬 ownership violation，state 不變） | 無使用者 → 由 Selection 明確決定是否 deprecated |
 | deprecated | 禁止新增使用 | 移除 |
 
-Phase 1 必須定義的最小責任（不做自動清理工具或 ownership registry）：
+Phase 1 已定義的最小責任（不做自動清理工具或 ownership registry；全文見 [`lifecycle-contract.md`](../../../workflow/cross-cutting/project-tooling/lifecycle-contract.md)）：
 
-- **Q8 Scratch**：固定暫存位置（專案內 ignored 目錄或 session scratch 二擇一的規則）＋ 誰確認清理（建立它的 agent 在任務 close-out 時）。
-- **Q9 Ownership**：`maintained` 工具的 owner 記錄位置的最小契約（catalog 欄位 / 檔頭 / CODEOWNERS 擇一為準）。
+- **Q8 Scratch**：位置為專案指定的不進版控目錄或 session 暫存區，不得放在正式工具樹內；由建立它的 agent 在任務 close-out 時清理，無法清理須回報殘留路徑、原因與後續處理。
+- **Q9 Ownership**：capability catalog 的 `owner` 欄位是唯一記錄點；缺 owner 是治理資訊不完整，不改變 state。
+- **機械清理（Q12 G4）**：只限指定 Research 區域、排除使用情況無法可靠確認的工具、先隔離並保留可恢復期間。
 
 ## 4. Growth rule + Reuse evidence + Promotion ladder
 

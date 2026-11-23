@@ -10,7 +10,7 @@ parent: null
 
 # Project Tooling Governance（專案工具治理）
 
-**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；**Phase 2 完成**；Q12 已裁決並寫回契約（2026-11-23）；Phase 3 未開始，待契約一致性審閱後決定是否開放。
+**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；**Phase 2 完成**；Q12 已裁決並寫回契約（2026-11-23）；第一次契約一致性審閱（2026-11-23）：Q12 寫回與正式契約 PASS，設計大綱 Lifecycle/Q8/Q9 與 Phase 3 Acceptance 已同步；Phase 3 未開始，待最後確認後決定是否開放。
 
 **本 plan 是唯一的執行狀態來源。** 契約設計大綱見 [`01-design-contracts.md`](01-design-contracts.md)（不記狀態）。
 
@@ -232,10 +232,20 @@ parent: null
 - [ ] **Phase 3.0 範圍盤點（唯讀）**：列出入口、validator（鎖）、共用模組，決定本 phase 的套用切片；確認 Go-first 政策與 committed `bin/` 重建要求；回寫範圍後才動手
 - [ ] **Capability catalog**：在 Ai-skill 工具樹 README 建立能力表（capability / entry / placement / state / owner / ttl）
 - [ ] **Role**：檢查入口是否維持薄入口；違規依句型記錄並修正（限本 phase 切片）
-- [ ] **Lock review**：對 validator 依鎖分類填四欄形狀並套 compensating-lock Review Rule；能從結構消除的列為改動或後續 plan，不在本 phase 擴大實作
+- [ ] **Lock review**：對 validator 先分工具治理鎖 / 產品不變式鎖，再填四欄形狀並套 compensating-lock Review Rule；能從結構消除的列為改動或後續 plan，不在本 phase 擴大實作
 - [ ] Phase 2 的契約缺口若已裁決，先回寫契約再套用
 
-**Acceptance**：catalog 存在且涵蓋切片內所有 capability；切片內入口無 Role 違規；每把被審的鎖都有 intent 與 Review Rule 結論；所有改動通過 Ai-skill hooks 並已推送。
+**Acceptance**：
+
+1. catalog 存在且涵蓋切片內所有 capability；切片內入口無 Role 違規。
+2. 每把被審的鎖都有完整四欄形狀（`scope / forbidden / allowlist / intent`），`forbidden` 涵蓋同一違規的常見寫法。
+3. Pattern-based 鎖有雙向樣本測試（違規變體抓得到、合法相似寫法不誤判）；非 pattern-based 鎖不強制套用不適合的測試形式。
+4. 每把被審的鎖都有 Compensating-lock Review Rule 結論。
+5. 工具治理鎖與產品不變式鎖分開分類、分開計數。
+6. 切片以外、能從結構消除的問題只記錄為後續工作，不擴大實作。
+7. 所有改動通過 Ai-skill hooks 並已推送。
+
+依據：[`lock-taxonomy.md`](../../../workflow/cross-cutting/project-tooling/lock-taxonomy.md)（Q12 G2、G3、G6）。
 
 ## Phase 4 — 證據裁決與升級決策
 
