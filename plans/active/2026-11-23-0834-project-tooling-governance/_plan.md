@@ -10,7 +10,7 @@ parent: null
 
 # Project Tooling Governance（專案工具治理）
 
-**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；Phase 2 進行中。
+**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；**Phase 2 完成**（契約缺口待 Q12 裁決）；Phase 3 未開始。
 
 **本 plan 是唯一的執行狀態來源。** 契約設計大綱見 [`01-design-contracts.md`](01-design-contracts.md)（不記狀態）。
 
@@ -128,6 +128,7 @@ parent: null
 - [x] **Q9 Ownership** — **accepted (2026-11-23, user)**（依審閱修訂後通過）：單一記錄點 = catalog `owner` 欄、可為團隊 / 角色、不建 registry（保留）；**刪除「無 owner 視為 experimental 或 deprecated」**——owner 缺失是治理資訊不完整，不改變 state：maintained + 無 owner = ownership violation 須補 owner；experimental + 無 owner 可接受但須 TTL 與目的；deprecated 不要求維護 owner 但須退役處理責任方；改 deprecated 須由 Selection 明確決定。見 [`lifecycle-contract.md`](../../../workflow/cross-cutting/project-tooling/lifecycle-contract.md) §Ownership。
 - [x] **Q10 Layer / Placement 分離** — **decided (2026-11-23, user)**：三個維度正式分離、不得互相取代或混用——(1) **Internal Role**：Entry / Logic / Parameters；(2) **Placement**：Scratch / Research / Target / Domain / Shared；(3) **Lifecycle State**：temporary / experimental / maintained / deprecated。附帶規則：Placement 不決定 Role（任一 placement 都可有三種角色，但不要求同時具備）；Entry 維持薄入口（只解析參數、取得必要設定、呼叫 Logic、傳遞結果與結束狀態）；Parameters 不得成為邏輯藏身處。Phase 1 正式定義違規判定與跨語言適用原則。
 - [ ] **Q11 唯讀評估是否計入三案例門檻**（2026-11-23 範圍修訂後新增）：consumer 只做唯讀評估，證明的是「契約能判斷」，不是「照契約改得動」。Phase 4 裁決它們算不算收斂案例；Ai-skill 自家套用算一個實際套用案例。
+- [ ] **Q12 Phase 2 契約缺口裁決**（2026-11-23 新增）：G1 safety 族、G2 產品不變式鎖的範圍、G3 forbidden 涵蓋常見寫法 + 反向樣本、G4 未引用 Research 可機械刪除、G5 用途 + 決策連結可等效 justification、G6 reuse evidence 適用於鎖；歧義 A-1 操作幾何 vs 分析幾何、A-2 純呼叫 vs 編排邏輯。各附建議修改，見 [`evidence/phase2-readonly-evaluation.md`](evidence/phase2-readonly-evaluation.md) §5。**Phase 3 套用前須裁決並回寫契約。**
 
 ## Plan Preparation（Phase 0 之前，獨立 commit）
 
@@ -155,6 +156,7 @@ parent: null
 | Q9 | accepted（2026-11-23, user） | owner 缺失不推導 state |
 | Q10（新增） | decided（2026-11-23, user） | 三維度分離，見 §Open Questions |
 | Q11（範圍修訂後新增） | still-open | Phase 4 裁決 |
+| Q12（Phase 2 新增） | still-open | Phase 3 前裁決 |
 
 ### Phase 0.1 — Baseline 量測（可重跑指令記在 project-local dogfood 檔）
 
@@ -204,14 +206,16 @@ parent: null
 
 **唯讀**：不修改任何 consumer repo（tracked 內容、hook、docs 都不動）；只讀取並用契約判斷。具體檔名留各 consumer 的 project-local `.ai-skill/dogfood/` 對照檔。
 
-- [ ] **Role**：對兩個 consumer 的入口與共用模組套 [`role-contract.md`](../../../workflow/cross-cutting/project-tooling/role-contract.md)，違規一律用「`<placement>` 的 `<role>` 放在 `<實際位置>`」句型記錄
-- [ ] **Concept / Discovery**：以 [`growth-rule.md`](../../../workflow/cross-cutting/project-tooling/growth-rule.md) 判定同概念群；檢查既有工具是否有 creation justification、是否有 capability catalog 可供 discovery
-- [ ] **Placement × State × Ownership**：依 [`lifecycle-contract.md`](../../../workflow/cross-cutting/project-tooling/lifecycle-contract.md) 標示；記錄 ownership violation、逾期 experimental、殘留 scratch
-- [ ] **Lock review**：對現有鎖依 [`lock-taxonomy.md`](../../../workflow/cross-cutting/project-tooling/lock-taxonomy.md) 分族、填四欄形狀（scope / forbidden / allowlist / intent），逐把回答 compensating-lock Review Rule；記錄 scope 盲區與 pattern 漏洞
-- [ ] **建議改動清單（不執行）**：每項附對應的違規句型或契約條款
-- [ ] **契約缺口**：判不出、判斷歧義、或需改契約的地方，各附建議的契約修改
+- [x] **Role**：對兩個 consumer 的入口與共用模組套 [`role-contract.md`](../../../workflow/cross-cutting/project-tooling/role-contract.md)，違規一律用「`<placement>` 的 `<role>` 放在 `<實際位置>`」句型記錄
+- [x] **Concept / Discovery**：以 [`growth-rule.md`](../../../workflow/cross-cutting/project-tooling/growth-rule.md) 判定同概念群；檢查既有工具是否有 creation justification、是否有 capability catalog 可供 discovery
+- [x] **Placement × State × Ownership**：依 [`lifecycle-contract.md`](../../../workflow/cross-cutting/project-tooling/lifecycle-contract.md) 標示；記錄 ownership violation、逾期 experimental、殘留 scratch
+- [x] **Lock review**：對現有鎖依 [`lock-taxonomy.md`](../../../workflow/cross-cutting/project-tooling/lock-taxonomy.md) 分族、填四欄形狀（scope / forbidden / allowlist / intent），逐把回答 compensating-lock Review Rule；記錄 scope 盲區與 pattern 漏洞
+- [x] **建議改動清單（不執行）**：每項附對應的違規句型或契約條款
+- [x] **契約缺口**：判不出、判斷歧義、或需改契約的地方，各附建議的契約修改
 
 **Acceptance**：(1) consumer repo 沒有任何由本 phase 造成的變更；(2) 每個被評估的工具群都有可判定的結論，或明確記錄為歧義；(3) 契約缺口逐條列出並附建議修改；(4) 證據去敏後寫入 `evidence/`。
+
+**Phase 2 結果（2026-11-23）**：完成，見 [`evidence/phase2-readonly-evaluation.md`](evidence/phase2-readonly-evaluation.md)。(1) consumer repo 由本 phase 造成的變更為 0；(2) Role / Concept / Placement × State / Ownership 皆可判定，僅 A-1、A-2 兩處歧義；(3) 契約缺口 G1–G6 已列並附建議修改（**未套用**，待 Q12 裁決）；(4) 證據已去敏。無需推翻的 invariant。
 
 ## Phase 3 — Ai-skill 自家套用
 
