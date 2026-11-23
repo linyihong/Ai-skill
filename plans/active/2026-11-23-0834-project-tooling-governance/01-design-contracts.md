@@ -10,11 +10,18 @@
 
 設計目標：**新增一個工具是有意識的架構決策，不是 AI 完成任務時的預設副作用**；同時不讓 AI 在寫工具前填一堆表格。
 
-## 1. Layer contract（工具分層）
+## 1. Role contract（工具內部角色；Q10 已裁決）
 
-L0 entry（只解析參數 + 呼叫）→ L1 domain → L2 shared → L3 parameters / config（strategy enum、per-target config）。例外區（單目標、research）必須有明確出口（升級、延期或刪除）。
+**三個獨立維度，不得互相取代或混用**：Internal Role（本節）、Placement（§3）、Lifecycle State（§3）。目錄可以改名搬移；責任邊界與生命週期才是長期穩定的契約。
 
-> **Phase 0 發現（Q10，待 Phase 1 定案）**：L1 domain / L2 shared 與 §3 Placement 的 Domain / Shared 重疊，L0 / L3 又不是 placement。提議：本契約只描述**工具內部角色**——entry（只解析參數 + 呼叫）/ logic / parameters（config、strategy）；範圍一律由 §3 Placement 管。誤置可表述為「某 placement 的 logic 放進了 entry 角色」。
+| Role | 允許 | 不允許 |
+| --- | --- | --- |
+| Entry | 解析參數、取得必要設定、呼叫 Logic、傳遞結果與結束狀態 | 領域邏輯、重複的 device / network / 檔案 I/O、資料處理 |
+| Logic | 實際執行邏輯 | 寫死應由 Parameters 提供的值（目標 ID、座標、序號、門檻） |
+| Parameters | 設定、策略選擇、數值 | 大量條件分支、流程描述（避免 configuration sprawl） |
+
+- **Placement 不決定 Role**：Target、Domain、Shared 都可有自己的 Entry / Logic / Parameters，不要求同時具備三種。
+- **違規描述格式**：`<placement> 的 <role> 放在 <實際 role / 位置>`。例：「Target 的 Logic 放在 Entry」。此格式不依賴任何語言的目錄結構。
 
 ## 2. Discovery contract（先找再建）
 
@@ -32,7 +39,7 @@ L0 entry（只解析參數 + 呼叫）→ L1 domain → L2 shared → L3 paramet
 
 ## 3. Lifecycle contract（兩個獨立維度）
 
-**Placement 是架構位置，State 是生命週期狀態，兩者獨立判斷。** 不是同一條階梯。
+**Placement 是服務範圍，State 是生命週期狀態，兩者獨立判斷，也都與 §1 Role 獨立。** 不是同一條階梯。
 
 **Dimension A — Placement**（放哪、服務誰）：`Scratch → Research → Target → Domain → Shared`
 
@@ -123,7 +130,7 @@ single check entry + check registry（跑哪些檢查）+ scope registry（適�
 | 責任 | 內容 | 承擔者 | 對應契約 |
 | --- | --- | --- | --- |
 | Selection | 用既有、擴充或新建；是否抽象化 | agent，留下 justification / 評估紀錄 | §2、§4 concept check |
-| Constraint | 放置位置、依賴、生命週期、升級規則 | 專案契約 + 機械鎖 | §1、§3、§4 reuse evidence、§5、§6 |
+| Constraint | 角色邊界、放置位置、依賴、生命週期、升級規則 | 專案契約 + 機械鎖 | §1、§3、§4 reuse evidence、§5、§6 |
 | Verification | 無重複能力、無繞過共用層、無未處置臨時產物 | 獨立驗證（review / verifier） | 全部 |
 
 **明確不做**：自動 orchestrator（看到新工具就自動搬層）。是否抽象化屬 Selection Responsibility，需保留決策與證據。
