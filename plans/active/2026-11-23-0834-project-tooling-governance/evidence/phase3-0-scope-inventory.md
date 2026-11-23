@@ -67,7 +67,7 @@
 | O5 | registry 只有 `rationale`（約等於 intent），沒有 scope、forbidden、allowlist；`verification_status` 已追蹤 scenario 與 regression，可對應雙向樣本 | lock-taxonomy 四欄 |
 | O6 | 治理檢查架構已有一部分做好：registry 對應 check registry、`hooks run` 對應單一入口、`Check` struct 對應 result contract。scope registry 還沒有 | lock-taxonomy §Governance check architecture |
 
-## 6. 切片提案（待使用者裁決）
+## 6. 切片提案（2026-11-23 已裁決：S1 + 五點邊界）
 
 | 方案 | 內容 | 評估 |
 | --- | --- | --- |
@@ -76,5 +76,14 @@
 | S3：只做 catalog | 不做 Role 和 Lock review | 無法驗證 Phase 3 的 Acceptance |
 
 **S1 不包含**：`runtime.go` 等大型 Logic 檔的拆分、registry schema 變更（不新增欄位，四欄只寫在 evidence）、KGE 三段間接呼叫的重構。這些只記錄為後續工作。
+
+### 裁決後的邊界（2026-11-23）
+
+1. **產品不變式鎖**：全部分類登記，但不算已審查，明列「未審、後續處理」。只有工具治理鎖做完整審查。
+2. **對帳**：先建立 hook → executor → registry 對照。§3 的 46 和 44 計數單位不同，「約 7 把」只是初步數字，要等對帳後才能確定。
+3. **O2、O3**：Role 是否通過，和入口是否重複，分開判斷。兩套外殼可能各自都是薄入口；一行轉呼叫本身不算違規。
+4. **O4**：維持為契約問題。單次 skip 的有效期間和 allowlist 的退場條件是不同問題，先記錄作用範圍、授權方式與失效時點。
+5. **bin 流程**：§4 的待驗證項，要在第一次修改 Go source 前，依現行 hook 實作和建置文件確認。
+6. **O6**：只是既有架構的盤點結果，不承諾「只補 scope registry 就完整」。
 
 ← [Evidence index](README.md)

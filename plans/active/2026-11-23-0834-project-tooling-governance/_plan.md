@@ -10,7 +10,7 @@ parent: null
 
 # Project Tooling Governance（專案工具治理）
 
-**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；**Phase 2 完成**；Q12 已裁決並寫回契約（2026-11-23）；第一次契約一致性審閱（2026-11-23）：Q12 寫回與正式契約 PASS，設計大綱 Lifecycle/Q8/Q9 與 Phase 3 Acceptance 已同步；**Phase 3 已開放**（2026-11-23 使用者決定）；3.0 唯讀盤點完成，套用切片待使用者裁決。
+**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；**Phase 2 完成**；Q12 已裁決並寫回契約（2026-11-23）；第一次契約一致性審閱（2026-11-23）：Q12 寫回與正式契約 PASS，設計大綱 Lifecycle/Q8/Q9 與 Phase 3 Acceptance 已同步；**Phase 3 已開放**（2026-11-23 使用者決定）；3.0 唯讀盤點完成；套用切片裁決為 S1 加五點邊界（2026-11-23），後續步驟尚未開始。
 
 **本 plan 是唯一的執行狀態來源。** 契約設計大綱見 [`01-design-contracts.md`](01-design-contracts.md)（不記狀態）。
 
@@ -229,10 +229,21 @@ parent: null
 
 在 Ai-skill 自己的工具樹（`scripts/`：Go CLI、git-hooks 與其 validator）實際套用契約。Ai-skill 是本契約真正的使用者，改動走 Ai-skill 一般的 writeback 流程。
 
-- [x] **Phase 3.0 範圍盤點（唯讀）**（2026-11-23，見 [`evidence/phase3-0-scope-inventory.md`](evidence/phase3-0-scope-inventory.md)；建議切片 S1 = hook pipeline，待裁決）：列出入口、validator（鎖）、共用模組，決定本 phase 的套用切片；確認 Go-first 政策與 committed `bin/` 重建要求；回寫範圍後才動手
-- [ ] **Capability catalog**：在 Ai-skill 工具樹 README 建立能力表（capability / entry / placement / state / owner / ttl）
-- [ ] **Role**：檢查入口是否維持薄入口；違規依句型記錄並修正（限本 phase 切片）
-- [ ] **Lock review**：對 validator 先分工具治理鎖 / 產品不變式鎖，再填四欄形狀並套 compensating-lock Review Rule；能從結構消除的列為改動或後續 plan，不在本 phase 擴大實作
+- [x] **Phase 3.0 範圍盤點（唯讀）**（2026-11-23，見 [`evidence/phase3-0-scope-inventory.md`](evidence/phase3-0-scope-inventory.md)；切片裁決 S1 = hook pipeline，見下方 §套用切片）：列出入口、validator（鎖）、共用模組，決定本 phase 的套用切片；確認 Go-first 政策與 committed `bin/` 重建要求；回寫範圍後才動手
+### 套用切片（2026-11-23 使用者裁決：S1 + 五點邊界）
+
+- **Catalog**：涵蓋全部 18 個能力（16 個頂層命令與 2 個獨立 binary）。
+- **Role**：只檢查 `.githooks/*`、`scripts/git-hooks/*`、`cmd/ai-skill`、`app.go`、hooks 編排。
+- **Lock**：全部的鎖都要分類登記；**完整審查只做工具治理鎖**。產品不變式鎖在 evidence 明列為「未審、後續處理」，不算已完成審查，因為契約仍要求它們有 intent、allowlist 退場條件與 Review Rule。
+- **延後**：大型檔案拆分、registry schema 變更（四欄只寫在 evidence）、KGE 呼叫鏈重構。
+- **O6**：視為既有架構的盤點結果，不承諾「只補 scope registry 就完整」。
+
+- [ ] **Bin 流程預查（第一次修改 Go source 前）**：依現行 hook 實作（`validateReleaseBinaryParityStaged`）與建置文件確認提交要求。若要求同一 commit，就照此規劃，不沿用過去拆 commit 的慣例。
+- [ ] **Capability catalog**：在 Ai-skill 工具樹 README 建立能力表（capability / entry / placement / state / owner / ttl），共 18 列。
+- [ ] **Lock 對帳**：建立 hook 執行點 → executor symbol → registry entry 的對照表，寫入 evidence。46 次 validator 執行和 44 個 registry entry 的計數單位不同，數字不一致本身不代表缺漏。以對帳結果確定工具治理鎖的邊界。
+- [ ] **Role**：薄入口判定與「重複入口」**分開判斷**。兩套外殼可能各自符合薄入口；O2 的一行轉呼叫也不足以直接判定違規。先確認各自的責任與呼叫需求，再決定是否修正；違規依句型記錄並修正（限本切片）。
+- [ ] **Lock review**：對工具治理鎖填四欄形狀並套用 compensating-lock Review Rule；能從結構消除的列為改動或後續 plan，不在本 phase 擴大實作。
+- [ ] **O4 契約問題**：記錄各 `[skip-*]` 標記的作用範圍、授權方式與失效時點。單次 skip 的有效期間和 allowlist 的退場條件是不同問題，暫不把 28 種標記判為違規；是否修訂契約留到 Phase 4。
 - [ ] Phase 2 的契約缺口若已裁決，先回寫契約再套用
 
 **Acceptance**：
@@ -241,7 +252,7 @@ parent: null
 2. 每把被審的鎖都有完整四欄形狀（`scope / forbidden / allowlist / intent`），`forbidden` 涵蓋同一違規的常見寫法。
 3. Pattern-based 鎖有雙向樣本測試（違規變體抓得到、合法相似寫法不誤判）；非 pattern-based 鎖不強制套用不適合的測試形式。
 4. 每把被審的鎖都有 Compensating-lock Review Rule 結論。
-5. 工具治理鎖與產品不變式鎖分開分類、分開計數。
+5. 全部的鎖都已分類登記（工具治理鎖 / 產品不變式鎖分開計數），並附 hook → executor → registry 對帳；「被審的鎖」指本切片的工具治理鎖，第 2–4 項只適用它們；產品不變式鎖明列「未審、後續處理」。
 6. 切片以外、能從結構消除的問題只記錄為後續工作，不擴大實作。
 7. 所有改動通過 Ai-skill hooks 並已推送。
 
@@ -270,7 +281,7 @@ parent: null
 - [x] Phase 2/3 改為 consumer 唯讀評估 + Ai-skill 自家套用（2026-11-23）
 - [x] Q12 契約缺口裁決（2026-11-23）
 - [x] 契約一致性審閱後開放 Phase 3（2026-11-23）
-- [ ] Phase 3 套用切片範圍（Phase 3.0 盤點後確認）
+- [x] Phase 3 套用切片範圍（2026-11-23：S1 + 五點邊界，見 §Phase 3 套用切片）
 
 ## 與其他 plans 的關係
 
