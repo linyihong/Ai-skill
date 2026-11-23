@@ -1,0 +1,22 @@
+# Plan Evidence Index — `2026-11-23-0834-project-tooling-governance`
+
+本目錄存放本 plan 的量測、試判與 dogfood 全文。`_plan.md` 與 [`01-design-contracts.md`](../01-design-contracts.md) 只留摘要與連結。
+
+> **主計畫吸收**：使用 `evidence/` 時，主紀錄在資料夾內的 `_plan.md`。
+
+## 引用規則（避免行號漂移）
+
+| 做法 | 說明 |
+|---|---|
+| **用檔案路徑** | `evidence/<file>.md` 或相對連結；不寫行號 |
+| **用標題錨點** | 定位寫 `evidence/foo.md` 內 `## <標題>` 或表格 `#` 欄 |
+| **專案細節** | repo 名、檔名、裝置序號、SHA、可重跑指令 → 各 consumer 的 project-local、非 git `.ai-skill/dogfood/2026-11-23-0834-project-tooling-governance.md`；本目錄只留 generalized metrics（Consumer A = ExternalRepoD、Consumer B = ExternalRepoE） |
+| **新 run** | 新增 `evidence/<run-id>-<slug>.md` + 更新本表同一 commit |
+
+Canonical 規則：[`governance/lifecycle/plan-evidence.md`](../../../../governance/lifecycle/plan-evidence.md)
+
+## Run 索引
+
+| Run ID | 檔案 | 狀態 | 摘要 |
+|---|---|---|---|
+| phase0 | [`phase0-baseline.md`](phase0-baseline.md) | complete（2026-11-23） | 兩個 consumer 的 baseline 量測、A1–A5／B1–B4 verify、concept 試判、placement × state 試標、framework discovery 與 preflight |

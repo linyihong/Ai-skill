@@ -14,6 +14,8 @@
 
 L0 entry（只解析參數 + 呼叫）→ L1 domain → L2 shared → L3 parameters / config（strategy enum、per-target config）。例外區（單目標、research）必須有明確出口（升級、延期或刪除）。
 
+> **Phase 0 發現（Q10，待 Phase 1 定案）**：L1 domain / L2 shared 與 §3 Placement 的 Domain / Shared 重疊，L0 / L3 又不是 placement。提議：本契約只描述**工具內部角色**——entry（只解析參數 + 呼叫）/ logic / parameters（config、strategy）；範圍一律由 §3 Placement 管。誤置可表述為「某 placement 的 logic 放進了 entry 角色」。
+
 ## 2. Discovery contract（先找再建）
 
 建立新工具前，agent 完成：

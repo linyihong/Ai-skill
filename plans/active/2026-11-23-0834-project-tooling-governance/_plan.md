@@ -10,7 +10,7 @@ parent: null
 
 # Project Tooling Governance（專案工具治理）
 
-**Status**: draft — Plan Preparation 完成（2026-11-23）；下一步 Phase 0（唯讀）。不改任何 consumer repo。
+**Status**: draft — Plan Preparation、Phase 0 完成（2026-11-23）；下一步 Phase 1（doc-only 契約）。不改任何 consumer repo。
 
 **本 plan 是唯一的執行狀態來源。** 契約設計大綱見 [`01-design-contracts.md`](01-design-contracts.md)（不記狀態）。
 
@@ -28,19 +28,19 @@ parent: null
 
 **Consumer A — 逆向分析專案（Python + Frida，裝置自動化與資料擷取）**：已有分層雛形（L0 薄入口 `scripts/cli/<domain>/` → L1 領域模組 → L2 `shared/` → L3 per-target config + strategy enum；例外區 `<target>/<id>/`、`frida/research/`）與 24 個 pre-commit 機械鎖（layout、boundary、completeness、drift、lifecycle 五族）。
 
-| # | 缺口（observed，Phase 0 verify） | 量化 |
+| # | 缺口（Phase 0：全部 verified，見 [`evidence/phase0-baseline.md`](evidence/phase0-baseline.md)） | 量化 |
 | --- | --- | --- |
 | A1 | L0 薄入口是慣例不是鎖 | 3 支 `cli/` 入口非薄（31 / 132 / 260 行）；最大者自帶 `tap()`、裝置序號預設值、模組級座標常數 |
 | A2 | boundary 鎖 scope 只覆蓋單目標目錄 | 放進 `cli/` 即繞過 device I/O 鎖 |
-| A3 | 裝置序號預設值分散 | 7 個檔案各自帶預設，未統一走 shared resolver |
+| A3 | 裝置序號預設值分散 | 4 個檔案帶寫死預設（3 支在 L0、1 支在 L2 shared 本身），未統一走 shared resolver（Phase 0 修正原記 7 檔） |
 | A4 | 無升級觸發條件 | README 只寫「禁止」，未寫何時必須抽 |
 | A5 | 鎖本身逐檔蔓延 | 24 支獨立 check 腳本 + 手寫 pre-commit 清單 |
 
 **Consumer B — 業務交付 monorepo（bash + PowerShell + Node 驗證閘）**：邏輯已抽到 `lib/check_*.mjs`，但：
 
-| # | 缺口（observed，Phase 0 verify） | 量化 |
+| # | 缺口（Phase 0：全部 verified，見 [`evidence/phase0-baseline.md`](evidence/phase0-baseline.md)） | 量化 |
 | --- | --- | --- |
-| B1 | 入口 wrapper 大量重複 | `scripts/` 根目錄 134 項；約 50 組 `verify-*.sh` + `.ps1`，多數只是呼叫 `lib/check_x.mjs` |
+| B1 | 入口 wrapper 大量重複 | `scripts/` 根目錄 132 項；53 組 `verify-*.sh` + `.ps1`，其中 26 組是 ≤20 行的單一 lib 呼叫（Phase 0 修正原記「多數」） |
 | B2 | **compensating lock** | `verify-scripts-parity` 存在的理由是 wrapper 被複製成兩份 |
 | B3 | `lib/` 平鋪 | 150 檔混放 check / test / deploy / scope helper |
 | B4 | **一次性分析腳本蔓延** | `performance/` 8 支 per-case 腳本（27–154 行）各自重寫 fixture 斷言、計時、報告；零個專案內 import |
@@ -100,7 +100,7 @@ parent: null
 
 **Doc-only trial，不接入 runtime。** 不新增 `route.*`、不 project 到 `runtime.db`、不新增 Ai-skill commit-msg validator。機械強制發生在 consumer repo 自己的 hook（Phase 2/3），不屬於 Ai-skill runtime integration。
 
-- 未來接入：Phase 4 決策；entry condition = 兩個 consumer dogfood PASS 且 Q2a–c、Q8、Q9 resolved。
+- 未來接入：Phase 4 決策；entry condition = 兩個 consumer dogfood PASS、Q2b、Q2c、Q8–Q10 resolved，且符合 cross-cutting 三案例門檻（目前 n=2）。
 - 候選形式：discovery signal（新增工具檔時載入本契約）或 `init-project` 範本；需另開 plan 並附 Per-surface consumer 表。
 - Graduation deadline：2027-02-28（逾期未接入 → 維持 doc-only pilot 並在 plans/README 說明）。
 
@@ -116,7 +116,7 @@ parent: null
 
 - [x] **Q1 放置位置** — decided (2026-11-23, user review)：`workflow/cross-cutting/project-tooling/`。
 - [x] **Q2 生長 / 升級門檻** — decided (2026-11-23, user)：concept-first + reuse evidence（第 1 次定位置、第 2 次評估、第 3 次明確裁決）；計數對象是同一能力 / 責任，不是相似程式碼。
-- [ ] **Q2a 概念判定準則**：「產出物 + 核心流程（責任）相同 = 同概念」是否足夠？邊界案例（同產出物、不同資料來源；同契約、不同實作 → Strategy）。Phase 0 逐支試判。
+- [x] **Q2a 概念判定準則** — resolved (2026-11-23, Phase 0)：「產出物 + 核心責任」兩者都相同才算同概念；兩個 consumer 共 5 個概念群都判得出來，大廳 tile 群（同產出物、不同責任）正確判為不同概念；無無法判定的案例。見 [`evidence/phase0-baseline.md`](evidence/phase0-baseline.md) §Concept 試判。
 - [ ] **Q2b Capability catalog 形狀**：功能分類 README 能力表即可，或需機器可讀清單？
 - [ ] **Q2c Research 區**：experimental 工具在 TTL 內是否豁免 concept check（只要求到期前裁決）？
 - [x] **Q3 Compensating-lock test** — decided (2026-11-23, user review)：新增鎖時必答的 Review Rule。
@@ -125,7 +125,8 @@ parent: null
 - [x] **Q6 Sanitization denylist** — decided (2026-11-23, user review)：登記必要私有識別資訊；於 Plan Preparation 以獨立 commit 執行（Phase 0 維持唯讀）。
 - [x] **Q7 Discovery 機械化** — deferred (2026-11-23, user review)：先以 workflow behavioral 契約在 dogfood 驗證；Phase 4 再評估。
 - [ ] **Q8 Scratch 位置與清理責任** — **Phase 1 必須定義**（只定責任，不做自動清理工具）。
-- [ ] **Q9 Ownership 記錄位置** — **Phase 1 必須定義最小契約**（不做 ownership registry）。
+- [ ] **Q9 Ownership 記錄位置** — **Phase 1 必須定義最小契約**（不做 ownership registry）。Phase 0 證據：兩個 consumer 的 maintained 工具皆無 owner 紀錄。
+- [ ] **Q10 Layer contract 與 Placement 重疊**（Phase 0 新發現）：Domain / Shared 同時出現在 Layer（L0–L3）與 Placement 兩套分類，L0 / L3 不是 placement。提議（safe_assumption，Phase 1 可逆）：Layer contract 只描述工具內部角色 entry / logic / parameters，範圍由 Placement 單一維度管。**Phase 1 必須定案**，產出後由使用者確認。
 
 ## Plan Preparation（Phase 0 之前，獨立 commit）
 
@@ -139,17 +140,19 @@ parent: null
 
 ### Phase 0.0 — Open Questions 核對（公版，必填）
 
-- [ ] 已讀本 plan §Open Questions 全部條目
-- [ ] 對每條標記 `resolved`（附 Phase 0 證據）/ `still-open` / `deferred`（附原因）
-- [ ] `resolved` 的條目已同步勾選 / 附註於 §Open Questions
-- [ ] 若盤點新發現問題，已加入 §Open Questions
+- [x] 已讀本 plan §Open Questions 全部條目
+- [x] 對每條標記 `resolved`（附 Phase 0 證據）/ `still-open` / `deferred`（附原因）
+- [x] `resolved` 的條目已同步勾選 / 附註於 §Open Questions
+- [x] 若盤點新發現問題，已加入 §Open Questions（Q10）
 
 | Open Question | 處置 | 證據 / 原因 |
 |---|---|---|
 | Q1、Q2、Q3、Q4、Q6 | decided（2026-11-23） | 使用者決定；Q6 於 Plan Preparation 執行 |
 | Q5、Q7 | deferred | Phase 4 再評估 |
-| Q2a–c | pending | Phase 0 concept 試判 |
-| Q8、Q9 | scheduled | Phase 1 必須定義 |
+| Q2a | resolved | Phase 0 concept 試判（evidence/phase0-baseline.md） |
+| Q2b、Q2c | still-open | 有證據（兩個 consumer 都只有 README 表、research 區有 cleanup 鎖），Phase 1 定案 |
+| Q8、Q9 | scheduled | Phase 1 必須定義；Q9 有新證據 |
+| Q10（新增） | still-open | Phase 1 必須定案（safe_assumption 已提議） |
 
 ### Phase 0.1 — Baseline 量測（可重跑指令記在 project-local dogfood 檔）
 
@@ -161,19 +164,19 @@ parent: null
 | per-case 工具的專案內 import 比例 | 一次性工具是否共用 harness |
 | 機械鎖數、每鎖 scope | 鎖蔓延與盲區 |
 
-- [ ] A1–A5、B1–B4 從 `observed` 升為 `verified` 或 `refuted`（verify 對 HEAD）
-- [ ] **Concept 試判**：逐支套 concept check，產出「能力 / 責任 → 工具清單」表（以責任分組，不以程式碼相似度）；同概念多支者為 Phase 2/3 候選；邊界案例記錄給 Q2a
-- [ ] 每支工具試標 placement × state，檢驗雙維度是否足以描述現況
+- [x] A1–A5、B1–B4 從 `observed` 升為 `verified` 或 `refuted`（verify 對 HEAD）— 全部 verified，A3、B1 數量修正
+- [x] **Concept 試判**：逐支套 concept check，產出「能力 / 責任 → 工具清單」表（以責任分組，不以程式碼相似度）；同概念多支者為 Phase 2/3 候選；邊界案例記錄給 Q2a
+- [x] 每支工具試標 placement × state，檢驗雙維度是否足以描述現況 — 足以描述，唯一例外引出 Q10
 
 ### Phase 0.2 — Framework discovery（避免雙份 source-of-truth）
 
-- [ ] 讀 [`workflow/cross-cutting/README.md`](../../../workflow/cross-cutting/README.md)、[`traceable-evidence/`](../../../workflow/cross-cutting/traceable-evidence/README.md)
-- [ ] 讀 [`2026-06-08-2100-governance-pattern-library-extraction.md`](../2026-06-08-2100-governance-pattern-library-extraction.md) — 確認 lock taxonomy 不重疊
-- [ ] 讀 software-delivery framework domain model（archived）§Automation deferred — 確認不重複
-- [ ] [`pre-build-interrogation.md`](../../../workflow/software-delivery/requirements/pre-build-interrogation.md) 完成記錄
-- [ ] Architecture Compatibility Preflight 最低記錄格式 → Decision: proceed / revise
+- [x] 讀 [`workflow/cross-cutting/README.md`](../../../workflow/cross-cutting/README.md)、[`traceable-evidence/`](../../../workflow/cross-cutting/traceable-evidence/README.md)
+- [x] 讀 [`2026-06-08-2100-governance-pattern-library-extraction.md`](../2026-06-08-2100-governance-pattern-library-extraction.md) — 確認 lock taxonomy 不重疊（無重疊）
+- [x] 讀 software-delivery framework domain model（archived）§Automation deferred — 確認不重複（鎖 = consumer 的 Automation 層；本 plan 不實作通用 Automation）
+- [x] [`pre-build-interrogation.md`](../../../workflow/software-delivery/requirements/pre-build-interrogation.md) 完成記錄
+- [x] Architecture Compatibility Preflight 最低記錄格式 → Decision: **proceed**（記錄於 [`evidence/phase0-baseline.md`](evidence/phase0-baseline.md) §Framework discovery 與 Preflight）
 
-**Phase 0 完成條件**：baseline 表、缺口 verified / refuted、concept 試判表、placement × state 試標、preflight Decision 已回寫本 plan。
+**Phase 0 完成條件**：baseline 表、缺口 verified / refuted、concept 試判表、placement × state 試標、preflight Decision 已回寫本 plan。— **完成（2026-11-23）**。Project-local 對應檔已建於兩個 consumer 的 `.ai-skill/dogfood/`（非 git；Consumer A 新增 `.git/info/exclude` 條目，tracked 內容未改）。Phase 4 升級判斷沿用 cross-cutting 三案例門檻。
 
 ## Phase 1 — 契約交付（Ai-skill，doc-only）
 
@@ -187,7 +190,7 @@ parent: null
 - [ ] `lock-taxonomy.md`（七族鎖形狀、compensating-lock Review Rule、check architecture 概念）
 - [ ] `workflow/cross-cutting/README.md` 加入連結；linked-updates 檢查
 
-**完成條件**：6 檔各 ≤150 行；Q8、Q9 resolved；Q2a–c resolved 或 deferred（附原因）；無 consumer 識別資訊（sanitization gate 通過）；不新增 route、runner 或 validator。
+**完成條件**：6 檔各 ≤150 行；Q8、Q9、Q10 resolved（Q10 經使用者確認）；Q2a–c resolved 或 deferred（附原因）；無 consumer 識別資訊（sanitization gate 通過）；不新增 route、runner 或 validator。
 
 **Phase 2/3 必須等 Phase 1 完成才開始**（先確認契約正確，再用真實案例驗證）。
 
