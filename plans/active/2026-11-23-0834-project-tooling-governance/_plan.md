@@ -10,7 +10,7 @@ parent: null
 
 # Project Tooling Governance（專案工具治理）
 
-**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；**Phase 2 完成**；Q12 已裁決並寫回契約（2026-11-23）；第一次契約一致性審閱（2026-11-23）：Q12 寫回與正式契約 PASS，設計大綱 Lifecycle/Q8/Q9 與 Phase 3 Acceptance 已同步；Phase 3 未開始，待最後確認後決定是否開放。
+**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；**Phase 2 完成**；Q12 已裁決並寫回契約（2026-11-23）；第一次契約一致性審閱（2026-11-23）：Q12 寫回與正式契約 PASS，設計大綱 Lifecycle/Q8/Q9 與 Phase 3 Acceptance 已同步；**Phase 3 已開放**（2026-11-23 使用者決定）；3.0 唯讀盤點完成，套用切片待使用者裁決。
 
 **本 plan 是唯一的執行狀態來源。** 契約設計大綱見 [`01-design-contracts.md`](01-design-contracts.md)（不記狀態）。
 
@@ -229,7 +229,7 @@ parent: null
 
 在 Ai-skill 自己的工具樹（`scripts/`：Go CLI、git-hooks 與其 validator）實際套用契約。Ai-skill 是本契約真正的使用者，改動走 Ai-skill 一般的 writeback 流程。
 
-- [ ] **Phase 3.0 範圍盤點（唯讀）**：列出入口、validator（鎖）、共用模組，決定本 phase 的套用切片；確認 Go-first 政策與 committed `bin/` 重建要求；回寫範圍後才動手
+- [x] **Phase 3.0 範圍盤點（唯讀）**（2026-11-23，見 [`evidence/phase3-0-scope-inventory.md`](evidence/phase3-0-scope-inventory.md)；建議切片 S1 = hook pipeline，待裁決）：列出入口、validator（鎖）、共用模組，決定本 phase 的套用切片；確認 Go-first 政策與 committed `bin/` 重建要求；回寫範圍後才動手
 - [ ] **Capability catalog**：在 Ai-skill 工具樹 README 建立能力表（capability / entry / placement / state / owner / ttl）
 - [ ] **Role**：檢查入口是否維持薄入口；違規依句型記錄並修正（限本 phase 切片）
 - [ ] **Lock review**：對 validator 先分工具治理鎖 / 產品不變式鎖，再填四欄形狀並套 compensating-lock Review Rule；能從結構消除的列為改動或後續 plan，不在本 phase 擴大實作
@@ -269,7 +269,7 @@ parent: null
 - [x] Phase 1 契約最終 sign-off（2026-11-23）
 - [x] Phase 2/3 改為 consumer 唯讀評估 + Ai-skill 自家套用（2026-11-23）
 - [x] Q12 契約缺口裁決（2026-11-23）
-- [ ] 契約一致性審閱後開放 Phase 3
+- [x] 契約一致性審閱後開放 Phase 3（2026-11-23）
 - [ ] Phase 3 套用切片範圍（Phase 3.0 盤點後確認）
 
 ## 與其他 plans 的關係
