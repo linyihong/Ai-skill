@@ -73,6 +73,7 @@ parent: null
 - E. 規定 agent「不准新增工具」：reject — 一次性與實驗工具有正當價值；要治理的是生命週期與發現。
 - F. 自動 orchestrator 偵測新工具並自動搬層：reject — 越過 Selection Responsibility，抽象化決策失去證據。
 - G. 名稱縮小為 Script Governance：reject — 真正的對象是工具資產的生命週期（DB 查詢、API 測試、OCR / ASR、部署驗證工具同樣適用）。
+- H. **Consumer 自有的單一語言 CLI 入口**（Consumer B，Node）：不屬本計畫決策；是 §5 check architecture 的 consumer-local 落地，與 Alternative B（Ai-skill 通用 runner）不衝突。試點證據：[`evidence/consumer-b-cli-pilot.md`](evidence/consumer-b-cli-pilot.md)。
 
 ### Why Not an ADR Yet
 
@@ -120,7 +121,7 @@ parent: null
 - [x] **Q2b Capability catalog 形狀** — **accepted (2026-11-23, user)**：功能分類 README 能力表（capability / entry / placement / state / owner / ttl）；capability 是主要識別單位（可多個 entry、只登記一列）；多分類時工具樹根 README 須有 catalog 索引入口。機器可讀版本 deferred，與 Q7 一起評估。見 [`lifecycle-contract.md`](../../../workflow/cross-cutting/project-tooling/lifecycle-contract.md) §Capability catalog。
 - [x] **Q2c Research 區** — **accepted (2026-11-23, user)**：Research = Placement、experimental = State、TTL = 期限而非自動刪除；TTL 內免 concept check 但須記錄目的與 TTL；到期必須重評 concept + reuse evidence；逾期未評估不再視為有效 experimental；去向三選一（maintained / 重設 TTL 附理由 / deprecated）。見 [`lifecycle-contract.md`](../../../workflow/cross-cutting/project-tooling/lifecycle-contract.md) §Research 與 concept check。
 - [x] **Q3 Compensating-lock test** — decided (2026-11-23, user review)：新增鎖時必答的 Review Rule。
-- [x] **Q4 Consumer B wrapper 收斂** — decided (2026-11-23, user review)：獨立裁決，不進本 plan dogfood。
+- [x] **Q4 Consumer B wrapper 收斂** — decided (2026-11-23, user review)：獨立裁決，不進本 plan dogfood。 **後續（2026-11-23）**：Consumer B 以自己的決策做了單一 CLI 入口試點（consumer-local，不是共用 runner），量測與觀察見 [`evidence/consumer-b-cli-pilot.md`](evidence/consumer-b-cli-pilot.md)；本計畫只收證據，不納入 consumer 的改動。
 - [x] **Q5 Runner 語言** — deferred (2026-11-23, user review)：無證據需要共用 runner；Phase 4 再評估。
 - [x] **Q6 Sanitization denylist** — decided (2026-11-23, user review)：登記必要私有識別資訊；於 Plan Preparation 以獨立 commit 執行（Phase 0 維持唯讀）。
 - [x] **Q7 Discovery 機械化** — deferred (2026-11-23, user review)：先以 workflow behavioral 契約在 dogfood 驗證；Phase 4 再評估。
@@ -278,6 +279,7 @@ parent: null
 ## Phase 4 — 證據裁決與升級決策
 
 - [ ] 對每條契約 invariant 標記：兩個 consumer 唯讀評估與 Ai-skill 自家套用是否都成立、是否需修改
+- [ ] 納入 [`evidence/consumer-b-cli-pilot.md`](evidence/consumer-b-cli-pilot.md)：觀察 T-B1（支持 Q5 維持 deferred）、T-B2（鎖執行成本，候選 Review Rule 增問，待第二個 consumer 證據）、T-B3–T-B5；並裁決該試點是否算 Q11 的收斂案例
 - [ ] 裁決 Q11（唯讀評估是否計入三案例門檻）
 - [ ] 重新評估 Q5（共用 runner）、Q7（discovery 機械化）與 runtime 接入
 - [ ] 回寫契約；更新 `plans/README.md` 狀態
