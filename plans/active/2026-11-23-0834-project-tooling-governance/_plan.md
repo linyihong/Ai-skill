@@ -10,7 +10,7 @@ parent: null
 
 # Project Tooling Governance（專案工具治理）
 
-**Status**: draft — Plan Preparation、Phase 0 完成，Q10 已裁決（2026-11-23）；Phase 1（doc-only 契約）進行中；Phase 2 / 3 未開始。不改任何 consumer repo。
+**Status**: draft — Plan Preparation、Phase 0 完成，Q10 已裁決（2026-11-23）；Phase 1 契約已交付、待 sign-off；Phase 2 / 3 未開始。不改任何 consumer repo。
 
 **本 plan 是唯一的執行狀態來源。** 契約設計大綱見 [`01-design-contracts.md`](01-design-contracts.md)（不記狀態）。
 
@@ -100,7 +100,7 @@ parent: null
 
 **Doc-only trial，不接入 runtime。** 不新增 `route.*`、不 project 到 `runtime.db`、不新增 Ai-skill commit-msg validator。機械強制發生在 consumer repo 自己的 hook（Phase 2/3），不屬於 Ai-skill runtime integration。
 
-- 未來接入：Phase 4 決策；entry condition = 兩個 consumer dogfood PASS、Q2b、Q2c、Q8–Q10 resolved，且符合 cross-cutting 三案例門檻（目前 n=2）。
+- 未來接入：Phase 4 決策；entry condition = 兩個 consumer dogfood PASS、Q2b、Q2c、Q8、Q9 經 sign-off，且符合 cross-cutting 三案例門檻（目前 n=2）。
 - 候選形式：discovery signal（新增工具檔時載入本契約）或 `init-project` 範本；需另開 plan 並附 Per-surface consumer 表。
 - Graduation deadline：2027-02-28（逾期未接入 → 維持 doc-only pilot 並在 plans/README 說明）。
 
@@ -117,15 +117,15 @@ parent: null
 - [x] **Q1 放置位置** — decided (2026-11-23, user review)：`workflow/cross-cutting/project-tooling/`。
 - [x] **Q2 生長 / 升級門檻** — decided (2026-11-23, user)：concept-first + reuse evidence（第 1 次定位置、第 2 次評估、第 3 次明確裁決）；計數對象是同一能力 / 責任，不是相似程式碼。
 - [x] **Q2a 概念判定準則** — resolved (2026-11-23, Phase 0)：「產出物 + 核心責任」兩者都相同才算同概念；兩個 consumer 共 5 個概念群都判得出來，大廳 tile 群（同產出物、不同責任）正確判為不同概念；無無法判定的案例。見 [`evidence/phase0-baseline.md`](evidence/phase0-baseline.md) §Concept 試判。
-- [ ] **Q2b Capability catalog 形狀**：功能分類 README 能力表即可，或需機器可讀清單？
-- [ ] **Q2c Research 區**：experimental 工具在 TTL 內是否豁免 concept check（只要求到期前裁決）？
+- [x] **Q2b Capability catalog 形狀** — resolved (2026-11-23, Phase 1, 待 sign-off)：功能分類 README 能力表（capability / entry / placement / state / owner / ttl）；機器可讀版本 deferred，與 Q7 一起評估。見 [`lifecycle-contract.md`](../../../workflow/cross-cutting/project-tooling/lifecycle-contract.md) §Capability catalog。
+- [x] **Q2c Research 區** — resolved (2026-11-23, Phase 1, 待 sign-off)：experimental 在 TTL 內免 concept check，但須宣告 TTL 與目的；TTL 到期的裁決即 concept check 時點。見 [`lifecycle-contract.md`](../../../workflow/cross-cutting/project-tooling/lifecycle-contract.md) §Research 與 concept check。
 - [x] **Q3 Compensating-lock test** — decided (2026-11-23, user review)：新增鎖時必答的 Review Rule。
 - [x] **Q4 Consumer B wrapper 收斂** — decided (2026-11-23, user review)：獨立裁決，不進本 plan dogfood。
 - [x] **Q5 Runner 語言** — deferred (2026-11-23, user review)：無證據需要共用 runner；Phase 4 再評估。
 - [x] **Q6 Sanitization denylist** — decided (2026-11-23, user review)：登記必要私有識別資訊；於 Plan Preparation 以獨立 commit 執行（Phase 0 維持唯讀）。
 - [x] **Q7 Discovery 機械化** — deferred (2026-11-23, user review)：先以 workflow behavioral 契約在 dogfood 驗證；Phase 4 再評估。
-- [ ] **Q8 Scratch 位置與清理責任** — **Phase 1 必須定義**（只定責任，不做自動清理工具）。
-- [ ] **Q9 Ownership 記錄位置** — **Phase 1 必須定義最小契約**（不做 ownership registry）。Phase 0 證據：兩個 consumer 的 maintained 工具皆無 owner 紀錄。
+- [x] **Q8 Scratch 位置與清理責任** — resolved (2026-11-23, Phase 1, 待 sign-off)：專案指定的不進版控固定目錄或 session 暫存區，不得在正式工具樹；建立者於任務 close-out 清理並回報留存；留存超過任務 → 轉 Research 或刪除。見 [`lifecycle-contract.md`](../../../workflow/cross-cutting/project-tooling/lifecycle-contract.md) §Scratch 位置與清理責任。
+- [x] **Q9 Ownership 記錄位置** — resolved (2026-11-23, Phase 1, 待 sign-off)：單一記錄點 = capability catalog 的 `owner` 欄；可為團隊 / 角色；maintained 必須有 owner，否則視為 experimental 或 deprecated；不建 registry。見 [`lifecycle-contract.md`](../../../workflow/cross-cutting/project-tooling/lifecycle-contract.md) §Ownership。
 - [x] **Q10 Layer / Placement 分離** — **decided (2026-11-23, user)**：三個維度正式分離、不得互相取代或混用——(1) **Internal Role**：Entry / Logic / Parameters；(2) **Placement**：Scratch / Research / Target / Domain / Shared；(3) **Lifecycle State**：temporary / experimental / maintained / deprecated。附帶規則：Placement 不決定 Role（任一 placement 都可有三種角色，但不要求同時具備）；Entry 維持薄入口（只解析參數、取得必要設定、呼叫 Logic、傳遞結果與結束狀態）；Parameters 不得成為邏輯藏身處。Phase 1 正式定義違規判定與跨語言適用原則。
 
 ## Plan Preparation（Phase 0 之前，獨立 commit）
@@ -150,8 +150,8 @@ parent: null
 | Q1、Q2、Q3、Q4、Q6 | decided（2026-11-23） | 使用者決定；Q6 於 Plan Preparation 執行 |
 | Q5、Q7 | deferred | Phase 4 再評估 |
 | Q2a | resolved | Phase 0 concept 試判（evidence/phase0-baseline.md） |
-| Q2b、Q2c | still-open | 有證據（兩個 consumer 都只有 README 表、research 區有 cleanup 鎖），Phase 1 定案 |
-| Q8、Q9 | scheduled | Phase 1 必須定義；Q9 有新證據 |
+| Q2b、Q2c | resolved（Phase 1，待 sign-off） | 寫入 lifecycle-contract |
+| Q8、Q9 | resolved（Phase 1，待 sign-off） | 寫入 lifecycle-contract |
 | Q10（新增） | decided（2026-11-23, user） | 三維度分離，見 §Open Questions |
 
 ### Phase 0.1 — Baseline 量測（可重跑指令記在 project-local dogfood 檔）
@@ -182,15 +182,17 @@ parent: null
 
 依 [`01-design-contracts.md`](01-design-contracts.md) 在 `workflow/cross-cutting/project-tooling/` 產出：
 
-- [ ] `README.md`（索引、適用範圍、何時載入、設計目標）
-- [ ] `role-contract.md`（Q10：Entry / Logic / Parameters、違規判定、跨語言原則）
-- [ ] `discovery-contract.md`（behavioral invariant，非填表）
-- [ ] `lifecycle-contract.md`（placement × state 雙維度；**含 Q8 scratch 位置與清理責任、Q9 ownership 最小契約**）
-- [ ] `growth-rule.md`（concept check、reuse evidence、config-first ≠ config-everything、promotion ladder）
-- [ ] `lock-taxonomy.md`（七族鎖形狀、compensating-lock Review Rule、check architecture 概念）
-- [ ] `workflow/cross-cutting/README.md` 加入連結；linked-updates 檢查
+- [x] `README.md`（索引、適用範圍、何時載入、設計目標）
+- [x] `role-contract.md`（Q10：Entry / Logic / Parameters、違規判定、跨語言原則）
+- [x] `discovery-contract.md`（behavioral invariant，非填表）
+- [x] `lifecycle-contract.md`（placement × state 雙維度；**含 Q8 scratch 位置與清理責任、Q9 ownership 最小契約**）
+- [x] `growth-rule.md`（concept check、reuse evidence、config-first ≠ config-everything、promotion ladder）
+- [x] `lock-taxonomy.md`（七族鎖形狀、compensating-lock Review Rule、check architecture 概念）
+- [x] `workflow/cross-cutting/README.md` 加入連結；linked-updates 檢查（另同步 `workflow/README.md` cross-cutting 列；不新增 route，故 routing registry / 根 README 不適用）
 
 **完成條件**：6 檔各 ≤150 行；Q8、Q9 resolved；Q10 已裁決並寫入 Role contract（含違規判定與跨語言原則）；Q2a–c resolved 或 deferred（附原因）；無 consumer 識別資訊（sanitization gate 通過）；不新增 route、runner 或 validator。
+
+**Phase 1 交付（2026-11-23）**：6 檔已建於 [`workflow/cross-cutting/project-tooling/`](../../../workflow/cross-cutting/project-tooling/README.md)（56–72 行，皆 ≤150）；Q2b、Q2c、Q8、Q9 已在契約中定案，**待使用者 sign-off**（見 §Stakeholder 同意項目）後 Phase 1 才算完成；sanitization 通過；無 route / runner / validator。
 
 **Phase 2/3 必須等 Phase 1 完成才開始**（先確認契約正確，再用真實案例驗證）。
 
@@ -231,8 +233,9 @@ Slice：一次性分析工具 → 共用 harness（B4）。wrapper 收斂依 Q4 
 - [x] Compensating-lock 為 Review Rule（Q3）；wrapper 收斂另案（Q4）；runner、discovery 機械化 deferred（Q5、Q7）
 - [x] Q6 移到 Plan Preparation，Phase 0 維持唯讀
 - [x] Q10：Role / Placement / Lifecycle State 三維度分離（2026-11-23）
-- [ ] 概念判定準則與 capability catalog 形狀（Q2a / Q2b）
-- [ ] Scratch 與 ownership 最小契約（Q8 / Q9，Phase 1 產出後確認）
+- [ ] 概念判定準則與 capability catalog 形狀（Q2a 已由 Phase 0 證據解決；Q2b 待 sign-off）
+- [ ] Research 免 concept check 的範圍（Q2c，待 sign-off）
+- [ ] Scratch 與 ownership 最小契約（Q8 / Q9，Phase 1 已產出，待確認）
 - [ ] Phase 2 / Phase 3 dogfood slice 範圍
 
 ## 與其他 plans 的關係
