@@ -22,3 +22,4 @@ Canonical 規則：[`governance/lifecycle/plan-evidence.md`](../../../../governa
 | phase0 | [`phase0-baseline.md`](phase0-baseline.md) | complete（2026-11-23） | 兩個 consumer 的 baseline 量測、A1–A5／B1–B4 verify、concept 試判、placement × state 試標、framework discovery 與 preflight |
 | phase2 | [`phase2-readonly-evaluation.md`](phase2-readonly-evaluation.md) | complete（2026-11-23） | 兩個 consumer 唯讀評估：Role 違規句型、concept / discovery、placement × state × ownership、lock review、契約缺口 G1–G6 與歧義 A-1／A-2、建議改動清單（不執行） |
 | phase3-0 | [`phase3-0-scope-inventory.md`](phase3-0-scope-inventory.md) | complete（2026-11-23） | Ai-skill 工具樹唯讀盤點：規模、16+2 能力、46 hook 鎖 / 44 registry entry、Go-first 確認、觀察 O1–O6、切片裁決 S1 + 五點邊界 |
+| phase3 | [`phase3-application.md`](phase3-application.md) | complete（2026-11-23） | S1 套用：bin 流程預查、18 列 catalog、hook→executor→registry 對帳（L1 scope 缺口）、Role（無違規）、7 把工具治理鎖審查、產品不變式鎖未審清單、O4 skip 標記、後續 F1–F7 |

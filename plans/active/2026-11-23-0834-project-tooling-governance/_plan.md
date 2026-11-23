@@ -10,7 +10,7 @@ parent: null
 
 # Project Tooling Governance（專案工具治理）
 
-**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；**Phase 2 完成**；Q12 已裁決並寫回契約（2026-11-23）；第一次契約一致性審閱（2026-11-23）：Q12 寫回與正式契約 PASS，設計大綱 Lifecycle/Q8/Q9 與 Phase 3 Acceptance 已同步；**Phase 3 已開放**（2026-11-23 使用者決定）；3.0 唯讀盤點完成；套用切片裁決為 S1 加五點邊界（2026-11-23），後續步驟尚未開始。
+**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；**Phase 2 完成**；Q12 已裁決並寫回契約（2026-11-23）；第一次契約一致性審閱（2026-11-23）：Q12 寫回與正式契約 PASS，設計大綱 Lifecycle/Q8/Q9 與 Phase 3 Acceptance 已同步；**Phase 3 已開放**（2026-11-23 使用者決定）；S1 切片的步驟已完成（2026-11-23，見 evidence/phase3-application.md），待使用者審閱後關閉 Phase 3。
 
 **本 plan 是唯一的執行狀態來源。** 契約設計大綱見 [`01-design-contracts.md`](01-design-contracts.md)（不記狀態）。
 
@@ -238,13 +238,15 @@ parent: null
 - **延後**：大型檔案拆分、registry schema 變更（四欄只寫在 evidence）、KGE 呼叫鏈重構。
 - **O6**：視為既有架構的盤點結果，不承諾「只補 scope registry 就完整」。
 
-- [ ] **Bin 流程預查（第一次修改 Go source 前）**：依現行 hook 實作（`validateReleaseBinaryParityStaged`）與建置文件確認提交要求。若要求同一 commit，就照此規劃，不沿用過去拆 commit 的慣例。
-- [ ] **Capability catalog**：在 Ai-skill 工具樹 README 建立能力表（capability / entry / placement / state / owner / ttl），共 18 列。
-- [ ] **Lock 對帳**：建立 hook 執行點 → executor symbol → registry entry 的對照表，寫入 evidence。46 次 validator 執行和 44 個 registry entry 的計數單位不同，數字不一致本身不代表缺漏。以對帳結果確定工具治理鎖的邊界。
-- [ ] **Role**：薄入口判定與「重複入口」**分開判斷**。兩套外殼可能各自符合薄入口；O2 的一行轉呼叫也不足以直接判定違規。先確認各自的責任與呼叫需求，再決定是否修正；違規依句型記錄並修正（限本切片）。
-- [ ] **Lock review**：對工具治理鎖填四欄形狀並套用 compensating-lock Review Rule；能從結構消除的列為改動或後續 plan，不在本 phase 擴大實作。
-- [ ] **O4 契約問題**：記錄各 `[skip-*]` 標記的作用範圍、授權方式與失效時點。單次 skip 的有效期間和 allowlist 的退場條件是不同問題，暫不把 28 種標記判為違規；是否修訂契約留到 Phase 4。
-- [ ] Phase 2 的契約缺口若已裁決，先回寫契約再套用
+- [x] **Bin 流程預查（第一次修改 Go source 前）**：依現行 hook 實作（`validateReleaseBinaryParityStaged`）與建置文件確認提交要求。若要求同一 commit，就照此規劃，不沿用過去拆 commit 的慣例。
+- [x] **Capability catalog**：在 Ai-skill 工具樹 README 建立能力表（capability / entry / placement / state / owner / ttl），共 18 列。
+- [x] **Lock 對帳**：建立 hook 執行點 → executor symbol → registry entry 的對照表，寫入 evidence。46 次 validator 執行和 44 個 registry entry 的計數單位不同，數字不一致本身不代表缺漏。以對帳結果確定工具治理鎖的邊界。
+- [x] **Role**：薄入口判定與「重複入口」**分開判斷**。兩套外殼可能各自符合薄入口；O2 的一行轉呼叫也不足以直接判定違規。先確認各自的責任與呼叫需求，再決定是否修正；違規依句型記錄並修正（限本切片）。
+- [x] **Lock review**：對工具治理鎖填四欄形狀並套用 compensating-lock Review Rule；能從結構消除的列為改動或後續 plan，不在本 phase 擴大實作。
+- [x] **O4 契約問題**：記錄各 `[skip-*]` 標記的作用範圍、授權方式與失效時點。單次 skip 的有效期間和 allowlist 的退場條件是不同問題，暫不把 28 種標記判為違規；是否修訂契約留到 Phase 4。
+- [x] Phase 2 的契約缺口若已裁決，先回寫契約再套用（Q12 已於 cdd835c4 回寫）
+
+結果：[`evidence/phase3-application.md`](evidence/phase3-application.md)（2026-11-23）。切片內無 Role 違規；7 把工具治理鎖完成四欄、雙向樣本與 Review Rule；後續工作 F1–F7 只記錄。
 
 **Acceptance**：
 

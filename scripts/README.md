@@ -3,7 +3,7 @@
 | 檔案 | 用途 |
 | --- | --- |
 | [`ai-skill-cli/`](ai-skill-cli/README.md) | 跨平台 Go CLI / runtime toolchain 的開發根目錄；`docs/` 放文件先行產物與舊腳本 parity 盤點，未來 `cmd/`、`internal/`、`testdata/` 放程式碼與 fixtures。 |
-| [`git-hooks/pre-commit`](git-hooks/pre-commit) / [`git-hooks/post-commit`](git-hooks/post-commit) | 最小 Git hook adapter；實際邏輯在 `ai-skill hooks run pre-commit/post-commit`。 |
+| [`git-hooks/`](git-hooks/README.md) | **deprecated** 舊路徑轉發外殼，只轉呼叫 repo root [`.githooks/`](../.githooks/README.md)（canonical adapter，邏輯在 `ai-skill hooks run <hook>`）。能力表見 [`ai-skill-cli/README.md`](ai-skill-cli/README.md) §Capability catalog。 |
 
 ## Go-first script policy
 
@@ -164,7 +164,7 @@ scripts/ai-skill-cli/bin/ai-skill-darwin-arm64 goals complete --project <PROJECT
 
 ## Knowledge runtime validation
 
-> **重要**：修改 `knowledge/` 或 `validation/` 下的檔案後，**必須**執行對應平台的 repo-local binary（例如 macOS Apple Silicon：`scripts/ai-skill-cli/bin/ai-skill-darwin-arm64 runtime refresh`）確認 native validators 通過，再提交。Pre-commit hook（`scripts/git-hooks/pre-commit`）會在 commit 時自動檢查，但建議在修改後立即執行以加速迭代。
+> **重要**：修改 `knowledge/` 或 `validation/` 下的檔案後，**必須**執行對應平台的 repo-local binary（例如 macOS Apple Silicon：`scripts/ai-skill-cli/bin/ai-skill-darwin-arm64 runtime refresh`）確認 native validators 通過，再提交。Pre-commit hook（`.githooks/pre-commit`）會在 commit 時自動檢查，但建議在修改後立即執行以加速迭代。
 
 產生並檢查 generated knowledge surfaces：
 
