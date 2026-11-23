@@ -25,6 +25,8 @@ AI 在專案裡為了完成當下任務，很容易順手寫出新的腳本、�
 
 三者**不得互相取代或混用**。目錄可以改名、搬移；責任邊界與生命週期才是應該長期穩定的契約。
 
+**Ownership**（誰負責維護）不是第四個分類軸，而是記在 capability catalog 的治理資訊；同樣**不得互相推導**——不能用 Placement 推導 Role，也不能用 Ownership 缺失推導 Lifecycle State（見 [`lifecycle-contract.md`](lifecycle-contract.md) §Ownership）。
+
 ## 契約索引
 
 | 檔案 | 解決的問題 | 何時載入 |
