@@ -10,7 +10,7 @@ parent: null
 
 # Project Tooling Governance（專案工具治理）
 
-**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；**Phase 2 完成**；Q12 已裁決並寫回契約（2026-11-23）；第一次契約一致性審閱（2026-11-23）：Q12 寫回與正式契約 PASS，設計大綱 Lifecycle/Q8/Q9 與 Phase 3 Acceptance 已同步；**Phase 3 已開放**（2026-11-23 使用者決定）；S1 切片的步驟已完成（2026-11-23，見 evidence/phase3-application.md），待使用者審閱後關閉 Phase 3。
+**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；**Phase 2 完成**；Q12 已裁決並寫回契約（2026-11-23）；第一次契約一致性審閱（2026-11-23）：Q12 寫回與正式契約 PASS，設計大綱 Lifecycle/Q8/Q9 與 Phase 3 Acceptance 已同步；**Phase 3 已開放**（2026-11-23 使用者決定）；**Phase 3 已關閉**（2026-11-23 使用者裁決）：S1 套用與審查完成，驗證缺口已移交 F1、F2、F6（見 evidence/phase3-application.md §5）。下一步 Phase 4 尚未開放。
 
 **本 plan 是唯一的執行狀態來源。** 契約設計大綱見 [`01-design-contracts.md`](01-design-contracts.md)（不記狀態）。
 
@@ -246,19 +246,21 @@ parent: null
 - [x] **O4 契約問題**：記錄各 `[skip-*]` 標記的作用範圍、授權方式與失效時點。單次 skip 的有效期間和 allowlist 的退場條件是不同問題，暫不把 28 種標記判為違規；是否修訂契約留到 Phase 4。
 - [x] Phase 2 的契約缺口若已裁決，先回寫契約再套用（Q12 已於 cdd835c4 回寫）
 
-結果：[`evidence/phase3-application.md`](evidence/phase3-application.md)（2026-11-23）。切片內無 Role 違規。7 把工具治理鎖都已審查，四欄與 Review Rule 完整。樣本狀態分三類：T2、T5、T6 雙向通過；T1、T3、T4 發現缺口，其中 T4 的 executor 方向尚未驗證；T7 不適用雙向樣本。**完成審查不等於驗證通過。** `evidencecandidate` 的 TTL 已設為 2026-12-23。後續工作 F1–F8 只記錄，F1 優先並另開修復切片。
+結果：[`evidence/phase3-application.md`](evidence/phase3-application.md)（2026-11-23）。切片內無 Role 違規。7 把工具治理鎖都已審查，四欄與 Review Rule 完整。樣本狀態分三類：T2、T5、T6 雙向通過；T1、T3、T4 發現缺口，其中 T4 的 executor 方向尚未驗證；T7 不適用雙向樣本。**完成審查不等於驗證通過。** **結論（2026-11-23 使用者裁決）：S1 套用與審查完成，驗證缺口已移交**——T4 executor 方向與 L1 → F1，T3 → F2，T1 → F6；本 phase 不補樣本。`evidencecandidate` 的 TTL 已設為 2026-12-23。後續工作 F1–F8 只記錄，F1 優先並另開修復切片。
 
 **Acceptance**：
 
 1. catalog 存在且涵蓋切片內所有 capability；切片內入口無 Role 違規。
 2. 每把被審的鎖都有完整四欄形狀（`scope / forbidden / allowlist / intent`），`forbidden` 涵蓋同一違規的常見寫法。
-3. Pattern-based 鎖有雙向樣本測試（違規變體抓得到、合法相似寫法不誤判）；非 pattern-based 鎖不強制套用不適合的測試形式。
+3. Pattern-based 鎖的雙向樣本狀態逐把標示（通過 / 缺口 / 尚未驗證，依實際跑過的 test 判定）；未通過的方向必須列出缺口內容並移交具名的後續工作，本 phase 不要求補齊樣本。非 pattern-based 鎖不強制套用不適合的測試形式。（2026-11-23 使用者裁決修訂；原條件為「有雙向樣本測試」）
 4. 每把被審的鎖都有 Compensating-lock Review Rule 結論。
 5. 全部的鎖都已分類登記（工具治理鎖 / 產品不變式鎖分開計數），並附 hook → executor → registry 對帳；「被審的鎖」指本切片的工具治理鎖，第 2–4 項只適用它們；產品不變式鎖明列「未審、後續處理」。
 6. 切片以外、能從結構消除的問題只記錄為後續工作，不擴大實作。
 7. 所有改動通過 Ai-skill hooks 並已推送。
 
 依據：[`lock-taxonomy.md`](../../../workflow/cross-cutting/project-tooling/lock-taxonomy.md)（Q12 G2、G3、G6）。
+
+**Phase 3 驗收結果（2026-11-23）**：1–7 項皆成立（第 3 項依修訂後條件）。T2、T5、T6 雙向通過；T1、T3、T4 的缺口已列並移交 F6、F2、F1；T7 不適用。驗證缺口不算已驗證，Phase 4 引用 Ai-skill 自家套用證據時須一併標示。
 
 ## Phase 4 — 證據裁決與升級決策
 
@@ -284,6 +286,7 @@ parent: null
 - [x] Q12 契約缺口裁決（2026-11-23）
 - [x] 契約一致性審閱後開放 Phase 3（2026-11-23）
 - [x] Phase 3 套用切片範圍（2026-11-23：S1 + 五點邊界，見 §Phase 3 套用切片）
+- [x] Phase 3 結案方式（2026-11-23：缺口移交後續工作並修訂驗收第 3 項，不在本 phase 補樣本）
 
 ## 與其他 plans 的關係
 

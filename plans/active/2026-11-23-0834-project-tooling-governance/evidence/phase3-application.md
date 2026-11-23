@@ -79,6 +79,8 @@
 
 **完成審查不等於驗證通過。** 7 把鎖都已審查完畢，其中 T1、T3、T4 的審查結果是發現缺陷：T1、T3 有已確認的 forbidden 或 scope 缺口，T4 另有一個方向尚未驗證。只有 T2、T5、T6 是雙向樣本都已通過；T7 不適用雙向樣本，範圍判斷的 test 已通過。
 
+**結案裁決（2026-11-23，使用者）**：缺口移交，不在 Phase 3 補樣本。T4 executor 方向與 L1 → F1，T3（`app.go` 頂層 `case`、`cmd/`/`portable/` 出 scope）→ F2，T1（無副檔名 shebang 腳本）→ F6。Phase 3 結論為「S1 套用與審查完成，驗證缺口已移交」；這些方向仍是未驗證，不因結案而視為通過。
+
 **未納入的項目**：`validateStagedDiffWhitespace` 和 T2 同屬 registry 的 `pre_commit_diff_integrity`，但它保護的是 repo 內容，不是工具樹，所以歸為產品不變式鎖。同一個 registry entry 底下有兩種不變式，這件事記錄為分類觀察。
 
 ## 6. 產品不變式鎖：已分類，未審查，後續處理
