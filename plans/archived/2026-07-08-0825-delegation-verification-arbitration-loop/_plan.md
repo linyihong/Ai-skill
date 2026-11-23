@@ -13,13 +13,13 @@ revision:
   - date: 2026-08-14
     note: "Dogfood 4a — Investment／Decision Support allocation DVA 跨域回饋；role-sim≠fresh Task；不填 Knowledge；evidence/4a-…"
   - date: 2026-07-30
-    note: "Dogfood 3b — KaizenWMS SPA mobile 多輪仲裁成熟度（ops-chrome／scanner／device）；backfill ownership、gate-scope、vacuous e2e；evidence/3b-…"
+    note: "Dogfood 3b — ExternalRepoE SPA mobile 多輪仲裁成熟度（ops-chrome／scanner／device）；backfill ownership、gate-scope、vacuous e2e；evidence/3b-…"
   - date: 2026-07-30
-    note: "Dogfood 3c — KaizenWMS archived／MES 完成計畫批次收割；implementation_done 誠實降級＋portfolio mixed close_kind；evidence/3c-…"
+    note: "Dogfood 3c — ExternalRepoE archived／MES 完成計畫批次收割；implementation_done 誠實降級＋portfolio mixed close_kind；evidence/3c-…"
   - date: 2026-07-23
     note: "Dogfood 3a — 主軸：Cursor 機械 bootstrap／primary_source gate × Task 冷啟動 → 假「三角色被擋」→ 放棄 E／V；consumer §2.1 fallback；與 2j F6 對偶；evidence/3a-…"
   - date: 2026-07-23
-    note: "Dogfood 3a（初版）— KaizenWMS spawn-friction／gate-misattribution；後修訂強化機械 gate×subagent 主軸"
+    note: "Dogfood 3a（初版）— ExternalRepoE spawn-friction／gate-misattribution；後修訂強化機械 gate×subagent 主軸"
   - date: 2026-07-08
     note: "Verifier 三層驗證契約 + 測試職責分工（防 executor 自寫測試 + verifier 只重跑的自證循環）"
   - date: 2026-07-08
@@ -71,9 +71,9 @@ revision:
   - date: 2026-07-17
     note: "Dogfood 2x — consumer player 單 fixture 假綠與 A-fix-B-break；回饋 acceptance-equivalence gate、最小 variant matrix、decoded-frame oracle；模型自然落位"
   - date: 2026-07-21
-    note: "Dogfood 2y — KaizenWMS Phase 2 SPA scaffold 完整 O→E→V：C1b deliverable-only 假綠→integration smoke；evidence/2y-…"
+    note: "Dogfood 2y — ExternalRepoE Phase 2 SPA scaffold 完整 O→E→V：C1b deliverable-only 假綠→integration smoke；evidence/2y-…"
   - date: 2026-07-21
-    note: "Dogfood 2z — KaizenWMS Phase 3 Karma-only 假綠＋stale ng serve/HMR：browser e2e DoD、verifier 須重跑瀏覽器、V5-U stale-dev-server；evidence/2z-…"
+    note: "Dogfood 2z — ExternalRepoE Phase 3 Karma-only 假綠＋stale ng serve/HMR：browser e2e DoD、verifier 須重跑瀏覽器、V5-U stale-dev-server；evidence/2z-…"
   - date: 2026-07-21
     note: "External Validation / Positioning（Graph Engineering 對照）— roadmap reprioritized，非研究方向修正；Q5 重述為 Shared State Contract Promotion；見 §External Validation"
 ---
@@ -514,11 +514,11 @@ Q5 — Shared State Contract Promotion
 - [x] **2v — greenfield consumer Phase 2 preflight** — 2026-07-16（[`evidence/2v-external-greenfield-consumer-phase2-preflight.md`](evidence/2v-external-greenfield-consumer-phase2-preflight.md)）；brief+backfill 寫入 `<PROJECT_ROOT>` plan evidence；0 E+V；配對 domain-model execute；consumer verify OK；**不**視為 Phase 3 closure
 - [x] **2w — Travel Planning 獨立驗證委派** — 2026-07-17（[`evidence/2w-travel-planning-independent-verification.md`](evidence/2w-travel-planning-independent-verification.md)）；城堡×2＋車／新栄×3；fresh Verifier findings×13；仲裁 fix 後寫回路書；**不**填 Knowledge；**不**視為 Phase 3 closure；未跑第二輪 Verifier
 - [x] **2x — consumer player variant matrix** — 2026-07-17（[`evidence/2x-consumer-player-variant-matrix.md`](evidence/2x-consumer-player-variant-matrix.md)）；Mode A 單 fixture 假綠後發生 A-fix-B-break；回饋 acceptance-equivalence gate、方向×裝置×media-path 最小矩陣、decoded-frame oracle；現有 ERA 模型自然落位；**不**視為 Phase 3 closure
-- [x] **2y — KaizenWMS Phase 2 SPA scaffold** — 2026-07-21（[`evidence/2y-kaizenwms-phase2-spa-scaffold-c1b.md`](evidence/2y-kaizenwms-phase2-spa-scaffold-c1b.md)）；完整 O→E→V；C1b 擋 deliverable-only user-visible A3；integration smoke 後 `slice_compliant_closed`；**不**視為 Phase 3 closure
-- [x] **2z — KaizenWMS Phase 3 Karma-only／stale serve** — 2026-07-21（[`evidence/2z-kaizenwms-phase3-karma-stale-serve.md`](evidence/2z-kaizenwms-phase3-karma-stale-serve.md)）；SPA unit 假綠＋HMR／watcher stale；回饋 browser e2e DoD、`stale-dev-server-checklist`；同構 2q/2k；**不**視為 Phase 3 closure
-- [x] **3a — Cursor 機械 bootstrap gate × Task 冷啟動 → 放棄三角色** — 2026-07-23（[`evidence/3a-kaizenwms-spawn-friction-skip-loop.md`](evidence/3a-kaizenwms-spawn-friction-skip-loop.md)）；主反例：通用 Receipt／primary_source deny 被誤讀成「三角色被擋」；consumer §2.1 fallback＋同日 shell-nav Phase 1 正向；與 2j F6 對偶；**不**視為 Phase 3／Q5 closure
-- [x] **3b — KaizenWMS 多輪獨立 Verifier 成熟度** — 2026-07-30（[`evidence/3b-kaizenwms-multi-round-arbitration-maturity.md`](evidence/3b-kaizenwms-multi-round-arbitration-maturity.md)）；SPA mobile ops-chrome／scanner／device：backfill ownership、gate-scope 假綠、vacuous e2e、planted-async 拒絕、orchestrator 契約自傷；**不**視為 Phase 3／Q5 closure
-- [x] **3c — KaizenWMS archived／MES 完成計畫批次收割** — 2026-07-30（[`evidence/3c-kaizenwms-archived-adoption-batch.md`](evidence/3c-kaizenwms-archived-adoption-batch.md)）；list-detail／shell-nav／MES naming／portfolio mixed close_kind；**不**視為 Phase 3／Q5 closure
+- [x] **2y — ExternalRepoE Phase 2 SPA scaffold** — 2026-07-21（[`evidence/2y-externalrepoe-phase2-spa-scaffold-c1b.md`](evidence/2y-externalrepoe-phase2-spa-scaffold-c1b.md)）；完整 O→E→V；C1b 擋 deliverable-only user-visible A3；integration smoke 後 `slice_compliant_closed`；**不**視為 Phase 3 closure
+- [x] **2z — ExternalRepoE Phase 3 Karma-only／stale serve** — 2026-07-21（[`evidence/2z-externalrepoe-phase3-karma-stale-serve.md`](evidence/2z-externalrepoe-phase3-karma-stale-serve.md)）；SPA unit 假綠＋HMR／watcher stale；回饋 browser e2e DoD、`stale-dev-server-checklist`；同構 2q/2k；**不**視為 Phase 3 closure
+- [x] **3a — Cursor 機械 bootstrap gate × Task 冷啟動 → 放棄三角色** — 2026-07-23（[`evidence/3a-externalrepoe-spawn-friction-skip-loop.md`](evidence/3a-externalrepoe-spawn-friction-skip-loop.md)）；主反例：通用 Receipt／primary_source deny 被誤讀成「三角色被擋」；consumer §2.1 fallback＋同日 shell-nav Phase 1 正向；與 2j F6 對偶；**不**視為 Phase 3／Q5 closure
+- [x] **3b — ExternalRepoE 多輪獨立 Verifier 成熟度** — 2026-07-30（[`evidence/3b-externalrepoe-multi-round-arbitration-maturity.md`](evidence/3b-externalrepoe-multi-round-arbitration-maturity.md)）；SPA mobile ops-chrome／scanner／device：backfill ownership、gate-scope 假綠、vacuous e2e、planted-async 拒絕、orchestrator 契約自傷；**不**視為 Phase 3／Q5 closure
+- [x] **3c — ExternalRepoE archived／MES 完成計畫批次收割** — 2026-07-30（[`evidence/3c-externalrepoe-archived-adoption-batch.md`](evidence/3c-externalrepoe-archived-adoption-batch.md)）；list-detail／shell-nav／MES naming／portfolio mixed close_kind；**不**視為 Phase 3／Q5 closure
 - [x] **4a — Investment／Decision Support allocation DVA（跨域形狀）** — 2026-08-14（[`evidence/4a-investment-decision-support-allocation-dva.md`](evidence/4a-investment-decision-support-allocation-dva.md)；canonical run [`…/05-dva-allocation.md`](../../active/2026-08-14-1101-investment-research-decision-support/evidence/05-dva-allocation.md)）；Verifier 擋未校準 60%＋「直接執行」；**同 session 分角色 ≠ fresh Task**；契約回饋 verifier_only／Recommendation≠Selection；**不**填 Knowledge；**不**視為 Phase 3／Q5／stage-2 closure
 - [x] **2t — APK Analysis ↔ Software Delivery Capability Handoff** — **partial closed 2026-10-13**：**2t-A observational** 接受（[`evidence/2t-apk-capability-handoff.md`](evidence/2t-apk-capability-handoff.md)；Assessment 持續 No；F1/F2/F4 pass）；**2t-B deferred**（Assessment≠Yes）。契約見 [`04-apk-capability-handoff-boundary.md`](04-apk-capability-handoff-boundary.md)。**不**填 Knowledge；**不**宣稱 APK Delegated Execution 已驗證
 - [x] **2e — 跨域 run（Research/Audit 域）：grandfather sunset audit** ✅ — 2026-07-08–09（[`evidence/2e-grandfather-sunset-audit.md`](evidence/2e-grandfather-sunset-audit.md)）；Q6/Q7(b)/Q8 的 stage-2 裁決 run。完整 loop：調查者（worktree，252 行報告 `c8ff035`，中斷後 resume 完成）→ 事實查核者（fresh，引文逐條命中、5 surfaces 獨立重跑一致、findings ×2 全 observation）→ 仲裁（defer×2，無 fix）。**實質產出**：5/5 surfaces 已 wired、flag 條款過時、延展不觸發、sunset 只剩行政收尾（處置決定保留 maintainer，見 `02-grandfather-sunset-audit.md`）。**跨域觀察**：四責任自然成立（topology 不同：+maintainer 第二層 decision）；backfill 結構化形式明確缺席、弱形式（evidence-first acceptance）出現；證據責任四問同構重現（含「自產證據不能自我關閉」跨域不變式）——詳 kit §2e Q6/Q7/Q8 觀察表

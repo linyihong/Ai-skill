@@ -58,7 +58,7 @@ Primary workflow source（Phase 1+）：[`workflow/image-processing/`](../../../
 | 任務分類、契約、候選策略、選擇、執行閘、獨立驗收、失敗修復、IDR／證據 | Primary | — |
 | 影片 timing／字幕／分鏡 | Consumer | `narrative-video-production` |
 | 3D／角色生產管線 | Consumer | `3d-character-production` |
-| Slot／paytable 符號資產規範 | Consumer profile | 業務 repo（如 `pojiepokerist/docs/slots`） |
+| Slot／paytable 符號資產規範 | Consumer profile | 業務 repo（如 `<PROJECT_ROOT>/docs/slots`） |
 | 具體模型權重、ComfyUI graph、雲端 API | Adapter only | `ai-tools/`／專案腳本 |
 | 生成式「整圖重畫」當去背替代 | **Out of scope for P0** | 僅 C 類且契約允許時 |
 

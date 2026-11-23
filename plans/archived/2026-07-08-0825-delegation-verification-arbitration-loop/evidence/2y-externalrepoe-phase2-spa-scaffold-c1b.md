@@ -1,7 +1,7 @@
-# Dogfood 2y — KaizenWMS Phase 2 SPA scaffold（external greenfield consumer）
+# Dogfood 2y — ExternalRepoE Phase 2 SPA scaffold（external greenfield consumer）
 
 **Date**: 2026-07-21  
-**Consumer**: `kaizenwms`（Bitbucket；`plans/active/2026-07-14-1610-wms-material-foundation`）  
+**Consumer**: ExternalRepoE（Bitbucket；`plans/active/2026-07-14-1610-wms-material-foundation`）\
 **Loop**: Orchestrator → Executor → Verifier → Arbitration  
 **Outcome**: `slice_compliant_closed`（`phase-2-spa-scaffold`）
 
@@ -10,7 +10,7 @@
 | Leg | Notes |
 | --- | --- |
 | Orchestrator | Brief + verification_backfill in plan YAML；git-anchored before Execute |
-| Executor | `KaizenWms.sln` + layered `src/` + Angular 19/PrimeNG + esproj；TFM initially `net9.0`（host SDK max was 9） |
+| Executor | `ExternalRepoE.sln` + layered `src/` + Angular 19/PrimeNG + esproj；TFM initially `net9.0`（host SDK max was 9） |
 | Verifier | Independent V1–V4；**A1–A5 PASS** |
 | Arbitration | MAJOR on **C1b**：A3 was `tier: deliverable` only on a **combined / user-visible** acceptance |
 

@@ -1,9 +1,9 @@
-# Dogfood 2z — KaizenWMS Phase 3：Karma-only 假綠 + stale `ng serve`（browser / runtime 缺口）
+# Dogfood 2z — ExternalRepoE Phase 3：Karma-only 假綠 + stale `ng serve`（browser / runtime 缺口）
 
 **Date**: 2026-07-21  
-**Consumer**: `kaizenwms`（Bitbucket；`plans/active/2026-07-14-1610-wms-material-foundation`）  
+**Consumer**: ExternalRepoE（Bitbucket；`plans/active/2026-07-14-1610-wms-material-foundation`）\
 **Loop**: Phase 3 曾標 `slice_compliant_closed`（unit/mock）；stakeholder 糾偏後補 Playwright + 機械門檻  
-**同構**：[`2q`](2q-externalrepoc-transport-inner-only-runtime-gap.md)（inner-only 假綠）、[`2k`](2k-externalrepoc-push-post-close-runtime-gaps.md) / [`2m`](2m-externalrepoc-phase-g-mirror-batch-retrofit.md)（stale runtime JVM）、[`2y`](2y-kaizenwms-phase2-spa-scaffold-c1b.md)（同 consumer，C1b 遞進）
+**同構**：[`2q`](2q-externalrepoc-transport-inner-only-runtime-gap.md)（inner-only 假綠）、[`2k`](2k-externalrepoc-push-post-close-runtime-gaps.md) / [`2m`](2m-externalrepoc-phase-g-mirror-batch-retrofit.md)（stale runtime JVM）、[`2y`](2y-externalrepoe-phase2-spa-scaffold-c1b.md)（同 consumer，C1b 遞進）
 
 > **專案細節邊界**：commit SHA、selector、feature 檔名留 consumer evidence；本檔只留 generalized dogfood metrics 與契約回饋。
 

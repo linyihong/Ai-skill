@@ -1,7 +1,7 @@
-# 3a — KaizenWMS／Cursor：機械 bootstrap gate 讓 Task subagent 跑不起來 → 三角色被放棄（2026-07-23）
+# 3a — ExternalRepoE／Cursor：機械 bootstrap gate 讓 Task subagent 跑不起來 → 三角色被放棄（2026-07-23）
 
-> **專案證據邊界**：consumer commit／plan 路徑留 KaizenWMS；本檔只留 generalized dogfood metrics 與契約回饋。  
-> **同構**：[`2j`](2j-externalrepoc-push-execute-skip-verifier-loop.md)／[`2l`](2l-externalrepoc-common-url-s2-mirror-skip-loop.md)（跳過 Verifier）；[`2o`](2o-consumer-tab-scroll-single-vs-delegation.md)（單 session）；[`2y`](2y-kaizenwms-phase2-spa-scaffold-c1b.md)／[`2z`](2z-kaizenwms-phase3-karma-stale-serve.md)（同 consumer）。  
+> **專案證據邊界**：consumer commit／plan 路徑留 ExternalRepoE；本檔只留 generalized dogfood metrics 與契約回饋。\
+> **同構**：[`2j`](2j-externalrepoc-push-execute-skip-verifier-loop.md)／[`2l`](2l-externalrepoc-common-url-s2-mirror-skip-loop.md)（跳過 Verifier）；[`2o`](2o-consumer-tab-scroll-single-vs-delegation.md)（單 session）；[`2y`](2y-externalrepoe-phase2-spa-scaffold-c1b.md)／[`2z`](2z-externalrepoe-phase3-karma-stale-serve.md)（同 consumer）。\
 > **本 run 主反例（stakeholder 指定）**：不是「又少 spawn 一次 Verifier」 alone，而是 **通用機械 gate（Bootstrap Receipt／workflow primary_source）作用在 fresh Task subagent 上 → 看起來「三角色被 Ai-skill gate 卡住」→ orchestrator 乾脆不跑 E／V**。  
 > **糾偏（consumer 已修）**：portable `delegated-execution` **§2.1 Cursor transport fallback**（spawn／gate 失敗 ≠ 豁免；同 session 驗證 ≤ `implementation_done`）。  
 > **正向對照（同日）**：明示走 Task E＋V 的 shell-nav Phase 1 → Verifier 擋 F1 → `slice_compliant_closed`。
@@ -32,7 +32,7 @@ Production＝Evidence（loop 斷裂）
 
 | 欄 | 值 |
 | --- | --- |
-| **Consumer** | KaizenWMS（Ai-skill optional；Cursor + project bootstrap pointer） |
+| **Consumer** | ExternalRepoE（Ai-skill optional；Cursor + project bootstrap pointer） |
 | **Stakeholder 觸發** | 「三角色驗證好像被 Ai-skill gate 卡住，是不是要修，不然都會被擋著」 |
 | **負向結果（糾偏前）** | 近期 Execute（shell chrome／list-detail 等）**0** 獨立 E／V；同 session 直做 |
 | **根因（本 3a）** | **mechanical-gate × subagent cold-start** → 假「三角色不可用」信號 → 放棄 loop |
@@ -76,7 +76,7 @@ Production＝Evidence（loop 斷裂）
    B 失敗 → **transport fallback**，**不是**「loop 取消」。
 2. **`subagent-cold-start-bootstrap-tax`** — Executor／Verifier Task brief **必須**要求首步 Read CORE_BOOTSTRAP＋`core-bootstrap.yaml`＋Receipt（Ai-skill repo）；consumer／portable 路徑則寫明：gate fail-open 或 §2.1 checklist。Kit／Cursor adapter 應有一句「Task 冷啟動必過 bootstrap，否則看起來像三角色壞了」。
 3. **`spawn-or-gate-fail-not-exemption`** — Task spawn 失敗 **或** 機械 gate 連續 deny ≥N → 書面 `transport: same_session_*`；Verifier 仍要有；關閉 ≤ `implementation_done`。
-4. **`portable-consumer-fallback`** — KaizenWMS 已示範不依賴 Q5 promotion 即可寫可執行 fallback（§2.1）。
+4. **`portable-consumer-fallback`** — ExternalRepoE 已示範不依賴 Q5 promotion 即可寫可執行 fallback（§2.1）。
 5. **與 2j F6 對偶** — 2j：機械閘 **沒擋**「跳過 Verifier」。3a：機械閘 **擋了** subagent 工具 → **誘發**跳過。Q5 若只做 verifier-spawn tracking 而不處理 **bootstrap×Task**，仍會再出 3a。
 6. **不關閉 Q5** — 3a 是 transport／adapter 反例＋行為契約回饋，不是 Shared State promotion 證據。
 
@@ -104,7 +104,7 @@ Specification — 3a + consumer §2.1 + Cursor adapter 冷啟動註記
 
 ## Evidence pointers（consumer／adapter）
 
-- KaizenWMS：`docs/workflow/delegated-execution.md` §2.1；`software-delivery.yaml` `delegation_loop.rules`
+- ExternalRepoE：`docs/workflow/delegated-execution.md` §2.1；`software-delivery.yaml` `delegation_loop.rules`
 - 正向：`…/1422-shell-nav-groups-…/evidence/2026-07-23-phase-1-nav-contract.md`
 - Cursor：`ai-tools/agent/cursor.md`（preToolUse＝機械 deny；`AI_SKILL_REPO` 不可解析時 fail-open）
 

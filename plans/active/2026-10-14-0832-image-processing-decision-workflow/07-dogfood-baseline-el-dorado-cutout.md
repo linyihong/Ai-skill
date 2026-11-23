@@ -4,7 +4,7 @@
 
 ## 來源（消費者專案）
 
-- 專案：`pojiepokerist`／cabinet `el-dorado-dices`
+- 專案：ExternalRepoD／cabinet `el-dorado-dices`
 - 任務表象：賠付表彩色頭像去背、置中、對齊 Unity 灰階 Sprite
 - 執行環境：Cursor agent + 本機 Python（`rembg`、Pillow、NumPy、scipy）
 - 產出：`paytable-symbols/high_*.png` 等（業務 repo；本檔只留抽象教訓）

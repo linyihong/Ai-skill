@@ -6,7 +6,7 @@ Status: candidate
 **Disposition**: validated → hooks fix  
 **Symptom**: Agent Read `workflow/software-delivery/execution-flow.md` repeatedly but PreToolUse still blocked with `gate.workflow.primary_source_read` until a later user turn / full transcript flush.
 
-## Confirmed root cause (2026-07-21, kaizenwms session `3f5268f2`)
+## Confirmed root cause (2026-07-21, externalrepoe session `3f5268f2`)
 
 1. **Cursor agent-transcript JSONL flush lag（主因）**  
    Within one user turn, completed `Read` tool_use rows are often **not yet on disk** when the next `Write`/`Shell` PreToolUse runs. Truncating the live transcript to the user message (before the flushed Read) reproduces `block=true`; including the Read line clears it.

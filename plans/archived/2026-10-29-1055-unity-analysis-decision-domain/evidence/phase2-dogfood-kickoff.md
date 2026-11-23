@@ -48,7 +48,7 @@
 | Field | Value |
 | --- | --- |
 | Phase 2 | **PASS，已依原計畫驗收結案** — 單案差異裁決與獨立驗收已記錄，整份計畫見 final closeout |
-| Project path | `<PROJECT_ROOT>` = `Programs/unwrapping/pojiepokerist`（cabinet `docs/slots/el-dorado-dices`） |
+| Project path | `<PROJECT_ROOT>` = ExternalRepoD（實際路徑留 project-local）（cabinet `docs/slots/el-dorado-dices`） |
 | Soft49 ledger | `<PROJECT_ROOT>/docs/slots/el-dorado-dices/lab/phase2-soft49-case-ledger-v1.md` |
 | First difference / blocked | 早期 Create ABI 假說排除；同版布局、model/view 拓撲、內容快取、座標單位及實際 pivot 差異已有區分實驗與專案證據。具體修法與結果以專案驗收記錄為準 |
 | Soft50 | **scoped PASS** — 目前版本與固定 fixture 的回放已由 model、獨立內容讀回和畫面三層驗收。其他 fixture／build／重進窗口覆蓋仍開放 |

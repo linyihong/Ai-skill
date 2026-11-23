@@ -13,7 +13,7 @@ Live `BetMultiplier=50`, `LinesCount=25` → `chipScale=2`.
 Early spot-crop map swapped lines 1/2 vs live order and mislabeled `[1,0,0,0,1]` as line 21 (live id 6). Path `[1,0,1,0,1]` is not in the live set.
 
 ## Tooling
-`pojiepokerist/scripts/frida/bison_dump_lineset.js`
+`<PROJECT_ROOT>/scripts/frida/bison_dump_lineset.js`
 
 #### One-line Summary
 

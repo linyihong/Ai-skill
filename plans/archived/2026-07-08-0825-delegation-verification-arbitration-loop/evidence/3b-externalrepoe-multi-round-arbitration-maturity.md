@@ -1,15 +1,15 @@
-# 3b — KaizenWMS：多輪獨立 Verifier 成熟度（ops-chrome／scanner／device slices，2026-07-27–30）
+# 3b — ExternalRepoE：多輪獨立 Verifier 成熟度（ops-chrome／scanner／device slices，2026-07-27–30）
 
 > **專案證據邊界**：commit SHA、selector、feature 檔名留 consumer `<PROJECT_ROOT>` plan；本檔只留 generalized dogfood metrics 與契約回饋。  
 > **Consumer 主來源**：`plans/active/2026-07-23-1500-spa-mobile-desktop-devices/_plan.md`（slices `phase-1b-1-ops-chrome-lite`、`phase-1b-2-scanner-bar`、Phase 2 device 改版多刀）。  
-> **同構／前序**：[`2y`](2y-kaizenwms-phase2-spa-scaffold-c1b.md)／[`2z`](2z-kaizenwms-phase3-karma-stale-serve.md)／[`3a`](3a-kaizenwms-spawn-friction-skip-loop.md)（同 consumer；3a 後已能穩定走獨立 Task E＋V）。  
+> **同構／前序**：[`2y`](2y-externalrepoe-phase2-spa-scaffold-c1b.md)／[`2z`](2z-externalrepoe-phase3-karma-stale-serve.md)／[`3a`](3a-externalrepoe-spawn-friction-skip-loop.md)（同 consumer；3a 後已能穩定走獨立 Task E＋V）。\
 > **本 run 主訊號**：**不是又發現「跳過 Verifier」**，而是 loop 跑起來之後的**仲裁成熟度**——多輪 fix→re-verify、角色表 ownership、空閘／vacuous e2e、契約自傷、假證據拒絕。
 
 ## Run 摘要
 
 | 欄 | 值 |
 | --- | --- |
-| **Consumer** | KaizenWMS（Cursor Task；`verifier_transport: independent_subagents`） |
+| **Consumer** | ExternalRepoE（Cursor Task；`verifier_transport: independent_subagents`） |
 | **時間窗** | 2026-07-27 → 2026-07-30（§2.1 fallback **未**動用） |
 | **代表 slices** | ops-chrome-lite（Verifier **三輪**）、scanner-bar（**兩輪**）、Put Away／Transfer／Issue 單欄（各至少一輪＋fix round） |
 | **關閉形態** | 多刀皆達 `slice_compliant_closed`（C1–C5 書面宣告） |
@@ -72,7 +72,7 @@
 
 ## 契約回饋（寫回 SD／kit／consumer overlay）
 
-1. **`backfill-arbitration-orchestrator-owned`** — `verification_backfill` 與 Arbitration 表的 writer＝Orchestrator；Executor 只寫執行紀錄。Brief 必填禁令（KaizenWMS 已示範）。
+1. **`backfill-arbitration-orchestrator-owned`** — `verification_backfill` 與 Arbitration 表的 writer＝Orchestrator；Executor 只寫執行紀錄。Brief 必填禁令（ExternalRepoE 已示範）。
 2. **`gate-scope-covers-acceptance-shell`** — 機械閘掃描範圍須 ⊇ acceptance 所稱 shell／shared lib；否則 mutation 證明「空閘」。
 3. **`orchestrator-owns-contract-gaps`** — 仲裁補列造成的行為衝突，歸 Specification／Arbitration，不記 Executor acceptance-violation。
 4. **`vacuous-e2e-non-vacuity-gate`** — 溢出／遮擋類 acceptance 必須先證明「溢出／遮擋可發生」，再斷言結果。

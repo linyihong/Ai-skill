@@ -1,7 +1,7 @@
-# 3c — KaizenWMS：完成計畫批次回饋收割（archived＋MES naming，2026-07-17–28）
+# 3c — ExternalRepoE：完成計畫批次回饋收割（archived＋MES naming，2026-07-17–28）
 
 > **專案證據邊界**：inner commit／路徑細節留 consumer；本檔只留 generalized metrics 與契約回饋。  
-> **範圍**：`plans/archived/*` 與 MES launch 內已關閉、具三角色／仲裁痕跡的計畫；**不**重複寫入已由 [`2y`](2y-kaizenwms-phase2-spa-scaffold-c1b.md)／[`2z`](2z-kaizenwms-phase3-karma-stale-serve.md)／[`3a`](3a-kaizenwms-spawn-friction-skip-loop.md)／[`3b`](3b-kaizenwms-multi-round-arbitration-maturity.md) 覆蓋的同事件全文。  
+> **範圍**：`plans/archived/*` 與 MES launch 內已關閉、具三角色／仲裁痕跡的計畫；**不**重複寫入已由 [`2y`](2y-externalrepoe-phase2-spa-scaffold-c1b.md)／[`2z`](2z-externalrepoe-phase3-karma-stale-serve.md)／[`3a`](3a-externalrepoe-spawn-friction-skip-loop.md)／[`3b`](3b-externalrepoe-multi-round-arbitration-maturity.md) 覆蓋的同事件全文。\
 > **目的**：把「完成計畫裡散落的回饋」收進本 dogfood 證據庫，供 Q3／Q5／Q8 觀察期引用。
 
 ## Run 摘要
@@ -9,7 +9,7 @@
 | 欄 | 值 |
 | --- | --- |
 | **Harvest 觸發** | Stakeholder：檢視 `<PROJECT_ROOT>/plans` 完成計畫回饋 → 寫入 Ai-skill evidence |
-| **Consumer** | KaizenWMS |
+| **Consumer** | ExternalRepoE |
 | **狀態** | 證據 only（批次對照，非單一 slice dogfood） |
 
 ## 批次對照表
@@ -73,4 +73,4 @@
 
 - 本輪：**批次 evidence**；補強「3a 之後 adoption 已擴散」與「完成≠合規」對照。  
 - **不**視為 Phase 3／Q5 closure；**不**把 MES／Equipment 領域細節升進 Ai-skill schema。  
-- 與 [`3b`](3b-kaizenwms-multi-round-arbitration-maturity.md) 分工：3b＝多輪仲裁深度；3c＝完成樹廣度＋誠實降級。
+- 與 [`3b`](3b-externalrepoe-multi-round-arbitration-maturity.md) 分工：3b＝多輪仲裁深度；3c＝完成樹廣度＋誠實降級。

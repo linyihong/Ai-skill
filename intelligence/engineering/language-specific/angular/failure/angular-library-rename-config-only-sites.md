@@ -34,13 +34,13 @@ The codegen row is the one that bites, because the failure mode is resurrection 
 
 ## Example
 
-Moving `libs/erp/kaizen-erp-work-order` → `libs/wms/kaizen-wms-work-order-supply`:
+Moving `libs/erp/app-erp-work-order` → `libs/wms/app-wms-work-order-supply`:
 
 ```jsonc
 // web/ng-openapi-gen/wms.m-wos.json — still points at the old directory
 {
   "input":  "../openapi/wms/modules/m-wos.openapi.json",   // correct, untouched
-  "output": "libs/erp/kaizen-erp-work-order/src/lib/api/generated"  // stale — recreates libs/erp/
+  "output": "libs/erp/app-erp-work-order/src/lib/api/generated"  // stale — recreates libs/erp/
 }
 ```
 
