@@ -10,7 +10,7 @@ parent: null
 
 # Project Tooling Governance（專案工具治理）
 
-**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；**Phase 2 完成**；Q12 已裁決並寫回契約（2026-11-23）；第一次契約一致性審閱（2026-11-23）：Q12 寫回與正式契約 PASS，設計大綱 Lifecycle/Q8/Q9 與 Phase 3 Acceptance 已同步；**Phase 3 已開放**（2026-11-23 使用者決定）；**Phase 3 已關閉**（2026-11-23 使用者裁決）：S1 套用與審查完成，驗證缺口已移交 F1、F2、F6（見 evidence/phase3-application.md §5）。下一步 Phase 4 尚未開放。
+**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；**Phase 2 完成**；Q12 已裁決並寫回契約（2026-11-23）；第一次契約一致性審閱（2026-11-23）：Q12 寫回與正式契約 PASS，設計大綱 Lifecycle/Q8/Q9 與 Phase 3 Acceptance 已同步；**Phase 3 已開放**（2026-11-23 使用者決定）；**Phase 3 已關閉**（2026-11-23 使用者裁決）：S1 套用與審查完成，驗證缺口已移交 F1、F2、F6（見 evidence/phase3-application.md §5）。**F1 修復切片已完成**（2026-11-23，見 evidence/f1-repair-slice.md），F4 一併處理。下一步 Phase 4 尚未開放。
 
 **本 plan 是唯一的執行狀態來源。** 契約設計大綱見 [`01-design-contracts.md`](01-design-contracts.md)（不記狀態）。
 
@@ -261,6 +261,19 @@ parent: null
 依據：[`lock-taxonomy.md`](../../../workflow/cross-cutting/project-tooling/lock-taxonomy.md)（Q12 G2、G3、G6）。
 
 **Phase 3 驗收結果（2026-11-23）**：1–7 項皆成立（第 3 項依修訂後條件）。T2、T5、T6 雙向通過；T1、T3、T4 的缺口已列並移交 F6、F2、F1；T7 不適用。驗證缺口不算已驗證，Phase 4 引用 Ai-skill 自家套用證據時須一併標示。
+
+## F1 修復切片（Phase 3 後續，2026-11-23 使用者開放）
+
+修正 Phase 3 對帳發現的 L1：registry lint 的 executor 覆蓋集合改從「git hook 實際呼叫了哪些檢查」建立，並逐一分類 hook 呼叫的 symbol。F4 依先前裁決隨本次 Go 修改一起處理。
+
+- [x] 以 AST 建立 hook-call coverage（三個 git hook 入口 + `commitMsgValidatorRegistry`），不依命名；根消失或無法解析時 FAIL
+- [x] 逐一分類未登記的 symbol：Phase 3 的 8 個，加上這次浮現的 9 個（enforcement executor / advisory warning / helper）
+- [x] 登記：綁到既有 rule_class，或列入 allowlist；沒有合適 class 的 meta gate 收進新的 `enforcement_self_governance`（2026-11-23 使用者裁決）
+- [x] T4 executor 方向雙向樣本與突變驗證
+- [x] F4：`cli-modification-policy.yaml` 的 bin 重建說明改為兩個 commit 的流程
+- [x] source commit 與 bin-only commit 依兩段流程提交並推送
+
+結果：[`evidence/f1-repair-slice.md`](evidence/f1-repair-slice.md)。17 個 symbol 中，6 個是 enforcement executor、6 個是 advisory warning、5 個是 helper；`ai-skill enforcement lint` 結果為 0 FAIL。T4 executor 方向由「尚未驗證」改為「通過」，L1 已修正。rule_class 數超過 hard_limit（R1）與 executor kind enum 未受檢查（R2）只記錄為觀察。
 
 ## Phase 4 — 證據裁決與升級決策
 

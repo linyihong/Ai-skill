@@ -244,9 +244,11 @@ executor_kind_spec:
 
 internal_helper_allowlist:
   description: |
-    Go symbols in scripts/ai-skill-cli/internal/app/hooks.go that look like
-    they could be executors but are internal helpers. NOT considered
-    orphan executors during lint.
+    Go symbols that look like they could be executors but are internal
+    helpers: run*/validate* declarations in internal/app/hooks.go, and any
+    package-level function a git hook entry (runPreCommitHook /
+    runCommitMsgHook / runPrePushHook / commitMsgValidatorRegistry) calls
+    directly. NOT considered orphan executors during lint.
   symbols:
     - appendLog
     - readFileSafe
@@ -298,6 +300,12 @@ internal_helper_allowlist:
     - gitVar
     - gitConfigGetAll
     - loadAuthorEmailAllowlist
+    # F1 hook-call coverage (2026-11-23): helpers called directly by git hook entries
+    - Run  # CLI re-entry used by pre-commit to run `runtime compile/validate`; the gate is the hook itself
+    - compactSummary  # output formatting
+    - canonicalOwnershipDriftOptOut  # [skip-*] marker parser for validateCanonicalOwnershipDriftStaged
+    - releaseBinaryParityOptOut  # [skip-*] marker parser for validateReleaseBinaryParityStaged
+    - reviewArchitectureDocDriftOptOut  # [skip-*] marker parser for validateReviewArchitectureNavigationDriftStaged
     - addAllowlistEmail
     - allowlistContains
     - emailFromGitIdent
@@ -694,6 +702,12 @@ rule_classes:
         executor_kind: pre_commit_validator
         block_or_warn: block
         notes: "Phase 2.3 Canonical Ownership Lock on debt payoff canon"
+      - file: scripts/ai-skill-cli/internal/app/documentation_drift.go
+        symbol: validateReviewArchitectureNavigationDriftStaged
+        executor_kind: pre_commit_validator
+        hook_phase: pre-commit
+        block_or_warn: block
+        notes: "Phase 2.2 navigation Documentation Drift Lock, staged form; F1 hook-call coverage (2026-11-23)"
     rationale: |
       ADR-013 D2 capability context.stance contract: registry structural
       validation blocks runtime validate; invoke missing/mismatched stance
@@ -710,6 +724,7 @@ rule_classes:
     source_files:
       - runtime/plan-status-sync-enforcement.yaml
       - plans/README.md
+      - governance/lifecycle/plan-evidence.md
     executors:
       - file: scripts/ai-skill-cli/internal/app/hooks.go
         symbol: validatePlanStatusSync
@@ -723,6 +738,17 @@ rule_classes:
         symbol: validatePlanArchivalAudit
         executor_kind: commit_msg_validator
         block_or_warn: block
+      - file: scripts/ai-skill-cli/internal/app/plan_evidence.go
+        symbol: validatePlanEvidenceConvention
+        executor_kind: commit_msg_validator
+        block_or_warn: block
+        notes: "obligation.commit.plan_evidence_convention; F1 hook-call coverage (2026-11-23)"
+      - file: scripts/ai-skill-cli/internal/app/plan_evidence.go
+        symbol: warnPlanEvidenceLineNumberCitations
+        executor_kind: commit_msg_validator
+        hook_phase: commit-msg
+        block_or_warn: warn
+        notes: "advisory, called directly by runCommitMsgHook; F1 hook-call coverage (2026-11-23)"
     rationale: |
       Plan lifecycle (status / checkbox / archival) shares the same
       governance domain — keeping a plan file truthful about what is
@@ -742,6 +768,12 @@ rule_classes:
         symbol: validatePlanArchivalLinkIntegrity
         executor_kind: commit_msg_validator
         block_or_warn: block
+      - file: scripts/ai-skill-cli/internal/app/plan_archival_link_integrity.go
+        symbol: warnPlanArchivalLinkIntegrity
+        executor_kind: commit_msg_validator
+        hook_phase: commit-msg
+        block_or_warn: warn
+        notes: "advisory bare-mention surface, called directly by runCommitMsgHook; F1 hook-call coverage (2026-11-23)"
     rationale: |
       Reference Integrity family — sibling to runtime_index_freshness.
       archival_audit (under plan_governance) verifies the archive workflow
@@ -787,6 +819,12 @@ rule_classes:
         symbol: validatePlanTreeFolderConvention
         executor_kind: commit_msg_validator
         block_or_warn: warn
+      - file: scripts/ai-skill-cli/internal/app/planvalidate_shadow.go
+        symbol: planValidateShadowCheck
+        executor_kind: commit_msg_validator
+        hook_phase: commit-msg
+        block_or_warn: warn
+        notes: "engine-parity shadow of the plan-tree validators; never affects exit code; F1 hook-call coverage (2026-11-23)"
     rationale: |
       Plan tree hierarchy governance — sibling to plan_governance but
       scoped to the parent ↔ child relationship layer (frontmatter
@@ -1128,6 +1166,12 @@ rule_classes:
         hook_phase: pre-push
         block_or_warn: warn
         notes: "wraps githubWorkflowHistoryCheck — surfaces failing CI before push"
+      - file: scripts/ai-skill-cli/internal/app/hooks.go
+        symbol: githubWorkflowHistoryCheck
+        executor_kind: hook_dispatcher_entry
+        hook_phase: pre-push
+        block_or_warn: warn
+        notes: "F1 hook-call coverage (2026-11-23)"
     rationale: |
       Pre-push gate inspects recent GitHub Actions history to warn when
       pushing on top of broken CI.
@@ -1135,6 +1179,57 @@ rule_classes:
       symbol_exists: ✓
       scenario_exists: pending
       regression_exists: pending
+      runtime_observed: pending
+
+  - id: enforcement_self_governance
+    coverage: mechanical
+    source_files:
+      - enforcement/enforcement-registry.yaml#self_governance
+      - runtime/core-bootstrap.yaml#per_commit_obligations
+      - plans/archived/2026-05-31-2100-mechanical-enforcement-registry.md
+    executors:
+      - file: scripts/ai-skill-cli/internal/app/enforcement_transition.go
+        symbol: validateEnforcementRegistryTransition
+        executor_kind: commit_msg_validator
+        block_or_warn: block
+        notes: "obligation.commit.enforcement_registry_transition (R1/R2/R3)"
+      - file: scripts/ai-skill-cli/internal/app/enforcement_transition.go
+        symbol: validateEnforcementRuleRegistrySync
+        executor_kind: commit_msg_validator
+        block_or_warn: block
+        notes: "obligation.commit.enforcement_rule_registry_sync"
+      - file: scripts/ai-skill-cli/internal/app/push_governance_scan.go
+        symbol: validatePushGovernanceReplay
+        executor_kind: hook_dispatcher_entry
+        hook_phase: pre-push
+        block_or_warn: block
+        notes: "replays pre-commit shell policy, sanitization and commit-msg governance for pushed commits (--no-verify bypass)"
+      - file: scripts/ai-skill-cli/internal/app/kge_adapter.go
+        symbol: attachKGECheck
+        executor_kind: hook_dispatcher_entry
+        hook_phase: pre-push
+        block_or_warn: block
+        notes: "full KGE default pack; blocks on validation findings"
+      - file: scripts/ai-skill-cli/internal/app/kge_adapter.go
+        symbol: attachKGEAdvisoryCount
+        executor_kind: commit_msg_validator
+        hook_phase: commit-msg
+        block_or_warn: warn
+        notes: "KGE advisory count only; non-blocking"
+    rationale: |
+      Meta gates that protect the governance mechanism itself from being
+      bypassed or drifting: registry coverage transitions and rule/registry
+      sync at commit-msg, plus pre-push replay (catches commits made with
+      --no-verify) and the KGE check. These executors were already live in
+      the hook pipeline but unbound; surfaced by the hook-call coverage
+      added to lintOrphanExecutors (F1 of
+      plans/active/2026-11-23-0834-project-tooling-governance). Created
+      as one class by user ruling 2026-11-23 rather than forcing each
+      executor into a loosely related existing class.
+    verification_status:
+      symbol_exists: ✓
+      scenario_exists: partial
+      regression_exists: partial
       runtime_observed: pending
 
   - id: linked_updates
@@ -1248,6 +1343,12 @@ rule_classes:
         executor_kind: pre_commit_staged_content_scanner
         hook_phase: pre-commit
         block_or_warn: block
+      - file: scripts/ai-skill-cli/internal/app/sanitization_scan.go
+        symbol: warnSanitizationIncidentScore
+        executor_kind: pre_commit_staged_content_scanner
+        hook_phase: pre-commit
+        block_or_warn: warn
+        notes: "advisory incident score; F1 hook-call coverage (2026-11-23)"
     rationale: |
       Pre-commit scans staged shared-layer content for project-declared private
       tokens (metadata-derived via runtime.db.derived_match_tokens) plus generic

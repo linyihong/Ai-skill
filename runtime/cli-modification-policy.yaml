@@ -64,12 +64,20 @@ cli_specific_gates:
 
   - id: gate.cli.bin_rebuild_for_HEAD
     description: |
-      When CLI source changes, scripts/ai-skill-cli/bin/* must be rebuilt
-      with HEAD commit SHA before push. Enforced by
-      TestRepoLocalBinariesMatchChecksumsAndCurrentSource pre-push test.
-    enforcement_layer: pre_push_hook
+      When CLI source changes, two commits are required before push:
+      (1) the source change together with a full rebuilt bin/ (all five
+      binaries + BUILDINFO + SHA256SUMS), enforced at pre-commit by
+      validateReleaseBinaryParityStaged; then (2) a bin-only rebuild with
+      --commit <source commit>, so BUILDINFO points at the latest CLI source
+      commit, enforced at pre-push by
+      TestRepoLocalBinariesMatchChecksumsAndCurrentSource (it compares
+      against the latest commit touching CLI source, not HEAD). Use the
+      source commit hash rather than HEAD if another commit sits between.
+      Verified 2026-11-23 against hook code and history (bb927a7e → 4f86bbf4).
+    enforcement_layer: pre_commit_hook + pre_push_hook
     severity: block
     canonical_command: |
+      # step 2 (bin-only), run right after the source commit:
       cd scripts/ai-skill-cli && go run ./cmd/releasebuild \
         --stable-names --version "repo-$(git rev-parse --short HEAD)" \
         --commit "$(git rev-parse --short HEAD)" --dist bin

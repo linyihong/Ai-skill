@@ -2,6 +2,9 @@ package app
 
 import (
 	"fmt"
+	"go/ast"
+	"go/parser"
+	"go/token"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -502,9 +505,11 @@ func lintDeprecatedDisposal(reg *registrySnapshot) []EnforcementRegistryLintErro
 }
 
 // ─────────────────────────────────────────────────────────────────────
-// orphan_executor: hooks.go top-level functions matching dispatcher /
-// validator naming that are neither bound by any rule_class.executors[]
-// nor in internal_helper_allowlist.
+// orphan_executor: (1) hooks.go top-level functions matching dispatcher /
+// validator naming, and (2) every package-level function a git hook entry
+// calls directly (hook-call coverage, F1 of the project-tooling-governance
+// plan), that are neither bound by any rule_class.executors[] nor in
+// internal_helper_allowlist.
 // ─────────────────────────────────────────────────────────────────────
 
 func lintOrphanExecutors(repo string, reg *registrySnapshot) []EnforcementRegistryLintError {
@@ -532,6 +537,7 @@ func lintOrphanExecutors(repo string, reg *registrySnapshot) []EnforcementRegist
 		allow[s] = true
 	}
 	var errs []EnforcementRegistryLintError
+	flagged := map[string]bool{}
 	for _, m := range goFuncDeclPattern.FindAllStringSubmatch(string(data), -1) {
 		if len(m) < 2 {
 			continue
@@ -555,8 +561,153 @@ func lintOrphanExecutors(repo string, reg *registrySnapshot) []EnforcementRegist
 			},
 			Message: "executor-looking symbol (run* / validate*) in hooks.go is not bound by any rule_class.executors[] and not listed in internal_helper_allowlist. Add a binding, or move it to internal_helper_allowlist if it is genuinely helper-only.",
 		})
+		flagged[sym] = true
 	}
+	errs = append(errs, lintHookCallCoverage(repo, bound, allow, flagged)...)
 	sortLintErrors(errs)
+	return errs
+}
+
+// gitHookEntryRoots are the git hook entry points whose direct calls form
+// the hook-call coverage set. commitMsgValidatorRegistryVar is the
+// obligation → validator table dispatched by the commit-msg hook (and by
+// pre-push replay through validateCommitMessageGovernance).
+//
+// Coverage is derived from what the hooks actually call, not from symbol
+// naming: a check named warnX / checkX / attachX reaches the set as soon as
+// a hook entry calls it. Renaming or removing a root is reported as FAIL
+// (hook_call_coverage_root_missing) so the coverage set can never silently
+// shrink to zero.
+var gitHookEntryRoots = []string{"runPreCommitHook", "runCommitMsgHook", "runPrePushHook"}
+
+const commitMsgValidatorRegistryVar = "commitMsgValidatorRegistry"
+
+type hookCall struct {
+	file string // repo-relative file declaring the callee
+	from string // root that calls it
+}
+
+// hookCallCoverage parses the non-test Go files of the app package and
+// returns every package-level function called directly from a git hook
+// entry root or from the commit-msg validator registry literal.
+func hookCallCoverage(repo string) (map[string]hookCall, []string, error) {
+	appRel := "scripts/ai-skill-cli/internal/app"
+	appDir := filepath.Join(repo, filepath.FromSlash(appRel))
+	files, err := filepath.Glob(filepath.Join(appDir, "*.go"))
+	if err != nil {
+		return nil, nil, err
+	}
+	fset := token.NewFileSet()
+	decls := map[string]string{}
+	var parsed []*ast.File
+	for _, f := range files {
+		if strings.HasSuffix(f, "_test.go") {
+			continue
+		}
+		af, err := parser.ParseFile(fset, f, nil, parser.SkipObjectResolution)
+		if err != nil {
+			return nil, nil, err
+		}
+		parsed = append(parsed, af)
+		for _, d := range af.Decls {
+			if fd, ok := d.(*ast.FuncDecl); ok && fd.Recv == nil {
+				decls[fd.Name.Name] = appRel + "/" + filepath.Base(f)
+			}
+		}
+	}
+	roots := map[string]bool{}
+	for _, r := range gitHookEntryRoots {
+		roots[r] = true
+	}
+	found := map[string]bool{}
+	calls := map[string]hookCall{}
+	collect := func(n ast.Node, from string) {
+		ast.Inspect(n, func(x ast.Node) bool {
+			c, ok := x.(*ast.CallExpr)
+			if !ok {
+				return true
+			}
+			id, ok := c.Fun.(*ast.Ident)
+			if !ok || roots[id.Name] {
+				return true
+			}
+			if file, ok := decls[id.Name]; ok {
+				if _, seen := calls[id.Name]; !seen {
+					calls[id.Name] = hookCall{file: file, from: from}
+				}
+			}
+			return true
+		})
+	}
+	for _, af := range parsed {
+		for _, d := range af.Decls {
+			switch t := d.(type) {
+			case *ast.FuncDecl:
+				if t.Recv == nil && roots[t.Name.Name] && t.Body != nil {
+					found[t.Name.Name] = true
+					collect(t.Body, t.Name.Name)
+				}
+			case *ast.GenDecl:
+				for _, spec := range t.Specs {
+					vs, ok := spec.(*ast.ValueSpec)
+					if !ok {
+						continue
+					}
+					for i, name := range vs.Names {
+						if name.Name == commitMsgValidatorRegistryVar && i < len(vs.Values) {
+							found[commitMsgValidatorRegistryVar] = true
+							collect(vs.Values[i], commitMsgValidatorRegistryVar)
+						}
+					}
+				}
+			}
+		}
+	}
+	var missing []string
+	for _, r := range append(append([]string{}, gitHookEntryRoots...), commitMsgValidatorRegistryVar) {
+		if !found[r] {
+			missing = append(missing, r)
+		}
+	}
+	return calls, missing, nil
+}
+
+// lintHookCallCoverage flags every symbol a git hook entry calls directly
+// that is neither bound by a rule_class executor nor allowlisted as a
+// helper. Each such symbol must be classified as an enforcement executor
+// (block), an advisory warning (warn) — both bind to a rule_class — or a
+// helper (internal_helper_allowlist).
+func lintHookCallCoverage(repo string, bound, allow, flagged map[string]bool) []EnforcementRegistryLintError {
+	calls, missing, err := hookCallCoverage(repo)
+	if err != nil {
+		return []EnforcementRegistryLintError{{
+			Type:    "hook_call_coverage_unavailable",
+			Fields:  []EnforcementRegistryLintField{{"error", err.Error()}},
+			Message: "could not parse internal/app Go sources to build the hook-call coverage set; orphan_executor coverage would silently drop to the hooks.go naming scan.",
+		}}
+	}
+	var errs []EnforcementRegistryLintError
+	for _, r := range missing {
+		errs = append(errs, EnforcementRegistryLintError{
+			Type:    "hook_call_coverage_root_missing",
+			Fields:  []EnforcementRegistryLintField{{"root", r}},
+			Message: "git hook entry root not found in internal/app; update gitHookEntryRoots in enforcement_registry_lint.go so hook-call coverage does not silently shrink.",
+		})
+	}
+	for sym, c := range calls {
+		if bound[sym] || allow[sym] || flagged[sym] {
+			continue
+		}
+		errs = append(errs, EnforcementRegistryLintError{
+			Type: "orphan_executor",
+			Fields: []EnforcementRegistryLintField{
+				{"file", c.file},
+				{"symbol", sym},
+				{"called_from", c.from},
+			},
+			Message: "symbol called directly by a git hook entry is not bound by any rule_class.executors[] and not listed in internal_helper_allowlist. Classify it: enforcement executor (block) or advisory warning (warn) → bind to a rule_class; helper → internal_helper_allowlist.",
+		})
+	}
 	return errs
 }
 

@@ -173,7 +173,7 @@ func lintWithOverride(repo, registry string) ([]EnforcementRegistryLintError, er
 	}
 	// Mirror the original repo's scanned trees into the shadow so the orphan
 	// walks see them. Use junction-free copies of yaml-only content (small).
-	// hooks.go is needed for orphan_executor; we copy it too.
+	// internal/app sources are needed for orphan_executor; copied below.
 	mirrorPaths := []string{"enforcement", "runtime", "governance"}
 	for _, p := range mirrorPaths {
 		src := filepath.Join(repo, p)
@@ -205,12 +205,21 @@ func lintWithOverride(repo, registry string) ([]EnforcementRegistryLintError, er
 			return os.WriteFile(out, data, 0o644)
 		})
 	}
-	hooksRel := "scripts/ai-skill-cli/internal/app/hooks.go"
-	hooksSrc := filepath.Join(repo, filepath.FromSlash(hooksRel))
-	if data, err := os.ReadFile(hooksSrc); err == nil {
-		hooksDst := filepath.Join(shadow, filepath.FromSlash(hooksRel))
-		_ = os.MkdirAll(filepath.Dir(hooksDst), 0o755)
-		_ = os.WriteFile(hooksDst, data, 0o644)
+	// Mirror all non-test app sources (not just hooks.go): orphan_executor
+	// hook-call coverage resolves callees declared in sibling files.
+	appRel := "scripts/ai-skill-cli/internal/app"
+	appSrcs, _ := filepath.Glob(filepath.Join(repo, filepath.FromSlash(appRel), "*.go"))
+	for _, src := range appSrcs {
+		if strings.HasSuffix(src, "_test.go") {
+			continue
+		}
+		data, err := os.ReadFile(src)
+		if err != nil {
+			continue
+		}
+		dst := filepath.Join(shadow, filepath.FromSlash(appRel), filepath.Base(src))
+		_ = os.MkdirAll(filepath.Dir(dst), 0o755)
+		_ = os.WriteFile(dst, data, 0o644)
 	}
 	return LintEnforcementRegistry(shadow)
 }
