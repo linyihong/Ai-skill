@@ -35,8 +35,12 @@ Discovery 的搜尋起點，也是 owner 的唯一記錄點（契約：[`lifecyc
 | workflow route-candidate proposals | `ai-skill router` | Domain | maintained | workflow routing | — |
 | image-processing verify / fixtures | `ai-skill image-processing` | Domain | maintained | image-processing workflow | — |
 | repo-local release binaries 建置（不經 dispatch） | `go run ./cmd/releasebuild` | Domain | maintained | CLI toolchain | — |
-| Evidence Candidate 組裝（不經 dispatch） | `go run ./cmd/evidencecandidate` | Research | experimental | evidence candidate system | 未設定（待裁決） |
+| Evidence Candidate 組裝（不經 dispatch；目的與輸入／輸出見下方註記） | `go run ./cmd/evidencecandidate` | Research | experimental | evidence candidate system | 2026-12-23 |
 
+- `evidencecandidate`：
+  - **實驗目的**：在來源 plan [`2026-06-16-1131-evidence-candidate-system.md`](../../plans/active/2026-06-16-1131-evidence-candidate-system.md) 的 observation period，把人工標註的 criteria_hits 組成 candidate。
+  - **輸入／輸出**：寫在 [`cmd/evidencecandidate/main.go`](cmd/evidencecandidate/main.go) 檔頭的 contract。輸入是 artifact、criteria_hits、matched_plans；輸出是 candidate，只會寫入 inbox；沒有任何決策權限。
+  - **到期處理**：TTL 2026-12-23。來源 plan 的 observation period 若更早結束，就改用那一天。到期時三選一：轉為 maintained、附理由續期，或 deprecated。到期不代表自動刪除。
 - `scripts/git-hooks/*` 是 `hooks` 的舊路徑轉發外殼，state = deprecated：只服務仍設定 `core.hooksPath=scripts/git-hooks` 的 clone。移除條件：確認沒有 clone 使用舊路徑；使用情況無法機械確認，所以不做自動清理。
 
 ## 開發 gate

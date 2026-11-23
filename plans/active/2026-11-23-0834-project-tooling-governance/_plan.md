@@ -246,7 +246,7 @@ parent: null
 - [x] **O4 契約問題**：記錄各 `[skip-*]` 標記的作用範圍、授權方式與失效時點。單次 skip 的有效期間和 allowlist 的退場條件是不同問題，暫不把 28 種標記判為違規；是否修訂契約留到 Phase 4。
 - [x] Phase 2 的契約缺口若已裁決，先回寫契約再套用（Q12 已於 cdd835c4 回寫）
 
-結果：[`evidence/phase3-application.md`](evidence/phase3-application.md)（2026-11-23）。切片內無 Role 違規；7 把工具治理鎖完成四欄、雙向樣本與 Review Rule；後續工作 F1–F7 只記錄。
+結果：[`evidence/phase3-application.md`](evidence/phase3-application.md)（2026-11-23）。切片內無 Role 違規。7 把工具治理鎖都已審查，四欄與 Review Rule 完整。樣本狀態分三類：T2、T5、T6 雙向通過；T1、T3、T4 發現缺口，其中 T4 的 executor 方向尚未驗證；T7 不適用雙向樣本。**完成審查不等於驗證通過。** `evidencecandidate` 的 TTL 已設為 2026-12-23。後續工作 F1–F8 只記錄，F1 優先並另開修復切片。
 
 **Acceptance**：
 

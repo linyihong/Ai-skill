@@ -25,7 +25,7 @@
 18 列已寫入 [`scripts/ai-skill-cli/README.md`](../../../../scripts/ai-skill-cli/README.md) §Capability catalog，[`scripts/README.md`](../../../../scripts/README.md) 加了指向它的入口。
 
 - **placement**：17 列是 Domain（服務 Ai-skill 治理領域）；`kge` 的 Logic 在 Shared 的 `portable/kge`。
-- **`evidencecandidate`**：Research / experimental，但**沒有設定 TTL**。契約規定 experimental 必須有 TTL，這是 catalog 的缺口，**需要使用者裁決**。它的來源 plan 正在 observation period。
+- **`evidencecandidate`**：維持 Research / experimental。依使用者裁決（2026-11-23）設 TTL 2026-12-23，來源 plan 的 observation period 若更早結束就以那天為準；它的 phase2 gate 是計數門檻，沒有固定日期。catalog 已連到實驗目的與輸入／輸出 contract。到期時三選一：轉為 maintained、附理由續期，或 deprecated；不會自動刪除。
 - **`scripts/git-hooks/*`**：判定為 deprecated。移除條件是「確認沒有 clone 還在使用舊路徑」；由於使用情況無法機械確認，依 G4 排除自動清理。
 
 ## 3. Lock 對帳：hook → executor → registry
@@ -58,15 +58,26 @@
 
 ## 5. Lock review：工具治理鎖（依不變式計數，共 7 把）
 
-| # | 族 | intent | scope | forbidden | allowlist / 豁免 | 雙向樣本 | Review Rule 結論 |
+| # | 族 | intent | scope | forbidden | allowlist / 豁免 | 樣本狀態（見下方圖例） | Review Rule 結論 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| T1 | layout | 自動化一律用 Go，不新增其他腳本入口 | staged **Added** 路徑；`runtime validate` 另查既有 `.sh` 的 Go 決策 | 12 種副檔名。**缺口**：沒有副檔名、帶 shebang 的可執行腳本抓不到（只比對副檔名；verified） | `[skip-go-migration]`，需附 migration plan | ✓ `TestNoNewShellScriptsRule`：.sh、.py、.rb、.js 會被擋；.go、.md、.yaml 不誤判 | 不能消除：這是限制未來新增的政策。兩處檢查守同一不變式（G6 第 2 次），但觸發點不同（新增 vs 既有），記錄為分開保留的理由 |
-| T2 | drift | 提交的 binary 與 source 一致 | pre-commit 的 staged CLI source；pre-push 的 git 歷史 | 只交部分 bin、`BUILDINFO` 指向錯誤的 commit | `[skip-release-binary-parity]` | ✓ `TestValidateReleaseBinaryParityStaged`：全部 stage 時通過、缺任一檔時失敗 | 不能消除：repo-local binary 是既有決策；兩階段是因為 commit hash 要等 commit 建立後才存在 |
-| T3 | drift | CLI 新增命令或 hook 時同步更新 command-contract | 只看 `internal/app/*.go`。**缺口**：`cmd/` 和 `portable/` 不在範圍內（verified） | 6 個字面 pattern 加上 `run*Hook`。**缺口**：`app.go` 新增頂層 `case "x":` 抓不到（verified） | `[skip-cli-doc-sync]` | ✓ engine 3 個 + adapter 1 個 test：能偵測新 hook、skip 標記有效 | **可以部分消除**：若 command-contract 的命令表改由 dispatch 產生，這把鎖就不需要（F2，不實作） |
-| T4 | drift | registry 與 executor 雙向綁定 | `runtime validate` 和 commit-msg；orphan executor 只看 `hooks.go`。**缺口 L1** | orphan rule、orphan executor、缺少 symbol | `internal_helper_allowlist`：這是 helper 分類清單，不是暫時豁免，所以不適用退場條件 | rule 方向 ✓（`TestLintOrphanRule_*` + fixtures）；executor 方向沒找到專屬 test（observed） | 不能消除：registry 本身就是為了防止「有規則但沒有 executor」。L1 是鎖的正確性問題，不屬結構消除（F1） |
-| T5 | safety | 共享層不提交私有 token 和泛用敏感 pattern | 所有 staged 內容；push replay 再掃一次 | private_entities 的各種寫法 + 泛用 pattern | project-local 層、placeholder、pattern 設定檔自身 | ✓ 7 個 test：會擋的和會放行的都有 | 不能消除：任何內容都可能夾帶敏感資料 |
-| T6 | safety | 選用此功能的 clone 只用允許的 author / committer email | 每次 commit 的身分 | 不在 allowlist 內的 email | 本機 git config；未設定時不限制 | ✓ 4 個 test | 不能消除：身分設定是每台機器各自的 |
-| T7 | completeness | 改到 CLI、hook 或 workflow 時，push 前 `go test` 必須通過 | 相對 upstream 的變更路徑 | 測試失敗；workflow history 紅燈只發警告 | 沒有豁免 | 不是 pattern-based 鎖，不強制雙向樣本；`TestHasCLICIPreflightChange` 涵蓋範圍判斷 | 部分屬於補償：CI 太慢，所以在本機重跑一次。記錄理由後保留 |
+| T1 | layout | 自動化一律用 Go，不新增其他腳本入口 | staged **Added** 路徑；`runtime validate` 另查既有 `.sh` 的 Go 決策 | 12 種副檔名。**缺口**：沒有副檔名、帶 shebang 的可執行腳本抓不到（只比對副檔名；verified） | `[skip-go-migration]`，需附 migration plan | **通過**：`TestNoNewShellScriptsRule`（.sh、.py、.rb、.js 會被擋；.go、.md、.yaml 不誤判）。**缺口**：無副檔名的 shebang 腳本（讀程式碼確認，沒有樣本） | 不能消除：這是限制未來新增的政策。兩處檢查守同一不變式（G6 第 2 次），但觸發點不同（新增 vs 既有），記錄為分開保留的理由 |
+| T2 | drift | 提交的 binary 與 source 一致 | pre-commit 的 staged CLI source；pre-push 的 git 歷史 | 只交部分 bin、`BUILDINFO` 指向錯誤的 commit | `[skip-release-binary-parity]` | **通過**：`TestValidateReleaseBinaryParityStaged`（全部 stage 時通過、缺任一檔時失敗）、`TestReleaseBinaryParityOptOut` | 不能消除：repo-local binary 是既有決策；兩階段是因為 commit hash 要等 commit 建立後才存在 |
+| T3 | drift | CLI 新增命令或 hook 時同步更新 command-contract | 只看 `internal/app/*.go`。**缺口**：`cmd/` 和 `portable/` 不在範圍內（verified） | 6 個字面 pattern 加上 `run*Hook`。**缺口**：`app.go` 新增頂層 `case "x":` 抓不到（verified） | `[skip-cli-doc-sync]` | **通過**：engine 3 個 + adapter 1 個 test（能偵測新 hook、skip 標記有效）。**缺口**：頂層 `case`、`cmd/`、`portable/`（讀程式碼確認，沒有樣本） | **可以部分消除**：若 command-contract 的命令表改由 dispatch 產生，這把鎖就不需要（F2，不實作） |
+| T4 | drift | registry 與 executor 雙向綁定 | `runtime validate` 和 commit-msg；orphan executor 只看 `hooks.go`。**缺口 L1** | orphan rule、orphan executor、缺少 symbol | `internal_helper_allowlist`：這是 helper 分類清單，不是暫時豁免，所以不適用退場條件 | **通過**：rule 方向（`TestLintOrphanRule_*`、`TestEnforcementRegistryLint*`）。**尚未驗證**：executor 方向沒有專屬 test。**缺口**：L1（讀程式碼確認） | 不能消除：registry 本身就是為了防止「有規則但沒有 executor」。L1 是鎖的正確性問題，不屬結構消除（F1） |
+| T5 | safety | 共享層不提交私有 token 和泛用敏感 pattern | 所有 staged 內容；push replay 再掃一次 | private_entities 的各種寫法 + 泛用 pattern | project-local 層、placeholder、pattern 設定檔自身 | **通過**：sanitization 6 個 + incident score 2 個 + push replay 1 個（會擋的和會放行的都有） | 不能消除：任何內容都可能夾帶敏感資料 |
+| T6 | safety | 選用此功能的 clone 只用允許的 author / committer email | 每次 commit 的身分 | 不在 allowlist 內的 email | 本機 git config；未設定時不限制 | **通過**：4 個 test（未設定時略過、會擋的、會放行的、讀 info 檔） | 不能消除：身分設定是每台機器各自的 |
+| T7 | completeness | 改到 CLI、hook 或 workflow 時，push 前 `go test` 必須通過 | 相對 upstream 的變更路徑 | 測試失敗；workflow history 紅燈只發警告 | 沒有豁免 | **不適用**：不是 pattern-based 鎖。範圍判斷由 `TestHasCLICIPreflightChange` 涵蓋，**通過** | 部分屬於補償：CI 太慢，所以在本機重跑一次。記錄理由後保留 |
+
+**樣本狀態圖例**（2026-11-23 於 `294bcd6c` 執行 `go test`，表中列名的 29 個 test 全部 PASS）：
+
+| 狀態 | 意義 |
+| --- | --- |
+| 通過 | 已有測試且本次執行通過 |
+| 缺口 | 已確認鎖抓不到某種常見寫法，或 scope 漏掉某個出口；目前沒有對應樣本 |
+| 尚未驗證 | 沒有找到能證明該方向的測試 |
+| 不適用 | 不是 pattern-based 鎖，不強制雙向樣本 |
+
+**完成審查不等於驗證通過。** 7 把鎖都已審查完畢，其中 T1、T3、T4 的審查結果是發現缺陷：T1、T3 有已確認的 forbidden 或 scope 缺口，T4 另有一個方向尚未驗證。只有 T2、T5、T6 是雙向樣本都已通過；T7 不適用雙向樣本，範圍判斷的 test 已通過。
 
 **未納入的項目**：`validateStagedDiffWhitespace` 和 T2 同屬 registry 的 `pre_commit_diff_integrity`，但它保護的是 repo 內容，不是工具樹，所以歸為產品不變式鎖。同一個 registry entry 底下有兩種不變式，這件事記錄為分類觀察。
 
@@ -92,12 +103,13 @@ allowlist 是一份持續存在、要逐步清空的清單；skip 是單次的�
 
 | # | 項目 | 類型 |
 | --- | --- | --- |
-| F1 | 擴大 L1 orphan executor 的範圍：掃 `internal/app` 全部檔案，並納入 `warn*` 前綴；補登記 8 個 symbol | 鎖正確性（Go 改動 + bin 重建） |
+| F1 | **優先，另開修復切片**。修正 L1：覆蓋集合改從「hook 實際註冊或呼叫了哪些檢查」建立。若只是擴大成掃全部檔案再加上 `warn*`，換個命名方式仍會漏掉。那 8 個 symbol 要逐一判定是 enforcement executor、advisory warning 還是 helper，再決定怎麼登記。T4 executor 方向的樣本一併補上 | 鎖正確性（Go 改動 + 兩個 commit 的 bin 流程） |
 | F2 | 由 dispatch 產生 command-contract 命令表，消除 T3 | 結構消除 |
 | F3 | KGE 呼叫鏈與 registry 命名（O2） | 結構，依切片延後 |
-| F4 | 修正 `cli-modification-policy.yaml` 的 bin 重建說明 | 文件 drift（runtime YAML） |
+| F4 | 修正 `cli-modification-policy.yaml` 的 bin 重建說明。**跟下一次 Go source 修改一起處理**，讓 canonical policy 和已確認的兩個 commit 流程一致 | 文件 drift（runtime YAML） |
 | F5 | 移除或對齊 `hookAdapterContent`（O8） | 死碼 / drift |
 | F6 | T1 的 forbidden 補上無副檔名的 shebang 腳本 | 鎖缺口（G3 型） |
 | F7 | 審查產品不變式鎖（§6） | 後續 phase 或 plan |
+| F8 | 低優先：plan-evidence 的行號引用警告會把 finding ID（例：`L1`）誤判成行號。補對照樣本：真正的行號引用要提醒，finding ID 不能誤報 | 鎖誤報（advisory） |
 
 ← [Evidence index](README.md)
