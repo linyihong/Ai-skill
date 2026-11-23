@@ -10,7 +10,7 @@ parent: null
 
 # Project Tooling Governance（專案工具治理）
 
-**Status**: draft — 審閱修訂中。尚未進入 Plan Preparation / Phase 0；不改任何 consumer repo。
+**Status**: draft — Plan Preparation 完成（2026-11-23）；下一步 Phase 0（唯讀）。不改任何 consumer repo。
 
 **本 plan 是唯一的執行狀態來源。** 契約設計大綱見 [`01-design-contracts.md`](01-design-contracts.md)（不記狀態）。
 
@@ -129,8 +129,9 @@ parent: null
 
 ## Plan Preparation（Phase 0 之前，獨立 commit）
 
-- [ ] Q6：在 `.ai-skill-project.yaml` `private_entities` 登記兩個 consumer 的必要識別資訊；`ai-skill runtime compile` 後確認 sanitization scan 生效
-- [ ] 本步驟是唯一會修改 Ai-skill 設定的前置工作；完成後才進 Phase 0
+- [x] Q6：在 `.ai-skill-project.yaml` `private_entities` 登記兩個 consumer（Consumer A = ExternalRepoD、Consumer B = ExternalRepoE）；`ai-skill runtime compile` 後 `derived_match_tokens` 含其 case variants，暫存 probe 檔驗證 pre-commit 會擋（2026-11-23）
+- [x] 前置清掃（使用者 2026-11-23 選擇「登記＋清掃既有」）：共用層 16 檔中的兩個名稱改為 alias，5 個 archived delegation-loop evidence 檔改中性檔名並修連結；獨立 commit，先於登記
+- [x] 本步驟是唯一會修改 Ai-skill 設定的前置工作；完成後才進 Phase 0
 
 ## Phase 0 — Read-only Discovery + Preflight
 

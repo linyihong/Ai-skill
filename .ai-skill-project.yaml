@@ -34,3 +34,16 @@ project:
       match_tokens:
         - Browser Manage
       case_variants: auto
+
+    - name: ExternalRepoD
+      kind: codename
+      match_tokens:
+        - pojiepokerist
+      case_variants: auto
+
+    - name: ExternalRepoE
+      kind: codename
+      match_tokens:
+        - kaizenwms
+        - KaizenWMS
+      case_variants: auto
