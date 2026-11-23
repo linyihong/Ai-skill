@@ -55,6 +55,6 @@ AI 在專案裡為了完成當下任務，很容易順手寫出新的腳本、�
 
 ## 收錄門檻與升級
 
-比照本目錄其他 pattern：需 **≥3 個收斂案例**才考慮升級為 stage、route、validator 或共用 runner。目前案例：2（皆為 pilot dogfood 進行中）。
+比照本目錄其他 pattern：需 **≥3 個收斂案例**才考慮升級為 stage、route、validator 或共用 runner。目前：2 個外部 consumer 做**唯讀評估**（不修改其 repo）＋ Ai-skill 自身工具樹做**實際套用**；唯讀評估是否計入門檻由來源計畫 Phase 4 裁決。
 
 ← [Back to cross-cutting index](../README.md)

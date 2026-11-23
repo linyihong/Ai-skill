@@ -10,7 +10,7 @@ parent: null
 
 # Project Tooling Governance（專案工具治理）
 
-**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23，契約通過使用者最終 sign-off）；Phase 2 / 3 未開始（consumer dogfood，需另行啟動）。不改任何 consumer repo。
+**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；Phase 2 進行中。
 
 **本 plan 是唯一的執行狀態來源。** 契約設計大綱見 [`01-design-contracts.md`](01-design-contracts.md)（不記狀態）。
 
@@ -69,7 +69,7 @@ parent: null
 - A. 維持現狀，各專案各自整理：reject — 成果無法遷移，compensating lock 無框架可指認。
 - B. 立即實作 Ai-skill CLI 通用 lint runner（Go）：reject（暫緩）— 證據 n=2、兩個 consumer 語言不同，runner 介面的 invariant 未知（Watch-Out wall 2 / 6）。
 - C. 只修 Consumer A 的漏洞：reject — 失去跨專案學習，B4 照樣長。
-- D. **Doc-only 契約 + 兩個 consumer 各一 slice dogfood，再依證據升級**（accept）。
+- D. **Doc-only 契約 + 兩個 consumer 唯讀評估 + Ai-skill 自家套用，再依證據升級**（accept；2026-11-23 修訂：不修改外部 consumer repo）。
 - E. 規定 agent「不准新增工具」：reject — 一次性與實驗工具有正當價值；要治理的是生命週期與發現。
 - F. 自動 orchestrator 偵測新工具並自動搬層：reject — 越過 Selection Responsibility，抽象化決策失去證據。
 - G. 名稱縮小為 Script Governance：reject — 真正的對象是工具資產的生命週期（DB 查詢、API 測試、OCR / ASR、部署驗證工具同樣適用）。
@@ -81,7 +81,7 @@ parent: null
 ### ADR Promotion Criteria（completed 時驗證）
 
 - [ ] foundational + cross-session + cross-project + expensive-to-reverse + explains-why 全中
-- [ ] 兩個 consumer dogfood 皆證實 contract 可行，且未需修改 invariant 核心
+- [ ] 兩個 consumer 唯讀評估與 Ai-skill 自家套用皆證實 contract 可行，且未需修改 invariant 核心
 - [ ] Open Questions 全解
 - [ ] 沒有更輕的 promotion target 適用（per ADR-007）
 - [ ] 第三個專案採用時不需修改 contract（真實使用 evidence）
@@ -98,9 +98,9 @@ parent: null
 
 ## Runtime Execution Path
 
-**Doc-only trial，不接入 runtime。** 不新增 `route.*`、不 project 到 `runtime.db`、不新增 Ai-skill commit-msg validator。機械強制發生在 consumer repo 自己的 hook（Phase 2/3），不屬於 Ai-skill runtime integration。
+**Doc-only trial，不接入 runtime。** 不新增 `route.*`、不 project 到 `runtime.db`、不新增 Ai-skill commit-msg validator。Phase 3 若在 Ai-skill 自己的 hooks 調整既有 validator，屬於套用切片內的改動，不等於本契約接入 runtime；consumer repo 不做任何機械強制。
 
-- 未來接入：Phase 4 決策；entry condition = 兩個 consumer dogfood PASS，且符合 cross-cutting 三案例門檻（目前 n=2）。
+- 未來接入：Phase 4 決策；entry condition = Phase 2、Phase 3 acceptance 通過，且符合 cross-cutting 三案例門檻（唯讀評估是否計入見 Q11）。
 - 候選形式：discovery signal（新增工具檔時載入本契約）或 `init-project` 範本；需另開 plan 並附 Per-surface consumer 表。
 - Graduation deadline：2027-02-28（逾期未接入 → 維持 doc-only pilot 並在 plans/README 說明）。
 
@@ -127,6 +127,7 @@ parent: null
 - [x] **Q8 Scratch 位置與清理責任** — **accepted (2026-11-23, user)**：不進版控固定目錄或 session 暫存區、不得在正式工具樹；建立者於 close-out 清理；**無法清理時回報殘留路徑、原因、後續處理**；有保留價值轉 Research，否則刪除。見 [`lifecycle-contract.md`](../../../workflow/cross-cutting/project-tooling/lifecycle-contract.md) §Scratch 位置與清理責任。
 - [x] **Q9 Ownership** — **accepted (2026-11-23, user)**（依審閱修訂後通過）：單一記錄點 = catalog `owner` 欄、可為團隊 / 角色、不建 registry（保留）；**刪除「無 owner 視為 experimental 或 deprecated」**——owner 缺失是治理資訊不完整，不改變 state：maintained + 無 owner = ownership violation 須補 owner；experimental + 無 owner 可接受但須 TTL 與目的；deprecated 不要求維護 owner 但須退役處理責任方；改 deprecated 須由 Selection 明確決定。見 [`lifecycle-contract.md`](../../../workflow/cross-cutting/project-tooling/lifecycle-contract.md) §Ownership。
 - [x] **Q10 Layer / Placement 分離** — **decided (2026-11-23, user)**：三個維度正式分離、不得互相取代或混用——(1) **Internal Role**：Entry / Logic / Parameters；(2) **Placement**：Scratch / Research / Target / Domain / Shared；(3) **Lifecycle State**：temporary / experimental / maintained / deprecated。附帶規則：Placement 不決定 Role（任一 placement 都可有三種角色，但不要求同時具備）；Entry 維持薄入口（只解析參數、取得必要設定、呼叫 Logic、傳遞結果與結束狀態）；Parameters 不得成為邏輯藏身處。Phase 1 正式定義違規判定與跨語言適用原則。
+- [ ] **Q11 唯讀評估是否計入三案例門檻**（2026-11-23 範圍修訂後新增）：consumer 只做唯讀評估，證明的是「契約能判斷」，不是「照契約改得動」。Phase 4 裁決它們算不算收斂案例；Ai-skill 自家套用算一個實際套用案例。
 
 ## Plan Preparation（Phase 0 之前，獨立 commit）
 
@@ -153,6 +154,7 @@ parent: null
 | Q2b、Q2c、Q8 | accepted（2026-11-23, user） | 補充約束已寫入 lifecycle-contract |
 | Q9 | accepted（2026-11-23, user） | owner 缺失不推導 state |
 | Q10（新增） | decided（2026-11-23, user） | 三維度分離，見 §Open Questions |
+| Q11（範圍修訂後新增） | still-open | Phase 4 裁決 |
 
 ### Phase 0.1 — Baseline 量測（可重跑指令記在 project-local dogfood 檔）
 
@@ -194,34 +196,39 @@ parent: null
 
 **Phase 1 交付（2026-11-23）**：6 檔已建於 [`workflow/cross-cutting/project-tooling/`](../../../workflow/cross-cutting/project-tooling/README.md)（56–72 行，皆 ≤150）；Q2b、Q2c、Q8、Q9 皆 accepted（Q9 依審閱修訂後通過）；**Phase 1 完成（2026-11-23，使用者最終 sign-off）**；sanitization 通過；無 route / runner / validator。
 
-**Phase 2/3 必須等 Phase 1 完成才開始**（先確認契約正確，再用真實案例驗證）。
+**Phase 2/3 必須等 Phase 1 完成才開始**（先確認契約正確，再用真實案例驗證）。— Phase 1 已完成。
 
-## Phase 2 — Consumer A dogfood（在 consumer repo 執行）
+> **2026-11-23 範圍修訂（使用者決定）**：Ai-skill 治理計畫**不修改外部 consumer repo**。Consumer 只做唯讀評估、當作經驗參考；契約的實際套用在 Ai-skill 自己的工具樹進行。原「在 consumer repo 執行」的 Phase 2/3 定義作廢。
 
-Slice：補 thin-entry 漏洞，並以 discovery / lifecycle 契約處置 3 支非薄入口。
+## Phase 2 — 兩個 consumer 的唯讀評估
 
-- [ ] 新增 thin-entry 鎖：L0 入口只允許 import + `main()`；含 subprocess / 自寫 tap / 座標常數即擋
-- [ ] 擴大 device I/O boundary 鎖 scope 至 L0（先套 compensating-lock Review Rule）
-- [ ] 3 支非薄入口：concept check → 標 placement × state → allowlist（附退場條件）→ 邏輯移到正確 placement 並改走 shared device helper → 移出 allowlist
-- [ ] 裝置序號預設值收斂到 shared resolver
+**唯讀**：不修改任何 consumer repo（tracked 內容、hook、docs 都不動）；只讀取並用契約判斷。具體檔名留各 consumer 的 project-local `.ai-skill/dogfood/` 對照檔。
 
-**Acceptance**：非薄 L0 入口數 = 0；allowlist 為空；鎖有反向測試；每支被移動的工具有 justification 與 placement × state。
+- [ ] **Role**：對兩個 consumer 的入口與共用模組套 [`role-contract.md`](../../../workflow/cross-cutting/project-tooling/role-contract.md)，違規一律用「`<placement>` 的 `<role>` 放在 `<實際位置>`」句型記錄
+- [ ] **Concept / Discovery**：以 [`growth-rule.md`](../../../workflow/cross-cutting/project-tooling/growth-rule.md) 判定同概念群；檢查既有工具是否有 creation justification、是否有 capability catalog 可供 discovery
+- [ ] **Placement × State × Ownership**：依 [`lifecycle-contract.md`](../../../workflow/cross-cutting/project-tooling/lifecycle-contract.md) 標示；記錄 ownership violation、逾期 experimental、殘留 scratch
+- [ ] **Lock review**：對現有鎖依 [`lock-taxonomy.md`](../../../workflow/cross-cutting/project-tooling/lock-taxonomy.md) 分族、填四欄形狀（scope / forbidden / allowlist / intent），逐把回答 compensating-lock Review Rule；記錄 scope 盲區與 pattern 漏洞
+- [ ] **建議改動清單（不執行）**：每項附對應的違規句型或契約條款
+- [ ] **契約缺口**：判不出、判斷歧義、或需改契約的地方，各附建議的契約修改
 
-## Phase 3 — Consumer B dogfood（在 consumer repo 執行）
+**Acceptance**：(1) consumer repo 沒有任何由本 phase 造成的變更；(2) 每個被評估的工具群都有可判定的結論，或明確記錄為歧義；(3) 契約缺口逐條列出並附建議修改；(4) 證據去敏後寫入 `evidence/`。
 
-Slice：一次性分析工具 → 共用 harness（B4）。wrapper 收斂依 Q4 另案。
+## Phase 3 — Ai-skill 自家套用
 
-- [ ] concept check：確認 per-case 工具屬同一能力 / 責任
-- [ ] 抽出共用 harness（fixture 驗證、計時、報告輸出）
-- [ ] 先遷移 2 支，per-case 檔只剩 case 參數 / 宣告
-- [ ] 評估其餘是否可改為 config-only case（並檢查未變成 config-everything）
-- [ ] 視需要加一條 lock（先套 compensating-lock Review Rule）
+在 Ai-skill 自己的工具樹（`scripts/`：Go CLI、git-hooks 與其 validator）實際套用契約。Ai-skill 是本契約真正的使用者，改動走 Ai-skill 一般的 writeback 流程。
 
-**Acceptance**：遷移後行數下降且輸出報告與遷移前等價（同一 fixture 對照）；專案內 import 比例 > 0。
+- [ ] **Phase 3.0 範圍盤點（唯讀）**：列出入口、validator（鎖）、共用模組，決定本 phase 的套用切片；確認 Go-first 政策與 committed `bin/` 重建要求；回寫範圍後才動手
+- [ ] **Capability catalog**：在 Ai-skill 工具樹 README 建立能力表（capability / entry / placement / state / owner / ttl）
+- [ ] **Role**：檢查入口是否維持薄入口；違規依句型記錄並修正（限本 phase 切片）
+- [ ] **Lock review**：對 validator 依鎖分類填四欄形狀並套 compensating-lock Review Rule；能從結構消除的列為改動或後續 plan，不在本 phase 擴大實作
+- [ ] Phase 2 的契約缺口若已裁決，先回寫契約再套用
+
+**Acceptance**：catalog 存在且涵蓋切片內所有 capability；切片內入口無 Role 違規；每把被審的鎖都有 intent 與 Review Rule 結論；所有改動通過 Ai-skill hooks 並已推送。
 
 ## Phase 4 — 證據裁決與升級決策
 
-- [ ] 對每條契約 invariant 標記：兩個 consumer 是否都成立、是否需修改
+- [ ] 對每條契約 invariant 標記：兩個 consumer 唯讀評估與 Ai-skill 自家套用是否都成立、是否需修改
+- [ ] 裁決 Q11（唯讀評估是否計入三案例門檻）
 - [ ] 重新評估 Q5（共用 runner）、Q7（discovery 機械化）與 runtime 接入
 - [ ] 回寫契約；更新 `plans/README.md` 狀態
 - [ ] 執行 Plan Completion Closure
@@ -238,7 +245,8 @@ Slice：一次性分析工具 → 共用 harness（B4）。wrapper 收斂依 Q4 
 - [x] Scratch 最小契約（Q8 accepted）
 - [x] Ownership 最小契約（Q9 accepted）
 - [x] Phase 1 契約最終 sign-off（2026-11-23）
-- [ ] Phase 2 / Phase 3 dogfood slice 範圍
+- [x] Phase 2/3 改為 consumer 唯讀評估 + Ai-skill 自家套用（2026-11-23）
+- [ ] Phase 3 套用切片範圍（Phase 3.0 盤點後確認）
 
 ## 與其他 plans 的關係
 
@@ -249,7 +257,7 @@ Slice：一次性分析工具 → 共用 harness（B4）。wrapper 收斂依 Q4 
 ## 完成條件
 
 - [ ] Plan Preparation、Phase 0–4 完成條件全部成立
-- [ ] 兩個 consumer dogfood evidence（sanitized）已記錄，project-local 對應檔存在
+- [ ] 兩個 consumer 唯讀評估 evidence（sanitized）與 Ai-skill 自家套用 evidence 已記錄，project-local 對應檔存在
 - [ ] Open Questions 全部 resolved / deferred（附原因）
 - [ ] Sanitization gate 通過；`git status` clean 且已 push
 - [ ] Plan Completion Closure 執行完畢
