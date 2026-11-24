@@ -3,7 +3,7 @@
 - **日期**：2026-11-23
 - **性質**：Consumer B 自己的決策與自己的改動（Q4：wrapper 收斂「獨立裁決，不進本 plan dogfood」）；**不是**本計畫對 consumer 的修改，也**不是**共用 runner（Q5 維持 deferred）。本檔只收集它對契約的證據。
 - **去敏**：只用 Consumer B 抽象描述；無 repo 名、路徑、SHA。量測可重跑指令放 Consumer B 的 project-local `.ai-skill/dogfood/`。
-- **狀態**：試點已在 Consumer B 工作區完成並通過其結構性閘；**尚未合併**，是否合併由 Consumer B 決定。
+- **狀態**：試點已在 Consumer B 工作區完成並通過其結構性閘。~~尚未合併~~：2026-11-24 查證，**已合併到上游主幹**，見 §合併狀態查證。
 
 ## 1. 做了什麼（Consumer B）
 
@@ -84,3 +84,29 @@
 - 共用 I/O 只做粗略模擬，**尚未實作**；全部檢查能否在同一行程安全共跑（不互相污染）只在「結束碼一致」層級驗證。
 - 快取預設在本機 pre-commit 路徑是否開啟，是 Consumer B 既有政策，本試點未更動。
 - 單一機器、單一時段的量測。
+
+## 合併狀態查證（2026-11-24）
+
+起因：使用者指出試點其實已經合併，只是當天早上 push 被擋下，要求查證有沒有殘留紀錄，並仲裁上面「尚未合併」的描述。方式：唯讀檢查 Consumer B 的 git 歷史、reflog 和 verify 快取，沒有修改 Consumer B 的任何檔案。repo 名稱和 SHA 不寫在這裡（去敏規則）。
+
+**時間線**（Consumer B 本地時間）
+
+| 時間 | 事件 | 依據 |
+| --- | --- | --- |
+| 11-23 21:54 | 試點 commit 建立（不在這份 clone 的 reflog 裡，所以是在別的工作區或機器做的），並推到上游主幹 | commit 是上游主幹的祖先 |
+| 11-24 08:39 | 本地有新 commit，push 沒有成功 | reflog |
+| 08:41 | 本地 rebase 到上游主幹，試點檔案這時才寫進這份工作區 | reflog；試點檔案的 mtime 都是 08:41:40 |
+| 08:43、08:52 | **試點的 runner 實際執行了**：10 個固定樣本快取紀錄寫入。依試點設計，失敗不寫快取，所以這些固定樣本都通過了 | verify 快取的 `recordedAt` |
+| 08:47 | 修正 async-cancellation ratchet：其他功能 commit 帶進兩個新 finding | commit 訊息。async-cancellation 是試點接管的 7 個閘之一，由試點的宣告式清單執行 |
+| 09:00 | 修正一個只在高負載 pre-push 時才失敗的測試（SQLite 連線競爭） | commit 訊息寫明是在 pre-push 時看到的 |
+| 09:15 之後 | 本地 HEAD 和上游主幹一致，push 成功 | `main...upstream` 沒有 ahead/behind |
+
+**仲裁**
+
+| 問題 | 判定 | 說明 |
+| --- | --- | --- |
+| 試點有沒有合併 | **已合併**（verified） | 試點 commit 是上游主幹的祖先。19 個試點檔案在那之後沒有被修改，也沒有被 revert |
+| 早上被擋，是不是試點本身有問題 | **不是** | 擋下 push 的是兩個真實問題：async-cancellation ratchet 抓到其他功能帶進來的 debt，以及一個不穩定的測試。兩個都是由閘發現、修正 source 後解除，試點沒有被退回。被擋反而說明試點在正式的 pre-push 路徑上執行並發揮了作用 |
+| 早上被擋的確切原因 | **推論**（observed） | push 失敗本身不留紀錄。上面的原因是從 commit 訊息、快取時間和 reflog 推回來的，沒有原始的 hook 輸出 |
+
+**對 Phase 4 的影響**：Phase 4 待裁決的事項（「該試點是否算 Q11 的收斂案例」）原本有三個疑點，其中「尚未合併」已經**否證**。剩下兩點維持原狀，由 Phase 4 裁決：(1) 這是 Consumer B 自己的決策，不是本計畫的套用；(2) 只套用了 Role 分層（Entry / Logic / Parameters）和「先找再建」（沿用既有的 attestation 快取），不是整份契約。
