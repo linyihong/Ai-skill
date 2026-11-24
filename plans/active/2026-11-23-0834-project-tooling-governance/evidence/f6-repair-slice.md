@@ -57,4 +57,15 @@ T1 有兩個執行點，守的是同一個不變式（Phase 3 已記錄為 G6 �
 | V1 | **可攜規則包的行為改變**：外部專案的 adapter 若提供了 `CapStagedContent`，而且 `FileContents` 含新增檔案，但沒有設定 `HookAdapterDirs`，那麼它們新增的 hook adapter 會開始被擋。依 F2 審閱對 S2 的裁決，可攜層的影響要先盤點外部使用方式；本切片在 Ai-skill 內做了降級設計（沒有內容就不偵測），外部影響併入 S2 的唯讀盤點 |
 | V2 | T1 的另一個執行點：`runtime validate` 的 `nativeToolBootstrapShellCLIDecisionValidation` 檢查既有腳本有沒有 Go 遷移決策，但**只看 `.sh`**，連 pre-commit 的 12 種副檔名都沒有涵蓋，也不看 shebang。這和 §1 是同一種「同一不變式、多份 forbidden」的問題，但守的是既有檔案（Phase 3 記錄的觸發點不同）。目前既有的 shebang 檔案只有 hook adapter 和 forwarder（§3）；有沒有既有的 `.py`、`.js` 等檔案缺少遷移決策，尚未盤點。本切片不處理 |
 
+## 5. 審閱裁決（2026-11-24）
+
+| # | 項目 | 裁決 |
+| --- | --- | --- |
+| A1 | F6 修正內容 | **通過**。四點都確認：降級設計（`CapStagedContent` 不列為 required）、豁免範圍（直接子項目，只豁免 shebang 偵測）、replay 和 pre-commit 共用同一條規則、測試強度（違規與合法樣本、降級、執行點一致性、X1–X3）。F6 不再擴大修復範圍 |
+| A2 | 兩段 bin 流程 | 符合預期：`0fb5618c` 是 source 加完整 bin；`c4da45aa` 只含 bin，`BUILDINFO` 指向 source commit |
+| A3 | V1 | 維持在 S2 的唯讀盤點範圍，暫不修復 |
+| A4 | V2 | 維持觀察。**F6 統一 pre-commit 和 replay，不代表 T1 所有執行點都已統一**：`runtime validate` 是另一個 consumer，需要獨立的證據和裁決 |
+| A5 | `f3fc5b30` 隨 F6 一起推送 | 審閱者判斷內容合理、可以保留（IL2CPP field-read lesson 和 failure pattern 都維持 candidate，沒有提前 promotion），但推送意圖要由使用者確認。使用者已在 2026-11-24 對話中確認：「f3fc5b30 是我的，沒問題」。保留在 main，不回退。內容品質和推送授權分開判斷 |
+| A6 | Phase 4 | 不開放。F6 完成不代表 Phase 4 自動獲准 |
+
 ← [Evidence index](README.md)
