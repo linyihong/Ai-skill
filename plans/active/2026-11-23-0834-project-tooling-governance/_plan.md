@@ -10,7 +10,7 @@ parent: null
 
 # Project Tooling Governance（專案工具治理）
 
-**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；**Phase 2 完成**；Q12 已裁決並寫回契約（2026-11-23）；第一次契約一致性審閱（2026-11-23）：Q12 寫回與正式契約 PASS，設計大綱 Lifecycle/Q8/Q9 與 Phase 3 Acceptance 已同步；**Phase 3 已開放**（2026-11-23 使用者決定）；**Phase 3 已關閉**（2026-11-23 使用者裁決）：S1 套用與審查完成，驗證缺口已移交 F1、F2、F6（見 evidence/phase3-application.md §5）。**F1 修復切片已完成**（2026-11-23，見 evidence/f1-repair-slice.md），F4 一併處理。**F2 修復切片已完成**（2026-11-24，見 evidence/f2-repair-slice.md）。下一步 Phase 4 尚未開放。
+**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；**Phase 2 完成**；Q12 已裁決並寫回契約（2026-11-23）；第一次契約一致性審閱（2026-11-23）：Q12 寫回與正式契約 PASS，設計大綱 Lifecycle/Q8/Q9 與 Phase 3 Acceptance 已同步；**Phase 3 已開放**（2026-11-23 使用者決定）；**Phase 3 已關閉**（2026-11-23 使用者裁決）：S1 套用與審查完成，驗證缺口已移交 F1、F2、F6（見 evidence/phase3-application.md §5）。**F1 修復切片已完成**（2026-11-23，見 evidence/f1-repair-slice.md），F4 一併處理。**F2 修復切片已完成**（2026-11-24，見 evidence/f2-repair-slice.md）。**F6 修復切片已完成**（2026-11-24，見 evidence/f6-repair-slice.md）。下一步 Phase 4 尚未開放。
 
 **本 plan 是唯一的執行狀態來源。** 契約設計大綱見 [`01-design-contracts.md`](01-design-contracts.md)（不記狀態）。
 
@@ -289,6 +289,19 @@ T3（CLI 命令與 command-contract 同步）原本是 diff 文字比對，漏�
 - [x] source commit 與 bin-only commit 依兩段流程提交並推送
 
 結果：[`evidence/f2-repair-slice.md`](evidence/f2-repair-slice.md)。T3 的頂層 `case` 缺口與 fixture 誤報從結構上消除，`cmd/` 缺口通過，`portable/` 不適用；另找到並修正 9 個沒有寫進 contract 的子命令。T-B4、T-B5 在 Ai-skill 找到第二個來源，列為 Phase 4 候選；契約本文未修改。**審閱裁決（2026-11-24）**：兩個來源只是佐證，不等於達到升級門檻；舊 diff 提醒的移除條件加上「必須有執行紀錄」；S1（severity 欄位只宣告、不執行）列為獨立問題；S2 先唯讀盤點外部使用方式，再決定是否 deprecated。見 evidence §7。
+
+## F6 修復切片（Phase 3 後續，2026-11-24 使用者開放）
+
+T1（no-new-shell-scripts）原本只比對副檔名，抓不到沒有副檔名的 shebang 腳本。盤點時另外發現 pre-push replay 只比對 `.sh`，和 pre-commit 的 12 種副檔名不一致，屬同一把鎖的同一類缺陷，一併修正。
+
+- [x] portable rule 加上內容偵測（`#!` 開頭）；沒有內容 capability 時降級為只比對副檔名
+- [x] hook adapter 豁免改依 `core.hooksPath` 判斷，不列舉檔名；只豁免內容偵測，且只限直接子項目
+- [x] pre-commit 與 pre-push replay 共用同一個 context builder 和同一條規則
+- [x] 雙向樣本、降級與一致性測試；X1–X3 突變驗證
+- [x] registry 與 `cli-modification-policy.yaml` 同步
+- [x] source commit 與 bin-only commit 依兩段流程提交並推送
+
+結果：[`evidence/f6-repair-slice.md`](evidence/f6-repair-slice.md)。T1 的 shebang 缺口改為通過，replay 的 forbidden 範圍與 pre-commit 一致。觀察 V1（可攜規則包的行為改變，併入 S2 盤點）、V2（`runtime validate` 的既有腳本檢查只看 `.sh`）只記錄。
 
 ## Phase 4 — 證據裁決與升級決策
 

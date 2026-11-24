@@ -85,6 +85,7 @@ type Context struct {
 	Modes                 map[string]string // cognitive modes if parsed
 	StagedPaths           []string
 	AddedPaths            []string                   // CapAddedPaths: newly added paths (diff-filter=A)
+	HookAdapterDirs       []string                   // repo-relative git hooks dirs (e.g. core.hooksPath); shebang files directly inside are hook adapters
 	StagedDiff            string                     // empty = not supplied (may fail rules that require CapStagedDiff)
 	PathDiffs             map[string]string          // CapStagedDiff: optional path → unified diff (per-file)
 	FileContents          map[string]string          // path → content when CapStagedContent provided

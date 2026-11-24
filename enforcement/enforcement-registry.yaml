@@ -1027,14 +1027,20 @@ rule_classes:
         executor_kind: hook_dispatcher_entry  # called via runPreCommitHook
         hook_phase: pre-commit
         block_or_warn: block
+        notes: "F6 (2026-11-24): extension + shebang content detection; shebang files directly inside core.hooksPath are hook adapters"
     rationale: |
-      Prevents introduction of ad-hoc non-Go script entrypoints (.sh/.py/.rb/.js/…)
-      that bypass the Go CLI surface. Pre-commit phase blocks Added paths before
-      commit forms; modifications to existing files (migration window) are allowed.
+      Prevents introduction of ad-hoc non-Go script entrypoints (.sh/.py/.rb/.js/…,
+      and since F6 any added file starting with a shebang) that bypass the Go CLI
+      surface. Pre-commit phase blocks Added paths before commit forms;
+      modifications to existing files (migration window) are allowed. The
+      pre-push replay (validatePushGovernanceReplay, enforcement_self_governance)
+      runs the same portable rule through the same context builder, so both
+      execution points share one forbidden set (before F6 the replay matched
+      only .sh).
     verification_status:
       symbol_exists: ✓
       scenario_exists: pending
-      regression_exists: pending
+      regression_exists: ✓
       runtime_observed: pending
 
   - id: author_email_allowlist

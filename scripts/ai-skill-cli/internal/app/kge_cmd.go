@@ -203,6 +203,7 @@ func buildKGEWorkspaceContext(root string, allFeedback bool) (kge.Context, error
 		CommitMsg:             "",
 		StagedPaths:           staged,
 		AddedPaths:            added,
+		HookAdapterDirs:       gitHookAdapterDirs(root),
 		StagedDiff:            diff,
 		FileContents:          contents,
 		ExistingPaths:         existing,

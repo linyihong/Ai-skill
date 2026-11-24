@@ -941,3 +941,59 @@ func TestPlanArchivalLinkIntegrityRule(t *testing.T) {
 		t.Fatalf("want opt-out pass, got %#v", got)
 	}
 }
+
+// TestNoNewShellScriptsRule_Shebang covers content detection (F6): both
+// directions plus the core.hooksPath adapter exemption and the
+// no-content degrade path.
+func TestNoNewShellScriptsRule_Shebang(t *testing.T) {
+	eng := NewEngine(NoNewShellScriptsRule{})
+	base := func(added []string, contents map[string]string, hookDirs []string, withContent bool) Context {
+		p := map[CapabilityID]bool{CapCommitMsg: true, CapAddedPaths: true}
+		if withContent {
+			p[CapStagedContent] = true
+		}
+		return Context{CommitMsg: "feat: x", AddedPaths: added, FileContents: contents, HookAdapterDirs: hookDirs, Provided: p}
+	}
+	// Violations: extensionless shebang scripts anywhere outside the hooks dir.
+	for _, tc := range []struct{ path, body string }{
+		{"scripts/deploy", "#!/usr/bin/env bash\necho hi\n"},
+		{"tools/gen", "#!/usr/bin/python3\nprint(1)\n"},
+		{".githooks/sub/helper", "#!/bin/sh\n"},  // nested: git does not run it as a hook
+		{".githooksx/pre-commit", "#!/bin/sh\n"}, // prefix look-alike, not the hooks dir
+	} {
+		got := eng.Run(base([]string{tc.path}, map[string]string{tc.path: tc.body}, []string{".githooks"}, true))
+		if len(got) != 1 || got[0].Code != "no_new_non_go_scripts" || !strings.Contains(got[0].Message, tc.path+" (shebang)") {
+			t.Fatalf("%s: want shebang block, got %#v", tc.path, got)
+		}
+	}
+	// Legal look-alikes: hook adapter, non-shebang extensionless files,
+	// markdown heading, Go source.
+	ok := map[string]string{
+		".githooks/pre-commit": "#!/bin/sh\nexec ai-skill hooks run pre-commit\n",
+		"Makefile":             "all:\n\tgo build ./...\n",
+		"LICENSE":              "MIT License\n",
+		"docs/x.md":            "# Title\n",
+		"cmd/x/main.go":        "package main\n",
+	}
+	var paths []string
+	for p := range ok {
+		paths = append(paths, p)
+	}
+	if got := eng.Run(base(paths, ok, []string{".githooks/"}, true)); len(got) != 0 {
+		t.Fatalf("want legal look-alikes to pass, got %#v", got)
+	}
+	// Hooks-dir exemption never covers extension matches.
+	if got := eng.Run(base([]string{".githooks/helper.sh"}, map[string]string{".githooks/helper.sh": "#!/bin/sh\n"}, []string{".githooks"}, true)); len(got) != 1 {
+		t.Fatalf("want .sh in hooks dir still blocked, got %#v", got)
+	}
+	// No content capability: degrades to the extension check (no shebang finding).
+	if got := eng.Run(base([]string{"scripts/deploy"}, map[string]string{"scripts/deploy": "#!/bin/sh\n"}, nil, false)); len(got) != 0 {
+		t.Fatalf("want no shebang finding without CapStagedContent, got %#v", got)
+	}
+	// Opt-out still applies.
+	c := base([]string{"scripts/deploy"}, map[string]string{"scripts/deploy": "#!/bin/sh\n"}, nil, true)
+	c.CommitMsg = "feat: x\n\n[skip-go-migration]\n"
+	if got := eng.Run(c); len(got) != 0 {
+		t.Fatalf("want opt-out pass, got %#v", got)
+	}
+}

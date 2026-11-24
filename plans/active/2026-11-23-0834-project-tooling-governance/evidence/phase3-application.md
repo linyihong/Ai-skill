@@ -110,7 +110,7 @@ allowlist 是一份持續存在、要逐步清空的清單；skip 是單次的�
 | F3 | KGE 呼叫鏈與 registry 命名（O2） | 結構，依切片延後 |
 | F4 | **已完成（隨 F1）**。修正 `cli-modification-policy.yaml` 的 bin 重建說明。**跟下一次 Go source 修改一起處理**，讓 canonical policy 和已確認的兩個 commit 流程一致 | 文件 drift（runtime YAML） |
 | F5 | 移除或對齊 `hookAdapterContent`（O8） | 死碼 / drift |
-| F6 | T1 的 forbidden 補上無副檔名的 shebang 腳本 | 鎖缺口（G3 型） |
+| F6 | **已完成（2026-11-24，見 [`f6-repair-slice.md`](f6-repair-slice.md)）**。T1 的 forbidden 補上無副檔名的 shebang 腳本 | 鎖缺口（G3 型） |
 | F7 | 審查產品不變式鎖（§6） | 後續 phase 或 plan |
 | F8 | 低優先：plan-evidence 的行號引用警告會把 finding ID（例：`L1`）誤判成行號。補對照樣本：真正的行號引用要提醒，finding ID 不能誤報 | 鎖誤報（advisory） |
 

@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os/exec"
 	"strings"
+
+	"github.com/linyihong/Ai-skill/scripts/ai-skill-cli/portable/kge"
 )
 
 const pushGovernanceReplayRemediation = `One or more commits being pushed likely bypassed local hook validation (e.g. git commit --no-verify).
@@ -42,7 +44,7 @@ func validatePushGovernanceReplay(root string) (string, []Check) {
 		if err != nil {
 			return "push-governance-replay: could not list added files for " + shortSHA(sha) + ": " + err.Error(), checks
 		}
-		if msg := validateNewShellScriptsInCommit(text, added); msg != "" {
+		if msg := validateNewShellScriptsInCommit(root, sha, text, added); msg != "" {
 			return fmt.Sprintf("push-governance-replay (pre-commit shell policy, %s):\n%s", shortSHA(sha), msg), checks
 		}
 		if cmdErr := validateCommitMessageGovernance(root, text, files); cmdErr != nil {
@@ -90,23 +92,11 @@ func filesAddedInCommit(root, sha string) ([]string, error) {
 	return gitLines(root, "diff-tree", "--no-commit-id", "--diff-filter=A", "--name-only", "-r", sha)
 }
 
-func validateNewShellScriptsInCommit(text string, added []string) string {
-	for _, line := range strings.Split(text, "\n") {
-		if strings.TrimSpace(line) == "[skip-go-migration]" {
-			return ""
-		}
-	}
-	var shells []string
-	for _, f := range added {
-		if strings.HasSuffix(f, ".sh") {
-			shells = append(shells, f)
-		}
-	}
-	if len(shells) == 0 {
-		return ""
-	}
-	return "new shell script(s): " + strings.Join(shells, ", ") +
-		" — cross-platform policy requires Go implementation instead of .sh"
+// validateNewShellScriptsInCommit replays the pre-commit Go-first gate for
+// one pushed commit using the same portable rule and context builder, so the
+// replay and pre-commit share one forbidden set (extensions + shebang).
+func validateNewShellScriptsInCommit(root, sha, text string, added []string) string {
+	return kgeFindingsMessage(kge.NewEngine(kge.NoNewShellScriptsRule{}).Run(noNewScriptsContext(root, sha, text, added)))
 }
 
 func shortSHA(sha string) string {

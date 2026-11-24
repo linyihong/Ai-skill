@@ -109,7 +109,10 @@ cli_specific_gates:
   - id: gate.cli.no_new_shell_scripts
     description: |
       New non-Go script entrypoints are forbidden (.sh/.bash/.zsh/.py/.rb/.pl/
-      .ps1/.js/.mjs/.cjs/.ts). Per Go-first automation policy
+      .ps1/.js/.mjs/.cjs/.ts, and any added file whose content starts with a
+      shebang "#!", whatever its name). Shebang files directly inside the
+      repository's core.hooksPath are git hook adapters and allowed (the
+      exemption never covers extension matches). Per Go-first automation policy
       (scripts/README.md, plans/archived/2026-05-21-0834-cross-platform-go-script-runtime.md),
       repository automation MUST be implemented in the Go CLI
       (scripts/ai-skill-cli/internal/app/…). Documentation (.md) and config
@@ -123,7 +126,8 @@ cli_specific_gates:
       Go migration plan in the commit message.
     detection_signals:
       - git diff --cached --diff-filter=A --name-only (ext in ForbiddenNonGoScriptExts)
-    enforcement_layer: pre_commit_hook
+      - staged blob of each added path starts with "#!" (outside core.hooksPath)
+    enforcement_layer: pre_commit_hook + pre_push_hook (governance replay, same rule)
     validator: validateNoNewShellScripts
     severity: block
     opt_out_marker: "[skip-go-migration]"

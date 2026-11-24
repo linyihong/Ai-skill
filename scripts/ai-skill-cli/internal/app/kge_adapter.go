@@ -415,22 +415,65 @@ func runKGEPlanArchivalAudit(text string, staged []string, root string) string {
 	return kgeFindingsMessage(eng.Run(ctx))
 }
 
-// runKGENoNewShellScripts adapts git Added paths for the portable rule.
+// runKGENoNewShellScripts adapts git Added paths (and their staged content
+// heads, for shebang detection) for the portable rule.
 func runKGENoNewShellScripts(text string, root string) string {
 	added, err := gitLines(root, "diff", "--cached", "--diff-filter=A", "--name-only")
 	if err != nil {
 		return "" // fail-open: don't block on git error
 	}
-	ctx := kge.Context{
-		CommitMsg:  text,
-		AddedPaths: added,
+	return kgeFindingsMessage(kge.NewEngine(kge.NoNewShellScriptsRule{}).Run(noNewScriptsContext(root, "", text, added)))
+}
+
+// noNewScriptsContext builds the NoNewShellScriptsRule context for added
+// paths read from rev ("" = the index, otherwise a commit). Shared by the
+// pre-commit gate and the pre-push replay so both execution points apply
+// the same forbidden set.
+func noNewScriptsContext(root, rev, text string, added []string) kge.Context {
+	return kge.Context{
+		CommitMsg:       text,
+		AddedPaths:      added,
+		FileContents:    blobHeads(root, rev, added),
+		HookAdapterDirs: gitHookAdapterDirs(root),
 		Provided: map[kge.CapabilityID]bool{
-			kge.CapCommitMsg:  true,
-			kge.CapAddedPaths: true,
+			kge.CapCommitMsg:     true,
+			kge.CapAddedPaths:    true,
+			kge.CapStagedContent: true,
 		},
 	}
-	eng := kge.NewEngine(kge.NoNewShellScriptsRule{})
-	return kgeFindingsMessage(eng.Run(ctx))
+}
+
+// blobHeadBytes bounds how much of each added blob is kept: shebang
+// detection only needs the first line.
+const blobHeadBytes = 256
+
+// blobHeads returns the first bytes of each path's blob at rev ("" = index).
+// Paths that cannot be read are omitted (the rule then falls back to the
+// extension check for them).
+func blobHeads(root, rev string, paths []string) map[string]string {
+	out := map[string]string{}
+	for _, p := range paths {
+		data, err := exec.Command("git", "-C", root, "cat-file", "-p", rev+":"+p).Output()
+		if err != nil {
+			continue
+		}
+		if len(data) > blobHeadBytes {
+			data = data[:blobHeadBytes]
+		}
+		out[p] = string(data)
+	}
+	return out
+}
+
+// gitHookAdapterDirs returns the repository's configured git hooks
+// directory (core.hooksPath), where thin hook adapter shells live. Empty
+// when unset: the default .git/hooks is not tracked, so nothing is exempt.
+func gitHookAdapterDirs(root string) []string {
+	lines, err := gitLines(root, "config", "--get", "core.hooksPath")
+	if err != nil || len(lines) == 0 || strings.TrimSpace(lines[0]) == "" {
+		return nil
+	}
+	return []string{strings.TrimSpace(lines[0])}
 }
 
 // runKGERuntimeTriggerWiring loads PathDiffs + discovery/Go corpus + routing-registry body.
