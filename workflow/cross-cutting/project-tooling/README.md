@@ -4,7 +4,7 @@ AI 在專案裡為了完成當下任務，很容易順手寫出新的腳本、�
 
 > **狀態**：`pilot`（reference contract）。定義**語意與判定**，不定義目錄名或語言；各專案用自己的結構實作，再連回本檔。
 > **不是**必跑 stage、**不**註冊 `route.*`、**不**加 validator、**不**提供共用 runner。
-> 來源計畫與證據：[`plans/active/2026-11-23-0834-project-tooling-governance/`](../../../plans/active/2026-11-23-0834-project-tooling-governance/_plan.md)（[`evidence/phase0-baseline.md`](../../../plans/active/2026-11-23-0834-project-tooling-governance/evidence/phase0-baseline.md)）。
+> 來源計畫與證據：[`plans/archived/2026-11-23-0834-project-tooling-governance/`](../../../plans/archived/2026-11-23-0834-project-tooling-governance/_plan.md)（[`evidence/phase0-baseline.md`](../../../plans/archived/2026-11-23-0834-project-tooling-governance/evidence/phase0-baseline.md)）。
 
 ## 設計目標
 
@@ -55,6 +55,12 @@ AI 在專案裡為了完成當下任務，很容易順手寫出新的腳本、�
 
 ## 收錄門檻與升級
 
-比照本目錄其他 pattern：需 **≥3 個收斂案例**才考慮升級為 stage、route、validator 或共用 runner。目前：2 個外部 consumer 做**唯讀評估**（不修改其 repo）＋ Ai-skill 自身工具樹做**實際套用**；唯讀評估是否計入門檻由來源計畫 Phase 4 裁決。
+比照本目錄其他 pattern：需 **≥3 個收斂案例**才考慮升級為 stage、route、validator 或共用 runner。
+
+**計數規則**（來源計畫 Phase 4 裁決 Q11，2026-11-24）：只算**實際套用**；consumer 自己決定做、但符合本契約 invariant 的改動也算；同一個 consumer 只算一次。唯讀評估不算，它只證明契約判斷得出來，不證明照契約改得動。每個案例要標出涵蓋了哪幾份契約。
+
+**目前 3／3**：Ai-skill 自身工具樹、Consumer B（單一 CLI 入口試點）、Consumer A（暫存檔登記框架，以及依本契約推導的入口與鎖修改）。**3／3 不等於整份契約都收斂**：Ownership 在外部採用度為 0，Lifecycle 的機械清理邊界只有一例而且不完全符合，這兩項在外部仍算未收斂。
+
+**升級決策**（Phase 4）：共用 runner（Q5）、discovery 機械化（Q7）、runtime 接入**都維持 deferred**，本 pattern 保持 doc-only pilot。要接入時另開 plan 並附 Per-surface consumer 表；graduation deadline 2027-02-28。
 
 ← [Back to cross-cutting index](../README.md)

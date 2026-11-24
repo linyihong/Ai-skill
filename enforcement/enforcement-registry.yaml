@@ -1242,7 +1242,7 @@ rule_classes:
       --no-verify) and the KGE check. These executors were already live in
       the hook pipeline but unbound; surfaced by the hook-call coverage
       added to lintOrphanExecutors (F1 of
-      plans/active/2026-11-23-0834-project-tooling-governance). Created
+      plans/archived/2026-11-23-0834-project-tooling-governance). Created
       as one class by user ruling 2026-11-23 rather than forcing each
       executor into a loosely related existing class.
     verification_status:

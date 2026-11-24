@@ -21,7 +21,7 @@
 - 程式碼完全不同，但承擔相同責任，可能就是同概念。
 - 只有產出物相同、責任不同（例：同一批資產的擷取、去背、匯出、同步各是 pipeline 的一段），是**不同概念**。
 
-此準則在兩個 consumer 的 5 個工具群試判中都判得出來，見來源計畫 [`evidence/phase0-baseline.md`](../../../plans/active/2026-11-23-0834-project-tooling-governance/evidence/phase0-baseline.md) §Concept 試判。
+此準則在兩個 consumer 的 5 個工具群試判中都判得出來，見來源計畫 [`evidence/phase0-baseline.md`](../../../plans/archived/2026-11-23-0834-project-tooling-governance/evidence/phase0-baseline.md) §Concept 試判。
 
 ## Config-first ≠ Config-everything
 

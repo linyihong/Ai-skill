@@ -22,7 +22,7 @@ Concerns that span multiple delivery slices without becoming a new `software-del
 | Review (fault_finding consumer) | [`review/README.md`](review/README.md) | active — invoke + checklist; not stance contract owner |
 | Traceable Evidence | [`traceable-evidence/README.md`](traceable-evidence/README.md) | pilot — reference contract（非 stage）；TE1／TE2／TE4／TE5 各有 ≥3 個獨立 domain 實例，TE3 watch |
 | Decision Support Stage | [`decision-support/README.md`](decision-support/README.md) | pilot — generic contract + **2／3** converged cases (`legal/strategy/`、`investment/strategy/`) |
-| Project Tooling Governance | [`project-tooling/README.md`](project-tooling/README.md) | pilot — reference contract（非 stage）；AI 創造／保留／淘汰工具的行為：Role × Placement × Lifecycle State、先找再建、concept-first、鎖分類；**0／3** converged cases（2 個外部 consumer 唯讀評估 + Ai-skill 自家套用，進行中） |
+| Project Tooling Governance | [`project-tooling/README.md`](project-tooling/README.md) | pilot — reference contract（非 stage）；AI 創造／保留／淘汰工具的行為：Role × Placement × Lifecycle State、先找再建、concept-first、鎖分類；**3／3** converged cases（只計實際套用：Ai-skill、Consumer B、Consumer A；Ownership 與機械清理邊界在外部未收斂）；Q5／Q7／runtime 接入 deferred，維持 doc-only |
 
 ## Slice promotion policy
 

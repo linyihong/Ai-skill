@@ -1,7 +1,7 @@
 ---
 id: 2026-11-23-0834-project-tooling-governance
 plan_kind: main
-status: in-progress
+status: completed
 owner: workflow
 owner_layer: workflow
 created: 2026-11-23
@@ -10,7 +10,7 @@ parent: null
 
 # Project Tooling Governance（專案工具治理）
 
-**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；**Phase 2 完成**；Q12 已裁決並寫回契約（2026-11-23）；第一次契約一致性審閱（2026-11-23）：Q12 寫回與正式契約 PASS，設計大綱 Lifecycle/Q8/Q9 與 Phase 3 Acceptance 已同步；**Phase 3 已開放**（2026-11-23 使用者決定）；**Phase 3 已關閉**（2026-11-23 使用者裁決）：S1 套用與審查完成，驗證缺口已移交 F1、F2、F6（見 evidence/phase3-application.md §5）。**F1 修復切片已完成**（2026-11-23，見 evidence/f1-repair-slice.md），F4 一併處理。**F2 修復切片已完成**（2026-11-24，見 evidence/f2-repair-slice.md）。**F6 修復切片已完成**（2026-11-24，見 evidence/f6-repair-slice.md）。**S2 唯讀盤點已完成**（2026-11-24，見 evidence/s2-portable-kge-survey.md）：本機範圍內沒有外部專案使用 `portable/kge`；是否 deprecated 待裁決。**第三個案例候選**（2026-11-24，見 evidence/consumer-a-temp-registry.md）：Consumer A 自己的暫存檔登記框架，已唯讀評估；R1–R4 已由 Consumer A 的 agent 依 brief 修改，重新檢查通過（evidence §7；鎖不在版控內、R1 沒在真機驗證）。下一步 Phase 4 尚未開放。
+**Status**: completed（2026-11-24）— **Phase 4 已裁決並結案**：Q11 只計實際套用（3／3，Ownership 與機械清理邊界在外部未收斂）；契約加入 T-B4、T-B5+C5、C6；Q5／Q7／runtime 接入維持 deferred，doc-only pilot；遺留的 Ai-skill 自身治理項目移到後續計畫。見 evidence/phase4-decision-package.md。歷程：Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；**Phase 2 完成**；Q12 已裁決並寫回契約（2026-11-23）；第一次契約一致性審閱（2026-11-23）：Q12 寫回與正式契約 PASS，設計大綱 Lifecycle/Q8/Q9 與 Phase 3 Acceptance 已同步；**Phase 3 已開放**（2026-11-23 使用者決定）；**Phase 3 已關閉**（2026-11-23 使用者裁決）：S1 套用與審查完成，驗證缺口已移交 F1、F2、F6（見 evidence/phase3-application.md §5）。**F1 修復切片已完成**（2026-11-23，見 evidence/f1-repair-slice.md），F4 一併處理。**F2 修復切片已完成**（2026-11-24，見 evidence/f2-repair-slice.md）。**F6 修復切片已完成**（2026-11-24，見 evidence/f6-repair-slice.md）。**S2 唯讀盤點已完成**（2026-11-24，見 evidence/s2-portable-kge-survey.md）：本機範圍內沒有外部專案使用 `portable/kge`；是否 deprecated 待裁決。**第三個案例候選**（2026-11-24，見 evidence/consumer-a-temp-registry.md）：Consumer A 自己的暫存檔登記框架，已唯讀評估；R1–R4 已由 Consumer A 的 agent 依 brief 修改，重新檢查通過（evidence §7；鎖不在版控內、R1 沒在真機驗證）。下一步 Phase 4 尚未開放。
 
 **本 plan 是唯一的執行狀態來源。** 契約設計大綱見 [`01-design-contracts.md`](01-design-contracts.md)（不記狀態）。
 
@@ -81,6 +81,9 @@ parent: null
 
 ### ADR Promotion Criteria（completed 時驗證）
 
+**結案時驗證（2026-11-24）：不升 ADR。** Open Questions 未全解（Q5、Q7 deferred）；Ownership 與機械清理邊界在外部未收斂；仍有更輕的 promotion target（doc-only pilot）適用。下列條件保留為未勾選。
+
+
 - [ ] foundational + cross-session + cross-project + expensive-to-reverse + explains-why 全中
 - [ ] 兩個 consumer 唯讀評估與 Ai-skill 自家套用皆證實 contract 可行，且未需修改 invariant 核心
 - [ ] Open Questions 全解
@@ -128,7 +131,7 @@ parent: null
 - [x] **Q8 Scratch 位置與清理責任** — **accepted (2026-11-23, user)**：不進版控固定目錄或 session 暫存區、不得在正式工具樹；建立者於 close-out 清理；**無法清理時回報殘留路徑、原因、後續處理**；有保留價值轉 Research，否則刪除。見 [`lifecycle-contract.md`](../../../workflow/cross-cutting/project-tooling/lifecycle-contract.md) §Scratch 位置與清理責任。
 - [x] **Q9 Ownership** — **accepted (2026-11-23, user)**（依審閱修訂後通過）：單一記錄點 = catalog `owner` 欄、可為團隊 / 角色、不建 registry（保留）；**刪除「無 owner 視為 experimental 或 deprecated」**——owner 缺失是治理資訊不完整，不改變 state：maintained + 無 owner = ownership violation 須補 owner；experimental + 無 owner 可接受但須 TTL 與目的；deprecated 不要求維護 owner 但須退役處理責任方；改 deprecated 須由 Selection 明確決定。見 [`lifecycle-contract.md`](../../../workflow/cross-cutting/project-tooling/lifecycle-contract.md) §Ownership。
 - [x] **Q10 Layer / Placement 分離** — **decided (2026-11-23, user)**：三個維度正式分離、不得互相取代或混用——(1) **Internal Role**：Entry / Logic / Parameters；(2) **Placement**：Scratch / Research / Target / Domain / Shared；(3) **Lifecycle State**：temporary / experimental / maintained / deprecated。附帶規則：Placement 不決定 Role（任一 placement 都可有三種角色，但不要求同時具備）；Entry 維持薄入口（只解析參數、取得必要設定、呼叫 Logic、傳遞結果與結束狀態）；Parameters 不得成為邏輯藏身處。Phase 1 正式定義違規判定與跨語言適用原則。
-- [ ] **Q11 唯讀評估是否計入三案例門檻**（2026-11-23 範圍修訂後新增）：consumer 只做唯讀評估，證明的是「契約能判斷」，不是「照契約改得動」。Phase 4 裁決它們算不算收斂案例；Ai-skill 自家套用算一個實際套用案例。
+- [x] **Q11 唯讀評估是否計入三案例門檻** — **decided (2026-11-24, user, Phase 4)**：只算實際套用；consumer 自己決定做、符合 invariant 的也算；同一 consumer 只算一次；唯讀評估不算。結果 3／3（Ai-skill、Consumer B、Consumer A），每案標明涵蓋的契約。原題：（2026-11-23 範圍修訂後新增）：consumer 只做唯讀評估，證明的是「契約能判斷」，不是「照契約改得動」。Phase 4 裁決它們算不算收斂案例；Ai-skill 自家套用算一個實際套用案例。
 - [x] **Q12 Phase 2 契約缺口裁決** — **decided (2026-11-23, user)**，已寫回契約：
   - G1 **Accept**：新增 safety 族（[`lock-taxonomy.md`](../../../workflow/cross-cutting/project-tooling/lock-taxonomy.md)）
   - G2 **Accept**：工具治理鎖與產品不變式鎖分開登記與計數；兩者皆適用 Review Rule
@@ -159,12 +162,12 @@ parent: null
 | Open Question | 處置 | 證據 / 原因 |
 |---|---|---|
 | Q1、Q2、Q3、Q4、Q6 | decided（2026-11-23） | 使用者決定；Q6 於 Plan Preparation 執行 |
-| Q5、Q7 | deferred | Phase 4 再評估 |
+| Q5、Q7 | deferred（Phase 4 再確認，2026-11-24） | 沒有共用 runner 與 discovery 機械化的需求證據 |
 | Q2a | resolved | Phase 0 concept 試判（evidence/phase0-baseline.md） |
 | Q2b、Q2c、Q8 | accepted（2026-11-23, user） | 補充約束已寫入 lifecycle-contract |
 | Q9 | accepted（2026-11-23, user） | owner 缺失不推導 state |
 | Q10（新增） | decided（2026-11-23, user） | 三維度分離，見 §Open Questions |
-| Q11（範圍修訂後新增） | still-open | Phase 4 裁決 |
+| Q11（範圍修訂後新增） | decided（2026-11-24, user, Phase 4） | 只算實際套用，3／3 |
 | Q12（Phase 2 新增） | decided（2026-11-23, user） | 已寫回契約 |
 
 ### Phase 0.1 — Baseline 量測（可重跑指令記在 project-local dogfood 檔）
@@ -307,13 +310,22 @@ T1（no-new-shell-scripts）原本只比對副檔名，抓不到沒有副檔名�
 
 ## Phase 4 — 證據裁決與升級決策
 
-- [ ] 對每條契約 invariant 標記：兩個 consumer 唯讀評估與 Ai-skill 自家套用是否都成立、是否需修改
-- [ ] 納入 [`evidence/consumer-b-cli-pilot.md`](evidence/consumer-b-cli-pilot.md)：觀察 T-B1（支持 Q5 維持 deferred）、T-B2（鎖執行成本，候選 Review Rule 增問，待第二個 consumer 證據）、T-B3–T-B5；並裁決該試點是否算 Q11 的收斂案例
-- [ ] 裁決 [`evidence/f2-repair-slice.md`](evidence/f2-repair-slice.md) §6 的契約候選：T-B4（result contract 須含修復動作，包含鎖自身無法執行時）、T-B5（列舉式 allowlist 反例）已有兩個來源；T-B2 是否在 Ai-skill 補量測；diff 文字比對型鎖的比對層級（單一來源，先觀察）
-- [ ] 裁決 Q11（唯讀評估是否計入三案例門檻）
-- [ ] 重新評估 Q5（共用 runner）、Q7（discovery 機械化）與 runtime 接入
-- [ ] 回寫契約；更新 `plans/README.md` 狀態
-- [ ] 執行 Plan Completion Closure
+- [x] 對每條契約 invariant 標記：兩個 consumer 唯讀評估與 Ai-skill 自家套用是否都成立、是否需修改
+- [x] 納入 [`evidence/consumer-b-cli-pilot.md`](evidence/consumer-b-cli-pilot.md)：觀察 T-B1（支持 Q5 維持 deferred）、T-B2（鎖執行成本，候選 Review Rule 增問，待第二個 consumer 證據）、T-B3–T-B5；並裁決該試點是否算 Q11 的收斂案例
+- [x] 裁決 [`evidence/f2-repair-slice.md`](evidence/f2-repair-slice.md) §6 的契約候選：T-B4（result contract 須含修復動作，包含鎖自身無法執行時）、T-B5（列舉式 allowlist 反例）已有兩個來源；T-B2 是否在 Ai-skill 補量測；diff 文字比對型鎖的比對層級（單一來源，先觀察）
+- [x] 裁決 Q11（唯讀評估是否計入三案例門檻）
+- [x] 重新評估 Q5（共用 runner）、Q7（discovery 機械化）與 runtime 接入
+- [x] 回寫契約；更新 `plans/README.md` 狀態
+- [x] 執行 Plan Completion Closure
+
+結果：[`evidence/phase4-decision-package.md`](evidence/phase4-decision-package.md)（2026-11-24，使用者裁決全部採用建議）。
+- **Invariant**：沒有任何 invariant 被推翻；Ownership（外部採用度 0）與機械清理邊界（只有一例且不完全符合）在外部未收斂。
+- **Q11**：只算實際套用，3／3。
+- **契約修改**：lock-taxonomy 加入 T-B4（失敗結果附修復動作，包含鎖自己無法執行）、T-B5+C5（allowlist 不逐一列舉，退場條件寫在例外旁）、C6（鎖的形狀加 `enforcement` 欄：版控內或只在本機）；project-tooling README 與 cross-cutting 索引更新計數規則和 3／3。
+- **Consumer B 試點**：算 Q11 的收斂案例（Consumer B）；T-B1 支持 Q5 deferred；T-B2 不在 Ai-skill 補量測，維持候選；T-B3 屬 consumer 決策。
+- **觀察維持**：比對層級、C1–C3、O4；C4 已寫成 feedback lesson；C7 屬專案定義。
+- **Q5／Q7／runtime 接入**：維持 deferred，doc-only pilot；graduation deadline 2027-02-28 不變。
+- **遺留項目**（R1、R2、S1、S2、V2、warnCLIDocSync 再評估）移到後續計畫 [`2026-11-24-1700-ai-skill-enforcement-followups`](../../active/2026-11-24-1700-ai-skill-enforcement-followups/_plan.md)（只建立，未開始）。
 
 ## Stakeholder 同意項目
 
@@ -341,8 +353,8 @@ T1（no-new-shell-scripts）原本只比對副檔名，抓不到沒有副檔名�
 
 ## 完成條件
 
-- [ ] Plan Preparation、Phase 0–4 完成條件全部成立
-- [ ] 兩個 consumer 唯讀評估 evidence（sanitized）與 Ai-skill 自家套用 evidence 已記錄，project-local 對應檔存在
-- [ ] Open Questions 全部 resolved / deferred（附原因）
-- [ ] Sanitization gate 通過；`git status` clean 且已 push
-- [ ] Plan Completion Closure 執行完畢
+- [x] Plan Preparation、Phase 0–4 完成條件全部成立
+- [x] 兩個 consumer 唯讀評估 evidence（sanitized）與 Ai-skill 自家套用 evidence 已記錄，project-local 對應檔存在
+- [x] Open Questions 全部 resolved / deferred（附原因）
+- [x] Sanitization gate 通過；`git status` clean 且已 push
+- [x] Plan Completion Closure 執行完畢
