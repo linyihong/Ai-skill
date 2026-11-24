@@ -1,4 +1,4 @@
-version=repo-f3fc5b30
-source_commit=f3fc5b30971268a1883aff27475e6fdd32a98b20
-built_at=2026-11-24T02:05:33Z
+version=repo-0fb5618c
+source_commit=0fb5618cae27631ef40e6c1783a9401ce028f932
+built_at=2026-11-24T02:05:56Z
 targets=windows/amd64,darwin/amd64,darwin/arm64,linux/amd64,linux/arm64
