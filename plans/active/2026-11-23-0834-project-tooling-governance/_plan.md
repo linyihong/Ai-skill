@@ -10,7 +10,7 @@ parent: null
 
 # Project Tooling Governance（專案工具治理）
 
-**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；**Phase 2 完成**；Q12 已裁決並寫回契約（2026-11-23）；第一次契約一致性審閱（2026-11-23）：Q12 寫回與正式契約 PASS，設計大綱 Lifecycle/Q8/Q9 與 Phase 3 Acceptance 已同步；**Phase 3 已開放**（2026-11-23 使用者決定）；**Phase 3 已關閉**（2026-11-23 使用者裁決）：S1 套用與審查完成，驗證缺口已移交 F1、F2、F6（見 evidence/phase3-application.md §5）。**F1 修復切片已完成**（2026-11-23，見 evidence/f1-repair-slice.md），F4 一併處理。**F2 修復切片已完成**（2026-11-24，見 evidence/f2-repair-slice.md）。**F6 修復切片已完成**（2026-11-24，見 evidence/f6-repair-slice.md）。下一步 Phase 4 尚未開放。
+**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；**Phase 2 完成**；Q12 已裁決並寫回契約（2026-11-23）；第一次契約一致性審閱（2026-11-23）：Q12 寫回與正式契約 PASS，設計大綱 Lifecycle/Q8/Q9 與 Phase 3 Acceptance 已同步；**Phase 3 已開放**（2026-11-23 使用者決定）；**Phase 3 已關閉**（2026-11-23 使用者裁決）：S1 套用與審查完成，驗證缺口已移交 F1、F2、F6（見 evidence/phase3-application.md §5）。**F1 修復切片已完成**（2026-11-23，見 evidence/f1-repair-slice.md），F4 一併處理。**F2 修復切片已完成**（2026-11-24，見 evidence/f2-repair-slice.md）。**F6 修復切片已完成**（2026-11-24，見 evidence/f6-repair-slice.md）。**S2 唯讀盤點已完成**（2026-11-24，見 evidence/s2-portable-kge-survey.md）：本機範圍內沒有外部專案使用 `portable/kge`；是否 deprecated 待裁決。下一步 Phase 4 尚未開放。
 
 **本 plan 是唯一的執行狀態來源。** 契約設計大綱見 [`01-design-contracts.md`](01-design-contracts.md)（不記狀態）。
 
@@ -302,6 +302,8 @@ T1（no-new-shell-scripts）原本只比對副檔名，抓不到沒有副檔名�
 - [x] source commit 與 bin-only commit 依兩段流程提交並推送
 
 結果：[`evidence/f6-repair-slice.md`](evidence/f6-repair-slice.md)。T1 的 shebang 缺口改為通過，replay 的 forbidden 範圍與 pre-commit 一致。觀察 V1（可攜規則包的行為改變，併入 S2 盤點）、V2（`runtime validate` 的既有腳本檢查只看 `.sh`）只記錄。
+
+**S2 唯讀盤點（2026-11-24）**：[`evidence/s2-portable-kge-survey.md`](evidence/s2-portable-kge-survey.md)。本機 88 個 repo 都沒有複製、import 或執行 `portable/kge`，所以 `CLIDocSyncRule` 的外部替代檢查問題不適用，V1 在盤點範圍內也沒有外部受影響者。狀態是 observed（本機），不是 verified。`CLIDocSyncRule` 要不要 deprecated 仍待使用者裁決；若要處理，`portable/kge/README.md` 的複製範例也要一起改。
 
 ## Phase 4 — 證據裁決與升級決策
 
