@@ -54,6 +54,7 @@
 - 付費媒體／playlist 授權分類（可播欄位存在與否，非 UI 旗標）載入 [`analysis/security/media-entitlement-control-plane.md`](../../analysis/security/media-entitlement-control-plane.md)；第一方修補走 `workflow/software-delivery/` 的 `security-audit`，不另開安全 workflow domain。
 - `intelligence/engineering/analytical-reasoning/` 提供從 APK 分析中萃取的工程智慧（啟發式、反模式、失敗模式），被本 workflow 引用。
 - `feedback/history/apk-analysis/` 儲存 APK 分析的具體課程記錄，可被提升至 intelligence 層。
+- 工具治理：開發或分析過程中要新增或修改腳本、探針、查詢、測試工具或檢查／hook 之前，先讀 [`../cross-cutting/project-tooling/`](../cross-cutting/project-tooling/README.md)（先找再建、Entry／Logic／Parameters、放置與生命週期、鎖分類）。這是 pilot 參考契約，不是 gate。
 - `skills/apk-analysis/` 是原始 skill 目錄，內容已全部遷移至本層，舊目錄已刪除。
 
 Unity／IL2CPP：先 [決策入口](../../analysis/unity/decision-workflow.md)；動畫／特效視覺缺口再載入 [驅動追蹤](../../analysis/unity/workflows/unity-fx-driver-trace.md)。先檢查 feature FX 與資料，再按證據升級；同 fixture 的事件與工作幀才支撐 driver 結論。

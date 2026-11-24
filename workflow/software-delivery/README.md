@@ -210,6 +210,7 @@ Checklist bodies：[`cross-cutting/review/checklist.md`](../cross-cutting/review
 - `governance/ai-runtime-governance/software-delivery-governance.md` 定義 requirements / behavior / contract delivery gates。
 - `governance/ai-runtime-governance/software-delivery-architecture-governance.md` 定義 software-delivery architecture governance gate，但不把 DDD promotion 成 runtime invariant。
 - `feedback/history/development-guidance/` 儲存開發指引的具體課程記錄。
+- 工具治理：開發或分析過程中要新增或修改腳本、探針、查詢、測試工具或檢查／hook 之前，先讀 [`../cross-cutting/project-tooling/`](../cross-cutting/project-tooling/README.md)（先找再建、Entry／Logic／Parameters、放置與生命週期、鎖分類）。這是 pilot 參考契約，不是 gate。
 - `skills/app-development-guidance/` 是原始 skill 目錄，已刪除。所有內容已遷移至本層。
 
 ## 遷移狀態

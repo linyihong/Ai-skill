@@ -25,6 +25,7 @@
 - `analysis/repo/README.md` 提供 repository 分析的具體方法（靜態結構分析、依賴分析、entrypoint 追蹤、技術債評估）。本 workflow 引用這些方法，但不複製方法細節。
 - `intelligence/engineering/architecture/` 可承接從 repo 分析中萃取的架構判斷。
 - `intelligence/engineering/domain/` 可承接從 repo 分析中萃取的領域模型理解。
+- 工具治理：開發或分析過程中要新增或修改腳本、探針、查詢、測試工具或檢查／hook 之前，先讀 [`../cross-cutting/project-tooling/`](../cross-cutting/project-tooling/README.md)（先找再建、Entry／Logic／Parameters、放置與生命週期、鎖分類）。這是 pilot 參考契約，不是 gate。
 - `skills/` 是原始 skill 目錄，已逐步遷移至新分層。舊 `skills/app-development-guidance/` 已刪除。
 
 ## 遷移狀態

@@ -53,6 +53,8 @@ AI 在專案裡為了完成當下任務，很容易順手寫出新的腳本、�
 2. 依 [`role-contract.md`](role-contract.md) 檢查現有入口；依 [`lock-taxonomy.md`](lock-taxonomy.md) 盤點現有鎖，先套 compensating-lock Review Rule。
 3. 之後新增工具前走 [`discovery-contract.md`](discovery-contract.md)。
 
+**從哪裡被引用**：開發與分析 workflow 的入口（[`software-delivery`](../../software-delivery/README.md)、[`repo-analysis`](../../repo-analysis/README.md)、[`apk-analysis`](../../apk-analysis/README.md)、[`reverse-engineering`](../../reverse-engineering/README.md)）都以一行參考連結指向本契約。這只是文件連結，不是 runtime 接入；discovery 機械化（Q7）仍是 deferred。enforcement 層只引用本契約，不另存一份。
+
 ## 收錄門檻與升級
 
 比照本目錄其他 pattern：需 **≥3 個收斂案例**才考慮升級為 stage、route、validator 或共用 runner。
