@@ -288,7 +288,7 @@ T3（CLI 命令與 command-contract 同步）原本是 diff 文字比對，漏�
 - [x] Consumer B dogfood（T-B1–T-B5）與 Ai-skill 對照，寫成 Phase 4 候選
 - [x] source commit 與 bin-only commit 依兩段流程提交並推送
 
-結果：[`evidence/f2-repair-slice.md`](evidence/f2-repair-slice.md)。T3 的頂層 `case` 缺口與 fixture 誤報從結構上消除，`cmd/` 缺口通過，`portable/` 不適用；另找到並修正 9 個沒有寫進 contract 的子命令。T-B4、T-B5 在 Ai-skill 找到第二個來源，列為 Phase 4 候選；契約本文未修改。
+結果：[`evidence/f2-repair-slice.md`](evidence/f2-repair-slice.md)。T3 的頂層 `case` 缺口與 fixture 誤報從結構上消除，`cmd/` 缺口通過，`portable/` 不適用；另找到並修正 9 個沒有寫進 contract 的子命令。T-B4、T-B5 在 Ai-skill 找到第二個來源，列為 Phase 4 候選；契約本文未修改。**審閱裁決（2026-11-24）**：兩個來源只是佐證，不等於達到升級門檻；舊 diff 提醒的移除條件加上「必須有執行紀錄」；S1（severity 欄位只宣告、不執行）列為獨立問題；S2 先唯讀盤點外部使用方式，再決定是否 deprecated。見 evidence §7。
 
 ## Phase 4 — 證據裁決與升級決策
 

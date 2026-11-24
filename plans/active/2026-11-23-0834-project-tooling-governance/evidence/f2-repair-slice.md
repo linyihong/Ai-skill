@@ -43,7 +43,7 @@ F2 原本寫的是「由 dispatch 產生 command-contract 命令表」。盤點�
   - registry 的 `cli_doc_sync` class 改由 `TestCommandContractMatchesCommandTable`（pre-push 的 go test、block）執行，`warnCLIDocSync` 標為 deprecated（warn）。
   - core-bootstrap 的 obligation 改為 severity warning，並附 rationale；`cli-modification-policy.yaml` 的 `gate.cli.command_contract_synced` 一併同步。
   - 改名後 F1 的 hook-call lint 立刻要求登記 `warnCLIDocSync`：F1 剛建的鎖在這裡第一次實際攔下未登記的 hook callee。
-- **移除條件**：2026-12-24 之後依明確決策移除 `warnCLIDocSync`，前提是 deprecation 期間沒有任何一次它的 warning 抓到狀態測試漏掉的漂移。不會自動移除。
+- **移除條件**：2026-12-24 再評估，依明確決策移除 `warnCLIDocSync`，不會自動移除。前提有兩個（第二個依 §7 審閱補上）：(1) 觀察期間沒有任何一次它的 warning 抓到狀態測試漏掉的漂移；(2) **有紀錄證明它在觀察期間確實執行過**。只看「沒有回報漂移」不夠，因為沒跑也一樣不會回報。
 
 ## 3. T3 樣本狀態（沿用 Phase 3 §5 的分類）
 
@@ -90,5 +90,16 @@ F2 原本寫的是「由 dispatch 產生 command-contract 命令表」。盤點�
 | T-B4 失敗訊息要指出修復動作 | 依賴版本落後時，前置檢查以不相關的解析錯誤失敗 | 分兩半：三個 git hook 函式中，9 個**政策鎖**的 block 點都有 `Remediation`；5 個**工具／環境失敗**（staged 清單讀取、runtime compile、runtime.db stage、runtime validate、commit message 讀取）都沒有，和 Consumer B 是同一種情況。commit-msg 的治理檢查透過 `validateCommitMessageGovernance` 回傳，也都有 Remediation | 2 | **有兩個來源**，而且兩邊的缺口都落在「工具本身失敗」，不是「違反政策」。候選：lock-taxonomy 的 result contract 加上「失敗結果必須含修復動作，**包含鎖自身無法執行的情況**」 |
 | T-B5 allowlist 靠逐一列舉名稱維護 | 上游新增一項，導致 66 個測試同時失敗 | `internal_helper_allowlist` 已逐一列舉 82 個名稱，F1 又加了 5 個，是同一種形狀；目前沒有因此大量失敗 | 2 | **有兩個來源**。候選：lock-taxonomy 反例加上「allowlist 以列舉名稱維護，不以屬性 / 介面標記」；這是 Review Rule「能否從結構消除」的套用，不是新規則 |
 | 新：diff 文字比對型的鎖 | — | T1（副檔名比對漏掉 shebang 腳本）、T3（diff pattern 漏抓頂層 `case`、誤報 fixture 字串）；F2 改為狀態比對後兩個方向都消除 | 1（Ai-skill 內 2 把鎖） | 候選：pattern-based 鎖要宣告比對層級（文字 / AST / 狀態集合），文字比對須列出排除的情境。只有單一來源，Phase 4 先觀察 |
+
+## 7. 審閱裁決（2026-11-24，使用者）
+
+本輪不開放 Phase 4，也不擴大修復範圍。以下只寫回裁決，沒有改程式碼。
+
+| 項目 | 裁決 | 目前狀態與待辦 |
+| --- | --- | --- |
+| 舊 diff 提醒 | 維持到 2026-12-24 再評估；移除時要確認觀察期間確實有執行紀錄，不能只看「沒有回報漂移」 | **目前沒有執行紀錄**：`warnCLIDocSync` 只在命中時輸出 warning，沒命中時不留痕跡；hook 輸出也沒有保存；pre-push replay 走 `validateCommitMessageGovernance`，不會重跑它。2026-12-24 評估前，要先決定用什麼當作執行證據。可能的來源：觀察期間動到 `internal/app/` 的 commit 清單，加上它們是否經過 commit-msg hook。只記錄，不實作 |
+| Phase 4 候選 | T-B4、T-B5 可帶入評估；**兩個來源是佐證，不等於符合升級門檻**。T-B2 保持「未量測」；比對層級候選保持單一來源觀察 | §6 表格的「來源數」欄只代表佐證數量，不代表已達升級門檻；門檻仍由 Phase 4 依 Q11 和三案例規則判斷 |
+| S1 | 列為獨立問題：宣告語意和執行語意不一致 | 待決定：`per_commit_obligations[].severity` 是說明資訊，還是 dispatcher 必須遵守的契約。兩種方向的影響不同：前者要在 schema 標明「不具約束力」；後者要改 dispatcher，並逐一檢查現有標成 warning 的 obligation 實際行為 |
+| S2 | 先查可攜規則包的外部使用方式與替代檢查，再決定要不要 deprecated | Ai-skill 的狀態測試只保護 Ai-skill 自己的命令表，**不會**保護使用 `portable/kge` 的外部專案。外部專案沒有 `cliCommands`，對它們來說 `CLIDocSyncRule` 可能仍是唯一的同步檢查。下一步是唯讀盤點哪些 consumer 啟用了 `DefaultRules()`，以及它們有沒有替代檢查 |
 
 ← [Evidence index](README.md)

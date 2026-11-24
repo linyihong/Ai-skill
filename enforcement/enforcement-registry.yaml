@@ -910,7 +910,7 @@ rule_classes:
         executor_kind: commit_msg_validator
         hook_phase: commit-msg
         block_or_warn: warn
-        notes: "DEPRECATED 2026-11-24 diff-pattern proxy (was validateCLIDocSync, block); replaced_by TestCommandContractMatchesCommandTable. Removal: explicit decision after 2026-12-24 if no warning in the window caught a drift the state test missed; no auto-removal."
+        notes: "DEPRECATED 2026-11-24 diff-pattern proxy (was validateCLIDocSync, block); replaced_by TestCommandContractMatchesCommandTable. Removal: re-evaluate 2026-12-24 by explicit decision; requires (1) no warning in the window caught a drift the state test missed AND (2) a record showing it actually ran during the window (absence of reports alone is not evidence); no auto-removal."
     rationale: |
       Ensures the dispatchable CLI command set and docs/command-contract.md
       never drift. Since F2 (2026-11-24) the blocking check is state-based:
