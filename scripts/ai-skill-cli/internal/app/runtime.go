@@ -158,7 +158,11 @@ type runtimeIndexEdge struct {
 
 func runRuntime(args []string, stdout io.Writer, stderr io.Writer) int {
 	if len(args) == 0 {
-		_, _ = fmt.Fprintln(stderr, "usage: ai-skill runtime <validate|refresh|compile|query|lookup|selection-watch|obligations|receipt|workflow-context|audit|capability-invoke> [flags]")
+		_, _ = fmt.Fprintln(stderr, usageLine("runtime", "[flags]"))
+		return ExitInvalidUsage
+	}
+	if !hasSubcommand("runtime", args[0]) {
+		_, _ = fmt.Fprintf(stderr, "unsupported runtime command: %s\n", args[0])
 		return ExitInvalidUsage
 	}
 	if args[0] == "lookup" {
@@ -168,7 +172,7 @@ func runRuntime(args []string, stdout io.Writer, stderr io.Writer) int {
 		return runSelectionWatch(args[1:], stdout, stderr)
 	}
 	opts := runtimeOptions{command: args[0], limit: 8}
-	if opts.command != "validate" && opts.command != "refresh" && opts.command != "compile" && opts.command != "query" && opts.command != "obligations" && opts.command != "receipt" && opts.command != "workflow-context" && opts.command != "audit" && opts.command != "capability-invoke" {
+	if !hasSubcommand("runtime", opts.command) {
 		_, _ = fmt.Fprintf(stderr, "unsupported runtime command: %s\n", opts.command)
 		return ExitInvalidUsage
 	}

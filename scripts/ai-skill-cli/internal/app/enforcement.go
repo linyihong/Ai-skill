@@ -21,7 +21,11 @@ import (
 // as public CLI surfaces.
 func runEnforcement(args []string, stdout io.Writer, stderr io.Writer) int {
 	if len(args) == 0 {
-		_, _ = fmt.Fprintln(stderr, "usage: ai-skill enforcement <lint|coverage> [flags]")
+		_, _ = fmt.Fprintln(stderr, usageLine("enforcement", "[flags]"))
+		return ExitInvalidUsage
+	}
+	if a := args[0]; a != "help" && a != "-h" && a != "--help" && !hasSubcommand("enforcement", a) {
+		_, _ = fmt.Fprintf(stderr, "unknown enforcement subcommand: %s\n", a)
 		return ExitInvalidUsage
 	}
 	switch args[0] {
@@ -32,7 +36,7 @@ func runEnforcement(args []string, stdout io.Writer, stderr io.Writer) int {
 	case "transition-check":
 		return runEnforcementTransitionCheck(args[1:], stdout, stderr)
 	case "help", "-h", "--help":
-		_, _ = fmt.Fprintln(stdout, "usage: ai-skill enforcement <lint|coverage|transition-check> [flags]")
+		_, _ = fmt.Fprintln(stdout, usageLine("enforcement", "[flags]"))
 		_, _ = fmt.Fprintln(stdout, "")
 		_, _ = fmt.Fprintln(stdout, "subcommands:")
 		_, _ = fmt.Fprintln(stdout, "  lint                run the enforcement-registry lint engine and report findings")

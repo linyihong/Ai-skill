@@ -32,11 +32,11 @@ type hooksOptions struct {
 
 func runHooks(args []string, stdout io.Writer, stderr io.Writer) int {
 	if len(args) == 0 {
-		_, _ = fmt.Fprintln(stderr, "usage: ai-skill hooks <install|run> [flags]")
+		_, _ = fmt.Fprintln(stderr, usageLine("hooks", "[flags]"))
 		return ExitInvalidUsage
 	}
 	opts := hooksOptions{command: args[0]}
-	if opts.command != "install" && opts.command != "run" {
+	if !hasSubcommandHead("hooks", opts.command) {
 		_, _ = fmt.Fprintf(stderr, "unsupported hooks command: %s\n", opts.command)
 		return ExitInvalidUsage
 	}
@@ -44,10 +44,14 @@ func runHooks(args []string, stdout io.Writer, stderr io.Writer) int {
 	name := "hooks " + opts.command
 	if opts.command == "run" {
 		if len(args) < 2 {
-			_, _ = fmt.Fprintln(stderr, "usage: ai-skill hooks run <pre-commit|commit-msg|post-commit|pre-push|session-start|pre-tool-use|post-tool-use|user-prompt-submit|stop> [flags]")
+			_, _ = fmt.Fprintln(stderr, "usage: ai-skill hooks run <"+subcommandChoices("hooks", "run ")+"> [flags]")
 			return ExitInvalidUsage
 		}
 		opts.command = "run " + args[1]
+		if !hasSubcommand("hooks", opts.command) {
+			_, _ = fmt.Fprintf(stderr, "unsupported hook runner: %s\n", opts.command)
+			return ExitInvalidUsage
+		}
 		args = append([]string{"run"}, args[2:]...)
 	}
 	fs := newFlagSet(name, stderr)
@@ -2696,6 +2700,11 @@ func runCommitMsgHook(result Result, root string, positional []string) Result {
 	if w := warnPlanEvidenceLineNumberCitations(text, stagedForWarn, root); w != "" {
 		result.Checks = append(result.Checks, Check{Name: "plan_evidence_line_citation_warnings", Status: "warning", Message: w})
 	}
+	// Deprecated advisory (2026-11-24): blocking moved to
+	// TestCommandContractMatchesCommandTable at pre-push go test.
+	if w := warnCLIDocSync(text, stagedForWarn, root); w != "" {
+		result.Checks = append(result.Checks, Check{Name: "cli_doc_sync_deprecated_warning", Status: "warning", Message: w})
+	}
 
 	staged, _ := gitLines(root, "diff", "--cached", "--name-only")
 	if strings.Contains(text, "### Cognitive Mode 報告") {
@@ -2953,8 +2962,16 @@ func validateBootstrapEntryThinness(text string, staged []string, root string) s
 	return runKGEBootstrapEntryThinness(text, staged, root)
 }
 
-// validateCLIDocSync enforces runtime/cli-modification-policy.yaml
-// gate.cli.command_contract_synced: when staged Go files under
+// warnCLIDocSync is the DEPRECATED (2026-11-24) diff-pattern proxy for
+// runtime/cli-modification-policy.yaml gate.cli.command_contract_synced.
+// It no longer blocks: the blocking check is the state-based
+// TestCommandContractMatchesCommandTable (commands_contract_test.go), which
+// compares the declarative command table (commands.go) with
+// docs/command-contract.md in both directions. This advisory stays only for
+// the deprecation window; see the cli_doc_sync rule_class in
+// enforcement/enforcement-registry.yaml for the removal condition.
+//
+// Original heuristic (kept for reference): when staged Go files under
 // scripts/ai-skill-cli/internal/app/ contain newly added subcommand
 // dispatch (`case "run X":` or `case "X":` for runtime subcommands) OR
 // new public `runXxxHook` / `buildRuntimeXxxResult` function, the
@@ -2967,7 +2984,7 @@ func validateBootstrapEntryThinness(text string, staged []string, root string) s
 // Opt-out: standalone `[skip-cli-doc-sync]` trailer line.
 // Implementation: Ai-skill adapter assembles Context (including staged
 // diff via git); portable rule lives in portable/kge (no git).
-func validateCLIDocSync(text string, staged []string, root string) string {
+func warnCLIDocSync(text string, staged []string, root string) string {
 	return runKGECLIDocSync(text, staged, root)
 }
 
@@ -3181,9 +3198,6 @@ var commitMsgValidatorRegistry = map[string]func(commitMsgCtx) string{
 	"obligation.commit.bootstrap_entry_thinness": func(c commitMsgCtx) string {
 		return validateBootstrapEntryThinness(c.text, c.staged, c.root)
 	},
-	"obligation.commit.cli_doc_sync": func(c commitMsgCtx) string {
-		return validateCLIDocSync(c.text, c.staged, c.root)
-	},
 	"obligation.commit.runtime_yaml_projects": func(c commitMsgCtx) string {
 		return validateRuntimeYamlProjects(c.text, c.staged, c.root)
 	},
@@ -3253,7 +3267,6 @@ var defaultCommitMsgDispatchOrder = []string{
 	"obligation.commit.token_budget",
 	"obligation.commit.adaptive_triggers",
 	"obligation.commit.bootstrap_entry_thinness",
-	"obligation.commit.cli_doc_sync",
 	"obligation.commit.runtime_yaml_projects",
 	"obligation.commit.markdown_yaml_sync",
 	"obligation.commit.glossary_retro_own",

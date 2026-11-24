@@ -50,7 +50,7 @@ func (s *stringSliceFlag) Set(value string) error {
 
 func runGoals(args []string, stdout io.Writer, stderr io.Writer) int {
 	if len(args) == 0 {
-		_, _ = fmt.Fprintln(stderr, "usage: ai-skill goals <status|init|start|update|split|pause|complete|cleanup> [flags]")
+		_, _ = fmt.Fprintln(stderr, usageLine("goals", "[flags]"))
 		return ExitInvalidUsage
 	}
 
@@ -122,7 +122,11 @@ func buildGoalsResult(opts goalsOptions) Result {
 		return result
 	}
 
-	switch opts.command {
+	command := opts.command
+	if !hasSubcommand("goals", command) {
+		command = "" // undeclared in cliCommands: falls through to invalid_goals_command below
+	}
+	switch command {
 	case "status":
 		return buildGoalsStatusResult(result, project)
 	case "init":
@@ -142,7 +146,7 @@ func buildGoalsResult(opts goalsOptions) Result {
 	default:
 		result.Status = "blocked"
 		result.ExitCode = ExitInvalidUsage
-		result.Error = &CommandError{Code: "invalid_goals_command", Message: "unsupported goals command: " + opts.command, Remediation: "Use status, init, start, update, split, pause, complete, or cleanup."}
+		result.Error = &CommandError{Code: "invalid_goals_command", Message: "unsupported goals command: " + opts.command, Remediation: "Use one of: " + strings.ReplaceAll(subcommandChoices("goals", ""), "|", ", ") + "."}
 		return result
 	}
 }

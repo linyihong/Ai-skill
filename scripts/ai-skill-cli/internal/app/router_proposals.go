@@ -179,12 +179,12 @@ func proposalAgeDays(lastSeen string, now time.Time) int {
 // runRouter dispatches `ai-skill router <subcommand>`.
 func runRouter(args []string, stdout, stderr io.Writer) int {
 	if len(args) == 0 || args[0] != "proposals" {
-		_, _ = fmt.Fprintln(stderr, "usage: ai-skill router proposals <list|record|promote|reject|gc> [flags]")
+		_, _ = fmt.Fprintln(stderr, "usage: ai-skill router proposals <"+subcommandChoices("router", "proposals ")+"> [flags]")
 		return ExitInvalidUsage
 	}
 	rest := args[1:]
 	if len(rest) == 0 {
-		_, _ = fmt.Fprintln(stderr, "usage: ai-skill router proposals <list|record|promote|reject|gc> [flags]")
+		_, _ = fmt.Fprintln(stderr, "usage: ai-skill router proposals <"+subcommandChoices("router", "proposals ")+"> [flags]")
 		return ExitInvalidUsage
 	}
 	action := rest[0]
@@ -233,6 +233,9 @@ func runRouter(args []string, stdout, stderr io.Writer) int {
 	}
 	now := time.Now().UTC()
 
+	if !hasSubcommand("router", "proposals "+action) {
+		action = "" // undeclared in cliCommands: falls through to the unknown_action result below
+	}
 	switch action {
 	case "list":
 		count := 0
@@ -310,7 +313,7 @@ func runRouter(args []string, stdout, stderr io.Writer) int {
 	default:
 		result.Status = "blocked"
 		result.ExitCode = ExitInvalidUsage
-		result.Error = &CommandError{Code: "unknown_action", Message: "unknown action: " + action}
+		result.Error = &CommandError{Code: "unknown_action", Message: "unknown action: " + rest[0]}
 	}
 
 	return emitRouterResult(result, jsonOut, stdout, stderr)

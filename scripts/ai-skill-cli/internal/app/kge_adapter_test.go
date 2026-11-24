@@ -26,12 +26,12 @@ func TestRunKGECognitiveCost_Parity(t *testing.T) {
 
 func TestRunKGECLIDocSync_SkipAndAdapter(t *testing.T) {
 	root := t.TempDir()
-	if got := validateCLIDocSync("feat: x", []string{"README.md"}, root); got != "" {
+	if got := warnCLIDocSync("feat: x", []string{"README.md"}, root); got != "" {
 		t.Fatalf("want pass for unrelated staged, got %q", got)
 	}
 	msg := "feat: x\n\n[skip-cli-doc-sync]\n"
 	staged := []string{"scripts/ai-skill-cli/internal/app/hooks.go"}
-	if got := validateCLIDocSync(msg, staged, root); got != "" {
+	if got := warnCLIDocSync(msg, staged, root); got != "" {
 		t.Fatalf("want skip trailer pass, got %q", got)
 	}
 }

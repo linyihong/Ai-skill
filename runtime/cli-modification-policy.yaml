@@ -46,13 +46,19 @@ cli_specific_gates:
       functions called from existing hooks do not require contract row
       updates but should be mentioned in the affected hook section.
     detection_signals:
-      - new `case "<command>":` dispatch added in Go
-      - new `runXxxHook` or `buildRuntimeXxxResult` function added
-      - new subcommand value added to allowed-command list
-    enforcement_layer: commit_msg_hook
-    validator: validateCLIDocSync
+      - the declarative command table (internal/app/commands.go) and the
+        contract rows describe different command sets (state comparison,
+        both directions); dispatch and every group's unknown-subcommand
+        gate read that table, so a command cannot be added without it
+    enforcement_layer: pre_push_hook (cli_ci_preflight go test) + CI
+    validator: TestCommandContractMatchesCommandTable
     severity: block
-    opt_out_marker: "[skip-cli-doc-sync]"
+    deprecated_advisory: |
+      warnCLIDocSync (former validateCLIDocSync diff-pattern proxy) still
+      emits a non-blocking commit-msg warning during its deprecation
+      window; opt-out marker [skip-cli-doc-sync] silences it. Removal
+      condition lives on the cli_doc_sync rule_class in
+      enforcement/enforcement-registry.yaml.
 
   - id: gate.cli.go_tests_pass
     description: |

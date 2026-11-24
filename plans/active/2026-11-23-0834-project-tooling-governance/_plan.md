@@ -10,7 +10,7 @@ parent: null
 
 # Project Tooling Governance（專案工具治理）
 
-**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；**Phase 2 完成**；Q12 已裁決並寫回契約（2026-11-23）；第一次契約一致性審閱（2026-11-23）：Q12 寫回與正式契約 PASS，設計大綱 Lifecycle/Q8/Q9 與 Phase 3 Acceptance 已同步；**Phase 3 已開放**（2026-11-23 使用者決定）；**Phase 3 已關閉**（2026-11-23 使用者裁決）：S1 套用與審查完成，驗證缺口已移交 F1、F2、F6（見 evidence/phase3-application.md §5）。**F1 修復切片已完成**（2026-11-23，見 evidence/f1-repair-slice.md），F4 一併處理。下一步 Phase 4 尚未開放。
+**Status**: in-progress — Plan Preparation、Phase 0、**Phase 1 完成**（2026-11-23）；Phase 2/3 已改為「consumer 唯讀評估 + Ai-skill 自家套用」（2026-11-23 使用者決定）；**Phase 2 完成**；Q12 已裁決並寫回契約（2026-11-23）；第一次契約一致性審閱（2026-11-23）：Q12 寫回與正式契約 PASS，設計大綱 Lifecycle/Q8/Q9 與 Phase 3 Acceptance 已同步；**Phase 3 已開放**（2026-11-23 使用者決定）；**Phase 3 已關閉**（2026-11-23 使用者裁決）：S1 套用與審查完成，驗證缺口已移交 F1、F2、F6（見 evidence/phase3-application.md §5）。**F1 修復切片已完成**（2026-11-23，見 evidence/f1-repair-slice.md），F4 一併處理。**F2 修復切片已完成**（2026-11-24，見 evidence/f2-repair-slice.md）。下一步 Phase 4 尚未開放。
 
 **本 plan 是唯一的執行狀態來源。** 契約設計大綱見 [`01-design-contracts.md`](01-design-contracts.md)（不記狀態）。
 
@@ -276,10 +276,25 @@ parent: null
 
 結果：[`evidence/f1-repair-slice.md`](evidence/f1-repair-slice.md)。17 個 symbol 中，6 個是 enforcement executor、6 個是 advisory warning、5 個是 helper；`ai-skill enforcement lint` 結果為 0 FAIL。T4 executor 方向由「尚未驗證」改為「通過」，L1 已修正。rule_class 數超過 hard_limit（R1）與 executor kind enum 未受檢查（R2）只記錄為觀察。
 
+## F2 修復切片（Phase 3 後續，2026-11-24 使用者開放）
+
+T3（CLI 命令與 command-contract 同步）原本是 diff 文字比對，漏抓與誤報都有。依使用者裁決（2026-11-24）改為宣告式命令表加上狀態比對；Consumer B dogfood 不直接改契約，改寫成 Phase 4 候選。
+
+- [x] 盤點 dispatch 寫法：switch、if 鏈、`!=` 白名單混用，無法從 dispatch 反推命令表
+- [x] 宣告式命令表 `cliCommands`：頂層 dispatch、`help`、各命令群的 usage 與「未宣告子命令」閘門都讀這份表
+- [x] 雙向狀態比對測試（命令表 ↔ command-contract）、列解析測試、閘門測試、`cmd/` 獨立 binary 登記測試；M1–M3 突變驗證
+- [x] 修正 contract 漂移：`goals` 8 個子命令、`runtime capability-invoke`
+- [x] diff pattern 鎖改為 deprecated advisory（`warnCLIDocSync`），registry、core-bootstrap、policy 同步，並寫明移除條件
+- [x] Consumer B dogfood（T-B1–T-B5）與 Ai-skill 對照，寫成 Phase 4 候選
+- [x] source commit 與 bin-only commit 依兩段流程提交並推送
+
+結果：[`evidence/f2-repair-slice.md`](evidence/f2-repair-slice.md)。T3 的頂層 `case` 缺口與 fixture 誤報從結構上消除，`cmd/` 缺口通過，`portable/` 不適用；另找到並修正 9 個沒有寫進 contract 的子命令。T-B4、T-B5 在 Ai-skill 找到第二個來源，列為 Phase 4 候選；契約本文未修改。
+
 ## Phase 4 — 證據裁決與升級決策
 
 - [ ] 對每條契約 invariant 標記：兩個 consumer 唯讀評估與 Ai-skill 自家套用是否都成立、是否需修改
 - [ ] 納入 [`evidence/consumer-b-cli-pilot.md`](evidence/consumer-b-cli-pilot.md)：觀察 T-B1（支持 Q5 維持 deferred）、T-B2（鎖執行成本，候選 Review Rule 增問，待第二個 consumer 證據）、T-B3–T-B5；並裁決該試點是否算 Q11 的收斂案例
+- [ ] 裁決 [`evidence/f2-repair-slice.md`](evidence/f2-repair-slice.md) §6 的契約候選：T-B4（result contract 須含修復動作，包含鎖自身無法執行時）、T-B5（列舉式 allowlist 反例）已有兩個來源；T-B2 是否在 Ai-skill 補量測；diff 文字比對型鎖的比對層級（單一來源，先觀察）
 - [ ] 裁決 Q11（唯讀評估是否計入三案例門檻）
 - [ ] 重新評估 Q5（共用 runner）、Q7（discovery 機械化）與 runtime 接入
 - [ ] 回寫契約；更新 `plans/README.md` 狀態

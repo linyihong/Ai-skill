@@ -356,10 +356,16 @@ per_commit_obligations:
     contract_source: runtime/bootstrap-entry-points.yaml
   - id: obligation.commit.cli_doc_sync
     fires: every_commit_staging_ai_skill_cli_go
-    validator: validateCLIDocSync
-    severity: block
+    validator: warnCLIDocSync
+    severity: warning
     opt_out_marker: "[skip-cli-doc-sync]"
     contract_source: runtime/cli-modification-policy.yaml
+    rationale: |
+      DEPRECATED 2026-11-24: advisory only, emitted directly by
+      runCommitMsgHook (no longer in commitMsgValidatorRegistry). Blocking
+      moved to the state-based TestCommandContractMatchesCommandTable at
+      pre-push go test; removal condition is on the cli_doc_sync rule_class
+      in enforcement/enforcement-registry.yaml.
   - id: obligation.commit.runtime_yaml_projects
     fires: every_commit_staging_runtime_yaml
     validator: validateRuntimeYamlProjects

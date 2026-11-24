@@ -100,7 +100,11 @@ func runPlansValidate(args []string, stdout io.Writer, stderr io.Writer) int {
 
 func runPlans(args []string, stdout io.Writer, stderr io.Writer) int {
 	if len(args) == 0 {
-		_, _ = fmt.Fprintln(stderr, "usage: ai-skill plans <tree|validate|folderize> [flags]")
+		_, _ = fmt.Fprintln(stderr, usageLine("plans", "[flags]"))
+		return ExitInvalidUsage
+	}
+	if a := args[0]; a != "help" && a != "-h" && a != "--help" && !hasSubcommand("plans", a) {
+		_, _ = fmt.Fprintf(stderr, "unknown plans subcommand: %s\n", a)
 		return ExitInvalidUsage
 	}
 	switch args[0] {
@@ -111,7 +115,7 @@ func runPlans(args []string, stdout io.Writer, stderr io.Writer) int {
 	case "folderize":
 		return runPlansFolderize(args[1:], stdout, stderr)
 	case "help", "-h", "--help":
-		_, _ = fmt.Fprintln(stdout, "usage: ai-skill plans <tree|validate|folderize> [flags]")
+		_, _ = fmt.Fprintln(stdout, usageLine("plans", "[flags]"))
 		_, _ = fmt.Fprintln(stdout, "")
 		_, _ = fmt.Fprintln(stdout, "subcommands:")
 		_, _ = fmt.Fprintln(stdout, "  tree      render plan tree built from frontmatter parent pointers")

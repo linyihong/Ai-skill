@@ -899,17 +899,30 @@ rule_classes:
     source_files:
       - runtime/cli-modification-policy.yaml
     executors:
-      - file: scripts/ai-skill-cli/internal/app/hooks.go
-        symbol: validateCLIDocSync
-        executor_kind: commit_msg_validator
+      - file: scripts/ai-skill-cli/internal/app/commands_contract_test.go
+        symbol: TestCommandContractMatchesCommandTable
+        executor_kind: pre_push_go_test
+        hook_phase: pre-push
         block_or_warn: block
+        notes: "state-based: declarative command table (commands.go) vs docs/command-contract.md, both directions; runs in pre-push cli_ci_preflight go test and CI (F2, 2026-11-24)"
+      - file: scripts/ai-skill-cli/internal/app/hooks.go
+        symbol: warnCLIDocSync
+        executor_kind: commit_msg_validator
+        hook_phase: commit-msg
+        block_or_warn: warn
+        notes: "DEPRECATED 2026-11-24 diff-pattern proxy (was validateCLIDocSync, block); replaced_by TestCommandContractMatchesCommandTable. Removal: explicit decision after 2026-12-24 if no warning in the window caught a drift the state test missed; no auto-removal."
     rationale: |
-      Ensures CLI source changes are accompanied by doc updates so the
-      CLI surface and its documentation never drift.
+      Ensures the dispatchable CLI command set and docs/command-contract.md
+      never drift. Since F2 (2026-11-24) the blocking check is state-based:
+      dispatch reads a declarative command table, and a Go test compares
+      that table with the contract rows in both directions. The former
+      commit-msg diff-pattern proxy missed top-level `case` additions and
+      cmd/ binaries and false-positived on test fixture strings; it is kept
+      only as a non-blocking advisory during its deprecation window.
     verification_status:
       symbol_exists: ✓
-      scenario_exists: pending
-      regression_exists: pending
+      scenario_exists: partial
+      regression_exists: ✓
       runtime_observed: pending
 
   - id: runtime_yaml_projection

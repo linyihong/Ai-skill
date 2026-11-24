@@ -20,7 +20,7 @@
 | `ai-skill version` | 輸出 binary build metadata | 否 | 否 | Phase 4 |
 | `ai-skill doctor` | 檢查 runtime、Git、repo root、PATH、write permission、hooksPath 與平台支援 | 否 | 可選檢查 | Phase 1 |
 | `ai-skill init-project` | 建立新專案 AI tool bootstrap 設定 | 是 | 否 | Phase 2 |
-| `ai-skill goals` | 管理 `.agent-goals/` 暫存目標 | 是 | 否 | Phase 2 |
+| `ai-skill goals {status,init,start,update,split,pause,complete,cleanup}` | 管理 `.agent-goals/` 暫存目標（狀態查詢、建立、開始、更新、拆分、暫停、完成、清理） | 是 | 否 | Phase 2 |
 | `ai-skill hooks install` | 安裝本 repo git hooks（4 hooks：pre-commit / commit-msg / post-commit / pre-push） | 是 | 是 | Phase 2 |
 | `ai-skill hooks run pre-commit` | 執行 Git pre-commit hook logic（先以 `git diff --cached --check` 阻斷 whitespace errors；runtime source 變更時自動 recompile + stage runtime.db） | 是 | 是 | Shell To Go |
 | `ai-skill hooks run commit-msg` | 執行 Git commit-msg hook logic：commit body 必須含 Cognitive Contract v2 報告，並通過 behavioral validators（execution floors、governance consistency、memory subdir、cognitive cost、activation signals、capability snippet、plan sync、token budget、adaptive triggers、bootstrap thinness、CLI doc sync、runtime YAML projection、Markdown/YAML sync）。Compact form 只適用於 all-default 且 staged diff 未命中 runtime / routing / workflow executable contract / active plan 等會要求 DEEP+STRICT 的 surfaces；compact path 也必須跑 staged-file validators。Validation 通過後附加 D9 `kge_advisory` **count-only** warning（不展開內文、不 block）。 | 否 | 是 | ADR-008 / runtime-cognitive-contract-v2 |
@@ -41,6 +41,7 @@
 | `ai-skill runtime query` | 查詢 runtime index / generated surfaces | 否 | 否 | Phase 3 |
 | `ai-skill runtime obligations` | 列出目前 active bootstrap obligations（per_session / per_turn / per_commit）並附 Bootstrap Receipt line，從 `generated_surfaces[runtime.core_bootstrap.contract]` 與 runtime phase/gate tables 讀取 | 否 | 否 | bootstrap-yaml-migration Phase 3 |
 | `ai-skill runtime receipt` | 輸出 canonical Bootstrap Receipt 與 active per-turn obligation IDs，供 hooks / stop repair 使用；避免 agent 臨時拼 SQLite 查詢 | 否 | 否 | bootstrap receipt repair hardening |
+| `ai-skill runtime capability-invoke` | 依 `--capability <id>` 與 `--stance <stance>` 檢查 capability invoke 的 `context.stance` 是否符合 capability registry 宣告；不符只發 warning（ADR-013 Phase 1.2），exit 0 | 否 | 否 | ADR-013 capability context |
 | `ai-skill plans tree` | 純讀 `<root>/plans/active` + `archived` frontmatter，依 `parent` 指標建樹（`--state` / `--format text\|json\|markdown`）。observation companion，不 enforce | 否 | 否 | plan-tree-hierarchy-governance Phase 3 |
 | `ai-skill plans validate` | **薄 CLI consumer**：load `<root>/plans/active\|archived`（reuse `scanAllPlanFrontmatter`，scope A）→ 呼叫 engine entrypoint `planvalidate.Validate` → 輸出 findings（`--format text\|json`）。CLI = transport only，零驗證邏輯；blocking finding → exit 30。非 goals：custom plans dir / schema dialect / external path（屬 Q8/Phase 3） | 否 | 否 | plans-system-portability Phase 2.4 |
 | `ai-skill kge check` | KGE push-watershed adapter（D9）：`RunAvailable` over staged/workspace Context → Validation fail=exit 30；Advisory 僅摘要（前 3 條）+ pointer，**不**因 advisory 失敗。邏輯在 `portable/kge`，本命令只組 Context + 呈現。pre-push hook 委派同一呈現。 | 否 | 是（讀 staged） | KGE Phase 4 |

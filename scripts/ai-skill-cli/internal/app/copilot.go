@@ -17,11 +17,11 @@ type copilotOptions struct {
 
 func runCopilot(args []string, stdout io.Writer, stderr io.Writer) int {
 	if len(args) == 0 {
-		_, _ = fmt.Fprintln(stderr, "usage: ai-skill copilot <start> [flags]")
+		_, _ = fmt.Fprintln(stderr, usageLine("copilot", "[flags]"))
 		return ExitInvalidUsage
 	}
 	opts := copilotOptions{command: args[0]}
-	if opts.command != "start" {
+	if !hasSubcommand("copilot", opts.command) {
 		_, _ = fmt.Fprintf(stderr, "unsupported copilot command: %s\n", opts.command)
 		return ExitInvalidUsage
 	}

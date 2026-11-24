@@ -21,7 +21,11 @@ import (
 
 func runImageProcessing(args []string, stdout io.Writer, stderr io.Writer) int {
 	if len(args) == 0 {
-		_, _ = fmt.Fprintln(stderr, "usage: ai-skill image-processing <verify|generate-fixtures> [flags]")
+		_, _ = fmt.Fprintln(stderr, usageLine("image-processing", "[flags]"))
+		return ExitInvalidUsage
+	}
+	if a := args[0]; a != "help" && a != "-h" && a != "--help" && !hasSubcommand("image-processing", a) {
+		_, _ = fmt.Fprintf(stderr, "unsupported image-processing command: %s\n", a)
 		return ExitInvalidUsage
 	}
 	switch args[0] {
@@ -30,7 +34,7 @@ func runImageProcessing(args []string, stdout io.Writer, stderr io.Writer) int {
 	case "generate-fixtures":
 		return runImageProcessingGenerateFixtures(args[1:], stdout, stderr)
 	case "help", "-h", "--help":
-		_, _ = fmt.Fprintln(stdout, "usage: ai-skill image-processing <verify|generate-fixtures> [flags]")
+		_, _ = fmt.Fprintln(stdout, usageLine("image-processing", "[flags]"))
 		return ExitSuccess
 	default:
 		_, _ = fmt.Fprintf(stderr, "unsupported image-processing command: %s\n", args[0])

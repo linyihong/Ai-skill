@@ -106,7 +106,7 @@ allowlist 是一份持續存在、要逐步清空的清單；skip 是單次的�
 | # | 項目 | 類型 |
 | --- | --- | --- |
 | F1 | **已完成（2026-11-23，見 [`f1-repair-slice.md`](f1-repair-slice.md)）**。修正 L1：覆蓋集合改從「hook 實際註冊或呼叫了哪些檢查」建立。若只是擴大成掃全部檔案再加上 `warn*`，換個命名方式仍會漏掉。那 8 個 symbol 要逐一判定是 enforcement executor、advisory warning 還是 helper，再決定怎麼登記。T4 executor 方向的樣本一併補上 | 鎖正確性（Go 改動 + 兩個 commit 的 bin 流程） |
-| F2 | 由 dispatch 產生 command-contract 命令表，消除 T3（含 F1 切片發現的誤報：diff 比對命中 test fixture 字串，見 [`f1-repair-slice.md`](f1-repair-slice.md) R3） | 結構消除 |
+| F2 | **已完成（2026-11-24，見 [`f2-repair-slice.md`](f2-repair-slice.md)）**；做法改為宣告式命令表加狀態比對。原寫法：由 dispatch 產生 command-contract 命令表，消除 T3（含 F1 切片發現的誤報：diff 比對命中 test fixture 字串，見 [`f1-repair-slice.md`](f1-repair-slice.md) R3） | 結構消除 |
 | F3 | KGE 呼叫鏈與 registry 命名（O2） | 結構，依切片延後 |
 | F4 | **已完成（隨 F1）**。修正 `cli-modification-policy.yaml` 的 bin 重建說明。**跟下一次 Go source 修改一起處理**，讓 canonical policy 和已確認的兩個 commit 流程一致 | 文件 drift（runtime YAML） |
 | F5 | 移除或對齊 `hookAdapterContent`（O8） | 死碼 / drift |

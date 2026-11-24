@@ -14,11 +14,15 @@ import (
 // Presentation follows plan D9 Adapter Presentation Policy.
 func runKge(args []string, stdout io.Writer, stderr io.Writer) int {
 	if len(args) == 0 {
-		_, _ = fmt.Fprintln(stderr, "usage: ai-skill kge <check|validate|diagnose> [--root PATH] [--advisory] [--all-feedback]")
+		_, _ = fmt.Fprintln(stderr, usageLine("kge", "[--root PATH] [--advisory] [--all-feedback]"))
 		return ExitInvalidUsage
 	}
 	cmd := args[0]
 	rest := args[1:]
+	if cmd != "-h" && cmd != "--help" && !hasSubcommand("kge", cmd) {
+		_, _ = fmt.Fprintf(stderr, "unknown kge subcommand: %s\n", cmd)
+		return ExitInvalidUsage
+	}
 	root := ""
 	advisory := false
 	allFeedback := false
@@ -36,7 +40,7 @@ func runKge(args []string, stdout io.Writer, stderr io.Writer) int {
 		case "--all-feedback":
 			allFeedback = true
 		case "-h", "--help":
-			_, _ = fmt.Fprintln(stdout, "usage: ai-skill kge <check|validate|diagnose> [--root PATH] [--advisory] [--all-feedback]")
+			_, _ = fmt.Fprintln(stdout, usageLine("kge", "[--root PATH] [--advisory] [--all-feedback]"))
 			_, _ = fmt.Fprintln(stdout, "  check     validation + advisory summary (push watershed; advisory does not fail)")
 			_, _ = fmt.Fprintln(stdout, "  validate  validation only; add --advisory for full advisory list")
 			_, _ = fmt.Fprintln(stdout, "  diagnose  IDE/MCP JSON diagnostics (full findings, all severities)")

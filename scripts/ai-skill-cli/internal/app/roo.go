@@ -52,11 +52,11 @@ type rooOptions struct {
 
 func runRoo(args []string, stdout io.Writer, stderr io.Writer) int {
 	if len(args) == 0 {
-		_, _ = fmt.Fprintln(stderr, "usage: ai-skill roo <set-global-custom-instructions> [flags]")
+		_, _ = fmt.Fprintln(stderr, usageLine("roo", "[flags]"))
 		return ExitInvalidUsage
 	}
 	opts := rooOptions{command: args[0]}
-	if opts.command != "set-global-custom-instructions" {
+	if !hasSubcommand("roo", opts.command) {
 		_, _ = fmt.Fprintf(stderr, "unsupported roo command: %s\n", opts.command)
 		return ExitInvalidUsage
 	}

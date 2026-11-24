@@ -19,11 +19,11 @@ type glossaryOptions struct {
 
 func runGlossary(args []string, stdout io.Writer, stderr io.Writer) int {
 	if len(args) == 0 {
-		_, _ = fmt.Fprintln(stderr, "usage: ai-skill glossary <validate> [flags]")
+		_, _ = fmt.Fprintln(stderr, usageLine("glossary", "[flags]"))
 		return ExitInvalidUsage
 	}
 	opts := glossaryOptions{command: args[0]}
-	if opts.command != "validate" {
+	if !hasSubcommand("glossary", opts.command) {
 		_, _ = fmt.Fprintf(stderr, "unsupported glossary command: %s\n", opts.command)
 		return ExitInvalidUsage
 	}
