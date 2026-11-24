@@ -28,7 +28,7 @@ Class: `enforcement-self-leak` / `validation-gap`
 ## Prevention Gate
 
 - **文件層（已存在）：** 本 pattern、[`feedback/history/development-guidance/common/2026-11-25_084854-bootstrap-receipt-gate-blind-to-mid-turn-text.md`](../../feedback/history/development-guidance/common/2026-11-25_084854-bootstrap-receipt-gate-blind-to-mid-turn-text.md)、[`ai-tools/agent/claude.md`](../../ai-tools/agent/claude.md) §已知限制。
-- **Gate 層（待定）：** deny 訊息加上「結束回合可解除」；或讓 gate 也接受 transcript 中已成功執行的 `ai-skill runtime receipt` 結果加上 required reads 作為證據。尚未實作，需使用者裁決。
+- **Gate 層（部分完成，2026-11-25）：** `no receipt` 的 deny 訊息已加上「回合中已輸出 Receipt 時不要重試，結束回合即可解除」，並指向本 pattern；`TestRunPreToolUseHookCursorBlocksWithoutReceipt` 鎖住這段提示。讓 gate 接受 transcript 中已成功執行的 `ai-skill runtime receipt` 結果作為證據，仍未實作。
 - **Promotion 條件：** 另一個 session 或 client 再次觀察到時，才考慮提升為 `validated`。
 
 ## 驗證

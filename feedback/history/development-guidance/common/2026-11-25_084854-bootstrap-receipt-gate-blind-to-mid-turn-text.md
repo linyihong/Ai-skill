@@ -70,7 +70,7 @@ Status: candidate
 #### Promotion Target
 
 - `enforcement/failure-patterns/bootstrap-receipt-gate-blind-to-mid-turn-text.md`（agent 面行為與 gate 面缺口）
-- 程式修補（未做，需使用者決定）：deny 訊息加上「結束回合可解除」；或讓 gate 也接受 transcript 中已成功執行的 `ai-skill runtime receipt` 結果（該指令已被 gate 放行）配合 required reads 作為證據。
+- 程式修補：deny 訊息加上「結束回合可解除」**已完成**（2026-11-25，使用者裁決）。讓 gate 也接受 transcript 中已成功執行的 `ai-skill runtime receipt` 結果（該指令已被 gate 放行）配合 required reads 作為證據，**未做**。
 
 #### Promotion Record
 

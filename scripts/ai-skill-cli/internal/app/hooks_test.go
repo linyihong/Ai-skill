@@ -1209,6 +1209,11 @@ func TestRunPreToolUseHookCursorBlocksWithoutReceipt(t *testing.T) {
 	if !strings.Contains(stderr.String(), "BLOCK_NO_RECEIPT") {
 		t.Fatalf("expected BLOCK_NO_RECEIPT in stderr; got:\n%s", stderr.String())
 	}
+	// A Receipt emitted mid-turn may not be persisted yet; the deny reason must
+	// name the action that clears the gate (ending the turn), not only retries.
+	if !strings.Contains(stdout.String(), "end the turn") {
+		t.Fatalf("expected deny reason to tell the agent to end the turn; got:\n%s", stdout.String())
+	}
 }
 
 func TestRunPreToolUseHookCursorAllowsReadTool(t *testing.T) {

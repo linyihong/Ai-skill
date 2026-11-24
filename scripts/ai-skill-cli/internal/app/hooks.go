@@ -1601,7 +1601,12 @@ func runPreToolUseHook(projectDir string, stdout io.Writer, stderr io.Writer) in
 		"(1) Read CORE_BOOTSTRAP.md; (2) Read runtime/core-bootstrap.yaml (count obligations and gates from it); " +
 		"(3) Read the 3 required_reads (enforcement/rule-weight.md, dependency-reading.md, conversation-goal-ledger.md); " +
 		"(4) emit the Bootstrap Receipt with numbers from the YAML you just Read (NOT the SessionStart example). " +
-		"Only Read tool calls are allowed before the Receipt is emitted."
+		"Only Read tool calls are allowed before the Receipt is emitted. " +
+		"If you already emitted the Receipt earlier in this turn, this gate reads only assistant text " +
+		"persisted to the transcript, and the client may not persist mid-turn text until the turn ends: " +
+		"do not re-read files or re-emit the Receipt in this turn. Instead, end the turn with a reply that " +
+		"contains the Receipt plus progress and any unwritten changes; the next turn's first tool call will pass. " +
+		"See enforcement/failure-patterns/bootstrap-receipt-gate-blind-to-mid-turn-text.md."
 	return renderPreToolUseDecision(host, stdout, hookDecision{Deny: true, Reason: reason})
 }
 
