@@ -36,6 +36,7 @@ AI 在專案裡為了完成當下任務，很容易順手寫出新的腳本、�
 | [`lifecycle-contract.md`](lifecycle-contract.md) | 臨時工具變永久、正式工具無人負責 | 決定工具放哪、要不要保留時 |
 | [`growth-rule.md`](growth-rule.md) | 同概念重複、過度或不足的抽象化 | 發現相似能力、考慮加參數或抽共用時 |
 | [`lock-taxonomy.md`](lock-taxonomy.md) | 機械鎖逐事件蔓延、用鎖補償結構缺陷；區分工具治理鎖（八族）與產品不變式鎖 | 想新增或修改 pre-commit / lint / gate 時 |
+| [`verification-architecture.md`](verification-architecture.md)（`candidate`） | 驗證器加快取、增量選擇或並行後漏驗；略過或重用說不出理由 | 驗證器要加快取、增量選擇、並行或 profile 時 |
 
 ## 責任切分
 

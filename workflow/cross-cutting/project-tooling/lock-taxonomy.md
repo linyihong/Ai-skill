@@ -74,6 +74,7 @@ enforcement:      版控內（每個 clone 都會執行）或只在本機（只�
 
 - 各專案用**自己的語言與執行環境**實作；統一的是治理概念、檢查描述與結果形狀，**不是 runner**。
 - **失敗結果必須附修復動作，包含鎖自己無法執行的情況。** 政策違規要說明怎麼改；鎖因工具或環境失敗而無法判斷時（讀不到檔案、依賴版本落後、子程序失敗），也要說明這是「無法檢查」而不是「違規」，以及怎麼恢復，不能以不相關的錯誤訊息結束。（Phase 4 T-B4，兩個來源）
+- 檢查**怎麼決定要不要跑、結果能不能重用**（快取、增量選擇、並行）見 [`verification-architecture.md`](verification-architecture.md)（`candidate`）。
 - 單一入口不代表必須共用跨語言 runner。共用 runner 依來源計畫 Phase 4 裁決**維持 deferred**：兩個 consumer 和 Ai-skill 都用自己的語言實作單一入口與 registry。
 
 ## 反例
