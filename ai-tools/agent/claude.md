@@ -85,7 +85,7 @@ Claude Code 的 bootstrap 自動化由**三層協同**達成（對應 multi-laye
 
 - SessionStart hook 在 Claude Code 不同版本上的 matcher 支援度不一；目前驗證有效的 matcher 字串：`"startup|resume|clear"`
 - Per-turn obligations 定義在 `runtime/core-bootstrap.yaml`，**未** projected 到 `runtime/runtime.db` 的 `obligations` table；auto-bootstrap.sh 直接 hardcode 與 YAML source 一致
-- ~~雙重 bootstrap~~（已修）：agent 在同一 turn 同時輸出 Receipt 文字 + 呼叫工具時，工具比文字先 fire，PreToolUse 掃 transcript 找不到 Receipt 而 block。修法：SessionStart 成功後寫 `/tmp/ai-skill-sessionstart-{project_hash}.flag`（TTL 120s），PreToolUse 優先檢查 flag，避免重讀 3 個檔案
+- 雙重 bootstrap（**只在 120 秒寬限內緩解，未根治**）：agent 在同一 turn 同時輸出 Receipt 文字 + 呼叫工具時，PreToolUse 掃 transcript 找不到 Receipt 而 block。SessionStart 成功後寫 `/tmp/ai-skill-sessionstart-{project_hash}.flag`（TTL 120s），PreToolUse 在寬限內放行但不標記通過。寬限過後，回合中輸出的 Receipt 可能仍未寫進 transcript，非 Read 工具會一直被擋，直到回合結束。做法：第一回合完成 bootstrap 就結束回合；被擋時結束回合，不要重貼 Receipt。見 [`bootstrap-receipt-gate-blind-to-mid-turn-text.md`](../../enforcement/failure-patterns/bootstrap-receipt-gate-blind-to-mid-turn-text.md)
 
 ## Claude Code 配置實作
 

@@ -4,12 +4,18 @@
 
 | 分類 | 數量 | 說明 |
 |------|------|------|
-| [`common/`](common/) | 84 | 跨分類或通用 lesson（開發流程、契約治理、測試策略、後端架構、安全審計等） |
+| [`common/`](common/) | 85 | 跨分類或通用 lesson（開發流程、契約治理、測試策略、後端架構、安全審計等） |
 | [`controls/`](controls/) | 2 | 控制項相關 lesson |
 
 ## 來源
 
 所有 lesson 原位於 `skills/app-development-guidance/feedback_history/`，已於 2026-05-13 搬遷至此，舊目錄已刪除。
+
+## Recent (2026-11-25)
+
+| Slug | Category |
+|------|----------|
+| `common/2026-11-25_084854-bootstrap-receipt-gate-blind-to-mid-turn-text` | Receipt gate 只讀 transcript；回合中的文字可能未寫入，120 秒寬限後整回合被擋；第一回合 bootstrap 完就結束回合，被擋時結束回合而不是重試 |
 
 ## Recent (2026-11-24)
 
