@@ -4,12 +4,18 @@
 
 | 分類 | 數量 | 說明 |
 |------|------|------|
-| [`common/`](common/) | 83 | 跨分類或通用 lesson（開發流程、契約治理、測試策略、後端架構、安全審計等） |
+| [`common/`](common/) | 84 | 跨分類或通用 lesson（開發流程、契約治理、測試策略、後端架構、安全審計等） |
 | [`controls/`](controls/) | 2 | 控制項相關 lesson |
 
 ## 來源
 
 所有 lesson 原位於 `skills/app-development-guidance/feedback_history/`，已於 2026-05-13 搬遷至此，舊目錄已刪除。
+
+## Recent (2026-11-24)
+
+| Slug | Category |
+|------|----------|
+| `common/2026-11-24_160000-validator-block-check-finding-before-routing-around` | validator 擋下時先判斷 finding 是否成立；改設定讓檢查不執行也是繞過；缺設定等於檢查靜默失效；metadata 要描述工具實際做了什麼 |
 
 ## Recent (2026-10-22)
 
