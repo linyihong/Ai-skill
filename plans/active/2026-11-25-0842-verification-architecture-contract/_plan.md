@@ -33,7 +33,7 @@ parent: null
 | 每次重用要能證明為什麼安全 | **採納** | 契約 V3 |
 | Verification Planner：決策與執行分離、plan-only | **採納** | 契約 V4；與 role-contract §入口編排一致 |
 | Selection Accuracy Audit + Shadow Mode | **採納** | 契約 V5 + §Selection Accuracy Audit；補上「門檻要先登記」 |
-| Change Snapshot（明確 tree / index / working-tree 身分） | **採納為詞彙** | 契約能力層；行程內快取不算身分 |
+| Change Snapshot（明確 tree / index / working-tree 身分） | **採納為詞彙，抽象為版控中立** | 契約能力層；行程內快取不算身分。2026-11-25 使用者指出契約不應綁定 Git：身分改寫為比較基準 / 已記錄版本 / 準備提交 / 工作區四項，Git 只作對應範例 |
 | 多層快取 + Cache Layer Isolation | **只採 isolation** | 層數與層名屬實作；「一層命中不推導另一層」是不變式 |
 | 決策 enum（execute / reuse / skip / blocked） | **採納，並收緊** | `skip` 只用於政策不適用；判斷不了是 `blocked`，與 lock-taxonomy「無法檢查 ≠ 違規」對齊 |
 | Verification Profile | **只採約束** | profile 必須有涵蓋清單；不得讓執行器自行刪檢查 |

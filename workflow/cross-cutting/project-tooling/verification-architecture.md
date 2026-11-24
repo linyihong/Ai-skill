@@ -21,12 +21,14 @@ V4 對應 [`role-contract.md`](role-contract.md) §入口編排：含快取判�
 
 | 層 | 回答的問題 | 最小契約 |
 | --- | --- | --- |
-| Change Snapshot | 這次驗證的輸入是什麼 | 一份共用快照，有明確身分（base / head commit、index、working tree 分開辨識）；行程內快取**不算**身分 |
+| Change Snapshot | 這次驗證的輸入是什麼 | 一份共用快照，有明確身分（比較基準、已記錄的版本、準備提交的內容、尚未準備的工作區變更分開辨識）；行程內快取**不算**身分 |
 | Dependency / Impact | 變更影響到誰 | 可由反向依賴查出受影響的檢查；查不到 → V2 |
 | Planner | 每個檢查要做什麼 | 產出決策記錄（見下）；支援只出計畫不執行（plan-only / dry-run） |
 | Result Reuse | 什麼結果可以重用 | 依 V3；各層快取隔離（見下） |
 | Execution | 怎麼跑 | 批次、並行、行程重用；只受 V1 約束 |
 | Evidence | 怎麼證明 | 結果證明、失效原因、涵蓋檢查、獨立覆核 |
+
+**版本控制中立**：本契約不綁定特定版控工具。各專案把 Change Snapshot 的四個身分對應到自己的工具即可。例：Git 是 base commit / HEAD / index（staged）/ working tree；沒有 staging 區的工具，「準備提交的內容」就等於提交時送出的變更集。指紋可用版控工具自己的內容雜湊，或自行計算的內容雜湊；只要同樣內容得到同樣指紋即可。
 
 專案不必六層齊備。**先補缺的是決策正確性（Snapshot、Dependency、Planner），不是執行速度。**
 
