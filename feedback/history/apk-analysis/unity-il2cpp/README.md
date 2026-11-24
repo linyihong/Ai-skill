@@ -4,6 +4,7 @@ Unity IL2CPP / AssetBundle / UnityCache 相關 lesson。
 
 | File | Status | Summary |
 | --- | --- | --- |
+| [2026-11-24_103116-il2cpp-field-name-and-offset-verify-before-deref.md](2026-11-24_103116-il2cpp-field-name-and-offset-verify-before-deref.md) | candidate | IL2CPP 讀欄位：先 metadata 列表、再 enum 映射、解引用前驗證 class；勿沿用他處固定偏移 |
 | [2026-10-27_110000-slot-soft-visual-restore-data-drive-then-kill-then-paint.md](2026-10-27_110000-slot-soft-visual-restore-data-drive-then-kill-then-paint.md) | candidate | Soft 還原：資料／進場圖 → 停 Update／Tween／Director → paint；invoke≠GetContent |
 | [2026-10-27_100500-lab-soft-gate-not-visual-enter-action-queue-and-creators.md](2026-10-27_100500-lab-soft-gate-not-visual-enter-action-queue-and-creators.md) | candidate | Soft／mode 旗標 ≠ 視覺進場；Present Action＋Creator；fixture attrs 別名；glyph≠piece |
 | [2026-10-27_100600-frida-il2cpp-setactive-uint8-and-invoke-nativefunction-full-arity.md](2026-10-27_100600-frida-il2cpp-setactive-uint8-and-invoke-nativefunction-full-arity.md) | candidate | SetActive 僅目標 GO＋NF uint8；breakpoint→NF 須滿 MethodInfo 參數個數 |

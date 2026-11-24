@@ -9,7 +9,7 @@
 | [`http-api/`](http-api/) | 35 | HTTP API 分析、文件化、UI 操作流程 |
 | [`local-proxy/`](local-proxy/) | 13 | Local proxy 設定、診斷、hook |
 | [`media-hls/`](media-hls/) | 3 | Media/HLS 串流分析 |
-| [`unity-il2cpp/`](unity-il2cpp/) | 86 | Unity IL2CPP、AssetBundle、UnityCache |
+| [`unity-il2cpp/`](unity-il2cpp/) | 87 | Unity IL2CPP、AssetBundle、UnityCache |
 | [`dynamic-capture/`](dynamic-capture/) | 3 | 動態捕獲相關 |
 
 ## Recent (2026-11-12)
