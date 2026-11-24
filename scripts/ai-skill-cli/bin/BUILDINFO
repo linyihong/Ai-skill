@@ -1,4 +1,4 @@
-version=repo-3fa874e2
-source_commit=3fa874e2
-built_at=2026-11-24T23:52:09Z
+version=repo-e31f66dd
+source_commit=e31f66dd
+built_at=2026-11-24T23:54:48Z
 targets=windows/amd64,darwin/amd64,darwin/arm64,linux/amd64,linux/arm64
