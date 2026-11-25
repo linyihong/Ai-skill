@@ -235,7 +235,7 @@ func closeLoopCommitGroups(result Result, root string, groupNames []string, grou
 }
 
 func acquireCloseLoopLock(root string) (func(), error) {
-	lockDir := filepath.Join(root, ".git", "ai-skill-agent.lock")
+	lockDir := resolveGitPath(root, "ai-skill-agent.lock")
 	if _, err := os.Stat(lockDir); err == nil {
 		return nil, fmt.Errorf("active close-loop lock detected")
 	}
@@ -358,7 +358,7 @@ func closeLoopRepoRoot(repoPath string) (string, Check) {
 }
 
 func closeLoopLockCheck(root string) Check {
-	lockDir := filepath.Join(root, ".git", "ai-skill-agent.lock")
+	lockDir := resolveGitPath(root, "ai-skill-agent.lock")
 	info, err := os.Stat(lockDir)
 	if err != nil {
 		return Check{Name: "close_loop_lock", Status: "ok"}

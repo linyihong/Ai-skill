@@ -442,11 +442,12 @@ func ensureGoalsLedger(project string) error {
 }
 
 func ensureGoalGitExclude(project string) error {
-	gitDir := filepath.Join(project, ".git")
-	if info, err := os.Stat(gitDir); err != nil || !info.IsDir() {
+	// .git is a directory in a normal checkout and a file in a linked
+	// worktree; either way git resolves where info/exclude really lives.
+	if _, err := os.Stat(filepath.Join(project, ".git")); err != nil {
 		return nil
 	}
-	exclude := filepath.Join(gitDir, "info", "exclude")
+	exclude := resolveGitPath(project, "info/exclude")
 	if err := os.MkdirAll(filepath.Dir(exclude), 0o755); err != nil {
 		return err
 	}
