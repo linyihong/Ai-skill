@@ -13,7 +13,7 @@ import (
 
 func incTestEnv(t *testing.T) string {
 	t.Helper()
-	t.Setenv("TMPDIR", t.TempDir()) // isolates state file and shadow ledger
+	setHookTempDir(t, t.TempDir()) // isolates state file and shadow ledger
 	return filepath.Join(t.TempDir(), "session.jsonl")
 }
 
@@ -206,25 +206,34 @@ func TestIncrementalShadowLedgerOutcomes(t *testing.T) {
 	path := incTestEnv(t)
 	incWrite(t, path, incUserLine("secret-transcript-text"))
 	size := fileSizeOrNegative(path)
-	full := extractTranscriptMessages(path)
+	full := extractTranscriptMessagesUpTo(path, size)
 
-	if rec := runIncrementalShadow(path, full, size, size); rec.Outcome != "equal" || rec.Mode != "rebuild" {
+	if rec := runIncrementalShadow(path, full, size); rec.Outcome != "equal" || rec.Mode != "rebuild" {
 		t.Fatalf("expected equal/rebuild, got %+v", rec)
 	}
-	if rec := runIncrementalShadow(path, full, size, size+10); rec.Outcome != "not_counted" {
-		t.Fatalf("expected not_counted when the transcript grew during the full parse, got %+v", rec)
+	// Lines appended after the snapshot (while the hook runs) are outside both
+	// parses, so the comparison still counts.
+	incAppend(t, path, incUserLine("appended during the hook"))
+	if rec := runIncrementalShadow(path, full, size); rec.Outcome != "equal" {
+		t.Fatalf("expected equal over the snapshot when the transcript grew, got %+v", rec)
+	}
+	if rec := runIncrementalShadow(path, full, fileSizeOrNegative(path)+10); rec.Outcome != "not_counted" || rec.Note != "transcript shrank during compare" {
+		t.Fatalf("expected not_counted when the file is shorter than the snapshot, got %+v", rec)
+	}
+	if rec := runIncrementalShadow(path, full, -1); rec.Outcome != "not_counted" {
+		t.Fatalf("expected not_counted when the size is unavailable, got %+v", rec)
 	}
 	// A differing authoritative result is reported, not repaired.
 	fake := []DetectorMessage{{Role: "user", Text: "something else"}}
-	if rec := runIncrementalShadow(path, fake, size, size); rec.Outcome != "mismatch" || rec.FirstDiff != 0 {
+	if rec := runIncrementalShadow(path, fake, size); rec.Outcome != "mismatch" || rec.FirstDiff != 0 {
 		t.Fatalf("expected mismatch at 0, got %+v", rec)
 	}
 	t.Setenv(incrementalShadowDisableEnv, "0")
-	if rec := runIncrementalShadow(path, full, size, size); rec.Outcome != "not_counted" || rec.Note != "disabled" {
+	if rec := runIncrementalShadow(path, full, size); rec.Outcome != "not_counted" || rec.Note != "disabled" {
 		t.Fatalf("expected disabled, got %+v", rec)
 	}
-	if got := len(readShadowLedger(t)); got != 4 {
-		t.Fatalf("expected 4 ledger records, got %d", got)
+	if got := len(readShadowLedger(t)); got != 6 {
+		t.Fatalf("expected 6 ledger records, got %d", got)
 	}
 	info, err := os.Stat(incrementalStatePath(path))
 	if err != nil {
@@ -252,8 +261,33 @@ func TestIncrementalShadowCannotChangeRoutingInput(t *testing.T) {
 	if len(full) != 1 || full[0].Text != "real" {
 		t.Fatalf("authoritative parse changed: %#v", full)
 	}
-	rec := runIncrementalShadow(path, full, fileSizeOrNegative(path), fileSizeOrNegative(path))
+	rec := runIncrementalShadow(path, full, fileSizeOrNegative(path))
 	if rec.Outcome != "mismatch" {
 		t.Fatalf("poisoned incremental state must surface as a mismatch, got %+v", rec)
+	}
+}
+
+// setHookTempDir redirects os.TempDir (and so hookRuntimePath) for one test.
+// os.TempDir reads TMPDIR on Unix but TMP / TEMP on Windows, so all three are set.
+func setHookTempDir(t *testing.T, dir string) {
+	t.Helper()
+	for _, k := range []string{"TMPDIR", "TMP", "TEMP"} {
+		t.Setenv(k, dir)
+	}
+	if got := os.TempDir(); got != dir {
+		t.Fatalf("os.TempDir() = %q, want %q", got, dir)
+	}
+}
+
+func TestIncrementalShadowSnapshotParseIgnoresLaterAppends(t *testing.T) {
+	path := incTestEnv(t)
+	incWrite(t, path, incUserLine("before snapshot"))
+	size := fileSizeOrNegative(path)
+	incAppend(t, path, incUserLine("after snapshot"))
+	if got := extractTranscriptMessagesUpTo(path, size); len(got) != 1 {
+		t.Fatalf("expected only the message inside the snapshot, got %#v", got)
+	}
+	if got := extractTranscriptMessages(path); len(got) != 2 {
+		t.Fatalf("unbounded parse should still read everything, got %d", len(got))
 	}
 }

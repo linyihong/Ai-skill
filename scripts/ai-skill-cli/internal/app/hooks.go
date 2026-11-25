@@ -514,10 +514,10 @@ type preToolUseRouting struct {
 	registry   runtimeRoutingRegistry
 	transcript []DetectorMessage
 	ctx        RuntimeContext
-	// parsed reports whether the full transcript parse ran; sizeBefore and
-	// sizeAfter bracket it for the incremental shadow comparison.
-	parsed                bool
-	sizeBefore, sizeAfter int64
+	// parsed reports whether the full transcript parse ran; snapshot is the
+	// transcript size it was limited to (-1 if the size was unavailable).
+	parsed   bool
+	snapshot int64
 }
 
 func loadPreToolUseRouting(transcriptPath, aiSkillRepo string) preToolUseRouting {
@@ -528,9 +528,9 @@ func loadPreToolUseRouting(transcriptPath, aiSkillRepo string) preToolUseRouting
 	if err != nil {
 		return preToolUseRouting{}
 	}
-	sizeBefore := fileSizeOrNegative(transcriptPath)
-	transcript := extractTranscriptMessages(transcriptPath)
-	r := preToolUseRouting{parsed: true, transcript: transcript, sizeBefore: sizeBefore, sizeAfter: fileSizeOrNegative(transcriptPath)}
+	snapshot := fileSizeOrNegative(transcriptPath)
+	transcript := extractTranscriptMessagesUpTo(transcriptPath, snapshot)
+	r := preToolUseRouting{parsed: true, transcript: transcript, snapshot: snapshot}
 	if len(transcript) == 0 {
 		return r
 	}
@@ -723,7 +723,7 @@ func finishPreToolUse(host hookHost, transcriptPath, projectDir string, stdout, 
 	if routing.parsed {
 		// Shadow only (plan 2026-11-25-0842 Phase 2a step 1): the result is
 		// written to the shadow ledger and never used for any decision.
-		_ = runIncrementalShadow(transcriptPath, routing.transcript, routing.sizeBefore, routing.sizeAfter)
+		_ = runIncrementalShadow(transcriptPath, routing.transcript, routing.snapshot)
 	}
 	block, routeID, ps := workflowPrimarySourceGateWith(routing, transcriptPath, projectDir)
 	if block {

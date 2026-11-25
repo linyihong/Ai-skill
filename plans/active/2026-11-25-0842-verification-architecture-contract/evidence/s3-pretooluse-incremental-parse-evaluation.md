@@ -131,6 +131,21 @@
 - 被污染的紀錄已移到 `ai-skill-pretooluse-incremental-shadow.jsonl.polluted-by-tests-20261125` 保留，不計入；1c 從重設後的新紀錄開始算。
 - 另外觀察到：第一筆真實紀錄是 `not_counted`（完整解析期間 transcript 變長），之後的真實紀錄是 `equal`。這種比例要在 1c 中持續追蹤；若 `not_counted` 太多，就要調整比對方式，否則證據累積不起來。
 
+### `not_counted` 集中在大 transcript（已修正 2026-11-25）
+
+- 修正前的紀錄：207 筆中 7 筆 `not_counted`（3.4%），但**全部來自同一個 6 MB 的 session**，佔該 session 的 27%（7 / 26）。另外兩個較小的 session 是 0 / 94 與 0 / 88。
+- 原因：完整解析一次約 250 ms，期間 Claude Code 繼續寫入 transcript，前後大小不同就被判為不計入。transcript 越大，解析越久，被排除的機率越高。這會讓 1c 要求的「> 5 MB」涵蓋條件系統性地少算。
+- 修正：PreToolUse 在呼叫開始時記下 transcript 大小，完整解析只讀這麼多位元組（`extractTranscriptMessagesUpTo`），增量解析也讀到同一個位置。兩邊固定看同一段位元組，hook 執行期間新寫入的行留給下一次呼叫。
+- 對正式解析的影響：hook 開始之後才寫入的行不再被這次呼叫讀到。原本這些行能不能讀到取決於時機，現在結果由呼叫開始時的大小決定，可以重現。增量結果仍然不影響任何決策。
+- 修正後只剩兩種 `not_counted`：取不到檔案大小，或檔案在比對期間變得比起始大小還短。
+
+### GitHub CI 在 Windows 失敗（已修正 2026-11-25）
+
+- 從 `e704b4f7` 起，`windows-latest` 的 `TestIncrementalShadowLedgerOutcomes` 都失敗（預期 4 筆紀錄，實際 11 筆）。
+- 原因：Go 的 `os.TempDir()` 在 Unix 讀 `TMPDIR`，在 Windows 讀 `TMP` / `TEMP`。測試只設了 `TMPDIR`，所以在 Windows 上沒有隔離，各測試共用同一份紀錄檔。`TestMain` 的隔離在 Windows 上也同樣無效。
+- 修正：測試與 `TestMain` 同時設定 `TMPDIR`、`TMP`、`TEMP`，並檢查 `os.TempDir()` 確實被轉向。
+- 另一次失敗（`1b3b79d2`）是兩段式提交中，原始碼 commit 先被單獨推送、bin 尚未重建造成的一次性結果，不是測試問題。
+
 ### 上線前驗證（不計入 1c 的 200 次）
 
 - 單元測試涵蓋：

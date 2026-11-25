@@ -269,15 +269,17 @@ func incrementalShadowLedgerPath() string {
 }
 
 // runIncrementalShadow compares the incremental parse with the authoritative
-// full parse. sizeBefore and sizeAfter are the transcript sizes observed just
-// before and after the full parse; when they differ the two parses may have
-// seen different bytes, so the comparison is recorded as not counted. It never
-// returns anything a decision path could use, and it recovers from panics.
-func runIncrementalShadow(transcriptPath string, full []DetectorMessage, sizeBefore, sizeAfter int64) (rec incrementalShadowRecord) {
+// full parse over the same bytes: snapshot is the size the full parse was
+// limited to, and the incremental parse is limited to it too, so lines appended
+// while the hook runs no longer make the comparison uncountable. Only a size
+// that is unavailable, or a file that shrank below the snapshot, is recorded
+// as not counted. It never returns anything a decision path could use, and it
+// recovers from panics.
+func runIncrementalShadow(transcriptPath string, full []DetectorMessage, snapshot int64) (rec incrementalShadowRecord) {
 	rec = incrementalShadowRecord{
 		Time:      time.Now().UTC().Format(time.RFC3339),
 		Session:   md5Short(transcriptPath),
-		Bytes:     sizeAfter,
+		Bytes:     snapshot,
 		FullCount: len(full),
 	}
 	defer func() {
@@ -290,12 +292,16 @@ func runIncrementalShadow(transcriptPath string, full []DetectorMessage, sizeBef
 		rec.Outcome, rec.Note = "not_counted", "disabled"
 		return rec
 	}
-	if sizeBefore < 0 || sizeBefore != sizeAfter {
-		rec.Outcome, rec.Note = "not_counted", "transcript changed during full parse"
+	if snapshot < 0 {
+		rec.Outcome, rec.Note = "not_counted", "transcript size unavailable"
+		return rec
+	}
+	if now := fileSizeOrNegative(transcriptPath); now < snapshot {
+		rec.Outcome, rec.Note = "not_counted", "transcript shrank during compare"
 		return rec
 	}
 	start := time.Now()
-	res, err := parseIncrementalTranscript(transcriptPath, sizeAfter)
+	res, err := parseIncrementalTranscript(transcriptPath, snapshot)
 	rec.IncrementalMS = float64(time.Since(start).Microseconds()) / 1000
 	if err != nil {
 		rec.Outcome, rec.Note = "error", err.Error()

@@ -3,6 +3,7 @@ package app
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 	"sort"
@@ -298,14 +299,26 @@ func resolveManualLock(registry runtimeRoutingRegistry, lockText string) (string
 // content shapes handled by extractAssistantTexts (string content or content
 // arrays with {text}). Non-user/assistant rows are skipped.
 func extractTranscriptMessages(path string) []DetectorMessage {
+	return extractTranscriptMessagesUpTo(path, -1)
+}
+
+// extractTranscriptMessagesUpTo parses only the first limit bytes (all of the
+// file when limit < 0). PreToolUse passes the size it saw when the call began,
+// so lines appended while the hook runs are left for the next call and the
+// result is reproducible from that byte count.
+func extractTranscriptMessagesUpTo(path string, limit int64) []DetectorMessage {
 	f, err := os.Open(path)
 	if err != nil {
 		return nil
 	}
 	defer f.Close()
 
+	var src io.Reader = f
+	if limit >= 0 {
+		src = io.LimitReader(f, limit)
+	}
 	var msgs []DetectorMessage
-	scanner := newTranscriptLineReader(f)
+	scanner := newTranscriptLineReader(src)
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
 		if line == "" {
