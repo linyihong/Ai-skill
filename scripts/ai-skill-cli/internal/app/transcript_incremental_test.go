@@ -167,17 +167,16 @@ func TestIncrementalTranscriptUnterminatedTailAndMalformedLines(t *testing.T) {
 	}
 }
 
-func TestIncrementalTranscriptMirrorsScannerOversizeStop(t *testing.T) {
+func TestIncrementalTranscriptParsesLinesOver2MB(t *testing.T) {
 	path := incTestEnv(t)
-	huge := `{"type":"user","message":{"role":"user","content":"` + strings.Repeat("y", incrementalMaxLine) + `"}}` + "\n"
+	huge := `{"type":"user","message":{"role":"user","content":"` + strings.Repeat("y", 3*1024*1024) + `"}}` + "\n"
 	incWrite(t, path, incUserLine("before")+huge+incUserLine("after"))
-	r := incParse(t, path)
-	if !r.Stalled || len(r.Messages) != 1 {
-		t.Fatalf("expected parsing to stop at the oversize line like bufio.Scanner, stalled=%v n=%d", r.Stalled, len(r.Messages))
+	if r := incParse(t, path); len(r.Messages) != 3 {
+		t.Fatalf("expected all 3 messages, including those after the long line, got %d", len(r.Messages))
 	}
 	incAppend(t, path, incUserLine("later"))
-	if r := incParse(t, path); !r.Stalled || len(r.Messages) != 1 {
-		t.Fatalf("expected to stay stalled, got stalled=%v n=%d", r.Stalled, len(r.Messages))
+	if r := incParse(t, path); r.Mode != "incremental" || len(r.Messages) != 4 {
+		t.Fatalf("expected incremental with 4 messages, got %s/%s n=%d", r.Mode, r.Reason, len(r.Messages))
 	}
 }
 

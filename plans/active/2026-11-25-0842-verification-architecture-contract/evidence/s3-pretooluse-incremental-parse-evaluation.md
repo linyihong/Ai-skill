@@ -114,11 +114,15 @@
   - macOS 的 `$TMPDIR` 重開機可能被清空，所以收集證據時要先把紀錄複製出來。
 - 關閉方式：環境變數 `AI_SKILL_PRETOOLUSE_INCREMENTAL_SHADOW=0`，這時紀錄為 `not_counted`。
 - 重建原因已實作：`no_state`、`state_decode_failed`、`state_version_mismatch`、`transcript_path_mismatch`、`cursor_invalid`、`transcript_truncated`、`head_hash_mismatch`、`boundary_hash_mismatch`、`cursor_unverifiable`。
-- 為了能和完整解析比較，增量解析刻意複製了它的兩個現有行為：
-  - 最後一行還沒寫完時，照樣解析進本次結果，但游標不推進；
-  - 遇到超過 2 MB 的行就停止，之後的行全部不處理（`stalled`），和 `bufio.Scanner` 一樣。
+- 為了能和完整解析比較，增量解析與完整解析對「最後一行還沒寫完」的處理相同：照樣解析進本次結果，但游標不推進。
 - **已知限制**：雜湊只檢查檔案開頭與游標前各 4 KB。中間區段如果被修改，增量解析不會發現，只有 shadow 比對會抓到。這是 shadow 不能省略的原因之一，切換前要用 shadow 證據說明這種情況是否發生。
-- **旁支觀察（observed）**：完整解析遇到超過 2 MB 的行會靜默停止，之後的訊息全部被忽略。這是現行完整解析本身的問題，不在步驟 1 範圍；shadow 紀錄的 `stalled` 欄位會顯示它是否真的發生。
+- **超長行問題（verified，已修正 2026-11-25）**：
+  - 問題：hooks 的 6 個 transcript 讀取函式都用固定緩衝的 `bufio.Scanner`（5 個 2 MB、1 個 8 MB）。遇到更長的行就靜默停止，之後的內容全部被忽略。
+  - 實際發生：本機 52 份 transcript 中有 2 份含超長行（2.2 MB、7.7 MB）。其中 23.4 MB 那份只讀到第 1338 行（共 2944 行），超過一半看不到；7.8 MB 那份只讀到第 253 行（共 304 行）。
+  - 影響：PreToolUse gate、workflow detector、Stop hook 在這些 session 中看不到超長行之後的 Receipt、已讀檔案與使用者訊息。
+  - 修正：新增沒有行長上限的 `transcriptLineReader`，取代全部 6 處。它用 `ReadSlice`，只有超過緩衝的行才複製，讀行速度與原本相同（6 MB 時 5.3 ms 對 5.6 ms）。
+  - 回歸測試：超長行之後的資料，6 個函式都必須看得到；這個測試在舊程式上確實失敗。
+  - 增量解析器同步移除「遇超長行停止」的複製行為，狀態版本升為 2，舊狀態會以 `state_version_mismatch` 重建。
 
 ### 上線後立即發現：測試寫入正式紀錄（已修正）
 

@@ -1,7 +1,6 @@
 package app
 
 import (
-	"bufio"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -306,8 +305,7 @@ func extractTranscriptMessages(path string) []DetectorMessage {
 	defer f.Close()
 
 	var msgs []DetectorMessage
-	scanner := bufio.NewScanner(f)
-	scanner.Buffer(make([]byte, 2*1024*1024), 2*1024*1024)
+	scanner := newTranscriptLineReader(f)
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
 		if line == "" {

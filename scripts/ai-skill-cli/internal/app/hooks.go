@@ -1,7 +1,6 @@
 package app
 
 import (
-	"bufio"
 	"crypto/md5"
 	"database/sql"
 	"encoding/json"
@@ -887,8 +886,7 @@ func extractAssistantTexts(transcriptPath string) []string {
 	defer f.Close()
 
 	var results []string
-	scanner := bufio.NewScanner(f)
-	scanner.Buffer(make([]byte, 2*1024*1024), 2*1024*1024)
+	scanner := newTranscriptLineReader(f)
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
 		if line == "" {
@@ -979,8 +977,7 @@ func transcriptHasRequiredBootstrapReads(transcriptPath string, requiredSuffixes
 	}
 	defer f.Close()
 
-	scanner := bufio.NewScanner(f)
-	scanner.Buffer(make([]byte, 2*1024*1024), 2*1024*1024)
+	scanner := newTranscriptLineReader(f)
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
 		if line == "" {
@@ -1279,8 +1276,7 @@ func transcriptHasRuntimeReceiptEvidence(transcriptPath string) bool {
 	}
 
 	receiptUses := map[string]bool{}
-	scanner := bufio.NewScanner(f)
-	scanner.Buffer(make([]byte, 2*1024*1024), 8*1024*1024)
+	scanner := newTranscriptLineReader(f)
 	for scanner.Scan() {
 		line := scanner.Bytes()
 		if len(line) == 0 {
@@ -1907,8 +1903,7 @@ func transcriptHasBootstrapAcknowledgment(transcriptPath string, lastN int) bool
 	defer f.Close()
 
 	var assistantTexts []string
-	scanner := bufio.NewScanner(f)
-	scanner.Buffer(make([]byte, 2*1024*1024), 2*1024*1024)
+	scanner := newTranscriptLineReader(f)
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
 		if line == "" {
@@ -2083,8 +2078,7 @@ func transcriptLatestAssistantHasToolUse(transcriptPath string) bool {
 	defer f.Close()
 
 	var latest map[string]json.RawMessage
-	scanner := bufio.NewScanner(f)
-	scanner.Buffer(make([]byte, 2*1024*1024), 2*1024*1024)
+	scanner := newTranscriptLineReader(f)
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
 		if line == "" {

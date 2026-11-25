@@ -28,13 +28,10 @@ import (
 // per-line extraction logic.
 
 const (
-	incrementalTranscriptStateVersion = 1
+	// Version 2: lines of any length are parsed (the full parse no longer
+	// stops at lines over 2 MB), so version-1 state that stalled is rebuilt.
+	incrementalTranscriptStateVersion = 2
 	incrementalHashWindow             = 4096
-	// Mirrors the bufio.Scanner buffer in extractTranscriptMessages: a line
-	// that does not fit makes the scanner stop, and every later line is
-	// dropped. The incremental path reproduces that so the two stay
-	// comparable; the shadow ledger records when it happens.
-	incrementalMaxLine = 2 * 1024 * 1024
 
 	incrementalShadowDisableEnv = "AI_SKILL_PRETOOLUSE_INCREMENTAL_SHADOW"
 )
@@ -45,7 +42,6 @@ type incrementalTranscriptState struct {
 	Offset       int64             `json:"offset"`
 	HeadHash     string            `json:"head_hash"`
 	BoundaryHash string            `json:"boundary_hash"`
-	Stalled      bool              `json:"stalled"` // an oversize line stopped parsing at Offset
 	Messages     []DetectorMessage `json:"messages"`
 }
 
@@ -54,7 +50,6 @@ type incrementalParseResult struct {
 	Messages []DetectorMessage
 	Mode     string // "incremental" or "rebuild"
 	Reason   string // why a rebuild happened ("" for incremental)
-	Stalled  bool
 	NewBytes int64
 }
 
@@ -116,17 +111,16 @@ func parseIncrementalTranscript(transcriptPath string, limit int64) (incremental
 		res.Mode, res.Reason = "rebuild", reason
 	}
 
-	if !state.Stalled && limit > state.Offset {
+	if limit > state.Offset {
 		buf := make([]byte, limit-state.Offset)
 		if _, err := f.ReadAt(buf, state.Offset); err != nil && err != io.EOF {
 			return incrementalParseResult{}, err
 		}
 		res.NewBytes = int64(len(buf))
-		consumed, tail, stalled := consumeTranscriptLines(buf, &state.Messages)
+		consumed, tail := consumeTranscriptLines(buf, &state.Messages)
 		state.Offset += consumed
-		state.Stalled = stalled
 		// A final line without its newline is parsed for this result only
-		// (bufio.Scanner returns it too) but the cursor stays before it.
+		// (the full parse returns it too) but the cursor stays before it.
 		if tail != nil {
 			res.Messages = appendTranscriptLine(append([]DetectorMessage(nil), state.Messages...), tail)
 		}
@@ -134,7 +128,6 @@ func parseIncrementalTranscript(transcriptPath string, limit int64) (incremental
 	if res.Messages == nil {
 		res.Messages = state.Messages
 	}
-	res.Stalled = state.Stalled
 
 	if state.HeadHash, err = hashHead(f, state.Offset); err != nil {
 		return res, err
@@ -185,26 +178,19 @@ func loadValidIncrementalState(f *os.File, transcriptPath string, limit int64) (
 }
 
 // consumeTranscriptLines appends messages for every newline-terminated line in
-// buf. It returns the bytes consumed, the unterminated tail (nil if none), and
-// whether an oversize line stopped parsing.
-func consumeTranscriptLines(buf []byte, msgs *[]DetectorMessage) (int64, []byte, bool) {
+// buf. It returns the bytes consumed and the unterminated tail (nil if none).
+func consumeTranscriptLines(buf []byte, msgs *[]DetectorMessage) (int64, []byte) {
 	var consumed int64
 	for len(buf) > 0 {
 		i := bytes.IndexByte(buf, '\n')
 		if i < 0 {
-			if len(buf) >= incrementalMaxLine {
-				return consumed, nil, true
-			}
-			return consumed, buf, false
-		}
-		if i >= incrementalMaxLine {
-			return consumed, nil, true
+			return consumed, buf
 		}
 		*msgs = appendTranscriptLine(*msgs, buf[:i])
 		consumed += int64(i + 1)
 		buf = buf[i+1:]
 	}
-	return consumed, nil, false
+	return consumed, nil
 }
 
 func appendTranscriptLine(msgs []DetectorMessage, raw []byte) []DetectorMessage {
@@ -270,7 +256,6 @@ type incrementalShadowRecord struct {
 	Outcome       string  `json:"outcome"` // equal | mismatch | not_counted | error
 	Mode          string  `json:"mode,omitempty"`
 	Reason        string  `json:"reason,omitempty"`
-	Stalled       bool    `json:"stalled,omitempty"`
 	NewBytes      int64   `json:"new_bytes,omitempty"`
 	FullCount     int     `json:"full_count"`
 	IncCount      int     `json:"inc_count"`
@@ -316,7 +301,7 @@ func runIncrementalShadow(transcriptPath string, full []DetectorMessage, sizeBef
 		rec.Outcome, rec.Note = "error", err.Error()
 		return rec
 	}
-	rec.Mode, rec.Reason, rec.Stalled, rec.NewBytes = res.Mode, res.Reason, res.Stalled, res.NewBytes
+	rec.Mode, rec.Reason, rec.NewBytes = res.Mode, res.Reason, res.NewBytes
 	rec.IncCount = len(res.Messages)
 	if reflect.DeepEqual(normalizeDetectorMessages(full), normalizeDetectorMessages(res.Messages)) {
 		rec.Outcome = "equal"
