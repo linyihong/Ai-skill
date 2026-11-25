@@ -144,6 +144,7 @@
 - 從 `e704b4f7` 起，`windows-latest` 的 `TestIncrementalShadowLedgerOutcomes` 都失敗（預期 4 筆紀錄，實際 11 筆）。
 - 原因：Go 的 `os.TempDir()` 在 Unix 讀 `TMPDIR`，在 Windows 讀 `TMP` / `TEMP`。測試只設了 `TMPDIR`，所以在 Windows 上沒有隔離，各測試共用同一份紀錄檔。`TestMain` 的隔離在 Windows 上也同樣無效。
 - 修正：測試與 `TestMain` 同時設定 `TMPDIR`、`TMP`、`TEMP`，並檢查 `os.TempDir()` 確實被轉向。
+- 隔離修好後，Windows 接著在「狀態檔權限為 `0600`」的檢查失敗：Windows 沒有 Unix 權限位元，Go 一律回報 `0666`。這項檢查改為只在非 Windows 平台執行，與 `init_project_test.go` 既有做法一致；Windows 上由使用者暫存目錄的存取控制保護。
 - 另一次失敗（`1b3b79d2`）是兩段式提交中，原始碼 commit 先被單獨推送、bin 尚未重建造成的一次性結果，不是測試問題。
 
 ### 上線前驗證（不計入 1c 的 200 次）

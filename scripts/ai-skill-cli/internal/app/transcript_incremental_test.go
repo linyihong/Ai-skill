@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"runtime"
 	"strings"
 	"testing"
 )
@@ -239,7 +240,9 @@ func TestIncrementalShadowLedgerOutcomes(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if info.Mode().Perm() != 0o600 {
+	// Windows has no Unix permission bits (Go reports 0666); the per-user temp
+	// directory's ACL protects the file there.
+	if runtime.GOOS != "windows" && info.Mode().Perm() != 0o600 {
 		t.Fatalf("state file must be 0600, got %v", info.Mode().Perm())
 	}
 }
