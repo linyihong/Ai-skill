@@ -28,7 +28,10 @@ Class: `enforcement-self-leak` / `validation-gap`
 ## Prevention Gate
 
 - **文件層（已存在）：** 本 pattern、[`feedback/history/development-guidance/common/2026-11-25_084854-bootstrap-receipt-gate-blind-to-mid-turn-text.md`](../../feedback/history/development-guidance/common/2026-11-25_084854-bootstrap-receipt-gate-blind-to-mid-turn-text.md)、[`ai-tools/agent/claude.md`](../../ai-tools/agent/claude.md) §已知限制。
-- **Gate 層（部分完成，2026-11-25）：** `no receipt` 的 deny 訊息已加上「回合中已輸出 Receipt 時不要重試，結束回合即可解除」，並指向本 pattern；`TestRunPreToolUseHookCursorBlocksWithoutReceipt` 鎖住這段提示。讓 gate 接受 transcript 中已成功執行的 `ai-skill runtime receipt` 結果作為證據，仍未實作。
+- **Gate 層（已完成，2026-11-25）：**
+  - `no receipt` 的 deny 訊息說明：回合中已輸出 Receipt 時不要重試，改執行 `ai-skill runtime receipt` 或結束回合即可解除；`TestRunPreToolUseHookCursorBlocksWithoutReceipt` 鎖住提示。
+  - gate 接受 transcript 中**成功的 `runtime receipt` 工具結果**作為 Receipt 證據（工具結果會即時寫入，回合中的文字不一定）。必須是 repo binary 的 `runtime receipt` 指令本身的 tool_use，以 `tool_use_id` 配對、非 error、輸出含 success 行與 `bootstrap_receipt` 列；其他指令（例如 grep）印出同樣文字不算。required reads 照舊要求。測試：`hooks_runtime_receipt_evidence_test.go`。
+  - 限制：只解析 Claude Code 形狀的 transcript；不是防偽機制（刻意 `echo` 同樣文字的指令仍可滿足），它是行為強制，不是安全邊界。
 - **Promotion 條件：** 另一個 session 或 client 再次觀察到時，才考慮提升為 `validated`。
 
 ## 驗證

@@ -1216,6 +1216,98 @@ func isAiSkillBootstrapCLICommand(command string) bool {
 	return aiSkillCLIBootstrapCommandRE.MatchString(command)
 }
 
+var aiSkillRuntimeReceiptCommandRE = regexp.MustCompile(`(?i)ai-skill-(windows|darwin|linux)-(amd64|arm64)(\.exe)?["']?\s+runtime\s+receipt\b`)
+
+// transcriptHasRuntimeReceiptEvidence reports whether the transcript holds a
+// successful `ai-skill runtime receipt` run: a tool_use whose input.command is
+// the repo-local receipt command, paired by tool_use_id with a non-error
+// tool_result that carries the CLI success line and the bootstrap_receipt row.
+// Output text alone (for example a grep that happens to print the marker) is
+// not enough; it must belong to the receipt command's own tool call.
+func transcriptHasRuntimeReceiptEvidence(transcriptPath string) bool {
+	if transcriptPath == "" || !claudeFileExists(transcriptPath) {
+		return false
+	}
+	f, err := os.Open(transcriptPath)
+	if err != nil {
+		return false
+	}
+	defer f.Close()
+
+	type block struct {
+		Type      string          `json:"type"`
+		ID        string          `json:"id"`
+		Input     json.RawMessage `json:"input"`
+		ToolUseID string          `json:"tool_use_id"`
+		Content   json.RawMessage `json:"content"`
+		IsError   bool            `json:"is_error"`
+	}
+	type entry struct {
+		Message struct {
+			Content json.RawMessage `json:"content"`
+		} `json:"message"`
+	}
+
+	receiptUses := map[string]bool{}
+	scanner := bufio.NewScanner(f)
+	scanner.Buffer(make([]byte, 2*1024*1024), 8*1024*1024)
+	for scanner.Scan() {
+		line := scanner.Bytes()
+		if len(line) == 0 {
+			continue
+		}
+		var e entry
+		if err := json.Unmarshal(line, &e); err != nil {
+			continue
+		}
+		var blocks []block
+		if err := json.Unmarshal(e.Message.Content, &blocks); err != nil {
+			continue
+		}
+		for _, b := range blocks {
+			switch b.Type {
+			case "tool_use":
+				var in struct {
+					Command string `json:"command"`
+				}
+				if json.Unmarshal(b.Input, &in) == nil && aiSkillRuntimeReceiptCommandRE.MatchString(in.Command) {
+					receiptUses[b.ID] = true
+				}
+			case "tool_result":
+				if b.IsError || !receiptUses[b.ToolUseID] {
+					continue
+				}
+				out := toolResultText(b.Content)
+				if strings.Contains(out, "ai-skill runtime receipt: success") &&
+					strings.Contains(out, "bootstrap_receipt: ok - Bootstrap:") {
+					return true
+				}
+			}
+		}
+	}
+	return false
+}
+
+// toolResultText flattens a tool_result content field (string or list of
+// {type:text,text} items) into one string.
+func toolResultText(raw json.RawMessage) string {
+	var s string
+	if err := json.Unmarshal(raw, &s); err == nil {
+		return s
+	}
+	var items []struct {
+		Text string `json:"text"`
+	}
+	if err := json.Unmarshal(raw, &items); err != nil {
+		return ""
+	}
+	parts := make([]string, 0, len(items))
+	for _, it := range items {
+		parts = append(parts, it.Text)
+	}
+	return strings.Join(parts, "\n")
+}
+
 // bashCommandFromPreToolUsePayload extracts tool_input.command from a
 // PreToolUse Bash payload, mirroring toolPathFromPreToolUsePayload's search
 // order (tool_input / arguments / input).
@@ -1569,6 +1661,15 @@ func runPreToolUseHook(projectDir string, stdout io.Writer, stderr io.Writer) in
 			break
 		}
 	}
+	// Some clients do not persist mid-turn assistant text until the turn ends,
+	// but tool results are persisted immediately. A successful `runtime receipt`
+	// run is therefore accepted as equivalent Receipt evidence (the same
+	// required-read check below still applies). See
+	// enforcement/failure-patterns/bootstrap-receipt-gate-blind-to-mid-turn-text.md.
+	if !receiptEmitted && transcriptHasRuntimeReceiptEvidence(transcriptPath) {
+		receiptEmitted = true
+		appendLog(logFile, "receipt evidence: runtime receipt tool result")
+	}
 
 	if receiptEmitted {
 		// gate.bootstrap.receipt_present — strengthened by read-log requirement.
@@ -1604,7 +1705,8 @@ func runPreToolUseHook(projectDir string, stdout io.Writer, stderr io.Writer) in
 		"Only Read tool calls are allowed before the Receipt is emitted. " +
 		"If you already emitted the Receipt earlier in this turn, this gate reads only assistant text " +
 		"persisted to the transcript, and the client may not persist mid-turn text until the turn ends: " +
-		"do not re-read files or re-emit the Receipt in this turn. Instead, end the turn with a reply that " +
+		"do not re-read files or re-emit the Receipt in this turn. Either run the repo-local " +
+		"`ai-skill runtime receipt` command (its tool result is accepted as evidence), or end the turn with a reply that " +
 		"contains the Receipt plus progress and any unwritten changes; the next turn's first tool call will pass. " +
 		"See enforcement/failure-patterns/bootstrap-receipt-gate-blind-to-mid-turn-text.md."
 	return renderPreToolUseDecision(host, stdout, hookDecision{Deny: true, Reason: reason})
