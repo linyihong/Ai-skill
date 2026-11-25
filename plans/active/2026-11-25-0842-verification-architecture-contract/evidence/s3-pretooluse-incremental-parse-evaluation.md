@@ -6,7 +6,7 @@
 - 方法：
   - 分段計時：暫存的 Go 測試直接呼叫內部函式，每段跑 5 次取最小值。測試沒有提交。
   - 端到端：以 stdin JSON 執行 `hooks run pre-tool-use` 5 次，取中位數。
-- 判定：**評估完成，尚未實作**。是否採用待使用者裁決。
+- 判定：評估完成。步驟 0 已實作（見 §步驟 0 結果）；步驟 1 待使用者裁決。
 
 ## 量測結果
 
@@ -67,9 +67,23 @@
 - 任何一次不一致：記錄差異，停止採用評估，先修正再重新計數。
 - 撤回條件：若 Claude Code 會改寫既有行（不是只附加），邊界雜湊檢查會頻繁觸發全量重建。這時要先量化重建比例；比例過高就放棄步驟 1，只保留步驟 0。
 
+## 步驟 0 結果（2026-11-25）
+
+- 實作：新增 `loadPreToolUseRouting`，`finishPreToolUse` 每次呼叫只讀一次 registry、只解析一次 transcript、只建一次 RuntimeContext，交給 `workflowPrimarySourceGateWith` 與 `tryDiscoveryAdvisoryWith` 共用。`workflowPrimarySourceGate` 保留原簽名（既有測試與其他計畫引用它）。
+- 語意差異：原本兩次 `BuildRuntimeContext` 各取一次 `time.Now()`，相差不到 1 秒；現在共用同一個時間點。
+- 驗證：`go test ./internal/app` 通過；新舊 binary 對同一份 transcript 的 stdout 完全相同。
+- 量測（真實 transcript 5.3 MB，走 `.done` 快取命中路徑；新舊 binary 交錯各跑 15 次）：
+
+| binary | 中位數 | 最小 | 最大 |
+| --- | --- | --- | --- |
+| 舊（`d9845ad6`） | 0.62 s | 0.41 s | 1.09 s |
+| 新（步驟 0） | **0.40 s** | 0.28 s | 1.30 s |
+
+- 中位數約減少 35%，符合「省掉一次全量解析」的預估。成本仍與 transcript 大小成正比；要讓它不再隨 session 變長而增加，需要步驟 1。
+
 ## 建議
 
-1. **先做步驟 0**：零語意風險，立刻省約 25%。
+1. ~~先做步驟 0~~：已完成，見上。
 2. 步驟 1 以 shadow 方式實作，達到門檻再切換。它屬於 Phase 2a 的 dogfood 主體，會首次在 Ai-skill 自身套用 V3 與 V5。
 3. Stop / user-prompt-submit hook 也會掃 transcript，但它們每回合只跑一次（S1 顯示 0.02–0.14 s），不在本範圍。
 

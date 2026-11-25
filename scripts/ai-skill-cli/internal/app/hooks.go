@@ -502,18 +502,46 @@ func resolveClaudeAiSkillRepo(projectDir string) string {
 // transcript has not flushed yet (see feedback/history/2026-07-14-workflow-
 // primary-source-read-cursor-evidence.md).
 func workflowPrimarySourceGate(transcriptPath, aiSkillRepo, projectDir string) (block bool, routeID, primarySource string) {
+	return workflowPrimarySourceGateWith(loadPreToolUseRouting(transcriptPath, aiSkillRepo), transcriptPath, projectDir)
+}
+
+// preToolUseRouting is the routing state one PreToolUse call derives from the
+// transcript. It is built once per call and shared by the workflow gate and
+// the Discovery advisory, which previously each re-parsed the whole
+// transcript (S3: plans/active/2026-11-25-0842-verification-architecture-contract).
+// Nothing here is reused across calls.
+type preToolUseRouting struct {
+	ok         bool
+	registry   runtimeRoutingRegistry
+	transcript []DetectorMessage
+	ctx        RuntimeContext
+}
+
+func loadPreToolUseRouting(transcriptPath, aiSkillRepo string) preToolUseRouting {
 	if transcriptPath == "" || aiSkillRepo == "" {
-		return false, "", ""
+		return preToolUseRouting{}
 	}
 	registry, err := readRuntimeRoutingRegistry(filepath.Join(aiSkillRepo, "knowledge", "runtime", "routing-registry.yaml"))
 	if err != nil {
-		return false, "", ""
+		return preToolUseRouting{}
 	}
 	transcript := extractTranscriptMessages(transcriptPath)
 	if len(transcript) == 0 {
+		return preToolUseRouting{}
+	}
+	return preToolUseRouting{
+		ok:         true,
+		registry:   registry,
+		transcript: transcript,
+		ctx:        BuildRuntimeContext(registry, transcript, nil, time.Now().UTC()),
+	}
+}
+
+func workflowPrimarySourceGateWith(r preToolUseRouting, transcriptPath, projectDir string) (block bool, routeID, primarySource string) {
+	if !r.ok {
 		return false, "", ""
 	}
-	ctx := BuildRuntimeContext(registry, transcript, nil, time.Now().UTC())
+	registry, ctx := r.registry, r.ctx
 	if ctx.ActiveRoute == "" { // miss or conflict → never block
 		return false, "", ""
 	}
@@ -688,7 +716,8 @@ func preToolUseReadAllowed(host hookHost, toolName string) bool {
 // — non-blocking, injected via hookSpecificOutput.additionalContext.
 func finishPreToolUse(host hookHost, transcriptPath, projectDir string, stdout, stderr io.Writer) int {
 	aiSkillRepo := resolveClaudeAiSkillRepo(projectDir)
-	block, routeID, ps := workflowPrimarySourceGate(transcriptPath, aiSkillRepo, projectDir)
+	routing := loadPreToolUseRouting(transcriptPath, aiSkillRepo)
+	block, routeID, ps := workflowPrimarySourceGateWith(routing, transcriptPath, projectDir)
 	if block {
 		_, _ = fmt.Fprintf(stderr, "BLOCK_WORKFLOW_PRIMARY_SOURCE route=%s primary_source=%s\n", routeID, ps)
 		appendLog(hookRuntimePath("ai-skill-bootstrap-hook.log"),
@@ -703,28 +732,20 @@ func finishPreToolUse(host hookHost, transcriptPath, projectDir string, stdout, 
 	// Detector miss / conflict / no-route path: try Discovery Bridge.
 	// Fail-open everywhere — any error path returns ExitSuccess with no
 	// advisory. Discovery is advisory-only; it never blocks.
-	if advisory := tryDiscoveryAdvisory(transcriptPath, aiSkillRepo, stderr); advisory != "" {
+	if advisory := tryDiscoveryAdvisoryWith(routing, aiSkillRepo, stderr); advisory != "" {
 		return renderPreToolUseAdditionalContext(host, stdout, advisory)
 	}
 	return ExitSuccess
 }
 
-// tryDiscoveryAdvisory runs Light Discovery when the detector has missed.
+// tryDiscoveryAdvisoryWith runs Light Discovery when the detector has missed.
 // Returns the advisory text to inject, or "" if Discovery should not fire
 // or produced nothing. Fail-open: any error returns "".
-func tryDiscoveryAdvisory(transcriptPath, aiSkillRepo string, stderr io.Writer) string {
-	if transcriptPath == "" || aiSkillRepo == "" {
+func tryDiscoveryAdvisoryWith(r preToolUseRouting, aiSkillRepo string, stderr io.Writer) string {
+	if !r.ok {
 		return ""
 	}
-	registry, err := readRuntimeRoutingRegistry(filepath.Join(aiSkillRepo, "knowledge", "runtime", "routing-registry.yaml"))
-	if err != nil {
-		return ""
-	}
-	transcript := extractTranscriptMessages(transcriptPath)
-	if len(transcript) == 0 {
-		return ""
-	}
-	ctx := BuildRuntimeContext(registry, transcript, nil, time.Now().UTC())
+	transcript, ctx := r.transcript, r.ctx
 	// Only fire on a true miss / multi-route conflict where ActiveRoute is
 	// empty. If detector locked a route, the gate above handled it.
 	if ctx.ActiveRoute != "" {

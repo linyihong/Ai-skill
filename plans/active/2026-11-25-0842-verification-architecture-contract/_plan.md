@@ -74,7 +74,7 @@ parent: null
 - [x] V2 驗證：**verified**。[`evidence/s2-v2-path-selection-falsification.md`](evidence/s2-v2-path-selection-falsification.md)：只改 `metadata/` 或 `plans/` 的探針讓測試失敗，pre-push 仍放行、不跑 Go 測試；CI paths 過濾同樣不涵蓋（讀設定得出）
 - [x] 依 V2 結果修補（2026-11-25 使用者裁決：方案 1 保守全跑）：pre-push 只要有任何變更就跑 `go test ./...`（`hasPrePushChange`）；CI 移除 `paths` 過濾。第一個實際套用的不變式：V2
 - [x] PreToolUse 增量化評估：[`evidence/s3-pretooluse-incremental-parse-evaluation.md`](evidence/s3-pretooluse-incremental-parse-evaluation.md)。5.1 MB 時每次 0.52 s；主因是同一次呼叫內全量解析兩次（各 134 ms）。shadow 採用門檻已先登記
-- [ ] 步驟 0（待使用者裁決）：每次呼叫只解析一次，預估 0.52 → 0.38 s；純重構，不需 shadow
+- [x] 步驟 0：每次呼叫只解析一次（`loadPreToolUseRouting`）。5.3 MB 時中位數 0.62 → 0.40 s；純重構，輸出與舊版相同
 - [ ] 步驟 1（待使用者裁決）：跨呼叫增量解析，以 shadow 實作，達 S3 登記的門檻（≥ 200 次比對、≥ 5 session、0 不一致）才切換
 - [ ] （選擇性）`internal/app` 最慢的 runtime compiler 測試切分或共用 fixture；屬測試效能，不屬快取
 
