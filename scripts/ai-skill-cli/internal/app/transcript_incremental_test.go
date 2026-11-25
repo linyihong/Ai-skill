@@ -1,0 +1,260 @@
+package app
+
+import (
+	"bufio"
+	"encoding/json"
+	"fmt"
+	"os"
+	"path/filepath"
+	"reflect"
+	"strings"
+	"testing"
+)
+
+func incTestEnv(t *testing.T) string {
+	t.Helper()
+	t.Setenv("TMPDIR", t.TempDir()) // isolates state file and shadow ledger
+	return filepath.Join(t.TempDir(), "session.jsonl")
+}
+
+func incUserLine(text string) string {
+	b, _ := json.Marshal(map[string]interface{}{"type": "user", "message": map[string]interface{}{"role": "user", "content": text}})
+	return string(b) + "\n"
+}
+
+func incAssistantLine(text string) string {
+	b, _ := json.Marshal(map[string]interface{}{"type": "assistant", "message": map[string]interface{}{"role": "assistant", "content": []map[string]string{{"type": "text", "text": text}}}})
+	return string(b) + "\n"
+}
+
+func incWrite(t *testing.T, path, content string) {
+	t.Helper()
+	if err := os.WriteFile(path, []byte(content), 0o600); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func incAppend(t *testing.T, path, content string) {
+	t.Helper()
+	f, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY, 0o600)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer f.Close()
+	if _, err := f.WriteString(content); err != nil {
+		t.Fatal(err)
+	}
+}
+
+// incParse runs the incremental parser to EOF and checks it against the full parse.
+func incParse(t *testing.T, path string) incrementalParseResult {
+	t.Helper()
+	res, err := parseIncrementalTranscript(path, fileSizeOrNegative(path))
+	if err != nil {
+		t.Fatalf("incremental parse: %v", err)
+	}
+	full := extractTranscriptMessages(path)
+	if !reflect.DeepEqual(normalizeDetectorMessages(full), normalizeDetectorMessages(res.Messages)) {
+		t.Fatalf("incremental != full\nfull=%#v\ninc=%#v", full, res.Messages)
+	}
+	return res
+}
+
+func incBigPrefix(n int) string {
+	var b strings.Builder
+	for i := 0; i < n; i++ {
+		b.WriteString(incUserLine(fmt.Sprintf("message %03d %s", i, strings.Repeat("x", 200))))
+	}
+	return b.String()
+}
+
+func TestIncrementalTranscriptResumesOnAppend(t *testing.T) {
+	path := incTestEnv(t)
+	incWrite(t, path, incUserLine("first")+incAssistantLine("reply"))
+	if r := incParse(t, path); r.Mode != "rebuild" || r.Reason != "no_state" {
+		t.Fatalf("first parse should rebuild with no_state, got %s/%s", r.Mode, r.Reason)
+	}
+	added := incUserLine("second") + `{"type":"attachment","x":1}` + "\n" + incAssistantLine("reply 2")
+	incAppend(t, path, added)
+	r := incParse(t, path)
+	if r.Mode != "incremental" || r.NewBytes != int64(len(added)) {
+		t.Fatalf("expected incremental over %d new bytes, got %s new=%d reason=%s", len(added), r.Mode, r.NewBytes, r.Reason)
+	}
+	if len(r.Messages) != 4 {
+		t.Fatalf("expected 4 messages, got %d", len(r.Messages))
+	}
+}
+
+func TestIncrementalTranscriptFallbacks(t *testing.T) {
+	cases := []struct {
+		name   string
+		mutate func(t *testing.T, path string)
+		reason string
+	}{
+		{"truncated", func(t *testing.T, path string) {
+			incWrite(t, path, incUserLine("only"))
+		}, "transcript_truncated"},
+		{"overwritten head", func(t *testing.T, path string) {
+			data, _ := os.ReadFile(path)
+			incWrite(t, path, strings.Replace(string(data), "message 000", "MESSAGE 000", 1))
+		}, "head_hash_mismatch"},
+		{"processed region modified", func(t *testing.T, path string) {
+			data, _ := os.ReadFile(path)
+			incWrite(t, path, strings.Replace(string(data), "message 059", "MESSAGE 059", 1))
+		}, "boundary_hash_mismatch"},
+		{"state corrupt", func(t *testing.T, path string) {
+			incWrite(t, incrementalStatePath(path), "{not json")
+		}, "state_decode_failed"},
+		{"state version", func(t *testing.T, path string) {
+			editIncState(t, path, func(st *incrementalTranscriptState) { st.Version = 99 })
+		}, "state_version_mismatch"},
+		{"state for another transcript", func(t *testing.T, path string) {
+			editIncState(t, path, func(st *incrementalTranscriptState) { st.Transcript = "/elsewhere.jsonl" })
+		}, "transcript_path_mismatch"},
+		{"cursor invalid", func(t *testing.T, path string) {
+			editIncState(t, path, func(st *incrementalTranscriptState) { st.Offset = -5 })
+		}, "cursor_invalid"},
+		{"state removed", func(t *testing.T, path string) {
+			_ = os.Remove(incrementalStatePath(path))
+		}, "no_state"},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			path := incTestEnv(t)
+			incWrite(t, path, incBigPrefix(60)) // > 2 hash windows, so head and boundary differ
+			incParse(t, path)
+			tc.mutate(t, path)
+			r := incParse(t, path)
+			if r.Mode != "rebuild" || r.Reason != tc.reason {
+				t.Fatalf("expected rebuild/%s, got %s/%s", tc.reason, r.Mode, r.Reason)
+			}
+			// After a rebuild the next append resumes incrementally.
+			incAppend(t, path, incUserLine("after"))
+			if r := incParse(t, path); r.Mode != "incremental" {
+				t.Fatalf("expected incremental after rebuild, got %s/%s", r.Mode, r.Reason)
+			}
+		})
+	}
+}
+
+func editIncState(t *testing.T, path string, f func(*incrementalTranscriptState)) {
+	t.Helper()
+	data, err := os.ReadFile(incrementalStatePath(path))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var st incrementalTranscriptState
+	if err := json.Unmarshal(data, &st); err != nil {
+		t.Fatal(err)
+	}
+	f(&st)
+	if err := saveIncrementalState(path, st); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestIncrementalTranscriptUnterminatedTailAndMalformedLines(t *testing.T) {
+	path := incTestEnv(t)
+	tail := strings.TrimSuffix(incUserLine("tail not yet terminated"), "\n")
+	incWrite(t, path, incUserLine("a")+"{broken json\n\n"+tail)
+	r := incParse(t, path)
+	if len(r.Messages) != 2 {
+		t.Fatalf("expected the unterminated tail to be parsed for this result, got %d messages", len(r.Messages))
+	}
+	incAppend(t, path, "\n"+incAssistantLine("b"))
+	if r := incParse(t, path); r.Mode != "incremental" || len(r.Messages) != 3 {
+		t.Fatalf("expected incremental with 3 messages, got %s/%s n=%d", r.Mode, r.Reason, len(r.Messages))
+	}
+}
+
+func TestIncrementalTranscriptMirrorsScannerOversizeStop(t *testing.T) {
+	path := incTestEnv(t)
+	huge := `{"type":"user","message":{"role":"user","content":"` + strings.Repeat("y", incrementalMaxLine) + `"}}` + "\n"
+	incWrite(t, path, incUserLine("before")+huge+incUserLine("after"))
+	r := incParse(t, path)
+	if !r.Stalled || len(r.Messages) != 1 {
+		t.Fatalf("expected parsing to stop at the oversize line like bufio.Scanner, stalled=%v n=%d", r.Stalled, len(r.Messages))
+	}
+	incAppend(t, path, incUserLine("later"))
+	if r := incParse(t, path); !r.Stalled || len(r.Messages) != 1 {
+		t.Fatalf("expected to stay stalled, got stalled=%v n=%d", r.Stalled, len(r.Messages))
+	}
+}
+
+func readShadowLedger(t *testing.T) []incrementalShadowRecord {
+	t.Helper()
+	f, err := os.Open(incrementalShadowLedgerPath())
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer f.Close()
+	var out []incrementalShadowRecord
+	sc := bufio.NewScanner(f)
+	for sc.Scan() {
+		var rec incrementalShadowRecord
+		if err := json.Unmarshal(sc.Bytes(), &rec); err != nil {
+			t.Fatalf("ledger line: %v", err)
+		}
+		if strings.Contains(sc.Text(), "secret-transcript-text") {
+			t.Fatal("shadow ledger must not contain transcript text")
+		}
+		out = append(out, rec)
+	}
+	return out
+}
+
+func TestIncrementalShadowLedgerOutcomes(t *testing.T) {
+	path := incTestEnv(t)
+	incWrite(t, path, incUserLine("secret-transcript-text"))
+	size := fileSizeOrNegative(path)
+	full := extractTranscriptMessages(path)
+
+	if rec := runIncrementalShadow(path, full, size, size); rec.Outcome != "equal" || rec.Mode != "rebuild" {
+		t.Fatalf("expected equal/rebuild, got %+v", rec)
+	}
+	if rec := runIncrementalShadow(path, full, size, size+10); rec.Outcome != "not_counted" {
+		t.Fatalf("expected not_counted when the transcript grew during the full parse, got %+v", rec)
+	}
+	// A differing authoritative result is reported, not repaired.
+	fake := []DetectorMessage{{Role: "user", Text: "something else"}}
+	if rec := runIncrementalShadow(path, fake, size, size); rec.Outcome != "mismatch" || rec.FirstDiff != 0 {
+		t.Fatalf("expected mismatch at 0, got %+v", rec)
+	}
+	t.Setenv(incrementalShadowDisableEnv, "0")
+	if rec := runIncrementalShadow(path, full, size, size); rec.Outcome != "not_counted" || rec.Note != "disabled" {
+		t.Fatalf("expected disabled, got %+v", rec)
+	}
+	if got := len(readShadowLedger(t)); got != 4 {
+		t.Fatalf("expected 4 ledger records, got %d", got)
+	}
+	info, err := os.Stat(incrementalStatePath(path))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if info.Mode().Perm() != 0o600 {
+		t.Fatalf("state file must be 0600, got %v", info.Mode().Perm())
+	}
+}
+
+// The shadow must not feed decisions: loadPreToolUseRouting's transcript is the
+// full parse even when the incremental state is poisoned.
+func TestIncrementalShadowCannotChangeRoutingInput(t *testing.T) {
+	path := incTestEnv(t)
+	incWrite(t, path, incUserLine("real"))
+	incParse(t, path)
+	editIncState(t, path, func(st *incrementalTranscriptState) {
+		st.Messages = []DetectorMessage{{Role: "user", Text: "poisoned"}}
+	})
+	r := loadPreToolUseRouting(path, t.TempDir()) // no registry → not ok, but parsed
+	if r.parsed {
+		t.Fatal("routing without a registry should not parse")
+	}
+	full := extractTranscriptMessages(path)
+	if len(full) != 1 || full[0].Text != "real" {
+		t.Fatalf("authoritative parse changed: %#v", full)
+	}
+	rec := runIncrementalShadow(path, full, fileSizeOrNegative(path), fileSizeOrNegative(path))
+	if rec.Outcome != "mismatch" {
+		t.Fatalf("poisoned incremental state must surface as a mismatch, got %+v", rec)
+	}
+}

@@ -6,7 +6,7 @@
 - 方法：
   - 分段計時：暫存的 Go 測試直接呼叫內部函式，每段跑 5 次取最小值。測試沒有提交。
   - 端到端：以 stdin JSON 執行 `hooks run pre-tool-use` 5 次，取中位數。
-- 判定：評估完成。步驟 0 已實作（見 §步驟 0 結果）；步驟 1 待使用者裁決。
+- 判定：評估完成。步驟 0 已實作；步驟 1 的 shadow（1a、1b）已上線，正在累積證據（1c），增量結果不影響任何決策。
 
 ## 量測結果
 
@@ -104,6 +104,34 @@
 - 試過先只解碼 `type` / `role` 兩個欄位，不是 user / assistant 的行就跳過。
 - 結果與現行完全相同，但在兩份最大的 transcript 上反而**慢 15–30%**（186 → 216 ms、76 → 98 ms）。原因是 user / assistant 行仍要完整解碼一次，而 Go 的 JSON 解碼不論目標型別都要掃過整行。
 - 結論：不需狀態的方法沒有明顯收益，步驟 1 的狀態管理成本有其必要。
+
+## 步驟 1 shadow 實作（1a、1b，2026-11-25）
+
+- 程式：`scripts/ai-skill-cli/internal/app/transcript_incremental.go`。`finishPreToolUse` 在完整解析之後呼叫 `runIncrementalShadow`，回傳值直接丟棄。
+- 狀態檔：`$TMPDIR/ai-skill-transcript-incremental-<路徑雜湊>.json`，權限 `0600`，以 temp 檔加 rename 原子寫入。
+- Shadow 紀錄：`$TMPDIR/ai-skill-pretooluse-incremental-shadow.jsonl`。每行記錄 session 雜湊、大小、結果、模式、重建原因、新增位元組、兩邊的訊息數與耗時，不含 transcript 文字。
+  - 結果分四種：`equal`、`mismatch`、`not_counted`、`error`。
+  - macOS 的 `$TMPDIR` 重開機可能被清空，所以收集證據時要先把紀錄複製出來。
+- 關閉方式：環境變數 `AI_SKILL_PRETOOLUSE_INCREMENTAL_SHADOW=0`，這時紀錄為 `not_counted`。
+- 重建原因已實作：`no_state`、`state_decode_failed`、`state_version_mismatch`、`transcript_path_mismatch`、`cursor_invalid`、`transcript_truncated`、`head_hash_mismatch`、`boundary_hash_mismatch`、`cursor_unverifiable`。
+- 為了能和完整解析比較，增量解析刻意複製了它的兩個現有行為：
+  - 最後一行還沒寫完時，照樣解析進本次結果，但游標不推進；
+  - 遇到超過 2 MB 的行就停止，之後的行全部不處理（`stalled`），和 `bufio.Scanner` 一樣。
+- **已知限制**：雜湊只檢查檔案開頭與游標前各 4 KB。中間區段如果被修改，增量解析不會發現，只有 shadow 比對會抓到。這是 shadow 不能省略的原因之一，切換前要用 shadow 證據說明這種情況是否發生。
+- **旁支觀察（observed）**：完整解析遇到超過 2 MB 的行會靜默停止，之後的訊息全部被忽略。這是現行完整解析本身的問題，不在步驟 1 範圍；shadow 紀錄的 `stalled` 欄位會顯示它是否真的發生。
+
+### 上線前驗證（不計入 1c 的 200 次）
+
+- 單元測試涵蓋：
+  - 附加後增量續讀；
+  - 每一種重建原因，以及重建之後下一次能恢復增量；
+  - 最後一行未寫完、無法解碼的行、空行；
+  - 超長行停止；
+  - 四種紀錄結果，以及紀錄中不含 transcript 文字；
+  - 狀態檔權限 `0600`；
+  - 被竄改的增量狀態只會表現為 `mismatch`，不會進入正式解析。
+- 真實 transcript（5.65 MB）：第一次重建 210 ms；之後增量 2.5–3.4 ms。三次都與完整解析一致；狀態檔 75 KB。
+- 離線重播：把 8 份 transcript 從頭逐步寫回，每 7 行比較一次，共 2159 次比較、0 次不一致，8 次重建（都是各檔第一次）。這是離線模擬，不是實際 hook 執行，**不計入** 1c 的證據。
 
 ## 建議
 

@@ -515,6 +515,10 @@ type preToolUseRouting struct {
 	registry   runtimeRoutingRegistry
 	transcript []DetectorMessage
 	ctx        RuntimeContext
+	// parsed reports whether the full transcript parse ran; sizeBefore and
+	// sizeAfter bracket it for the incremental shadow comparison.
+	parsed                bool
+	sizeBefore, sizeAfter int64
 }
 
 func loadPreToolUseRouting(transcriptPath, aiSkillRepo string) preToolUseRouting {
@@ -525,16 +529,16 @@ func loadPreToolUseRouting(transcriptPath, aiSkillRepo string) preToolUseRouting
 	if err != nil {
 		return preToolUseRouting{}
 	}
+	sizeBefore := fileSizeOrNegative(transcriptPath)
 	transcript := extractTranscriptMessages(transcriptPath)
+	r := preToolUseRouting{parsed: true, transcript: transcript, sizeBefore: sizeBefore, sizeAfter: fileSizeOrNegative(transcriptPath)}
 	if len(transcript) == 0 {
-		return preToolUseRouting{}
+		return r
 	}
-	return preToolUseRouting{
-		ok:         true,
-		registry:   registry,
-		transcript: transcript,
-		ctx:        BuildRuntimeContext(registry, transcript, nil, time.Now().UTC()),
-	}
+	r.ok = true
+	r.registry = registry
+	r.ctx = BuildRuntimeContext(registry, transcript, nil, time.Now().UTC())
+	return r
 }
 
 func workflowPrimarySourceGateWith(r preToolUseRouting, transcriptPath, projectDir string) (block bool, routeID, primarySource string) {
@@ -717,6 +721,11 @@ func preToolUseReadAllowed(host hookHost, toolName string) bool {
 func finishPreToolUse(host hookHost, transcriptPath, projectDir string, stdout, stderr io.Writer) int {
 	aiSkillRepo := resolveClaudeAiSkillRepo(projectDir)
 	routing := loadPreToolUseRouting(transcriptPath, aiSkillRepo)
+	if routing.parsed {
+		// Shadow only (plan 2026-11-25-0842 Phase 2a step 1): the result is
+		// written to the shadow ledger and never used for any decision.
+		_ = runIncrementalShadow(transcriptPath, routing.transcript, routing.sizeBefore, routing.sizeAfter)
+	}
 	block, routeID, ps := workflowPrimarySourceGateWith(routing, transcriptPath, projectDir)
 	if block {
 		_, _ = fmt.Fprintf(stderr, "BLOCK_WORKFLOW_PRIMARY_SOURCE route=%s primary_source=%s\n", routeID, ps)
