@@ -86,6 +86,7 @@ parent: null
   | 1e | 獨立驗證 | 由獨立執行者確認失效、重置、截斷等邊界條件 |
 
   進度：1a、1b 已上線（見 S3 §步驟 1 shadow 實作）；1c 從 2026-11-25 起累積，紀錄在 `$TMPDIR/ai-skill-pretooluse-incremental-shadow.jsonl`。
+  - 2026-11-25 06:24 UTC 快照（S3 §1c 證據快照）：snapshot 修正後 438 次比對全部一致；session 4 個（未達 5）、缺 1–5 MB；compaction / resume、平行呼叫、異常輸入尚無法從紀錄判斷。
 
   **失效一律退回完整解析**（V2）。下列任一情況，增量解析器都必須丟棄狀態、從頭重建：
   - 沒有快取、快取無法解碼，或快取版本不符；
