@@ -1,4 +1,4 @@
-version=repo-ed6f6ab9
-source_commit=ed6f6ab9
-built_at=2026-11-25T02:32:07Z
+version=repo-1bb13618
+source_commit=1bb13618
+built_at=2026-11-25T02:33:21Z
 targets=windows/amd64,darwin/amd64,darwin/arm64,linux/amd64,linux/arm64
