@@ -10,7 +10,7 @@ parent: null
 
 # Verification Architecture Contract（驗證器架構契約）
 
-**Status**: in-progress — Phase 0、Phase 1 已完成；Phase 2 起等外部證據。
+**Status**: in-progress — Phase 0、Phase 1 已完成；Phase 2a（Ai-skill 自身 dogfood）S1 量測完成；Phase 2 外部證據等待中。
 
 ## 一句話目標
 
@@ -56,11 +56,27 @@ parent: null
 | 案例 | 狀態 | 涵蓋的不變式 |
 | --- | --- | --- |
 | 外部 consumer（驗證效能計畫） | 來源案例，**尚未計入**：建議尚未被採用，E2E 漏跑（其 W3-0）尚未修復 | 現有 attestation / input closure 部分對應 V3；V1–V2、V4–V5 未套用 |
-| Ai-skill 自身 hooks | **不適用**：pre-push 目前沒有結果快取或增量選擇 | — |
+| Ai-skill 自身 hooks | **dogfood 進行中**（見 §Phase 2a）：基線量測完成，尚未套用任何不變式 | 已有路徑式測試選擇（V2 相關）與 Go 內建測試快取（V3 相關） |
 
 - [ ] 外部 consumer 修復 E2E 漏跑後，唯讀檢查其是否套用 V1–V5 的任何一條，記錄於本計畫 `evidence/`
 - [ ] 若 consumer 執行 shadow mode，記錄其預先登記的採用門檻與第一批 audit 結果
 - [ ] 尋找第 2、第 3 個有結果快取或增量選擇的 consumer
+
+## Phase 2a：Ai-skill 自身 dogfood（進行中）
+
+2026-11-25 使用者決定以 Ai-skill 自身 hooks 作為第一個實際套用案例，同時加速系統。依契約順序：先量測，再決策記錄，再重用，最後才做 shadow 之後的跳過。
+
+- [x] S1 耗時基線：[`evidence/s1-ai-skill-hook-timing-baseline.md`](evidence/s1-ai-skill-hook-timing-baseline.md)
+  - git hooks 空跑都 < 0.2 s → 不做快取
+  - `go test ./...` 未快取約 25 s，Go 內建快取約 2 s → **不自建結果快取**（會與 Go 快取重疊）
+  - PreToolUse 每次工具呼叫約 0.32 s（3.1 MB transcript），隨 transcript 變大 → 最頻繁的成本
+  - 路徑式測試選擇（pre-push 與 CI）不涵蓋測試會讀取的 `runtime/`、`knowledge/`、`plans/` → V2 缺口（observed）
+- [ ] V2 驗證：在暫存 worktree 只改一個被測試讀取的檔案並讓測試失敗，確認 pre-push 與 CI 是否放行；結果記為 verified 或 refuted
+- [ ] 依 V2 結果決定：擴大選擇範圍（例如改為「測試實際讀取的路徑」或保守全跑），或記錄其他 gate 已涵蓋的理由
+- [ ] PreToolUse 增量化評估：transcript 狀態依位移量增量解析的設計；先做 plan-only / shadow 比對（增量結果 vs 全量重建結果完全相同），再決定是否採用
+- [ ] （選擇性）`internal/app` 最慢的 runtime compiler 測試切分或共用 fixture；屬測試效能，不屬快取
+
+**計數**：Ai-skill 自身最多算 1 個實際套用案例；仍需 2 個外部案例才進入 Phase 3。
 
 ## Phase 3：升級裁決（未開始）
 
