@@ -1,4 +1,4 @@
-version=repo-bf78cd87
-source_commit=bf78cd87
-built_at=2026-11-25T04:46:15Z
+version=repo-df777eff
+source_commit=df777eff
+built_at=2026-11-25T04:46:31Z
 targets=windows/amd64,darwin/amd64,darwin/arm64,linux/amd64,linux/arm64
