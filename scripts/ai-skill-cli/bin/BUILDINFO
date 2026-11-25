@@ -1,4 +1,4 @@
-version=repo-ce6c4c29
-source_commit=ce6c4c29
-built_at=2026-11-25T02:02:34Z
+version=repo-cfc28813
+source_commit=cfc28813
+built_at=2026-11-25T02:04:43Z
 targets=windows/amd64,darwin/amd64,darwin/arm64,linux/amd64,linux/arm64
