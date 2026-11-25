@@ -71,8 +71,8 @@ parent: null
   - `go test ./...` 未快取約 25 s，Go 內建快取約 2 s → **不自建結果快取**（會與 Go 快取重疊）
   - PreToolUse 每次工具呼叫約 0.32 s（3.1 MB transcript），隨 transcript 變大 → 最頻繁的成本
   - 路徑式測試選擇（pre-push 與 CI）不涵蓋測試會讀取的 `runtime/`、`knowledge/`、`plans/` → V2 缺口（observed）
-- [ ] V2 驗證：在暫存 worktree 只改一個被測試讀取的檔案並讓測試失敗，確認 pre-push 與 CI 是否放行；結果記為 verified 或 refuted
-- [ ] 依 V2 結果決定：擴大選擇範圍（例如改為「測試實際讀取的路徑」或保守全跑），或記錄其他 gate 已涵蓋的理由
+- [x] V2 驗證：**verified**。[`evidence/s2-v2-path-selection-falsification.md`](evidence/s2-v2-path-selection-falsification.md)：只改 `metadata/` 或 `plans/` 的探針讓測試失敗，pre-push 仍放行、不跑 Go 測試；CI paths 過濾同樣不涵蓋（讀設定得出）
+- [ ] 依 V2 結果決定修法（待使用者裁決）：保守全跑（建議；Go 快取命中約 2 s）或擴大路徑清單；CI paths 過濾同步調整
 - [ ] PreToolUse 增量化評估：transcript 狀態依位移量增量解析的設計；先做 plan-only / shadow 比對（增量結果 vs 全量重建結果完全相同），再決定是否採用
 - [ ] （選擇性）`internal/app` 最慢的 runtime compiler 測試切分或共用 fixture；屬測試效能，不屬快取
 
