@@ -300,6 +300,7 @@ internal_helper_allowlist:
     - gitVar
     - gitConfigGetAll
     - loadAuthorEmailAllowlist
+    - resolveGitPath  # git rev-parse --git-path wrapper (worktree-safe .git/... paths); not an executor
     # F1 hook-call coverage (2026-11-23): helpers called directly by git hook entries
     - Run  # CLI re-entry used by pre-commit to run `runtime compile/validate`; the gate is the hook itself
     - compactSummary  # output formatting

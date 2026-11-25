@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-	"path/filepath"
 	"strings"
 )
 
@@ -95,7 +94,7 @@ func loadAuthorEmailAllowlist(root string) (map[string]struct{}, error) {
 		addAllowlistEmail(allowed, email)
 	}
 
-	infoPath := filepath.Join(root, ".git", "info", allowedAuthorEmailsInfoFile)
+	infoPath := resolveGitPath(root, "info/"+allowedAuthorEmailsInfoFile)
 	data, err := os.ReadFile(infoPath)
 	if err != nil {
 		if !os.IsNotExist(err) {

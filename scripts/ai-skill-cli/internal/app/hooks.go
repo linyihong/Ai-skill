@@ -343,7 +343,7 @@ func runPreCommitHook(result Result, root string) Result {
 		result.Checks = append(result.Checks, Check{Name: "sanitization_incident_score", Status: "warning", Message: msg})
 	}
 
-	msgPath := filepath.Join(root, ".git", "COMMIT_EDITMSG")
+	msgPath := resolveGitPath(root, "COMMIT_EDITMSG")
 	commitMsg := ""
 	if data, err := os.ReadFile(msgPath); err == nil {
 		commitMsg = string(data)
@@ -417,7 +417,7 @@ func validateStagedDiffWhitespace(root string) string {
 // Opt-out: '[skip-go-migration]' standalone line in commit message body.
 func validateNoNewShellScripts(root string, staged []string) string {
 	_ = staged // added paths come from git diff-filter=A in the adapter
-	msgPath := filepath.Join(root, ".git", "COMMIT_EDITMSG")
+	msgPath := resolveGitPath(root, "COMMIT_EDITMSG")
 	text := ""
 	if data, err := os.ReadFile(msgPath); err == nil {
 		text = string(data)
