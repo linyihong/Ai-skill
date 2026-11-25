@@ -1,4 +1,4 @@
-version=repo-e704b4f7
-source_commit=e704b4f7
-built_at=2026-11-25T04:12:40Z
+version=repo-2d35f2aa
+source_commit=2d35f2aa
+built_at=2026-11-25T04:16:06Z
 targets=windows/amd64,darwin/amd64,darwin/arm64,linux/amd64,linux/arm64
