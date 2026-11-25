@@ -171,15 +171,20 @@ func TestHooksRunPrePushSkipsWithoutCLIChanges(t *testing.T) {
 	}
 }
 
-func TestHasCLICIPreflightChange(t *testing.T) {
-	if !hasCLICIPreflightChange([]string{"scripts/ai-skill-cli/internal/app/hooks.go"}) {
-		t.Fatal("expected CLI source to trigger preflight")
+func TestHasPrePushChangeRunsForAnyPath(t *testing.T) {
+	for _, path := range []string{
+		"scripts/ai-skill-cli/internal/app/hooks.go",
+		".github/workflows/ai-skill-cli.yml",
+		"metadata/project/example-ai-skill-project.yaml",
+		"plans/archived/x/evidence/prompt.txt",
+		"README.md",
+	} {
+		if !hasPrePushChange([]string{path}) {
+			t.Fatalf("expected %s to trigger Go preflight", path)
+		}
 	}
-	if !hasCLICIPreflightChange([]string{".github/workflows/ai-skill-cli.yml"}) {
-		t.Fatal("expected workflow to trigger preflight")
-	}
-	if hasCLICIPreflightChange([]string{"scripts/README.md"}) {
-		t.Fatal("scripts README alone should not trigger Go preflight")
+	if hasPrePushChange(nil) {
+		t.Fatal("no changed paths should skip Go preflight")
 	}
 }
 

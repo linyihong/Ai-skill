@@ -295,7 +295,7 @@ internal_helper_allowlist:
     - readPerCommitObligationsOrder
     - parseGitHubRemote
     - cliCIPrePushPaths
-    - hasCLICIPreflightChange
+    - hasPrePushChange
     - gitLines
     - gitVar
     - gitConfigGetAll

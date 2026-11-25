@@ -3460,8 +3460,15 @@ func runPrePushHook(result Result, root string) Result {
 	} else {
 		result.Checks = append(result.Checks, Check{Name: "cli_ci_scope", Status: "ok", Message: "compared against " + upstream})
 	}
-	if !hasCLICIPreflightChange(changed) {
-		result.Checks = append(result.Checks, Check{Name: "cli_ci_preflight", Status: "skipped", Message: "no CLI, hook, or workflow changes since upstream"})
+	// Contract V2 (verification-architecture.md): Go tests read repo data
+	// outside the CLI tree (runtime/, knowledge/, metadata/, plans/), so any
+	// change runs the suite. Go's test cache keeps unaffected runs cheap.
+	if !hasPrePushChange(changed) {
+		result.Checks = append(result.Checks, Check{Name: "cli_ci_preflight", Status: "skipped", Message: "no changes since upstream"})
+		return result
+	}
+	if _, err := os.Stat(filepath.Join(root, "scripts", "ai-skill-cli", "go.mod")); err != nil {
+		result.Checks = append(result.Checks, Check{Name: "cli_ci_preflight", Status: "skipped", Message: "scripts/ai-skill-cli/go.mod not found"})
 		return result
 	}
 	result.Checks = append(result.Checks, githubWorkflowHistoryCheck(root))
@@ -3569,16 +3576,11 @@ func cliCIPrePushPaths(root string) ([]string, string, error) {
 	return changed, upstream, nil
 }
 
-func hasCLICIPreflightChange(paths []string) bool {
-	for _, path := range paths {
-		if strings.HasPrefix(path, "scripts/ai-skill-cli/") ||
-			strings.HasPrefix(path, "scripts/git-hooks/") ||
-			strings.HasPrefix(path, ".githooks/") ||
-			path == ".github/workflows/ai-skill-cli.yml" {
-			return true
-		}
-	}
-	return false
+// hasPrePushChange reports whether the push carries any changed path. Path
+// based narrowing was removed after S2 showed it missed tests that read repo
+// data (plans/active/2026-11-25-0842-verification-architecture-contract).
+func hasPrePushChange(paths []string) bool {
+	return len(paths) > 0
 }
 
 func gitLines(root string, args ...string) ([]string, error) {

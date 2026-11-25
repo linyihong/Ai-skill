@@ -1,16 +1,12 @@
 name: ai-skill CLI
 
+# No `paths` filter: Go tests read repo data outside scripts/ (runtime/,
+# knowledge/, metadata/, plans/), so path-based triggering missed real
+# failures. See workflow/cross-cutting/project-tooling/verification-architecture.md
+# (V2) and plans/active/2026-11-25-0842-verification-architecture-contract/.
 on:
   push:
-    paths:
-      - "scripts/**"
-      - "scripts/ai-skill-cli/**"
-      - ".github/workflows/ai-skill-cli.yml"
   pull_request:
-    paths:
-      - "scripts/**"
-      - "scripts/ai-skill-cli/**"
-      - ".github/workflows/ai-skill-cli.yml"
 
 jobs:
   test:

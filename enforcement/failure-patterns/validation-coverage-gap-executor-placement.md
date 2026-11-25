@@ -127,5 +127,6 @@ Class: `validation-coverage-gap` / `executor-placement`
   - `5b3e089 chore(plans): archive mechanical-enforcement-registry plan + relink 22 cross-references`
   - `4fd626d chore(plans): archive workflow-activation-engine + fix link rot`
 - 後續 plan：commit-time validator wire-up（spawn task chip）
+- 2026-11-25 採樣 #2（Go 測試讀取 repo 資料，但 pre-push 與 CI 都以路徑決定是否執行）：只改 `metadata/` 或 `plans/` 的探針讓測試失敗，pre-push 放行。修法：pre-push 只要有變更就跑 `go test ./...`（推送交易層，放在 land 之前），CI 移除 `paths` 過濾作為 defense in depth。證據：[`s2-v2-path-selection-falsification.md`](../../plans/active/2026-11-25-0842-verification-architecture-contract/evidence/s2-v2-path-selection-falsification.md)
 
 ← [Back to failure-patterns index](README.md)
