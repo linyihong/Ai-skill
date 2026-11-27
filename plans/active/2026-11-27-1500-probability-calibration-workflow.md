@@ -242,9 +242,28 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 
 ### Phase 3 — Dogfood（回饋環驗證）
 
-> **Dogfood 輸入（2026-11-27，consumer 側一輪未完成校準）**：新目標「條件化長連線比值」以 `partially_calibrated` 收工、沒有採用變更，因此**尚未**滿足下方實戰 Gate（無獨立 final holdout 驗收）。產生 3 條 candidate lesson（見 [`feedback/history/probability-calibration/common/`](../../feedback/history/probability-calibration/common/README.md)）：順序統計量需等量樣本、偏誤樣本改用尺度不變比值、先敏感度後優化並回報前緣。各 lesson 的 Promotion Target 指向本 workflow 與 Phase 2 atoms，是否採納由本 plan 擁有者決定；N=1，不升級。
+> **Dogfood 回饋（2026-11-27，consumer 回報；待 plan 擁有者複核）**
+>
+> **這一輪的性質**：消費專案在 Phase 1 落地的同一個 session 內做了一輪「新增長連線目標」的調參，**不是**照 workflow 從步驟 0 開始的實戰，而是事後重放（retrofit）。結果：沒有找到可採用的候選、沒有換參數。**不滿足**下方實戰 Gate（無 final holdout、無獨立驗收）。三條 candidate lesson 見 [`feedback/history/probability-calibration/common/`](../../feedback/history/probability-calibration/common/README.md)。
+>
+> **Consumer 側已自我登記的 `process_gap`**：(PG1) 契約未先凍結——條件化長連線比值在使用者授權該缺口當目標後才在探針裡定義；(PG2) 沒有獨立驗證，所有候選只量在 training seed；(PG3) 執行者自行寫了 `partially_calibrated`，違反「Tune 階段禁止寫最終 status」，已更正為「執行者初判、暫為 `inconclusive`」。
+>
+> | 步驟 | 重放發現 | 類型 | 建議落點（由 owner 決定） |
+> | --- | --- | --- | --- |
+> | 0 契約 | 凍結後新增一個目標／指標沒有程序：該改版本重開一輪，還是就地修？ | 缺口 | `calibration-contract`：寫明「新增目標或指標＝新 `contract_version`＋新一輪，舊 Record 保留舊版本」 |
+> | 2 指標對照 | 參照側約 380 個單位、產品側約 10 萬單位，直接比「最大值」誤報成缺口；對照清單有分子／分母／基準／聚合單位，沒有**比較單位數 n**；estimator enum 沒有順序統計量 | 缺口（證實 Phase 1 延後的「分布比較型 estimator」） | `execution-flow` 步驟 2 加 n；estimator 加「以參照 n 重抽」；lesson `order-statistic-needs-equal-sample-size` |
+> | 1／3 取證與診斷 | 參照是熱樣本；a→b→c 順序與 `hot_sample` 規則**有效**，擋住了把絕對值當目標。但規則只說「取尺度不變結構」，沒說怎麼構造 | 證實＋小補強 | profile／contract：條件化比值＝以前置事件數為分母，precision 看前置事件數；lesson `scale-invariant-metric-for-biased-reference-sample` |
+> | 3s 結構天花板 | 搜尋得到的前緣只能填 `parameter_ranges_tried`，**不算** `why_not_parameter_not_found`；契約沒說哪種論證算數 | 缺口 | `gap-ledger`：列出可接受的論證型別（解析上界、縮減參數空間的窮舉、鬆弛），取樣前緣不算；否則維持 `inconclusive` |
+> | 4 調參 | 一個 3×3 格點加兩輪貪婪搜尋無法逐點寫進 C8 的單一實驗格式 | 證據（不拆檔） | C8 允許「掃描級」條目（軸、點數、前緣表引用）；C8 獨立成檔仍無證據（N=1） |
+> | 4 調參（atoms） | 先做旋鈕篩選（無效／動目標／動硬約束）省了整輪優化；候選用同種子比較，前緣點要在 validation seed 重量 | 補充 | `single-knob-side-effects` 加旋鈕篩選；`optimization-probe-hygiene` 加共同亂數與前緣點重量 |
+> | 7 狀態 | Record 只有一個 `calibration_status`，沒有放「執行者初判」的位置，執行者就直接填了最終值；「沒有任何候選可驗」也沒有範例，結果直覺上像 `partially_calibrated`，實際依 `evaluation_order` 第一條是 `inconclusive` | 缺口（本輪實際踩到） | `execution-flow` 步驟 7 加範例；`status_reason` 約定「執行者初判」標記為非最終；新增 scenario「executor 自寫最終 status 被擋」 |
+> | 8 缺口登錄 | 「刻意沒調、等人決定是否算目標」的缺口沒有對應 `kind`，目前只能借 `known_model_limitation`＋`open` | 觀察（延後） | 若第二個案例重現再評估 |
+>
+> **計畫本身的小地方**：(1) §Stakeholder 同意項目第二列仍寫「Phase 2 開工待 Phase 1 Gate」，已過時；(2) §完成條件的勾選框全空，其中索引、`plans/README.md` 狀態列、sanitization、scenarios 已有證據可勾；(3) §Watch-Out 寫 atoms「維持 observation」，與 F2 的 `candidate-intelligence` 用語不一致；(4) 頁首狀態行結尾多一個「；」；(5) 建議新增 Q8：**同一 consumer 的多輪校準算幾個「獨立案例」**——建議算 1，否則 N≥3 與 ADR「≥2 次獨立校準」很容易被同一個專案灌水。
+>
+> **N 的計法**：本輪與先前的耦合重調同屬同一個 consumer，所有 lesson 與 atoms 仍是 N=1，不升級。
 
-- [ ] 靜態走查：用 workflow 重放已完成的校準，記錄 workflow 漏掉什麼（回寫契約）
+- [x] 靜態走查：用 workflow 重放已完成的校準，記錄 workflow 漏掉什麼（回寫契約）——已由 consumer 重放一輪（見上方回饋表）；契約回寫由 owner 決定
 - [ ] 實戰：下一次消費專案校準任務完整走本 workflow，**驗收由 fresh-context verifier 以 final holdout seed set 執行**，產出 Calibration Record（含 C5 獨立性實際達成維度、C6 status）+ Gap Ledger
 - [ ] 評估 C8 Experiment Ledger 是否需要從 Record 拆出獨立管理（有證據才拆）
 - [ ] 收工 FeedbackDecision；新失敗進 registry 或 evidence candidate（N≥3 才升級）

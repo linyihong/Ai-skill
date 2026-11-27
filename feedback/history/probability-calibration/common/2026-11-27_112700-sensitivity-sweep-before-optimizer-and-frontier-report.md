@@ -6,11 +6,11 @@ Status: candidate
 
 #### Reuse Evidence
 
-尚未有獨立重用證據，維持 candidate（N=1）。一次調參嘗試以 `partially_calibrated` 收工，沒有採用任何變更。
+尚未有獨立重用證據，維持 candidate（N=1）。一次調參嘗試沒有找到可採用的候選、也沒有採用任何變更；執行者當時自行寫下 `partially_calibrated`，事後依 workflow 規則更正（見 Generalized Lesson 4）。
 
 #### One-line Summary
 
-多個硬約束加一個新目標時，先做一維掃描與小格點找出「哪一族旋鈕真的能動目標指標」，再決定要不要跑優化器；找不到可行點就回報權衡前緣與 `partially_calibrated`，不要硬宣稱不可行，也不要為了收工採用破壞硬約束的點。
+多個硬約束加一個新目標時，先做一維掃描與小格點找出「哪一族旋鈕真的能動目標指標」，再決定要不要跑優化器；找不到可行點就回報權衡前緣與缺口，不要硬宣稱不可行，也不要為了收工採用破壞硬約束的點。
 
 #### Human Explanation
 
@@ -33,13 +33,13 @@ Status: candidate
 1. 先做單旋鈕敏感度，再決定搜尋空間；無效旋鈕不要放進優化器。
 2. 所有候選用同一種子比較（共同亂數），降低比較雜訊。
 3. 輸出前緣表：每點同時列硬約束與目標指標，而不是單一分數（`single_aggregate_score_cannot_decide_success`）。
-4. 沒有可行點時，結論限定為「搜尋範圍內」；`structural_blocked` 需要 C7 完整證據，否則用 `partially_calibrated` 並寫入 Gap Ledger 與下一步選項（加結構約束或放寬某目標，由 decision owner 決定）。
+4. 沒有可行點時，結論限定為「搜尋範圍內」；`structural_blocked` 需要 C7 完整證據；證據不足時執行者只寫缺口與下一步選項（加結構約束或放寬某目標，由 decision owner 決定）。**執行者不寫最終 status**：沒有候選可獨立驗證時，依 `evaluation_order` 第一條落在 `inconclusive`，由 verifier／decider 定案；`partially_calibrated` 需要完成的驗證鏈。
 5. 目標改動必須由 decision owner 明確授權；本輪「缺口原本刻意不動」的決定先寫入 ledger，授權後才開工。
 
 #### Agent Action
 
-- 先做：單旋鈕掃描；同種子格點；前緣表；`partially_calibrated` + gap。
-- 不要做：用總分挑點；放寬硬約束換目標；把搜尋失敗寫成結構不可行。
+- 先做：單旋鈕掃描；同種子格點；前緣表；缺口寫入 Gap Ledger，status 留給 verifier／decider。
+- 不要做：用總分挑點；放寬硬約束換目標；把搜尋失敗寫成結構不可行；以執行者身分自行寫 `partially_calibrated` 等最終 status。
 
 #### Goal / Action / Validation
 
