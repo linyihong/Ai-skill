@@ -2,6 +2,7 @@
 
 | 檔名 | Status | 標題 | 一句話摘要 |
 |------|--------|------|-----------|
+| [2026-11-26_051500-git-fixture-inherits-hook-git-dir.md](2026-11-26_051500-git-fixture-inherits-hook-git-dir.md) | candidate | A git fixture run inside a hook writes git config into the real repo | Hooks export GIT_DIR and author variables that override cwd and -C; clear them in one shared fixture helper; prove isolation with a decoy repo, not a green test; trace leaked test identities downstream |
 | [2026-11-25_084854-bootstrap-receipt-gate-blind-to-mid-turn-text.md](2026-11-25_084854-bootstrap-receipt-gate-blind-to-mid-turn-text.md) | candidate | A receipt emitted mid-turn may be invisible to the bootstrap gate | The gate reads only persisted transcript text; after the 120s grace a long first turn is blocked until it ends; finish bootstrap and end the turn first; when blocked, end the turn instead of re-emitting |
 | [2026-11-24_160000-validator-block-check-finding-before-routing-around.md](2026-11-24_160000-validator-block-check-finding-before-routing-around.md) | candidate | When a validator blocks, judge the finding before routing around it | Find who reads the key and what triggers the check; a true finding means fix the artifact; silencing a check via config is also a bypass; a check gated on optional config fails silently; metadata must describe what the tool actually did |
 | [2026-10-22_093000-deployment-state-is-readback-not-narrative.md](2026-10-22_093000-deployment-state-is-readback-not-narrative.md) | candidate | Deployed state is a readback, not a narrative | Repo ledger is canonical and tags are a derived index; the record is a by-product of the single deploy entry and an unfinished draft locks commit/push; freeze derived values so backfills stay legal; record the environment too |
@@ -86,7 +87,7 @@
 | `2026-09-30_081600-ocr-recognition-lang-must-not-erase-latin-word-boundaries.md` | candidate | OCR recognition language must not erase Latin word boundaries | `recognition_language`≠`observed_script`；Latin 單框無空格要 boundary／derived，不可因 ch 路徑刪空格或覆蓋 raw |
 | `2026-10-01_090000-ocr-join-token-seam-not-cumulative-script.md` | candidate | OCR join must use token seam not cumulative script | parts 已切、derived 黏：Latin\|Latin 必空格；禁止 cumulative mixed 否決；parts 不可被 text 覆蓋 |
 
-Total: 71
+Total: 72
 
 2026-10-26：已覆核 10/16–10/26 的本分類條目，補齊抽象化邊界與來源指標；candidate 狀態不因文字整理或入口接線而提升。
 
