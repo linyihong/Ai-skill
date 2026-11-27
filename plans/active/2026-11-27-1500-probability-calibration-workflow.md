@@ -10,7 +10,7 @@ parent: null
 
 # Probability Calibration Workflow（`workflow/probability-calibration/` + intelligence）
 
-**Status**: draft — 只建立 plan，未開始實作。2026-11-27 使用者審閱已裁決 Q1–Q6（見 §Open Questions）並要求 Phase 0 先做契約補強（§Phase 0.1）；Phase 0 可開始，實作開工仍以 Phase 0 Gate 為準。
+**Status**: draft — 只建立 plan，未開始實作。2026-11-27 使用者審閱已裁決 Q1–Q6（見 §Open Questions）並要求 Phase 0 先做契約補強（§Phase 0.1）；2026-11-27 Phase 0 完成、Gate 通過（§Phase 0 紀錄）；Phase 1 開工待使用者明確授權。
 
 **Glossary Impact**: yes — 候選詞 `calibration_contract`、`calibration_record`、`gap_ledger`、`structural_ceiling`、`holdout_probe`、`precision_target`、`holdout_policy`、`calibration_status`。Phase 1 前不登記 glossary。
 
@@ -62,8 +62,8 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 | I7 | 單旋鈕副作用 | 加耦合會同步抬高 RTP（同類連線變多）→ 需正交旋鈕把「類別密度聚集」與「同類聚集」分開；調一旋鈕必量全指標 | intelligence atom |
 | I8 | 取樣機設計模式 | 變異點做成資料（參數）+ 註冊式 Strategy；重構時**零 RNG 漂移**以其他消費者的釘值為護欄；缺參數時 fail-fast 載入 | intelligence atom（設計模式，不附程式碼） |
 | I9 | 優化操作衛生 | 解析掃描優先於黑盒優化；串流輸出（避免緩衝看不到進度）；快速 JIT／plan cache 讓探針變快；seed sweep；偵測退化局部最小（如目標指標≈0） | intelligence atom |
-| I10 | 誠實回報 | 鏈式驗證任一機械鎖失敗＝整體失敗，不得口頭沖掉；已知缺口必須寫入 Gap Ledger（例：絕對占比未達、單一轉輪組、合成條帶） | failure pattern + contract |
-| I11 | 過期宣稱 | 舊文件的錯誤頻率（量級錯 6 倍）會被後續工作沿用 → 引用前需回查來源與日期 | failure pattern |
+| I10 | 誠實回報 | 鏈式驗證任一機械鎖失敗＝整體失敗，不得口頭沖掉；已知缺口必須寫入 Gap Ledger（例：絕對占比未達、單一轉輪組、合成條帶） | workflow-local failure class（連回 `evidence-suppression`）+ contract |
+| I11 | 過期宣稱 | 舊文件的錯誤頻率（量級錯 6 倍）會被後續工作沿用 → 引用前需回查來源與日期 | workflow-local failure class（連回 `stale-derived-state`） |
 
 ### Decision
 
@@ -118,7 +118,7 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 | 未來接入 | 達 3 個 converged case（跨遊戲／玩法）後，評估 `route.workflow.probability-calibration` + 一個 discovery signal；入場條件＝Phase 3 dogfood 完成 + Q2 有答案 |
 | Graduation deadline | 2027-03-31：屆時升級（註冊 route + signal）或降級（歸檔為 intelligence-only） |
 | Generated surface | 無（不 project 進 `runtime.db`） |
-| Validation scenarios | Phase 1 以 scenario-first 方式補 ≥3 個 `validation/scenarios/probability-calibration/*.yaml`（沿用 `investment`／`image-processing` 格式），內容：holdout 缺失被判未驗證、target 取自熱樣本被擋、鏈式驗證失敗不得宣稱通過 |
+| Validation scenarios | Phase 1 以 scenario-first 方式補 ≥3 個 `validation/scenarios/probability-calibration/*.yaml`（格式沿用 `validation/scenarios/investment/*.yaml`；`image-processing` 無 scenario 先例），內容：holdout 缺失被判未驗證、target 取自熱樣本被擋、鏈式驗證失敗不得宣稱通過 |
 | Test passing evidence | Phase 1／3 收尾填入（`ai-skill runtime refresh` + scenario validate 輸出） |
 
 ### Per-surface consumer 表
@@ -133,45 +133,75 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 
 #### Phase 0.0 — Open Questions 核對（公版，必填）
 
-- [ ] 已讀本 plan §Open Questions 全部條目
-- [ ] 對每條標記 `resolved`（附 Phase 0 證據）/ `still-open` / `deferred`（附原因）
-- [ ] `resolved` 的條目已同步勾選／附註於 §Open Questions
-- [ ] 若盤點新發現問題，已加入 §Open Questions
+- [x] 已讀本 plan §Open Questions 全部條目
+- [x] 對每條標記 `resolved`（附 Phase 0 證據）/ `still-open` / `deferred`（附原因）
+- [x] `resolved` 的條目已同步勾選／附註於 §Open Questions
+- [x] 若盤點新發現問題，已加入 §Open Questions（盤點未產生新 Open Question；兩處修正見 §Phase 0 紀錄 F1／F2）
 
 | Open Question | 處置 | 證據／原因 |
 | --- | --- | --- |
-| Q1–Q6 | user-ruled（待 Phase 0 核對） | 2026-11-27 使用者審閱已給裁決（見 §Open Questions）；Phase 0 需確認裁決與 preflight 不衝突後改 `resolved` |
-| Q7 | user-ruled（待 Phase 0 核對） | 同上；`10%` 定義拆 absolute／relative |
+| Q1 | resolved | 使用者裁決 + preflight 佐證：`enforcement/failure-patterns/first-consumer-names-a-shared-capability-after-itself.md` 支持「能力以中立名稱、第一 consumer 只當 profile」 |
+| Q2 | resolved | 使用者裁決：不阻塞；N=1 已在 Inventory 與 Phase 2 標示 |
+| Q3 | resolved | 使用者裁決；與 `reusable-guidance-boundary`／sanitization 一致（個案留 consumer） |
+| Q4 | resolved | 使用者裁決；`workflow/cross-cutting/decision-support/` 的 provisional→confirmed 兩趟式可直接承接 C1 `decision_owner`；本計畫不計入其 converged case |
+| Q5 | resolved | 使用者裁決；與 `image-processing` 先例一致（Ai-skill 只給 contract，不提交產品腳本） |
+| Q6 | resolved | 使用者裁決；C3 已把門檻降為 provisional default |
+| Q7 | resolved | 使用者裁決；C3b |
+| S1 | resolved | 見 §Phase 0 紀錄 S1 裁決 |
 
 #### Phase 0.1 — 契約補強（2026-11-27 使用者審閱；吸收進既有 4 份 contract，不新增文件）
 
 > 原則：以下全部落在 Phase 1 既有的 `calibration-contract`／`calibration-record`／`verification`／`gap-ledger` 內，不新建 workflow、phase 或獨立契約檔（沿用 minimize-governance-surface）。Phase 0.1 只凍結**欄位與語意**，不寫 Phase 1 文件本體。
 
-- [ ] **C1 Target Contract**（→ `calibration-contract`）：Target 分三角色——`normative`（理論／規格要求）、`reference_observation`（官方或可信來源的實際觀測）、`implementation`（產品實作希望達到的值）。每個 Target 記 `source／authority`、`definition`、`sample_scope`、`uncertainty`、`decision_owner`、`provisional｜confirmed`。調參只對 `implementation` Target 收斂；`reference_observation` 只以其 uncertainty 區間作比對，不當精確值
-- [ ] **C2 Objective Contract**（→ `calibration-contract`）：指標分三層——`hard_constraint`（必須達到，不可被其他指標抵銷）、`primary_objective`（主要校準目標）、`diagnostic_metric`（解釋偏差與副作用，不計入成功判定）。禁止以單一加總分數判定成功，以免掩蓋 hard constraint 缺口
-- [ ] **C3 Sample Sufficiency**（→ `calibration-contract`）：每個指標宣告 `precision_target`（契約要求的估計精度）與對應估計方法——均值類用標準誤、比例類用二項信賴區間、罕見事件看**事件數**而非手數、相關係數看其不確定性、尾部看稀有事件計數。`≥5000 基礎手` 降為 provisional default，不再是通用「充足」判定
-- [ ] **C3b Tolerance 定義**（→ `calibration-contract`，回答 Q7）：`max(3×SE, 10%)` 的 `10%` 拆為 `absolute_tolerance` 與 `relative_tolerance`，由各指標定義宣告採用哪一種及基準（target 值 vs 觀測值）；低基率指標（如 1% 命中率）不得套用絕對百分點容忍度
-- [ ] **C4 Holdout Policy**（→ `verification`）：seed 分三組——`training_seed_set`（優化器可用）、`validation_seed_set`（候選參數驗證）、`final_holdout_seed_set`（最終驗收，不得參與調參）；`holdout_policy` 記誰產生、何時揭露（final holdout 於**候選參數凍結後**才揭露）、是否允許重跑及重跑規則。語意約束（寫入 `verification` 的 holdout policy，不新增欄位）：final holdout **不得參與參數搜尋**；驗收失敗後**不得**以同一組 final holdout 反覆調參；一旦 final holdout 被用於診斷或修正，即**失去 final holdout 身分**（降為 validation 用），下一輪驗收須重新建立新的 final holdout
-- [ ] **C5 Verification Independence**（→ `verification` + `calibration-record`）：獨立性分四維——context（fresh context）、data（未見過的 seed／樣本）、measurement（不共用同一份指標計算程式，或已以獨立實作交叉核對）、decision（決策者≠執行者）。四維是**記錄維度，不是四個必勾 Gate**：Record 記錄**實際達到哪幾維**；`verification` contract 為每次驗收宣告 `required_independence`（本次驗收的最低獨立性要求），未達最低要求才判未驗證。如此不因 consumer 環境限制把所有任務判成無法驗證，也不讓 fresh context 單獨被誤認為完整獨立驗證
-- [ ] **C6 Calibration Status**（→ `calibration-record`）：五個狀態是**互斥的最終分類**，每份 Record 恰好一個。`verified`＝所有 hard constraint 通過且驗證契約完成（含 C5 `required_independence`）；`partially_calibrated`＝部分目標達成、仍有已知缺口（缺口已入 Gap Ledger）；`inconclusive`＝證據不足，無法判定；`structural_blocked`＝**已確認**目前結構限制阻礙目標達成；`failed`＝驗收條件未通過，且不屬於上述其他狀態。`structural_blocked` 不得只因某次參數搜尋失敗成立，必須具備 C7 全部判定證據，證據不足時應判 `inconclusive`。判定順序（保證互斥）：證據不足→`inconclusive`；C7 證據齊備→`structural_blocked`；hard constraint 全過且驗證契約完成→ primary objective 全達為 `verified`、否則 `partially_calibrated`；其餘→`failed`。`partially_calibrated` 與 `inconclusive` 是合法收工狀態
-- [ ] **C7 Structural Ceiling 診斷**（→ `execution-flow` 診斷步驟 + `gap-ledger`）：當目前模型結構無法表達目標分布時，停止參數搜尋、轉提結構變更需求；判定須記：無法表達的指標、已嘗試參數範圍、為何不是「參數未找到」、需要的抽樣能力或耦合機制。產生 C6 `structural_blocked`
-- [ ] **C8 Experiment Ledger**（→ `calibration-record` 的**可選子結構**）：只記重要調參實驗——假設、變更參數、前後指標、波及的其他指標、是否改善、副作用、採納／拒絕理由。Phase 3 dogfood 證明需要獨立管理後才拆檔
-- [ ] **C9 Reproducibility Reference**（→ `calibration-record`）：至少一個 `reproducibility_reference` 指回原始實驗；建議涵蓋 consumer build／commit、sampler／strategy version、parameter snapshot hash、metric definition version、seed set id、sample count、source data version、execution environment、measurement timestamp。實際值可由 consumer 提供 reference，不必全進 canonical schema
+- [x] **C1 Target Contract**（→ `calibration-contract`）：Target 分三角色——`normative`（理論／規格要求）、`reference_observation`（官方或可信來源的實際觀測）、`implementation`（產品實作希望達到的值）。每個 Target 記 `source／authority`、`definition`、`sample_scope`、`uncertainty`、`decision_owner`、`provisional｜confirmed`。調參只對 `implementation` Target 收斂；`reference_observation` 只以其 uncertainty 區間作比對，不當精確值
+- [x] **C2 Objective Contract**（→ `calibration-contract`）：指標分三層——`hard_constraint`（必須達到，不可被其他指標抵銷）、`primary_objective`（主要校準目標）、`diagnostic_metric`（解釋偏差與副作用，不計入成功判定）。禁止以單一加總分數判定成功，以免掩蓋 hard constraint 缺口
+- [x] **C3 Sample Sufficiency**（→ `calibration-contract`）：每個指標宣告 `precision_target`（契約要求的估計精度）與對應估計方法——均值類用標準誤、比例類用二項信賴區間、罕見事件看**事件數**而非手數、相關係數看其不確定性、尾部看稀有事件計數。`≥5000 基礎手` 降為 provisional default，不再是通用「充足」判定
+- [x] **C3b Tolerance 定義**（→ `calibration-contract`，回答 Q7）：`max(3×SE, 10%)` 的 `10%` 拆為 `absolute_tolerance` 與 `relative_tolerance`，由各指標定義宣告採用哪一種及基準（target 值 vs 觀測值）；低基率指標（如 1% 命中率）不得套用絕對百分點容忍度
+- [x] **C4 Holdout Policy**（→ `verification`）：seed 分三組——`training_seed_set`（優化器可用）、`validation_seed_set`（候選參數驗證）、`final_holdout_seed_set`（最終驗收，不得參與調參）；`holdout_policy` 記誰產生、何時揭露（final holdout 於**候選參數凍結後**才揭露）、是否允許重跑及重跑規則。語意約束（寫入 `verification` 的 holdout policy，不新增欄位）：final holdout **不得參與參數搜尋**；驗收失敗後**不得**以同一組 final holdout 反覆調參；一旦 final holdout 被用於診斷或修正，即**失去 final holdout 身分**（降為 validation 用），下一輪驗收須重新建立新的 final holdout
+- [x] **C5 Verification Independence**（→ `verification` + `calibration-record`）：獨立性分四維——context（fresh context）、data（未見過的 seed／樣本）、measurement（不共用同一份指標計算程式，或已以獨立實作交叉核對）、decision（決策者≠執行者）。四維是**記錄維度，不是四個必勾 Gate**：Record 記錄**實際達到哪幾維**；`verification` contract 為每次驗收宣告 `required_independence`（本次驗收的最低獨立性要求），未達最低要求才判未驗證。如此不因 consumer 環境限制把所有任務判成無法驗證，也不讓 fresh context 單獨被誤認為完整獨立驗證
+- [x] **C6 Calibration Status**（→ `calibration-record`）：五個狀態是**互斥的最終分類**，每份 Record 恰好一個。`verified`＝所有 hard constraint 通過且驗證契約完成（含 C5 `required_independence`）；`partially_calibrated`＝部分目標達成、仍有已知缺口（缺口已入 Gap Ledger）；`inconclusive`＝證據不足，無法判定；`structural_blocked`＝**已確認**目前結構限制阻礙目標達成；`failed`＝驗收條件未通過，且不屬於上述其他狀態。`structural_blocked` 不得只因某次參數搜尋失敗成立，必須具備 C7 全部判定證據，證據不足時應判 `inconclusive`。判定順序（保證互斥）：證據不足→`inconclusive`；C7 證據齊備→`structural_blocked`；hard constraint 全過且驗證契約完成→ primary objective 全達為 `verified`、否則 `partially_calibrated`；其餘→`failed`。`partially_calibrated` 與 `inconclusive` 是合法收工狀態
+- [x] **C7 Structural Ceiling 診斷**（→ `execution-flow` 診斷步驟 + `gap-ledger`）：當目前模型結構無法表達目標分布時，停止參數搜尋、轉提結構變更需求；判定須記：無法表達的指標、已嘗試參數範圍、為何不是「參數未找到」、需要的抽樣能力或耦合機制。產生 C6 `structural_blocked`
+- [x] **C8 Experiment Ledger**（→ `calibration-record` 的**可選子結構**）：只記重要調參實驗——假設、變更參數、前後指標、波及的其他指標、是否改善、副作用、採納／拒絕理由。Phase 3 dogfood 證明需要獨立管理後才拆檔
+- [x] **C9 Reproducibility Reference**（→ `calibration-record`）：至少一個 `reproducibility_reference` 指回原始實驗；建議涵蓋 consumer build／commit、sampler／strategy version、parameter snapshot hash、metric definition version、seed set id、sample count、source data version、execution environment、measurement timestamp。實際值可由 consumer 提供 reference，不必全進 canonical schema
 - **Gate**：C1–C9 每項的欄位名與語意已凍結並寫入本節附註；沒有任何一項導致新增 contract 檔或新 phase
-- [ ] **Phase 0 語意核對 S1（C6 判定順序，2026-11-27 第三輪審閱列為候選裁決）**：判定順序保留為候選裁決，Phase 0 只核對一個邊界——「證據不足→`inconclusive`」僅指**無法對 hard constraint／驗證契約要求的指標做出可靠判定**；非必要指標（如 diagnostic metric）缺資料不得無條件覆蓋整份 Record。指標缺資料時是否阻擋 `verified`，由該指標的層級（C2）與驗證契約決定。核對結果寫入 Phase 0.0 表
+- [x] **Phase 0 語意核對 S1（C6 判定順序，2026-11-27 第三輪審閱列為候選裁決）**：判定順序保留為候選裁決，Phase 0 只核對一個邊界——「證據不足→`inconclusive`」僅指**無法對 hard constraint／驗證契約要求的指標做出可靠判定**；非必要指標（如 diagnostic metric）缺資料不得無條件覆蓋整份 Record。指標缺資料時是否阻擋 `verified`，由該指標的層級（C2）與驗證契約決定。核對結果寫入 Phase 0.0 表
 - **Design freeze（2026-11-27 第二輪審閱）**：Phase 0.1 定位為契約語意補強，**不是實作授權**；C1–C9 已涵蓋審閱建議，Phase 0 期間不再擴充架構概念，只做既有治理檢查。Phase 1（四份 contract、workflow 骨架、validation scenarios）等 Phase 0 Gate 通過後才開工
 
-- [ ] 完成 `workflow/software-delivery/requirements/pre-build-interrogation.md` 與 `plans/README.md` Architecture Compatibility Preflight，記錄於本節
-- [ ] 讀 `workflow/workflow-routing.md` 與 `workflow/cross-cutting/README.md`：確認「doc-only pilot 加選路表列但不註冊 registry」是否合規；若不合規改走 `cross-cutting/` 或只加索引
-- [ ] 讀 `intelligence/README.md`、`workflow/cross-cutting/traceable-evidence/`、`workflow/image-processing/`（Execute≠Verify 契約）作為重用來源；列 duplication risk
-- [ ] 逐項把 Inventory I1–I11 去專案化草稿過 `enforcement/sanitization.md`；決定每項最終落點並回寫 Inventory
-- [ ] 取得消費專案方同意：個案流水帳留在消費專案、canonical 只收方法（Q3）
+- [x] 完成 `workflow/software-delivery/requirements/pre-build-interrogation.md` 與 `plans/README.md` Architecture Compatibility Preflight，記錄於本節
+- [x] 讀 `workflow/workflow-routing.md` 與 `workflow/cross-cutting/README.md`：確認「doc-only pilot 加選路表列但不註冊 registry」是否合規；若不合規改走 `cross-cutting/` 或只加索引
+- [x] 讀 `intelligence/README.md`、`workflow/cross-cutting/traceable-evidence/`、`workflow/image-processing/`（Execute≠Verify 契約）作為重用來源；列 duplication risk
+- [x] 逐項把 Inventory I1–I11 去專案化草稿過 `enforcement/sanitization.md`；決定每項最終落點並回寫 Inventory
+- [x] 取得消費專案方同意：個案流水帳留在消費專案、canonical 只收方法（Q3）
+
+#### Phase 0 紀錄（2026-11-27）
+
+| 欄位 | 內容 |
+| --- | --- |
+| Trigger | 使用者指示繼續；執行本 plan Phase 0 |
+| Checked sources | `plans/README.md` §Preflight、`pre-build-interrogation.md`、`workflow/workflow-routing.md`、`workflow/README.md`、`workflow/cross-cutting/README.md`、`cross-cutting/traceable-evidence/`、`cross-cutting/decision-support/`、`image-processing/`（README、`contracts/verification.yaml`、`finality.yaml`、`image-decision-record.yaml`、`registry/failure-classes.yaml`）、`intelligence/README.md`、`intelligence/engineering/anti-patterns/`、`enforcement/failure-patterns/`、`enforcement/sanitization.md`、`validation/scenarios/` |
+| Interrogation | Goal：可重用的機率模型校準與驗證方法；Scope：doc-only workflow + 4 contracts + failure-class registry + slot RTP profile + scenarios；Non-goals：route／signal、優化器、引擎程式碼、個案資料；Acceptance：Phase 1 Gate（scenarios、sanitization、紙上走查）；Framework discovery：canonical = workflow-local YAML／Markdown，無 runtime projection、無 generated surface；Assumptions：見 F1–F4 |
+| Routing 合規 | 合規。先例：`image-processing`（列於選路表 §常見歧義、未註冊 route）、`narrative-video-production`（選路表標「未註冊」）。不走 `cross-cutting/`：本案是有自身 lifecycle 與產出的 domain workflow，不是跨 slice 共用 concern |
+| Duplication risk | 無雙 SoT。Execute≠Verify、`inconclusive` 合法沿用 `image-processing` 精神，但為不同 domain 的獨立契約；I5「釘值≠校準」是 `validation-proxy-trap` 的領域實例、I10 是 `evidence-suppression` 的領域實例、I11 是 `stale-derived-state` 的領域實例 → 均以 workflow-local failure class **連回**既有 anti-pattern，不新增 enforcement failure pattern。TE1／TE2／TE4 由 C8／C9／C1 實作並連回 traceable-evidence |
+| Terminology watch | C6 `calibration_status` 與 image-processing `finality` 皆含 `inconclusive` 等詞，語意相近但所屬記錄不同；依 terminology-collision 紀律只記錄、不統一 |
+| Sanitization | 本 plan 無專案名、路徑、host、個人資料；「slot」為遊戲類型泛稱。I9／I11 的數值（20k 手 SE≈0.03、量級錯 6 倍）Phase 1 只能以「示例值」出現 |
+| Decision | proceed（待使用者授權 Phase 1） |
+| Validation | 本節 diff review；commit hooks |
+
+**修正（F）**：
+- **F1** Runtime Execution Path 原寫「沿用 `investment`／`image-processing` 格式」：`image-processing` 沒有 validation scenarios，只有 `validation/scenarios/investment/*.yaml` 可當格式先例 → 已改正
+- **F2** Phase 2 原寫 atoms 標 `observation`：intelligence 層既有狀態只有 `candidate-intelligence`／`validated-intelligence` → atoms 用 `candidate-intelligence` 並註明來源個案 N=1，不新增狀態值
+- **F3** Phase 1 contracts 檔案格式依 `image-processing` 先例：`artifact-record/v1` YAML、`runtime_projection.enabled: false`；failure classes 用 `registry/v1`
+- **F4** I10／I11 落點由「failure pattern」改為 workflow-local failure class + 連回既有 anti-pattern（見 Duplication risk）
+
+**S1 裁決（C6 證據不足的範圍）**：指標是否「必要」直接由 C2 層級決定，不新增欄位——`hard_constraint` 與 `primary_objective` 是必要指標，`diagnostic_metric` 不是。必要指標未達 C3 `precision_target` → `inconclusive`；diagnostic metric 樣本不足只寫入 Gap Ledger（標 `insufficient_evidence`），不影響狀態。所以 hard constraint 與驗證契約都已完成、只有 diagnostic 缺資料時，仍可判 `verified`
+
+**Gate 判定**：Q1／Q3 resolved ✓；Inventory 每項有最終落點 ✓；preflight 無未解衝突（F1–F4 已就地修正）✓；Phase 0.1 Gate ✓ → **Phase 0 Gate 通過**。Phase 1 開工仍待使用者明確授權（方向同意≠開工授權）
 - **Gate**：Q1／Q3 已 resolved；Inventory 每項有最終落點；preflight 無未解衝突；Phase 0.1 Gate 通過
 
 ### Phase 1 — Workflow 骨架 + Contracts + Scenarios（doc-only）
 
 - [ ] `workflow/probability-calibration/`：README（含 §Scope 的範圍定義）、`execution-flow.md`（Target→取證→指標對照→診斷〔含 structural ceiling 出口〕→調參→獨立驗證→Gap 登錄→收工回饋）
-- [ ] `contracts/`：`calibration-contract`（C1–C3b）、`calibration-record`（C5–C6、C8–C9）、`gap-ledger`（C7）、`verification`（C4–C5、釘值分層）——欄位依 Phase 0.1 凍結版
+- [ ] `contracts/`（`artifact-record/v1` YAML、`runtime_projection.enabled: false`，依 image-processing 先例）：`calibration-contract`（C1–C3b）、`calibration-record`（C5–C6、C8–C9）、`gap-ledger`（C7）、`verification`（C4–C5、釘值分層）——欄位依 Phase 0.1 凍結版
 - [ ] `registry/failure-classes`：由 I10、I11、I2（基準選錯）、I3（跳過診斷改賠付）起步
 - [ ] `profiles/slot-rtp.md`：第一個 consumer profile（指標詞彙、基準回合類型、系列拆分；不放個案）
 - [ ] ≥3 個 validation scenarios；`ai-skill runtime refresh` 通過。候選（Phase 1 擇 ≥3）：holdout 缺失被判未驗證、target 取自熱樣本被擋、鏈式驗證失敗不得宣稱通過、final holdout 在凍結前揭露被判無效、僅 fresh context 卻宣稱完全獨立被擋、hard constraint 未達卻以總分宣稱 verified 被擋
@@ -181,7 +211,7 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 ### Phase 2 — Intelligence atoms
 
 - [ ] `intelligence/engineering/probability-calibration/`：I6 結構天花板、I7 單旋鈕副作用、I8 取樣機 Strategy 設計模式、I9 優化操作衛生；各 ≤300 行、單一主題、含 `適用條件／反例`
-- [ ] 每個 atom 標註來源個案數（目前 N=1）與升格門檻；N<3 者標 `observation`，不當硬規則
+- [ ] 每個 atom 標註來源個案數（目前 N=1）與升格門檻；N<3 者用既有狀態 `candidate-intelligence` 並註明 N=1（即本計畫所稱 observation），不當硬規則、不新增狀態值
 - [ ] 更新 `intelligence/README.md` 與連動索引
 - **Gate**：atoms 皆有 Counter-case／不適用條件；無專案識別字樣
 
@@ -204,13 +234,13 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 
 | # | 問題 | 狀態 | 預裁決／預設 |
 | --- | --- | --- | --- |
-| Q1 | domain 名稱與範圍：`probability-calibration`（中立）vs slot 專用 | user-ruled 2026-11-27 | 中立名稱，保留 slot RTP profile；README Scope 寫明涵蓋 model calibration & validation（§Scope） |
-| Q2 | 是否有第二種遊戲類型要用同一套（撲克、抽卡、捕魚等）？決定中立化是否值得、以及 Phase 3 第二 consumer | user-ruled 2026-11-27 | **不阻塞 Phase 0**；承認 N=1，第二 consumer 待確認，不為證明抽象而硬找案例；第一 consumer 完整走完 workflow 且標明哪些仍是 observation 即可進第一輪 dogfood |
-| Q3 | 個案流水帳／快照留在消費專案，canonical 只收方法——消費專案方是否同意 | user-ruled 2026-11-27 | 同意（避免雙 SoT 與去敏衝突） |
-| Q4 | Target RTP 由誰決策、如何記錄（沿用 decision-support Pass 1／2 或另列） | user-ruled 2026-11-27 | 沿用 decision-support，provisional→confirmed，明確記錄 authority（C1 `decision_owner`） |
-| Q5 | 機械鎖歸屬：釘值測試與 governance 檢查由 consumer 實作，Ai-skill 只給 checklist／scenario | user-ruled 2026-11-27 | consumer 實作；Ai-skill 定義契約與 scenario |
-| Q6 | 比對門檻（`max(3×SE, 10%)`、樣本 ≥5000）要當預設值還是純參數（來源為「初版待校正」） | user-ruled 2026-11-27 | provisional default，不當通用真理；充足判定改由 `precision_target`（C3） |
-| Q7 | `max(3×SE, 10%)` 的 `10%` 是相對還是絕對？基準是 target 還是觀測值？ | user-ruled 2026-11-27 | 拆 `absolute_tolerance`／`relative_tolerance`，由指標定義宣告（C3b） |
+| Q1 | domain 名稱與範圍：`probability-calibration`（中立）vs slot 專用 | resolved（user-ruled；Phase 0 核對 2026-11-27） | 中立名稱，保留 slot RTP profile；README Scope 寫明涵蓋 model calibration & validation（§Scope） |
+| Q2 | 是否有第二種遊戲類型要用同一套（撲克、抽卡、捕魚等）？決定中立化是否值得、以及 Phase 3 第二 consumer | resolved（user-ruled；Phase 0 核對 2026-11-27） | **不阻塞 Phase 0**；承認 N=1，第二 consumer 待確認，不為證明抽象而硬找案例；第一 consumer 完整走完 workflow 且標明哪些仍是 observation 即可進第一輪 dogfood |
+| Q3 | 個案流水帳／快照留在消費專案，canonical 只收方法——消費專案方是否同意 | resolved（user-ruled；Phase 0 核對 2026-11-27） | 同意（避免雙 SoT 與去敏衝突） |
+| Q4 | Target RTP 由誰決策、如何記錄（沿用 decision-support Pass 1／2 或另列） | resolved（user-ruled；Phase 0 核對 2026-11-27） | 沿用 decision-support，provisional→confirmed，明確記錄 authority（C1 `decision_owner`） |
+| Q5 | 機械鎖歸屬：釘值測試與 governance 檢查由 consumer 實作，Ai-skill 只給 checklist／scenario | resolved（user-ruled；Phase 0 核對 2026-11-27） | consumer 實作；Ai-skill 定義契約與 scenario |
+| Q6 | 比對門檻（`max(3×SE, 10%)`、樣本 ≥5000）要當預設值還是純參數（來源為「初版待校正」） | resolved（user-ruled；Phase 0 核對 2026-11-27） | provisional default，不當通用真理；充足判定改由 `precision_target`（C3） |
+| Q7 | `max(3×SE, 10%)` 的 `10%` 是相對還是絕對？基準是 target 還是觀測值？ | resolved（user-ruled；Phase 0 核對 2026-11-27） | 拆 `absolute_tolerance`／`relative_tolerance`，由指標定義宣告（C3b） |
 
 ## Stakeholder 同意項目
 
