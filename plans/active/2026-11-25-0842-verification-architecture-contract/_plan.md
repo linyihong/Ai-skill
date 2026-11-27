@@ -10,7 +10,7 @@ parent: null
 
 # Verification Architecture Contract（驗證器架構契約）
 
-**Status**: in-progress — Phase 0、Phase 1 已完成；Phase 2a（Ai-skill 自身 dogfood）S1 量測、S2 V2 驗證與修補、S3 PreToolUse 增量化評估完成；Phase 2 外部證據等待中。
+**Status**: in-progress — Phase 0、Phase 1 已完成；Phase 2a（Ai-skill 自身 dogfood）S1 量測、S2 V2 驗證與修補、S3 PreToolUse 增量化評估完成；Phase 2 外部 consumer 已計入（S4），實際套用案例 2／3。
 
 ## 一句話目標
 
@@ -55,11 +55,13 @@ parent: null
 
 | 案例 | 狀態 | 涵蓋的不變式 |
 | --- | --- | --- |
-| 外部 consumer（驗證效能計畫） | 來源案例，**尚未計入**：建議尚未被採用，E2E 漏跑（其 W3-0）尚未修復 | 現有 attestation / input closure 部分對應 V3；V1–V2、V4–V5 未套用 |
+| 外部 consumer（驗證效能計畫） | **計入**（2026-11-27 唯讀檢查，[`evidence/s4-consumer-readonly-check.md`](evidence/s4-consumer-readonly-check.md)）：E2E 漏跑已修，已開 linked plan 並跑 shadow | V1、V2、V3、V4 applied；V5 shadow 進行中，尚未達其登記的門檻 |
 | Ai-skill 自身 hooks | **dogfood 進行中**（見 §Phase 2a）：基線量測完成；V2 已套用（路徑式測試選擇改為保守全跑） | 已有路徑式測試選擇（V2 相關）與 Go 內建測試快取（V3 相關） |
 
-- [ ] 外部 consumer 修復 E2E 漏跑後，唯讀檢查其是否套用 V1–V5 的任何一條，記錄於本計畫 `evidence/`
-- [ ] 若 consumer 執行 shadow mode，記錄其預先登記的採用門檻與第一批 audit 結果
+- [x] 外部 consumer 修復 E2E 漏跑後，唯讀檢查其是否套用 V1–V5 的任何一條，記錄於本計畫 `evidence/`（S4）
+- [x] 若 consumer 執行 shadow mode，記錄其預先登記的採用門檻與第一批 audit 結果（S4；門檻晚 shadow 一天登記，已註明）
+- [ ] consumer 達到或放棄其採用門檻時，再做一次唯讀檢查，判定 V5 是否 verified
+- [ ] 裁決 S4 §對契約的回饋 五項候選補充（非平凡樣本、注入失敗探針、範圍≠身分、skip／blocked 分開、證據可保存）是否寫入契約
 - [ ] 尋找第 2、第 3 個有結果快取或增量選擇的 consumer
 
 ## Phase 2a：Ai-skill 自身 dogfood（進行中）
@@ -115,7 +117,7 @@ parent: null
   - Shadow 紀錄只記計數、大小、耗時與是否一致，不記 transcript 文字。
 - [ ] （選擇性）`internal/app` 最慢的 runtime compiler 測試切分或共用 fixture；屬測試效能，不屬快取
 
-**計數**：Ai-skill 自身最多算 1 個實際套用案例；仍需 2 個外部案例才進入 Phase 3。
+**計數**：Ai-skill 自身最多算 1 個實際套用案例；外部 consumer 已計 1 個（S4）；仍需 1 個外部案例才進入 Phase 3。
 
 ## Phase 3：升級裁決（未開始）
 
