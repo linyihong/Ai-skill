@@ -2,6 +2,7 @@
 
 | Date | Lesson | Status |
 | --- | --- | --- |
+| 2026-11-27 | [Replay the raw reference rows through the product engine before any statistic is compared](2026-11-27_160000-replay-raw-reference-rows-through-product-engine.md) | candidate |
 | 2026-11-27 | [Reference completeness is an uncertainty the standard error does not cover](2026-11-27_150100-reference-completeness-is-uncertainty-se-does-not-cover.md) | candidate |
 | 2026-11-27 | [Test a reference sample's bias per metric and stratum before excluding the whole sample](2026-11-27_150000-test-reference-bias-per-metric-by-stratum.md) | candidate |
 | 2026-11-27 | [A reference count's unit must be read from the tool that produced it, not from the prose that quotes it](2026-11-27_150000-reference-count-unit-must-be-read-from-its-producer.md) | candidate |
