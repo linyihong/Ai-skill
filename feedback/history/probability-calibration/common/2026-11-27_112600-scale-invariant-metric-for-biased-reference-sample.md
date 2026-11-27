@@ -6,7 +6,7 @@ Status: candidate
 
 #### Reuse Evidence
 
-尚未有獨立重用證據，維持 candidate（N=1）。指標改定義後，缺口大小從「多 1.4–1.9 倍」變成可量化、可掃描的單一比值。
+尚未有獨立重用證據，維持 candidate（N=1）。**更正**：本條原本舉的缺口（多 1.4–1.9 倍；比值 0.107 對 0.171）後來查出是兩邊計數單位不同造成的（逐線對每局最長連線，見 [reference count unit](2026-11-27_150000-reference-count-unit-must-be-read-from-its-producer.md)）；單位對齊後比值是 0.107 對 0.110。因此本條的證據只支持「改用以前置條件為分母的比值是可行的指標形式」，**不**支持「它揭露了一個真實缺口」。
 
 #### One-line Summary
 
@@ -25,7 +25,7 @@ Status: candidate
 #### Evidence
 
 - Tool: 指標定義 `ratio = count(event) / count(precondition)`；兩側同定義後比較
-- Sanitized excerpt: 參考 ~0.107、產品 ~0.171；以此比值掃描參數時可與其他指標並列比較
+- Sanitized excerpt: 比值定義 `count(event)/count(precondition)` 可被兩側以同一定義重算並用於參數掃描；原先記的「參考 ~0.107、產品 ~0.171」是不同計數單位的比較，已作廢（單位對齊後約 0.107 對 0.110）
 - Evidence path: `<PROJECT_ROOT>/docs/` 與本地探針（不進本檔）
 
 #### Generalized Lesson
