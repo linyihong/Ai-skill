@@ -74,7 +74,26 @@ status_definitions:
   partially_calibrated: hard_constraint pass AND verification complete AND evidence sufficient to evaluate every primary_objective, but some are not met; gaps recorded
   inconclusive: the round cannot be reliably judged — a required metric (hard_constraint or primary_objective) is below precision_target, its metric parity is unresolved, or independent verification is not performed or below required_independence
   structural_blocked: confirmed structural ceiling with full C7 evidence (gap-ledger.structural_ceiling)
-  failed: acceptance not passed and none of the above applies
+  failed: sufficient and valid acceptance evidence confirms a hard_constraint is not met (and none of the above applies)
+
+status_boundary:
+  note: >
+    Frozen by user ruling 2026-11-27. A verification chain that is incomplete or
+    not valid is inconclusive; only a complete, valid chain that confirms a
+    miss is failed. "Cannot claim pass" does not imply "can claim failed".
+  cases:
+    - when: metric definitions inconsistent, no valid comparison possible
+      status: inconclusive
+    - when: required metric below precision_target
+      status: inconclusive
+    - when: independent verification not yet completed
+      status: inconclusive
+    - when: verified but below required_independence
+      status: inconclusive
+    - when: verification complete and valid, hard_constraint not met
+      status: failed
+    - when: verification complete and valid, hard_constraint met, some primary_objective not met
+      status: partially_calibrated
 
 evaluation_order:
   note: applied top to bottom; first match wins; guarantees mutual exclusivity
