@@ -10,7 +10,7 @@ parent: null
 
 # Probability Calibration Workflow（`workflow/probability-calibration/` + intelligence）
 
-**Status**: in-progress（Phase 2 完成；Phase 3 dogfood 進行中：consumer 回饋 2 輪，尚無滿足 Gate 的實戰收工）— 2026-11-27 使用者明確授權 Phase 1（範圍：四份 contract、README＋execution-flow、slot-rtp profile、failure classes、≥3 scenarios、索引連動、sanitization＋runtime refresh＋Phase 1 Gate；限制：不新增 contract 檔、不註冊 route／signal、不實作引擎／優化器、N=1 不升格、Gate 未過不進 Phase 2）。2026-11-27 使用者審閱已裁決 Q1–Q6（見 §Open Questions）並要求 Phase 0 先做契約補強（§Phase 0.1）；2026-11-27 Phase 0 完成、Gate 通過（§Phase 0 紀錄）；
+**Status**: in-progress（Phase 2 完成；Phase 3 dogfood 進行中：consumer 回饋 3 輪；第 3 輪是第一次完整走 workflow 的實戰，待決策者接受後才算收工）— 2026-11-27 使用者明確授權 Phase 1（範圍：四份 contract、README＋execution-flow、slot-rtp profile、failure classes、≥3 scenarios、索引連動、sanitization＋runtime refresh＋Phase 1 Gate；限制：不新增 contract 檔、不註冊 route／signal、不實作引擎／優化器、N=1 不升格、Gate 未過不進 Phase 2）。2026-11-27 使用者審閱已裁決 Q1–Q6（見 §Open Questions）並要求 Phase 0 先做契約補強（§Phase 0.1）；2026-11-27 Phase 0 完成、Gate 通過（§Phase 0 紀錄）；
 
 **Glossary Impact**: yes — 候選詞 `calibration_contract`、`calibration_record`、`gap_ledger`、`structural_ceiling`、`holdout_probe`、`precision_target`、`holdout_policy`、`calibration_status`。Phase 1 前不登記 glossary。
 
@@ -283,8 +283,32 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 >
 > **對 plan 的建議（待 owner）**：(1) 若採納本輪 4 個缺口，只在既有 contract 補欄位（`direction`、`scale`／`derived_from`、`adoption`、測試種子獨立性），不新增 contract 檔、不新增 phase；(2) 優先順序建議：`adoption` 與 `direction` 先補（影響判定語意），殘差與種子獨立性可延後；(3) 下一次實戰請改走完整流程：先寫 Contract，再調參，最後交 fresh-context verifier 以 final holdout 驗收。
 
+> **Dogfood 回饋 #3（2026-11-27，**第一次完整走 workflow 的實戰**，consumer 回報）**
+>
+> **這一輪的性質**：決策者指定 consumer 唯一超過總返還天花板的櫃，要求完整走 workflow。順序：先凍結契約（`contract_version` 與 `frozen_at`，含診斷 a／b／c 記錄、指標層級、容忍度、參數範圍只限一組條帶）→ 唯讀取證（官方整場結算 1,145 場、依帳號年資分 7 層）→ 單旋鈕掃描（每軸 wild 2／3／4，再掃每軸分配）→ 凍結候選（參數 hash，commit 留在本機分支）→ **fresh-context 驗證者**用自己選的 3 組 final holdout 種子（各 40 萬手）與自己寫的統計程式驗收，並用官方原始資料重算契約參照值 → 驗證者提議 `verified`，**決策者接受待定**；候選在驗證後已採用進 consumer 主幹（可還原，未部署）。執行者全程不寫最終 status。
+>
+> **結果**：整場平均由 76.3 倍降到 30.7 倍（官方 30.05，SE 0.73），≥50 倍占比 66%→16.3%（官方 16.4%），總返還 1.880→1.136（上限 1.35）；所有 hard／primary 指標在 final holdout 通過，precision_target 皆達成。
+>
+> **新的 candidate lesson（皆 N=1，同一 consumer）**：[指標×偏誤因子分層檢查](../../feedback/history/probability-calibration/common/2026-11-27_150000-test-reference-bias-per-metric-by-stratum.md)、[參照完整性是 SE 沒涵蓋的不確定性](../../feedback/history/probability-calibration/common/2026-11-27_150100-reference-completeness-is-uncertainty-se-does-not-cover.md)。
+>
+> | 步驟 | 重放發現 | 類型 | 建議落點（由 owner 決定） |
+> | --- | --- | --- | --- |
+> | 0 契約／C3 | 契約先行這次成立：凍結後調參、驗證者有明確判準可用。分位數沒有 estimator，改寫成「超過某倍數的占比」（二項區間）與事件數後完全可用 | 證實＋證實 Phase 1 延後項 | `calibration-contract`：estimator 加分位數或明寫「以超過門檻占比表達」；與前次順序統計量缺口合併處理 |
+> | 1／3b 取證與偏誤 | 偏誤分層檢查改變了結論：同一樣本中單手回報有年資偏誤、整場結算無偏誤，才讓整場結算可當 `reference_observation` | 缺口（規則層級） | 診斷 b 步驟與 hot sample 規則：判斷單位改為「指標×偏誤因子」，寫入 lesson `test-reference-bias-per-metric…` |
+> | 1 取證／C1 uncertainty | 約三分之一觸發沒有結算記錄，事件率有兩個合理定義（觸發端 vs 結算端）；`uncertainty` 只提 SE／區間，沒有 coverage | 缺口 | C1 `uncertainty` 明確包含 capture loss；`gap-ledger` `insufficient_evidence` 範例；lesson `reference-completeness…` |
+> | 3→4 取證與調參 | 選旋鈕需要額外證據（結尾盤面組成），凍結後才取。它只決定旋鈕，不是目標。契約沒有區分「目標證據」與「調參用證據」，我把它記成 `process_gap`（G7a），可能過嚴 | 語意問題 | 在 execution-flow 明寫：凍結後允許取得「旋鈕選擇證據」，但不得新增或改動 Target；若新證據導致 Target 變動，須重凍結 |
+> | 4 調參 | 單旋鈕掃描（每軸 wild 數）→ 每軸分配的小格點。非整數目標（介於每軸 3 與 4 格之間）要靠每軸不等分配；平行副本（複製建置目錄）讓三個候選同時量，成本可接受 | 證實（與前兩輪 lesson 一致） | 無 |
+> | 5 凍結 | 凍結物只有參數檔 hash 與 FS 條帶 hash 就夠；驗證者先檢查 hash 再量；驗證者檢查「差異範圍僅限契約允許的參數」 | 證實 | 可在 `verification` 範例加一條「候選與基準的差異範圍檢查」 |
+> | 6 驗證／C5 | 驗證者自評 `measurement` 已達成，但與執行者共用核心模擬器（只有統計自己算）。契約沒有定義什麼叫「測量獨立」，我降為「部分」，不列入 achieved | 缺口 | `verification` C5：寫明測量獨立的最低判準（共用模擬器核心、獨立統計、獨立實作各算哪一級） |
+> | 7 狀態 | 驗證完成、決策者尚未接受，候選已採用：契約沒有 `adoption` 欄位；`decision` 維度（決策者≠執行者）以角色指派算達成，而「接受」這個動作沒有位置 | 缺口（與回饋 #2 同） | Record 加 `adoption`；`decision` 維度的定義寫明是「角色」還是「接受動作」 |
+> | 9 回饋 | 兩條 lesson 來自這一輪；registry 沒有新失敗類別 | 證實 | 無 |
+>
+> **N 的計法**：這是同一 consumer 的另一個「玩法」（不同櫃、不同玩法的免費轉）、第一次以獨立 holdout 收工。依 ADR 準則「≥2 次獨立校準（不同遊戲或不同玩法）以本 workflow 收工，且驗收由獨立 holdout 完成」，記為 **1／2**；仍是同一 consumer，所有 lesson 維持 N=1，不升級。
+>
+> **成本（供評估是否過重）**：契約與紀錄文件約 3 份 YAML；取證 3 次唯讀查詢；掃描 2 輪（共 6 個候選，每個約 3–5 分鐘）；驗證者一次呼叫（約 2 分鐘量測）。主要工時在撰寫契約與紀錄，不在量測。
+
 - [x] 靜態走查：用 workflow 重放已完成的校準，記錄 workflow 漏掉什麼（回寫契約）——已由 consumer 重放一輪（見上方回饋表）；契約回寫由 owner 決定
-- [ ] 實戰：下一次消費專案校準任務完整走本 workflow，**驗收由 fresh-context verifier 以 final holdout seed set 執行**，產出 Calibration Record（含 C5 獨立性實際達成維度、C6 status）+ Gap Ledger
+- [x] 實戰：下一次消費專案校準任務完整走本 workflow，**驗收由 fresh-context verifier 以 final holdout seed set 執行**，產出 Calibration Record（含 C5 獨立性實際達成維度、C6 status）+ Gap Ledger——第 1 次已完成（回饋 #3；驗證者提議 `verified`，決策者接受待定，故 Gate 仍待）
 - [ ] 評估 C8 Experiment Ledger 是否需要從 Record 拆出獨立管理（有證據才拆）。觀察（dogfood #1 第 5 條，使用者裁決保留觀察）：格點掃描與貪婪搜尋無法逐點寫入單一實驗格式；遇到批次結果無法重現、候選點無法追溯到最終選擇、Record 過大難審，或多實驗共用資料／seed 無法表達時再拆
 - **Dogfood #1 契約修正（2026-11-27，使用者裁決 1–4 納入）**：(1) contract `change_control`——凍結後改 Target／必要指標／精度／容差／定義＝升版重凍結，舊證據保留但不作新版驗收證據，重跑範圍依影響記錄；(2) metric 加 `comparison`（statistic、sample_unit、sample_scope、comparison_n）與 estimator `order_statistic`，順序統計量只在等 n 下比較；(3) `why_not_parameter_not_found` 改為 `argument_type`（解析上界／縮減空間窮舉／其他可重現結構論證），搜尋前緣只作診斷；(4) Record 加 `executor_assessment`＋basis，executor 不得寫 `calibration_status`。Dogfood #2 的建議尚待 owner 裁決，本次未納入。**修正後重放（同一合成案例＋新目標／最大值／搜尋前緣三個壓力點，fresh-context、0 個目錄外檔案）**：四項修正皆按預期運作（新目標走 `change_control`；最大值要求等 n；搜尋前緣不足以判 `structural_blocked`；executor 只填 `executor_assessment`）。發現 1 個待裁決的狀態語意問題（非本次修正引入，是被 fix #3 凸顯）：`evaluation_order` 第一步的 `verification_missing` 先於 structural 判定，導致已有解析上界的結構限制必須先跑無意義的 holdout 才能 `structural_blocked`。**使用者裁決（2026-11-27）**：`structural_blocked` 改由 verifier 獨立核對結構論證，不需候選 holdout；`evaluation_order` 把 structural 判定移到第一步（論證齊備且已核對），未核對者落入 `inconclusive`。另記觀察（不擴設計）：互相矛盾的 Target 沒有對應路徑；有狀態機制下 binomial／SE estimator 的獨立性假設未宣告；舊版本下已做的調參如何處置未明寫
 - [ ] 收工 FeedbackDecision；新失敗進 registry 或 evidence candidate（N≥3 才升級）
