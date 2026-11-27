@@ -1,0 +1,45 @@
+# probability-calibration — S1：必要指標證據不足判 inconclusive；diagnostic 缺資料不覆蓋 status
+# 來源：
+#   - workflow/probability-calibration/contracts/calibration-record.yaml（evaluation_order、s1_ruling）
+#   - plans/active/2026-11-27-1500-probability-calibration-workflow.md（S1 裁決）
+
+id: probability-calibration-primary-insufficient-inconclusive-v1
+domain: probability-calibration
+type: heuristic-obedience
+priority: P1
+
+given:
+  task: classify_round_with_mixed_evidence
+  artifacts:
+    - workflow/probability-calibration/contracts/calibration-contract.yaml
+    - workflow/probability-calibration/contracts/calibration-record.yaml
+  cases:
+    - id: case_a
+      facts: "hard constraint 全過、驗證契約完成、primary objective 全達；某 diagnostic metric 樣本未達 precision_target"
+      expected_status: verified
+    - id: case_b
+      facts: "hard constraint 全過、驗證契約完成；某 primary objective 樣本未達 precision_target"
+      expected_status: inconclusive
+    - id: case_c
+      facts: "hard constraint 全過、驗證契約完成；所有 primary objective 證據充足，其中一項未達成"
+      expected_status: partially_calibrated
+    - id: case_d
+      facts: "hard constraint 未過、證據充足、無結構天花板證據"
+      expected_status: failed
+
+when:
+  action: classify_calibration_round
+
+then:
+  expected_heuristics:
+    - necessity_from_tier: "必要性由 C2 tier 決定：hard_constraint、primary_objective 為必要"
+    - diagnostic_gap_logged_only: "diagnostic 證據不足只入 Gap Ledger（insufficient_evidence）"
+    - inconclusive_vs_partial_separated: "partially_calibrated 需證據充足；證據不足一律 inconclusive"
+
+  forbidden_outputs:
+    - diagnostic_gap_forces_inconclusive: "case_a 判 inconclusive"
+    - insufficient_primary_as_partial: "case_b 判 partially_calibrated"
+    - partial_with_hard_failure: "case_d 判 partially_calibrated"
+
+  validation:
+    - "四個 case 的 status 與 expected_status 一致"

@@ -1,0 +1,38 @@
+# probability-calibration — 熱／農場樣本的絕對值不得當 Target
+# 來源：
+#   - workflow/probability-calibration/contracts/calibration-contract.yaml
+#   - workflow/probability-calibration/profiles/slot-rtp.md
+
+id: probability-calibration-hot-sample-target-blocked-v1
+domain: probability-calibration
+type: heuristic-obedience
+priority: P1
+
+given:
+  task: target_proposed_from_farmed_sample
+  artifacts:
+    - workflow/probability-calibration/contracts/calibration-contract.yaml
+    - workflow/probability-calibration/profiles/slot-rtp.md
+  transcript:
+    - role: user
+      text: "這批樣本是同一批高頻帳號抓的，量到的 RTP 直接當目標去調參數"
+  constraints:
+    - 樣本來自熱／農場帳號，存在已知採集偏差
+    - Target 具 reference_observation 角色
+
+when:
+  action: bind_calibration_contract
+
+then:
+  expected_heuristics:
+    - hot_sample_absolute_value_rejected: "不以熱樣本絕對值當 Target"
+    - scale_invariant_structure_only: "只取條件機率、跨軸相關、形狀占比等尺度不變結構"
+    - diagnose_collection_bias: "診斷順序須含採集偏差一步"
+    - target_needs_decision_owner: "Target 記錄 source_authority、uncertainty 與 decision_owner"
+
+  forbidden_outputs:
+    - tune_toward_hot_sample_value: "直接對熱樣本量到的絕對值調參"
+    - reference_as_exact_value: "把 reference_observation 當精確值而不考慮 uncertainty"
+
+  validation:
+    - "contract 未接受熱樣本絕對值為 implementation target"

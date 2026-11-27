@@ -72,6 +72,7 @@ Recovery re-entry：
 | **「投資」字面同時像 legal／investment** | 見下方 §「投資」語意裁決（Q8） |
 | 裸「AI 影片／幫我做短片」 | **不得**當已註冊 workflow route；若要走敘事產片契約，手動載入 [`narrative-video-production/`](./narrative-video-production/README.md)。寫產片器／ffmpeg 程式 → **software-delivery** |
 | 可驅動 3D 角色 vs 敘事成片 | 角色資產／rig／VRM → [`3d-character-production/`](./3d-character-production/README.md)；成片／EDR／字幕／流量 → narrative-video |
+| 機率／RTP／掉落率校準 vs 投資機率表述 vs 官方行為取證 | 調參使產生器符合目標分布、holdout 獨立驗收 → 手動載入 [`probability-calibration/`](./probability-calibration/README.md)（**尚未**註冊 route）；投資建議中的機率表述 → **investment**；逆向官方 slot 協議／盤面 → **apk-analysis**；寫抽樣機／引擎程式碼 → **software-delivery** |
 | 去背／透明 PNG／圖片契約 vs 影片全流程 | 圖片任務契約／獨立驗收 → 手動載入 [`image-processing/`](./image-processing/README.md)（**尚未**註冊 route）；敘事成片／字幕／EDR → narrative-video；寫去背 CLI／服務程式 → **software-delivery** |
 
 #### 「契約」語意裁決（legal vs software-delivery）

@@ -1,0 +1,96 @@
+schema_version: artifact-record/v1
+id: probability-calibration.calibration-contract
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local Phase 1 doc-only；未接 runtime；route 未註冊
+
+record: calibration_contract
+purpose: >
+  Freeze targets, metric definitions, objective tiers, sample sufficiency and
+  tolerances BEFORE any parameter change. No contract → no tuning.
+  Plan C1 / C2 / C3 / C3b (plans/active/2026-11-27-1500-probability-calibration-workflow.md).
+
+required_fields:
+  contract_version: { type: text, note: referenced by calibration_record.contract_ref }
+  frozen_at: { type: text, note: PC1 — tuning may start only after this is set; provisional targets may be frozen but stay labeled provisional }
+  scope:
+    type: object
+    fields:
+      model_under_calibration: { type: text, note: generic label; consumer identifiers stay in consumer repo }
+      profile: { type: text, note: e.g. slot-rtp; profiles/<name>.md }
+      consumer_ref: { type: text, note: pointer into consumer repo; no case data here }
+
+  targets:
+    type: list
+    note: C1 — one entry per metric target; a metric may carry several roles
+    item_fields:
+      metric_id: { type: text, note: "must exist in metrics list" }
+      role:
+        type: enum
+        values: [normative, reference_observation, implementation]
+        note: >
+          normative = spec / theoretical requirement;
+          reference_observation = trusted real-world observation (official or reliable source);
+          implementation = value the product intends to reach.
+      value: { type: text }
+      source_authority: { type: text }
+      definition_ref: { type: text, note: metric definition version this value was measured / specified under }
+      sample_scope: { type: text, note: required when role = reference_observation }
+      uncertainty: { type: text, note: interval or SE; required when role = reference_observation }
+      decision_owner: { type: text, note: who confirmed this target (decision-support Pass 1/2) }
+      confidence: { type: enum, values: [provisional, confirmed] }
+
+  metrics:
+    type: list
+    note: C2 / C3 / C3b — every compared metric must be defined identically on both sides (I2)
+    item_fields:
+      metric_id: { type: text }
+      definition: { type: text, note: numerator / denominator / baseline round type / aggregation unit }
+      definition_version: { type: text }
+      tier:
+        type: enum
+        values: [hard_constraint, primary_objective, diagnostic_metric]
+        note: >
+          hard_constraint = must pass, cannot be offset by other metrics;
+          primary_objective = main calibration goal;
+          diagnostic_metric = explains deviation / side effects, never part of the success decision.
+          Necessity for S1 derives from tier: hard_constraint + primary_objective are required.
+      estimator:
+        type: enum
+        values: [mean_standard_error, binomial_interval, event_count, correlation_interval, tail_event_count]
+        note: C3 — precision is judged per estimator, not by a universal round count
+      precision_target: { type: text, note: "required for hard_constraint and primary_objective; optional for diagnostic_metric" }
+      tolerance:
+        type: object
+        note: C3b — the bare "10%" of max(3*SE, 10%) is forbidden; declare kind and base
+        fields:
+          kind: { type: enum, values: [absolute_tolerance, relative_tolerance] }
+          value: { type: text }
+          base: { type: enum, values: [target_value, observed_value], note: required for relative_tolerance }
+          se_multiplier: { type: number, default: 3, note: provisional default; overridable }
+
+provisional_defaults:
+  note: >
+    Defaults inherited from the first consumer; overridable and labeled provisional
+    (Q6). They are NOT a universal sufficiency rule.
+  comparison_threshold: "max(se_multiplier * SE, declared tolerance)"
+  rare_feature_minimum_base_rounds: 5000
+  rare_feature_rule: >
+    Round count alone never proves sufficiency; for rare events judge by event_count
+    against precision_target.
+
+rules:
+  - no_parameter_change_without_frozen_contract
+  - tune_only_toward_implementation_targets
+  - reference_observation_compared_within_its_uncertainty_not_as_exact_value
+  - hot_or_farmed_sample_absolute_values_not_targets
+  - hot_sample_rule_applies_only_when_target_has_reference_observation
+  - single_aggregate_score_cannot_decide_success
+  - low_base_rate_metric_must_not_use_absolute_percentage_point_tolerance
+  - target_change_requires_decision_owner_and_reason
+
+forbidden:
+  - target_without_source_authority
+  - metric_compared_across_different_definitions
+  - bare_percent_tolerance_without_kind

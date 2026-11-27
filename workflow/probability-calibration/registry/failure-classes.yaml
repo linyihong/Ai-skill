@@ -1,0 +1,54 @@
+schema_version: registry/v1
+id: probability-calibration.failure-classes
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local Phase 1；未接 runtime
+
+purpose: >
+  Starter failure taxonomy for calibration work (plan Inventory I2, I3, I5,
+  I10, I11). Each class links to the existing anti-pattern it instantiates
+  instead of creating a new enforcement failure pattern. Promote to guards only
+  after recurrence across independent cases (N>=3).
+
+classes:
+  - id: metric_baseline_mismatch
+    source: I2
+    description: two sides compare a metric under different definitions or baseline round types
+    preferred_repair: [align_metric_definition, remeasure]
+    forbidden_repair: [tune_parameters_to_close_definition_gap]
+
+  - id: diagnosis_skipped_tuned_payout
+    source: I3
+    description: parameters or payout tables changed before ruling out definition and collection causes
+    preferred_repair: [revert_change, run_diagnosis_order]
+    forbidden_repair: [keep_change_because_metric_improved]
+
+  - id: pinned_value_claimed_as_calibration
+    source: I5
+    links_to: intelligence/engineering/anti-patterns/validation-proxy-trap.md
+    description: fixed-seed regression lock presented as proof of calibration
+    preferred_repair: [run_holdout_acceptance]
+    forbidden_repair: [add_more_pinned_values]
+
+  - id: chain_failure_reported_as_pass
+    source: I10
+    links_to: intelligence/engineering/anti-patterns/evidence-suppression.md
+    description: one mechanical lock in a verification chain failed but the round was summarized as passing
+    preferred_repair: [mark_chain_failed, record_gap]
+    forbidden_repair: [explain_failure_away_verbally]
+
+  - id: stale_claim_reused
+    source: I11
+    links_to: intelligence/engineering/anti-patterns/stale-derived-state.md
+    description: a frequency or conclusion from an older document reused without re-checking source and date
+    preferred_repair: [recheck_source_and_date, remeasure]
+    forbidden_repair: [cite_without_date]
+
+learning_gate:
+  require:
+    - real_case_failure
+    - sanitized_reusable_description
+    - recurrence_across_independent_cases_for_promotion
+  forbid:
+    - single_case_promoted_to_hard_rule

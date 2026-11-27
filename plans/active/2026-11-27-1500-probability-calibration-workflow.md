@@ -1,7 +1,7 @@
 ---
 id: 2026-11-27-1500-probability-calibration-workflow
 plan_kind: main
-status: draft
+status: in-progress
 owner: workflow
 owner_layer: workflow
 created: 2026-11-27
@@ -10,7 +10,7 @@ parent: null
 
 # Probability Calibration Workflow（`workflow/probability-calibration/` + intelligence）
 
-**Status**: draft — 只建立 plan，未開始實作。2026-11-27 使用者審閱已裁決 Q1–Q6（見 §Open Questions）並要求 Phase 0 先做契約補強（§Phase 0.1）；2026-11-27 Phase 0 完成、Gate 通過（§Phase 0 紀錄）；Phase 1 開工待使用者明確授權。
+**Status**: in-progress（Phase 1）— 2026-11-27 使用者明確授權 Phase 1（範圍：四份 contract、README＋execution-flow、slot-rtp profile、failure classes、≥3 scenarios、索引連動、sanitization＋runtime refresh＋Phase 1 Gate；限制：不新增 contract 檔、不註冊 route／signal、不實作引擎／優化器、N=1 不升格、Gate 未過不進 Phase 2）。2026-11-27 使用者審閱已裁決 Q1–Q6（見 §Open Questions）並要求 Phase 0 先做契約補強（§Phase 0.1）；2026-11-27 Phase 0 完成、Gate 通過（§Phase 0 紀錄）；
 
 **Glossary Impact**: yes — 候選詞 `calibration_contract`、`calibration_record`、`gap_ledger`、`structural_ceiling`、`holdout_probe`、`precision_target`、`holdout_policy`、`calibration_status`。Phase 1 前不登記 glossary。
 
@@ -225,13 +225,14 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 
 ### Phase 1 — Workflow 骨架 + Contracts + Scenarios（doc-only）
 
-- [ ] `workflow/probability-calibration/`：README（含 §Scope 的範圍定義）、`execution-flow.md`（Target→取證→指標對照→診斷〔含 structural ceiling 出口；「採集偏差」步驟僅在 Target 具 `reference_observation` 時適用，見 §Design Fit Check〕→調參→獨立驗證→Gap 登錄→收工回饋）
-- [ ] `contracts/`（`artifact-record/v1` YAML、`runtime_projection.enabled: false`，依 image-processing 先例）：`calibration-contract`（C1–C3b）、`calibration-record`（C5–C6、C8–C9）、`gap-ledger`（C7）、`verification`（C4–C5、釘值分層）——欄位依 Phase 0.1 凍結版
-- [ ] `registry/failure-classes`：由 I10、I11、I2（基準選錯）、I3（跳過診斷改賠付）起步
-- [ ] `profiles/slot-rtp.md`：第一個 consumer profile（指標詞彙、基準回合類型、系列拆分；不放個案）
-- [ ] ≥3 個 validation scenarios；`ai-skill runtime refresh` 通過。候選（Phase 1 擇 ≥3）：holdout 缺失被判未驗證、target 取自熱樣本被擋、鏈式驗證失敗不得宣稱通過、final holdout 在凍結前揭露被判無效、僅 fresh context 卻宣稱完全獨立被擋、hard constraint 未達卻以總分宣稱 verified 被擋
-- [ ] 更新 `workflow/README.md`、`workflow/cross-cutting/README.md`（若採用）與連動文件（`enforcement/linked-updates.md` 要求者）
+- [x] `workflow/probability-calibration/`：README（含 §Scope 的範圍定義）、`execution-flow.md`（Target→取證→指標對照→診斷〔含 structural ceiling 出口；「採集偏差」步驟僅在 Target 具 `reference_observation` 時適用，見 §Design Fit Check〕→調參→獨立驗證→Gap 登錄→收工回饋）
+- [x] `contracts/`（`artifact-record/v1` YAML、`runtime_projection.enabled: false`，依 image-processing 先例）：`calibration-contract`（C1–C3b）、`calibration-record`（C5–C6、C8–C9）、`gap-ledger`（C7）、`verification`（C4–C5、釘值分層）——欄位依 Phase 0.1 凍結版
+- [x] `registry/failure-classes`：由 I10、I11、I2（基準選錯）、I3（跳過診斷改賠付）起步；另加 I5（釘值當校準，連回 `validation-proxy-trap`）
+- [x] `profiles/slot-rtp.md`：第一個 consumer profile（指標詞彙、基準回合類型、系列拆分；不放個案）
+- [x] ≥3 個 validation scenarios；`ai-skill runtime refresh` 通過。候選（Phase 1 擇 ≥3）：holdout 缺失被判未驗證、target 取自熱樣本被擋、鏈式驗證失敗不得宣稱通過、final holdout 在凍結前揭露被判無效、僅 fresh context 卻宣稱完全獨立被擋、hard constraint 未達卻以總分宣稱 verified 被擋
+- [x] 更新 `workflow/README.md`、`workflow/cross-cutting/README.md`（若採用）與連動文件（`enforcement/linked-updates.md` 要求者）
 - **Gate**：scenarios 通過；sanitization 掃描乾淨；獨立（fresh context）讀者只憑 README 能完成一次紙上校準走查
+- **Phase 1 Gate 紀錄（2026-11-27）**：4 scenarios 結構合規（schema 必填鍵、type enum）且 YAML 可解析；sanitization grep 乾淨；`ai-skill runtime refresh` success。Fresh-context 讀者（只讀 `workflow/probability-calibration/`，0 個目錄外檔案）以合成掉落率＋保底案例完成一輪紙上走查，判 `inconclusive` → **Gate 通過**。走查就地修正 4 處語意缺陷：(1) parity 未解／獨立驗證未執行或低於 `required_independence` 原本落到 `failed`，改入 `inconclusive`；(2) `precision_target` 對必要指標改為必填；(3) contract 加 `contract_version`／`frozen_at`；(4) Gap Ledger 加 `process_gap`，execution-flow 補「契約前已調參」處理與 b 步略過須記錄。延到 Phase 3 實證（observation，不擴設計）：有狀態／非 iid 機制（保底）的 estimator 與樣本單位、分布比較型 estimator、holdout 大小與 precision_target 的連動、ad hoc 量測的 seed_set 歸類、「低基率」定義、純規格 Target 的 tier 指引、保底是否屬結構天花板
 
 ### Phase 2 — Intelligence atoms
 
@@ -269,7 +270,7 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 
 | 項目 | 狀態 |
 | --- | --- |
-| 在 Ai-skill 新增 `workflow/probability-calibration/`（doc-only pilot，不註冊 route） | 方向同意（2026-11-27 審閱）；Phase 1 開工待 Phase 0 Gate |
+| 在 Ai-skill 新增 `workflow/probability-calibration/`（doc-only pilot，不註冊 route） | ✅ 2026-11-27 使用者授權 Phase 1 |
 | 新增 `intelligence/engineering/probability-calibration/` atoms | 方向同意（2026-11-27 審閱，第一輪維持 observation）；Phase 2 開工待 Phase 1 Gate |
 | 消費專案校準文件改為「個案流水帳 + 連結方法」而非整份搬入 | 同意（Q3） |
 

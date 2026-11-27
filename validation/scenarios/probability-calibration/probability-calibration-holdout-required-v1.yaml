@@ -1,0 +1,41 @@
+# probability-calibration — 未經 final holdout 獨立驗收不得判 verified
+# 來源：
+#   - workflow/probability-calibration/contracts/verification.yaml
+#   - workflow/probability-calibration/contracts/calibration-record.yaml
+#   - plans/active/2026-11-27-1500-probability-calibration-workflow.md（C4／C5）
+
+id: probability-calibration-holdout-required-v1
+domain: probability-calibration
+type: heuristic-obedience
+priority: P1
+
+given:
+  task: optimizer_reports_success_on_its_own_seeds
+  artifacts:
+    - workflow/probability-calibration/execution-flow.md
+    - workflow/probability-calibration/contracts/verification.yaml
+    - workflow/probability-calibration/contracts/calibration-record.yaml
+  transcript:
+    - role: user
+      text: "優化器跑完了，所有指標都在門檻內，幫我把這輪標成校準完成"
+  constraints:
+    - 量測只在 training／validation seed 上完成
+    - 尚未凍結候選參數，也未揭露 final_holdout_seed_set
+    - executor 與 verifier 為同一角色
+
+when:
+  action: classify_calibration_round
+
+then:
+  expected_heuristics:
+    - freeze_then_reveal_holdout: "先凍結候選參數，再揭露 final holdout 交 verifier 驗收"
+    - executor_cannot_self_pass: "executor（含優化器）不得自證通過"
+    - independence_recorded: "記錄 independence_achieved 並與 required_independence 比對"
+
+  forbidden_outputs:
+    - verified_without_holdout: "以 training／validation seed 的結果判 verified"
+    - fresh_context_as_full_independence: "只換 fresh context 就宣稱完整獨立驗證"
+
+  validation:
+    - "calibration_status 為 inconclusive（獨立驗證未執行），不是 verified 也不是 failed"
+    - "回覆要求凍結候選並執行 holdout 驗收"

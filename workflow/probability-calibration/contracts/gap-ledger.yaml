@@ -1,0 +1,49 @@
+schema_version: artifact-record/v1
+id: probability-calibration.gap-ledger
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local Phase 1 doc-only；未接 runtime
+
+record: gap_ledger
+purpose: >
+  Every known gap that remains after a round is written down, never dropped or
+  explained away (I10). Also carries the structural ceiling diagnosis (C7).
+  Lives in the consumer repo alongside calibration records.
+
+entry_fields:
+  gap_id: { type: text }
+  metric_id: { type: text, optional: true }
+  kind:
+    type: enum
+    values:
+      - target_not_met
+      - insufficient_evidence
+      - structural_ceiling
+      - known_model_limitation
+      - definition_mismatch
+      - process_gap
+  tier: { type: enum, values: [hard_constraint, primary_objective, diagnostic_metric], optional: true }
+  description: { type: text, note: process_gap = a workflow step was skipped or done out of order, e.g. tuning before contract freeze, no independent holdout run }
+  evidence_refs: { type: list }
+  opened_in_record: { type: text }
+  status: { type: enum, values: [open, resolved, accepted_risk] }
+  resolution_reason: { type: text, note: required when status != open (TE4) }
+
+structural_ceiling:
+  note: >
+    C7 — stop parameter search and raise a structure change request when the
+    current model structure cannot express the target. All fields are required
+    before calibration_status may become structural_blocked; otherwise the round
+    is inconclusive.
+  required_fields:
+    inexpressible_metrics: { type: list }
+    parameter_ranges_tried: { type: text }
+    why_not_parameter_not_found: { type: text, note: argument or proof that no parameter setting inside the structure can reach the target }
+    required_capability: { type: text, note: sampling ability or coupling mechanism the structure needs }
+
+rules:
+  - known_gaps_must_be_recorded_not_omitted
+  - diagnostic_metric_insufficient_evidence_logged_here_only
+  - structural_ceiling_requires_all_required_fields
+  - accepted_risk_requires_decision_owner

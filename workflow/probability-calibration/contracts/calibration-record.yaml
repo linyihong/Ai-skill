@@ -1,0 +1,108 @@
+schema_version: artifact-record/v1
+id: probability-calibration.calibration-record
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local Phase 1 doc-only；未接 runtime
+
+record: calibration_record
+purpose: >
+  One record per calibration round. Authority for what was changed, measured,
+  verified and how the round closed. Lives in the consumer repo; this file
+  defines its shape only. Plan C5 / C6 / C8 / C9; traceable-evidence TE1/TE2/TE4.
+
+required_fields:
+  contract_ref: { type: text, note: calibration_contract version / hash }
+  parameter_version: { type: text }
+  roles:
+    type: object
+    fields:
+      executor: { type: text }
+      verifier: { type: text }
+      decider: { type: text }
+  measurements:
+    type: list
+    item_fields:
+      metric_id: { type: text }
+      seed_set: { type: enum, values: [training, validation, final_holdout] }
+      value: { type: text }
+      precision: { type: text, note: achieved SE / interval / event count }
+      precision_target_met: { type: bool }
+      gap_to_target: { type: text }
+  independence_achieved:
+    type: list
+    values: [context, data, measurement, decision]
+    note: C5 — actual dimensions achieved; compare with verification.required_independence
+  gap_ledger_ref: { type: text, note: gap-ledger entries for this round }
+  reproducibility_reference:
+    type: object
+    note: C9 — at least one pointer back to the original experiment; values may live in consumer repo
+    fields:
+      consumer_build: { type: text }
+      sampler_strategy_version: { type: text }
+      parameter_snapshot_hash: { type: text }
+      metric_definition_version: { type: text }
+      seed_set_id: { type: text }
+      sample_count: { type: text }
+      source_data_version: { type: text }
+      execution_environment: { type: text }
+      measured_at: { type: text }
+    rule: missing items are marked unavailable, never invented (TE2)
+  calibration_status:
+    type: enum
+    values: [verified, partially_calibrated, inconclusive, structural_blocked, failed]
+    note: C6 — exactly one; mutually exclusive final classification
+  status_reason: { type: text, note: TE4 — reason plus evidence refs; required for every status }
+
+optional_fields:
+  experiment_ledger:
+    type: list
+    note: C8 — only significant tuning experiments; split into its own file only after Phase 3 evidence
+    item_fields:
+      hypothesis: { type: text }
+      changed_parameters: { type: text }
+      metrics_before: { type: text }
+      metrics_after: { type: text }
+      affected_other_metrics: { type: text }
+      improved: { type: bool }
+      side_effects: { type: text }
+      decision: { type: enum, values: [adopted, rejected] }
+      reason: { type: text }
+
+status_definitions:
+  verified: all hard_constraint metrics pass AND verification contract complete (incl. required_independence) AND all primary_objective metrics met
+  partially_calibrated: hard_constraint pass AND verification complete AND evidence sufficient to evaluate every primary_objective, but some are not met; gaps recorded
+  inconclusive: the round cannot be reliably judged — a required metric (hard_constraint or primary_objective) is below precision_target, its metric parity is unresolved, or independent verification is not performed or below required_independence
+  structural_blocked: confirmed structural ceiling with full C7 evidence (gap-ledger.structural_ceiling)
+  failed: acceptance not passed and none of the above applies
+
+evaluation_order:
+  note: applied top to bottom; first match wins; guarantees mutual exclusivity
+  steps:
+    - when: any_required_metric_below_precision_target_or_parity_unresolved_or_verification_missing_or_below_required_independence
+      status: inconclusive
+    - when: structural_ceiling_evidence_complete
+      status: structural_blocked
+    - when: all_hard_constraints_pass_and_verification_complete
+      then:
+        - when: all_primary_objectives_met
+          status: verified
+        - else: partially_calibrated
+    - else: failed
+
+s1_ruling:
+  note: >
+    Necessity derives from calibration_contract.metrics[].tier; no extra field.
+    A primary_objective with insufficient evidence makes the record inconclusive,
+    not partially_calibrated: partially_calibrated means the evidence was
+    sufficient and some goals were missed. A diagnostic_metric with insufficient
+    evidence is logged in the gap ledger as insufficient_evidence and does not
+    affect calibration_status.
+
+forbidden:
+  - status_without_reason
+  - partially_calibrated_with_hard_constraint_failure
+  - structural_blocked_from_single_failed_search
+  - diagnostic_metric_gap_overriding_status
+  - not_yet_verified_round_classified_as_failed
+  - fabricated_reproducibility_values

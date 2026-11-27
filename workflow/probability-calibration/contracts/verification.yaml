@@ -1,0 +1,79 @@
+schema_version: artifact-record/v1
+id: probability-calibration.verification
+status: draft
+runtime_projection:
+  enabled: false
+  reason: workflow-local Phase 1 doc-only；未接 runtime
+
+record: independent_calibration_verification
+purpose: >
+  Execute ≠ Verify. The executor (including any optimizer) must not declare its
+  own candidate calibrated. Defines seed partitioning, holdout policy, required
+  independence and the pinned-value vs calibration split.
+  Plan C4 / C5 and Inventory I5.
+
+roles:
+  executor: produces candidate parameters
+  verifier: judges the candidate against calibration_contract
+  decider: accepts or rejects the final result
+  rules:
+    - executor_and_verifier_must_differ
+    - roles_may_be_humans_or_agents_but_each_is_recorded_in_calibration_record
+
+seed_sets:
+  training_seed_set: { note: optimizer / tuning may use }
+  validation_seed_set: { note: candidate screening during tuning }
+  final_holdout_seed_set: { note: final acceptance only; never used for tuning }
+
+holdout_policy:
+  required_fields:
+    generated_by: { type: text }
+    revealed_at: { type: text, note: must be after candidate parameters are frozen }
+    rerun_allowed: { type: bool }
+    rerun_rule: { type: text, note: e.g. rerun only for infrastructure failure, same frozen candidate }
+  rules:
+    - final_holdout_never_enters_parameter_search
+    - final_holdout_revealed_only_after_candidate_freeze
+    - failed_acceptance_must_not_retune_against_same_final_holdout
+    - final_holdout_used_for_diagnosis_or_fix_loses_final_status_and_becomes_validation
+    - next_acceptance_requires_a_new_final_holdout
+
+independence:
+  note: >
+    C5 — four RECORDED dimensions, not four mandatory gates. The record states
+    which were achieved; this contract states the minimum for this acceptance.
+  dimensions:
+    context: fresh context, no tuning transcript
+    data: seeds / samples the executor never saw (final_holdout_seed_set)
+    measurement: metric computation not shared with executor, or cross-checked by an independent implementation
+    decision: decider is not the executor
+  required_independence:
+    type: list
+    values: [context, data, measurement, decision]
+    note: minimum set for this acceptance; declared before reveal
+    default: [context, data, decision]
+  rules:
+    - below_required_independence_means_not_verified
+    - fresh_context_alone_is_not_independent_verification
+
+verification_layers:
+  pinned_value:
+    meaning: fixed-seed exact regression lock
+    proves: implementation did not drift
+    does_not_prove: calibration against targets
+  long_run_measurement:
+    meaning: large-sample estimate with stated SE
+    proves: metric value within precision_target
+    rule: long-run conclusions go into the record, not into pinned tests
+  holdout_acceptance:
+    meaning: frozen candidate measured on final_holdout_seed_set by verifier
+    proves: calibration claim for this record
+
+chain_rule:
+  - any_mechanical_lock_failure_in_a_verification_chain_fails_the_whole_chain
+  - a_failed_lock_cannot_be_explained_away_verbally
+
+forbidden:
+  - executor_self_pass
+  - pinned_value_presented_as_calibration_evidence
+  - final_holdout_reuse_after_tuning
