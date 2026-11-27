@@ -65,6 +65,32 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 | I10 | 誠實回報 | 鏈式驗證任一機械鎖失敗＝整體失敗，不得口頭沖掉；已知缺口必須寫入 Gap Ledger（例：絕對占比未達、單一轉輪組、合成條帶） | workflow-local failure class（連回 `evidence-suppression`）+ contract |
 | I11 | 過期宣稱 | 舊文件的錯誤頻率（量級錯 6 倍）會被後續工作沿用 → 引用前需回查來源與日期 | workflow-local failure class（連回 `stale-derived-state`） |
 
+### Design Fit Check（命名／分層依據，2026-11-27 使用者要求「看設計能不能抽象」）
+
+使用者裁決規則：設計若偏老虎機就用老虎機命名；除非能抽出一層對每種遊戲都通用的模型，才用中立。
+逐項檢驗 Inventory：**可以抽出中立 core，slot 專屬內容可乾淨隔離成 profile → 維持中立命名（與 Q1 一致）。**
+
+| 層 | Inventory 項 | 為何屬於此層 |
+| --- | --- | --- |
+| **中立 core** | I1 target 定義、I3 診斷順序、I4 樣本充足、I5 驗證分層／holdout、I9 優化衛生、I10 誠實回報、I11 過期宣稱 | 原則只依賴「目標分布 + 可重現產生器 + 一組指標」，與盤面、線、符號無關 |
+| **core 原則 ＋ profile 實例** | I2 指標對照、I6 結構天花板、I7 單旋鈕副作用 | 原則通用（指標須同定義；產生器可表達集合有上限；調一旋鈕必量全指標）；實例（可見格 vs 整盤、跨軸相關、同類連線抬高 RTP）屬 slot |
+| **中立設計模式 ＋ profile 內策略** | I8 取樣機 Strategy | 「變異點做成資料 + 註冊式 Strategy + 零 RNG 漂移護欄」通用；`REEL_STRIP`／`WEIGHTED_CELLS`／`COUPLED_REEL_STRIP` 等具體策略屬 slot |
+| **slot profile 專屬** | base／feature（免費轉、respin）拆分、線賠與 DOUBLE 分檔、`chipScale`、基準回合類型、熱帳號旋轉遞減 | 依賴盤面、賠付結構與官方採集管線 |
+
+**Q2 紙上檢驗（非實證）**：以兩個非 slot 場景代入 core，檢查契約是否仍成立。
+
+| 場景 | Target 結構（C1 角色） | core 是否適用 | 需要的差異 |
+| --- | --- | --- | --- |
+| 抽卡／掉落（含保底） | 公告機率＝`normative`，**無** `reference_observation` | 適用：指標＝單抽率、期望抽數；結構天花板＝獨立抽樣無法表達保底計數器 | 診斷順序**無「採集偏差」步驟**（參照是規格不是樣本） |
+| 牌類（洗牌／發牌公平性） | 理論分佈＝`normative`，無 `reference_observation` | 適用：指標＝牌型頻率；驗收＝偏差檢定 + holdout seed | 同上；I1 熱樣本警告不適用 |
+| slot（本案） | 官方採集＝`reference_observation`，產品目標＝`implementation` | 適用，且是唯一需要完整診斷順序的情境 | — |
+
+**設計結論**（不新增欄位，沿用 C1 角色，符合 Phase 0.1 Design freeze）：I3 診斷順序依 Target 是否具 `reference_observation` 裁剪——
+有則走「定義不一致 → 採集偏差 → 產品偏」全序；無則只走「定義不一致 → 產品偏」。此差異只有代入非 slot 場景才看得到。
+
+**誠實限制**：目前只有 1 個真實 consumer，中立 core 是**紙上驗證**，不是實證；slot 衍生原則維持 `candidate-intelligence`（N=1），
+待第二個真實 consumer（任何類型）走完才升級。Phase 1 只落地 core + `slot-rtp` profile，**不**預建其他 profile 空殼。
+
 ### Decision
 
 新增 **`workflow/probability-calibration/`**（domain 名稱中立；slot RTP 為第一個 consumer profile），
@@ -85,13 +111,13 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 | --- | --- |
 | A. 把消費專案的校準文件整份搬進 Ai-skill | **reject** — 專案證據與去敏邊界衝突；900 行混主題違反 document-sizing；方法抽不出來 |
 | B. 只寫 intelligence atoms | **reject** — 缺 Contract／驗收／Gap 登錄閉環；atoms 無法保證流程被依序執行 |
-| C. 只寫 slot 專用 workflow（`workflow/slot-calibration/`） | **reject（暫）** — 方法本體（target、診斷順序、holdout、Gap Ledger）與遊戲類型無關；但保留 slot RTP 為第一 profile，是否再中立化見 Q1 |
+| C. 只寫 slot 專用 workflow（`workflow/slot-calibration/`） | **reject** — §Design Fit Check 顯示 target 定義、診斷順序、holdout、Gap Ledger 與遊戲類型無關，可抽出中立 core；slot 內容隔離為 profile 即可 |
 | D. 中立 workflow + intelligence atoms + 回饋環，doc-only pilot | **accept（draft）** |
 | E. 一開始就建 route／discovery signal／優化器 | **reject** — 違反 Loop-first 與 cross-cutting 的「3 個 converged case 才升格」紀律 |
 
 ### Why Not an ADR Yet
 
-尚無第二個 consumer、無 Phase 3 dogfood 證據，容器名稱與邊界（Q1）未定。Plan + doc-only 契約穩定且 ≥2 次獨立校準使用後再評估。
+尚無第二個 consumer、無 Phase 3 dogfood 證據；中立 core 僅紙上驗證（§Design Fit Check）。Plan + doc-only 契約穩定且 ≥2 次獨立校準使用後再評估。
 
 ### ADR Promotion Criteria（completed 時評估）
 
@@ -192,6 +218,7 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 - **F2** Phase 2 原寫 atoms 標 `observation`：intelligence 層既有狀態只有 `candidate-intelligence`／`validated-intelligence` → atoms 用 `candidate-intelligence` 並註明來源個案 N=1，不新增狀態值
 - **F3** Phase 1 contracts 檔案格式依 `image-processing` 先例：`artifact-record/v1` YAML、`runtime_projection.enabled: false`；failure classes 用 `registry/v1`
 - **F4** I10／I11 落點由「failure pattern」改為 workflow-local failure class + 連回既有 anti-pattern（見 Duplication risk）
+- **F5**（Gate 通過後的補記，2026-11-27 使用者再問命名／分層）：新增 §Design Fit Check，確認中立命名成立；唯一語意補充是 I3 診斷順序依 Target 是否具 `reference_observation` 裁剪，**沿用 C1 角色、不新增欄位／契約／phase**，未改動 Phase 0 Gate 結論
 
 **S1 裁決（C6 證據不足的範圍）**：指標是否「必要」直接由 C2 層級決定，不新增欄位——`hard_constraint` 與 `primary_objective` 是必要指標，`diagnostic_metric` 不是。必要指標未達 C3 `precision_target` → `inconclusive`；diagnostic metric 樣本不足只寫入 Gap Ledger（標 `insufficient_evidence`），不影響狀態。所以 hard constraint 與驗證契約都已完成、只有 diagnostic 缺資料時，仍可判 `verified`
 
@@ -200,7 +227,7 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 
 ### Phase 1 — Workflow 骨架 + Contracts + Scenarios（doc-only）
 
-- [ ] `workflow/probability-calibration/`：README（含 §Scope 的範圍定義）、`execution-flow.md`（Target→取證→指標對照→診斷〔含 structural ceiling 出口〕→調參→獨立驗證→Gap 登錄→收工回饋）
+- [ ] `workflow/probability-calibration/`：README（含 §Scope 的範圍定義）、`execution-flow.md`（Target→取證→指標對照→診斷〔含 structural ceiling 出口；「採集偏差」步驟僅在 Target 具 `reference_observation` 時適用，見 §Design Fit Check〕→調參→獨立驗證→Gap 登錄→收工回饋）
 - [ ] `contracts/`（`artifact-record/v1` YAML、`runtime_projection.enabled: false`，依 image-processing 先例）：`calibration-contract`（C1–C3b）、`calibration-record`（C5–C6、C8–C9）、`gap-ledger`（C7）、`verification`（C4–C5、釘值分層）——欄位依 Phase 0.1 凍結版
 - [ ] `registry/failure-classes`：由 I10、I11、I2（基準選錯）、I3（跳過診斷改賠付）起步
 - [ ] `profiles/slot-rtp.md`：第一個 consumer profile（指標詞彙、基準回合類型、系列拆分；不放個案）
@@ -235,7 +262,7 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 | # | 問題 | 狀態 | 預裁決／預設 |
 | --- | --- | --- | --- |
 | Q1 | domain 名稱與範圍：`probability-calibration`（中立）vs slot 專用 | resolved（user-ruled；Phase 0 核對 2026-11-27） | 中立名稱，保留 slot RTP profile；README Scope 寫明涵蓋 model calibration & validation（§Scope） |
-| Q2 | 是否有第二種遊戲類型要用同一套（撲克、抽卡、捕魚等）？決定中立化是否值得、以及 Phase 3 第二 consumer | resolved（user-ruled；Phase 0 核對 2026-11-27） | **不阻塞 Phase 0**；承認 N=1，第二 consumer 待確認，不為證明抽象而硬找案例；第一 consumer 完整走完 workflow 且標明哪些仍是 observation 即可進第一輪 dogfood |
+| Q2 | 是否有第二種遊戲類型要用同一套（撲克、抽卡、捕魚等）？決定中立化是否值得、以及 Phase 3 第二 consumer | resolved（user-ruled；Phase 0 核對 2026-11-27） | **不阻塞 Phase 0**；紙上檢驗（抽卡、牌類）見 §Design Fit Check；承認 N=1，第二 consumer 待確認，不為證明抽象而硬找案例；第一 consumer 完整走完 workflow 且標明哪些仍是 observation 即可進第一輪 dogfood |
 | Q3 | 個案流水帳／快照留在消費專案，canonical 只收方法——消費專案方是否同意 | resolved（user-ruled；Phase 0 核對 2026-11-27） | 同意（避免雙 SoT 與去敏衝突） |
 | Q4 | Target RTP 由誰決策、如何記錄（沿用 decision-support Pass 1／2 或另列） | resolved（user-ruled；Phase 0 核對 2026-11-27） | 沿用 decision-support，provisional→confirmed，明確記錄 authority（C1 `decision_owner`） |
 | Q5 | 機械鎖歸屬：釘值測試與 governance 檢查由 consumer 實作，Ai-skill 只給 checklist／scenario | resolved（user-ruled；Phase 0 核對 2026-11-27） | consumer 實作；Ai-skill 定義契約與 scenario |
