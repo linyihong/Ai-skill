@@ -10,9 +10,13 @@ parent: null
 
 # Probability Calibration Workflow（`workflow/probability-calibration/` + intelligence）
 
-**Status**: draft — 只建立 plan，未開始實作。Phase 0 前需使用者回答 §Open Questions 的 Q1／Q2。
+**Status**: draft — 只建立 plan，未開始實作。2026-11-27 使用者審閱已裁決 Q1–Q6（見 §Open Questions）並要求 Phase 0 先做契約補強（§Phase 0.1）；Phase 0 可開始，實作開工仍以 Phase 0 Gate 為準。
 
-**Glossary Impact**: yes — 候選詞 `calibration_contract`、`calibration_record`、`gap_ledger`、`structural_ceiling`、`holdout_probe`。Phase 1 前不登記 glossary。
+**Glossary Impact**: yes — 候選詞 `calibration_contract`、`calibration_record`、`gap_ledger`、`structural_ceiling`、`holdout_probe`、`precision_target`、`holdout_policy`、`calibration_status`。Phase 1 前不登記 glossary。
+
+## Scope（2026-11-27 審閱補充）
+
+本 workflow 處理的是 **Probability Model Calibration & Validation**：讓機率模型／隨機產品的行為符合目標分布或規格，並以 Monte Carlo 方式驗證其統計行為。它**涵蓋**機率估計（從樣本估事件率）、模型校準（調參使模型符合目標）、Monte Carlo validation；傳統的「預測機率 calibration」（預測機率 vs 實際頻率一致性）只是其中一種特例。名稱暫不改（Q1），但 Phase 1 README 必須寫明此範圍，避免其他 consumer 因名稱判斷錯誤。
 
 ## 一句話目標
 
@@ -49,12 +53,12 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 
 | # | 類別 | 內容（已去專案化） | 候選落點 |
 | --- | --- | --- | --- |
-| I1 | Target 定義 | 校準目標＝**受信任穩態樣本的錨點**；熱帳號／農場樣本的絕對值**不可**當目標，只取尺度不變結構（條件機率、跨軸相關、形狀占比）；目標由人決策並記錄來源 | contracts + decision-support |
+| I1 | Target 定義 | 受信任穩態樣本是**參照錨點**，但**不等於**產品必須追上的精確值；熱帳號／農場樣本的絕對值**不可**當目標，只取尺度不變結構（條件機率、跨軸相關、形狀占比）；目標由人決策並記錄來源。審閱修正：Target 拆三種角色（Normative／Reference Observation／Implementation，見 §Phase 0.1 C1），避免把參照樣本的隨機波動當成精確目標 | contracts + decision-support |
 | I2 | 指標對照 | 官方側與產品側指標必須一一同定義（命中率、均值／注額、基礎 vs 系列拆分、可見格 vs 整盤、基準回合類型）；基準選錯會整櫃重做 | contracts |
-| I3 | 診斷順序 | 旗標出現時依序排除：定義不一致 → 採集偏差 → 產品真的偏；只有第三項成立才改參數；**不得只因 live 頻率不同改賠付表** | execution-flow |
-| I4 | 樣本充足 | 最小手數門檻、罕見玩法需 ≥5000 基礎手才能判「是否為零」；樣本不足只記錄不下結論 | contracts |
-| I5 | 驗證分層 | 釘值（固定 seed、精確回歸鎖）≠ 校準；長跑結論寫文件不當釘值（20k 手標準誤約 0.03）；優化器目標需 **holdout seed** 獨立驗證，防 overfit 自己的目標 | verification contract |
-| I6 | 結構天花板 | 每軸獨立抽樣**無法**產生跨軸相關：先證明天花板，再換抽樣結構（耦合策略），而非無限調權重 | intelligence atom |
+| I3 | 診斷順序 | 旗標出現時依序排除：定義不一致 → 採集偏差 → 產品真的偏；只有第三項成立才改參數（**硬性契約**，非建議）；**不得只因 live 頻率不同改賠付表** | execution-flow + contract |
+| I4 | 樣本充足 | 最小手數門檻、罕見玩法需 ≥5000 基礎手才能判「是否為零」；樣本不足只記錄不下結論。審閱修正：固定手數只是 provisional default，充足與否改由各指標的 `precision_target` 判定（§Phase 0.1 C3） | contracts |
+| I5 | 驗證分層 | 釘值（固定 seed、精確回歸鎖）≠ 校準；長跑結論寫文件不當釘值（20k 手標準誤約 0.03）；優化器目標需 **holdout seed** 獨立驗證，防 overfit 自己的目標。審閱修正：holdout 不只換 seed，需分 training／validation／final_holdout 三組與揭露政策；驗證獨立性分四維記錄（§Phase 0.1 C4、C5） | verification contract |
+| I6 | 結構天花板 | 每軸獨立抽樣**無法**產生跨軸相關：先證明天花板，再換抽樣結構（耦合策略），而非無限調權重。審閱拆分：「結構天花板」作為**診斷結果類別**進 execution-flow／contract（停止參數搜尋、提出結構變更需求）；「每軸獨立→無跨軸相關」這條具體機制仍是 N=1 observation atom | contract（診斷類別）+ intelligence atom（機制） |
 | I7 | 單旋鈕副作用 | 加耦合會同步抬高 RTP（同類連線變多）→ 需正交旋鈕把「類別密度聚集」與「同類聚集」分開；調一旋鈕必量全指標 | intelligence atom |
 | I8 | 取樣機設計模式 | 變異點做成資料（參數）+ 註冊式 Strategy；重構時**零 RNG 漂移**以其他消費者的釘值為護欄；缺參數時 fail-fast 載入 | intelligence atom（設計模式，不附程式碼） |
 | I9 | 優化操作衛生 | 解析掃描優先於黑盒優化；串流輸出（避免緩衝看不到進度）；快速 JIT／plan cache 讓探針變快；seed sweep；偵測退化局部最小（如目標指標≈0） | intelligence atom |
@@ -70,7 +74,7 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 
 1. **Ai-skill 持方法與契約；consumer 持個案流水帳與程式碼。** 個案結果、校準快照、探針程式碼留在消費專案；canonical 文件只含去專案化的規則。
 2. **Calibration Contract**（target／指標定義／門檻／基準／樣本門檻／目標決策人）先於調參；沒有契約不調參。
-3. **Execute ≠ Verify**：調參者（含優化器）不得自證通過；驗收用 holdout seed 與獨立 probe（沿用 `image-processing` 的契約精神，不複製其內容）。
+3. **Execute ≠ Verify**：調參者（含優化器）不得自證通過；驗收用 holdout seed 與獨立 probe（沿用 `image-processing` 的契約精神，不複製其內容）。責任分三角色：**執行者**產生候選參數、**驗證者**判斷是否符合契約、**決策者**接受／拒絕最終結果；不要求三個 agent，但同一角色不得兼任執行與驗證，且 Record 必須記錄誰擔任哪個角色。
 4. **Calibration Record** 每輪留一份：參數版本、量測、對目標差距、**Gap Ledger**；沿用 `traceable-evidence`（TE1 保留原始觀察、TE4 定案附理由）。
 5. **回饋環**：每次校準收工必須做 FeedbackDecision；同類失敗出現 ≥3 次（跨個案）才升級成 intelligence atom／failure pattern，避免一次性事件膨脹規則庫（沿用 evidence-candidate 的 N≥3 紀律，不新建機制）。
 6. **不建**自動優化器、不在 Ai-skill 放機率引擎程式碼；工具（探針、優化器）屬 consumer 或 `ai-tools/` adapter。
@@ -136,22 +140,39 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 
 | Open Question | 處置 | 證據／原因 |
 | --- | --- | --- |
-| Q1–Q6 | still-open | 待 Phase 0 與使用者回答 |
+| Q1–Q6 | user-ruled（待 Phase 0 核對） | 2026-11-27 使用者審閱已給裁決（見 §Open Questions）；Phase 0 需確認裁決與 preflight 不衝突後改 `resolved` |
+| Q7 | user-ruled（待 Phase 0 核對） | 同上；`10%` 定義拆 absolute／relative |
+
+#### Phase 0.1 — 契約補強（2026-11-27 使用者審閱；吸收進既有 4 份 contract，不新增文件）
+
+> 原則：以下全部落在 Phase 1 既有的 `calibration-contract`／`calibration-record`／`verification`／`gap-ledger` 內，不新建 workflow、phase 或獨立契約檔（沿用 minimize-governance-surface）。Phase 0.1 只凍結**欄位與語意**，不寫 Phase 1 文件本體。
+
+- [ ] **C1 Target Contract**（→ `calibration-contract`）：Target 分三角色——`normative`（理論／規格要求）、`reference_observation`（官方或可信來源的實際觀測）、`implementation`（產品實作希望達到的值）。每個 Target 記 `source／authority`、`definition`、`sample_scope`、`uncertainty`、`decision_owner`、`provisional｜confirmed`。調參只對 `implementation` Target 收斂；`reference_observation` 只以其 uncertainty 區間作比對，不當精確值
+- [ ] **C2 Objective Contract**（→ `calibration-contract`）：指標分三層——`hard_constraint`（必須達到，不可被其他指標抵銷）、`primary_objective`（主要校準目標）、`diagnostic_metric`（解釋偏差與副作用，不計入成功判定）。禁止以單一加總分數判定成功，以免掩蓋 hard constraint 缺口
+- [ ] **C3 Sample Sufficiency**（→ `calibration-contract`）：每個指標宣告 `precision_target`（契約要求的估計精度）與對應估計方法——均值類用標準誤、比例類用二項信賴區間、罕見事件看**事件數**而非手數、相關係數看其不確定性、尾部看稀有事件計數。`≥5000 基礎手` 降為 provisional default，不再是通用「充足」判定
+- [ ] **C3b Tolerance 定義**（→ `calibration-contract`，回答 Q7）：`max(3×SE, 10%)` 的 `10%` 拆為 `absolute_tolerance` 與 `relative_tolerance`，由各指標定義宣告採用哪一種及基準（target 值 vs 觀測值）；低基率指標（如 1% 命中率）不得套用絕對百分點容忍度
+- [ ] **C4 Holdout Policy**（→ `verification`）：seed 分三組——`training_seed_set`（優化器可用）、`validation_seed_set`（候選參數驗證）、`final_holdout_seed_set`（最終驗收，不得參與調參）；`holdout_policy` 記誰產生、何時揭露（final holdout 於**候選參數凍結後**才揭露）、是否允許重跑及重跑規則
+- [ ] **C5 Verification Independence**（→ `verification` + `calibration-record`）：獨立性分四維——context（fresh context）、data（未見過的 seed／樣本）、measurement（不共用同一份指標計算程式，或已以獨立實作交叉核對）、decision（決策者≠執行者）。不要求每次四維全滿，但 Record 必須記錄**實際達到哪幾維**；fresh context 單獨不足以宣稱「獨立驗證」
+- [ ] **C6 Calibration Status**（→ `calibration-record`）：合法結果狀態 `verified`（所有 hard constraint 與驗收條件通過）／`partially_calibrated`（部分達成，缺口已入 Gap Ledger）／`inconclusive`（證據不足以判定）／`structural_blocked`（診斷為結構天花板，見 C7）／`failed`（驗收未通過）。`partially_calibrated` 與 `inconclusive` 是合法收工狀態
+- [ ] **C7 Structural Ceiling 診斷**（→ `execution-flow` 診斷步驟 + `gap-ledger`）：當目前模型結構無法表達目標分布時，停止參數搜尋、轉提結構變更需求；判定須記：無法表達的指標、已嘗試參數範圍、為何不是「參數未找到」、需要的抽樣能力或耦合機制。產生 C6 `structural_blocked`
+- [ ] **C8 Experiment Ledger**（→ `calibration-record` 的**可選子結構**）：只記重要調參實驗——假設、變更參數、前後指標、波及的其他指標、是否改善、副作用、採納／拒絕理由。Phase 3 dogfood 證明需要獨立管理後才拆檔
+- [ ] **C9 Reproducibility Reference**（→ `calibration-record`）：至少一個 `reproducibility_reference` 指回原始實驗；建議涵蓋 consumer build／commit、sampler／strategy version、parameter snapshot hash、metric definition version、seed set id、sample count、source data version、execution environment、measurement timestamp。實際值可由 consumer 提供 reference，不必全進 canonical schema
+- **Gate**：C1–C9 每項的欄位名與語意已凍結並寫入本節附註；沒有任何一項導致新增 contract 檔或新 phase
 
 - [ ] 完成 `workflow/software-delivery/requirements/pre-build-interrogation.md` 與 `plans/README.md` Architecture Compatibility Preflight，記錄於本節
 - [ ] 讀 `workflow/workflow-routing.md` 與 `workflow/cross-cutting/README.md`：確認「doc-only pilot 加選路表列但不註冊 registry」是否合規；若不合規改走 `cross-cutting/` 或只加索引
 - [ ] 讀 `intelligence/README.md`、`workflow/cross-cutting/traceable-evidence/`、`workflow/image-processing/`（Execute≠Verify 契約）作為重用來源；列 duplication risk
 - [ ] 逐項把 Inventory I1–I11 去專案化草稿過 `enforcement/sanitization.md`；決定每項最終落點並回寫 Inventory
 - [ ] 取得消費專案方同意：個案流水帳留在消費專案、canonical 只收方法（Q3）
-- **Gate**：Q1／Q3 已 resolved；Inventory 每項有最終落點；preflight 無未解衝突
+- **Gate**：Q1／Q3 已 resolved；Inventory 每項有最終落點；preflight 無未解衝突；Phase 0.1 Gate 通過
 
 ### Phase 1 — Workflow 骨架 + Contracts + Scenarios（doc-only）
 
-- [ ] `workflow/probability-calibration/`：README、`execution-flow.md`（Target→取證→指標對照→診斷→調參→獨立驗證→Gap 登錄→收工回饋）
-- [ ] `contracts/`：`calibration-contract`、`calibration-record`、`gap-ledger`、`verification`（holdout／釘值分層／樣本門檻）
+- [ ] `workflow/probability-calibration/`：README（含 §Scope 的範圍定義）、`execution-flow.md`（Target→取證→指標對照→診斷〔含 structural ceiling 出口〕→調參→獨立驗證→Gap 登錄→收工回饋）
+- [ ] `contracts/`：`calibration-contract`（C1–C3b）、`calibration-record`（C5–C6、C8–C9）、`gap-ledger`（C7）、`verification`（C4–C5、釘值分層）——欄位依 Phase 0.1 凍結版
 - [ ] `registry/failure-classes`：由 I10、I11、I2（基準選錯）、I3（跳過診斷改賠付）起步
 - [ ] `profiles/slot-rtp.md`：第一個 consumer profile（指標詞彙、基準回合類型、系列拆分；不放個案）
-- [ ] ≥3 個 validation scenarios；`ai-skill runtime refresh` 通過
+- [ ] ≥3 個 validation scenarios；`ai-skill runtime refresh` 通過。候選（Phase 1 擇 ≥3）：holdout 缺失被判未驗證、target 取自熱樣本被擋、鏈式驗證失敗不得宣稱通過、final holdout 在凍結前揭露被判無效、僅 fresh context 卻宣稱完全獨立被擋、hard constraint 未達卻以總分宣稱 verified 被擋
 - [ ] 更新 `workflow/README.md`、`workflow/cross-cutting/README.md`（若採用）與連動文件（`enforcement/linked-updates.md` 要求者）
 - **Gate**：scenarios 通過；sanitization 掃描乾淨；獨立（fresh context）讀者只憑 README 能完成一次紙上校準走查
 
@@ -165,7 +186,8 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 ### Phase 3 — Dogfood（回饋環驗證）
 
 - [ ] 靜態走查：用 workflow 重放已完成的校準，記錄 workflow 漏掉什麼（回寫契約）
-- [ ] 實戰：下一次消費專案校準任務完整走本 workflow，**驗收由 fresh-context verifier 以 holdout seed 執行**，產出 Calibration Record + Gap Ledger
+- [ ] 實戰：下一次消費專案校準任務完整走本 workflow，**驗收由 fresh-context verifier 以 final holdout seed set 執行**，產出 Calibration Record（含 C5 獨立性實際達成維度、C6 status）+ Gap Ledger
+- [ ] 評估 C8 Experiment Ledger 是否需要從 Record 拆出獨立管理（有證據才拆）
 - [ ] 收工 FeedbackDecision；新失敗進 registry 或 evidence candidate（N≥3 才升級）
 - [ ] 若 Q2 有第二 consumer，再跑一次並評估是否中立化命名
 - **Gate**：≥1 次實戰收工且驗收由獨立角色完成；回饋環至少產生 1 筆 registry 更新或明確「無新學習」紀錄
@@ -180,20 +202,21 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 
 | # | 問題 | 狀態 | 預裁決／預設 |
 | --- | --- | --- | --- |
-| Q1 | domain 名稱與範圍：`probability-calibration`（中立）vs slot 專用 | **needs user** | 預設中立名稱，slot RTP 作第一 profile |
-| Q2 | 是否有第二種遊戲類型要用同一套（撲克、抽卡、捕魚等）？決定中立化是否值得、以及 Phase 3 第二 consumer | **needs user** | 無則視為 N=1，atoms 標 observation |
-| Q3 | 個案流水帳／快照留在消費專案，canonical 只收方法——消費專案方是否同意 | pending | 預設同意（避免雙 SoT 與去敏衝突） |
-| Q4 | Target RTP 由誰決策、如何記錄（沿用 decision-support Pass 1／2 或另列） | pending | 沿用 decision-support，provisional→confirmed |
-| Q5 | 機械鎖歸屬：釘值測試與 governance 檢查由 consumer 實作，Ai-skill 只給 checklist／scenario | pending | 預設如此 |
-| Q6 | 比對門檻（`max(3×SE, 10%)`、樣本 ≥5000）要當預設值還是純參數（來源為「初版待校正」） | pending | 預設當可覆寫預設，並標 provisional |
+| Q1 | domain 名稱與範圍：`probability-calibration`（中立）vs slot 專用 | user-ruled 2026-11-27 | 中立名稱，保留 slot RTP profile；README Scope 寫明涵蓋 model calibration & validation（§Scope） |
+| Q2 | 是否有第二種遊戲類型要用同一套（撲克、抽卡、捕魚等）？決定中立化是否值得、以及 Phase 3 第二 consumer | user-ruled 2026-11-27 | **不阻塞 Phase 0**；承認 N=1，第二 consumer 待確認，不為證明抽象而硬找案例；第一 consumer 完整走完 workflow 且標明哪些仍是 observation 即可進第一輪 dogfood |
+| Q3 | 個案流水帳／快照留在消費專案，canonical 只收方法——消費專案方是否同意 | user-ruled 2026-11-27 | 同意（避免雙 SoT 與去敏衝突） |
+| Q4 | Target RTP 由誰決策、如何記錄（沿用 decision-support Pass 1／2 或另列） | user-ruled 2026-11-27 | 沿用 decision-support，provisional→confirmed，明確記錄 authority（C1 `decision_owner`） |
+| Q5 | 機械鎖歸屬：釘值測試與 governance 檢查由 consumer 實作，Ai-skill 只給 checklist／scenario | user-ruled 2026-11-27 | consumer 實作；Ai-skill 定義契約與 scenario |
+| Q6 | 比對門檻（`max(3×SE, 10%)`、樣本 ≥5000）要當預設值還是純參數（來源為「初版待校正」） | user-ruled 2026-11-27 | provisional default，不當通用真理；充足判定改由 `precision_target`（C3） |
+| Q7 | `max(3×SE, 10%)` 的 `10%` 是相對還是絕對？基準是 target 還是觀測值？ | user-ruled 2026-11-27 | 拆 `absolute_tolerance`／`relative_tolerance`，由指標定義宣告（C3b） |
 
 ## Stakeholder 同意項目
 
 | 項目 | 狀態 |
 | --- | --- |
-| 在 Ai-skill 新增 `workflow/probability-calibration/`（doc-only pilot，不註冊 route） | ⏳ 待使用者 |
-| 新增 `intelligence/engineering/probability-calibration/` atoms | ⏳ 待使用者 |
-| 消費專案校準文件改為「個案流水帳 + 連結方法」而非整份搬入 | ⏳ 待使用者 |
+| 在 Ai-skill 新增 `workflow/probability-calibration/`（doc-only pilot，不註冊 route） | 方向同意（2026-11-27 審閱）；Phase 1 開工待 Phase 0 Gate |
+| 新增 `intelligence/engineering/probability-calibration/` atoms | 方向同意（2026-11-27 審閱，第一輪維持 observation）；Phase 2 開工待 Phase 1 Gate |
+| 消費專案校準文件改為「個案流水帳 + 連結方法」而非整份搬入 | 同意（Q3） |
 
 ## 完成條件
 
@@ -209,7 +232,7 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 
 ## Watch-Out List citation
 
-防 scope drift／over-engineering：不做自動優化器、不放機率引擎程式碼、不做 route／signal 先行、不把單一個案升為通則（N<3 一律 observation）。
+防 scope drift／over-engineering：不做自動優化器、不放機率引擎程式碼、不做 route／signal 先行、不把單一個案升為通則（N<3 一律 observation）。Phase 0.1 補強只加欄位，不新增 contract 檔、phase 或 workflow；I6–I9 atoms 第一輪維持 observation（2026-11-27 審閱確認）。
 
 ## 與其他 plans 的關係
 
