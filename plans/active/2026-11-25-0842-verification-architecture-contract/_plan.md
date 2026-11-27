@@ -87,6 +87,7 @@ parent: null
 
   進度：1a、1b 已上線（見 S3 §步驟 1 shadow 實作）；1c 從 2026-11-25 起累積，紀錄在 `$TMPDIR/ai-skill-pretooluse-incremental-shadow.jsonl`。
   - 2026-11-25 06:24 UTC 快照（S3 §1c 證據快照）：snapshot 修正後 438 次比對全部一致；session 4 個（未達 5）、缺 1–5 MB；compaction / resume、平行呼叫、異常輸入尚無法從紀錄判斷。
+  - 2026-11-27：紀錄新增 `compact_boundaries`、`max_parallel_tool_use`、`concurrent_hooks`、`undecodable_lines`、`long_lines`、`unterminated_tail`，涵蓋條件可直接判斷（resume 除外，見 S3 §紀錄新增涵蓋欄位）。
 
   **失效一律退回完整解析**（V2）。下列任一情況，增量解析器都必須丟棄狀態、從頭重建：
   - 沒有快取、快取無法解碼，或快取版本不符；

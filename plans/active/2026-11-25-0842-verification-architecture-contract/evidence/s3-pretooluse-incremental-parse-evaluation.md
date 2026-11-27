@@ -188,6 +188,25 @@
   - 要證明這些條件，需要在紀錄中加欄位，或另外安排驗證。
 - 結論：比對次數已達門檻，但 session 數、1–5 MB 涵蓋與上列條件未達，**不能進入 1d**。
 
+## 紀錄新增涵蓋欄位（2026-11-27）
+
+為了讓 1c 的涵蓋條件能直接從紀錄判斷，shadow 紀錄新增下列欄位。全部是計數，不含文字；只供紀錄使用，不參與比對。
+
+| 欄位 | 意義 | 對應條件 |
+| --- | --- | --- |
+| `compact_boundaries` | 已處理範圍內的 compaction 列數（`type: system`、`subtype: compact_boundary`） | compaction |
+| `max_parallel_tool_use` | 同一則 assistant 訊息（同一個 `message.id`）最多有幾個 `tool_use` | 平行工具呼叫（transcript 面） |
+| `concurrent_hooks` | 這次 shadow 開始時，同一份 transcript 有幾個其他 shadow 正在執行 | 平行工具呼叫（實際的競爭條件） |
+| `undecodable_lines` | 已處理範圍內無法解碼的行數 | 異常輸入 |
+| `long_lines` | 已處理範圍內 ≥ 2 MB 的行數 | 超長行 |
+| `unterminated_tail` | 這次比對的範圍是否結束在未寫完的行中間 | 最後一行未寫完 |
+
+- 統計值存在增量狀態裡，跨呼叫累積；重建時從頭重算。狀態版本因此升為 3，舊狀態會以 `state_version_mismatch` 重建一次。
+- `concurrent_hooks` 的做法：每次 shadow 執行時在 `$TMPDIR` 放一個標記檔，結束時刪除。同時存在的其他標記只計算 60 秒內的；更舊的視為崩潰殘留並清掉。
+- 真實 transcript 驗證（本 session，6.9 MB）：`compact_boundaries` = 1、`max_parallel_tool_use` = 5，與先前手動掃描 transcript 的結果相同。重建 94 ms，之後增量 2.4 ms。
+- **resume 仍無法直接觀察**：transcript 裡沒有找到 resume 專屬的標記列。目前只能以 compaction 代表「session 中斷後接續」這類情況；若要嚴格證明 resume，需要從 SessionStart hook 的 `source` 取得，留待 1e 的獨立驗證處理。
+- 1c 的計數不因加欄位而重新開始：比對方式與決策邏輯沒有改變。只有涵蓋條件的判斷，要從這個版本上線後的紀錄開始看。
+
 ## 建議
 
 1. ~~先做步驟 0~~：已完成，見上。

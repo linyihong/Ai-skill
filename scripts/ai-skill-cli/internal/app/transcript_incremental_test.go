@@ -10,6 +10,7 @@ import (
 	"runtime"
 	"strings"
 	"testing"
+	"time"
 )
 
 func incTestEnv(t *testing.T) string {
@@ -292,5 +293,75 @@ func TestIncrementalShadowSnapshotParseIgnoresLaterAppends(t *testing.T) {
 	}
 	if got := extractTranscriptMessages(path); len(got) != 2 {
 		t.Fatalf("unbounded parse should still read everything, got %d", len(got))
+	}
+}
+
+func incRawLine(v map[string]any) string {
+	b, _ := json.Marshal(v)
+	return string(b) + "\n"
+}
+
+func incToolUseRow(msgID, toolID string) string {
+	return incRawLine(map[string]any{"type": "assistant", "message": map[string]any{"id": msgID, "content": []map[string]any{
+		{"type": "tool_use", "id": toolID, "name": "Bash", "input": map[string]any{"command": "ls"}},
+	}}})
+}
+
+func TestIncrementalShadowRecordsCoverageFields(t *testing.T) {
+	path := incTestEnv(t)
+	long := incUserLine(strings.Repeat("L", incrementalLongLine))
+	incWrite(t, path,
+		incUserLine("start")+
+			incRawLine(map[string]any{"type": "system", "subtype": "compact_boundary", "content": "Conversation compacted"})+
+			"{not json\n"+
+			long+
+			incToolUseRow("msg_a", "t1")+incToolUseRow("msg_a", "t2")+incToolUseRow("msg_a", "t3")+
+			incToolUseRow("msg_b", "t4")+
+			strings.TrimSuffix(incUserLine("unfinished"), "\n"))
+	size := fileSizeOrNegative(path)
+	rec := runIncrementalShadow(path, extractTranscriptMessagesUpTo(path, size), size)
+	if rec.Outcome != "equal" {
+		t.Fatalf("expected equal, got %+v", rec)
+	}
+	if rec.CompactBoundaries != 1 || rec.UndecodableLines != 1 || rec.LongLines != 1 || rec.MaxParallelToolUse != 3 || !rec.UnterminatedTail {
+		t.Fatalf("coverage fields wrong: %+v", rec)
+	}
+	if rec.ConcurrentHooks != 0 {
+		t.Fatalf("expected no concurrent hooks, got %d", rec.ConcurrentHooks)
+	}
+
+	// Stats carry across incremental calls; the unfinished line is counted only
+	// once it is terminated and consumed.
+	incAppend(t, path, "\n"+incToolUseRow("msg_c", "t5")+incToolUseRow("msg_c", "t6"))
+	size = fileSizeOrNegative(path)
+	rec = runIncrementalShadow(path, extractTranscriptMessagesUpTo(path, size), size)
+	if rec.Mode != "incremental" || rec.CompactBoundaries != 1 || rec.UndecodableLines != 1 || rec.MaxParallelToolUse != 3 || rec.UnterminatedTail {
+		t.Fatalf("expected carried stats on incremental call, got %+v", rec)
+	}
+}
+
+func TestIncrementalShadowCountsConcurrentRuns(t *testing.T) {
+	path := incTestEnv(t)
+	incWrite(t, path, incUserLine("x"))
+	prefix := "ai-skill-transcript-incremental-" + md5Short(path) + ".inflight-"
+	fresh := hookRuntimePath(prefix + "111-1")
+	stale := hookRuntimePath(prefix + "222-2")
+	incWrite(t, fresh, "")
+	incWrite(t, stale, "")
+	old := time.Now().Add(-2 * incrementalInflightTTL)
+	if err := os.Chtimes(stale, old, old); err != nil {
+		t.Fatal(err)
+	}
+	size := fileSizeOrNegative(path)
+	rec := runIncrementalShadow(path, extractTranscriptMessagesUpTo(path, size), size)
+	if rec.ConcurrentHooks != 1 {
+		t.Fatalf("expected 1 concurrent run (stale marker ignored), got %d", rec.ConcurrentHooks)
+	}
+	if _, err := os.Stat(stale); !os.IsNotExist(err) {
+		t.Fatal("stale in-flight marker should be removed")
+	}
+	matches, _ := filepath.Glob(hookRuntimePath(prefix + "*"))
+	if len(matches) != 1 || matches[0] != fresh {
+		t.Fatalf("this run's marker should be removed after the run, left %v", matches)
 	}
 }
