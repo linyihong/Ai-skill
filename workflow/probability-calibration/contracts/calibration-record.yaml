@@ -80,7 +80,7 @@ status_definitions:
   verified: all hard_constraint metrics pass AND verification contract complete (incl. required_independence) AND all primary_objective metrics met
   partially_calibrated: hard_constraint pass AND verification complete AND evidence sufficient to evaluate every primary_objective, but some are not met; gaps recorded
   inconclusive: the round cannot be reliably judged — a required metric (hard_constraint or primary_objective) is below precision_target, its metric parity is unresolved, or independent verification is not performed or below required_independence
-  structural_blocked: confirmed structural ceiling with full C7 evidence (gap-ledger.structural_ceiling)
+  structural_blocked: confirmed structural ceiling with full C7 evidence (gap-ledger.structural_ceiling) AND the structural argument independently checked by the verifier; no candidate holdout is required
   failed: sufficient and valid acceptance evidence confirms a hard_constraint is not met (and none of the above applies)
 
 status_boundary:
@@ -89,6 +89,10 @@ status_boundary:
     not valid is inconclusive; only a complete, valid chain that confirms a
     miss is failed. "Cannot claim pass" does not imply "can claim failed".
   cases:
+    - when: structural argument complete and independently checked by verifier
+      status: structural_blocked
+    - when: structural argument complete but not yet checked by verifier
+      status: inconclusive
     - when: metric definitions inconsistent, no valid comparison possible
       status: inconclusive
     - when: required metric below precision_target
@@ -105,10 +109,15 @@ status_boundary:
 evaluation_order:
   note: applied top to bottom; first match wins; guarantees mutual exclusivity
   steps:
+    - when: structural_ceiling_evidence_complete_and_argument_verified_by_verifier
+      status: structural_blocked
+      note: >
+        User ruling 2026-11-27 — for a structural limit the thing to verify is the
+        structural argument itself, not a tuned candidate, so this path does not wait
+        for a final holdout. Evidence complete but argument not yet checked falls
+        through to inconclusive below.
     - when: any_required_metric_below_precision_target_or_parity_unresolved_or_verification_missing_or_below_required_independence
       status: inconclusive
-    - when: structural_ceiling_evidence_complete
-      status: structural_blocked
     - when: all_hard_constraints_pass_and_verification_complete
       then:
         - when: all_primary_objectives_met

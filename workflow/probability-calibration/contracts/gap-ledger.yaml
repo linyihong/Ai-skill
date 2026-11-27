@@ -58,6 +58,7 @@ structural_ceiling:
         argument: { type: text }
         reduced_space_justification: { type: text, note: required for exhaustive_in_reduced_space }
     search_frontier_ref: { type: text, optional: true, note: diagnostic only }
+    argument_verified_by: { type: text, note: verifier who independently checked the structural argument; must not be the executor }
     required_capability: { type: text, note: sampling ability or coupling mechanism the structure needs }
 
 rules:

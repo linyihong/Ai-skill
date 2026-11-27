@@ -40,7 +40,7 @@ Canonical lifecycle。欄位 SoT 在 [`contracts/`](contracts/)；本檔只定�
 
 ## Structural Ceiling（C7）
 
-調參在合理範圍內持續無法逼近目標時，先問「目前結構能不能表達這個分布」，而不是繼續擴大搜尋。判定須補齊 [`gap-ledger.yaml`](contracts/gap-ledger.yaml) §`structural_ceiling` 全部欄位；欄位不齊時 status 只能是 `inconclusive`，不得判 `structural_blocked`。搜尋得到的前緣只證明「這個搜尋方法找到的最好結果」，只能當診斷證據；`why_not_parameter_not_found` 必須是解析上界、縮減空間窮舉或其他可重現的結構性論證。
+調參在合理範圍內持續無法逼近目標時，先問「目前結構能不能表達這個分布」，而不是繼續擴大搜尋。判定須補齊 [`gap-ledger.yaml`](contracts/gap-ledger.yaml) §`structural_ceiling` 全部欄位；欄位不齊時 status 只能是 `inconclusive`，不得判 `structural_blocked`。搜尋得到的前緣只證明「這個搜尋方法找到的最好結果」，只能當診斷證據；`why_not_parameter_not_found` 必須是解析上界、縮減空間窮舉或其他可重現的結構性論證。判 `structural_blocked` 驗證的是這個論證本身：由 verifier 獨立核對，不需要先跑候選參數的 final holdout；論證齊備但尚未核對時判 `inconclusive`。
 
 ## 責任分離
 
