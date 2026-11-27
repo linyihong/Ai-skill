@@ -2,6 +2,7 @@
 
 | Date | Lesson | Status |
 | --- | --- | --- |
+| 2026-11-27 | [A knob sweep needs a positive control, or "no effect" cannot be told from "override never applied"](2026-11-27_143000-knob-sweep-needs-a-positive-control.md) | candidate |
 | 2026-11-27 | [A shared random stream couples unrelated regression cases and masks rare failures](2026-11-27_130300-shared-random-stream-couples-regression-cases.md) | candidate |
 | 2026-11-27 | [A dominant dial moves rare-event rates by a power of the change](2026-11-27_130200-dominant-dial-shifts-rare-event-by-power-of-share.md) | candidate |
 | 2026-11-27 | [An aggregate metric has a residual its components do not explain](2026-11-27_130100-aggregate-metric-residual-beyond-components.md) | candidate |
