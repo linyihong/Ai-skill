@@ -158,6 +158,7 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 - [ ] **C8 Experiment Ledger**（→ `calibration-record` 的**可選子結構**）：只記重要調參實驗——假設、變更參數、前後指標、波及的其他指標、是否改善、副作用、採納／拒絕理由。Phase 3 dogfood 證明需要獨立管理後才拆檔
 - [ ] **C9 Reproducibility Reference**（→ `calibration-record`）：至少一個 `reproducibility_reference` 指回原始實驗；建議涵蓋 consumer build／commit、sampler／strategy version、parameter snapshot hash、metric definition version、seed set id、sample count、source data version、execution environment、measurement timestamp。實際值可由 consumer 提供 reference，不必全進 canonical schema
 - **Gate**：C1–C9 每項的欄位名與語意已凍結並寫入本節附註；沒有任何一項導致新增 contract 檔或新 phase
+- [ ] **Phase 0 語意核對 S1（C6 判定順序，2026-11-27 第三輪審閱列為候選裁決）**：判定順序保留為候選裁決，Phase 0 只核對一個邊界——「證據不足→`inconclusive`」僅指**無法對 hard constraint／驗證契約要求的指標做出可靠判定**；非必要指標（如 diagnostic metric）缺資料不得無條件覆蓋整份 Record。指標缺資料時是否阻擋 `verified`，由該指標的層級（C2）與驗證契約決定。核對結果寫入 Phase 0.0 表
 - **Design freeze（2026-11-27 第二輪審閱）**：Phase 0.1 定位為契約語意補強，**不是實作授權**；C1–C9 已涵蓋審閱建議，Phase 0 期間不再擴充架構概念，只做既有治理檢查。Phase 1（四份 contract、workflow 骨架、validation scenarios）等 Phase 0 Gate 通過後才開工
 
 - [ ] 完成 `workflow/software-delivery/requirements/pre-build-interrogation.md` 與 `plans/README.md` Architecture Compatibility Preflight，記錄於本節
