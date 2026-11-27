@@ -10,7 +10,7 @@ parent: null
 
 # Probability Calibration Workflow（`workflow/probability-calibration/` + intelligence）
 
-**Status**: in-progress（Phase 2 完成，待 Phase 3）— 2026-11-27 使用者明確授權 Phase 1（範圍：四份 contract、README＋execution-flow、slot-rtp profile、failure classes、≥3 scenarios、索引連動、sanitization＋runtime refresh＋Phase 1 Gate；限制：不新增 contract 檔、不註冊 route／signal、不實作引擎／優化器、N=1 不升格、Gate 未過不進 Phase 2）。2026-11-27 使用者審閱已裁決 Q1–Q6（見 §Open Questions）並要求 Phase 0 先做契約補強（§Phase 0.1）；2026-11-27 Phase 0 完成、Gate 通過（§Phase 0 紀錄）；
+**Status**: in-progress（Phase 2 完成；Phase 3 dogfood 進行中：consumer 回饋 2 輪，尚無滿足 Gate 的實戰收工）— 2026-11-27 使用者明確授權 Phase 1（範圍：四份 contract、README＋execution-flow、slot-rtp profile、failure classes、≥3 scenarios、索引連動、sanitization＋runtime refresh＋Phase 1 Gate；限制：不新增 contract 檔、不註冊 route／signal、不實作引擎／優化器、N=1 不升格、Gate 未過不進 Phase 2）。2026-11-27 使用者審閱已裁決 Q1–Q6（見 §Open Questions）並要求 Phase 0 先做契約補強（§Phase 0.1）；2026-11-27 Phase 0 完成、Gate 通過（§Phase 0 紀錄）；
 
 **Glossary Impact**: yes — 候選詞 `calibration_contract`、`calibration_record`、`gap_ledger`、`structural_ceiling`、`holdout_probe`、`precision_target`、`holdout_policy`、`calibration_status`。Phase 1 前不登記 glossary。
 
@@ -262,6 +262,26 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 > **計畫本身的小地方**：(1) §Stakeholder 同意項目第二列仍寫「Phase 2 開工待 Phase 1 Gate」，已過時；(2) §完成條件的勾選框全空，其中索引、`plans/README.md` 狀態列、sanitization、scenarios 已有證據可勾；(3) §Watch-Out 寫 atoms「維持 observation」，與 F2 的 `candidate-intelligence` 用語不一致；(4) 頁首狀態行結尾多一個「；」；(5) 建議新增 Q8：**同一 consumer 的多輪校準算幾個「獨立案例」**——建議算 1，否則 N≥3 與 ADR「≥2 次獨立校準」很容易被同一個專案灌水。
 >
 > **N 的計法**：本輪與先前的耦合重調同屬同一個 consumer，所有 lesson 與 atoms 仍是 N=1，不升級。
+
+> **Dogfood 回饋 #2（2026-11-27，consumer 回報；與上一輪不同：這一輪**已在 consumer 主幹採用變更**）**
+>
+> **這一輪的性質**：決策者要求把某玩法的單轉線均值、基礎手線獎與整場尾端壓低，「略低於參照值沒關係」。調參用單旋鈕（元素占比）完成，已合併進 consumer 主幹並更新其釘值測試。同樣**不是**照 workflow 從步驟 0 開始：契約未先凍結、執行者自行量測與採用、無 final holdout、無 fresh-context verifier，所以**不滿足**實戰 Gate。執行者**不寫最終 status**（依上一輪更正的規則）；初判為 `inconclusive`（C5 實際達成維度＝無），最終由 verifier／decider 定。四條 candidate lesson 見 [`feedback/history/probability-calibration/common/`](../../feedback/history/probability-calibration/common/README.md)。
+>
+> **Consumer 側 `process_gap`**：(PG1) 契約後補；(PG2) 無獨立驗證，量測全在固定 seed 與 training 同源；(PG3) 採用先於驗收，契約沒有承載這種狀態。
+>
+> | 步驟 | 重放發現 | 類型 | 建議落點（由 owner 決定） |
+> | --- | --- | --- | --- |
+> | 0 契約／C1 | 實作目標＝`參照觀測值 × 縮放係數`；係數由決策者確認；契約沒有欄位承載係數與其 `decision_owner` | 缺口 | `calibration-contract` C1：`implementation` Target 可記 `derived_from` ＋ `scale` ＋ 決策者；lesson `owner-one-sided-tolerance…` |
+> | 0 契約／C3b | 決策者的偏好是單側（略低可接受）；容忍度只有 absolute／relative，沒有方向，驗收無法機械分辨「偏低被允許」與「偏低是失敗」 | 缺口 | C3b 加 `direction`（兩側／僅下界／僅上界）；單側許可仍要記偏差量，入 Gap Ledger |
+> | 2 指標對照 | 整體指標（整場）與成分指標（線獎、附加獎）分開對照；參照側自己就有約 5% 殘差，成分對齊後產品整體仍低約 20% | 缺口 | `execution-flow` 步驟 2 先算參照殘差；lesson `aggregate-metric-residual…`；`gap-ledger` 殘差缺口範例（`definition_mismatch`） |
+> | 4 調參 | 找出主旋鈕是元素占比；動它前沒有預測稀有事件，事後發現「連續 k 同類」大獎率降一個量級（占比降 40%、k=5 預測倍率 0.078、實測約 0.125） | 補充＋證實 I7 | `single-knob-side-effects` 補預測式與第二個實例；`execution-flow` Tune：動旋鈕前把稀有事件列為診斷指標 |
+> | 5 驗證 | 回歸測試共用同一條亂數流，參數變更後無關案例翻紅；改成每案例種子後穩定，再以多種子量出約 0.07% 的潛在缺陷（與本次調參無關） | 缺口 | `verification` 釘值分層：記錄測試種子獨立性；`sampler-strategy-as-data`（零 RNG 漂移護欄）補「案例獨立種子」 |
+> | 7 狀態 | 變更已採用，但 Record 只有 `calibration_status`，沒有「採用／未採用」；採用不等於驗收，但 consumer 的釘值測試綠燈容易被讀成驗收 | 缺口（語意） | Record 加 `adoption`（`adopted_ref`／`not_adopted`）與 status 分開；`pinned_value_claimed_as_calibration` failure class 補「採用後測試綠＝驗收」變體 |
+> | 8 缺口登錄 | G1 整場尾端低於縮放後參照（open，等決策者確認偏低量是否可接受）；G2 稀有大獎率降一個量級（open，等決策者）；G3 成分占比偏離參照（`known_model_limitation`）；G4 參照殘差（`definition_mismatch`）；G5 無關路徑的潛在缺陷（consumer 缺陷清單，非本 workflow 範圍）；G6 `process_gap`（PG1–PG3）。**`accepted_risk` 需要決策者**，執行者不得自標 | 證實 `accepted_risk_requires_decision_owner` | 無 |
+>
+> **N 的計法**：與上一輪、先前的耦合重調同屬一個 consumer，全部維持 N=1，不升級。回應上一輪提出的 Q8：本輪同樣支持「同一 consumer 的多輪校準算 1 個獨立案例」，否則第三輪就會讓 N≥3 變成單一專案的內部重複。
+>
+> **對 plan 的建議（待 owner）**：(1) 若採納本輪 4 個缺口，只在既有 contract 補欄位（`direction`、`scale`／`derived_from`、`adoption`、測試種子獨立性），不新增 contract 檔、不新增 phase；(2) 優先順序建議：`adoption` 與 `direction` 先補（影響判定語意），殘差與種子獨立性可延後；(3) 下一次實戰請改走完整流程：先寫 Contract，再調參，最後交 fresh-context verifier 以 final holdout 驗收。
 
 - [x] 靜態走查：用 workflow 重放已完成的校準，記錄 workflow 漏掉什麼（回寫契約）——已由 consumer 重放一輪（見上方回饋表）；契約回寫由 owner 決定
 - [ ] 實戰：下一次消費專案校準任務完整走本 workflow，**驗收由 fresh-context verifier 以 final holdout seed set 執行**，產出 Calibration Record（含 C5 獨立性實際達成維度、C6 status）+ Gap Ledger
