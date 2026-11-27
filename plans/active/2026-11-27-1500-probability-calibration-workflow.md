@@ -243,6 +243,8 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 
 ### Phase 3 — Dogfood（回饋環驗證）
 
+> **Dogfood 輸入（2026-11-27，consumer 側一輪未完成校準）**：新目標「條件化長連線比值」以 `partially_calibrated` 收工、沒有採用變更，因此**尚未**滿足下方實戰 Gate（無獨立 final holdout 驗收）。產生 3 條 candidate lesson（見 [`feedback/history/probability-calibration/common/`](../../feedback/history/probability-calibration/common/README.md)）：順序統計量需等量樣本、偏誤樣本改用尺度不變比值、先敏感度後優化並回報前緣。各 lesson 的 Promotion Target 指向本 workflow 與 Phase 2 atoms，是否採納由本 plan 擁有者決定；N=1，不升級。
+
 - [ ] 靜態走查：用 workflow 重放已完成的校準，記錄 workflow 漏掉什麼（回寫契約）
 - [ ] 實戰：下一次消費專案校準任務完整走本 workflow，**驗收由 fresh-context verifier 以 final holdout seed set 執行**，產出 Calibration Record（含 C5 獨立性實際達成維度、C6 status）+ Gap Ledger
 - [ ] 評估 C8 Experiment Ledger 是否需要從 Record 拆出獨立管理（有證據才拆）
