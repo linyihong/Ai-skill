@@ -39,11 +39,30 @@ structural_ceiling:
   required_fields:
     inexpressible_metrics: { type: list }
     parameter_ranges_tried: { type: text }
-    why_not_parameter_not_found: { type: text, note: argument or proof that no parameter setting inside the structure can reach the target }
+    why_not_parameter_not_found:
+      type: object
+      note: >
+        Dogfood fix #3 — evidence that rules out "the parameter simply was not found".
+        A search frontier only shows the best result the search method found; it is
+        diagnostic evidence and never sufficient on its own.
+      fields:
+        argument_type:
+          type: enum
+          values: [analytic_bound, exhaustive_in_reduced_space, other_reproducible_structural_argument]
+          note: >
+            analytic_bound = mathematical limit of the structure;
+            exhaustive_in_reduced_space = full enumeration of an explicitly reduced space,
+            with the reason it covers the relevant solutions;
+            other_reproducible_structural_argument = reproducible evidence that the limit
+            comes from structure, not search coverage.
+        argument: { type: text }
+        reduced_space_justification: { type: text, note: required for exhaustive_in_reduced_space }
+    search_frontier_ref: { type: text, optional: true, note: diagnostic only }
     required_capability: { type: text, note: sampling ability or coupling mechanism the structure needs }
 
 rules:
   - known_gaps_must_be_recorded_not_omitted
   - diagnostic_metric_insufficient_evidence_logged_here_only
   - structural_ceiling_requires_all_required_fields
+  - search_frontier_alone_is_not_a_structural_argument
   - accepted_risk_requires_decision_owner

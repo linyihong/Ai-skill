@@ -285,7 +285,8 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 
 - [x] 靜態走查：用 workflow 重放已完成的校準，記錄 workflow 漏掉什麼（回寫契約）——已由 consumer 重放一輪（見上方回饋表）；契約回寫由 owner 決定
 - [ ] 實戰：下一次消費專案校準任務完整走本 workflow，**驗收由 fresh-context verifier 以 final holdout seed set 執行**，產出 Calibration Record（含 C5 獨立性實際達成維度、C6 status）+ Gap Ledger
-- [ ] 評估 C8 Experiment Ledger 是否需要從 Record 拆出獨立管理（有證據才拆）
+- [ ] 評估 C8 Experiment Ledger 是否需要從 Record 拆出獨立管理（有證據才拆）。觀察（dogfood #1 第 5 條，使用者裁決保留觀察）：格點掃描與貪婪搜尋無法逐點寫入單一實驗格式；遇到批次結果無法重現、候選點無法追溯到最終選擇、Record 過大難審，或多實驗共用資料／seed 無法表達時再拆
+- **Dogfood #1 契約修正（2026-11-27，使用者裁決 1–4 納入）**：(1) contract `change_control`——凍結後改 Target／必要指標／精度／容差／定義＝升版重凍結，舊證據保留但不作新版驗收證據，重跑範圍依影響記錄；(2) metric 加 `comparison`（statistic、sample_unit、sample_scope、comparison_n）與 estimator `order_statistic`，順序統計量只在等 n 下比較；(3) `why_not_parameter_not_found` 改為 `argument_type`（解析上界／縮減空間窮舉／其他可重現結構論證），搜尋前緣只作診斷；(4) Record 加 `executor_assessment`＋basis，executor 不得寫 `calibration_status`。Dogfood #2 的建議尚待 owner 裁決，本次未納入。**修正後重放（同一合成案例＋新目標／最大值／搜尋前緣三個壓力點，fresh-context、0 個目錄外檔案）**：四項修正皆按預期運作（新目標走 `change_control`；最大值要求等 n；搜尋前緣不足以判 `structural_blocked`；executor 只填 `executor_assessment`）。發現 1 個待裁決的狀態語意問題（非本次修正引入，是被 fix #3 凸顯）：`evaluation_order` 第一步的 `verification_missing` 先於 structural 判定，導致已有解析上界的結構限制必須先跑無意義的 holdout 才能 `structural_blocked`。另記觀察（不擴設計）：互相矛盾的 Target 沒有對應路徑；有狀態機制下 binomial／SE estimator 的獨立性假設未宣告；舊版本下已做的調參如何處置未明寫
 - [ ] 收工 FeedbackDecision；新失敗進 registry 或 evidence candidate（N≥3 才升級）
 - [ ] 若 Q2 有第二 consumer，再跑一次並評估是否中立化命名
 - **Gate**：≥1 次實戰收工且驗收由獨立角色完成；回饋環至少產生 1 筆 registry 更新或明確「無新學習」紀錄

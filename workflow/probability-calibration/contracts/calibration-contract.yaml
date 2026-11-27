@@ -56,10 +56,25 @@ required_fields:
           primary_objective = main calibration goal;
           diagnostic_metric = explains deviation / side effects, never part of the success decision.
           Necessity for S1 derives from tier: hard_constraint + primary_objective are required.
+      comparison:
+        type: object
+        note: >
+          Dogfood fix #2 — what is actually compared. Different metrics may use different
+          statistics; the requirement is that each one states its unit and n.
+        fields:
+          statistic: { type: enum, values: [mean, proportion, quantile, maximum, minimum, distribution] }
+          quantile_level: { type: text, note: required when statistic = quantile }
+          sample_unit: { type: text, note: e.g. round, session, episode }
+          sample_scope: { type: text }
+          comparison_n: { type: text, note: number of sample units each side's statistic is computed over }
       estimator:
         type: enum
-        values: [mean_standard_error, binomial_interval, event_count, correlation_interval, tail_event_count]
-        note: C3 — precision is judged per estimator, not by a universal round count
+        values: [mean_standard_error, binomial_interval, event_count, correlation_interval, tail_event_count, order_statistic]
+        note: >
+          C3 — precision is judged per estimator, not by a universal round count.
+          order_statistic (maximum, minimum, extreme quantiles) depends on n: compare only
+          at equal comparison_n, e.g. resample the larger side down to the reference n
+          and compare the resampled distribution of the statistic.
       precision_target: { type: text, note: "required for hard_constraint and primary_objective; optional for diagnostic_metric" }
       tolerance:
         type: object
@@ -80,6 +95,18 @@ provisional_defaults:
     Round count alone never proves sufficiency; for rare events judge by event_count
     against precision_target.
 
+change_control:
+  note: >
+    Dogfood fix #1 — adding, removing or changing a target, a required metric, a
+    precision_target, a tolerance or a metric definition after frozen_at is a
+    contract change.
+  rules:
+    - contract_change_requires_new_contract_version_and_new_frozen_at
+    - existing_evidence_is_kept_but_is_not_acceptance_evidence_under_the_new_version
+    - rerun_scope_decided_by_change_impact_and_recorded_with_reason
+    - neither_assume_all_old_evidence_invalid_nor_reuse_it_by_default
+    - records_keep_the_contract_version_they_were_measured_under
+
 rules:
   - no_parameter_change_without_frozen_contract
   - tune_only_toward_implementation_targets
@@ -94,3 +121,5 @@ forbidden:
   - target_without_source_authority
   - metric_compared_across_different_definitions
   - bare_percent_tolerance_without_kind
+  - order_statistic_compared_at_unequal_n
+  - comparison_without_sample_unit_and_n

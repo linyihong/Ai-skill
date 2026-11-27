@@ -35,6 +35,7 @@ then:
   forbidden_outputs:
     - verified_without_holdout: "以 training／validation seed 的結果判 verified"
     - fresh_context_as_full_independence: "只換 fresh context 就宣稱完整獨立驗證"
+    - executor_writes_final_status: "executor 直接填 calibration_status；只能填 executor_assessment"
 
   validation:
     - "calibration_status 為 inconclusive（獨立驗證未執行），不是 verified 也不是 failed"

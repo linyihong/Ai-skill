@@ -53,6 +53,13 @@ required_fields:
     values: [verified, partially_calibrated, inconclusive, structural_blocked, failed]
     note: C6 — exactly one; mutually exclusive final classification
   status_reason: { type: text, note: TE4 — reason plus evidence refs; required for every status }
+  executor_assessment:
+    type: enum
+    values: [verified, partially_calibrated, inconclusive, structural_blocked, failed]
+    note: >
+      Dogfood fix #4 — the executor's preliminary judgement, not an acceptance status.
+      calibration_status is produced only by the verifier and decider.
+  executor_assessment_basis: { type: text, note: evidence refs and reasoning for the preliminary judgement }
 
 optional_fields:
   experiment_ledger:
@@ -125,3 +132,5 @@ forbidden:
   - diagnostic_metric_gap_overriding_status
   - not_yet_verified_round_classified_as_failed
   - fabricated_reproducibility_values
+  - executor_writes_calibration_status
+  - executor_assessment_presented_as_final_status
