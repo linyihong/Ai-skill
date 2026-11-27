@@ -74,8 +74,8 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 | --- | --- | --- |
 | **中立 core** | I1 target 定義、I3 診斷順序、I4 樣本充足、I5 驗證分層／holdout、I9 優化衛生、I10 誠實回報、I11 過期宣稱 | 原則只依賴「目標分布 + 可重現產生器 + 一組指標」，與盤面、線、符號無關 |
 | **core 原則 ＋ profile 實例** | I2 指標對照、I6 結構天花板、I7 單旋鈕副作用 | 原則通用（指標須同定義；產生器可表達集合有上限；調一旋鈕必量全指標）；實例（可見格 vs 整盤、跨軸相關、同類連線抬高 RTP）屬 slot |
-| **中立設計模式 ＋ profile 內策略** | I8 取樣機 Strategy | 「變異點做成資料 + 註冊式 Strategy + 零 RNG 漂移護欄」通用；`REEL_STRIP`／`WEIGHTED_CELLS`／`COUPLED_REEL_STRIP` 等具體策略屬 slot |
-| **slot profile 專屬** | base／feature（免費轉、respin）拆分、線賠與 DOUBLE 分檔、`chipScale`、基準回合類型、熱帳號旋轉遞減 | 依賴盤面、賠付結構與官方採集管線 |
+| **中立設計模式 ＋ profile 內策略** | I8 取樣機 Strategy | 「變異點做成資料 + 註冊式 Strategy + 零 RNG 漂移護欄」通用；條帶式、加權格位、耦合條帶等具體策略屬 slot |
+| **slot profile 專屬** | base／feature（免費轉、respin）拆分、線賠與賠付倍數分檔、注額縮放參數、基準回合類型、熱帳號旋轉遞減 | 依賴盤面、賠付結構與官方採集管線 |
 
 **Q2 紙上檢驗（非實證）**：以兩個非 slot 場景代入 core，檢查契約是否仍成立。
 
@@ -85,11 +85,9 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 | 牌類（洗牌／發牌公平性） | 理論分佈＝`normative`，無 `reference_observation` | 適用：指標＝牌型頻率；驗收＝偏差檢定 + holdout seed | 同上；I1 熱樣本警告不適用 |
 | slot（本案） | 官方採集＝`reference_observation`，產品目標＝`implementation` | 適用，且是唯一需要完整診斷順序的情境 | — |
 
-**設計結論**（不新增欄位，沿用 C1 角色，符合 Phase 0.1 Design freeze）：I3 診斷順序依 Target 是否具 `reference_observation` 裁剪——
-有則走「定義不一致 → 採集偏差 → 產品偏」全序；無則只走「定義不一致 → 產品偏」。此差異只有代入非 slot 場景才看得到。
+**設計結論**（不新增欄位，沿用 C1 角色，符合 Phase 0.1 Design freeze）：依 Target 是否具 `reference_observation` 裁剪——I3 有則走「定義不一致 → 採集偏差 → 產品偏」全序、無則只走「定義不一致 → 產品偏」；I1 熱樣本限制同樣只在具 `reference_observation` 時適用。此差異只有代入非 slot 場景才看得到。
 
-**誠實限制**：目前只有 1 個真實 consumer，中立 core 是**紙上驗證**，不是實證；slot 衍生原則維持 `candidate-intelligence`（N=1），
-待第二個真實 consumer（任何類型）走完才升級。Phase 1 只落地 core + `slot-rtp` profile，**不**預建其他 profile 空殼。
+**誠實限制**：目前只有 1 個真實 consumer，中立 core 是**紙上驗證**，不是實證；slot 衍生原則維持 `candidate-intelligence`（N=1），待第二個真實 consumer（任何類型）走完才升級。Phase 1 只落地 core + `slot-rtp` profile，**不**預建其他 profile 空殼。
 
 ### Decision
 
@@ -253,9 +251,7 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 
 ### Phase 4 — 評估與收口
 
-- [ ] 依 Graduation deadline 決定升級（route + signal）／維持 doc-only／降級
-- [ ] ADR Promotion Criteria 逐條勾核
-- [ ] 執行 Plan Completion Closure（`plans/README.md`）
+- [ ] 依 Graduation deadline 決定升級（route + signal）／維持 doc-only／降級；ADR Promotion Criteria 逐條勾核；執行 Plan Completion Closure（`plans/README.md`）
 
 ## Open Questions
 
