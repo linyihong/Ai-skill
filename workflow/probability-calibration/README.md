@@ -56,6 +56,7 @@ Contract → Reference Evidence → Metric Parity → Diagnose → Tune → Free
 | 缺口／結構天花板 | [`contracts/gap-ledger.yaml`](contracts/gap-ledger.yaml) |
 | Failure classes | [`registry/failure-classes.yaml`](registry/failure-classes.yaml) |
 | Consumer profile | [`profiles/slot-rtp.md`](profiles/slot-rtp.md) |
+| 候選判斷知識（N=1） | [`intelligence/engineering/probability-calibration/`](../../intelligence/engineering/probability-calibration/README.md) |
 
 ## 明確不做
 

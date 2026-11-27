@@ -10,7 +10,7 @@ parent: null
 
 # Probability Calibration Workflow（`workflow/probability-calibration/` + intelligence）
 
-**Status**: in-progress（Phase 1）— 2026-11-27 使用者明確授權 Phase 1（範圍：四份 contract、README＋execution-flow、slot-rtp profile、failure classes、≥3 scenarios、索引連動、sanitization＋runtime refresh＋Phase 1 Gate；限制：不新增 contract 檔、不註冊 route／signal、不實作引擎／優化器、N=1 不升格、Gate 未過不進 Phase 2）。2026-11-27 使用者審閱已裁決 Q1–Q6（見 §Open Questions）並要求 Phase 0 先做契約補強（§Phase 0.1）；2026-11-27 Phase 0 完成、Gate 通過（§Phase 0 紀錄）；
+**Status**: in-progress（Phase 2 完成，待 Phase 3）— 2026-11-27 使用者明確授權 Phase 1（範圍：四份 contract、README＋execution-flow、slot-rtp profile、failure classes、≥3 scenarios、索引連動、sanitization＋runtime refresh＋Phase 1 Gate；限制：不新增 contract 檔、不註冊 route／signal、不實作引擎／優化器、N=1 不升格、Gate 未過不進 Phase 2）。2026-11-27 使用者審閱已裁決 Q1–Q6（見 §Open Questions）並要求 Phase 0 先做契約補強（§Phase 0.1）；2026-11-27 Phase 0 完成、Gate 通過（§Phase 0 紀錄）；
 
 **Glossary Impact**: yes — 候選詞 `calibration_contract`、`calibration_record`、`gap_ledger`、`structural_ceiling`、`holdout_probe`、`precision_target`、`holdout_policy`、`calibration_status`。Phase 1 前不登記 glossary。
 
@@ -236,10 +236,9 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 
 ### Phase 2 — Intelligence atoms
 
-- [ ] `intelligence/engineering/probability-calibration/`：I6 結構天花板、I7 單旋鈕副作用、I8 取樣機 Strategy 設計模式、I9 優化操作衛生；各 ≤300 行、單一主題、含 `適用條件／反例`
-- [ ] 每個 atom 標註來源個案數（目前 N=1）與升格門檻；N<3 者用既有狀態 `candidate-intelligence` 並註明 N=1（即本計畫所稱 observation），不當硬規則、不新增狀態值
-- [ ] 更新 `intelligence/README.md` 與連動索引
+- [x] `intelligence/engineering/probability-calibration/`：I6 結構天花板、I7 單旋鈕副作用、I8 取樣機 Strategy 設計模式、I9 優化操作衛生；各 ≤300 行、單一主題、含 `適用條件／反例`；每個 atom 標 N=1 與升格門檻，用既有 `candidate-intelligence`（不新增狀態值）；更新 `intelligence/README.md` 與連動索引
 - **Gate**：atoms 皆有 Counter-case／不適用條件；無專案識別字樣
+- **Phase 2 Gate 紀錄（2026-11-27，使用者授權 Phase 2）**：4 atoms（39–44 行）皆 `candidate-intelligence`、標 N=1、分開「原則」與「單一案例觀察」，各有適用條件／反例與升級條件（≥3 獨立案例、至少一例非 slot）；每個 atom 標來源契約或 Inventory 項；與 `shotgun-debugging`／`validation-proxy-trap` 只連結不重建；保底與估計方法仍列 Phase 3 觀察；無 route／signal／優化器／引擎；sanitization grep 乾淨 → **Gate 通過**。驗證責任：atoms 只整理候選知識，實證屬 Phase 3 dogfood
 
 ### Phase 3 — Dogfood（回饋環驗證）
 

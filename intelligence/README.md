@@ -56,6 +56,7 @@ intelligence/
   - [`highest-leverage-analysis-path.md`](engineering/analytical-reasoning/highest-leverage-analysis-path.md)：第一個實際 promoted candidate intelligence atom。
   - [`evidence-first-routing.md`](engineering/analytical-reasoning/evidence-first-routing.md)：證據驅動路線選擇（`validated-intelligence`）。
   - [`live-readiness-gates.md`](engineering/analytical-reasoning/live-readiness-gates.md)：SDK/client readiness gates（`validated-intelligence`）。
+- [`engineering/probability-calibration/`](engineering/probability-calibration/README.md)：機率模型校準的候選判斷知識（4 atoms，全部 `candidate-intelligence`、N=1）；流程與契約在 `workflow/probability-calibration/`。
 - [`engineering/philosophy/`](engineering/philosophy/README.md)：原始工程哲學來源，例如 Musk Five-Step Algorithm，用於支撐 governance translation。
 
 ## 放什麼

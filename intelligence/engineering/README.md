@@ -23,6 +23,7 @@
 | [`apk-analysis/`](apk-analysis/README.md) | APK 分析領域專屬工程智慧（hook strategy、混合架構安全層映射、領域專用 heuristics） |
 | [`language-specific/`](language-specific/README.md) | 語言特定知識（Java、JavaScript、Dart 等語言的 failure patterns、techniques） |
 | [`ai-augmented-delivery/`](ai-augmented-delivery/README.md) | AI codegen 工具大幅進入開發流程後的跨工具工程判斷（generation-validation rate parity 等 meta-tool-risk 原則） |
+| [`probability-calibration/`](probability-calibration/README.md) | 機率模型校準的候選判斷知識（結構天花板、單旋鈕副作用、抽樣 Strategy 資料化、優化探針衛生）；全部 `candidate-intelligence`、N=1；流程與契約在 [`workflow/probability-calibration/`](../../workflow/probability-calibration/README.md) |
 
 ## 與其他層的關係
 
