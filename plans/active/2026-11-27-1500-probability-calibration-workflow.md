@@ -10,7 +10,7 @@ parent: null
 
 # Probability Calibration Workflow（`workflow/probability-calibration/` + intelligence）
 
-**Status**: in-progress（Phase 2 完成；Phase 3 dogfood 進行中：consumer 回饋 3 輪；第 3 輪是第一次完整走 workflow 的實戰，待決策者接受後才算收工）— 2026-11-27 使用者明確授權 Phase 1（範圍：四份 contract、README＋execution-flow、slot-rtp profile、failure classes、≥3 scenarios、索引連動、sanitization＋runtime refresh＋Phase 1 Gate；限制：不新增 contract 檔、不註冊 route／signal、不實作引擎／優化器、N=1 不升格、Gate 未過不進 Phase 2）。2026-11-27 使用者審閱已裁決 Q1–Q6（見 §Open Questions）並要求 Phase 0 先做契約補強（§Phase 0.1）；2026-11-27 Phase 0 完成、Gate 通過（§Phase 0 紀錄）；
+**Status**: in-progress（Phase 2 完成；Phase 3 dogfood 進行中：consumer 回饋 3 輪；第 3 輪是第一次完整走 workflow 的實戰，決策者已於 2026-11-27 接受）— 2026-11-27 使用者明確授權 Phase 1（範圍：四份 contract、README＋execution-flow、slot-rtp profile、failure classes、≥3 scenarios、索引連動、sanitization＋runtime refresh＋Phase 1 Gate；限制：不新增 contract 檔、不註冊 route／signal、不實作引擎／優化器、N=1 不升格、Gate 未過不進 Phase 2）。2026-11-27 使用者審閱已裁決 Q1–Q6（見 §Open Questions）並要求 Phase 0 先做契約補強（§Phase 0.1）；2026-11-27 Phase 0 完成、Gate 通過（§Phase 0 紀錄）；
 
 **Glossary Impact**: yes — 候選詞 `calibration_contract`、`calibration_record`、`gap_ledger`、`structural_ceiling`、`holdout_probe`、`precision_target`、`holdout_policy`、`calibration_status`。Phase 1 前不登記 glossary。
 
@@ -367,7 +367,7 @@ Why now：剛完成一次完整迭代（取樣機 Strategy 化 + 跨軸耦合 + 
 - [ ] `plans/README.md` 目前狀態表已更新
 - [ ] sanitization 掃描通過；無專案識別、無本機絕對路徑
 - [ ] Validation scenarios 通過；`ai-skill runtime refresh` 無新 orphan／drift
-- [ ] Phase 3 實戰收工證據齊備（獨立驗證）
+- [x] Phase 3 實戰收工證據齊備（獨立驗證；決策者 2026-11-27 接受 buffalo verified，見 consumer 紀錄 `buffalo-2026-11-27`）
 - [ ] 執行 Plan Completion Closure
 
 ## Watch-Out List citation
